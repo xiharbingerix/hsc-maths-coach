@@ -1,208 +1,669 @@
-# Feynman Teaching Standard
+# FEYNMAN TEACHING STANDARD
 
 Standard for `teaching.paragraphs`, `teaching.latexBlocks`, and `workedExamples` in Nova Maths lesson files.
 
----
+This document defines how mathematics should be taught, not merely how content should be formatted.
 
-## Core principles
-
-1. **Simple language before formal notation.** Introduce the idea in plain English. The formula comes second.
-2. **Concrete example before the general rule.** Show specific numbers first, then the abstract form.
-3. **Explain the why, not just the how.** A student should understand why the method works.
-4. **Connect to prior knowledge.** Name what the student already knows and build on it explicitly.
-5. **Name the common misconception.** Tell students the easy mistake before they make it.
-6. **Short paragraphs.** One idea per paragraph. Three to four sentences maximum.
-7. **Calm, exam-aware tone.** Direct and practical. No hype, no filler, no hedging.
+A lesson that satisfies the schema but fails this teaching standard should be rejected.
 
 ---
 
-## What to avoid
+# Core Goal
 
-| Avoid | Reason |
-|---|---|
-| Unexplained formula drop | Starting with a formula before the concept is understood |
-| Circular definitions | "A linear equation is one that is linear" |
-| Jargon without explanation | Using "common difference" before defining it |
-| Wall-of-text paragraphs | More than 5 sentences in a single block |
-| Vague motivational filler | "This is a really important concept you'll use throughout your studies" |
-| Step-by-step without reasoning | Showing calculation without explaining each step |
-| Passive voice for key steps | "The values are substituted" → "Substitute P, R, T into the formula" |
+The purpose of teaching content is not to tell students what to do.
+
+The purpose is to help students build correct mathematical understanding.
+
+After reading a lesson, a student should be able to:
+
+* explain the concept in plain English
+* recognise the concept in unfamiliar situations
+* avoid common misconceptions
+* apply the concept independently
+* explain why the method works
+
+If a student can only repeat a procedure, the lesson has failed.
 
 ---
 
-## Teaching section structure
+# Core Teaching Principles
+
+## 1. Intuition before notation
+
+Students should understand the idea before seeing the formal mathematics.
+
+Bad:
+
+"The gradient formula is m = (y₂ − y₁)/(x₂ − x₁)."
+
+Good:
+
+"Gradient measures how quickly a line rises or falls."
+
+Introduce the formula only after the concept is understood.
+
+---
+
+## 2. Concrete before abstract
+
+Show specific examples before general rules.
+
+Students learn ideas more easily when they can observe them happening with real numbers, diagrams, or familiar situations.
+
+Only after the pattern is visible should the general rule be introduced.
+
+---
+
+## 3. Why before how
+
+Students should understand why a method works before being asked to follow it.
+
+Procedures without reasoning create fragile understanding.
+
+Every important method should be linked to the principle that justifies it.
+
+---
+
+## 4. Build from prior knowledge
+
+Every lesson should explicitly connect to something students already know.
+
+Examples:
+
+* fractions before algebraic fractions
+* ratios before gradient
+* arithmetic sequences before linear functions
+* area models before algebraic expansion
+
+Never assume prerequisite understanding is obvious.
+
+---
+
+## 5. Misconceptions are part of teaching
+
+Teaching is not complete until the most likely misconception has been addressed.
+
+Strong lessons anticipate mistakes before students make them.
+
+---
+
+## 6. Mathematics is about relationships
+
+Students should understand what quantities are changing, what stays the same, and how ideas connect.
+
+Avoid teaching mathematics as a collection of isolated formulas.
+
+---
+
+# Lesson Design Requirements
+
+Before authoring content, define:
+
+## Knowledge Goal
+
+What idea should the student understand?
+
+Example:
+
+"Gradient measures rate of change."
+
+---
+
+## Skill Goal
+
+What should the student be able to do?
+
+Example:
+
+"Calculate gradient from coordinates or graphs."
+
+---
+
+## Misconception Goal
+
+What misunderstanding should be removed?
+
+Example:
+
+"Students should not confuse gradient with y-intercept."
+
+---
+
+Every paragraph, example, formula, and visual should support at least one of these goals.
+
+---
+
+# Mental Model Requirement
+
+Every lesson must provide a conceptual model.
+
+A conceptual model is an explanation that still makes sense if the student forgets the formula.
+
+Examples:
+
+Gradient:
+"How much y changes whenever x increases by one."
+
+Probability:
+"The long-run proportion of times an event occurs."
+
+Area:
+"How much space is covered."
+
+Index laws:
+"A shortcut for repeated multiplication."
+
+Ratios:
+"A comparison between quantities."
+
+If a lesson contains only procedures and formulas, it is incomplete.
+
+---
+
+# Representation Rule
+
+Students should encounter mathematics in multiple forms.
+
+Where appropriate, lessons should connect at least two representations:
+
+* words
+* diagrams
+* tables
+* graphs
+* equations
+* real-world contexts
+
+Examples:
+
+Table ↔ Graph
+
+Graph ↔ Equation
+
+Diagram ↔ Formula
+
+Context ↔ Algebra
+
+Students should understand that these are different views of the same mathematics.
+
+---
+
+# Productive Thinking Rule
+
+At least one section of every lesson should require the student to think before the explanation is given.
+
+Examples:
+
+* prediction
+* estimation
+* comparison
+* classification
+* error spotting
+
+Example:
+
+"Which line is steeper: rise 4 run 2, or rise 6 run 4?"
+
+Allow the student to think before revealing the explanation.
+
+Learning is stronger when students make a prediction and then evaluate it.
+
+---
+
+# Generalisation Rule
+
+After every concrete example, explicitly identify:
+
+## What changes
+
+The numbers, context, labels, or specific values.
+
+## What stays the same
+
+The mathematical structure, rule, or relationship.
+
+Example:
+
+Changes:
+
+* coordinates
+
+Stays the same:
+
+* gradient = rise ÷ run
+
+Students should learn the structure behind the example, not just the example itself.
+
+---
+
+# Misconception Framework
+
+Every lesson should explicitly address at least one major misconception.
+
+Use the following structure:
+
+1. State the misconception.
+2. Explain why students make it.
+3. Show why it fails.
+4. Replace it with the correct idea.
+
+Example:
+
+Many students think a negative gradient means the graph is below the x-axis.
+
+This seems reasonable because negative numbers are often associated with being below zero.
+
+However, gradient describes direction, not position.
+
+A line can have negative gradient while remaining entirely above the x-axis.
+
+---
+
+# What To Avoid
+
+| Avoid                              | Reason                                        |
+| ---------------------------------- | --------------------------------------------- |
+| Formula drop                       | Students memorise without understanding       |
+| Circular definitions               | No new understanding is created               |
+| Unexplained jargon                 | Increases cognitive load                      |
+| Wall-of-text paragraphs            | Students stop processing ideas                |
+| Motivational filler                | Adds length without learning value            |
+| Purely procedural explanations     | Creates fragile knowledge                     |
+| Multiple new ideas in one sentence | Overloads working memory                      |
+| "Just apply the formula"           | Does not explain why                          |
+| Worked examples without reasoning  | Demonstrates calculation rather than thinking |
+
+---
+
+# Teaching Section Structure
 
 ```typescript
 teaching: {
-  paragraphs:  string[];   // 3–5 paragraphs, MathText-rendered
-  latexBlocks: string[];   // 2–4 key formulas/rules, KaTeX BlockMath (no $ delimiters)
+  paragraphs: string[];
+  latexBlocks: string[];
 }
 ```
 
-### Paragraph sequence
+---
 
-1. **Paragraph 1 — What is this?** Introduce the concept in plain language. No formula yet.
-2. **Paragraph 2 — Concrete intuition.** Give a specific worked example or real-world anchor.
-3. **Paragraph 3 — Formal notation.** Introduce the formula or algebraic rule. Explain each symbol.
-4. **Paragraph 4 (optional) — Common misconception or edge case.** Address the most likely error.
+# Paragraph Structure
+
+## Paragraph 1 — Intuition
+
+What is the idea?
+
+Explain the concept in plain English.
+
+No formula.
 
 ---
 
-## Bad vs good paragraphs
+## Paragraph 2 — Concrete Example
 
-### Bad — formula drop, no intuition
+Show the concept using:
 
-> "The gradient of a line is calculated using the formula $m = \frac{y_2 - y_1}{x_2 - x_1}$. Use this to find the gradient between any two points."
+* numbers
+* a familiar situation
+* a visual example
 
-Problems: starts with formula, no explanation of what gradient means, no concrete example.
-
-### Good
-
-> "The gradient of a line measures how steep it is — how much it rises or falls for every unit you move to the right. A steeper line has a larger gradient."
-
-> "To calculate gradient, pick any two points on the line and measure the vertical change (rise) and horizontal change (run). For example, a line that rises 6 units over 3 units of run has gradient 6 ÷ 3 = 2."
-
-> "In algebra, rise = y₂ − y₁ and run = x₂ − x₁, so gradient = (y₂ − y₁) ÷ (x₂ − x₁). A positive gradient means the line rises from left to right; a negative gradient means it falls."
+Students should be able to picture the idea.
 
 ---
 
-### Bad — circular and jargon-heavy
+## Paragraph 3 — Formal Rule
 
-> "A linear relationship produces a linear graph because the relationship between the variables is linear. The equation y = mx + c is the standard form."
+Introduce notation and formulas.
 
-Problems: circular definition, no example, formula dropped without context.
+Explain every symbol.
 
-### Good
-
-> "A linear relationship is one where equal changes in x produce equal changes in y. That's what makes the graph a straight line — not curved, not bent."
-
-> "For example, if a taxi charges $3 per kilometre, every extra kilometre costs exactly the same extra amount. That's a linear relationship: cost = 3 × distance."
-
-> "Any straight-line relationship can be written as y = mx + c. The number m is the gradient (rate of change), and c is the y-intercept (the value of y when x = 0)."
+Connect the notation back to the intuition.
 
 ---
 
-### Bad — step-by-step without reasoning
+## Paragraph 4 — Misconception
 
-> "x + 5 = 12. Subtract 5 from both sides. x = 7."
+Address the most common mistake.
 
-Too terse. No reasoning. A student who got it wrong won't understand why.
+Explain why students make it.
 
-### Good
-
-> "To solve x + 5 = 12, we need x by itself on one side. Since 5 is being added to x, we undo that by subtracting 5 from both sides: x + 5 − 5 = 12 − 5, which gives x = 7."
+Correct it.
 
 ---
 
-## Worked example structure
+## Paragraph 5 (Optional) — Exam Connection
+
+Explain how the concept appears in NSW exam questions.
+
+Keep to one or two sentences.
+
+---
+
+# Paragraph Quality Rules
+
+Each paragraph should:
+
+* teach one idea
+* contain 2–4 sentences
+* use direct language
+* avoid unnecessary jargon
+
+Every paragraph should answer one question:
+
+* What is it?
+* Why does it work?
+* How is it represented?
+* What mistake do students make?
+* Where does it appear in exams?
+
+If a paragraph does not answer one of these questions, remove it.
+
+---
+
+# Worked Example Structure
 
 ```typescript
 type WorkedExample = {
-  title:           string;   // Short descriptive title of the skill demonstrated
-  questionLatex:   string;   // The question, written in KaTeX
+  title: string;
+  questionLatex: string;
   steps: {
-    explanation:   string;   // One line of plain-text reasoning
-    latex?:        string;   // One line of working in KaTeX (optional)
+    explanation: string;
+    latex?: string;
   }[];
-  finalAnswerLatex: string;  // Clear statement of the final answer
-  // …plus any visual payload field (cartesianGraph, sectorDiagram, …) — see below
-};
-```
-
-A `WorkedExample` carries the **same visual payload fields as a `PracticeQuestion`** (it extends `DiagramFields`). When a worked example is about a diagram, attach the matching payload — see [QUESTION_AUTHORING_STANDARD.md → Visual payloads](./QUESTION_AUTHORING_STANDARD.md#visual-payloads) for the full renderer catalogue.
-
-### Rules
-
-- 2–3 worked examples per lesson (more for complex topics)
-- Each step: **one** line of explanation + **one** line of working
-- Do not combine multiple operations in a single step
-- `explanation` should say *why* the step is taken, not just what it does
-- `finalAnswerLatex` states the answer clearly — not just the number
-
-### Good worked example
-
-```typescript
-{
-  title: "Find the gradient between two points",
-  questionLatex: "\\text{Find the gradient of the line through }(1,\\,2)\\text{ and }(3,\\,8).",
-  steps: [
-    {
-      explanation: "Identify the rise (vertical change) and run (horizontal change).",
-      latex: "\\text{rise} = 8 - 2 = 6, \\quad \\text{run} = 3 - 1 = 2",
-    },
-    {
-      explanation: "Divide rise by run to find gradient.",
-      latex: "\\text{gradient} = \\frac{\\text{rise}}{\\text{run}} = \\frac{6}{2} = 3",
-    },
-  ],
-  finalAnswerLatex: "\\text{gradient} = 3",
+  finalAnswerLatex: string;
 }
 ```
 
-### Bad worked example
-
-```typescript
-{
-  title: "Gradient",
-  questionLatex: "\\text{Find gradient of line through }(1,2)\\text{ and }(3,8).",
-  steps: [
-    {
-      explanation: "Apply the formula.",
-      latex: "\\frac{8-2}{3-1} = 3",   // no reasoning, combined steps
-    },
-  ],
-  finalAnswerLatex: "3",  // doesn't state what 3 is
-}
-```
+Worked examples may also include any supported visual payload field.
 
 ---
 
-## `latexBlocks` rules
+# Worked Example Philosophy
 
-Key formulas and rules displayed as block math. Written in KaTeX — **no `$` delimiters** (the field is BlockMath-rendered directly).
+Worked examples are demonstrations of mathematical thinking.
+
+Students should learn:
+
+* what to notice
+* what decision to make
+* why that decision is correct
+* how to execute the mathematics
+* how to interpret the result
+
+A worked example should reveal thinking, not merely algebra.
+
+---
+
+# Worked Example Structure
+
+Every worked example should follow:
+
+## Observation
+
+What information matters?
+
+Example:
+
+"The graph rises from left to right."
+
+---
+
+## Decision
+
+What mathematical idea should be used?
+
+Example:
+
+"We need gradient."
+
+---
+
+## Execution
+
+Carry out the mathematics.
+
+Example:
+
+"Gradient = rise ÷ run."
+
+---
+
+## Interpretation
+
+Explain what the answer means.
+
+Example:
+
+"The positive gradient means the quantity increases."
+
+---
+
+# Worked Example Rules
+
+* 2–3 worked examples per lesson
+* More for complex topics
+* Each step contains one explanation and one piece of working
+* Do not combine multiple operations in a single step
+* Explanations must justify decisions
+* Final answers must clearly state what the answer represents
+
+---
+
+# Principle-First Explanations
+
+Do not explain a step by restating it.
+
+Weak:
+
+"Subtract 5 because we need x by itself."
+
+Strong:
+
+"Subtract 5 because equations remain balanced when the same operation is applied to both sides."
+
+Every important step should be linked to a mathematical principle.
+
+---
+
+# latexBlocks Rules
+
+Key formulas and rules displayed as block mathematics.
+
+No `$` delimiters.
 
 ```typescript
 latexBlocks: [
   "\\text{gradient} = \\frac{\\text{rise}}{\\text{run}}",
-  "m = \\frac{y_2 - y_1}{x_2 - x_1}",
-  "\\text{positive gradient: rises left to right;} \\quad \\text{negative gradient: falls left to right}",
+  "m = \\frac{y_2-y_1}{x_2-x_1}"
 ]
 ```
 
 Include:
-- The core formula
-- Key notation conventions
-- The edge case or sign rule, if applicable
 
-Aim for 2–4 blocks. Do not include `$...$` wrappers — the field is rendered as display math directly.
+* core formula
+* key notation
+* important sign rule or edge case
 
----
-
-## Visual support in teaching sections
-
-When a concept is inherently visual (graphs, geometry, statistics displays, probability trees, slope fields), the **worked example** is the right place to anchor the visual reasoning. A `WorkedExample` accepts the same visual payloads as a question, so **attach the diagram to the worked example itself** — set the matching payload field (e.g. `cartesianGraph`, `planeShapeDiagram`, `histogramDiagram`), refer to it in `questionLatex` ("From the graph…"), and describe what the student reads from it in the step `explanation`. Do not fake the diagram in LaTeX or describe a plot in words when a renderer exists — the same "use the right renderer, never fake a visual" rule from the question standard applies here.
-
-The `teaching.paragraphs` / `teaching.latexBlocks` fields are text-only and do not take payloads; when the teaching prose needs a picture, carry it on the worked example. Write paragraphs as if the student has that diagram in front of them — use concrete spatial language: "the curve crosses", "the triangle has", "the histogram peaks at", "the tree branches into". Never describe a graph or diagram in abstract symbol form alone when spatial description would be clearer.
+Aim for 2–4 blocks.
 
 ---
 
-## NSW exam connection
+# Visual Teaching Standard
 
-A single direct sentence linking the concept to exam context:
+When a concept is visual, teach through the visual.
 
-> "In exam questions, gradient is often described as a 'rate of change' applied to a real-world context like cost per item or speed — the concept and calculation are identical."
+Students should read:
 
-One sentence is enough. Avoid multi-sentence motivational passages.
+* shapes
+* trends
+* movement
+* symmetry
+* position
+* structure
+
+Do not reduce visual mathematics to symbol manipulation.
+
+A graph is not merely a source of numbers.
+
+A graph is a representation of relationships.
 
 ---
 
-## Length guide
+# Diagram Rules
 
-| Field | Target length |
-|---|---|
-| `paragraphs` | 3–5 paragraphs, 3–4 sentences each |
-| `latexBlocks` | 2–4 formulas |
-| Worked examples | 2–3 per lesson |
-| Steps per worked example | 2–4 steps |
+When a concept depends on a diagram:
 
-Shorter is better. A teaching section that takes 90 seconds to read is ideal.
+* attach the correct visual payload to the worked example
+* refer to the diagram explicitly
+* explain what students should notice
+* explain why it matters
+
+Never fake diagrams using LaTeX or prose when a renderer exists.
+
+Follow all visual payload requirements from QUESTION_AUTHORING_STANDARD.md.
+
+---
+
+# Information Load Rule
+
+Do not introduce:
+
+* new notation
+* new vocabulary
+* new procedures
+
+in the same sentence.
+
+Students should process one new idea at a time.
+
+Complexity should increase gradually.
+
+---
+
+# NSW Exam Connection
+
+Include a brief statement connecting the concept to exam usage.
+
+Example:
+
+"In exam questions, gradient is often described as a rate of change in contexts such as speed, cost, or population growth."
+
+One sentence is enough.
+
+Avoid motivational filler.
+
+---
+
+# Length Guide
+
+| Field             | Target Length  |
+| ----------------- | -------------- |
+| paragraphs        | 4–5 paragraphs |
+| latexBlocks       | 2–4 formulas   |
+| worked examples   | 2–3 examples   |
+| steps per example | 2–5 steps      |
+
+A teaching section should take approximately 60–120 seconds to read.
+
+Shorter is usually better.
+
+---
+
+# Teaching Quality Test
+
+Before approving a lesson, ask:
+
+Can a student:
+
+1. Explain the concept in plain English?
+2. Recognise it in a different representation?
+3. Avoid the most common misconception?
+4. Predict what happens in a new example?
+5. Apply the method independently?
+6. Explain why the method works?
+
+If any answer is "no", revise the lesson.
+
+---
+
+# Gold Standard Test
+
+Imagine the formulas are removed from the lesson.
+
+Would a strong student still understand the concept?
+
+If the answer is no, the lesson is teaching procedures rather than mathematics.
+
+Rewrite it.
+
+---
+
+# Course-Level Calibration
+
+These rules calibrate how strictly the standard applies. They were added after auditing teaching across Standard, Advanced, and Extension courses, and they make the standard usable as a scoring instrument without over-pitching any course.
+
+---
+
+## A. Course-Level Depth Guidance
+
+Benchmark teaching is not the same depth at every level. Pitch to the course.
+
+### Standard
+
+Benchmark requires:
+
+* one plain-English intuition before each formula
+* one concrete worked context (money, shape, rate, measurement)
+* a practical conceptual model the student can picture
+* worked-example steps that carry reasoning, not just labels
+
+Derivations are **not** required. Transferable understanding is. Accessibility outranks rigour.
+
+### Advanced
+
+Benchmark requires everything above, plus:
+
+* the *why* of each method — the principle that justifies it
+* at least one derivation or limiting argument where the syllabus expects it (for example, first principles)
+
+### Extension
+
+Benchmark requires everything above, plus:
+
+* structural and general reasoning
+* proof intuition
+* explicit connections between representations and between topics
+
+Rule of thumb: Standard teaches "what it means and how to use it"; Advanced adds "why it is true"; Extension adds "how it generalises." Do not pitch a Standard lesson at Advanced depth.
+
+---
+
+## B. Underivable Formula Rule
+
+Some formulas are not expected to be derived at the course level (for example, the volume of a sphere in a Standard course).
+
+For these, "must be memorised" is **not** an acceptable explanation on its own.
+
+Provide at least one of:
+
+* a sense-check (units or scale)
+* a scaling intuition (doubling the radius multiplies the volume by eight)
+* a dimensional reason (three lengths multiplied give cubic units)
+* an analogy
+* a practical interpretation
+
+One sentence is enough. State plainly that the formula is accepted without derivation, then give the intuition.
+
+---
+
+## C. Productive Thinking and Generalisation Placement
+
+The Productive Thinking Rule (predict before the explanation) and the Generalisation Rule (what changes and what stays the same) may be satisfied in **any** of:
+
+* teaching paragraphs
+* worked examples
+* practice questions
+
+They are **not** required inside teaching prose.
+
+Auditable test: a lesson passes if at least one of its components — teaching or questions — makes the student predict, classify, or spot an error before the explanation is given, and at least one example identifies the invariant structure behind the specific numbers.
+
+Do not penalise teaching prose for delegating these to the question layer.
