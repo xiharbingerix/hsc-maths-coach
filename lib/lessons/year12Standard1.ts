@@ -1283,10 +1283,10 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
     masteryQuiz: [
       measurementAnswer(
         "area-vol-m1",
-        "A rectangle is 9 cm by 4 cm. Find its area.",
-        "9\\times4",
-        "36",
-        ["36 cm^2"]
+        "A rectangle has an area of 36 cm² and a width of 4 cm. Find its length.",
+        "\\frac{36}{4}",
+        "9",
+        ["9 cm"]
       ),
       measurementAnswer(
         "area-vol-m2",
@@ -1302,12 +1302,12 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
         "56",
         ["56 cm^3"]
       ),
-      measurementAnswer(
+      practicalChoice(
         "area-vol-m4",
-        "A parallelogram has base 12 m and perpendicular height 5 m. Find its area.",
-        "12\\times5",
-        "60",
-        ["60 m^2", "60 m²"]
+        "All dimensions of a solid are tripled. By what factor does its volume increase?",
+        "C",
+        ["3", "9", "27", "6"],
+        "Volume scales by the cube of the linear factor: 3³ = 27. Using 3² = 9 confuses the area scale factor (k²) with the volume scale factor (k³)."
       ),
       practicalChoice(
         "area-vol-m5",
