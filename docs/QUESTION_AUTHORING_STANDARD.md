@@ -699,16 +699,19 @@ When at least one side (user answer or canonical/accepted answer) contains an ex
 
 The engine normalises `^(N)` → `^N` for any integer exponent before comparing. Write canonical answers **without** parentheses (`x^2`, not `x^(2)`).
 
-### What is NOT automatic — use `accepted_answers` instead
+### Not automatic in the local (Tier 0) marker — but the CAS tier handles it
 
-The engine does **not** perform symbolic algebra. These forms require explicit `accepted_answers` entries:
+The fast local marker does **not** perform symbolic algebra. The forms below are
+rescued by the **CAS / SymPy tier** when it is enabled (see
+[Symbolic answer marking](#symbolic-answer-marking-cas--sympy) below). When CAS
+is **off**, add the common forms to `accepted_answers` as a safety net:
 
-| Forms that look equivalent | Why NOT auto-matched | How to handle |
+| Forms that look equivalent | Local marker | CAS tier (when on) |
 |---|---|---|
-| `x/2` and `0.5x` and `(1/2)x` | Requires polynomial CAS | Add all forms to `accepted_answers` |
-| `x^2 + 6x + 5` and `(x+1)(x+5)` | Requires factoring | Pick one canonical form |
-| `2x + 2` and `2(x+1)` | Requires expansion | Pick expanded form as canonical |
-| `sqrt(x)` and `x^(1/2)` | Different notation | Pick one; add other to `accepted_answers` |
+| `x/2` and `0.5x` and `(1/2)x` | ✗ — add to `accepted_answers` | ✓ equivalent |
+| `x^2 + 6x + 5` and `(x+1)(x+5)` | ✗ — pick one canonical | ✓ equivalent |
+| `2x + 2` and `2(x+1)` | ✗ — pick expanded canonical | ✓ equivalent |
+| `sqrt(x)` and `x^(1/2)` | ✗ — pick one; add other | ✓ equivalent |
 
 ### Convention for algebraic canonical answers
 
@@ -717,6 +720,57 @@ The engine does **not** perform symbolic algebra. These forms require explicit `
 - Use the **expanded** polynomial form as canonical, e.g. `x^2+6x+5`
 - Add spaced forms as accepted variants: `["x^2 + 6x + 5"]`
 - For coefficient fractions (`x/2`, `1/2 x`), add all common student forms to `accepted_answers`
+
+---
+
+## Symbolic answer marking (CAS / SymPy)
+
+Typed answers are marked in tiers:
+[lib/answerMarking.ts](../lib/answerMarking.ts) → [lib/cas/markAnswerWithCas.ts](../lib/cas/markAnswerWithCas.ts) → the Python [cas-service/](../cas-service/).
+
+- **Tier 0 — local (always on, ~0 ms):** exact match, `accepted_answers`,
+  normalisation (Unicode, `^(n)` → `^n`, unit stripping, …), and
+  numeric/coordinate/ratio/clock matching. Most numeric answers stop here.
+- **Tier 1 — CAS (SymPy), when deployed:** runs only when Tier 0 says "wrong"
+  **and** the answer "looks symbolic" (has a variable, operator, fraction,
+  bracket, or maths glyph). It confirms genuine *mathematical equivalence*. It
+  can only upgrade wrong → right, never the reverse, and confirms every positive
+  both symbolically (`simplify(a − b) == 0`) **and** by a numeric spot-check, so
+  false positives are very unlikely.
+
+**So you may author a symbolic answer as the canonical answer** — equivalent
+student forms are then accepted automatically (where CAS is enabled):
+
+| Kind | Detected by | Accepts, e.g. |
+|---|---|---|
+| Expression | default | `2(x+3)` = `2x+6`; `√8` = `2√2`; `sin x cos x` = `½ sin 2x` |
+| Antiderivative | trailing `+ C` | `-\cos x + C` = `C − cos x`; the `+C` cancels automatically |
+| Equation | contains `=` | `2x − y + 1 = 0` = `y = 2x + 1` |
+| Solution set | `{…}` / comma list with `=` | `x = 1, x = 3` = `{3, 1}` (order-independent) |
+| Inequality | `< > <= >=` | `x > 2` = `2 < x` |
+| Interval | `(-∞, 4]` | matched to the equivalent inequality set |
+
+Input cleanup folds the Unicode the app emits (`π ≤ ² ×`) and a limited LaTeX
+vocabulary (`\frac \sqrt \sin \pi ^{} \le`) into SymPy.
+
+**Conventions / limits** (see [cas-service/README.md](../cas-service/README.md)):
+
+- `e` is Euler's number (`e^x` = `exp x`); a literal variable named `e` is not supported.
+- `ln` and `log` both mean natural log. Forms differing by domain (e.g.
+  `2 ln x` vs `ln x²`) are deliberately **not** treated as equal (conservative).
+- Only the LaTeX macro set our stored answers use is parsed; anything else
+  **defers** (falls back to Tier 0) rather than guessing.
+
+**Authoring guidance:**
+
+- A clean symbolic canonical answer is fine: `x^2 + 6x + 5`, `-\cos x + C`,
+  `2x - y + 1 = 0`, `x > 2`, `(-2, 3]`.
+- CAS is **gated by deployment** (`CAS_SERVICE_URL`; instant kill-switch
+  `CAS_MARKING_ENABLED=false`). When off, only Tier 0 runs — so still add the
+  *common* equivalent forms a student is likely to type to `accepted_answers`.
+  Treat CAS as covering the long tail, not as a licence to skip obvious variants.
+- CAS never rescues a genuinely different value (`12.5` vs `13`) — those are real
+  mismatches.
 
 ---
 
