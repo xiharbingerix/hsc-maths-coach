@@ -4502,7 +4502,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
     teaching: {
       paragraphs: [
         "The complement of event A is the event that A does NOT occur. The probabilities of A and its complement must add to 1, so P(not A) = 1 − P(A). For example, if P(rain) = 0.3, then P(no rain) = 1 − 0.3 = 0.7.",
-        "Relative frequency is calculated from actual data: relative frequency = frequency / total observations. For example, if 40 out of 200 people prefer coffee, relative frequency = 40/200 = 0.2.",
+        "Relative frequency is the probability the data actually shows — how often an event happened out of all the observations: relative frequency = frequency / total observations. For example, if 40 out of 200 people prefer coffee, relative frequency = 40/200 = 0.2.",
         "Relative frequency provides an estimate of the theoretical probability of an event. The more trials performed, the closer the relative frequency gets to the true probability.",
         "Expected frequency predicts how many times an event will occur in n trials: expected frequency = np, where p is the probability of the event. For example, if P(heads) = 0.5 and a coin is flipped 80 times, expected frequency of heads = 80 × 0.5 = 40.",
       ],
@@ -4524,7 +4524,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
             latex: "P(\\text{not pass}) = 1 - 0.72",
           },
           {
-            explanation: "Evaluate.",
+            explanation: "Subtract from 1 to find the leftover probability.",
             latex: "P(\\text{not pass}) = 0.28",
           },
         ],
