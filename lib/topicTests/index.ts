@@ -4,6 +4,7 @@ import { buildTopicTest, parseTopicTestId } from "./buildTopicTest";
 import { kinematicsPool } from "./pools/year-12-extension-1/kinematics";
 import { inverseTrigPool } from "./pools/year-12-extension-1/inverse-trig";
 import { furtherCalculusPool } from "./pools/year-12-extension-1/further-calculus";
+import { calculusApplicationsPool } from "./pools/year-12-extension-1/calculus-applications";
 
 export * from "./types";
 export {
@@ -20,6 +21,7 @@ const POOLS: TopicTestPool[] = [
   kinematicsPool,
   inverseTrigPool,
   furtherCalculusPool,
+  calculusApplicationsPool,
 ];
 
 export function listTopicTestPools(): TopicTestPool[] {

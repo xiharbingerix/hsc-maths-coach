@@ -404,11 +404,12 @@ _Ext 1 build status (in progress, one subtopic at a time):_
 - ✅ further-calculus — complete (registered). Skill subtopics 1–3 at 10 D4 + 10
   D5 each (Trig Integral Forms; Substitution; Integration by Parts), plus the
   exam-practice subtopic at 10 D6 (multi-part synoptic). 70 questions total.
-- 🟡 calculus-applications — all 7 skill subtopics done (Related Rates;
-  Exponential Growth and Decay; Simple Harmonic Motion; Areas Between Curves and
-  Volumes of Revolution; Multiplicity of Zeroes of Polynomial Functions; Newton's
-  Law of Cooling and Limited Growth; Slope Fields and Solution Curves — 10 D4 +
-  10 D5 each). Remaining: the D6 exam-practice band, then register the pool.
+- ✅ calculus-applications — complete (registered). All 7 skill subtopics at 10 D4
+  + 10 D5 each (Related Rates; Exponential Growth and Decay; Simple Harmonic
+  Motion; Areas Between Curves and Volumes of Revolution; Multiplicity of Zeroes
+  of Polynomial Functions; Newton's Law of Cooling and Limited Growth; Slope
+  Fields and Solution Curves), plus the exam-practice subtopic at 10 D6 (multi-part
+  synoptic across the strands). 150 questions total.
 - ⬜ binomial-distribution (skill subtopics D4+D5, exam-practice → D6), vectors
   (D4+D5; drop the projection-proof subtopic).
 - ⏸ **proof-induction — deferred**: induction proofs aren't auto-markable.
