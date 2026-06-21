@@ -505,6 +505,234 @@ const growthDecayD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 3: Simple Harmonic Motion ───────────────────────────────────────
+// x = a cos(nt) etc., ẍ = −n²x, v² = n²(a² − x²). D4: max speed (an), max accel
+// (an²), period, n² from the DE, evaluate at an instant, and the v² relation.
+const shmD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-shm-d4-1",
+    prompt: "A particle moves with x = 5cos(2t). Find its maximum speed.",
+    latex: "x = 5\\cos(2t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "10",
+    explanation: "Maximum speed = an = 5 × 2 = 10.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-2",
+    prompt: "A particle moves with x = 5cos(2t). Find its period.",
+    latex: "x = 5\\cos(2t)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\pi$" },
+      { label: "B", text: "$2\\pi$" },
+      { label: "C", text: "$4\\pi$" },
+      { label: "D", text: "$\\dfrac{\\pi}{2}$" },
+    ],
+    answer: "A",
+    explanation: "Period = 2π/n = 2π/2 = π. B forgets to divide by n.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-3",
+    prompt: "A particle moves with x = 3sin(4t). Find its maximum speed.",
+    latex: "x = 3\\sin(4t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "12",
+    explanation: "Maximum speed = an = 3 × 4 = 12.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-4",
+    prompt: "A particle moves with x = 3sin(4t). Find its maximum acceleration.",
+    latex: "x = 3\\sin(4t)",
+    marks: 3,
+    difficulty: 4,
+    answer: "48",
+    explanation: "Maximum acceleration = an² = 3 × 4² = 48.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-5",
+    prompt: "A particle moves with x = 4cos(3t). Find its velocity at t = 0.",
+    latex: "x = 4\\cos(3t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0",
+    explanation: "v = −12 sin(3t), so v(0) = 0 (it starts at the extreme position).",
+  },
+  {
+    id: "y12e1-capp-shm-d4-6",
+    prompt:
+      "A particle moves with x = 2cos(5t). It satisfies ẍ = −n²x. Find n².",
+    latex: "x = 2\\cos(5t), \\quad \\ddot{x} = -n^2 x",
+    marks: 2,
+    difficulty: 4,
+    answer: "25",
+    explanation: "ẍ = −50cos(5t) = −25(2cos 5t) = −25x, so n² = 25.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-7",
+    prompt: "A particle moves with x = 6sin(2t). Find its position at t = π/4.",
+    latex: "x = 6\\sin(2t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "6",
+    explanation: "x(π/4) = 6 sin(π/2) = 6.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-8",
+    prompt:
+      "A particle in SHM has amplitude 5 and n = 2, with v² = n²(a² − x²). Find its speed when x = 3.",
+    latex: "v^2 = n^2(a^2 - x^2), \\quad a = 5, \\; n = 2",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$8$" },
+      { label: "B", text: "$16$" },
+      { label: "C", text: "$4$" },
+      { label: "D", text: "$10$" },
+    ],
+    answer: "A",
+    explanation:
+      "v = n√(a² − x²) = 2√(25 − 9) = 2(4) = 8. C forgets the factor n; D is the maximum speed na (only at x = 0).",
+  },
+  {
+    id: "y12e1-capp-shm-d4-9",
+    prompt: "A particle moves with x = 4cos(2t). Find its acceleration at t = 0.",
+    latex: "x = 4\\cos(2t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "-16",
+    acceptedAnswers: ["−16"],
+    explanation: "ẍ = −16cos(2t), so ẍ(0) = −16.",
+  },
+  {
+    id: "y12e1-capp-shm-d4-10",
+    prompt: "A particle moves with x = 4cos(2t). Find its maximum acceleration.",
+    latex: "x = 4\\cos(2t)",
+    marks: 2,
+    difficulty: 4,
+    answer: "16",
+    explanation: "Maximum acceleration = an² = 4 × 2² = 16.",
+  },
+];
+
+// D5: recover amplitude / n from the v² relation or two conditions, combine
+// cos + sin into one SHM, period → max speed, time-to-state, distance per period.
+const shmD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-shm-d5-1",
+    prompt:
+      "A particle moves so that v² = 16(9 − x²). Find its amplitude.",
+    latex: "v^2 = 16(9 - x^2)",
+    marks: 3,
+    difficulty: 5,
+    answer: "3",
+    explanation:
+      "Comparing with v² = n²(a² − x²): a² = 9, so the amplitude is a = 3 (and n = 4).",
+  },
+  {
+    id: "y12e1-capp-shm-d5-2",
+    prompt:
+      "A particle satisfies ẍ = −9x and has amplitude 4. Find its speed when x = 2.",
+    latex: "\\ddot{x} = -9x, \\quad a = 4",
+    marks: 4,
+    difficulty: 5,
+    answer: "6sqrt(3)",
+    acceptedAnswers: ["6√3", "10.392", "10.39"],
+    explanation:
+      "ẍ = −n²x gives n = 3. v = n√(a² − x²) = 3√(16 − 4) = 3√12 = 6√3.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-3",
+    prompt:
+      "A particle in SHM has maximum speed 20 and amplitude 4. Find n.",
+    latex: "v_{max} = na = 20, \\quad a = 4",
+    marks: 3,
+    difficulty: 5,
+    answer: "5",
+    explanation: "Maximum speed = na, so 20 = 4n and n = 5.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-4",
+    prompt:
+      "A particle moves with x = 5cos(2t). Find the first time t > 0 at which x = 2.5.",
+    latex: "x = 5\\cos(2t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/6",
+    acceptedAnswers: ["π/6", "0.5236", "0.524"],
+    explanation:
+      "2.5 = 5cos(2t) ⇒ cos(2t) = 1/2 ⇒ 2t = π/3 ⇒ t = π/6.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-5",
+    prompt:
+      "A particle in SHM has period 4 seconds and amplitude 6. Find its maximum speed.",
+    latex: "T = 4, \\quad a = 6",
+    marks: 4,
+    difficulty: 5,
+    answer: "3pi",
+    acceptedAnswers: ["3π", "9.42", "9.4248"],
+    explanation:
+      "n = 2π/T = π/2. Maximum speed = na = 6(π/2) = 3π.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-6",
+    prompt:
+      "A particle moves with x = 3cos(2t) + 4sin(2t). Written as x = R cos(2t − α), find R.",
+    latex: "x = 3\\cos(2t) + 4\\sin(2t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "5",
+    explanation: "R = √(3² + 4²) = √25 = 5 (the amplitude of the combined SHM).",
+  },
+  {
+    id: "y12e1-capp-shm-d5-7",
+    prompt:
+      "A particle moves with x = 4cos(2t). Find the total distance it travels in one complete period.",
+    latex: "x = 4\\cos(2t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "16",
+    explanation:
+      "In one period the particle goes a → −a → a, covering 4 amplitudes: 4 × 4 = 16.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-8",
+    prompt:
+      "A particle moves with x = 4cos(2t). Find the first time t > 0 at which its speed is a maximum.",
+    latex: "x = 4\\cos(2t)",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/4",
+    acceptedAnswers: ["π/4", "0.7854", "0.785"],
+    explanation:
+      "Speed is greatest at the centre x = 0: 4cos(2t) = 0 ⇒ 2t = π/2 ⇒ t = π/4.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-9",
+    prompt:
+      "A particle satisfies ẍ = −n²x and has period π. Find n².",
+    latex: "\\ddot{x} = -n^2 x, \\quad T = \\pi",
+    marks: 3,
+    difficulty: 5,
+    answer: "4",
+    explanation: "T = 2π/n = π ⇒ n = 2 ⇒ n² = 4.",
+  },
+  {
+    id: "y12e1-capp-shm-d5-10",
+    prompt:
+      "A particle in SHM has speed 8 when x = 3 and speed 6 when x = 4. Find its amplitude.",
+    latex: "v=8 \\text{ at } x=3, \\quad v=6 \\text{ at } x=4",
+    marks: 4,
+    difficulty: 5,
+    answer: "5",
+    explanation:
+      "v² = n²(a² − x²): 64 = n²(a² − 9) and 36 = n²(a² − 16). Subtracting: 28 = 7n², so n² = 4. Then 64 = 4(a² − 9) gives a² = 25, a = 5.",
+  },
+];
+
 export const calculusApplicationsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -529,8 +757,8 @@ export const calculusApplicationsPool: TopicTestPool = {
       subtopicSlug: "simple-harmonic-motion-intro",
       subtopicTitle: "Simple Harmonic Motion",
       remediationHref: href("simple-harmonic-motion-intro"),
-      d4: [],
-      d5: [],
+      d4: shmD4,
+      d5: shmD5,
     },
     {
       subtopicSlug: "calculus-applications-volumes",
