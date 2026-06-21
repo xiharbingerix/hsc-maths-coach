@@ -1123,10 +1123,10 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A ratio compares two quantities of the same kind. To simplify, divide both parts by their HCF. For example, 15:25 = 3:5. A ratio a:b can also be written as the fraction a/(a+b) for the first part of the total.",
-          "To divide a quantity in the ratio a:b, find the value of one part (total ÷ (a+b)), then multiply by a and b. For example, share $240 in the ratio 3:5: one part = $240 ÷ 8 = $30; shares are 3×$30 = $90 and 5×$30 = $150.",
+          "A ratio compares two quantities of the same kind — a recipe for splitting a whole into proportional parts. To simplify, divide both parts by their HCF. For example, 15:25 = 3:5. A ratio a:b can also be written as the fraction a/(a+b) for the first part of the total.",
+          "To divide a quantity in the ratio a:b, split it into a+b equal parts and hand out a of them and b of them: find the value of one part (total ÷ (a+b)), then multiply by a and b. For example, share $240 in the ratio 3:5: one part = $240 ÷ 8 = $30; shares are 3×$30 = $90 and 5×$30 = $150.",
           "Metric conversions: Length — 1 km = 1000 m, 1 m = 100 cm, 1 cm = 10 mm. Mass — 1 t = 1000 kg, 1 kg = 1000 g. Capacity — 1 kL = 1000 L, 1 L = 1000 mL. Time — 1 h = 60 min, 1 min = 60 s.",
-          "A rate compares two quantities with different units. To calculate a rate, divide the first quantity by the second. Speed = distance ÷ time; cost rate = total cost ÷ number of items. Always state the units of the result (km/h, $/kg, L/100 km).",
+          "A rate compares two quantities with different units — how much of one for each single unit of the other. To calculate a rate, divide the first quantity by the second. Speed = distance ÷ time; cost rate = total cost ÷ number of items. Always state the units of the result (km/h, $/kg, L/100 km).",
         ],
         latexBlocks: [
           "\\text{Simplify ratio: divide both by HCF. E.g. }12:16 = 3:4",
@@ -1364,8 +1364,8 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A ratio compares quantities of the same kind. In a sharing problem, add the parts in the ratio, find the value of one part, then multiply by the required number of parts.",
-          "A rate compares different units, such as kilometres per hour, litres per minute, dollars per kilogram, or litres per 100 kilometres.",
+          "A ratio compares quantities of the same kind — a recipe for sharing a whole into proportional parts. In a sharing problem, add the parts in the ratio to see how many equal parts there are, find the value of one part, then multiply by the number of parts each share needs.",
+          "A rate compares two different units — how much of one quantity for each single unit of the other, such as kilometres per hour, litres per minute, dollars per kilogram, or litres per 100 kilometres.",
           "Speed is a rate. Before calculating speed, convert time into hours if the answer must be in km/h.",
           "Unit conversions are part of many rate questions. Minutes to hours, metres to kilometres, litres to millilitres, and map scale conversions all need careful units.",
         ],
