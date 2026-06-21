@@ -341,11 +341,13 @@ Progress (updated 2026-06-21):
   23/23 (E4); failing a subtopic surfaces it in remediation.
 - [ ] **Content slice (remaining)** — grow each band to 10 (→ 80 items),
   validate, keep auto-markable.
-- [ ] **Entry points (remaining)** — link the topic test from the course page /
-  dashboard mastery card / admin student view (route exists, nothing links to
-  it yet).
-- [ ] **Auth-gated paths** — DB persistence + mastery write are written and
-  tsc-clean but not yet browser-verified with a logged-in session.
+- [x] **Entry point** — a "Topic tests" section on `/exam` lists registered
+  topic tests (`listTopicTests`) and links to `/topic-test/[course]/[topic]`.
+  Render-verified; further entry points (dashboard card / admin view) optional.
+- [ ] **Auth-gated paths** — DB persistence (`exam_attempts`) + subtopic mastery
+  write are written and tsc-clean but not yet verified through a logged-in
+  session. The app points at a hosted Supabase, so this needs a test login (or
+  authorisation to create + clean up a throwaway user) — not done unprompted.
 - Acceptance: a student can take the kinematics test, get a marked per-subtopic
   result + remediation, and see mastery update on the dashboard. *(Core flow
   proven; pending live auth verification + content depth + an entry point.)*

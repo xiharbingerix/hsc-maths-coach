@@ -20,6 +20,27 @@ export function listTopicTestPools(): TopicTestPool[] {
   return POOLS;
 }
 
+export type TopicTestSummary = {
+  courseSlug: string;
+  courseTitle: string;
+  topicSlug: string;
+  topicTitle: string;
+  subtopicCount: number;
+  /** Total authored pool size across all subtopics (D4 + D5). */
+  poolSize: number;
+};
+
+export function listTopicTests(): TopicTestSummary[] {
+  return POOLS.map((p) => ({
+    courseSlug: p.courseSlug,
+    courseTitle: p.courseTitle,
+    topicSlug: p.topicSlug,
+    topicTitle: p.topicTitle,
+    subtopicCount: p.subtopics.length,
+    poolSize: p.subtopics.reduce((n, s) => n + s.d4.length + s.d5.length, 0),
+  }));
+}
+
 export function getTopicTestPool(
   courseSlug: string,
   topicSlug: string
