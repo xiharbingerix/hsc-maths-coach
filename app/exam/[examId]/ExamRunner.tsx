@@ -392,8 +392,10 @@ function ReviewCard({
                 {p.correct ? "✓" : "✗"} {p.marksEarned}/{p.marksAvailable}
               </p>
               <p className="mt-1 text-slate-700">
-                Your answer: {p.studentAnswer || "—"} · Correct:{" "}
-                <span className="font-medium">{p.correctAnswer}</span>
+                Your answer: <MathText text={p.studentAnswer || "—"} /> · Correct:{" "}
+                <span className="font-medium">
+                  <MathText text={p.correctAnswer} />
+                </span>
               </p>
               <p className="mt-1 text-slate-600">
                 <MathText text={p.explanation} />
@@ -404,8 +406,10 @@ function ReviewCard({
       ) : (
         <div className="rounded-xl bg-slate-50 p-3 text-sm">
           <p className="text-slate-700">
-            Your answer: {result.studentAnswer || "—"} · Correct:{" "}
-            <span className="font-medium">{result.correctAnswer}</span>
+            Your answer: <MathText text={result.studentAnswer || "—"} /> · Correct:{" "}
+            <span className="font-medium">
+              <MathText text={result.correctAnswer ?? "—"} />
+            </span>
           </p>
           <p className="mt-1 text-slate-600">
             <MathText text={result.explanation} />
