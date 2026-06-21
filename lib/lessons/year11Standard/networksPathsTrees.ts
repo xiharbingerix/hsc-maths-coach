@@ -1055,7 +1055,7 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer("net-path-i2", "Route A-B-C has weights AB=6 and BC=7. Find the total weight.", "6+7", "13"),
         shortAnswer("net-path-i3", "Compare paths A-B-D=9 and A-C-D=8. What is the shortest-path weight?", "\\min(9,8)", "8"),
         labelledChoice("net-path-i4", "A network has an isolated vertex. Is it connected?", "B", ["Yes", "No", "Only if weighted", "Only if directed"], "An isolated vertex cannot be reached."),
-        shortAnswer("net-path-i5", "In a 9-vertex network, is a shortest path question within the no-more-than-10-vertices limit? Answer yes or no.", "9\\le 10", "yes", ["Yes", "YES"]),
+        shortAnswer("net-path-i5", "From P to Q, route P–R–Q has edge weights 7 and 5, and route P–S–Q has edge weights 6 and 9. Find the weight of the shortest path from P to Q.", "\\min(7+5,\\ 6+9)", "12", ["12 units"]),
       ],
       commonMistakes: [
         { mistake: "Calling route A-B-C a circuit because it visits three vertices.", fix: "A circuit must return to its starting vertex: A-B-C is a path, but A-B-C-A is a circuit." },
@@ -1064,7 +1064,7 @@ export function year11StandardNetworksLessonOverride(
         { mistake: "Saying a network is connected when one vertex has no edges joining it.", fix: "Every vertex must be reachable from every other vertex for the network to be connected." },
       ],
       masteryQuiz: [
-        labelledChoice("net-path-m1", "A route that starts and ends at A is a:", "C", ["Path only", "Weight", "Circuit", "Degree"], "A circuit starts and ends at the same vertex."),
+        labelledChoice("net-path-m1", "In a network, the route A–B–C–A returns to its starting vertex without repeating an edge. This route is a:", "B", ["Path", "Circuit", "Bridge", "Tree"], "A route that returns to its starting vertex (A–B–C–A) is a circuit; a path does not return to where it began."),
         shortAnswer("net-path-m2", "Add path weights 4, 6, and 1.", "4+6+1", "11"),
         labelledChoice("net-path-m3", "A trail cannot repeat:", "B", ["Vertices", "Edges", "Weights", "Labels"], "A trail does not repeat edges."),
         labelledChoice("net-path-m4", "A connected network means:", "A", ["All vertices are reachable", "All weights are equal", "There are no edges", "It must be directed"], "Connected means every vertex can be reached."),
@@ -1075,7 +1075,7 @@ export function year11StandardNetworksLessonOverride(
           diagram: shortestPathDiagram,
         },
         labelledChoice("net-path-m6", "The shortest path may not be best because:", "D", ["It has the smallest distance", "It uses vertices", "It is drawn on paper", "Other practical factors may matter"], "Context can make a longer route better."),
-        shortAnswer("net-path-m7", "A network has 10 vertices. Is this within a no-more-than-10-vertices shortest path question? Answer yes or no.", "\\text{vertices}=10", "yes", ["Yes", "YES"]),
+        labelledChoice("net-path-m7", "Route 1 from A to B uses a single edge of weight 15. Route 2 from A to B uses three edges totalling 11. Which is the shorter path?", "B", ["Route 1, because it uses fewer edges", "Route 2, because its total weight is smaller", "They are equally short", "It cannot be determined"], "The shortest path has the least total weight, not the fewest edges: Route 2 (11) is shorter than Route 1 (15)."),
         {
           ...labelledChoice("net-path-m8", "Use the displayed network to classify route A-B-C.", "A", ["Path", "Degree", "Weight only", "Disconnected network"], "It is a route through connected vertices."),
           diagram: pathLineDiagram,

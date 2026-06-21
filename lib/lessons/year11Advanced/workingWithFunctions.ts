@@ -344,8 +344,8 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Ignoring the sign of the leading coefficient.", fix: "For quadratics, the sign tells whether the parabola opens up or down." },
       ],
       masteryQuiz: [
-        practicalChoice("y11adv-lqc-m1", "Which function family does the displayed function belong to?", "B", ["Linear", "Quadratic", "Cubic", "Reciprocal"], "The highest power is x^2.", "f(x)=-2x^2+5"),
-        practicalChoice("y11adv-lqc-m2", "Which function family does the displayed function belong to?", "C", ["Linear", "Quadratic", "Cubic", "Exponential"], "The highest power is x^3.", "f(x)=x^3-4x"),
+        practicalChoice("y11adv-lqc-m1", "Which function family does the displayed function belong to?", "B", ["Linear", "Quadratic", "Cubic", "Reciprocal"], "Multiplying the two linear factors gives a degree-2 function: (x−1)(x+3) = x²+2x−3, which is quadratic.", "f(x)=(x-1)(x+3)"),
+        practicalChoice("y11adv-lqc-m2", "Which function family does the displayed function belong to?", "C", ["Linear", "Quadratic", "Cubic", "Quartic"], "Three linear factors multiply to a degree-3 function: x(x−2)(x+2) = x³−4x, which is cubic.", "f(x)=x(x-2)(x+2)"),
         formulaAnswer("y11adv-lqc-m3", "For the displayed function, enter the larger zero.", "f(x)=(x-5)(x+1),\\quad (x-5)(x+1)=0", "5", ["x=5"]),
         formulaAnswer("y11adv-lqc-m4", "For the displayed function, enter the negative zero.", "g(x)=x^2-16,\\quad x^2-16=0", "-4", ["x=-4"]),
         practicalChoice("y11adv-lqc-m5", "A straight-line graph with y-intercept 3 is most likely:", "A", ["Linear", "Quadratic only", "Cubic only", "A reciprocal asymptote"], "Straight-line graphs are linear."),

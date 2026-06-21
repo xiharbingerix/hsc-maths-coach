@@ -1071,7 +1071,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
       masteryQuiz: [
         linearAnswer("y11s-lrr-m1", "Find the gradient of the line through (3, 5) and (7, 13).", "m = \\frac{13-5}{7-3}", "2", ["2.0", "m=2"]),
         financeChoice("y11s-lrr-m2", "The gradient of y = -2x + 9 is:", "A", ["-2", "9", "2", "-9"], "The coefficient of x is −2."),
-        linearAnswer("y11s-lrr-m3", "State the y-intercept of y = 6x − 3.", "y = 6x - 3,\\quad b = -3", "-3", ["b=-3", "−3"]),
+        linearAnswer("y11s-lrr-m3", "A line is written as 2y = 8x − 10. Find its y-intercept.", "2y = 8x - 10", "-5", ["b=-5", "−5"]),
         financeChoice("y11s-lrr-m4", "Which pair gives gradient = 4?", "C", ["(0,4) and (4,0)", "(1,4) and (5,4)", "(0,2) and (1,6)", "(2,8) and (0,0)"], "m = (6−2)/(1−0) = 4."),
         linearAnswer("y11s-lrr-m5", "A line has gradient −1 and y-intercept 7. Write the equation.", "y = mx + b,\\quad m=-1,\\quad b=7", "y = -x + 7", ["y=-x+7", "y = -1x + 7"]),
         financeChoice("y11s-lrr-m6", "A table shows x: 0,1,2 and y: 10,8,6. The gradient is:", "B", ["10", "-2", "2", "-10"], "y decreases by 2 for each 1-unit increase in x."),

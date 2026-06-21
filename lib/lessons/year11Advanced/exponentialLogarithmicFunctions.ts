@@ -295,7 +295,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
         practicalChoice("y11adv-exp-log-m5", "Which expression is equivalent using the power law?", "A", ["$5\\log_2 x$", "$\\log_2(5x)$", "$\\log_2 x+5$", "$(\\log_2 x)^5$"], "The exponent moves to the front.", "\\log_2(x^5)"),
         formulaAnswer("y11adv-exp-log-m6", "Evaluate the logarithm by inspection.", "\\log_2\\left(\\frac{1}{8}\\right)", "-3"),
         practicalChoice("y11adv-exp-log-m7", "Which statement identifies the domain issue?", "D", ["The base is too large", "The logarithm value must be positive", "The input should be squared first", "The logarithm input must be positive"], "Logarithm inputs cannot be zero or negative.", "\\log_3(x-4)"),
-        practicalChoice("y11adv-exp-log-m8", "Which statement correctly describes the natural logarithm?", "A", ["It is logarithm base e", "It is logarithm base 10", "It is the same as multiplying by n", "It is only used for negative inputs"], "Natural logarithm means base e.", "\\ln x"),
+        practicalChoice("y11adv-exp-log-m8", "Simplify ln(e^5).", "B", ["$e^5$", "$5$", "$5e$", "$\\ln 5$"], "ln and e^x are inverse functions, so ln(e^5) returns the exponent: ln(e^5) = 5.", "\\ln(e^5)"),
         practicalChoice("y11adv-exp-log-m9", "Which combined expression matches the displayed log expression?", "B", ["$\\log_2(8+4-2)$", "$\\log_2\\left(\\frac{8\\cdot4}{2}\\right)$", "$\\log_2(8\\cdot4\\cdot2)$", "$\\log_2\\left(\\frac{2}{8\\cdot4}\\right)$"], "Sums become products and subtraction becomes division.", "\\log_2 8+\\log_2 4-\\log_2 2"),
         formulaAnswer("y11adv-exp-log-m10", "Evaluate the combined logarithm by inspection.", "\\log_2 8+\\log_2 4-\\log_2 2", "4"),
       ],
