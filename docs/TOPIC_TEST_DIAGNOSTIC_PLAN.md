@@ -414,13 +414,18 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   + 10 D5 each (Bernoulli Trials; Binomial Probabilities; Mean and Variance;
   Distribution of the Sample Mean; The Central Limit Theorem), plus the
   exam-practice subtopic at 10 D6 (multi-part synoptic across the strands).
-  110 questions total. (Prior Knowledge Revision lesson excluded.)
-  (5 skill subtopics; revision lesson excluded. bernoulli-trials owns model setup,
-  binomial-probabilities owns the C(n,k) formula.)
+  110 questions total. (Prior Knowledge Revision lesson excluded;
+  bernoulli-trials owns model setup, binomial-probabilities owns the C(n,k) formula.)
 - ⬜ vectors (D4+D5; drop the projection-proof subtopic).
-- ⏸ **proof-induction — deferred**: induction proofs aren't auto-markable.
-  Awaits a Tier-2 AI proof/algorithm marker (the "Claude judge" already noted as
-  future work in cas-service/README.md). Revisit once that marker exists.
+- 🟢 **proof-induction — unblocked (marker built)**: the AI proof marker now
+  exists — `lib/proofMarker/markProofWithAi.ts` + `app/api/mark-proof/route.ts`,
+  gated by `ANTHROPIC_API_KEY` + `PROOF_MARKER_ENABLED=true` (inert until set).
+  It returns a binary { correct } verdict only (structured-output boolean — no
+  model text ever reaches the student), grades against an authored model
+  solution, and treats the submission as untrusted data (off-task / empty /
+  manipulation → incorrect). Still TODO before authoring induction pools: a
+  free-response question type in the exam/topic-test runner + a scoring path that
+  calls the marker (today's pools are string/CAS/MCQ only).
 - "Prior Knowledge Revision" subtopics are excluded from pools (low-band;
   remediation targets, not test content).
 
