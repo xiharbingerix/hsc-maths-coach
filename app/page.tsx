@@ -9,7 +9,7 @@ import { PageViewTracker } from "./components/PageViewTracker";
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
   description:
-    "Take a free NSW maths diagnostic, find your weak topics, and follow structured lessons from Year 8 to HSC. 7-day free trial, then $19/month.",
+    "Take a free NSW maths diagnostic, find your weak topics, and follow structured lessons from Year 7 to HSC. 7-day free trial, then $19/month.",
 };
 
 const trustBadges = [
@@ -45,6 +45,10 @@ const howItWorks = [
 
 const courseGroups = [
   {
+    label: "Year 7",
+    detail: "Mathematics — Stage 4 fundamentals.",
+  },
+  {
     label: "Year 8",
     detail: "Mathematics — Stage 4 foundations and the bridge into Stage 5.",
   },
@@ -58,11 +62,11 @@ const courseGroups = [
   },
   {
     label: "Year 11",
-    detail: "Standard, Advanced and Extension 1.",
+    detail: "Standard, Advanced and Extension.",
   },
   {
     label: "Year 12 / HSC",
-    detail: "Standard 2, Advanced, Extension 1 and Extension 2.",
+    detail: "Standard 1, Standard 2, Advanced, Extension 1 and Extension 2.",
   },
 ];
 
@@ -166,7 +170,7 @@ export default function Home() {
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-12">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold text-slate-500">
-              NSW secondary maths · Year 8 to HSC
+              NSW secondary maths · Year 7 to HSC
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
@@ -175,7 +179,7 @@ export default function Home() {
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
               Take a free NSW maths diagnostic, find your weak topics, then
-              follow a clear lesson path from Year 8 to HSC.
+              follow a clear lesson path from Year 7 to HSC.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -273,7 +277,7 @@ export default function Home() {
           <div className="max-w-2xl">
             <SectionLabel>Courses available</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-              NSW maths from Year 8 to HSC
+              NSW maths from Year 7 to HSC
             </h2>
             <p className="mt-3 text-lg leading-8 text-slate-600">
               Structured pathways across {totalActiveLessonCount} active lessons,
@@ -358,7 +362,7 @@ export default function Home() {
               <p className="mt-3 text-4xl font-bold tracking-tight">$19/month</p>
               <p className="mt-3 leading-7 text-slate-600">
                 7-day free trial first, then continued access to structured
-                lessons, practice and mastery checks across all available Year 8
+                lessons, practice and mastery checks across all available Year 7
                 to HSC pathways.
               </p>
               <p className="mt-4 text-sm text-slate-500">

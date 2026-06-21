@@ -69,7 +69,7 @@ const FAQs = [
   {
     question: "Is it for Standard 2 or Advanced?",
     answer:
-      "Both. After the diagnostic you follow a revision path for whichever Year 12 course you are studying — Mathematics Standard 2 or Mathematics Advanced.",
+      "Both — and more. Nova Maths covers every Year 12 course: Standard 1, Standard 2, Advanced, Extension 1 and Extension 2. After the diagnostic you follow a revision path for whichever course you are studying.",
   },
   {
     question: "Do I need a tutor as well?",
@@ -111,11 +111,20 @@ const testimonials = [
   },
 ];
 
-const hscCourses = courseCatalogue.filter(
-  (course) =>
-    course.courseSlug === "year-12-advanced" ||
-    course.courseSlug === "year-12-standard-2"
-);
+// All five Year 12 (HSC) courses, with the highest-demand ad keywords
+// (Standard 2 and Advanced) listed first.
+const hscCourseOrder = [
+  "year-12-standard-2",
+  "year-12-advanced",
+  "year-12-extension-1",
+  "year-12-extension-2",
+  "year-12-standard-1",
+];
+const hscCourses = hscCourseOrder
+  .map((slug) => courseCatalogue.find((course) => course.courseSlug === slug))
+  .filter(
+    (course): course is (typeof courseCatalogue)[number] => course !== undefined
+  );
 
 function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
   return (
@@ -289,9 +298,13 @@ export default function HscMathsPage() {
         >
           <SectionLabel>Choose your HSC course</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-tight">
-            Year 12 Advanced or Standard 2
+            Every Year 12 maths course
           </h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
+          <p className="mt-3 max-w-2xl leading-7 text-slate-600">
+            Standard 2 and Advanced are the most popular, but Nova Maths covers
+            the full HSC range — Extension 1, Extension 2 and Standard 1 too.
+          </p>
+          <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {hscCourses.map((course) => (
               <article
                 key={course.courseSlug}
@@ -441,8 +454,9 @@ export default function HscMathsPage() {
               </p>
               <p className="mt-3 text-4xl font-bold tracking-tight">$19/month</p>
               <p className="mt-3 leading-7 text-slate-600">
-                7-day free trial first, then access to all available Year 8 to
-                HSC pathways, including Year 12 Advanced and Standard 2.
+                7-day free trial first, then access to all available Year 7 to
+                HSC pathways, including every Year 12 course from Standard 1 to
+                Extension 2.
               </p>
               <p className="mt-4 text-sm text-slate-500">
                 No charge today · Cancel anytime
