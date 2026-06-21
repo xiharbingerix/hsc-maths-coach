@@ -846,7 +846,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Measurement exam questions often combine unit choice, conversion, accuracy, and practical calculations.",
+        "Measurement exam questions combine unit choice, conversion, accuracy and practical calculation, so first decide what quantity is being measured — length, area, volume, capacity, mass or energy — because that choice fixes both the formula and the units.",
         "Start by identifying what is being measured: length, area, volume, capacity, mass, energy or electricity use.",
         "Use the context to decide the method. Flooring needs area, tanks need volume or capacity, and energy bills use kWh.",
         "Check reasonableness at the end. A unit or conversion error can make an answer much too large or too small.",
