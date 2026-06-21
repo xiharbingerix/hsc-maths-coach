@@ -77,7 +77,7 @@ const simplifyingExpressions: LessonContent = {
   ],
   teaching: {
     paragraphs: [
-      "In algebra, a term is a number, a variable, or a product of numbers and variables. For example, 3x, 5 and ab are all terms. A coefficient is the number that multiplies the variable. In 3x, the coefficient is 3.",
+      "In algebra, a term is a number, a variable, or a product of numbers and variables. For example, 3x, 5 and ab are all terms. A coefficient is the number that multiplies the variable — it tells you how many of that variable you have, so 3x means three x's added together (x + x + x). In 3x, the coefficient is 3.",
       "When a variable is written on its own, its coefficient is understood to be 1, so x means 1x. Similarly, when the coefficient is negative one, write just -x, not -1x.",
       "To simplify a product involving a variable, multiply the numbers together and write the variable after. For example, 4 × 3x equals 12x.",
       "To simplify a quotient, divide the coefficient by the divisor and keep the variable. For example, 8x ÷ 4 equals 2x.",
