@@ -265,6 +265,246 @@ const relatedRatesD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 2: Exponential Growth and Decay ─────────────────────────────────
+// N = N₀e^{kt}. D4: find N, k, or t; doubling/half-life; the DE dN/dt = kN; and
+// a ratio shortcut. Answers are exact (e, ln) with decimals as accepted forms.
+const growthDecayD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-egd-d4-1",
+    prompt: "For N = 100e^{0.05t}, find N when t = 10 (exact form).",
+    latex: "N = 100 e^{0.05t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "100e^(0.5)",
+    acceptedAnswers: ["100*e^(1/2)", "100e^0.5", "164.87", "164.9"],
+    explanation: "N = 100e^{0.05×10} = 100e^{0.5} ≈ 164.9.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-2",
+    prompt: "A quantity N = N₀e^{kt} doubles in 5 years. Find k.",
+    latex: "N = N_0 e^{kt}",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$\\dfrac{\\ln 2}{5}$" },
+      { label: "B", text: "$\\dfrac{2}{5}$" },
+      { label: "C", text: "$\\dfrac{5}{\\ln 2}$" },
+      { label: "D", text: "$\\dfrac{\\ln 2}{2}$" },
+    ],
+    answer: "A",
+    explanation: "2 = e^{5k} ⇒ 5k = ln 2 ⇒ k = (ln 2)/5.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-3",
+    prompt:
+      "A population satisfies dP/dt = 0.02P with P(0) = 500. Express P in terms of t.",
+    latex: "\\tfrac{dP}{dt} = 0.02P, \\quad P(0) = 500",
+    marks: 2,
+    difficulty: 4,
+    answer: "500e^(0.02t)",
+    acceptedAnswers: ["500*e^(0.02t)", "500e^(t/50)"],
+    explanation: "dP/dt = kP has solution P = P₀e^{kt}: P = 500e^{0.02t}.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-4",
+    prompt: "For N = 500e^{-0.2t}, find N when t = 5 (exact form).",
+    latex: "N = 500 e^{-0.2t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "500/e",
+    acceptedAnswers: ["500e^(-1)", "183.94", "183.9"],
+    explanation: "N = 500e^{-0.2×5} = 500e^{-1} = 500/e ≈ 183.9.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-5",
+    prompt: "A culture grows from 200 to 800 in 6 hours under N = N₀e^{kt}. Find k.",
+    latex: "200 \\to 800 \\text{ in } 6 \\text{ h}",
+    marks: 3,
+    difficulty: 4,
+    answer: "ln(2)/3",
+    acceptedAnswers: ["(ln 2)/3", "ln(4)/6", "0.2310", "0.231"],
+    explanation: "800/200 = 4 = e^{6k} ⇒ 6k = ln 4 = 2 ln 2 ⇒ k = (ln 2)/3.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-6",
+    prompt: "For A = 50e^{0.1t}, find the time t for A to reach 100.",
+    latex: "A = 50 e^{0.1t}",
+    marks: 3,
+    difficulty: 4,
+    answer: "10ln(2)",
+    acceptedAnswers: ["10 ln 2", "6.931", "6.93"],
+    explanation: "100 = 50e^{0.1t} ⇒ 2 = e^{0.1t} ⇒ t = (ln 2)/0.1 = 10 ln 2.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-7",
+    prompt: "A radioactive mass M = 80e^{-0.05t} grams. Find M when t = 20 (exact form).",
+    latex: "M = 80 e^{-0.05t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "80/e",
+    acceptedAnswers: ["80e^(-1)", "29.43", "29.4"],
+    explanation: "M = 80e^{-0.05×20} = 80e^{-1} = 80/e ≈ 29.4 g.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-8",
+    prompt: "A quantity grows as N = N₀e^{0.04t}. Find the time for it to triple.",
+    latex: "N = N_0 e^{0.04t}",
+    marks: 3,
+    difficulty: 4,
+    answer: "25ln(3)",
+    acceptedAnswers: ["25 ln 3", "27.47", "27.46"],
+    explanation: "3 = e^{0.04t} ⇒ t = (ln 3)/0.04 = 25 ln 3.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-9",
+    prompt: "A substance has a half-life of 10 years. Find its decay constant k in N = N₀e^{kt}.",
+    latex: "N = N_0 e^{kt}",
+    marks: 3,
+    difficulty: 4,
+    answer: "-ln(2)/10",
+    acceptedAnswers: ["−ln(2)/10", "-(ln 2)/10", "-0.0693", "-0.069"],
+    explanation: "1/2 = e^{10k} ⇒ 10k = ln(1/2) = −ln 2 ⇒ k = −(ln 2)/10.",
+  },
+  {
+    id: "y12e1-capp-egd-d4-10",
+    prompt:
+      "A population N = N₀e^{kt} grows to 4 times its size in 2 hours. Find its size after 4 hours, as a multiple of N₀.",
+    latex: "N = N_0 e^{kt}, \\quad N(2) = 4N_0",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$16 N_0$" },
+      { label: "B", text: "$8 N_0$" },
+      { label: "C", text: "$32 N_0$" },
+      { label: "D", text: "$4 N_0$" },
+    ],
+    answer: "A",
+    explanation:
+      "e^{2k} = 4, so after 4 hours N = N₀e^{4k} = N₀(e^{2k})² = N₀(16) = 16N₀. B doubles again instead of squaring.",
+  },
+];
+
+// D5: recover both parameters from two data points, convert between doubling /
+// tripling / half-life, use a rate to find k, and compound decay.
+const growthDecayD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-egd-d5-1",
+    prompt:
+      "For N = N₀e^{kt}, N(2) = 18 and N(5) = 486. Find N₀.",
+    latex: "N(2) = 18, \\quad N(5) = 486",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "N(5)/N(2) = 27 = e^{3k}, so e^{k} = 3. Then N(2) = N₀e^{2k} = 9N₀ = 18, giving N₀ = 2.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-2",
+    prompt:
+      "A radioactive sample decays from 80 g to 5 g in 12 hours. Find its half-life, in hours.",
+    latex: "80 \\to 5 \\text{ g in } 12 \\text{ h}",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation:
+      "5/80 = 1/16 = 2⁻⁴ over 12 hours, i.e. four halvings in 12 hours, so the half-life is 12/4 = 3 hours.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-3",
+    prompt:
+      "A population doubles every 10 years. How long (in years) does it take to triple? Give the exact form.",
+    latex: "\\text{doubles every } 10 \\text{ years}",
+    marks: 4,
+    difficulty: 5,
+    answer: "10ln(3)/ln(2)",
+    acceptedAnswers: ["10 ln3/ln2", "10ln(3)/ln(2)", "15.85", "15.849"],
+    explanation:
+      "k = (ln 2)/10. Tripling: 3 = e^{kt} ⇒ t = (ln 3)/k = 10 ln 3 / ln 2 ≈ 15.85 years.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-4",
+    prompt:
+      "For N = N₀e^{kt}, N(2) = 1500 and N(4) = 6000. Find N(6).",
+    latex: "N(2) = 1500, \\quad N(4) = 6000",
+    marks: 4,
+    difficulty: 5,
+    answer: "24000",
+    explanation:
+      "Over each 2-hour step the population multiplies by e^{2k} = 6000/1500 = 4. So N(6) = N(4)×4 = 6000×4 = 24000.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-5",
+    prompt:
+      "A population satisfies dN/dt = kN with N(0) = 200, and dN/dt = 40 when N = 200. Find N when t = 5, in exact form.",
+    latex: "\\tfrac{dN}{dt} = kN, \\quad N(0) = 200",
+    marks: 4,
+    difficulty: 5,
+    answer: "200e",
+    acceptedAnswers: ["200*e", "543.66", "543.7"],
+    explanation:
+      "40 = k(200) ⇒ k = 0.2. Then N = 200e^{0.2t}, so N(5) = 200e^{1} = 200e ≈ 543.7.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-6",
+    prompt:
+      "A culture triples every 4 hours, starting at 500. Find the number present after 10 hours, in exact form.",
+    latex: "\\text{triples every } 4 \\text{ hours}, \\quad N_0 = 500",
+    marks: 4,
+    difficulty: 5,
+    answer: "500*3^(5/2)",
+    acceptedAnswers: ["500·3^(2.5)", "500*3^2.5", "7794", "7794.2"],
+    explanation:
+      "N = 500·3^{t/4} = 500·3^{10/4} = 500·3^{5/2} ≈ 7794.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-7",
+    prompt:
+      "Carbon-14 has a half-life of 5730 years. A sample contains 25% of its original C-14. Find its age, in years.",
+    latex: "\\text{half-life } 5730 \\text{ years}",
+    marks: 4,
+    difficulty: 5,
+    answer: "11460",
+    explanation:
+      "25% = (1/2)², i.e. two half-lives, so the age is 2 × 5730 = 11460 years.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-8",
+    prompt:
+      "A population grows by 50% in 3 hours under N = N₀e^{kt}. Find the time to double, in exact form.",
+    latex: "N(3) = 1.5 N_0",
+    marks: 4,
+    difficulty: 5,
+    answer: "3ln(2)/ln(1.5)",
+    acceptedAnswers: ["3 ln2/ln1.5", "3ln(2)/ln(3/2)", "5.13", "5.127"],
+    explanation:
+      "1.5 = e^{3k} ⇒ k = (ln 1.5)/3. Doubling: t = (ln 2)/k = 3 ln 2 / ln 1.5 ≈ 5.13 hours.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-9",
+    prompt:
+      "A quantity satisfies dN/dt = 0.1N with N(0) = 400. Find the rate of growth dN/dt when t = 10, in exact form.",
+    latex: "\\tfrac{dN}{dt} = 0.1N, \\quad N(0) = 400",
+    marks: 4,
+    difficulty: 5,
+    answer: "40e",
+    acceptedAnswers: ["40*e", "108.7", "108.73"],
+    explanation:
+      "N = 400e^{0.1t}, so N(10) = 400e. Then dN/dt = 0.1N = 0.1(400e) = 40e ≈ 108.7.",
+  },
+  {
+    id: "y12e1-capp-egd-d5-10",
+    prompt:
+      "A substance decays so that 1/3 of it remains after 4 hours. Find the fraction remaining after 8 hours.",
+    latex: "\\text{1/3 remains after 4 hours}",
+    marks: 4,
+    difficulty: 5,
+    answer: "1/9",
+    acceptedAnswers: ["0.1111", "0.111"],
+    explanation:
+      "Each 4-hour interval multiplies the amount by 1/3, so after 8 hours the fraction is (1/3)² = 1/9.",
+  },
+];
+
 export const calculusApplicationsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -282,8 +522,8 @@ export const calculusApplicationsPool: TopicTestPool = {
       subtopicSlug: "newtons-law-cooling-growth-decay",
       subtopicTitle: "Exponential Growth and Decay",
       remediationHref: href("newtons-law-cooling-growth-decay"),
-      d4: [],
-      d5: [],
+      d4: growthDecayD4,
+      d5: growthDecayD5,
     },
     {
       subtopicSlug: "simple-harmonic-motion-intro",
