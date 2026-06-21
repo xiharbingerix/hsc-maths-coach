@@ -85,10 +85,12 @@ export function buildTopicTest(
   const lanes = pool.subtopics.map((sub) => {
     const d4 = shuffled(sub.d4, rng);
     const d5 = shuffled(sub.d5, rng);
+    const d6 = shuffled(sub.d6 ?? [], rng);
     const queue: TopicTestQuestion[] = [];
-    for (let i = 0; i < Math.max(d4.length, d5.length); i++) {
+    for (let i = 0; i < Math.max(d4.length, d5.length, d6.length); i++) {
       if (i < d4.length) queue.push(d4[i]);
       if (i < d5.length) queue.push(d5[i]);
+      if (i < d6.length) queue.push(d6[i]);
     }
     return { sub, queue, taken: [] as ExamQuestion[] };
   });

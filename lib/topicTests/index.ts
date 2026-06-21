@@ -37,7 +37,10 @@ export function listTopicTests(): TopicTestSummary[] {
     topicSlug: p.topicSlug,
     topicTitle: p.topicTitle,
     subtopicCount: p.subtopics.length,
-    poolSize: p.subtopics.reduce((n, s) => n + s.d4.length + s.d5.length, 0),
+    poolSize: p.subtopics.reduce(
+      (n, s) => n + s.d4.length + s.d5.length + (s.d6?.length ?? 0),
+      0
+    ),
   }));
 }
 

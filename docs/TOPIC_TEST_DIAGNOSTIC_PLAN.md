@@ -107,9 +107,12 @@ Each subtopic exposes `{ d4: TopicTestQuestion[]; d5: TopicTestQuestion[] }`
 
 ### Difficulty rule (set 2026-06-21)
 
-Topic tests are a **high-band** diagnostic: **every question is D4 or D5** — no
-below-D4 items. The pool model (`{ d4, d5 }`) and `TopicTestQuestion.difficulty:
-4 | 5` enforce this at the type level.
+Topic tests are a **high-band** diagnostic: **every question is D4, D5, or D6** —
+no below-D4 items (`TopicTestQuestion.difficulty: 4 | 5 | 6`). Skill subtopics
+use D4 + D5; an **exam-practice subtopic uses D6** (exam-mastery synoptic,
+multi-part Section II–style). D6 is defined in
+[QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md); the pool
+carries it on an optional `d6` band.
 
 ### Authoring workflow (set 2026-06-21)
 
@@ -354,8 +357,11 @@ Progress (updated 2026-06-21):
   subtopic (8 items, hand-verified). Verified end-to-end: page renders all 4
   subtopics; colon-id route resolves; deterministic reconstruct; all-correct →
   23/23 (E4); failing a subtopic surfaces it in remediation.
-- [ ] **Content slice (remaining)** — grow each band to 10 (→ 80 items),
-  validate, keep auto-markable.
+- [x] **Content slice** — kinematics pool authored & committed: subtopics 1–3
+  at 10 D4 + 10 D5 each, subtopic 4 (Kinematics Exam Practice) at **10 D6**
+  (multi-part synoptic). 80 questions total, every answer numerically verified,
+  each batch audited against the quality standard. Introduced the **D6**
+  difficulty standard in QUESTION_AUTHORING_STANDARD.md and a `d6` pool band.
 - [x] **Entry point** — a "Topic tests" section on `/exam` lists registered
   topic tests (`listTopicTests`) and links to `/topic-test/[course]/[topic]`.
   Render-verified; further entry points (dashboard card / admin view) optional.

@@ -757,32 +757,381 @@ const motionD5: TopicTestQuestion[] = [
   },
 ];
 
-// ── Subtopic 4: Kinematics Exam Practice (starter) ───────────────────────────
-const examD4: TopicTestQuestion[] = [
+// ── Subtopic 4: Kinematics Exam Practice — D6 (exam-mastery synoptic) ─────────
+// Multi-part Section II–style items: each combines ≥2 concepts across a
+// multi-stage solution where later parts build on earlier ones. See the D6
+// definition in docs/QUESTION_AUTHORING_STANDARD.md.
+const examD6: TopicTestQuestion[] = [
   {
-    id: "y12e1-kin-ex-d4-1",
+    id: "y12e1-kin-ex-d6-1",
     prompt:
-      "A ball is thrown vertically and its height is h = 20t − 5t² (metres). Find its maximum height, in metres.",
-    latex: "h = 20t - 5t^2",
-    marks: 2,
-    difficulty: 4,
-    answer: "20",
+      "A particle moves in a straight line with acceleration a = 6t − 12 (m/s²). At t = 0 it is at the origin with velocity 9 m/s.",
+    latex: "a = 6t - 12, \\quad x(0) = 0, \\; v(0) = 9",
+    marks: 7,
+    difficulty: 6,
     explanation:
-      "v = h′ = 20 − 10t = 0 at t = 2 s. h(2) = 40 − 20 = 20 m.",
+      "Integrate a → v → x, then analyse direction changes. v = 3t² − 12t + 9, x = t³ − 6t² + 9t.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the velocity, in m/s, at t = 3.",
+        marks: 2,
+        answer: "0",
+        explanation: "v = ∫a dt = 3t² − 12t + C; v(0) = 9 ⇒ C = 9. v(3) = 27 − 36 + 9 = 0.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the minimum velocity, in m/s, during 0 ≤ t ≤ 3.",
+        marks: 2,
+        answer: "-3",
+        acceptedAnswers: ["−3"],
+        explanation: "Velocity is least where a = 0, i.e. t = 2: v(2) = 12 − 24 + 9 = −3 m/s.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the total distance travelled, in metres, in the first 3 seconds.",
+        marks: 3,
+        answer: "8",
+        explanation:
+          "x = t³ − 6t² + 9t. v = 3(t − 1)(t − 3): direction change at t = 1. x(1) = 4, x(3) = 0. Distance = 4 + |0 − 4| = 8 m.",
+      },
+    ],
   },
-];
-
-const examD5: TopicTestQuestion[] = [
   {
-    id: "y12e1-kin-ex-d5-1",
+    id: "y12e1-kin-ex-d6-2",
     prompt:
-      "A ball's height above its launch level is h = 20t − 5t² (metres). Find the total distance it travels in the first 5 seconds, in metres.",
-    latex: "h = 20t - 5t^2",
-    marks: 3,
-    difficulty: 5,
-    answer: "65",
+      "A train starts from rest and accelerates uniformly at 2 m/s² for 10 s, then travels at constant velocity for 30 s, then decelerates uniformly to rest in a further 5 s.",
+    marks: 6,
+    difficulty: 6,
     explanation:
-      "It rises to a maximum of 20 m at t = 2 (20 m up), then falls to h(5) = 100 − 125 = −25 m (45 m down). Total distance = 20 + 45 = 65 m.",
+      "Three-phase motion: combine v = u + at and distance as area under the velocity–time graph.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the maximum velocity, in m/s.",
+        marks: 1,
+        answer: "20",
+        explanation: "v = u + at = 0 + 2 × 10 = 20 m/s.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the distance, in metres, travelled during the acceleration phase.",
+        marks: 2,
+        answer: "100",
+        explanation: "s = ½at² = ½ × 2 × 10² = 100 m.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the total distance, in metres, travelled by the train.",
+        marks: 3,
+        answer: "750",
+        explanation:
+          "Accel 100 m + constant 20 × 30 = 600 m + decel ½ × 20 × 5 = 50 m. Total = 750 m.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-3",
+    prompt:
+      "A ball is thrown vertically upward from ground level with velocity 30 m/s and acceleration −10 m/s², so its height is h = 30t − 5t² (metres).",
+    latex: "h = 30t - 5t^2",
+    marks: 6,
+    difficulty: 6,
+    explanation:
+      "Combine maximum height (v = 0), time of flight (h = 0), and total distance (up + down).",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the maximum height, in metres.",
+        marks: 2,
+        answer: "45",
+        explanation: "v = 30 − 10t = 0 at t = 3. h(3) = 90 − 45 = 45 m.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the time, in seconds, it returns to the ground.",
+        marks: 1,
+        answer: "6",
+        explanation: "h = t(30 − 5t) = 0 at t = 6 s.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the total distance travelled, in metres, in the first 5 seconds.",
+        marks: 3,
+        answer: "65",
+        explanation:
+          "Up 45 m to t = 3, then h(5) = 150 − 125 = 25, a fall of 20 m. Total = 45 + 20 = 65 m.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-4",
+    prompt:
+      "A particle moves in a straight line with displacement x = t⁴ − 4t³ (metres).",
+    latex: "x = t^4 - 4t^3",
+    marks: 6,
+    difficulty: 6,
+    explanation:
+      "Work with v = 4t³ − 12t² and a = 12t² − 24t, including optimising the acceleration.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the velocity, in m/s, at the time (t > 0) the acceleration is zero.",
+        marks: 2,
+        answer: "-16",
+        acceptedAnswers: ["−16"],
+        explanation: "a = 12t² − 24t = 12t(t − 2) = 0 at t = 2 (t > 0). v(2) = 32 − 48 = −16 m/s.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the minimum acceleration, in m/s², for t ≥ 0.",
+        marks: 2,
+        answer: "-12",
+        acceptedAnswers: ["−12"],
+        explanation: "a = 12t² − 24t is least where da/dt = 24t − 24 = 0, i.e. t = 1: a(1) = −12 m/s².",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the displacement, in metres, when the particle is momentarily at rest (t > 0).",
+        marks: 2,
+        answer: "-27",
+        acceptedAnswers: ["−27"],
+        explanation: "v = 4t²(t − 3) = 0 at t = 3. x(3) = 81 − 108 = −27 m.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-5",
+    prompt:
+      "Two particles leave the origin at t = 0. Particle A has displacement x = t³ and particle B has displacement x = 12t (metres).",
+    latex: "x_A = t^3, \\quad x_B = 12t",
+    marks: 6,
+    difficulty: 6,
+    explanation:
+      "Compare the two motions through velocity, separation, and position.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the time, in seconds, at which they have the same velocity.",
+        marks: 2,
+        answer: "2",
+        explanation: "v_A = 3t², v_B = 12. 3t² = 12 ⇒ t = 2 s.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find how far apart they are, in metres, at that time.",
+        marks: 2,
+        answer: "16",
+        explanation: "x_A(2) = 8, x_B(2) = 24, so they are |24 − 8| = 16 m apart.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the time, in seconds, at which A overtakes B (same position, t > 0). Give an exact value.",
+        marks: 2,
+        answer: "2sqrt3",
+        acceptedAnswers: ["2√3", "2 sqrt 3", "2*sqrt(3)", "3.46", "3.464"],
+        explanation: "Same position: t³ = 12t ⇒ t² = 12 ⇒ t = 2√3 s (≈ 3.46).",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-6",
+    prompt:
+      "A car travelling at 20 m/s brakes with constant deceleration and stops after 50 m.",
+    marks: 7,
+    difficulty: 6,
+    explanation:
+      "Use v² = u² + 2as and v = u + at, then a distance-in-an-interval calculation.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the deceleration, in m/s² (give it as a negative acceleration).",
+        marks: 2,
+        answer: "-4",
+        acceptedAnswers: ["−4"],
+        explanation: "0 = 20² + 2a(50) ⇒ 100a = −400 ⇒ a = −4 m/s².",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the time, in seconds, it takes to stop.",
+        marks: 2,
+        answer: "5",
+        explanation: "0 = 20 + (−4)t ⇒ t = 5 s.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the distance, in metres, travelled during the final second before stopping.",
+        marks: 3,
+        answer: "2",
+        explanation:
+          "x = 20t − 2t². x(5) = 50, x(4) = 48, so the distance from t = 4 to t = 5 is 2 m.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-7",
+    prompt:
+      "A stone is thrown downward from a 120 m cliff with initial speed 10 m/s and acceleration 10 m/s², so the distance fallen is s = 5t² + 10t (metres).",
+    latex: "s = 5t^2 + 10t",
+    marks: 5,
+    difficulty: 6,
+    explanation:
+      "Combine time of flight, impact velocity, and distance in the final second.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the time, in seconds, it takes to hit the ground.",
+        marks: 2,
+        answer: "4",
+        explanation: "5t² + 10t = 120 ⇒ t² + 2t − 24 = (t + 6)(t − 4) = 0 ⇒ t = 4 s.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find its speed, in m/s, when it hits the ground.",
+        marks: 1,
+        answer: "50",
+        explanation: "v = 10 + 10t = 10 + 40 = 50 m/s.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the distance, in metres, it falls during the final second.",
+        marks: 2,
+        answer: "45",
+        explanation: "s(4) = 120, s(3) = 45 + 30 = 75, so the final-second distance is 120 − 75 = 45 m.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-8",
+    prompt:
+      "A particle moves in a straight line with displacement x = t³ − 3t² − 9t + 5 (metres).",
+    latex: "x = t^3 - 3t^2 - 9t + 5",
+    marks: 6,
+    difficulty: 6,
+    explanation:
+      "Combine an optimisation of velocity with a rest analysis and a total-distance calculation.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the minimum velocity, in m/s.",
+        marks: 2,
+        answer: "-12",
+        acceptedAnswers: ["−12"],
+        explanation: "v = 3t² − 6t − 9 is least where a = 6t − 6 = 0, i.e. t = 1: v(1) = −12 m/s.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the time (t > 0), in seconds, when the particle is momentarily at rest.",
+        marks: 2,
+        answer: "3",
+        explanation: "v = 3(t − 3)(t + 1) = 0 ⇒ t = 3 s (for t > 0).",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the total distance, in metres, travelled in the first 3 seconds.",
+        marks: 2,
+        answer: "27",
+        explanation:
+          "v < 0 throughout 0 < t < 3, so distance = |x(3) − x(0)| = |−22 − 5| = 27 m.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-9",
+    prompt:
+      "A particle starts from rest and accelerates uniformly in a straight line, reaching a speed of 24 m/s after travelling 144 m.",
+    marks: 6,
+    difficulty: 6,
+    explanation:
+      "Use v² = u² + 2as, v = u + at, and average velocity for uniform acceleration.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the acceleration, in m/s².",
+        marks: 2,
+        answer: "2",
+        explanation: "24² = 0 + 2a(144) ⇒ 576 = 288a ⇒ a = 2 m/s².",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the time taken, in seconds.",
+        marks: 2,
+        answer: "12",
+        explanation: "v = u + at ⇒ 24 = 2t ⇒ t = 12 s.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the average velocity, in m/s, over the 144 m.",
+        marks: 2,
+        answer: "12",
+        explanation: "For uniform acceleration, average velocity = (u + v)/2 = (0 + 24)/2 = 12 m/s.",
+      },
+    ],
+  },
+  {
+    id: "y12e1-kin-ex-d6-10",
+    prompt:
+      "A particle moves in a straight line with displacement x = t³ − 9t² + 24t (metres).",
+    latex: "x = t^3 - 9t^2 + 24t",
+    marks: 6,
+    difficulty: 6,
+    explanation:
+      "Combine rest analysis, total distance across two direction changes, and maximum speed.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Find the later of the two times, in seconds, the particle is at rest.",
+        marks: 1,
+        answer: "4",
+        explanation: "v = 3(t − 2)(t − 4) = 0 ⇒ t = 2 and t = 4; the later is t = 4 s.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Find the total distance, in metres, travelled during 0 ≤ t ≤ 5.",
+        marks: 3,
+        answer: "28",
+        explanation:
+          "x(0) = 0, x(2) = 20, x(4) = 16, x(5) = 20. Distance = 20 + |16 − 20| + |20 − 16| = 28 m.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the maximum speed, in m/s, during 0 ≤ t ≤ 5.",
+        marks: 2,
+        answer: "24",
+        explanation:
+          "v = 3t² − 18t + 24. Values |v| are 24, 3, 9 at t = 0, 3, 5, so the maximum speed is 24 m/s at t = 0.",
+      },
+    ],
   },
 ];
 
@@ -817,8 +1166,9 @@ export const kinematicsPool: TopicTestPool = {
       subtopicSlug: "kinematics-exam-practice",
       subtopicTitle: "Kinematics Exam Practice",
       remediationHref: href("kinematics-exam-practice"),
-      d4: examD4,
-      d5: examD5,
+      d4: [],
+      d5: [],
+      d6: examD6,
     },
   ],
 };

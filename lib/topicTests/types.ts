@@ -25,7 +25,8 @@ export type TopicTestQuestion = Omit<
   ExamQuestion,
   "topicSlug" | "topicTitle" | "remediationHref" | "difficulty"
 > & {
-  difficulty: 4 | 5;
+  /** High band only. D6 = exam-mastery synoptic (see QUESTION_AUTHORING_STANDARD). */
+  difficulty: 4 | 5 | 6;
   /** Override the time-budget estimate; defaults to marks × a per-mark rate. */
   estimatedMinutes?: number;
 };
@@ -38,6 +39,8 @@ export type SubtopicPool = {
   /** Target 10 each once authored. */
   d4: TopicTestQuestion[];
   d5: TopicTestQuestion[];
+  /** Optional D6 (exam-mastery synoptic) band — used by exam-practice subtopics. */
+  d6?: TopicTestQuestion[];
 };
 
 export type TopicTestPool = {

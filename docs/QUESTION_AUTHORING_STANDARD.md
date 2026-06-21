@@ -6,6 +6,319 @@ See also: [PRACTICE_QUESTION_STANDARD.md](./PRACTICE_QUESTION_STANDARD.md) | [FE
 
 ---
 
+# Question Quality Standard (Mandatory)
+
+This standard overrides all formatting, schema, and validation rules.
+
+A question that passes validation but fails this quality standard must be rejected.
+
+The goal of Nova Maths is not merely to generate valid questions.
+
+The goal is to generate questions that accurately measure mathematical understanding.
+
+---
+
+# Core Principle
+
+Every question must create evidence of student understanding.
+
+A student response should tell us something meaningful about what the student knows, misunderstands, can transfer, can model, or can reason about.
+
+Questions that merely produce an answer without revealing understanding are low-quality questions and should not be authored.
+
+---
+
+# Characteristics of an Excellent Question
+
+Every question should satisfy as many of the following characteristics as possible.
+
+1. Requires genuine mathematical thinking.
+2. Requires at least one decision, inference, or representation change.
+3. Cannot be solved purely through answer extraction.
+4. Produces diagnostic information when answered incorrectly.
+5. Rewards reasoning over pattern matching.
+6. Has a clear educational purpose.
+7. Measures understanding rather than memory alone.
+8. Uses context only when the context adds mathematical value.
+9. Is concise and free of unnecessary wording.
+10. Is the shortest version of itself that still measures the target skill.
+
+---
+
+# The Diagnostic Test
+
+Before approving a question, ask:
+
+"If the student gets this wrong, what misconception does that reveal?"
+
+If the author cannot answer this question clearly, the item is likely weak.
+
+Every question should target at least one identifiable misconception, such as:
+
+* sign errors
+* inverse-operation errors
+* proportional reasoning errors
+* place value confusion
+* probability misconceptions
+* graphical interpretation mistakes
+* algebraic structure misconceptions
+* unit conversion errors
+* rate reasoning errors
+
+Questions that do not discriminate between misconceptions and random guessing should be avoided.
+
+---
+
+# No Answer Extraction
+
+Questions must not merely ask students to locate, copy, or directly substitute information.
+
+Weak:
+
+A car travels 60 km in 2 hours. What is its speed?
+
+Better:
+
+Two cars travel the same distance. One takes 2 hours and one takes 3 hours. Compare their average speeds.
+
+Strong:
+
+A driver claims reducing travel time from 3 hours to 2 hours increases speed by 50%. Determine whether the claim is correct.
+
+Every question must require at least one mathematical transformation, inference, comparison, decision, or interpretation.
+
+---
+
+# Difficulty Definitions
+
+Difficulty is determined by cognitive demand, not notation, wording, or exam appearance.
+
+A question is difficult because of the thinking required, not because it looks difficult.
+
+The scale is **absolute**: a level reflects the intrinsic cognitive demand of the
+task, independent of year level, course, or who is answering — the same problem
+is the same difficulty in Year 9 or Year 12. Calibrate against the definitions
+below, never against the cohort.
+
+## D1
+
+Direct recall or single-step procedure.
+
+Student knows exactly what method to use.
+
+## D2
+
+Routine application.
+
+Student applies a familiar procedure with minor variation.
+
+## D3
+
+Multi-step reasoning.
+
+Student must connect multiple ideas or perform multiple linked operations.
+
+At least one intermediate decision is required.
+
+## D4
+
+Transfer and interpretation.
+
+Student must:
+
+* choose a method independently
+* connect multiple concepts
+* reject at least one plausible incorrect path
+* interpret results
+
+Formula substitution alone can never qualify as D4.
+
+## D5
+
+Novel reasoning and synthesis.
+
+Student must perform one or more of:
+
+* constraint reasoning
+* modelling
+* abstraction
+* generalisation
+* optimisation
+* proof-like reasoning
+* transfer between domains
+
+Exam wording alone never qualifies a question as D5.
+
+## D6
+
+Exam-mastery synthesis — the absolute ceiling. The hardest exam-level items: the
+final, highest-band-discriminating questions of an HSC paper.
+
+A D6 question must satisfy **all** of:
+
+* **Synoptic** — it combines at least two distinct concepts or subtopics in one
+  problem (not one idea applied repeatedly).
+* **Sustained** — it requires a multi-stage solution of three or more linked
+  stages, where each stage depends on the result of the previous one.
+* **Non-routine** — at least one stage needs a strategic decision or insight the
+  wording does not cue; the student must see the path, not just follow it.
+* **Ceiling-level** — it is genuinely harder in cognitive demand than any D5, at
+  the level that separates the top band.
+
+A D6 question must **not**:
+
+* Be a D5 dressed up with bigger numbers, more notation, or exam tone — none of
+  these raise difficulty.
+* Rest on a single clever idea, however hard (that is D5).
+* Depend on free-text proof or justification for marking (MVP constraint): carry
+  the multi-stage reasoning through auto-markable numeric/exact answers,
+  typically as multi-part (Section II–style) questions whose later parts build on
+  earlier results.
+
+**D5 vs D6 in one line:** D5 demands one novel idea; D6 demands several connected
+ideas sustained across a multi-stage solution.
+
+---
+
+# Productive Struggle Requirement
+
+D3-D6 questions must contain at least one meaningful decision point.
+
+Examples:
+
+* selecting a representation
+* choosing a strategy
+* identifying relevant information
+* comparing competing approaches
+* determining assumptions
+
+Students should not immediately recognise a single obvious algorithm.
+
+If the solution path is fully determined by the wording, the item is likely too procedural.
+
+---
+
+# Authentic Modelling Standard
+
+A word problem is not automatically a modelling task.
+
+To qualify as modelling, the student must do at least one of:
+
+* decide what information matters
+* create a mathematical representation
+* make assumptions
+* interpret a mathematical result in context
+* evaluate whether a result is reasonable
+
+Changing names or wrapping arithmetic in a story does not create modelling.
+
+---
+
+# Multiple-Skill Assessment
+
+Strong questions often assess more than one skill.
+
+Examples:
+
+* algebra + interpretation
+* geometry + proportional reasoning
+* statistics + critical thinking
+* graph reading + modelling
+
+Questions that assess only one isolated procedural skill should primarily appear in fluency sections.
+
+Mastery and high-difficulty questions should typically assess multiple connected ideas.
+
+---
+
+# Distractor Quality Standard
+
+For MCQs, every incorrect option must correspond to a specific student misconception.
+
+Bad distractors:
+
+* random numbers
+* obviously impossible answers
+* arbitrary arithmetic mistakes
+
+Good distractors:
+
+* sign error
+* denominator error
+* common algebra mistake
+* misread graph feature
+* incorrect proportional reasoning
+
+If a distractor cannot be linked to a known misconception, it should be replaced.
+
+---
+
+# Pool Diversity Requirements
+
+A question pool should not repeatedly assess the same skill.
+
+Across a mastery pool, assessment should include:
+
+* procedural fluency
+* conceptual understanding
+* interpretation
+* modelling/application
+* transfer
+* error analysis
+
+No more than 30% of a pool should assess the same cognitive skill in the same way.
+
+Changing only the numbers does not create diversity.
+
+---
+
+# Question Quality Rubric
+
+Every D4-D6 question should score at least 4/5 in Mathematical Richness and Diagnostic Value (a D6 should score 5/5 on Richness).
+
+## Mathematical Richness
+
+1 = trivial procedure
+3 = connected reasoning
+5 = genuine mathematical thinking
+
+## Diagnostic Value
+
+1 = wrong answers reveal little
+3 = reveals broad misunderstanding
+5 = reveals specific misconception
+
+## Transfer
+
+1 = direct repetition
+3 = minor adaptation
+5 = novel application
+
+## Authenticity
+
+1 = artificial exercise
+3 = somewhat realistic
+5 = genuinely meaningful mathematical context
+
+## Markability
+
+1 = ambiguous
+3 = mostly reliable
+5 = completely objective and robust
+
+Questions scoring below threshold should be rewritten or rejected.
+
+---
+
+# Gold Standard Test
+
+Before approving a question, ask:
+
+"Would an experienced mathematics teacher choose this question over five alternative questions assessing the same concept?"
+
+If the answer is no, the question should not be published.
+
+
 ## Pre-flight checklist
 
 - [ ] Every question has a real, specific prompt - no TODO, lorem ipsum, TBD, or "sample question"
