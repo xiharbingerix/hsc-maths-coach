@@ -81,6 +81,24 @@ const lessonStages = [
   "Mastery quiz",
 ];
 
+const testimonials = [
+  {
+    quote:
+      "I got 42/50 (84%) in my last test. Your tutoring made it so much easier to understand the topics — I'm really proud of that result.",
+    name: "Summer, Year 12 student",
+  },
+  {
+    quote:
+      "I would highly recommend Nova Maths to anyone looking for extra maths support for their child.",
+    name: "Anne, parent",
+  },
+  {
+    quote:
+      "We've really appreciated the flexibility and the great job done with our daughter.",
+    name: "Claire, parent",
+  },
+];
+
 function SecondaryLink({
   href,
   children,
@@ -328,6 +346,26 @@ export default function Home() {
               practice, test it with independent practice, then confirm it with
               a mastery check — the same structure a good tutor would use.
             </p>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
+          <SectionLabel>What students and parents say</SectionLabel>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <blockquote
+                key={t.name}
+                className="flex flex-col gap-4 rounded-2xl bg-slate-50 p-5"
+              >
+                <p className="flex-1 leading-7 text-slate-700">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <footer className="text-sm font-semibold text-slate-900">
+                  {t.name}
+                </footer>
+              </blockquote>
+            ))}
           </div>
         </section>
 
