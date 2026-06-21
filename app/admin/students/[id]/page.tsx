@@ -9,6 +9,10 @@ import {
   type StudyPlanDiagnosticResult,
 } from "../../../../lib/studyPlans/generateStudyPlan";
 import { newCoursePathways } from "../../../../lib/newCourseCatalog";
+import {
+  TopicBreakdownCard,
+  type BreakdownLesson,
+} from "../../../components/TopicBreakdownCard";
 
 export const metadata: Metadata = {
   title: "Student Detail | Nova Maths Admin",
@@ -147,9 +151,11 @@ function prettifySlug(slug: string) {
     .join(" ");
 }
 
+const topicLabelMap = new Map<string, string>();
 const subtopicLabelMap = new Map<string, string>();
 for (const pathway of newCoursePathways) {
   for (const unit of pathway.units) {
+    topicLabelMap.set(`${pathway.slug}::${unit.slug}`, unit.title);
     for (const lesson of unit.lessons) {
       subtopicLabelMap.set(
         `${pathway.slug}::${unit.slug}::${lesson.slug}`,
@@ -159,12 +165,45 @@ for (const pathway of newCoursePathways) {
   }
 }
 
+function topicLabelFor(courseSlug: string, topicSlug: string) {
+  return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? prettifySlug(topicSlug);
+}
+
 function subtopicLabel(row: SubtopicMasteryRow) {
   return (
     subtopicLabelMap.get(
       `${row.course_slug}::${row.topic_slug}::${row.subtopic_slug}`
     ) ?? prettifySlug(row.subtopic_slug)
   );
+}
+
+// Every lesson in a unit, joined with the student's per-lesson (subtopic)
+// mastery — drives the expandable per-lesson drilldown, including lessons the
+// student hasn't started.
+function lessonsForTopic(
+  row: MasteryRow,
+  subtopicRows: SubtopicMasteryRow[]
+): BreakdownLesson[] {
+  const unit = newCoursePathways
+    .find((pathway) => pathway.slug === row.course_slug)
+    ?.units.find((candidate) => candidate.slug === row.topic_slug);
+  if (!unit) return [];
+  const masteryByLesson = new Map(
+    subtopicRows
+      .filter(
+        (subtopic) =>
+          subtopic.course_slug === row.course_slug &&
+          subtopic.topic_slug === row.topic_slug
+      )
+      .map((subtopic) => [subtopic.subtopic_slug, subtopic.mastery_score])
+  );
+  return unit.lessons.map((lesson) => ({
+    name: lesson.title,
+    score: masteryByLesson.has(lesson.slug)
+      ? (masteryByLesson.get(lesson.slug) as number)
+      : null,
+    href: `/course/${row.course_slug}/${unit.slug}/${lesson.slug}`,
+  }));
 }
 
 function studentName(user: AdminAuthUser, profile?: ProfileRow | null) {
@@ -732,6 +771,44 @@ export default async function AdminStudentDetailPage({
           </div>
         </section>
 
+        {masteryRows.length > 0 ? (
+          <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-1">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Mastery overview
+              </p>
+              <h2 className="mt-1 text-xl font-bold">Where they&apos;re at</h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Click a topic to see lesson-level mastery, including lessons not
+                yet started.
+              </p>
+            </div>
+            <div className="mt-5">
+              <TopicBreakdownCard
+                title={studentName(user, profile)}
+                subtitle="Topic breakdown"
+                overallLabel="Average mastery"
+                overallScore={masteryAverage ?? 0}
+                topics={masteryRows.map((row) => ({
+                  name: topicLabelFor(row.course_slug, row.topic_slug),
+                  score: row.mastery_score,
+                  lessons: lessonsForTopic(row, subtopicMasteryRows),
+                }))}
+                recommended={
+                  studyPlan.nextTopic
+                    ? {
+                        label: "Recommended next lesson",
+                        title: studyPlan.nextTopic.title,
+                        description: "Targets the weakest topic first.",
+                        href: studyPlan.nextTopic.href,
+                      }
+                    : null
+                }
+              />
+            </div>
+          </section>
+        ) : null}
+
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -1036,7 +1113,7 @@ export default async function AdminStudentDetailPage({
           {worksheets.length === 0 && attempts.length === 0 ? (
             <p className="mt-4 rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
               No worksheet history yet. Generate a worksheet and assign it to
-              this student's email to start tracking practice.
+              this student&apos;s email to start tracking practice.
             </p>
           ) : (
             <div className="mt-4 space-y-3">
