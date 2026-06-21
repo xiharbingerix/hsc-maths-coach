@@ -62,12 +62,12 @@ export const diagnosticData: DiagnosticData = {
       choices: [
         { label: "A", text: "$7$" },
         { label: "B", text: "$19$" },
-        { label: "C", text: "$13$" },
+        { label: "C", text: "$17$" },
         { label: "D", text: "$49$" },
       ],
       correctAnswer: "B",
       explanation:
-        "$g(3) = 3^2 = 9$, then $f(9) = 2(9) + 1 = 19$.",
+        "Work from the inside out: $g(3) = 3^2 = 9$, then $f(9) = 2(9) + 1 = 19$. Option A applies $f$ to $3$ without $g$; C makes a sign slip ($2(9) - 1$); D reverses the order as $g(f(3)) = 7^2 = 49$.",
     },
     {
       id: "y12adv-f3",
@@ -183,18 +183,17 @@ export const diagnosticData: DiagnosticData = {
     {
       id: "y12adv-dc4",
       unitSlug: "differential-calculus",
-      prompt:
-        "A particle has displacement $s(t) = t^2 - 6t + 5$. When is its velocity zero?",
-      latex: "s(t)=t^2-6t+5",
+      prompt: "Differentiate $f(x) = (3x^2 + 1)^4$.",
+      latex: "f(x)=(3x^2+1)^4",
       choices: [
-        { label: "A", text: "$t = 2$" },
-        { label: "B", text: "$t = 3$" },
-        { label: "C", text: "$t = 5$" },
-        { label: "D", text: "$t = 6$" },
+        { label: "A", text: "$4(3x^2+1)^3$" },
+        { label: "B", text: "$24x(3x^2+1)^3$" },
+        { label: "C", text: "$24(3x^2+1)^3$" },
+        { label: "D", text: "$24x(3x^2+1)^4$" },
       ],
       correctAnswer: "B",
       explanation:
-        "$v(t) = s'(t) = 2t - 6$. Setting $v(t) = 0$: $2t - 6 = 0 \\Rightarrow t = 3$.",
+        "Use the chain rule: differentiate the outer power, then multiply by the derivative of the inside. $f'(x) = 4(3x^2+1)^3 \\times \\dfrac{d}{dx}(3x^2+1) = 4(3x^2+1)^3 \\times 6x = 24x(3x^2+1)^3$. Option A omits the inner derivative; C uses $6$ instead of $6x$; D fails to reduce the power.",
     },
 
     // ── Integral Calculus (4 questions) ───────────────────────────────────────
@@ -247,17 +246,17 @@ export const diagnosticData: DiagnosticData = {
     {
       id: "y12adv-ic4",
       unitSlug: "integral-calculus",
-      prompt: "If $F'(x) = 4x + 1$, then $F(x)$ is:",
-      latex: "F'(x)=4x+1",
+      prompt: "Given $F'(x) = 4x + 1$ and $F(0) = 3$, find $F(2)$.",
+      latex: "F'(x)=4x+1, \\quad F(0)=3",
       choices: [
-        { label: "A", text: "$4x^2 + x + C$" },
-        { label: "B", text: "$2x^2 + x + C$" },
-        { label: "C", text: "$4x + C$" },
-        { label: "D", text: "$2x^2 + C$" },
+        { label: "A", text: "$9$" },
+        { label: "B", text: "$10$" },
+        { label: "C", text: "$13$" },
+        { label: "D", text: "$21$" },
       ],
-      correctAnswer: "B",
+      correctAnswer: "C",
       explanation:
-        "$\\int (4x + 1)\\,dx = 2x^2 + x + C$.",
+        "Integrate first: $\\int (4x + 1)\\,dx = 2x^2 + x + C$. Use $F(0) = 3$ to find $C = 3$. Then $F(2) = 2(2)^2 + 2 + 3 = 8 + 2 + 3 = 13$. Option A evaluates $F'(2)$ instead of $F$; B forgets the constant $C$; D does not halve the $4x$ term.",
     },
 
     // ── Sequences, Series and Financial Mathematics (3 questions) ─────────────
@@ -265,7 +264,7 @@ export const diagnosticData: DiagnosticData = {
       id: "y12adv-fm1",
       unitSlug: "sequences-series-financial-maths",
       prompt:
-        "Using $A = P(1 + r)^n$, find the value of $2000 invested at 5\\% p.a. compounded annually for $3$ years.",
+        "Using \\(A = P(1 + r)^n\\), find the value of $2000 invested at 5% p.a. compounded annually for 3 years.",
       latex: "A = 2000(1.05)^3",
       choices: [
         { label: "A", text: "$2200.00" },
@@ -275,22 +274,23 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "C",
       explanation:
-        "$A = 2000 \\times (1.05)^3 = 2000 \\times 1.157625 = \\$2315.25$.",
+        "$A = 2000 \\times (1.05)^3 = 2000 \\times 1.157625 = 2315.25$. The investment is worth $2315.25.",
     },
     {
       id: "y12adv-fm2",
       unitSlug: "sequences-series-financial-maths",
       prompt:
-        "The present value of an annuity with regular payment $R$, interest rate $r$ per period, and $n$ periods is:",
+        "$1000 is invested at the end of each year for 3 years at 5% p.a. compounded annually. The total value just after the final deposit is:",
+      latex: "FV = R \\cdot \\dfrac{(1+r)^n - 1}{r}",
       choices: [
-        { label: "A", text: "$PV = R \\cdot \\dfrac{1-(1+r)^{-n}}{r}$" },
-        { label: "B", text: "$PV = R \\cdot \\dfrac{(1+r)^n - 1}{r}$" },
-        { label: "C", text: "$PV = R \\cdot r \\cdot (1+r)^n$" },
-        { label: "D", text: "$PV = \\dfrac{R}{(1+r)^n}$" },
+        { label: "A", text: "$3000.00" },
+        { label: "B", text: "$3152.50" },
+        { label: "C", text: "$3310.13" },
+        { label: "D", text: "$2152.50" },
       ],
-      correctAnswer: "A",
+      correctAnswer: "B",
       explanation:
-        "The present value of an annuity formula is $PV = R \\cdot \\dfrac{1-(1+r)^{-n}}{r}$, which discounts each future payment back to the present.",
+        "Each deposit earns interest only for the years after it is made: $1000(1.05)^2 + 1000(1.05) + 1000 = 1102.50 + 1050 + 1000 = 3152.50$. Option A ignores interest entirely; C treats the deposits as made at the start of each year (one extra year of growth each); D omits the final deposit.",
     },
     {
       id: "y12adv-fm3",
