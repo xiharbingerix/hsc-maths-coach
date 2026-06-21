@@ -1205,6 +1205,250 @@ const polyZeroesD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 6: Newton's Law of Cooling and Limited Growth ───────────────────
+// T = A + (T₀ − A)e^{−kt}, dT/dt = −k(T − A). D4: limiting value, initial/ambient,
+// solve for t, the DE's k, rate at t = 0, and warming (limited-growth) models.
+const coolingD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-cool-d4-1",
+    prompt:
+      "A body cools as T = 20 + 80e^{−0.1t} (°C, t in minutes). Find the time at which T = 60.",
+    latex: "T = 20 + 80e^{-0.1t}",
+    marks: 3,
+    difficulty: 4,
+    answer: "10ln(2)",
+    acceptedAnswers: ["10 ln 2", "6.931", "6.93"],
+    explanation:
+      "60 = 20 + 80e^{−0.1t} ⇒ e^{−0.1t} = 1/2 ⇒ −0.1t = −ln 2 ⇒ t = 10 ln 2.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-2",
+    prompt:
+      "A body cools as T = 20 + 80e^{−0.1t}. Find the temperature it approaches after a long time.",
+    latex: "T = 20 + 80e^{-0.1t}",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$20°C$" },
+      { label: "B", text: "$100°C$" },
+      { label: "C", text: "$0°C$" },
+      { label: "D", text: "$80°C$" },
+    ],
+    answer: "A",
+    explanation:
+      "As t → ∞, e^{−0.1t} → 0, so T → 20°C (the ambient temperature). B is the initial temperature.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-3",
+    prompt: "For T = 25 + 60e^{−0.05t}, find T when t = 10 (exact form).",
+    latex: "T = 25 + 60e^{-0.05t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "25+60e^(-0.5)",
+    acceptedAnswers: ["25 + 60e^(-1/2)", "61.39", "61.4", "61.391"],
+    explanation: "T = 25 + 60e^{−0.05×10} = 25 + 60e^{−0.5} ≈ 61.4°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-4",
+    prompt:
+      "The temperature T = 20 + 80e^{−0.1t} satisfies dT/dt = −k(T − 20). Find k.",
+    latex: "\\tfrac{dT}{dt} = -k(T - 20)",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$0.1$" },
+      { label: "B", text: "$0.8$" },
+      { label: "C", text: "$8$" },
+      { label: "D", text: "$80$" },
+    ],
+    answer: "A",
+    explanation:
+      "T − 20 = 80e^{−0.1t}, so dT/dt = −0.1(80e^{−0.1t}) = −0.1(T − 20). Hence k = 0.1. The other options confuse k with the coefficient 80.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-5",
+    prompt:
+      "An object cools according to T = 15 + 100e^{−0.2t}. Find the ambient (room) temperature.",
+    latex: "T = 15 + 100e^{-0.2t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "15",
+    explanation: "The constant term is the ambient temperature the object approaches: 15°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-6",
+    prompt:
+      "For T = 20 + 60e^{−0.1t}, find the rate of cooling dT/dt at t = 0 (°C/min).",
+    latex: "T = 20 + 60e^{-0.1t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "-6",
+    acceptedAnswers: ["−6"],
+    explanation: "dT/dt = −6e^{−0.1t}, so at t = 0 the rate is −6°C/min.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-7",
+    prompt:
+      "A body cools as T = 30 + 50e^{−0.04t}. Find the total temperature drop from t = 0 until it reaches its limiting temperature.",
+    latex: "T = 30 + 50e^{-0.04t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "50",
+    explanation: "T(0) = 80 and the limit is 30, so the total drop is 80 − 30 = 50°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-8",
+    prompt:
+      "An object warms toward room temperature as T = 25 − 20e^{−0.1t}. Find its initial temperature.",
+    latex: "T = 25 - 20e^{-0.1t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "T(0) = 25 − 20 = 5°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-9",
+    prompt:
+      "An object warms toward room temperature as T = 25 − 20e^{−0.1t}. Find its limiting temperature.",
+    latex: "T = 25 - 20e^{-0.1t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "25",
+    explanation: "As t → ∞, e^{−0.1t} → 0, so T → 25°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d4-10",
+    prompt: "For T = 20 + 80e^{−0.1t}, find T when t = 10 (exact form).",
+    latex: "T = 20 + 80e^{-0.1t}",
+    marks: 2,
+    difficulty: 4,
+    answer: "20+80/e",
+    acceptedAnswers: ["20 + 80e^(-1)", "49.43", "49.4", "49.430"],
+    explanation: "T = 20 + 80e^{−0.1×10} = 20 + 80e^{−1} = 20 + 80/e ≈ 49.4°C.",
+  },
+];
+
+// D5: find k from two readings (cooling / warming / filling), extrapolate,
+// time-to-temperature, a rate or initial-rate condition, limited-growth models.
+const coolingD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-cool-d5-1",
+    prompt:
+      "A body in a 20°C room is 80°C at t = 0 and 50°C after 10 minutes, with T = 20 + 60e^{−kt}. Find k.",
+    latex: "T = 20 + 60e^{-kt}",
+    marks: 4,
+    difficulty: 5,
+    answer: "ln(2)/10",
+    acceptedAnswers: ["(ln 2)/10", "0.0693", "0.069"],
+    explanation:
+      "50 = 20 + 60e^{−10k} ⇒ e^{−10k} = 1/2 ⇒ k = (ln 2)/10.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-2",
+    prompt:
+      "Using the same body (T = 20 + 60e^{−kt}, 80°C at t = 0, 50°C at t = 10), find its temperature at t = 20 minutes.",
+    latex: "T = 20 + 60e^{-kt}",
+    marks: 4,
+    difficulty: 5,
+    answer: "35",
+    explanation:
+      "e^{−10k} = 1/2, so e^{−20k} = 1/4. T(20) = 20 + 60(1/4) = 20 + 15 = 35°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-3",
+    prompt:
+      "A cup at 100°C in a 20°C room follows T = 20 + 80e^{−kt} and cools to 60°C in 10 minutes. Find the time to cool to 40°C.",
+    latex: "T = 20 + 80e^{-kt}",
+    marks: 4,
+    difficulty: 5,
+    answer: "20",
+    explanation:
+      "60°C: e^{−10k} = 1/2. 40°C: e^{−kt} = 20/80 = 1/4 = (1/2)² = e^{−20k}, so t = 20 minutes.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-4",
+    prompt:
+      "An object warms toward 30°C as T = 30 − 20e^{−kt}. It is 10°C at t = 0 and 20°C after 5 minutes. Find k.",
+    latex: "T = 30 - 20e^{-kt}",
+    marks: 4,
+    difficulty: 5,
+    answer: "ln(2)/5",
+    acceptedAnswers: ["(ln 2)/5", "0.1386", "0.139"],
+    explanation:
+      "20 = 30 − 20e^{−5k} ⇒ e^{−5k} = 1/2 ⇒ k = (ln 2)/5.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-5",
+    prompt:
+      "A liquid cools according to dT/dt = −k(T − 20). When T = 70°C it is cooling at 5°C/min. Find k.",
+    latex: "\\tfrac{dT}{dt} = -k(T - 20)",
+    marks: 3,
+    difficulty: 5,
+    answer: "0.1",
+    acceptedAnswers: ["1/10"],
+    explanation: "5 = k(70 − 20) = 50k ⇒ k = 0.1.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-6",
+    prompt:
+      "A population grows toward a limit of 1000 as N = 1000 − 800e^{−0.05t}. Find N when t = 20 (exact form).",
+    latex: "N = 1000 - 800e^{-0.05t}",
+    marks: 4,
+    difficulty: 5,
+    answer: "1000-800/e",
+    acceptedAnswers: ["1000 − 800e^(-1)", "705.7", "705.70", "705.66"],
+    explanation: "N = 1000 − 800e^{−0.05×20} = 1000 − 800e^{−1} = 1000 − 800/e ≈ 705.7.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-7",
+    prompt:
+      "For the limited-growth model N = 1000 − 800e^{−0.05t}, find the time for N to reach 600.",
+    latex: "N = 1000 - 800e^{-0.05t}",
+    marks: 4,
+    difficulty: 5,
+    answer: "20ln(2)",
+    acceptedAnswers: ["20 ln 2", "13.86", "13.863"],
+    explanation:
+      "600 = 1000 − 800e^{−0.05t} ⇒ e^{−0.05t} = 1/2 ⇒ t = 20 ln 2.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-8",
+    prompt:
+      "A body at 100°C in a 20°C room (T = 20 + 80e^{−kt}) cools to 60°C in 8 minutes. Find its temperature at t = 4 minutes (exact form).",
+    latex: "T = 20 + 80e^{-kt}",
+    marks: 4,
+    difficulty: 5,
+    answer: "20+40sqrt(2)",
+    acceptedAnswers: ["20 + 40√2", "76.57", "76.569"],
+    explanation:
+      "e^{−8k} = 40/80 = 1/2, so e^{−4k} = 1/√2. T(4) = 20 + 80/√2 = 20 + 40√2 ≈ 76.6°C.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-9",
+    prompt:
+      "A body in a 20°C room is 80°C at t = 0 and cooling at 3°C/min at that instant, with T = 20 + Be^{−kt}. Find k.",
+    latex: "T = 20 + Be^{-kt}",
+    marks: 4,
+    difficulty: 5,
+    answer: "0.05",
+    acceptedAnswers: ["1/20"],
+    explanation:
+      "T(0) = 20 + B = 80 ⇒ B = 60. dT/dt = −kBe^{−kt}, so at t = 0: −kB = −3 ⇒ 60k = 3 ⇒ k = 0.05.",
+  },
+  {
+    id: "y12e1-capp-cool-d5-10",
+    prompt:
+      "A tank fills toward a capacity of 200 L as V = 200(1 − e^{−kt}). After 5 minutes it holds 100 L. Find k.",
+    latex: "V = 200(1 - e^{-kt})",
+    marks: 4,
+    difficulty: 5,
+    answer: "ln(2)/5",
+    acceptedAnswers: ["(ln 2)/5", "0.1386", "0.139"],
+    explanation:
+      "100 = 200(1 − e^{−5k}) ⇒ 1 − e^{−5k} = 1/2 ⇒ e^{−5k} = 1/2 ⇒ k = (ln 2)/5.",
+  },
+];
+
 export const calculusApplicationsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -1250,8 +1494,8 @@ export const calculusApplicationsPool: TopicTestPool = {
       subtopicSlug: "calculus-applications-newton-cooling",
       subtopicTitle: "Newton's Law of Cooling and Limited Growth",
       remediationHref: href("calculus-applications-newton-cooling"),
-      d4: [],
-      d5: [],
+      d4: coolingD4,
+      d5: coolingD5,
     },
     {
       subtopicSlug: "calculus-applications-slope-fields",
