@@ -318,6 +318,164 @@ Before approving a question, ask:
 
 If the answer is no, the question should not be published.
 
+---
+
+# Operational Quality Requirements (v2)
+
+The sections above define *what* a good question is. The sections below make those
+goals **operational and enforceable** — testable rules an author (human or agent)
+applies to every item before emitting it. Where a rule sharpens an earlier section,
+it is cross-referenced.
+
+## Diagnostic intent is mandatory (not advice)
+
+Every authored question MUST have a one-line **target misconception** — the specific
+error a wrong answer reveals (see [The Diagnostic Test](#the-diagnostic-test)). If the
+author cannot state it in one sentence, the item fails: rewrite it, or relabel it as a
+*fluency* item and place it accordingly. Diagnostic intent is a gate, not a nicety.
+
+* For MCQ, the misconception mapping is per-distractor (below).
+* For typed items, the wrong-answer story is the method a student would mis-execute.
+
+## Authentic distractors (MCQ)
+
+Every distractor MUST be the **actual output of one specific, common wrong method** —
+never a random or "obviously wrong" number. Each distractor must also be:
+
+* **Same form, type, and order of magnitude** as the key, so it cannot be eliminated
+  on shape or size alone (e.g. if the key is `\frac{3}{8}`, distractors are fractions
+  near that size, not `12` or `-1`).
+* **Distinct in its error** from the other distractors (no two encode the same mistake).
+
+**Author test:** for each distractor, write the one-line student error that produces it.
+If you cannot, replace the distractor. This strengthens [Distractor Quality](#distractor-quality-standard).
+
+## Number & elegance guidance
+
+Numbers should make the *mathematics* the challenge, not the arithmetic, and must never
+leak the answer:
+
+* **Don't let numbers leak the key.** The answer must not equal a value stated in the
+  prompt, and "convenient" inputs (0, 1, two equal values, an answer identical to an
+  input) are used only when that is the deliberate point.
+* **Test your distractor methods against the chosen numbers.** If a *wrong* method
+  happens to produce the *right* answer for these numbers, change the numbers — the
+  item no longer discriminates.
+* **Clean but not trivial.** Pick numbers so a correct method yields a clean (ideally
+  exact) result, but not so clean that the answer is guessable without the method.
+* **Specify rounding in the prompt** whenever the exact answer is not clean ("to 1
+  decimal place"), so the marker has one canonical target.
+* **Vary structure across a pool, not just values** — magnitudes, signs, and
+  fraction/decimal/surd forms. Number-swaps are not diversity (see
+  [Pool Diversity](#pool-diversity-requirements)).
+
+## Multiple solution paths (D3+)
+
+For **D3 and above, prefer questions solvable by at least two valid methods** (e.g.
+algebraic vs graphical, ratio vs unitary, substitution vs elimination). Multiple paths:
+
+* reward understanding over a single memorised algorithm,
+* make the item robust (a student is not gated on recalling one trick),
+* improve diagnostics (different wrong paths expose different misconceptions).
+
+This is a strong preference, not a hard gate. But a D4/D5 that admits **only one rigid
+procedure** must be scrutinised: is it genuine transfer, or a D2 dressed up? (See
+[No Fake Depth](#no-fake-depth).)
+
+## Operational difficulty test
+
+Beyond the prose [Difficulty Definitions](#difficulty-definitions), assign and verify a
+level with a repeatable test:
+
+* **Count the genuine decisions** — points where the student must *choose*, not merely
+  *execute*. D1: none. D2: none, or one trivial variation. D3: ≥1 real intermediate
+  decision. D4: choose the method independently + reject ≥1 plausible wrong path +
+  interpret the result. D5: ≥1 novel/constraint/modelling/abstraction move. D6:
+  synoptic + ≥3 dependent stages + ≥1 uncued strategic insight.
+* **What does NOT raise difficulty:** bigger numbers, more notation, exam tone, longer
+  wording, or naming a formula. None of these change the level.
+* **Solve it the lazy way.** If answer-extraction, elimination/guessing, or one rote
+  algorithm reaches the answer, the *true* level is ≤D2 regardless of appearance.
+
+## The Formal Quality Gate
+
+A question is publishable only if **every** condition holds:
+
+1. **Markability = 5** — exactly one unambiguous correct answer (or a labelled MCQ key),
+   auto-markable, with accepted-variant forms listed for typed answers. **Non-negotiable.**
+2. **Not extraction** — requires ≥1 transformation, inference, comparison, decision, or
+   interpretation.
+3. **Stated diagnostic intent** — author can name the target misconception in one line.
+4. **For D3+** — Mathematical Richness ≥4 *and* Diagnostic Value ≥4 *and* ≥1 genuine
+   decision point.
+5. **For MCQ** — every distractor is misconception-linked, authentic, and same-form.
+6. **Lean and non-leaking** — the shortest version of itself; numbers don't leak the key.
+7. **For D6** — additionally Richness = 5, synoptic, ≥3 dependent stages, all reasoning
+   carried by auto-markable parts (no free-text justification).
+
+Fail any condition → **rewrite, or relabel to the level it actually is** (e.g. demote to
+a fluency item). Never publish a failing item.
+
+## Agent self-check protocol
+
+Before emitting **any** question, run these in order; stop and fix on the first failure:
+
+1. **Markability** — one unambiguous answer (or MCQ key)? Will the auto-marker accept the
+   forms a correct student will type? List the accepted variants. *(Fail → fix or reject.)*
+2. **Extraction** — answerable by copying a stated value, guessing, or one rote step?
+   *(Yes → it is ≤D2: accept as labelled fluency or rewrite for depth.)*
+3. **Diagnostic** — state in one line what a wrong answer reveals. *(Can't → rewrite.)*
+4. **Distractors (MCQ)** — name the student error behind each; confirm same form/magnitude.
+   *(Any throwaway or duplicate-error → replace.)*
+5. **Numbers** — do they leak the key, or let a wrong method hit the right answer?
+   *(Yes → change them.)*
+6. **Difficulty** — run the operational test; does the claimed level match the genuine
+   decisions? *(No → relabel.)*
+7. **Concision** — is this the shortest version that still measures the skill? *(No → trim.)*
+8. **Schema** — prompt, answer, and step-by-step explanation present; explanation matches
+   the answer numerically; currency/LaTeX/format rules met. *(No → fix.)*
+
+Emit only when all eight pass.
+
+## Worked examples — weak vs strong
+
+**Misconception-linked distractors** — `Simplify 3/9.`
+* Weak choices: `1/3`, `27`, `6`, `0.5` (only `1/3` is a fraction; the rest are
+  eliminable on form and encode no specific error).
+* Strong choices: `1/3` (key), `1/6` (divided 9 by 3 then 3 by... mis-cancel),
+  `3/3` (cancelled only the numerator's factor), `1/9` (cancelled the 3 into the 3,
+  left the 9) — all fractions, each a named cancelling error.
+
+**Numbers leaking the key** — *"A region of area 36 has width 4; find its length."*
+* Weak: width 6, area 36 → length 6 (answer equals an input; a student can guess "6"
+  by symmetry without dividing).
+* Strong: width 4, area 36 → length 9 (no input equals the answer; the division is real).
+
+**Single vs multiple path (D3)** — *"Find where 2x + 3 = x + 9."*
+* Weak (one rigid path, near-D2): "Solve 2x + 3 = x + 9."
+* Strong (≥2 paths, genuine D3): "Two phone plans cost C = 2x + 3 and C = x + 9 dollars
+  for x units. Find the usage where they cost the same, and state which is cheaper below
+  it." — solvable algebraically *or* by reasoning about the rates/intercepts, and the
+  second part forces interpretation.
+
+## Risks to markability (and how this upgrade contains them)
+
+The chief risk of "richer" questions is drift toward open-endedness and ambiguity. This
+upgrade contains that risk by construction:
+
+* **Markability = 5 is condition 1 of the gate** and explicitly non-negotiable; depth
+  never overrides it.
+* **D3+ depth is carried by auto-markable numeric/exact/MCQ answers** — and, for
+  sustained reasoning, by multi-part items whose parts are each individually markable —
+  **never by free-text justification.**
+* **"Compare / determine whether / decide" items must resolve to a specific markable
+  output** — a value, a yes/no *plus* the deciding value, or a labelled choice — not a
+  written argument.
+* **Every typed item ships its `acceptedAnswers` variants**, so legitimate alternate
+  forms mark correct and automatic-marking compatibility does not regress.
+* **No open-ended items** unless the marking model explicitly supports them.
+
+---
 
 ## Pre-flight checklist
 
@@ -335,6 +493,10 @@ If the answer is no, the question should not be published.
 - [ ] `question_type` matches `choices` presence
 - [ ] Source IDs are human-readable slugs, not UUIDs
 - [ ] High-difficulty questions earn their difficulty through transfer, interpretation, modelling, or synthesis - not just notation or exam-style wording
+- [ ] Every question has a stated target misconception (what a wrong answer reveals); items that cannot state one are relabelled as fluency
+- [ ] MCQ: every distractor is the output of a named student error and matches the key's form/magnitude - no throwaways, no duplicate errors
+- [ ] Numbers do not leak the key (answer is not equal to a stated input) and no wrong method reaches the right answer for the chosen numbers
+- [ ] D3+ items contain at least one genuine decision point and pass the Formal Quality Gate (Markability=5, Richness>=4, Diagnostic>=4)
 - [ ] `masteryQuizPool` entries are explicitly authored questions, not template-expanded generator output
 - [ ] `multiPartPractice` entries are explicitly authored shared-stem questions, not backfilled wrappers around existing single questions
 
