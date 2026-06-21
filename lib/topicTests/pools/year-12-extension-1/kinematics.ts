@@ -265,7 +265,9 @@ const velAccD5: TopicTestQuestion[] = [
   },
 ];
 
-// ── Subtopic 2: Displacement from Velocity by Integration (starter) ──────────
+// ── Subtopic 2: Displacement from Velocity by Integration ────────────────────
+// D4: integrate v, fix the constant from a condition, then reason about
+// position (a value, a turning point, a return, a net change).
 const dispVelD4: TopicTestQuestion[] = [
   {
     id: "y12e1-kin-dv-d4-1",
@@ -278,19 +280,236 @@ const dispVelD4: TopicTestQuestion[] = [
     explanation:
       "x = ∫v dt = t³ − 6t² + 9t + C. x(0) = 4 gives C = 4. x(2) = 8 − 24 + 18 + 4 = 6 m.",
   },
+  {
+    id: "y12e1-kin-dv-d4-2",
+    prompt:
+      "A particle has velocity v = 3t² − 12t + 9 (m/s). Find its change in position (displacement), in metres, from t = 0 to t = 3.",
+    latex: "v = 3t^2 - 12t + 9",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$0 \\text{ m}$" },
+      { label: "B", text: "$8 \\text{ m}$" },
+      { label: "C", text: "$27 \\text{ m}$" },
+      { label: "D", text: "$9 \\text{ m}$" },
+    ],
+    answer: "A",
+    explanation:
+      "Displacement = ∫₀³ v dt = [t³ − 6t² + 9t]₀³ = 27 − 54 + 27 = 0 m. B is the total distance (it changes direction at t = 1), not the displacement; C keeps only the t³ term; D is v(3).",
+  },
+  {
+    id: "y12e1-kin-dv-d4-3",
+    prompt:
+      "A particle has velocity v = 6t² − 6 (m/s) and is at x = 5 m when t = 0. Find its position, in m, at t = 2.",
+    latex: "v = 6t^2 - 6, \\quad x(0) = 5",
+    marks: 2,
+    difficulty: 4,
+    answer: "9",
+    explanation:
+      "x = ∫v dt = 2t³ − 6t + C. x(0) = 5 gives C = 5. x(2) = 16 − 12 + 5 = 9 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-4",
+    prompt:
+      "A particle starts at the origin with velocity v = 2t − 8 (m/s). Find its position, in m, at the instant it is momentarily at rest.",
+    latex: "v = 2t - 8, \\quad x(0) = 0",
+    marks: 3,
+    difficulty: 4,
+    answer: "-16",
+    acceptedAnswers: ["−16"],
+    explanation:
+      "x = ∫v dt = t² − 8t (C = 0). At rest v = 0 gives t = 4. x(4) = 16 − 32 = −16 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-5",
+    prompt:
+      "A particle starts at x = 3 m with velocity v = 8 − 2t (m/s). At what time t > 0 does it return to its starting position?",
+    latex: "v = 8 - 2t, \\quad x(0) = 3",
+    marks: 3,
+    difficulty: 4,
+    answer: "8",
+    explanation:
+      "x = ∫v dt = 8t − t² + 3. Returning to the start means x = 3, so 8t − t² = 0, i.e. t(8 − t) = 0. The non-zero solution is t = 8 s.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-6",
+    prompt:
+      "A particle starts at x = 1 m with velocity v = 4 − 2t (m/s). Find its maximum displacement, in metres.",
+    latex: "v = 4 - 2t, \\quad x(0) = 1",
+    marks: 3,
+    difficulty: 4,
+    answer: "5",
+    explanation:
+      "x = ∫v dt = 4t − t² + 1. Displacement is greatest where v = 0, i.e. t = 2. x(2) = 8 − 4 + 1 = 5 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-7",
+    prompt:
+      "A particle starts at x = 4 m with velocity v = 3t² − 6t (m/s). Find its minimum displacement, in metres, for t ≥ 0.",
+    latex: "v = 3t^2 - 6t, \\quad x(0) = 4",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$4 \\text{ m}$" },
+      { label: "B", text: "$0 \\text{ m}$" },
+      { label: "C", text: "$-4 \\text{ m}$" },
+      { label: "D", text: "$2 \\text{ m}$" },
+    ],
+    answer: "B",
+    explanation:
+      "x = ∫v dt = t³ − 3t² + 4. v = 3t(t − 2) = 0 at t = 0 and t = 2; the minimum on t ≥ 0 is at t = 2: x(2) = 8 − 12 + 4 = 0 m. A is the starting position; D is the time, not the position.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-8",
+    prompt:
+      "A particle starts at the origin with velocity v = 6t² − 18t + 12 (m/s). Find its position, in m, at the later of the two times it is at rest.",
+    latex: "v = 6t^2 - 18t + 12, \\quad x(0) = 0",
+    marks: 3,
+    difficulty: 4,
+    answer: "4",
+    explanation:
+      "x = ∫v dt = 2t³ − 9t² + 12t (C = 0). v = 6(t − 1)(t − 2) = 0 at t = 1 and t = 2; the later is t = 2. x(2) = 16 − 36 + 24 = 4 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-9",
+    prompt:
+      "A particle has velocity v = 2t + 1 (m/s) and is at x = 10 m when t = 3. Find its position, in m, at t = 0.",
+    latex: "v = 2t + 1, \\quad x(3) = 10",
+    marks: 3,
+    difficulty: 4,
+    answer: "-2",
+    acceptedAnswers: ["−2"],
+    explanation:
+      "x = ∫v dt = t² + t + C. x(3) = 9 + 3 + C = 10 gives C = −2, so x(0) = C = −2 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d4-10",
+    prompt:
+      "A particle starts at x = 1 m with velocity v = 6t − 3t² (m/s). Find its displacement, in metres, at the instant its acceleration is zero.",
+    latex: "v = 6t - 3t^2, \\quad x(0) = 1",
+    marks: 3,
+    difficulty: 4,
+    answer: "3",
+    explanation:
+      "x = ∫v dt = 3t² − t³ + 1. Acceleration a = dv/dt = 6 − 6t = 0 at t = 1. x(1) = 3 − 1 + 1 = 3 m.",
+  },
 ];
 
+// D5: constraint reasoning, optimisation, transfer between two motions,
+// generalisation, or synthesis — the integration is only the first move.
 const dispVelD5: TopicTestQuestion[] = [
   {
     id: "y12e1-kin-dv-d5-1",
     prompt:
-      "A particle starts at the origin with velocity v = 3t² − 12t (m/s). At what time t > 0 does it next return to the origin?",
-    latex: "v = 3t^2 - 12t, \\quad x(0) = 0",
+      "A particle has velocity v = 6t + c (m/s), where c is constant. It is at x = 2 m when t = 0 and at x = 12 m when t = 2. Find c.",
+    latex: "v = 6t + c, \\quad x(0) = 2, \\; x(2) = 12",
+    marks: 4,
+    difficulty: 5,
+    answer: "-1",
+    acceptedAnswers: ["−1"],
+    explanation:
+      "x = ∫v dt = 3t² + ct + C. x(0) = 2 gives C = 2. x(2) = 12 + 2c + 2 = 12, so 2c = −2 and c = −1.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-2",
+    prompt:
+      "A particle starts at the origin with velocity v = 4t − k (m/s), where k is constant. It returns to the origin at t = 4. Find k.",
+    latex: "v = 4t - k, \\quad x(0) = 0",
     marks: 3,
+    difficulty: 5,
+    answer: "8",
+    explanation:
+      "x = ∫v dt = 2t² − kt (C = 0). Returning to the origin means x = 0 for t > 0: t(2t − k) = 0 gives t = k/2. Setting k/2 = 4 gives k = 8.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-3",
+    prompt:
+      "A particle has velocity v = at + b (m/s). Its initial velocity is −4 m/s, it is momentarily at rest at t = 2, and it starts at x = 1 m. Find its position, in m, at t = 2.",
+    latex: "v = at + b, \\quad v(0) = -4, \\; x(0) = 1",
+    marks: 4,
+    difficulty: 5,
+    answer: "-3",
+    acceptedAnswers: ["−3"],
+    explanation:
+      "v(0) = b = −4. At rest v(2) = 2a + b = 0 gives a = 2, so v = 2t − 4. Then x = t² − 4t + C with x(0) = 1, so C = 1 and x(2) = 4 − 8 + 1 = −3 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-4",
+    prompt:
+      "Two particles leave the origin at t = 0: A has velocity v = 4t (m/s) and B has constant velocity v = 12 (m/s). At what time t > 0 are they at the same position again?",
+    latex: "v_A = 4t, \\quad v_B = 12",
+    marks: 4,
     difficulty: 5,
     answer: "6",
     explanation:
-      "x = ∫v dt = t³ − 6t² (C = 0). x = t²(t − 6) = 0 at t = 0 and t = 6, so it returns to the origin at t = 6 s.",
+      "x_A = 2t² and x_B = 12t (both from the origin). Equal positions: 2t² = 12t, so 2t(t − 6) = 0, giving t = 6 s.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-5",
+    prompt:
+      "A particle starts at the origin with velocity v = 3t² − 18t + 24 (m/s). Find its greatest distance from the origin, in metres, during 0 ≤ t ≤ 4.",
+    latex: "v = 3t^2 - 18t + 24, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "20",
+    explanation:
+      "x = t³ − 9t² + 24t. v = 3(t − 2)(t − 4) = 0 at t = 2 and t = 4. Comparing x(0) = 0, x(2) = 20, x(4) = 16, the greatest distance from the origin is 20 m at t = 2.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-6",
+    prompt:
+      "A particle has velocity v = 3t² − 12t + 9 (m/s). Its average velocity over 0 ≤ t ≤ T is zero. Find the value of T (T > 0).",
+    latex: "v = 3t^2 - 12t + 9",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation:
+      "Average velocity zero means net displacement ∫₀ᵀ v dt = 0. T³ − 6T² + 9T = T(T − 3)² = 0, so T = 3 s.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-7",
+    prompt:
+      "A particle has velocity v = 2t − 6 (m/s) and starts at an unknown position x = c. Find the time, in seconds, at which its displacement is least.",
+    latex: "v = 2t - 6, \\quad x(0) = c",
+    marks: 3,
+    difficulty: 5,
+    answer: "3",
+    explanation:
+      "x = t² − 6t + c. Displacement is least where v = 0, i.e. t = 3 — and this is independent of the starting position c.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-8",
+    prompt:
+      "A particle starts at x = 2 m with velocity v = 3t² − 6t − 9 (m/s). Find its minimum displacement, in metres, for t ≥ 0.",
+    latex: "v = 3t^2 - 6t - 9, \\quad x(0) = 2",
+    marks: 4,
+    difficulty: 5,
+    answer: "-25",
+    acceptedAnswers: ["−25"],
+    explanation:
+      "x = t³ − 3t² − 9t + 2. v = 3(t − 3)(t + 1) = 0 at t = 3 (for t ≥ 0). Since x → ∞ afterwards, the minimum is x(3) = 27 − 27 − 27 + 2 = −25 m.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-9",
+    prompt:
+      "At t = 0, particle A leaves the origin with velocity v = 2t (m/s) while particle B is at x = 12 m moving with constant velocity v = −4 (m/s). At what time t > 0 do they meet?",
+    latex: "v_A = 2t, \\quad v_B = -4, \\; x_B(0) = 12",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "x_A = t² and x_B = 12 − 4t. They meet when t² = 12 − 4t, i.e. t² + 4t − 12 = (t + 6)(t − 2) = 0, giving t = 2 s.",
+  },
+  {
+    id: "y12e1-kin-dv-d5-10",
+    prompt:
+      "A particle has velocity v = 6t² − 6 (m/s) and starts at x = k. It passes through the origin at t = 1. Find k.",
+    latex: "v = 6t^2 - 6, \\quad x(0) = k",
+    marks: 3,
+    difficulty: 5,
+    answer: "4",
+    explanation:
+      "x = 2t³ − 6t + k. Passing through the origin at t = 1 means x(1) = 2 − 6 + k = 0, so k = 4.",
   },
 ];
 
