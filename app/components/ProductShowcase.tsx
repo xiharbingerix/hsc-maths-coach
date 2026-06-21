@@ -12,7 +12,7 @@ type Panel = {
   eyebrow: string;
   headline: string;
   description: string;
-  image?: { src: string; alt: string };
+  image?: { src: string; alt: string; width: number; height: number };
   placeholderLabel: string;
   icon: ReactNode;
 };
@@ -42,8 +42,10 @@ const panels: Panel[] = [
     description:
       "Every lesson breaks down concepts step-by-step before you practise them yourself.",
     image: {
-      src: "/nova-maths-lesson-demo.gif",
-      alt: "Nova Maths lesson: key ideas, worked example, guided practice and mastery quiz",
+      src: "/screenshots/lesson-worked-examples.png",
+      alt: "A Nova Maths lesson showing a worked example broken down step by step",
+      width: 1792,
+      height: 1520,
     },
     placeholderLabel: "Lesson screenshot",
     icon: lessonIcon,
@@ -52,6 +54,12 @@ const panels: Panel[] = [
     eyebrow: "Guided practice",
     headline: "Practise with confidence",
     description: "Move from guided examples to independent problem solving.",
+    image: {
+      src: "/screenshots/lesson-guided-practice.png",
+      alt: "A Nova Maths guided practice question with multiple-choice answers and a hint",
+      width: 1792,
+      height: 1440,
+    },
     placeholderLabel: "Guided practice screenshot",
     icon: practiceIcon,
   },
@@ -60,6 +68,12 @@ const panels: Panel[] = [
     headline: "Know what to revise next",
     description:
       "Your diagnostic identifies weak topics and recommends your next lessons.",
+    image: {
+      src: "/screenshots/diagnostic-results.png",
+      alt: "A Nova Maths diagnostic study plan ranking the weakest topics to revise first",
+      width: 1348,
+      height: 1624,
+    },
     placeholderLabel: "Diagnostic insights screenshot",
     icon: diagnosticIcon,
   },
@@ -80,8 +94,9 @@ function ScreenshotFrame({ panel }: Readonly<{ panel: Panel }>) {
           src={panel.image.src}
           alt={panel.image.alt}
           className="block w-full"
-          width={784}
-          height={490}
+          width={panel.image.width}
+          height={panel.image.height}
+          loading="lazy"
         />
       ) : (
         <div className="flex aspect-[16/10] w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-100 to-slate-200 text-slate-400">
