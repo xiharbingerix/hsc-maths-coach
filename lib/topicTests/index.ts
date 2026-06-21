@@ -3,6 +3,7 @@ import type { TopicTestPool } from "./types";
 import { buildTopicTest, parseTopicTestId } from "./buildTopicTest";
 import { kinematicsPool } from "./pools/year-12-extension-1/kinematics";
 import { inverseTrigPool } from "./pools/year-12-extension-1/inverse-trig";
+import { furtherCalculusPool } from "./pools/year-12-extension-1/further-calculus";
 
 export * from "./types";
 export {
@@ -15,7 +16,11 @@ export {
  * Registered topic-test pools. Kinematics ships a starter set (1 D4 + 1 D5 per
  * subtopic); the content slice grows each band to 10.
  */
-const POOLS: TopicTestPool[] = [kinematicsPool, inverseTrigPool];
+const POOLS: TopicTestPool[] = [
+  kinematicsPool,
+  inverseTrigPool,
+  furtherCalculusPool,
+];
 
 export function listTopicTestPools(): TopicTestPool[] {
   return POOLS;
