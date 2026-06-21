@@ -5,6 +5,7 @@ import { kinematicsPool } from "./pools/year-12-extension-1/kinematics";
 import { inverseTrigPool } from "./pools/year-12-extension-1/inverse-trig";
 import { furtherCalculusPool } from "./pools/year-12-extension-1/further-calculus";
 import { calculusApplicationsPool } from "./pools/year-12-extension-1/calculus-applications";
+import { binomialDistributionPool } from "./pools/year-12-extension-1/binomial-distribution";
 
 export * from "./types";
 export {
@@ -22,6 +23,7 @@ const POOLS: TopicTestPool[] = [
   inverseTrigPool,
   furtherCalculusPool,
   calculusApplicationsPool,
+  binomialDistributionPool,
 ];
 
 export function listTopicTestPools(): TopicTestPool[] {
