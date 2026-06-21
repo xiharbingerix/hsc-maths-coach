@@ -68,13 +68,21 @@ export function DiagnosticQuizClient({
   units: DiagnosticUnit[];
 }) {
   const totalQuestions = questions.length;
+  const diagnosticUnits = useMemo(() => {
+    const unitSlugsWithQuestions = new Set(
+      questions.map((question) => question.unitSlug)
+    );
+    return units.filter((unit) => unitSlugsWithQuestions.has(unit.slug));
+  }, [questions, units]);
 
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [studiedUnitSlugs, setStudiedUnitSlugs] = useState<string[]>([]);
   const [phase, setPhase] = useState<"intro" | "quiz" | "results">("intro");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [submitWarning, setSubmitWarning] = useState<string | null>(null);
+  const [introWarning, setIntroWarning] = useState<string | null>(null);
 
   const saveAttemptedRef = useRef(false);
   const completedTrackedRef = useRef(false);
@@ -88,6 +96,19 @@ export function DiagnosticQuizClient({
   const unitResults = useMemo(
     () => computeUnitResults(questions, units, answers),
     [questions, units, answers]
+  );
+
+  const studiedUnitSlugSet = useMemo(
+    () => new Set(studiedUnitSlugs),
+    [studiedUnitSlugs]
+  );
+  const studiedUnitResults = useMemo(
+    () => unitResults.filter((unit) => studiedUnitSlugSet.has(unit.slug)),
+    [unitResults, studiedUnitSlugSet]
+  );
+  const unstudiedUnitResults = useMemo(
+    () => unitResults.filter((unit) => !studiedUnitSlugSet.has(unit.slug)),
+    [unitResults, studiedUnitSlugSet]
   );
 
   const totalCorrect = unitResults.reduce((sum, u) => sum + u.correct, 0);
@@ -106,7 +127,9 @@ export function DiagnosticQuizClient({
       trackDiagnosticCompleted();
     }
 
-    const resultsSnapshot = unitResults.map((u) => ({
+    // Only studied units are persisted because saved diagnostic results feed
+    // recommendations on the dashboard and in the admin view.
+    const resultsSnapshot = studiedUnitResults.map((u) => ({
       unitSlug: u.slug,
       unitTitle: u.title,
       correct: u.correct,
@@ -135,11 +158,13 @@ export function DiagnosticQuizClient({
       if (!token) return;
 
       const sourceId = crypto.randomUUID();
-      const events = questions.map((q) => ({
+      const events = questions
+        .filter((q) => studiedUnitSlugSet.has(q.unitSlug))
+        .map((q) => ({
         questionId: q.id,
         topicSlug: q.unitSlug,
         isCorrect: answers[q.id] === q.correctAnswer,
-      }));
+        }));
 
       void fetch("/api/mastery/diagnostic", {
         method: "POST",
@@ -154,7 +179,38 @@ export function DiagnosticQuizClient({
     }
 
     void checkAndSave();
-  }, [phase, yearLevel, unitResults]);
+  }, [
+    answers,
+    phase,
+    questions,
+    studiedUnitResults,
+    studiedUnitSlugSet,
+    totalCorrect,
+    totalQuestions,
+    yearLevel,
+  ]);
+
+  function toggleStudiedUnit(unitSlug: string) {
+    setStudiedUnitSlugs((current) =>
+      current.includes(unitSlug)
+        ? current.filter((slug) => slug !== unitSlug)
+        : [...current, unitSlug]
+    );
+    setIntroWarning(null);
+  }
+
+  function startDiagnostic() {
+    if (studiedUnitSlugs.length === 0) {
+      setIntroWarning(
+        "Select at least one topic you have studied this year before starting."
+      );
+      return;
+    }
+
+    setPhase("quiz");
+    setSubmitWarning(null);
+    setIntroWarning(null);
+  }
 
   function handleAnswer(question: DiagnosticQuestion, answer: string, questionIndex: number) {
     setAnswers((current) => ({ ...current, [question.id]: answer }));
@@ -224,13 +280,69 @@ export function DiagnosticQuizClient({
               mark; it is to find the first topics that will make study feel
               clearer.
             </p>
+            <fieldset className="mt-6">
+              <legend className="text-lg font-bold text-slate-900">
+                Which topics have you already studied this year?
+              </legend>
+              <p className="mt-1 text-sm leading-6 text-slate-600">
+                Select every topic your class has covered. Topics you have not
+                studied will be excluded from your recommendations.
+              </p>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                {diagnosticUnits.map((unit) => {
+                  const isSelected = studiedUnitSlugSet.has(unit.slug);
+                  return (
+                    <label
+                      key={unit.slug}
+                      className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition ${
+                        isSelected
+                          ? "border-slate-900 bg-slate-50"
+                          : "border-slate-200 bg-white hover:border-slate-400"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleStudiedUnit(unit.slug)}
+                        className="mt-1 h-4 w-4 shrink-0 accent-slate-900"
+                      />
+                      <span className="text-sm font-semibold leading-6">
+                        {unit.title}
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStudiedUnitSlugs(
+                      diagnosticUnits.map((unit) => unit.slug)
+                    );
+                    setIntroWarning(null);
+                  }}
+                  className="font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-950"
+                >
+                  Select all
+                </button>
+                <span className="text-slate-500">
+                  {studiedUnitSlugs.length} of {diagnosticUnits.length} selected
+                </span>
+              </div>
+            </fieldset>
+            {introWarning && (
+              <p
+                role="alert"
+                className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800"
+              >
+                {introWarning}
+              </p>
+            )}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
-                onClick={() => {
-                  setPhase("quiz");
-                  setSubmitWarning(null);
-                }}
+                onClick={startDiagnostic}
                 className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700"
               >
                 Start diagnostic
@@ -251,11 +363,16 @@ export function DiagnosticQuizClient({
   // ── Results phase ────────────────────────────────────────────────────────────
   if (phase === "results") {
     const scorePct = Math.round((totalCorrect / totalQuestions) * 100);
-    const priorityUnits = unitResults.slice(0, Math.min(3, unitResults.length));
-    const focusFirstCount = unitResults.filter((u) => u.correct <= 1).length;
+    const priorityUnits = studiedUnitResults.slice(
+      0,
+      Math.min(3, studiedUnitResults.length)
+    );
+    const focusFirstCount = studiedUnitResults.filter(
+      (unit) => unit.correct <= 1
+    ).length;
     const studyPlan = generateStudyPlan({
       yearLevel,
-      diagnosticResults: unitResults.map((unit) => ({
+      diagnosticResults: studiedUnitResults.map((unit) => ({
         courseSlug: yearLevel,
         unitSlug: unit.slug,
         unitTitle: unit.title,
@@ -411,10 +528,10 @@ export function DiagnosticQuizClient({
           {/* ── Full unit breakdown ──────────────────────────────────────── */}
           <section>
             <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Full unit breakdown
+              Studied topic breakdown
             </p>
             <div className="space-y-3">
-              {unitResults.map((unit) => (
+              {studiedUnitResults.map((unit) => (
                 <div
                   key={unit.slug}
                   className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
@@ -444,6 +561,34 @@ export function DiagnosticQuizClient({
               ))}
             </div>
           </section>
+
+          {unstudiedUnitResults.length > 0 && (
+            <section>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Not yet studied
+              </p>
+              <div className="space-y-3">
+                {unstudiedUnitResults.map((unit) => (
+                  <div
+                    key={unit.slug}
+                    className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <h3 className="font-semibold">{unit.title}</h3>
+                        <p className="mt-1 text-sm text-slate-600">
+                          {unit.correct} of {unit.total} correct
+                        </p>
+                      </div>
+                      <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600">
+                        Excluded from recommendations
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* ── Save / login panel ───────────────────────────────────────── */}
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -487,6 +632,7 @@ export function DiagnosticQuizClient({
                 setSaveError(null);
                 setIsLoggedIn(null);
                 setSubmitWarning(null);
+                setIntroWarning(null);
                 completedTrackedRef.current = false;
                 answeredTrackedRef.current = new Set();
                 saveAttemptedRef.current = false;
