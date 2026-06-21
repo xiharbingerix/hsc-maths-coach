@@ -10,6 +10,7 @@ import {
 import { PageViewTracker } from "../components/PageViewTracker";
 import { DiagnosticResultPreview } from "../components/DiagnosticResultPreview";
 import { ProductShowcase } from "../components/ProductShowcase";
+import { PricingComparison } from "../components/PricingComparison";
 
 export const metadata: Metadata = {
   title: "HSC Maths Diagnostic | NSW Year 12 Standard 2 & Advanced",
@@ -53,13 +54,6 @@ const whoThisIsFor = [
   "NSW Year 12 students preparing for Trial exams",
   "Students who know they have gaps but do not know where to start",
   "Parents looking for structured independent revision",
-];
-
-const pricingPoints = [
-  "Free diagnostic",
-  "7-day free trial",
-  "Then $19/month",
-  "Cancel anytime",
 ];
 
 const FAQs = [
@@ -429,55 +423,18 @@ export default function HscMathsPage() {
         </section>
 
         {/* 7. Pricing */}
-        <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
-            <div>
-              <SectionLabel>Pricing</SectionLabel>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight">
-                Start with the diagnostic. Continue if it helps.
-              </h2>
-              <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                The diagnostic is free. When you want the full revision lessons,
-                start a 7-day free trial — there is no charge today, and you can
-                cancel anytime. Private HSC maths tutoring can cost
-                $80&ndash;120 per hour; Nova Maths is $19/month.
-              </p>
-
-              <ul className="mt-6 space-y-3 text-sm leading-6 text-slate-700">
-                {pricingPoints.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-500" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <HscDiagnosticCTAButton>
-                  Start free diagnostic
-                </HscDiagnosticCTAButton>
-                <HscTrialCTAButton className="border-2 border-slate-900 !bg-white !text-slate-950 hover:!bg-slate-100">
-                  Start your 7-day free trial
-                </HscTrialCTAButton>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Subscription
-              </p>
-              <p className="mt-3 text-4xl font-bold tracking-tight">$19/month</p>
-              <p className="mt-3 leading-7 text-slate-600">
-                7-day free trial first, then access to all available Year 7 to
-                HSC pathways, including every Year 12 course from Standard 1 to
-                Extension 2.
-              </p>
-              <p className="mt-4 text-sm text-slate-500">
-                No charge today · Cancel anytime
-              </p>
-            </div>
-          </div>
-        </section>
+        <PricingComparison
+          cta={
+            <>
+              <HscDiagnosticCTAButton>
+                Start free diagnostic
+              </HscDiagnosticCTAButton>
+              <HscTrialCTAButton className="border-2 border-slate-900 !bg-white !text-slate-950 hover:!bg-slate-100">
+                Start your 7-day free trial
+              </HscTrialCTAButton>
+            </>
+          }
+        />
 
         {/* 8. FAQ */}
         <section className="space-y-6">

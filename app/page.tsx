@@ -7,6 +7,7 @@ import { SubscribeCTA } from "./components/SubscribeCTA";
 import { PageViewTracker } from "./components/PageViewTracker";
 import { DiagnosticResultPreview } from "./components/DiagnosticResultPreview";
 import { ProductShowcase } from "./components/ProductShowcase";
+import { PricingComparison } from "./components/PricingComparison";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -78,13 +79,6 @@ const lessonStages = [
   "Guided practice",
   "Independent practice",
   "Mastery quiz",
-];
-
-const pricingPoints = [
-  "7-day free trial",
-  "Then $19/month",
-  "Cancel anytime",
-  "Instant access when logged in",
 ];
 
 function SecondaryLink({
@@ -338,53 +332,18 @@ export default function Home() {
         </section>
 
         {/* 6. Pricing */}
-        <section className="rounded-3xl border border-slate-200 bg-slate-100/80 p-8 shadow-sm md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
-            <div>
-              <SectionLabel>Pricing</SectionLabel>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-                Start free. Upgrade when it helps.
-              </h2>
-              <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                The diagnostic is free. When you are ready for the recommended
-                lessons, start a 7-day free trial — no charge today.
-              </p>
-
-              <ul className="mt-6 space-y-3 text-sm leading-6 text-slate-700">
-                {pricingPoints.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-500" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <PrimaryLink href="/diagnostic/select">
-                  Start free diagnostic
-                </PrimaryLink>
-                <SubscribeCTA href="/checkout?offer=online-learning">
-                  Start your 7-day free trial
-                </SubscribeCTA>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                Subscription
-              </p>
-              <p className="mt-3 text-4xl font-bold tracking-tight">$19/month</p>
-              <p className="mt-3 leading-7 text-slate-600">
-                7-day free trial first, then continued access to structured
-                lessons, practice and mastery checks across all available Year 7
-                to HSC pathways.
-              </p>
-              <p className="mt-4 text-sm text-slate-500">
-                No charge today · Cancel anytime
-              </p>
-            </div>
-          </div>
-        </section>
+        <PricingComparison
+          cta={
+            <>
+              <PrimaryLink href="/diagnostic/select">
+                Start free diagnostic
+              </PrimaryLink>
+              <SubscribeCTA href="/checkout?offer=online-learning">
+                Start your 7-day free trial
+              </SubscribeCTA>
+            </>
+          }
+        />
 
         {/* 7. Final CTA */}
         <section className="rounded-3xl border border-slate-200 bg-slate-950 p-8 text-white shadow-sm md:p-10">
