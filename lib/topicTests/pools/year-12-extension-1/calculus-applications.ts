@@ -970,6 +970,241 @@ const volumesD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 5: Multiplicity of Zeroes of Polynomial Functions ───────────────
+// D4: read multiplicity/degree, touch-vs-cross (even/odd multiplicity), root
+// counts and sums, evaluate, and f′ at a double root.
+const polyZeroesD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-poly-d4-1",
+    prompt: "For P(x) = (x − 2)³(x + 1), find the multiplicity of the root x = 2.",
+    latex: "P(x) = (x - 2)^3 (x + 1)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$3$" },
+      { label: "B", text: "$1$" },
+      { label: "C", text: "$4$" },
+      { label: "D", text: "$2$" },
+    ],
+    answer: "A",
+    explanation:
+      "The factor (x − 2)³ gives multiplicity 3. C counts the number of distinct factors instead.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-2",
+    prompt: "Find the degree of P(x) = (x − 1)²(x + 3)⁴.",
+    latex: "P(x) = (x - 1)^2 (x + 3)^4",
+    marks: 2,
+    difficulty: 4,
+    answer: "6",
+    explanation: "Degree = sum of the multiplicities = 2 + 4 = 6.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-3",
+    prompt:
+      "For P(x) = (x − 2)²(x + 1), does the graph cross or touch the x-axis at x = 2? Answer 'cross' or 'touch'.",
+    latex: "P(x) = (x - 2)^2 (x + 1)",
+    marks: 2,
+    difficulty: 4,
+    answer: "touch",
+    acceptedAnswers: ["touches", "it touches", "touches the x-axis", "touch the x-axis"],
+    explanation: "Multiplicity 2 is even, so the graph touches the x-axis at x = 2 without crossing.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-4",
+    prompt:
+      "For P(x) = (x + 3)³, does the graph cross or touch the x-axis at x = −3? Answer 'cross' or 'touch'.",
+    latex: "P(x) = (x + 3)^3",
+    marks: 2,
+    difficulty: 4,
+    answer: "cross",
+    acceptedAnswers: ["crosses", "it crosses", "crosses the x-axis", "cross the x-axis"],
+    explanation: "Multiplicity 3 is odd, so the graph crosses the x-axis (with a flat inflection) at x = −3.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-5",
+    prompt: "For P(x) = x²(x − 4), find the multiplicity of the root x = 0.",
+    latex: "P(x) = x^2 (x - 4)",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "The factor x² gives multiplicity 2 at x = 0.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-6",
+    prompt:
+      "For P(x) = (x − 1)²(x − 5), find the x-value where the graph touches (but does not cross) the x-axis.",
+    latex: "P(x) = (x - 1)^2 (x - 5)",
+    marks: 2,
+    difficulty: 4,
+    answer: "1",
+    explanation: "The even-multiplicity (double) root is x = 1, where the graph touches the axis.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-7",
+    prompt:
+      "How many distinct real x-intercepts does P(x) = (x − 2)(x + 2)(x − 5) have?",
+    latex: "P(x) = (x - 2)(x + 2)(x - 5)",
+    marks: 2,
+    difficulty: 4,
+    answer: "3",
+    explanation: "Three distinct roots: x = 2, −2, 5.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-8",
+    prompt:
+      "Find the sum of the roots (counted with multiplicity) of P(x) = (x − 1)²(x + 4).",
+    latex: "P(x) = (x - 1)^2 (x + 4)",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$-2$" },
+      { label: "B", text: "$-3$" },
+      { label: "C", text: "$3$" },
+      { label: "D", text: "$2$" },
+    ],
+    answer: "A",
+    explanation:
+      "Roots are 1, 1, −4, so the sum is −2. B forgets to count the double root twice (1 + (−4) = −3).",
+  },
+  {
+    id: "y12e1-capp-poly-d4-9",
+    prompt: "For P(x) = (x − 1)²(x + 2), find P(0).",
+    latex: "P(x) = (x - 1)^2 (x + 2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "P(0) = (−1)²(2) = 1 × 2 = 2.",
+  },
+  {
+    id: "y12e1-capp-poly-d4-10",
+    prompt:
+      "If (x − 3)² is a factor of a polynomial P(x), find the value of P′(3).",
+    latex: "(x - 3)^2 \\mid P(x)",
+    marks: 3,
+    difficulty: 4,
+    answer: "0",
+    explanation:
+      "A double root means both P(3) = 0 and P′(3) = 0 (the graph touches the axis there).",
+  },
+];
+
+// D5: use repeated-root conditions (f = 0 and f′ = 0) to find a parameter,
+// construct a factored polynomial and apply a condition, or use the
+// discriminant/tangency condition.
+const polyZeroesD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-capp-poly-d5-1",
+    prompt:
+      "P(x) = x³ + ax² + bx has a double root at x = 2 and a root at x = 0. Find a.",
+    latex: "P(x) = x^3 + ax^2 + bx",
+    marks: 4,
+    difficulty: 5,
+    answer: "-4",
+    acceptedAnswers: ["−4"],
+    explanation:
+      "The roots are 0, 2, 2, so P(x) = x(x − 2)² = x³ − 4x² + 4x. Hence a = −4.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-2",
+    prompt:
+      "P(x) = x³ − 12x + k has a double root for some k > 0. Find k.",
+    latex: "P(x) = x^3 - 12x + k",
+    marks: 4,
+    difficulty: 5,
+    answer: "16",
+    explanation:
+      "A double root needs P = 0 and P′ = 0. P′ = 3x² − 12 = 0 ⇒ x = ±2. For k > 0 use x = 2: P(2) = 8 − 24 + k = 0 ⇒ k = 16.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-3",
+    prompt:
+      "Find the positive value of m for which x² + mx + 9 has a repeated root.",
+    latex: "x^2 + mx + 9",
+    marks: 3,
+    difficulty: 5,
+    answer: "6",
+    explanation: "Repeated root ⇒ discriminant m² − 36 = 0 ⇒ m = 6 (taking m > 0).",
+  },
+  {
+    id: "y12e1-capp-poly-d5-4",
+    prompt: "P(x) = (x − 1)²(x − k) and P(3) = 8. Find k.",
+    latex: "P(x) = (x - 1)^2 (x - k), \\quad P(3) = 8",
+    marks: 4,
+    difficulty: 5,
+    answer: "1",
+    explanation: "P(3) = (2)²(3 − k) = 4(3 − k) = 8 ⇒ 3 − k = 2 ⇒ k = 1.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-5",
+    prompt:
+      "P(x) = x³ + ax + b has a double root at x = 1. Find a.",
+    latex: "P(x) = x^3 + ax + b",
+    marks: 4,
+    difficulty: 5,
+    answer: "-3",
+    acceptedAnswers: ["−3"],
+    explanation:
+      "Double root ⇒ P′(1) = 0. P′ = 3x² + a, so 3 + a = 0 and a = −3.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-6",
+    prompt:
+      "P(x) = x³ + px² + qx + r has a triple root at x = 2. Find p.",
+    latex: "P(x) = x^3 + px^2 + qx + r",
+    marks: 3,
+    difficulty: 5,
+    answer: "-6",
+    acceptedAnswers: ["−6"],
+    explanation: "A triple root gives P(x) = (x − 2)³ = x³ − 6x² + 12x − 8, so p = −6.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-7",
+    prompt:
+      "P(x) = x⁴ − 2x² + k has a double root at x = 1. Find k.",
+    latex: "P(x) = x^4 - 2x^2 + k",
+    marks: 4,
+    difficulty: 5,
+    answer: "1",
+    explanation:
+      "P′ = 4x³ − 4x = 4x(x² − 1), so P′(1) = 0 already. Then P(1) = 1 − 2 + k = 0 ⇒ k = 1.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-8",
+    prompt:
+      "Find the value of c for which the line y = 4x + c is tangent to the parabola y = x².",
+    latex: "y = 4x + c, \\quad y = x^2",
+    marks: 4,
+    difficulty: 5,
+    answer: "-4",
+    acceptedAnswers: ["−4"],
+    explanation:
+      "Tangency ⇒ x² = 4x + c has a double root, so x² − 4x − c = 0 has discriminant 16 + 4c = 0, giving c = −4.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-9",
+    prompt:
+      "P(x) = x³ − 3x + k has a repeated root for some k > 0. Find k.",
+    latex: "P(x) = x^3 - 3x + k",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "P′ = 3x² − 3 = 0 ⇒ x = ±1. A repeated root needs P = 0 there: P(1) = k − 2 = 0 gives k = 2 (a double root at x = 1), while x = −1 would need k = −2. For k > 0, k = 2.",
+  },
+  {
+    id: "y12e1-capp-poly-d5-10",
+    prompt:
+      "P(x) = (x + 2)²(x − a) has a y-intercept of 12. Find a.",
+    latex: "P(x) = (x + 2)^2 (x - a), \\quad P(0) = 12",
+    marks: 4,
+    difficulty: 5,
+    answer: "-3",
+    acceptedAnswers: ["−3"],
+    explanation: "P(0) = (2)²(−a) = −4a = 12 ⇒ a = −3.",
+  },
+];
+
 export const calculusApplicationsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -1008,8 +1243,8 @@ export const calculusApplicationsPool: TopicTestPool = {
       subtopicSlug: "calculus-applications-polynomial-zeroes",
       subtopicTitle: "Multiplicity of Zeroes of Polynomial Functions",
       remediationHref: href("calculus-applications-polynomial-zeroes"),
-      d4: [],
-      d5: [],
+      d4: polyZeroesD4,
+      d5: polyZeroesD5,
     },
     {
       subtopicSlug: "calculus-applications-newton-cooling",
