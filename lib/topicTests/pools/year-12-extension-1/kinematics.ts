@@ -513,7 +513,9 @@ const dispVelD5: TopicTestQuestion[] = [
   },
 ];
 
-// ── Subtopic 3: Analysing Motion (starter) ───────────────────────────────────
+// ── Subtopic 3: Analysing Motion — Direction Changes and Total Distance ──────
+// D4: split the motion at direction changes (v = 0), then total distance,
+// distance-vs-displacement, average speed, or the time/number of changes.
 const motionD4: TopicTestQuestion[] = [
   {
     id: "y12e1-kin-ma-d4-1",
@@ -522,13 +524,125 @@ const motionD4: TopicTestQuestion[] = [
     latex: "v = t^2 - 4, \\quad 0 \\le t \\le 3",
     marks: 3,
     difficulty: 4,
-    answer: "23/3",
-    acceptedAnswers: ["7.67", "7.666666666666667", "7.66"],
+    choices: [
+      { label: "A", text: "$\\dfrac{23}{3} \\text{ m}$" },
+      { label: "B", text: "$3 \\text{ m}$" },
+      { label: "C", text: "$\\dfrac{16}{3} \\text{ m}$" },
+      { label: "D", text: "$\\dfrac{25}{3} \\text{ m}$" },
+    ],
+    answer: "A",
     explanation:
-      "v = 0 at t = 2 (a direction change). x = t³/3 − 4t, so x(2) = −16/3 and x(3) = −3. Distance = |−16/3| + |−3 − (−16/3)| = 16/3 + 7/3 = 23/3 ≈ 7.67 m.",
+      "v = 0 at t = 2 (a direction change). x = t³/3 − 4t, so x(2) = −16/3 and x(3) = −3. Distance = |−16/3| + |−3 − (−16/3)| = 16/3 + 7/3 = 23/3 m. B is the magnitude of the displacement (|x(3)|), not the distance; C is only the first leg; D adds |x(2)| + |x(3)| (positions from the origin) instead of the per-leg distances.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-2",
+    prompt:
+      "A particle starts at the origin with velocity v = 2t − 6 (m/s) for 0 ≤ t ≤ 5. Find the total distance travelled, in metres.",
+    latex: "v = 2t - 6, \\quad 0 \\le t \\le 5",
+    marks: 3,
+    difficulty: 4,
+    answer: "13",
+    explanation:
+      "v = 0 at t = 3. x = t² − 6t, so x(3) = −9 and x(5) = −5. Distance = |−9| + |−5 − (−9)| = 9 + 4 = 13 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-3",
+    prompt:
+      "A particle starts at the origin with velocity v = 4 − 2t (m/s). Find the distance, in metres, it travels between the instant it changes direction and t = 5.",
+    latex: "v = 4 - 2t, \\quad x(0) = 0",
+    marks: 3,
+    difficulty: 4,
+    answer: "9",
+    explanation:
+      "x = 4t − t². It changes direction at v = 0, i.e. t = 2, where x(2) = 4. After that v < 0, so the distance to t = 5 is |x(5) − x(2)| = |−5 − 4| = 9 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-4",
+    prompt:
+      "A particle has velocity v = t² − 5t + 6 (m/s) for t ≥ 0. How many times does it change direction?",
+    latex: "v = t^2 - 5t + 6",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$0$" },
+      { label: "B", text: "$1$" },
+      { label: "C", text: "$2$" },
+      { label: "D", text: "$3$" },
+    ],
+    answer: "C",
+    explanation:
+      "v = (t − 2)(t − 3) changes sign at t = 2 and t = 3, so the particle changes direction twice. B counts only one root.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-5",
+    prompt:
+      "A particle starts at the origin with velocity v = 12 − 6t (m/s) for 0 ≤ t ≤ 4. Find the total distance travelled, in metres.",
+    latex: "v = 12 - 6t, \\quad 0 \\le t \\le 4",
+    marks: 3,
+    difficulty: 4,
+    answer: "24",
+    explanation:
+      "v = 0 at t = 2. x = 12t − 3t², so x(2) = 12 and x(4) = 0. Distance = 12 + |0 − 12| = 24 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-6",
+    prompt:
+      "A particle starts at the origin with velocity v = 2t − 8 (m/s) for 0 ≤ t ≤ 6. By how many metres does the total distance travelled exceed the magnitude of its displacement?",
+    latex: "v = 2t - 8, \\quad 0 \\le t \\le 6",
+    marks: 4,
+    difficulty: 4,
+    answer: "8",
+    explanation:
+      "x = t² − 8t. v = 0 at t = 4, where x(4) = −16; x(6) = −12. Total distance = 16 + |−12 − (−16)| = 16 + 4 = 20 m; displacement magnitude = |x(6)| = 12 m. The excess is 20 − 12 = 8 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-7",
+    prompt:
+      "A particle starts at the origin with velocity v = 6 − 2t (m/s) for 0 ≤ t ≤ 6. Find its average speed, in m/s.",
+    latex: "v = 6 - 2t, \\quad 0 \\le t \\le 6",
+    marks: 4,
+    difficulty: 4,
+    answer: "3",
+    explanation:
+      "v = 0 at t = 3. x = 6t − t², so x(3) = 9 and x(6) = 0. Total distance = 9 + 9 = 18 m. Average speed = distance / time = 18 / 6 = 3 m/s.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-8",
+    prompt:
+      "A particle has velocity v = t² − 6t + 8 (m/s) for t ≥ 0. At what time, in seconds, does it first change direction?",
+    latex: "v = t^2 - 6t + 8",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation:
+      "v = (t − 2)(t − 4), which first changes sign at t = 2 s.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-9",
+    prompt:
+      "A particle starts at the origin with velocity v = 3t² − 18t + 24 (m/s) for 0 ≤ t ≤ 5. Find the total distance travelled, in metres.",
+    latex: "v = 3t^2 - 18t + 24, \\quad 0 \\le t \\le 5",
+    marks: 4,
+    difficulty: 4,
+    answer: "28",
+    explanation:
+      "v = 3(t − 2)(t − 4) = 0 at t = 2 and t = 4. x = t³ − 9t² + 24t gives x(2) = 20, x(4) = 16, x(5) = 20. Distance = 20 + |16 − 20| + |20 − 16| = 20 + 4 + 4 = 28 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d4-10",
+    prompt:
+      "A particle starts at the origin with velocity v = 8 − 2t (m/s). Find the total distance, in metres, it has travelled by the time it next returns to the origin.",
+    latex: "v = 8 - 2t, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 4,
+    answer: "32",
+    explanation:
+      "x = 8t − t² = t(8 − t), so it returns to the origin at t = 8. It changes direction at v = 0, i.e. t = 4, where x(4) = 16. Distance = 16 (out) + 16 (back) = 32 m.",
   },
 ];
 
+// D5: total-distance reasoning combined with constraint, work-backwards,
+// transfer between particles, optimisation, or generalisation.
 const motionD5: TopicTestQuestion[] = [
   {
     id: "y12e1-kin-ma-d5-1",
@@ -540,6 +654,106 @@ const motionD5: TopicTestQuestion[] = [
     answer: "12",
     explanation:
       "v = 3(t − 1)(t − 3), so direction changes at t = 1 and t = 3. x = t³ − 6t² + 9t gives positions 0, 4, 0, 4 at t = 0, 1, 3, 4. Distance = 4 + 4 + 4 = 12 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-2",
+    prompt:
+      "A particle starts at the origin with velocity v = 2t − c (m/s), where c is constant. It changes direction at t = 3. Find the total distance travelled, in metres, for 0 ≤ t ≤ 4.",
+    latex: "v = 2t - c, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "10",
+    explanation:
+      "Changing direction at t = 3 means v(3) = 6 − c = 0, so c = 6 and v = 2t − 6. x = t² − 6t gives x(3) = −9, x(4) = −8. Distance = 9 + |−8 − (−9)| = 9 + 1 = 10 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-3",
+    prompt:
+      "A particle starts at the origin with velocity v = 2t − 8 (m/s). Find the time, in seconds, at which the total distance travelled first reaches 20 m.",
+    latex: "v = 2t - 8, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "6",
+    explanation:
+      "x = t² − 8t. It moves backward until t = 4, reaching x(4) = −16 (16 m travelled). For t > 4 it moves forward, so distance = 16 + (x(t) − x(4)) = t² − 8t + 32. Setting this to 20 gives t² − 8t + 12 = 0, (t − 2)(t − 6) = 0, so t = 6 s.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-4",
+    prompt:
+      "Two particles leave the origin at t = 0: A has velocity v = 2t (m/s) and B has constant velocity v = 6 (m/s). How far apart are they, in metres, at t = 4?",
+    latex: "v_A = 2t, \\quad v_B = 6",
+    marks: 3,
+    difficulty: 5,
+    answer: "8",
+    explanation:
+      "x_A = t² = 16 m and x_B = 6t = 24 m at t = 4. They are |24 − 16| = 8 m apart.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-5",
+    prompt:
+      "A particle starts at the origin with velocity v = 2t − 6 (m/s). Find the largest time T (in seconds) for which the total distance travelled over 0 ≤ t ≤ T still equals the magnitude of its displacement.",
+    latex: "v = 2t - 6, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation:
+      "Distance equals |displacement| only while the particle has not reversed. It first changes direction at v = 0, i.e. t = 3, so the largest such T is 3 s.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-6",
+    prompt:
+      "A particle has velocity v = 3t² − 12t + k (m/s), where k is constant. It is momentarily at rest exactly once for t > 0. Find that time, in seconds.",
+    latex: "v = 3t^2 - 12t + k",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "Exactly one rest means v = 0 has a repeated root: discriminant 144 − 12k = 0, so k = 12 and v = 3(t − 2)². The particle is at rest at t = 2 s.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-7",
+    prompt:
+      "A particle has velocity v = 2t − 6 (m/s) and starts at an unknown position x = c. Find the total distance, in metres, it travels by the time it next returns to its starting position.",
+    latex: "v = 2t - 6, \\quad x(0) = c",
+    marks: 4,
+    difficulty: 5,
+    answer: "18",
+    explanation:
+      "x = t² − 6t + c. It returns to x = c when t² − 6t = 0, i.e. t = 6, having turned at t = 3 (where x = c − 9). Distance = 9 (out) + 9 (back) = 18 m — independent of c.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-8",
+    prompt:
+      "Two particles leave the origin at t = 0: A has velocity v = 4t (m/s) and B has constant velocity v = 12 (m/s). How far apart are they, in metres, at the instant B has travelled 36 m?",
+    latex: "v_A = 4t, \\quad v_B = 12",
+    marks: 4,
+    difficulty: 5,
+    answer: "18",
+    explanation:
+      "B has travelled 36 m when 12t = 36, i.e. t = 3. Then x_A = 2t² = 18 m, so they are |36 − 18| = 18 m apart.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-9",
+    prompt:
+      "A particle starts at the origin with velocity v = 3t² + bt (m/s), where b is constant. It changes direction at t = 2 (in addition to t = 0). Find the total distance travelled, in metres, for 0 ≤ t ≤ 3.",
+    latex: "v = 3t^2 + bt, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "8",
+    explanation:
+      "v = t(3t + b) is zero at t = 0 and t = −b/3. Setting −b/3 = 2 gives b = −6, so v = 3t² − 6t and x = t³ − 3t². x(2) = −4, x(3) = 0. Distance = 4 + |0 − (−4)| = 8 m.",
+  },
+  {
+    id: "y12e1-kin-ma-d5-10",
+    prompt:
+      "A particle starts at the origin with velocity v = t² − 6t + 5 (m/s). Find its greatest distance from the origin, in metres, during 0 ≤ t ≤ 5.",
+    latex: "v = t^2 - 6t + 5, \\quad x(0) = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "25/3",
+    acceptedAnswers: ["8.33", "8.333333333333334", "8.3"],
+    explanation:
+      "v = (t − 1)(t − 5) = 0 at t = 1 and t = 5. x = t³/3 − 3t² + 5t gives x(1) = 7/3 and x(5) = −25/3. The greatest distance from the origin is |−25/3| = 25/3 ≈ 8.33 m at t = 5.",
   },
 ];
 
