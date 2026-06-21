@@ -39,7 +39,7 @@ export function PricingComparison({ cta }: Readonly<{ cta: ReactNode }>) {
           Pricing
         </p>
         <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-          Less than the cost of one tutoring session
+          Start free. Continue for $19/month.
         </h2>
       </div>
 

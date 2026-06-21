@@ -44,13 +44,16 @@ function SectionHeading({ children }: Readonly<{ children: ReactNode }>) {
   );
 }
 
-export function StudyReportPreview() {
+export function StudyReportPreview({
+  title = "Example HSC Readiness Report",
+  courseLabel = "HSC Mathematics Advanced",
+}: Readonly<{ title?: string; courseLabel?: string }>) {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10">
       <div className="max-w-2xl">
         <SectionHeading>Sample output</SectionHeading>
         <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
-          Example HSC Readiness Report
+          {title}
         </h2>
       </div>
 
@@ -66,9 +69,7 @@ export function StudyReportPreview() {
               <p className="text-sm font-bold text-slate-900">
                 Nova Maths · Readiness Report
               </p>
-              <p className="text-xs text-slate-500">
-                HSC Mathematics Advanced
-              </p>
+              <p className="text-xs text-slate-500">{courseLabel}</p>
             </div>
           </div>
           <span className="hidden shrink-0 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 sm:inline">

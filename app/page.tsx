@@ -219,7 +219,10 @@ export default function Home() {
         <ProductShowcase />
 
         {/* Study report preview */}
-        <StudyReportPreview />
+        <StudyReportPreview
+          title="Example Maths Readiness Report"
+          courseLabel="Year 7–12 Mathematics"
+        />
 
         {/* 2. How Nova Maths works */}
         <section className="space-y-6">
