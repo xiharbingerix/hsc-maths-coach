@@ -328,7 +328,7 @@ export function year11StandardDataAnalysisLessonOverride(
         paragraphs: [
           "Data can be categorical, such as transport type, or numerical, such as travel time in minutes.",
           "Frequency tables and column graphs show how often categories or values occur.",
-          "The mean is the total divided by the number of values. The median is the middle value after ordering. The mode is the most common value.",
+          "The mean shares the total equally among all the values — what each would be if they were levelled off — found by dividing the total by the number of values. The median is the middle value after ordering, and the mode is the most common value.",
           "The range is the highest value minus the lowest value. It gives a quick measure of spread.",
         ],
         latexBlocks: [
@@ -386,7 +386,7 @@ export function year11StandardDataAnalysisLessonOverride(
       teaching: {
         paragraphs: [
           "An outlier is a value that is noticeably far away from the rest of the data.",
-          "Outliers can pull the mean toward the unusual value. The median is usually less affected.",
+          "Outliers can pull the mean toward the unusual value because every value feeds into the total. The median is usually less affected because it depends only on the middle position, not on how extreme the outlier is.",
           "When data are skewed or include an unusual result, the median may better represent a typical value.",
           "Conclusions from data should be cautious. A small data set or unusual value may not represent every situation.",
         ],
