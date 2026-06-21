@@ -1,6 +1,6 @@
 # Topic Test Diagnostic — Plan
 
-Status: **proposed** · Owner: TBD · Last updated: 2026-06-21
+Status: **Phase 0 complete** · Pilot: **year-12-extension-1 / kinematics** (confirmed) · Last updated: 2026-06-21
 
 ## Goal
 
@@ -208,13 +208,105 @@ validator gate.
 
 ---
 
+## Phase 0 — findings & decisions (2026-06-21)
+
+### F1. Subtopic (lesson) counts
+
+From `newCoursePathways` ([lib/newCourseCatalog.ts](../lib/newCourseCatalog.ts)),
+the uniform nested model used by most courses: **15 pathways, 139 units, 830
+lessons total.** Available HSC Year-12 candidates for a pilot:
+
+| Course | Status | Units | Lessons | Smallest auto-markable topics (lessons) |
+|---|---|---|---|---|
+| year-12-standard-2 | available | 11 | 58 | normal-distribution (3), measurement-SA-volume (3), probability (4), bivariate-data (4) |
+| year-12-extension-1 | available | 7 | 42 | kinematics (4), inverse-trig (5), further-calculus (5), calculus-applications (9) |
+| year-11-advanced | available | 7 | 72 | graph-transformations (6), exponential-logarithmic (6) |
+
+A topic pool = subtopics × 20 items. So e.g. **kinematics (4 subtopics) = 80
+D4/D5 items**; normal-distribution (3) = 60.
+
+### F2. Year 12 Advanced is **legacy** — not a good pilot
+
+`year-12-advanced` is **not** in `newCoursePathways`. Its content uses the older
+model: units are **top-level routes** (`/course/differential-calculus`,
+`/course/functions-graphing-techniques`, …) defined via `courseCatalogue`
+([lib/courseUnits.ts](../lib/courseUnits.ts)) + `lib/lessons/*`, and the existing
+exam paper remediates to a single generic `/course/year-12-advanced`
+([lib/exams/year12AdvancedPaper1.ts](../lib/exams/year12AdvancedPaper1.ts)).
+
+Consequence: the subtopic-enumeration + `remediationHref` mapping the assembler
+relies on works cleanly only for `newCoursePathways` courses. **Decision:** the
+pilot uses a `newCoursePathways` course. Legacy courses (incl. Year 12 Advanced)
+get a thin adapter in a later phase. *(Side note: the dashboard/admin
+`lessonsForTopic` helper is also `newCoursePathways`-only, so it already doesn't
+expand legacy Y12-Advanced units — consistent with this decision.)*
+
+### F3. Pilot — **`year-12-extension-1` → `kinematics`** (confirmed 2026-06-21)
+
+Rationale: Year 12,
+clean nested structure, only **4 subtopics (80 items)**, content is fully
+numeric (displacement/velocity/acceleration, projectile) so every D4/D5 item is
+**auto-markable**, and Extension-level makes genuine D4/D5 natural.
+**Alternative (smaller/safest): `year-12-standard-2` → `normal-distribution`**
+(3 subtopics, 60 items, very auto-markable). Avoid proof-heavy topics
+(e.g. `proof-induction`) — they can't be auto-marked.
+
+### F4. Attempt persistence — **reuse `exam_attempts`**
+
+`exam_attempts` ([lib/supabase-migrations/021_exam_attempts.sql](../lib/supabase-migrations/021_exam_attempts.sql))
+already stores `exam_id`, `course_slug`, marks, `percentage`, `band`, and
+**`topic_breakdown jsonb`**, with a working read endpoint
+([app/api/exam/attempts/route.ts](../app/api/exam/attempts/route.ts)).
+
+**Decision: reuse it — no new table for the pilot.**
+- Use a synthetic, deterministic `exam_id`:
+  `topic-test:<courseSlug>:<topicSlug>:<seed>`.
+- Per-subtopic results live in `topic_breakdown` (questions tag `topicSlug` =
+  subtopic, so the existing rollup already produces this — see "Remediation
+  trick").
+- **Submit path:** the current `/api/exam/[examId]/submit`
+  ([app/api/exam/[examId]/submit/route.ts](../app/api/exam/[examId]/submit/route.ts))
+  calls `getExamPaper(examId)` against the *static* registry. Topic tests are
+  dynamic, so Phase 1 adds a topic-test-aware branch that **reconstructs the
+  exact paper from the id-encoded `(course, topic, seed)`** via the deterministic
+  assembler, then scores with the unchanged `scoreExam`. The seed in the id is
+  what makes server-side reconstruction deterministic.
+- A dedicated `topic_test_attempts` table is **deferred** until analytics need
+  fields `exam_attempts` can't carry.
+
+Migrations live in `lib/supabase-migrations/` (latest: `021`).
+
+### F5. `ExamRunner` diagram gap — confirmed
+
+[ExamRunner.tsx](../app/exam/[examId]/ExamRunner.tsx) renders `MathText` +
+`BlockMath` but **not** `VisualPayloadRenderer`. Phase 1 adds the one-line
+`<VisualPayloadRenderer {...question} />` (same change already shipped for the
+diagnostic) so visual D4/D5 items render.
+
+### F6. Time budget — calibrated
+
+Existing mini-papers run at **1.55–1.90 min/mark (mean ≈ 1.8)** across all 8
+Paper 1s — but those are *mixed* D1–D6. An all-D4/D5 paper is heavier per mark.
+
+**Decision:** budget the assembler at **~2 min/mark → ~30 marks for 60 min**
+(≈ 8–12 questions, given D4 ≈ 2–3 marks and D5 ≈ 3–5 marks). Each question
+carries an optional `estimatedMinutes` override; **recalibrate against real
+attempt durations in Phase 2.**
+
+### Phase 0 acceptance — met
+
+Concrete subtopic numbers (F1), pilot **confirmed** (F3 — year-12-extension-1 /
+kinematics), persistence decision (F4), diagram-gap confirmation (F5), and the
+time budget (F6) are all recorded. Phase 1 is unblocked.
+
+---
+
 ## Phased rollout
 
-**Phase 0 — Scoping & decisions (no content).**
-- Confirm subtopic counts per course; pick the pilot.
-- Decide attempt persistence: extend exam attempts vs new `topic_test_attempts`.
-- Confirm `ExamRunner` diagram rendering gap and the marks→minutes budget.
-- Acceptance: this doc updated with concrete numbers + schema decision.
+**Phase 0 — Scoping & decisions (no content). ✅ DONE — see "Phase 0 — findings & decisions" above.**
+- ~~Confirm subtopic counts per course; pick the pilot.~~ → F1, F3 (pilot pending sign-off)
+- ~~Decide attempt persistence.~~ → F4 (reuse `exam_attempts`)
+- ~~Confirm `ExamRunner` diagram gap and the marks→minutes budget.~~ → F5, F6
 
 **Phase 1 — Infra + one pilot topic (Year 12 Advanced → Differential Calculus).**
 - `lib/topicTests/` types, registry, `buildTopicTest` assembler (+ unit tests on
