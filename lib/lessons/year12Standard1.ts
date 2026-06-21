@@ -1388,7 +1388,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
     teaching: {
       paragraphs: [
         "A scale drawing represents a larger real object using a smaller drawing, with all lengths scaled by the same factor.",
-        "If the scale is 1 to n, then 1 unit on the drawing represents n units in reality. Use this factor directly for lengths and distances.",
+        "If the scale is 1 to n, the real object has been shrunk n times to fit on the page, so 1 unit on the drawing represents n units in reality. To recover a real length, reverse the shrink by multiplying; to find a drawing length, divide.",
         "For a length on the drawing, multiply by the scale factor to find the real length. For a real length, divide by the scale factor to find the drawing length.",
         "Keep the units consistent: if the drawing is in centimetres and the real distance is in metres, convert before using the scale factor."
       ],
@@ -1409,7 +1409,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
           },
           {
             explanation:
-              "Multiply the map length by the scale factor and convert to metres.",
+              "Reverse the shrink by multiplying the map length by 50000, then convert centimetres to metres.",
             latex: "3\\times50000=150000\\text{ cm}=1500\\text{ m}",
           },
         ],
@@ -4192,8 +4192,8 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       paragraphs: [
         "A true bearing is measured clockwise from due north and is always written as three digits. Due north is 000°, due east is 090°, due south is 180°, and due west is 270°. Bearings are sometimes written with a T suffix, for example 045°T for NE.",
         "A compass bearing uses cardinal directions and an angle to describe direction. For example, N35°E means 35° measured from north towards east. S60°W means 60° measured from south towards west.",
-        "Converting compass bearings to true bearings: N35°E → 035°T (angle from north going east); S60°E → 180° − 60° = 120°T; S40°W → 180° + 40° = 220°T; N70°W → 360° − 70° = 290°T.",
-        "The back bearing (return direction) is the bearing from the destination back to the start. If the original bearing is less than 180°, add 180°. If the original is 180° or more, subtract 180°.",
+        "To convert a compass bearing, start at the named cardinal direction (north is 000°, south is 180°) and turn the stated angle toward the second letter, always reading clockwise from north: N35°E → 035°T; S60°E → 180° − 60° = 120°T; S40°W → 180° + 40° = 220°T; N70°W → 360° − 70° = 290°T.",
+        "The back bearing is the bearing from the destination back to the start — the exact opposite direction, which is half a turn (180°) around the compass. If the original bearing is less than 180°, add 180°; if it is 180° or more, subtract 180°, so the answer stays between 000° and 360°.",
       ],
       latexBlocks: [
         "\\text{N}x°\\text{E} \\to x°\\text{T}",
