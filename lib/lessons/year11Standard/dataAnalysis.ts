@@ -340,7 +340,7 @@ export function year11StandardDataAnalysisLessonOverride(
         dataAnswer("data-display-g1", "A cafe records coffees sold over five mornings: 42, 38, 45, 51, 44. Find the mean number sold.", "42,\\ 38,\\ 45,\\ 51,\\ 44", "44", ["44.0", "44 coffees"]),
         dataAnswer("data-display-g2", "A delivery team records travel times: 18, 20, 21, 22, 24. Find the median travel time.", "18,\\ 20,\\ 21,\\ 22,\\ 24", "21", ["21 min", "21 minutes"]),
         dataAnswer("data-display-g3", "Daily absences at a school are 6, 4, 9, 7, 5. Find the range.", "6,\\ 4,\\ 9,\\ 7,\\ 5", "5", ["5 absences"]),
-        financeChoice("data-display-g4", "A survey asks students to choose bus, train, walk or car. This data is:", "A", ["Categorical", "Numerical continuous", "A time zone", "A percentage error"], "Transport type is a category."),
+        financeChoice("data-display-g4", "A survey asks students to choose bus, train, walk or car. This data is:", "A", ["Categorical", "Numerical, because the choices could be counted", "Ordinal, because the options have a set order", "Continuous, because it is collected over time"], "Transport type sorts students into unordered groups (bus, train, walk, car), so it is categorical — not numerical (the options are labels, not counts) and not ordinal (no option ranks above another)."),
       ],
       independentPractice: [
         dataAnswer("data-display-i1", "A sports team scores 12, 15, 15, 18 and 20 points in five games. Find the mode.", "12,\\ 15,\\ 15,\\ 18,\\ 20", "15", ["15 points"]),
@@ -360,12 +360,12 @@ export function year11StandardDataAnalysisLessonOverride(
         dataAnswer("data-display-m2", "Temperatures recorded at midday are 21, 23, 24, 24, 26. Find the mode.", "21,\\ 23,\\ 24,\\ 24,\\ 26", "24", ["24 degrees", "24°C", "24 C"]),
         dataAnswer("data-display-m3", "Customer ratings are 2, 3, 3, 4, 5. Find the median rating.", "2,\\ 3,\\ 3,\\ 4,\\ 5", "3", ["3 stars", "rating 3"]),
         dataAnswer("data-display-m4", "Delivery times are 12, 15, 17, 20 and 25 minutes. Find the range.", "12,\\ 15,\\ 17,\\ 20,\\ 25", "13", ["13 min", "13 minutes"]),
-        financeChoice("data-display-m5", "Number of pets owned by students is:", "B", ["Categorical only", "Numerical discrete", "A time display", "A unit conversion"], "Pet counts are numerical discrete data."),
+        financeChoice("data-display-m5", "Number of pets owned by students is:", "B", ["Categorical, because it sorts students into groups", "Numerical discrete", "Numerical continuous, because the count can grow", "Ordinal, because owning more ranks higher"], "A pet count is a whole-number count, so it is numerical discrete — not categorical (it is a quantity, not a label), not continuous (you cannot own 2.5 pets), and not ordinal (the numbers are real amounts, not ranked labels)."),
         financeChoice("data-display-m6", "A bar chart column for Wednesday is highest. This means Wednesday had:", "A", ["The greatest frequency", "The lowest value", "The median only", "No data"], "The tallest column shows the greatest frequency."),
         dataAnswer("data-display-m7", "A sports team scores in five games: 14, 19, 23, 17, 22. Find the mean score.", "14,\\ 19,\\ 23,\\ 17,\\ 22", "19", ["19 points", "19.0"]),
         financeChoice("data-display-m8", "To find the median of 8, 3, 7, 4, 5, first:", "D", ["Add all values", "Find the highest value", "Draw a map", "Order the data"], "Median requires ordered data."),
         dataAnswer("data-display-m9", "A frequency table shows 6 students chose soccer, 9 chose netball, 4 chose tennis. How many students were surveyed?", "\\text{soccer}=6,\\quad \\text{netball}=9,\\quad \\text{tennis}=4", "19", ["19 students"]),
-        financeChoice("data-display-m10", "The best display for comparing favourite subjects is usually:", "C", ["A stopwatch", "A ruler", "A column graph", "A timetable"], "Favourite subjects are categories suited to a column graph."),
+        financeChoice("data-display-m10", "The best display for comparing favourite subjects is usually:", "C", ["A line graph, to show change over time", "A sector (pie) chart of one student's choices", "A column graph", "A scatter plot relating two variables"], "Favourite subject is a category compared across students, so a column graph compares the group frequencies. A line graph shows trends over time, a pie chart shows parts of one whole, and a scatter plot relates two numerical variables."),
       ],
     };
   }
