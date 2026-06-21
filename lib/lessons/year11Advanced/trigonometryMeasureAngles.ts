@@ -94,11 +94,11 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
   "y11adv-graph-i5":
     "After passing through (0, 0), the sine curve reaches zero again at x = π. The first positive x-intercept of y = sin x is π.",
   "y11adv-graph-m1":
-    "y = sin x completes one full cycle from 0 to 2π. Its period is 2π.",
+    "Period = 2π/b. For y = sin(4x), b = 4, so the period is 2π/4 = π/2 — divide by b, never multiply.",
   "y11adv-graph-m2":
-    "y = tan x has period π — half the period of sin and cos. After rotating half a turn, the ratio sin/cos repeats.",
+    "The tangent period is π/b, not 2π/b. For y = tan(2x), b = 2, so the period is π/2.",
   "y11adv-graph-m4":
-    "The maximum value of y = sin x is 1, achieved at x = π/2 (the top of the unit circle).",
+    "For an unshifted graph the maximum equals the amplitude. y = 4sin(x) has amplitude 4, so the maximum is 4 — not 1.",
   "y11adv-graph-m5":
     "cos(π) = −1. At x = π the cosine curve is at its minimum, corresponding to the leftmost point (−1, 0) of the unit circle.",
   "y11adv-graph-m6":
@@ -356,13 +356,13 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
   "y11adv-amp-m1":
     "Period = 2π/b = 2π/2 = π.",
   "y11adv-amp-m2":
-    "Amplitude = |a| = 7.",
+    "Amplitude = |a|, which is never negative. For y = −6cos(3x), a = −6, so the amplitude is |−6| = 6.",
   "y11adv-amp-m3":
     "Period = 2π/b = 2π/3.",
   "y11adv-amp-m4":
     "For y = 2 sin(πx), b = π. Period = 2π/π = 2.",
   "y11adv-amp-m5":
-    "Maximum value = d + |a| = 0 + 5 = 5.",
+    "Maximum = |a| for an unshifted graph. y = −5sin(x) is reflected, but its maximum is still |−5| = 5 — the reflection moves where the peak occurs, not its height.",
   "y11adv-amp-m6":
     "Minimum value = d − |a| = 0 − 3 = −3.",
   "y11adv-amp-m9":
@@ -1216,12 +1216,12 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
       ],
       masteryQuiz: [
         {
-          ...formulaAnswer("y11adv-graph-m1", "State the period of the graph.", "y=\\sin x", "2pi", ["2\\pi", "2π"]),
-          hint: "One full wave of y = sin x spans from 0 to 2π.",
+          ...formulaAnswer("y11adv-graph-m1", "State the period of the graph.", "y=\\sin(4x)", "pi/2", ["\\pi/2", "π/2"]),
+          hint: "Period = 2π ÷ b; here b = 4.",
         },
         {
-          ...formulaAnswer("y11adv-graph-m2", "State the period of the graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
-          hint: "Tangent repeats every π radians.",
+          ...formulaAnswer("y11adv-graph-m2", "State the period of the graph.", "y=\\tan(2x)", "pi/2", ["\\pi/2", "π/2"]),
+          hint: "Tangent's period is π ÷ b; here b = 2.",
         },
         practicalChoice(
           "y11adv-graph-m3",
@@ -1232,8 +1232,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           "x=0"
         ),
         {
-          ...formulaAnswer("y11adv-graph-m4", "State the maximum value of the graph.", "y=\\sin x", "1", []),
-          hint: "Sine reaches its highest point at the top of the unit circle.",
+          ...formulaAnswer("y11adv-graph-m4", "State the maximum value of the graph.", "y=4\\sin x", "4", []),
+          hint: "For an unshifted graph the maximum equals the amplitude.",
         },
         {
           ...formulaAnswer("y11adv-graph-m5", "Evaluate.", "\\cos\\pi", "-1", []),
@@ -2469,8 +2469,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           hint: "Period = 2π/b.",
         },
         {
-          ...formulaAnswer("y11adv-amp-m2", "State the amplitude.", "y=7\\cos x", "7", []),
-          hint: "Amplitude = |a|.",
+          ...formulaAnswer("y11adv-amp-m2", "State the amplitude.", "y=-6\\cos(3x)", "6", []),
+          hint: "Amplitude = |a|, never negative.",
         },
         {
           ...formulaAnswer("y11adv-amp-m3", "State the period.", "y=4\\sin(3x)", "2pi/3", ["2\\pi/3", "2π/3"]),
@@ -2482,8 +2482,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           hint: "b = π. Period = 2π/π.",
         },
         {
-          ...formulaAnswer("y11adv-amp-m5", "State the maximum value.", "y=5\\cos x", "5", []),
-          hint: "Maximum = d + |a| = 0 + 5.",
+          ...formulaAnswer("y11adv-amp-m5", "State the maximum value.", "y=-5\\sin x", "5", []),
+          hint: "A reflection does not lower the maximum; max = |a|.",
         },
         {
           ...formulaAnswer("y11adv-amp-m6", "State the minimum value.", "y=-3\\sin(2x)", "-3", []),
