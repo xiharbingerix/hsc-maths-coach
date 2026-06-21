@@ -410,10 +410,10 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   of Polynomial Functions; Newton's Law of Cooling and Limited Growth; Slope
   Fields and Solution Curves), plus the exam-practice subtopic at 10 D6 (multi-part
   synoptic across the strands). 150 questions total.
-- 🟡 binomial-distribution — subtopics 1–3 done (Bernoulli Trials; Binomial
-  Probabilities; Mean and Variance — 10 D4 + 10 D5 each); subtopics 4–5
-  (Distribution of the Sample Mean; The Central Limit Theorem) + the D6
-  exam-practice band pending.
+- 🟡 binomial-distribution — subtopics 1–4 done (Bernoulli Trials; Binomial
+  Probabilities; Mean and Variance; Distribution of the Sample Mean — 10 D4 + 10
+  D5 each); subtopic 5 (The Central Limit Theorem) + the D6 exam-practice band
+  pending.
   (5 skill subtopics; revision lesson excluded. bernoulli-trials owns model setup,
   binomial-probabilities owns the C(n,k) formula.)
 - ⬜ vectors (D4+D5; drop the projection-proof subtopic).

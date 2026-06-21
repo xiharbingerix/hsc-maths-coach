@@ -704,6 +704,227 @@ const meanVarD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 4: Distribution of the Sample Mean ──────────────────────────────
+// E(x̄) = μ, Var(x̄) = σ²/n, SD(x̄) = σ/√n (the standard error). D4: compute these.
+const sampleMeanD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-binom-sm-d4-1",
+    prompt:
+      "A population has μ = 50, σ = 10. For samples of size n = 25, find E(x̄).",
+    latex: "\\mu = 50, \\ \\sigma = 10, \\ n = 25",
+    marks: 2,
+    difficulty: 4,
+    answer: "50",
+    explanation: "E(x̄) = μ = 50 (the sample mean is unbiased).",
+  },
+  {
+    id: "y12e1-binom-sm-d4-2",
+    prompt:
+      "A population has μ = 50, σ = 10. For samples of size n = 25, find Var(x̄).",
+    latex: "\\sigma = 10, \\ n = 25",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$4$" },
+      { label: "B", text: "$100$" },
+      { label: "C", text: "$0.4$" },
+      { label: "D", text: "$2$" },
+    ],
+    answer: "A",
+    explanation: "Var(x̄) = σ²/n = 100/25 = 4. B is σ² (forgets ÷ n); C is σ/n.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-3",
+    prompt:
+      "A population has μ = 50, σ = 10. For samples of size n = 25, find the standard error of x̄.",
+    latex: "\\sigma = 10, \\ n = 25",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$2$" },
+      { label: "B", text: "$0.4$" },
+      { label: "C", text: "$4$" },
+      { label: "D", text: "$10$" },
+    ],
+    answer: "A",
+    explanation: "SD(x̄) = σ/√n = 10/5 = 2. B is σ/n; C is the variance σ²/n.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-4",
+    prompt:
+      "A population has σ = 15. For samples of size n = 9, find the standard error of x̄.",
+    latex: "\\sigma = 15, \\ n = 9",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "SD(x̄) = σ/√n = 15/3 = 5.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-5",
+    prompt:
+      "A population has σ = 6. For samples of size n = 36, find the standard error of x̄.",
+    latex: "\\sigma = 6, \\ n = 36",
+    marks: 2,
+    difficulty: 4,
+    answer: "1",
+    explanation: "SD(x̄) = σ/√n = 6/6 = 1.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-6",
+    prompt:
+      "A population has μ = 80, σ = 12. For samples of size n = 16, find E(x̄).",
+    latex: "\\mu = 80, \\ \\sigma = 12, \\ n = 16",
+    marks: 2,
+    difficulty: 4,
+    answer: "80",
+    explanation: "E(x̄) = μ = 80.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-7",
+    prompt:
+      "A population has σ = 12. For samples of size n = 16, find Var(x̄).",
+    latex: "\\sigma = 12, \\ n = 16",
+    marks: 2,
+    difficulty: 4,
+    answer: "9",
+    explanation: "Var(x̄) = σ²/n = 144/16 = 9.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-8",
+    prompt:
+      "A population has σ = 12. For samples of size n = 16, find the standard error of x̄.",
+    latex: "\\sigma = 12, \\ n = 16",
+    marks: 2,
+    difficulty: 4,
+    answer: "3",
+    explanation: "SD(x̄) = σ/√n = 12/4 = 3.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-9",
+    prompt:
+      "A population has μ = 120, σ = 25. For samples of size n = 100, find E(x̄).",
+    latex: "\\mu = 120, \\ n = 100",
+    marks: 2,
+    difficulty: 4,
+    answer: "120",
+    explanation: "E(x̄) = μ = 120.",
+  },
+  {
+    id: "y12e1-binom-sm-d4-10",
+    prompt:
+      "A population has σ = 40. For samples of size n = 4, find Var(x̄).",
+    latex: "\\sigma = 40, \\ n = 4",
+    marks: 2,
+    difficulty: 4,
+    answer: "400",
+    explanation: "Var(x̄) = σ²/n = 1600/4 = 400.",
+  },
+];
+
+// D5: find n for a target standard error, scaling effects, an inequality for the
+// smallest n, and recovering σ.
+const sampleMeanD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-binom-sm-d5-1",
+    prompt: "A population has σ = 20. Find the sample size n giving a standard error of 4.",
+    latex: "\\tfrac{\\sigma}{\\sqrt{n}} = 4, \\ \\sigma = 20",
+    marks: 4,
+    difficulty: 5,
+    answer: "25",
+    explanation: "20/√n = 4 ⇒ √n = 5 ⇒ n = 25.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-2",
+    prompt: "A population has σ = 12. Find n so that SD(x̄) = 2.",
+    latex: "\\tfrac{\\sigma}{\\sqrt{n}} = 2, \\ \\sigma = 12",
+    marks: 4,
+    difficulty: 5,
+    answer: "36",
+    explanation: "12/√n = 2 ⇒ √n = 6 ⇒ n = 36.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-3",
+    prompt:
+      "If the sample size is quadrupled, by what factor is the standard error of x̄ multiplied?",
+    latex: "SD(\\bar{x}) = \\tfrac{\\sigma}{\\sqrt{n}}",
+    marks: 3,
+    difficulty: 5,
+    answer: "1/2",
+    acceptedAnswers: ["0.5"],
+    explanation: "SD(x̄) ∝ 1/√n, so multiplying n by 4 multiplies the SE by 1/√4 = 1/2.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-4",
+    prompt:
+      "Samples of size 25 are taken. To halve the standard error of x̄, what new sample size is required?",
+    latex: "n = 25",
+    marks: 4,
+    difficulty: 5,
+    answer: "100",
+    explanation: "Halving the SE needs √n to double, i.e. n × 4 = 25 × 4 = 100.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-5",
+    prompt:
+      "A population has σ = 10. Find the smallest sample size n for which SD(x̄) < 0.5.",
+    latex: "\\tfrac{10}{\\sqrt{n}} < 0.5",
+    marks: 4,
+    difficulty: 5,
+    answer: "401",
+    explanation: "10/√n < 0.5 ⇒ √n > 20 ⇒ n > 400, so the smallest n is 401.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-6",
+    prompt: "A population has σ = 8 and Var(x̄) = 2. Find n.",
+    latex: "Var(\\bar{x}) = \\tfrac{\\sigma^2}{n} = 2, \\ \\sigma = 8",
+    marks: 3,
+    difficulty: 5,
+    answer: "32",
+    explanation: "64/n = 2 ⇒ n = 32.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-7",
+    prompt: "Samples of size 16 give SD(x̄) = 3. Find the population standard deviation σ.",
+    latex: "\\tfrac{\\sigma}{\\sqrt{16}} = 3",
+    marks: 3,
+    difficulty: 5,
+    answer: "12",
+    explanation: "σ/4 = 3 ⇒ σ = 12.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-8",
+    prompt:
+      "A population has variance σ² = 50. For samples of size n = 25, find SD(x̄) (exact form).",
+    latex: "\\sigma^2 = 50, \\ n = 25",
+    marks: 4,
+    difficulty: 5,
+    answer: "sqrt(2)",
+    acceptedAnswers: ["√2", "1.414", "1.4142"],
+    explanation: "σ = √50, so SD(x̄) = √50/√25 = √50/5 = (5√2)/5 = √2.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-9",
+    prompt:
+      "From a population with σ = 20, find the ratio SD(x̄) for n = 25 to SD(x̄) for n = 100.",
+    latex: "\\sigma = 20",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    acceptedAnswers: ["2:1"],
+    explanation: "SE₂₅ = 20/5 = 4, SE₁₀₀ = 20/10 = 2, so the ratio is 4 : 2 = 2.",
+  },
+  {
+    id: "y12e1-binom-sm-d5-10",
+    prompt:
+      "For samples of size n, the standard error of x̄ equals one-tenth of σ. Find n.",
+    latex: "\\tfrac{\\sigma}{\\sqrt{n}} = \\tfrac{\\sigma}{10}",
+    marks: 4,
+    difficulty: 5,
+    answer: "100",
+    explanation: "σ/√n = σ/10 ⇒ √n = 10 ⇒ n = 100.",
+  },
+];
+
 export const binomialDistributionPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -735,8 +956,8 @@ export const binomialDistributionPool: TopicTestPool = {
       subtopicSlug: "sampling-distribution-mean",
       subtopicTitle: "Distribution of the Sample Mean",
       remediationHref: href("sampling-distribution-mean"),
-      d4: [],
-      d5: [],
+      d4: sampleMeanD4,
+      d5: sampleMeanD5,
     },
     {
       subtopicSlug: "central-limit-theorem",
