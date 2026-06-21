@@ -11,6 +11,7 @@ import { PageViewTracker } from "../components/PageViewTracker";
 import { DiagnosticResultPreview } from "../components/DiagnosticResultPreview";
 import { ProductShowcase } from "../components/ProductShowcase";
 import { PricingComparison } from "../components/PricingComparison";
+import { PlatformDepth } from "../components/PlatformDepth";
 
 export const metadata: Metadata = {
   title: "HSC Maths Diagnostic | NSW Year 12 Standard 2 & Advanced",
@@ -260,6 +261,9 @@ export default function HscMathsPage() {
             </div>
           </div>
         </section>
+
+        {/* Platform depth */}
+        <PlatformDepth />
 
         {/* Trial exam preparation */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10">

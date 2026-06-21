@@ -9,6 +9,7 @@ import { DiagnosticResultPreview } from "./components/DiagnosticResultPreview";
 import { ProductShowcase } from "./components/ProductShowcase";
 import { PricingComparison } from "./components/PricingComparison";
 import { DiagnosticCtaLink } from "./components/DiagnosticCtaLink";
+import { PlatformDepth } from "./components/PlatformDepth";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -197,6 +198,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Platform depth */}
+        <PlatformDepth />
 
         {/* Diagnostic result preview */}
         <DiagnosticResultPreview
