@@ -890,6 +890,286 @@ const projAppD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 5: Proof of the Projection Formula and Perpendicular Component ───
+// Computational D4/D5 (parallel/perpendicular decomposition) PLUS a D6 band of
+// free-response proofs graded by the AI marker (responseType:"proof"). The proofs
+// are only drawn when PROOF_MARKER_ENABLED — the assembler filters them otherwise.
+const projProofD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-pproof-d4-1",
+    prompt:
+      "Find the j-component of the perpendicular component of (4, 3) relative to (1, 0).",
+    latex: "a = (4,3), \\ b = (1,0)",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$3$" },
+      { label: "B", text: "$4$" },
+      { label: "C", text: "$0$" },
+      { label: "D", text: "$7$" },
+    ],
+    answer: "A",
+    explanation:
+      "Parallel part = (4, 0), so the perpendicular part is (4,3) − (4,0) = (0, 3); its j-component is 3.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-2",
+    prompt: "Find the i-component of the vector projection of (3, 1) onto (1, 1).",
+    latex: "a = (3,1), \\ b = (1,1)",
+    marks: 3,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$2$" },
+      { label: "B", text: "$4$" },
+      { label: "C", text: "$1$" },
+      { label: "D", text: "$3$" },
+    ],
+    answer: "A",
+    explanation:
+      "proj = (a·b/|b|²)b = (4/2)(1,1) = (2, 2); the i-component is 2. B is a·b without dividing by |b|².",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-3",
+    prompt:
+      "Find the magnitude of the perpendicular component of (3, 1) relative to (1, 1) (exact form).",
+    latex: "a = (3,1), \\ b = (1,1)",
+    marks: 3,
+    difficulty: 4,
+    answer: "sqrt(2)",
+    acceptedAnswers: ["√2", "1.414", "1.4142"],
+    explanation: "perp = a − proj = (3,1) − (2,2) = (1, −1), of magnitude √2.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-4",
+    prompt: "Find the magnitude of the vector projection of (6, 8) onto (1, 0).",
+    latex: "a = (6,8), \\ b = (1,0)",
+    marks: 2,
+    difficulty: 4,
+    answer: "6",
+    explanation: "Projection = (6, 0), of magnitude 6.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-5",
+    prompt: "Find the i-component of the vector projection of (5, 0) onto (3, 4).",
+    latex: "a = (5,0), \\ b = (3,4)",
+    marks: 3,
+    difficulty: 4,
+    answer: "1.8",
+    acceptedAnswers: ["9/5"],
+    explanation: "proj = (15/25)(3,4) = (1.8, 2.4); the i-component is 1.8.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-6",
+    prompt:
+      "Find the i-component of the perpendicular component of (2, 3) relative to (0, 1).",
+    latex: "a = (2,3), \\ b = (0,1)",
+    marks: 2,
+    difficulty: 4,
+    answer: "2",
+    explanation: "Parallel part = (0, 3), so perp = (2, 0); its i-component is 2.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-7",
+    prompt: "Find the magnitude of the vector projection of (7, 1) onto (1, 0).",
+    latex: "a = (7,1), \\ b = (1,0)",
+    marks: 2,
+    difficulty: 4,
+    answer: "7",
+    explanation: "Projection = (7, 0), of magnitude 7.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-8",
+    prompt: "Find the i-component of the vector projection of (1, 2) onto (2, 1).",
+    latex: "a = (1,2), \\ b = (2,1)",
+    marks: 3,
+    difficulty: 4,
+    answer: "1.6",
+    acceptedAnswers: ["8/5"],
+    explanation: "proj = (4/5)(2,1) = (1.6, 0.8); the i-component is 1.6.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-9",
+    prompt:
+      "Find the magnitude of the perpendicular component of (3, 3) relative to (1, 0).",
+    latex: "a = (3,3), \\ b = (1,0)",
+    marks: 2,
+    difficulty: 4,
+    answer: "3",
+    explanation: "Parallel = (3, 0), perp = (0, 3), of magnitude 3.",
+  },
+  {
+    id: "y12e1-vec-pproof-d4-10",
+    prompt:
+      "The vector (4, 3) splits into a parallel part of magnitude 4 and a perpendicular part of magnitude 3 (relative to (1, 0)). Verify |a|² = 4² + 3² and state |a|.",
+    latex: "|a|^2 = |a_\\parallel|^2 + |a_\\perp|^2",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "|a| = √(16 + 9) = √25 = 5, confirming the orthogonal decomposition.",
+  },
+];
+
+const projProofD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-pproof-d5-1",
+    prompt: "Find the magnitude of the vector projection of (5, 2) onto (3, 4).",
+    latex: "a = (5,2), \\ b = (3,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "4.6",
+    acceptedAnswers: ["23/5"],
+    explanation: "a·b = 23, |b| = 5, so |proj| = 23/5 = 4.6.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-2",
+    prompt:
+      "Find the magnitude of the perpendicular component of (5, 2) relative to (3, 4).",
+    latex: "a = (5,2), \\ b = (3,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2.8",
+    acceptedAnswers: ["14/5"],
+    explanation:
+      "|perp| = √(|a|² − |proj|²) = √(29 − 21.16) = √7.84 = 2.8 (equivalently |5·4 − 2·3|/5).",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-3",
+    prompt:
+      "Find the magnitude of the perpendicular component of (1, 7) relative to (1, 1) (exact form).",
+    latex: "a = (1,7), \\ b = (1,1)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3sqrt(2)",
+    acceptedAnswers: ["3√2", "4.243", "4.2426"],
+    explanation: "proj = (8/2)(1,1) = (4,4); perp = (−3, 3), of magnitude 3√2.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-4",
+    prompt: "The vector projection of (a, 2) onto (1, 1) is (3, 3). Find a.",
+    latex: "\\text{proj}_{(1,1)}(a,2) = (3,3)",
+    marks: 4,
+    difficulty: 5,
+    answer: "4",
+    explanation: "proj = ((a + 2)/2)(1,1) = (3,3) ⇒ (a + 2)/2 = 3 ⇒ a = 4.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-5",
+    prompt:
+      "Find the magnitude of the perpendicular component of (2, 1) relative to (3, 4).",
+    latex: "a = (2,1), \\ b = (3,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "1",
+    explanation: "|perp| = |2·4 − 1·3|/5 = 5/5 = 1.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-6",
+    prompt: "Find the magnitude of the vector projection of (6, 8) onto (2, 1) (exact form).",
+    latex: "a = (6,8), \\ b = (2,1)",
+    marks: 4,
+    difficulty: 5,
+    answer: "4sqrt(5)",
+    acceptedAnswers: ["4√5", "8.944", "8.9443"],
+    explanation: "a·b = 20, |b| = √5, so |proj| = 20/√5 = 4√5.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-7",
+    prompt:
+      "Find the magnitude of the perpendicular component of (7, 1) relative to (3, 4).",
+    latex: "a = (7,1), \\ b = (3,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "5",
+    explanation: "|perp| = |7·4 − 1·3|/5 = 25/5 = 5.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-8",
+    prompt: "Find the magnitude of the vector projection of (5, 5) onto (3, 4).",
+    latex: "a = (5,5), \\ b = (3,4)",
+    marks: 3,
+    difficulty: 5,
+    answer: "7",
+    explanation: "a·b = 35, |b| = 5, so |proj| = 35/5 = 7.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-9",
+    prompt:
+      "Find the magnitude of the perpendicular component of (0, 5) relative to (3, 4).",
+    latex: "a = (0,5), \\ b = (3,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation: "|perp| = |0·4 − 5·3|/5 = 15/5 = 3.",
+  },
+  {
+    id: "y12e1-vec-pproof-d5-10",
+    prompt: "Find the magnitude of the vector projection of (8, 1) onto (3, 4).",
+    latex: "a = (8,1), \\ b = (3,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "5.6",
+    acceptedAnswers: ["28/5"],
+    explanation: "a·b = 28, |b| = 5, so |proj| = 28/5 = 5.6.",
+  },
+];
+
+// D6 — free-response proofs graded by the AI marker. responseType:"proof" with a
+// server-only modelSolution; drawn only when PROOF_MARKER_ENABLED.
+const projProofD6: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-pproof-d6-1",
+    prompt:
+      "Let a and b be vectors with b ≠ 0. Prove that the vector w = a − ((a·b)/|b|²) b is perpendicular to b.",
+    latex: "w = a - \\dfrac{a\\cdot b}{|b|^2}\\,b",
+    marks: 3,
+    difficulty: 6,
+    responseType: "proof",
+    explanation:
+      "Compute w·b = a·b − ((a·b)/|b|²)(b·b) = a·b − ((a·b)/|b|²)|b|² = a·b − a·b = 0. Since w·b = 0 and b ≠ 0, w is perpendicular to b.",
+    modelSolution:
+      "Take the dot product of w with b: w·b = [a − ((a·b)/|b|²) b]·b = a·b − ((a·b)/|b|²)(b·b). Since b·b = |b|², this is a·b − ((a·b)/|b|²)|b|² = a·b − a·b = 0. As w·b = 0 with b ≠ 0, w ⊥ b. (A complete proof must take w·b, use b·b = |b|², and conclude w·b = 0 ⇒ perpendicular.)",
+  },
+  {
+    id: "y12e1-vec-pproof-d6-2",
+    prompt:
+      "Prove that the scalar projection of a onto b equals |a|cos θ, where θ is the angle between a and b.",
+    latex: "\\text{scalar proj} = \\dfrac{a\\cdot b}{|b|}",
+    marks: 2,
+    difficulty: 6,
+    responseType: "proof",
+    explanation:
+      "By definition a·b = |a||b|cos θ. The scalar projection is (a·b)/|b| = |a||b|cos θ / |b| = |a|cos θ.",
+    modelSolution:
+      "Start from a·b = |a||b|cos θ. The scalar projection of a onto b is (a·b)/|b|. Substituting: (a·b)/|b| = |a||b|cos θ / |b| = |a|cos θ. (Must use a·b = |a||b|cos θ and divide by |b|.)",
+  },
+  {
+    id: "y12e1-vec-pproof-d6-3",
+    prompt:
+      "A vector a is written as a = a∥ + a⊥, where a∥ = ((a·b)/|b|²) b. Prove that a⊥ = a − a∥ is perpendicular to b, so the decomposition is orthogonal.",
+    latex: "a = a_\\parallel + a_\\perp, \\quad a_\\parallel = \\dfrac{a\\cdot b}{|b|^2}\\,b",
+    marks: 3,
+    difficulty: 6,
+    responseType: "proof",
+    explanation:
+      "a⊥·b = (a − a∥)·b = a·b − a∥·b = a·b − ((a·b)/|b|²)(b·b) = a·b − a·b = 0, so a⊥ ⊥ b.",
+    modelSolution:
+      "Compute a⊥·b = (a − a∥)·b = a·b − a∥·b. Now a∥·b = ((a·b)/|b|²)(b·b) = ((a·b)/|b|²)|b|² = a·b. Hence a⊥·b = a·b − a·b = 0, so a⊥ is perpendicular to b and the split a = a∥ + a⊥ is orthogonal. (Must show a∥·b = a·b and conclude a⊥·b = 0.)",
+  },
+  {
+    id: "y12e1-vec-pproof-d6-4",
+    prompt:
+      "Prove that the vector projection of a onto b is unchanged when b is replaced by λb for any scalar λ > 0.",
+    latex: "\\text{proj}_{\\lambda b}(a) = \\text{proj}_b(a)",
+    marks: 3,
+    difficulty: 6,
+    responseType: "proof",
+    explanation:
+      "proj_{λb}(a) = ((a·λb)/|λb|²)(λb) = ((λ(a·b))/(λ²|b|²))(λb) = ((a·b)/|b|²)b = proj_b(a).",
+    modelSolution:
+      "proj_{λb}(a) = ((a·(λb))/|λb|²)(λb). Now a·(λb) = λ(a·b) and |λb|² = λ²|b|², so this is (λ(a·b)/(λ²|b|²))(λb) = ((a·b)/(λ|b|²))(λb) = ((a·b)/|b|²)b = proj_b(a). (Must use a·(λb)=λ(a·b), |λb|²=λ²|b|², and cancel λ.)",
+  },
+];
+
 export const vectorsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -928,8 +1208,9 @@ export const vectorsPool: TopicTestPool = {
       subtopicSlug: "vectors-projection",
       subtopicTitle: "Proof of the Projection Formula and Perpendicular Component",
       remediationHref: href("vectors-projection"),
-      d4: [],
-      d5: [],
+      d4: projProofD4,
+      d5: projProofD5,
+      d6: projProofD6,
     },
     {
       subtopicSlug: "vectors-motion-2d",

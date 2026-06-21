@@ -416,15 +416,15 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   exam-practice subtopic at 10 D6 (multi-part synoptic across the strands).
   110 questions total. (Prior Knowledge Revision lesson excluded;
   bernoulli-trials owns model setup, binomial-probabilities owns the C(n,k) formula.)
-- 🟡 vectors — subtopics 1–4 done (Vectors, Scalars and Notation; Vector Addition
-  and Subtraction; The Dot Product; Vector Projections and Applications — 10 D4 +
-  10 D5 each); subtopics 5–7 pending (Proof of the Projection Formula; Vector
-  Functions of Time; Projectile Motion). 7 skill subtopics (revision excluded). The
-  projection-proof subtopic is now KEPT (not dropped): it carries computational
-  D4/D5 plus free-response `responseType:"proof"` items graded by the AI marker
-  (the assembler omits proof items unless PROOF_MARKER_ENABLED). No exam-practice
-  lesson in this unit; D6 placement TBD (inverse-trig precedent: attach to a
-  skill subtopic).
+- 🟡 vectors — subtopics 1–5 done (Vectors, Scalars and Notation; Vector Addition
+  and Subtraction; The Dot Product; Vector Projections and Applications; Proof of
+  the Projection Formula — 10 D4 + 10 D5 each); subtopics 6–7 pending (Vector
+  Functions of Time; Projectile Motion). 7 skill subtopics (revision excluded).
+  Subtopic 5 (vectors-projection) is KEPT (not dropped): computational D4/D5 PLUS
+  a D6 band of 4 free-response `responseType:"proof"` items graded by the AI
+  marker — verified to be excluded from assembly when PROOF_MARKER_ENABLED is off
+  (0 drawn) and included when on (4 drawn). No exam-practice lesson in this unit;
+  D6 placement otherwise TBD.
 - 🟢 **proof-induction — unblocked (marker built)**: the AI proof marker now
   exists — `lib/proofMarker/markProofWithAi.ts` + `app/api/mark-proof/route.ts`,
   gated by `ANTHROPIC_API_KEY` + `PROOF_MARKER_ENABLED=true` (inert until set).
