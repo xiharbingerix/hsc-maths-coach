@@ -1146,7 +1146,7 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Area measures the size of a flat shape using square units. Volume measures the space inside a solid using cubic units.",
+        "Area measures how much flat surface a shape covers, counted in unit squares (cm², m²). Volume measures how much space a solid fills, counted in unit cubes (cm³, m³) — picture stacking centimetre cubes until the solid is full.",
         "Common standard formulas include rectangle area, triangle area, prism surface area and prism volume. Use the shape name to choose the right formula.",
         "For volume, multiply the cross-sectional area by the length for prisms. For surface area, count all outside faces in square units.",
         "Always use the correct unit labels: square units for area and cubic units for volume."
@@ -1164,12 +1164,12 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
         steps: [
           {
             explanation:
-              "The formula for a rectangle is width times height.",
+              "The area is how many unit squares fit inside: each row holds 8 squares and there are 5 rows, so multiply width by height.",
             latex: "A=8\\times5",
           },
           {
             explanation:
-              "Multiply the dimensions to find the area.",
+              "Multiplying gives the count of square centimetres covered.",
             latex: "A=40\\text{ cm}^2",
           },
         ],
@@ -1182,12 +1182,12 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
         steps: [
           {
             explanation:
-              "Use the prism volume formula: cross-sectional area times length.",
+              "A prism is its base layer repeated up its height, so multiply the cross-sectional area by the height.",
             latex: "V=12\\times5",
           },
           {
             explanation:
-              "Multiply the area by the height to get cubic units.",
+              "The result counts unit cubes, so the volume is in cubic centimetres.",
             latex: "V=60\\text{ cm}^3",
           },
         ],
@@ -1277,7 +1277,7 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       },
       {
         mistake: "Adding dimensions instead of multiplying for area or volume.",
-        fix: "Use multiplication, not addition, for area and volume formulas."
+        fix: "It is tempting because adding is the default operation, but area and volume count a grid of squares or cubes, not a total of lengths. Multiply the dimensions — that is what tiles the surface or fills the solid."
       },
     ],
     masteryQuiz: [
@@ -1677,7 +1677,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "A linear model has the form y = mx + b. The gradient m shows how much y changes for each unit increase in x. The y-intercept b is the value of y when x = 0, often called the starting value.",
+        "A linear model has the form y = mx + b: start at b, then add the steady rate m for every one-unit step in x. The gradient m shows how much y changes for each unit increase in x, and the y-intercept b is the value of y when x = 0 — the starting value.",
         "In practical contexts, the gradient is a constant rate — such as a cost per kilometre, an hourly charge, or a wage per item. The y-intercept is a fixed starting amount — such as a connection fee, a call-out cost, or an opening balance.",
         "To check whether a table of values shows a linear relationship, calculate the change in y between consecutive rows with equal x-spacing. If the changes are all the same, the relationship is linear and the gradient equals that constant change.",
         "To evaluate a linear model for a given input, substitute the x-value into the equation and simplify using order of operations.",
@@ -2697,7 +2697,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "A rate compares two quantities with different units, such as kilometres per hour, litres per minute or dollars per hour. The most common rate formula is: quantity = rate × time.",
+        "A rate tells you how much of one quantity happens for each unit of another — kilometres for each hour, litres for each minute, dollars for each hour. Once you know the amount per unit, scale it up by the number of units: quantity = rate × time.",
         "For speed problems, distance = speed × time. Rearrange to find time = distance/speed or speed = distance/time.",
         "For fuel problems, fuel used = (fuel rate ÷ 100) × distance when rate is in L/100 km. Fuel cost = fuel used × price per litre.",
         "In multi-step problems, identify each phase separately, find the result for each phase, then combine. Always check that units are consistent before adding times or distances.",
@@ -2719,11 +2719,11 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
             latex: "\\text{driving time} = \\frac{240}{80} = 3\\text{ h}",
           },
           {
-            explanation: "Convert the rest stop to hours: 30 minutes = 0.5 hours.",
+            explanation: "The rest must be in the same unit as the driving time before they can be combined: 30 minutes = 0.5 hours.",
             latex: "\\text{rest} = 0.5\\text{ h}",
           },
           {
-            explanation: "Add driving time and rest time.",
+            explanation: "The journey is the driving plus the stop, so add the two times.",
             latex: "\\text{total} = 3 + 0.5 = 3.5\\text{ h}",
           },
         ],
@@ -2739,7 +2739,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
             latex: "0.60 \\times 1500 = 900\\text{ L}",
           },
           {
-            explanation: "Use time = volume/rate.",
+            explanation: "Each minute adds 25 L, so divide the volume needed by the per-minute rate to get the minutes.",
             latex: "\\text{time} = \\frac{900}{25} = 36\\text{ min}",
           },
         ],
@@ -2755,7 +2755,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
             latex: "\\text{fuel} = \\frac{12}{100} \\times 350 = 42\\text{ L}",
           },
           {
-            explanation: "Multiply by the price per litre.",
+            explanation: "Each litre costs $1.85, so multiply the litres used by the price per litre.",
             latex: "\\text{cost} = 42 \\times 1.85 = \\$77.70",
           },
         ],
@@ -2856,7 +2856,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       },
       {
         mistake: "Multiplying the fuel rate directly by distance instead of dividing by 100 first.",
-        fix: "For a rate in L/100 km, use: fuel = (rate ÷ 100) × distance.",
+        fix: "It is tempting because quantity = rate × amount usually works, but this rate is litres per 100 km, not per km. Divide by 100 first to get litres per kilometre: fuel = (rate ÷ 100) × distance.",
       },
       {
         mistake: "Forgetting to include a rest stop when finding total journey time.",
