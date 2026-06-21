@@ -401,9 +401,11 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   Identities and Composite Expressions); subtopic 4 also carries a **10-item D6
   band** (the topic's exam-mastery synoptic set, since this topic has no
   exam-practice lesson). 90 questions total.
-- ⬜ further-calculus, calculus-applications, binomial-distribution (each: skill
-  subtopics D4+D5, exam-practice → D6), vectors (D4+D5; drop the projection-proof
-  subtopic).
+- 🟡 further-calculus — subtopic 1 "Trigonometric Integral Forms" (10 D4 + 10
+  D5) done; subtopics 2–3 + the D6 exam-practice band pending. Register once
+  fuller.
+- ⬜ calculus-applications, binomial-distribution (each: skill subtopics D4+D5,
+  exam-practice → D6), vectors (D4+D5; drop the projection-proof subtopic).
 - ⏸ **proof-induction — deferred**: induction proofs aren't auto-markable.
   Awaits a Tier-2 AI proof/algorithm marker (the "Claude judge" already noted as
   future work in cas-service/README.md). Revisit once that marker exists.
