@@ -295,7 +295,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...practicalChoice("y12s2-trv-g2", "A drone problem gives one side with its opposite angle and asks for another side. Which rule is most appropriate?", "A", ["Sine rule", "Cosine rule", "Speed formula", "Unit conversion"], "A matching side-angle pair points to the sine rule."),
+          ...practicalChoice("y12s2-trv-g2", "A drone problem gives one side with its opposite angle and asks for another side. Which rule is most appropriate?", "A", ["Sine rule", "Cosine rule", "Pythagoras' theorem", "The triangle area rule"], "A matching side and its opposite angle point to the sine rule. The cosine rule needs two sides and the included angle (or all three sides), Pythagoras' theorem works only in right-angled triangles, and the area rule finds an area, not a side."),
           triangleDiagram: {
             description:
               "Triangle showing a known side opposite a known angle and another side labelled x opposite another angle.",
@@ -1029,7 +1029,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         trigAnswer("y12s2-sca-i4", "A triangular garden has sides 8 m and 11 m with an included angle of 35 degrees. Find its area to 1 decimal place.", "A=\\frac{1}{2}(8)(11)\\sin(35^\\circ)", "25.2 m^2", "Use the two given sides and their included angle: A = 1/2(8)(11)sin(35 degrees) = 25.2 square metres to 1 decimal place.", ["25.2", "25.2m^2", "25.2 m2", "25.2 m²"]),
-        practicalChoice("y12s2-sca-i5", "A student rounds every trig value to 1 decimal place before finishing. What is the risk?", "D", ["No risk", "The triangle disappears", "It proves causation", "The final answer may be less accurate"], "Rounding too early can affect the final answer."),
+        practicalChoice("y12s2-sca-i5", "A student rounds every trig value to 1 decimal place before finishing. What is the risk?", "D", ["No risk", "The answer becomes exact", "Only the units are affected", "The final answer may be less accurate"], "Rounding the trig values too early lets small errors build up, so the final answer may be less accurate — round only at the end. It is not harmless ('no risk'), rounding never makes a value exact, and it changes the computed value, not just the units."),
       ],
       commonMistakes: [
         { mistake: "Using the wrong angle in the area formula.", fix: "Use the included angle between the two known sides." },
