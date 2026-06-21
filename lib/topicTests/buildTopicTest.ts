@@ -1,5 +1,6 @@
 import type { ExamPaper, ExamQuestion, ExamSection } from "../exams/types";
 import { questionMarks } from "../exams/types";
+import { proofMarkerEnabled } from "../proofMarker/enabled";
 import type { SubtopicPool, TopicTestPool, TopicTestQuestion } from "./types";
 
 /**
@@ -80,12 +81,19 @@ export function buildTopicTest(
     subtopicTitle: sub.subtopicTitle,
   });
 
+  // Proof items need the AI marker; if it's disabled they would score 0, so leave
+  // them out of assembly entirely to keep the diagnostic fair. The flag is stable
+  // within a deployment, so sit-time and submit-time assemble the same paper.
+  const allowProof = proofMarkerEnabled();
+  const keep = (qs: readonly TopicTestQuestion[]): TopicTestQuestion[] =>
+    allowProof ? qs.slice() : qs.filter((q) => q.responseType !== "proof");
+
   // Per-subtopic draw queue: shuffle each band, then interleave D4,D5,D4,D5…
   // so easier items surface first and both bands are represented.
   const lanes = pool.subtopics.map((sub) => {
-    const d4 = shuffled(sub.d4, rng);
-    const d5 = shuffled(sub.d5, rng);
-    const d6 = shuffled(sub.d6 ?? [], rng);
+    const d4 = shuffled(keep(sub.d4), rng);
+    const d5 = shuffled(keep(sub.d5), rng);
+    const d6 = shuffled(keep(sub.d6 ?? []), rng);
     const queue: TopicTestQuestion[] = [];
     for (let i = 0; i < Math.max(d4.length, d5.length, d6.length); i++) {
       if (i < d4.length) queue.push(d4[i]);

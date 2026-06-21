@@ -24,6 +24,10 @@
  * Server-only: reads ANTHROPIC_API_KEY. The browser reaches it via /api/mark-proof.
  */
 import Anthropic from "@anthropic-ai/sdk";
+import { proofMarkerEnabled } from "./enabled";
+
+// Re-exported so existing callers can keep importing it from here.
+export { proofMarkerEnabled };
 
 export type ProofMarkResult = { correct: boolean };
 
@@ -63,14 +67,6 @@ const SCHEMA: Record<string, unknown> = {
   required: ["correct"],
   additionalProperties: false,
 };
-
-/** On unless ANTHROPIC_API_KEY is set AND PROOF_MARKER_ENABLED === "true". */
-export function proofMarkerEnabled(): boolean {
-  return (
-    Boolean(process.env.ANTHROPIC_API_KEY?.trim()) &&
-    process.env.PROOF_MARKER_ENABLED === "true"
-  );
-}
 
 export function buildUserContent(q: ProofQuestion, studentAnswer: string): string {
   const lines = [
