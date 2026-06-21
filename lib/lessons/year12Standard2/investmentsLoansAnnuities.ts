@@ -1126,7 +1126,7 @@ export function year12Standard2FinanceLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "An annuity involves equal regular payments. In Year 12 Standard 2, this can include regular deposits into an investment or regular repayments on a loan.",
+          "An annuity is a stream of equal payments made at regular intervals — in a savings annuity each deposit then earns interest over the time that remains, so the balance grows faster than the deposits alone. In Year 12 Standard 2 this can be regular deposits into an investment or regular repayments on a loan.",
           "A regular savings recurrence often adds interest to the current balance and then adds a deposit. A loan recurrence often adds interest and then subtracts a repayment.",
           "A table method is useful because each row follows the same rule. Keep the period, starting balance, interest, payment, and final balance clear.",
           "When comparing regular deposit plans, compare the final balance over the same time period and check whether deposits, fees, or interest rates are different.",
