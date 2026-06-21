@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { totalActiveLessonCount } from "../lib/courseUnits";
 import { SubscribeCTA } from "./components/SubscribeCTA";
 import { PageViewTracker } from "./components/PageViewTracker";
+import { DiagnosticResultPreview } from "./components/DiagnosticResultPreview";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -203,6 +204,15 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Diagnostic result preview */}
+        <DiagnosticResultPreview
+          cta={
+            <PrimaryLink href="/diagnostic/select">
+              Start free diagnostic
+            </PrimaryLink>
+          }
+        />
 
         {/* 2. How Nova Maths works */}
         <section className="space-y-6">
