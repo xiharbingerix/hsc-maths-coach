@@ -1292,7 +1292,7 @@ export function year11StandardFormulasEquationsLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Formula and equation exam questions often combine context, units and algebraic steps.",
+        "Formula and equation exam questions combine context, units and algebra, and the first decision is which job the question wants: substitute (every variable known but one — just compute it), solve (the unknown is tangled inside an equation to unpick), or rearrange (make a new variable the subject first).",
         "Start by identifying the variable you need to find. Then choose whether to substitute, solve an equation, or rearrange first.",
         "For substitution, replace variables carefully and follow order of operations.",
         "For rearranging, use inverse operations to make the required variable the subject.",
