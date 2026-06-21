@@ -1121,7 +1121,7 @@ export function year12Standard2AlgebraicRelationshipsLessonOverride(
         moneyAnswer("y12s2-sim-i2", "Using Taxi A: A = 6 + 2d, find the equal cost when d = 12.", "A=6+2d,\\quad d=12", "30"),
         linearAnswer("y12s2-sim-i3", "Plans P = 25 + 3g and Q = 40 + g are equal at what value of g?", "25+3g=40+g", "7.5", ["7.5 GB", "7.5GB"]),
         algebraAnswer("y12s2-sim-i4", "If the solution is (6, 120) for hire time and cost, state what 120 represents.", "(6,120)", "120", "In the ordered pair, the second value is the output. Here it is the common cost, so both options cost $120 at the intersection.", ["$120", "120 dollars", "common cost in dollars"]),
-        practicalChoice("y12s2-sim-i5", "A student solves only A = 30 + 15h and never uses B = 60 + 10h. What is missing?", "C", ["A table", "A quadratic term", "The comparison with the second model", "A unit conversion"], "A simultaneous-equations question needs both models."),
+        practicalChoice("y12s2-sim-i5", "A student solves only A = 30 + 15h and never uses B = 60 + 10h. What is missing?", "C", ["A value of h to substitute", "The graph of the two lines", "The comparison with the second model", "Model A's gradient"], "A break-even question needs both models, so what is missing is the comparison with model B: set A = B and solve for h. You do not need a value of h to substitute (h is the unknown you solve for), a graph (that is one method, not the missing idea), or model A's gradient (it is already given in the equation)."),
       ],
       commonMistakes: [
         { mistake: "Substituting a value into only one model and calling it the intersection.", fix: "At an intersection, both models must have the same output." },
