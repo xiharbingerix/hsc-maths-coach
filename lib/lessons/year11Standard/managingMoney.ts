@@ -434,7 +434,7 @@ export function year11StandardManagingMoneyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A savings goal states the amount a person wants to reach. To plan for it, subtract current savings from the goal.",
+          "A savings goal is a target amount to reach by a chosen time. Plan backwards from it: subtract what you already have to see how much is still needed, then work out how long regular deposits will take to close that gap.",
           "Regular deposits help track progress. If the remaining amount divides exactly by the deposit, the quotient gives the number of deposits needed.",
           "Affordability means checking whether money is available after necessary expenses and planned savings.",
           "When comparing saving plans, compare totals over the same number of weeks or months.",
@@ -493,7 +493,7 @@ export function year11StandardManagingMoneyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Simple interest is calculated only on the original amount, called the principal.",
+          "Simple interest is calculated only on the original amount (the principal), so you earn the same interest every period — the balance grows in equal steps, making a straight line.",
           "The interest rate must be written as a decimal before using the formula. For example, 4 percent becomes 0.04.",
           "Time must match the rate period. If the rate is per annum, time is measured in years.",
           "The total amount is the principal plus the interest earned.",
