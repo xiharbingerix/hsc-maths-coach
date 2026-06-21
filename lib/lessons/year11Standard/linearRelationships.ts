@@ -863,7 +863,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
     ],
     teaching: {
       paragraphs: [
-        "Exam-style linear relationship questions often use tables, rules, graphs and practical contexts.",
+        "Exam-style linear questions come disguised as tables, rules, graphs, or word problems — but each one reduces to finding two things: where the model starts (the intercept) and how fast it changes (the gradient).",
         "Look for the starting value and the constant change. These become the intercept and gradient in a linear rule.",
         "A direct variation model has no fixed starting amount and passes through the origin.",
         "Practical models have limitations. Do not assume the rule works forever or outside the context given.",
