@@ -489,7 +489,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         paragraphs: [
           "A sample space is the list of all possible outcomes in a chance situation.",
           "An event is the outcome or group of outcomes we are interested in.",
-          "When outcomes are equally likely, probability is the number of favourable outcomes divided by the total number of outcomes.",
+          "When outcomes are equally likely, probability is the share of all outcomes that count as a success: the number of favourable outcomes divided by the total. If 3 of 5 marbles are red, drawing red happens 3 times out of every 5.",
           "Probabilities range from 0 to 1. A probability of 0 is impossible and a probability of 1 is certain.",
           "The complement of an event means the event does not happen. The probability of an event and its complement add to 1.",
         ],
@@ -549,7 +549,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Relative frequency compares how often an outcome occurs with the total number of trials.",
+          "Relative frequency is the probability the data actually shows — how often an outcome occurred out of all the trials.",
           "Experimental probability comes from data collected in trials or observations.",
           "Theoretical probability comes from the expected chance in a model, such as a fair coin or fair die.",
           "Experimental results do not have to match theoretical probability exactly, especially in small trials.",
@@ -610,7 +610,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A two-way table organises data using two categories, such as year group and transport type.",
+          "A two-way table sorts everyone by two questions at once, so each cell counts the people who fit both — for example, a year group and a transport type.",
           "A cell in the table sits at the intersection of a row and a column.",
           "Row totals and column totals help answer questions about one category.",
           "An 'and' probability from a two-way table usually comes from one cell, such as Year 11 and bus.",
