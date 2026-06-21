@@ -1382,7 +1382,7 @@ function toPracticeQuestion(
   return {
     ...original,
     prompt: spec.prompt,
-    latex: spec.choices ? "\text{Select A, B, C, or D.}" : "",
+    latex: spec.choices ? "\\text{Select A, B, C, or D.}" : "",
     answer: spec.answer,
     acceptedAnswers: spec.acceptedAnswers ?? [],
     choices: spec.choices?.map((text, index) => ({
