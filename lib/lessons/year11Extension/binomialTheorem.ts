@@ -458,7 +458,7 @@ function generalTermLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
     masteryQuiz: [
       intAnswer("y11ext-bt-gen-m1", "Find the r-value that gives the displayed power.", "(x+2)^5,\\quad x^3", "2",
         "The power of $x$ in $T_{r+1}$ is $5-r$. Set $5-r = 3$, so $r = 2$."),
-      choice("y11ext-bt-gen-m2", "Which term number corresponds to r equals 4?", "D", ["Third term", "Fourth term", "Sixth term", "Fifth term"], "The term number is r plus 1." ),
+      choice("y11ext-bt-gen-m2", "A student says that in a binomial expansion the term with r = 4 is the 4th term. What is the correct term number?", "B", ["The 4th term — the student is correct", "The 5th term, because r starts at 0 so the term number is r + 1", "The 3rd term", "The 6th term"], "Counting starts at r = 0 for the first term, so the term with r = 4 is the (r + 1) = 5th term. The student forgot the off-by-one from r = 0." ),
       intAnswer("y11ext-bt-gen-m3", "Find the coefficient of the displayed power.", "(x+2)^5,\\quad x^3", "40",
         "r = 2 (since 5−r = 3). The term is C(5,2)·x³·2² = 10·4 = 40."),
       intAnswer("y11ext-bt-gen-m4", "Find the coefficient of the displayed power.", "(x+3)^6,\\quad x^4", "135",
