@@ -6,10 +6,8 @@ import {
   preserveMarketingParams,
   getMarketingParamsFromUrl,
 } from "../../lib/analytics/clientTrackEvent";
-import {
-  getCtaExperiment,
-  ctaExperimentProps,
-} from "../../lib/experiments/ctaExperiment";
+import { ctaExperimentProps } from "../../lib/experiments/ctaExperiment";
+import { useCtaVariant } from "./useCtaVariant";
 
 const DEFAULT_CLASS =
   "inline-flex max-w-full shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold leading-none text-white shadow-sm transition hover:bg-slate-800";
@@ -23,6 +21,7 @@ export function DiagnosticCtaLink({
   source = "homepage",
   className,
 }: Readonly<{ source?: string; className?: string }>) {
+  const variant = useCtaVariant();
   return (
     <Link
       href="/diagnostic/select"
@@ -37,7 +36,7 @@ export function DiagnosticCtaLink({
         });
       }}
     >
-      {getCtaExperiment().label}
+      {variant.label}
     </Link>
   );
 }

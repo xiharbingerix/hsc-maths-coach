@@ -148,7 +148,11 @@ function SecondaryLink({
 export default function HscMathsPage() {
   return (
     <main className="min-h-screen overflow-x-hidden bg-slate-50 text-slate-900">
-      <PageViewTracker eventName="hsc_maths_viewed" includeMarketingParams />
+      <PageViewTracker
+        eventName="hsc_maths_viewed"
+        includeMarketingParams
+        includeCtaExperiment
+      />
 
       {/* Sticky full-width header */}
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-sm">

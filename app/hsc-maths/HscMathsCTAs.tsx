@@ -13,10 +13,8 @@ import {
   preserveMarketingParams,
   getMarketingParamsFromUrl,
 } from "../../lib/analytics/clientTrackEvent";
-import {
-  getCtaExperiment,
-  ctaExperimentProps,
-} from "../../lib/experiments/ctaExperiment";
+import { ctaExperimentProps } from "../../lib/experiments/ctaExperiment";
+import { useCtaVariant } from "../components/useCtaVariant";
 
 /**
  * Primary trial CTA for the /hsc-maths page.
@@ -127,6 +125,7 @@ export function HscDiagnosticCTAButton({
   children?: ReactNode;
   className?: string;
 }) {
+  const variant = useCtaVariant();
   return (
     <Link
       href="/diagnostic/select"
@@ -144,7 +143,7 @@ export function HscDiagnosticCTAButton({
         "inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
       }
     >
-      {children ?? getCtaExperiment().label}
+      {children ?? variant.label}
     </Link>
   );
 }

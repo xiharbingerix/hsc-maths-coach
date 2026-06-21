@@ -141,7 +141,7 @@ function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
-      <PageViewTracker eventName="homepage_viewed" />
+      <PageViewTracker eventName="homepage_viewed" includeCtaExperiment />
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-10 sm:px-6 lg:px-8">
         <header className="flex items-center justify-between gap-4">
           <Link href="/" className="flex shrink-0 items-center">
