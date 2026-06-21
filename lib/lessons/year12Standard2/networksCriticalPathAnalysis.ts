@@ -194,6 +194,157 @@ const y12SolvedCriticalPathDiagram: NetworkDiagram = {
   ],
 };
 
+const y12NetworkTermDegreeDiagram: NetworkDiagram = {
+  description:
+    "Undirected network with vertices A, B, C, D, E. Edges: A-C, B-C, C-D, D-E.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 170, y: 70 },
+    { id: "C", label: "C", x: 200, y: 150 },
+    { id: "D", label: "D", x: 320, y: 150 },
+    { id: "E", label: "E", x: 400, y: 230 },
+  ],
+  edges: [
+    { from: "A", to: "C" },
+    { from: "B", to: "C" },
+    { from: "C", to: "D" },
+    { from: "D", to: "E" },
+  ],
+};
+
+const y12NetworkTermWeightedRouteDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted network with vertices A, B, C, D. Edges: A-B weight 5, B-D weight 4, A-C weight 7, C-D weight 2, B-C weight 6.",
+  vertices: [
+    { id: "A", label: "A", x: 80, y: 150 },
+    { id: "B", label: "B", x: 180, y: 70 },
+    { id: "C", label: "C", x: 180, y: 230 },
+    { id: "D", label: "D", x: 320, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 5 },
+    { from: "B", to: "D", weight: 4 },
+    { from: "A", to: "C", weight: 7 },
+    { from: "C", to: "D", weight: 2 },
+    { from: "B", to: "C", weight: 6 },
+  ],
+};
+
+const y12NetworkTermRouteChoiceDiagram: NetworkDiagram = {
+  description:
+    "Undirected weighted network with vertices A, B, C, D, E. Edges: A-B weight 3, B-E weight 7, A-C weight 2, C-D weight 2, D-E weight 2, B-D weight 5.",
+  vertices: [
+    { id: "A", label: "A", x: 70, y: 150 },
+    { id: "B", label: "B", x: 170, y: 70 },
+    { id: "C", label: "C", x: 170, y: 230 },
+    { id: "D", label: "D", x: 300, y: 180 },
+    { id: "E", label: "E", x: 390, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 3 },
+    { from: "B", to: "E", weight: 7 },
+    { from: "A", to: "C", weight: 2 },
+    { from: "C", to: "D", weight: 2 },
+    { from: "D", to: "E", weight: 2 },
+    { from: "B", to: "D", weight: 5 },
+  ],
+};
+
+const y12NetworkTermM2Diagram: NetworkDiagram = {
+  description:
+    "Undirected network with vertices P, Q, R, S, T, U. Edges: P-Q, P-R, Q-R, Q-S, R-T, S-T, T-U.",
+  vertices: [
+    { id: "P", label: "P", x: 70, y: 150 },
+    { id: "Q", label: "Q", x: 170, y: 70 },
+    { id: "R", label: "R", x: 190, y: 220 },
+    { id: "S", label: "S", x: 310, y: 70 },
+    { id: "T", label: "T", x: 320, y: 210 },
+    { id: "U", label: "U", x: 420, y: 210 },
+  ],
+  edges: [
+    { from: "P", to: "Q" },
+    { from: "P", to: "R" },
+    { from: "Q", to: "R" },
+    { from: "Q", to: "S" },
+    { from: "R", to: "T" },
+    { from: "S", to: "T" },
+    { from: "T", to: "U" },
+  ],
+};
+
+const y12NetworkTermMixedDiagram: NetworkDiagram = {
+  description:
+    "Network with vertices A, B, C, D. Edge A-B is undirected with weight 4. Edge B-C is undirected with weight 6. Edge C-D is directed from C to D with no weight. Edge A-D is directed from A to D with no weight.",
+  vertices: [
+    { id: "A", label: "A", x: 70, y: 150 },
+    { id: "B", label: "B", x: 180, y: 70 },
+    { id: "C", label: "C", x: 190, y: 230 },
+    { id: "D", label: "D", x: 330, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", weight: 4 },
+    { from: "B", to: "C", weight: 6 },
+    { from: "C", to: "D", directed: true },
+    { from: "A", to: "D", directed: true },
+  ],
+};
+
+const y12NetworkTermDirectedDiagram: NetworkDiagram = {
+  description:
+    "Directed network with vertices A, B, C, D, E. Directed edges: A to B, A to C, B to D, D to E, and D to C.",
+  vertices: [
+    { id: "A", label: "A", x: 70, y: 150 },
+    { id: "B", label: "B", x: 170, y: 70 },
+    { id: "C", label: "C", x: 180, y: 230 },
+    { id: "D", label: "D", x: 300, y: 150 },
+    { id: "E", label: "E", x: 400, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", directed: true },
+    { from: "A", to: "C", directed: true },
+    { from: "B", to: "D", directed: true },
+    { from: "D", to: "E", directed: true },
+    { from: "D", to: "C", directed: true },
+  ],
+};
+
+const y12NetworkTermDegreeConstraintDiagram: NetworkDiagram = {
+  description:
+    "Undirected network with vertices T, U, V, W, X. Edges: T-U, U-V, V-W, W-X, and U-W.",
+  vertices: [
+    { id: "T", label: "T", x: 70, y: 150 },
+    { id: "U", label: "U", x: 170, y: 70 },
+    { id: "V", label: "V", x: 220, y: 220 },
+    { id: "W", label: "W", x: 330, y: 110 },
+    { id: "X", label: "X", x: 430, y: 150 },
+  ],
+  edges: [
+    { from: "T", to: "U" },
+    { from: "U", to: "V" },
+    { from: "V", to: "W" },
+    { from: "W", to: "X" },
+    { from: "U", to: "W" },
+  ],
+};
+
+const y12NetworkTermSynthesisDiagram: NetworkDiagram = {
+  description:
+    "Directed weighted network with vertices A, B, C, D. Directed edges: A to B weight 4, A to C weight 2, C to B weight 1, B to D weight 3, and C to D weight 6.",
+  vertices: [
+    { id: "A", label: "A", x: 70, y: 150 },
+    { id: "B", label: "B", x: 190, y: 70 },
+    { id: "C", label: "C", x: 190, y: 230 },
+    { id: "D", label: "D", x: 340, y: 150 },
+  ],
+  edges: [
+    { from: "A", to: "B", directed: true, weight: 4 },
+    { from: "A", to: "C", directed: true, weight: 2 },
+    { from: "C", to: "B", directed: true, weight: 1 },
+    { from: "B", to: "D", directed: true, weight: 3 },
+    { from: "C", to: "D", directed: true, weight: 6 },
+  ],
+};
+
 export function year12Standard2NetworksLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -582,25 +733,203 @@ export function year12Standard2NetworksLessonOverride(
         },
       ],
       guidedPractice: [
-        shortAnswer("y12s2-net-term-g1", "A campus network has edges AB, AC, BC and CD. How many edges are listed?", "AB,AC,BC,CD", "4"),
-        shortAnswer("y12s2-net-term-g2", "In the edge list AB, AC, AD, BD, what is the degree of A?", "\\deg(A)=?", "3"),
-        labelledChoice("y12s2-net-term-g3", "A delivery map has arrows showing one-way streets. Which network type is needed?", "B", ["Weighted only", "Directed", "Disconnected", "Minimum spanning tree"], "One-way streets require directed edges."),
-        labelledChoice("y12s2-net-term-g4", "Edge list: Library-Gym 5 min, Gym-Canteen 3 min. What do 5 and 3 represent?", "C", ["Vertex labels", "Degrees", "Edge weights", "Circuits"], "The numbers on edges are weights."),
+        {
+          id: "y12s2-net-term-g1",
+          prompt:
+            "Library L, Hall H and Gym G are joined by direct walkways L-H, L-G and H-G. Which network models the locations as vertices and the walkways as edges?",
+          latex: "\\text{Select the correct network model.}",
+          answer: "A",
+          choices: [
+            {
+              label: "A",
+              text: "Rooms are vertices; each direct walkway is one edge.",
+              diagram: {
+                description:
+                  "Undirected triangle with vertices L, H, and G. Edges L-H, L-G, and H-G.",
+                vertices: [
+                  { id: "L", label: "L", x: 70, y: 150 },
+                  { id: "H", label: "H", x: 180, y: 70 },
+                  { id: "G", label: "G", x: 180, y: 230 },
+                ],
+                edges: [
+                  { from: "L", to: "H" },
+                  { from: "L", to: "G" },
+                  { from: "H", to: "G" },
+                ],
+              },
+            },
+            {
+              label: "B",
+              text: "The walkways become vertices joined to the rooms.",
+              diagram: {
+                description:
+                  "Network with room vertices L, H, G and a central vertex W representing the walkway system, with edges from W to each room.",
+                vertices: [
+                  { id: "L", label: "L", x: 60, y: 150 },
+                  { id: "H", label: "H", x: 170, y: 70 },
+                  { id: "G", label: "G", x: 170, y: 230 },
+                  { id: "W", label: "W", x: 260, y: 150 },
+                ],
+                edges: [
+                  { from: "L", to: "W" },
+                  { from: "H", to: "W" },
+                  { from: "G", to: "W" },
+                ],
+              },
+            },
+            {
+              label: "C",
+              text: "Each time a room appears in a walkway, it is treated as a new vertex.",
+              diagram: {
+                description:
+                  "Network with duplicate room labels L1, L2, H1, H2, G1, G2 connected as three separate edges rather than shared vertices.",
+                vertices: [
+                  { id: "L1", label: "L", x: 40, y: 70 },
+                  { id: "H1", label: "H", x: 140, y: 70 },
+                  { id: "L2", label: "L", x: 40, y: 150 },
+                  { id: "G1", label: "G", x: 140, y: 150 },
+                  { id: "H2", label: "H", x: 40, y: 230 },
+                  { id: "G2", label: "G", x: 140, y: 230 },
+                ],
+                edges: [
+                  { from: "L1", to: "H1" },
+                  { from: "L2", to: "G1" },
+                  { from: "H2", to: "G2" },
+                ],
+              },
+            },
+            {
+              label: "D",
+              text: "All three walkways are merged into one line because the rooms are in the same area.",
+              diagram: {
+                description:
+                  "Path L-H-G with only two edges, so one of the direct walkways is missing.",
+                vertices: [
+                  { id: "L", label: "L", x: 50, y: 150 },
+                  { id: "H", label: "H", x: 150, y: 150 },
+                  { id: "G", label: "G", x: 250, y: 150 },
+                ],
+                edges: [
+                  { from: "L", to: "H" },
+                  { from: "H", to: "G" },
+                ],
+              },
+            },
+          ],
+          hint:
+            "The locations should be the points of the network, and each direct walkway should join the two locations it connects.",
+          explanation:
+            "Option A is correct because L, H, and G are the locations, so they are the vertices. Each direct walkway between two locations becomes one edge. Option B turns the walkway into a vertex, option C wrongly creates duplicate vertices for repeated room labels, and option D loses the direct L-G connection.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-g2",
+            "Using the network diagram, find the degree of vertex C.",
+            "\\deg(C)=?",
+            "3"
+          ),
+          diagram: y12NetworkTermDegreeDiagram,
+          hint:
+            "Count only the edges that touch C. Do not count how many vertices are in the whole network.",
+          explanation:
+            "Vertex C is joined to A, B, and D, so three edges are incident to C. The degree is therefore 3. Degree counts touching edges only; it is not an angle and it is not the total number of vertices.",
+        },
+        {
+          id: "y12s2-net-term-g3",
+          prompt:
+            "A delivery map uses arrows for one-way streets. Which route is not allowed by the arrows?",
+          latex: "\\text{Select A, B, C, or D.}",
+          diagram: y12NetworkTermDirectedDiagram,
+          answer: "D",
+          choices: [
+            { label: "A", text: "A-B-D-E" },
+            { label: "B", text: "A-C" },
+            { label: "C", text: "A-B-D-C" },
+            { label: "D", text: "A-C-D" },
+          ],
+          hint:
+            "Check each step against the arrow direction. A connected pair of vertices does not always allow travel both ways.",
+          explanation:
+            "Option D is not allowed because the diagram has an arrow D->C, not C->D. Routes A-B-D-E, A-C, and A-B-D-C all follow the arrows exactly. This is why one-way streets must be treated as directed movement, not as undirected connections.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-g4",
+            "Using the weighted network, find the total weight of route A-B-D.",
+            "A\\to B\\to D",
+            "9"
+          ),
+          diagram: y12NetworkTermWeightedRouteDiagram,
+          hint:
+            "Trace only the route A-B-D and add those two edge weights. Ignore edges that are visible but not travelled.",
+          explanation:
+            "Route A-B-D uses edges A-B and B-D only. Their weights are 5 and 4, so the total is 5 + 4 = 9. The other edges are part of the network, but they are not on the stated route.",
+        },
       ],
       independentPractice: [
-        shortAnswer("y12s2-net-term-i1", "Roads are AB, BC, CD, DA and AC. How many vertices are named?", "A,B,C,D", "4"),
-        shortAnswer("y12s2-net-term-i2", "Roads are AB, BC, CD, DA and AC. What is the degree of C?", "\\deg(C)=?", "3"),
-        labelledChoice("y12s2-net-term-i3", "A route A-B-C-D has no repeated vertices. It is best described as:", "A", ["A path", "A disconnected network", "A degree", "A vertex"], "A route with no repeated vertices is a path."),
-        labelledChoice("y12s2-net-term-i4", "A route A-B-C-A returns to its starting point. It is a:", "D", ["Weight", "Tree", "Trail only", "Circuit"], "A circuit starts and ends at the same vertex."),
+        {
+          ...shortAnswer(
+            "y12s2-net-term-i1",
+            "A caretaker records direct links as Depot-Library, Library-Hall, Hall-Office, and Depot-Office. If this table is drawn as a network, how many distinct locations become vertices?",
+            "\\text{Depot-Library, Library-Hall, Hall-Office, Depot-Office}",
+            "4"
+          ),
+          hint:
+            "List each location name once, even if it appears in more than one connection.",
+          explanation:
+            "The distinct locations are Depot, Library, Hall, and Office, so the network needs 4 vertices. Repeated appearances of Library, Hall, or Office do not create new vertices; they only show that those locations are used in more than one edge.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-i2",
+            "In the school path network, a new edge C-E is added. What is the new degree of C?",
+            "\\deg(C)\\text{ after adding }CE",
+            "4"
+          ),
+          diagram: y12CampusDiagram,
+          hint:
+            "Start with the current degree of C, then decide whether the new edge touches C.",
+          explanation:
+            "In the original network, C is joined to A, D, and E, so deg(C) = 3. Adding the new edge C-E gives C one more incident edge, so its new degree is 4. An added undirected edge changes the degree of each endpoint by 1.",
+        },
+        labelledChoice(
+          "y12s2-net-term-i3",
+          "A courier records the route Depot-Library-Hall-Office. No location is repeated, and the route finishes at Office. What is the most specific description of the route?",
+          "B",
+          [
+            "A trail only",
+            "A path",
+            "A circuit",
+            "A disconnected network",
+          ],
+          "The route visits each location once and does not return to its start, so it is a path. A path is also a trail, which is why option A is tempting, but path is the more specific correct label. It is not a circuit because it does not finish where it started."
+        ),
+        {
+          ...shortAnswer(
+            "y12s2-net-term-i4",
+            "Route A-B-C-D-B-E repeats one vertex but no edge, and it finishes at E. Classify the route as path, trail, or circuit.",
+            "A-B-C-D-B-E",
+            "trail",
+            ["a trail", "Trail", "A trail"]
+          ),
+          hint:
+            "Check the route in this order: repeated vertices, repeated edges, then whether it returns to the start.",
+          explanation:
+            "The route repeats vertex B, so it is not a path. None of the edges is repeated, so it is still a trail. It is not a circuit because it starts at A and finishes at E rather than returning to its starting vertex.",
+        },
         {
           ...shortAnswer(
             "y12s2-net-term-i5",
-            "A fibre network has cable links AC = 90 m and CD = 110 m. Find the total cable length along the path A-C-D.",
-            "AC=90\\text{ m},\\quad CD=110\\text{ m}",
-            "200 m",
-            ["200", "200m", "200 metres"]
+            "Using the weighted network, which route from A to E has the smaller total weight: A-B-E or A-C-D-E?",
+            "\\text{Enter the lighter route label.}",
+            "A-C-D-E",
+            ["ACDE", "A,C,D,E", "A C D E"]
           ),
-          hint: "Identify the edges used by path A-C-D, then combine their weights.",
+          diagram: y12NetworkTermRouteChoiceDiagram,
+          hint:
+            "Add the weights on both candidate routes first. A route with fewer edges is not always lighter.",
+          explanation:
+            "Route A-B-E has total weight 3 + 7 = 10. Route A-C-D-E has total weight 2 + 2 + 2 = 6. So A-C-D-E is the lighter route even though it uses more edges. The comparison depends on total weight, not edge count.",
         },
       ],
       commonMistakes: [
@@ -610,19 +939,149 @@ export function year12Standard2NetworksLessonOverride(
         { mistake: "Calling a route a circuit when it does not return to the start.", fix: "A circuit must start and finish at the same vertex." },
       ],
       masteryQuiz: [
-        shortAnswer("y12s2-net-term-m1", "A school path network has edges AB, AC, CD, DE. How many edges are listed?", "AB,AC,CD,DE", "4", ["4 edges"]),
         {
-          ...shortAnswer("y12s2-net-term-m2", "Use the school path network to find the degree of C.", "AB,\\ AC,\\ BD,\\ CD,\\ CE", "3"),
-          diagram: y12CampusDiagram,
+          ...shortAnswer(
+            "y12s2-net-term-m1",
+            "An undirected network has 7 edges. Four of its vertices have degrees 4, 3, 3 and 2. What is the degree of the fifth vertex?",
+            "2e=2\\times 7=14",
+            "2"
+          ),
+          hint:
+            "Use the fact that the sum of all vertex degrees equals twice the number of edges.",
+          explanation:
+            "With 7 edges, the total degree sum is 2 x 7 = 14. The four known degrees add to 4 + 3 + 3 + 2 = 12, so the missing degree is 14 - 12 = 2. Each edge contributes to two endpoints, which is why the degree sum is twice the edge count.",
         },
-        labelledChoice("y12s2-net-term-m3", "In a road network, a number on an edge usually represents:", "C", ["A vertex", "A circuit", "A weight such as distance or time", "A repeated path"], "Numbers on edges are weights."),
-        labelledChoice("y12s2-net-term-m4", "A route A-B-C-D with no repeated vertices is a:", "A", ["Path", "Degree", "Weight", "Disconnected network"], "A path has no repeated vertices."),
-        labelledChoice("y12s2-net-term-m5", "A route A-B-C-A is a:", "D", ["Vertex", "Edge list", "Degree", "Circuit"], "It starts and ends at A."),
-        shortAnswer("y12s2-net-term-m6", "Edges AB, BC, CD, DA and AC use vertices A, B, C and D. How many vertices are there?", "A,B,C,D", "4"),
-        labelledChoice("y12s2-net-term-m7", "One-way roads are represented using:", "B", ["Only weights", "Directed edges", "A box plot", "Undirected edges only"], "One-way movement needs arrows."),
-        shortAnswer("y12s2-net-term-m8", "A vertex is joined to four direct roads. What is its degree?", "\\deg(v)=?", "4"),
-        labelledChoice("y12s2-net-term-m9", "A cable network has lengths on each connection. It is:", "A", ["Weighted", "Unweighted only", "Not a network", "A salary table"], "Cable lengths are weights."),
-        labelledChoice("y12s2-net-term-m10", "Which statement matches the edge list AB=8, AC=5, BC=6?", "C", ["There are no weights", "There is only one vertex", "There are three weighted edges", "The route must be a circuit"], "The table gives three edges with weights."),
+        {
+          ...shortAnswer(
+            "y12s2-net-term-m2",
+            "Using the network diagram, by how much does deg(Q) + deg(T) exceed deg(S) + deg(U)?",
+            "\\left(\\deg(Q)+\\deg(T)\\right)-\\left(\\deg(S)+\\deg(U)\\right)",
+            "3"
+          ),
+          diagram: y12NetworkTermM2Diagram,
+          hint:
+            "Find the two degree totals first, then compare them. You will need more than one local count from the diagram.",
+          explanation:
+            "Vertex Q has degree 3 and vertex T has degree 3, so deg(Q) + deg(T) = 6. Vertex S has degree 2 and vertex U has degree 1, so deg(S) + deg(U) = 3. Therefore deg(Q) + deg(T) exceeds deg(S) + deg(U) by 6 - 3 = 3. This requires reading several degrees from the diagram and comparing the two totals, not just performing one direct count.",
+        },
+        {
+          id: "y12s2-net-term-m3",
+          prompt:
+            "The network mixes weighted and directed edges. Which statement is correct?",
+          latex: "\\text{Select A, B, C, or D.}",
+          diagram: y12NetworkTermMixedDiagram,
+          answer: "C",
+          choices: [
+            { label: "A", text: "Because some edges have weights, every edge in the network must be directed." },
+            { label: "B", text: "Because some edges are directed, every edge in the network must also have a weight." },
+            { label: "C", text: "The network contains weighted undirected edges and unweighted directed edges." },
+            { label: "D", text: "An edge cannot be weighted unless travel on it is one-way." },
+          ],
+          hint:
+            "Check what the numbers mean and what the arrows mean. They describe different properties.",
+          explanation:
+            "Option C is correct. Edges A-B and B-C are weighted because they carry numbers, but they are undirected because they have no arrows. Edges A-D and C-D are directed because they have arrows, but they are unweighted because no numbers are shown. Weight and direction are independent edge properties.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-m4",
+            "Classify the route A-B-C-D-B-A as path, trail, or circuit.",
+            "A-B-C-D-B-A",
+            "circuit",
+            ["a circuit", "Circuit", "A circuit"]
+          ),
+          hint:
+            "Test all three route conditions before naming it. A route can fail path and trail conditions but still return to its start.",
+          explanation:
+            "The route starts at A and ends at A, so it is a circuit. It is not a path because vertex B is repeated. It is not a trail because edge A-B is used twice, once as A-B and again as B-A. Checking all three conditions is what makes circuit the correct classification.",
+        },
+        {
+          id: "y12s2-net-term-m5",
+          prompt:
+            "A student says route A-B-C-B-A is an Euler circuit because it starts and ends at A. Which reason best shows the claim is wrong?",
+          latex: "\\text{Select A, B, C, or D.}",
+          answer: "C",
+          choices: [
+            { label: "A", text: "An Euler circuit must start and finish at different vertices." },
+            { label: "B", text: "A repeated vertex always makes any trail impossible." },
+            { label: "C", text: "An Euler circuit must use each edge exactly once, but this route repeats edge B-C." },
+            { label: "D", text: "A route with four edges is always a path, not a circuit." },
+          ],
+          hint:
+            "Starting and finishing at the same vertex is only one Euler-circuit condition. Check what happens to the edges.",
+          explanation:
+            "Option C is correct. The route uses edge B-C and then uses the same edge again on the way back from C to B, so it does not use each edge exactly once. Starting and ending at A is not enough by itself to make a route an Euler circuit.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-m6",
+            "In the directed network, the edge C->D has been reversed so it now points D->C. What is now the only directed route from A to E?",
+            "\\text{Enter the route label.}",
+            "A-B-D-E",
+            ["ABDE", "A,B,D,E", "A B D E"]
+          ),
+          diagram: y12NetworkTermDirectedDiagram,
+          hint:
+            "Follow the arrows carefully. A connected pair of vertices does not mean travel is allowed both ways.",
+          explanation:
+            "After the reversal, there is no arrow from C to D, so any route from A through C gets stuck. The route A-B-D-E is still valid because each step follows an arrow in the correct direction. That makes A-B-D-E the only directed route from A to E.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-m7",
+            "In the network, deg(T)=1 and deg(W)=3. New undirected edges may be added between existing vertices. What is the smallest number of new edges needed so that both T and W end with degree 4?",
+            "\\text{minimum new edges}",
+            "3"
+          ),
+          diagram: y12NetworkTermDegreeConstraintDiagram,
+          hint:
+            "Each new undirected edge increases the degree of both of its endpoints by 1. Work backwards from how much T and W each need to gain.",
+          explanation:
+            "T must gain 3 more incident edges to go from degree 1 to degree 4, while W needs only 1 more edge to go from degree 3 to degree 4. One new edge can connect T to W, which raises both at once. T then still needs 2 more edges to other existing vertices, so the minimum total is 3 new edges.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-m8",
+            "A network has 9 vertices, 6 edges, and no cycles. What is the minimum number of additional links needed to turn it into one tree?",
+            "v=9,\\ e=6",
+            "2"
+          ),
+          hint:
+            "A cycle-free network is a forest. Use the relationship between vertices, edges, and connected components before deciding how many links must be added.",
+          explanation:
+            "For a forest, e = v - c where c is the number of connected components. Here 6 = 9 - c, so c = 3 components. To connect 3 components into one connected tree without creating a cycle, exactly c - 1 = 2 new links are needed.",
+        },
+        {
+          ...shortAnswer(
+            "y12s2-net-term-m9",
+            "A connected network currently has odd-degree vertices A, C, D and F. A new edge is added between C and F. After the change, which two vertices must be the endpoints of an Euler trail?",
+            "\\text{Enter the endpoint pair.}",
+            "A and D",
+            ["D and A", "A,D", "D,A", "A and D", "D and A"]
+          ),
+          hint:
+            "Adding one edge changes the parity of exactly the two vertices it joins.",
+          explanation:
+            "Before the change, A, C, D, and F are odd. Adding edge C-F changes both C and F from odd to even, leaving A and D as the only odd-degree vertices. A connected network with exactly two odd vertices has an Euler trail whose endpoints are those two odd vertices, so the endpoints must be A and D.",
+        },
+        {
+          id: "y12s2-net-term-m10",
+          prompt:
+            "Which claim about the directed weighted network is fully correct?",
+          latex: "\\text{Select A, B, C, or D.}",
+          diagram: y12NetworkTermSynthesisDiagram,
+          answer: "C",
+          choices: [
+            { label: "A", text: "Route A-C-B-D is invalid because the route changes direction at B." },
+            { label: "B", text: "Route A-B-D is the best route because two edges must beat three edges." },
+            { label: "C", text: "Route A-C-B-D is valid and has total weight 6, so it is the shortest route from A to D." },
+            { label: "D", text: "Route A-C-D is a circuit of total weight 8." },
+          ],
+          hint:
+            "Check each claim in order: does the route follow the arrows, what is its total weight, and does its classification match the endpoints?",
+          explanation:
+            "Option C is correct. Route A-C-B-D follows the arrows A->C, C->B and B->D, so it is valid, and its total weight is 2 + 1 + 3 = 6. Route A-B-D is valid but heavier at 4 + 3 = 7, so option B uses the wrong criterion. Option A wrongly treats a valid continuation as invalid, and option D is false because A-C-D starts at A and ends at D, so it is not a circuit.",
+        },
       ],
     };
   }
