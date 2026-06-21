@@ -1055,7 +1055,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "Mixed probability questions require you to identify the source of the probability first.",
+          "Mixed probability questions require you to identify the source first: a theoretical model (count equally-likely outcomes), experimental data (use relative frequency), or a table (read counts and totals). That choice decides the whole method.",
           "For equally likely outcomes, count favourable outcomes and total outcomes.",
           "For experimental probability, use relative frequency from the trial data.",
           "For table questions, decide whether the question asks for a cell, a row total, a column total or a complement.",
