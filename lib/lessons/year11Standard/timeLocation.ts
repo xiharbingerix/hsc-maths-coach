@@ -436,7 +436,7 @@ export function year11StandardTimeLocationLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "UTC offsets describe how far a location is ahead of or behind Coordinated Universal Time. UTC+10 is two hours ahead of UTC+8.",
+          "UTC offsets describe how far a location is ahead of or behind Coordinated Universal Time: places east of Greenwich are ahead (a positive offset), places west are behind. UTC+10 is two hours ahead of UTC+8.",
           "To convert between time zones, find the difference between the offsets, then add or subtract that difference from the starting local time.",
           "Daylight saving can change a location's offset for part of the year. Use the offset stated in the question.",
           "The International Date Line can change the calendar date. Crossing it east generally moves the date back one day; crossing it west generally moves the date forward one day.",
@@ -499,7 +499,7 @@ export function year11StandardTimeLocationLessonOverride(
         paragraphs: [
           "Location questions can be answered without a drawn map when the information is given as a text grid, coordinate pair, edge list, table or written description.",
           "For grid references in this lesson, read the row letter first and then the column number, such as B3.",
-          "A map scale links a distance on a map to a real distance. If 1 cm represents 2 km, then 4 cm represents 8 km.",
+          "A map scale links a distance on a map to the real distance: the map has shrunk reality by a fixed factor, so multiply a map distance by the scale value to get back to real size. If 1 cm represents 2 km, then 4 cm represents 8 km.",
           "Coordinates describe position using ordered pairs. A change in the first coordinate is east or west, and a change in the second coordinate is north or south when the axes are described that way.",
           "Compass directions and bearings can be ambiguous if the diagram is missing, so digital questions use text descriptions or multiple choice for direction interpretation.",
         ],
