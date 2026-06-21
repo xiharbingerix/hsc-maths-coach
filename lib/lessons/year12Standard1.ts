@@ -6206,9 +6206,9 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
     teaching: {
       paragraphs: [
         "A ratio compares two or more quantities of the same kind. Ratios are simplified by dividing all parts by their highest common factor (HCF). For example, 12 : 8 simplifies to 3 : 2 (dividing by 4).",
-        "To divide a quantity in a ratio, first find the total number of parts. Divide the quantity by the total parts to find one part, then multiply by each ratio number. For example, share $60 in ratio 2 : 3: total parts = 5, one part = $12. Share = $24 and $36.",
+        "Dividing a quantity in a ratio is like following a recipe for sharing: split the whole into equal parts, then hand them out in the given proportion. Find the total number of parts, divide the quantity by the total to find one part, then multiply by each ratio number. For example, share $60 in ratio 2 : 3: total parts = 5, one part = $12. Share = $24 and $36.",
         "Metric unit conversions: Length: 10 mm = 1 cm, 100 cm = 1 m, 1000 m = 1 km. Mass: 1000 mg = 1 g, 1000 g = 1 kg, 1000 kg = 1 t. Capacity: 1000 mL = 1 L, 1000 L = 1 kL. Time: 60 s = 1 min, 60 min = 1 hr, 24 hr = 1 day.",
-        "To convert to a smaller unit, multiply. To convert to a larger unit, divide. For example, 2.5 km = 2.5 × 1000 = 2500 m (smaller unit → multiply). 350 cm = 350 ÷ 100 = 3.5 m (larger unit → divide).",
+        "A smaller unit takes more of them to cover the same amount, so converting to a smaller unit multiplies; a larger unit takes fewer, so converting to a larger unit divides. For example, 2.5 km = 2.5 × 1000 = 2500 m (smaller unit → multiply); 350 cm = 350 ÷ 100 = 3.5 m (larger unit → divide).",
         "Rate problems often require unit conversion before calculating. For example, to convert 90 km/h to m/s: 90 km/h = 90 000 m / 3600 s = 25 m/s.",
       ],
       latexBlocks: [
@@ -6224,7 +6224,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
           "\\text{Divide \\$420 between Alex and Beth in the ratio 3 : 4.}",
         steps: [
           {
-            explanation: "Total number of parts = 3 + 4 = 7.",
+            explanation: "Split the $420 into 3 + 4 = 7 equal parts, then find the size of one part.",
             latex: "\\text{One part} = \\frac{420}{7} = 60",
           },
           {
