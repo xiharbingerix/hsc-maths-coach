@@ -498,6 +498,254 @@ const inverseTangentD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 3: Differentiating Inverse Trig Functions ───────────────────────
+// Standard derivatives + chain rule, but each item adds a D4 step: simplify the
+// chain result to a neat form, handle the sign, evaluate to an exact value,
+// combine via the product rule, solve for x, or spot a constant derivative.
+const differentiatingD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-diff-d4-1",
+    prompt:
+      "Differentiate y = sin⁻¹(x/3) and write dy/dx in simplest form.",
+    latex: "y = \\sin^{-1}\\tfrac{x}{3}",
+    marks: 3,
+    difficulty: 4,
+    answer: "1/sqrt(9-x^2)",
+    acceptedAnswers: ["1/√(9-x^2)", "1/(9-x^2)^(1/2)"],
+    explanation:
+      "dy/dx = (1/3)/√(1 − x²/9). Since √(1 − x²/9) = √(9 − x²)/3, this simplifies to 1/√(9 − x²).",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-2",
+    prompt:
+      "Differentiate y = tan⁻¹(x/2) and write dy/dx in simplest form.",
+    latex: "y = \\tan^{-1}\\tfrac{x}{2}",
+    marks: 3,
+    difficulty: 4,
+    answer: "2/(4+x^2)",
+    acceptedAnswers: ["2/(x^2+4)", "2/(4 + x^2)"],
+    explanation:
+      "dy/dx = (1/2)/(1 + x²/4) = (1/2)/((4 + x²)/4) = 2/(4 + x²).",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-3",
+    prompt: "Find dy/dx for y = cos⁻¹(2x).",
+    latex: "y = \\cos^{-1}(2x)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$-\\dfrac{2}{\\sqrt{1 - 4x^2}}$" },
+      { label: "B", text: "$\\dfrac{2}{\\sqrt{1 - 4x^2}}$" },
+      { label: "C", text: "$-\\dfrac{1}{\\sqrt{1 - 4x^2}}$" },
+      { label: "D", text: "$-\\dfrac{2}{\\sqrt{1 - x^2}}$" },
+    ],
+    answer: "A",
+    explanation:
+      "d/dx cos⁻¹(u) = −u′/√(1 − u²) with u = 2x: −2/√(1 − 4x²). B drops the negative; C omits the chain factor 2; D forgets to square the inner 2x.",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-4",
+    prompt: "Find the gradient of y = tan⁻¹(x) at x = √3.",
+    latex: "y = \\tan^{-1}(x)",
+    marks: 2,
+    difficulty: 4,
+    answer: "1/4",
+    acceptedAnswers: ["0.25"],
+    explanation: "dy/dx = 1/(1 + x²); at x = √3 this is 1/(1 + 3) = 1/4.",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-5",
+    prompt: "Find the gradient of y = sin⁻¹(x) at x = 1/2.",
+    latex: "y = \\sin^{-1}(x)",
+    marks: 2,
+    difficulty: 4,
+    answer: "2sqrt(3)/3",
+    acceptedAnswers: ["2/sqrt(3)", "2√3/3", "2/√3", "1.1547", "1.155"],
+    explanation:
+      "dy/dx = 1/√(1 − x²); at x = 1/2 this is 1/√(3/4) = 2/√3 = 2√3/3.",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-6",
+    prompt: "Find the gradient of y = x·tan⁻¹(x) at x = 1.",
+    latex: "y = x\\tan^{-1}(x)",
+    marks: 3,
+    difficulty: 4,
+    answer: "pi/4+1/2",
+    acceptedAnswers: ["1/2+pi/4", "pi/4 + 1/2", "(pi+2)/4", "1.2854", "1.285"],
+    explanation:
+      "Product rule: dy/dx = tan⁻¹x + x/(1 + x²). At x = 1: tan⁻¹1 + 1/2 = π/4 + 1/2.",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-7",
+    prompt:
+      "The curve y = tan⁻¹(x) has gradient 1/2 at one point with x > 0. Find that x.",
+    latex: "y = \\tan^{-1}(x)",
+    marks: 3,
+    difficulty: 4,
+    answer: "1",
+    explanation:
+      "dy/dx = 1/(1 + x²) = 1/2 gives 1 + x² = 2, so x² = 1 and x = 1 (x > 0).",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-8",
+    prompt: "Find dy/dx for y = sin⁻¹(x) + cos⁻¹(x).",
+    latex: "y = \\sin^{-1}(x) + \\cos^{-1}(x)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$0$" },
+      { label: "B", text: "$\\dfrac{2}{\\sqrt{1 - x^2}}$" },
+      { label: "C", text: "$\\dfrac{1}{\\sqrt{1 - x^2}}$" },
+      { label: "D", text: "$-\\dfrac{1}{\\sqrt{1 - x^2}}$" },
+    ],
+    answer: "A",
+    explanation:
+      "The derivatives are 1/√(1 − x²) and −1/√(1 − x²), which cancel: dy/dx = 0. (Consistent with sin⁻¹x + cos⁻¹x = π/2, a constant.) B adds the magnitudes instead of cancelling.",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-9",
+    prompt: "Find the gradient of y = cos⁻¹(x) at x = 1/2.",
+    latex: "y = \\cos^{-1}(x)",
+    marks: 2,
+    difficulty: 4,
+    answer: "-2sqrt(3)/3",
+    acceptedAnswers: ["-2/sqrt(3)", "−2√3/3", "-2/√3", "-1.1547", "-1.155"],
+    explanation:
+      "dy/dx = −1/√(1 − x²); at x = 1/2 this is −1/√(3/4) = −2/√3 = −2√3/3.",
+  },
+  {
+    id: "y12e1-itrig-diff-d4-10",
+    prompt:
+      "Differentiate y = cos⁻¹(x/4) and write dy/dx in simplest form.",
+    latex: "y = \\cos^{-1}\\tfrac{x}{4}",
+    marks: 3,
+    difficulty: 4,
+    answer: "-1/sqrt(16-x^2)",
+    acceptedAnswers: ["−1/√(16-x^2)", "-1/(16-x^2)^(1/2)"],
+    explanation:
+      "dy/dx = −(1/4)/√(1 − x²/16) = −(1/4)/(√(16 − x²)/4) = −1/√(16 − x²).",
+  },
+];
+
+// D5: synthesis with the inverse-trig derivatives — tangent/normal lines, the
+// product/composite rules, second derivatives, related rates, gradient-matching
+// solves, and spotting that a derivative cancels.
+const differentiatingD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-itrig-diff-d5-1",
+    prompt:
+      "Find the y-intercept of the tangent to y = tan⁻¹(x) at the point where x = 1.",
+    latex: "y = \\tan^{-1}(x)",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/4-1/2",
+    acceptedAnswers: ["π/4-1/2", "(pi-2)/4", "-1/2+pi/4", "0.2854", "0.285"],
+    explanation:
+      "At x = 1: y = π/4 and gradient = 1/(1 + 1) = 1/2. Tangent: y − π/4 = ½(x − 1). At x = 0, y = π/4 − 1/2.",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-2",
+    prompt:
+      "Find the gradient of the normal to y = sin⁻¹(x) at the point where x = 1/2.",
+    latex: "y = \\sin^{-1}(x)",
+    marks: 3,
+    difficulty: 5,
+    answer: "-sqrt(3)/2",
+    acceptedAnswers: ["−√3/2", "-sqrt3/2", "-0.866", "-0.8660"],
+    explanation:
+      "Curve gradient = 1/√(1 − 1/4) = 2/√3. The normal gradient is the negative reciprocal: −√3/2.",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-3",
+    prompt: "Find the gradient of y = x²·sin⁻¹(x) at x = 1/2.",
+    latex: "y = x^2\\sin^{-1}(x)",
+    marks: 4,
+    difficulty: 5,
+    answer: "(pi+sqrt(3))/6",
+    acceptedAnswers: ["pi/6+sqrt(3)/6", "π/6+√3/6", "(pi + sqrt(3))/6", "0.8123", "0.812"],
+    explanation:
+      "Product rule: y′ = 2x sin⁻¹x + x²/√(1 − x²). At x = 1/2: 2(½)(π/6) + (¼)(2/√3) = π/6 + √3/6 = (π + √3)/6.",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-4",
+    prompt: "Find the second derivative of y = tan⁻¹(x).",
+    latex: "y = \\tan^{-1}(x)",
+    marks: 4,
+    difficulty: 5,
+    answer: "-2x/(1+x^2)^2",
+    acceptedAnswers: ["−2x/(1+x^2)^2", "-2x/(x^2+1)^2", "-2*x/(1+x^2)^2"],
+    explanation:
+      "y′ = (1 + x²)⁻¹. By the chain rule, y″ = −(1 + x²)⁻² · 2x = −2x/(1 + x²)².",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-5",
+    prompt: "Find the value of the second derivative of y = sin⁻¹(x) at x = 1/2.",
+    latex: "y = \\sin^{-1}(x)",
+    marks: 4,
+    difficulty: 5,
+    answer: "4sqrt(3)/9",
+    acceptedAnswers: ["4√3/9", "4/(3sqrt(3))", "4/(3√3)", "0.7698", "0.770"],
+    explanation:
+      "y′ = (1 − x²)⁻¹ᐟ², so y″ = x(1 − x²)⁻³ᐟ². At x = 1/2: (½)(3/4)⁻³ᐟ² = (½)(8/(3√3)) = 4/(3√3) = 4√3/9.",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-6",
+    prompt: "Find dy/dx for y = tan⁻¹(√x), in simplest form.",
+    latex: "y = \\tan^{-1}\\left(\\sqrt{x}\\right)",
+    marks: 4,
+    difficulty: 5,
+    answer: "1/(2sqrt(x)(1+x))",
+    acceptedAnswers: ["1/(2√x(1+x))", "1/(2*sqrt(x)*(1+x))", "1/(2 sqrt(x) (1 + x))"],
+    explanation:
+      "Chain rule: dy/dx = 1/(1 + (√x)²) · 1/(2√x) = 1/((1 + x)·2√x) = 1/(2√x(1 + x)).",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-7",
+    prompt:
+      "An angle θ = tan⁻¹(x), where x increases at 2 units per second. Find dθ/dt (in rad/s) at the instant x = 1.",
+    latex: "\\theta = \\tan^{-1}(x), \\quad \\tfrac{dx}{dt} = 2",
+    marks: 4,
+    difficulty: 5,
+    answer: "1",
+    explanation:
+      "dθ/dt = dθ/dx · dx/dt = 1/(1 + x²) · 2. At x = 1: (1/2)(2) = 1 rad/s.",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-8",
+    prompt: "Find dy/dx for y = tan⁻¹(x) + tan⁻¹(1/x), where x > 0.",
+    latex: "y = \\tan^{-1}(x) + \\tan^{-1}\\left(\\tfrac{1}{x}\\right)",
+    marks: 4,
+    difficulty: 5,
+    answer: "0",
+    explanation:
+      "d/dx tan⁻¹(1/x) = (−1/x²)/(1 + 1/x²) = −1/(x² + 1). Adding 1/(1 + x²) gives 0 — consistent with the sum being the constant π/2 for x > 0.",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-9",
+    prompt:
+      "The tangent to y = sin⁻¹(x) is parallel to the line y = 2x. Find the x-coordinate of the point of contact, where x > 0.",
+    latex: "y = \\sin^{-1}(x)",
+    marks: 4,
+    difficulty: 5,
+    answer: "sqrt(3)/2",
+    acceptedAnswers: ["√3/2", "sqrt3/2", "0.866", "0.8660"],
+    explanation:
+      "Set the gradient equal to 2: 1/√(1 − x²) = 2, so √(1 − x²) = 1/2, giving 1 − x² = 1/4 and x = √3/2 (x > 0).",
+  },
+  {
+    id: "y12e1-itrig-diff-d5-10",
+    prompt:
+      "Given y = x·cos⁻¹(x) − √(1 − x²), find the gradient dy/dx at x = 1/2.",
+    latex: "y = x\\cos^{-1}(x) - \\sqrt{1 - x^2}",
+    marks: 4,
+    difficulty: 5,
+    answer: "pi/3",
+    acceptedAnswers: ["π/3", "1.0472", "1.047"],
+    explanation:
+      "dy/dx = [cos⁻¹x − x/√(1 − x²)] + x/√(1 − x²) = cos⁻¹x — the two fractions cancel. At x = 1/2, cos⁻¹(1/2) = π/3.",
+  },
+];
+
 export const inverseTrigPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -522,8 +770,8 @@ export const inverseTrigPool: TopicTestPool = {
       subtopicSlug: "differentiating-inverse-trig",
       subtopicTitle: "Differentiating Inverse Trig Functions",
       remediationHref: href("differentiating-inverse-trig"),
-      d4: [],
-      d5: [],
+      d4: differentiatingD4,
+      d5: differentiatingD5,
     },
     {
       subtopicSlug: "inverse-trig-properties",

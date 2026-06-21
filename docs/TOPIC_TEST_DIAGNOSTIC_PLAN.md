@@ -396,9 +396,9 @@ Progress (updated 2026-06-21):
 
 _Ext 1 build status (in progress, one subtopic at a time):_
 - ✅ kinematics — complete (registered).
-- 🟡 inverse-trig — subtopics 1 "Inverse Sine and Cosine" and 2 "Inverse
-  Tangent" done (10 D4 + 10 D5 each); subtopics 3–4 pending. Pool registered
-  once the topic is fuller.
+- 🟡 inverse-trig — subtopics 1–3 done (Inverse Sine and Cosine; Inverse
+  Tangent; Differentiating Inverse Trig — 10 D4 + 10 D5 each); subtopic 4
+  pending. Register the pool once subtopic 4 lands.
 - ⬜ further-calculus, calculus-applications, binomial-distribution (each: skill
   subtopics D4+D5, exam-practice → D6), vectors (D4+D5; drop the projection-proof
   subtopic).
