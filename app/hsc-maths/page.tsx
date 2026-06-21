@@ -13,6 +13,7 @@ import { ProductShowcase } from "../components/ProductShowcase";
 import { PricingComparison } from "../components/PricingComparison";
 import { PlatformDepth } from "../components/PlatformDepth";
 import { ValueUnlocks } from "../components/ValueUnlocks";
+import { LearningPathway } from "../components/LearningPathway";
 
 export const metadata: Metadata = {
   title: "HSC Maths Diagnostic | NSW Year 12 Standard 2 & Advanced",
@@ -265,6 +266,9 @@ export default function HscMathsPage() {
 
         {/* Platform depth */}
         <PlatformDepth />
+
+        {/* Learning pathway */}
+        <LearningPathway />
 
         {/* Trial exam preparation */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 md:p-10">

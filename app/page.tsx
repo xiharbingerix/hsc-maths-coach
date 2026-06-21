@@ -11,6 +11,7 @@ import { PricingComparison } from "./components/PricingComparison";
 import { DiagnosticCtaLink } from "./components/DiagnosticCtaLink";
 import { PlatformDepth } from "./components/PlatformDepth";
 import { ValueUnlocks } from "./components/ValueUnlocks";
+import { LearningPathway } from "./components/LearningPathway";
 
 export const metadata: Metadata = {
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
@@ -202,6 +203,9 @@ export default function Home() {
 
         {/* Platform depth */}
         <PlatformDepth />
+
+        {/* Learning pathway */}
+        <LearningPathway />
 
         {/* Diagnostic result preview */}
         <DiagnosticResultPreview
