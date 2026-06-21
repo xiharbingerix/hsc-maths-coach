@@ -404,8 +404,10 @@ _Ext 1 build status (in progress, one subtopic at a time):_
 - ✅ further-calculus — complete (registered). Skill subtopics 1–3 at 10 D4 + 10
   D5 each (Trig Integral Forms; Substitution; Integration by Parts), plus the
   exam-practice subtopic at 10 D6 (multi-part synoptic). 70 questions total.
-- ⬜ calculus-applications, binomial-distribution (each: skill subtopics D4+D5,
-  exam-practice → D6), vectors (D4+D5; drop the projection-proof subtopic).
+- 🟡 calculus-applications — subtopic 1 "Related Rates of Change" (10 D4 + 10 D5)
+  done; subtopics 2–7 + the D6 exam-practice band pending. (7 skill subtopics.)
+- ⬜ binomial-distribution (skill subtopics D4+D5, exam-practice → D6), vectors
+  (D4+D5; drop the projection-proof subtopic).
 - ⏸ **proof-induction — deferred**: induction proofs aren't auto-markable.
   Awaits a Tier-2 AI proof/algorithm marker (the "Claude judge" already noted as
   future work in cas-service/README.md). Revisit once that marker exists.
