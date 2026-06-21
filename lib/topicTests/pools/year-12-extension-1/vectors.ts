@@ -239,6 +239,227 @@ const notationD5: TopicTestQuestion[] = [
   },
 ];
 
+// ── Subtopic 2: Vector Addition and Subtraction ──────────────────────────────
+// Component sums/differences, scalar multiples, linear combinations, resultants.
+const additionD4: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-add-d4-1",
+    prompt: "a = (2, 3) and b = (1, 4). Find the i-component of a + b.",
+    latex: "a = (2,3), \\ b = (1,4)",
+    marks: 2,
+    difficulty: 4,
+    answer: "3",
+    explanation: "a + b = (3, 7); the i-component is 3.",
+  },
+  {
+    id: "y12e1-vec-add-d4-2",
+    prompt: "a = (5, 1) and b = (2, −3). Find |a − b|.",
+    latex: "a = (5,1), \\ b = (2,-3)",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "a − b = (3, 4), so |a − b| = √(9 + 16) = 5.",
+  },
+  {
+    id: "y12e1-vec-add-d4-3",
+    prompt: "a = (1, 2) and b = (3, −1). Find |2a + b| (exact form).",
+    latex: "a = (1,2), \\ b = (3,-1)",
+    marks: 3,
+    difficulty: 4,
+    answer: "sqrt(34)",
+    acceptedAnswers: ["√34", "5.831", "5.8310"],
+    explanation: "2a + b = (5, 3), so |2a + b| = √(25 + 9) = √34.",
+  },
+  {
+    id: "y12e1-vec-add-d4-4",
+    prompt: "a = (4, 0) and b = (0, 3). Find |a + b|.",
+    latex: "a = (4,0), \\ b = (0,3)",
+    marks: 2,
+    difficulty: 4,
+    answer: "5",
+    explanation: "a + b = (4, 3), so |a + b| = 5.",
+  },
+  {
+    id: "y12e1-vec-add-d4-5",
+    prompt: "a = (6, 8) and b = (−6, −8). Find |a + b|.",
+    latex: "a = (6,8), \\ b = (-6,-8)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$0$" },
+      { label: "B", text: "$20$" },
+      { label: "C", text: "$10$" },
+      { label: "D", text: "$28$" },
+    ],
+    answer: "A",
+    explanation:
+      "a + b = (0, 0), so |a + b| = 0 (b is the opposite of a). B wrongly adds the magnitudes.",
+  },
+  {
+    id: "y12e1-vec-add-d4-6",
+    prompt: "a = (3, 4). Find |2a|.",
+    latex: "a = (3,4)",
+    marks: 2,
+    difficulty: 4,
+    answer: "10",
+    explanation: "|2a| = 2|a| = 2(5) = 10.",
+  },
+  {
+    id: "y12e1-vec-add-d4-7",
+    prompt: "a = (1, 5) and b = (4, 1). Find the i-component of a − b.",
+    latex: "a = (1,5), \\ b = (4,1)",
+    marks: 2,
+    difficulty: 4,
+    choices: [
+      { label: "A", text: "$-3$" },
+      { label: "B", text: "$3$" },
+      { label: "C", text: "$5$" },
+      { label: "D", text: "$-4$" },
+    ],
+    answer: "A",
+    explanation: "a − b = (−3, 4); the i-component is −3. B computes b − a.",
+  },
+  {
+    id: "y12e1-vec-add-d4-8",
+    prompt: "a = (2, −1), b = (−3, 4) and c = (1, 1). Find |a + b + c|.",
+    latex: "a + b + c",
+    marks: 3,
+    difficulty: 4,
+    answer: "4",
+    explanation: "a + b + c = (0, 4), so the magnitude is 4.",
+  },
+  {
+    id: "y12e1-vec-add-d4-9",
+    prompt: "a = (7, 2) and b = (3, 2). Find the j-component of a − b.",
+    latex: "a = (7,2), \\ b = (3,2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "0",
+    explanation: "a − b = (4, 0); the j-component is 0.",
+  },
+  {
+    id: "y12e1-vec-add-d4-10",
+    prompt: "a = (1, 1) and b = (2, 2). Find |a + b| (exact form).",
+    latex: "a = (1,1), \\ b = (2,2)",
+    marks: 2,
+    difficulty: 4,
+    answer: "3sqrt(2)",
+    acceptedAnswers: ["3√2", "4.243", "4.2426"],
+    explanation: "a + b = (3, 3), so |a + b| = √18 = 3√2.",
+  },
+];
+
+// D5: solve for an unknown vector/scalar, parallel sums/differences, linear
+// systems, equilibrium, diagonals and collinearity.
+const additionD5: TopicTestQuestion[] = [
+  {
+    id: "y12e1-vec-add-d5-1",
+    prompt: "a = (2, 5) and b = (7, 1). Find |x| where a + x = b (exact form).",
+    latex: "a + x = b",
+    marks: 3,
+    difficulty: 5,
+    answer: "sqrt(41)",
+    acceptedAnswers: ["√41", "6.403", "6.4031"],
+    explanation: "x = b − a = (5, −4), so |x| = √(25 + 16) = √41.",
+  },
+  {
+    id: "y12e1-vec-add-d5-2",
+    prompt:
+      "a = (3, 2) and b = (1, −1). Find t so that a + tb is parallel to the x-axis.",
+    latex: "a + tb \\parallel x\\text{-axis}",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation:
+      "a + tb = (3 + t, 2 − t). Parallel to the x-axis ⇒ j-component 0 ⇒ 2 − t = 0 ⇒ t = 2.",
+  },
+  {
+    id: "y12e1-vec-add-d5-3",
+    prompt:
+      "a = (2, 3) and b = (4, k). If a + b is parallel to (1, 1), find k.",
+    latex: "a + b \\parallel (1, 1)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation: "a + b = (6, 3 + k). Parallel to (1,1) ⇒ 6 = 3 + k ⇒ k = 3.",
+  },
+  {
+    id: "y12e1-vec-add-d5-4",
+    prompt:
+      "a = (1, 2) and b = (3, 1). Find s + t where sa + tb = (5, 5).",
+    latex: "sa + tb = (5, 5)",
+    marks: 4,
+    difficulty: 5,
+    answer: "3",
+    explanation:
+      "s + 3t = 5 and 2s + t = 5 ⇒ s = 2, t = 1 ⇒ s + t = 3.",
+  },
+  {
+    id: "y12e1-vec-add-d5-5",
+    prompt:
+      "Three forces (2, 3), (−1, 4) and (k, m) are in equilibrium (sum to zero). Find k.",
+    latex: "(2,3) + (-1,4) + (k,m) = 0",
+    marks: 3,
+    difficulty: 5,
+    answer: "-1",
+    acceptedAnswers: ["−1"],
+    explanation: "2 − 1 + k = 0 ⇒ k = −1.",
+  },
+  {
+    id: "y12e1-vec-add-d5-6",
+    prompt:
+      "In parallelogram ABCD, AB = (3, 1) and AD = (2, 4). Find |AC| (exact form).",
+    latex: "AB = (3,1), \\ AD = (2,4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "5sqrt(2)",
+    acceptedAnswers: ["5√2", "7.071", "7.0711"],
+    explanation: "AC = AB + AD = (5, 5), so |AC| = √50 = 5√2.",
+  },
+  {
+    id: "y12e1-vec-add-d5-7",
+    prompt:
+      "a = (k, 6) and b = (2, 4). If a − b is parallel to (1, 4), find k.",
+    latex: "a - b \\parallel (1, 4)",
+    marks: 4,
+    difficulty: 5,
+    answer: "5/2",
+    acceptedAnswers: ["2.5"],
+    explanation:
+      "a − b = (k − 2, 2). Parallel to (1,4) ⇒ (k − 2)/1 = 2/4 ⇒ k − 2 = ½ ⇒ k = 5/2.",
+  },
+  {
+    id: "y12e1-vec-add-d5-8",
+    prompt:
+      "Forces (5, 0) and (0, 12) act on a body. Find the magnitude of the extra force needed for equilibrium.",
+    latex: "(5,0) + (0,12) + F = 0",
+    marks: 4,
+    difficulty: 5,
+    answer: "13",
+    explanation: "F = −(5, 12), so |F| = √(25 + 144) = 13.",
+  },
+  {
+    id: "y12e1-vec-add-d5-9",
+    prompt: "a = (2, 1) and b = (1, 3). Find |2a − 3b| (exact form).",
+    latex: "a = (2,1), \\ b = (1,3)",
+    marks: 4,
+    difficulty: 5,
+    answer: "5sqrt(2)",
+    acceptedAnswers: ["5√2", "7.071", "7.0711"],
+    explanation: "2a − 3b = (1, −7), so |2a − 3b| = √50 = 5√2.",
+  },
+  {
+    id: "y12e1-vec-add-d5-10",
+    prompt:
+      "A(1, 2), B(4, 3) and C(10, 5) are collinear. Find k where BC = k·AB.",
+    latex: "A(1,2), \\ B(4,3), \\ C(10,5)",
+    marks: 4,
+    difficulty: 5,
+    answer: "2",
+    explanation: "AB = (3, 1) and BC = (6, 2) = 2(3, 1), so k = 2.",
+  },
+];
+
 export const vectorsPool: TopicTestPool = {
   courseSlug: "year-12-extension-1",
   courseTitle: "Year 12 Mathematics Extension 1",
@@ -256,8 +477,8 @@ export const vectorsPool: TopicTestPool = {
       subtopicSlug: "vector-addition-subtraction",
       subtopicTitle: "Vector Addition and Subtraction",
       remediationHref: href("vector-addition-subtraction"),
-      d4: [],
-      d5: [],
+      d4: additionD4,
+      d5: additionD5,
     },
     {
       subtopicSlug: "dot-product",
