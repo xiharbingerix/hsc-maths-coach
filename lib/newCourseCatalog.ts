@@ -101,6 +101,11 @@ import {
   year12Standard1PlansAndElevationsLessonOverride,
 } from "./lessons/year12Standard1ScaleDrawing";
 import {
+  year12Standard1ReducingBalanceLoansLessonOverride,
+  year12Standard1CreditCardStatementsLessonOverride,
+  year12Standard1FeesAndChargesLessonOverride,
+} from "./lessons/year12Standard1DepreciationLoans";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -389,6 +394,9 @@ export function buildLesson(
     year12Standard1PlansAndElevationsLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
+    year12Standard1ReducingBalanceLoansLessonOverride(course, unit, lesson) ??
+    year12Standard1CreditCardStatementsLessonOverride(course, unit, lesson) ??
+    year12Standard1FeesAndChargesLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
@@ -1487,7 +1495,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "reducing-balance-loans",
             title: "8B Reducing-Balance Loans",
-            description: "(In development) Track a reducing-balance loan and its repayments.",
+            description: "Interest on the current balance, each repayment split between interest and principal, and why balances fall slowly.",
           },
           {
             slug: "credit-cards-and-loans",
@@ -1498,12 +1506,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "credit-card-statements",
             title: "8D Credit Card Statements",
-            description: "(In development) Read and interpret a credit card statement.",
+            description: "Read a statement for closing balance, interest, the minimum payment and the interest-free period.",
           },
           {
             slug: "fees-and-charges",
             title: "8E Fees and Charges",
-            description: "(In development) Account for fees and charges on financial products.",
+            description: "Include fees on top of interest and compare financial options by total cost, not rate alone.",
           },
           {
             // Parked (fold target for annuities content / no standalone NESA section): hidden.
