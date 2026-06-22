@@ -5835,6 +5835,38 @@ export function getNewCourseUnitLessons(courseSlug: string, unitSlug: string) {
   );
 }
 
+// Unit slugs retired in the Year 12 Standard 1 restructure (5-unit -> 9-unit NESA layout).
+// Each maps a now-dead unit-landing URL to a safe canonical destination. Most legacy units
+// split across several new units, so their landing pages point at the course overview;
+// statistics-and-data mapped 1:1 and points straight at its successor. Individual lessons
+// that lived under these units are redirected by slug via findNewCourseLessonUnitSlug,
+// since lesson slugs are globally unique within a course.
+export const LEGACY_UNIT_REDIRECTS: Record<string, string> = {
+  "year-12-standard-1/algebraic-relationships": "/course/year-12-standard-1",
+  "year-12-standard-1/trigonometry-ratios-rates": "/course/year-12-standard-1",
+  "year-12-standard-1/investments-loans-annuities": "/course/year-12-standard-1",
+  "year-12-standard-1/statistics-and-data":
+    "/course/year-12-standard-1/further-statistical-analysis",
+  "year-12-standard-1/measurement-geometry": "/course/year-12-standard-1",
+};
+
+// Resolve the current unit slug that holds a given lesson, by its (course-unique) lesson
+// slug. Returns null if no unit contains it. Used to redirect stale lesson URLs whose unit
+// segment changed during a restructure.
+export function findNewCourseLessonUnitSlug(
+  courseSlug: string,
+  lessonSlug: string
+): string | null {
+  const course = getNewCourse(courseSlug);
+  if (!course) {
+    return null;
+  }
+  const unit = course.units.find((nextUnit) =>
+    nextUnit.lessons.some((nextLesson) => nextLesson.slug === lessonSlug)
+  );
+  return unit?.slug ?? null;
+}
+
 export function getVisibleNewCourseLessons(courseSlug: string, unitSlug: string) {
   const course = getNewCourse(courseSlug);
   const unit = course?.units.find((nextUnit) => nextUnit.slug === unitSlug);
