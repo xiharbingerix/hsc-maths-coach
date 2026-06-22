@@ -114,6 +114,54 @@ const sptD5: TopicTestQuestion[] = [
     answer: "4", explanation: "Max at x = 0: y = 1. Min at x = 2: y = 8 − 12 + 1 = −3. Difference = 1 − (−3) = 4." },
 ];
 
+// ── Subtopic 3: Curve Sketching with Calculus ────────────────────────────────
+const csD4: TopicTestQuestion[] = [
+  { id: "y12a-c3-cs-d4-1", prompt: "Find the larger x-intercept of y = x² − 5x + 6.", latex: "y = x^2 - 5x + 6", marks: 2, difficulty: 4,
+    answer: "3", explanation: "(x − 2)(x − 3) = 0 ⇒ x = 2 or 3; the larger is 3." },
+  { id: "y12a-c3-cs-d4-2", prompt: "Find the y-intercept of y = x² − 4x + 3.", latex: "y = x^2 - 4x + 3", marks: 2, difficulty: 4,
+    answer: "3", explanation: "At x = 0, y = 3." },
+  { id: "y12a-c3-cs-d4-3", prompt: "Find the sum of the x-intercepts of y = (x − 1)(x − 2)(x − 3).", latex: "y = (x-1)(x-2)(x-3)", marks: 2, difficulty: 4,
+    answer: "6", explanation: "Roots are x = 1, 2, 3, so the sum is 6." },
+  { id: "y12a-c3-cs-d4-4", prompt: "How many stationary points does y = x³ − 3x have?", latex: "y = x^3 - 3x", marks: 2, difficulty: 4,
+    answer: "2", explanation: "dy/dx = 3x² − 3 = 0 has two solutions x = ±1." },
+  { id: "y12a-c3-cs-d4-5", prompt: "How many x-intercepts does y = x² + 1 have?", latex: "y = x^2 + 1", marks: 2, difficulty: 4,
+    choices: [ { label: "A", text: "$0$" }, { label: "B", text: "$1$" }, { label: "C", text: "$2$" }, { label: "D", text: "$-1$" } ],
+    answer: "A", explanation: "x² + 1 = 0 has no real solutions, so the curve never crosses the x-axis." },
+  { id: "y12a-c3-cs-d4-6", prompt: "Find the x-intercept of y = (x + 2)².", latex: "y = (x+2)^2", marks: 2, difficulty: 4,
+    answer: "-2", acceptedAnswers: ["−2"], explanation: "(x + 2)² = 0 ⇒ x = −2 (a double root — the curve touches the axis)." },
+  { id: "y12a-c3-cs-d4-7", prompt: "As x → +∞, what happens to y = −x³?", latex: "y = -x^3", marks: 2, difficulty: 4,
+    choices: [ { label: "A", text: "$y \\to -\\infty$" }, { label: "B", text: "$y \\to +\\infty$" }, { label: "C", text: "$y \\to 0$" }, { label: "D", text: "$y \\to -1$" } ],
+    answer: "A", explanation: "Negative leading coefficient on an odd power: as x → +∞, y → −∞." },
+  { id: "y12a-c3-cs-d4-8", prompt: "How many x-intercepts does y = x³ − 12x have?", latex: "y = x^3 - 12x", marks: 3, difficulty: 4,
+    answer: "3", explanation: "x(x² − 12) = 0 ⇒ x = 0, ±√12: three x-intercepts." },
+  { id: "y12a-c3-cs-d4-9", prompt: "Find the y-coordinate of the minimum turning point of y = x² − 6x.", latex: "y = x^2 - 6x", marks: 3, difficulty: 4,
+    answer: "-9", acceptedAnswers: ["−9"], explanation: "Minimum at x = 3; y(3) = 9 − 18 = −9." },
+  { id: "y12a-c3-cs-d4-10", prompt: "How many points of inflection does y = x³ have?", latex: "y = x^3", marks: 2, difficulty: 4,
+    answer: "1", explanation: "f''(x) = 6x changes sign at x = 0: one point of inflection." },
+];
+const csD5: TopicTestQuestion[] = [
+  { id: "y12a-c3-cs-d5-1", prompt: "Find the y-coordinate of the local maximum of y = x³ − 3x.", latex: "y = x^3 - 3x", marks: 4, difficulty: 5,
+    answer: "2", explanation: "Local max at x = −1; y(−1) = −1 + 3 = 2." },
+  { id: "y12a-c3-cs-d5-2", prompt: "How many distinct x-intercepts does y = x³ − 6x² + 9x have?", latex: "y = x^3 - 6x^2 + 9x", marks: 4, difficulty: 5,
+    answer: "2", explanation: "x(x − 3)² = 0 ⇒ x = 0 and x = 3 (double): two distinct x-intercepts." },
+  { id: "y12a-c3-cs-d5-3", prompt: "How many distinct x-intercepts does y = x⁴ − 4x² have?", latex: "y = x^4 - 4x^2", marks: 4, difficulty: 5,
+    answer: "3", explanation: "x²(x² − 4) = 0 ⇒ x = 0, ±2: three distinct x-intercepts." },
+  { id: "y12a-c3-cs-d5-4", prompt: "Find the y-coordinate of the minimum turning point of y = x³ − 3x².", latex: "y = x^3 - 3x^2", marks: 4, difficulty: 5,
+    answer: "-4", acceptedAnswers: ["−4"], explanation: "Minimum at x = 2; y(2) = 8 − 12 = −4." },
+  { id: "y12a-c3-cs-d5-5", prompt: "How many stationary points does y = x²(x − 3) have?", latex: "y = x^2(x-3)", marks: 4, difficulty: 5,
+    answer: "2", explanation: "y = x³ − 3x², dy/dx = 3x² − 6x = 3x(x − 2): two stationary points." },
+  { id: "y12a-c3-cs-d5-6", prompt: "Find the y-intercept of y = (x − 1)²(x + 2).", latex: "y = (x-1)^2(x+2)", marks: 3, difficulty: 5,
+    answer: "2", explanation: "At x = 0: (−1)²(2) = 2." },
+  { id: "y12a-c3-cs-d5-7", prompt: "The turning points of y = x³ − 12x are at x = −2 and x = 2. Find the distance between their x-values.", latex: "y = x^3 - 12x", marks: 4, difficulty: 5,
+    answer: "4", explanation: "From x = −2 to x = 2 the distance is 4." },
+  { id: "y12a-c3-cs-d5-8", prompt: "Find the x-coordinate of the local maximum of y = x³ + 3x² − 9x.", latex: "y = x^3 + 3x^2 - 9x", marks: 4, difficulty: 5,
+    answer: "-3", acceptedAnswers: ["−3"], explanation: "dy/dx = 3(x + 3)(x − 1) = 0 ⇒ x = −3 (max) or 1 (min); the max is at x = −3." },
+  { id: "y12a-c3-cs-d5-9", prompt: "Find the sum of the x-intercepts of y = x³ − x.", latex: "y = x^3 - x", marks: 4, difficulty: 5,
+    answer: "0", explanation: "x(x − 1)(x + 1) = 0 ⇒ roots −1, 0, 1; sum = 0." },
+  { id: "y12a-c3-cs-d5-10", prompt: "y = x³ − 3x + 2 has a repeated root. Find it.", latex: "y = x^3 - 3x + 2", marks: 4, difficulty: 5,
+    answer: "1", explanation: "x³ − 3x + 2 = (x − 1)²(x + 2), so the repeated root is x = 1." },
+];
+
 const todo = { d4: [] as TopicTestQuestion[], d5: [] as TopicTestQuestion[] };
 
 export const applicationsDifferentiationPool: TopicTestPool = {
@@ -140,7 +188,8 @@ export const applicationsDifferentiationPool: TopicTestPool = {
       subtopicSlug: "curve-sketching-calculus",
       subtopicTitle: "Curve Sketching with Calculus",
       remediationHref: href("curve-sketching-calculus"),
-      ...todo,
+      d4: csD4,
+      d5: csD5,
     },
     {
       subtopicSlug: "optimisation",
