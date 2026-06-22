@@ -95,6 +95,12 @@ import {
   year12Standard1ElevationDepressionLessonOverride,
 } from "./lessons/year12Standard1RightTriangles";
 import {
+  year12Standard1ScaleRatiosLessonOverride,
+  year12Standard1ScaleDividingRatioLessonOverride,
+  year12Standard1SimilarityScaleFactorsLessonOverride,
+  year12Standard1PlansAndElevationsLessonOverride,
+} from "./lessons/year12Standard1ScaleDrawing";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -377,6 +383,10 @@ export function buildLesson(
     year12Standard1TrigSidesLessonOverride(course, unit, lesson) ??
     year12Standard1TrigAnglesLessonOverride(course, unit, lesson) ??
     year12Standard1ElevationDepressionLessonOverride(course, unit, lesson) ??
+    year12Standard1ScaleRatiosLessonOverride(course, unit, lesson) ??
+    year12Standard1ScaleDividingRatioLessonOverride(course, unit, lesson) ??
+    year12Standard1SimilarityScaleFactorsLessonOverride(course, unit, lesson) ??
+    year12Standard1PlansAndElevationsLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
@@ -1435,17 +1445,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "scale-ratios",
             title: "7A Ratios",
-            description: "(In development) Simplify and apply ratios.",
+            description: "Ratio as a comparison: simplify, find equivalent ratios, and tell part-to-part from part-to-whole.",
           },
           {
             slug: "scale-dividing-ratio",
             title: "7B Dividing a Quantity in a Ratio",
-            description: "(In development) Divide a quantity in a given ratio.",
+            description: "Share a total in a given ratio by finding the value of one part and multiplying out each share.",
           },
           {
             slug: "similarity-scale-factors",
             title: "7C Similarity and Scale Factors",
-            description: "(In development) Use similarity and scale factors between figures.",
+            description: "Use scale factors with similar figures to find unknown sides, and scale areas by the square of the scale factor.",
           },
           {
             slug: "scale-drawings-and-plans",
@@ -1456,7 +1466,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "plans-and-elevations",
             title: "7E Plans and Elevations",
-            description: "(In development) Interpret plans and elevation views of objects.",
+            description: "Interpret plans and elevations as views of one object and convert between drawing and real lengths.",
           },
         ],
       },
