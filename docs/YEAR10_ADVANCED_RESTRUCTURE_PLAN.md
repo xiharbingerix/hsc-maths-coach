@@ -12,6 +12,8 @@ Auditing the current 10-unit course against this layout shows it covers maybe ~4
 
 ## Key architectural decision: add a `pathTag` field + tag-driven derivation
 
+> Decided and recorded in [ADR-Y10-001](architecture-decisions/ADR-Y10-001-path-tag-derivation.md) (Status: Accepted), including the locked pathway filters, guardrails G1–G7, and stop conditions S1–S5.
+
 Unlike Standard 1 (a standalone course), restructuring Year 10 Advanced means **restructuring the shared base `year-10-mathematics`** because Advanced and Core both derive from it. Recommended approach:
 
 1. **Add `pathTag?: "core" | "path" | "extending" | "consolidating"` to `CourseLessonSeed`** (`lib/courseTypes.ts`). This makes the textbook's own tagging declarative instead of hidden in slug blacklists.
