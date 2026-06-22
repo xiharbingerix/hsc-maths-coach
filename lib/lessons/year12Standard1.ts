@@ -9,7 +9,7 @@ export function year12Standard1RightAngleTrigonometryLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "measurement-geometry" ||
+    unit.slug !== "right-angled-triangles" ||
     lesson.slug !== "right-angle-trigonometry"
   ) {
     return null;
@@ -279,7 +279,7 @@ export function year12Standard1DataDisplaysSummaryStatisticsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "statistics-and-data" ||
+    unit.slug !== "further-statistical-analysis" ||
     lesson.slug !== "data-displays-summary-statistics"
   ) {
     return null;
@@ -598,7 +598,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "statistics-and-data" ||
+    unit.slug !== "further-statistical-analysis" ||
     lesson.slug !== "probability-and-chance"
   ) {
     return null;
@@ -890,7 +890,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "statistics-and-data" ||
+    unit.slug !== "further-statistical-analysis" ||
     lesson.slug !== "statistics-exam-practice"
   ) {
     return null;
@@ -1127,7 +1127,7 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "measurement-geometry" ||
+    unit.slug !== "right-angled-triangles" ||
     lesson.slug !== "measurement-area-volume"
   ) {
     return null;
@@ -1368,7 +1368,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "measurement-geometry" ||
+    unit.slug !== "scale-drawing" ||
     lesson.slug !== "scale-drawings-and-plans"
   ) {
     return null;
@@ -1623,7 +1623,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "algebraic-relationships" ||
+    unit.slug !== "graphs-of-practical-situations" ||
     lesson.slug !== "exponential-inverse-variation"
   )
     return null;
@@ -1942,7 +1942,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "investments-loans-annuities" ||
+    unit.slug !== "depreciation-and-loans" ||
     lesson.slug !== "annuities-regular-payments"
   )
     return null;
@@ -2238,7 +2238,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "trigonometry-ratios-rates" ||
+    unit.slug !== "right-angled-triangles" ||
     lesson.slug !== "right-angle-trig-applications"
   ) {
     return null;
@@ -2638,7 +2638,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "trigonometry-ratios-rates" ||
+    unit.slug !== "rates" ||
     lesson.slug !== "rates-practical-problems"
   ) {
     return null;
@@ -2973,7 +2973,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "trigonometry-ratios-rates" ||
+    unit.slug !== "rates" ||
     lesson.slug !== "trig-rates-exam-practice"
   ) {
     return null;
@@ -3441,7 +3441,7 @@ export function year12Standard1BivariateDataScatterPlotsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "statistics-and-data" ||
+    unit.slug !== "further-statistical-analysis" ||
     lesson.slug !== "bivariate-data-scatter-plots"
   ) {
     return null;
@@ -3821,7 +3821,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "statistics-and-data" ||
+    unit.slug !== "further-statistical-analysis" ||
     lesson.slug !== "line-of-best-fit-predictions"
   ) {
     return null;
@@ -4171,7 +4171,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "trigonometry-ratios-rates" ||
+    unit.slug !== "right-angled-triangles" ||
     lesson.slug !== "bearings-and-compass"
   ) {
     return null;
@@ -4482,7 +4482,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "statistics-and-data" ||
+    unit.slug !== "further-statistical-analysis" ||
     lesson.slug !== "relative-frequency-expected-value"
   ) {
     return null;
@@ -4804,7 +4804,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "algebraic-relationships" ||
+    unit.slug !== "simultaneous-linear-equations" ||
     lesson.slug !== "algebraic-relationships-exam-practice"
   ) {
     return null;
@@ -5133,7 +5133,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "algebraic-relationships" ||
+    unit.slug !== "simultaneous-linear-equations" ||
     lesson.slug !== "linear-relationships-modelling"
   ) {
     return null;
@@ -5477,7 +5477,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "algebraic-relationships" ||
+    unit.slug !== "graphs-of-practical-situations" ||
     lesson.slug !== "quadratic-models"
   ) {
     return null;
@@ -5832,7 +5832,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "algebraic-relationships" ||
+    unit.slug !== "simultaneous-linear-equations" ||
     lesson.slug !== "simultaneous-equations-context"
   ) {
     return null;
@@ -6184,7 +6184,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "trigonometry-ratios-rates" ||
+    unit.slug !== "rates" ||
     lesson.slug !== "ratios-rates-unit-conversions"
   ) {
     return null;
@@ -6512,7 +6512,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "investments-loans-annuities" ||
+    unit.slug !== "investments" ||
     lesson.slug !== "investment-compound-interest"
   ) {
     return null;
@@ -6852,7 +6852,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "investments-loans-annuities" ||
+    unit.slug !== "depreciation-and-loans" ||
     lesson.slug !== "depreciation-loans"
   ) {
     return null;
@@ -7227,7 +7227,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
 ): Partial<ExplicitLesson> | null {
   if (
     course.slug !== "year-12-standard-1" ||
-    unit.slug !== "investments-loans-annuities" ||
+    unit.slug !== "depreciation-and-loans" ||
     lesson.slug !== "credit-cards-and-loans"
   ) {
     return null;
