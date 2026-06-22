@@ -78,6 +78,15 @@ import {
   year12Standard1AppreciationInflationLessonOverride,
 } from "./lessons/year12Standard1Investments";
 import {
+  year12Standard1NetworksIntroductionLessonOverride,
+  year12Standard1NetworksTravellingLessonOverride,
+  year12Standard1NetworksDrawingLessonOverride,
+  year12Standard1NetworksEulerianHamiltonianLessonOverride,
+  year12Standard1NetworksProblemsLessonOverride,
+  year12Standard1NetworksMSTLessonOverride,
+  year12Standard1NetworksShortestPathLessonOverride,
+} from "./lessons/year12Standard1Networks";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -347,6 +356,13 @@ export function buildLesson(
     year12Standard1PresentValueLessonOverride(course, unit, lesson) ??
     year12Standard1CompoundInterestGraphsLessonOverride(course, unit, lesson) ??
     year12Standard1AppreciationInflationLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksIntroductionLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksTravellingLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksDrawingLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksEulerianHamiltonianLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksProblemsLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksMSTLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksShortestPathLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
@@ -1130,37 +1146,37 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "networks-introduction",
             title: "2A Networks",
-            description: "(In development) Network vocabulary: vertices, edges, degree, and connected graphs.",
+            description: "Read networks: vertices, edges, degree, adjacency, and the sum-of-degrees relationship.",
           },
           {
             slug: "networks-travelling",
             title: "2B Travelling a Network",
-            description: "(In development) Walks, trails, paths and circuits through a network.",
+            description: "Paths and circuits through a network, the length of a route, and checking a route is valid.",
           },
           {
             slug: "networks-drawing",
             title: "2C Drawing a Network Diagram",
-            description: "(In development) Represent practical situations as network diagrams.",
+            description: "Represent practical situations as networks: choosing vertices and edges and counting them.",
           },
           {
             slug: "networks-eulerian-hamiltonian",
             title: "2D Eulerian and Hamiltonian Walks",
-            description: "(In development) Identify Eulerian trails/circuits and Hamiltonian paths/cycles.",
+            description: "Eulerian routes (every edge once) and Hamiltonian routes (every vertex once), with the odd-degree test.",
           },
           {
             slug: "networks-problems",
             title: "2E Network Problems",
-            description: "(In development) Solve practical problems modelled by networks.",
+            description: "Practical network problems: connectivity, route weights, comparing routes, and reasoning from structure.",
           },
           {
             slug: "networks-minimal-spanning-trees",
             title: "2F Minimal Spanning Trees",
-            description: "(In development) Find a minimal spanning tree using Prim's or Kruskal's method.",
+            description: "Connect all vertices at least total weight with no cycle, and find the minimal spanning tree's weight.",
           },
           {
             slug: "networks-shortest-path",
             title: "2G Shortest Path",
-            description: "(In development) Determine the shortest path between two vertices.",
+            description: "Find the shortest (least-weight) path between two vertices by comparing route totals.",
           },
         ],
       },
