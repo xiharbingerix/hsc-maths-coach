@@ -87,6 +87,14 @@ import {
   year12Standard1NetworksShortestPathLessonOverride,
 } from "./lessons/year12Standard1Networks";
 import {
+  year12Standard1PythagorasLessonOverride,
+  year12Standard1PythagorasApplicationsLessonOverride,
+  year12Standard1TrigUsingCalculatorLessonOverride,
+  year12Standard1TrigSidesLessonOverride,
+  year12Standard1TrigAnglesLessonOverride,
+  year12Standard1ElevationDepressionLessonOverride,
+} from "./lessons/year12Standard1RightTriangles";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -363,6 +371,12 @@ export function buildLesson(
     year12Standard1NetworksProblemsLessonOverride(course, unit, lesson) ??
     year12Standard1NetworksMSTLessonOverride(course, unit, lesson) ??
     year12Standard1NetworksShortestPathLessonOverride(course, unit, lesson) ??
+    year12Standard1PythagorasLessonOverride(course, unit, lesson) ??
+    year12Standard1PythagorasApplicationsLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigUsingCalculatorLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigSidesLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigAnglesLessonOverride(course, unit, lesson) ??
+    year12Standard1ElevationDepressionLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
@@ -1232,12 +1246,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "pythagoras",
             title: "4A Pythagoras' Theorem",
-            description: "(In development) Use Pythagoras' theorem to find an unknown side of a right-angled triangle.",
+            description: "Identify the hypotenuse and use a² + b² = c² to find it in a right-angled triangle.",
           },
           {
             slug: "pythagoras-applications",
             title: "4B Applying Pythagoras",
-            description: "(In development) Apply Pythagoras' theorem to practical problems.",
+            description: "Find a shorter side and solve practical problems (ladders, ramps, diagonals) with Pythagoras.",
           },
           {
             slug: "right-angle-trigonometry",
@@ -1248,17 +1262,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "trig-using-calculator",
             title: "4D Using the Calculator",
-            description: "(In development) Evaluate trigonometric ratios and inverse ratios with a calculator.",
+            description: "Evaluate trig ratios and use inverse trig to find an angle, with correct degree mode and rounding.",
           },
           {
             slug: "trig-sides",
             title: "4E Finding an Unknown Side",
-            description: "(In development) Use a trigonometric ratio to find an unknown side.",
+            description: "Use SOH-CAH-TOA to find an unknown side: identify the sides relative to the angle, choose the ratio, solve.",
           },
           {
             slug: "trig-angles",
             title: "4F Finding an Unknown Angle",
-            description: "(In development) Use inverse trigonometry to find an unknown angle.",
+            description: "Find an unknown angle from two known sides using inverse trigonometry.",
           },
           {
             slug: "right-angle-trig-applications",
@@ -1288,7 +1302,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "elevation-depression",
             title: "4H Angles of Elevation and Depression",
-            description: "(In development) Solve problems involving angles of elevation and depression.",
+            description: "Distinguish elevation and depression and use trig to find heights and distances.",
           },
           {
             slug: "bearings-and-compass",
