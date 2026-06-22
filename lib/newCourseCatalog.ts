@@ -47,6 +47,14 @@ import {
   normalizeYear12Standard1Lesson,
 } from "./lessons/year12Standard1";
 import {
+  year12Standard1RatesUnitaryMethodLessonOverride,
+  year12Standard1RatesSpeedLessonOverride,
+  year12Standard1RatesDistanceTimeGraphsLessonOverride,
+  year12Standard1RatesFuelConsumptionLessonOverride,
+  year12Standard1RatesHeartRateLessonOverride,
+  year12Standard1RatesBloodPressureLessonOverride,
+} from "./lessons/year12Standard1Rates";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -278,6 +286,12 @@ export function buildLesson(
     year12Standard1RightAngleTrigonometryLessonOverride(course, unit, lesson) ??
     year12Standard1RightAngleTrigApplicationsLessonOverride(course, unit, lesson) ??
     year12Standard1RatesPracticalProblemsLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesUnitaryMethodLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesSpeedLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesDistanceTimeGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesFuelConsumptionLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesHeartRateLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesBloodPressureLessonOverride(course, unit, lesson) ??
     year12Standard1TrigRatesExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1MeasurementAreaVolumeLessonOverride(course, unit, lesson) ??
     year12Standard1ScaleDrawingsAndPlansLessonOverride(course, unit, lesson) ??
@@ -986,7 +1000,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "rates-unitary-method",
             title: "1B Unitary Method",
-            description: "(In development) Use the unitary method to solve rate and proportion problems.",
+            description: "Find the value of one unit and scale to any quantity, including best-buy comparisons.",
           },
           {
             slug: "rates-practical-problems",
@@ -1016,27 +1030,27 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "rates-speed",
             title: "1D Speed as a Rate",
-            description: "(In development) Interpret and calculate speed as a rate of distance over time.",
+            description: "Calculate speed, distance and time, and convert between km/h and m/s.",
           },
           {
             slug: "rates-distance-time-graphs",
             title: "1E Distance–Time Graphs",
-            description: "(In development) Read and interpret distance–time graphs of practical journeys.",
+            description: "Read speed from the gradient, identify rests and return trips, and find average speed from a distance–time graph.",
           },
           {
             slug: "rates-fuel-consumption",
             title: "1F Fuel Consumption Rate",
-            description: "(In development) Calculate and compare fuel consumption rates.",
+            description: "Use L/100 km rates to find fuel used, trip cost, and to compare vehicles.",
           },
           {
             slug: "rates-heart-rate",
             title: "1G Heart Rate",
-            description: "(In development) Apply rates to heart-rate contexts.",
+            description: "Work with beats per minute: count-to-rate conversions, beats over time, and target training zones.",
           },
           {
             slug: "rates-blood-pressure",
             title: "1H Blood Pressure",
-            description: "(In development) Interpret blood-pressure measurements as rates.",
+            description: "Interpret systolic/diastolic readings, pulse pressure, and classify readings against thresholds.",
           },
           {
             // Retired/parked (no NESA Year-12 section): hidden to preserve progress + checkpoints.
