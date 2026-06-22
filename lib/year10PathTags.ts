@@ -71,3 +71,28 @@ export function assertPathTagTotality(
     );
   }
 }
+
+// ── Legacy URL redirects (Wave 0 restructure) ─────────────────────────────────────────
+// Pre-restructure Year 10 unit slugs -> canonical new unit slug, or null when the old unit
+// split across several chapters (redirect to the course overview). Bare unit URLs use this;
+// lesson URLs are redirected by their preserved lesson slug via findNewCourseLessonUnitSlug.
+const Y10_LEGACY_UNIT_TARGETS: Record<string, string | null> = {
+  "algebraic-techniques": "quadratic-expressions-equations",
+  "equations-simultaneous": null, // split: algebra-equations-linear-relationships + quadratic-expressions-equations
+  "linear-relationships": "algebra-equations-linear-relationships",
+  "non-linear-relationships": null, // split: parabolas-rates-variation + functions-polynomials-graphs + indices-exponentials-logarithms
+  measurement: "measurement-and-surds",
+  "geometry-proofs": "geometrical-figures-circle-geometry",
+  "statistics-data": "single-variable-bivariate-statistics",
+};
+
+// Returns the canonical destination URL for a retired Year 10 unit slug on the given course,
+// or null if `unitSlug` is not a retired slug (caller then proceeds to its normal handling).
+export function year10LegacyUnitRedirect(
+  courseSlug: string,
+  unitSlug: string
+): string | null {
+  if (!(unitSlug in Y10_LEGACY_UNIT_TARGETS)) return null;
+  const target = Y10_LEGACY_UNIT_TARGETS[unitSlug];
+  return target ? `/course/${courseSlug}/${target}` : `/course/${courseSlug}`;
+}
