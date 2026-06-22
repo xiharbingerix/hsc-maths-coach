@@ -448,6 +448,18 @@ _Ext 1 build status (in progress, one subtopic at a time):_
 - "Prior Knowledge Revision" subtopics are excluded from pools (low-band;
   remediation targets, not test content).
 
+_Year 12 Advanced build status (legacy course — routed /course/year-12-advanced/
+&lt;unit&gt;/&lt;lesson&gt;, NOT in the new catalog; pools key on courseSlug+topicSlug so
+they work, and a dedicated CTA was added to the Y12-Adv unit page):_
+- ✅ ma-c1-introduction-to-differentiation — complete (registered). 7 skill
+  subtopics at 10 D4 + 10 D5 each (Rate of Change; Differentiating Polynomial
+  Terms; …Functions; Tangents and Normals; Stationary Points; Increasing/
+  Decreasing; First Derivative Test) + a 2-item D6 synoptic band on the last
+  subtopic. 142 questions. Verified: tsc/eslint clean, numerics pass, assembles
+  across all 7 subtopics, deterministic reconstruction.
+- ⬜ Remaining 13 Y12 Advanced units (MA-F1/F2, T1/T2/T3, C2/C3/C4, E1, S1/S2,
+  financial, sequences) — paused per user; pick the next unit when ready.
+
 **Phase 4 — Polish.**
 - ✅ Student entry point: a "Take the topic test" CTA on the shared course unit
   page (`NewCourseUnitPage` in [app/course/NewCoursePages.tsx](../app/course/NewCoursePages.tsx)),
