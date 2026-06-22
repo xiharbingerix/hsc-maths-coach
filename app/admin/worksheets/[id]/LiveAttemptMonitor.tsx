@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { WorksheetMirror } from "./WorksheetMirror";
 
 type LiveAttempt = {
   attemptId: string;
@@ -68,6 +69,9 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
   const [data, setData] = useState<LiveResponse | null>(null);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [watching, setWatching] = useState<
+    { attemptId: string; studentName: string } | null
+  >(null);
 
   const endpoint = useMemo(
     () => `/api/admin/worksheets/${worksheetId}/live`,
@@ -121,8 +125,11 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
             Live monitor
           </p>
           <h2 className="mt-1 text-lg font-semibold text-slate-900">
-            Student activity without screenshare
+            Live student activity
           </h2>
+          <p className="mt-0.5 text-xs text-slate-500">
+            Hit <span className="font-semibold">Watch</span> on an active student to mirror their worksheet in real time.
+          </p>
         </div>
         {data?.updatedAt ? (
           <p className="text-xs text-slate-500">
@@ -164,6 +171,7 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
                 <th className="px-3 py-2 text-left">Last submitted</th>
                 <th className="px-3 py-2 text-left">Last activity</th>
                 <th className="px-3 py-2 text-left">Started</th>
+                <th className="px-3 py-2 text-left">Watch</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -203,12 +211,40 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
                   <td className="px-3 py-3 text-slate-600">
                     {formatDateTime(attempt.startedAt)}
                   </td>
+                  <td className="px-3 py-3">
+                    {attempt.activityState === "completed" ? (
+                      <span className="text-xs text-slate-400">—</span>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setWatching({
+                            attemptId: attempt.attemptId,
+                            studentName: attempt.studentName,
+                          })
+                        }
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:border-sky-400 hover:bg-sky-50 hover:text-sky-700"
+                      >
+                        <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+                        Watch
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       )}
+
+      {watching ? (
+        <WorksheetMirror
+          worksheetId={worksheetId}
+          attemptId={watching.attemptId}
+          studentName={watching.studentName}
+          onClose={() => setWatching(null)}
+        />
+      ) : null}
     </section>
   );
 }

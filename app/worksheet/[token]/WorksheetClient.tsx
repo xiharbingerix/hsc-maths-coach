@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
 import { MathText } from "../../components/MathText";
@@ -132,40 +132,61 @@ export function WorksheetClient({
       })
     : null;
 
+  // Always hold the latest in-progress answer so heartbeats can mirror exactly
+  // what the student is typing, without re-creating the send function on every keystroke.
+  const draftRef = useRef<{
+    typed: string;
+    choice: string;
+    parts: Record<string, string>;
+  }>({ typed: "", choice: "", parts: {} });
+
+  useEffect(() => {
+    draftRef.current = {
+      typed: typedAnswer,
+      choice: choiceAnswer,
+      parts: partAnswers,
+    };
+  }, [typedAnswer, choiceAnswer, partAnswers]);
+
+  const sendHeartbeat = useCallback(async () => {
+    if (!attemptId || !currentQuestion) return;
+    try {
+      await fetch(`/api/worksheet/${token}/heartbeat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          attemptId,
+          questionId: currentQuestion.id,
+          questionIndex: currentIndex + 1,
+          phase,
+          draft: draftRef.current,
+        }),
+      });
+    } catch {
+      // Heartbeat is best-effort telemetry; worksheet flow should never fail because of it.
+    }
+  }, [attemptId, currentQuestion, currentIndex, phase, token]);
+
+  // Periodic heartbeat + an immediate one whenever the question or phase changes,
+  // so the live mirror reflects navigation and submissions promptly.
   useEffect(() => {
     if (!attemptId || !currentQuestion) return;
-
-    let cancelled = false;
-
-    async function sendHeartbeat() {
-      try {
-        await fetch(`/api/worksheet/${token}/heartbeat`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            attemptId,
-            questionId: currentQuestion.id,
-            questionIndex: currentIndex + 1,
-            phase,
-          }),
-        });
-      } catch {
-        // Heartbeat is best-effort telemetry; worksheet flow should never fail because of it.
-      }
-    }
-
     void sendHeartbeat();
     const interval = setInterval(() => {
-      if (!cancelled) {
-        void sendHeartbeat();
-      }
-    }, 8000);
+      void sendHeartbeat();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [attemptId, currentQuestion, sendHeartbeat]);
 
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
-  }, [attemptId, currentIndex, currentQuestion, phase, token]);
+  // Push the draft shortly after the student stops typing, so the teacher sees
+  // their working appear almost as they write it.
+  useEffect(() => {
+    if (!attemptId || phase !== "asking") return;
+    const timeout = setTimeout(() => {
+      void sendHeartbeat();
+    }, 600);
+    return () => clearTimeout(timeout);
+  }, [typedAnswer, choiceAnswer, partAnswers, attemptId, phase, sendHeartbeat]);
 
   useEffect(() => {
     let cancelled = false;
