@@ -66,6 +66,54 @@ const concD5: TopicTestQuestion[] = [
     answer: "6", explanation: "f''(x) = 6x − 2k = 0 at x = 2 ⇒ 12 − 2k = 0 ⇒ k = 6." },
 ];
 
+// ── Subtopic 2: Stationary Point Classification ──────────────────────────────
+const sptD4: TopicTestQuestion[] = [
+  { id: "y12a-c3-spt-d4-1", prompt: "Find the x-coordinate of the stationary point of y = x² − 6x.", latex: "y = x^2 - 6x", marks: 2, difficulty: 4,
+    answer: "3", explanation: "dy/dx = 2x − 6 = 0 ⇒ x = 3." },
+  { id: "y12a-c3-spt-d4-2", prompt: "Classify the stationary point of y = x² − 6x.", latex: "y = x^2 - 6x", marks: 2, difficulty: 4,
+    choices: [ { label: "A", text: "Minimum" }, { label: "B", text: "Maximum" }, { label: "C", text: "Horizontal inflection" }, { label: "D", text: "None" } ],
+    answer: "A", explanation: "Upward parabola (f''(x) = 2 > 0), so a minimum." },
+  { id: "y12a-c3-spt-d4-3", prompt: "Classify the stationary point of y = −x² + 4x (minimum or maximum).", latex: "y = -x^2 + 4x", marks: 2, difficulty: 4,
+    answer: "maximum", acceptedAnswers: ["max"], explanation: "Downward parabola (f''(x) = −2 < 0), so a maximum." },
+  { id: "y12a-c3-spt-d4-4", prompt: "Find the x-coordinate of the local maximum of y = x³ − 3x.", latex: "y = x^3 - 3x", marks: 3, difficulty: 4,
+    answer: "-1", acceptedAnswers: ["−1"], explanation: "dy/dx = 3x² − 3 = 0 ⇒ x = ±1; the maximum is at x = −1 (f''(−1) < 0)." },
+  { id: "y12a-c3-spt-d4-5", prompt: "Find the x-coordinate of the local minimum of y = x³ − 3x.", latex: "y = x^3 - 3x", marks: 3, difficulty: 4,
+    answer: "1", explanation: "The minimum is at x = 1 (f''(1) > 0)." },
+  { id: "y12a-c3-spt-d4-6", prompt: "Classify the stationary point of y = x³ at x = 0.", latex: "y = x^3", marks: 3, difficulty: 4,
+    choices: [ { label: "A", text: "Horizontal point of inflection" }, { label: "B", text: "Local minimum" }, { label: "C", text: "Local maximum" }, { label: "D", text: "Discontinuity" } ],
+    answer: "A", explanation: "dy/dx = 3x² does not change sign at x = 0, so it is a horizontal point of inflection — neither a max nor a min." },
+  { id: "y12a-c3-spt-d4-7", prompt: "y = x³ − 6x² + 9x has two stationary points. Find the larger x-coordinate.", latex: "y = x^3 - 6x^2 + 9x", marks: 3, difficulty: 4,
+    answer: "3", explanation: "dy/dx = 3x² − 12x + 9 = 3(x − 1)(x − 3) = 0 ⇒ x = 1 or 3; the larger is 3." },
+  { id: "y12a-c3-spt-d4-8", prompt: "Find the positive stationary-point x-value of y = 2x³ − 6x.", latex: "y = 2x^3 - 6x", marks: 3, difficulty: 4,
+    answer: "1", explanation: "dy/dx = 6x² − 6 = 0 ⇒ x = ±1; positive is 1." },
+  { id: "y12a-c3-spt-d4-9", prompt: "Find the x-coordinate of the local minimum of y = x³ − 3x².", latex: "y = x^3 - 3x^2", marks: 3, difficulty: 4,
+    answer: "2", explanation: "dy/dx = 3x² − 6x = 3x(x − 2) = 0 ⇒ x = 0 or 2; the minimum is at x = 2." },
+  { id: "y12a-c3-spt-d4-10", prompt: "How many stationary points does y = x⁴ − 2x² have?", latex: "y = x^4 - 2x^2", marks: 3, difficulty: 4,
+    answer: "3", explanation: "dy/dx = 4x³ − 4x = 4x(x² − 1) = 0 ⇒ x = 0, 1, −1: three stationary points." },
+];
+const sptD5: TopicTestQuestion[] = [
+  { id: "y12a-c3-spt-d5-1", prompt: "Classify the stationary point of y = x³ − 6x² + 9x at x = 1 (minimum or maximum).", latex: "y = x^3 - 6x^2 + 9x", marks: 4, difficulty: 5,
+    answer: "maximum", acceptedAnswers: ["max"], explanation: "dy/dx = 3(x − 1)(x − 3); at x = 1, dy/dx goes + to −, so a local maximum." },
+  { id: "y12a-c3-spt-d5-2", prompt: "Find the local minimum value of y = x³ − 6x² + 9x.", latex: "y = x^3 - 6x^2 + 9x", marks: 4, difficulty: 5,
+    answer: "0", explanation: "The minimum is at x = 3; y(3) = 27 − 54 + 27 = 0." },
+  { id: "y12a-c3-spt-d5-3", prompt: "y = x³ + ax has a stationary point at x = 2. Find a.", latex: "y = x^3 + ax", marks: 4, difficulty: 5,
+    answer: "-12", acceptedAnswers: ["−12"], explanation: "dy/dx = 3x² + a = 0 at x = 2 ⇒ 12 + a = 0 ⇒ a = −12." },
+  { id: "y12a-c3-spt-d5-4", prompt: "Classify the stationary point of y = x⁴ − 2x² at x = 0 (minimum or maximum).", latex: "y = x^4 - 2x^2", marks: 4, difficulty: 5,
+    answer: "maximum", acceptedAnswers: ["max"], explanation: "dy/dx = 4x³ − 4x = 4x(x−1)(x+1); at x = 0 it goes + to −, so a local maximum (between the two minima)." },
+  { id: "y12a-c3-spt-d5-5", prompt: "Find the local maximum value of y = x³ − 12x.", latex: "y = x^3 - 12x", marks: 4, difficulty: 5,
+    answer: "16", explanation: "Maximum at x = −2; y(−2) = −8 + 24 = 16." },
+  { id: "y12a-c3-spt-d5-6", prompt: "Find the local minimum value of y = x³ − 3x.", latex: "y = x^3 - 3x", marks: 4, difficulty: 5,
+    answer: "-2", acceptedAnswers: ["−2"], explanation: "Minimum at x = 1; y(1) = 1 − 3 = −2." },
+  { id: "y12a-c3-spt-d5-7", prompt: "Find the x-coordinate of the stationary point of y = x² + 16/x (x > 0).", latex: "y = x^2 + \\tfrac{16}{x}", marks: 4, difficulty: 5,
+    answer: "2", explanation: "dy/dx = 2x − 16/x² = 0 ⇒ 2x³ = 16 ⇒ x³ = 8 ⇒ x = 2." },
+  { id: "y12a-c3-spt-d5-8", prompt: "Classify the stationary point of y = 2x³ − 3x² − 12x at x = 2 (minimum or maximum).", latex: "y = 2x^3 - 3x^2 - 12x", marks: 4, difficulty: 5,
+    answer: "minimum", acceptedAnswers: ["min"], explanation: "dy/dx = 6x² − 6x − 12 = 6(x − 2)(x + 1); at x = 2 it goes − to +, so a local minimum." },
+  { id: "y12a-c3-spt-d5-9", prompt: "y = x³ − px² has a stationary point at x = 4 (other than x = 0). Find p.", latex: "y = x^3 - px^2", marks: 4, difficulty: 5,
+    answer: "6", explanation: "dy/dx = 3x² − 2px = x(3x − 2p) = 0; the non-zero root is x = 2p/3 = 4 ⇒ p = 6." },
+  { id: "y12a-c3-spt-d5-10", prompt: "Find the difference between the local maximum and local minimum values of y = x³ − 3x² + 1.", latex: "y = x^3 - 3x^2 + 1", marks: 4, difficulty: 5,
+    answer: "4", explanation: "Max at x = 0: y = 1. Min at x = 2: y = 8 − 12 + 1 = −3. Difference = 1 − (−3) = 4." },
+];
+
 const todo = { d4: [] as TopicTestQuestion[], d5: [] as TopicTestQuestion[] };
 
 export const applicationsDifferentiationPool: TopicTestPool = {
@@ -85,7 +133,8 @@ export const applicationsDifferentiationPool: TopicTestPool = {
       subtopicSlug: "stationary-point-classification",
       subtopicTitle: "Stationary Point Classification",
       remediationHref: href("stationary-point-classification"),
-      ...todo,
+      d4: sptD4,
+      d5: sptD5,
     },
     {
       subtopicSlug: "curve-sketching-calculus",
