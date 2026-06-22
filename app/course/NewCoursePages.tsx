@@ -11,6 +11,7 @@ import {
   newCourseUnitLessonCount,
 } from "../../lib/newCourseCatalog";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
+import { getTopicTestPool } from "../../lib/topicTests";
 import { StudentNav } from "../components/StudentNav";
 
 const lessonSequence = [
@@ -270,6 +271,9 @@ export function NewCourseUnitPage({
     notFound();
   }
 
+  // Show the topic-test call-to-action only when a pool is registered for this unit.
+  const topicTest = getTopicTestPool(courseSlug, unitSlug);
+
   return (
     <>
       <StudentNav />
@@ -313,6 +317,31 @@ export function NewCourseUnitPage({
             </div>
           </div>
         </header>
+
+        {topicTest && (
+          <section className="rounded-3xl border border-slate-900 bg-slate-900 p-6 text-white shadow-sm md:p-8">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+                  Diagnostic
+                </p>
+                <h2 className="mt-1 text-2xl font-bold">Take the topic test</h2>
+                <p className="mt-2 max-w-2xl leading-7 text-slate-200">
+                  A timed, ~60-minute test drawn at random across all{" "}
+                  {topicTest.subtopics.length} subtopics of this unit. You get a
+                  marked result, a predicted band, and a clear list of which
+                  subtopics to re-practise.
+                </p>
+              </div>
+              <Link
+                href={`/topic-test/${courseSlug}/${unitSlug}`}
+                className="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100"
+              >
+                Start topic test
+              </Link>
+            </div>
+          </section>
+        )}
 
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <section className="rounded-2xl bg-white p-6 shadow-sm">
