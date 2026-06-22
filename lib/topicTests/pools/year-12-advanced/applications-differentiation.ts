@@ -210,6 +210,54 @@ const optD5: TopicTestQuestion[] = [
     answer: "40", explanation: "P = 2x + 200/x; P' = 2 − 200/x² = 0 ⇒ x = 10 (a 10×10 square), P = 40." },
 ];
 
+// ── Subtopic 5: Kinematics and Rates of Change ───────────────────────────────
+const kinD4: TopicTestQuestion[] = [
+  { id: "y12a-c3-kin-d4-1", prompt: "A particle has displacement s = t² − 4t. Find its velocity at t = 3.", latex: "s = t^2 - 4t", marks: 2, difficulty: 4,
+    answer: "2", explanation: "v = ds/dt = 2t − 4; v(3) = 2." },
+  { id: "y12a-c3-kin-d4-2", prompt: "A particle has displacement s = t³ − 3t². Find its acceleration at t = 2.", latex: "s = t^3 - 3t^2", marks: 2, difficulty: 4,
+    answer: "6", explanation: "a = d²s/dt² = 6t − 6; a(2) = 6." },
+  { id: "y12a-c3-kin-d4-3", prompt: "A particle has displacement s = t² − 6t. Find the time when it is at rest.", latex: "s = t^2 - 6t", marks: 2, difficulty: 4,
+    choices: [ { label: "A", text: "$t = 3$" }, { label: "B", text: "$t = 0$" }, { label: "C", text: "$t = 6$" }, { label: "D", text: "$t = -6$" } ],
+    answer: "A", explanation: "At rest ⇒ v = 2t − 6 = 0 ⇒ t = 3. B and C come from setting displacement (not velocity) to zero." },
+  { id: "y12a-c3-kin-d4-4", prompt: "A particle has displacement s = t³ − 12t. Find its velocity at t = 0.", latex: "s = t^3 - 12t", marks: 2, difficulty: 4,
+    answer: "-12", acceptedAnswers: ["−12"], explanation: "v = 3t² − 12; v(0) = −12." },
+  { id: "y12a-c3-kin-d4-5", prompt: "A particle has displacement s = 5t − t². Find its acceleration.", latex: "s = 5t - t^2", marks: 2, difficulty: 4,
+    answer: "-2", acceptedAnswers: ["−2"], explanation: "v = 5 − 2t, a = −2 (constant)." },
+  { id: "y12a-c3-kin-d4-6", prompt: "A particle has displacement s = t² − 4t + 3. Find its initial velocity.", latex: "s = t^2 - 4t + 3", marks: 2, difficulty: 4,
+    choices: [ { label: "A", text: "$-4$" }, { label: "B", text: "$3$" }, { label: "C", text: "$0$" }, { label: "D", text: "$-1$" } ],
+    answer: "A", explanation: "v = 2t − 4; initial velocity v(0) = −4. B is the initial position s(0) = 3, not the velocity." },
+  { id: "y12a-c3-kin-d4-7", prompt: "A particle has displacement s = t³ − 6t² + 9t. Find the earliest time it is at rest.", latex: "s = t^3 - 6t^2 + 9t", marks: 3, difficulty: 4,
+    answer: "1", explanation: "v = 3t² − 12t + 9 = 3(t − 1)(t − 3) = 0 ⇒ t = 1 or 3; earliest is 1." },
+  { id: "y12a-c3-kin-d4-8", prompt: "A particle has velocity v = 3t² − 12. Find its acceleration at t = 2.", latex: "v = 3t^2 - 12", marks: 2, difficulty: 4,
+    answer: "12", explanation: "a = dv/dt = 6t; a(2) = 12." },
+  { id: "y12a-c3-kin-d4-9", prompt: "A particle has displacement s = 2t² − 8t. Find its minimum displacement.", latex: "s = 2t^2 - 8t", marks: 3, difficulty: 4,
+    answer: "-8", acceptedAnswers: ["−8"], explanation: "At rest at t = 2; s(2) = 8 − 16 = −8." },
+  { id: "y12a-c3-kin-d4-10", prompt: "A sphere has volume V = (4/3)πr³. Find dV/dr when r = 3 (exact form).", latex: "V = \\tfrac{4}{3}\\pi r^3", marks: 3, difficulty: 4,
+    answer: "36pi", acceptedAnswers: ["36π", "113.1", "113.10"], explanation: "dV/dr = 4πr²; at r = 3, dV/dr = 4π(9) = 36π." },
+];
+const kinD5: TopicTestQuestion[] = [
+  { id: "y12a-c3-kin-d5-1", prompt: "A particle has displacement s = t³ − 6t² + 9t. Find its minimum velocity.", latex: "s = t^3 - 6t^2 + 9t", marks: 4, difficulty: 5,
+    answer: "-3", acceptedAnswers: ["−3"], explanation: "v = 3t² − 12t + 9 is least at its vertex t = 2; v(2) = 12 − 24 + 9 = −3." },
+  { id: "y12a-c3-kin-d5-2", prompt: "A particle has displacement s = t³ − 3t². Find its acceleration at the instant it is next at rest after t = 0.", latex: "s = t^3 - 3t^2", marks: 4, difficulty: 5,
+    answer: "6", explanation: "v = 3t² − 6t = 3t(t − 2); next at rest at t = 2. a = 6t − 6; a(2) = 6." },
+  { id: "y12a-c3-kin-d5-3", prompt: "A particle has displacement s = t² − 4t. Find the total distance travelled in the first 3 seconds.", latex: "s = t^2 - 4t, \\ 0 \\le t \\le 3", marks: 4, difficulty: 5,
+    answer: "5", explanation: "At rest at t = 2. |s(2) − s(0)| + |s(3) − s(2)| = |−4| + |1| = 4 + 1 = 5." },
+  { id: "y12a-c3-kin-d5-4", prompt: "A particle has displacement s = t³ − 12t (t ≥ 0). Find its minimum velocity.", latex: "s = t^3 - 12t", marks: 4, difficulty: 5,
+    answer: "-12", acceptedAnswers: ["−12"], explanation: "v = 3t² − 12 is least at t = 0; v(0) = −12." },
+  { id: "y12a-c3-kin-d5-5", prompt: "A particle has velocity v = t² − 6t + 8. Find its acceleration at the first time it is at rest.", latex: "v = t^2 - 6t + 8", marks: 4, difficulty: 5,
+    answer: "-2", acceptedAnswers: ["−2"], explanation: "v = (t − 2)(t − 4) = 0 ⇒ t = 2 (first); a = 2t − 6; a(2) = −2." },
+  { id: "y12a-c3-kin-d5-6", prompt: "A particle has displacement s = t³ − 9t² + 24t. Find its displacement at the first time it is at rest.", latex: "s = t^3 - 9t^2 + 24t", marks: 4, difficulty: 5,
+    answer: "20", explanation: "v = 3t² − 18t + 24 = 3(t − 2)(t − 4); first at rest at t = 2; s(2) = 8 − 36 + 48 = 20." },
+  { id: "y12a-c3-kin-d5-7", prompt: "A particle has velocity v = 12t − 3t². Find its maximum velocity.", latex: "v = 12t - 3t^2", marks: 4, difficulty: 5,
+    answer: "12", explanation: "dv/dt = 12 − 6t = 0 ⇒ t = 2; v(2) = 24 − 12 = 12." },
+  { id: "y12a-c3-kin-d5-8", prompt: "A particle has displacement s = t³ − 3t² − 9t. Find the time (t > 0) when it is at rest.", latex: "s = t^3 - 3t^2 - 9t", marks: 4, difficulty: 5,
+    answer: "3", explanation: "v = 3t² − 6t − 9 = 3(t − 3)(t + 1) = 0 ⇒ t = 3 (t > 0)." },
+  { id: "y12a-c3-kin-d5-9", prompt: "A particle has acceleration a = 6t − 4 and velocity v = 1 when t = 0. Find its velocity at t = 2.", latex: "a = 6t - 4, \\ v(0) = 1", marks: 4, difficulty: 5,
+    answer: "5", explanation: "v = ∫a dt = 3t² − 4t + C; v(0) = C = 1; v(2) = 12 − 8 + 1 = 5." },
+  { id: "y12a-c3-kin-d5-10", prompt: "A particle has displacement s = t³ − 6t². Find its acceleration at the time (t > 0) when it is at rest.", latex: "s = t^3 - 6t^2", marks: 4, difficulty: 5,
+    answer: "12", explanation: "v = 3t² − 12t = 3t(t − 4); at rest (t > 0) at t = 4; a = 6t − 12; a(4) = 12." },
+];
+
 const todo = { d4: [] as TopicTestQuestion[], d5: [] as TopicTestQuestion[] };
 
 export const applicationsDifferentiationPool: TopicTestPool = {
@@ -250,7 +298,8 @@ export const applicationsDifferentiationPool: TopicTestPool = {
       subtopicSlug: "kinematics-rates-change",
       subtopicTitle: "Kinematics and Rates of Change",
       remediationHref: href("kinematics-rates-change"),
-      ...todo,
+      d4: kinD4,
+      d5: kinD5,
     },
     {
       subtopicSlug: "applications-differentiation-exam-practice",
