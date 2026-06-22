@@ -459,7 +459,7 @@ export function year10StatisticsDataLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "statistics-data") return null;
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || !["single-variable-bivariate-statistics"].includes(unit.slug)) return null;
   const base = { syllabusArea: "Statistics and Probability", masteryPassMark: 0.8 };
 
   if (lesson.slug === "quartiles-iqr") return {

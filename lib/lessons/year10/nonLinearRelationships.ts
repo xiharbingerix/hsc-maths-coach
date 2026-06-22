@@ -410,7 +410,7 @@ export function year10NonLinearRelationshipsLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "non-linear-relationships") return null;
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || !["parabolas-rates-variation", "functions-polynomials-graphs", "indices-exponentials-logarithms"].includes(unit.slug)) return null;
   const base = { syllabusArea: "Number and Algebra", masteryPassMark: 0.8 };
 
   if (lesson.slug === "introduction-to-parabolas") return {
