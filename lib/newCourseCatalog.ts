@@ -1055,7 +1055,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Standard 1",
     yearLevel: "Year 12",
     courseType: "Mathematics Standard 1",
-    status: "in_progress",
+    status: "available",
     description:
       "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra, finance, measurement and data lessons active and remaining units planned.",
     positioning:
