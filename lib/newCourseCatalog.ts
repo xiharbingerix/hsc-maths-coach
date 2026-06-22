@@ -33,7 +33,6 @@ import {
   year12Standard1QuadraticModelsLessonOverride,
   year12Standard1RatiosRatesUnitConversionsLessonOverride,
   year12Standard1SimultaneousEquationsContextLessonOverride,
-  year12Standard1LinearAndDirectVariationLessonOverride,
   year12Standard1LineOfBestFitPredictionsLessonOverride,
   year12Standard1MeasurementAreaVolumeLessonOverride,
   year12Standard1ProbabilityAndChanceLessonOverride,
@@ -63,6 +62,14 @@ import {
   year12Standard1ScatterplotInterpretationLessonOverride,
   year12Standard1InterpolationExtrapolationLessonOverride,
 } from "./lessons/year12Standard1FurtherStats";
+import {
+  year12Standard1ExponentialGraphsLessonOverride,
+  year12Standard1ExponentialModelsLessonOverride,
+  year12Standard1QuadraticFunctionsLessonOverride,
+  year12Standard1ReciprocalGraphsLessonOverride,
+  year12Standard1ReciprocalModelsLessonOverride,
+  year12Standard1GraphsMiscellaneousLessonOverride,
+} from "./lessons/year12Standard1PracticalGraphs";
 import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
@@ -311,7 +318,6 @@ export function buildLesson(
     year12Standard1LineOfBestFitPredictionsLessonOverride(course, unit, lesson) ??
     year12Standard1RelativeFrequencyExpectedValueLessonOverride(course, unit, lesson) ??
     year12Standard1StatisticsExamPracticeLessonOverride(course, unit, lesson) ??
-    year12Standard1LinearAndDirectVariationLessonOverride(course, unit, lesson) ??
     year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1LinearRelationshipsModellingLessonOverride(course, unit, lesson) ??
     year12Standard1QuadraticModelsLessonOverride(course, unit, lesson) ??
@@ -321,6 +327,12 @@ export function buildLesson(
     year12Standard1BreakEvenAnalysisLessonOverride(course, unit, lesson) ??
     year12Standard1ScatterplotInterpretationLessonOverride(course, unit, lesson) ??
     year12Standard1InterpolationExtrapolationLessonOverride(course, unit, lesson) ??
+    year12Standard1ExponentialGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1ExponentialModelsLessonOverride(course, unit, lesson) ??
+    year12Standard1QuadraticFunctionsLessonOverride(course, unit, lesson) ??
+    year12Standard1ReciprocalGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1ReciprocalModelsLessonOverride(course, unit, lesson) ??
+    year12Standard1GraphsMiscellaneousLessonOverride(course, unit, lesson) ??
     year12Standard1RatiosRatesUnitConversionsLessonOverride(course, unit, lesson) ??
     year12Standard1InvestmentCompoundInterestLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
@@ -1462,25 +1474,23 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "exponential-graphs",
             title: "9A Exponential Graphs",
-            description: "(In development) Recognise and interpret exponential graphs.",
+            description: "Recognise and interpret exponential graphs: growth versus decay, the y-intercept, and the asymptote.",
           },
           {
-            // NOTE: slug `exponential-inverse-variation` is LEGACY-KEPT here for the 9B Exponential
-            // models section so its `addMissingQuestions` patch + any progress survive. Its current
-            // authored content is still linear/direct-variation (a stub — see
-            // docs/audits/exponential-inverse-variation-structural-review.md); Wave 4 authors real
-            // exponential content here and relocates the inverse-variation questions to 9E/9F
-            // (`reciprocal-graphs`/`reciprocal-models`). TODO(wave4): rename slug once progress
-            // migration for it is settled. The slug name no longer matches the section's intent.
+            // TRANSITIONAL SLUG: `exponential-inverse-variation` is legacy-kept (to preserve
+            // student progress) but section 9B is now genuinely EXPONENTIAL-ONLY (Wave 4). The
+            // inverse-variation content moved to 9E/9F (reciprocal-graphs / reciprocal-models);
+            // the old linear stub override + its addMissingQuestions branch were removed. The
+            // slug name no longer matches its content — rename deferred to a progress migration.
             slug: "exponential-inverse-variation",
             title: "9B Exponential Models",
             description:
-              "(In development) Exponential growth and decay models. (Currently holds legacy linear/direct-variation content pending Wave 4 authoring.)",
+              "Model exponential growth and decay using repeated multiplication and growth/decay factors.",
           },
           {
             slug: "quadratic-functions",
             title: "9C Quadratic Functions",
-            description: "(In development) Graph and interpret quadratic functions.",
+            description: "Identify concavity, intercepts, vertex and axis of symmetry of quadratic functions.",
           },
           {
             slug: "quadratic-models",
@@ -1491,17 +1501,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "reciprocal-graphs",
             title: "9E Reciprocal Graphs",
-            description: "(In development) Recognise and interpret reciprocal (inverse-variation) graphs.",
+            description: "Recognise inverse variation y = k/x from a graph or table, find k, and predict how y changes.",
           },
           {
             slug: "reciprocal-models",
             title: "9F Reciprocal Models",
-            description: "(In development) Build and interpret reciprocal (inverse-variation) models.",
+            description: "Apply inverse variation to contexts such as workers and time, speed and time, and pressure and volume.",
           },
           {
             slug: "graphs-miscellaneous",
             title: "9G Miscellaneous Problems",
-            description: "(In development) Mixed practical problems across graph types.",
+            description: "Choose and tell apart linear, quadratic, exponential and reciprocal models from data, shape or context.",
           },
         ],
       },

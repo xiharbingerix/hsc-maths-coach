@@ -8374,65 +8374,10 @@ function generatedQuestion(
 }
 
 function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
-  if (lesson.slug === "exponential-inverse-variation") {
-    return {
-      ...lesson,
-      independentPractice: [
-        ...lesson.independentPractice,
-        generatedQuestion(
-          "exp-inv-i5-fill",
-          "For the inverse variation model y = 240/x, find y when x = 6.",
-          "y=\\frac{240}{x}",
-          "40",
-          "Substitute x = 6 into y = 240/x. Then y = 240/6 = 40.",
-          ["40.0"]
-        ),
-      ],
-      masteryQuiz: [
-        ...lesson.masteryQuiz,
-        generatedQuestion(
-          "exp-inv-m6-fill",
-          "A population doubles each year from 150. Find the population after 3 years.",
-          "P=150\\times2^3",
-          "1200",
-          "Doubling each year means multiply by 2 three times: $150 \\times 2^3 = 150 \\times 8 = 1200$.",
-          ["1200.0"]
-        ),
-        generatedQuestion(
-          "exp-inv-m7-fill",
-          "An inverse variation model is y = 60/x. Find y when x = 5.",
-          "y=\\frac{60}{5}",
-          "12",
-          "Substitute x = 5 into the model. Then y = 60/5 = 12.",
-          ["12.0"]
-        ),
-        generatedQuestion(
-          "exp-inv-m8-fill",
-          "The equation $y = 4 \\times 3^t$ models repeated growth. Identify the model type.",
-          "\\text{Select the model type for }y=4\\times3^t",
-          "exponential",
-          "The variable is in the power, so the quantity changes by a constant factor. That makes the model exponential.",
-          ["exponential growth"]
-        ),
-        generatedQuestion(
-          "exp-inv-m9-fill",
-          "The table shows x = 2, 4, 8 and y = 48, 24, 12. Identify the model type.",
-          "\\text{As }x\\text{ doubles, }y\\text{ halves.}",
-          "inverse variation",
-          "When one variable doubles while the other halves so that xy stays constant, the relationship is inverse variation.",
-          ["inverse"]
-        ),
-        generatedQuestion(
-          "exp-inv-m10-fill",
-          "If y = 96/x and y = 12, find x.",
-          "12=\\frac{96}{x}",
-          "8",
-          "Set 12 = 96/x, then multiply both sides by x to get 12x = 96. Divide by 12 to get x = 8.",
-          ["8.0"]
-        ),
-      ],
-    };
-  }
+  // NOTE: the former "exponential-inverse-variation" fill-question branch was removed in
+  // Wave 4. That slug (section 9B) is now a genuinely-authored exponential-models lesson
+  // (lib/lessons/year12Standard1PracticalGraphs.ts); its inverse-variation content moved to
+  // 9E/9F (reciprocal-graphs / reciprocal-models). See the Wave 4 report.
 
   if (lesson.slug === "annuities-regular-payments") {
     return {
