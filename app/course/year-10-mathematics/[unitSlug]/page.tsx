@@ -1,9 +1,10 @@
 import { NewCourseUnitPage } from "../../NewCoursePages";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
   getNewCourseUnit,
   newCourseUnitLessonCount,
 } from "../../../../lib/newCourseCatalog";
+import { year10LegacyUnitRedirect } from "../../../../lib/year10PathTags";
 
 export default async function Year10MathematicsUnitPage({
   params,
@@ -11,6 +12,8 @@ export default async function Year10MathematicsUnitPage({
   params: Promise<{ unitSlug: string }>;
 }) {
   const { unitSlug } = await params;
+  const legacy = year10LegacyUnitRedirect("year-10-mathematics", unitSlug);
+  if (legacy) permanentRedirect(legacy);
   const unit = getNewCourseUnit("year-10-mathematics", unitSlug);
 
   if (!unit || newCourseUnitLessonCount(unit) === 0) {

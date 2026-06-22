@@ -9,6 +9,7 @@ import type {
   CoursePathwaySeed,
   CourseUnitSeed,
 } from "./courseTypes";
+import { derivePathwayUnits, assertPathTagTotality } from "./year10PathTags";
 import {
   year11StandardApplicationsMeasurementLessonOverride,
   year11StandardDataAnalysisLessonOverride,
@@ -4362,670 +4363,1221 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     positioning:
       "Year 10 Mathematics covers Stage 5 Core content with selected Path topics to prepare students for Year 11 Standard, Advanced and Extension pathways. One course covers both essential foundations and key extension content â€” from algebra, trigonometry and measurement through to non-linear graphs, circle geometry and geometric proof.",
     units: [
-      {
-        slug: "algebraic-techniques",
-        title: "Algebraic Techniques",
-        description:
-          "Expand and factorise expressions including quadratics, difference of two squares, and algebraic fractions.",
-        syllabusArea: "Number and Algebra",
-        focus: "Fluency with algebraic manipulation â€” the foundation for all senior mathematics.",
-        lessons: [
-          {
-            slug: "expanding-binomial-products",
-            title: "Expanding Binomial Products",
-            description:
-              "Expand single and double brackets using the distributive law and FOIL, and collect like terms.",
-          },
-          {
-            slug: "factorising-expressions",
-            title: "Factorising Algebraic Expressions",
-            description:
-              "Identify the highest common factor and use it to factorise two- and three-term algebraic expressions.",
-          },
-          {
-            slug: "factorising-quadratics",
-            title: "Factorising Quadratic Trinomials",
-            description:
-              "Factorise monic quadratic trinomials of the form xÂ² + bx + c using the product-sum method.",
-          },
-          {
-            slug: "difference-of-two-squares",
-            title: "Difference of Two Squares",
-            description:
-              "Recognise expressions of the form aÂ² âˆ’ bÂ² and apply the difference of two squares identity to factorise them.",
-          },
-          {
-            slug: "algebraic-fractions",
-            title: "Algebraic Fractions",
-            description:
-              "Simplify algebraic fractions by cancelling common factors, state restrictions, and multiply or divide simple algebraic fractions.",
-          },
-          {
-            slug: "non-monic-quadratic-factorising",
-            title: "Non-Monic Quadratic Factorising",
-            description:
-              "Factorise non-monic quadratic trinomials of the form ax² + bx + c (a ≠ 1) using the AC method.",
-          },
-          {
-            slug: "algebraic-fractions-add-subtract",
-            title: "Algebraic Fractions: Add and Subtract",
-            description:
-              "Add and subtract algebraic fractions with unlike denominators by finding the LCM and rewriting each fraction.",
-          },
-        ],
-      },
-      {
-        slug: "equations-simultaneous",
-        title: "Equations and Simultaneous Equations",
-        description:
-          "Solve linear equations, quadratic equations, and pairs of simultaneous equations.",
-        syllabusArea: "Number and Algebra",
-        focus: "Solving equations is the core skill of senior algebra â€” master every method here.",
-        lessons: [
-          {
-            slug: "solving-linear-equations",
-            title: "Solving Linear Equations",
-            description:
-              "Solve linear equations using inverse operations, including equations with brackets and variables on both sides.",
-          },
-          {
-            slug: "quadratics-by-factorising",
-            title: "Solving Quadratics by Factorising",
-            description:
-              "Solve quadratic equations by factorising and applying the null factor law.",
-          },
-          {
-            slug: "quadratic-formula",
-            title: "The Quadratic Formula",
-            description:
-              "Use the quadratic formula to solve quadratic equations and interpret the discriminant.",
-          },
-          {
-            slug: "simultaneous-substitution",
-            title: "Simultaneous Equations: Substitution",
-            description:
-              "Solve pairs of simultaneous equations by substituting one expression into the other equation.",
-          },
-          {
-            slug: "simultaneous-elimination",
-            title: "Simultaneous Equations: Elimination",
-            description:
-              "Solve pairs of simultaneous equations by adding or subtracting equations to eliminate one variable.",
-          },
-          {
-            slug: "linear-inequalities",
-            title: "Linear Inequalities",
-            description:
-              "Solve linear inequalities, represent solutions on a number line, and apply the sign-reversal rule when dividing by a negative.",
-          },
-        ],
-      },
-      {
-        slug: "linear-relationships",
-        title: "Linear Relationships",
-        description:
-          "Gradient, y-intercept, parallel and perpendicular lines, and coordinate geometry formulas.",
-        syllabusArea: "Number and Algebra",
-        focus: "Coordinate geometry and linear functions â€” essential preparation for senior functions.",
-        lessons: [
-          {
-            slug: "gradient-y-intercept",
-            title: "Gradient and y-intercept",
-            description:
-              "Interpret gradient and y-intercept from equations, coordinates and straight-line graphs.",
-          },
-          {
-            slug: "parallel-perpendicular-lines",
-            title: "Parallel and Perpendicular Lines",
-            description:
-              "Identify parallel and perpendicular lines using gradients and simple graph relationships.",
-          },
-          {
-            slug: "midpoint-distance",
-            title: "Midpoint and Distance Formulas",
-            description:
-              "Calculate midpoints and distances between coordinate pairs using averages and Pythagoras.",
-          },
-          {
-            slug: "linear-modelling",
-            title: "Linear Modelling and Applications",
-            description:
-              "Use linear models to interpret starting values, rates, predictions and comparisons.",
-          },
-          {
-            slug: "equation-of-a-line",
-            title: "Equation of a Line",
-            description:
-              "Find the equation of a straight line given its gradient and a point, or given two points on the line.",
-          },
-        ],
-      },
-      {
-        slug: "non-linear-relationships",
-        title: "Non-Linear Relationships",
-        description:
-          "Sketch and interpret parabolas, circles, exponential graphs, and hyperbolas.",
-        syllabusArea: "Number and Algebra",
-        focus: "Non-linear graphs preview the function families taught deeply in senior maths.",
-        lessons: [
-          {
-            slug: "introduction-to-parabolas",
-            title: "Introduction to Parabolas",
-            description:
-              "Recognise basic parabola features including vertex, symmetry, opening direction and y-intercept.",
-          },
-          {
-            slug: "sketching-parabolas",
-            title: "Sketching Parabolas",
-            description:
-              "Sketch simple parabolas using tables, symmetry, y-intercepts and factorised x-intercepts.",
-          },
-          {
-            slug: "circle-graphs",
-            title: "Circle Graphs",
-            description:
-              "Interpret circle equations using centre, radius and intercepts.",
-          },
-          {
-            slug: "exponential-functions",
-            title: "Exponential Functions",
-            description:
-              "Recognise introductory exponential growth and decay rules using tables, points and simple graphs.",
-          },
-          {
-            slug: "hyperbolas",
-            title: "Hyperbolas",
-            description:
-              "Interpret reciprocal graphs, excluded values, asymptotes and branch locations.",
-          },
-        ],
-      },
-      {
-        slug: "trigonometry",
-        title: "Trigonometry",
-        description:
-          "Apply trigonometric ratios, the sine rule, cosine rule, and area formula to solve triangles.",
-        syllabusArea: "Measurement and Space",
-        focus: "Trigonometry is tested in every senior pathway â€” build accuracy and speed here.",
-        lessons: [
-          {
-            slug: "trigonometric-ratios",
-            title: "Trigonometric Ratios",
-            description:
-              "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle, and write sin, cos and tan using SOH-CAH-TOA.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "finding-sides-trig",
-            title: "Finding Unknown Sides",
-            description:
-              "Use trigonometric ratios to find an unknown side length in a right triangle when one side and one acute angle are known.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "finding-angles-trig",
-            title: "Finding Unknown Angles",
-            description:
-              "Apply sinâ»Â¹, cosâ»Â¹ or tanâ»Â¹ to find an unknown angle in a right triangle from two known sides.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "elevation-depression",
-            title: "Angles of Elevation and Depression",
-            description:
-              "Model real-world situations using angles of elevation and depression, and solve for unknown heights and distances.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "sine-rule",
-            title: "The Sine Rule",
-            description:
-              "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite sideâ€“angle pair is known.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "cosine-rule",
-            title: "The Cosine Rule",
-            description:
-              "Apply the cosine rule to find an unknown side or angle in a non-right-angled triangle from two sides and the included angle, or from three sides.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "area-trig-formula",
-            title: "Area of a Triangle",
-            description:
-              "Calculate the area of any triangle using A = Â½ab sin C when two sides and their included angle are known.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "bearings",
-            title: "Bearings",
-            description:
-              "Read and write three-digit compass bearings, find reverse bearings, and solve simple navigation problems using bearings and trigonometry.",
-            seedQuestions: false,
-            showInCourseNav: false,
-          },
-          {
-            slug: "trig-ratios-identifying-sides",
-            title: "Identifying Triangle Sides",
-            description:
-              "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle in a right triangle.",
-            stableSkillId: "y10-trig-ratios-identifying-sides",
-            legacySlugs: ["trigonometric-ratios"],
-            skillCheckpoints: [
               {
-                stableCheckpointId: "y10-trig-side-labels-hypotenuse",
-                label: "Identify the hypotenuse from the right angle",
-                legacySlugs: ["trigonometric-ratios"],
+                      "slug": "algebra-equations-linear-relationships",
+                      "title": "Algebra, Equations and Linear Relationships",
+                      "description": "Linear equations and inequalities, simultaneous equations, and coordinate geometry of straight lines.",
+                      "syllabusArea": "Number and Algebra",
+                      "focus": "Algebraic and linear foundations for senior mathematics.",
+                      "lessons": [
+                              {
+                                      "slug": "review-of-algebra",
+                                      "title": "1A Review of Algebra",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "solving-linear-equations",
+                                      "title": "Solving Linear Equations",
+                                      "description": "Solve linear equations using inverse operations, including equations with brackets and variables on both sides.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "linear-inequalities",
+                                      "title": "Linear Inequalities",
+                                      "description": "Solve linear inequalities, represent solutions on a number line, and apply the sign-reversal rule when dividing by a negative.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "equations-complex-algebraic-fractions",
+                                      "title": "1D Equations with Complex Algebraic Fractions",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "gradient-y-intercept",
+                                      "title": "Gradient and y-intercept",
+                                      "description": "Interpret gradient and y-intercept from equations, coordinates and straight-line graphs.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "equation-of-a-line",
+                                      "title": "Equation of a Line",
+                                      "description": "Find the equation of a straight line given its gradient and a point, or given two points on the line.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "midpoint-distance",
+                                      "title": "Midpoint and Distance Formulas",
+                                      "description": "Calculate midpoints and distances between coordinate pairs using averages and Pythagoras.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "parallel-perpendicular-lines",
+                                      "title": "Parallel and Perpendicular Lines",
+                                      "description": "Identify parallel and perpendicular lines using gradients and simple graph relationships.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "simultaneous-substitution",
+                                      "title": "Simultaneous Equations: Substitution",
+                                      "description": "Solve pairs of simultaneous equations by substituting one expression into the other equation.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "simultaneous-elimination",
+                                      "title": "Simultaneous Equations: Elimination",
+                                      "description": "Solve pairs of simultaneous equations by adding or subtracting equations to eliminate one variable.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "linear-modelling",
+                                      "title": "Linear Modelling and Applications",
+                                      "description": "Use linear models to interpret starting values, rates, predictions and comparisons.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "regions-cartesian-plane",
+                                      "title": "1L Regions on the Cartesian Plane",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              }
+                      ]
               },
               {
-                stableCheckpointId: "y10-trig-side-labels-opposite-adjacent",
-                label: "Identify opposite and adjacent sides from the marked angle",
-                legacySlugs: ["trigonometric-ratios"],
-              },
-            ],
-          },
-          {
-            slug: "trig-ratios-sin-cos-tan",
-            title: "Writing and Selecting Trig Ratios",
-            description:
-              "Write sin, cos and tan ratios from labelled right triangles and select the correct ratio for a pair of sides.",
-            stableSkillId: "y10-trig-ratios-sin-cos-tan",
-            legacySlugs: ["trigonometric-ratios"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-soh-cah-toa-ratio-writing",
-                label: "Write sin, cos and tan using SOH-CAH-TOA",
-                legacySlugs: ["trigonometric-ratios"],
-              },
-              {
-                stableCheckpointId: "y10-trig-ratio-selection",
-                label: "Select the ratio that matches the known and wanted sides",
-                legacySlugs: ["trigonometric-ratios"],
-              },
-            ],
-          },
-          {
-            slug: "finding-sides-sin-cos",
-            title: "Finding Sides Using Sin and Cos",
-            description:
-              "Use sin and cos to find unknown sides in right triangles involving the hypotenuse.",
-            stableSkillId: "y10-trig-finding-sides-sin-cos",
-            legacySlugs: ["finding-sides-trig"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-find-side-sin",
-                label: "Use sine to connect opposite and hypotenuse",
-                legacySlugs: ["finding-sides-trig"],
-              },
-              {
-                stableCheckpointId: "y10-trig-find-side-cos",
-                label: "Use cosine to connect adjacent and hypotenuse",
-                legacySlugs: ["finding-sides-trig"],
-              },
-            ],
-          },
-          {
-            slug: "finding-sides-tan",
-            title: "Finding Sides Using Tan",
-            description:
-              "Use tan to find unknown opposite or adjacent side lengths without using the hypotenuse.",
-            stableSkillId: "y10-trig-finding-sides-tan",
-            legacySlugs: ["finding-sides-trig"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-find-side-tan-opposite",
-                label: "Find an opposite side using tan",
-                legacySlugs: ["finding-sides-trig"],
-              },
-              {
-                stableCheckpointId: "y10-trig-find-side-tan-adjacent",
-                label: "Find an adjacent side using tan",
-                legacySlugs: ["finding-sides-trig"],
-              },
-            ],
-          },
-          {
-            slug: "finding-angles-inverse-trig",
-            title: "Finding Angles Using Inverse Trig",
-            description:
-              "Apply inverse sin, inverse cos or inverse tan to find an unknown angle in a right triangle.",
-            stableSkillId: "y10-trig-finding-angles-inverse-trig",
-            legacySlugs: ["finding-angles-trig"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-inverse-ratio-selection",
-                label: "Choose the inverse trig function from two known sides",
-                legacySlugs: ["finding-angles-trig"],
-              },
-            ],
-          },
-          {
-            slug: "elevation-depression-applications",
-            title: "Angles of Elevation and Depression",
-            description:
-              "Model elevation and depression contexts as right triangles and solve for heights, distances or angles.",
-            stableSkillId: "y10-trig-elevation-depression-applications",
-            legacySlugs: ["elevation-depression"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-elevation-depression-models",
-                label: "Draw and solve elevation and depression models",
-                legacySlugs: ["elevation-depression"],
-              },
-            ],
-          },
-          {
-            slug: "sine-rule-finding-sides",
-            title: "Sine Rule - Finding Sides",
-            description:
-              "Use the sine rule to find unknown sides in non-right-angled triangles.",
-            stableSkillId: "y10-trig-sine-rule-finding-sides",
-            legacySlugs: ["sine-rule"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-sine-rule-side-pairs",
-                label: "Use opposite side-angle pairs to find a side",
-                legacySlugs: ["sine-rule"],
-              },
-            ],
-          },
-          {
-            slug: "sine-rule-finding-angles",
-            title: "Sine Rule - Finding Angles",
-            description:
-              "Use the sine rule and inverse sine to find unknown angles in non-right-angled triangles.",
-            stableSkillId: "y10-trig-sine-rule-finding-angles",
-            legacySlugs: ["sine-rule"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-sine-rule-angle-pairs",
-                label: "Use opposite side-angle pairs to find an angle",
-                legacySlugs: ["sine-rule"],
-              },
-            ],
-          },
-          {
-            slug: "cosine-rule-finding-sides",
-            title: "Cosine Rule - Finding Sides",
-            description:
-              "Use the cosine rule to find a side from two sides and the included angle.",
-            stableSkillId: "y10-trig-cosine-rule-finding-sides",
-            legacySlugs: ["cosine-rule"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-cosine-rule-sas",
-                label: "Use the cosine rule for SAS side-finding",
-                legacySlugs: ["cosine-rule"],
-              },
-            ],
-          },
-          {
-            slug: "cosine-rule-finding-angles",
-            title: "Cosine Rule - Finding Angles",
-            description:
-              "Rearrange the cosine rule to find an unknown angle from three sides.",
-            stableSkillId: "y10-trig-cosine-rule-finding-angles",
-            legacySlugs: ["cosine-rule"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-cosine-rule-sss",
-                label: "Use the cosine rule for SSS angle-finding",
-                legacySlugs: ["cosine-rule"],
-              },
-            ],
-          },
-          {
-            slug: "area-of-triangle-formula",
-            title: "Area of a Triangle",
-            description:
-              "Calculate triangle area using one half ab sin C and rearrange the formula in simple cases.",
-            stableSkillId: "y10-trig-area-of-triangle-formula",
-            legacySlugs: ["area-trig-formula"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-area-half-ab-sin-c",
-                label: "Use one half ab sin C for non-right triangle area",
-                legacySlugs: ["area-trig-formula"],
-              },
-            ],
-          },
-          {
-            slug: "bearings-and-trigonometry",
-            title: "Bearings",
-            description:
-              "Read and write three-digit bearings and solve navigation problems using trigonometry.",
-            stableSkillId: "y10-trig-bearings-and-trigonometry",
-            legacySlugs: ["bearings"],
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y10-trig-three-digit-bearings",
-                label: "Interpret three-digit and reverse bearings",
-                legacySlugs: ["bearings"],
+                      "slug": "geometrical-figures-circle-geometry",
+                      "title": "Properties of Geometrical Figures and Circle Geometry",
+                      "description": "Congruence, similarity, and circle geometry theorems with proof.",
+                      "syllabusArea": "Measurement and Space",
+                      "focus": "Geometric reasoning and proof.",
+                      "lessons": [
+                              {
+                                      "slug": "review-of-geometry",
+                                      "title": "2A Review of Geometry",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "congruent-triangles",
+                                      "title": "Congruent Triangles",
+                                      "description": "Use SSS, SAS, ASA and RHS to identify congruent triangles and match corresponding parts.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "congruence-quadrilaterals",
+                                      "title": "2C Congruence and Quadrilaterals",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "similar-triangles",
+                                      "title": "Similar Triangles",
+                                      "description": "Use angle and side relationships to identify similar triangles and calculate scale factors.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "proving-similar-triangles",
+                                      "title": "2E Proving Similar Triangles",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "circle-chord-angle",
+                                      "title": "Circle Geometry: Chord and Angle Theorems",
+                                      "description": "Use chord and angle theorems to find missing angles in circles and cyclic quadrilaterals.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "further-angle-properties-circles",
+                                      "title": "2H Further Angle Properties of Circles",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "circle-tangents",
+                                      "title": "Circle Geometry: Tangent Theorems",
+                                      "description": "Use radius-tangent, equal-tangent and alternate-segment facts to reason about circles.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "intersecting-chords-secants-tangents",
+                                      "title": "2J Intersecting Chords, Secants and Tangents",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "geometric-proofs",
+                                      "title": "Writing Geometric Proofs",
+                                      "description": "Write short geometric proofs by linking given facts, valid reasons and precise conclusions.",
+                                      "pathTag": "path"
+                              }
+                      ]
               },
               {
-                stableCheckpointId: "y10-trig-bearing-components",
-                label: "Use trig to resolve bearing distances",
-                legacySlugs: ["bearings"],
+                      "slug": "indices-exponentials-logarithms",
+                      "title": "Indices, Exponentials and Logarithms",
+                      "description": "Index laws, scientific notation, exponential functions and logarithms.",
+                      "syllabusArea": "Number and Algebra",
+                      "focus": "Index and exponential foundations through to logarithms.",
+                      "lessons": [
+                              {
+                                      "slug": "review-index-laws",
+                                      "title": "3A Review of Index Laws",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "negative-indices",
+                                      "title": "3B Negative Indices",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "scientific-notation-y10",
+                                      "title": "3C Scientific Notation",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "fractional-indices",
+                                      "title": "3D Fractional Indices",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "exponential-equations",
+                                      "title": "3E Exponential Equations",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "exponential-functions",
+                                      "title": "Exponential Functions",
+                                      "description": "Recognise introductory exponential growth and decay rules using tables, points and simple graphs.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "exponential-growth-decay",
+                                      "title": "3G Exponential Growth and Decay",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "introducing-logarithms",
+                                      "title": "3H Introducing Logarithms",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "logarithmic-scales",
+                                      "title": "3I Logarithmic Scales",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "laws-of-logarithms",
+                                      "title": "3J Laws of Logarithms",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "solving-exponential-equations-logs",
+                                      "title": "3K Solving Exponential Equations Using Logarithms",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              }
+                      ]
               },
-            ],
-          },
-        ],
-      },
-      {
-        slug: "measurement",
-        title: "Measurement",
-        description:
-          "Calculate surface area and volume of prisms, cylinders, pyramids, cones, and spheres.",
-        syllabusArea: "Measurement and Space",
-        focus: "Measurement is a core Standard pathway topic and provides context for real-world problem solving.",
-        lessons: [
-          {
-            slug: "surface-area-prisms",
-            title: "Surface Area of Prisms",
-            description:
-              "Calculate the surface area of rectangular and triangular prisms by finding the area of every face and adding them together.",
-          },
-          {
-            slug: "surface-area-cylinders",
-            title: "Surface Area of Cylinders",
-            description:
-              "Apply SA = 2Ï€rÂ² + 2Ï€rh to find the surface area of closed and open cylinders.",
-          },
-          {
-            slug: "volume-prisms-cylinders",
-            title: "Volume of Prisms and Cylinders",
-            description:
-              "Calculate the volume of rectangular prisms, triangular prisms, and cylinders, and rearrange the formula to find an unknown dimension.",
-          },
-          {
-            slug: "pyramids",
-            title: "Surface Area and Volume of Pyramids",
-            description:
-              "Calculate the volume of square and rectangular pyramids using V = (1/3) Ã— base area Ã— height, and the surface area of square pyramids using the slant height.",
-          },
-          {
-            slug: "cones",
-            title: "Surface Area and Volume of Cones",
-            description:
-              "Apply V = (1/3)Ï€rÂ²h for cone volume, CSA = Ï€rl for curved surface area, and TSA = Ï€rÂ² + Ï€rl for total surface area, using Pythagoras to find the slant height when needed.",
-          },
-          {
-            slug: "spheres",
-            title: "Surface Area and Volume of Spheres",
-            description:
-              "Apply SA = 4Ï€rÂ² and V = (4/3)Ï€rÂ³ to find the surface area and volume of spheres, and rearrange to find the radius.",
-          },
-          {
-            slug: "similar-figures-scale",
-            title: "Similar Figures and Scale Factors",
-            description:
-              "Apply length, area, and volume scale factors to similar figures: area scales by kÂ², volume scales by kÂ³.",
-          },
-        ],
-      },
-      {
-        slug: "geometry-proofs",
-        title: "Geometry and Proofs",
-        description:
-          "Prove congruence and similarity, and apply circle geometry theorems.",
-        syllabusArea: "Measurement and Space",
-        focus: "Geometric reasoning is useful for senior pathways and essential for Extension preparation.",
-        lessons: [
-          {
-            slug: "congruent-triangles",
-            title: "Congruent Triangles",
-            description:
-              "Use SSS, SAS, ASA and RHS to identify congruent triangles and match corresponding parts.",
-          },
-          {
-            slug: "similar-triangles",
-            title: "Similar Triangles",
-            description:
-              "Use angle and side relationships to identify similar triangles and calculate scale factors.",
-          },
-          {
-            slug: "circle-chord-angle",
-            title: "Circle Geometry: Chord and Angle Theorems",
-            description:
-              "Use chord and angle theorems to find missing angles in circles and cyclic quadrilaterals.",
-          },
-          {
-            slug: "circle-tangents",
-            title: "Circle Geometry: Tangent Theorems",
-            description:
-              "Use radius-tangent, equal-tangent and alternate-segment facts to reason about circles.",
-          },
-          {
-            slug: "geometric-proofs",
-            title: "Writing Geometric Proofs",
-            description:
-              "Write short geometric proofs by linking given facts, valid reasons and precise conclusions.",
-          },
-        ],
-      },
-      {
-        slug: "probability",
-        title: "Probability",
-        description:
-          "Calculate probabilities using tree diagrams, Venn diagrams, two-way tables, and conditional probability.",
-        syllabusArea: "Statistics and Probability",
-        focus: "Probability underpins senior data topics and Extension combinatorics.",
-        lessons: [
-          {
-            slug: "multi-stage-events",
-            title: "Multi-stage Events and Counting",
-            description:
-              "Count outcomes and calculate probabilities for simple multi-stage events with and without replacement.",
-          },
-          {
-            slug: "tree-diagrams",
-            title: "Tree Diagrams",
-            description:
-              "Use tree diagrams to organise stages, multiply along paths and add alternative successful paths.",
-          },
-          {
-            slug: "venn-diagrams",
-            title: "Venn Diagrams",
-            description:
-              "Interpret Venn regions, overlaps, unions and students outside both sets.",
-          },
-          {
-            slug: "two-way-tables",
-            title: "Two-way Tables",
-            description:
-              "Read two-way tables, identify joint and marginal frequencies, and compare proportions.",
-          },
-          {
-            slug: "conditional-probability",
-            title: "Conditional Probability",
-            description:
-              "Calculate simple conditional probabilities by restricting the group represented by the denominator.",
-          },
-        ],
-      },
-      {
-        slug: "statistics-data",
-        title: "Statistics and Data",
-        description:
-          "Summarise and display data using quartiles, box plots, standard deviation, and scatter plots.",
-        syllabusArea: "Statistics and Probability",
-        focus: "Data analysis skills are central to senior Standard and useful across all pathways.",
-        lessons: [
-          {
-            slug: "quartiles-iqr",
-            title: "Quartiles and Interquartile Range",
-            description:
-              "Find medians, quartiles and interquartile ranges, and compare the spread of datasets.",
-          },
-          {
-            slug: "box-whisker-plots",
-            title: "Box-and-whisker Plots",
-            description:
-              "Interpret box-and-whisker plots using five-number summaries, medians and interquartile ranges.",
-          },
-          {
-            slug: "standard-deviation",
-            title: "Standard Deviation",
-            description:
-              "Interpret standard deviation as a measure of numerical spread around the mean.",
-          },
-          {
-            slug: "scatter-plots-correlation",
-            title: "Scatter Plots and Correlation",
-            description:
-              "Describe scatter-plot relationships using direction, strength, outliers and careful interpretation.",
-          },
-          {
-            slug: "lines-of-best-fit",
-            title: "Lines of Best Fit",
-            description:
-              "Use lines of best fit for estimates, interpolation, extrapolation and simple residual calculations.",
-          },
-        ],
-      },
-      {
-        slug: "financial-mathematics",
-        title: "Financial Mathematics",
-        description:
-          "Apply simple and compound interest, depreciation, and investment comparisons.",
-        syllabusArea: "Number and Algebra",
-        focus: "Financial maths is a major senior Standard topic â€” this unit builds prerequisite fluency.",
-        lessons: [
-          {
-            slug: "simple-interest",
-            title: "Simple Interest",
-            description:
-              "Calculate simple interest, total amounts, rates and time, and compare simple-interest options.",
-          },
-          {
-            slug: "compound-interest",
-            title: "Compound Interest",
-            description:
-              "Use yearly compound growth factors to calculate balances, interest earned and investment comparisons.",
-          },
-          {
-            slug: "depreciation",
-            title: "Depreciation",
-            description:
-              "Use depreciation factors to calculate asset values, losses in value and percentage decreases.",
-          },
-          {
-            slug: "comparing-investments",
-            title: "Comparing Investments",
-            description:
-              "Compare financial options using final amounts, interest methods, fixed fees and net gains.",
-          },
-        ],
-      },
-    ],
+              {
+                      "slug": "measurement-and-surds",
+                      "title": "Measurement and Surds",
+                      "description": "Surds, length, area, surface area and volume.",
+                      "syllabusArea": "Measurement and Space",
+                      "focus": "Surds and measurement of 2D and 3D shapes.",
+                      "lessons": [
+                              {
+                                      "slug": "irrational-numbers-surds",
+                                      "title": "4A Irrational Numbers and Surds",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "adding-subtracting-surds",
+                                      "title": "4B Adding and Subtracting Surds",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "multiplying-dividing-surds",
+                                      "title": "4C Multiplying and Dividing Surds",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "rationalising-denominator",
+                                      "title": "4D Rationalising the Denominator",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "review-of-length",
+                                      "title": "4E Review of Length",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "pythagoras-3d",
+                                      "title": "4F Pythagoras Including 3D",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "area-triangles-quads-circles-sectors",
+                                      "title": "4G Area of Triangles, Quadrilaterals, Circles and Sectors",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "accuracy-measuring-instruments",
+                                      "title": "4H Accuracy of Measuring Instruments",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "surface-area-prisms",
+                                      "title": "Surface Area of Prisms",
+                                      "description": "Calculate the surface area of rectangular and triangular prisms by finding the area of every face and adding them together.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "surface-area-cylinders",
+                                      "title": "Surface Area of Cylinders",
+                                      "description": "Apply SA = 2Ï€rÂ² + 2Ï€rh to find the surface area of closed and open cylinders.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "volume-prisms-cylinders",
+                                      "title": "Volume of Prisms and Cylinders",
+                                      "description": "Calculate the volume of rectangular prisms, triangular prisms, and cylinders, and rearrange the formula to find an unknown dimension.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "pyramids",
+                                      "title": "Surface Area and Volume of Pyramids",
+                                      "description": "Calculate the volume of square and rectangular pyramids using V = (1/3) Ã— base area Ã— height, and the surface area of square pyramids using the slant height.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "cones",
+                                      "title": "Surface Area and Volume of Cones",
+                                      "description": "Apply V = (1/3)Ï€rÂ²h for cone volume, CSA = Ï€rl for curved surface area, and TSA = Ï€rÂ² + Ï€rl for total surface area, using Pythagoras to find the slant height when needed.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "spheres",
+                                      "title": "Surface Area and Volume of Spheres",
+                                      "description": "Apply SA = 4Ï€rÂ² and V = (4/3)Ï€rÂ³ to find the surface area and volume of spheres, and rearrange to find the radius.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "similar-figures-scale",
+                                      "title": "Similar Figures and Scale Factors",
+                                      "description": "Apply length, area, and volume scale factors to similar figures: area scales by kÂ², volume scales by kÂ³.",
+                                      "pathTag": "core"
+                              }
+                      ]
+              },
+              {
+                      "slug": "quadratic-expressions-equations",
+                      "title": "Quadratic Expressions and Equations",
+                      "description": "Expanding, factorising and solving quadratics.",
+                      "syllabusArea": "Number and Algebra",
+                      "focus": "Quadratic algebra and solving methods.",
+                      "lessons": [
+                              {
+                                      "slug": "expanding-binomial-products",
+                                      "title": "Expanding Binomial Products",
+                                      "description": "Expand single and double brackets using the distributive law and FOIL, and collect like terms.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "factorising-expressions",
+                                      "title": "Factorising Algebraic Expressions",
+                                      "description": "Identify the highest common factor and use it to factorise two- and three-term algebraic expressions.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "algebraic-fractions",
+                                      "title": "Algebraic Fractions",
+                                      "description": "Simplify algebraic fractions by cancelling common factors, state restrictions, and multiply or divide simple algebraic fractions.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "algebraic-fractions-add-subtract",
+                                      "title": "Algebraic Fractions: Add and Subtract",
+                                      "description": "Add and subtract algebraic fractions with unlike denominators by finding the LCM and rewriting each fraction.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "factorising-quadratics",
+                                      "title": "Factorising Quadratic Trinomials",
+                                      "description": "Factorise monic quadratic trinomials of the form xÂ² + bx + c using the product-sum method.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "non-monic-quadratic-factorising",
+                                      "title": "Non-Monic Quadratic Factorising",
+                                      "description": "Factorise non-monic quadratic trinomials of the form ax² + bx + c (a ≠ 1) using the AC method.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "difference-of-two-squares",
+                                      "title": "Difference of Two Squares",
+                                      "description": "Recognise expressions of the form aÂ² âˆ’ bÂ² and apply the difference of two squares identity to factorise them.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "completing-the-square-factorising",
+                                      "title": "5F Completing the Square (Factorising)",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "quadratics-by-factorising",
+                                      "title": "Solving Quadratics by Factorising",
+                                      "description": "Solve quadratic equations by factorising and applying the null factor law.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "quadratic-problems",
+                                      "title": "5H Quadratic Problems",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "solving-completing-the-square",
+                                      "title": "5I Solving by Completing the Square",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "quadratic-formula",
+                                      "title": "The Quadratic Formula",
+                                      "description": "Use the quadratic formula to solve quadratic equations and interpret the discriminant.",
+                                      "pathTag": "path"
+                              }
+                      ]
+              },
+              {
+                      "slug": "trigonometry",
+                      "title": "Trigonometry",
+                      "description": "Apply trigonometric ratios, the sine rule, cosine rule, and area formula to solve triangles.",
+                      "syllabusArea": "Measurement and Space",
+                      "focus": "Trigonometry is tested in every senior pathway â€” build accuracy and speed here.",
+                      "lessons": [
+                              {
+                                      "slug": "trigonometric-ratios",
+                                      "title": "Trigonometric Ratios",
+                                      "description": "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle, and write sin, cos and tan using SOH-CAH-TOA.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "finding-sides-trig",
+                                      "title": "Finding Unknown Sides",
+                                      "description": "Use trigonometric ratios to find an unknown side length in a right triangle when one side and one acute angle are known.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "finding-angles-trig",
+                                      "title": "Finding Unknown Angles",
+                                      "description": "Apply sinâ»Â¹, cosâ»Â¹ or tanâ»Â¹ to find an unknown angle in a right triangle from two known sides.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "elevation-depression",
+                                      "title": "Angles of Elevation and Depression",
+                                      "description": "Model real-world situations using angles of elevation and depression, and solve for unknown heights and distances.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "sine-rule",
+                                      "title": "The Sine Rule",
+                                      "description": "Use the sine rule to find unknown sides and angles in non-right-angled triangles when an opposite sideâ€“angle pair is known.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "cosine-rule",
+                                      "title": "The Cosine Rule",
+                                      "description": "Apply the cosine rule to find an unknown side or angle in a non-right-angled triangle from two sides and the included angle, or from three sides.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "area-trig-formula",
+                                      "title": "Area of a Triangle",
+                                      "description": "Calculate the area of any triangle using A = Â½ab sin C when two sides and their included angle are known.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "bearings",
+                                      "title": "Bearings",
+                                      "description": "Read and write three-digit compass bearings, find reverse bearings, and solve simple navigation problems using bearings and trigonometry.",
+                                      "seedQuestions": false,
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "trig-ratios-identifying-sides",
+                                      "title": "Identifying Triangle Sides",
+                                      "description": "Identify the hypotenuse, opposite and adjacent sides relative to a marked angle in a right triangle.",
+                                      "stableSkillId": "y10-trig-ratios-identifying-sides",
+                                      "legacySlugs": [
+                                              "trigonometric-ratios"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-side-labels-hypotenuse",
+                                                      "label": "Identify the hypotenuse from the right angle",
+                                                      "legacySlugs": [
+                                                              "trigonometric-ratios"
+                                                      ]
+                                              },
+                                              {
+                                                      "stableCheckpointId": "y10-trig-side-labels-opposite-adjacent",
+                                                      "label": "Identify opposite and adjacent sides from the marked angle",
+                                                      "legacySlugs": [
+                                                              "trigonometric-ratios"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "trig-ratios-sin-cos-tan",
+                                      "title": "Writing and Selecting Trig Ratios",
+                                      "description": "Write sin, cos and tan ratios from labelled right triangles and select the correct ratio for a pair of sides.",
+                                      "stableSkillId": "y10-trig-ratios-sin-cos-tan",
+                                      "legacySlugs": [
+                                              "trigonometric-ratios"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-soh-cah-toa-ratio-writing",
+                                                      "label": "Write sin, cos and tan using SOH-CAH-TOA",
+                                                      "legacySlugs": [
+                                                              "trigonometric-ratios"
+                                                      ]
+                                              },
+                                              {
+                                                      "stableCheckpointId": "y10-trig-ratio-selection",
+                                                      "label": "Select the ratio that matches the known and wanted sides",
+                                                      "legacySlugs": [
+                                                              "trigonometric-ratios"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "finding-sides-sin-cos",
+                                      "title": "Finding Sides Using Sin and Cos",
+                                      "description": "Use sin and cos to find unknown sides in right triangles involving the hypotenuse.",
+                                      "stableSkillId": "y10-trig-finding-sides-sin-cos",
+                                      "legacySlugs": [
+                                              "finding-sides-trig"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-find-side-sin",
+                                                      "label": "Use sine to connect opposite and hypotenuse",
+                                                      "legacySlugs": [
+                                                              "finding-sides-trig"
+                                                      ]
+                                              },
+                                              {
+                                                      "stableCheckpointId": "y10-trig-find-side-cos",
+                                                      "label": "Use cosine to connect adjacent and hypotenuse",
+                                                      "legacySlugs": [
+                                                              "finding-sides-trig"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "finding-sides-tan",
+                                      "title": "Finding Sides Using Tan",
+                                      "description": "Use tan to find unknown opposite or adjacent side lengths without using the hypotenuse.",
+                                      "stableSkillId": "y10-trig-finding-sides-tan",
+                                      "legacySlugs": [
+                                              "finding-sides-trig"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-find-side-tan-opposite",
+                                                      "label": "Find an opposite side using tan",
+                                                      "legacySlugs": [
+                                                              "finding-sides-trig"
+                                                      ]
+                                              },
+                                              {
+                                                      "stableCheckpointId": "y10-trig-find-side-tan-adjacent",
+                                                      "label": "Find an adjacent side using tan",
+                                                      "legacySlugs": [
+                                                              "finding-sides-trig"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "finding-angles-inverse-trig",
+                                      "title": "Finding Angles Using Inverse Trig",
+                                      "description": "Apply inverse sin, inverse cos or inverse tan to find an unknown angle in a right triangle.",
+                                      "stableSkillId": "y10-trig-finding-angles-inverse-trig",
+                                      "legacySlugs": [
+                                              "finding-angles-trig"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-inverse-ratio-selection",
+                                                      "label": "Choose the inverse trig function from two known sides",
+                                                      "legacySlugs": [
+                                                              "finding-angles-trig"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "elevation-depression-applications",
+                                      "title": "Angles of Elevation and Depression",
+                                      "description": "Model elevation and depression contexts as right triangles and solve for heights, distances or angles.",
+                                      "stableSkillId": "y10-trig-elevation-depression-applications",
+                                      "legacySlugs": [
+                                              "elevation-depression"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-elevation-depression-models",
+                                                      "label": "Draw and solve elevation and depression models",
+                                                      "legacySlugs": [
+                                                              "elevation-depression"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "sine-rule-finding-sides",
+                                      "title": "Sine Rule - Finding Sides",
+                                      "description": "Use the sine rule to find unknown sides in non-right-angled triangles.",
+                                      "stableSkillId": "y10-trig-sine-rule-finding-sides",
+                                      "legacySlugs": [
+                                              "sine-rule"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-sine-rule-side-pairs",
+                                                      "label": "Use opposite side-angle pairs to find a side",
+                                                      "legacySlugs": [
+                                                              "sine-rule"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "sine-rule-finding-angles",
+                                      "title": "Sine Rule - Finding Angles",
+                                      "description": "Use the sine rule and inverse sine to find unknown angles in non-right-angled triangles.",
+                                      "stableSkillId": "y10-trig-sine-rule-finding-angles",
+                                      "legacySlugs": [
+                                              "sine-rule"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-sine-rule-angle-pairs",
+                                                      "label": "Use opposite side-angle pairs to find an angle",
+                                                      "legacySlugs": [
+                                                              "sine-rule"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "cosine-rule-finding-sides",
+                                      "title": "Cosine Rule - Finding Sides",
+                                      "description": "Use the cosine rule to find a side from two sides and the included angle.",
+                                      "stableSkillId": "y10-trig-cosine-rule-finding-sides",
+                                      "legacySlugs": [
+                                              "cosine-rule"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-cosine-rule-sas",
+                                                      "label": "Use the cosine rule for SAS side-finding",
+                                                      "legacySlugs": [
+                                                              "cosine-rule"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "cosine-rule-finding-angles",
+                                      "title": "Cosine Rule - Finding Angles",
+                                      "description": "Rearrange the cosine rule to find an unknown angle from three sides.",
+                                      "stableSkillId": "y10-trig-cosine-rule-finding-angles",
+                                      "legacySlugs": [
+                                              "cosine-rule"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-cosine-rule-sss",
+                                                      "label": "Use the cosine rule for SSS angle-finding",
+                                                      "legacySlugs": [
+                                                              "cosine-rule"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "area-of-triangle-formula",
+                                      "title": "Area of a Triangle",
+                                      "description": "Calculate triangle area using one half ab sin C and rearrange the formula in simple cases.",
+                                      "stableSkillId": "y10-trig-area-of-triangle-formula",
+                                      "legacySlugs": [
+                                              "area-trig-formula"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-area-half-ab-sin-c",
+                                                      "label": "Use one half ab sin C for non-right triangle area",
+                                                      "legacySlugs": [
+                                                              "area-trig-formula"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "bearings-and-trigonometry",
+                                      "title": "Bearings",
+                                      "description": "Read and write three-digit bearings and solve navigation problems using trigonometry.",
+                                      "stableSkillId": "y10-trig-bearings-and-trigonometry",
+                                      "legacySlugs": [
+                                              "bearings"
+                                      ],
+                                      "skillCheckpoints": [
+                                              {
+                                                      "stableCheckpointId": "y10-trig-three-digit-bearings",
+                                                      "label": "Interpret three-digit and reverse bearings",
+                                                      "legacySlugs": [
+                                                              "bearings"
+                                                      ]
+                                              },
+                                              {
+                                                      "stableCheckpointId": "y10-trig-bearing-components",
+                                                      "label": "Use trig to resolve bearing distances",
+                                                      "legacySlugs": [
+                                                              "bearings"
+                                                      ]
+                                              }
+                                      ],
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "trig-applications-3d",
+                                      "title": "6E Applications in 3D",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              },
+                              {
+                                      "slug": "the-unit-circle",
+                                      "title": "6I The Unit Circle",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "graphs-trig-functions",
+                                      "title": "6J Graphs of Trigonometric Functions",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "exact-values-trig-equations",
+                                      "title": "6K Exact Values and Trig Equations",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              }
+                      ]
+              },
+              {
+                      "slug": "parabolas-rates-variation",
+                      "title": "Parabolas, Rates of Change and Variation",
+                      "description": "Parabolas, rates of change, and direct and inverse variation.",
+                      "syllabusArea": "Number and Algebra",
+                      "focus": "Quadratic graphs and rates/variation.",
+                      "lessons": [
+                              {
+                                      "slug": "introduction-to-parabolas",
+                                      "title": "Introduction to Parabolas",
+                                      "description": "Recognise basic parabola features including vertex, symmetry, opening direction and y-intercept.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "sketching-parabolas",
+                                      "title": "Sketching Parabolas",
+                                      "description": "Sketch simple parabolas using tables, symmetry, y-intercepts and factorised x-intercepts.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "sketching-by-factorisation",
+                                      "title": "7C Sketching by Factorisation",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "sketching-completing-square",
+                                      "title": "7D Sketching by Completing the Square",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "sketching-quadratic-formula-discriminant",
+                                      "title": "7E Sketching by Quadratic Formula and Discriminant",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "parabola-applications",
+                                      "title": "7F Applications",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "intersection-lines-parabolas",
+                                      "title": "7G Intersection of Lines and Parabolas",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "rates-of-change",
+                                      "title": "7H Rates of Change",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "average-instantaneous-rates",
+                                      "title": "7I Average and Instantaneous Rates",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              },
+                              {
+                                      "slug": "direct-inverse-variation",
+                                      "title": "7J Direct and Inverse Variation",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              }
+                      ]
+              },
+              {
+                      "slug": "probability",
+                      "title": "Probability",
+                      "description": "Calculate probabilities using tree diagrams, Venn diagrams, two-way tables, and conditional probability.",
+                      "syllabusArea": "Statistics and Probability",
+                      "focus": "Probability underpins senior data topics and Extension combinatorics.",
+                      "lessons": [
+                              {
+                                      "slug": "review-of-probability",
+                                      "title": "8A Review of Probability",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "multi-stage-events",
+                                      "title": "Multi-stage Events and Counting",
+                                      "description": "Count outcomes and calculate probabilities for simple multi-stage events with and without replacement.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "tree-diagrams",
+                                      "title": "Tree Diagrams",
+                                      "description": "Use tree diagrams to organise stages, multiply along paths and add alternative successful paths.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "venn-diagrams",
+                                      "title": "Venn Diagrams",
+                                      "description": "Interpret Venn regions, overlaps, unions and students outside both sets.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "two-way-tables",
+                                      "title": "Two-way Tables",
+                                      "description": "Read two-way tables, identify joint and marginal frequencies, and compare proportions.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "conditional-probability",
+                                      "title": "Conditional Probability",
+                                      "description": "Calculate simple conditional probabilities by restricting the group represented by the denominator.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "mutually-exclusive-events",
+                                      "title": "8C Mutually and Non-Mutually Exclusive Events",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "arrays-two-step-experiments",
+                                      "title": "8E Arrays for Two-Step Experiments",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "dependent-independent-events",
+                                      "title": "8G Dependent and Independent Events",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              }
+                      ]
+              },
+              {
+                      "slug": "single-variable-bivariate-statistics",
+                      "title": "Single Variable and Bivariate Statistics",
+                      "description": "Summarise and display data using quartiles, box plots, standard deviation, and scatter plots.",
+                      "syllabusArea": "Statistics and Probability",
+                      "focus": "Data analysis skills are central to senior Standard and useful across all pathways.",
+                      "lessons": [
+                              {
+                                      "slug": "collecting-misusing-data",
+                                      "title": "9A Collecting and Misusing Data",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "review-data-displays",
+                                      "title": "9B Review of Data Displays",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "two-way-tables-stats",
+                                      "title": "9C Two-Way Tables",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "summary-statistics",
+                                      "title": "9D Summary Statistics",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "quartiles-iqr",
+                                      "title": "Quartiles and Interquartile Range",
+                                      "description": "Find medians, quartiles and interquartile ranges, and compare the spread of datasets.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "box-whisker-plots",
+                                      "title": "Box-and-whisker Plots",
+                                      "description": "Interpret box-and-whisker plots using five-number summaries, medians and interquartile ranges.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "standard-deviation",
+                                      "title": "Standard Deviation",
+                                      "description": "Interpret standard deviation as a measure of numerical spread around the mean.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "scatter-plots-correlation",
+                                      "title": "Scatter Plots and Correlation",
+                                      "description": "Describe scatter-plot relationships using direction, strength, outliers and careful interpretation.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "lines-of-best-fit",
+                                      "title": "Lines of Best Fit",
+                                      "description": "Use lines of best fit for estimates, interpolation, extrapolation and simple residual calculations.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "time-series-data",
+                                      "title": "9G Time-Series Data",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "linear-regression-technology",
+                                      "title": "9J Linear Regression with Technology",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              }
+                      ]
+              },
+              {
+                      "slug": "functions-polynomials-graphs",
+                      "title": "Functions, Polynomials and Other Graphs",
+                      "description": "Functions, polynomials, cubics, circles, hyperbolas and transformations.",
+                      "syllabusArea": "Number and Algebra",
+                      "focus": "Function families and polynomial graphs.",
+                      "lessons": [
+                              {
+                                      "slug": "functions-notation",
+                                      "title": "10A Functions and Notation",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "introducing-polynomials",
+                                      "title": "10B Introducing Polynomials",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "expanding-simplifying-polynomials",
+                                      "title": "10C Expanding and Simplifying Polynomials",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "dividing-polynomials",
+                                      "title": "10D Dividing Polynomials",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "remainder-factor-theorem",
+                                      "title": "10E Remainder and Factor Theorem",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "factorising-find-zeros",
+                                      "title": "10F Factorising to Find Zeros",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "graphing-cubics",
+                                      "title": "10G Graphing Cubics",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "graphs-of-polynomials",
+                                      "title": "10H Graphs of Polynomials",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "circle-graphs",
+                                      "title": "Circle Graphs",
+                                      "description": "Interpret circle equations using centre, radius and intercepts.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "hyperbolas",
+                                      "title": "Hyperbolas",
+                                      "description": "Interpret reciprocal graphs, excluded values, asymptotes and branch locations.",
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "further-transformations",
+                                      "title": "10K Further Transformations",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              }
+                      ]
+              },
+              {
+                      "slug": "networks",
+                      "title": "Networks",
+                      "description": "Introduction to networks: graphs, paths and circuits.",
+                      "syllabusArea": "Statistics and Probability",
+                      "focus": "Network/graph foundations (online appendix).",
+                      "lessons": [
+                              {
+                                      "slug": "introduction-to-networks",
+                                      "title": "11A Introduction to Networks",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "isomorphic-planar-graphs",
+                                      "title": "11B Isomorphic and Planar Graphs",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "trails-paths-eulerian",
+                                      "title": "11C Trails, Paths and Eulerian Circuits",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "path"
+                              },
+                              {
+                                      "slug": "shortest-path-problems",
+                                      "title": "11D Shortest Path Problems",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              }
+                      ]
+              },
+              {
+                      "slug": "counting-principles",
+                      "title": "Counting Principles",
+                      "description": "Counting principles, arrangements, selections and counting in probability.",
+                      "syllabusArea": "Statistics and Probability",
+                      "focus": "Combinatorics foundations (online appendix).",
+                      "lessons": [
+                              {
+                                      "slug": "counting-factorial-notation",
+                                      "title": "12A Counting Principles and Factorial Notation",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              },
+                              {
+                                      "slug": "arrangements",
+                                      "title": "12B Arrangements",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              },
+                              {
+                                      "slug": "selections",
+                                      "title": "12C Selections",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              },
+                              {
+                                      "slug": "counting-in-probability",
+                                      "title": "12D Counting in Probability",
+                                      "description": "(Interim placeholder - not yet authored.)",
+                                      "showInCourseNav": false,
+                                      "pathTag": "extending"
+                              }
+                      ]
+              },
+              {
+                      "slug": "financial-mathematics",
+                      "title": "Financial Mathematics",
+                      "description": "Apply simple and compound interest, depreciation, and investment comparisons.",
+                      "syllabusArea": "Number and Algebra",
+                      "focus": "Financial maths is a major senior Standard topic â€” this unit builds prerequisite fluency.",
+                      "lessons": [
+                              {
+                                      "slug": "simple-interest",
+                                      "title": "Simple Interest",
+                                      "description": "Calculate simple interest, total amounts, rates and time, and compare simple-interest options.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "compound-interest",
+                                      "title": "Compound Interest",
+                                      "description": "Use yearly compound growth factors to calculate balances, interest earned and investment comparisons.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "depreciation",
+                                      "title": "Depreciation",
+                                      "description": "Use depreciation factors to calculate asset values, losses in value and percentage decreases.",
+                                      "pathTag": "core"
+                              },
+                              {
+                                      "slug": "comparing-investments",
+                                      "title": "Comparing Investments",
+                                      "description": "Compare financial options using final amounts, interest methods, fixed fees and net gains.",
+                                      "pathTag": "core"
+                              }
+                      ]
+              }
+      ],
   },
   {
     slug: "year-7-mathematics",
@@ -5652,85 +6204,24 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     },
   ];
 
-  // Year 10 Core trims:
-  //   non-linear-relationships â†’ parabolas + circles only (no exponential / hyperbola)
-  //   trigonometry             â†’ right-angled only (no sine/cosine rule, area, bearings)
-  //   geometry-proofs          â†’ congruence + similarity only (no circle geometry / proofs)
-  const year10CoreTrimmedUnits = year10Base.units.map((u) => {
-    // MA5-ALG-P-01 (Path): algebraic fractions + non-monic quadratics excluded from Core
-    if (u.slug === "algebraic-techniques") {
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) => !["algebraic-fractions", "non-monic-quadratic-factorising", "algebraic-fractions-add-subtract"].includes(l.slug)),
-      };
-    }
-    // MA5-EQU-P-01/P-02 (Path): quadratic formula + linear inequalities excluded from Core
-    if (u.slug === "equations-simultaneous") {
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) => !["quadratic-formula", "linear-inequalities"].includes(l.slug)),
-      };
-    }
-    // MA5-LIN-P-01 (Path): equation-of-a-line excluded from Core
-    if (u.slug === "linear-relationships") {
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) => l.slug !== "equation-of-a-line"),
-      };
-    }
-    // MA5-PRO-P-01 (Path): conditional probability excluded from Core
-    if (u.slug === "probability") {
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) => l.slug !== "conditional-probability"),
-      };
-    }
-    if (u.slug === "non-linear-relationships") {
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) =>
-          ["introduction-to-parabolas", "sketching-parabolas", "circle-graphs"].includes(l.slug)
-        ),
-      };
-    }
-    if (u.slug === "trigonometry") {
-      // MA5-TRG-C-01 (right-angled) + MA5-TRG-C-02 (sine/cosine rule, area, bearings) are both NSW Core outcomes
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) =>
-          [
-            "trigonometric-ratios",
-            "finding-sides-trig",
-            "finding-angles-trig",
-            "elevation-depression",
-            "trig-ratios-identifying-sides",
-            "trig-ratios-sin-cos-tan",
-            "finding-sides-sin-cos",
-            "finding-sides-tan",
-            "finding-angles-inverse-trig",
-            "elevation-depression-applications",
-            "sine-rule-finding-sides",
-            "sine-rule-finding-angles",
-            "cosine-rule-finding-sides",
-            "cosine-rule-finding-angles",
-            "area-of-triangle-formula",
-            "bearings-and-trigonometry",
-          ].includes(l.slug)
-        ),
-      };
-    }
-    if (u.slug === "geometry-proofs") {
-      return {
-        ...u,
-        lessons: u.lessons.filter((l) =>
-          ["congruent-triangles", "similar-triangles"].includes(l.slug)
-        ),
-      };
-    }
-    return u;
-  });
-  const year10AdvancedUnits = namespaceSkillMapIds(year10Base.units, "y10-", "y10a-");
-  const year10CoreUnits = namespaceSkillMapIds(year10CoreTrimmedUnits, "y10-", "y10c-");
+  // ADR-Y10-001: tag-driven derivation over the shared 12-chapter base (replaces the legacy
+  // slug blacklists). The base course literal holds the full tagged source (core+path+extending
+  // +consolidating); each pathway is the locked tag filter (G7). assertPathTagTotality (G6)
+  // fails the build if any base section is missing a pathTag.
+  const year10FullBase = year10Base.units;
+  assertPathTagTotality(year10FullBase, "year-10-mathematics");
+  const year10AdvancedUnits = namespaceSkillMapIds(
+    derivePathwayUnits(year10FullBase, "advanced"),
+    "y10-",
+    "y10a-"
+  );
+  const year10CoreUnits = namespaceSkillMapIds(
+    derivePathwayUnits(year10FullBase, "core"),
+    "y10-",
+    "y10c-"
+  );
+  // The base pathway (year-10-mathematics) shows core + path (no extending / consolidating).
+  year10Base.units = derivePathwayUnits(year10FullBase, "base");
 
   newCoursePathways.push(
     {

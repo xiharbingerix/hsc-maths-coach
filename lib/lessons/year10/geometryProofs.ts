@@ -449,7 +449,7 @@ export function year10GeometryProofsLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "geometry-proofs") return null;
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || !["geometrical-figures-circle-geometry"].includes(unit.slug)) return null;
   const base = { syllabusArea: "Measurement and Space", masteryPassMark: 0.8 };
 
   if (lesson.slug === "congruent-triangles") return {

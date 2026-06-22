@@ -23,6 +23,15 @@ export type SkillCheckpointSeed = {
   legacySlugs?: string[];
 };
 
+// Year 10 Cambridge "10 & 10A" path tag (ADR-Y10-001). Declarative replacement for the
+// hardcoded Core/Path slug blacklists: each Year 10 section is tagged with exactly one of these.
+//   core          = Stage 5.2  (in Core, Base and Advanced)
+//   path          = Stage 5.3  (in Base and Advanced; excluded from Core)
+//   extending     = Stage 5.3§ (Advanced only)
+//   consolidating = review     (Core only)
+// The tag-driven pathway filters are locked in ADR-Y10-001 (gate G7) — see PATH_TAG_FILTERS.
+export type PathTag = "core" | "path" | "extending" | "consolidating";
+
 export type CourseLessonSeed = {
   slug: string;
   title: string;
@@ -32,6 +41,7 @@ export type CourseLessonSeed = {
   stableSkillId?: string;
   legacySlugs?: string[];
   skillCheckpoints?: SkillCheckpointSeed[];
+  pathTag?: PathTag;
 };
 
 export type CourseUnitSeed = {

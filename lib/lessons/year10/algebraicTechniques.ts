@@ -897,7 +897,7 @@ export function year10AlgebraicTechniquesLessonOverride(
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
 ): Partial<ExplicitLesson> | null {
-  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || unit.slug !== "algebraic-techniques") {
+  if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || !["quadratic-expressions-equations"].includes(unit.slug)) {
     return null;
   }
 
