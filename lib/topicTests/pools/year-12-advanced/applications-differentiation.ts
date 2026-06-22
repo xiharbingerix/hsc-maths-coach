@@ -162,6 +162,54 @@ const csD5: TopicTestQuestion[] = [
     answer: "1", explanation: "x³ − 3x + 2 = (x − 1)²(x + 2), so the repeated root is x = 1." },
 ];
 
+// ── Subtopic 4: Optimisation Problems ────────────────────────────────────────
+const optD4: TopicTestQuestion[] = [
+  { id: "y12a-c3-opt-d4-1", prompt: "Two numbers have a sum of 10. Find the value of each number that maximises their product.", latex: "x + y = 10", marks: 3, difficulty: 4,
+    answer: "5", explanation: "P = x(10 − x); P' = 10 − 2x = 0 ⇒ x = 5 (so both numbers are 5)." },
+  { id: "y12a-c3-opt-d4-2", prompt: "A rectangle has a perimeter of 40 m. Find its maximum area (m²).", latex: "P = 40", marks: 3, difficulty: 4,
+    choices: [ { label: "A", text: "$100$" }, { label: "B", text: "$400$" }, { label: "C", text: "$1600$" }, { label: "D", text: "$40$" } ],
+    answer: "A", explanation: "Sides sum to 20, so A = x(20 − x) is max at x = 10: a 10×10 square, area 100. B/C square the perimeter incorrectly." },
+  { id: "y12a-c3-opt-d4-3", prompt: "Find the value of x that minimises x² − 6x.", latex: "f(x) = x^2 - 6x", marks: 2, difficulty: 4,
+    answer: "3", explanation: "f'(x) = 2x − 6 = 0 ⇒ x = 3." },
+  { id: "y12a-c3-opt-d4-4", prompt: "Find the maximum value of 12x − x².", latex: "f(x) = 12x - x^2", marks: 3, difficulty: 4,
+    answer: "36", explanation: "f'(x) = 12 − 2x = 0 ⇒ x = 6; f(6) = 72 − 36 = 36." },
+  { id: "y12a-c3-opt-d4-5", prompt: "A farmer has 100 m of fencing for a rectangular pen. Find the maximum area (m²).", latex: "2(x+y) = 100", marks: 3, difficulty: 4,
+    answer: "625", explanation: "x + y = 50, A = x(50 − x) max at x = 25: 25 × 25 = 625." },
+  { id: "y12a-c3-opt-d4-6", prompt: "Two numbers have a sum of 8. Find the minimum value of the sum of their squares.", latex: "x + y = 8", marks: 3, difficulty: 4,
+    answer: "32", explanation: "x² + (8 − x)² is least at x = 4: 16 + 16 = 32." },
+  { id: "y12a-c3-opt-d4-7", prompt: "A rectangular area against a wall has area A = x(20 − 2x). Find the x that maximises A.", latex: "A = x(20 - 2x)", marks: 3, difficulty: 4,
+    answer: "5", explanation: "A' = 20 − 4x = 0 ⇒ x = 5." },
+  { id: "y12a-c3-opt-d4-8", prompt: "For x > 0, find the minimum value of C = x + 16/x.", latex: "C = x + \\tfrac{16}{x}", marks: 3, difficulty: 4,
+    choices: [ { label: "A", text: "$8$" }, { label: "B", text: "$16$" }, { label: "C", text: "$4$" }, { label: "D", text: "$32$" } ],
+    answer: "A", explanation: "C' = 1 − 16/x² = 0 ⇒ x = 4; C(4) = 4 + 4 = 8. B is the product; C is the optimal x." },
+  { id: "y12a-c3-opt-d4-9", prompt: "Two positive numbers have a product of 36. Find the smaller number when their sum is least.", latex: "xy = 36", marks: 3, difficulty: 4,
+    answer: "6", explanation: "S = x + 36/x is least at x = 6 (then y = 6), so both are 6." },
+  { id: "y12a-c3-opt-d4-10", prompt: "Find the value of x that maximises A = x(16 − x).", latex: "A = x(16 - x)", marks: 2, difficulty: 4,
+    answer: "8", explanation: "A' = 16 − 2x = 0 ⇒ x = 8." },
+];
+const optD5: TopicTestQuestion[] = [
+  { id: "y12a-c3-opt-d5-1", prompt: "An open-top box with a square base of side x and height h has volume 32 cm³. Find the base side x (cm) that minimises its surface area.", latex: "x^2 h = 32, \\ SA = x^2 + 4xh", marks: 4, difficulty: 5,
+    answer: "4", explanation: "h = 32/x², SA = x² + 128/x; SA' = 2x − 128/x² = 0 ⇒ x³ = 64 ⇒ x = 4." },
+  { id: "y12a-c3-opt-d5-2", prompt: "For the open box above (volume 32, x = 4), find the minimum surface area (cm²).", latex: "SA = x^2 + \\tfrac{128}{x}", marks: 4, difficulty: 5,
+    answer: "48", explanation: "SA(4) = 16 + 128/4 = 16 + 32 = 48." },
+  { id: "y12a-c3-opt-d5-3", prompt: "A rectangular field beside a straight river (no fence on the river side) uses 200 m of fencing. Find the maximum area (m²).", latex: "x + 2y = 200", marks: 4, difficulty: 5,
+    answer: "5000", explanation: "x = 200 − 2y, A = (200 − 2y)y max at y = 50: x = 100, A = 5000." },
+  { id: "y12a-c3-opt-d5-4", prompt: "For that field (200 m, against a river), find the width y (the side perpendicular to the river) at maximum area.", latex: "A = (200 - 2y)y", marks: 4, difficulty: 5,
+    answer: "50", explanation: "A' = 200 − 4y = 0 ⇒ y = 50." },
+  { id: "y12a-c3-opt-d5-5", prompt: "Two positive numbers satisfy x + y = 12. Find the value of x that maximises x²y.", latex: "x + y = 12", marks: 4, difficulty: 5,
+    answer: "8", explanation: "x²(12 − x); derivative 24x − 3x² = 3x(8 − x) = 0 ⇒ x = 8." },
+  { id: "y12a-c3-opt-d5-6", prompt: "For x + y = 12, find the maximum value of x²y.", latex: "x + y = 12", marks: 4, difficulty: 5,
+    answer: "256", explanation: "At x = 8, y = 4: x²y = 64 × 4 = 256." },
+  { id: "y12a-c3-opt-d5-7", prompt: "A 24 cm wire is cut into two pieces, each bent into a square. Find the minimum total area (cm²).", latex: "\\text{two squares, perimeters sum to } 24", marks: 4, difficulty: 5,
+    answer: "18", explanation: "Side lengths a, b with a + b = 6; total area a² + b² is least at a = b = 3: 9 + 9 = 18." },
+  { id: "y12a-c3-opt-d5-8", prompt: "Find the value of x in (0, 6) that maximises V = x²(6 − x).", latex: "V = x^2(6 - x)", marks: 4, difficulty: 5,
+    answer: "4", explanation: "V' = 12x − 3x² = 3x(4 − x) = 0 ⇒ x = 4." },
+  { id: "y12a-c3-opt-d5-9", prompt: "Two positive numbers satisfy x + y = 9. Find the value of y that maximises xy².", latex: "x + y = 9", marks: 4, difficulty: 5,
+    answer: "6", explanation: "xy² = (9 − y)y²; derivative 18y − 3y² = 3y(6 − y) = 0 ⇒ y = 6." },
+  { id: "y12a-c3-opt-d5-10", prompt: "A rectangle has area 100 m². Find its minimum possible perimeter (m).", latex: "xy = 100", marks: 4, difficulty: 5,
+    answer: "40", explanation: "P = 2x + 200/x; P' = 2 − 200/x² = 0 ⇒ x = 10 (a 10×10 square), P = 40." },
+];
+
 const todo = { d4: [] as TopicTestQuestion[], d5: [] as TopicTestQuestion[] };
 
 export const applicationsDifferentiationPool: TopicTestPool = {
@@ -195,7 +243,8 @@ export const applicationsDifferentiationPool: TopicTestPool = {
       subtopicSlug: "optimisation",
       subtopicTitle: "Optimisation Problems",
       remediationHref: href("optimisation"),
-      ...todo,
+      d4: optD4,
+      d5: optD5,
     },
     {
       subtopicSlug: "kinematics-rates-change",
