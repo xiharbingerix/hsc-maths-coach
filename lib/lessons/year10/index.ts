@@ -9,3 +9,4 @@ export { year10LinearRelationshipsLessonOverride } from "./linearRelationships";
 export { year10NonLinearRelationshipsLessonOverride } from "./nonLinearRelationships";
 export { year10GeometryProofsLessonOverride } from "./geometryProofs";
 export { year10AlgebraWave1LessonOverride } from "./algebraWave1";
+export { year10IndicesSurdsMeasurementWave2LessonOverride } from "./indicesSurdsMeasurementWave2";
