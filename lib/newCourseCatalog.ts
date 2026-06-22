@@ -60,6 +60,10 @@ import {
   year12Standard1BreakEvenAnalysisLessonOverride,
 } from "./lessons/year12Standard1Simultaneous";
 import {
+  year12Standard1ScatterplotInterpretationLessonOverride,
+  year12Standard1InterpolationExtrapolationLessonOverride,
+} from "./lessons/year12Standard1FurtherStats";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -315,6 +319,8 @@ export function buildLesson(
     year12Standard1LinearFunctionsLessonOverride(course, unit, lesson) ??
     year12Standard1SimultaneousGraphicalLessonOverride(course, unit, lesson) ??
     year12Standard1BreakEvenAnalysisLessonOverride(course, unit, lesson) ??
+    year12Standard1ScatterplotInterpretationLessonOverride(course, unit, lesson) ??
+    year12Standard1InterpolationExtrapolationLessonOverride(course, unit, lesson) ??
     year12Standard1RatiosRatesUnitConversionsLessonOverride(course, unit, lesson) ??
     year12Standard1InvestmentCompoundInterestLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
@@ -1322,7 +1328,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "scatterplot-interpretation",
             title: "6B Using a Scatterplot",
-            description: "(In development) Interpret association, clusters and outliers from a scatterplot.",
+            description: "Describe association by direction, form and strength, identify outliers, and distinguish correlation from causation.",
           },
           {
             slug: "line-of-best-fit-predictions",
@@ -1333,7 +1339,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "interpolation-extrapolation",
             title: "6D Interpolation and Extrapolation",
-            description: "(In development) Make and judge predictions using interpolation and extrapolation.",
+            description: "Predict from a line of best fit and judge reliability by interpolation within the data versus extrapolation beyond it.",
           },
           {
             slug: "data-displays-summary-statistics",
