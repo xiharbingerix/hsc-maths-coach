@@ -5,26 +5,26 @@ export const diagnosticData: DiagnosticData = {
 
   units: [
     {
-      slug: "algebraic-relationships",
+      slug: "simultaneous-linear-equations",
       title: "Algebraic Relationships",
-      startHref: "/course/year-12-standard-1/algebraic-relationships",
+      startHref: "/course/year-12-standard-1/simultaneous-linear-equations",
     },
     {
-      slug: "trigonometry-ratios-rates",
+      slug: "rates",
       title: "Rates, Ratios and Unit Conversion",
-      startHref: "/course/year-12-standard-1/trigonometry-ratios-rates",
+      startHref: "/course/year-12-standard-1/rates",
     },
     {
-      slug: "investments-loans-annuities",
+      slug: "investments",
       title: "Investments, Loans and Annuities",
-      startHref: "/course/year-12-standard-1/investments-loans-annuities",
+      startHref: "/course/year-12-standard-1/investments",
     },
   ],
 
   questions: [
     {
       id: "y12s1-ar1",
-      unitSlug: "algebraic-relationships",
+      unitSlug: "simultaneous-linear-equations",
       prompt: "Solve $5x + 3 = 18$.",
       choices: [
         { label: "A", text: "$x = 2$" },
@@ -37,7 +37,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-ar2",
-      unitSlug: "algebraic-relationships",
+      unitSlug: "simultaneous-linear-equations",
       prompt: "The equation $y = 2x + 7$ models cost in dollars. What does the 7 represent?",
       choices: [
         { label: "A", text: "The rate per unit" },
@@ -50,7 +50,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-ar3",
-      unitSlug: "algebraic-relationships",
+      unitSlug: "simultaneous-linear-equations",
       prompt: "Which equation shows an inverse variation between x and y?",
       choices: [
         { label: "A", text: "$y = 4x + 1$" },
@@ -63,7 +63,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-ar4",
-      unitSlug: "algebraic-relationships",
+      unitSlug: "simultaneous-linear-equations",
       prompt: "A taxi charges $4$ dollars flagfall plus $2$ dollars per kilometre. Which equation models the fare y for x kilometres?",
       choices: [
         { label: "A", text: "$y = 4x + 2$" },
@@ -76,7 +76,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-ar5",
-      unitSlug: "algebraic-relationships",
+      unitSlug: "simultaneous-linear-equations",
       prompt: "Find x when two plans are equal: Plan A is $100 + 15x$ and Plan B is $130 + 10x$.",
       choices: [
         { label: "A", text: "$x = 2$" },
@@ -89,7 +89,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-ar6",
-      unitSlug: "algebraic-relationships",
+      unitSlug: "simultaneous-linear-equations",
       prompt: "Which graph is most likely a quadratic model?",
       choices: [
         { label: "A", text: "A straight line" },
@@ -102,7 +102,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-rr1",
-      unitSlug: "trigonometry-ratios-rates",
+      unitSlug: "rates",
       prompt: "A recipe uses a ratio of 2:5 sugar to flour. If 350 g of flour is used, how much sugar is needed?",
       choices: [
         { label: "A", text: "70 g" },
@@ -115,7 +115,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-rr2",
-      unitSlug: "trigonometry-ratios-rates",
+      unitSlug: "rates",
       prompt: "A driver travels 90 km in 1 hour 30 minutes. What is the average speed in km/h?",
       choices: [
         { label: "A", text: "45" },
@@ -128,7 +128,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-rr3",
-      unitSlug: "trigonometry-ratios-rates",
+      unitSlug: "rates",
       prompt: "Convert 2.5 kilometres to metres.",
       choices: [
         { label: "A", text: "250 m" },
@@ -141,7 +141,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-rr4",
-      unitSlug: "trigonometry-ratios-rates",
+      unitSlug: "rates",
       prompt: "A map scale is 1:50 000. A 3 cm map distance represents how many kilometres in reality?",
       choices: [
         { label: "A", text: "1.5 km" },
@@ -154,7 +154,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-rr5",
-      unitSlug: "trigonometry-ratios-rates",
+      unitSlug: "rates",
       prompt: "Which is a rate rather than a ratio?",
       choices: [
         { label: "A", text: "3 apples to 5 oranges" },
@@ -167,7 +167,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-il1",
-      unitSlug: "investments-loans-annuities",
+      unitSlug: "investments",
       prompt: "An investment of $2000 earns 5% compound interest annually for 2 years. The value at the end is closest to:",
       choices: [
         { label: "A", text: "$2100" },
@@ -180,7 +180,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-il2",
-      unitSlug: "investments-loans-annuities",
+      unitSlug: "investments",
       prompt: "A car value falls by 12% each year. If it is worth $20 000 now, what is the value after one year?",
       choices: [
         { label: "A", text: "$17 600" },
@@ -193,7 +193,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-il3",
-      unitSlug: "investments-loans-annuities",
+      unitSlug: "investments",
       prompt: "A loan repayment is $250 per month for 24 months. What is the total repaid?",
       choices: [
         { label: "A", text: "$4 500" },
@@ -206,7 +206,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-il4",
-      unitSlug: "investments-loans-annuities",
+      unitSlug: "investments",
       prompt: "Which expression models compound interest for principal P, rate r and n years?",
       choices: [
         { label: "A", text: "$P(1 + rn)$" },
@@ -219,7 +219,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y12s1-il5",
-      unitSlug: "investments-loans-annuities",
+      unitSlug: "investments",
       prompt: "If $500 is deposited each year into an account, this type of regular payment is called an:",
       choices: [
         { label: "A", text: "An annuity" },

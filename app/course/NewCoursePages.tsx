@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { LessonRenderer } from "./LessonRenderer";
 import {
   getNewCourse,
@@ -9,6 +9,8 @@ import {
   getVisibleNewCourseLessons,
   newCourseLessonCount,
   newCourseUnitLessonCount,
+  LEGACY_UNIT_REDIRECTS,
+  findNewCourseLessonUnitSlug,
 } from "../../lib/newCourseCatalog";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
 import { getTopicTestPool } from "../../lib/topicTests";
@@ -268,6 +270,12 @@ export function NewCourseUnitPage({
   const visibleLessonCount = outline.length;
 
   if (!course || !unit) {
+    // Retired unit slug (e.g. Year 12 Standard 1 restructure): redirect the dead
+    // unit-landing URL to its canonical destination before 404-ing.
+    const legacyTarget = LEGACY_UNIT_REDIRECTS[`${courseSlug}/${unitSlug}`];
+    if (legacyTarget) {
+      permanentRedirect(legacyTarget);
+    }
     notFound();
   }
 
@@ -425,6 +433,15 @@ export function NewCourseLessonPage({
   const visibleLessons = getVisibleNewCourseLessons(courseSlug, unitSlug);
 
   if (!lesson) {
+    // Lesson not found under this unit. If the lesson still exists elsewhere in the
+    // course (its unit segment changed during a restructure), redirect the stale URL
+    // to the canonical one; otherwise 404. Lesson slugs are unique within a course.
+    const canonicalUnitSlug = findNewCourseLessonUnitSlug(courseSlug, lessonSlug);
+    if (canonicalUnitSlug && canonicalUnitSlug !== unitSlug) {
+      permanentRedirect(
+        `/course/${courseSlug}/${canonicalUnitSlug}/${lessonSlug}`
+      );
+    }
     notFound();
   }
 

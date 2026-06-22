@@ -33,7 +33,6 @@ import {
   year12Standard1QuadraticModelsLessonOverride,
   year12Standard1RatiosRatesUnitConversionsLessonOverride,
   year12Standard1SimultaneousEquationsContextLessonOverride,
-  year12Standard1LinearAndDirectVariationLessonOverride,
   year12Standard1LineOfBestFitPredictionsLessonOverride,
   year12Standard1MeasurementAreaVolumeLessonOverride,
   year12Standard1ProbabilityAndChanceLessonOverride,
@@ -46,6 +45,66 @@ import {
   year12Standard1TrigRatesExamPracticeLessonOverride,
   normalizeYear12Standard1Lesson,
 } from "./lessons/year12Standard1";
+import {
+  year12Standard1RatesUnitaryMethodLessonOverride,
+  year12Standard1RatesSpeedLessonOverride,
+  year12Standard1RatesDistanceTimeGraphsLessonOverride,
+  year12Standard1RatesFuelConsumptionLessonOverride,
+  year12Standard1RatesHeartRateLessonOverride,
+  year12Standard1RatesBloodPressureLessonOverride,
+} from "./lessons/year12Standard1Rates";
+import {
+  year12Standard1LinearFunctionsLessonOverride,
+  year12Standard1SimultaneousGraphicalLessonOverride,
+  year12Standard1BreakEvenAnalysisLessonOverride,
+} from "./lessons/year12Standard1Simultaneous";
+import {
+  year12Standard1ScatterplotInterpretationLessonOverride,
+  year12Standard1InterpolationExtrapolationLessonOverride,
+} from "./lessons/year12Standard1FurtherStats";
+import {
+  year12Standard1ExponentialGraphsLessonOverride,
+  year12Standard1ExponentialModelsLessonOverride,
+  year12Standard1QuadraticFunctionsLessonOverride,
+  year12Standard1ReciprocalGraphsLessonOverride,
+  year12Standard1ReciprocalModelsLessonOverride,
+  year12Standard1GraphsMiscellaneousLessonOverride,
+} from "./lessons/year12Standard1PracticalGraphs";
+import {
+  year12Standard1SimpleInterestLessonOverride,
+  year12Standard1InterestGraphsLessonOverride,
+  year12Standard1PresentValueLessonOverride,
+  year12Standard1CompoundInterestGraphsLessonOverride,
+  year12Standard1AppreciationInflationLessonOverride,
+} from "./lessons/year12Standard1Investments";
+import {
+  year12Standard1NetworksIntroductionLessonOverride,
+  year12Standard1NetworksTravellingLessonOverride,
+  year12Standard1NetworksDrawingLessonOverride,
+  year12Standard1NetworksEulerianHamiltonianLessonOverride,
+  year12Standard1NetworksProblemsLessonOverride,
+  year12Standard1NetworksMSTLessonOverride,
+  year12Standard1NetworksShortestPathLessonOverride,
+} from "./lessons/year12Standard1Networks";
+import {
+  year12Standard1PythagorasLessonOverride,
+  year12Standard1PythagorasApplicationsLessonOverride,
+  year12Standard1TrigUsingCalculatorLessonOverride,
+  year12Standard1TrigSidesLessonOverride,
+  year12Standard1TrigAnglesLessonOverride,
+  year12Standard1ElevationDepressionLessonOverride,
+} from "./lessons/year12Standard1RightTriangles";
+import {
+  year12Standard1ScaleRatiosLessonOverride,
+  year12Standard1ScaleDividingRatioLessonOverride,
+  year12Standard1SimilarityScaleFactorsLessonOverride,
+  year12Standard1PlansAndElevationsLessonOverride,
+} from "./lessons/year12Standard1ScaleDrawing";
+import {
+  year12Standard1ReducingBalanceLoansLessonOverride,
+  year12Standard1CreditCardStatementsLessonOverride,
+  year12Standard1FeesAndChargesLessonOverride,
+} from "./lessons/year12Standard1DepreciationLoans";
 import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
@@ -278,6 +337,12 @@ export function buildLesson(
     year12Standard1RightAngleTrigonometryLessonOverride(course, unit, lesson) ??
     year12Standard1RightAngleTrigApplicationsLessonOverride(course, unit, lesson) ??
     year12Standard1RatesPracticalProblemsLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesUnitaryMethodLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesSpeedLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesDistanceTimeGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesFuelConsumptionLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesHeartRateLessonOverride(course, unit, lesson) ??
+    year12Standard1RatesBloodPressureLessonOverride(course, unit, lesson) ??
     year12Standard1TrigRatesExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1MeasurementAreaVolumeLessonOverride(course, unit, lesson) ??
     year12Standard1ScaleDrawingsAndPlansLessonOverride(course, unit, lesson) ??
@@ -288,15 +353,50 @@ export function buildLesson(
     year12Standard1LineOfBestFitPredictionsLessonOverride(course, unit, lesson) ??
     year12Standard1RelativeFrequencyExpectedValueLessonOverride(course, unit, lesson) ??
     year12Standard1StatisticsExamPracticeLessonOverride(course, unit, lesson) ??
-    year12Standard1LinearAndDirectVariationLessonOverride(course, unit, lesson) ??
     year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(course, unit, lesson) ??
     year12Standard1LinearRelationshipsModellingLessonOverride(course, unit, lesson) ??
     year12Standard1QuadraticModelsLessonOverride(course, unit, lesson) ??
     year12Standard1SimultaneousEquationsContextLessonOverride(course, unit, lesson) ??
+    year12Standard1LinearFunctionsLessonOverride(course, unit, lesson) ??
+    year12Standard1SimultaneousGraphicalLessonOverride(course, unit, lesson) ??
+    year12Standard1BreakEvenAnalysisLessonOverride(course, unit, lesson) ??
+    year12Standard1ScatterplotInterpretationLessonOverride(course, unit, lesson) ??
+    year12Standard1InterpolationExtrapolationLessonOverride(course, unit, lesson) ??
+    year12Standard1ExponentialGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1ExponentialModelsLessonOverride(course, unit, lesson) ??
+    year12Standard1QuadraticFunctionsLessonOverride(course, unit, lesson) ??
+    year12Standard1ReciprocalGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1ReciprocalModelsLessonOverride(course, unit, lesson) ??
+    year12Standard1GraphsMiscellaneousLessonOverride(course, unit, lesson) ??
     year12Standard1RatiosRatesUnitConversionsLessonOverride(course, unit, lesson) ??
     year12Standard1InvestmentCompoundInterestLessonOverride(course, unit, lesson) ??
+    year12Standard1SimpleInterestLessonOverride(course, unit, lesson) ??
+    year12Standard1InterestGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1PresentValueLessonOverride(course, unit, lesson) ??
+    year12Standard1CompoundInterestGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1AppreciationInflationLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksIntroductionLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksTravellingLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksDrawingLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksEulerianHamiltonianLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksProblemsLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksMSTLessonOverride(course, unit, lesson) ??
+    year12Standard1NetworksShortestPathLessonOverride(course, unit, lesson) ??
+    year12Standard1PythagorasLessonOverride(course, unit, lesson) ??
+    year12Standard1PythagorasApplicationsLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigUsingCalculatorLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigSidesLessonOverride(course, unit, lesson) ??
+    year12Standard1TrigAnglesLessonOverride(course, unit, lesson) ??
+    year12Standard1ElevationDepressionLessonOverride(course, unit, lesson) ??
+    year12Standard1ScaleRatiosLessonOverride(course, unit, lesson) ??
+    year12Standard1ScaleDividingRatioLessonOverride(course, unit, lesson) ??
+    year12Standard1SimilarityScaleFactorsLessonOverride(course, unit, lesson) ??
+    year12Standard1PlansAndElevationsLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
+    year12Standard1ReducingBalanceLoansLessonOverride(course, unit, lesson) ??
+    year12Standard1CreditCardStatementsLessonOverride(course, unit, lesson) ??
+    year12Standard1FeesAndChargesLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
     year12Standard2NetworksLessonOverride(course, unit, lesson) ??
     year12Standard2FinanceLessonOverride(course, unit, lesson) ??
@@ -960,95 +1060,37 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       "A NSW HSC Mathematics Standard 1 pathway in development, with selected algebra, finance, measurement and data lessons active and remaining units planned.",
     positioning:
       "This pathway is being scaffolded with crossover content from Standard 2 where the syllabus overlap is clear. Standard 1-specific measurement and data lessons are now active, with further geometric and probability units planned.",
+    // ── Year 12 Standard 1 — NESA textbook layout (9 chapters / section-level lessons) ──
+    // Wave 0 skeleton (see docs plan "Restructure to NESA Textbook Layout"). Unit array order
+    // = NESA chapter order; the "1A/1B" label lives in the lesson `title` only, so reordering
+    // never churns slugs. Existing authored lessons KEEP their slug (so overrides + normalize
+    // patches + challenges + stable checkpoint IDs survive) on their inheriting section;
+    // net-new sections are "(In development)" and render generic interim content until later
+    // waves author them — acceptable only because the course is status: "in_progress" (hidden).
     units: [
       {
-        slug: "algebraic-relationships",
-        title: "Algebraic Relationships",
+        slug: "rates",
+        title: "Rates",
         description:
-          "Linear modelling, quadratic models, direct variation, simultaneous-equation comparisons, and practical algebra in everyday contexts.",
-        syllabusArea: "Algebra",
-        focus: "Algebraic relationships",
-        lessons: [
-          {
-            slug: "linear-relationships-modelling",
-            title: "Linear Relationships and Modelling",
-            description:
-              "Build and interpret linear models from fixed costs, starting values, rates of change, tables, and practical equations.",
-          },
-          {
-            slug: "quadratic-models",
-            title: "Quadratic Models",
-            description:
-              "Recognise and interpret quadratic models including parabola shape, opening direction, vertex, intercepts, and practical context restrictions.",
-          },
-          {
-            slug: "exponential-inverse-variation",
-            title: "Linear and Direct Variation Models",
-            description:
-              "Build and interpret linear models, identify gradient as a constant rate of change and y-intercept as a starting value, evaluate models by substitution, and check tables for linearity.",
-          },
-          {
-            slug: "simultaneous-equations-context",
-            title: "Simultaneous Equations in Context",
-            description:
-              "Solve and interpret pairs of practical models, including equal-cost points and option comparisons.",
-          },
-          {
-            slug: "algebraic-relationships-exam-practice",
-            title: "Algebraic Relationships Exam Practice",
-            description:
-              "Practise algebra modelling questions using linear models, quadratic graphs, simultaneous equations, and contextual interpretation.",
-          },
-        ],
-      },
-      {
-        slug: "trigonometry-ratios-rates",
-        title: "Rates, Ratios and Measurement",
-        description:
-          "Rates, ratios, speed, scale, unit conversion and practical measurement. Standard 1 trig content is being added alongside ratio and rate practice.",
+          "Rates, the unitary method, speed, distance–time graphs, and rates in health and consumption contexts.",
         syllabusArea: "Measurement",
-        focus: "Rates, ratios and measurement",
+        focus: "Rates",
         lessons: [
           {
+            // 1A — inheriting section for the existing ratios/rates/conversions override.
             slug: "ratios-rates-unit-conversions",
-            title: "Ratios, Rates and Unit Conversions",
+            title: "1A Rates",
             description:
               "Use ratios, sharing, rates, speed, fuel use, flow rates, map scales, and practical unit conversions.",
           },
           {
-            slug: "right-angle-trig-applications",
-            title: "Right-Angle Trigonometry — Applied Problems",
-            description:
-              "Apply sine, cosine and tangent to multi-step practical problems involving angles of elevation and depression, ramp gradients, and distances in real-world contexts.",
-            stableSkillId: "y12s1-trig-right-angle-trig-applications",
-            skillCheckpoints: [
-              {
-                stableCheckpointId: "y12s1-trig-app-cp-a",
-                label: "Identify the relevant sides and angle in a practical trig context",
-              },
-              {
-                stableCheckpointId: "y12s1-trig-app-cp-b",
-                label: "Choose the correct trigonometric ratio for the unknown quantity",
-              },
-              {
-                stableCheckpointId: "y12s1-trig-app-cp-c",
-                label: "Apply inverse trigonometry to find an angle to the nearest degree",
-              },
-              {
-                stableCheckpointId: "y12s1-trig-app-cp-d",
-                label: "Solve a two-step applied problem using a right triangle",
-              },
-            ],
-          },
-          {
-            slug: "bearings-and-compass",
-            title: "Bearings and Compass Directions",
-            description:
-              "Convert between true bearings and compass bearings, find back bearings, and solve practical direction problems using right-angle trigonometry.",
+            slug: "rates-unitary-method",
+            title: "1B Unitary Method",
+            description: "Find the value of one unit and scale to any quantity, including best-buy comparisons.",
           },
           {
             slug: "rates-practical-problems",
-            title: "Rates in Practical Contexts",
+            title: "1C Using Rates to Compare",
             description:
               "Calculate and interpret rates in multi-step practical problems including speed, fuel consumption, flow rate and pay, applying rate formulas to find totals and compare options.",
             stableSkillId: "y12s1-trig-rates-practical-problems",
@@ -1072,10 +1114,37 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             ],
           },
           {
+            slug: "rates-speed",
+            title: "1D Speed as a Rate",
+            description: "Calculate speed, distance and time, and convert between km/h and m/s.",
+          },
+          {
+            slug: "rates-distance-time-graphs",
+            title: "1E Distance–Time Graphs",
+            description: "Read speed from the gradient, identify rests and return trips, and find average speed from a distance–time graph.",
+          },
+          {
+            slug: "rates-fuel-consumption",
+            title: "1F Fuel Consumption Rate",
+            description: "Use L/100 km rates to find fuel used, trip cost, and to compare vehicles.",
+          },
+          {
+            slug: "rates-heart-rate",
+            title: "1G Heart Rate",
+            description: "Work with beats per minute: count-to-rate conversions, beats over time, and target training zones.",
+          },
+          {
+            slug: "rates-blood-pressure",
+            title: "1H Blood Pressure",
+            description: "Interpret systolic/diastolic readings, pulse pressure, and classify readings against thresholds.",
+          },
+          {
+            // Retired/parked (no NESA Year-12 section): hidden to preserve progress + checkpoints.
             slug: "trig-rates-exam-practice",
-            title: "Trigonometry and Rates Exam Practice",
+            title: "Trigonometry and Rates Exam Practice (retired)",
             description:
               "Practise Standard 1 exam-style questions mixing right-angle trigonometry, rate calculations, and ratio reasoning with technique identification and multi-step working.",
+            showInCourseNav: false,
             stableSkillId: "y12s1-trig-trig-rates-exam-practice",
             skillCheckpoints: [
               {
@@ -1099,110 +1168,410 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         ],
       },
       {
-        slug: "investments-loans-annuities",
-        title: "Investments, Loans and Annuities",
+        slug: "networks-and-paths",
+        title: "Networks and Paths",
         description:
-          "Compound investments, depreciation, loan balances, regular payments, annuities, and financial decision-making.",
-        syllabusArea: "Financial Mathematics",
-        focus: "Investments, loans and annuities",
+          "Network concepts, drawing network diagrams, Eulerian and Hamiltonian walks, minimal spanning trees, and shortest paths.",
+        syllabusArea: "Networks",
+        focus: "Networks and paths",
         lessons: [
           {
+            slug: "networks-introduction",
+            title: "2A Networks",
+            description: "Read networks: vertices, edges, degree, adjacency, and the sum-of-degrees relationship.",
+          },
+          {
+            slug: "networks-travelling",
+            title: "2B Travelling a Network",
+            description: "Paths and circuits through a network, the length of a route, and checking a route is valid.",
+          },
+          {
+            slug: "networks-drawing",
+            title: "2C Drawing a Network Diagram",
+            description: "Represent practical situations as networks: choosing vertices and edges and counting them.",
+          },
+          {
+            slug: "networks-eulerian-hamiltonian",
+            title: "2D Eulerian and Hamiltonian Walks",
+            description: "Eulerian routes (every edge once) and Hamiltonian routes (every vertex once), with the odd-degree test.",
+          },
+          {
+            slug: "networks-problems",
+            title: "2E Network Problems",
+            description: "Practical network problems: connectivity, route weights, comparing routes, and reasoning from structure.",
+          },
+          {
+            slug: "networks-minimal-spanning-trees",
+            title: "2F Minimal Spanning Trees",
+            description: "Connect all vertices at least total weight with no cycle, and find the minimal spanning tree's weight.",
+          },
+          {
+            slug: "networks-shortest-path",
+            title: "2G Shortest Path",
+            description: "Find the shortest (least-weight) path between two vertices by comparing route totals.",
+          },
+        ],
+      },
+      {
+        slug: "investments",
+        title: "Investments",
+        description:
+          "Simple and compound interest, future and present value, interest graphs, appreciation and inflation.",
+        syllabusArea: "Financial Mathematics",
+        focus: "Investments",
+        lessons: [
+          {
+            slug: "simple-interest",
+            title: "3A Simple Interest",
+            description: "Calculate simple interest with I = Prn, find the total amount, and rearrange for a rate or time.",
+          },
+          {
+            slug: "interest-graphs",
+            title: "3B Simple Interest Graphs",
+            description: "Interpret straight-line graphs of simple-interest growth: principal as the y-intercept, yearly interest as the gradient.",
+          },
+          {
             slug: "investment-compound-interest",
-            title: "Investment and Compound Interest",
+            title: "3C Compound Interest — Future Value",
             description:
               "Calculate compound investment balances, interest earned, growth factors, and net returns after fees.",
           },
           {
-            slug: "depreciation-loans",
-            title: "Depreciation and Loans",
-            description:
-              "Model asset depreciation using straight-line and declining balance methods, complete reducing balance loan tables, and compare loan types.",
+            slug: "present-value",
+            title: "3D Compound Interest — Present Value",
+            description: "Find the present value to invest now to reach a future amount using P = A ÷ (1 + r)ⁿ.",
           },
           {
-            slug: "credit-cards-and-loans",
-            title: "Credit Cards and Loans",
-            description:
-              "Understand credit cards as reducing balance loans, compare interest rates with other loan types, interpret statements, and calculate compound interest on outstanding balances.",
+            slug: "compound-interest-graphs",
+            title: "3E Compound Interest Graphs",
+            description: "Interpret compound-interest balance curves and compare them with the straight line of simple interest.",
           },
           {
-            slug: "annuities-regular-payments",
-            title: "Financial Planning and Repayments",
-            description:
-              "Calculate equal repayment amounts from a deposit and balance, find total plan costs, compare payment options, and check affordability against a monthly budget.",
+            slug: "appreciation-inflation",
+            title: "3F Appreciation and Inflation",
+            description: "Apply compound growth to appreciating assets and to rising prices under inflation.",
           },
         ],
       },
       {
-        slug: "statistics-and-data",
-        title: "Statistics and Data",
+        slug: "right-angled-triangles",
+        title: "Right-Angled Triangles",
         description:
-          "Data displays, summary statistics, probability, and practical data reasoning for Standard 1 assessment.",
-        syllabusArea: "Statistics",
-        focus: "Statistics and data",
-        lessons: [
-          {
-            slug: "data-displays-summary-statistics",
-            title: "Data Displays and Summary Statistics",
-            description:
-              "Interpret graphs, tables, averages and spread measures in practical contexts.",
-          },
-          {
-            slug: "probability-and-chance",
-            title: "Probability and Chance",
-            description:
-              "Use probability language, tables, and simple chance models to solve practical problems.",
-          },
-          {
-            slug: "bivariate-data-scatter-plots",
-            title: "Bivariate Data and Scatter Plots",
-            description:
-              "Distinguish univariate and bivariate data, identify independent and dependent variables, create scatter plots, and describe associations by form, strength and direction.",
-          },
-          {
-            slug: "line-of-best-fit-predictions",
-            title: "Line of Best Fit and Predictions",
-            description:
-              "Draw a line of best fit by eye, find its gradient and y-intercept, and use interpolation and extrapolation to make predictions.",
-          },
-          {
-            slug: "relative-frequency-expected-value",
-            title: "Relative Frequency and Expected Value",
-            description:
-              "Use complementary events P(not A) = 1 − P(A), estimate probability from relative frequency, and calculate expected frequency np.",
-          },
-          {
-            slug: "statistics-exam-practice",
-            title: "Statistics Exam Practice",
-            description:
-              "Practise Standard 1-style statistical and probability questions from everyday situations.",
-          },
-        ],
-      },
-      {
-        slug: "measurement-geometry",
-        title: "Measurement and Geometry",
-        description:
-          "Right-angle trigonometry, area, volume and geometry for practical measurement, scale drawings and design contexts.",
+          "Pythagoras' theorem, the trigonometric ratios, finding unknown sides and angles, elevation and depression, and bearings.",
         syllabusArea: "Measurement",
-        focus: "Measurement and geometry",
+        focus: "Right-angled triangles",
         lessons: [
+          {
+            slug: "pythagoras",
+            title: "4A Pythagoras' Theorem",
+            description: "Identify the hypotenuse and use a² + b² = c² to find it in a right-angled triangle.",
+          },
+          {
+            slug: "pythagoras-applications",
+            title: "4B Applying Pythagoras",
+            description: "Find a shorter side and solve practical problems (ladders, ramps, diagonals) with Pythagoras.",
+          },
           {
             slug: "right-angle-trigonometry",
-            title: "Right-Angle Trigonometry",
+            title: "4C Trigonometric Ratios",
             description:
               "Solve right-angle triangle problems using sine, cosine and tangent ratios.",
           },
           {
+            slug: "trig-using-calculator",
+            title: "4D Using the Calculator",
+            description: "Evaluate trig ratios and use inverse trig to find an angle, with correct degree mode and rounding.",
+          },
+          {
+            slug: "trig-sides",
+            title: "4E Finding an Unknown Side",
+            description: "Use SOH-CAH-TOA to find an unknown side: identify the sides relative to the angle, choose the ratio, solve.",
+          },
+          {
+            slug: "trig-angles",
+            title: "4F Finding an Unknown Angle",
+            description: "Find an unknown angle from two known sides using inverse trigonometry.",
+          },
+          {
+            slug: "right-angle-trig-applications",
+            title: "4G Solving Practical Problems",
+            description:
+              "Apply sine, cosine and tangent to multi-step practical problems involving angles of elevation and depression, ramp gradients, and distances in real-world contexts.",
+            stableSkillId: "y12s1-trig-right-angle-trig-applications",
+            skillCheckpoints: [
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-a",
+                label: "Identify the relevant sides and angle in a practical trig context",
+              },
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-b",
+                label: "Choose the correct trigonometric ratio for the unknown quantity",
+              },
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-c",
+                label: "Apply inverse trigonometry to find an angle to the nearest degree",
+              },
+              {
+                stableCheckpointId: "y12s1-trig-app-cp-d",
+                label: "Solve a two-step applied problem using a right triangle",
+              },
+            ],
+          },
+          {
+            slug: "elevation-depression",
+            title: "4H Angles of Elevation and Depression",
+            description: "Distinguish elevation and depression and use trig to find heights and distances.",
+          },
+          {
+            slug: "bearings-and-compass",
+            title: "4I Compass and True Bearings",
+            description:
+              "Convert between true bearings and compass bearings, find back bearings, and solve practical direction problems using right-angle trigonometry.",
+          },
+          {
+            // Retired/parked (no NESA Year-12 Std1 home): hidden to preserve any progress.
             slug: "measurement-area-volume",
-            title: "Measurement, Area and Volume",
+            title: "Measurement, Area and Volume (retired)",
             description:
               "Calculate area, perimeter, surface area and volume for common shapes and solids.",
+            showInCourseNav: false,
+          },
+        ],
+      },
+      {
+        slug: "simultaneous-linear-equations",
+        title: "Simultaneous Linear Equations",
+        description:
+          "Linear functions and models, solving simultaneous equations graphically and in context, and break-even analysis.",
+        syllabusArea: "Algebra",
+        focus: "Simultaneous linear equations",
+        lessons: [
+          {
+            slug: "linear-functions",
+            title: "5A Linear Functions",
+            description: "Graph and interpret linear functions y = mx + b: gradient, intercepts, and gradient from two points.",
+          },
+          {
+            slug: "linear-relationships-modelling",
+            title: "5B Linear Models",
+            description:
+              "Build and interpret linear models from fixed costs, starting values, rates of change, tables, and practical equations.",
+          },
+          {
+            slug: "simultaneous-equations-graphical",
+            title: "5C Simultaneous Equations Graphically",
+            description: "Solve simultaneous linear equations from their graphs and recognise no-solution and infinite-solution cases.",
+          },
+          {
+            slug: "simultaneous-equations-context",
+            title: "5D Simultaneous Equation Models",
+            description:
+              "Solve and interpret pairs of practical models, including equal-cost points and option comparisons.",
+          },
+          {
+            slug: "break-even-analysis",
+            title: "5E Break-Even Analysis",
+            description: "Find the break-even point where revenue equals cost, and interpret profit and loss regions.",
+          },
+          {
+            // Retired/parked: hidden to preserve progress.
+            slug: "algebraic-relationships-exam-practice",
+            title: "Algebraic Relationships Exam Practice (retired)",
+            description:
+              "Practise algebra modelling questions using linear models, quadratic graphs, simultaneous equations, and contextual interpretation.",
+            showInCourseNav: false,
+          },
+        ],
+      },
+      {
+        slug: "further-statistical-analysis",
+        title: "Further Statistical Analysis",
+        description:
+          "Constructing and using scatterplots, lines of best fit, interpolation and extrapolation, and statistical investigation.",
+        syllabusArea: "Statistics",
+        focus: "Further statistical analysis",
+        lessons: [
+          {
+            slug: "bivariate-data-scatter-plots",
+            title: "6A Constructing a Scatterplot",
+            description:
+              "Distinguish univariate and bivariate data, identify independent and dependent variables, create scatter plots, and describe associations by form, strength and direction.",
+          },
+          {
+            slug: "scatterplot-interpretation",
+            title: "6B Using a Scatterplot",
+            description: "Describe association by direction, form and strength, identify outliers, and distinguish correlation from causation.",
+          },
+          {
+            slug: "line-of-best-fit-predictions",
+            title: "6C Line of Best Fit",
+            description:
+              "Draw a line of best fit by eye, find its gradient and y-intercept, and use interpolation and extrapolation to make predictions.",
+          },
+          {
+            slug: "interpolation-extrapolation",
+            title: "6D Interpolation and Extrapolation",
+            description: "Predict from a line of best fit and judge reliability by interpolation within the data versus extrapolation beyond it.",
+          },
+          {
+            slug: "data-displays-summary-statistics",
+            title: "6E Statistical Investigation",
+            description:
+              "Interpret graphs, tables, averages and spread measures in practical contexts.",
+          },
+          {
+            // Folded from the old statistics unit (Year-11-level, kept to preserve content/progress).
+            slug: "probability-and-chance",
+            title: "Probability and Chance (folded)",
+            description:
+              "Use probability language, tables, and simple chance models to solve practical problems.",
+          },
+          {
+            slug: "relative-frequency-expected-value",
+            title: "Relative Frequency and Expected Value (folded)",
+            description:
+              "Use complementary events P(not A) = 1 − P(A), estimate probability from relative frequency, and calculate expected frequency np.",
+          },
+          {
+            // Retired/parked: hidden to preserve progress.
+            slug: "statistics-exam-practice",
+            title: "Statistics Exam Practice (retired)",
+            description:
+              "Practise Standard 1-style statistical and probability questions from everyday situations.",
+            showInCourseNav: false,
+          },
+        ],
+      },
+      {
+        slug: "scale-drawing",
+        title: "Scale Drawing",
+        description:
+          "Ratios, dividing a quantity in a ratio, similarity and scale factors, scale drawings, and plans and elevations.",
+        syllabusArea: "Measurement",
+        focus: "Scale drawing",
+        lessons: [
+          {
+            slug: "scale-ratios",
+            title: "7A Ratios",
+            description: "Ratio as a comparison: simplify, find equivalent ratios, and tell part-to-part from part-to-whole.",
+          },
+          {
+            slug: "scale-dividing-ratio",
+            title: "7B Dividing a Quantity in a Ratio",
+            description: "Share a total in a given ratio by finding the value of one part and multiplying out each share.",
+          },
+          {
+            slug: "similarity-scale-factors",
+            title: "7C Similarity and Scale Factors",
+            description: "Use scale factors with similar figures to find unknown sides, and scale areas by the square of the scale factor.",
           },
           {
             slug: "scale-drawings-and-plans",
-            title: "Scale Drawings and Plans",
+            title: "7D Scale Drawing",
             description:
               "Use scale, similarity and measurement to interpret plans, maps and diagrams.",
+          },
+          {
+            slug: "plans-and-elevations",
+            title: "7E Plans and Elevations",
+            description: "Interpret plans and elevations as views of one object and convert between drawing and real lengths.",
+          },
+        ],
+      },
+      {
+        slug: "depreciation-and-loans",
+        title: "Depreciation and Loans",
+        description:
+          "Declining-balance depreciation, reducing-balance loans, credit cards and statements, and fees and charges.",
+        syllabusArea: "Financial Mathematics",
+        focus: "Depreciation and loans",
+        lessons: [
+          {
+            slug: "depreciation-loans",
+            title: "8A Declining-Balance Depreciation",
+            description:
+              "Model asset depreciation using straight-line and declining balance methods, complete reducing balance loan tables, and compare loan types.",
+          },
+          {
+            slug: "reducing-balance-loans",
+            title: "8B Reducing-Balance Loans",
+            description: "Interest on the current balance, each repayment split between interest and principal, and why balances fall slowly.",
+          },
+          {
+            slug: "credit-cards-and-loans",
+            title: "8C Credit Cards",
+            description:
+              "Understand credit cards as reducing balance loans, compare interest rates with other loan types, interpret statements, and calculate compound interest on outstanding balances.",
+          },
+          {
+            slug: "credit-card-statements",
+            title: "8D Credit Card Statements",
+            description: "Read a statement for closing balance, interest, the minimum payment and the interest-free period.",
+          },
+          {
+            slug: "fees-and-charges",
+            title: "8E Fees and Charges",
+            description: "Include fees on top of interest and compare financial options by total cost, not rate alone.",
+          },
+          {
+            // Parked (fold target for annuities content / no standalone NESA section): hidden.
+            slug: "annuities-regular-payments",
+            title: "Financial Planning and Repayments (folded)",
+            description:
+              "Calculate equal repayment amounts from a deposit and balance, find total plan costs, compare payment options, and check affordability against a monthly budget.",
+            showInCourseNav: false,
+          },
+        ],
+      },
+      {
+        slug: "graphs-of-practical-situations",
+        title: "Graphs of Practical Situations",
+        description:
+          "Exponential, quadratic and reciprocal graphs and models, and miscellaneous practical graph problems.",
+        syllabusArea: "Algebra",
+        focus: "Graphs of practical situations",
+        lessons: [
+          {
+            slug: "exponential-graphs",
+            title: "9A Exponential Graphs",
+            description: "Recognise and interpret exponential graphs: growth versus decay, the y-intercept, and the asymptote.",
+          },
+          {
+            // TRANSITIONAL SLUG: `exponential-inverse-variation` is legacy-kept (to preserve
+            // student progress) but section 9B is now genuinely EXPONENTIAL-ONLY (Wave 4). The
+            // inverse-variation content moved to 9E/9F (reciprocal-graphs / reciprocal-models);
+            // the old linear stub override + its addMissingQuestions branch were removed. The
+            // slug name no longer matches its content — rename deferred to a progress migration.
+            slug: "exponential-inverse-variation",
+            title: "9B Exponential Models",
+            description:
+              "Model exponential growth and decay using repeated multiplication and growth/decay factors.",
+          },
+          {
+            slug: "quadratic-functions",
+            title: "9C Quadratic Functions",
+            description: "Identify concavity, intercepts, vertex and axis of symmetry of quadratic functions.",
+          },
+          {
+            slug: "quadratic-models",
+            title: "9D Quadratic Models",
+            description:
+              "Recognise and interpret quadratic models including parabola shape, opening direction, vertex, intercepts, and practical context restrictions.",
+          },
+          {
+            slug: "reciprocal-graphs",
+            title: "9E Reciprocal Graphs",
+            description: "Recognise inverse variation y = k/x from a graph or table, find k, and predict how y changes.",
+          },
+          {
+            slug: "reciprocal-models",
+            title: "9F Reciprocal Models",
+            description: "Apply inverse variation to contexts such as workers and time, speed and time, and pressure and volume.",
+          },
+          {
+            slug: "graphs-miscellaneous",
+            title: "9G Miscellaneous Problems",
+            description: "Choose and tell apart linear, quadratic, exponential and reciprocal models from data, shape or context.",
           },
         ],
       },
@@ -5464,6 +5833,38 @@ export function getNewCourseUnitLessons(courseSlug: string, unitSlug: string) {
   return unit.lessons.map((lesson, index) =>
     buildLesson(course, unit, lesson, index)
   );
+}
+
+// Unit slugs retired in the Year 12 Standard 1 restructure (5-unit -> 9-unit NESA layout).
+// Each maps a now-dead unit-landing URL to a safe canonical destination. Most legacy units
+// split across several new units, so their landing pages point at the course overview;
+// statistics-and-data mapped 1:1 and points straight at its successor. Individual lessons
+// that lived under these units are redirected by slug via findNewCourseLessonUnitSlug,
+// since lesson slugs are globally unique within a course.
+export const LEGACY_UNIT_REDIRECTS: Record<string, string> = {
+  "year-12-standard-1/algebraic-relationships": "/course/year-12-standard-1",
+  "year-12-standard-1/trigonometry-ratios-rates": "/course/year-12-standard-1",
+  "year-12-standard-1/investments-loans-annuities": "/course/year-12-standard-1",
+  "year-12-standard-1/statistics-and-data":
+    "/course/year-12-standard-1/further-statistical-analysis",
+  "year-12-standard-1/measurement-geometry": "/course/year-12-standard-1",
+};
+
+// Resolve the current unit slug that holds a given lesson, by its (course-unique) lesson
+// slug. Returns null if no unit contains it. Used to redirect stale lesson URLs whose unit
+// segment changed during a restructure.
+export function findNewCourseLessonUnitSlug(
+  courseSlug: string,
+  lessonSlug: string
+): string | null {
+  const course = getNewCourse(courseSlug);
+  if (!course) {
+    return null;
+  }
+  const unit = course.units.find((nextUnit) =>
+    nextUnit.lessons.some((nextLesson) => nextLesson.slug === lessonSlug)
+  );
+  return unit?.slug ?? null;
 }
 
 export function getVisibleNewCourseLessons(courseSlug: string, unitSlug: string) {
