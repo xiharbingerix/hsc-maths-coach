@@ -55,6 +55,11 @@ import {
   year12Standard1RatesBloodPressureLessonOverride,
 } from "./lessons/year12Standard1Rates";
 import {
+  year12Standard1LinearFunctionsLessonOverride,
+  year12Standard1SimultaneousGraphicalLessonOverride,
+  year12Standard1BreakEvenAnalysisLessonOverride,
+} from "./lessons/year12Standard1Simultaneous";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -307,6 +312,9 @@ export function buildLesson(
     year12Standard1LinearRelationshipsModellingLessonOverride(course, unit, lesson) ??
     year12Standard1QuadraticModelsLessonOverride(course, unit, lesson) ??
     year12Standard1SimultaneousEquationsContextLessonOverride(course, unit, lesson) ??
+    year12Standard1LinearFunctionsLessonOverride(course, unit, lesson) ??
+    year12Standard1SimultaneousGraphicalLessonOverride(course, unit, lesson) ??
+    year12Standard1BreakEvenAnalysisLessonOverride(course, unit, lesson) ??
     year12Standard1RatiosRatesUnitConversionsLessonOverride(course, unit, lesson) ??
     year12Standard1InvestmentCompoundInterestLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
@@ -1263,7 +1271,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "linear-functions",
             title: "5A Linear Functions",
-            description: "(In development) Graph and interpret linear functions y = mx + b.",
+            description: "Graph and interpret linear functions y = mx + b: gradient, intercepts, and gradient from two points.",
           },
           {
             slug: "linear-relationships-modelling",
@@ -1274,7 +1282,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "simultaneous-equations-graphical",
             title: "5C Simultaneous Equations Graphically",
-            description: "(In development) Solve simultaneous linear equations from their graphs.",
+            description: "Solve simultaneous linear equations from their graphs and recognise no-solution and infinite-solution cases.",
           },
           {
             slug: "simultaneous-equations-context",
@@ -1285,7 +1293,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "break-even-analysis",
             title: "5E Break-Even Analysis",
-            description: "(In development) Use simultaneous equations to find and interpret a break-even point.",
+            description: "Find the break-even point where revenue equals cost, and interpret profit and loss regions.",
           },
           {
             // Retired/parked: hidden to preserve progress.
