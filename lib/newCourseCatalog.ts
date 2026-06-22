@@ -71,6 +71,13 @@ import {
   year12Standard1GraphsMiscellaneousLessonOverride,
 } from "./lessons/year12Standard1PracticalGraphs";
 import {
+  year12Standard1SimpleInterestLessonOverride,
+  year12Standard1InterestGraphsLessonOverride,
+  year12Standard1PresentValueLessonOverride,
+  year12Standard1CompoundInterestGraphsLessonOverride,
+  year12Standard1AppreciationInflationLessonOverride,
+} from "./lessons/year12Standard1Investments";
+import {
   year12Standard2AlgebraicRelationshipsLessonOverride,
   year12Standard2FinanceLessonOverride,
   year12Standard2MeasurementSAVLessonOverride,
@@ -335,6 +342,11 @@ export function buildLesson(
     year12Standard1GraphsMiscellaneousLessonOverride(course, unit, lesson) ??
     year12Standard1RatiosRatesUnitConversionsLessonOverride(course, unit, lesson) ??
     year12Standard1InvestmentCompoundInterestLessonOverride(course, unit, lesson) ??
+    year12Standard1SimpleInterestLessonOverride(course, unit, lesson) ??
+    year12Standard1InterestGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1PresentValueLessonOverride(course, unit, lesson) ??
+    year12Standard1CompoundInterestGraphsLessonOverride(course, unit, lesson) ??
+    year12Standard1AppreciationInflationLessonOverride(course, unit, lesson) ??
     year12Standard1DepreciationAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1CreditCardsAndLoansLessonOverride(course, unit, lesson) ??
     year12Standard1FinancialPlanningRepaymentLessonOverride(course, unit, lesson) ??
@@ -1163,12 +1175,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "simple-interest",
             title: "3A Simple Interest",
-            description: "(In development) Calculate simple interest and the value of a simple-interest investment.",
+            description: "Calculate simple interest with I = Prn, find the total amount, and rearrange for a rate or time.",
           },
           {
             slug: "interest-graphs",
             title: "3B Simple Interest Graphs",
-            description: "(In development) Interpret straight-line graphs of simple-interest growth.",
+            description: "Interpret straight-line graphs of simple-interest growth: principal as the y-intercept, yearly interest as the gradient.",
           },
           {
             slug: "investment-compound-interest",
@@ -1179,17 +1191,17 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           {
             slug: "present-value",
             title: "3D Compound Interest — Present Value",
-            description: "(In development) Find the present value needed to reach a future amount.",
+            description: "Find the present value to invest now to reach a future amount using P = A ÷ (1 + r)ⁿ.",
           },
           {
             slug: "compound-interest-graphs",
             title: "3E Compound Interest Graphs",
-            description: "(In development) Interpret curved graphs of compound growth.",
+            description: "Interpret compound-interest balance curves and compare them with the straight line of simple interest.",
           },
           {
             slug: "appreciation-inflation",
             title: "3F Appreciation and Inflation",
-            description: "(In development) Apply compound growth to appreciation and inflation.",
+            description: "Apply compound growth to appreciating assets and to rising prices under inflation.",
           },
         ],
       },
