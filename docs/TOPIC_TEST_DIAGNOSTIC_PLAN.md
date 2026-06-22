@@ -457,8 +457,14 @@ they work, and a dedicated CTA was added to the Y12-Adv unit page):_
   Decreasing; First Derivative Test) + a 2-item D6 synoptic band on the last
   subtopic. 142 questions. Verified: tsc/eslint clean, numerics pass, assembles
   across all 7 subtopics, deterministic reconstruction.
-- ⬜ Remaining 13 Y12 Advanced units (MA-F1/F2, T1/T2/T3, C2/C3/C4, E1, S1/S2,
-  financial, sequences) — paused per user; pick the next unit when ready.
+- ✅ ma-c2-differential-calculus — complete (registered). 4 skill subtopics at 10
+  D4 + 10 D5 each (Standard Derivatives; The Chain Rule; Product and Quotient
+  Rules; Applications with Extended Differentiation) + a 4-item D6 exam-practice
+  band. 84 questions. Verified: tsc/eslint clean, central-difference numerics pass,
+  assembles across all 5 subtopics, deterministic reconstruction.
+- ⬜ Remaining 12 Y12 Advanced units (MA-F1/F2, T1/T2/T3, C3/C4, E1, S1/S2,
+  financial, sequences) — user picks the next unit each time. MA-C3 next-cleanest
+  but has merged/duplicate lesson slugs to dedupe.
 
 **Phase 4 — Polish.**
 - ✅ Student entry point: a "Take the topic test" CTA on the shared course unit

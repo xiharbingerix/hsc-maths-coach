@@ -9,6 +9,7 @@ import { binomialDistributionPool } from "./pools/year-12-extension-1/binomial-d
 import { vectorsPool } from "./pools/year-12-extension-1/vectors";
 import { proofInductionPool } from "./pools/year-12-extension-1/proof-induction";
 import { introDifferentiationPool } from "./pools/year-12-advanced/intro-differentiation";
+import { differentialCalculusPool } from "./pools/year-12-advanced/differential-calculus";
 
 export * from "./types";
 export {
@@ -30,6 +31,7 @@ const POOLS: TopicTestPool[] = [
   vectorsPool,
   proofInductionPool,
   introDifferentiationPool,
+  differentialCalculusPool,
 ];
 
 export function listTopicTestPools(): TopicTestPool[] {
