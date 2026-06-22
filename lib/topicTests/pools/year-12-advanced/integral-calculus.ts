@@ -13,8 +13,11 @@ import type { TopicTestPool, TopicTestQuestion } from "../../types";
  * one of each overlapping pair. All slugs are route-reachable. Antiderivative
  * answers are marked by the CAS marker (+C), with decimal/fraction fallbacks.
  *
- * Status: subtopic 1 "Antidifferentiation and the Reverse Power Rule" — D4 + D5,
- * authored and audited. Remaining subtopics to follow; not yet registered.
+ * The redundant "indefinite-integrals-constant-of-integration" lesson is folded
+ * into subtopic 1 (same skill: indefinite integration); not a separate subtopic.
+ *
+ * Status: subtopics 1–2 authored and audited (Antidifferentiation; Initial
+ * Conditions). Remaining subtopics to follow; not yet registered.
  */
 
 const href = (lesson: string) =>
@@ -69,6 +72,55 @@ const adD5: TopicTestQuestion[] = [
     answer: "1/4", acceptedAnswers: ["0.25"], explanation: "∫x³ dx = x⁴/4 + C, so a = 1/4." },
 ];
 
+// ── Subtopic 2: Initial Conditions and the Particular Primitive ──────────────
+// Use a condition (a point, or f(a) = b) to pin the constant, then answer.
+const icD4: TopicTestQuestion[] = [
+  { id: "y12a-c4-ic-d4-1", prompt: "f'(x) = 2x and f(0) = 5. Find the constant of integration C.", latex: "f'(x) = 2x, \\ f(0) = 5", marks: 2, difficulty: 4,
+    answer: "5", explanation: "f(x) = x² + C; f(0) = C = 5." },
+  { id: "y12a-c4-ic-d4-2", prompt: "f'(x) = 3x² and f(1) = 2. Find C.", latex: "f'(x) = 3x^2, \\ f(1) = 2", marks: 2, difficulty: 4,
+    answer: "1", explanation: "f(x) = x³ + C; f(1) = 1 + C = 2 ⇒ C = 1." },
+  { id: "y12a-c4-ic-d4-3", prompt: "f'(x) = 2x and f(0) = 3. Find f(2).", latex: "f'(x) = 2x, \\ f(0) = 3", marks: 3, difficulty: 4,
+    choices: [ { label: "A", text: "$7$" }, { label: "B", text: "$4$" }, { label: "C", text: "$3$" }, { label: "D", text: "$12$" } ],
+    answer: "A", explanation: "f(x) = x² + 3; f(2) = 4 + 3 = 7. B forgets the constant." },
+  { id: "y12a-c4-ic-d4-4", prompt: "A curve has dy/dx = 4x and passes through (1, 5). Find C.", latex: "\\tfrac{dy}{dx} = 4x, \\ (1, 5)", marks: 3, difficulty: 4,
+    choices: [ { label: "A", text: "$3$" }, { label: "B", text: "$5$" }, { label: "C", text: "$2$" }, { label: "D", text: "$9$" } ],
+    answer: "A", explanation: "y = 2x² + C; 2 + C = 5 ⇒ C = 3. B mistakes the point's y-value for C." },
+  { id: "y12a-c4-ic-d4-5", prompt: "f'(x) = 6x² − 2 and f(1) = 0. Find C.", latex: "f'(x) = 6x^2 - 2, \\ f(1) = 0", marks: 3, difficulty: 4,
+    answer: "0", explanation: "f(x) = 2x³ − 2x + C; f(1) = 0 + C = 0 ⇒ C = 0." },
+  { id: "y12a-c4-ic-d4-6", prompt: "f'(x) = x and f(2) = 4. Find f(0).", latex: "f'(x) = x, \\ f(2) = 4", marks: 3, difficulty: 4,
+    answer: "2", explanation: "f(x) = x²/2 + C; f(2) = 2 + C = 4 ⇒ C = 2; f(0) = 2." },
+  { id: "y12a-c4-ic-d4-7", prompt: "A curve has dy/dx = 3x² + 1 and passes through (0, −4). Find y when x = 1.", latex: "\\tfrac{dy}{dx} = 3x^2 + 1, \\ (0, -4)", marks: 3, difficulty: 4,
+    answer: "-2", acceptedAnswers: ["−2"], explanation: "y = x³ + x + C; C = −4; y(1) = 1 + 1 − 4 = −2." },
+  { id: "y12a-c4-ic-d4-8", prompt: "f'(x) = 2x − 3 and f(0) = 7. Find f(2).", latex: "f'(x) = 2x - 3, \\ f(0) = 7", marks: 3, difficulty: 4,
+    answer: "5", explanation: "f(x) = x² − 3x + 7; f(2) = 4 − 6 + 7 = 5." },
+  { id: "y12a-c4-ic-d4-9", prompt: "A particle has velocity v = 2t and initial displacement s(0) = 10. Find s(3).", latex: "v = 2t, \\ s(0) = 10", marks: 3, difficulty: 4,
+    answer: "19", explanation: "s = t² + 10; s(3) = 9 + 10 = 19." },
+  { id: "y12a-c4-ic-d4-10", prompt: "f'(x) = 4x³ and f(1) = 2. Find C.", latex: "f'(x) = 4x^3, \\ f(1) = 2", marks: 2, difficulty: 4,
+    answer: "1", explanation: "f(x) = x⁴ + C; f(1) = 1 + C = 2 ⇒ C = 1." },
+];
+const icD5: TopicTestQuestion[] = [
+  { id: "y12a-c4-ic-d5-1", prompt: "f''(x) = 6x, f'(0) = 2 and f(0) = 1. Find f(1).", latex: "f''(x) = 6x, \\ f'(0) = 2, \\ f(0) = 1", marks: 4, difficulty: 5,
+    answer: "4", explanation: "f'(x) = 3x² + 2 (since f'(0) = 2); f(x) = x³ + 2x + 1; f(1) = 1 + 2 + 1 = 4." },
+  { id: "y12a-c4-ic-d5-2", prompt: "A particle has acceleration a = 6t − 2 and v(0) = 1. Find v(2).", latex: "a = 6t - 2, \\ v(0) = 1", marks: 4, difficulty: 5,
+    answer: "9", explanation: "v = 3t² − 2t + 1; v(2) = 12 − 4 + 1 = 9." },
+  { id: "y12a-c4-ic-d5-3", prompt: "A particle has acceleration a = 12t with v(0) = 0 and s(0) = 0. Find s(2).", latex: "a = 12t, \\ v(0)=0, \\ s(0)=0", marks: 4, difficulty: 5,
+    answer: "16", explanation: "v = 6t², s = 2t³; s(2) = 16." },
+  { id: "y12a-c4-ic-d5-4", prompt: "f'(x) = 3x² − 6x and f(2) = 5. Find f(0).", latex: "f'(x) = 3x^2 - 6x, \\ f(2) = 5", marks: 4, difficulty: 5,
+    answer: "9", explanation: "f(x) = x³ − 3x² + C; f(2) = 8 − 12 + C = 5 ⇒ C = 9; f(0) = 9." },
+  { id: "y12a-c4-ic-d5-5", prompt: "A curve has dy/dx = 2x − 4 and a minimum value of 1. Find C.", latex: "\\tfrac{dy}{dx} = 2x - 4, \\ y_{\\min} = 1", marks: 4, difficulty: 5,
+    answer: "5", explanation: "Minimum where dy/dx = 0 ⇒ x = 2; y = x² − 4x + C, y(2) = C − 4 = 1 ⇒ C = 5." },
+  { id: "y12a-c4-ic-d5-6", prompt: "f''(x) = 12x² and f'(1) = 5. Find f'(2).", latex: "f''(x) = 12x^2, \\ f'(1) = 5", marks: 4, difficulty: 5,
+    answer: "33", explanation: "f'(x) = 4x³ + C₁; f'(1) = 4 + C₁ = 5 ⇒ C₁ = 1; f'(2) = 32 + 1 = 33." },
+  { id: "y12a-c4-ic-d5-7", prompt: "A particle has velocity v = t² − 4t + 3 and s(0) = 2. Find s(3).", latex: "v = t^2 - 4t + 3, \\ s(0) = 2", marks: 4, difficulty: 5,
+    answer: "2", explanation: "s = t³/3 − 2t² + 3t + 2; s(3) = 9 − 18 + 9 + 2 = 2." },
+  { id: "y12a-c4-ic-d5-8", prompt: "A ball thrown up has acceleration a = −10, v(0) = 20, s(0) = 0. Find its height s at t = 2.", latex: "a = -10, \\ v(0) = 20, \\ s(0) = 0", marks: 4, difficulty: 5,
+    answer: "20", explanation: "v = −10t + 20; s = −5t² + 20t; s(2) = −20 + 40 = 20." },
+  { id: "y12a-c4-ic-d5-9", prompt: "A curve has dy/dx = 6x and passes through (1, 4). Find y when x = 2.", latex: "\\tfrac{dy}{dx} = 6x, \\ (1, 4)", marks: 3, difficulty: 5,
+    answer: "13", explanation: "y = 3x² + C; 3 + C = 4 ⇒ C = 1; y(2) = 12 + 1 = 13." },
+  { id: "y12a-c4-ic-d5-10", prompt: "f''(x) = 2, f'(3) = 4 and f(0) = 1. Find f(2).", latex: "f''(x) = 2, \\ f'(3) = 4, \\ f(0) = 1", marks: 4, difficulty: 5,
+    answer: "1", explanation: "f'(x) = 2x + C₁; f'(3) = 6 + C₁ = 4 ⇒ C₁ = −2; f(x) = x² − 2x + C₂; f(0) = C₂ = 1; f(2) = 4 − 4 + 1 = 1." },
+];
+
 const todo = { d4: [] as TopicTestQuestion[], d5: [] as TopicTestQuestion[] };
 
 export const integralCalculusPool: TopicTestPool = {
@@ -84,8 +136,7 @@ export const integralCalculusPool: TopicTestPool = {
       d4: adD4,
       d5: adD5,
     },
-    { subtopicSlug: "indefinite-integrals-constant-of-integration", subtopicTitle: "Indefinite Integrals and the Constant of Integration", remediationHref: href("indefinite-integrals-constant-of-integration"), ...todo },
-    { subtopicSlug: "initial-conditions-particular-primitive", subtopicTitle: "Initial Conditions and Finding the Particular Primitive", remediationHref: href("initial-conditions-particular-primitive"), ...todo },
+    { subtopicSlug: "initial-conditions-particular-primitive", subtopicTitle: "Initial Conditions and Finding the Particular Primitive", remediationHref: href("initial-conditions-particular-primitive"), d4: icD4, d5: icD5 },
     { subtopicSlug: "standard-integrals", subtopicTitle: "Standard Integrals: Trigonometric, Exponential and Logarithmic Forms", remediationHref: href("standard-integrals"), ...todo },
     { subtopicSlug: "reverse-chain-rule", subtopicTitle: "Reverse Chain Rule and Simple Substitution Forms", remediationHref: href("reverse-chain-rule"), ...todo },
     { subtopicSlug: "definite-integrals-fundamental-theorem", subtopicTitle: "Definite Integrals and the Fundamental Theorem of Calculus", remediationHref: href("definite-integrals-fundamental-theorem"), ...todo },
