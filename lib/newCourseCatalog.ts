@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -486,6 +486,7 @@ export function buildLesson(
     year9SimultaneousEquationsLessonOverride(course, unit, lesson) ??
     year9ProbabilityBLessonOverride(course, unit, lesson) ??
     year9LinearRelationshipsCLessonOverride(course, unit, lesson) ??
+    year10AlgebraWave1LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -4373,9 +4374,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "review-of-algebra",
                                       "title": "1A Review of Algebra",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Collect like terms, multiply and divide algebraic terms, and substitute values into expressions.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "solving-linear-equations",
@@ -4392,8 +4392,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "equations-complex-algebraic-fractions",
                                       "title": "1D Equations with Complex Algebraic Fractions",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Solve linear equations involving algebraic fractions by multiplying through by the lowest common denominator.",
                                       "pathTag": "path"
                               },
                               {
@@ -4441,8 +4440,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "regions-cartesian-plane",
                                       "title": "1L Regions on the Cartesian Plane",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Graph linear inequalities as regions using a solid or dashed boundary line and a test point.",
                                       "pathTag": "path"
                               }
                       ]
@@ -4765,8 +4763,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "completing-the-square-factorising",
                                       "title": "5F Completing the Square (Factorising)",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Rewrite a quadratic x^2 + bx + c in completed-square form by halving the coefficient of x.",
                                       "pathTag": "path"
                               },
                               {
@@ -4778,15 +4775,13 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "quadratic-problems",
                                       "title": "5H Quadratic Problems",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Form and solve quadratic equations from worded problems by factorising.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "solving-completing-the-square",
                                       "title": "5I Solving by Completing the Square",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Solve quadratic equations by completing the square and square-rooting both sides.",
                                       "pathTag": "path"
                               },
                               {
