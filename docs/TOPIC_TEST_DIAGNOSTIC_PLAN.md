@@ -449,8 +449,15 @@ _Ext 1 build status (in progress, one subtopic at a time):_
   remediation targets, not test content).
 
 **Phase 4 — Polish.**
-- Retake variety guarantees, per-subtopic test mode, "weakest-subtopics-only"
-  adaptive test, optional exam-style PDF, analytics on topic-test funnel.
+- ✅ Student entry point: a "Take the topic test" CTA on the shared course unit
+  page (`NewCourseUnitPage` in [app/course/NewCoursePages.tsx](../app/course/NewCoursePages.tsx)),
+  shown only when `getTopicTestPool(courseSlug, unitSlug)` is registered → links
+  to `/topic-test/<course>/<unit>`. Previously topic tests were only reachable
+  from `/exam`. Verified live (renders on Ext1 units, absent on courses without
+  pools, launches the runner).
+- ⬜ Remaining polish: retake variety guarantees, per-subtopic test mode,
+  "weakest-subtopics-only" adaptive test, optional exam-style PDF, analytics on
+  the topic-test funnel.
 
 ---
 
