@@ -462,9 +462,16 @@ they work, and a dedicated CTA was added to the Y12-Adv unit page):_
   Rules; Applications with Extended Differentiation) + a 4-item D6 exam-practice
   band. 84 questions. Verified: tsc/eslint clean, central-difference numerics pass,
   assembles across all 5 subtopics, deterministic reconstruction.
-- ⬜ Remaining 12 Y12 Advanced units (MA-F1/F2, T1/T2/T3, C3/C4, E1, S1/S2,
-  financial, sequences) — user picks the next unit each time. MA-C3 next-cleanest
-  but has merged/duplicate lesson slugs to dedupe.
+- ✅ ma-c3-applications-of-differentiation — complete (registered). 5 skill
+  subtopics at 10 D4 + 10 D5 each (Second Derivative/Concavity/Inflection;
+  Stationary Point Classification; Curve Sketching with Calculus; Optimisation;
+  Kinematics and Rates of Change) + a 5-item D6 exam-practice band. 105 questions.
+  Used the NEWER canonical lesson set (per newCourseCatalog stableSkillIds); the
+  legacy duplicate `optimisation` slug resolves to the live "Optimisation Problems".
+  Authored one subtopic at a time, each audited against the standard and fixed.
+- ⬜ Remaining 11 Y12 Advanced units (MA-F1/F2, T1/T2/T3, C4, E1, S1/S2,
+  financial, sequences) — user picks the next unit each time. MA-C4 Integral
+  Calculus is next-largest (16 lessons, also merged/duplicate slugs to dedupe).
 
 **Phase 4 — Polish.**
 - ✅ Student entry point: a "Take the topic test" CTA on the shared course unit

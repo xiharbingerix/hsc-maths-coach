@@ -258,7 +258,49 @@ const kinD5: TopicTestQuestion[] = [
     answer: "12", explanation: "v = 3t² − 12t = 3t(t − 4); at rest (t > 0) at t = 4; a = 6t − 12; a(4) = 12." },
 ];
 
-const todo = { d4: [] as TopicTestQuestion[], d5: [] as TopicTestQuestion[] };
+// ── Subtopic 6: Applications of Differentiation Exam Practice — D6 ────────────
+// Multi-part Section II-style, each combining ≥2 strands (stationary points,
+// classification, inflection, curve sketching, optimisation, kinematics).
+const examD6: TopicTestQuestion[] = [
+  { id: "y12a-c3-ex-d6-1", prompt: "Consider the curve y = x³ − 3x² − 9x + 5.", latex: "y = x^3 - 3x^2 - 9x + 5", marks: 6, difficulty: 6,
+    explanation: "Stationary points, classification, and the point of inflection.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the larger x-coordinate of the two stationary points.", marks: 2, answer: "3", explanation: "dy/dx = 3(x − 3)(x + 1) = 0 ⇒ x = −1 or 3; larger is 3." },
+      { key: "b", label: "(b)", prompt: "Classify the stationary point at x = −1 (minimum or maximum).", marks: 2, answer: "maximum", acceptedAnswers: ["max"], explanation: "f''(x) = 6x − 6; f''(−1) = −12 < 0, so a maximum." },
+      { key: "c", label: "(c)", prompt: "Find the x-coordinate of the point of inflection.", marks: 2, answer: "1", explanation: "f''(x) = 6x − 6 = 0 ⇒ x = 1." },
+    ] },
+  { id: "y12a-c3-ex-d6-2", prompt: "A rectangle has a perimeter of 24 m; its width is x.", latex: "P = 24, \\text{ width } x", marks: 6, difficulty: 6,
+    explanation: "Set up the area, optimise, and evaluate.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the length when x = 4.", marks: 1, answer: "8", explanation: "Length = 12 − x = 8." },
+      { key: "b", label: "(b)", prompt: "Find the width x that maximises the area.", marks: 2, answer: "6", explanation: "A = x(12 − x); A' = 12 − 2x = 0 ⇒ x = 6." },
+      { key: "c", label: "(c)", prompt: "Find the maximum area (m²).", marks: 2, answer: "36", explanation: "A(6) = 6 × 6 = 36." },
+      { key: "d", label: "(d)", prompt: "Find the area when x = 4 (m²).", marks: 1, answer: "32", explanation: "A(4) = 4 × 8 = 32." },
+    ] },
+  { id: "y12a-c3-ex-d6-3", prompt: "A particle has displacement s = t³ − 6t² + 9t (t ≥ 0).", latex: "s = t^3 - 6t^2 + 9t", marks: 6, difficulty: 6,
+    explanation: "Velocity, at-rest times, acceleration, and displacement.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find the initial velocity (at t = 0).", marks: 1, answer: "9", explanation: "v = 3t² − 12t + 9; v(0) = 9." },
+      { key: "b", label: "(b)", prompt: "Find the earliest time the particle is at rest.", marks: 2, answer: "1", explanation: "v = 3(t − 1)(t − 3) = 0 ⇒ t = 1 or 3; earliest is 1." },
+      { key: "c", label: "(c)", prompt: "Find the acceleration at t = 3.", marks: 1, answer: "6", explanation: "a = 6t − 12; a(3) = 6." },
+      { key: "d", label: "(d)", prompt: "Find the displacement at the first time it is at rest.", marks: 2, answer: "4", explanation: "s(1) = 1 − 6 + 9 = 4." },
+    ] },
+  { id: "y12a-c3-ex-d6-4", prompt: "Consider the curve y = x³ − 12x.", latex: "y = x^3 - 12x", marks: 6, difficulty: 6,
+    explanation: "Intercepts, the local maximum, and inflection — a full sketch analysis.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "How many x-intercepts does the curve have?", marks: 1, answer: "3", explanation: "x(x² − 12) = 0 ⇒ x = 0, ±√12: three." },
+      { key: "b", label: "(b)", prompt: "Find the x-coordinate of the local maximum.", marks: 2, answer: "-2", acceptedAnswers: ["−2"], explanation: "dy/dx = 3x² − 12 = 0 ⇒ x = ±2; the maximum is at x = −2." },
+      { key: "c", label: "(c)", prompt: "Find the local maximum value.", marks: 2, answer: "16", explanation: "y(−2) = −8 + 24 = 16." },
+      { key: "d", label: "(d)", prompt: "How many points of inflection does the curve have?", marks: 1, answer: "1", explanation: "f''(x) = 6x = 0 at x = 0 (one)." },
+    ] },
+  { id: "y12a-c3-ex-d6-5", prompt: "An open-top box has a square base of side x and height h, with volume 500 cm³.", latex: "x^2 h = 500, \\ S = x^2 + 4xh", marks: 6, difficulty: 6,
+    explanation: "Eliminate h, minimise surface area, and evaluate.",
+    parts: [
+      { key: "a", label: "(a)", prompt: "Find h when x = 10.", marks: 1, answer: "5", explanation: "h = 500/x² = 500/100 = 5." },
+      { key: "b", label: "(b)", prompt: "Find the base side x that minimises the surface area S = x² + 2000/x.", marks: 3, answer: "10", explanation: "S' = 2x − 2000/x² = 0 ⇒ x³ = 1000 ⇒ x = 10." },
+      { key: "c", label: "(c)", prompt: "Find the minimum surface area (cm²).", marks: 2, answer: "300", explanation: "S(10) = 100 + 2000/10 = 100 + 200 = 300." },
+    ] },
+];
 
 export const applicationsDifferentiationPool: TopicTestPool = {
   courseSlug: "year-12-advanced",
@@ -307,7 +349,7 @@ export const applicationsDifferentiationPool: TopicTestPool = {
       remediationHref: href("applications-differentiation-exam-practice"),
       d4: [],
       d5: [],
-      d6: [],
+      d6: examD6,
     },
   ],
 };
