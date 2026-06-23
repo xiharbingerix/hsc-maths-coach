@@ -123,6 +123,16 @@ import {
   fracIndicesY9Challenge,
   surdsOpsY9Challenge,
 } from "./year9Chapter6";
+import {
+  anglesTriY9Challenge,
+  parallelLinesY9Challenge,
+  polygonsY9Challenge,
+  congruentY9Challenge,
+  congProofY9Challenge,
+  enlargementY9Challenge,
+  similarTriY9Challenge,
+  provingSimilarY9Challenge,
+} from "./year9Chapter7";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -329,6 +339,24 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/fractional-indices-surds": fracIndicesY9Challenge,
   "year-9-mathematics/operations-with-surds": surdsOpsY9Challenge,
   "year-9-mathematics-advanced/operations-with-surds": surdsOpsY9Challenge,
+  // Year 9 Wave 8 — Chapter 7 (Properties of Geometrical Figures). consolidating → Core only;
+  // core → all 3; path → base + advanced.
+  "year-9-mathematics-core/angles-and-triangles": anglesTriY9Challenge,
+  "year-9-mathematics-core/parallel-lines": parallelLinesY9Challenge,
+  "year-9-mathematics/quadrilaterals-polygons": polygonsY9Challenge,
+  "year-9-mathematics-advanced/quadrilaterals-polygons": polygonsY9Challenge,
+  "year-9-mathematics/congruent-triangles": congruentY9Challenge,
+  "year-9-mathematics-advanced/congruent-triangles": congruentY9Challenge,
+  "year-9-mathematics/congruence-in-proof": congProofY9Challenge,
+  "year-9-mathematics-advanced/congruence-in-proof": congProofY9Challenge,
+  "year-9-mathematics/enlargement-similar-figures": enlargementY9Challenge,
+  "year-9-mathematics-core/enlargement-similar-figures": enlargementY9Challenge,
+  "year-9-mathematics-advanced/enlargement-similar-figures": enlargementY9Challenge,
+  "year-9-mathematics/similar-triangles": similarTriY9Challenge,
+  "year-9-mathematics-core/similar-triangles": similarTriY9Challenge,
+  "year-9-mathematics-advanced/similar-triangles": similarTriY9Challenge,
+  "year-9-mathematics/proving-similar-triangles": provingSimilarY9Challenge,
+  "year-9-mathematics-advanced/proving-similar-triangles": provingSimilarY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
