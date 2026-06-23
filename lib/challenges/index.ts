@@ -51,6 +51,20 @@ import {
   gradientY9Challenge,
   circleY9Challenge,
 } from "./year9Wave1";
+import {
+  integersY9Challenge,
+  rationalY9Challenge,
+  fractionsY9Challenge,
+  ratiosY9Challenge,
+  percentagesY9Challenge,
+  incDecY9Challenge,
+  profitsY9Challenge,
+  roundingY9Challenge,
+  incomeY9Challenge,
+  taxY9Challenge,
+  compoundDepY9Challenge,
+  compoundFormulaY9Challenge,
+} from "./year9Chapter1";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -111,6 +125,30 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-core/gradient": gradientY9Challenge,
   "year-9-mathematics-advanced/gradient": gradientY9Challenge,
   "year-9-mathematics-core/circle-circumference-sector-perimeter": circleY9Challenge,
+  // Year 9 Wave 2 — Chapter 1 (Computation & Financial Maths). Core-tagged sections appear in all
+  // three derived courses; consolidating sections appear only in the Core pathway.
+  "year-9-mathematics/decimal-places-significant-figures": roundingY9Challenge,
+  "year-9-mathematics-core/decimal-places-significant-figures": roundingY9Challenge,
+  "year-9-mathematics-advanced/decimal-places-significant-figures": roundingY9Challenge,
+  "year-9-mathematics/income": incomeY9Challenge,
+  "year-9-mathematics-core/income": incomeY9Challenge,
+  "year-9-mathematics-advanced/income": incomeY9Challenge,
+  "year-9-mathematics/payg-income-tax": taxY9Challenge,
+  "year-9-mathematics-core/payg-income-tax": taxY9Challenge,
+  "year-9-mathematics-advanced/payg-income-tax": taxY9Challenge,
+  "year-9-mathematics/compound-interest-depreciation": compoundDepY9Challenge,
+  "year-9-mathematics-core/compound-interest-depreciation": compoundDepY9Challenge,
+  "year-9-mathematics-advanced/compound-interest-depreciation": compoundDepY9Challenge,
+  "year-9-mathematics/compound-interest-formula": compoundFormulaY9Challenge,
+  "year-9-mathematics-core/compound-interest-formula": compoundFormulaY9Challenge,
+  "year-9-mathematics-advanced/compound-interest-formula": compoundFormulaY9Challenge,
+  "year-9-mathematics-core/computations-with-integers": integersY9Challenge,
+  "year-9-mathematics-core/rational-numbers": rationalY9Challenge,
+  "year-9-mathematics-core/computation-with-fractions": fractionsY9Challenge,
+  "year-9-mathematics-core/ratios-rates-best-buys": ratiosY9Challenge,
+  "year-9-mathematics-core/percentages-and-money": percentagesY9Challenge,
+  "year-9-mathematics-core/percentage-increase-decrease": incDecY9Challenge,
+  "year-9-mathematics-core/profits-and-discounts": profitsY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
