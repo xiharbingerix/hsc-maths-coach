@@ -11,6 +11,8 @@ export { year9Chapter3TrigApplicationsLessonOverride } from "./chapter3TrigAppli
 export { year9Chapter4GraphingLessonOverride } from "./chapter4Graphing";
 export { year9Chapter4EquationsLessonOverride } from "./chapter4Equations";
 export { year9Chapter4GeometryLessonOverride } from "./chapter4Geometry";
+export { year9Chapter5MeasurementLessonOverride } from "./chapter5Measurement";
+export { year9Chapter5SolidsLessonOverride } from "./chapter5Solids";
 export { year9IndexLawsLessonOverride } from "./indexLaws";
 export { year9FinancialMathematicsLessonOverride } from "./financialMathematics";
 export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChange";
