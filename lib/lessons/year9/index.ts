@@ -1,4 +1,7 @@
 export { year9Wave1ValidationLessonOverride } from "./wave1Validation";
+export { year9Chapter1NumberLessonOverride } from "./chapter1Number";
+export { year9Chapter1PercentagesLessonOverride } from "./chapter1Percentages";
+export { year9Chapter1FinanceLessonOverride } from "./chapter1Finance";
 export { year9IndexLawsLessonOverride } from "./indexLaws";
 export { year9FinancialMathematicsLessonOverride } from "./financialMathematics";
 export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChange";
