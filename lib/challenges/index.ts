@@ -76,7 +76,9 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   // Year 11 Advanced
   "quadratic-equations-discriminant": discriminantChallenge,
   "completing-the-square": completingSquareChallenge,
-  "algebraic-techniques": surdsIndicesChallenge,
+  // Y10 restructure: algebraic-techniques unit dissolved; surds/indices challenge now keyed
+  // to the live surds lesson it best matches (simplify/combine surds + fractional indices).
+  "adding-subtracting-surds": surdsIndicesChallenge,
   // Year 11 Standard
   "simple-interest": simpleInterestChallenge,
   "speed-distance-time": speedDistanceTimeChallenge,
