@@ -4192,173 +4192,215 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       "A Year 9 Stage 5 foundation pathway based on the NSW Mathematics Kâ€“10 Syllabus and guided by the NSW Stage 5 sample scope and sequence. It prepares students for the completed Year 10 Mathematics course.",
     units: [
       {
-        slug: "geometrical-representations",
-        title: "Geometrical Representations",
+        slug: "computation-financial-maths",
+        title: "Computation and Financial Maths",
         description:
-          "Use similarity, ratio, scale factors and geometric representations to compare shapes and diagrams.",
+          "Computation with integers, fractions, ratios and percentages, then income, tax, simple and compound interest.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Numerical fluency and practical financial mathematics for Stage 5.",
+        lessons: [
+        { slug: "computations-with-integers", title: "Computations with Integers", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "decimal-places-significant-figures", title: "Decimal Places and Significant Figures", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "rational-numbers", title: "Rational Numbers", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "computation-with-fractions", title: "Computation with Fractions", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "ratios-rates-best-buys", title: "Ratios, Rates and Best Buys", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "percentages-and-money", title: "Percentages and Money", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "percentage-increase-decrease", title: "Percentage Increase and Decrease", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "profits-and-discounts", title: "Profits and Discounts", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "income", title: "Income", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "payg-income-tax", title: "The PAYG Income Tax System", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "simple-interest", title: "Simple Interest", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "compound-interest-depreciation", title: "Compound Interest and Depreciation", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "compound-interest-formula", title: "Using a Formula for Compound Interest and Depreciation", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        ],
+      },
+      {
+        slug: "expressions-equations-inequalities",
+        title: "Expressions, Equations and Inequalities",
+        description:
+          "Algebraic expressions, linear equations and inequalities, formulas, simultaneous equations and simple quadratics.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Core algebra and equation-solving with Path extensions to simultaneous and quadratic equations.",
+        lessons: [
+        { slug: "algebraic-expressions", title: "Algebraic Expressions", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "simplifying-algebraic-expressions", title: "Simplifying Algebraic Expressions", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "expanding-algebraic-expressions", title: "Expanding Algebraic Expressions", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "linear-equations-one-side", title: "Linear Equations with Pronumerals on One Side", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "linear-equations-both-sides", title: "Linear Equations with Brackets and Pronumerals on Both Sides", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "solving-word-problems", title: "Solving Word Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "linear-inequalities", title: "Linear Inequalities", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "using-formulas", title: "Using Formulas", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "simultaneous-substitution", title: "Linear Simultaneous Equations: Substitution", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "simultaneous-elimination", title: "Linear Simultaneous Equations: Elimination", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "simultaneous-equations-problems", title: "Using Linear Simultaneous Equations to Solve Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "quadratic-equations-ax2-c", title: "Quadratic Equations of the Form ax^2 = c", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        ],
+      },
+      {
+        slug: "pythagoras-trigonometry",
+        title: "Right-Angled Triangles: Pythagoras and Trigonometry",
+        description:
+          "Pythagoras' theorem in 2D and 3D, then the trigonometric ratios for sides, angles, applications and bearings.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Build proportional reasoning, scale and geometric representation skills needed for Year 10 geometry and measurement.",
+          "Right-angled triangle measurement and trigonometry.",
         lessons: [
-          { slug: "similar-figures", title: "Similar Figures" },
-          { slug: "ratio-scale-factors", title: "Ratio and Scale Factors" },
-          { slug: "scale-drawings", title: "Scale Drawings" },
-          { slug: "geometric-representations", title: "Geometric Representations" },
-          { slug: "networks-introduction", title: "Introduction to Networks" },
+        { slug: "pythagoras-theorem", title: "Pythagoras' Theorem", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "pythagoras-shorter-sides", title: "Finding the Length of the Shorter Sides", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "pythagoras-2d-problems", title: "Using Pythagoras' Theorem to Solve Two-Dimensional Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "pythagoras-3d-problems", title: "Using Pythagoras' Theorem to Solve Three-Dimensional Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "introducing-trigonometric-ratios", title: "Introducing the Trigonometric Ratios", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "finding-unknown-side-lengths", title: "Finding Unknown Side Lengths", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "solving-for-the-denominator", title: "Solving for the Denominator", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "finding-unknown-angles", title: "Finding Unknown Angles", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "trigonometry-applications", title: "Using Trigonometry to Solve Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "bearings", title: "Bearings", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         ],
       },
       {
-        slug: "working-with-triangles",
-        title: "Working with Triangles",
+        slug: "linear-relationships",
+        title: "Linear Relationships",
         description:
-          "Use Pythagoras, right-triangle trigonometry and coordinate geometry to solve triangle and distance problems.",
+          "Graphing straight lines, gradient, gradient-intercept form, midpoint and length, and linear modelling.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Coordinate geometry and linear relationships, with Path extensions.",
+        lessons: [
+        { slug: "introducing-linear-relationships", title: "Introducing Linear Relationships", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "graphing-lines-using-intercepts", title: "Graphing Straight Lines Using Intercepts", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "lines-with-one-intercept", title: "Lines with One Intercept", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "gradient", title: "Gradient", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "gradient-direct-proportion", title: "Gradient and Direct Proportion", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "gradient-intercept-form", title: "Gradient-Intercept Form", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "finding-equation-of-a-line", title: "Finding the Equation of a Line Using y = mx + c", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "midpoint-length-segment", title: "Midpoint and Length of a Line Segment from Diagrams", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "perpendicular-parallel-lines", title: "Perpendicular Lines and Parallel Lines", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "linear-modelling", title: "Linear Modelling", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "graphical-solutions-simultaneous", title: "Graphical Solutions to Simultaneous Equations", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        ],
+      },
+      {
+        slug: "length-area-surface-area-volume",
+        title: "Length, Area, Surface Area and Volume",
+        description:
+          "Perimeter, area and composite shapes, then surface area and volume of prisms, pyramids and cylinders.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Prepare for Year 10 trigonometry, bearings, elevation and coordinate geometry.",
+          "Measurement of 2D shapes and 3D solids.",
         lessons: [
-          { slug: "pythagoras-hypotenuse", title: "Pythagoras: Finding the Hypotenuse" },
-          { slug: "pythagoras-shorter-side", title: "Pythagoras: Finding a Shorter Side" },
-          { slug: "right-triangle-applications", title: "Right-Triangle Applications" },
-          { slug: "trigonometric-ratios", title: "Trigonometric Ratios" },
-          { slug: "finding-sides-right-triangles", title: "Finding Sides in Right Triangles" },
-          { slug: "finding-angles-right-triangles", title: "Finding Angles in Right Triangles" },
-          { slug: "midpoint-distance-coordinate", title: "Midpoint and Distance on the Cartesian Plane" },
-          { slug: "gradient-foundations", title: "Gradient Foundations" },
+        { slug: "length-and-perimeter", title: "Length and Perimeter", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "circle-circumference-sector-perimeter", title: "Circle Circumference and Perimeter of a Sector", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "area", title: "Area", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "composite-shapes-perimeter-area", title: "Perimeter and Area of Composite Shapes", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "surface-area-prisms-pyramids", title: "Surface Area of Prisms and Pyramids", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "surface-area-cylinders", title: "Surface Area of Cylinders", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "volume-prisms", title: "Volume of Prisms", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "volume-cylinders", title: "Volume of Cylinders", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         ],
       },
       {
-        slug: "prisms-and-cylinders",
-        title: "Prisms and Cylinders",
+        slug: "indices-surds",
+        title: "Indices and Surds",
         description:
-          "Calculate area, surface area and volume for prisms, cylinders and composite solids.",
+          "Index notation and laws, the zero and negative indices, scientific notation, and an introduction to surds.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Index laws and surds, with Path extensions to fractional indices and surd operations.",
+        lessons: [
+        { slug: "index-notation", title: "Index Notation", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "index-laws-multiplying-dividing", title: "Index Laws for Multiplying and Dividing", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "zero-index-power-of-power", title: "The Zero Index and Power of a Power", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "index-laws-extended", title: "Index Laws Extended", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "negative-indices", title: "Negative Indices", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "scientific-notation", title: "Scientific Notation", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "scientific-notation-significant-figures", title: "Scientific Notation Using Significant Figures", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "fractional-indices-surds", title: "Fractional Indices and Surds", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "operations-with-surds", title: "Simple Operations with Surds", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        ],
+      },
+      {
+        slug: "properties-geometrical-figures",
+        title: "Properties of Geometrical Figures",
+        description:
+          "Angles, parallel lines, polygons, congruent and similar triangles, and geometric proof.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Develop measurement fluency for Year 10 surface area, volume and similarity.",
+          "Geometric reasoning, congruence and similarity.",
         lessons: [
-          { slug: "perimeter-area-review", title: "Perimeter and Area Review" },
-          { slug: "composite-area", title: "Composite Area" },
-          { slug: "surface-area-prisms", title: "Surface Area of Prisms" },
-          { slug: "surface-area-cylinders", title: "Surface Area of Cylinders" },
-          { slug: "volume-prisms", title: "Volume of Prisms" },
-          { slug: "volume-cylinders", title: "Volume of Cylinders" },
-          { slug: "composite-solids", title: "Composite Solids" },
+        { slug: "angles-and-triangles", title: "Angles and Triangles", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "parallel-lines", title: "Parallel Lines", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "quadrilaterals-polygons", title: "Quadrilaterals and Other Polygons", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "congruent-triangles", title: "Congruent Triangles", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "congruence-in-proof", title: "Using Congruence in Proof", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "enlargement-similar-figures", title: "Enlargement and Similar Figures", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "similar-triangles", title: "Similar Triangles", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "proving-similar-triangles", title: "Proving and Applying Similar Triangles", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         ],
       },
       {
-        slug: "index-laws",
-        title: "Index Laws",
+        slug: "quadratic-expressions-algebraic-techniques",
+        title: "Quadratic Expressions and Algebraic Techniques",
         description:
-          "Work with positive, zero and simple negative indices, and use scientific notation for large and small numbers.",
+          "Expanding binomial products, factorising quadratics, and operating with algebraic fractions.",
         syllabusArea: "Number and Algebra",
         focus:
-          "Strengthen algebraic fluency before Year 10 algebra and non-linear relationships.",
+          "Path-level quadratic and algebraic-fraction techniques.",
         lessons: [
-          { slug: "index-notation", title: "Index Notation" },
-          { slug: "multiplying-dividing-powers", title: "Multiplying and Dividing Powers" },
-          { slug: "power-of-a-power", title: "Power of a Power" },
-          { slug: "zero-index", title: "Zero Index" },
-          { slug: "numerical-negative-indices", title: "Numerical Negative Indices" },
-          { slug: "scientific-notation", title: "Scientific Notation" },
-          { slug: "magnitude-and-rounding", title: "Magnitude and Rounding" },
+        { slug: "expanding-binomial-products", title: "Expanding Binomial Products", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "perfect-squares-difference-of-squares", title: "Perfect Squares and Difference of Two Squares", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-algebraic-expressions", title: "Factorising Algebraic Expressions", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-difference-of-squares", title: "Factorising the Difference of Two Squares", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-by-grouping", title: "Factorising by Grouping in Pairs", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-monic-trinomials", title: "Factorising Monic Quadratic Trinomials", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-non-monic-trinomials", title: "Factorising Non-Monic Quadratic Trinomials", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "simplifying-algebraic-fractions-multiply-divide", title: "Simplifying Algebraic Fractions: Multiplication and Division", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "simplifying-algebraic-fractions-add-subtract", title: "Simplifying Algebraic Fractions: Addition and Subtraction", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "further-add-subtract-algebraic-fractions", title: "Further Addition and Subtraction of Algebraic Fractions", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "equations-with-algebraic-fractions", title: "Equations Involving Algebraic Fractions", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         ],
       },
       {
-        slug: "algebraic-techniques",
-        title: "Algebraic Techniques",
+        slug: "probability-data-analysis",
+        title: "Probability and Single Variable Data Analysis",
         description:
-          "Apply the four operations to algebraic fractions with numerical denominators, expand expressions using the distributive law including negative coefficients, and expand binomial products.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Build algebraic fluency with fractions and expansion as a foundation for equations, linear relationships and senior algebra.",
-        lessons: [
-          { slug: "algebraic-fractions-add-subtract", title: "Adding and Subtracting Algebraic Fractions" },
-          { slug: "algebraic-fractions-multiply-divide", title: "Multiplying and Dividing Algebraic Fractions" },
-          { slug: "expanding-expressions", title: "Expanding Algebraic Expressions" },
-        ],
-      },
-      {
-        slug: "equations",
-        title: "Equations",
-        description:
-          "Solve linear equations of up to three steps, including equations with the variable on both sides and equations containing one algebraic fraction.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Develop equation-solving fluency needed for Year 10 simultaneous equations, quadratics and modelling.",
-        lessons: [
-          { slug: "linear-equations-two-step", title: "Solving Two-Step Equations" },
-          { slug: "linear-equations-three-step", title: "Solving Three-Step Equations" },
-          { slug: "equations-with-fractions", title: "Equations with Algebraic Fractions" },
-        ],
-      },
-      {
-        slug: "financial-mathematics",
-        title: "Financial Mathematics",
-        description:
-          "Calculate earnings, spending, tax, net earnings and simple interest in practical contexts.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Build practical financial mathematics before Year 10 compound interest, depreciation and comparisons.",
-        lessons: [
-          { slug: "wages-and-earnings", title: "Wages and Earnings" },
-          { slug: "penalty-rates-overtime", title: "Penalty Rates and Overtime" },
-          { slug: "non-wage-earnings", title: "Non-Wage Earnings" },
-          { slug: "tax-and-net-earnings", title: "Tax and Net Earnings" },
-          { slug: "spending-and-budgets", title: "Spending and Budgets" },
-          { slug: "simple-interest", title: "Simple Interest" },
-          { slug: "deposits-and-repayments", title: "Deposits and Repayments" },
-          { slug: "buy-now-pay-later-loans", title: "Buy Now Pay Later and Short-Term Loans" },
-        ],
-      },
-      {
-        slug: "constant-rates-of-change",
-        title: "Constant Rates of Change",
-        description:
-          "Connect linear relationships, gradient, graphing and constant rates of change.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Prepare for Year 10 linear relationships and modelling.",
-        lessons: [
-          { slug: "cartesian-plane-review", title: "Cartesian Plane Review" },
-          { slug: "tables-rules-and-graphs", title: "Tables, Rules and Graphs" },
-          { slug: "gradient-from-points", title: "Gradient from Points" },
-          { slug: "gradient-intercept-form", title: "Gradient-Intercept Form" },
-          { slug: "parallel-lines-foundations", title: "Parallel Lines Foundations" },
-          { slug: "distance-time-graphs", title: "Distance-Time Graphs" },
-          { slug: "linear-modelling", title: "Linear Modelling" },
-        ],
-      },
-      {
-        slug: "making-predictions",
-        title: "Making Predictions",
-        description:
-          "Use sample spaces, multi-stage probability, dependent and independent events, and simulations to make predictions.",
+          "Probability with Venn diagrams, set notation, arrays and tree diagrams, then data displays and measures of spread.",
         syllabusArea: "Statistics and Probability",
         focus:
-          "Prepare for Year 10 probability, tree diagrams, Venn diagrams and conditional probability.",
+          "Probability and single-variable statistics.",
         lessons: [
-          { slug: "simple-complementary-events", title: "Simple and Complementary Events" },
-          { slug: "sample-spaces", title: "Sample Spaces" },
-          { slug: "multi-stage-events", title: "Multi-Stage Events" },
-          { slug: "independent-events", title: "Independent Events" },
-          { slug: "dependent-events", title: "Dependent Events" },
-          { slug: "probability-simulations", title: "Probability Simulations" },
+        { slug: "review-of-probability", title: "Review of Probability", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "venn-diagrams-two-way-tables", title: "Venn Diagrams and Two-Way Tables", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "using-set-notation", title: "Using Set Notation", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "arrays-two-step-experiments", title: "Using Arrays for Two-Step Experiments", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "tree-diagrams", title: "Using Tree Diagrams", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "relative-frequencies", title: "Using Relative Frequencies to Estimate Probabilities", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "data-and-sampling", title: "Data and Sampling", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "mean-median-mode", title: "Mean, Median and Mode", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "stem-and-leaf-plots", title: "Stem-and-Leaf Plots", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "grouping-data-into-classes", title: "Grouping Data into Classes", description: "(Interim placeholder - not yet authored.)", pathTag: "extending", showInCourseNav: false },
+        { slug: "range-interquartile-range", title: "Measures of Spread: Range and Interquartile Range", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "box-plots", title: "Box Plots", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         ],
       },
       {
-        slug: "making-decisions",
-        title: "Making Decisions",
+        slug: "quadratic-equations-parabolas",
+        title: "Quadratic Equations and Graphs of Parabolas",
         description:
-          "Use data summaries, quartiles, box plots and standard deviation to compare groups and make decisions.",
-        syllabusArea: "Statistics and Probability",
+          "Solving quadratic equations by factorising and sketching parabolas with dilations, reflections and translations.",
+        syllabusArea: "Number and Algebra",
         focus:
-          "Prepare for Year 10 statistics, IQR, box plots, spread and data-based reasoning.",
+          "Path-level quadratic equations and parabola graphing.",
         lessons: [
-          { slug: "mean-median-mode-range-review", title: "Mean, Median, Mode and Range Review" },
-          { slug: "quartiles-iqr", title: "Quartiles and Interquartile Range" },
-          { slug: "box-plots", title: "Box Plots" },
-          { slug: "comparing-data-sets", title: "Comparing Data Sets" },
-          { slug: "standard-deviation-introduction", title: "Standard Deviation Introduction" },
-          { slug: "data-based-decisions", title: "Data-Based Decisions" },
+        { slug: "quadratic-equations", title: "Quadratic Equations", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "solving-quadratics-factorising-basic", title: "Solving ax^2 + bx = 0 and x^2 - d = 0 by Factorising", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "solving-quadratics-factorising", title: "Solving x^2 + bx + c = 0 by Factorising", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "quadratic-equations-problems", title: "Using Quadratic Equations to Solve Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "the-parabola", title: "The Parabola", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "sketching-dilations-reflections", title: "Sketching y = ax^2 with Dilations and Reflections", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "sketching-translations", title: "Sketching Translations of y = x^2", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "sketching-parabolas-intercept-form", title: "Sketching Parabolas Using Intercept Form", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         ],
       },
     ],
@@ -5993,159 +6035,16 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       })),
     }));
 
-  // Year 9 Core trims working-with-triangles to Pythagoras + Stage 5.2 trig (lessons 1–3).
-  // The three trig-* slugs are Core-only and are not in the base unit, so we build the
-  // lesson list explicitly rather than filtering from year9Base.
-  const year9CoreTriangleLessons: CourseLessonSeed[] = [
-    { slug: "pythagoras-hypotenuse", title: "Pythagoras: Finding the Hypotenuse" },
-    { slug: "pythagoras-shorter-side", title: "Pythagoras: Finding a Shorter Side" },
-    { slug: "right-triangle-applications", title: "Right-Triangle Applications" },
-    { slug: "trig-naming-sides", title: "Naming Sides of a Right Triangle" },
-    { slug: "trig-ratios-intro", title: "The Trig Ratios: SOH-CAH-TOA" },
-    { slug: "trig-finding-sides-multiply", title: "Finding Sides (Multiply Step)" },
-    { slug: "trig-finding-sides-divide", title: "Finding Sides (Divide Step)" },
-    { slug: "trig-choosing-ratio", title: "Choosing the Right Ratio" },
-    { slug: "trig-finding-angles", title: "Finding Unknown Angles" },
-    { slug: "trig-applications", title: "Trig in Practical Contexts" },
-    { slug: "trig-elevation-depression", title: "Angles of Elevation and Depression" },
-    { slug: "trig-bearings", title: "Bearings" },
-  ];
-  const year9CoreUnits: CourseUnitSeed[] = year9Base.units.flatMap((u) => {
-    if (u.slug === "working-with-triangles") {
-      return [{ ...u, title: "Trigonometry", lessons: year9CoreTriangleLessons }];
-    }
-    if (u.slug === "index-laws") {
-      const indicesLessons = u.lessons.filter(
-        (l) => !["scientific-notation", "magnitude-and-rounding"].includes(l.slug)
-      );
-      const magnitudeLessons = u.lessons.filter(
-        (l) => ["scientific-notation", "magnitude-and-rounding"].includes(l.slug)
-      );
-      return [
-        { ...u, title: "Indices", lessons: indicesLessons },
-        {
-          slug: "numbers-of-any-magnitude",
-          title: "Numbers of Any Magnitude",
-          description:
-            "Use scientific notation to represent and compare very large and very small numbers, and round to a given number of significant figures.",
-          syllabusArea: "Number and Algebra",
-          focus: "Apply scientific notation and significant figures to solve measurement problems.",
-          lessons: magnitudeLessons,
-        },
-      ];
-    }
-    if (u.slug === "financial-mathematics") {
-      return [{ ...u, title: "Earning and Making Money" }];
-    }
-    if (u.slug === "constant-rates-of-change") {
-      // distance-time-graphs is Variation A (MA5-RAT-P-01) — PATH only, not Core
-      return [{ ...u, title: "Linear Relationships", lessons: u.lessons.filter((l) => l.slug !== "distance-time-graphs") }];
-    }
-    if (u.slug === "prisms-and-cylinders") {
-      return [{ ...u, title: "Area, Surface Area and Volume" }];
-    }
-    if (u.slug === "making-predictions") {
-      return [{ ...u, title: "Probability" }];
-    }
-    if (u.slug === "making-decisions") {
-      return [{ ...u, title: "Data Analysis" }];
-    }
-    if (u.slug === "geometrical-representations") {
-      // geometric-representations (plans/nets) and networks-introduction are not in MA5-GEO-C-01 Core scope
-      return [{ ...u, title: "Properties of Geometrical Figures", lessons: u.lessons.filter((l) => ["similar-figures", "ratio-scale-factors", "scale-drawings"].includes(l.slug)) }];
-    }
-    return [u];
-  });
-
-  const year9AdvancedUnits: CourseUnitSeed[] = [
-    ...year9Base.units.flatMap((u) => {
-      if (u.slug === "financial-mathematics") {
-        return [{ ...u, title: "Earning and Making Money" }];
-      }
-      if (u.slug === "constant-rates-of-change") {
-        // distance-time-graphs belongs in the variation-rates Advanced unit
-        return [{ ...u, title: "Linear Relationships", lessons: u.lessons.filter((l) => l.slug !== "distance-time-graphs") }];
-      }
-      if (u.slug === "prisms-and-cylinders") {
-        return [{ ...u, title: "Area, Surface Area and Volume" }];
-      }
-      if (u.slug === "making-predictions") {
-        return [{ ...u, title: "Probability" }];
-      }
-      if (u.slug === "making-decisions") {
-        return [{ ...u, title: "Data Analysis" }];
-      }
-      if (u.slug === "working-with-triangles") {
-        return [{ ...u, title: "Trigonometry" }];
-      }
-      if (u.slug === "index-laws") {
-        return [{ ...u, title: "Indices" }];
-      }
-      if (u.slug === "geometrical-representations") {
-        return [{ ...u, title: "Properties of Geometrical Figures" }];
-      }
-      return [u];
-    }),
-    {
-      slug: "equations-b",
-      title: "Quadratic and Cubic Equations",
-      description: "Solve monic quadratic equations by factorising, linear inequalities, and cubic equations of the form ax³ = k.",
-      syllabusArea: "Number and Algebra",
-      focus: "Develop fluency solving a broader range of equations including quadratics, inequalities and cubics.",
-      lessons: [
-        { slug: "quadratic-equations-factorise", title: "Solving Monic Quadratic Equations by Factorising" },
-        { slug: "linear-inequalities", title: "Solving Linear Inequalities" },
-        { slug: "cubic-equations", title: "Solving Cubic Equations of the Form ax³ = k" },
-      ],
-    },
-    {
-      slug: "variation-rates",
-      title: "Variation and Rates",
-      description: "Solve problems involving ratios and rates, analyse distance-time graphs, and recognise direct variation.",
-      syllabusArea: "Number and Algebra",
-      focus: "Apply proportional reasoning and rate concepts to interpret and solve real-world problems.",
-      lessons: [
-        { slug: "ratios-and-rates", title: "Ratios and Rates" },
-        { slug: "distance-time-graphs", title: "Distance-Time Graphs" },
-        { slug: "direct-variation", title: "Direct Variation" },
-      ],
-    },
-    {
-      slug: "simultaneous-equations",
-      title: "Simultaneous Equations",
-      description: "Solve linear simultaneous equations graphically and algebraically using substitution and elimination methods.",
-      syllabusArea: "Number and Algebra",
-      focus: "Choose efficient algebraic methods to solve systems of two linear equations.",
-      lessons: [
-        { slug: "simultaneous-equations-graphical", title: "Solving Simultaneous Equations Graphically" },
-        { slug: "simultaneous-equations-substitution", title: "Solving Simultaneous Equations by Substitution" },
-        { slug: "simultaneous-equations-elimination", title: "Solving Simultaneous Equations by Elimination" },
-      ],
-    },
-    {
-      slug: "probability-b",
-      title: "Probability B",
-      description: "Solve probability problems using Venn diagrams, two-way tables and conditional probability.",
-      syllabusArea: "Probability and Statistics",
-      focus: "Extend probability to multi-event scenarios using set notation, tables and conditional reasoning.",
-      lessons: [
-        { slug: "venn-diagrams", title: "Venn Diagrams and Set Notation" },
-        { slug: "two-way-tables", title: "Two-Way Tables" },
-        { slug: "conditional-probability", title: "Conditional Probability" },
-      ],
-    },
-    {
-      slug: "linear-relationships-c",
-      title: "Linear Relationships C",
-      description: "Find equations of lines in multiple forms and identify parallel and perpendicular lines.",
-      syllabusArea: "Number and Algebra",
-      focus: "Apply gradient and equation concepts to describe, compare and find equations of lines in context.",
-      lessons: [
-        { slug: "equations-of-lines", title: "Equations of Lines" },
-        { slug: "parallel-perpendicular-lines", title: "Parallel and Perpendicular Lines" },
-      ],
-    },
-  ];
+  // Year 9 Core/Advanced derive from the single tagged base via the shared pathTag filters
+  // (ADR-Y9-001), replacing the bespoke trim/extra-unit logic. assertPathTagTotality (G6) fails
+  // the build if any base section is missing a pathTag. Year 9 carries no stableSkillId/checkpoint
+  // yet (minted during authoring waves), so no skill-id namespacing is required here.
+  assertPathTagTotality(year9Base.units, "year-9-mathematics");
+  const year9CoreUnits: CourseUnitSeed[] = derivePathwayUnits(year9Base.units, "core");
+  const year9AdvancedUnits: CourseUnitSeed[] = derivePathwayUnits(year9Base.units, "advanced");
+  // The base pathway (year-9-mathematics) shows core + path (no extending / consolidating),
+  // mirroring Year 10. Reassigned AFTER core/advanced are derived from the full tagged base.
+  year9Base.units = derivePathwayUnits(year9Base.units, "base");
 
   // ADR-Y10-001: tag-driven derivation over the shared 12-chapter base (replaces the legacy
   // slug blacklists). The base course literal holds the full tagged source (core+path+extending
