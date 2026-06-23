@@ -79,6 +79,18 @@ import {
   simProblemsY9Challenge,
   quadraticAx2cY9Challenge,
 } from "./year9Chapter2";
+import {
+  pythTheoremY9Challenge,
+  pythShorterY9Challenge,
+  pyth2dY9Challenge,
+  pyth3dY9Challenge,
+  trigRatiosY9Challenge,
+  findSidesY9Challenge,
+  solveDenomY9Challenge,
+  findAnglesY9Challenge,
+  trigAppsY9Challenge,
+  bearingsY9Challenge,
+} from "./year9Chapter3";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -192,6 +204,31 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/simultaneous-equations-problems": simProblemsY9Challenge,
   "year-9-mathematics/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
   "year-9-mathematics-advanced/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
+  // Year 9 Wave 4 — Chapter 3 (Pythagoras & Trigonometry). consolidating → Core only;
+  // path (pythagoras-3d-problems) → base + advanced; core → all three derived courses.
+  "year-9-mathematics-core/pythagoras-theorem": pythTheoremY9Challenge,
+  "year-9-mathematics-core/pythagoras-shorter-sides": pythShorterY9Challenge,
+  "year-9-mathematics-core/pythagoras-2d-problems": pyth2dY9Challenge,
+  "year-9-mathematics/pythagoras-3d-problems": pyth3dY9Challenge,
+  "year-9-mathematics-advanced/pythagoras-3d-problems": pyth3dY9Challenge,
+  "year-9-mathematics/introducing-trigonometric-ratios": trigRatiosY9Challenge,
+  "year-9-mathematics-core/introducing-trigonometric-ratios": trigRatiosY9Challenge,
+  "year-9-mathematics-advanced/introducing-trigonometric-ratios": trigRatiosY9Challenge,
+  "year-9-mathematics/finding-unknown-side-lengths": findSidesY9Challenge,
+  "year-9-mathematics-core/finding-unknown-side-lengths": findSidesY9Challenge,
+  "year-9-mathematics-advanced/finding-unknown-side-lengths": findSidesY9Challenge,
+  "year-9-mathematics/solving-for-the-denominator": solveDenomY9Challenge,
+  "year-9-mathematics-core/solving-for-the-denominator": solveDenomY9Challenge,
+  "year-9-mathematics-advanced/solving-for-the-denominator": solveDenomY9Challenge,
+  "year-9-mathematics/finding-unknown-angles": findAnglesY9Challenge,
+  "year-9-mathematics-core/finding-unknown-angles": findAnglesY9Challenge,
+  "year-9-mathematics-advanced/finding-unknown-angles": findAnglesY9Challenge,
+  "year-9-mathematics/trigonometry-applications": trigAppsY9Challenge,
+  "year-9-mathematics-core/trigonometry-applications": trigAppsY9Challenge,
+  "year-9-mathematics-advanced/trigonometry-applications": trigAppsY9Challenge,
+  "year-9-mathematics/bearings": bearingsY9Challenge,
+  "year-9-mathematics-core/bearings": bearingsY9Challenge,
+  "year-9-mathematics-advanced/bearings": bearingsY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
