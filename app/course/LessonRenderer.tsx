@@ -1844,7 +1844,7 @@ export function LessonRenderer({
       casCorrectIds[question.id]
   ).length;
 
-  const challengeQuestions = getChallengeQuestions(lessonSlug);
+  const challengeQuestions = getChallengeQuestions(lessonSlug, courseSlug);
 
   function saveMasteryState(nextState: MasteryState) {
     const storedState = {

@@ -46,6 +46,11 @@ import {
   modulusArgumentChallenge,
   polarDeMoivreChallenge,
 } from "./year12Extension2";
+import {
+  simpleInterestY9Challenge,
+  gradientY9Challenge,
+  circleY9Challenge,
+} from "./year9Wave1";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -95,12 +100,31 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "complex-number-arithmetic": complexArithmeticChallenge,
   "modulus-argument-conjugate": modulusArgumentChallenge,
   "polar-form-de-moivre": polarDeMoivreChallenge,
+  // Year 9 Wave 1 (ADR-Y9-001): COURSE-SCOPED keys ("<course>/<lesson>"). The registry is now
+  // course-aware (see getChallengeQuestions), so Year 9 slugs that collide with another course
+  // (e.g. `simple-interest` ↔ Year 11 Standard) stay separate without clobbering. Keyed by each
+  // derived Y9 course slug the section appears in (core-tagged → all three; consolidating → core).
+  "year-9-mathematics/simple-interest": simpleInterestY9Challenge,
+  "year-9-mathematics-core/simple-interest": simpleInterestY9Challenge,
+  "year-9-mathematics-advanced/simple-interest": simpleInterestY9Challenge,
+  "year-9-mathematics/gradient": gradientY9Challenge,
+  "year-9-mathematics-core/gradient": gradientY9Challenge,
+  "year-9-mathematics-advanced/gradient": gradientY9Challenge,
+  "year-9-mathematics-core/circle-circumference-sector-perimeter": circleY9Challenge,
 };
 
-export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
+// Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
+// the same lesson slug can carry different challenges in different courses; falls back to the
+// legacy lesson-only key for the existing (pre-course-scoping) challenge sets. Backwards compatible:
+// callers that omit courseSlug get the legacy behaviour unchanged.
+export function getChallengeQuestions(lessonSlug: string, courseSlug?: string): PracticeQuestion[] {
+  if (courseSlug) {
+    const scoped = REGISTRY[`${courseSlug}/${lessonSlug}`];
+    if (scoped) return scoped;
+  }
   return REGISTRY[lessonSlug] ?? [];
 }
 
-export function hasChallenge(lessonSlug: string): boolean {
-  return (REGISTRY[lessonSlug]?.length ?? 0) > 0;
+export function hasChallenge(lessonSlug: string, courseSlug?: string): boolean {
+  return getChallengeQuestions(lessonSlug, courseSlug).length > 0;
 }

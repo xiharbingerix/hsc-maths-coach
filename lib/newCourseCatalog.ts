@@ -158,7 +158,7 @@ import {
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride, year10ParabolasVariationWave6LessonOverride, year10StatisticsWave7LessonOverride, year10NetworksWave8LessonOverride, year10CountingWave9LessonOverride, year10ProbabilityWave10LessonOverride, year10TrigonometryWave11LessonOverride } from "./lessons/year10";
-import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9Wave1ValidationLessonOverride, year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
 import {
@@ -471,6 +471,7 @@ export function buildLesson(
     year8AlgebraicTechniquesStage5LessonOverride(course, unit, lesson) ??
     year8IndicesBLessonOverride(course, unit, lesson) ??
     year8DataInvestigationLessonOverride(course, unit, lesson) ??
+    year9Wave1ValidationLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -4210,7 +4211,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         { slug: "profits-and-discounts", title: "Profits and Discounts", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
         { slug: "income", title: "Income", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         { slug: "payg-income-tax", title: "The PAYG Income Tax System", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
-        { slug: "simple-interest", title: "Simple Interest", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "simple-interest", title: "Simple Interest", description: "Calculate simple interest with I = Prn and the total amount A = P + I.", pathTag: "core", stableSkillId: "y9-simple-interest", skillCheckpoints: [{ stableCheckpointId: "y9-simple-interest-c1", label: "Simple interest (I = Prn)" }] },
         { slug: "compound-interest-depreciation", title: "Compound Interest and Depreciation", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         { slug: "compound-interest-formula", title: "Using a Formula for Compound Interest and Depreciation", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         ],
@@ -4271,7 +4272,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         { slug: "introducing-linear-relationships", title: "Introducing Linear Relationships", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
         { slug: "graphing-lines-using-intercepts", title: "Graphing Straight Lines Using Intercepts", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         { slug: "lines-with-one-intercept", title: "Lines with One Intercept", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
-        { slug: "gradient", title: "Gradient", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "gradient", title: "Gradient", description: "Find the gradient of a line as rise over run and interpret its sign.", pathTag: "core", stableSkillId: "y9-gradient", skillCheckpoints: [{ stableCheckpointId: "y9-gradient-c1", label: "Gradient from two points" }] },
         { slug: "gradient-direct-proportion", title: "Gradient and Direct Proportion", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         { slug: "gradient-intercept-form", title: "Gradient-Intercept Form", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         { slug: "finding-equation-of-a-line", title: "Finding the Equation of a Line Using y = mx + c", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
@@ -4291,7 +4292,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           "Measurement of 2D shapes and 3D solids.",
         lessons: [
         { slug: "length-and-perimeter", title: "Length and Perimeter", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
-        { slug: "circle-circumference-sector-perimeter", title: "Circle Circumference and Perimeter of a Sector", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "circle-circumference-sector-perimeter", title: "Circle Circumference and Perimeter of a Sector", description: "Find circumference (C = 2πr) and the arc length and perimeter of a sector.", pathTag: "consolidating", stableSkillId: "y9-circle-circumference", skillCheckpoints: [{ stableCheckpointId: "y9-circle-circumference-c1", label: "Circumference and sector perimeter" }] },
         { slug: "area", title: "Area", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
         { slug: "composite-shapes-perimeter-area", title: "Perimeter and Area of Composite Shapes", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         { slug: "surface-area-prisms-pyramids", title: "Surface Area of Prisms and Pyramids", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
@@ -6038,10 +6039,13 @@ export const newCoursePathways: CoursePathwaySeed[] = [
   // Year 9 Core/Advanced derive from the single tagged base via the shared pathTag filters
   // (ADR-Y9-001), replacing the bespoke trim/extra-unit logic. assertPathTagTotality (G6) fails
   // the build if any base section is missing a pathTag. Year 9 carries no stableSkillId/checkpoint
-  // yet (minted during authoring waves), so no skill-id namespacing is required here.
+  // yet at Wave 0; minted from Wave 1 authoring onward. Namespace the per-pathway skill/checkpoint
+  // stable IDs (y9- -> y9c-/y9a-) so an authored section's IDs are unique across the three derived
+  // courses (mirrors Year 10's namespaceSkillMapIds). The base keeps the y9- prefix. Permanent once
+  // committed (ADR-Y9-001).
   assertPathTagTotality(year9Base.units, "year-9-mathematics");
-  const year9CoreUnits: CourseUnitSeed[] = derivePathwayUnits(year9Base.units, "core");
-  const year9AdvancedUnits: CourseUnitSeed[] = derivePathwayUnits(year9Base.units, "advanced");
+  const year9CoreUnits: CourseUnitSeed[] = namespaceSkillMapIds(derivePathwayUnits(year9Base.units, "core"), "y9-", "y9c-");
+  const year9AdvancedUnits: CourseUnitSeed[] = namespaceSkillMapIds(derivePathwayUnits(year9Base.units, "advanced"), "y9-", "y9a-");
   // The base pathway (year-9-mathematics) shows core + path (no extending / consolidating),
   // mirroring Year 10. Reassigned AFTER core/advanced are derived from the full tagged base.
   year9Base.units = derivePathwayUnits(year9Base.units, "base");
