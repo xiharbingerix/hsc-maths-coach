@@ -65,6 +65,20 @@ import {
   compoundDepY9Challenge,
   compoundFormulaY9Challenge,
 } from "./year9Chapter1";
+import {
+  algebraicExpressionsY9Challenge,
+  simplifyingY9Challenge,
+  expandingY9Challenge,
+  usingFormulasY9Challenge,
+  linearOneSideY9Challenge,
+  linearBothSidesY9Challenge,
+  wordProblemsY9Challenge,
+  inequalitiesY9Challenge,
+  substitutionY9Challenge,
+  eliminationY9Challenge,
+  simProblemsY9Challenge,
+  quadraticAx2cY9Challenge,
+} from "./year9Chapter2";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -149,6 +163,35 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-core/percentages-and-money": percentagesY9Challenge,
   "year-9-mathematics-core/percentage-increase-decrease": incDecY9Challenge,
   "year-9-mathematics-core/profits-and-discounts": profitsY9Challenge,
+  // Year 9 Wave 3 — Chapter 2 (Expressions, Equations & Inequalities). consolidating → Core only;
+  // core → all three derived courses; path → base + advanced (not Core).
+  "year-9-mathematics-core/algebraic-expressions": algebraicExpressionsY9Challenge,
+  "year-9-mathematics-core/simplifying-algebraic-expressions": simplifyingY9Challenge,
+  "year-9-mathematics/expanding-algebraic-expressions": expandingY9Challenge,
+  "year-9-mathematics-core/expanding-algebraic-expressions": expandingY9Challenge,
+  "year-9-mathematics-advanced/expanding-algebraic-expressions": expandingY9Challenge,
+  "year-9-mathematics/using-formulas": usingFormulasY9Challenge,
+  "year-9-mathematics-core/using-formulas": usingFormulasY9Challenge,
+  "year-9-mathematics-advanced/using-formulas": usingFormulasY9Challenge,
+  "year-9-mathematics/linear-equations-one-side": linearOneSideY9Challenge,
+  "year-9-mathematics-core/linear-equations-one-side": linearOneSideY9Challenge,
+  "year-9-mathematics-advanced/linear-equations-one-side": linearOneSideY9Challenge,
+  "year-9-mathematics/linear-equations-both-sides": linearBothSidesY9Challenge,
+  "year-9-mathematics-core/linear-equations-both-sides": linearBothSidesY9Challenge,
+  "year-9-mathematics-advanced/linear-equations-both-sides": linearBothSidesY9Challenge,
+  "year-9-mathematics/solving-word-problems": wordProblemsY9Challenge,
+  "year-9-mathematics-core/solving-word-problems": wordProblemsY9Challenge,
+  "year-9-mathematics-advanced/solving-word-problems": wordProblemsY9Challenge,
+  "year-9-mathematics/linear-inequalities": inequalitiesY9Challenge,
+  "year-9-mathematics-advanced/linear-inequalities": inequalitiesY9Challenge,
+  "year-9-mathematics/simultaneous-substitution": substitutionY9Challenge,
+  "year-9-mathematics-advanced/simultaneous-substitution": substitutionY9Challenge,
+  "year-9-mathematics/simultaneous-elimination": eliminationY9Challenge,
+  "year-9-mathematics-advanced/simultaneous-elimination": eliminationY9Challenge,
+  "year-9-mathematics/simultaneous-equations-problems": simProblemsY9Challenge,
+  "year-9-mathematics-advanced/simultaneous-equations-problems": simProblemsY9Challenge,
+  "year-9-mathematics/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
+  "year-9-mathematics-advanced/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
