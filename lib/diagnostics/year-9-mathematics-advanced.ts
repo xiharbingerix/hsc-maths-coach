@@ -5,44 +5,39 @@ export const diagnosticData: DiagnosticData = {
 
   units: [
     {
-      slug: "geometrical-representations",
-      title: "Geometrical Representations",
-      startHref: "/course/year-9-mathematics-advanced/geometrical-representations",
+      slug: "properties-geometrical-figures",
+      title: "Properties of Geometrical Figures",
+      startHref: "/course/year-9-mathematics-advanced/properties-geometrical-figures",
     },
     {
-      slug: "working-with-triangles",
-      title: "Working with Triangles",
-      startHref: "/course/year-9-mathematics-advanced/working-with-triangles",
+      slug: "pythagoras-trigonometry",
+      title: "Right-Angled Triangles: Pythagoras and Trigonometry",
+      startHref: "/course/year-9-mathematics-advanced/pythagoras-trigonometry",
     },
     {
-      slug: "prisms-and-cylinders",
-      title: "Prisms and Cylinders",
-      startHref: "/course/year-9-mathematics-advanced/prisms-and-cylinders",
+      slug: "length-area-surface-area-volume",
+      title: "Length, Area, Surface Area and Volume",
+      startHref: "/course/year-9-mathematics-advanced/length-area-surface-area-volume",
     },
     {
-      slug: "index-laws",
-      title: "Index Laws",
-      startHref: "/course/year-9-mathematics-advanced/index-laws",
+      slug: "indices-surds",
+      title: "Indices and Surds",
+      startHref: "/course/year-9-mathematics-advanced/indices-surds",
     },
     {
-      slug: "financial-mathematics",
-      title: "Financial Mathematics",
-      startHref: "/course/year-9-mathematics-advanced/financial-mathematics",
+      slug: "computation-financial-maths",
+      title: "Computation and Financial Maths",
+      startHref: "/course/year-9-mathematics-advanced/computation-financial-maths",
     },
     {
-      slug: "constant-rates-of-change",
-      title: "Constant Rates of Change",
-      startHref: "/course/year-9-mathematics-advanced/constant-rates-of-change",
+      slug: "linear-relationships",
+      title: "Linear Relationships",
+      startHref: "/course/year-9-mathematics-advanced/linear-relationships",
     },
     {
-      slug: "making-predictions",
-      title: "Making Predictions",
-      startHref: "/course/year-9-mathematics-advanced/making-predictions",
-    },
-    {
-      slug: "making-decisions",
-      title: "Making Decisions",
-      startHref: "/course/year-9-mathematics-advanced/making-decisions",
+      slug: "probability-data-analysis",
+      title: "Probability and Single Variable Data Analysis",
+      startHref: "/course/year-9-mathematics-advanced/probability-data-analysis",
     },
   ],
 
@@ -50,7 +45,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Geometrical Representations (2 questions) ─────────────────────────────
     {
       id: "y9a-y9-gr1",
-      unitSlug: "geometrical-representations",
+      unitSlug: "properties-geometrical-figures",
       prompt: "Two triangles are similar. What must be true about their corresponding angles?",
       choices: [
         { label: "A", text: "They are equal" },
@@ -63,7 +58,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-gr2",
-      unitSlug: "geometrical-representations",
+      unitSlug: "properties-geometrical-figures",
       prompt: "Two similar shapes have a side length ratio (scale factor) of $3$. The ratio of their areas is:",
       choices: [
         { label: "A", text: "$3$" },
@@ -78,7 +73,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Working with Triangles (3 questions) ──────────────────────────────────
     {
       id: "y9a-y9-wt1",
-      unitSlug: "working-with-triangles",
+      unitSlug: "pythagoras-trigonometry",
       prompt: "A right triangle has legs of length $3$ cm and $4$ cm. The hypotenuse is:",
       latex: "c^2 = a^2 + b^2",
       choices: [
@@ -92,7 +87,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-wt2",
-      unitSlug: "working-with-triangles",
+      unitSlug: "pythagoras-trigonometry",
       prompt:
         "In a right triangle, the opposite side is $6$ and the hypotenuse is $10$. Find $\\sin(\\theta)$.",
       latex: "\\sin(\\theta) = \\frac{\\text{opposite}}{\\text{hypotenuse}}",
@@ -107,7 +102,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-wt3",
-      unitSlug: "working-with-triangles",
+      unitSlug: "pythagoras-trigonometry",
       prompt:
         "A $5$ m ladder leans against a wall with its base $3$ m from the wall. How high up the wall does it reach?",
       choices: [
@@ -123,7 +118,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Prisms and Cylinders (2 questions) ────────────────────────────────────
     {
       id: "y9a-y9-pc1",
-      unitSlug: "prisms-and-cylinders",
+      unitSlug: "length-area-surface-area-volume",
       prompt: "Find the volume of a rectangular prism with length $4$, width $3$, and height $2$.",
       latex: "V = l \\times w \\times h",
       choices: [
@@ -137,7 +132,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-pc2",
-      unitSlug: "prisms-and-cylinders",
+      unitSlug: "length-area-surface-area-volume",
       prompt: "The formula for the volume of a cylinder is:",
       choices: [
         { label: "A", text: "$V = \\pi r^2 h$" },
@@ -152,7 +147,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Index Laws (3 questions) ───────────────────────────────────────────────
     {
       id: "y9a-y9-il1",
-      unitSlug: "index-laws",
+      unitSlug: "indices-surds",
       prompt: "Simplify $3^2 \\times 3^3$.",
       choices: [
         { label: "A", text: "$3^5$" },
@@ -165,7 +160,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-il2",
-      unitSlug: "index-laws",
+      unitSlug: "indices-surds",
       prompt: "Simplify $x^6 \\div x^2$.",
       choices: [
         { label: "A", text: "$x^4$" },
@@ -178,7 +173,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-il3",
-      unitSlug: "index-laws",
+      unitSlug: "indices-surds",
       prompt: "Evaluate $(2^3)^2$.",
       choices: [
         { label: "A", text: "$2^5$" },
@@ -193,7 +188,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Financial Mathematics (2 questions) ───────────────────────────────────
     {
       id: "y9a-y9-fm1",
-      unitSlug: "financial-mathematics",
+      unitSlug: "computation-financial-maths",
       prompt: "Jack earns \\$22 per hour and works $8$ hours. His gross pay is:",
       choices: [
         { label: "A", text: "\\$144" },
@@ -206,7 +201,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-fm2",
-      unitSlug: "financial-mathematics",
+      unitSlug: "computation-financial-maths",
       prompt:
         "Simple interest on \\$1000 at $5\\%$ per year for $2$ years. Using $I = Prn$:",
       latex: "I = Prn",
@@ -223,7 +218,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Constant Rates of Change (3 questions) ────────────────────────────────
     {
       id: "y9a-y9-cr1",
-      unitSlug: "constant-rates-of-change",
+      unitSlug: "linear-relationships",
       prompt: "Find the gradient of the line passing through $(0, 2)$ and $(4, 10)$.",
       latex: "m = \\frac{y_2 - y_1}{x_2 - x_1}",
       choices: [
@@ -237,7 +232,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-cr2",
-      unitSlug: "constant-rates-of-change",
+      unitSlug: "linear-relationships",
       prompt: "A car travels $120$ km in $2$ hours. Its average speed is:",
       choices: [
         { label: "A", text: "$30$ km/h" },
@@ -250,7 +245,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-cr3",
-      unitSlug: "constant-rates-of-change",
+      unitSlug: "linear-relationships",
       prompt:
         "Which equation represents a line with gradient $3$ and $y$-intercept $-1$?",
       choices: [
@@ -267,7 +262,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Making Predictions (2 questions) ──────────────────────────────────────
     {
       id: "y9a-y9-mp1",
-      unitSlug: "making-predictions",
+      unitSlug: "probability-data-analysis",
       prompt:
         "A bag has $3$ red balls and $7$ blue balls. The probability of drawing a red ball is:",
       choices: [
@@ -281,7 +276,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-mp2",
-      unitSlug: "making-predictions",
+      unitSlug: "probability-data-analysis",
       prompt: "For any event $A$: $P(A) + P(\\text{not } A) =$",
       choices: [
         { label: "A", text: "$0$" },
@@ -297,7 +292,7 @@ export const diagnosticData: DiagnosticData = {
     // ── Making Decisions (3 questions) ────────────────────────────────────────
     {
       id: "y9a-y9-md1",
-      unitSlug: "making-decisions",
+      unitSlug: "probability-data-analysis",
       prompt: "Find the mean of the data set: $2, 4, 6, 8, 10$.",
       choices: [
         { label: "A", text: "$5$" },
@@ -310,7 +305,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-md2",
-      unitSlug: "making-decisions",
+      unitSlug: "probability-data-analysis",
       prompt: "Find the median of the data set: $3, 5, 7, 9, 11$.",
       choices: [
         { label: "A", text: "$5$" },
@@ -324,7 +319,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y9a-y9-md3",
-      unitSlug: "making-decisions",
+      unitSlug: "probability-data-analysis",
       prompt: "Find the range of: $4, 8, 2, 15, 6$.",
       choices: [
         { label: "A", text: "$11$" },

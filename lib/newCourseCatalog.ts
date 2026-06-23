@@ -158,7 +158,7 @@ import {
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
 import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride, year10ParabolasVariationWave6LessonOverride, year10StatisticsWave7LessonOverride, year10NetworksWave8LessonOverride, year10CountingWave9LessonOverride, year10ProbabilityWave10LessonOverride, year10TrigonometryWave11LessonOverride } from "./lessons/year10";
-import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
+import { year9Wave1ValidationLessonOverride, year9Chapter1NumberLessonOverride, year9Chapter1PercentagesLessonOverride, year9Chapter1FinanceLessonOverride, year9Chapter2ExpressionsLessonOverride, year9Chapter2EquationsLessonOverride, year9Chapter2SimultaneousLessonOverride, year9Chapter3PythagorasLessonOverride, year9Chapter3TrigRatiosLessonOverride, year9Chapter3TrigApplicationsLessonOverride, year9Chapter4GraphingLessonOverride, year9Chapter4EquationsLessonOverride, year9Chapter4GeometryLessonOverride, year9Chapter5MeasurementLessonOverride, year9Chapter5SolidsLessonOverride, year9Chapter6IndexLawsLessonOverride, year9Chapter6ScientificNotationLessonOverride, year9Chapter6SurdsLessonOverride, year9Chapter7AnglesLessonOverride, year9Chapter7CongruenceLessonOverride, year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
 import {
@@ -471,6 +471,26 @@ export function buildLesson(
     year8AlgebraicTechniquesStage5LessonOverride(course, unit, lesson) ??
     year8IndicesBLessonOverride(course, unit, lesson) ??
     year8DataInvestigationLessonOverride(course, unit, lesson) ??
+    year9Wave1ValidationLessonOverride(course, unit, lesson) ??
+    year9Chapter1NumberLessonOverride(course, unit, lesson) ??
+    year9Chapter1PercentagesLessonOverride(course, unit, lesson) ??
+    year9Chapter1FinanceLessonOverride(course, unit, lesson) ??
+    year9Chapter2ExpressionsLessonOverride(course, unit, lesson) ??
+    year9Chapter2EquationsLessonOverride(course, unit, lesson) ??
+    year9Chapter2SimultaneousLessonOverride(course, unit, lesson) ??
+    year9Chapter3PythagorasLessonOverride(course, unit, lesson) ??
+    year9Chapter3TrigRatiosLessonOverride(course, unit, lesson) ??
+    year9Chapter3TrigApplicationsLessonOverride(course, unit, lesson) ??
+    year9Chapter4GraphingLessonOverride(course, unit, lesson) ??
+    year9Chapter4EquationsLessonOverride(course, unit, lesson) ??
+    year9Chapter4GeometryLessonOverride(course, unit, lesson) ??
+    year9Chapter5MeasurementLessonOverride(course, unit, lesson) ??
+    year9Chapter5SolidsLessonOverride(course, unit, lesson) ??
+    year9Chapter6IndexLawsLessonOverride(course, unit, lesson) ??
+    year9Chapter6ScientificNotationLessonOverride(course, unit, lesson) ??
+    year9Chapter6SurdsLessonOverride(course, unit, lesson) ??
+    year9Chapter7AnglesLessonOverride(course, unit, lesson) ??
+    year9Chapter7CongruenceLessonOverride(course, unit, lesson) ??
     year9IndexLawsLessonOverride(course, unit, lesson) ??
     year9FinancialMathematicsLessonOverride(course, unit, lesson) ??
     year9ConstantRatesOfChangeLessonOverride(course, unit, lesson) ??
@@ -4192,173 +4212,215 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       "A Year 9 Stage 5 foundation pathway based on the NSW Mathematics Kâ€“10 Syllabus and guided by the NSW Stage 5 sample scope and sequence. It prepares students for the completed Year 10 Mathematics course.",
     units: [
       {
-        slug: "geometrical-representations",
-        title: "Geometrical Representations",
+        slug: "computation-financial-maths",
+        title: "Computation and Financial Maths",
         description:
-          "Use similarity, ratio, scale factors and geometric representations to compare shapes and diagrams.",
+          "Computation with integers, fractions, ratios and percentages, then income, tax, simple and compound interest.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Numerical fluency and practical financial mathematics for Stage 5.",
+        lessons: [
+        { slug: "computations-with-integers", title: "Computations with Integers", description: "Add, subtract, multiply and divide positive and negative integers using order of operations.", pathTag: "consolidating", stableSkillId: "y9-computations-with-integers", skillCheckpoints: [{ stableCheckpointId: "y9-computations-with-integers-c1", label: "Integer operations and order of operations" }] },
+        { slug: "decimal-places-significant-figures", title: "Decimal Places and Significant Figures", description: "Round numbers to a given number of decimal places and to significant figures.", pathTag: "core", stableSkillId: "y9-decimal-places-significant-figures", skillCheckpoints: [{ stableCheckpointId: "y9-decimal-places-significant-figures-c1", label: "Rounding to decimal places and significant figures" }] },
+        { slug: "rational-numbers", title: "Rational Numbers", description: "Recognise rational numbers and convert between fractions and decimals.", pathTag: "consolidating", stableSkillId: "y9-rational-numbers", skillCheckpoints: [{ stableCheckpointId: "y9-rational-numbers-c1", label: "Fractions, decimals and rational numbers" }] },
+        { slug: "computation-with-fractions", title: "Computation with Fractions", description: "Add, subtract, multiply and divide fractions and simplify the result.", pathTag: "consolidating", stableSkillId: "y9-computation-with-fractions", skillCheckpoints: [{ stableCheckpointId: "y9-computation-with-fractions-c1", label: "Operations with fractions" }] },
+        { slug: "ratios-rates-best-buys", title: "Ratios, Rates and Best Buys", description: "Simplify ratios, work with rates, and compare unit prices to find the best buy.", pathTag: "consolidating", stableSkillId: "y9-ratios-rates-best-buys", skillCheckpoints: [{ stableCheckpointId: "y9-ratios-rates-best-buys-c1", label: "Ratios, rates and best buys" }] },
+        { slug: "percentages-and-money", title: "Percentages and Money", description: "Find percentages of amounts and convert between percentages, fractions and decimals.", pathTag: "consolidating", stableSkillId: "y9-percentages-and-money", skillCheckpoints: [{ stableCheckpointId: "y9-percentages-and-money-c1", label: "Percentages of amounts" }] },
+        { slug: "percentage-increase-decrease", title: "Percentage Increase and Decrease", description: "Increase or decrease a quantity by a percentage using a multiplying factor.", pathTag: "consolidating", stableSkillId: "y9-percentage-increase-decrease", skillCheckpoints: [{ stableCheckpointId: "y9-percentage-increase-decrease-c1", label: "Percentage increase and decrease" }] },
+        { slug: "profits-and-discounts", title: "Profits and Discounts", description: "Calculate profit, loss, percentage profit or loss, and discounts on a price.", pathTag: "consolidating", stableSkillId: "y9-profits-and-discounts", skillCheckpoints: [{ stableCheckpointId: "y9-profits-and-discounts-c1", label: "Profit, loss and discount" }] },
+        { slug: "income", title: "Income", description: "Calculate gross income from wages, salaries, overtime, commission and piecework.", pathTag: "core", stableSkillId: "y9-income", skillCheckpoints: [{ stableCheckpointId: "y9-income-c1", label: "Calculating income" }] },
+        { slug: "payg-income-tax", title: "The PAYG Income Tax System", description: "Find taxable income, income tax, the Medicare levy and net pay.", pathTag: "core", stableSkillId: "y9-payg-income-tax", skillCheckpoints: [{ stableCheckpointId: "y9-payg-income-tax-c1", label: "PAYG income tax and net pay" }] },
+        { slug: "simple-interest", title: "Simple Interest", description: "Calculate simple interest with I = Prn and the total amount A = P + I.", pathTag: "core", stableSkillId: "y9-simple-interest", skillCheckpoints: [{ stableCheckpointId: "y9-simple-interest-c1", label: "Simple interest (I = Prn)" }] },
+        { slug: "compound-interest-depreciation", title: "Compound Interest and Depreciation", description: "Calculate compound interest and depreciation by repeated multiplication.", pathTag: "core", stableSkillId: "y9-compound-interest-depreciation", skillCheckpoints: [{ stableCheckpointId: "y9-compound-interest-depreciation-c1", label: "Compound interest and depreciation" }] },
+        { slug: "compound-interest-formula", title: "Using a Formula for Compound Interest and Depreciation", description: "Use the compound interest formula to find the final amount when interest is added each period.", pathTag: "core", stableSkillId: "y9-compound-interest-formula", skillCheckpoints: [{ stableCheckpointId: "y9-compound-interest-formula-c1", label: "Compound interest formula" }] },
+        ],
+      },
+      {
+        slug: "expressions-equations-inequalities",
+        title: "Expressions, Equations and Inequalities",
+        description:
+          "Algebraic expressions, linear equations and inequalities, formulas, simultaneous equations and simple quadratics.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Core algebra and equation-solving with Path extensions to simultaneous and quadratic equations.",
+        lessons: [
+        { slug: "algebraic-expressions", title: "Algebraic Expressions", description: "Use pronumerals, identify terms and coefficients, and evaluate expressions by substitution.", pathTag: "consolidating", stableSkillId: "y9-algebraic-expressions", skillCheckpoints: [{ stableCheckpointId: "y9-algebraic-expressions-c1", label: "Terms, coefficients and substitution" }] },
+        { slug: "simplifying-algebraic-expressions", title: "Simplifying Algebraic Expressions", description: "Collect like terms and multiply or divide algebraic terms to simplify expressions.", pathTag: "consolidating", stableSkillId: "y9-simplifying-algebraic-expressions", skillCheckpoints: [{ stableCheckpointId: "y9-simplifying-algebraic-expressions-c1", label: "Collecting like terms" }] },
+        { slug: "expanding-algebraic-expressions", title: "Expanding Algebraic Expressions", description: "Expand expressions with brackets using the distributive law, then collect like terms.", pathTag: "core", stableSkillId: "y9-expanding-algebraic-expressions", skillCheckpoints: [{ stableCheckpointId: "y9-expanding-algebraic-expressions-c1", label: "Expanding brackets" }] },
+        { slug: "linear-equations-one-side", title: "Linear Equations with Pronumerals on One Side", description: "Solve linear equations with the pronumeral on one side using inverse operations.", pathTag: "core", stableSkillId: "y9-linear-equations-one-side", skillCheckpoints: [{ stableCheckpointId: "y9-linear-equations-one-side-c1", label: "Solving one- and two-step equations" }] },
+        { slug: "linear-equations-both-sides", title: "Linear Equations with Brackets and Pronumerals on Both Sides", description: "Solve linear equations with brackets and the pronumeral on both sides.", pathTag: "core", stableSkillId: "y9-linear-equations-both-sides", skillCheckpoints: [{ stableCheckpointId: "y9-linear-equations-both-sides-c1", label: "Pronumerals on both sides" }] },
+        { slug: "solving-word-problems", title: "Solving Word Problems", description: "Translate word problems into linear equations and solve them.", pathTag: "core", stableSkillId: "y9-solving-word-problems", skillCheckpoints: [{ stableCheckpointId: "y9-solving-word-problems-c1", label: "Forming and solving equations" }] },
+        { slug: "linear-inequalities", title: "Linear Inequalities", description: "Solve linear inequalities, reversing the sign when multiplying or dividing by a negative.", pathTag: "path", stableSkillId: "y9-linear-inequalities", skillCheckpoints: [{ stableCheckpointId: "y9-linear-inequalities-c1", label: "Solving inequalities" }] },
+        { slug: "using-formulas", title: "Using Formulas", description: "Substitute values into formulas and solve for an unknown in a formula.", pathTag: "core", stableSkillId: "y9-using-formulas", skillCheckpoints: [{ stableCheckpointId: "y9-using-formulas-c1", label: "Substituting into formulas" }] },
+        { slug: "simultaneous-substitution", title: "Linear Simultaneous Equations: Substitution", description: "Solve a pair of linear simultaneous equations by substitution.", pathTag: "path", stableSkillId: "y9-simultaneous-substitution", skillCheckpoints: [{ stableCheckpointId: "y9-simultaneous-substitution-c1", label: "Substitution method" }] },
+        { slug: "simultaneous-elimination", title: "Linear Simultaneous Equations: Elimination", description: "Solve simultaneous equations by adding or subtracting to eliminate a variable.", pathTag: "path", stableSkillId: "y9-simultaneous-elimination", skillCheckpoints: [{ stableCheckpointId: "y9-simultaneous-elimination-c1", label: "Elimination method" }] },
+        { slug: "simultaneous-equations-problems", title: "Using Linear Simultaneous Equations to Solve Problems", description: "Set up and solve simultaneous equations from word problems.", pathTag: "path", stableSkillId: "y9-simultaneous-equations-problems", skillCheckpoints: [{ stableCheckpointId: "y9-simultaneous-equations-problems-c1", label: "Two-unknown word problems" }] },
+        { slug: "quadratic-equations-ax2-c", title: "Quadratic Equations of the Form ax^2 = c", description: "Solve quadratic equations of the form ax^2 = c by taking square roots.", pathTag: "path", stableSkillId: "y9-quadratic-equations-ax2-c", skillCheckpoints: [{ stableCheckpointId: "y9-quadratic-equations-ax2-c-c1", label: "Solving ax^2 = c" }] },
+        ],
+      },
+      {
+        slug: "pythagoras-trigonometry",
+        title: "Right-Angled Triangles: Pythagoras and Trigonometry",
+        description:
+          "Pythagoras' theorem in 2D and 3D, then the trigonometric ratios for sides, angles, applications and bearings.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Build proportional reasoning, scale and geometric representation skills needed for Year 10 geometry and measurement.",
+          "Right-angled triangle measurement and trigonometry.",
         lessons: [
-          { slug: "similar-figures", title: "Similar Figures" },
-          { slug: "ratio-scale-factors", title: "Ratio and Scale Factors" },
-          { slug: "scale-drawings", title: "Scale Drawings" },
-          { slug: "geometric-representations", title: "Geometric Representations" },
-          { slug: "networks-introduction", title: "Introduction to Networks" },
+        { slug: "pythagoras-theorem", title: "Pythagoras' Theorem", description: "Use Pythagoras' theorem to find the hypotenuse of a right-angled triangle.", pathTag: "consolidating", stableSkillId: "y9-pythagoras-theorem", skillCheckpoints: [{ stableCheckpointId: "y9-pythagoras-theorem-c1", label: "Finding the hypotenuse" }] },
+        { slug: "pythagoras-shorter-sides", title: "Finding the Length of the Shorter Sides", description: "Find the length of a shorter side using a rearrangement of Pythagoras' theorem.", pathTag: "consolidating", stableSkillId: "y9-pythagoras-shorter-sides", skillCheckpoints: [{ stableCheckpointId: "y9-pythagoras-shorter-sides-c1", label: "Finding a shorter side" }] },
+        { slug: "pythagoras-2d-problems", title: "Using Pythagoras' Theorem to Solve Two-Dimensional Problems", description: "Apply Pythagoras' theorem to diagonals, distances and other 2D problems.", pathTag: "consolidating", stableSkillId: "y9-pythagoras-2d-problems", skillCheckpoints: [{ stableCheckpointId: "y9-pythagoras-2d-problems-c1", label: "2D Pythagoras problems" }] },
+        { slug: "pythagoras-3d-problems", title: "Using Pythagoras' Theorem to Solve Three-Dimensional Problems", description: "Use Pythagoras' theorem in three dimensions to find the space diagonal of a box.", pathTag: "path", stableSkillId: "y9-pythagoras-3d-problems", skillCheckpoints: [{ stableCheckpointId: "y9-pythagoras-3d-problems-c1", label: "3D Pythagoras problems" }] },
+        { slug: "introducing-trigonometric-ratios", title: "Introducing the Trigonometric Ratios", description: "Define the sine, cosine and tangent ratios using SOH CAH TOA.", pathTag: "core", stableSkillId: "y9-introducing-trigonometric-ratios", skillCheckpoints: [{ stableCheckpointId: "y9-introducing-trigonometric-ratios-c1", label: "Trig ratios (SOH CAH TOA)" }] },
+        { slug: "finding-unknown-side-lengths", title: "Finding Unknown Side Lengths", description: "Find an unknown side using sine, cosine or tangent.", pathTag: "core", stableSkillId: "y9-finding-unknown-side-lengths", skillCheckpoints: [{ stableCheckpointId: "y9-finding-unknown-side-lengths-c1", label: "Finding a side with trig" }] },
+        { slug: "solving-for-the-denominator", title: "Solving for the Denominator", description: "Find an unknown side that is in the denominator of a trig ratio by dividing.", pathTag: "core", stableSkillId: "y9-solving-for-the-denominator", skillCheckpoints: [{ stableCheckpointId: "y9-solving-for-the-denominator-c1", label: "Unknown in the denominator" }] },
+        { slug: "finding-unknown-angles", title: "Finding Unknown Angles", description: "Find an unknown angle using the inverse trigonometric functions.", pathTag: "core", stableSkillId: "y9-finding-unknown-angles", skillCheckpoints: [{ stableCheckpointId: "y9-finding-unknown-angles-c1", label: "Finding an angle with inverse trig" }] },
+        { slug: "trigonometry-applications", title: "Using Trigonometry to Solve Problems", description: "Apply trigonometry to angles of elevation and depression and other real problems.", pathTag: "core", stableSkillId: "y9-trigonometry-applications", skillCheckpoints: [{ stableCheckpointId: "y9-trigonometry-applications-c1", label: "Elevation, depression and applications" }] },
+        { slug: "bearings", title: "Bearings", description: "Use three-figure compass bearings and find back (reverse) bearings.", pathTag: "core", stableSkillId: "y9-bearings", skillCheckpoints: [{ stableCheckpointId: "y9-bearings-c1", label: "Three-figure and back bearings" }] },
         ],
       },
       {
-        slug: "working-with-triangles",
-        title: "Working with Triangles",
+        slug: "linear-relationships",
+        title: "Linear Relationships",
         description:
-          "Use Pythagoras, right-triangle trigonometry and coordinate geometry to solve triangle and distance problems.",
+          "Graphing straight lines, gradient, gradient-intercept form, midpoint and length, and linear modelling.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Coordinate geometry and linear relationships, with Path extensions.",
+        lessons: [
+        { slug: "introducing-linear-relationships", title: "Introducing Linear Relationships", description: "Recognise linear relationships from tables and equations, and find values from a rule.", pathTag: "consolidating", stableSkillId: "y9-introducing-linear-relationships", skillCheckpoints: [{ stableCheckpointId: "y9-introducing-linear-relationships-c1", label: "Linear rules and tables" }] },
+        { slug: "graphing-lines-using-intercepts", title: "Graphing Straight Lines Using Intercepts", description: "Find the x- and y-intercepts of a line and use them to sketch it.", pathTag: "path", stableSkillId: "y9-graphing-lines-using-intercepts", skillCheckpoints: [{ stableCheckpointId: "y9-graphing-lines-using-intercepts-c1", label: "Intercepts of a line" }] },
+        { slug: "lines-with-one-intercept", title: "Lines with One Intercept", description: "Recognise and describe horizontal lines (y = c) and vertical lines (x = c).", pathTag: "core", stableSkillId: "y9-lines-with-one-intercept", skillCheckpoints: [{ stableCheckpointId: "y9-lines-with-one-intercept-c1", label: "Horizontal and vertical lines" }] },
+        { slug: "gradient", title: "Gradient", description: "Find the gradient of a line as rise over run and interpret its sign.", pathTag: "core", stableSkillId: "y9-gradient", skillCheckpoints: [{ stableCheckpointId: "y9-gradient-c1", label: "Gradient from two points" }] },
+        { slug: "gradient-direct-proportion", title: "Gradient and Direct Proportion", description: "Connect direct proportion y = kx with gradient through the origin.", pathTag: "path", stableSkillId: "y9-gradient-direct-proportion", skillCheckpoints: [{ stableCheckpointId: "y9-gradient-direct-proportion-c1", label: "Direct proportion y = kx" }] },
+        { slug: "gradient-intercept-form", title: "Gradient-Intercept Form", description: "Read the gradient and y-intercept from the form y = mx + c.", pathTag: "core", stableSkillId: "y9-gradient-intercept-form", skillCheckpoints: [{ stableCheckpointId: "y9-gradient-intercept-form-c1", label: "Identifying m and c" }] },
+        { slug: "finding-equation-of-a-line", title: "Finding the Equation of a Line Using y = mx + c", description: "Find the equation of a line from a gradient and a point, or from two points.", pathTag: "core", stableSkillId: "y9-finding-equation-of-a-line", skillCheckpoints: [{ stableCheckpointId: "y9-finding-equation-of-a-line-c1", label: "Building the equation of a line" }] },
+        { slug: "midpoint-length-segment", title: "Midpoint and Length of a Line Segment from Diagrams", description: "Find the midpoint and the length of a line segment from coordinates.", pathTag: "core", stableSkillId: "y9-midpoint-length-segment", skillCheckpoints: [{ stableCheckpointId: "y9-midpoint-length-segment-c1", label: "Midpoint and length" }] },
+        { slug: "perpendicular-parallel-lines", title: "Perpendicular Lines and Parallel Lines", description: "Use gradients to identify parallel and perpendicular lines.", pathTag: "path", stableSkillId: "y9-perpendicular-parallel-lines", skillCheckpoints: [{ stableCheckpointId: "y9-perpendicular-parallel-lines-c1", label: "Parallel and perpendicular gradients" }] },
+        { slug: "linear-modelling", title: "Linear Modelling", description: "Model real situations with y = mx + c and interpret the gradient and intercept.", pathTag: "core", stableSkillId: "y9-linear-modelling", skillCheckpoints: [{ stableCheckpointId: "y9-linear-modelling-c1", label: "Linear models in context" }] },
+        { slug: "graphical-solutions-simultaneous", title: "Graphical Solutions to Simultaneous Equations", description: "Solve simultaneous equations graphically as the intersection point of the lines.", pathTag: "path", stableSkillId: "y9-graphical-solutions-simultaneous", skillCheckpoints: [{ stableCheckpointId: "y9-graphical-solutions-simultaneous-c1", label: "Intersection as solution" }] },
+        ],
+      },
+      {
+        slug: "length-area-surface-area-volume",
+        title: "Length, Area, Surface Area and Volume",
+        description:
+          "Perimeter, area and composite shapes, then surface area and volume of prisms, pyramids and cylinders.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Prepare for Year 10 trigonometry, bearings, elevation and coordinate geometry.",
+          "Measurement of 2D shapes and 3D solids.",
         lessons: [
-          { slug: "pythagoras-hypotenuse", title: "Pythagoras: Finding the Hypotenuse" },
-          { slug: "pythagoras-shorter-side", title: "Pythagoras: Finding a Shorter Side" },
-          { slug: "right-triangle-applications", title: "Right-Triangle Applications" },
-          { slug: "trigonometric-ratios", title: "Trigonometric Ratios" },
-          { slug: "finding-sides-right-triangles", title: "Finding Sides in Right Triangles" },
-          { slug: "finding-angles-right-triangles", title: "Finding Angles in Right Triangles" },
-          { slug: "midpoint-distance-coordinate", title: "Midpoint and Distance on the Cartesian Plane" },
-          { slug: "gradient-foundations", title: "Gradient Foundations" },
+        { slug: "length-and-perimeter", title: "Length and Perimeter", description: "Find the perimeter of rectangles, squares and triangles, and missing sides.", pathTag: "consolidating", stableSkillId: "y9-length-and-perimeter", skillCheckpoints: [{ stableCheckpointId: "y9-length-and-perimeter-c1", label: "Perimeter of simple shapes" }] },
+        { slug: "circle-circumference-sector-perimeter", title: "Circle Circumference and Perimeter of a Sector", description: "Find circumference (C = 2πr) and the arc length and perimeter of a sector.", pathTag: "consolidating", stableSkillId: "y9-circle-circumference", skillCheckpoints: [{ stableCheckpointId: "y9-circle-circumference-c1", label: "Circumference and sector perimeter" }] },
+        { slug: "area", title: "Area", description: "Find the area of rectangles, squares, triangles and parallelograms.", pathTag: "consolidating", stableSkillId: "y9-area", skillCheckpoints: [{ stableCheckpointId: "y9-area-c1", label: "Area of simple shapes" }] },
+        { slug: "composite-shapes-perimeter-area", title: "Perimeter and Area of Composite Shapes", description: "Find the perimeter and area of composite shapes by splitting them into simple parts.", pathTag: "core", stableSkillId: "y9-composite-shapes-perimeter-area", skillCheckpoints: [{ stableCheckpointId: "y9-composite-shapes-perimeter-area-c1", label: "Composite shapes" }] },
+        { slug: "surface-area-prisms-pyramids", title: "Surface Area of Prisms and Pyramids", description: "Find the surface area of prisms and pyramids by summing the areas of all faces.", pathTag: "path", stableSkillId: "y9-surface-area-prisms-pyramids", skillCheckpoints: [{ stableCheckpointId: "y9-surface-area-prisms-pyramids-c1", label: "Surface area of prisms/pyramids" }] },
+        { slug: "surface-area-cylinders", title: "Surface Area of Cylinders", description: "Find the curved and total surface area of a cylinder using 2πrh and 2πr(r + h).", pathTag: "core", stableSkillId: "y9-surface-area-cylinders", skillCheckpoints: [{ stableCheckpointId: "y9-surface-area-cylinders-c1", label: "Surface area of cylinders" }] },
+        { slug: "volume-prisms", title: "Volume of Prisms", description: "Find the volume of prisms as base area times length.", pathTag: "core", stableSkillId: "y9-volume-prisms", skillCheckpoints: [{ stableCheckpointId: "y9-volume-prisms-c1", label: "Volume of prisms" }] },
+        { slug: "volume-cylinders", title: "Volume of Cylinders", description: "Find the volume of a cylinder using V = πr²h.", pathTag: "core", stableSkillId: "y9-volume-cylinders", skillCheckpoints: [{ stableCheckpointId: "y9-volume-cylinders-c1", label: "Volume of cylinders" }] },
         ],
       },
       {
-        slug: "prisms-and-cylinders",
-        title: "Prisms and Cylinders",
+        slug: "indices-surds",
+        title: "Indices and Surds",
         description:
-          "Calculate area, surface area and volume for prisms, cylinders and composite solids.",
+          "Index notation and laws, the zero and negative indices, scientific notation, and an introduction to surds.",
+        syllabusArea: "Number and Algebra",
+        focus:
+          "Index laws and surds, with Path extensions to fractional indices and surd operations.",
+        lessons: [
+        { slug: "index-notation", title: "Index Notation", description: "Read and evaluate numbers in index (power) notation.", pathTag: "core", stableSkillId: "y9-index-notation", skillCheckpoints: [{ stableCheckpointId: "y9-index-notation-c1", label: "Base, index and evaluating powers" }] },
+        { slug: "index-laws-multiplying-dividing", title: "Index Laws for Multiplying and Dividing", description: "Multiply and divide powers with the same base by adding or subtracting indices.", pathTag: "core", stableSkillId: "y9-index-laws-multiplying-dividing", skillCheckpoints: [{ stableCheckpointId: "y9-index-laws-multiplying-dividing-c1", label: "Multiplying and dividing powers" }] },
+        { slug: "zero-index-power-of-power", title: "The Zero Index and Power of a Power", description: "Use the zero index (a⁰ = 1) and the power-of-a-power law.", pathTag: "core", stableSkillId: "y9-zero-index-power-of-power", skillCheckpoints: [{ stableCheckpointId: "y9-zero-index-power-of-power-c1", label: "Zero index and power of a power" }] },
+        { slug: "index-laws-extended", title: "Index Laws Extended", description: "Apply the index laws to products and quotients raised to a power.", pathTag: "path", stableSkillId: "y9-index-laws-extended", skillCheckpoints: [{ stableCheckpointId: "y9-index-laws-extended-c1", label: "Products and quotients to a power" }] },
+        { slug: "negative-indices", title: "Negative Indices", description: "Use negative indices: a⁻ⁿ = 1/aⁿ.", pathTag: "path", stableSkillId: "y9-negative-indices", skillCheckpoints: [{ stableCheckpointId: "y9-negative-indices-c1", label: "Negative indices" }] },
+        { slug: "scientific-notation", title: "Scientific Notation", description: "Write numbers in scientific notation a × 10ⁿ and convert back.", pathTag: "core", stableSkillId: "y9-scientific-notation", skillCheckpoints: [{ stableCheckpointId: "y9-scientific-notation-c1", label: "Scientific notation" }] },
+        { slug: "scientific-notation-significant-figures", title: "Scientific Notation Using Significant Figures", description: "Round numbers to significant figures and write them in scientific notation.", pathTag: "core", stableSkillId: "y9-scientific-notation-significant-figures", skillCheckpoints: [{ stableCheckpointId: "y9-scientific-notation-significant-figures-c1", label: "Sig figs in scientific notation" }] },
+        { slug: "fractional-indices-surds", title: "Fractional Indices and Surds", description: "Interpret fractional indices as roots: a^(1/n) is the nth root.", pathTag: "path", stableSkillId: "y9-fractional-indices-surds", skillCheckpoints: [{ stableCheckpointId: "y9-fractional-indices-surds-c1", label: "Fractional indices as roots" }] },
+        { slug: "operations-with-surds", title: "Simple Operations with Surds", description: "Simplify surds, add like surds and multiply surds.", pathTag: "path", stableSkillId: "y9-operations-with-surds", skillCheckpoints: [{ stableCheckpointId: "y9-operations-with-surds-c1", label: "Operations with surds" }] },
+        ],
+      },
+      {
+        slug: "properties-geometrical-figures",
+        title: "Properties of Geometrical Figures",
+        description:
+          "Angles, parallel lines, polygons, congruent and similar triangles, and geometric proof.",
         syllabusArea: "Measurement and Space",
         focus:
-          "Develop measurement fluency for Year 10 surface area, volume and similarity.",
+          "Geometric reasoning, congruence and similarity.",
         lessons: [
-          { slug: "perimeter-area-review", title: "Perimeter and Area Review" },
-          { slug: "composite-area", title: "Composite Area" },
-          { slug: "surface-area-prisms", title: "Surface Area of Prisms" },
-          { slug: "surface-area-cylinders", title: "Surface Area of Cylinders" },
-          { slug: "volume-prisms", title: "Volume of Prisms" },
-          { slug: "volume-cylinders", title: "Volume of Cylinders" },
-          { slug: "composite-solids", title: "Composite Solids" },
+        { slug: "angles-and-triangles", title: "Angles and Triangles", description: "Use the angle sum of a triangle, the exterior-angle property and isosceles triangles.", pathTag: "consolidating", stableSkillId: "y9-angles-and-triangles", skillCheckpoints: [{ stableCheckpointId: "y9-angles-and-triangles-c1", label: "Angles in triangles" }] },
+        { slug: "parallel-lines", title: "Parallel Lines", description: "Use corresponding, alternate and co-interior angles on parallel lines.", pathTag: "consolidating", stableSkillId: "y9-parallel-lines", skillCheckpoints: [{ stableCheckpointId: "y9-parallel-lines-c1", label: "Angles on parallel lines" }] },
+        { slug: "quadrilaterals-polygons", title: "Quadrilaterals and Other Polygons", description: "Use the angle sum of quadrilaterals and polygons, including regular-polygon angles.", pathTag: "path", stableSkillId: "y9-quadrilaterals-polygons", skillCheckpoints: [{ stableCheckpointId: "y9-quadrilaterals-polygons-c1", label: "Polygon angle sums" }] },
+        { slug: "congruent-triangles", title: "Congruent Triangles", description: "Identify congruent triangles using SSS, SAS, AAS and RHS.", pathTag: "path", stableSkillId: "y9-congruent-triangles", skillCheckpoints: [{ stableCheckpointId: "y9-congruent-triangles-c1", label: "Congruence tests" }] },
+        { slug: "congruence-in-proof", title: "Using Congruence in Proof", description: "Use a proven congruence to justify that corresponding sides and angles are equal.", pathTag: "path", stableSkillId: "y9-congruence-in-proof", skillCheckpoints: [{ stableCheckpointId: "y9-congruence-in-proof-c1", label: "Congruence in proof" }] },
+        { slug: "enlargement-similar-figures", title: "Enlargement and Similar Figures", description: "Use scale factors to enlarge or reduce figures, and recognise similar figures.", pathTag: "core", stableSkillId: "y9-enlargement-similar-figures", skillCheckpoints: [{ stableCheckpointId: "y9-enlargement-similar-figures-c1", label: "Scale factor and similarity" }] },
+        { slug: "similar-triangles", title: "Similar Triangles", description: "Use equal angles and proportional sides of similar triangles to find unknown lengths.", pathTag: "core", stableSkillId: "y9-similar-triangles", skillCheckpoints: [{ stableCheckpointId: "y9-similar-triangles-c1", label: "Finding sides in similar triangles" }] },
+        { slug: "proving-similar-triangles", title: "Proving and Applying Similar Triangles", description: "Use the similarity tests (AA, SAS, SSS) to prove triangles similar and find lengths.", pathTag: "path", stableSkillId: "y9-proving-similar-triangles", skillCheckpoints: [{ stableCheckpointId: "y9-proving-similar-triangles-c1", label: "Similarity tests" }] },
         ],
       },
       {
-        slug: "index-laws",
-        title: "Index Laws",
+        slug: "quadratic-expressions-algebraic-techniques",
+        title: "Quadratic Expressions and Algebraic Techniques",
         description:
-          "Work with positive, zero and simple negative indices, and use scientific notation for large and small numbers.",
+          "Expanding binomial products, factorising quadratics, and operating with algebraic fractions.",
         syllabusArea: "Number and Algebra",
         focus:
-          "Strengthen algebraic fluency before Year 10 algebra and non-linear relationships.",
+          "Path-level quadratic and algebraic-fraction techniques.",
         lessons: [
-          { slug: "index-notation", title: "Index Notation" },
-          { slug: "multiplying-dividing-powers", title: "Multiplying and Dividing Powers" },
-          { slug: "power-of-a-power", title: "Power of a Power" },
-          { slug: "zero-index", title: "Zero Index" },
-          { slug: "numerical-negative-indices", title: "Numerical Negative Indices" },
-          { slug: "scientific-notation", title: "Scientific Notation" },
-          { slug: "magnitude-and-rounding", title: "Magnitude and Rounding" },
+        { slug: "expanding-binomial-products", title: "Expanding Binomial Products", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "perfect-squares-difference-of-squares", title: "Perfect Squares and Difference of Two Squares", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-algebraic-expressions", title: "Factorising Algebraic Expressions", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-difference-of-squares", title: "Factorising the Difference of Two Squares", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-by-grouping", title: "Factorising by Grouping in Pairs", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-monic-trinomials", title: "Factorising Monic Quadratic Trinomials", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "factorising-non-monic-trinomials", title: "Factorising Non-Monic Quadratic Trinomials", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "simplifying-algebraic-fractions-multiply-divide", title: "Simplifying Algebraic Fractions: Multiplication and Division", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "simplifying-algebraic-fractions-add-subtract", title: "Simplifying Algebraic Fractions: Addition and Subtraction", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "further-add-subtract-algebraic-fractions", title: "Further Addition and Subtraction of Algebraic Fractions", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "equations-with-algebraic-fractions", title: "Equations Involving Algebraic Fractions", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         ],
       },
       {
-        slug: "algebraic-techniques",
-        title: "Algebraic Techniques",
+        slug: "probability-data-analysis",
+        title: "Probability and Single Variable Data Analysis",
         description:
-          "Apply the four operations to algebraic fractions with numerical denominators, expand expressions using the distributive law including negative coefficients, and expand binomial products.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Build algebraic fluency with fractions and expansion as a foundation for equations, linear relationships and senior algebra.",
-        lessons: [
-          { slug: "algebraic-fractions-add-subtract", title: "Adding and Subtracting Algebraic Fractions" },
-          { slug: "algebraic-fractions-multiply-divide", title: "Multiplying and Dividing Algebraic Fractions" },
-          { slug: "expanding-expressions", title: "Expanding Algebraic Expressions" },
-        ],
-      },
-      {
-        slug: "equations",
-        title: "Equations",
-        description:
-          "Solve linear equations of up to three steps, including equations with the variable on both sides and equations containing one algebraic fraction.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Develop equation-solving fluency needed for Year 10 simultaneous equations, quadratics and modelling.",
-        lessons: [
-          { slug: "linear-equations-two-step", title: "Solving Two-Step Equations" },
-          { slug: "linear-equations-three-step", title: "Solving Three-Step Equations" },
-          { slug: "equations-with-fractions", title: "Equations with Algebraic Fractions" },
-        ],
-      },
-      {
-        slug: "financial-mathematics",
-        title: "Financial Mathematics",
-        description:
-          "Calculate earnings, spending, tax, net earnings and simple interest in practical contexts.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Build practical financial mathematics before Year 10 compound interest, depreciation and comparisons.",
-        lessons: [
-          { slug: "wages-and-earnings", title: "Wages and Earnings" },
-          { slug: "penalty-rates-overtime", title: "Penalty Rates and Overtime" },
-          { slug: "non-wage-earnings", title: "Non-Wage Earnings" },
-          { slug: "tax-and-net-earnings", title: "Tax and Net Earnings" },
-          { slug: "spending-and-budgets", title: "Spending and Budgets" },
-          { slug: "simple-interest", title: "Simple Interest" },
-          { slug: "deposits-and-repayments", title: "Deposits and Repayments" },
-          { slug: "buy-now-pay-later-loans", title: "Buy Now Pay Later and Short-Term Loans" },
-        ],
-      },
-      {
-        slug: "constant-rates-of-change",
-        title: "Constant Rates of Change",
-        description:
-          "Connect linear relationships, gradient, graphing and constant rates of change.",
-        syllabusArea: "Number and Algebra",
-        focus:
-          "Prepare for Year 10 linear relationships and modelling.",
-        lessons: [
-          { slug: "cartesian-plane-review", title: "Cartesian Plane Review" },
-          { slug: "tables-rules-and-graphs", title: "Tables, Rules and Graphs" },
-          { slug: "gradient-from-points", title: "Gradient from Points" },
-          { slug: "gradient-intercept-form", title: "Gradient-Intercept Form" },
-          { slug: "parallel-lines-foundations", title: "Parallel Lines Foundations" },
-          { slug: "distance-time-graphs", title: "Distance-Time Graphs" },
-          { slug: "linear-modelling", title: "Linear Modelling" },
-        ],
-      },
-      {
-        slug: "making-predictions",
-        title: "Making Predictions",
-        description:
-          "Use sample spaces, multi-stage probability, dependent and independent events, and simulations to make predictions.",
+          "Probability with Venn diagrams, set notation, arrays and tree diagrams, then data displays and measures of spread.",
         syllabusArea: "Statistics and Probability",
         focus:
-          "Prepare for Year 10 probability, tree diagrams, Venn diagrams and conditional probability.",
+          "Probability and single-variable statistics.",
         lessons: [
-          { slug: "simple-complementary-events", title: "Simple and Complementary Events" },
-          { slug: "sample-spaces", title: "Sample Spaces" },
-          { slug: "multi-stage-events", title: "Multi-Stage Events" },
-          { slug: "independent-events", title: "Independent Events" },
-          { slug: "dependent-events", title: "Dependent Events" },
-          { slug: "probability-simulations", title: "Probability Simulations" },
+        { slug: "review-of-probability", title: "Review of Probability", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "venn-diagrams-two-way-tables", title: "Venn Diagrams and Two-Way Tables", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "using-set-notation", title: "Using Set Notation", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "arrays-two-step-experiments", title: "Using Arrays for Two-Step Experiments", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "tree-diagrams", title: "Using Tree Diagrams", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "relative-frequencies", title: "Using Relative Frequencies to Estimate Probabilities", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "data-and-sampling", title: "Data and Sampling", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "mean-median-mode", title: "Mean, Median and Mode", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "stem-and-leaf-plots", title: "Stem-and-Leaf Plots", description: "(Interim placeholder - not yet authored.)", pathTag: "consolidating", showInCourseNav: false },
+        { slug: "grouping-data-into-classes", title: "Grouping Data into Classes", description: "(Interim placeholder - not yet authored.)", pathTag: "extending", showInCourseNav: false },
+        { slug: "range-interquartile-range", title: "Measures of Spread: Range and Interquartile Range", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
+        { slug: "box-plots", title: "Box Plots", description: "(Interim placeholder - not yet authored.)", pathTag: "core", showInCourseNav: false },
         ],
       },
       {
-        slug: "making-decisions",
-        title: "Making Decisions",
+        slug: "quadratic-equations-parabolas",
+        title: "Quadratic Equations and Graphs of Parabolas",
         description:
-          "Use data summaries, quartiles, box plots and standard deviation to compare groups and make decisions.",
-        syllabusArea: "Statistics and Probability",
+          "Solving quadratic equations by factorising and sketching parabolas with dilations, reflections and translations.",
+        syllabusArea: "Number and Algebra",
         focus:
-          "Prepare for Year 10 statistics, IQR, box plots, spread and data-based reasoning.",
+          "Path-level quadratic equations and parabola graphing.",
         lessons: [
-          { slug: "mean-median-mode-range-review", title: "Mean, Median, Mode and Range Review" },
-          { slug: "quartiles-iqr", title: "Quartiles and Interquartile Range" },
-          { slug: "box-plots", title: "Box Plots" },
-          { slug: "comparing-data-sets", title: "Comparing Data Sets" },
-          { slug: "standard-deviation-introduction", title: "Standard Deviation Introduction" },
-          { slug: "data-based-decisions", title: "Data-Based Decisions" },
+        { slug: "quadratic-equations", title: "Quadratic Equations", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "solving-quadratics-factorising-basic", title: "Solving ax^2 + bx = 0 and x^2 - d = 0 by Factorising", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "solving-quadratics-factorising", title: "Solving x^2 + bx + c = 0 by Factorising", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "quadratic-equations-problems", title: "Using Quadratic Equations to Solve Problems", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "the-parabola", title: "The Parabola", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "sketching-dilations-reflections", title: "Sketching y = ax^2 with Dilations and Reflections", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "sketching-translations", title: "Sketching Translations of y = x^2", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
+        { slug: "sketching-parabolas-intercept-form", title: "Sketching Parabolas Using Intercept Form", description: "(Interim placeholder - not yet authored.)", pathTag: "path", showInCourseNav: false },
         ],
       },
     ],
@@ -5993,159 +6055,19 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       })),
     }));
 
-  // Year 9 Core trims working-with-triangles to Pythagoras + Stage 5.2 trig (lessons 1–3).
-  // The three trig-* slugs are Core-only and are not in the base unit, so we build the
-  // lesson list explicitly rather than filtering from year9Base.
-  const year9CoreTriangleLessons: CourseLessonSeed[] = [
-    { slug: "pythagoras-hypotenuse", title: "Pythagoras: Finding the Hypotenuse" },
-    { slug: "pythagoras-shorter-side", title: "Pythagoras: Finding a Shorter Side" },
-    { slug: "right-triangle-applications", title: "Right-Triangle Applications" },
-    { slug: "trig-naming-sides", title: "Naming Sides of a Right Triangle" },
-    { slug: "trig-ratios-intro", title: "The Trig Ratios: SOH-CAH-TOA" },
-    { slug: "trig-finding-sides-multiply", title: "Finding Sides (Multiply Step)" },
-    { slug: "trig-finding-sides-divide", title: "Finding Sides (Divide Step)" },
-    { slug: "trig-choosing-ratio", title: "Choosing the Right Ratio" },
-    { slug: "trig-finding-angles", title: "Finding Unknown Angles" },
-    { slug: "trig-applications", title: "Trig in Practical Contexts" },
-    { slug: "trig-elevation-depression", title: "Angles of Elevation and Depression" },
-    { slug: "trig-bearings", title: "Bearings" },
-  ];
-  const year9CoreUnits: CourseUnitSeed[] = year9Base.units.flatMap((u) => {
-    if (u.slug === "working-with-triangles") {
-      return [{ ...u, title: "Trigonometry", lessons: year9CoreTriangleLessons }];
-    }
-    if (u.slug === "index-laws") {
-      const indicesLessons = u.lessons.filter(
-        (l) => !["scientific-notation", "magnitude-and-rounding"].includes(l.slug)
-      );
-      const magnitudeLessons = u.lessons.filter(
-        (l) => ["scientific-notation", "magnitude-and-rounding"].includes(l.slug)
-      );
-      return [
-        { ...u, title: "Indices", lessons: indicesLessons },
-        {
-          slug: "numbers-of-any-magnitude",
-          title: "Numbers of Any Magnitude",
-          description:
-            "Use scientific notation to represent and compare very large and very small numbers, and round to a given number of significant figures.",
-          syllabusArea: "Number and Algebra",
-          focus: "Apply scientific notation and significant figures to solve measurement problems.",
-          lessons: magnitudeLessons,
-        },
-      ];
-    }
-    if (u.slug === "financial-mathematics") {
-      return [{ ...u, title: "Earning and Making Money" }];
-    }
-    if (u.slug === "constant-rates-of-change") {
-      // distance-time-graphs is Variation A (MA5-RAT-P-01) — PATH only, not Core
-      return [{ ...u, title: "Linear Relationships", lessons: u.lessons.filter((l) => l.slug !== "distance-time-graphs") }];
-    }
-    if (u.slug === "prisms-and-cylinders") {
-      return [{ ...u, title: "Area, Surface Area and Volume" }];
-    }
-    if (u.slug === "making-predictions") {
-      return [{ ...u, title: "Probability" }];
-    }
-    if (u.slug === "making-decisions") {
-      return [{ ...u, title: "Data Analysis" }];
-    }
-    if (u.slug === "geometrical-representations") {
-      // geometric-representations (plans/nets) and networks-introduction are not in MA5-GEO-C-01 Core scope
-      return [{ ...u, title: "Properties of Geometrical Figures", lessons: u.lessons.filter((l) => ["similar-figures", "ratio-scale-factors", "scale-drawings"].includes(l.slug)) }];
-    }
-    return [u];
-  });
-
-  const year9AdvancedUnits: CourseUnitSeed[] = [
-    ...year9Base.units.flatMap((u) => {
-      if (u.slug === "financial-mathematics") {
-        return [{ ...u, title: "Earning and Making Money" }];
-      }
-      if (u.slug === "constant-rates-of-change") {
-        // distance-time-graphs belongs in the variation-rates Advanced unit
-        return [{ ...u, title: "Linear Relationships", lessons: u.lessons.filter((l) => l.slug !== "distance-time-graphs") }];
-      }
-      if (u.slug === "prisms-and-cylinders") {
-        return [{ ...u, title: "Area, Surface Area and Volume" }];
-      }
-      if (u.slug === "making-predictions") {
-        return [{ ...u, title: "Probability" }];
-      }
-      if (u.slug === "making-decisions") {
-        return [{ ...u, title: "Data Analysis" }];
-      }
-      if (u.slug === "working-with-triangles") {
-        return [{ ...u, title: "Trigonometry" }];
-      }
-      if (u.slug === "index-laws") {
-        return [{ ...u, title: "Indices" }];
-      }
-      if (u.slug === "geometrical-representations") {
-        return [{ ...u, title: "Properties of Geometrical Figures" }];
-      }
-      return [u];
-    }),
-    {
-      slug: "equations-b",
-      title: "Quadratic and Cubic Equations",
-      description: "Solve monic quadratic equations by factorising, linear inequalities, and cubic equations of the form ax³ = k.",
-      syllabusArea: "Number and Algebra",
-      focus: "Develop fluency solving a broader range of equations including quadratics, inequalities and cubics.",
-      lessons: [
-        { slug: "quadratic-equations-factorise", title: "Solving Monic Quadratic Equations by Factorising" },
-        { slug: "linear-inequalities", title: "Solving Linear Inequalities" },
-        { slug: "cubic-equations", title: "Solving Cubic Equations of the Form ax³ = k" },
-      ],
-    },
-    {
-      slug: "variation-rates",
-      title: "Variation and Rates",
-      description: "Solve problems involving ratios and rates, analyse distance-time graphs, and recognise direct variation.",
-      syllabusArea: "Number and Algebra",
-      focus: "Apply proportional reasoning and rate concepts to interpret and solve real-world problems.",
-      lessons: [
-        { slug: "ratios-and-rates", title: "Ratios and Rates" },
-        { slug: "distance-time-graphs", title: "Distance-Time Graphs" },
-        { slug: "direct-variation", title: "Direct Variation" },
-      ],
-    },
-    {
-      slug: "simultaneous-equations",
-      title: "Simultaneous Equations",
-      description: "Solve linear simultaneous equations graphically and algebraically using substitution and elimination methods.",
-      syllabusArea: "Number and Algebra",
-      focus: "Choose efficient algebraic methods to solve systems of two linear equations.",
-      lessons: [
-        { slug: "simultaneous-equations-graphical", title: "Solving Simultaneous Equations Graphically" },
-        { slug: "simultaneous-equations-substitution", title: "Solving Simultaneous Equations by Substitution" },
-        { slug: "simultaneous-equations-elimination", title: "Solving Simultaneous Equations by Elimination" },
-      ],
-    },
-    {
-      slug: "probability-b",
-      title: "Probability B",
-      description: "Solve probability problems using Venn diagrams, two-way tables and conditional probability.",
-      syllabusArea: "Probability and Statistics",
-      focus: "Extend probability to multi-event scenarios using set notation, tables and conditional reasoning.",
-      lessons: [
-        { slug: "venn-diagrams", title: "Venn Diagrams and Set Notation" },
-        { slug: "two-way-tables", title: "Two-Way Tables" },
-        { slug: "conditional-probability", title: "Conditional Probability" },
-      ],
-    },
-    {
-      slug: "linear-relationships-c",
-      title: "Linear Relationships C",
-      description: "Find equations of lines in multiple forms and identify parallel and perpendicular lines.",
-      syllabusArea: "Number and Algebra",
-      focus: "Apply gradient and equation concepts to describe, compare and find equations of lines in context.",
-      lessons: [
-        { slug: "equations-of-lines", title: "Equations of Lines" },
-        { slug: "parallel-perpendicular-lines", title: "Parallel and Perpendicular Lines" },
-      ],
-    },
-  ];
+  // Year 9 Core/Advanced derive from the single tagged base via the shared pathTag filters
+  // (ADR-Y9-001), replacing the bespoke trim/extra-unit logic. assertPathTagTotality (G6) fails
+  // the build if any base section is missing a pathTag. Year 9 carries no stableSkillId/checkpoint
+  // yet at Wave 0; minted from Wave 1 authoring onward. Namespace the per-pathway skill/checkpoint
+  // stable IDs (y9- -> y9c-/y9a-) so an authored section's IDs are unique across the three derived
+  // courses (mirrors Year 10's namespaceSkillMapIds). The base keeps the y9- prefix. Permanent once
+  // committed (ADR-Y9-001).
+  assertPathTagTotality(year9Base.units, "year-9-mathematics");
+  const year9CoreUnits: CourseUnitSeed[] = namespaceSkillMapIds(derivePathwayUnits(year9Base.units, "core"), "y9-", "y9c-");
+  const year9AdvancedUnits: CourseUnitSeed[] = namespaceSkillMapIds(derivePathwayUnits(year9Base.units, "advanced"), "y9-", "y9a-");
+  // The base pathway (year-9-mathematics) shows core + path (no extending / consolidating),
+  // mirroring Year 10. Reassigned AFTER core/advanced are derived from the full tagged base.
+  year9Base.units = derivePathwayUnits(year9Base.units, "base");
 
   // ADR-Y10-001: tag-driven derivation over the shared 12-chapter base (replaces the legacy
   // slug blacklists). The base course literal holds the full tagged source (core+path+extending
@@ -6172,7 +6094,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       title: "Year 9 Mathematics Advanced",
       yearLevel: "Year 9",
       courseType: "Mathematics Advanced",
-      status: "in_progress",
+      // Hidden during the Year 9 restructure (Wave 0, ADR-Y9-001) so students never see the
+      // transitional stub-skeleton state. Restore to "in_progress"/"available" at release.
+      status: "hidden",
       description:
         "Stage 5.2/5.3 Year 9 Mathematics for students on the Advanced pathway. Includes full trigonometry, coordinate geometry, extended algebra, simultaneous equations, Venn diagrams and conditional probability.",
       positioning:
@@ -6184,7 +6108,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       title: "Year 9 Mathematics Core",
       yearLevel: "Year 9",
       courseType: "Mathematics Core",
-      status: "in_progress",
+      // Hidden during the Year 9 restructure (Wave 0, ADR-Y9-001) so students never see the
+      // transitional stub-skeleton state. Restore to "in_progress"/"available" at release.
+      status: "hidden",
       description:
         "Stage 5.1/5.2 Year 9 Mathematics for students on the Core pathway. Covers geometry, measurement, index laws, financial maths, linear relationships and statistics.",
       positioning:
