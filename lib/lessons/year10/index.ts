@@ -16,3 +16,4 @@ export { year10PolynomialsGraphsWave5LessonOverride } from "./polynomialsGraphsW
 export { year10ParabolasVariationWave6LessonOverride } from "./parabolasVariationWave6";
 export { year10StatisticsWave7LessonOverride } from "./statisticsWave7";
 export { year10NetworksWave8LessonOverride } from "./networksWave8";
+export { year10CountingWave9LessonOverride } from "./countingWave9";
