@@ -46,6 +46,10 @@ import {
   modulusArgumentChallenge,
   polarDeMoivreChallenge,
 } from "./year12Extension2";
+import {
+  gradientY9Challenge,
+  circleY9Challenge,
+} from "./year9Wave1";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -95,6 +99,12 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "complex-number-arithmetic": complexArithmeticChallenge,
   "modulus-argument-conjugate": modulusArgumentChallenge,
   "polar-form-de-moivre": polarDeMoivreChallenge,
+  // Year 9 Wave 1 validation sample (ADR-Y9-001). NOTE: the registry is keyed by lesson slug only
+  // (not course-scoped), so the Y9 `simple-interest` D6 set is intentionally NOT registered here —
+  // that slug already maps to the Year 11 Standard set and must not be clobbered. This slug
+  // collision is a Wave 1 validation finding: course-scope the registry before scaling Y9 D6.
+  "gradient": gradientY9Challenge,
+  "circle-circumference-sector-perimeter": circleY9Challenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
