@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10GeometryWave3LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -487,6 +487,7 @@ export function buildLesson(
     year9ProbabilityBLessonOverride(course, unit, lesson) ??
     year9LinearRelationshipsCLessonOverride(course, unit, lesson) ??
     year10AlgebraWave1LessonOverride(course, unit, lesson) ??
+    year10GeometryWave3LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -4455,9 +4456,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "review-of-geometry",
                                       "title": "2A Review of Geometry",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Use angle relationships on lines, at points, in triangles/quadrilaterals and on parallel lines to find unknown angles.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "congruent-triangles",
@@ -4468,9 +4468,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "congruence-quadrilaterals",
                                       "title": "2C Congruence and Quadrilaterals",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Choose congruence tests (SSS, SAS, ASA, RHS) and use congruence and quadrilateral properties.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "similar-triangles",
@@ -4481,8 +4480,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "proving-similar-triangles",
                                       "title": "2E Proving Similar Triangles",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Use similarity tests and the scale factor to identify similar triangles and find unknown sides.",
                                       "pathTag": "path"
                               },
                               {
@@ -4494,8 +4492,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "further-angle-properties-circles",
                                       "title": "2H Further Angle Properties of Circles",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Apply circle theorems: angle at the centre, semicircle, same segment and cyclic quadrilaterals.",
                                       "pathTag": "path"
                               },
                               {
@@ -4507,8 +4504,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "intersecting-chords-secants-tangents",
                                       "title": "2J Intersecting Chords, Secants and Tangents",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Use the intersecting-chords product rule and tangent properties.",
                                       "pathTag": "path"
                               },
                               {
