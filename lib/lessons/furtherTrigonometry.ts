@@ -59,7 +59,8 @@ function furtherTrigLesson(
   guidedPractice: PracticeQuestion[],
   independentPractice: PracticeQuestion[],
   commonMistakes: ExplicitLesson["commonMistakes"],
-  masteryQuiz: PracticeQuestion[]
+  masteryQuiz: PracticeQuestion[],
+  masteryQuizPool: PracticeQuestion[] = []
 ): ExplicitLesson {
   return {
     id,
@@ -84,6 +85,7 @@ function furtherTrigLesson(
     independentPractice,
     commonMistakes,
     masteryQuiz,
+    ...(masteryQuizPool.length ? { masteryQuizPool } : {}),
     masteryPassMark: 0.8,
   };
 }
@@ -268,6 +270,9 @@ export const exactValuesCompoundAnglesLesson = furtherTrigLesson(
     trigChoice("ftrig-exact-m8", "Which choice explains why the value is negative?", "\\cos105^\\circ", "B", ["105 degrees is in quadrant I", "105 degrees is in quadrant II where cosine is negative", "105 degrees is a special angle with tangent undefined", "Cosine is always negative for compound angles"], "Quadrant II gives negative cosine."),
     trigChoice("ftrig-exact-m9", "Choose the exact value.", "\\sin105^\\circ", "A", ["$\\frac{\\sqrt6+\\sqrt2}{4}$", "$\\frac{\\sqrt6-\\sqrt2}{4}$", "$-\\frac{\\sqrt6+\\sqrt2}{4}$", "$\\frac{\\sqrt2-\\sqrt6}{4}$"], "105 degrees has reference angle 75 degrees for sine and is positive in quadrant II."),
     trigChoice("ftrig-exact-m10", "Which identity and angle split best supports this exact value?", "\\cos15^\\circ", "D", ["$\\sin(45^\\circ+30^\\circ)$", "$\\cos(60^\\circ+45^\\circ)$", "$\\tan(45^\\circ-30^\\circ)$", "$\\cos(45^\\circ-30^\\circ)$"], "Cosine 15 degrees is naturally found using $\\cos(45^\\circ-30^\\circ)$."),
+  ],
+  [
+    { id: "t2-pool-d5-3", prompt: "Given $\\cos\\theta=\\sin 30^\\circ$ with $\\theta$ acute, find $\\theta$ (in degrees).", latex: "\\cos\\theta=\\sin 30^\\circ", answer: "60", acceptedAnswers: ["60°", "60 degrees"], hint: "$\\sin 30^\\circ=\\tfrac12$; which acute angle has cosine $\\tfrac12$?", explanation: "$\\sin 30^\\circ=0.5$ and $\\cos 60^\\circ=0.5$, so $\\theta=60^\\circ$.", difficulty: 5 },
   ]
 );
 

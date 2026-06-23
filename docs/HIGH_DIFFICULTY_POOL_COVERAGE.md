@@ -76,7 +76,7 @@
 | year-12-advanced | ma-s2-descriptive-statistics-and-bivariate-data | 21 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-s3-random-variables | 18 | 9 | 9 | 0 | ✅ | — |
 | year-12-advanced | ma-t1-trigonometry-and-measure-of-angles | 3 | 0 | 0 | 0 | — | P1 |
-| year-12-advanced | ma-t2-trigonometric-functions-and-identities | 27 | 3 | 3 | 0 | — | P2 |
+| year-12-advanced | ma-t2-trigonometric-functions-and-identities | 33 | 9 | 9 | 0 | ✅ | — |
 | year-12-advanced | ma-t3-trigonometric-equations | 6 | 0 | 0 | 0 | — | P1 |
 | year-12-extension-1 | binomial-distribution | 9 | 1 | 0 | 1 | — | P1 |
 | year-12-extension-1 | calculus-applications | 27 | 1 | 0 | 1 | — | P1 |
@@ -179,10 +179,10 @@
 ## Priority summary
 
 - **P1**: 44
-- **P2**: 15
+- **P2**: 14
 - **P3**: 36
 - **P4**: 61
-- **Replay-ready:** 15
+- **Replay-ready:** 16
 
-**TOTAL: 171 topics · 15 replay-ready · 92 zero-D6.**
+**TOTAL: 171 topics · 16 replay-ready · 92 zero-D6.**
 

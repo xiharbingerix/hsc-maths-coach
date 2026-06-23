@@ -454,6 +454,56 @@ ma-c2 "derivative as information" rule. Targets the integral-calculus exemplar.
 
 ---
 
+## ma-t2-trigonometric-functions-and-identities (Year 12 Advanced) — Domain: Trigonometry — Target: 6 D5 + 6 D6 (top-up) — ✅ AUTHORED (2026-06-24, ma-t2 confirmed; #2/#5 + identity-richness mods applied)
+
+*Supervisor mods applied:* #2 → identity-dependent angle reconstruction, sin θ = cos 2θ on
+[0°,90°] via cos2θ=1−2sin²θ → θ=30° (beyond one-step cofunction); #5 → function-behaviour
+reconstruction from extrema, f=a+b·sin x max 5 min −1 → a=2; identity-dependent D6 now = 2
+(#2 double-angle, #3 Pythagorean). Existing 3 D6 (trig-equations lesson) retained.
+
+⚠️ **Slug flag:** supervisor named "ma-t3 Trigonometric Functions and Identities". In THIS app
+that topic's slug is **ma-t2-trigonometric-functions-and-identities** (D5 27, D6-single 3, P2);
+the app's `ma-t3-trigonometric-equations` is the *equation-solving* topic (D5 6, D6 0) — which the
+supervisor's reject list ("direct equation solving / solve a longer trig equation") explicitly bars.
+So this plan targets the app's **ma-t2** (matches the supervisor's name + gates). Confirm before authoring.
+
+Lessons (11) across furtherTrigonometry.ts (compound-angle-formulas, exact-values-compound-angles,
+double-angle-formulas, further-trig-equations-identities, further-trigonometry-exam-practice) and
+trigonometricFunctionsGraphs.ts (graphs-sine-cosine-tangent, amplitude-period-phase-vertical-shift,
+trigonometric-equations [has the existing 3 D6], trigonometric-identities-simplification,
+modelling-periodic-phenomena, mixed-trigonometric-functions-exam-practice).
+**Gate: reward seeing structure, not surviving algebra.**
+
+**D6 archetype table (6; ≤2 per archetype):**
+| # | Archetype (category) | Detail → answer | Reverse? | Multi-prop? |
+|---|---|---|---|---|
+| 1 | Parameter reconstruction | y=a·sin(bx), amplitude 3, period π → a+b=5 | ✓ | ✓ (amplitude+period) |
+| 2 | Angle reconstruction | cos θ = sin 50°, 0°<θ<90° → θ=40° | ✓ | |
+| 3 | Identity-structure reasoning | sin θ + cos θ = 1.2 → sin θ cos θ = 0.22 (square the sum) | ✓ | |
+| 4 | Existence / validity | for what m does sin θ = 2m−1 have a real solution? → 0≤m≤1 | ✓ | |
+| 5 | Function-behaviour (range) | maximum value of f=5−3cos(2x) → 8 | | |
+| 6 | Multi-condition reconstruction | θ in Q2 with sin θ = 3/5 → tan θ = −3/4 | ✓ | ✓ (value+quadrant) |
+
+**Coverage vs gates:** parameter/angle reconstruction 2 (#1,#2 ✓); identity-structure 1 (#3 ✓);
+multi-condition reconstruction 1 (#6 ✓); existence/validity 1 (#4 ✓); function-behaviour 1 (#5 ✓).
+Reverse-reasoning = #1,#2,#3,#4,#6 (≥4 ✓). Multi-property = #1,#6 (≥2 ✓). No archetype >2; no "find θ" monoculture.
+
+**D5 archetype table (6):** period of y=sin(3x) (→2π/3); amplitude of y=4cos x (→4); cos θ=sin 30°,
+θ acute (→60°); recover b from y=2sin(bx), period π (→2); cos θ from sin θ=0.6 acute (→0.8, Pythagorean);
+maximum of y=3sin x+2 (→5).
+
+**Reject list:** direct identity proof; direct identity simplification; direct equation solving; routine
+graph reading; routine exact-value evaluation; any item whose first move is applying a memorised identity
+and grinding algebra.
+
+**Domain-richness note:** difficulty lives in structural relationships, parameter/angle reconstruction,
+identity recognition (square-the-sum), existence/range constraints, and combining a value with a quadrant
+sign — not algebra grinding. Targets the trig-domain exemplar.
+
+**Expected after:** D6-single 3→9 ⟹ replay-ready ✅; D5 27→33.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**

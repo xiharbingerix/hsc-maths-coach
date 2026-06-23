@@ -98,6 +98,14 @@ import {
   icAccumulationChallenge,
   icExamChallenge,
 } from "./year12AdvancedIntegralCalculus";
+import {
+  trigParamChallenge,
+  trigDoubleAngleChallenge,
+  trigIdentityChallenge,
+  trigExistenceChallenge,
+  trigBehaviourChallenge,
+  trigQuadrantChallenge,
+} from "./year12AdvancedTrigIdentities";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -193,6 +201,13 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "definite-integrals-fundamental-theorem": icParameterChallenge,
   "applications-total-change-motion": icAccumulationChallenge,
   "mixed-integral-calculus-exam-practice": icExamChallenge,
+  // Year 12 Advanced — Trig Functions & Identities (ma-t2; trig-equations D6 live in year12AdvancedMore)
+  "amplitude-period-phase-vertical-shift": trigParamChallenge,
+  "double-angle-formulas": trigDoubleAngleChallenge,
+  "trigonometric-identities-simplification": trigIdentityChallenge,
+  "graphs-sine-cosine-tangent": trigExistenceChallenge,
+  "modelling-periodic-phenomena": trigBehaviourChallenge,
+  "mixed-trigonometric-functions-exam-practice": trigQuadrantChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

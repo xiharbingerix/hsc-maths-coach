@@ -723,6 +723,10 @@ export const graphsSineCosineTangentLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "t2-pool-d5-1", prompt: "Find the period of $y=\\sin(3x)$.", latex: "y=\\sin(3x)", answer: "2π/3", acceptedAnswers: ["2pi/3", "\\frac{2\\pi}{3}", "120°", "120"], hint: "The period of $\\sin(bx)$ is $\\frac{2\\pi}{b}$.", explanation: "Period $=\\frac{2\\pi}{3}$.", difficulty: 5 },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -1059,6 +1063,11 @@ export const amplitudePeriodPhaseVerticalShiftLesson: ExplicitLesson = {
       hint: "Amplitude is $|a|$ and midline is $y=d$.",
       explanation: "The midline is $y=4$ and the amplitude is $3$.",
     },
+  ],
+
+  masteryQuizPool: [
+    { id: "t2-pool-d5-2", prompt: "State the amplitude of $y=4\\cos x$.", latex: "y=4\\cos x", answer: "4", acceptedAnswers: [], hint: "The amplitude is $|a|$ for $y=a\\cos x$.", explanation: "Amplitude $=|4|=4$.", difficulty: 5 },
+    { id: "t2-pool-d5-4", prompt: "$y=2\\sin(bx)$ has period $\\pi$. Find $b$.", latex: "y=2\\sin(bx)", answer: "2", acceptedAnswers: ["b=2"], hint: "Set the period $\\frac{2\\pi}{b}=\\pi$.", explanation: "$\\frac{2\\pi}{b}=\\pi\\Rightarrow b=2$.", difficulty: 5 },
   ],
 
   masteryPassMark: 0.8,
@@ -1707,6 +1716,10 @@ export const trigonometricIdentitiesSimplificationLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "t2-pool-d5-5", prompt: "If $\\sin\\theta=0.6$ and $\\theta$ is acute, find $\\cos\\theta$.", latex: "\\sin\\theta=0.6", answer: "0.8", acceptedAnswers: ["4/5"], hint: "Use $\\sin^2\\theta+\\cos^2\\theta=1$.", explanation: "$\\cos\\theta=\\sqrt{1-0.36}=\\sqrt{0.64}=0.8$ (positive since $\\theta$ is acute).", difficulty: 5 },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -2033,6 +2046,10 @@ export const modellingPeriodicPhenomenaLesson: ExplicitLesson = {
       hint: "$d$ is the vertical shift.",
       explanation: "$d$ gives the midline or average value.",
     },
+  ],
+
+  masteryQuizPool: [
+    { id: "t2-pool-d5-6", prompt: "Find the maximum value of $y=3\\sin x+2$.", latex: "y=3\\sin x+2", answer: "5", acceptedAnswers: [], hint: "The maximum of $\\sin x$ is $1$.", explanation: "Maximum $=3(1)+2=5$.", difficulty: 5 },
   ],
 
   masteryPassMark: 0.8,
