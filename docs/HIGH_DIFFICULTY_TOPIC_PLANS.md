@@ -321,6 +321,53 @@ comparison), not arithmetic. Aiming to make ma-s3 the statistics-domain exemplar
 
 ---
 
+## ma-e1-exponential-and-logarithmic-functions (Year 12 Advanced) — Domain: Exponentials/Logs — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-23, plan approved with #3/#5 upgrades)
+
+*Supervisor upgrades applied:* #3 → log reconstruction (logₐ6=2, logₐ2=0.8 → logₐ4.5=1.6,
+needs logₐ3 derived first); #5 → existence (for what k does log₂(x−1)=log₂(k−x) have a
+solution → k>1). #1/#2/#4/#6 kept.
+
+**Acceptance:** 6 D5 → lesson `masteryQuizPool`s (log-laws ×2, e/ln, solving, growth, exam);
+6 D6 → `lib/challenges/year12AdvancedExpLog.ts` (5 sets ≤2/lesson). D6-single 0→6, D5 15→21.
+D6: param-recon k=ln3; intercept+asymptote y(2)=11; log reconstruction 1.6; growth-inference
+t=8; existence k>1; asymptote+intersection a=1. ≥4 reverse, 3 multi-property interaction
+(#2,#5,#6), no archetype >2. Worksheet sample max 4/subtopic, ~53.5 min — passes cleanly
+(5 lessons). tsc/git diff clean.
+
+Current: D5 15, D6-single 0 (one existing D6 is multipart). Lessons: logarithm-laws-
+change-of-base, eulers-number-natural-logarithm, solving-equations-e-ln,
+exponential-growth-decay-modelling, exponential-logarithmic-exam-practice.
+
+**D6 archetype table (6, meeting category minimums; ≥2 multi-property interaction):**
+| # | Archetype (category) | Detail → answer | Interaction? |
+|---|---|---|---|
+| 1 | Parameter reconstruction | A·e^{kx} through (0,5) & (2,45) → k = ln 3 | |
+| 2 | Parameter reconstruction | y = a + b·2^x: asymptote y=3 + point (0,5) → y(2) = 11 | intercept + asymptote |
+| 3 | Exp/log identity structure | log_a 12 from log_a 2 = 0.3, log_a 3 = 0.5 → 1.1 | |
+| 4 | Growth/decay model inference | pop 200 → 800 in 4 h; time to reach 3200 → t = 8 | |
+| 5 | Domain / existence constraint | domain of log(x−1) + log(5−x) → 1 < x < 5 | two log conditions |
+| 6 | Multi-condition reconstruction | y = a·2^x + c: asymptote y=−1 + crosses y=7 at x=3 → a = 1 | asymptote + intersection |
+
+**Coverage vs gates:** parameter reconstruction 2 (#1,#2 ✓); exp/log identity 1 (#3 ✓);
+growth/decay inference 1 (#4 ✓); domain/existence 1 (#5 ✓); multi-condition 1 (#6 ✓).
+Reverse-reasoning (backward from structure) = #1, #2, #4, #6 (+#5) ≥4 ✓. Multi-property
+interaction ≥2 → #2, #5, #6 = 3 ✓. No archetype > 2.
+
+**D5 archetype table (6):** solve 2^{x+1}=16 (→3); evaluate log₂32 (→5); evaluate y=3·2^x at
+x=4 (→48); solve log₃x=4 (→81); decay over 3 half-lives 80→10 (→10); index laws e^5/e^2 (→x=3).
+
+**Reject list:** direct log solving; direct exponential solving; direct change-of-base
+substitution; direct growth-formula application; routine graph reading; any item solvable by
+identifying a known procedure and substituting immediately.
+
+**Domain-richness note:** difficulty is carried by inverse/structural reasoning (recover a
+base/rate, infer a model, combine logs strategically, intersect asymptote+feature), not by
+running a formula. Bridges Functions → calculus.
+
+**Expected after:** D6-single 0→6 ⟹ replay-ready ✅; D5 15→21.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**

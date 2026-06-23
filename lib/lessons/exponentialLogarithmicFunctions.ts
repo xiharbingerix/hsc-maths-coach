@@ -59,7 +59,8 @@ function expLesson(
   guidedPractice: PracticeQuestion[],
   independentPractice: PracticeQuestion[],
   commonMistakes: ExplicitLesson["commonMistakes"],
-  masteryQuiz: PracticeQuestion[]
+  masteryQuiz: PracticeQuestion[],
+  masteryQuizPool: PracticeQuestion[] = []
 ): ExplicitLesson {
   return {
     id,
@@ -84,6 +85,7 @@ function expLesson(
     independentPractice,
     commonMistakes,
     masteryQuiz,
+    ...(masteryQuizPool.length ? { masteryQuizPool } : {}),
     masteryPassMark: 0.8,
   };
 }
@@ -188,6 +190,10 @@ export const logarithmLawsChangeOfBaseLesson = expLesson(
     expChoice("exp-log-laws-m8", "Choose the strongest simplification.", "\\log_2(16x^4)-\\log_2x", "A", ["$4+3\\log_2x$", "$16+3\\log_2x$", "$4\\log_2x-\\log_216$", "$\\log_2(16+x^3)$"], "Expand then combine: log base 2 of 16 is 4 and x powers reduce to x cubed."),
     expChoice("exp-log-laws-m9", "Which collapsed expression matches the logs?", "2\\log_3x-\\log_3y+\\log_35", "C", ["$\\log_3(2x-y+5)$", "$\\log_3\\left(\\frac{2xy}{5}\\right)$", "$\\log_3\\left(\\frac{5x^2}{y}\\right)$", "$\\log_3\\left(\\frac{y}{5x^2}\\right)$"], "Use the power, quotient and product laws in reverse."),
     expChoice("exp-log-laws-m10", "Which option gives the correct domain before any simplification?", "\\log_4(x-1)+\\log_4(7-x)", "B", ["$x>1$", "$1<x<7$", "$x<7$", "$x\\ne1,7$"], "Both inputs must be positive at the same time."),
+  ],
+  [
+    { id: "exp-log-laws-d5-1", prompt: "Evaluate $\\log_2 32$.", latex: "\\log_2 32", answer: "5", acceptedAnswers: [], hint: "Ask: $2$ to what power gives $32$?", explanation: "$2^5 = 32$, so $\\log_2 32 = 5$.", difficulty: 5 },
+    { id: "exp-log-laws-d5-2", prompt: "Solve $\\log_3 x = 4$.", latex: "\\log_3 x = 4", answer: "81", acceptedAnswers: ["x=81"], hint: "Rewrite in index form: $x = 3^4$.", explanation: "$\\log_3 x = 4 \\Rightarrow x = 3^4 = 81$.", difficulty: 5 },
   ]
 );
 
@@ -289,6 +295,9 @@ export const eulersNumberNaturalLogarithmLesson = expLesson(
     expChoice("exp-ln-m8", "Which simplification is correct and includes the domain idea?", "e^{\\ln(x^2-9)}", "B", ["$x^2-9$ for all real x", "$x^2-9$ when $x<-3$ or $x>3$", "$x-3$ when $x>3$", "$e(x^2-9)$"], "The inside of ln must be positive."),
     expChoice("exp-ln-m9", "Which expression has no real value?", "\\text{Natural logarithm domain}", "C", ["$\\ln(e^{-2})$", "$e^{\\ln 2}$", "$\\ln(-4)$", "$\\ln 1$"], "A natural logarithm of a negative number is not defined in this course."),
     expChoice("exp-ln-m10", "Which chain of simplification is valid?", "\\ln(e^{3x})+e^{\\ln 5}", "A", ["$3x+5$", "$3ex+5$", "$e^{3x}+\\ln5$", "$8x$"], "Use each inverse identity separately."),
+  ],
+  [
+    { id: "exp-ln-d5-1", prompt: "Find $x$ if $e^x = \\dfrac{e^5}{e^2}$.", latex: "e^x = \\frac{e^5}{e^2}", answer: "3", acceptedAnswers: ["x=3"], hint: "Use the index law $e^5/e^2 = e^{5-2}$.", explanation: "$\\frac{e^5}{e^2} = e^{3}$, so $e^x = e^3$ and $x = 3$.", difficulty: 5 },
   ]
 );
 
@@ -394,6 +403,9 @@ export const solvingEquationsELnLesson = expLesson(
     expNumber("exp-solve-m8", "Solve. Round to 2 decimal places.", "7e^{0.4x}=30", "3.63", ["3.634", "3.63"], "$e^{0.4x}=30/7$, so x is about 3.63."),
     expChoice("exp-solve-m9", "Which exact solution follows from the log law?", "\\ln(x+6)-\\ln x=\\ln4", "A", ["$x=2$", "$x=6$", "$x=-2$", "$x=e^4$"], "The equation gives $(x+6)/x=4$, so x = 2."),
     expChoice("exp-solve-m10", "Which reasoning is strongest for this equation?", "\\ln(x-3)+\\ln(x+1)=\\ln5", "D", ["Solve the quadratic and accept both roots", "Apply ln again to both sides", "Cancel ln and ignore input restrictions", "Combine logs, solve, then reject any value outside x > 3"], "The domain check is essential before accepting a logarithmic solution."),
+  ],
+  [
+    { id: "exp-solve-d5-1", prompt: "Solve $2^{x+1} = 16$.", latex: "2^{x+1} = 16", answer: "3", acceptedAnswers: ["x=3"], hint: "Write $16$ as a power of $2$, then equate exponents.", explanation: "$16 = 2^4$, so $x + 1 = 4$ and $x = 3$.", difficulty: 5 },
   ]
 );
 
@@ -499,6 +511,9 @@ export const exponentialGrowthDecayModellingLesson = expLesson(
     expNumber("exp-model-m8", "Find the half-life. Round to 2 decimal places.", "A=A_0e^{-0.08t}", "8.66", ["8.664", "8.7"], "$t=\\ln(1/2)/(-0.08)\\approx8.66$."),
     expChoice("exp-model-m9", "Which interpretation best matches the solved value k = -0.046 per day?", "\\text{Continuous model}", "A", ["The amount is decaying continuously, with t measured in days", "The amount grows by 4.6 each day", "The initial amount is -0.046", "The half-life is exactly 0.046 days"], "A negative k indicates decay, and the unit is tied to days."),
     expChoice("exp-model-m10", "A sample decreases from 500 g to 310 g in 7 days. Which expression finds k?", "A=A_0e^{kt}", "C", ["$k=\\frac{\\ln(500/310)}{7}$", "$k=7\\ln(310/500)$", "$k=\\frac{\\ln(310/500)}{7}$", "$k=\\ln(310-500)$"], "Use $k=\\ln(A/A_0)/t$, which is negative for decay."),
+  ],
+  [
+    { id: "exp-model-d5-1", prompt: "A quantity halves every $5$ years, starting at $80$. Find the amount after $15$ years.", latex: "\\text{half-life } = 5\\text{ yr}", answer: "10", acceptedAnswers: [], hint: "How many half-lives fit into 15 years?", explanation: "$15$ years is $3$ half-lives: $80 \\to 40 \\to 20 \\to 10$. The amount is $10$.", difficulty: 5 },
   ]
 );
 
@@ -637,6 +652,9 @@ export const exponentialLogarithmicExamPracticeLesson = expLesson(
     expChoice("exp-exam-m8", "Which domain must be checked before collapsing the expression?", "\\ln(x-4)-\\ln(2x+1)", "C", ["$x>-\\frac12$", "$x>4$ only after collapsing", "$x>4$", "$x<4$"], "Both inputs must be positive; x > 4 is stricter."),
     expNumber("exp-exam-m9", "Find the time. Round to 2 decimal places.", "60=180e^{-0.25t}", "4.39", ["4.394", "4.4"], "$t=\\ln(60/180)/(-0.25)\\approx4.39$."),
     expChoice("exp-exam-m10", "Which option is the strongest full solution strategy?", "\\ln(x-1)+\\ln(x-5)=\\ln14", "D", ["Cancel ln term by term and solve a linear equation", "Apply e to only the right side", "Use change of base first", "Set x > 5, combine logs, solve the quadratic, and reject invalid candidates"], "The domain and the combined-log equation are both needed."),
+  ],
+  [
+    { id: "exp-exam-d5-1", prompt: "If $y = 3 \\cdot 2^x$, find $y$ when $x = 4$.", latex: "y = 3 \\cdot 2^x", answer: "48", acceptedAnswers: [], hint: "Evaluate $2^4$ first, then multiply by $3$.", explanation: "$y = 3 \\cdot 2^4 = 3 \\times 16 = 48$.", difficulty: 5 },
   ]
 );
 

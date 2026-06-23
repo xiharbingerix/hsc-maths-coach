@@ -78,6 +78,13 @@ import {
   rvDiscreteChallenge,
   rvMixedChallenge,
 } from "./year12AdvancedRandomVariables";
+import {
+  expLogParamChallenge,
+  expLogExamChallenge,
+  expLogIdentityChallenge,
+  expLogGrowthChallenge,
+  expLogExistenceChallenge,
+} from "./year12AdvancedExpLog";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -156,6 +163,12 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   // Year 12 Advanced — Random Variables (ma-s3)
   "random-variables-probability-distributions": rvDiscreteChallenge,
   "mixed-statistical-analysis-exam-practice": rvMixedChallenge,
+  // Year 12 Advanced — Exponential & Logarithmic Functions (ma-e1)
+  "eulers-number-natural-logarithm": expLogParamChallenge,
+  "exponential-logarithmic-exam-practice": expLogExamChallenge,
+  "logarithm-laws-change-of-base": expLogIdentityChallenge,
+  "exponential-growth-decay-modelling": expLogGrowthChallenge,
+  "solving-equations-e-ln": expLogExistenceChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

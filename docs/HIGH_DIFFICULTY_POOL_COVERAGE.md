@@ -68,7 +68,7 @@
 | year-12-advanced | ma-c2-differential-calculus | 17 | 0 | 0 | 0 | — | P1 |
 | year-12-advanced | ma-c3-applications-of-differentiation | 55 | 7 | 7 | 0 | ✅ | — |
 | year-12-advanced | ma-c4-integral-calculus | 48 | 3 | 3 | 0 | — | P2 |
-| year-12-advanced | ma-e1-exponential-and-logarithmic-functions | 15 | 1 | 0 | 1 | — | P1 |
+| year-12-advanced | ma-e1-exponential-and-logarithmic-functions | 21 | 7 | 6 | 1 | ✅ | — |
 | year-12-advanced | ma-f1-working-with-functions | 30 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-f2-graphing-techniques | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-m1-modelling-financial-situations | 33 | 3 | 3 | 0 | — | P2 |
@@ -178,11 +178,11 @@
 
 ## Priority summary
 
-- **P1**: 46
+- **P1**: 45
 - **P2**: 16
 - **P3**: 36
 - **P4**: 61
-- **Replay-ready:** 12
+- **Replay-ready:** 13
 
-**TOTAL: 171 topics · 12 replay-ready · 93 zero-D6.**
+**TOTAL: 171 topics · 13 replay-ready · 93 zero-D6.**
 
