@@ -8,6 +8,9 @@ export { year9Chapter2SimultaneousLessonOverride } from "./chapter2Simultaneous"
 export { year9Chapter3PythagorasLessonOverride } from "./chapter3Pythagoras";
 export { year9Chapter3TrigRatiosLessonOverride } from "./chapter3TrigRatios";
 export { year9Chapter3TrigApplicationsLessonOverride } from "./chapter3TrigApplications";
+export { year9Chapter4GraphingLessonOverride } from "./chapter4Graphing";
+export { year9Chapter4EquationsLessonOverride } from "./chapter4Equations";
+export { year9Chapter4GeometryLessonOverride } from "./chapter4Geometry";
 export { year9IndexLawsLessonOverride } from "./indexLaws";
 export { year9FinancialMathematicsLessonOverride } from "./financialMathematics";
 export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChange";

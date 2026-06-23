@@ -91,6 +91,18 @@ import {
   trigAppsY9Challenge,
   bearingsY9Challenge,
 } from "./year9Chapter3";
+import {
+  introLinearY9Challenge,
+  interceptsY9Challenge,
+  linesOneInterceptY9Challenge,
+  directPropY9Challenge,
+  gradInterceptY9Challenge,
+  findEqnY9Challenge,
+  linearModelY9Challenge,
+  midpointY9Challenge,
+  perpParallelY9Challenge,
+  graphSimY9Challenge,
+} from "./year9Chapter4";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -229,6 +241,32 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics/bearings": bearingsY9Challenge,
   "year-9-mathematics-core/bearings": bearingsY9Challenge,
   "year-9-mathematics-advanced/bearings": bearingsY9Challenge,
+  // Year 9 Wave 5 — Chapter 4 (Linear Relationships). consolidating → Core only; path → base +
+  // advanced; core → all three. (gradient itself is registered in the Wave 1 block.)
+  "year-9-mathematics-core/introducing-linear-relationships": introLinearY9Challenge,
+  "year-9-mathematics/graphing-lines-using-intercepts": interceptsY9Challenge,
+  "year-9-mathematics-advanced/graphing-lines-using-intercepts": interceptsY9Challenge,
+  "year-9-mathematics/lines-with-one-intercept": linesOneInterceptY9Challenge,
+  "year-9-mathematics-core/lines-with-one-intercept": linesOneInterceptY9Challenge,
+  "year-9-mathematics-advanced/lines-with-one-intercept": linesOneInterceptY9Challenge,
+  "year-9-mathematics/gradient-direct-proportion": directPropY9Challenge,
+  "year-9-mathematics-advanced/gradient-direct-proportion": directPropY9Challenge,
+  "year-9-mathematics/gradient-intercept-form": gradInterceptY9Challenge,
+  "year-9-mathematics-core/gradient-intercept-form": gradInterceptY9Challenge,
+  "year-9-mathematics-advanced/gradient-intercept-form": gradInterceptY9Challenge,
+  "year-9-mathematics/finding-equation-of-a-line": findEqnY9Challenge,
+  "year-9-mathematics-core/finding-equation-of-a-line": findEqnY9Challenge,
+  "year-9-mathematics-advanced/finding-equation-of-a-line": findEqnY9Challenge,
+  "year-9-mathematics/linear-modelling": linearModelY9Challenge,
+  "year-9-mathematics-core/linear-modelling": linearModelY9Challenge,
+  "year-9-mathematics-advanced/linear-modelling": linearModelY9Challenge,
+  "year-9-mathematics/midpoint-length-segment": midpointY9Challenge,
+  "year-9-mathematics-core/midpoint-length-segment": midpointY9Challenge,
+  "year-9-mathematics-advanced/midpoint-length-segment": midpointY9Challenge,
+  "year-9-mathematics/perpendicular-parallel-lines": perpParallelY9Challenge,
+  "year-9-mathematics-advanced/perpendicular-parallel-lines": perpParallelY9Challenge,
+  "year-9-mathematics/graphical-solutions-simultaneous": graphSimY9Challenge,
+  "year-9-mathematics-advanced/graphical-solutions-simultaneous": graphSimY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
