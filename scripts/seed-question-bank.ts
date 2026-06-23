@@ -303,7 +303,7 @@ export function mapPracticeQuestionToQuestionRow(
   };
 }
 
-function questionSections(lesson: ExplicitLesson) {
+function questionSections(lesson: ExplicitLesson, courseSlug?: string) {
   const sections: [PracticeSection, PracticeQuestion[]][] = [
     ["guidedPractice", lesson.guidedPractice],
     ["independentPractice", lesson.independentPractice],
@@ -317,7 +317,7 @@ function questionSections(lesson: ExplicitLesson) {
     sections.push(["masteryQuizPool", lesson.masteryQuizPool]);
   }
   // Level-6 challenge questions registered against this lesson's slug.
-  const challengeQuestions = getChallengeQuestions(lesson.slug);
+  const challengeQuestions = getChallengeQuestions(lesson.slug, courseSlug);
   if (challengeQuestions.length > 0) {
     sections.push(["challenge", challengeQuestions]);
   }
@@ -384,7 +384,7 @@ function collectQuestionsFromCourse(courseSlug: string) {
         continue;
       }
 
-      for (const [section, questions] of questionSections(lesson)) {
+      for (const [section, questions] of questionSections(lesson, course.slug)) {
         questions.forEach((question, position) => {
           if (!isRealQuestion(question)) {
             warnings.push({
@@ -430,7 +430,7 @@ function collectQuestionsFromYear12Advanced() {
     }
 
     for (const lesson of lessons) {
-      for (const [section, questions] of questionSections(lesson)) {
+      for (const [section, questions] of questionSections(lesson, year12AdvancedCourse.courseSlug)) {
         questions.forEach((question, position) => {
           if (!isRealQuestion(question)) {
             warnings.push({
