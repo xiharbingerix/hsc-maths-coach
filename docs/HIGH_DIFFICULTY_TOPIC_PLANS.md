@@ -86,3 +86,59 @@ domain-constraint, graphical-interpretation, transformation+intersection, recipr
   domain-range, transformations, intercepts, modelling lessons.
 - D6 → a new `functionsWorkingChallenge` set in `lib/challenges/`, registered against the
   best-fit lesson slug(s) in `lib/challenges/index.ts`.
+
+---
+
+## ma-f2-graphing-techniques (Year 12 Advanced) — Domain: Functions — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-23)
+
+**Acceptance:** 6 D5 → lesson `masteryQuizPool`s (asymptotes ×2, exp-log ×2, absolute,
+inverse); 6 D6 → `lib/challenges/year12AdvancedFunctionsGraphing.ts` (4 sets, ≤2 per
+lesson: asymptotes 2, exp-log 2, inverse 1, absolute 1). All single-answer, hand-solved;
+ma-f2 D5 12→18, D6 0→6. D6 archetypes: intersection-count ×2 (`f2-1` reciprocal min,
+`f2-6` |x²−4|), asymptotic+param (`f2-2`), exp/log synthesis ×2 (`f2-3` log laws,
+`f2-4` 2^x substitution), inverse constraint (`f2-5` f=f⁻¹ on y=x). Worksheet sample at
+the **domain level** (ma-f1+ma-f2, the realistic generation scope): D3×1/D4×3/D5×4/D6×6,
+9 subtopics, max 3/subtopic, ~53.5 min. *(Note: ma-f2 alone has only 4 lessons, so a
+single-topic 14-Q harder worksheet structurally concentrates — a generation-scope reality,
+not an authoring gap; realistic Functions worksheets draw across the domain.)* tsc/whitespace
+clean. Not committed/seeded when authored — see PR.
+
+Current: D5 12, D6 0 (P1). Lessons: asymptotes-reciprocal-graphs,
+exponential-logarithmic-graphs, absolute-value-functions, inverse-functions.
+Deliberately emphasises archetypes *under-represented* in ma-f1 (per the domain
+diversity gate: across f1+f2+f3, no archetype family > 25% of total D6).
+
+**D5 archetypes (6):** asymptotic behaviour — find an asymptote / a parameter for a
+stated asymptote (×2); inverse-function value or constraint (×1); exp/log parameter
+recovery (×1); absolute-value boundary — solve `|f(x)| = c` for the boundary (×1);
+graphical equation reasoning — number of solutions of `f(x) = g(x)` (×1).
+
+**D6 archetypes (6):** intersection-count condition — line vs reciprocal/exp, find the
+`k` boundary for N intersections (×2); asymptotic + parameter — rational with a stated
+asymptote and a point → parameter (×1); inverse-function constraint — `f(x) = f⁻¹(x)` /
+self-inverse parameter (×1); absolute-value interaction — `|f(x)| = ` line, intersection
+count/boundary (×1); exp/log synoptic equation requiring a substitution (×1).
+
+**Tally targets:** reconstruction ≥2 (asymptotic-parameter, inverse-constraint); reverse
+≥4; structure-interaction ≥5 (intersection, asymptotic, absolute, inverse, graphical);
+modelling ~1 (graphing techniques is light on modelling — flagged); routine 0; no archetype > 2.
+
+**Reject list:** "state the asymptote"; "find f⁻¹(x)" as a formula (unless one value);
+"solve 2^x = 8" / "evaluate log" single-step; "sketch y = |x|"; any item that survives the
+stripped-problem test only as one-step recognition.
+
+**Domain 25% check:** combined f1+f2 D6 = 12; tangency/intersection family = f1(1)+f2(2)=3
+(= 25%, not exceeded); parameter-system 2, modelling 2, all others ≤2. ✓
+
+**Expected after authoring:** D6 0→6 single-answer ⟹ replay-ready ✅.
+
+---
+
+## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog
+
+Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**
+topic is **`year-11-extension/polynomials`** (P2, currently D5 15 / D6 3) — a different
+course. Year 10 also has `functions-polynomials-graphs`. Awaiting supervisor direction on
+whether to substitute `year-11-extension/polynomials` as the second parallel plan (its
+content matches the f3 archetype list: factor/remainder theorem, polynomial reconstruction,
+multiplicity & turning-point structure, end-behaviour, parameterised constraints).

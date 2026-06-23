@@ -52,6 +52,12 @@ import {
   functionsModellingChallenge,
   functionsReciprocalChallenge,
 } from "./year12AdvancedFunctions";
+import {
+  functionsAsymptoteChallenge,
+  functionsExpLogChallenge,
+  functionsInverseChallenge,
+  functionsAbsoluteChallenge,
+} from "./year12AdvancedFunctionsGraphing";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -107,6 +113,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "graph-transformations": functionsTransformChallenge,
   "modelling-with-functions": functionsModellingChallenge,
   "solving-equations-inequalities-graphically": functionsReciprocalChallenge,
+  // Year 12 Advanced — Graphing techniques (ma-f2)
+  "asymptotes-reciprocal-graphs": functionsAsymptoteChallenge,
+  "exponential-logarithmic-graphs": functionsExpLogChallenge,
+  "inverse-functions": functionsInverseChallenge,
+  "absolute-value-functions": functionsAbsoluteChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
