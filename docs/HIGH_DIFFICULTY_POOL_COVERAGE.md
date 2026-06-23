@@ -67,7 +67,7 @@
 | year-12-advanced | ma-c1-introduction-to-differentiation | 74 | 22 | 12 | 10 | ✅ | — |
 | year-12-advanced | ma-c2-differential-calculus | 23 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-c3-applications-of-differentiation | 55 | 7 | 7 | 0 | ✅ | — |
-| year-12-advanced | ma-c4-integral-calculus | 48 | 3 | 3 | 0 | — | P2 |
+| year-12-advanced | ma-c4-integral-calculus | 54 | 9 | 9 | 0 | ✅ | — |
 | year-12-advanced | ma-e1-exponential-and-logarithmic-functions | 21 | 7 | 6 | 1 | ✅ | — |
 | year-12-advanced | ma-f1-working-with-functions | 30 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-f2-graphing-techniques | 18 | 6 | 6 | 0 | ✅ | — |
@@ -179,10 +179,10 @@
 ## Priority summary
 
 - **P1**: 44
-- **P2**: 16
+- **P2**: 15
 - **P3**: 36
 - **P4**: 61
-- **Replay-ready:** 14
+- **Replay-ready:** 15
 
-**TOTAL: 171 topics · 14 replay-ready · 92 zero-D6.**
+**TOTAL: 171 topics · 15 replay-ready · 92 zero-D6.**
 

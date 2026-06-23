@@ -412,6 +412,48 @@ value, deduce a monotonic interval. Bridges Functions/Exp-Logs → integral calc
 
 ---
 
+## ma-c4-integral-calculus (Year 12 Advanced) — Domain: Calculus (integration) — Target: 6 D5 + 6 D6 (top-up) — ✅ AUTHORED (2026-06-23, plan approved with #4 upgrade)
+
+*Supervisor upgrade applied:* #4 → equal-areas structure: find a>0 where area under y=x² on
+[0,a] equals area under y=2x on [0,a] → a³/3=a² → a=3 (set two integrals equal; no single-step
+substitution). Archetype (parameter inference via integral) and reverse count preserved.
+
+Current: D5 48, D6-single 3 (existing area-between-curves challenge retained). Completes the
+calculus domain after ma-c2. **Gate: use the integral as INFORMATION, not a computation
+exercise** — no "evaluate this horrible integral." Lessons span integralCalculus.ts +
+furtherIntegralCalculus.ts (antidifferentiation, constant-of-integration, initial-conditions,
+definite-integrals/FTC, signed-area, area-under-curve, total-change/motion, exam, …).
+
+**D6 archetype table (6):**
+| # | Archetype (category) | Detail → answer | Reverse? | Multi-cond? |
+|---|---|---|---|---|
+| 1 | Function reconstruction (from f') | f'(x)=6x−4, f(2)=5 → f(0)=1 | ✓ | |
+| 2 | Function reconstruction (from f'') | f''(x)=6, f'(1)=2, f(0)=4 → f(1)=3 | ✓ | ✓ (two conditions) |
+| 3 | Signed-area reasoning | ∫₀ᵏ(x−2)dx=0, k>0 → k=4 | ✓ | |
+| 4 | Parameter inference (integral constraint) | ∫₁³(ax+1)dx=12 → a=2.5 | ✓ | |
+| 5 | Accumulation / net-change | rate r(t)=6−2t; when does volume return to initial? → t=6 | ✓ | |
+| 6 | Multi-condition reconstruction | f=ax+b through (0,1) and ∫₀²f dx=6 → a=2 | ✓ | ✓ (point + area) |
+
+**Coverage vs gates:** function reconstruction 2 (#1,#2 ✓); area/signed-area 1 (#3 ✓); parameter
+inference via integral 1 (#4 ✓); accumulation/net-change 1 (#5 ✓); multi-condition reconstruction
+1 (#6 ✓, #2 also). Reverse-reasoning = all 6 (≥4 ✓). Multi-condition = #2,#6 (≥2 ✓). No archetype >2.
+
+**D5 archetype table (6):** recover C from f'=2x, f(1)=5 (→C=4); displacement from v=3t², t:0→2
+(→8); area under y=2x on [0,3] (→9); recover limit from ∫₀ᵏ2 dx=10 (→k=5); reconstruct & evaluate
+dy/dx=6x through (0,−2) at x=2 (→10); signed area ∫₋₁¹ x dx by symmetry (→0).
+
+**Reject list:** direct antiderivative calculation; direct definite-integral evaluation; routine
+substitution; routine area-under-a-curve; "find ∫f(x)dx" style; any item whose first move is simply
+performing integration.
+
+**Domain-richness note:** difficulty lives in reasoning about antiderivative structure, signed area,
+accumulation/net-change, and recovering functions/parameters from integral conditions — mirroring the
+ma-c2 "derivative as information" rule. Targets the integral-calculus exemplar.
+
+**Expected after:** D6-single 3→9 ⟹ replay-ready ✅; D5 48→54.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**

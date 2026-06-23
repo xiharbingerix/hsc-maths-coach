@@ -91,6 +91,13 @@ import {
   diffTechApplicationsChallenge,
   diffTechExamChallenge,
 } from "./year12AdvancedDifferentiationTechniques";
+import {
+  icReconstructionChallenge,
+  icSignedAreaChallenge,
+  icParameterChallenge,
+  icAccumulationChallenge,
+  icExamChallenge,
+} from "./year12AdvancedIntegralCalculus";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -180,6 +187,12 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "product-quotient-rules": diffTechProductQuotientChallenge,
   "applications-extended-differentiation": diffTechApplicationsChallenge,
   "differentiation-techniques-exam-practice": diffTechExamChallenge,
+  // Year 12 Advanced — Integral Calculus (ma-c4; area-between-curves D6 live in year12AdvancedMore)
+  "initial-conditions-particular-primitive": icReconstructionChallenge,
+  "signed-area-total-area": icSignedAreaChallenge,
+  "definite-integrals-fundamental-theorem": icParameterChallenge,
+  "applications-total-change-motion": icAccumulationChallenge,
+  "mixed-integral-calculus-exam-practice": icExamChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
