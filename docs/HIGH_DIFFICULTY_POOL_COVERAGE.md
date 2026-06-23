@@ -65,7 +65,7 @@
 | year-11-standard | working-with-time | 27 | 0 | 0 | 0 | — | P1 |
 | year-12-advanced | exam-practice | 1 | 3 | 1 | 2 | — | P2 |
 | year-12-advanced | ma-c1-introduction-to-differentiation | 74 | 22 | 12 | 10 | ✅ | — |
-| year-12-advanced | ma-c2-differential-calculus | 17 | 0 | 0 | 0 | — | P1 |
+| year-12-advanced | ma-c2-differential-calculus | 23 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-c3-applications-of-differentiation | 55 | 7 | 7 | 0 | ✅ | — |
 | year-12-advanced | ma-c4-integral-calculus | 48 | 3 | 3 | 0 | — | P2 |
 | year-12-advanced | ma-e1-exponential-and-logarithmic-functions | 21 | 7 | 6 | 1 | ✅ | — |
@@ -178,11 +178,11 @@
 
 ## Priority summary
 
-- **P1**: 45
+- **P1**: 44
 - **P2**: 16
 - **P3**: 36
 - **P4**: 61
-- **Replay-ready:** 13
+- **Replay-ready:** 14
 
-**TOTAL: 171 topics · 13 replay-ready · 93 zero-D6.**
+**TOTAL: 171 topics · 14 replay-ready · 92 zero-D6.**
 

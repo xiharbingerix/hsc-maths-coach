@@ -85,6 +85,12 @@ import {
   expLogGrowthChallenge,
   expLogExistenceChallenge,
 } from "./year12AdvancedExpLog";
+import {
+  diffTechStandardChallenge,
+  diffTechProductQuotientChallenge,
+  diffTechApplicationsChallenge,
+  diffTechExamChallenge,
+} from "./year12AdvancedDifferentiationTechniques";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -169,6 +175,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "logarithm-laws-change-of-base": expLogIdentityChallenge,
   "exponential-growth-decay-modelling": expLogGrowthChallenge,
   "solving-equations-e-ln": expLogExistenceChallenge,
+  // Year 12 Advanced — Differential Calculus / techniques (ma-c2)
+  "standard-derivatives": diffTechStandardChallenge,
+  "product-quotient-rules": diffTechProductQuotientChallenge,
+  "applications-extended-differentiation": diffTechApplicationsChallenge,
+  "differentiation-techniques-exam-practice": diffTechExamChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

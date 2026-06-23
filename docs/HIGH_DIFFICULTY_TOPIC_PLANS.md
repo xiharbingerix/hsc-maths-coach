@@ -368,6 +368,50 @@ running a formula. Bridges Functions → calculus.
 
 ---
 
+## ma-c2-differential-calculus (Year 12 Advanced) — Domain: Calculus (differentiation techniques) — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-23, plan approved with #6 upgrade)
+
+*Supervisor upgrade applied:* #6 → factored derivative + parameter: f'(x)=(x−2)(x−k), k>2 →
+f decreasing on 2<x<k (reason about the parameterised parabola's sign; no differentiation,
+no trivial 1+x>0). Derivative-sign archetype, diversity, and reverse count (4) preserved.
+**Acceptance:** 6 D5 → masteryQuizPools (standard-derivatives ×2, chain-rule, applications ×2,
+exam); 6 D6 → lib/challenges/year12AdvancedDifferentiationTechniques.ts. D6 0→6, D5 17→23.
+
+Current: D5 17, D6 0 (P1). Distinct from ma-c1 (intro: stationary pts/tangents) and ma-c3
+(applications/optimisation), already live in PR #22. Lessons: standard-derivatives, chain-rule,
+product-quotient-rules, applications-extended-differentiation, differentiation-techniques-exam-practice.
+**Gate: reason FROM derivatives, not perform derivatives** — no "differentiate this horrible expression."
+
+**D6 archetype table (6; uses product/quotient/chain/standard-derivatives but difficulty is structural):**
+| # | Archetype (category) | Detail → answer | Reverse? | Multi-cond? |
+|---|---|---|---|---|
+| 1 | Function reconstruction | f=ax³+bx+c: horizontal tangent at x=1, f(1)=2, f(0)=4 → a=1 | ✓ | ✓ (tangent+2 pts) |
+| 2 | Parameter inference (calculus cond.) | f=x·e^{kx} has a stationary point at x=−2 (product rule) → k=1/2 | ✓ | |
+| 3 | Function reconstruction | y=a·ln x + bx: gradient 5 at x=1, gradient 4 at x=2 → a=2 | ✓ | ✓ (two gradients) |
+| 4 | Stationary-point classification | f=x·e^x: classify the stationary point (2nd-deriv test) → minimum | | |
+| 5 | Optimisation / extremum structure | f=x/(x²+a) has maximum value 1/4 (x>0), recover a (quotient rule) → a=4 | ✓ | |
+| 6 | Derivative-sign / monotonicity | for what x is f=x·e^x increasing? (f'=e^x(1+x)>0) → x>−1 | | |
+
+**Coverage vs gates:** function reconstruction 2 (#1,#3 ✓); stationary classification 1 (#4 ✓);
+parameter inference 1 (#2 ✓); optimisation/extremum 1 (#5 ✓); derivative-sign/monotonicity 1 (#6 ✓).
+Reverse-reasoning = #1,#2,#3,#5 (≥4 ✓). Multi-condition = #1,#3 (≥2 ✓). No archetype >2; no "find k" overload.
+
+**D5 archetype table (6):** recover k from f'(3)=10 for f=x²+kx (→4); gradient of tangent to y=e^x at
+x=0 (→1); x-coord of stationary point of y=x²−8x (→4); where y=x²−6x is decreasing (→x<3); chain-rule
+gradient of y=(2x+1)³ at x=0 (→6); time velocity=0 for x=t²−4t (→t=2).
+
+**Reject list:** direct product-rule execution; direct quotient-rule execution; direct chain-rule
+execution; direct derivative evaluation; direct tangent-gradient calculation; any item whose first move
+is "differentiate and substitute"; "differentiate this expression" with no reasoning beyond manipulation.
+
+**Domain-richness note:** every D6 uses a genuine ma-c2 technique (product/quotient/chain/ln & e^x
+derivatives) but the difficulty lives in *reasoning from* the derivative — reconstruct coefficients,
+infer a parameter from a stationary condition, classify by 2nd-derivative, recover a from an extremum
+value, deduce a monotonic interval. Bridges Functions/Exp-Logs → integral calculus.
+
+**Expected after:** D6 0→6 ⟹ replay-ready ✅; D5 17→23.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**
