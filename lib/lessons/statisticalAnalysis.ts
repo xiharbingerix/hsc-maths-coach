@@ -81,6 +81,17 @@ export const dataDisplaysMeasuresOfCentreLesson: ExplicitLesson = {
     { id: "centre-mastery-9", prompt: "Which statement best explains why the median is resistant?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "It ignores ordering" }, { label: "B", text: "It depends on the middle position" }, { label: "C", text: "It is always the mode" }], hint: "Think about position rather than magnitude.", explanation: "One extreme value may change the size of an endpoint without moving the middle position much." },
     { id: "centre-mastery-10", prompt: "Which measure best describes a typical salary when one executive earns far more than everyone else?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Maximum" }, { label: "B", text: "Mean" }, { label: "C", text: "Median" }], hint: "Choose a resistant measure.", explanation: "The executive salary can pull the mean upward. The median is less distorted by that extreme value." },
   ],
+  masteryQuizPool: [
+    {
+      id: "centre-pool-d5-1",
+      prompt: "Find the median of $12, 7, 9, 15, 4, 11$.",
+      latex: "12,\\ 7,\\ 9,\\ 15,\\ 4,\\ 11",
+      difficulty: 5,
+      answer: "10",
+      hint: "Order the six values; the median is the average of the 3rd and 4th.",
+      explanation: "Ordered: $4, 7, 9, 11, 12, 15$. Median $= \\frac{9+11}{2} = 10$.",
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -161,6 +172,17 @@ export const spreadIqrBoxPlotsOutliersLesson: ExplicitLesson = {
     { id: "spread-mastery-8", prompt: "A box plot has Q1 = 6 and Q3 = 14. Find the width of its box.", latex: "Q_1=6,\\quad Q_3=14", answer: "8", hint: "The box width is the IQR.", explanation: "The box represents the middle half, and its width is 14 minus 6, which is 8." },
     { id: "spread-mastery-9", prompt: "Which spread measure is usually better when outliers are present?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Maximum" }, { label: "B", text: "Range" }, { label: "C", text: "IQR" }], hint: "Use the middle half.", explanation: "IQR is more resistant because it is based on the middle 50%, not the extreme endpoints." },
     { id: "spread-mastery-10", prompt: "Which measure will the next lesson add to describe spread around the mean?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Standard deviation" }, { label: "B", text: "Mode" }, { label: "C", text: "Maximum" }], hint: "The next lesson standardises distances from the mean.", explanation: "Standard deviation describes how spread out values are around the mean." },
+  ],
+  masteryQuizPool: [
+    {
+      id: "spread-pool-d5-1",
+      prompt: "A data set has $Q_1 = 10$ and $Q_3 = 22$. Find the upper outlier boundary, $Q_3 + 1.5 \\times \\text{IQR}$.",
+      latex: "Q_1=10,\\quad Q_3=22",
+      difficulty: 5,
+      answer: "40",
+      hint: "First find the IQR, then add $1.5$ times it to $Q_3$.",
+      explanation: "IQR $= 22 - 10 = 12$. Upper boundary $= 22 + 1.5 \\times 12 = 22 + 18 = 40$.",
+    },
   ],
   masteryPassMark: 0.8,
 };
@@ -498,6 +520,18 @@ export const standardDeviationZScoresStandardisedValuesLesson: ExplicitLesson = 
       ],
       hint: "Z-scores standardise values.",
       explanation: "Z-scores allow values from different distributions to be compared.",
+    },
+  ],
+
+  masteryQuizPool: [
+    {
+      id: "sd-pool-d5-1",
+      prompt: "A value of $85$ comes from a distribution with mean $70$ and standard deviation $5$. Find its $z$-score.",
+      latex: "z = \\frac{x - \\bar{x}}{s}",
+      difficulty: 5,
+      answer: "3",
+      hint: "Subtract the mean, then divide by the standard deviation.",
+      explanation: "$z = \\frac{85 - 70}{5} = \\frac{15}{5} = 3$.",
     },
   ],
 
@@ -859,6 +893,28 @@ export const correlationLeastSquaresRegressionLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    {
+      id: "regression-pool-d5-1",
+      prompt: "A least-squares line predicts an exam mark $y$ from study hours $x$ as $y = 4x + 50$. A student studies $12$ hours. Predict the mark.",
+      latex: "y = 4x + 50",
+      difficulty: 5,
+      answer: "98",
+      hint: "Substitute $x = 12$ into the regression equation.",
+      explanation: "$y = 4(12) + 50 = 48 + 50 = 98$.",
+    },
+    {
+      id: "regression-pool-d5-2",
+      prompt: "A scatterplot has correlation coefficient $r = -0.92$. Describe the correlation using one strength word and one direction word.",
+      latex: "r = -0.92",
+      difficulty: 5,
+      answer: "strong negative",
+      acceptedAnswers: ["strong negative correlation", "negative strong", "strong, negative"],
+      hint: "Magnitude near $1$ is strong; the sign gives the direction.",
+      explanation: "$|r| = 0.92$ is close to $1$, so the correlation is strong, and the negative sign makes it negative: strong negative.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -1215,6 +1271,18 @@ export const interpretingAssociationResidualsLesson: ExplicitLesson = {
       ],
       hint: "Outliers can pull a regression line.",
       explanation: "Outliers can strongly affect correlation and regression.",
+    },
+  ],
+
+  masteryQuizPool: [
+    {
+      id: "residuals-pool-d5-1",
+      prompt: "A data set has a mean of $20$. Every value is then increased by $5$. Find the new mean.",
+      latex: "\\bar{x} = 20",
+      difficulty: 5,
+      answer: "25",
+      hint: "Adding a constant to every value shifts the mean by that constant.",
+      explanation: "Adding $5$ to each value adds $5$ to the mean: $20 + 5 = 25$.",
     },
   ],
 

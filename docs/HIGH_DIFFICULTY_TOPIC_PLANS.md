@@ -187,6 +187,44 @@ division or one substitution without using global structure.
 
 ---
 
+## ma-s2-descriptive-statistics-and-bivariate-data (Year 12 Advanced) — Domain: Statistics — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-23, autonomous; GPT tab was down — pending retro sign-off)
+
+**Acceptance:** 6 D5 → lesson `masteryQuizPool`s (centre, spread, SD, regression ×2, residuals);
+6 D6 → `lib/challenges/year12AdvancedStatistics.ts` (4 sets ≤2/lesson: centre 2, SD 2,
+regression 1, spread 1). All single-answer numeric, hand-solved. D5 15→21, D6 0→6.
+D6: recover-from-mean (11), recover-from-median (8), z-reverse (72), change-effect (26),
+regression reconstruction via r·s_y/s_x (20), outlier→median (6.5). Worksheet sample:
+D3×1/D4×3/D5×4/D6×6, 5 subtopics, **max 4/subtopic**, ~53.5 min — passes cleanly (D6 spread
+across 4 lessons). tsc/git diff clean. **First Statistics-domain topic** (sequential per the
+parallelisation rule). Authored autonomously while the supervisor tab was down — to be sent
+for retro sign-off.
+
+Current: D5 15, D6 0 (P1). Lessons: data-displays-measures-of-centre,
+spread-iqr-box-plots-outliers, standard-deviation-z-scores-standardised-values,
+correlation-least-squares-regression, interpreting-association-residuals.
+
+**D6 archetypes (6, statistics-rich per the domain playbook, ≤2 each):**
+1. **Recover a value from a summary statistic** (×2) — unknown data value from a stated
+   mean/median; or find the removed value that changes a mean by a given amount. *[reverse]*
+2. **Effect of a change on a statistic** (×1) — exact new value of a statistic after a point
+   is added/removed or the data is linearly transformed. *[change-effect]*
+3. **z-score reverse** (×1) — recover a raw value or a missing mean/SD from a z-score. *[reverse]*
+4. **Regression reconstruction** (×1) — least-squares gradient/prediction from summary stats
+   (means, SDs, r), not a plotted line. *[reconstruction]*
+5. **Misleading statistic / outlier** (×1) — which measure misrepresents + the deciding value
+   (mean-vs-median under an outlier). *[interpretation, markable value]*
+
+**D5 archetypes (6):** measure of centre with one inference; IQR / 1.5×IQR outlier boundary;
+z-score forward; correlation-strength value; regression point prediction; effect-of-change.
+
+**Reject list:** "find the mean/median/range" single-step; "read the median off the box plot";
+"state r"; any pure extraction.
+
+**Tally targets:** reverse ≥4; reconstruction ≥1; interpretation-with-value ≥1; no archetype > 2;
+routine 0. All single-answer numeric. Expected after: D6 0→6 ⟹ replay-ready ✅; D5 15→21.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**

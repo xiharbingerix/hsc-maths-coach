@@ -63,6 +63,12 @@ import {
   polynomialsFactorChallenge,
   polynomialsGraphChallenge,
 } from "./year11ExtensionPolynomials";
+import {
+  statsCentreChallenge,
+  statsSdChallenge,
+  statsRegressionChallenge,
+  statsSpreadChallenge,
+} from "./year12AdvancedStatistics";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -129,6 +135,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "exponential-logarithmic-graphs": functionsExpLogChallenge,
   "inverse-functions": functionsInverseChallenge,
   "absolute-value-functions": functionsAbsoluteChallenge,
+  // Year 12 Advanced — Descriptive statistics & bivariate data (ma-s2)
+  "data-displays-measures-of-centre": statsCentreChallenge,
+  "standard-deviation-z-scores-standardised-values": statsSdChallenge,
+  "correlation-least-squares-regression": statsRegressionChallenge,
+  "spread-iqr-box-plots-outliers": statsSpreadChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {
