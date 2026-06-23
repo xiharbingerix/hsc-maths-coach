@@ -16,6 +16,8 @@ export { year9Chapter5SolidsLessonOverride } from "./chapter5Solids";
 export { year9Chapter6IndexLawsLessonOverride } from "./chapter6IndexLaws";
 export { year9Chapter6ScientificNotationLessonOverride } from "./chapter6ScientificNotation";
 export { year9Chapter6SurdsLessonOverride } from "./chapter6Surds";
+export { year9Chapter7AnglesLessonOverride } from "./chapter7Angles";
+export { year9Chapter7CongruenceLessonOverride } from "./chapter7Congruence";
 export { year9IndexLawsLessonOverride } from "./indexLaws";
 export { year9FinancialMathematicsLessonOverride } from "./financialMathematics";
 export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChange";
