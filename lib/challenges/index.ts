@@ -133,6 +133,20 @@ import {
   similarTriY9Challenge,
   provingSimilarY9Challenge,
 } from "./year9Chapter7";
+import {
+  reviewProbY9Challenge,
+  vennY9Challenge,
+  setNotationY9Challenge,
+  arraysY9Challenge,
+  treeY9Challenge,
+  relFreqY9Challenge,
+  samplingY9Challenge,
+  meanMedianY9Challenge,
+  stemLeafY9Challenge,
+  groupingY9Challenge,
+  iqrY9Challenge,
+  boxPlotY9Challenge,
+} from "./year9Chapter8";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -357,6 +371,33 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/similar-triangles": similarTriY9Challenge,
   "year-9-mathematics/proving-similar-triangles": provingSimilarY9Challenge,
   "year-9-mathematics-advanced/proving-similar-triangles": provingSimilarY9Challenge,
+  // Year 9 Wave 9 — Chapter 8 (Probability & Single-Variable Data). consolidating → Core only;
+  // core → all 3; path → base + advanced; extending (grouping-data-into-classes) → Advanced only.
+  "year-9-mathematics-core/review-of-probability": reviewProbY9Challenge,
+  "year-9-mathematics/venn-diagrams-two-way-tables": vennY9Challenge,
+  "year-9-mathematics-advanced/venn-diagrams-two-way-tables": vennY9Challenge,
+  "year-9-mathematics/using-set-notation": setNotationY9Challenge,
+  "year-9-mathematics-advanced/using-set-notation": setNotationY9Challenge,
+  "year-9-mathematics/arrays-two-step-experiments": arraysY9Challenge,
+  "year-9-mathematics-core/arrays-two-step-experiments": arraysY9Challenge,
+  "year-9-mathematics-advanced/arrays-two-step-experiments": arraysY9Challenge,
+  "year-9-mathematics/tree-diagrams": treeY9Challenge,
+  "year-9-mathematics-core/tree-diagrams": treeY9Challenge,
+  "year-9-mathematics-advanced/tree-diagrams": treeY9Challenge,
+  "year-9-mathematics/relative-frequencies": relFreqY9Challenge,
+  "year-9-mathematics-core/relative-frequencies": relFreqY9Challenge,
+  "year-9-mathematics-advanced/relative-frequencies": relFreqY9Challenge,
+  "year-9-mathematics/data-and-sampling": samplingY9Challenge,
+  "year-9-mathematics-advanced/data-and-sampling": samplingY9Challenge,
+  "year-9-mathematics-core/mean-median-mode": meanMedianY9Challenge,
+  "year-9-mathematics-core/stem-and-leaf-plots": stemLeafY9Challenge,
+  "year-9-mathematics-advanced/grouping-data-into-classes": groupingY9Challenge,
+  "year-9-mathematics/range-interquartile-range": iqrY9Challenge,
+  "year-9-mathematics-core/range-interquartile-range": iqrY9Challenge,
+  "year-9-mathematics-advanced/range-interquartile-range": iqrY9Challenge,
+  "year-9-mathematics/box-plots": boxPlotY9Challenge,
+  "year-9-mathematics-core/box-plots": boxPlotY9Challenge,
+  "year-9-mathematics-advanced/box-plots": boxPlotY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
