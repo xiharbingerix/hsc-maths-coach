@@ -13,3 +13,4 @@ export { year10IndicesSurdsMeasurementWave2LessonOverride } from "./indicesSurds
 export { year10GeometryWave3LessonOverride } from "./geometryWave3";
 export { year10ExponentialsFunctionsWave4LessonOverride } from "./exponentialsFunctionsWave4";
 export { year10PolynomialsGraphsWave5LessonOverride } from "./polynomialsGraphsWave5";
+export { year10ParabolasVariationWave6LessonOverride } from "./parabolasVariationWave6";

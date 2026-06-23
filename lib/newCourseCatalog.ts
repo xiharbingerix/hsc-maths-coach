@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride, year10ParabolasVariationWave6LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -491,6 +491,7 @@ export function buildLesson(
     year10GeometryWave3LessonOverride(course, unit, lesson) ??
     year10ExponentialsFunctionsWave4LessonOverride(course, unit, lesson) ??
     year10PolynomialsGraphsWave5LessonOverride(course, unit, lesson) ??
+    year10ParabolasVariationWave6LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -5159,57 +5160,49 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "sketching-by-factorisation",
                                       "title": "7C Sketching by Factorisation",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Sketch a parabola by factorising to find its x-intercepts, y-intercept and axis of symmetry.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "sketching-completing-square",
                                       "title": "7D Sketching by Completing the Square",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Use completed-square form to read off the vertex and minimum value of a parabola.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "sketching-quadratic-formula-discriminant",
                                       "title": "7E Sketching by Quadratic Formula and Discriminant",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Use the discriminant to count the real roots (x-intercepts) of a quadratic.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "parabola-applications",
                                       "title": "7F Applications",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Apply parabolas to real situations: maximum height at the vertex, landing at the x-intercepts.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "intersection-lines-parabolas",
                                       "title": "7G Intersection of Lines and Parabolas",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Find where a line meets a parabola by solving the two equations simultaneously.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "rates-of-change",
                                       "title": "7H Rates of Change",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Find an average rate of change as change in output per change in input.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "average-instantaneous-rates",
                                       "title": "7I Average and Instantaneous Rates",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Distinguish the average rate over an interval from the instantaneous rate at a point.",
                                       "pathTag": "extending"
                               },
                               {
                                       "slug": "direct-inverse-variation",
                                       "title": "7J Direct and Inverse Variation",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Model direct variation (constant ratio) and inverse variation (constant product).",
                                       "pathTag": "path"
                               }
                       ]
