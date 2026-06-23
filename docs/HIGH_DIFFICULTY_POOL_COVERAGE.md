@@ -14,22 +14,25 @@
 | year-10-mathematics | geometrical-figures-circle-geometry | 18 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | indices-exponentials-logarithms | 3 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | measurement-and-surds | 21 | 3 | 3 | 0 | — | P3 |
+| year-10-mathematics | networks | 0 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | parabolas-rates-variation | 6 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | probability | 15 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | quadratic-expressions-equations | 27 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | single-variable-bivariate-statistics | 15 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | trigonometry | 36 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | algebra-equations-linear-relationships | 27 | 0 | 0 | 0 | — | P3 |
+| year-10-mathematics-advanced | counting-principles | 2 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | financial-mathematics | 12 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | functions-polynomials-graphs | 6 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | geometrical-figures-circle-geometry | 18 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | indices-exponentials-logarithms | 3 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | measurement-and-surds | 21 | 0 | 0 | 0 | — | P3 |
+| year-10-mathematics-advanced | networks | 5 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | parabolas-rates-variation | 8 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | probability | 15 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-advanced | quadratic-expressions-equations | 27 | 0 | 0 | 0 | — | P3 |
-| year-10-mathematics-advanced | single-variable-bivariate-statistics | 15 | 0 | 0 | 0 | — | P3 |
-| year-10-mathematics-advanced | trigonometry | 36 | 0 | 0 | 0 | — | P3 |
+| year-10-mathematics-advanced | single-variable-bivariate-statistics | 22 | 0 | 0 | 0 | — | P3 |
+| year-10-mathematics-advanced | trigonometry | 37 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-core | algebra-equations-linear-relationships | 21 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-core | financial-mathematics | 12 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics-core | functions-polynomials-graphs | 3 | 0 | 0 | 0 | — | P3 |
@@ -70,7 +73,7 @@
 | year-12-advanced | ma-c3-applications-of-differentiation | 55 | 7 | 7 | 0 | ✅ | — |
 | year-12-advanced | ma-c4-integral-calculus | 48 | 3 | 3 | 0 | — | P2 |
 | year-12-advanced | ma-e1-exponential-and-logarithmic-functions | 15 | 1 | 0 | 1 | — | P1 |
-| year-12-advanced | ma-f1-working-with-functions | 24 | 0 | 0 | 0 | — | P1 |
+| year-12-advanced | ma-f1-working-with-functions | 30 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-f2-graphing-techniques | 12 | 0 | 0 | 0 | — | P1 |
 | year-12-advanced | ma-m1-modelling-financial-situations | 33 | 3 | 3 | 0 | — | P2 |
 | year-12-advanced | ma-s1-probability-and-discrete-probability-distributions | 12 | 0 | 0 | 0 | — | P1 |
@@ -179,11 +182,11 @@
 
 ## Priority summary (coverage-first)
 
-- **P1** (senior, zero single-D6 — author first): 52
+- **P1** (senior, zero single-D6 — author first): 51
 - **P2** (senior, partial): 16
-- **P3** (Year 10): 33
+- **P3** (Year 10): 36
 - **P4** (Years 7–9): 61
-- **Replay-ready already:** 6
+- **Replay-ready already:** 7
 
-**TOTAL: 168 topics · 6 replay-ready · 96 with zero D6.**
+**TOTAL: 171 topics · 7 replay-ready · 98 with zero D6.**
 

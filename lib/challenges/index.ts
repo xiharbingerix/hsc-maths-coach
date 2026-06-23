@@ -46,6 +46,12 @@ import {
   modulusArgumentChallenge,
   polarDeMoivreChallenge,
 } from "./year12Extension2";
+import {
+  functionsParamChallenge,
+  functionsTransformChallenge,
+  functionsModellingChallenge,
+  functionsReciprocalChallenge,
+} from "./year12AdvancedFunctions";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -95,6 +101,12 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "complex-number-arithmetic": complexArithmeticChallenge,
   "modulus-argument-conjugate": modulusArgumentChallenge,
   "polar-form-de-moivre": polarDeMoivreChallenge,
+  // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
+  // D6 items carry distinct subtopic slugs.
+  "intercepts-key-features": functionsParamChallenge,
+  "graph-transformations": functionsTransformChallenge,
+  "modelling-with-functions": functionsModellingChallenge,
+  "solving-equations-inequalities-graphically": functionsReciprocalChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

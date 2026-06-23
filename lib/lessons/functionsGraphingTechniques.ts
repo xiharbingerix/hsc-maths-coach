@@ -355,6 +355,21 @@ export const domainRangeFunctionNotationLesson: ExplicitLesson = {
     },
   ],
 
+  // Difficulty 5 (genuine): domain from a constraint.
+  masteryQuizPool: [
+    {
+      id: "domain-pool-d5-1",
+      prompt: "Find the largest value of $x$ in the domain of the function.",
+      latex: "f(x) = \\sqrt{12 - x - x^2}",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["x=3"],
+      hint: "The square root requires $12 - x - x^2 \\ge 0$. Solve the quadratic inequality.",
+      explanation:
+        "$12 - x - x^2 \\ge 0 \\Rightarrow x^2 + x - 12 \\le 0 \\Rightarrow (x+4)(x-3) \\le 0$, so $-4 \\le x \\le 3$. The largest value of $x$ is $3$.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -717,6 +732,33 @@ export const graphTransformationsLesson: ExplicitLesson = {
       ],
       hint: "$f(x-a)$ shifts right $a$.",
       explanation: "$f(x-4)$ shifts the graph right 4.",
+    },
+  ],
+
+  // Difficulty 5 (genuine): transformation recovery (reconstruct then use).
+  masteryQuizPool: [
+    {
+      id: "trans-pool-d5-1",
+      prompt:
+        "The graph of $y = x^2$ is translated so that its vertex is at $(-3, 4)$. Find the $y$-coordinate of the point on the new parabola where $x = -1$.",
+      latex: "y = x^2",
+      difficulty: 5,
+      answer: "8",
+      acceptedAnswers: ["y=8"],
+      hint: "Write the translated parabola in vertex form $y = (x-h)^2 + k$, then substitute $x=-1$.",
+      explanation:
+        "Vertex $(-3,4)$ gives $y = (x+3)^2 + 4$. At $x=-1$: $y = (2)^2 + 4 = 8$.",
+    },
+    {
+      id: "trans-pool-d5-2",
+      prompt:
+        "The graph of $y = x^2$ is vertically stretched to $y = a x^2$ and now passes through $(2, 12)$. Find the value of $a$.",
+      latex: "y = a x^2",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["a=3"],
+      hint: "Substitute the point $(2,12)$ into $y = a x^2$ and solve for $a$.",
+      explanation: "$12 = a(2)^2 = 4a$, so $a = 3$.",
     },
   ],
 
@@ -1422,6 +1464,33 @@ export const interceptsKeyFeaturesLesson: ExplicitLesson = {
     },
   ],
 
+  // Difficulty 5 (genuine): coefficient recovery from features (reconstruct the parabola).
+  masteryQuizPool: [
+    {
+      id: "features-pool-d5-1",
+      prompt:
+        "A parabola has axis of symmetry $x = 3$, an $x$-intercept at $x = 1$, and a $y$-intercept of $10$. Find its leading coefficient $a$.",
+      latex: "y = a(x - r_1)(x - r_2)",
+      difficulty: 5,
+      answer: "2",
+      acceptedAnswers: ["a=2"],
+      hint: "The axis is midway between the roots, so the second root is symmetric to $x=1$ about $x=3$. Then use the $y$-intercept.",
+      explanation:
+        "The roots are symmetric about $x=3$, so they are $1$ and $5$: $y = a(x-1)(x-5)$. At $x=0$: $a(-1)(-5) = 5a = 10$, so $a = 2$.",
+    },
+    {
+      id: "features-pool-d5-2",
+      prompt: "The parabola $y = x^2 + bx + c$ has its vertex at $(2, -5)$. Find the value of $c$.",
+      latex: "y = x^2 + bx + c",
+      difficulty: 5,
+      answer: "-1",
+      acceptedAnswers: ["c=-1", "−1"],
+      hint: "Write the parabola in vertex form $y = (x-2)^2 - 5$ and expand to read off $c$.",
+      explanation:
+        "$y = (x-2)^2 - 5 = x^2 - 4x - 1$, so $c = -1$.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -2110,6 +2179,22 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
       ],
       hint: "Equation solutions are input values.",
       explanation: "The intersection gives the input value $p=12$ where demand equals supply.",
+    },
+  ],
+
+  // Difficulty 5 (genuine): graphical interpretation — count intersections via turning values.
+  masteryQuizPool: [
+    {
+      id: "graphsolve-pool-d5-1",
+      prompt:
+        "For the function $f(x) = x^3 - 3x$, find the number of values of $x$ for which $f(x) = 1$.",
+      latex: "f(x) = x^3 - 3x",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["three"],
+      hint: "The cubic has a local maximum and a local minimum; compare their $y$-values with the line $y = 1$ rather than solving.",
+      explanation:
+        "$f'(x) = 3x^2 - 3 = 0$ gives turning points at $x = \\pm 1$, with local maximum $f(-1) = 2$ and local minimum $f(1) = -2$. Since $1$ lies between $-2$ and $2$, the horizontal line $y = 1$ cuts the curve $3$ times.",
     },
   ],
 
