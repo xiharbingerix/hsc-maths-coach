@@ -103,6 +103,15 @@ import {
   perpParallelY9Challenge,
   graphSimY9Challenge,
 } from "./year9Chapter4";
+import {
+  perimeterY9Challenge,
+  areaY9Challenge,
+  compositeY9Challenge,
+  saPrismsY9Challenge,
+  saCylindersY9Challenge,
+  volPrismsY9Challenge,
+  volCylindersY9Challenge,
+} from "./year9Chapter5";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -267,6 +276,24 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/perpendicular-parallel-lines": perpParallelY9Challenge,
   "year-9-mathematics/graphical-solutions-simultaneous": graphSimY9Challenge,
   "year-9-mathematics-advanced/graphical-solutions-simultaneous": graphSimY9Challenge,
+  // Year 9 Wave 6 — Chapter 5 (Length, Area, Surface Area & Volume). consolidating → Core only;
+  // path (surface-area-prisms-pyramids) → base + advanced; core → all 3. (circle is Wave 1.)
+  "year-9-mathematics-core/length-and-perimeter": perimeterY9Challenge,
+  "year-9-mathematics-core/area": areaY9Challenge,
+  "year-9-mathematics/composite-shapes-perimeter-area": compositeY9Challenge,
+  "year-9-mathematics-core/composite-shapes-perimeter-area": compositeY9Challenge,
+  "year-9-mathematics-advanced/composite-shapes-perimeter-area": compositeY9Challenge,
+  "year-9-mathematics/surface-area-prisms-pyramids": saPrismsY9Challenge,
+  "year-9-mathematics-advanced/surface-area-prisms-pyramids": saPrismsY9Challenge,
+  "year-9-mathematics/surface-area-cylinders": saCylindersY9Challenge,
+  "year-9-mathematics-core/surface-area-cylinders": saCylindersY9Challenge,
+  "year-9-mathematics-advanced/surface-area-cylinders": saCylindersY9Challenge,
+  "year-9-mathematics/volume-prisms": volPrismsY9Challenge,
+  "year-9-mathematics-core/volume-prisms": volPrismsY9Challenge,
+  "year-9-mathematics-advanced/volume-prisms": volPrismsY9Challenge,
+  "year-9-mathematics/volume-cylinders": volCylindersY9Challenge,
+  "year-9-mathematics-core/volume-cylinders": volCylindersY9Challenge,
+  "year-9-mathematics-advanced/volume-cylinders": volCylindersY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
