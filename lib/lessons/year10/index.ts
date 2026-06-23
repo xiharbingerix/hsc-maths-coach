@@ -18,3 +18,4 @@ export { year10StatisticsWave7LessonOverride } from "./statisticsWave7";
 export { year10NetworksWave8LessonOverride } from "./networksWave8";
 export { year10CountingWave9LessonOverride } from "./countingWave9";
 export { year10ProbabilityWave10LessonOverride } from "./probabilityWave10";
+export { year10TrigonometryWave11LessonOverride } from "./trigonometryWave11";
