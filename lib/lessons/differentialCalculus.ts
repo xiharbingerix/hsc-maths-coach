@@ -3079,6 +3079,58 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
       hint: "Point $(2, 8)$, gradient $3(2)^2 = 12$.",
       explanation: "$y - 8 = 12(x - 2) \\Rightarrow y = 12x - 16$.",
     },
+    // ── Difficulty 5 (genuine): reverse reasoning + geometry interaction,
+    //    not "find the tangent/normal at x=k" (those live above at D1–D4) ──
+    {
+      id: "tan-norm-pool-31",
+      prompt:
+        "The tangent to $y = x^2$ at a point $P$ passes through $(0, -9)$. Find the positive $x$-coordinate of $P$.",
+      latex: "y = x^2",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["x=3"],
+      hint: "Let $P=(a, a^2)$. Write the tangent there, then make it pass through $(0,-9)$.",
+      explanation:
+        "At $P=(a,a^2)$ the tangent is $y = 2a x - a^2$. Passing through $(0,-9)$ gives $-9 = -a^2$, so $a^2 = 9$ and $a = 3$ (positive).",
+    },
+    {
+      id: "tan-norm-pool-32",
+      prompt:
+        "The line $y = 5x + c$ is a tangent to the parabola $y = x^2 + x$. Find the value of $c$.",
+      latex: "y = x^2 + x",
+      difficulty: 5,
+      answer: "-4",
+      acceptedAnswers: ["c=-4", "−4"],
+      hint: "A tangent meets the curve once: set them equal and require a repeated root (discriminant $=0$).",
+      explanation:
+        "$x^2 + x = 5x + c \\Rightarrow x^2 - 4x - c = 0$. A tangent gives a repeated root, so the discriminant is $0$: $16 + 4c = 0$, hence $c = -4$.",
+    },
+    {
+      id: "tan-norm-pool-33",
+      prompt:
+        "The tangent to $y = x^2$ at the point $(2, 4)$ forms a triangle with the $x$-axis and $y$-axis. Find the area of that triangle.",
+      latex: "y = x^2",
+      difficulty: 5,
+      answer: "2",
+      acceptedAnswers: ["2 units^2", "2 square units"],
+      hint: "Find the tangent line, then its $x$- and $y$-intercepts; the area is half the product of the intercept lengths.",
+      explanation:
+        "Tangent at $(2,4)$: gradient $4$, so $y = 4x - 4$. The $x$-intercept is $(1,0)$ and the $y$-intercept is $(0,-4)$. Area $= \\tfrac12 \\times 1 \\times 4 = 2$.",
+    },
+    {
+      // Reverse + geometry (replaces an earlier "normal meets parabola again" item
+      // to avoid over-using the meets-again/double-root structure across the batch).
+      id: "tan-norm-pool-34",
+      prompt:
+        "The tangent to $y = x^2$ is parallel to the line $y = 6x - 5$. Find the area of the triangle formed by this tangent and the coordinate axes.",
+      latex: "y = x^2",
+      difficulty: 5,
+      answer: "27/4",
+      acceptedAnswers: ["6.75", "27/4 units^2", "6.75 square units"],
+      hint: "Parallel lines share a gradient: solve $2x = 6$ for the point of contact, write the tangent, then use its intercepts.",
+      explanation:
+        "Parallel to $y = 6x - 5$ means gradient $6$, so $2x = 6$ gives $x = 3$ and the point $(3, 9)$. The tangent is $y - 9 = 6(x - 3) \\Rightarrow y = 6x - 9$. Its intercepts are $(\\tfrac32, 0)$ and $(0, -9)$, so the area is $\\tfrac12 \\times \\tfrac32 \\times 9 = \\tfrac{27}{4}$.",
+    },
   ],
 
   masteryPassMark: 0.8,
@@ -3900,6 +3952,53 @@ export const stationaryPointsLesson: ExplicitLesson = {
       acceptedAnswers: ["x=6"],
       hint: "Solve $2x - 12 = 0$.",
       explanation: "$2x - 12 = 0 \\Rightarrow x = 6$.",
+    },
+    // ── Difficulty 5 (genuine): parameter / constraint / modelling ────────
+    {
+      id: "stationary-pool-31",
+      prompt:
+        "The curve has a stationary point at $x = 2$. Find the value of $a$.",
+      latex: "y = x^3 + ax^2 + 7",
+      difficulty: 5,
+      answer: "-3",
+      acceptedAnswers: ["a=-3", "−3"],
+      hint: "A stationary point satisfies $y'=0$. Differentiate, substitute $x=2$, then solve for $a$.",
+      explanation:
+        "$y'=3x^2+2ax$. At a stationary point $y'=0$, so at $x=2$: $3(4)+2a(2)=12+4a=0$, giving $a=-3$.",
+    },
+    {
+      id: "stationary-pool-32",
+      prompt: "For which values of $k$ does the curve have no stationary points?",
+      latex: "y = x^3 + kx + 1",
+      difficulty: 5,
+      answer: "k>0",
+      acceptedAnswers: ["k > 0", "0 < k", "0<k"],
+      hint: "Stationary points need $y'=0$ to have a real solution. Examine $3x^2+k=0$.",
+      explanation:
+        "$y'=3x^2+k$. Setting $y'=0$ gives $x^2=-\\tfrac{k}{3}$, which has a real solution only when $-\\tfrac{k}{3}\\ge 0$, i.e. $k\\le 0$. So there are no stationary points when $k>0$.",
+    },
+    {
+      id: "stationary-pool-33",
+      prompt:
+        "A ball's height (metres) after $t$ seconds is given below. Find the maximum height it reaches, in metres.",
+      latex: "h(t) = -5t^2 + 30t + 2",
+      difficulty: 5,
+      answer: "47",
+      acceptedAnswers: ["47 m", "47m"],
+      hint: "The maximum occurs where $h'(t)=0$. Find that $t$, then substitute back into $h(t)$ to get the height.",
+      explanation:
+        "$h'(t)=-10t+30=0$ gives $t=3$ s. The maximum height is $h(3)=-5(9)+30(3)+2=-45+90+2=47$ m.",
+    },
+    {
+      id: "stationary-pool-34",
+      prompt: "The curve has a minimum value of $5$. Find the value of $c$.",
+      latex: "y = x^2 - 8x + c",
+      difficulty: 5,
+      answer: "21",
+      acceptedAnswers: ["c=21"],
+      hint: "Find the $x$ of the stationary point, write the minimum $y$ in terms of $c$, then set it equal to $5$.",
+      explanation:
+        "$y'=2x-8=0$ gives $x=4$. The minimum value is $y(4)=16-32+c=c-16$. Setting $c-16=5$ gives $c=21$.",
     },
   ],
 
@@ -7755,6 +7854,55 @@ export const optimisationLesson: ExplicitLesson = {
       acceptedAnswers: ["x=20"],
       hint: "$C'(x) = 1 - \\dfrac{400}{x^2} = 0$; take the positive root.",
       explanation: "$x^2 = 400 \\Rightarrow x = 20$ (positive).",
+    },
+    // ── Difficulty 5 (genuine): varied archetypes — endpoint, average cost,
+    //    cubic model, geometric constraint (not "choose var → diff → solve") ──
+    {
+      id: "opt-pool-31",
+      prompt:
+        "Find the maximum value of the function on the closed interval $0 \\le x \\le 3$.",
+      latex: "f(x) = x^3 - 3x",
+      difficulty: 5,
+      answer: "18",
+      hint: "Compare the stationary value with the values at the interval endpoints $x=0$ and $x=3$.",
+      explanation:
+        "$f'(x)=3x^2-3=0$ gives $x=1$ (the $x=-1$ root is outside the interval). Candidates: $f(0)=0$, $f(1)=-2$, $f(3)=27-9=18$. The maximum on the interval is at the endpoint $x=3$, value $18$.",
+    },
+    {
+      id: "opt-pool-32",
+      prompt:
+        "The total cost of making $x$ items is $C(x)=x^2+100x+1600$ dollars. The average cost per item is $\\frac{C(x)}{x}$. Find the value of $x$ that minimises the average cost.",
+      latex: "A(x) = \\frac{C(x)}{x}",
+      difficulty: 5,
+      answer: "40",
+      acceptedAnswers: ["x=40", "40 items"],
+      hint: "First write the average cost $A(x)=x+100+\\dfrac{1600}{x}$, then minimise it.",
+      explanation:
+        "$A(x)=\\dfrac{x^2+100x+1600}{x}=x+100+\\dfrac{1600}{x}$. $A'(x)=1-\\dfrac{1600}{x^2}=0$ gives $x^2=1600$, so $x=40$ (positive).",
+    },
+    {
+      id: "opt-pool-33",
+      prompt:
+        "The daily profit (in thousands of dollars) from making $x$ thousand items is $P(x)=-x^3+27x-10$, for $x \\ge 0$. Find the value of $x$ that maximises profit.",
+      latex: "P(x) = -x^3 + 27x - 10",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["x=3"],
+      hint: "Solve $P'(x)=0$ and keep the root with $x \\ge 0$; check it is a maximum.",
+      explanation:
+        "$P'(x)=-3x^2+27=0$ gives $x^2=9$, so $x=3$ (rejecting $x=-3$ as $x \\ge 0$). $P''(x)=-6x$, and $P''(3)=-18<0$, so $x=3$ is a maximum.",
+    },
+    {
+      id: "opt-pool-34",
+      prompt:
+        "A rectangle in the first quadrant has one corner at the origin and the opposite corner on the line $y = 6 - 2x$. Find the maximum possible area of the rectangle.",
+      latex: "y = 6 - 2x",
+      difficulty: 5,
+      answer: "4.5",
+      acceptedAnswers: ["9/2", "4.5 units^2", "4.5 square units"],
+      hint: "If the corner is at $(x, y)$ then the area is $A=xy=x(6-2x)$. Maximise it.",
+      explanation:
+        "$A=x(6-2x)=6x-2x^2$. $A'(x)=6-4x=0$ gives $x=\\tfrac{3}{2}$, so $y=6-3=3$ and the maximum area is $\\tfrac{3}{2}\\times 3=4.5$ square units.",
     },
   ],
 
