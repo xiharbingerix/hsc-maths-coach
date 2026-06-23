@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10GeometryWave3LessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -487,6 +487,7 @@ export function buildLesson(
     year9ProbabilityBLessonOverride(course, unit, lesson) ??
     year9LinearRelationshipsCLessonOverride(course, unit, lesson) ??
     year10AlgebraWave1LessonOverride(course, unit, lesson) ??
+    year10IndicesSurdsMeasurementWave2LessonOverride(course, unit, lesson) ??
     year10GeometryWave3LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
@@ -4525,36 +4526,31 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "review-index-laws",
                                       "title": "3A Review of Index Laws",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Apply the index laws for multiplying, dividing and raising powers, and the zero index.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "negative-indices",
                                       "title": "3B Negative Indices",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Interpret and evaluate negative indices using a^(-n) = 1/a^n.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "scientific-notation-y10",
                                       "title": "3C Scientific Notation",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Write large and small numbers in scientific notation a x 10^n and convert back.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "fractional-indices",
                                       "title": "3D Fractional Indices",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Interpret fractional indices as roots and evaluate a^(1/n) and a^(m/n).",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "exponential-equations",
                                       "title": "3E Exponential Equations",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Solve simple exponential equations by writing both sides with the same base.",
                                       "pathTag": "path"
                               },
                               {
@@ -4610,58 +4606,50 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "irrational-numbers-surds",
                                       "title": "4A Irrational Numbers and Surds",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Identify surds as irrational roots and simplify them using the largest square factor.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "adding-subtracting-surds",
                                       "title": "4B Adding and Subtracting Surds",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Add and subtract like surds, simplifying first so like terms can be combined.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "multiplying-dividing-surds",
                                       "title": "4C Multiplying and Dividing Surds",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Multiply and divide surds using root(a) x root(b) = root(ab).",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "rationalising-denominator",
                                       "title": "4D Rationalising the Denominator",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Rationalise a denominator containing a single surd.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "review-of-length",
                                       "title": "4E Review of Length",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Find perimeters and circle circumferences, and convert between length units.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "pythagoras-3d",
                                       "title": "4F Pythagoras Including 3D",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Apply Pythagoras in right triangles and to the space diagonal of a box.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "area-triangles-quads-circles-sectors",
                                       "title": "4G Area of Triangles, Quadrilaterals, Circles and Sectors",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Find areas of rectangles, triangles, circles and sectors.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "accuracy-measuring-instruments",
                                       "title": "4H Accuracy of Measuring Instruments",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "path"
+                                      "description": "Determine the absolute error and limits of accuracy of a measurement.",
+                                      "pathTag": "core"
                               },
                               {
                                       "slug": "surface-area-prisms",
