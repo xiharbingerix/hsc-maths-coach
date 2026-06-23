@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10PolynomialsGraphsWave5LessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -489,6 +489,7 @@ export function buildLesson(
     year10AlgebraWave1LessonOverride(course, unit, lesson) ??
     year10IndicesSurdsMeasurementWave2LessonOverride(course, unit, lesson) ??
     year10GeometryWave3LessonOverride(course, unit, lesson) ??
+    year10ExponentialsFunctionsWave4LessonOverride(course, unit, lesson) ??
     year10PolynomialsGraphsWave5LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
@@ -4563,36 +4564,31 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "exponential-growth-decay",
                                       "title": "3G Exponential Growth and Decay",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Model growth and decay by repeated multiplication using a growth factor (1 + r) or decay factor (1 - r).",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "introducing-logarithms",
                                       "title": "3H Introducing Logarithms",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Interpret a logarithm as the inverse of an exponential: the power a base is raised to.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "logarithmic-scales",
                                       "title": "3I Logarithmic Scales",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Interpret base-10 logarithmic scales (Richter, pH, decibels) where each unit is a factor of 10.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "laws-of-logarithms",
                                       "title": "3J Laws of Logarithms",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Apply the product, quotient and power laws of logarithms.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "solving-exponential-equations-logs",
                                       "title": "3K Solving Exponential Equations Using Logarithms",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Solve exponential equations by recognising the solution as a logarithm.",
                                       "pathTag": "path"
                               }
                       ]
@@ -5376,8 +5372,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "functions-notation",
                                       "title": "10A Functions and Notation",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Interpret function notation f(x) as an input-output rule, evaluate functions, and identify domain and range.",
                                       "pathTag": "path"
                               },
                               {
