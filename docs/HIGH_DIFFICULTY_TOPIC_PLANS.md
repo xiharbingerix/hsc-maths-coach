@@ -225,6 +225,53 @@ routine 0. All single-answer numeric. Expected after: D6 0→6 ⟹ replay-ready 
 
 ---
 
+## ma-s1-probability-and-discrete-probability-distributions (Year 12 Advanced) — Domain: Probability — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-23, supervisor-approved plan)
+
+**Acceptance:** 6 D5 → lesson `masteryQuizPool`s (Venn ×2, independence ×2, exam ×2);
+6 D6 → `lib/challenges/year12AdvancedProbability.ts` (3 sets ≤2/lesson: conditional 2,
+independence 2, exam 2). All single-answer numeric, hand-solved. D5 12→18, D6 0→6.
+D6: Bayes reverse P(B|A)=0.75, tree-count reverse r=5, union+independence P(B)=0.5,
+complement reverse p=0.8, Bayes-machines 0.625, structural-bound min P(A∩B)=0.3.
+Worksheet sample: D3×1/D4×3/D5×4/D6×6, 4 subtopics, max 5/subtopic, ~53.5 min — passes.
+tsc/git diff clean. **ma-s3-random-variables owns the distribution/E[X]/Var D6 gates**
+(parametric-distribution items reserved for it).
+
+**⚠️ Catalog note:** in this app `ma-s1` holds only the *probability* lessons
+(probability-basics-venn-diagrams, conditional-probability-tree-diagrams,
+independence-multiplication-rule, probability-exam-practice). Discrete random variables /
+E[X] / Var live in the **separate** `ma-s3-random-variables` topic. So the supervisor's
+"expectation/variance interaction" and "distribution-parameter inference" D6 gates apply to
+**ma-s3**, not ma-s1; this plan uses **probability-structure** archetypes instead.
+
+Current: D5 12, D6 0 (P1). Target 6 D5 + 6 D6, single-answer, immediate replay-ready.
+
+**D6 archetypes (6, all probability-structure / ≥4 structural required, ≤2 each):**
+| # | Archetype | Tags |
+|---|---|---|
+| 1 | Reverse conditional / Bayes — from P(A|B),P(B),P(A) find P(B|A) | conditional/Bayesian, reverse |
+| 2 | Reverse conditional / Bayes — defective-from-machine style | conditional/Bayesian, reverse |
+| 3 | Reconstruct missing probabilities from constraints (two-way table / Venn + a conditional) | reconstruction |
+| 4 | Independence validity — value of p making A,B independent (or decide if possible) | model-validity |
+| 5 | Multi-stage tree reverse — branch prob from a stated overall prob (with/without replacement) | reconstruction, conditional |
+| 6 | Complement structural — solve n (or p) from a stated "at least one" probability | reconstruction, complement |
+
+**D6 coverage vs probability-domain gate:** reconstruction/reverse = 5 (≥2 ✓);
+conditional/Bayesian = 3 (#1,#2,#5; ≥1 ✓); model-validity/contradiction = 1 (#4; ≥1 ✓);
+≥4 structural = 6 ✓; no archetype > 2 (conditional-reverse 2, reconstruction-other ≤2);
+no single distribution type > 50% (these are general probability — no binomial bloat).
+*(Expectation/variance & distribution-parameter gates: N/A here — deferred to ma-s3.)*
+
+**D5 archetypes (6):** conditional probability with one inference; complement; tree-diagram
+probability; independence test (decide + the deciding value); Venn-region probability;
+basic "at least one".
+
+**Reject list:** "P(red) from a bag"; one-step conditional; "are these mutually exclusive?"
+recall; direct multiplication for already-stated independent events; any single-step extraction.
+
+**Expected after:** D6 0→6 single-answer ⟹ replay-ready ✅; D5 12→18.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**

@@ -58,7 +58,8 @@ function probLesson(
   guidedPractice: PracticeQuestion[],
   independentPractice: PracticeQuestion[],
   commonMistakes: ExplicitLesson["commonMistakes"],
-  masteryQuiz: PracticeQuestion[]
+  masteryQuiz: PracticeQuestion[],
+  masteryQuizPool: PracticeQuestion[] = []
 ): ExplicitLesson {
   return {
     id,
@@ -80,6 +81,7 @@ function probLesson(
     independentPractice,
     commonMistakes,
     masteryQuiz,
+    ...(masteryQuizPool.length ? { masteryQuizPool } : {}),
     masteryPassMark: 0.8,
   };
 }
@@ -165,6 +167,10 @@ export const probabilityBasicsVennDiagramsLesson = probLesson(
     probNumeric("prob-basic-m8", "P(A) = 0.45, P(B) = 0.35, P(A∪B) = 0.65. Find P(A∩B).", "P(A\\cap B)=0.45+0.35-0.65", "0.15", [], "P(A∩B) = 0.45 + 0.35 − 0.65 = 0.15."),
     probChoice("prob-basic-m9", "The complement of 'at least one head in 3 flips' is:", "B", ["Exactly one head", "No heads (all tails)", "All heads", "At most two heads"], "At least one head means 1, 2, or 3 heads. Its complement is 0 heads — all tails."),
     probNumeric("prob-basic-m10", "Bag: 6 red, 4 blue, 2 green. Find P(not green).", "P(\\text{not green})=\\frac{10}{12}", "5/6", ["0.8333", "10/12", "0.833"], "Not green: 6 + 4 = 10 out of 12. P = 10/12 = 5/6."),
+  ],
+  [
+    { ...probNumeric("prob-basic-d5-1", "In a class of 30, 18 study French, 12 study German, and 5 study both. Find how many study neither.", "30-(18+12-5)", "5", [], "French or German = 18 + 12 − 5 = 25, so neither = 30 − 25 = 5."), difficulty: 5 },
+    { ...probNumeric("prob-basic-d5-2", "A fair die is rolled twice. Find the probability of getting at least one six.", "1-\\left(\\tfrac{5}{6}\\right)^2", "11/36", ["0.3056", "0.306"], "P(no six) = (5/6)^2 = 25/36, so P(at least one six) = 1 − 25/36 = 11/36."), difficulty: 5 },
   ]
 );
 
@@ -334,6 +340,10 @@ export const independenceMultiplicationRuleLesson = probLesson(
     probChoice("prob-indep-m8", "Sampling without replacement means successive draws are:", "B", ["Independent", "Dependent", "Mutually exclusive", "Equally likely"], "Without replacement changes the composition after each draw, making successive draws dependent."),
     probNumeric("prob-indep-m9", "Bag: 3 red, 7 blue. Two drawn with replacement. Find P(both red).", "P=\\frac{3}{10}\\times\\frac{3}{10}", "9/100", ["0.09"], "With replacement, each draw has P(red) = 3/10. P = 9/100."),
     probNumeric("prob-indep-m10", "P(A) = 0.45, P(B) = 0.5. A and B are independent. Find P(A∩B).", "P(A\\cap B)=0.45\\times0.5", "0.225", [], "P(A∩B) = 0.45 × 0.5 = 0.225."),
+  ],
+  [
+    { ...probNumeric("prob-indep-d5-1", "On any day the probability of rain is 0.3, independently of other days. Find the probability of no rain on two consecutive days.", "(0.7)^2", "0.49", [], "P(no rain) = 0.7 each day, so for two independent days P = 0.7 × 0.7 = 0.49."), difficulty: 5 },
+    { ...probNumeric("prob-indep-d5-2", "Events A and B are independent with P(A) = 0.5 and P(B) = 0.3. Find P(A and not B), i.e. P(A ∩ B′).", "P(A)\\,P(B')", "0.35", [], "P(A ∩ B′) = P(A)·P(B′) = 0.5 × 0.7 = 0.35 (using independence)."), difficulty: 5 },
   ]
 );
 
@@ -418,6 +428,10 @@ export const probabilityExamPracticeLesson = probLesson(
     probNumeric("prob-exam-m8", "P(A) = 0.3, P(B) = 0.5, P(A∩B) = 0.12. Find P(A∪B).", "P(A\\cup B)=0.3+0.5-0.12", "0.68", [], "P(A∪B) = 0.30 + 0.50 − 0.12 = 0.68."),
     probNumeric("prob-exam-m9", "A fair die is rolled twice. Find P(at least one 6).", "P=1-\\left(\\tfrac{5}{6}\\right)^2", "11/36", ["0.3056", "0.306"], "P(at least one 6) = 1 − P(no 6) = 1 − (5/6)² = 1 − 25/36 = 11/36."),
     probChoice("prob-exam-m10", "From a two-way table, P(A|B) = 0.4 and P(A) = 0.4. This means:", "C", ["A and B are mutually exclusive", "P(B|A) = 0.4", "A and B are independent", "A and B are complementary"], "P(A|B) = P(A) is the definition of independence."),
+  ],
+  [
+    { ...probNumeric("prob-exam-d5-1", "Given P(A ∩ B) = 0.2 and P(B) = 0.5, find P(A | B).", "P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)}", "0.4", [], "P(A | B) = 0.2 / 0.5 = 0.4."), difficulty: 5 },
+    { ...probNumeric("prob-exam-d5-2", "A bag has 4 red and 6 blue balls. Two balls are drawn with replacement. Find the probability both are red.", "\\left(\\tfrac{4}{10}\\right)^2", "0.16", ["4/25"], "With replacement P(red) = 0.4 each draw, so P(both red) = 0.4 × 0.4 = 0.16."), difficulty: 5 },
   ]
 );
 

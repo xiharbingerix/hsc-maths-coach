@@ -69,6 +69,11 @@ import {
   statsRegressionChallenge,
   statsSpreadChallenge,
 } from "./year12AdvancedStatistics";
+import {
+  probabilityBayesChallenge,
+  probabilityIndependenceChallenge,
+  probabilityExamChallenge,
+} from "./year12AdvancedProbability";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -140,6 +145,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "standard-deviation-z-scores-standardised-values": statsSdChallenge,
   "correlation-least-squares-regression": statsRegressionChallenge,
   "spread-iqr-box-plots-outliers": statsSpreadChallenge,
+  // Year 12 Advanced — Probability (ma-s1; ma-s3 owns distribution/E[X]/Var)
+  "conditional-probability-tree-diagrams": probabilityBayesChallenge,
+  "independence-multiplication-rule": probabilityIndependenceChallenge,
+  "probability-exam-practice": probabilityExamChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

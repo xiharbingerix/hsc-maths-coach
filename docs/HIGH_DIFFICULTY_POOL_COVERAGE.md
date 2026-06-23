@@ -1,7 +1,6 @@
 # High-Difficulty Pool — Coverage Matrix (program dashboard)
 
 > Auto-generated. **D6-single** = single-answer D6; **Replay-ready** = D6-single ≥ 6.
-> **Priority**: P1 senior&zero, P2 senior&partial, P3 Y10, P4 Y7-9.
 
 | Course | Topic | D5 | D6 | D6-single | D6-mp | Replay-ready | Priority |
 |---|---|---|---|---|---|---|---|
@@ -62,7 +61,7 @@
 | year-11-standard | linear-relationships | 24 | 0 | 0 | 0 | — | P1 |
 | year-11-standard | money-and-financial-mathematics | 54 | 0 | 0 | 0 | — | P1 |
 | year-11-standard | networks-and-paths | 24 | 0 | 0 | 0 | — | P1 |
-| year-11-standard | relative-frequency-and-probability | 21 | 0 | 0 | 0 | — | P1 |
+| year-11-standard | relative-frequency-and-probability | 21 | 2 | 2 | 0 | — | P2 |
 | year-11-standard | working-with-time | 27 | 0 | 0 | 0 | — | P1 |
 | year-12-advanced | exam-practice | 1 | 3 | 1 | 2 | — | P2 |
 | year-12-advanced | ma-c1-introduction-to-differentiation | 74 | 22 | 12 | 10 | ✅ | — |
@@ -73,7 +72,7 @@
 | year-12-advanced | ma-f1-working-with-functions | 30 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-f2-graphing-techniques | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-m1-modelling-financial-situations | 33 | 3 | 3 | 0 | — | P2 |
-| year-12-advanced | ma-s1-probability-and-discrete-probability-distributions | 12 | 0 | 0 | 0 | — | P1 |
+| year-12-advanced | ma-s1-probability-and-discrete-probability-distributions | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-s2-descriptive-statistics-and-bivariate-data | 21 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-s3-random-variables | 12 | 3 | 3 | 0 | — | P2 |
 | year-12-advanced | ma-t1-trigonometry-and-measure-of-angles | 3 | 0 | 0 | 0 | — | P1 |
@@ -179,11 +178,11 @@
 
 ## Priority summary
 
-- **P1**: 48
-- **P2**: 16
+- **P1**: 46
+- **P2**: 17
 - **P3**: 36
 - **P4**: 61
-- **Replay-ready:** 10
+- **Replay-ready:** 11
 
-**TOTAL: 171 topics · 10 replay-ready · 95 zero-D6.**
+**TOTAL: 171 topics · 11 replay-ready · 93 zero-D6.**
 
