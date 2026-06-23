@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -490,6 +490,7 @@ export function buildLesson(
     year10IndicesSurdsMeasurementWave2LessonOverride(course, unit, lesson) ??
     year10GeometryWave3LessonOverride(course, unit, lesson) ??
     year10ExponentialsFunctionsWave4LessonOverride(course, unit, lesson) ??
+    year10PolynomialsGraphsWave5LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
     year10TrigonometryLessonOverride(course, unit, lesson) ??
@@ -5377,50 +5378,43 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "introducing-polynomials",
                                       "title": "10B Introducing Polynomials",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Identify polynomials and describe them by degree, leading coefficient, constant term and number of terms.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "expanding-simplifying-polynomials",
                                       "title": "10C Expanding and Simplifying Polynomials",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Expand products of polynomials and add or subtract them by collecting like terms.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "dividing-polynomials",
                                       "title": "10D Dividing Polynomials",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Divide a polynomial by a linear factor, finding the quotient and any remainder.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "remainder-factor-theorem",
                                       "title": "10E Remainder and Factor Theorem",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Use the remainder theorem (remainder = P(a)) and the factor theorem.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "factorising-find-zeros",
                                       "title": "10F Factorising to Find Zeros",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Factorise polynomials and read off their zeros using the factor-zero relationship.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "graphing-cubics",
                                       "title": "10G Graphing Cubics",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Graph y = x^3 and its transformations using shifts of the parent cubic.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "graphs-of-polynomials",
                                       "title": "10H Graphs of Polynomials",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Relate degree to turning points and x-intercepts, and use the leading term for end behaviour.",
                                       "pathTag": "path"
                               },
                               {
@@ -5438,9 +5432,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "further-transformations",
                                       "title": "10K Further Transformations",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
-                                      "pathTag": "extending"
+                                      "description": "Apply shifts, vertical stretch and reflection to a parent function.",
+                                      "pathTag": "path"
                               }
                       ]
               },
