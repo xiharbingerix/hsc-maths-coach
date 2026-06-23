@@ -311,6 +311,12 @@ function divisionLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       countAnswer("poly-div-m9", "Find k if P(x)=x^3+kx+1 has remainder 3 on division by x-1.", "P(1)=3", "1", "1+k+1=3, so k=1."),
       countAnswer("poly-div-m10", "Find the quotient of x^3-1 divided by x-1.", "\\frac{x^3-1}{x-1}", "x^2+x+1", "x^3-1=(x-1)(x^2+x+1).", ["x^2 + x + 1"]),
     ],
+    masteryQuizPool: [
+      {
+        ...countAnswer("poly-div-d5-1", "When $P(x)=x^3+2x^2-5x+k$ is divided by $x-2$ the remainder is $4$. Find $k$.", "P(2)=4", "-2", "By the remainder theorem $P(2)=8+8-10+k=6+k$. Setting $6+k=4$ gives $k=-2$.", ["k=-2"]),
+        difficulty: 5,
+      },
+    ],
   };
 }
 
@@ -368,6 +374,12 @@ function factorLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       choice("poly-fac-m8", "After finding a factor of a cubic, what is the usual next step?", "B", ["Differentiate", "Divide to get a quadratic quotient", "Ignore it", "Square the factor"], "Division lowers the degree so the rest can be factorised."),
       countAnswer("poly-fac-m9", "Fully factorise x^3-2x^2-x+2.", "x^3-2x^2-x+2", "(x-2)(x-1)(x+1)", "Group: x^2(x-2)-1(x-2)=(x-2)(x^2-1).", ["(x-2)(x+1)(x-1)", "(x-1)(x-2)(x+1)", "(x-1)(x+1)(x-2)", "(x+1)(x-2)(x-1)", "(x+1)(x-1)(x-2)"]),
       countAnswer("poly-fac-m10", "Find P(2) for P(x)=x^3-6x^2+11x-6.", "P(2)", "0", "P(2)=8-24+22-6=0."),
+    ],
+    masteryQuizPool: [
+      {
+        ...countAnswer("poly-fac-d5-1", "Given that $x+1$ is a factor of $x^3+ax^2-x-2$, find $a$.", "P(-1)=0", "2", "By the factor theorem $P(-1)=-1+a+1-2=a-2=0$, so $a=2$.", ["a=2"]),
+        difficulty: 5,
+      },
     ],
   };
 }
@@ -427,6 +439,16 @@ function rootsLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       countAnswer("poly-root-m9", "Build the monic quadratic with roots -1 and 5.", "\\text{roots }-1,5", "x^2-4x-5", "(x+1)(x-5)=x^2-4x-5.", ["x^2 - 4x - 5"]),
       countAnswer("poly-root-m10", "Build the monic cubic with roots 1, 2 and 3.", "\\text{roots }1,2,3", "x^3-6x^2+11x-6", "Multiply (x-1)(x-2)(x-3).", ["x^3 - 6x^2 + 11x - 6"]),
     ],
+    masteryQuizPool: [
+      {
+        ...countAnswer("poly-root-d5-1", "The roots of $2x^2-8x+6=0$ are $\\alpha$ and $\\beta$. Find $\\alpha\\beta$.", "\\alpha\\beta = \\tfrac{c}{a}", "3", "Product of roots $=\\tfrac{c}{a}=\\tfrac{6}{2}=3$.", ["3"]),
+        difficulty: 5,
+      },
+      {
+        ...countAnswer("poly-root-d5-2", "Find the constant term of the monic quadratic with roots $3$ and $-5$.", "\\text{roots }3,-5", "-15", "$(x-3)(x+5)=x^2+2x-15$, so the constant term is $-15$.", ["-15"]),
+        difficulty: 5,
+      },
+    ],
   };
 }
 
@@ -485,6 +507,16 @@ function graphLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       choice("poly-graph-m8", "What does multiplicity 3 usually mean at a root?", "D", ["No intercept", "Touch only", "A y-intercept", "Cross the x-axis"], "Odd multiplicity roots cross."),
       countAnswer("poly-graph-m9", "Find the y-intercept of P(x)=2(x-1)(x+3).", "P(0)", "-6", "P(0)=2*(-1)*3=-6."),
       countAnswer("poly-graph-m10", "For $P(x)=(x-1)^4$, does the graph touch or cross at $x=1$?", "(x-1)^4", "touch", "Multiplicity 4 is even, so the graph touches."),
+    ],
+    masteryQuizPool: [
+      {
+        ...countAnswer("poly-graph-d5-1", "The graph of $y=(x-2)^2(x+1)$ touches the $x$-axis. Find the $x$-coordinate of the touch point.", "y=(x-2)^2(x+1)", "2", "An even multiplicity gives a touch; the squared factor $(x-2)^2$ makes the curve touch at $x=2$.", ["x=2"]),
+        difficulty: 5,
+      },
+      {
+        ...countAnswer("poly-graph-d5-2", "A polynomial has degree $5$. At most how many turning points can its graph have?", "\\deg P = 5", "4", "A degree-$n$ polynomial has at most $n-1$ turning points, so at most $4$.", ["four"]),
+        difficulty: 5,
+      },
     ],
   };
 }

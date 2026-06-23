@@ -715,6 +715,9 @@ export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "ic-pool-d5-1", prompt: "$f'(x)=2x$ and $f(1)=5$, with $f(x)=x^2+C$. Find $C$.", latex: "f'(x)=2x,\\ f(1)=5", answer: "4", acceptedAnswers: ["C=4"], hint: "Substitute $x=1$ into $f(x)=x^2+C$ and set it equal to $5$.", explanation: "$f(1)=1+C=5\\Rightarrow C=4$.", difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1043,6 +1046,9 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "ic-pool-d5-5", prompt: "A curve has $\\frac{dy}{dx}=6x$ and passes through $(0,-2)$. Find $y$ when $x=2$.", latex: "\\frac{dy}{dx}=6x", answer: "10", acceptedAnswers: [], hint: "Integrate to get $y=3x^2+C$, use the point to find $C$, then substitute $x=2$.", explanation: "$y=3x^2+C$; $(0,-2)\\Rightarrow C=-2$; $y(2)=12-2=10$.", difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1347,6 +1353,9 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "ic-pool-d5-4", prompt: "$\\int_0^k 2\\,dx = 10$. Find $k$.", latex: "\\int_0^k 2\\,dx = 10", answer: "5", acceptedAnswers: ["k=5"], hint: "The integral of the constant $2$ from $0$ to $k$ is $2k$.", explanation: "$2k=10\\Rightarrow k=5$.", difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1717,6 +1726,9 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "ic-pool-d5-6", prompt: "Evaluate $\\int_{-1}^{1} x\\,dx$.", latex: "\\int_{-1}^{1} x\\,dx", answer: "0", acceptedAnswers: [], hint: "$x$ is an odd function; consider symmetry about the origin.", explanation: "$x$ is odd, so the signed areas either side of $0$ cancel: $\\int_{-1}^{1}x\\,dx=0$.", difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -2058,6 +2070,9 @@ export const areaUnderCurveLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "ic-pool-d5-3", prompt: "Find the area under $y=2x$ from $x=0$ to $x=3$.", latex: "y=2x", answer: "9", acceptedAnswers: [], hint: "Integrate $2x$ and evaluate from $0$ to $3$.", explanation: "$\\int_0^3 2x\\,dx=[x^2]_0^3=9$.", difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -3062,6 +3077,9 @@ export const applicationsTotalChangeMotionLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    { id: "ic-pool-d5-2", prompt: "A particle's velocity is $v=3t^2$. Find its displacement from $t=0$ to $t=2$.", latex: "v=3t^2", answer: "8", acceptedAnswers: [], hint: "Displacement is the integral of velocity over the interval.", explanation: "$\\int_0^2 3t^2\\,dt=[t^3]_0^2=8$.", difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 

@@ -81,6 +81,17 @@ export const dataDisplaysMeasuresOfCentreLesson: ExplicitLesson = {
     { id: "centre-mastery-9", prompt: "Which statement best explains why the median is resistant?", latex: "\\text{Choose one}", answer: "B", choices: [{ label: "A", text: "It ignores ordering" }, { label: "B", text: "It depends on the middle position" }, { label: "C", text: "It is always the mode" }], hint: "Think about position rather than magnitude.", explanation: "One extreme value may change the size of an endpoint without moving the middle position much." },
     { id: "centre-mastery-10", prompt: "Which measure best describes a typical salary when one executive earns far more than everyone else?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Maximum" }, { label: "B", text: "Mean" }, { label: "C", text: "Median" }], hint: "Choose a resistant measure.", explanation: "The executive salary can pull the mean upward. The median is less distorted by that extreme value." },
   ],
+  masteryQuizPool: [
+    {
+      id: "centre-pool-d5-1",
+      prompt: "Find the median of $12, 7, 9, 15, 4, 11$.",
+      latex: "12,\\ 7,\\ 9,\\ 15,\\ 4,\\ 11",
+      difficulty: 5,
+      answer: "10",
+      hint: "Order the six values; the median is the average of the 3rd and 4th.",
+      explanation: "Ordered: $4, 7, 9, 11, 12, 15$. Median $= \\frac{9+11}{2} = 10$.",
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -161,6 +172,17 @@ export const spreadIqrBoxPlotsOutliersLesson: ExplicitLesson = {
     { id: "spread-mastery-8", prompt: "A box plot has Q1 = 6 and Q3 = 14. Find the width of its box.", latex: "Q_1=6,\\quad Q_3=14", answer: "8", hint: "The box width is the IQR.", explanation: "The box represents the middle half, and its width is 14 minus 6, which is 8." },
     { id: "spread-mastery-9", prompt: "Which spread measure is usually better when outliers are present?", latex: "\\text{Choose one}", answer: "C", choices: [{ label: "A", text: "Maximum" }, { label: "B", text: "Range" }, { label: "C", text: "IQR" }], hint: "Use the middle half.", explanation: "IQR is more resistant because it is based on the middle 50%, not the extreme endpoints." },
     { id: "spread-mastery-10", prompt: "Which measure will the next lesson add to describe spread around the mean?", latex: "\\text{Choose one}", answer: "A", choices: [{ label: "A", text: "Standard deviation" }, { label: "B", text: "Mode" }, { label: "C", text: "Maximum" }], hint: "The next lesson standardises distances from the mean.", explanation: "Standard deviation describes how spread out values are around the mean." },
+  ],
+  masteryQuizPool: [
+    {
+      id: "spread-pool-d5-1",
+      prompt: "A data set has $Q_1 = 10$ and $Q_3 = 22$. Find the upper outlier boundary, $Q_3 + 1.5 \\times \\text{IQR}$.",
+      latex: "Q_1=10,\\quad Q_3=22",
+      difficulty: 5,
+      answer: "40",
+      hint: "First find the IQR, then add $1.5$ times it to $Q_3$.",
+      explanation: "IQR $= 22 - 10 = 12$. Upper boundary $= 22 + 1.5 \\times 12 = 22 + 18 = 40$.",
+    },
   ],
   masteryPassMark: 0.8,
 };
@@ -498,6 +520,18 @@ export const standardDeviationZScoresStandardisedValuesLesson: ExplicitLesson = 
       ],
       hint: "Z-scores standardise values.",
       explanation: "Z-scores allow values from different distributions to be compared.",
+    },
+  ],
+
+  masteryQuizPool: [
+    {
+      id: "sd-pool-d5-1",
+      prompt: "A value of $85$ comes from a distribution with mean $70$ and standard deviation $5$. Find its $z$-score.",
+      latex: "z = \\frac{x - \\bar{x}}{s}",
+      difficulty: 5,
+      answer: "3",
+      hint: "Subtract the mean, then divide by the standard deviation.",
+      explanation: "$z = \\frac{85 - 70}{5} = \\frac{15}{5} = 3$.",
     },
   ],
 
@@ -859,6 +893,28 @@ export const correlationLeastSquaresRegressionLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    {
+      id: "regression-pool-d5-1",
+      prompt: "A least-squares line predicts an exam mark $y$ from study hours $x$ as $y = 4x + 50$. A student studies $12$ hours. Predict the mark.",
+      latex: "y = 4x + 50",
+      difficulty: 5,
+      answer: "98",
+      hint: "Substitute $x = 12$ into the regression equation.",
+      explanation: "$y = 4(12) + 50 = 48 + 50 = 98$.",
+    },
+    {
+      id: "regression-pool-d5-2",
+      prompt: "A scatterplot has correlation coefficient $r = -0.92$. Describe the correlation using one strength word and one direction word.",
+      latex: "r = -0.92",
+      difficulty: 5,
+      answer: "strong negative",
+      acceptedAnswers: ["strong negative correlation", "negative strong", "strong, negative"],
+      hint: "Magnitude near $1$ is strong; the sign gives the direction.",
+      explanation: "$|r| = 0.92$ is close to $1$, so the correlation is strong, and the negative sign makes it negative: strong negative.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -1215,6 +1271,18 @@ export const interpretingAssociationResidualsLesson: ExplicitLesson = {
       ],
       hint: "Outliers can pull a regression line.",
       explanation: "Outliers can strongly affect correlation and regression.",
+    },
+  ],
+
+  masteryQuizPool: [
+    {
+      id: "residuals-pool-d5-1",
+      prompt: "A data set has a mean of $20$. Every value is then increased by $5$. Find the new mean.",
+      latex: "\\bar{x} = 20",
+      difficulty: 5,
+      answer: "25",
+      hint: "Adding a constant to every value shifts the mean by that constant.",
+      explanation: "Adding $5$ to each value adds $5$ to the mean: $20 + 5 = 25$.",
     },
   ],
 
@@ -1581,6 +1649,19 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    {
+      id: "normal-pool-d5-1",
+      prompt: "Heights are normally distributed with mean $170$ cm and standard deviation $10$ cm. Find the approximate percentage of heights between $160$ cm and $180$ cm.",
+      latex: "\\bar{x}=170,\\ s=10",
+      difficulty: 5,
+      answer: "68",
+      acceptedAnswers: ["68%"],
+      hint: "$160$ and $180$ are one standard deviation either side of the mean.",
+      explanation: "$160$ to $180$ is $\\bar{x}\\pm 1s$, so by the empirical rule about $68\\%$ of values lie in this range.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -1907,6 +1988,28 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
       ],
       hint: "Predictions inside the data range are safer.",
       explanation: "$x=12$ is inside the data range.",
+    },
+  ],
+
+  masteryQuizPool: [
+    {
+      id: "mixed-pool-d5-1",
+      prompt: "$X$ follows a binomial distribution with $n=3$ and $p=0.5$. Find $P(X=2)$.",
+      latex: "P(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}",
+      difficulty: 5,
+      answer: "0.375",
+      acceptedAnswers: ["3/8"],
+      hint: "Use $\\binom{3}{2}(0.5)^2(0.5)^1$.",
+      explanation: "$P(X=2)=\\binom{3}{2}(0.5)^2(0.5)=3\\times0.125=0.375$.",
+    },
+    {
+      id: "mixed-pool-d5-2",
+      prompt: "A random variable has $E[X]=4$. Find $E[3X-2]$.",
+      latex: "E[aX+b]=aE[X]+b",
+      difficulty: 5,
+      answer: "10",
+      hint: "Use linearity of expectation: $E[aX+b]=aE[X]+b$.",
+      explanation: "$E[3X-2]=3E[X]-2=3(4)-2=10$.",
     },
   ],
 
@@ -2257,6 +2360,35 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
       hint: "Standard deviation is the square root of variance.",
       explanation:
         "Standard deviation $\\sigma(X)=\\sqrt{\\text{Var}(X)}$. It measures spread in the same units as $X$.",
+    },
+  ],
+  masteryQuizPool: [
+    {
+      id: "rv-pool-d5-1",
+      prompt: "A discrete random variable has $P(X=1)=0.2$, $P(X=2)=0.5$, $P(X=3)=k$. Find $k$.",
+      latex: "\\sum P(X=x)=1",
+      difficulty: 5,
+      answer: "0.3",
+      hint: "The probabilities of a valid distribution sum to $1$.",
+      explanation: "$0.2+0.5+k=1 \\Rightarrow k=0.3$.",
+    },
+    {
+      id: "rv-pool-d5-2",
+      prompt: "A random variable has $P(X=1)=0.5$, $P(X=2)=0.3$, $P(X=3)=0.2$. Find $E[X]$.",
+      latex: "E[X]=\\sum x\\,P(X=x)",
+      difficulty: 5,
+      answer: "1.7",
+      hint: "Multiply each value by its probability and add.",
+      explanation: "$E[X]=1(0.5)+2(0.3)+3(0.2)=0.5+0.6+0.6=1.7$.",
+    },
+    {
+      id: "rv-pool-d5-3",
+      prompt: "A random variable takes the value $0$ with probability $0.5$ and the value $2$ with probability $0.5$. Find $\\text{Var}(X)$.",
+      latex: "\\text{Var}(X)=E[X^2]-(E[X])^2",
+      difficulty: 5,
+      answer: "1",
+      hint: "Find $E[X]$ and $E[X^2]$ first.",
+      explanation: "$E[X]=0(0.5)+2(0.5)=1$; $E[X^2]=0+4(0.5)=2$; $\\text{Var}(X)=2-1^2=1$.",
     },
   ],
   masteryPassMark: 0.8,

@@ -355,6 +355,21 @@ export const domainRangeFunctionNotationLesson: ExplicitLesson = {
     },
   ],
 
+  // Difficulty 5 (genuine): domain from a constraint.
+  masteryQuizPool: [
+    {
+      id: "domain-pool-d5-1",
+      prompt: "Find the largest value of $x$ in the domain of the function.",
+      latex: "f(x) = \\sqrt{12 - x - x^2}",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["x=3"],
+      hint: "The square root requires $12 - x - x^2 \\ge 0$. Solve the quadratic inequality.",
+      explanation:
+        "$12 - x - x^2 \\ge 0 \\Rightarrow x^2 + x - 12 \\le 0 \\Rightarrow (x+4)(x-3) \\le 0$, so $-4 \\le x \\le 3$. The largest value of $x$ is $3$.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -717,6 +732,33 @@ export const graphTransformationsLesson: ExplicitLesson = {
       ],
       hint: "$f(x-a)$ shifts right $a$.",
       explanation: "$f(x-4)$ shifts the graph right 4.",
+    },
+  ],
+
+  // Difficulty 5 (genuine): transformation recovery (reconstruct then use).
+  masteryQuizPool: [
+    {
+      id: "trans-pool-d5-1",
+      prompt:
+        "The graph of $y = x^2$ is translated so that its vertex is at $(-3, 4)$. Find the $y$-coordinate of the point on the new parabola where $x = -1$.",
+      latex: "y = x^2",
+      difficulty: 5,
+      answer: "8",
+      acceptedAnswers: ["y=8"],
+      hint: "Write the translated parabola in vertex form $y = (x-h)^2 + k$, then substitute $x=-1$.",
+      explanation:
+        "Vertex $(-3,4)$ gives $y = (x+3)^2 + 4$. At $x=-1$: $y = (2)^2 + 4 = 8$.",
+    },
+    {
+      id: "trans-pool-d5-2",
+      prompt:
+        "The graph of $y = x^2$ is vertically stretched to $y = a x^2$ and now passes through $(2, 12)$. Find the value of $a$.",
+      latex: "y = a x^2",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["a=3"],
+      hint: "Substitute the point $(2,12)$ into $y = a x^2$ and solve for $a$.",
+      explanation: "$12 = a(2)^2 = 4a$, so $a = 3$.",
     },
   ],
 
@@ -1422,6 +1464,33 @@ export const interceptsKeyFeaturesLesson: ExplicitLesson = {
     },
   ],
 
+  // Difficulty 5 (genuine): coefficient recovery from features (reconstruct the parabola).
+  masteryQuizPool: [
+    {
+      id: "features-pool-d5-1",
+      prompt:
+        "A parabola has axis of symmetry $x = 3$, an $x$-intercept at $x = 1$, and a $y$-intercept of $10$. Find its leading coefficient $a$.",
+      latex: "y = a(x - r_1)(x - r_2)",
+      difficulty: 5,
+      answer: "2",
+      acceptedAnswers: ["a=2"],
+      hint: "The axis is midway between the roots, so the second root is symmetric to $x=1$ about $x=3$. Then use the $y$-intercept.",
+      explanation:
+        "The roots are symmetric about $x=3$, so they are $1$ and $5$: $y = a(x-1)(x-5)$. At $x=0$: $a(-1)(-5) = 5a = 10$, so $a = 2$.",
+    },
+    {
+      id: "features-pool-d5-2",
+      prompt: "The parabola $y = x^2 + bx + c$ has its vertex at $(2, -5)$. Find the value of $c$.",
+      latex: "y = x^2 + bx + c",
+      difficulty: 5,
+      answer: "-1",
+      acceptedAnswers: ["c=-1", "−1"],
+      hint: "Write the parabola in vertex form $y = (x-2)^2 - 5$ and expand to read off $c$.",
+      explanation:
+        "$y = (x-2)^2 - 5 = x^2 - 4x - 1$, so $c = -1$.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -1755,6 +1824,33 @@ export const asymptotesReciprocalGraphsLesson: ExplicitLesson = {
       ],
       hint: "Use $h=2$ and $k=-3$.",
       explanation: "The vertical asymptote is $x=2$ and the horizontal asymptote is $y=-3$.",
+    },
+  ],
+
+  // Difficulty 5 (genuine): asymptotic reasoning / reconstruct from a feature.
+  masteryQuizPool: [
+    {
+      id: "asym-pool-d5-1",
+      prompt:
+        "The curve has a horizontal asymptote $y = 3$. Find the $y$-coordinate where it crosses the $y$-axis.",
+      latex: "y = a + \\frac{4}{x - 2}",
+      difficulty: 5,
+      answer: "1",
+      acceptedAnswers: ["y=1", "(0,1)"],
+      hint: "As $x\\to\\infty$ the term $\\frac{4}{x-2}\\to 0$, so the horizontal asymptote is $y=a$. Find $a$, then put $x=0$.",
+      explanation:
+        "The horizontal asymptote is $y=a$, so $a=3$ and $y = 3 + \\frac{4}{x-2}$. At $x=0$: $y = 3 + \\frac{4}{-2} = 3 - 2 = 1$.",
+    },
+    {
+      id: "asym-pool-d5-2",
+      prompt: "The hyperbola passes through $(3, 4)$. Find its $y$-value when $x = 5$.",
+      latex: "y = \\frac{k}{x - 1}",
+      difficulty: 5,
+      answer: "2",
+      acceptedAnswers: ["y=2"],
+      hint: "Use the point $(3,4)$ to find $k$, then substitute $x=5$.",
+      explanation:
+        "$\\frac{k}{3-1}=4 \\Rightarrow k=8$, so $y=\\frac{8}{x-1}$. At $x=5$: $y=\\frac{8}{4}=2$.",
     },
   ],
 
@@ -2110,6 +2206,22 @@ export const solvingEquationsInequalitiesGraphicallyLesson: ExplicitLesson = {
       ],
       hint: "Equation solutions are input values.",
       explanation: "The intersection gives the input value $p=12$ where demand equals supply.",
+    },
+  ],
+
+  // Difficulty 5 (genuine): graphical interpretation — count intersections via turning values.
+  masteryQuizPool: [
+    {
+      id: "graphsolve-pool-d5-1",
+      prompt:
+        "For the function $f(x) = x^3 - 3x$, find the number of values of $x$ for which $f(x) = 1$.",
+      latex: "f(x) = x^3 - 3x",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["three"],
+      hint: "The cubic has a local maximum and a local minimum; compare their $y$-values with the line $y = 1$ rather than solving.",
+      explanation:
+        "$f'(x) = 3x^2 - 3 = 0$ gives turning points at $x = \\pm 1$, with local maximum $f(-1) = 2$ and local minimum $f(1) = -2$. Since $1$ lies between $-2$ and $2$, the horizontal line $y = 1$ cuts the curve $3$ times.",
     },
   ],
 
@@ -3176,6 +3288,33 @@ export const exponentialLogarithmicGraphsLesson: ExplicitLesson = {
       explanation: "The vertical asymptote is $x=3$.",
     },
   ],
+
+  // Difficulty 5 (genuine): reconstruct an exponential / graphical equation reasoning.
+  masteryQuizPool: [
+    {
+      id: "explog-pool-d5-1",
+      prompt: "The curve passes through $(0, 3)$ and $(2, 27)$. Find the value of $b$.",
+      latex: "y = a \\cdot b^x",
+      difficulty: 5,
+      answer: "3",
+      acceptedAnswers: ["b=3"],
+      hint: "Use $(0,3)$ to find $a$, then use $(2,27)$ to find $b$.",
+      explanation:
+        "At $x=0$: $a = 3$. At $x=2$: $3b^2 = 27 \\Rightarrow b^2 = 9 \\Rightarrow b = 3$.",
+    },
+    {
+      id: "explog-pool-d5-2",
+      prompt: "Find the number of values of $x$ for which $2^x = -x + 4$.",
+      latex: "2^x = -x + 4",
+      difficulty: 5,
+      answer: "1",
+      acceptedAnswers: ["one"],
+      hint: "Compare an increasing exponential with a decreasing line — how many times can they cross?",
+      explanation:
+        "$y=2^x$ is increasing and $y=-x+4$ is decreasing, so the graphs cross exactly once: there is $1$ solution.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -3499,6 +3638,22 @@ export const absoluteValueFunctionsLesson: ExplicitLesson = {
       explanation: "Since $|-4|=4$, $f(|-4|)=f(4)=-1$.",
     },
   ],
+
+  // Difficulty 5 (genuine): absolute-value equation, select the boundary value.
+  masteryQuizPool: [
+    {
+      id: "abs-pool-d5-1",
+      prompt: "Find the larger value of $x$ for which $|2x - 5| = 7$.",
+      latex: "|2x - 5| = 7",
+      difficulty: 5,
+      answer: "6",
+      acceptedAnswers: ["x=6"],
+      hint: "Solve both $2x-5=7$ and $2x-5=-7$, then take the larger root.",
+      explanation:
+        "$2x-5=7 \\Rightarrow x=6$; $2x-5=-7 \\Rightarrow x=-1$. The larger value is $6$.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -3847,6 +4002,22 @@ export const inverseFunctionsLesson: ExplicitLesson = {
       explanation: "For example, $f(2)=f(-2)=4$, so the inverse relation would not be a function unless the domain is restricted.",
     },
   ],
+
+  // Difficulty 5 (genuine): invert a rational function at a point.
+  masteryQuizPool: [
+    {
+      id: "inv-pool-d5-1",
+      prompt: "Find $f^{-1}(3)$.",
+      latex: "f(x) = \\frac{x + 1}{x - 2}",
+      difficulty: 5,
+      answer: "7/2",
+      acceptedAnswers: ["3.5", "x=7/2"],
+      hint: "$f^{-1}(3)$ is the input $x$ for which $f(x)=3$. Solve $\\frac{x+1}{x-2}=3$.",
+      explanation:
+        "$\\frac{x+1}{x-2}=3 \\Rightarrow x+1=3(x-2)=3x-6 \\Rightarrow 7=2x \\Rightarrow x=\\frac{7}{2}$.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 

@@ -47,6 +47,66 @@ import {
   polarDeMoivreChallenge,
 } from "./year12Extension2";
 import {
+  functionsParamChallenge,
+  functionsTransformChallenge,
+  functionsModellingChallenge,
+  functionsReciprocalChallenge,
+} from "./year12AdvancedFunctions";
+import {
+  functionsAsymptoteChallenge,
+  functionsExpLogChallenge,
+  functionsInverseChallenge,
+  functionsAbsoluteChallenge,
+} from "./year12AdvancedFunctionsGraphing";
+import {
+  polynomialsVietaChallenge,
+  polynomialsFactorChallenge,
+  polynomialsGraphChallenge,
+} from "./year11ExtensionPolynomials";
+import {
+  statsCentreChallenge,
+  statsSdChallenge,
+  statsRegressionChallenge,
+  statsSpreadChallenge,
+} from "./year12AdvancedStatistics";
+import {
+  probabilityBayesChallenge,
+  probabilityIndependenceChallenge,
+  probabilityExamChallenge,
+} from "./year12AdvancedProbability";
+import {
+  rvDiscreteChallenge,
+  rvMixedChallenge,
+} from "./year12AdvancedRandomVariables";
+import {
+  expLogParamChallenge,
+  expLogExamChallenge,
+  expLogIdentityChallenge,
+  expLogGrowthChallenge,
+  expLogExistenceChallenge,
+} from "./year12AdvancedExpLog";
+import {
+  diffTechStandardChallenge,
+  diffTechProductQuotientChallenge,
+  diffTechApplicationsChallenge,
+  diffTechExamChallenge,
+} from "./year12AdvancedDifferentiationTechniques";
+import {
+  icReconstructionChallenge,
+  icSignedAreaChallenge,
+  icParameterChallenge,
+  icAccumulationChallenge,
+  icExamChallenge,
+} from "./year12AdvancedIntegralCalculus";
+import {
+  trigParamChallenge,
+  trigDoubleAngleChallenge,
+  trigIdentityChallenge,
+  trigExistenceChallenge,
+  trigBehaviourChallenge,
+  trigQuadrantChallenge,
+} from "./year12AdvancedTrigIdentities";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -172,7 +232,13 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "box-plots-five-number-summary": fiveNumberSummaryChallenge,
   // Year 11 Extension
   combinations: combinationsChallenge,
-  "roots-and-coefficients": rootsCoefficientsChallenge,
+  "roots-and-coefficients": [
+    ...rootsCoefficientsChallenge,
+    ...polynomialsVietaChallenge,
+  ],
+  // Year 11 Extension — Polynomials top-up
+  "factor-theorem-factorisation": polynomialsFactorChallenge,
+  "polynomial-graphs": polynomialsGraphChallenge,
   "double-angle-formulae": doubleAngleChallenge,
   // Year 12 Standard 1 (shared slugs add depth to Standard 2 / Year 11 too)
   "right-angle-trig-applications": rightAngleTrigAppliedChallenge,
@@ -182,6 +248,53 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "complex-number-arithmetic": complexArithmeticChallenge,
   "modulus-argument-conjugate": modulusArgumentChallenge,
   "polar-form-de-moivre": polarDeMoivreChallenge,
+  // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
+  // D6 items carry distinct subtopic slugs.
+  "intercepts-key-features": functionsParamChallenge,
+  "graph-transformations": functionsTransformChallenge,
+  "modelling-with-functions": functionsModellingChallenge,
+  "solving-equations-inequalities-graphically": functionsReciprocalChallenge,
+  // Year 12 Advanced — Graphing techniques (ma-f2)
+  "asymptotes-reciprocal-graphs": functionsAsymptoteChallenge,
+  "exponential-logarithmic-graphs": functionsExpLogChallenge,
+  "inverse-functions": functionsInverseChallenge,
+  "absolute-value-functions": functionsAbsoluteChallenge,
+  // Year 12 Advanced — Descriptive statistics & bivariate data (ma-s2)
+  "data-displays-measures-of-centre": statsCentreChallenge,
+  "standard-deviation-z-scores-standardised-values": statsSdChallenge,
+  "correlation-least-squares-regression": statsRegressionChallenge,
+  "spread-iqr-box-plots-outliers": statsSpreadChallenge,
+  // Year 12 Advanced — Probability (ma-s1; ma-s3 owns distribution/E[X]/Var)
+  "conditional-probability-tree-diagrams": probabilityBayesChallenge,
+  "independence-multiplication-rule": probabilityIndependenceChallenge,
+  "probability-exam-practice": probabilityExamChallenge,
+  // Year 12 Advanced — Random Variables (ma-s3)
+  "random-variables-probability-distributions": rvDiscreteChallenge,
+  "mixed-statistical-analysis-exam-practice": rvMixedChallenge,
+  // Year 12 Advanced — Exponential & Logarithmic Functions (ma-e1)
+  "eulers-number-natural-logarithm": expLogParamChallenge,
+  "exponential-logarithmic-exam-practice": expLogExamChallenge,
+  "logarithm-laws-change-of-base": expLogIdentityChallenge,
+  "exponential-growth-decay-modelling": expLogGrowthChallenge,
+  "solving-equations-e-ln": expLogExistenceChallenge,
+  // Year 12 Advanced — Differential Calculus / techniques (ma-c2)
+  "standard-derivatives": diffTechStandardChallenge,
+  "product-quotient-rules": diffTechProductQuotientChallenge,
+  "applications-extended-differentiation": diffTechApplicationsChallenge,
+  "differentiation-techniques-exam-practice": diffTechExamChallenge,
+  // Year 12 Advanced — Integral Calculus (ma-c4; area-between-curves D6 live in year12AdvancedMore)
+  "initial-conditions-particular-primitive": icReconstructionChallenge,
+  "signed-area-total-area": icSignedAreaChallenge,
+  "definite-integrals-fundamental-theorem": icParameterChallenge,
+  "applications-total-change-motion": icAccumulationChallenge,
+  "mixed-integral-calculus-exam-practice": icExamChallenge,
+  // Year 12 Advanced — Trig Functions & Identities (ma-t2; trig-equations D6 live in year12AdvancedMore)
+  "amplitude-period-phase-vertical-shift": trigParamChallenge,
+  "double-angle-formulas": trigDoubleAngleChallenge,
+  "trigonometric-identities-simplification": trigIdentityChallenge,
+  "graphs-sine-cosine-tangent": trigExistenceChallenge,
+  "modelling-periodic-phenomena": trigBehaviourChallenge,
+  "mixed-trigonometric-functions-exam-practice": trigQuadrantChallenge,
   // Year 9 Wave 1 (ADR-Y9-001): COURSE-SCOPED keys ("<course>/<lesson>"). The registry is now
   // course-aware (see getChallengeQuestions), so Year 9 slugs that collide with another course
   // (e.g. `simple-interest` ↔ Year 11 Standard) stay separate without clobbering. Keyed by each

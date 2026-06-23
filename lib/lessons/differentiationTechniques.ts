@@ -59,7 +59,8 @@ function lesson(
   guidedPractice: PracticeQuestion[],
   independentPractice: PracticeQuestion[],
   commonMistakes: ExplicitLesson["commonMistakes"],
-  masteryQuiz: PracticeQuestion[]
+  masteryQuiz: PracticeQuestion[],
+  masteryQuizPool: PracticeQuestion[] = []
 ): ExplicitLesson {
   return {
     id,
@@ -84,6 +85,7 @@ function lesson(
     independentPractice,
     commonMistakes,
     masteryQuiz,
+    ...(masteryQuizPool.length ? { masteryQuizPool } : {}),
     masteryPassMark: 0.8,
   };
 }
@@ -180,6 +182,10 @@ export const standardDerivativesLesson = lesson(
     choice("diff-tech-std-m10", "Choose the value of f'(1).", "f(x)=e^x+\\ln x", "A", ["$e+1$", "$e$", "$1$", "$2e$"], "The derivative is e^x + 1/x, so f'(1) = e + 1."),
     choice("diff-tech-std-ax1", "Choose the derivative of $2^x$.", "y=2^x", "C", ["$x\\cdot 2^{x-1}$", "$2^x$", "$2^x\\ln 2$", "$\\frac{2^x}{\\ln 2}$"], "Use $\\frac{d}{dx}(a^x)=a^x\\ln a$ with $a=2$. The power rule does not apply when the variable is the exponent.", "Use the rule $\\frac{d}{dx}(a^x)=a^x\\ln a$."),
     choice("diff-tech-std-ax2", "Choose the derivative of $5^x$.", "y=5^x", "A", ["$5^x\\ln 5$", "$5x^4$", "$5^x$", "$\\ln 5$"], "Apply $\\frac{d}{dx}(a^x)=a^x\\ln a$ with $a=5$ to get $5^x\\ln 5$.", "Use the rule $\\frac{d}{dx}(a^x)=a^x\\ln a$."),
+  ],
+  [
+    { id: "diff-tech-std-d5-1", prompt: "$f(x) = x^2 + kx$ has $f'(3) = 10$. Find $k$.", latex: "f'(3) = 10", answer: "4", acceptedAnswers: ["k=4"], hint: "Differentiate, substitute $x = 3$, then solve for $k$.", explanation: "$f'(x) = 2x + k$, so $f'(3) = 6 + k = 10 \\Rightarrow k = 4$.", difficulty: 5 },
+    { id: "diff-tech-std-d5-2", prompt: "Find the gradient of the tangent to $y = e^x$ at $x = 0$.", latex: "y = e^x", answer: "1", acceptedAnswers: [], hint: "The derivative of $e^x$ is $e^x$; evaluate at $x = 0$.", explanation: "$y' = e^x$, so the gradient at $x = 0$ is $e^0 = 1$.", difficulty: 5 },
   ]
 );
 
@@ -272,6 +278,9 @@ export const chainRuleLesson = lesson(
     numeric("diff-tech-chain-m8", "Find f'(1).", "f(x)=\\ln(3x+1)", "3/4", ["0.75"], "Differentiate the log by dividing the inside derivative by the inside: f'(x)=3/(3x+1). At x=1, f'(1)=3/4."),
     choice("diff-tech-chain-m9", "Choose the derivative.", "y=\\sin(x^2+1)", "C", ["$\\cos(x^2+1)$", "$2x\\sin(x^2+1)$", "$2x\\cos(x^2+1)$", "$-2x\\sin(x^2+1)$"], "The inner derivative is 2x and the derivative of sin is cos."),
     choice("diff-tech-chain-m10", "Choose the derivative of the full expression.", "y=e^{2x}-\\ln(3x+4)", "D", ["$e^{2x}-\\frac{1}{3x+4}$", "$2e^x-\\frac{3}{3x+4}$", "$2e^{2x}-\\ln(3x+4)$", "$2e^{2x}-\\frac{3}{3x+4}$"], "Use the chain rule on both terms."),
+  ],
+  [
+    { id: "diff-tech-chain-d5-1", prompt: "Find $\\frac{dy}{dx}$ for $y = (2x+1)^3$ at $x = 0$.", latex: "y = (2x+1)^3", answer: "6", acceptedAnswers: [], hint: "Chain rule: bring down the power, then multiply by the derivative of the inside.", explanation: "$\\frac{dy}{dx} = 3(2x+1)^2 \\cdot 2 = 6(2x+1)^2$; at $x = 0$ this is $6$.", difficulty: 5 },
   ]
 );
 
@@ -452,6 +461,10 @@ export const applicationsExtendedDifferentiationLesson = lesson(
     numeric("diff-tech-app-m8", "Find f'(1).", "f(x)=x\\ln x", "1", [], "Use the product rule: $f'(x)=1\\cdot\\ln x+x\\cdot(1/x)=\\ln x+1$. At $x=1$, $f'(1)=0+1=1$."),
     choice("diff-tech-app-m9", "A curve has y = ln(3x + 1). Which tangent gradient at x = 1 is correct?", "\\text{Select A, B, C, or D.}", "D", ["3", "1", "1/3", "3/4"], "The derivative is 3/(3x + 1), so at x = 1 it is 3/4."),
     choice("diff-tech-app-m10", "For the function shown, which statement identifies the stationary x-value?", "f(x)=e^x(x-3)", "A", ["$x=2$, because $f'(x)=e^x(x-2)$ and $e^x$ is never zero", "$x=0$, because exponential graphs cross the axis", "$x=3$, because the bracket in the original function is zero", "$x=-2$, because the sign changes"], "Using the product rule gives f'(x)=e^x(x-2). Since e^x is never zero, the stationary x-value is x = 2."),
+  ],
+  [
+    { id: "diff-tech-app-d5-1", prompt: "Find the $x$-coordinate of the stationary point of $y = x^2 - 8x$.", latex: "y = x^2 - 8x", answer: "4", acceptedAnswers: ["x=4"], hint: "Set the derivative equal to zero.", explanation: "$y' = 2x - 8 = 0 \\Rightarrow x = 4$.", difficulty: 5 },
+    { id: "diff-tech-app-d5-2", prompt: "For what values of $x$ is $y = x^2 - 6x$ decreasing?", latex: "y = x^2 - 6x", answer: "x<3", acceptedAnswers: ["x < 3"], hint: "The function decreases where its derivative is negative.", explanation: "$y' = 2x - 6 < 0 \\Rightarrow x < 3$.", difficulty: 5 },
   ]
 );
 
@@ -543,6 +556,9 @@ export const differentiationTechniquesExamPracticeLesson = lesson(
     choice("diff-tech-exam-m8", "Which function has derivative value 2 at x = 0?", "\\text{Select A, B, C, or D.}", "A", ["$e^{2x}$", "$\\ln(x+1)$", "$\\cos(2x)$", "$x\\sin x$"], "The derivative of $e^{2x}$ is $2e^{2x}$, which is 2 at $x = 0$."),
     choice("diff-tech-exam-m9", "For the function shown, which stationary x-value is correct?", "f(x)=e^x(x-5)", "C", ["0", "-4", "4", "5"], "Using the product rule gives f'(x)=e^x(x-4). Since e^x is never zero, solve x - 4 = 0."),
     choice("diff-tech-exam-m10", "A curve is y = x ln x. Which tangent gradient at x = 1 is correct?", "\\text{Select A, B, C, or D.}", "B", ["0", "1", "e", "2"], "The product-rule derivative is ln x + 1, so at x = 1 it is 1."),
+  ],
+  [
+    { id: "diff-tech-exam-d5-1", prompt: "A particle has position $x = t^2 - 4t$. Find the time when its velocity is zero.", latex: "x = t^2 - 4t", answer: "2", acceptedAnswers: ["t=2", "2 s"], hint: "Velocity is the derivative of position; set it to zero.", explanation: "$v = \\frac{dx}{dt} = 2t - 4 = 0 \\Rightarrow t = 2$.", difficulty: 5 },
   ]
 );
 

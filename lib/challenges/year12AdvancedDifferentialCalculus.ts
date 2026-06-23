@@ -21,7 +21,7 @@ export const differentiatingPolynomialFunctionsChallenge: PracticeQuestion[] = [
     prompt:
       "The curve y = 2x³ + ax² + bx has stationary points at x = 1 and x = −3.",
     latex: "y = 2x^3 + ax^2 + bx",
-    answer: "",
+    answer: "6",
     explanation:
       "y' = 6x² + 2ax + b has roots 1 and −3. Sum of roots = 1 + (−3) = −2 = −(2a)/6 ⟹ a = 6. Product = (1)(−3) = −3 = b/6 ⟹ b = −18.",
     parts: [
@@ -157,7 +157,7 @@ export const stationaryPointsChallenge: PracticeQuestion[] = [
     id: "chal-y12a-sp-2",
     prompt: "For f(x) = x³ − 3x² − 9x + 5:",
     latex: "f(x) = x^3 - 3x^2 - 9x + 5",
-    answer: "",
+    answer: "-1",
     explanation:
       "f'(x) = 3x² − 6x − 9 = 3(x − 3)(x + 1) = 0 ⟹ x = −1, 3. f''(x) = 6x − 6: f''(−1) < 0 (maximum), f''(3) > 0 (minimum).",
     parts: [
@@ -183,7 +183,7 @@ export const stationaryPointsChallenge: PracticeQuestion[] = [
     id: "chal-y12a-sp-3",
     prompt: "The curve y = x³ + px² + qx has a stationary point at (2, −4).",
     latex: "y = x^3 + px^2 + qx",
-    answer: "",
+    answer: "-3",
     explanation:
       "Stationary: y'(2) = 12 + 4p + q = 0. On the curve: y(2) = 8 + 4p + 2q = −4. Solving simultaneously gives p = −3, q = 0.",
     parts: [
