@@ -1649,6 +1649,19 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     },
   ],
 
+  masteryQuizPool: [
+    {
+      id: "normal-pool-d5-1",
+      prompt: "Heights are normally distributed with mean $170$ cm and standard deviation $10$ cm. Find the approximate percentage of heights between $160$ cm and $180$ cm.",
+      latex: "\\bar{x}=170,\\ s=10",
+      difficulty: 5,
+      answer: "68",
+      acceptedAnswers: ["68%"],
+      hint: "$160$ and $180$ are one standard deviation either side of the mean.",
+      explanation: "$160$ to $180$ is $\\bar{x}\\pm 1s$, so by the empirical rule about $68\\%$ of values lie in this range.",
+    },
+  ],
+
   masteryPassMark: 0.8,
 };
 
@@ -1975,6 +1988,28 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
       ],
       hint: "Predictions inside the data range are safer.",
       explanation: "$x=12$ is inside the data range.",
+    },
+  ],
+
+  masteryQuizPool: [
+    {
+      id: "mixed-pool-d5-1",
+      prompt: "$X$ follows a binomial distribution with $n=3$ and $p=0.5$. Find $P(X=2)$.",
+      latex: "P(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}",
+      difficulty: 5,
+      answer: "0.375",
+      acceptedAnswers: ["3/8"],
+      hint: "Use $\\binom{3}{2}(0.5)^2(0.5)^1$.",
+      explanation: "$P(X=2)=\\binom{3}{2}(0.5)^2(0.5)=3\\times0.125=0.375$.",
+    },
+    {
+      id: "mixed-pool-d5-2",
+      prompt: "A random variable has $E[X]=4$. Find $E[3X-2]$.",
+      latex: "E[aX+b]=aE[X]+b",
+      difficulty: 5,
+      answer: "10",
+      hint: "Use linearity of expectation: $E[aX+b]=aE[X]+b$.",
+      explanation: "$E[3X-2]=3E[X]-2=3(4)-2=10$.",
     },
   ],
 
@@ -2325,6 +2360,35 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
       hint: "Standard deviation is the square root of variance.",
       explanation:
         "Standard deviation $\\sigma(X)=\\sqrt{\\text{Var}(X)}$. It measures spread in the same units as $X$.",
+    },
+  ],
+  masteryQuizPool: [
+    {
+      id: "rv-pool-d5-1",
+      prompt: "A discrete random variable has $P(X=1)=0.2$, $P(X=2)=0.5$, $P(X=3)=k$. Find $k$.",
+      latex: "\\sum P(X=x)=1",
+      difficulty: 5,
+      answer: "0.3",
+      hint: "The probabilities of a valid distribution sum to $1$.",
+      explanation: "$0.2+0.5+k=1 \\Rightarrow k=0.3$.",
+    },
+    {
+      id: "rv-pool-d5-2",
+      prompt: "A random variable has $P(X=1)=0.5$, $P(X=2)=0.3$, $P(X=3)=0.2$. Find $E[X]$.",
+      latex: "E[X]=\\sum x\\,P(X=x)",
+      difficulty: 5,
+      answer: "1.7",
+      hint: "Multiply each value by its probability and add.",
+      explanation: "$E[X]=1(0.5)+2(0.3)+3(0.2)=0.5+0.6+0.6=1.7$.",
+    },
+    {
+      id: "rv-pool-d5-3",
+      prompt: "A random variable takes the value $0$ with probability $0.5$ and the value $2$ with probability $0.5$. Find $\\text{Var}(X)$.",
+      latex: "\\text{Var}(X)=E[X^2]-(E[X])^2",
+      difficulty: 5,
+      answer: "1",
+      hint: "Find $E[X]$ and $E[X^2]$ first.",
+      explanation: "$E[X]=0(0.5)+2(0.5)=1$; $E[X^2]=0+4(0.5)=2$; $\\text{Var}(X)=2-1^2=1$.",
     },
   ],
   masteryPassMark: 0.8,

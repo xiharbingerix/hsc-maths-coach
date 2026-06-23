@@ -272,6 +272,55 @@ recall; direct multiplication for already-stated independent events; any single-
 
 ---
 
+## ma-s3-random-variables (Year 12 Advanced) — Domain: Statistics/Distributions — Target: 6 D5 + 6 D6 (top-up) — ✅ AUTHORED (2026-06-23, supervisor-approved plan)
+
+**Acceptance:** 6 D5 → lesson `masteryQuizPool`s (random-variables ×3, mixed ×2, normal ×1);
+6 D6 → `lib/challenges/year12AdvancedRandomVariables.ts` (2 sets: random-variables 3, mixed 3),
+existing 3 normal-distribution D6 retained → D6 3→9; D5 12→18. D6 (with GPT's 2 mods applied):
+binomial param-recon from both moments (n=10), parameterised pmf P(X=k)=ck (E[X]=7/3),
+moment-interaction E[(X−3)²]=8 (non-trivial shift), validity-via-inferred-negative-probability
+(P(X=1)=−0.2), pmf reconstruction (b=0.4), model comparison same-mean/different-variance
+(Var diff=3). Binomial = 1 of 6; ≥4 reverse; all single-answer. Worksheet sample max
+6/subtopic — **3-lesson topic, structural concentration** (generation-scope, not authoring;
+per the small-topic ruling). tsc/git diff clean.
+
+Current: D5 12, D6 3 (P2). Existing 3 D6 (normal-distribution challenge) usable → **top-up**:
+add 6 D5 + 6 D6 (D6 total 3→9). Lessons: random-variables-probability-distributions,
+normal-distribution-empirical-rule, mixed-statistical-analysis-exam-practice. This is where
+the distribution / E[X] / Var D6 live (deferred from ma-s1).
+
+**D6 archetype table (6, exactly meeting the category minimums):**
+| # | Archetype (category) | Detail → answer | Family |
+|---|---|---|---|
+| 1 | Parameter reconstruction | binomial from **both** moments: mean 4, var 2.4 → n=10 (1−p=var/mean=0.6, p=0.4, n=10) | binomial |
+| 2 | Parameter reconstruction | parameterised pmf P(X=k)=ck, k=1..3 → find E[X]=7/3 (c=1/6 first) | general pmf |
+| 3 | Expectation–variance interaction | E[X]=2, Var(X)=1 → E[(X−1)²]=2 (=Var+E²−2E+1) | general |
+| 4 | Distribution validity / contradiction | E[X]=2, E[X²]=3 → implied Var=−1 ⟹ impossible | general |
+| 5 | Probability-mass reconstruction | P=0.1,a,b,0.2 over 1..4 with E[X]=2.7 → b=0.4 | general pmf |
+| 6 | Model comparison / equivalence (NEW) | X∈{1,3} vs Y∈{0,4} both mean 2 → Var(Y)−Var(X)=3 | general |
+
+**Coverage vs gates:** param reconstruction = 2 (#1,#2 ✓); E-Var interaction = 1 (#3 ✓);
+validity/contradiction = 1 (#4 ✓); pmf reconstruction = 1 (#5 ✓); model comparison = 1 (#6 ✓).
+Reverse-reasoning (summary → structure) = 4 (#1 recover n, #2 recover c, #4 recover Var, #5
+recover b) ✓. **Distribution-family balance:** binomial = 1 of 6 (≤3 ✓); general discrete
+pmf/table ≥2 (#2,#4,#5,#6 ✓) — not "binomials in disguise."
+
+**D5 archetype table (6):** valid-pmf missing entry (sum→1); E[X] of a discrete pmf;
+Var(X) of a discrete pmf; a single binomial probability with one inference; normal
+empirical-rule region (68–95–99.7); expectation of a linear transformation E[aX+b].
+
+**Reject list:** solve E(X)=np for p in one step; solve Var=np(1−p) in one step; direct
+binomial probability evaluation; direct E[X] / Var calc; any item whose whole difficulty is
+algebra once the formula is identified; "state the mean/variance formula".
+
+**Domain-richness note:** the structural carry is the statistical reasoning (which moments
+fix which parameters; when a claimed distribution is impossible; same-mean/different-variance
+comparison), not arithmetic. Aiming to make ma-s3 the statistics-domain exemplar.
+
+**Expected after:** D6 3→9 single-answer ⟹ replay-ready ✅; D5 12→18.
+
+---
+
 ## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**

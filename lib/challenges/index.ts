@@ -74,6 +74,10 @@ import {
   probabilityIndependenceChallenge,
   probabilityExamChallenge,
 } from "./year12AdvancedProbability";
+import {
+  rvDiscreteChallenge,
+  rvMixedChallenge,
+} from "./year12AdvancedRandomVariables";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -149,6 +153,9 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "conditional-probability-tree-diagrams": probabilityBayesChallenge,
   "independence-multiplication-rule": probabilityIndependenceChallenge,
   "probability-exam-practice": probabilityExamChallenge,
+  // Year 12 Advanced — Random Variables (ma-s3)
+  "random-variables-probability-distributions": rvDiscreteChallenge,
+  "mixed-statistical-analysis-exam-practice": rvMixedChallenge,
 };
 
 export function getChallengeQuestions(lessonSlug: string): PracticeQuestion[] {

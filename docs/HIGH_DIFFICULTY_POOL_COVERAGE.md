@@ -74,7 +74,7 @@
 | year-12-advanced | ma-m1-modelling-financial-situations | 33 | 3 | 3 | 0 | — | P2 |
 | year-12-advanced | ma-s1-probability-and-discrete-probability-distributions | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-s2-descriptive-statistics-and-bivariate-data | 21 | 6 | 6 | 0 | ✅ | — |
-| year-12-advanced | ma-s3-random-variables | 12 | 3 | 3 | 0 | — | P2 |
+| year-12-advanced | ma-s3-random-variables | 18 | 9 | 9 | 0 | ✅ | — |
 | year-12-advanced | ma-t1-trigonometry-and-measure-of-angles | 3 | 0 | 0 | 0 | — | P1 |
 | year-12-advanced | ma-t2-trigonometric-functions-and-identities | 27 | 3 | 3 | 0 | — | P2 |
 | year-12-advanced | ma-t3-trigonometric-equations | 6 | 0 | 0 | 0 | — | P1 |
@@ -179,10 +179,10 @@
 ## Priority summary
 
 - **P1**: 46
-- **P2**: 17
+- **P2**: 16
 - **P3**: 36
 - **P4**: 61
-- **Replay-ready:** 11
+- **Replay-ready:** 12
 
-**TOTAL: 171 topics · 11 replay-ready · 93 zero-D6.**
+**TOTAL: 171 topics · 12 replay-ready · 93 zero-D6.**
 
