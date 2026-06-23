@@ -58,6 +58,11 @@ import {
   functionsInverseChallenge,
   functionsAbsoluteChallenge,
 } from "./year12AdvancedFunctionsGraphing";
+import {
+  polynomialsVietaChallenge,
+  polynomialsFactorChallenge,
+  polynomialsGraphChallenge,
+} from "./year11ExtensionPolynomials";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -97,7 +102,13 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "box-plots-five-number-summary": fiveNumberSummaryChallenge,
   // Year 11 Extension
   combinations: combinationsChallenge,
-  "roots-and-coefficients": rootsCoefficientsChallenge,
+  "roots-and-coefficients": [
+    ...rootsCoefficientsChallenge,
+    ...polynomialsVietaChallenge,
+  ],
+  // Year 11 Extension — Polynomials top-up
+  "factor-theorem-factorisation": polynomialsFactorChallenge,
+  "polynomial-graphs": polynomialsGraphChallenge,
   "double-angle-formulae": doubleAngleChallenge,
   // Year 12 Standard 1 (shared slugs add depth to Standard 2 / Year 11 too)
   "right-angle-trig-applications": rightAngleTrigAppliedChallenge,

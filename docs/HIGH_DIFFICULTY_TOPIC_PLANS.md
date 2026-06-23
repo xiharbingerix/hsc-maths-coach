@@ -134,7 +134,60 @@ stripped-problem test only as one-step recognition.
 
 ---
 
-## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog
+## year-11-extension/polynomials — Domain: Polynomials — Target: 6 D5 + 6 D6 (top-up) — ✅ AUTHORED (2026-06-23, supervisor-signed-off)
+
+**Acceptance:** 6 D5 → lesson `masteryQuizPool`s (division, factor, roots ×2, graphs ×2);
+6 D6 → `lib/challenges/year11ExtensionPolynomials.ts` (Vieta ×2 merged with existing
+roots challenge, factor ×2, graphs ×2). Existing 3 D6 retained → D6 total 3→9; D5 15→21.
+**All 6 new D6 exploit global structure; 2 are non-cubic quartics** (poly-2 Σ squares of a
+quartic's roots, poly-5 quartic touch). Archetypes: Vieta 2, multiplicity 2, factor 1,
+turning-point 1 (≤2 each). All single-answer, hand-solved.
+**Generation-scope note (supervisor-accepted):** a single-topic harder worksheet for
+polynomials concentrates (max ~6/subtopic) because it is a 5-lesson standalone topic with
+the existing D6 clustered in roots-and-coefficients and no domain sibling. The pool is
+replay-ready (D6-single 9); the right fix is generation-side (shorter single-topic hard
+worksheets, or combined-topic worksheets for small topics), **not** more authoring. tsc/
+git diff clean.
+
+Current: D5 15, D6 3 (P2). The 3 existing D6 (Vieta/roots-and-coefficients) are **usable**
+and exploit global structure, so this is a **top-up, not a rebuild** — add 6 genuine D5
++ 6 genuine D6 (D6 total → 9, well past replay-ready). Topic content: degree/leading
+coefficient, remainder & factor theorems, division, Vieta (roots ↔ coefficients), building
+polynomials from roots, multiplicity, end behaviour, sketching from factored form.
+
+**Extension ceiling gate (supervisor):** ≥3 of the 6 new D6 must exploit **global**
+polynomial structure (root sums/products, multiplicity, degree/turning-point constraints,
+factor/remainder consequences, end behaviour, reconstruction) — not merely solving an
+equation. *This plan targets all 6 as global-structure.*
+
+**D6 archetypes (6, all global-structure, ≤2 per archetype):**
+1. **Vieta reconstruction** (×2) — given root relationships of a cubic, find a coefficient
+   or a symmetric function of the roots (e.g. sum of squares = (Σr)² − 2Σrs). *[root sums/products]*
+2. **Multiplicity / repeated root** (×1) — find the parameter k for which a cubic has a
+   repeated root (discriminant-of-derivative / shared root of p and p′). *[multiplicity]*
+3. **Factor/remainder consequence** (×1) — two divisibility/remainder conditions → solve for
+   two coefficients → a further value. *[factor theorem]*
+4. **Reconstruction from partial information** (×1) — build a monic cubic from stated
+   roots/values and read off a coefficient or evaluate it. *[reconstruction]*
+5. **Turning-point / real-root count** (×1) — find the range of k for which a cubic has
+   3 real roots (compare local max/min values), i.e. global end-behaviour reasoning. *[turning-point]*
+
+**D5 archetypes (6, ≤2 per archetype):** remainder-theorem parameter; factor-theorem
+coefficient; Vieta sum/product from coefficients; build a quadratic from given roots;
+multiplicity value / touch point; end-behaviour or degree reasoning.
+
+**Tally targets:** global-structure D6 = 6 (≥3 ✓); reconstruction ≥2 (Vieta recon ×2,
+reconstruction ×1); reverse ≥5; no archetype > 2; routine 0.
+
+**Reject list:** "evaluate p(2)"; "factorise this cubic" given a factor (single-step);
+"state the degree"; "find the remainder" single-substitution; any item solvable by one
+division or one substitution without using global structure.
+
+**Expected after authoring:** D6 3→9 single-answer ⟹ replay-ready ✅; D5 15→21.
+
+---
+
+## ma-f3-polynomials — ⚠️ DOES NOT EXIST in the Year 12 Advanced catalog (resolved: substituted year-11-extension/polynomials above)
 
 Y12 Advanced Functions = `ma-f1` + `ma-f2` only (no `ma-f3`). The genuine **polynomials**
 topic is **`year-11-extension/polynomials`** (P2, currently D5 15 / D6 3) — a different
