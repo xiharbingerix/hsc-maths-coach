@@ -112,6 +112,17 @@ import {
   volPrismsY9Challenge,
   volCylindersY9Challenge,
 } from "./year9Chapter5";
+import {
+  indexNotationY9Challenge,
+  indexMultDivY9Challenge,
+  zeroPowerY9Challenge,
+  indexExtY9Challenge,
+  negIndicesY9Challenge,
+  sciNotationY9Challenge,
+  sciNotationSfY9Challenge,
+  fracIndicesY9Challenge,
+  surdsOpsY9Challenge,
+} from "./year9Chapter6";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -294,6 +305,30 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics/volume-cylinders": volCylindersY9Challenge,
   "year-9-mathematics-core/volume-cylinders": volCylindersY9Challenge,
   "year-9-mathematics-advanced/volume-cylinders": volCylindersY9Challenge,
+  // Year 9 Wave 7 — Chapter 6 (Indices & Surds). core → all 3; path → base + advanced.
+  "year-9-mathematics/index-notation": indexNotationY9Challenge,
+  "year-9-mathematics-core/index-notation": indexNotationY9Challenge,
+  "year-9-mathematics-advanced/index-notation": indexNotationY9Challenge,
+  "year-9-mathematics/index-laws-multiplying-dividing": indexMultDivY9Challenge,
+  "year-9-mathematics-core/index-laws-multiplying-dividing": indexMultDivY9Challenge,
+  "year-9-mathematics-advanced/index-laws-multiplying-dividing": indexMultDivY9Challenge,
+  "year-9-mathematics/zero-index-power-of-power": zeroPowerY9Challenge,
+  "year-9-mathematics-core/zero-index-power-of-power": zeroPowerY9Challenge,
+  "year-9-mathematics-advanced/zero-index-power-of-power": zeroPowerY9Challenge,
+  "year-9-mathematics/index-laws-extended": indexExtY9Challenge,
+  "year-9-mathematics-advanced/index-laws-extended": indexExtY9Challenge,
+  "year-9-mathematics/negative-indices": negIndicesY9Challenge,
+  "year-9-mathematics-advanced/negative-indices": negIndicesY9Challenge,
+  "year-9-mathematics/scientific-notation": sciNotationY9Challenge,
+  "year-9-mathematics-core/scientific-notation": sciNotationY9Challenge,
+  "year-9-mathematics-advanced/scientific-notation": sciNotationY9Challenge,
+  "year-9-mathematics/scientific-notation-significant-figures": sciNotationSfY9Challenge,
+  "year-9-mathematics-core/scientific-notation-significant-figures": sciNotationSfY9Challenge,
+  "year-9-mathematics-advanced/scientific-notation-significant-figures": sciNotationSfY9Challenge,
+  "year-9-mathematics/fractional-indices-surds": fracIndicesY9Challenge,
+  "year-9-mathematics-advanced/fractional-indices-surds": fracIndicesY9Challenge,
+  "year-9-mathematics/operations-with-surds": surdsOpsY9Challenge,
+  "year-9-mathematics-advanced/operations-with-surds": surdsOpsY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
