@@ -157,7 +157,7 @@ import {
   year12Extension1FurtherCalculusRevisionLessonOverride,
   year12Extension1CalculusApplicationsRevisionLessonOverride,
 } from "./lessons/year12Extension1";
-import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride, year10ParabolasVariationWave6LessonOverride, year10StatisticsWave7LessonOverride, year10NetworksWave8LessonOverride, year10CountingWave9LessonOverride, year10TrigonometryWave11LessonOverride } from "./lessons/year10";
+import { year10AlgebraicTechniquesLessonOverride, year10EquationsSimultaneousLessonOverride, year10FinancialMathematicsLessonOverride, year10GeometryProofsLessonOverride, year10LinearRelationshipsLessonOverride, year10NonLinearRelationshipsLessonOverride, year10ProbabilityLessonOverride, year10StatisticsDataLessonOverride, year10TrigonometryLessonOverride, year10MeasurementLessonOverride, year10AlgebraWave1LessonOverride, year10IndicesSurdsMeasurementWave2LessonOverride, year10GeometryWave3LessonOverride, year10ExponentialsFunctionsWave4LessonOverride, year10PolynomialsGraphsWave5LessonOverride, year10ParabolasVariationWave6LessonOverride, year10StatisticsWave7LessonOverride, year10NetworksWave8LessonOverride, year10CountingWave9LessonOverride, year10ProbabilityWave10LessonOverride, year10TrigonometryWave11LessonOverride } from "./lessons/year10";
 import { year9AlgebraicTechniquesLessonOverride, year9ConstantRatesOfChangeLessonOverride, year9EquationsLessonOverride, year9EquationsBLessonOverride, year9FinancialMathematicsLessonOverride, year9GeometricalRepresentationsLessonOverride, year9IndexLawsLessonOverride, year9LinearRelationshipsCLessonOverride, year9MakingDecisionsLessonOverride, year9MakingPredictionsLessonOverride, year9PrismsAndCylindersLessonOverride, year9ProbabilityBLessonOverride, year9SimultaneousEquationsLessonOverride, year9VariationRatesLessonOverride, year9WorkingWithTrianglesLessonOverride } from "./lessons/year9";
 import { year8PythagorasTheoremLessonOverride, year8AlgebraFoundationsLessonOverride, year8NumberFinancialMathematicsLessonOverride, year8GeometryAnglesLessonOverride, year8LinearRelationshipsLessonOverride, year8StatisticsProbabilityLessonOverride, year8AlgebraEquationsLessonOverride, year8NumberOperationsLessonOverride, year8VolumeSurfaceAreaLessonOverride, year8CircumferenceArcLengthLessonOverride, year8AreaCirclesSectorsLessonOverride, year8RatiosRatesLessonOverride, year8IndexLawsExtensionLessonOverride, year8NetworksLessonOverride, year8AlgebraicTechniquesStage5LessonOverride, year8IndicesBLessonOverride, year8DataInvestigationLessonOverride } from "./lessons/year8";
 import { year7IntegersLessonOverride, year7FractionsLessonOverride, year7AlgebraicTechniquesLessonOverride, year7PercentagesLessonOverride, year7EquationsLessonOverride, year7IndicesLessonOverride, year7PerimeterLessonOverride, year7AreaLessonOverride, year7AnglesLessonOverride, year7DataLessonOverride } from "./lessons/year7";
@@ -495,6 +495,7 @@ export function buildLesson(
     year10StatisticsWave7LessonOverride(course, unit, lesson) ??
     year10NetworksWave8LessonOverride(course, unit, lesson) ??
     year10CountingWave9LessonOverride(course, unit, lesson) ??
+    year10ProbabilityWave10LessonOverride(course, unit, lesson) ??
     year10TrigonometryWave11LessonOverride(course, unit, lesson) ??
     year10AlgebraicTechniquesLessonOverride(course, unit, lesson) ??
     year10EquationsSimultaneousLessonOverride(course, unit, lesson) ??
@@ -5217,8 +5218,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "review-of-probability",
                                       "title": "8A Review of Probability",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Find probabilities of equally likely outcomes, use the 0-1 scale, and apply the complement.",
                                       "pathTag": "path"
                               },
                               {
@@ -5254,22 +5254,19 @@ export const newCoursePathways: CoursePathwaySeed[] = [
                               {
                                       "slug": "mutually-exclusive-events",
                                       "title": "8C Mutually and Non-Mutually Exclusive Events",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Recognise mutually exclusive events and use the addition rule, vs overlapping and independent events.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "arrays-two-step-experiments",
                                       "title": "8E Arrays for Two-Step Experiments",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "List outcomes of two-step experiments with arrays and tree diagrams, and find probabilities.",
                                       "pathTag": "path"
                               },
                               {
                                       "slug": "dependent-independent-events",
                                       "title": "8G Dependent and Independent Events",
-                                      "description": "(Interim placeholder - not yet authored.)",
-                                      "showInCourseNav": false,
+                                      "description": "Distinguish dependent from independent events and use the multiplication rule for 'and'.",
                                       "pathTag": "path"
                               }
                       ]
