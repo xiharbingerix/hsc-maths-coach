@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   clientTrackEvent,
   preserveMarketingParams,
-  getMarketingParamsFromUrl,
+  readMarketingParams,
 } from "../../lib/analytics/clientTrackEvent";
 import { ctaExperimentProps } from "../../lib/experiments/ctaExperiment";
 import { useCtaVariant } from "./useCtaVariant";
@@ -32,7 +32,7 @@ export function DiagnosticCtaLink({
           source,
           destination: "/diagnostic/select",
           ...ctaExperimentProps(),
-          ...getMarketingParamsFromUrl(),
+          ...readMarketingParams(),
         });
       }}
     >

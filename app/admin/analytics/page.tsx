@@ -512,6 +512,7 @@ export default async function AdminAnalyticsPage({
   const hscMathsViews = count("hsc_maths_viewed");
   const diagnosticCtaClicks = count("diagnostic_cta_clicked");
   const diagnosticStarts = count("diagnostic_started");
+  const diagnosticBegins = count("diagnostic_begun");
   const diagnosticCompletions = count("diagnostic_completed");
   const trialCtaClicks = count("trial_cta_clicked");
   const checkoutStarts = count("checkout_started");
@@ -549,6 +550,7 @@ export default async function AdminAnalyticsPage({
   const uniqueCheckoutStripeCancellations = unique("checkout_cancelled_from_stripe");
   const uniqueTrialStarts = unique("trial_started");
   const uniqueDiagnosticStarts = unique("diagnostic_started");
+  const uniqueDiagnosticBegins = unique("diagnostic_begun");
   const uniqueDiagnosticCompletions = unique("diagnostic_completed");
 
   // ── Funnel steps (total + unique per step) ─────────────────────────────────
@@ -558,6 +560,7 @@ export default async function AdminAnalyticsPage({
     { label: "HSC maths viewed",      event: "hsc_maths_viewed",              total: hscMathsViews,             uniq: uniqueHscMathsViews },
     { label: "Diagnostic CTA clicked", event: "diagnostic_cta_clicked",       total: diagnosticCtaClicks,       uniq: uniqueDiagnosticCtaClicks },
     { label: "Diagnostic started",    event: "diagnostic_started",            total: diagnosticStarts,          uniq: uniqueDiagnosticStarts },
+    { label: "Diagnostic begun",      event: "diagnostic_begun",              total: diagnosticBegins,          uniq: uniqueDiagnosticBegins },
     { label: "Diagnostic completed",  event: "diagnostic_completed",          total: diagnosticCompletions,     uniq: uniqueDiagnosticCompletions },
     { label: "Trial CTA clicked",     event: "trial_cta_clicked",             total: trialCtaClicks,            uniq: uniqueTrialCtaClicks },
     { label: "Checkout started",      event: "checkout_started",              total: checkoutStarts,            uniq: uniqueCheckoutStarts },
@@ -1298,6 +1301,7 @@ export default async function AdminAnalyticsPage({
             <StatCard label="HSC maths views"        value={hscMathsViews} />
             <StatCard label="Trial CTA clicks"       value={trialCtaClicks} />
             <StatCard label="Diagnostic starts"      value={diagnosticStarts} />
+            <StatCard label="Diagnostic begun"       value={diagnosticBegins} />
             <StatCard label="Diagnostic completions" value={diagnosticCompletions} />
             <StatCard label="Checkout starts"        value={checkoutStarts} />
             <StatCard label="Checkout forms"         value={checkoutFormSubmissions} />

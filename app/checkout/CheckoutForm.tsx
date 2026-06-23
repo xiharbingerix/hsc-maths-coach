@@ -6,7 +6,10 @@ import type { User } from "@supabase/supabase-js";
 import { offerConfigs, type OfferSlug } from "../../lib/offers";
 import { supabase } from "../../lib/supabaseClient";
 import { trackCheckoutStarted, trackEvent } from "../../lib/analytics";
-import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
+import {
+  clientTrackEvent,
+  readMarketingParams,
+} from "../../lib/analytics/clientTrackEvent";
 
 type CheckoutFormProps = {
   offerSlug: OfferSlug;
@@ -57,7 +60,10 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
               if (!tracked) {
                 tracked = true;
                 trackCheckoutStarted();
-                clientTrackEvent("checkout_started", { offer: offerSlug });
+                clientTrackEvent("checkout_started", {
+              offer: offerSlug,
+              ...readMarketingParams(),
+            });
               }
             });
         } else {
@@ -65,7 +71,10 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           if (!tracked) {
             tracked = true;
             trackCheckoutStarted();
-            clientTrackEvent("checkout_started", { offer: offerSlug });
+            clientTrackEvent("checkout_started", {
+              offer: offerSlug,
+              ...readMarketingParams(),
+            });
           }
         }
       } else if (event === "INITIAL_SESSION") {
@@ -74,7 +83,10 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           if (!tracked) {
             tracked = true;
             trackCheckoutStarted();
-            clientTrackEvent("checkout_started", { offer: offerSlug });
+            clientTrackEvent("checkout_started", {
+              offer: offerSlug,
+              ...readMarketingParams(),
+            });
           }
           setIsCheckingSession(false);
         } else {
@@ -82,7 +94,10 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
           if (!tracked) {
             tracked = true;
             trackCheckoutStarted();
-            clientTrackEvent("checkout_started", { offer: offerSlug });
+            clientTrackEvent("checkout_started", {
+              offer: offerSlug,
+              ...readMarketingParams(),
+            });
           }
         }
       }

@@ -9,7 +9,10 @@ import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
-import { clientTrackEvent } from "../../../lib/analytics/clientTrackEvent";
+import {
+  clientTrackEvent,
+  readMarketingParams,
+} from "../../../lib/analytics/clientTrackEvent";
 import { trackDiagnosticCompleted } from "../../../lib/analytics";
 import { ctaExperimentProps } from "../../../lib/experiments/ctaExperiment";
 
@@ -96,7 +99,6 @@ export function DiagnosticQuizClient({
   const [saved, setSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [submitWarning, setSubmitWarning] = useState<string | null>(null);
-  const [introWarning, setIntroWarning] = useState<string | null>(null);
 
   const saveAttemptedRef = useRef(false);
   const completedTrackedRef = useRef(false);
@@ -107,6 +109,7 @@ export function DiagnosticQuizClient({
     clientTrackEvent("diagnostic_started", {
       yearLevel,
       ...ctaExperimentProps(),
+      ...readMarketingParams(),
     });
   }, [yearLevel]);
 
@@ -141,6 +144,7 @@ export function DiagnosticQuizClient({
         totalCorrect,
         totalQuestions,
         ...ctaExperimentProps(),
+        ...readMarketingParams(),
       });
       trackDiagnosticCompleted();
     }
@@ -214,20 +218,36 @@ export function DiagnosticQuizClient({
         ? current.filter((slug) => slug !== unitSlug)
         : [...current, unitSlug]
     );
-    setIntroWarning(null);
   }
 
   function startDiagnostic() {
+    // The mandatory "tick at least one topic" gate was the single biggest
+    // abandonment point: ~57% of people who reached this screen left before
+    // answering Q1, while almost everyone who answered Q1 finished. So no longer
+    // block on an empty selection. If nothing is picked, treat every topic as
+    // studied so the results still produce recommendations across the board.
+    const studiedForRun =
+      studiedUnitSlugs.length === 0
+        ? diagnosticUnits.map((unit) => unit.slug)
+        : studiedUnitSlugs;
+
     if (studiedUnitSlugs.length === 0) {
-      setIntroWarning(
-        "Select at least one topic you have studied this year before starting."
-      );
-      return;
+      setStudiedUnitSlugs(studiedForRun);
     }
+
+    // Distinct from diagnostic_started (which fires on page mount / arrival):
+    // this marks the real intro→quiz transition, so "bounced on intro" can be
+    // separated from "started the quiz but quit partway".
+    clientTrackEvent("diagnostic_begun", {
+      yearLevel,
+      totalQuestions,
+      studiedUnitCount: studiedForRun.length,
+      startedWithNoSelection: studiedUnitSlugs.length === 0,
+      ...readMarketingParams(),
+    });
 
     setPhase("quiz");
     setSubmitWarning(null);
-    setIntroWarning(null);
   }
 
   function handleAnswer(question: DiagnosticQuestion, answer: string, questionIndex: number) {
@@ -300,11 +320,13 @@ export function DiagnosticQuizClient({
             </p>
             <fieldset className="mt-6">
               <legend className="text-lg font-bold text-slate-900">
-                Which topics have you already studied this year?
+                Which topics have you already studied this year?{" "}
+                <span className="font-semibold text-slate-500">(optional)</span>
               </legend>
               <p className="mt-1 text-sm leading-6 text-slate-600">
-                Select every topic your class has covered. Topics you have not
-                studied will be excluded from your recommendations.
+                Select every topic your class has covered to sharpen your
+                recommendations — or just start, and we&rsquo;ll check across all
+                topics.
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 {diagnosticUnits.map((unit) => {
@@ -338,7 +360,6 @@ export function DiagnosticQuizClient({
                     setStudiedUnitSlugs(
                       diagnosticUnits.map((unit) => unit.slug)
                     );
-                    setIntroWarning(null);
                   }}
                   className="font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-950"
                 >
@@ -349,14 +370,6 @@ export function DiagnosticQuizClient({
                 </span>
               </div>
             </fieldset>
-            {introWarning && (
-              <p
-                role="alert"
-                className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800"
-              >
-                {introWarning}
-              </p>
-            )}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
@@ -650,7 +663,6 @@ export function DiagnosticQuizClient({
                 setSaveError(null);
                 setIsLoggedIn(null);
                 setSubmitWarning(null);
-                setIntroWarning(null);
                 completedTrackedRef.current = false;
                 answeredTrackedRef.current = new Set();
                 saveAttemptedRef.current = false;

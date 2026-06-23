@@ -11,7 +11,7 @@ import {
 import {
   clientTrackEvent,
   preserveMarketingParams,
-  getMarketingParamsFromUrl,
+  readMarketingParams,
 } from "../../lib/analytics/clientTrackEvent";
 import { ctaExperimentProps } from "../../lib/experiments/ctaExperiment";
 import { useCtaVariant } from "../components/useCtaVariant";
@@ -36,7 +36,7 @@ export function HscTrialCTAButton({
     setIsLoading(true);
 
     preserveMarketingParams();
-    const marketingParams = getMarketingParamsFromUrl();
+    const marketingParams = readMarketingParams();
 
     trackSubscribeClicked();
     clientTrackEvent("trial_cta_clicked", {
@@ -135,7 +135,7 @@ export function HscDiagnosticCTAButton({
           source: "hsc-maths",
           destination: "/diagnostic/select",
           ...ctaExperimentProps(),
-          ...getMarketingParamsFromUrl(),
+          ...readMarketingParams(),
         });
       }}
       className={
