@@ -226,18 +226,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // proof-by-contradiction intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in proof.ts (production-first, cognitive-demand-true) per the
   // Ext2 practice-pool replacement standard.
-  "proof-by-contrapositive": {
-    topic: "proof by contrapositive",
-    object: "the logically equivalent implication",
-    validMove: "Rewrite 'if P then Q' as 'if not Q then not P'.",
-    trap1: "Proving the converse instead of the contrapositive.",
-    trap2: "Negating only one side of the implication.",
-    trap3: "Treating one example as proof of the implication.",
-    representation: "not Q implies not P",
-    check: "both the hypothesis and conclusion have been negated and reversed",
-    d5Context: "divisibility, parity, and square-number implications",
-    proofFlaw: "The proof reverses the implication but does not negate both statements.",
-  },
+  // proof-by-contrapositive intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
   "inequalities-algebraic-proof": {
     topic: "algebraic inequality proof",
     object: "a non-negative difference or square",
