@@ -130,6 +130,22 @@ import {
   volumeOfCylindersChallenge,
 } from "./year7Measurement";
 import {
+  factorsMultiplesHcfLcmChallenge,
+  primesPrimeFactorisationChallenge,
+  squaresCubesIndexNotationChallenge,
+  indexLawsProductQuotientPowerChallenge,
+  zeroIndexMixedIndicesChallenge,
+  oneStepEquationsChallenge,
+  twoStepEquationsChallenge,
+  equationsWordedProblemsChallenge,
+  quadraticAx2EqualsCChallenge,
+  algebraicNotationChallenge,
+  collectingLikeTermsChallenge,
+  expandingBracketsChallenge,
+  factorisingCommonFactorsChallenge,
+  substitutionChallenge,
+} from "./year7Algebra";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -619,6 +635,21 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/area-problem-solving": areaProblemSolvingChallenge,
   "year-7-mathematics/volume-of-prisms": volumeOfPrismsChallenge,
   "year-7-mathematics/volume-of-cylinders": volumeOfCylindersChallenge,
+  // Year 7 — Wave 2 algebra cluster (indices, equations, algebraic-techniques).
+  "year-7-mathematics/factors-multiples-hcf-lcm": factorsMultiplesHcfLcmChallenge,
+  "year-7-mathematics/primes-and-prime-factorisation": primesPrimeFactorisationChallenge,
+  "year-7-mathematics/squares-cubes-index-notation": squaresCubesIndexNotationChallenge,
+  "year-7-mathematics/index-laws-product-quotient-power": indexLawsProductQuotientPowerChallenge,
+  "year-7-mathematics/zero-index-and-mixed-indices": zeroIndexMixedIndicesChallenge,
+  "year-7-mathematics/one-step-equations": oneStepEquationsChallenge,
+  "year-7-mathematics/two-step-equations": twoStepEquationsChallenge,
+  "year-7-mathematics/equations-worded-problems": equationsWordedProblemsChallenge,
+  "year-7-mathematics/quadratic-equations-ax2-equals-c": quadraticAx2EqualsCChallenge,
+  "year-7-mathematics/algebraic-notation": algebraicNotationChallenge,
+  "year-7-mathematics/collecting-like-terms": collectingLikeTermsChallenge,
+  "year-7-mathematics/expanding-brackets": expandingBracketsChallenge,
+  "year-7-mathematics/factorising-common-factors": factorisingCommonFactorsChallenge,
+  "year-7-mathematics/substitution": substitutionChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
