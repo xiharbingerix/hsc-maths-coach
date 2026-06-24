@@ -228,18 +228,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // Ext2 practice-pool replacement standard.
   // proof-by-contrapositive intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
-  "inequalities-algebraic-proof": {
-    topic: "algebraic inequality proof",
-    object: "a non-negative difference or square",
-    validMove: "Move all terms to one side and rewrite as a visibly non-negative expression.",
-    trap1: "Multiplying by a quantity whose sign is unknown.",
-    trap2: "Taking square roots without checking both sides are non-negative.",
-    trap3: "Checking a few values instead of proving all allowed values.",
-    representation: "difference equals a square or sum of squares",
-    check: "every sign-sensitive operation is justified",
-    d5Context: "parameter inequalities and equality cases",
-    proofFlaw: "The proof divides by an expression that may be negative or zero.",
-  },
+  // inequalities-algebraic-proof intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
   "proof-by-mathematical-induction": {
     topic: "mathematical induction",
     object: "the base case and inductive step",
