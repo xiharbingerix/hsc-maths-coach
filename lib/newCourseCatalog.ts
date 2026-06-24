@@ -5897,34 +5897,49 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Mean, Median, Mode and Range",
             description:
               "Calculate mean, median, mode and range to describe the centre and spread of a data set.",
+            pathTag: "core",
+            stableSkillId: "y8-mean-median-mode-range",
+            skillCheckpoints: [{ stableCheckpointId: "y8-mean-median-mode-range-c1", label: "Find mean, median, mode and range" }],
           },
           {
             slug: "comparing-data-displays",
             title: "Comparing Data Displays",
             description:
               "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
+            pathTag: "core",
+            stableSkillId: "y8-comparing-data-displays",
+            skillCheckpoints: [{ stableCheckpointId: "y8-comparing-data-displays-c1", label: "Compare data sets across displays" }],
           },
           {
             slug: "stem-and-leaf-plots",
             title: "Stem-and-Leaf Plots",
             description:
               "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and compare two groups using a back-to-back display.",
+            pathTag: "consolidating",
+            stableSkillId: "y8-stem-and-leaf-plots",
+            skillCheckpoints: [{ stableCheckpointId: "y8-stem-and-leaf-plots-c1", label: "Read and use stem-and-leaf plots" }],
           },
           {
             slug: "quartiles-and-iqr",
             title: "Quartiles and Interquartile Range",
             description:
               "Find Q1, Q2 and Q3 by splitting an ordered data set, calculate IQR = Q3 − Q1, and use it to compare the spread of two groups.",
+            pathTag: "extending",
+            stableSkillId: "y8-quartiles-and-iqr",
+            skillCheckpoints: [{ stableCheckpointId: "y8-quartiles-and-iqr-c1", label: "Find quartiles and the IQR" }],
           },
           {
             slug: "outliers-and-interpretation",
             title: "Outliers and Data Interpretation",
             description:
               "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
+            pathTag: "extending",
+            stableSkillId: "y8-outliers-and-interpretation",
+            skillCheckpoints: [{ stableCheckpointId: "y8-outliers-and-interpretation-c1", label: "Identify outliers and choose a measure of centre" }],
           },
-          { slug: "box-plots",                      title: "Box Plots" },
-          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
-          { slug: "shape-of-distributions",         title: "Shape of Distributions" },
+          { slug: "box-plots",                      title: "Box Plots", pathTag: "extending", stableSkillId: "y8-box-plots", skillCheckpoints: [{ stableCheckpointId: "y8-box-plots-c1", label: "Read and build box plots" }] },
+          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots", pathTag: "extending", stableSkillId: "y8-comparing-data-with-box-plots", skillCheckpoints: [{ stableCheckpointId: "y8-comparing-data-with-box-plots-c1", label: "Compare data sets using box plots" }] },
+          { slug: "shape-of-distributions",         title: "Shape of Distributions", pathTag: "extending", stableSkillId: "y8-shape-of-distributions", skillCheckpoints: [{ stableCheckpointId: "y8-shape-of-distributions-c1", label: "Describe the shape of a distribution" }] },
         ],
       },
       {
@@ -5964,11 +5979,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-NET-P-01 — introduces graph/network thinking used in logistics, transport and computer science.",
         lessons: [
-          { slug: "network-fundamentals",      title: "Network Fundamentals" },
-          { slug: "paths-and-circuits",        title: "Paths and Circuits" },
-          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits" },
-          { slug: "planar-graphs",             title: "Planar Graphs" },
-          { slug: "network-applications",      title: "Network Applications" },
+          { slug: "network-fundamentals",      title: "Network Fundamentals", pathTag: "core", stableSkillId: "y8-network-fundamentals", skillCheckpoints: [{ stableCheckpointId: "y8-network-fundamentals-c1", label: "Use vertices, edges and degree" }] },
+          { slug: "paths-and-circuits",        title: "Paths and Circuits", pathTag: "core", stableSkillId: "y8-paths-and-circuits", skillCheckpoints: [{ stableCheckpointId: "y8-paths-and-circuits-c1", label: "Identify paths and circuits" }] },
+          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits", pathTag: "extending", stableSkillId: "y8-eulerian-trails-circuits", skillCheckpoints: [{ stableCheckpointId: "y8-eulerian-trails-circuits-c1", label: "Apply the Eulerian degree conditions" }] },
+          { slug: "planar-graphs",             title: "Planar Graphs", pathTag: "extending", stableSkillId: "y8-planar-graphs", skillCheckpoints: [{ stableCheckpointId: "y8-planar-graphs-c1", label: "Apply Euler's formula V − E + F = 2" }] },
+          { slug: "network-applications",      title: "Network Applications", pathTag: "extending", stableSkillId: "y8-network-applications", skillCheckpoints: [{ stableCheckpointId: "y8-network-applications-c1", label: "Use spanning trees and shortest paths" }] },
         ],
       },
       {
@@ -5980,10 +5995,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-ALG-C-01 — extends Year 7/8 algebra into Stage 5 manipulation needed for quadratics and beyond.",
         lessons: [
-          { slug: "algebraic-fractions",       title: "Algebraic Fractions" },
-          { slug: "expanding-expressions",     title: "Expanding Expressions" },
-          { slug: "binomial-products",         title: "Binomial Products" },
-          { slug: "equivalent-expressions",    title: "Equivalent Expressions" },
+          { slug: "algebraic-fractions",       title: "Algebraic Fractions", pathTag: "extending", stableSkillId: "y8-algebraic-fractions", skillCheckpoints: [{ stableCheckpointId: "y8-algebraic-fractions-c1", label: "Simplify and operate with algebraic fractions" }] },
+          { slug: "expanding-expressions",     title: "Expanding Expressions", pathTag: "core", stableSkillId: "y8-expanding-expressions", skillCheckpoints: [{ stableCheckpointId: "y8-expanding-expressions-c1", label: "Expand and simplify expressions" }] },
+          { slug: "binomial-products",         title: "Binomial Products", pathTag: "extending", stableSkillId: "y8-binomial-products", skillCheckpoints: [{ stableCheckpointId: "y8-binomial-products-c1", label: "Expand binomial products" }] },
+          { slug: "equivalent-expressions",    title: "Equivalent Expressions", pathTag: "core", stableSkillId: "y8-equivalent-expressions", skillCheckpoints: [{ stableCheckpointId: "y8-equivalent-expressions-c1", label: "Recognise equivalent expressions" }] },
         ],
       },
       {
@@ -5993,11 +6008,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "MA4-ALG-C-02 — extends Year 7 index laws to negative exponents and scientific notation.",
         lessons: [
-          { slug: "negative-indices",                  title: "Negative Indices" },
-          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers" },
-          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers" },
-          { slug: "significant-figures",               title: "Significant Figures" },
-          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation" },
+          { slug: "negative-indices",                  title: "Negative Indices", pathTag: "core", stableSkillId: "y8-negative-indices", skillCheckpoints: [{ stableCheckpointId: "y8-negative-indices-c1", label: "Use negative indices" }] },
+          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers", pathTag: "core", stableSkillId: "y8-scientific-notation-large-numbers", skillCheckpoints: [{ stableCheckpointId: "y8-scientific-notation-large-numbers-c1", label: "Write and interpret large numbers in scientific notation" }] },
+          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers", pathTag: "core", stableSkillId: "y8-scientific-notation-small-numbers", skillCheckpoints: [{ stableCheckpointId: "y8-scientific-notation-small-numbers-c1", label: "Write and interpret small numbers in scientific notation" }] },
+          { slug: "significant-figures",               title: "Significant Figures", pathTag: "consolidating", stableSkillId: "y8-significant-figures", skillCheckpoints: [{ stableCheckpointId: "y8-significant-figures-c1", label: "Round to significant figures" }] },
+          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation", pathTag: "extending", stableSkillId: "y8-operations-with-scientific-notation", skillCheckpoints: [{ stableCheckpointId: "y8-operations-with-scientific-notation-c1", label: "Multiply and divide in scientific notation" }] },
         ],
       },
       {
@@ -6009,9 +6024,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-IND-P-01 — extension index work: multiple-law manipulation, algebraic bases and indicial equations.",
         lessons: [
-          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation" },
-          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases" },
-          { slug: "indicial-equations",          title: "Indicial Equations" },
+          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation", pathTag: "extending", stableSkillId: "y8-advanced-index-manipulation", skillCheckpoints: [{ stableCheckpointId: "y8-advanced-index-manipulation-c1", label: "Apply combined index laws" }] },
+          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases", pathTag: "extending", stableSkillId: "y8-algebraic-bases", skillCheckpoints: [{ stableCheckpointId: "y8-algebraic-bases-c1", label: "Apply index laws to algebraic bases" }] },
+          { slug: "indicial-equations",          title: "Indicial Equations", pathTag: "extending", stableSkillId: "y8-indicial-equations", skillCheckpoints: [{ stableCheckpointId: "y8-indicial-equations-c1", label: "Solve indicial equations" }] },
         ],
       },
       {
@@ -6023,11 +6038,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Build financial numeracy needed for Year 9 financial mathematics and real-world problem solving.",
         lessons: [
-          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
-          { slug: "wages-and-salary",              title: "Wages and Salary" },
-          { slug: "income-tax-basics",             title: "Income Tax Basics" },
-          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management" },
-          { slug: "credit-and-debit",              title: "Credit and Debit" },
+          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction", pathTag: "core", stableSkillId: "y8-simple-interest-introduction", skillCheckpoints: [{ stableCheckpointId: "y8-simple-interest-introduction-c1", label: "Calculate simple interest" }] },
+          { slug: "wages-and-salary",              title: "Wages and Salary", pathTag: "core", stableSkillId: "y8-wages-and-salary", skillCheckpoints: [{ stableCheckpointId: "y8-wages-and-salary-c1", label: "Calculate wages, salaries and overtime" }] },
+          { slug: "income-tax-basics",             title: "Income Tax Basics", pathTag: "core", stableSkillId: "y8-income-tax-basics", skillCheckpoints: [{ stableCheckpointId: "y8-income-tax-basics-c1", label: "Calculate income tax and net pay" }] },
+          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management", pathTag: "core", stableSkillId: "y8-budgeting-and-money-management", skillCheckpoints: [{ stableCheckpointId: "y8-budgeting-and-money-management-c1", label: "Plan and balance a budget" }] },
+          { slug: "credit-and-debit",              title: "Credit and Debit", pathTag: "extending", stableSkillId: "y8-credit-and-debit", skillCheckpoints: [{ stableCheckpointId: "y8-credit-and-debit-c1", label: "Work with credit, debit and interest on debt" }] },
         ],
       },
       {
@@ -6039,10 +6054,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-DAT-C-01 / MA5-DAT-P-01 — run an end-to-end statistical investigation and critique data-based claims.",
         lessons: [
-          { slug: "statistical-questions",     title: "Statistical Questions" },
-          { slug: "data-collection",           title: "Data Collection" },
-          { slug: "statistical-analysis",      title: "Statistical Analysis" },
-          { slug: "communicating-findings",    title: "Communicating Findings" },
+          { slug: "statistical-questions",     title: "Statistical Questions", pathTag: "consolidating", stableSkillId: "y8-statistical-questions", skillCheckpoints: [{ stableCheckpointId: "y8-statistical-questions-c1", label: "Pose statistical questions and classify data" }] },
+          { slug: "data-collection",           title: "Data Collection", pathTag: "core", stableSkillId: "y8-data-collection", skillCheckpoints: [{ stableCheckpointId: "y8-data-collection-c1", label: "Choose samples and collection methods" }] },
+          { slug: "statistical-analysis",      title: "Statistical Analysis", pathTag: "core", stableSkillId: "y8-statistical-analysis", skillCheckpoints: [{ stableCheckpointId: "y8-statistical-analysis-c1", label: "Summarise data with centre and spread" }] },
+          { slug: "communicating-findings",    title: "Communicating Findings", pathTag: "extending", stableSkillId: "y8-communicating-findings", skillCheckpoints: [{ stableCheckpointId: "y8-communicating-findings-c1", label: "Interpret and communicate statistical findings" }] },
         ],
       },
     ],
