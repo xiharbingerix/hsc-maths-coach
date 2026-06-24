@@ -118,6 +118,12 @@ import {
   vectorsProjectionChallenge,
 } from "./year12Extension1Vectors";
 import {
+  calcAppsGrowthChallenge,
+  calcAppsShmChallenge,
+  calcAppsRatesChallenge,
+  calcAppsExamChallenge,
+} from "./year12Extension1CalculusApplications";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -269,6 +275,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "vector-addition-subtraction": vectorsGeometryChallenge,
   "dot-product": vectorsDotProductChallenge,
   "vector-projections-applications": vectorsProjectionChallenge,
+  // Year 12 Extension 1 — Calculus Applications high-difficulty pool (per-lesson, ≤2 each)
+  "newtons-law-cooling-growth-decay": calcAppsGrowthChallenge,
+  "simple-harmonic-motion-intro": calcAppsShmChallenge,
+  "related-rates-of-change": calcAppsRatesChallenge,
+  "calculus-applications-exam-practice": calcAppsExamChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,

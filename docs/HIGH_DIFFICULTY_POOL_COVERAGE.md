@@ -79,7 +79,7 @@
 | year-12-advanced | ma-t2-trigonometric-functions-and-identities | 33 | 9 | 9 | 0 | ✅ | — |
 | year-12-advanced | ma-t3-trigonometric-equations | 12 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | binomial-distribution | 9 | 1 | 0 | 1 | — | P1 |
-| year-12-extension-1 | calculus-applications | 27 | 1 | 0 | 1 | — | P1 |
+| year-12-extension-1 | calculus-applications | 33 | 7 | 6 | 1 | ✅ | — |
 | year-12-extension-1 | exam-practice | 2 | 3 | 1 | 2 | — | P2 |
 | year-12-extension-1 | further-calculus | 15 | 0 | 0 | 0 | — | P1 |
 | year-12-extension-1 | inverse-trig | 15 | 0 | 0 | 0 | — | P1 |
@@ -170,11 +170,11 @@
 
 ## Priority summary
 
-- **P1**: 41
+- **P1**: 40
 - **P2**: 14
 - **P3**: 36
 - **P4**: 35
-- **Replay-ready:** 37
+- **Replay-ready:** 38
 
-**TOTAL: 163 topics · 37 replay-ready · 76 zero-D6.**
+**TOTAL: 163 topics · 38 replay-ready · 76 zero-D6.**
 

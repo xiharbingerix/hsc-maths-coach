@@ -651,3 +651,50 @@ exemplar.
 
 **Small-topic note:** 4 lessons → 6 D6 sit ~1–2 per lesson (mild concentration, comparable to ma-f2; far less
 than the 1–2-lesson trig topics).
+
+---
+
+## calculus-applications (Year 12 Extension 1) — Domain: Calculus (Extension) — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+**Supervisor mod applied:** #1 upgraded from direct half-life→k to **k from two non-initial values**
+(Q(2)=50, Q(5)=12.5 → divide to cancel Q₀ → e^(3k)=4 → k=(ln 4)/3). Tangent item (#6) kept per
+supervisor. D5 → the four lesson override partials' `masteryQuizPool`; D6 →
+`lib/challenges/year12Extension1CalculusApplications.ts` (4 sets, ≤2 per lesson). Existing 1 multipart
+D6 retained (D6 total 7, D6-single 6).
+
+Redirected here from `further-calculus` (which is integration — held for a later integration pass).
+This is the **differential** home for tangent/normal, stationary-point, optimisation/extremum and
+differential-constraint gates. Core lessons: `related-rates-of-change`,
+`newtons-law-cooling-growth-decay` (exp growth/decay), `simple-harmonic-motion-intro`,
+`calculus-applications-exam-practice`. Before: **D5 27 / D6-single 0** (the lone existing D6 is multipart).
+Difficulty carried by working BACKWARDS from calculus information — not "differentiate and substitute".
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Parameter reconstruction (two non-initial values)** *(upgraded)* — Q = Q₀e^(−kt) with Q(2) = 50 and Q(5) = 12.5; find k → **(ln 4)/3** (divide to cancel Q₀, then e^(3k) = 4).
+2. **Parameter reconstruction + extremum (SHM)** — x = a cos(nt) has period π and x(0) = 3; find the maximum speed → **6** (recover n from the period, a from x(0), then max speed = an).
+3. **Stationary-point reasoning (reverse)** — C(t) = A·t·e^(−t) has maximum value 6; find A → **6e** (max at t = 1 gives A/e = 6; recover A from the stated extremum, not by computing a max).
+4. **Optimisation/related-rate (reverse)** — a sphere's radius grows at 0.5 cm/s; find the radius at which the volume grows at 50π cm³/s → **5** (dV/dt = 4πr²·0.5 = 50π; recover r from the target rate).
+5. **Validity/contradiction (SHM)** — for v² = n²(a² − x²) with a = 3, n = 2, evaluate v² at x = 4 → **−28** (negative ⟹ impossible: the particle never reaches x = 4 > a; impossibility emerges from the algebra).
+6. **Tangent/normal structure (reverse)** — the tangent to y = e^(kx) at x = 0 passes through (−1, 0); find k → **1** (tangent is y = 1 + kx; recover k from the through-point constraint).
+
+**Coverage vs gates:** parameter reconstruction 2 (#1, #2; #3 also recovers a parameter); tangent/normal 1 (#6);
+stationary-point reasoning 1 (#3); optimisation/extremum 1 (#2 max speed, #4 extremal rate); validity/contradiction 1 (#5).
+**Reverse-reasoning ≥4** = #1, #2, #3, #4, #6 (5). No archetype > 2.
+
+**D5 archetype table (6; single-answer):** chain rule dy/dt from dy/dx = 3, dx/dt = 2 (6); max speed of SHM
+x = 5 cos(3t) (15); initial value of P = 200e^(0.5t) (200); decay constant from half-life 4 (ln 2 / 4);
+x-coordinate of the minimum of y = x² − 6x + 5 (3); limiting temperature of T = 20 + 30e^(−2t) as t → ∞ (20).
+
+**Reject list:** direct differentiation / "differentiate and substitute"; routine tangent finding;
+routine stationary-point calculation; routine optimisation; routine related-rate plug-in; direct integration;
+any item whose first move is differentiate-then-substitute with no reconstruction or validity reasoning.
+
+**Before → after:** D5 27→33; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty carried by reverse calculus reasoning — recover a rate/parameter from
+decay/period/extremum data, recover a radius from a target rate, expose an impossible SHM state, and reconstruct
+a tangent from a through-point — not by differentiating and substituting. (Note: tangent/normal is a lighter fit
+for this rates-focused topic; #6 uses an exponential-growth curve from the topic to honour the gate — flag for
+supervisor if a second parameter-reconstruction is preferred instead.)
+
+**Small-topic note:** 4 core lessons → 6 D6 sit ~1–2 per lesson (mild concentration, like vectors/ma-f2).
