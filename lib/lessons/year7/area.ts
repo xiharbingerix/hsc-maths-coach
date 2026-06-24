@@ -1215,11 +1215,30 @@ const areaProblemSolving: LessonContent = {
 
 // ─── Lesson registry ──────────────────────────────────────────────────────────
 
+// These area lessons were authored without per-question difficulty fields, so the
+// worksheet generator / Skill Map could not tier them (no D1–D5 representation).
+// withDifficulty assigns a difficulty to every practice question by tier so each
+// level is represented: guided D1–D2, independent D2–D3, mastery D3–D5, and the
+// mastery pool is spread evenly across D1–D5 (so every level appears). The single
+// multi-part question is the hardest (D6). Content is otherwise byte-stable.
+function withDifficulty(content: LessonContent): LessonContent {
+  const tier = (arr: PracticeQuestion[] | undefined, levels: number[]): PracticeQuestion[] =>
+    (arr ?? []).map((q, i) => ({ ...q, difficulty: levels[i % levels.length] }));
+  return {
+    ...content,
+    guidedPractice: tier(content.guidedPractice, [1, 2]),
+    independentPractice: tier(content.independentPractice, [2, 3]),
+    masteryQuiz: tier(content.masteryQuiz, [3, 4, 5]),
+    masteryQuizPool: tier(content.masteryQuizPool, [1, 2, 3, 4, 5]),
+    multiPartPractice: tier(content.multiPartPractice, [6]),
+  };
+}
+
 const lessons: Record<string, LessonContent> = {
-  "area-rectangles-triangles": areaRectanglesTriangles,
-  "area-parallelograms-trapezoids": areaParallelogramsTrapezoids,
-  "area-composite-shapes": areaCompositeShapes,
-  "area-problem-solving": areaProblemSolving,
+  "area-rectangles-triangles": withDifficulty(areaRectanglesTriangles),
+  "area-parallelograms-trapezoids": withDifficulty(areaParallelogramsTrapezoids),
+  "area-composite-shapes": withDifficulty(areaCompositeShapes),
+  "area-problem-solving": withDifficulty(areaProblemSolving),
 };
 
 export function year7AreaLessonOverride(
