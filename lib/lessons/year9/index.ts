@@ -18,6 +18,9 @@ export { year9Chapter6ScientificNotationLessonOverride } from "./chapter6Scienti
 export { year9Chapter6SurdsLessonOverride } from "./chapter6Surds";
 export { year9Chapter7AnglesLessonOverride } from "./chapter7Angles";
 export { year9Chapter7CongruenceLessonOverride } from "./chapter7Congruence";
+export { year9Chapter8ProbabilityLessonOverride } from "./chapter8Probability";
+export { year9Chapter8ProbabilityBLessonOverride } from "./chapter8ProbabilityB";
+export { year9Chapter8StatisticsLessonOverride } from "./chapter8Statistics";
 export { year9IndexLawsLessonOverride } from "./indexLaws";
 export { year9FinancialMathematicsLessonOverride } from "./financialMathematics";
 export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChange";
