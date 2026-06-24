@@ -223,18 +223,9 @@ type PoolBlueprint = {
 };
 
 const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
-  "proof-by-contradiction": {
-    topic: "proof by contradiction",
-    object: "the negation of the statement",
-    validMove: "Assume the negation, derive an impossibility, then reject the assumption.",
-    trap1: "Assuming the original statement instead of its negation.",
-    trap2: "Stopping after an unlikely result rather than a logical contradiction.",
-    trap3: "Using a numerical example as if it proved the general statement.",
-    representation: "a chain from assumption to contradiction",
-    check: "the contradiction must conflict with a known fact or earlier condition",
-    d5Context: "irrationality, parity, divisibility, and infinitude arguments",
-    proofFlaw: "The proof assumes the result it is trying to prove, then calls that a contradiction.",
-  },
+  // proof-by-contradiction intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts (production-first, cognitive-demand-true) per the
+  // Ext2 practice-pool replacement standard.
   "proof-by-contrapositive": {
     topic: "proof by contrapositive",
     object: "the logically equivalent implication",
