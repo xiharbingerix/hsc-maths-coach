@@ -698,3 +698,41 @@ for this rates-focused topic; #6 uses an exponential-growth curve from the topic
 supervisor if a second parameter-reconstruction is preferred instead.)
 
 **Small-topic note:** 4 core lessons → 6 D6 sit ~1–2 per lesson (mild concentration, like vectors/ma-f2).
+
+---
+
+## Y12 Extension 1 — further-calculus (integration) [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #2 upgraded — see below). Authored + verified; awaiting user commit.
+Integration-specific gates (Option A). Lessons: trig-integrals, simple-substitution, integration-by-parts,
+further-calculus-exam-practice. Before: D5 15, D6 0.
+
+**D6 archetype table (6; single-answer; ≤2/lesson):**
+1. Param reconstruction from a definite integral [trig-integrals] — smallest a>0 with ∫₀ᵃ cos x dx = 1/2 → a = π/6.
+2. **[UPGRADED]** Param reconstruction from TWO definite-integral constraints [exam] — f(x)=ax+b with
+   ∫₀¹f = 4 and ∫₀²f = 14 → a = 6 (system: a/2+b=4, a+b=7 ⟹ b=1, a=6). (Replaced the too-direct ∫₀²(ax+1)=8.)
+3. Substitution-parameter recovery [simple-substitution; STRUCTURE] — ∫₀¹ f(2x) dx = 5 → ∫₀² f(u) du = 10.
+4. Integration-by-parts reconstruction [integration-by-parts; STRUCTURE] — given d/dx[x sin x] = sin x + x cos x,
+   ∫₀^(π/2) x cos x dx = π/2 − 1.
+5. Definite-integral symmetry [trig-integrals; STRUCTURE] — ∫₋π/₂^(π/2) (sin³x + cos x) dx = 2 (odd term vanishes).
+6. Validity/contradiction via integral bound [exam] — f(x) ≥ 2 on [0,3]; smallest ∫₀³ f = 6 (claimed 5 impossible).
+
+**Coverage vs gates:** param-reconstruction-from-integral 2 (#1,#2); substitution-parameter recovery 1 (#3);
+IBP reconstruction 1 (#4); definite-integral structure/symmetry 1 (#5); validity/contradiction 1 (#6).
+Reverse-reasoning = 5 (#1,#2,#3,#4,#6). Structure-recognition = 3 (#3,#4,#5). No archetype > 2.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** ∫₀^(π/4) sec²x dx (1); ∫₀^(π/4) cos 2x dx (1/2);
+∫₀¹ (2x+1)³ dx (10); ∫₀¹ x eˣ dx (1); ∫₁^e (1/x) dx (1); ∫₀² (3x²−2x) dx (4).
+
+**Reject list:** direct antiderivative calculation; routine substitution; routine integration by parts;
+direct definite-integral evaluation; any item whose difficulty is only executing a known integration method.
+
+**Before → after:** D5 15→21; D6-single 0→6 ⟹ replay-ready ✅ (no existing D6 to retain).
+
+**Domain-richness note:** difficulty comes from selecting/reconstructing structure — recover a limit/coefficient
+from an integral value, see a hidden substitution, reconstruct an antiderivative from a given product-rule
+identity, exploit odd/even symmetry, bound an integral to expose impossibility — not from executing an
+antiderivative. Integration-domain exemplar for Ext1.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 21, D6 6,
+all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, max/subtopic 4 across 5 subtopics, ~53.5 min.

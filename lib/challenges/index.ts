@@ -124,6 +124,12 @@ import {
   calcAppsExamChallenge,
 } from "./year12Extension1CalculusApplications";
 import {
+  fcalcTrigChallenge,
+  fcalcSubstitutionChallenge,
+  fcalcPartsChallenge,
+  fcalcExamChallenge,
+} from "./year12Extension1FurtherCalculus";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -280,6 +286,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "simple-harmonic-motion-intro": calcAppsShmChallenge,
   "related-rates-of-change": calcAppsRatesChallenge,
   "calculus-applications-exam-practice": calcAppsExamChallenge,
+  // Year 12 Extension 1 — Further Calculus (integration) high-difficulty pool (per-lesson, ≤2 each)
+  "trig-integrals": fcalcTrigChallenge,
+  "simple-substitution": fcalcSubstitutionChallenge,
+  "integration-by-parts": fcalcPartsChallenge,
+  "further-calculus-exam-practice": fcalcExamChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
