@@ -61,6 +61,14 @@ import {
   calcCompletingSquareChallenge,
 } from "./year12Extension2Calculus";
 import {
+  mechForcesChallenge,
+  mechRectilinearChallenge,
+  mechShmChallenge,
+  mechCircularChallenge,
+  mechResistedChallenge,
+  mechProjectileChallenge,
+} from "./year12Extension2Mechanics";
+import {
   functionsParamChallenge,
   functionsTransformChallenge,
   functionsModellingChallenge,
@@ -479,6 +487,13 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "t-substitution-weierstrass": calcTSubstitutionChallenge,
   "volumes-of-revolution": calcVolumeChallenge,
   "completing-square-integration": calcCompletingSquareChallenge,
+  // Year 12 Extension 2 — Mechanics single-answer D6 pool (per-lesson)
+  "forces-inclined-planes": mechForcesChallenge,
+  "rectilinear-motion-calculus": mechRectilinearChallenge,
+  "simple-harmonic-motion-extended": mechShmChallenge,
+  "circular-motion-uniform": mechCircularChallenge,
+  "resisted-motion": mechResistedChallenge,
+  "projectile-motion-resistance": mechProjectileChallenge,
   // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
   // D6 items carry distinct subtopic slugs.
   "intercepts-key-features": functionsParamChallenge,
