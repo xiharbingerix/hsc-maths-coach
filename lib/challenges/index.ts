@@ -158,6 +158,18 @@ import {
   percentageApplicationsChallenge,
 } from "./year7Numbers";
 import {
+  angleTypesRelationshipsChallenge,
+  anglesInTrianglesChallenge,
+  anglesInQuadrilateralsChallenge,
+  parallelLinesTransversalsChallenge,
+  angleRelationshipsProblemSolvingChallenge,
+  introductionToRatiosChallenge,
+  dividingQuantitiesInRatioChallenge,
+  ratesUnitRatesChallenge,
+  speedDistanceTimeChallenge as y7SpeedDistanceTimeChallenge,
+  scaleDrawingsChallenge,
+} from "./year7AnglesRatios";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -673,6 +685,17 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/percentage-of-quantity": percentageOfQuantityChallenge,
   "year-7-mathematics/percentage-increase-decrease": percentageIncreaseDecreaseChallenge,
   "year-7-mathematics/percentage-applications": percentageApplicationsChallenge,
+  // Year 7 — Wave 4 (angles, ratios-and-rates).
+  "year-7-mathematics/angle-types-and-relationships": angleTypesRelationshipsChallenge,
+  "year-7-mathematics/angles-in-triangles": anglesInTrianglesChallenge,
+  "year-7-mathematics/angles-in-quadrilaterals": anglesInQuadrilateralsChallenge,
+  "year-7-mathematics/parallel-lines-and-transversals": parallelLinesTransversalsChallenge,
+  "year-7-mathematics/angle-relationships-problem-solving": angleRelationshipsProblemSolvingChallenge,
+  "year-7-mathematics/introduction-to-ratios": introductionToRatiosChallenge,
+  "year-7-mathematics/dividing-quantities-in-ratio": dividingQuantitiesInRatioChallenge,
+  "year-7-mathematics/rates-and-unit-rates": ratesUnitRatesChallenge,
+  "year-7-mathematics/speed-distance-time": y7SpeedDistanceTimeChallenge,
+  "year-7-mathematics/scale-drawings": scaleDrawingsChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
