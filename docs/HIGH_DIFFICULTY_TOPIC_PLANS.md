@@ -736,3 +736,43 @@ antiderivative. Integration-domain exemplar for Ext1.
 
 **Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 21, D6 6,
 all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, max/subtopic 4 across 5 subtopics, ~53.5 min.
+
+---
+
+## Y12 Extension 1 — kinematics (calculus-based motion) [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #6 upgraded — parameter recovery). Authored + verified;
+awaiting user commit. Calculus-based motion (x→v→a by differentiation, v→x by integration, a = v dv/dx),
+NOT constant-accel SUVAT. Lessons: kinematics-velocity-acceleration, kinematics-displacement-from-velocity,
+kinematics-motion-analysis, kinematics-exam-practice. Before: D5 12, D6 0.
+
+**D6 archetype table (6; single-answer; ≤2/lesson):**
+1. Reverse motion reconstruction [displacement] — a = 6t, x=2@t=0, x=16@t=2; v(0) = 3 (two positions fix both constants).
+2. Reverse motion reconstruction [velocity-acceleration] — a = 6t−12, rest at t=1; v(0) = 9 (recover constant from rest).
+3. a–v–x interaction [velocity-acceleration] — v² = 16 − x²; a at x=2 = −2 (a = d/dx(½v²) = −x; no time).
+4. a–v–x interaction [exam] — a = −4x, speed 6 at x=0; speed at x=1 = 4√2 (½v² = −2x² + 18).
+5. Validity/contradiction [motion-analysis] — v² = −x² + 6x − 13; max v² = −4 < 0 ⟹ motion impossible.
+6. **[UPGRADED]** Model/condition inference [displacement] — A: vₐ=2t, B: v_b=3t²−kt, equal displacement at t=3 → k = 4
+   (parameter recovery at a specified time — one interpretive step beyond directly equating positions).
+
+**Coverage vs gates:** reverse motion reconstruction 2 (#1,#2); a–v–x interaction 2 (#3,#4);
+validity/contradiction 1 (#5); model/condition inference 1 (#6). Reverse-reasoning = 4 (#1,#2,#5,#6).
+No archetype > 2. None are SUVAT; none reduce to algebra-after-formula.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** x=t³−2t², v at t=2 (4); x=t³−2t², a at t=2 (8);
+v=4t+1 with x=3@t=0, x at t=2 (13); v=2t−6, time at rest (3); a=10−2t, time accel=0 (5);
+v=3t²−6t, initial acceleration (−6).
+
+**Reject list:** direct SUVAT substitution; routine differentiation/integration with no reconstruction;
+direct evaluation; any item whose difficulty is just algebra after the motion formula is identified.
+
+**Before → after:** D5 12→18; D6-single 0→6 ⟹ replay-ready ✅ (no existing D6 to retain).
+
+**Domain-richness note:** difficulty carried by reverse/relational motion reasoning — reconstruct initial
+conditions from later motion states, link a, v and x via a = v dv/dx without time, expose an impossible motion
+via v² < 0, infer a parameter from a model comparison — not by substituting into a known formula. Motion /
+phase-relationship exemplar for Ext1.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 18, D6 6,
+all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min (4 lessons → mild single-topic
+concentration, per the accepted small-topic ruling).

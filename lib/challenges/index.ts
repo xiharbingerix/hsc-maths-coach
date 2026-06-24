@@ -130,6 +130,12 @@ import {
   fcalcExamChallenge,
 } from "./year12Extension1FurtherCalculus";
 import {
+  kinVelocityAccelChallenge,
+  kinDisplacementChallenge,
+  kinMotionAnalysisChallenge,
+  kinExamChallenge,
+} from "./year12Extension1Kinematics";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -291,6 +297,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "simple-substitution": fcalcSubstitutionChallenge,
   "integration-by-parts": fcalcPartsChallenge,
   "further-calculus-exam-practice": fcalcExamChallenge,
+  // Year 12 Extension 1 — Kinematics (calculus-based motion) high-difficulty pool (per-lesson, ≤2 each)
+  "kinematics-velocity-acceleration": kinVelocityAccelChallenge,
+  "kinematics-displacement-from-velocity": kinDisplacementChallenge,
+  "kinematics-motion-analysis": kinMotionAnalysisChallenge,
+  "kinematics-exam-practice": kinExamChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,

@@ -83,7 +83,7 @@
 | year-12-extension-1 | exam-practice | 2 | 3 | 1 | 2 | — | P2 |
 | year-12-extension-1 | further-calculus | 21 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | inverse-trig | 15 | 0 | 0 | 0 | — | P1 |
-| year-12-extension-1 | kinematics | 12 | 0 | 0 | 0 | — | P1 |
+| year-12-extension-1 | kinematics | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | proof-induction | 13 | 3 | 3 | 0 | — | P2 |
 | year-12-extension-1 | vectors | 35 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-2 | calculus | 27 | 0 | 0 | 0 | — | P1 |
@@ -170,11 +170,11 @@
 
 ## Priority summary
 
-- **P1**: 39
+- **P1**: 38
 - **P2**: 14
 - **P3**: 36
 - **P4**: 35
-- **Replay-ready:** 39
+- **Replay-ready:** 40
 
-**TOTAL: 163 topics · 39 replay-ready · 75 zero-D6.**
+**TOTAL: 163 topics · 40 replay-ready · 74 zero-D6.**
 
