@@ -512,3 +512,46 @@ course. Year 10 also has `functions-polynomials-graphs`. Awaiting supervisor dir
 whether to substitute `year-11-extension/polynomials` as the second parallel plan (its
 content matches the f3 archetype list: factor/remainder theorem, polynomial reconstruction,
 multiplicity & turning-point structure, end-behaviour, parameterised constraints).
+
+---
+
+## ma-t3-trigonometric-equations (Year 12 Advanced) — Domain: Trigonometry — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+Completes the Y12 Advanced **trig strand** (**ma-t2 already replay-ready**) and brings the flagship
+course to near-full high-difficulty coverage. Small topic: **2 lessons**
+(`further-trig-equations-identities`, `further-trigonometry-exam-practice`) so 6 D6 sit 3-per-lesson —
+the accepted small-topic concentration (cf. ma-s3, ma-f2). Before: **D5 6 / D6-single 0**.
+D5 → `furtherTrigonometry.ts` masteryQuizPools; D6 → `lib/challenges/year12AdvancedTrigEquations.ts`.
+
+**Supervisor mods applied** (approved-with-modifications): #3 upgraded from direct range-reading to
+existence-via-transformation; #4 upgraded with a genuine period interaction; #5 converted from
+impossibility to a count consequence — giving **two structural solution-count items** (#1, #5) plus
+the identity-then-count #2.
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Solution-count via frequency** — number of solutions of `sin(3x) = 1/2` on `[0, 2π]` → **6** (reason from 3 periods, do not enumerate).
+2. **Identity-first → count** — number of solutions of `sin 2x = cos x` on `[0, 2π]` → **4** (double-angle, factor `cos x(2 sin x − 1)=0`, then count).
+3. **Existence via transformation** *(upgraded)* — values of `k` for which `cos x + sin²x = k` has a solution → **−1 ≤ k ≤ 5/4** (substitute `sin²x = 1−cos²x`, get a quadratic in `cos x`, find its range over `[−1,1]`).
+4. **Parameter reconstruction with period interaction** *(upgraded)* — smallest positive solution of `sin(2x − a) = 1` (`0 < a < 2π`) is `x = π/3`; find `a` → **π/6** (period is π because of the `2x`; must confirm π/3 is smallest, the n=−1 member being negative).
+5. **Quadratic → count** *(upgraded)* — number of solutions of `2 cos²x − cos x − 1 = 0` on `[0, 2π]` → **4** (factor `(2 cos x + 1)(cos x − 1)=0`, then count).
+6. **Structural symmetry (sum of solutions)** — the solutions of `cos x = 0.4` on `[0, 2π]` are `α, β`; find `α + β` → **2π** (reflection symmetry `β = 2π − α`).
+
+**Coverage:** solution-count/periodicity **3** (#1 frequency, #2 identity→count, #5 quadratic→count);
+existence-via-transformation 1 (#3); parameter reconstruction 1 (#4); structural symmetry 1 (#6).
+**Reverse-reasoning ≥4** = #1, #3, #4, #6. **Multi-step interaction** = #2, #3, #4, #5. No archetype > 2.
+
+**D5 archetype table (6; single-answer):** smallest positive solution of `2 sin x = √3` (π/3);
+smallest positive solution of `tan x = 1` (π/4); number of solutions of `cos 2x = 1/2` on `[0, 2π]` (4);
+smallest positive solution of `sin²x = 1/4` (π/6); smallest positive solution of `2 cos x + 1 = 0` (2π/3);
+solution of `sin(x + π/6) = 1` on `[0, 2π]` (π/3).
+
+**Reject list:** solve `sin x = c` / `cos x = c` / `tan x = c` in one routine step; direct equation
+solving with no transformation; routine general-solution formula application; routine exact-value lookup;
+any item whose whole difficulty is algebra once the equation type is identified.
+
+**Before → after:** D5 6→12; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty is carried by trig STRUCTURE — periodicity/solution-count, identity
+recognition before solving, existence/range constraints, reflection symmetry, and reconstructing an angle
+parameter — not by grinding algebra after the equation is identified. Completes the Y12 Advanced trig domain
+(ma-t1 the only remaining sibling).
