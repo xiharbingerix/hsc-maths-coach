@@ -170,6 +170,18 @@ import {
   scaleDrawingsChallenge,
 } from "./year7AnglesRatios";
 import {
+  dataTypesCollectionChallenge,
+  frequencyTablesChallenge as y7FrequencyTablesChallenge,
+  dotPlotsStemLeafChallenge,
+  columnBarLineGraphsChallenge,
+  choosingInterpretingDisplaysChallenge,
+  probabilityLanguageScaleChallenge,
+  simpleProbabilityChallenge,
+  twoStepChanceExperimentsChallenge,
+  relativeFrequencyChallenge,
+  expectedOutcomesChallenge,
+} from "./year7DataProbability";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -696,6 +708,17 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/rates-and-unit-rates": ratesUnitRatesChallenge,
   "year-7-mathematics/speed-distance-time": y7SpeedDistanceTimeChallenge,
   "year-7-mathematics/scale-drawings": scaleDrawingsChallenge,
+  // Year 7 — Wave 5 (data, probability-and-chance) — completes Year 7.
+  "year-7-mathematics/data-types-and-collection": dataTypesCollectionChallenge,
+  "year-7-mathematics/frequency-tables": y7FrequencyTablesChallenge,
+  "year-7-mathematics/dot-plots-stem-and-leaf": dotPlotsStemLeafChallenge,
+  "year-7-mathematics/column-bar-line-graphs": columnBarLineGraphsChallenge,
+  "year-7-mathematics/choosing-and-interpreting-displays": choosingInterpretingDisplaysChallenge,
+  "year-7-mathematics/probability-language-and-scale": probabilityLanguageScaleChallenge,
+  "year-7-mathematics/simple-probability": simpleProbabilityChallenge,
+  "year-7-mathematics/two-step-chance-experiments": twoStepChanceExperimentsChallenge,
+  "year-7-mathematics/relative-frequency": relativeFrequencyChallenge,
+  "year-7-mathematics/expected-outcomes": expectedOutcomesChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
