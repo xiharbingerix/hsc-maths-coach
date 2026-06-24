@@ -5897,34 +5897,49 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Mean, Median, Mode and Range",
             description:
               "Calculate mean, median, mode and range to describe the centre and spread of a data set.",
+            pathTag: "core",
+            stableSkillId: "y8-mean-median-mode-range",
+            skillCheckpoints: [{ stableCheckpointId: "y8-mean-median-mode-range-c1", label: "Find mean, median, mode and range" }],
           },
           {
             slug: "comparing-data-displays",
             title: "Comparing Data Displays",
             description:
               "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
+            pathTag: "core",
+            stableSkillId: "y8-comparing-data-displays",
+            skillCheckpoints: [{ stableCheckpointId: "y8-comparing-data-displays-c1", label: "Compare data sets across displays" }],
           },
           {
             slug: "stem-and-leaf-plots",
             title: "Stem-and-Leaf Plots",
             description:
               "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and compare two groups using a back-to-back display.",
+            pathTag: "consolidating",
+            stableSkillId: "y8-stem-and-leaf-plots",
+            skillCheckpoints: [{ stableCheckpointId: "y8-stem-and-leaf-plots-c1", label: "Read and use stem-and-leaf plots" }],
           },
           {
             slug: "quartiles-and-iqr",
             title: "Quartiles and Interquartile Range",
             description:
               "Find Q1, Q2 and Q3 by splitting an ordered data set, calculate IQR = Q3 − Q1, and use it to compare the spread of two groups.",
+            pathTag: "extending",
+            stableSkillId: "y8-quartiles-and-iqr",
+            skillCheckpoints: [{ stableCheckpointId: "y8-quartiles-and-iqr-c1", label: "Find quartiles and the IQR" }],
           },
           {
             slug: "outliers-and-interpretation",
             title: "Outliers and Data Interpretation",
             description:
               "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
+            pathTag: "extending",
+            stableSkillId: "y8-outliers-and-interpretation",
+            skillCheckpoints: [{ stableCheckpointId: "y8-outliers-and-interpretation-c1", label: "Identify outliers and choose a measure of centre" }],
           },
-          { slug: "box-plots",                      title: "Box Plots" },
-          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
-          { slug: "shape-of-distributions",         title: "Shape of Distributions" },
+          { slug: "box-plots",                      title: "Box Plots", pathTag: "extending", stableSkillId: "y8-box-plots", skillCheckpoints: [{ stableCheckpointId: "y8-box-plots-c1", label: "Read and build box plots" }] },
+          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots", pathTag: "extending", stableSkillId: "y8-comparing-data-with-box-plots", skillCheckpoints: [{ stableCheckpointId: "y8-comparing-data-with-box-plots-c1", label: "Compare data sets using box plots" }] },
+          { slug: "shape-of-distributions",         title: "Shape of Distributions", pathTag: "extending", stableSkillId: "y8-shape-of-distributions", skillCheckpoints: [{ stableCheckpointId: "y8-shape-of-distributions-c1", label: "Describe the shape of a distribution" }] },
         ],
       },
       {
