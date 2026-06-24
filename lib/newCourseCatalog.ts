@@ -5639,11 +5639,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Establish core algebraic notation and manipulation skills before equations and linear relationships.",
         lessons: [
-          { slug: "algebraic-notation",         title: "Algebraic Notation" },
-          { slug: "collecting-like-terms",      title: "Collecting Like Terms" },
-          { slug: "expanding-brackets",         title: "Expanding Brackets" },
-          { slug: "factorising-common-factors", title: "Factorising with Common Factors" },
-          { slug: "substitution",               title: "Substitution" },
+          { slug: "algebraic-notation",         title: "Algebraic Notation", pathTag: "core", stableSkillId: "y7-algebraic-notation", skillCheckpoints: [{ stableCheckpointId: "y7-algebraic-notation-c1", label: "Use algebraic notation and substitute values" }] },
+          { slug: "collecting-like-terms",      title: "Collecting Like Terms", pathTag: "core", stableSkillId: "y7-collecting-like-terms", skillCheckpoints: [{ stableCheckpointId: "y7-collecting-like-terms-c1", label: "Collect like terms" }] },
+          { slug: "expanding-brackets",         title: "Expanding Brackets", pathTag: "core", stableSkillId: "y7-expanding-brackets", skillCheckpoints: [{ stableCheckpointId: "y7-expanding-brackets-c1", label: "Expand brackets" }] },
+          { slug: "factorising-common-factors", title: "Factorising with Common Factors", pathTag: "extending", stableSkillId: "y7-factorising-common-factors", skillCheckpoints: [{ stableCheckpointId: "y7-factorising-common-factors-c1", label: "Factorise using common factors" }] },
+          { slug: "substitution",               title: "Substitution", pathTag: "core", stableSkillId: "y7-substitution", skillCheckpoints: [{ stableCheckpointId: "y7-substitution-c1", label: "Substitute into formulas" }] },
         ],
       },
       {
@@ -5666,10 +5666,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Develop equation-solving skills using inverse operations before tackling Year 9 multi-step and algebraic fraction equations.",
         lessons: [
-          { slug: "one-step-equations",               title: "One-Step Equations" },
-          { slug: "two-step-equations",               title: "Two-Step Equations" },
-          { slug: "equations-worded-problems",        title: "Equations from Worded Problems" },
-          { slug: "quadratic-equations-ax2-equals-c", title: "Quadratic Equations (ax² = c)" },
+          { slug: "one-step-equations",               title: "One-Step Equations", pathTag: "core", stableSkillId: "y7-one-step-equations", skillCheckpoints: [{ stableCheckpointId: "y7-one-step-equations-c1", label: "Solve one-step equations" }] },
+          { slug: "two-step-equations",               title: "Two-Step Equations", pathTag: "core", stableSkillId: "y7-two-step-equations", skillCheckpoints: [{ stableCheckpointId: "y7-two-step-equations-c1", label: "Solve two-step equations" }] },
+          { slug: "equations-worded-problems",        title: "Equations from Worded Problems", pathTag: "extending", stableSkillId: "y7-equations-worded-problems", skillCheckpoints: [{ stableCheckpointId: "y7-equations-worded-problems-c1", label: "Form and solve equations from worded problems" }] },
+          { slug: "quadratic-equations-ax2-equals-c", title: "Quadratic Equations (ax² = c)", pathTag: "extending", stableSkillId: "y7-quadratic-equations-ax2-equals-c", skillCheckpoints: [{ stableCheckpointId: "y7-quadratic-equations-ax2-equals-c-c1", label: "Solve ax² = c equations" }] },
         ],
       },
       {
@@ -5679,11 +5679,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Build index fluency for algebraic indices and scientific notation in Years 9–10.",
         lessons: [
-          { slug: "factors-multiples-hcf-lcm",         title: "Factors, Multiples, HCF and LCM" },
-          { slug: "primes-and-prime-factorisation",     title: "Primes and Prime Factorisation" },
-          { slug: "squares-cubes-index-notation",      title: "Squares, Cubes and Index Notation" },
-          { slug: "index-laws-product-quotient-power",  title: "Index Laws" },
-          { slug: "zero-index-and-mixed-indices",       title: "Zero Index and Mixed Applications" },
+          { slug: "factors-multiples-hcf-lcm",         title: "Factors, Multiples, HCF and LCM", pathTag: "consolidating", stableSkillId: "y7-factors-multiples-hcf-lcm", skillCheckpoints: [{ stableCheckpointId: "y7-factors-multiples-hcf-lcm-c1", label: "Find factors, multiples, HCF and LCM" }] },
+          { slug: "primes-and-prime-factorisation",     title: "Primes and Prime Factorisation", pathTag: "core", stableSkillId: "y7-primes-and-prime-factorisation", skillCheckpoints: [{ stableCheckpointId: "y7-primes-and-prime-factorisation-c1", label: "Find prime factorisations" }] },
+          { slug: "squares-cubes-index-notation",      title: "Squares, Cubes and Index Notation", pathTag: "core", stableSkillId: "y7-squares-cubes-index-notation", skillCheckpoints: [{ stableCheckpointId: "y7-squares-cubes-index-notation-c1", label: "Evaluate squares, cubes, roots and index notation" }] },
+          { slug: "index-laws-product-quotient-power",  title: "Index Laws", pathTag: "core", stableSkillId: "y7-index-laws-product-quotient-power", skillCheckpoints: [{ stableCheckpointId: "y7-index-laws-product-quotient-power-c1", label: "Apply the product, quotient and power index laws" }] },
+          { slug: "zero-index-and-mixed-indices",       title: "Zero Index and Mixed Applications", pathTag: "extending", stableSkillId: "y7-zero-index-and-mixed-indices", skillCheckpoints: [{ stableCheckpointId: "y7-zero-index-and-mixed-indices-c1", label: "Apply the zero index in mixed problems" }] },
         ],
       },
       {
