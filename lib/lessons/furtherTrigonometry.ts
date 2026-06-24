@@ -451,6 +451,41 @@ export const furtherTrigEquationsIdentitiesLesson = furtherTrigLesson(
     trigChoice("ftrig-id-m8", "A student simplifies $\\cos x\\cos y+\\sin x\\sin y$ to $\\cos(x+y)$. What is the error?", "\\cos x\\cos y+\\sin x\\sin y", "B", ["The expression is not a compound angle pattern", "The plus sign matches $\\cos(x-y)$, not $\\cos(x+y)$", "It should equal $\\sin(x+y)$", "It should equal $\\tan(x-y)$"], "Cosine difference has the plus sign between products."),
     trigChoice("ftrig-id-m9", "Which first step is most efficient?", "1-2\\sin^2x=\\frac12", "A", ["Rewrite the left side as $\\cos2x$", "Differentiate both sides", "Use $\\cos(A+B)$", "Divide by $\\sin x$"], "Recognising $\\cos2x$ makes the equation simpler."),
     trigChoice("ftrig-id-m10", "Choose the safest conclusion.", "\\tan2x=\\frac{2\\tan x}{1-\\tan^2x}", "D", ["It can be used for every x-value", "It has no denominator restriction", "It proves tangent is always positive", "It requires $1-\\tan^2x\\ne0$"], "The denominator restriction must be checked."),
+  ],
+  [
+    {
+      ...trigNumber(
+        "ftrig-eq-pool-d5-1",
+        "Find the smallest positive solution (in radians).",
+        "2\\sin x=\\sqrt3",
+        "π/3",
+        ["pi/3", "\\frac{\\pi}{3}", "60°"],
+        "2 sin x = √3 ⟹ sin x = √3/2 ⟹ the smallest positive solution is x = π/3."
+      ),
+      difficulty: 5,
+    },
+    {
+      ...trigNumber(
+        "ftrig-eq-pool-d5-2",
+        "Find the smallest positive solution (in radians).",
+        "\\tan x=1",
+        "π/4",
+        ["pi/4", "\\frac{\\pi}{4}", "45°"],
+        "tan x = 1 ⟹ the smallest positive solution is x = π/4."
+      ),
+      difficulty: 5,
+    },
+    {
+      ...trigNumber(
+        "ftrig-eq-pool-d5-3",
+        "How many solutions does the equation have for 0 ≤ x ≤ 2π?",
+        "\\cos 2x=\\tfrac12",
+        "4",
+        ["four"],
+        "2x ranges over [0, 4π]; cos = 1/2 at 2x = π/3, 5π/3, 7π/3, 11π/3, giving 4 solutions."
+      ),
+      difficulty: 5,
+    },
   ]
 );
 
@@ -540,6 +575,41 @@ export const furtherTrigonometryExamPracticeLesson = furtherTrigLesson(
     trigChoice("ftrig-exam-m8", "Which statement identifies the error?", "\\tan2A=\\frac{2\\tan A}{1+\\tan^2A}", "C", ["The numerator should be $\\tan^2A$", "There should be no denominator", "The denominator sign should be minus", "The formula should be $\\sin2A$"], "The correct denominator is $1-\\tan^2A$."),
     trigChoice("ftrig-exam-m9", "Choose the solution set.", "2\\sin x\\cos x=0,\\quad 0\\le x\\le2\\pi", "D", ["$0,\\pi$ only", "$\\frac{\\pi}{2},\\frac{3\\pi}{2}$ only", "$\\frac{\\pi}{4},\\frac{5\\pi}{4}$", "$0,\\frac{\\pi}{2},\\pi,\\frac{3\\pi}{2},2\\pi$"], "The equation is $\\sin2x=0$, giving these values in the domain."),
     trigChoice("ftrig-exam-m10", "Which chain of reasoning is strongest?", "\\sin105^\\circ", "A", ["Use $60^\\circ+45^\\circ$ with the sine sum formula and quadrant II sign", "Use $90^\\circ+15^\\circ$ and write sine as a sum", "Use $105^\\circ=45^\\circ-60^\\circ$ with no sign check", "Use the tangent double-angle formula"], "This uses known angles, the correct formula and the correct quadrant sign."),
+  ],
+  [
+    {
+      ...trigNumber(
+        "ftrig-exam-pool-d5-1",
+        "Find the smallest positive solution (in radians).",
+        "\\sin^2 x=\\tfrac14",
+        "π/6",
+        ["pi/6", "\\frac{\\pi}{6}", "30°"],
+        "sin²x = 1/4 ⟹ sin x = ±1/2 ⟹ the smallest positive solution is x = π/6."
+      ),
+      difficulty: 5,
+    },
+    {
+      ...trigNumber(
+        "ftrig-exam-pool-d5-2",
+        "Find the smallest positive solution (in radians).",
+        "2\\cos x+1=0",
+        "2π/3",
+        ["2pi/3", "\\frac{2\\pi}{3}", "120°"],
+        "2 cos x + 1 = 0 ⟹ cos x = −1/2 ⟹ the smallest positive solution is x = 2π/3."
+      ),
+      difficulty: 5,
+    },
+    {
+      ...trigNumber(
+        "ftrig-exam-pool-d5-3",
+        "Solve for x with 0 ≤ x ≤ 2π (give the solution in radians).",
+        "\\sin\\!\\left(x+\\tfrac{\\pi}{6}\\right)=1",
+        "π/3",
+        ["pi/3", "\\frac{\\pi}{3}", "60°"],
+        "sin(x + π/6) = 1 ⟹ x + π/6 = π/2 ⟹ x = π/3."
+      ),
+      difficulty: 5,
+    },
   ]
 );
 

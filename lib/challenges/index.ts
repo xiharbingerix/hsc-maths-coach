@@ -107,6 +107,11 @@ import {
   trigQuadrantChallenge,
 } from "./year12AdvancedTrigIdentities";
 import {
+  trigEqCountChallenge,
+  trigEqStructureChallenge,
+} from "./year12AdvancedTrigEquations";
+import { trigMeasureChallenge } from "./year12AdvancedTrigMeasure";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -332,6 +337,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "graphs-sine-cosine-tangent": trigExistenceChallenge,
   "modelling-periodic-phenomena": trigBehaviourChallenge,
   "mixed-trigonometric-functions-exam-practice": trigQuadrantChallenge,
+  // Year 12 Advanced — Trigonometric Equations (ma-t3)
+  "further-trig-equations-identities": trigEqCountChallenge,
+  "further-trigonometry-exam-practice": trigEqStructureChallenge,
+  // Year 12 Advanced — Trigonometry and Measure of Angles (ma-t1)
+  "radians-exact-values-unit-circle": trigMeasureChallenge,
   // Year 9 Wave 1 (ADR-Y9-001): COURSE-SCOPED keys ("<course>/<lesson>"). The registry is now
   // course-aware (see getChallengeQuestions), so Year 9 slugs that collide with another course
   // (e.g. `simple-interest` ↔ Year 11 Standard) stay separate without clobbering. Keyed by each

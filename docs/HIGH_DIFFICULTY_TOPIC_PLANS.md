@@ -512,3 +512,94 @@ course. Year 10 also has `functions-polynomials-graphs`. Awaiting supervisor dir
 whether to substitute `year-11-extension/polynomials` as the second parallel plan (its
 content matches the f3 archetype list: factor/remainder theorem, polynomial reconstruction,
 multiplicity & turning-point structure, end-behaviour, parameterised constraints).
+
+---
+
+## ma-t3-trigonometric-equations (Year 12 Advanced) — Domain: Trigonometry — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+Completes the Y12 Advanced **trig strand** (**ma-t2 already replay-ready**) and brings the flagship
+course to near-full high-difficulty coverage. Small topic: **2 lessons**
+(`further-trig-equations-identities`, `further-trigonometry-exam-practice`) so 6 D6 sit 3-per-lesson —
+the accepted small-topic concentration (cf. ma-s3, ma-f2). Before: **D5 6 / D6-single 0**.
+D5 → `furtherTrigonometry.ts` masteryQuizPools; D6 → `lib/challenges/year12AdvancedTrigEquations.ts`.
+
+**Supervisor mods applied** (approved-with-modifications): #3 upgraded from direct range-reading to
+existence-via-transformation; #4 upgraded with a genuine period interaction; #5 converted from
+impossibility to a count consequence — giving **two structural solution-count items** (#1, #5) plus
+the identity-then-count #2.
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Solution-count via frequency** — number of solutions of `sin(3x) = 1/2` on `[0, 2π]` → **6** (reason from 3 periods, do not enumerate).
+2. **Identity-first → count** — number of solutions of `sin 2x = cos x` on `[0, 2π]` → **4** (double-angle, factor `cos x(2 sin x − 1)=0`, then count).
+3. **Existence via transformation** *(upgraded)* — values of `k` for which `cos x + sin²x = k` has a solution → **−1 ≤ k ≤ 5/4** (substitute `sin²x = 1−cos²x`, get a quadratic in `cos x`, find its range over `[−1,1]`).
+4. **Parameter reconstruction with period interaction** *(upgraded)* — smallest positive solution of `sin(2x − a) = 1` (`0 < a < 2π`) is `x = π/3`; find `a` → **π/6** (period is π because of the `2x`; must confirm π/3 is smallest, the n=−1 member being negative).
+5. **Quadratic → count** *(upgraded)* — number of solutions of `2 cos²x − cos x − 1 = 0` on `[0, 2π]` → **4** (factor `(2 cos x + 1)(cos x − 1)=0`, then count).
+6. **Structural symmetry (sum of solutions)** — the solutions of `cos x = 0.4` on `[0, 2π]` are `α, β`; find `α + β` → **2π** (reflection symmetry `β = 2π − α`).
+
+**Coverage:** solution-count/periodicity **3** (#1 frequency, #2 identity→count, #5 quadratic→count);
+existence-via-transformation 1 (#3); parameter reconstruction 1 (#4); structural symmetry 1 (#6).
+**Reverse-reasoning ≥4** = #1, #3, #4, #6. **Multi-step interaction** = #2, #3, #4, #5. No archetype > 2.
+
+**D5 archetype table (6; single-answer):** smallest positive solution of `2 sin x = √3` (π/3);
+smallest positive solution of `tan x = 1` (π/4); number of solutions of `cos 2x = 1/2` on `[0, 2π]` (4);
+smallest positive solution of `sin²x = 1/4` (π/6); smallest positive solution of `2 cos x + 1 = 0` (2π/3);
+solution of `sin(x + π/6) = 1` on `[0, 2π]` (π/3).
+
+**Reject list:** solve `sin x = c` / `cos x = c` / `tan x = c` in one routine step; direct equation
+solving with no transformation; routine general-solution formula application; routine exact-value lookup;
+any item whose whole difficulty is algebra once the equation type is identified.
+
+**Before → after:** D5 6→12; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty is carried by trig STRUCTURE — periodicity/solution-count, identity
+recognition before solving, existence/range constraints, reflection symmetry, and reconstructing an angle
+parameter — not by grinding algebra after the equation is identified. Completes the Y12 Advanced trig domain
+(ma-t1 the only remaining sibling).
+
+---
+
+## ma-t1-trigonometry-and-measure-of-angles (Year 12 Advanced) — Domain: Trigonometry — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+**Supervisor mods applied:** #3 upgraded to non-unit coordinates `P(−2√3, 2)` needing normalization
+(r=4) → θ=5π/6; #6 upgraded to a derived quantity with quadrant sign (`sin θ=k, cos θ=2k`, Q3 →
+`cos θ = −2√5/5`, identity is the enabler not the whole answer); #1 vs #2 made materially different
+(#1 `A=½rℓ`, arc+area→radius; #2 `ℓ=rθ`+conversion, arc+angle→**sector area** 27π/2). D5 →
+`radians-exact-values-unit-circle` masteryQuizPool; D6 → `lib/challenges/year12AdvancedTrigMeasure.ts`.
+
+Finishes the Y12 Advanced **trig strand** (ma-t2 ✅, ma-t3 ✅). **SMALLEST topic in the program:
+1 lesson** (`radians-exact-values-unit-circle`) — radian measure, exact values, the unit circle,
+arc length & sector area, quadrant/sign. Before: **D5 3 / D6-single 0**. Reuses the established
+trig-domain standard: structure over grind, geometry/ratio reasoning, exact-value relationships,
+quadrant/sign logic, reverse reconstruction.
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Sector reconstruction (reverse geometry, A=½rℓ)** — a sector has arc length 6 and area 12; find the radius → **4** (Area = ½ r ℓ; no angle given).
+2. **Arc reconstruction with conversion (ℓ=rθ → area)** — an arc of length 3π subtends 60° at the centre; find the sector **area** → **27π/2** (convert 60° = π/3, ℓ = rθ → r = 9, then ½ r ℓ).
+3. **Coordinate → angle with normalization** *(upgraded)* — the terminal side of θ (0 ≤ θ < 2π) passes through (−2√3, 2); find θ → **5π/6** (normalize r = 4, then quadrant II).
+4. **Ratio + quadrant combination** — tan θ = 2 with θ in the third quadrant; find sin θ + cos θ → **−3√5/5** (build the reference triangle, then both signs negative).
+5. **Exact-value + quadrant combination** — sin θ = 3/5 and θ obtuse; find cos θ + tan θ → **−31/20** (cos = −4/5, tan = −3/4 via quadrant II).
+6. **Pythagorean-identity reconstruction → derived quantity** *(upgraded)* — sin θ = k, cos θ = 2k, θ in Q3; find cos θ → **−2√5/5** (5k² = 1 fixes k², quadrant fixes the sign, then cos θ = 2k).
+
+**Coverage vs gates:** reverse reconstruction (geometry) 2 (#1, #2); unit-circle coordinate reconstruction 1 (#3);
+ratio/exact-value + quadrant 2 (#4, #5); Pythagorean-identity reconstruction 1 (#6).
+**Reverse-reasoning ≥4** = #1, #2, #3, #6 (+#4/#5 reconstruct from a single ratio). **Quadrant/sign** = #3, #4, #5.
+No archetype > 2.
+
+**D5 archetype table (6; single-answer):** convert 135° to radians (3π/4); exact value of sin(π/3) (√3/2);
+arc length with r = 5, θ = 1.2 (6); sector area with r = 4, θ = π/2 (4π); exact value of tan(5π/6) (−√3/3);
+cos θ = 1/2 with θ acute (π/3).
+
+**Reject list:** read an exact value straight off the unit circle; one-step degree↔radian conversion as the
+whole task; direct ℓ = rθ / Area = ½ r²θ plug-in (forward only); state a quadrant sign with no ratio work;
+any item whose difficulty is arithmetic once the formula/identity is identified.
+
+**Before → after:** D5 3→9; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty carried by trig STRUCTURE — reverse sector/arc geometry, coordinate→angle
+reconstruction, ratio + quadrant combination, and the Pythagorean identity used as a constraint — not by
+reading the unit circle or plugging a formula forward. Completes the Y12 Advanced trig domain.
+
+**Small-topic worksheet caveat (maximal):** ma-t1 is a **1-lesson** topic, so all 6 D6 share one subtopic
+slug. A 14-Q `harder` worksheet will draw up to 6 from that single subtopic — this is purely a
+generation-scope artifact of the smallest topic in the program, not an authoring gap (cf. ma-s3/ma-t3, more
+pronounced here).

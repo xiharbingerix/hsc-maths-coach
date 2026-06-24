@@ -5,7 +5,7 @@
 | Course | Topic | D5 | D6 | D6-single | D6-mp | Replay-ready | Priority |
 |---|---|---|---|---|---|---|---|
 | year-10-mathematics | algebra-equations-linear-relationships | 27 | 0 | 0 | 0 | — | P3 |
-| year-10-mathematics | financial-mathematics | 12 | 0 | 0 | 0 | — | P3 |
+| year-10-mathematics | financial-mathematics | 12 | 3 | 3 | 0 | — | P3 |
 | year-10-mathematics | functions-polynomials-graphs | 6 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | geometrical-figures-circle-geometry | 18 | 0 | 0 | 0 | — | P3 |
 | year-10-mathematics | indices-exponentials-logarithms | 3 | 0 | 0 | 0 | — | P3 |
@@ -75,9 +75,9 @@
 | year-12-advanced | ma-s1-probability-and-discrete-probability-distributions | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-s2-descriptive-statistics-and-bivariate-data | 21 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-s3-random-variables | 18 | 9 | 9 | 0 | ✅ | — |
-| year-12-advanced | ma-t1-trigonometry-and-measure-of-angles | 3 | 0 | 0 | 0 | — | P1 |
+| year-12-advanced | ma-t1-trigonometry-and-measure-of-angles | 9 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-t2-trigonometric-functions-and-identities | 33 | 9 | 9 | 0 | ✅ | — |
-| year-12-advanced | ma-t3-trigonometric-equations | 6 | 0 | 0 | 0 | — | P1 |
+| year-12-advanced | ma-t3-trigonometric-equations | 12 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | binomial-distribution | 9 | 1 | 0 | 1 | — | P1 |
 | year-12-extension-1 | calculus-applications | 27 | 1 | 0 | 1 | — | P1 |
 | year-12-extension-1 | exam-practice | 2 | 3 | 1 | 2 | — | P2 |
@@ -139,50 +139,35 @@
 | year-8-mathematics | pythagoras-theorem | 40 | 6 | 0 | 6 | — | P4 |
 | year-8-mathematics | surface-area-of-solids | 24 | 3 | 0 | 3 | — | P4 |
 | year-8-mathematics | volume-of-composite-solids | 24 | 3 | 0 | 3 | — | P4 |
-| year-9-mathematics | algebraic-techniques | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | constant-rates-of-change | 21 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | equations | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | financial-mathematics | 24 | 3 | 3 | 0 | — | P4 |
-| year-9-mathematics | geometrical-representations | 15 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | index-laws | 21 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | making-decisions | 18 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | making-predictions | 82 | 6 | 0 | 6 | — | P4 |
-| year-9-mathematics | prisms-and-cylinders | 21 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics | working-with-triangles | 24 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | algebraic-techniques | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | constant-rates-of-change | 18 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | equations | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | equations-b | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | financial-mathematics | 24 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | geometrical-representations | 15 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | index-laws | 21 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | linear-relationships-c | 6 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | making-decisions | 18 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | making-predictions | 82 | 6 | 0 | 6 | — | P4 |
-| year-9-mathematics-advanced | prisms-and-cylinders | 21 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | probability-b | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | simultaneous-equations | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | variation-rates | 9 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-advanced | working-with-triangles | 24 | 0 | 0 | 0 | — | P4 |
-| year-9-mathematics-core | algebraic-techniques | 9 | 3 | 0 | 3 | — | P4 |
-| year-9-mathematics-core | constant-rates-of-change | 18 | 6 | 0 | 6 | — | P4 |
-| year-9-mathematics-core | equations | 9 | 3 | 0 | 3 | — | P4 |
-| year-9-mathematics-core | financial-mathematics | 24 | 8 | 0 | 8 | — | P4 |
-| year-9-mathematics-core | geometrical-representations | 9 | 3 | 0 | 3 | — | P4 |
-| year-9-mathematics-core | index-laws | 15 | 5 | 0 | 5 | — | P4 |
-| year-9-mathematics-core | making-decisions | 18 | 6 | 0 | 6 | — | P4 |
-| year-9-mathematics-core | making-predictions | 82 | 6 | 0 | 6 | — | P4 |
-| year-9-mathematics-core | numbers-of-any-magnitude | 6 | 2 | 0 | 2 | — | P4 |
-| year-9-mathematics-core | prisms-and-cylinders | 21 | 7 | 0 | 7 | — | P4 |
-| year-9-mathematics-core | working-with-triangles | 36 | 12 | 0 | 12 | — | P4 |
+| year-9-mathematics | computation-financial-maths | 60 | 72 | 72 | 0 | ✅ | — |
+| year-9-mathematics | expressions-equations-inequalities | 100 | 120 | 120 | 0 | ✅ | — |
+| year-9-mathematics | indices-surds | 90 | 108 | 108 | 0 | ✅ | — |
+| year-9-mathematics | length-area-surface-area-volume | 50 | 60 | 60 | 0 | ✅ | — |
+| year-9-mathematics | linear-relationships | 100 | 120 | 120 | 0 | ✅ | — |
+| year-9-mathematics | properties-geometrical-figures | 60 | 72 | 72 | 0 | ✅ | — |
+| year-9-mathematics | pythagoras-trigonometry | 70 | 84 | 84 | 0 | ✅ | — |
+| year-9-mathematics-advanced | computation-financial-maths | 60 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | expressions-equations-inequalities | 100 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | indices-surds | 90 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | length-area-surface-area-volume | 50 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | linear-relationships | 100 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | properties-geometrical-figures | 60 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | pythagoras-trigonometry | 70 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-core | computation-financial-maths | 130 | 84 | 84 | 0 | ✅ | — |
+| year-9-mathematics-core | expressions-equations-inequalities | 70 | 24 | 24 | 0 | ✅ | — |
+| year-9-mathematics-core | indices-surds | 50 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-core | length-area-surface-area-volume | 70 | 36 | 36 | 0 | ✅ | — |
+| year-9-mathematics-core | linear-relationships | 70 | 12 | 12 | 0 | ✅ | — |
+| year-9-mathematics-core | properties-geometrical-figures | 40 | 24 | 24 | 0 | ✅ | — |
+| year-9-mathematics-core | pythagoras-trigonometry | 90 | 36 | 36 | 0 | ✅ | — |
 
 ## Priority summary
 
-- **P1**: 44
+- **P1**: 42
 - **P2**: 14
 - **P3**: 36
-- **P4**: 61
-- **Replay-ready:** 16
+- **P4**: 33
+- **Replay-ready:** 31
 
-**TOTAL: 171 topics · 16 replay-ready · 92 zero-D6.**
+**TOTAL: 156 topics · 31 replay-ready · 75 zero-D6.**
 
