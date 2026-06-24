@@ -230,18 +230,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
   // inequalities-algebraic-proof intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
-  "proof-by-mathematical-induction": {
-    topic: "mathematical induction",
-    object: "the base case and inductive step",
-    validMove: "Prove the base case, assume the k case, then prove the k + 1 case.",
-    trap1: "Assuming the k + 1 case directly.",
-    trap2: "Omitting the base case.",
-    trap3: "Using the induction hypothesis for a value it does not cover.",
-    representation: "base case plus k to k + 1 implication",
-    check: "the inductive step uses only the k case to reach k + 1",
-    d5Context: "divisibility, inequalities, and recurrence-style statements",
-    proofFlaw: "The proof verifies n = 1 and n = 2 but never proves the chain from k to k + 1.",
-  },
+  // proof-by-mathematical-induction intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
   "vectors-and-points-3d": {
     topic: "3D vectors and points",
     object: "a displacement vector in component form",
