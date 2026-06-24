@@ -47,6 +47,12 @@ import {
   polarDeMoivreChallenge,
 } from "./year12Extension2";
 import {
+  proofContradictionChallenge,
+  proofContrapositiveChallenge,
+  proofInequalitiesChallenge,
+  proofInductionChallenge,
+} from "./year12Extension2Proof";
+import {
   functionsParamChallenge,
   functionsTransformChallenge,
   functionsModellingChallenge,
@@ -453,6 +459,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "complex-number-arithmetic": complexArithmeticChallenge,
   "modulus-argument-conjugate": modulusArgumentChallenge,
   "polar-form-de-moivre": polarDeMoivreChallenge,
+  // Year 12 Extension 2 — Proof high-difficulty pool (per-lesson, ≤2 each)
+  "proof-by-contradiction": proofContradictionChallenge,
+  "proof-by-contrapositive": proofContrapositiveChallenge,
+  "inequalities-algebraic-proof": proofInequalitiesChallenge,
+  "proof-by-mathematical-induction": proofInductionChallenge,
   // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
   // D6 items carry distinct subtopic slugs.
   "intercepts-key-features": functionsParamChallenge,
