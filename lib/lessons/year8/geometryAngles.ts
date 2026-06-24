@@ -640,6 +640,8 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
       "The three interior angles of any triangle always add to 180°. To find an unknown angle in a triangle, subtract the sum of the two known angles from 180°.",
       "An exterior angle of a triangle is formed by extending one side. It equals the sum of the two non-adjacent interior angles (the two angles not touching the exterior angle). This is the exterior angle theorem.",
       "A quadrilateral is any four-sided polygon. Its four interior angles always add to 360°. Subtract the known angles from 360° to find the unknown.",
+      "Why do a triangle's angles always total 180°? Tear off the three corners and lay them side by side at a single point — they fit together along a straight line, which is 180°. (Equivalently, draw a line through one vertex parallel to the opposite side; the alternate angles re-assemble the three corners along that straight line.) The total never depends on the triangle's shape or size.",
+      "The 360° for a quadrilateral then comes for free: any quadrilateral splits into two triangles with a single diagonal, and 2 × 180° = 360°. The same trick gives every polygon's angle sum — cut it into triangles from one vertex and count them.",
     ],
     latexBlocks: [
       "\\text{Triangle: } \\angle A + \\angle B + \\angle C = 180^\\circ",
@@ -695,6 +697,16 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
         },
       ],
       finalAnswerLatex: "70^\\circ",
+    } as WorkedExample,
+    {
+      title: "Use the exterior angle theorem",
+      questionLatex:
+        "\\text{An exterior angle of a triangle is }115^\\circ.\\text{ One non-adjacent interior angle is }60^\\circ.\\text{ Find the other.}",
+      steps: [
+        { explanation: "The exterior angle equals the sum of the two non-adjacent interior angles.", latex: "115 = 60 + y" },
+        { explanation: "Solve for y.", latex: "y = 115 - 60 = 55" },
+      ],
+      finalAnswerLatex: "55^\\circ",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -909,6 +921,8 @@ const propertiesOfPolygons: LessonContent = {
       "Any polygon with n sides can be divided into (n − 2) triangles by drawing diagonals from one vertex. Since each triangle contributes 180°, the interior angle sum is (n − 2) × 180°.",
       "For a regular polygon, all sides are equal and all interior angles are equal. Divide the angle sum by the number of sides to find each interior angle.",
       "The exterior angles of any convex polygon always sum to exactly 360°, regardless of the number of sides. For a regular polygon, each exterior angle is 360° ÷ n, and the interior and exterior angles at each vertex are supplementary.",
+      "Where does (n − 2) × 180° come from? Pick one vertex and draw every diagonal from it: an n-sided polygon splits into exactly (n − 2) triangles, and each triangle's angles total 180°, so the interior angles altogether make (n − 2) × 180°. A pentagon gives 3 triangles → 540°, a hexagon 4 → 720°, and so on.",
+      "The exterior-angle rule is even simpler: walking once around any convex polygon you turn through one full revolution, so the exterior angles always sum to 360° however many sides there are. For a regular polygon every turn is equal, giving 360° ÷ n per corner — the fastest route to find n from a known exterior angle, or each interior angle as 180° − (360° ÷ n).",
     ],
     latexBlocks: [
       "\\text{Interior angle sum} = (n-2) \\times 180^\\circ",
@@ -955,6 +969,16 @@ const propertiesOfPolygons: LessonContent = {
         },
       ],
       finalAnswerLatex: "9\\text{ sides (a nonagon)}",
+    } as WorkedExample,
+    {
+      title: "Each interior angle of a regular decagon",
+      questionLatex:
+        "\\text{Find the size of each interior angle of a regular decagon (10 sides).}",
+      steps: [
+        { explanation: "Find the interior angle sum with (n − 2) × 180°.", latex: "(10-2) \\times 180 = 1440^\\circ" },
+        { explanation: "Divide by the 10 equal angles.", latex: "\\frac{1440}{10} = 144^\\circ" },
+      ],
+      finalAnswerLatex: "144^\\circ",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1459,6 +1483,8 @@ const geometricReasoning: LessonContent = {
       "In multi-step geometry problems, each unknown angle must be found one step at a time using a known rule. Before calculating, identify which rule applies: is it about parallel lines, a triangle, a quadrilateral, or a polygon?",
       "For each step, write both the value and the reason. A complete reason names the rule and, where relevant, the pair of lines or shape involved. For example: '∠x = 65°, alternate angles, AB ∥ CD'.",
       "When the problem involves an equation, set up the equation first using the appropriate rule (e.g. co-interior angles sum to 180°), then solve for the unknown variable before stating the angle values.",
+      "Multi-step geometry is really a chain of single rules: each new angle is unlocked by one fact (angle sum, vertically opposite, alternate, co-interior, exterior angle), and that angle then becomes a 'known' that feeds the next step. The skill is choosing which rule fits the configuration in front of you — the arithmetic at each step is easy.",
+      "Always pair every value with its reason. This is not just bookkeeping: naming the rule forces you to check it genuinely applies (alternate angles, for instance, need parallel lines), and an unjustified step is exactly where most marks and most mistakes are lost. Whenever two expressions describe the same angle, or add to a known total, set them equal and solve.",
     ],
     latexBlocks: [
       "\\text{Step 1: identify the rule (parallel lines / triangle / polygon)}",
@@ -1522,6 +1548,16 @@ const geometricReasoning: LessonContent = {
         },
       ],
       finalAnswerLatex: "x = 30",
+    } as WorkedExample,
+    {
+      title: "Chain two rules across a figure",
+      questionLatex:
+        "\\text{A straight line is split into }110^\\circ\\text{ and angle }a.\\; a\\text{ is one angle of a triangle whose other angle is }30^\\circ.\\text{ Find the third angle }b.",
+      steps: [
+        { explanation: "Step 1 — angles on a straight line sum to 180°.", latex: "a = 180 - 110 = 70^\\circ" },
+        { explanation: "Step 2 — feed a into the triangle angle sum (180°).", latex: "b = 180 - 70 - 30 = 80^\\circ" },
+      ],
+      finalAnswerLatex: "b = 80^\\circ",
     } as WorkedExample,
   ],
   guidedPractice: [
