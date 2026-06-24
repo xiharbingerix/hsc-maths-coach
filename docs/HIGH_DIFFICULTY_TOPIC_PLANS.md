@@ -603,3 +603,252 @@ reading the unit circle or plugging a formula forward. Completes the Y12 Advance
 slug. A 14-Q `harder` worksheet will draw up to 6 from that single subtopic — this is purely a
 generation-scope artifact of the smallest topic in the program, not an authoring gap (cf. ma-s3/ma-t3, more
 pronounced here).
+
+---
+
+## vectors (Year 12 Extension 1) — Domain: Vectors — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+First **senior Extension** topic in the program. P1, zero-D6. **4 lessons**
+(`vectors-scalars-notation`, `vector-addition-subtraction`, `dot-product`,
+`vector-projections-applications`). Before: **D5 29 / D6-single 0**. Difficulty carried by
+vector STRUCTURE — geometric reconstruction, dot-product/projection identities used abstractly
+(proof without coordinate grind), parameterised lines, perpendicular/parallel & collinearity
+constraints, ratio/section reasoning.
+
+**Supervisor mods applied:** #4 made reverse (recover endpoint B); #5 upgraded to parameter recovery
+(intersection forced onto the x-axis); #6 replaced with genuine projection + perpendicular
+decomposition so projection is materially used. **Projection-dependent D6 = 1** (#6);
+**proof-without-coordinate-grind = 2** (#2, #6). D5 → the four override partials' `masteryQuizPool`;
+D6 → `lib/challenges/year12Extension1Vectors.ts` (4 sets, ≤2 per lesson).
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Perpendicular-constraint reconstruction** — a = 2i + 3j, b = i − j; find λ so that a + λb ⊥ b → **1/2** (expand (a + λb)·b = 0 ⟹ a·b + λ|b|² = 0).
+2. **Abstract dot-product identity (proof, no coordinates)** — |a| = 3, |b| = 4, a·b = 6; find |a + b| → **√37** (|a+b|² = |a|² + 2a·b + |b|²).
+3. **Collinearity reconstruction** — A(1, 2), B(4, 6), C(k, 14) are collinear; find k → **10** (AB ∥ AC ⟹ 3·12 = 4(k−1)).
+4. **Ratio/section reconstruction (reverse)** *(upgraded)* — P(5, 4) divides AB with AP : PB = 2 : 1, A(1, 2); recover B → **(7, 5)** (invert P = A + ⅔(B − A)).
+5. **Parameterised-line parameter recovery** *(upgraded)* — r = (1, 0) + t(2, 1) and r = (a, 3) + s(−1, 1) intersect on the x-axis; find a → **−2**.
+6. **Projection + perpendicular decomposition (proof)** *(upgraded)* — |a| = 5, scalar projection of a onto b = 4; find the magnitude of the component of a perpendicular to b → **3** (√(5² − 4²)).
+
+**Coverage vs gates:** perpendicular constraint 1 (#1); abstract dot-product identity 1 (#2);
+parallel/collinearity 1 (#3); ratio/section reverse 1 (#4); parameterised-line parameter recovery 1 (#5);
+projection + perpendicular decomposition 1 (#6) — all distinct, none > 2.
+**Reverse-reasoning ≥4** = #1 (find λ), #3 (find k), #4 (recover B), #5 (recover a).
+**Projection-dependent = 1** (#6). **Proof-without-coordinate-grind = 2** (#2, #6).
+
+**D5 archetype table (6; single-answer):** |(−6, 8)| (10); (2, 3)·(4, −1) (5); find k so (2, k) ⊥ (3, −6) (1);
+|(1, 2) + (3, 4)| (2√13); scalar projection of (3, 4) onto (1, 0) (3); cos of the angle between (1, 1) and (1, 0) (√2/2).
+
+**Reject list:** compute a magnitude / dot product / sum in one step as the whole task; state "parallel ⟺ scalar
+multiple" without using it; forward projection plug-in; read perpendicularity off given perpendicular vectors;
+any item that is arithmetic once the vector operation is identified.
+
+**Before → after:** D5 29→35; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty carried by vector structure — abstract dot-product/magnitude identities
+(no coordinates), geometric reconstruction (collinearity, section), parameterised-line intersection, and
+perpendicular/parallel constraints solved backwards — not coordinate arithmetic. First Extension-domain
+exemplar.
+
+**Small-topic note:** 4 lessons → 6 D6 sit ~1–2 per lesson (mild concentration, comparable to ma-f2; far less
+than the 1–2-lesson trig topics).
+
+---
+
+## calculus-applications (Year 12 Extension 1) — Domain: Calculus (Extension) — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+**Supervisor mod applied:** #1 upgraded from direct half-life→k to **k from two non-initial values**
+(Q(2)=50, Q(5)=12.5 → divide to cancel Q₀ → e^(3k)=4 → k=(ln 4)/3). Tangent item (#6) kept per
+supervisor. D5 → the four lesson override partials' `masteryQuizPool`; D6 →
+`lib/challenges/year12Extension1CalculusApplications.ts` (4 sets, ≤2 per lesson). Existing 1 multipart
+D6 retained (D6 total 7, D6-single 6).
+
+Redirected here from `further-calculus` (which is integration — held for a later integration pass).
+This is the **differential** home for tangent/normal, stationary-point, optimisation/extremum and
+differential-constraint gates. Core lessons: `related-rates-of-change`,
+`newtons-law-cooling-growth-decay` (exp growth/decay), `simple-harmonic-motion-intro`,
+`calculus-applications-exam-practice`. Before: **D5 27 / D6-single 0** (the lone existing D6 is multipart).
+Difficulty carried by working BACKWARDS from calculus information — not "differentiate and substitute".
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Parameter reconstruction (two non-initial values)** *(upgraded)* — Q = Q₀e^(−kt) with Q(2) = 50 and Q(5) = 12.5; find k → **(ln 4)/3** (divide to cancel Q₀, then e^(3k) = 4).
+2. **Parameter reconstruction + extremum (SHM)** — x = a cos(nt) has period π and x(0) = 3; find the maximum speed → **6** (recover n from the period, a from x(0), then max speed = an).
+3. **Stationary-point reasoning (reverse)** — C(t) = A·t·e^(−t) has maximum value 6; find A → **6e** (max at t = 1 gives A/e = 6; recover A from the stated extremum, not by computing a max).
+4. **Optimisation/related-rate (reverse)** — a sphere's radius grows at 0.5 cm/s; find the radius at which the volume grows at 50π cm³/s → **5** (dV/dt = 4πr²·0.5 = 50π; recover r from the target rate).
+5. **Validity/contradiction (SHM)** — for v² = n²(a² − x²) with a = 3, n = 2, evaluate v² at x = 4 → **−28** (negative ⟹ impossible: the particle never reaches x = 4 > a; impossibility emerges from the algebra).
+6. **Tangent/normal structure (reverse)** — the tangent to y = e^(kx) at x = 0 passes through (−1, 0); find k → **1** (tangent is y = 1 + kx; recover k from the through-point constraint).
+
+**Coverage vs gates:** parameter reconstruction 2 (#1, #2; #3 also recovers a parameter); tangent/normal 1 (#6);
+stationary-point reasoning 1 (#3); optimisation/extremum 1 (#2 max speed, #4 extremal rate); validity/contradiction 1 (#5).
+**Reverse-reasoning ≥4** = #1, #2, #3, #4, #6 (5). No archetype > 2.
+
+**D5 archetype table (6; single-answer):** chain rule dy/dt from dy/dx = 3, dx/dt = 2 (6); max speed of SHM
+x = 5 cos(3t) (15); initial value of P = 200e^(0.5t) (200); decay constant from half-life 4 (ln 2 / 4);
+x-coordinate of the minimum of y = x² − 6x + 5 (3); limiting temperature of T = 20 + 30e^(−2t) as t → ∞ (20).
+
+**Reject list:** direct differentiation / "differentiate and substitute"; routine tangent finding;
+routine stationary-point calculation; routine optimisation; routine related-rate plug-in; direct integration;
+any item whose first move is differentiate-then-substitute with no reconstruction or validity reasoning.
+
+**Before → after:** D5 27→33; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty carried by reverse calculus reasoning — recover a rate/parameter from
+decay/period/extremum data, recover a radius from a target rate, expose an impossible SHM state, and reconstruct
+a tangent from a through-point — not by differentiating and substituting. (Note: tangent/normal is a lighter fit
+for this rates-focused topic; #6 uses an exponential-growth curve from the topic to honour the gate — flag for
+supervisor if a second parameter-reconstruction is preferred instead.)
+
+**Small-topic note:** 4 core lessons → 6 D6 sit ~1–2 per lesson (mild concentration, like vectors/ma-f2).
+
+---
+
+## Y12 Extension 1 — further-calculus (integration) [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #2 upgraded — see below). Authored + verified; awaiting user commit.
+Integration-specific gates (Option A). Lessons: trig-integrals, simple-substitution, integration-by-parts,
+further-calculus-exam-practice. Before: D5 15, D6 0.
+
+**D6 archetype table (6; single-answer; ≤2/lesson):**
+1. Param reconstruction from a definite integral [trig-integrals] — smallest a>0 with ∫₀ᵃ cos x dx = 1/2 → a = π/6.
+2. **[UPGRADED]** Param reconstruction from TWO definite-integral constraints [exam] — f(x)=ax+b with
+   ∫₀¹f = 4 and ∫₀²f = 14 → a = 6 (system: a/2+b=4, a+b=7 ⟹ b=1, a=6). (Replaced the too-direct ∫₀²(ax+1)=8.)
+3. Substitution-parameter recovery [simple-substitution; STRUCTURE] — ∫₀¹ f(2x) dx = 5 → ∫₀² f(u) du = 10.
+4. Integration-by-parts reconstruction [integration-by-parts; STRUCTURE] — given d/dx[x sin x] = sin x + x cos x,
+   ∫₀^(π/2) x cos x dx = π/2 − 1.
+5. Definite-integral symmetry [trig-integrals; STRUCTURE] — ∫₋π/₂^(π/2) (sin³x + cos x) dx = 2 (odd term vanishes).
+6. Validity/contradiction via integral bound [exam] — f(x) ≥ 2 on [0,3]; smallest ∫₀³ f = 6 (claimed 5 impossible).
+
+**Coverage vs gates:** param-reconstruction-from-integral 2 (#1,#2); substitution-parameter recovery 1 (#3);
+IBP reconstruction 1 (#4); definite-integral structure/symmetry 1 (#5); validity/contradiction 1 (#6).
+Reverse-reasoning = 5 (#1,#2,#3,#4,#6). Structure-recognition = 3 (#3,#4,#5). No archetype > 2.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** ∫₀^(π/4) sec²x dx (1); ∫₀^(π/4) cos 2x dx (1/2);
+∫₀¹ (2x+1)³ dx (10); ∫₀¹ x eˣ dx (1); ∫₁^e (1/x) dx (1); ∫₀² (3x²−2x) dx (4).
+
+**Reject list:** direct antiderivative calculation; routine substitution; routine integration by parts;
+direct definite-integral evaluation; any item whose difficulty is only executing a known integration method.
+
+**Before → after:** D5 15→21; D6-single 0→6 ⟹ replay-ready ✅ (no existing D6 to retain).
+
+**Domain-richness note:** difficulty comes from selecting/reconstructing structure — recover a limit/coefficient
+from an integral value, see a hidden substitution, reconstruct an antiderivative from a given product-rule
+identity, exploit odd/even symmetry, bound an integral to expose impossibility — not from executing an
+antiderivative. Integration-domain exemplar for Ext1.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 21, D6 6,
+all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, max/subtopic 4 across 5 subtopics, ~53.5 min.
+
+---
+
+## Y12 Extension 1 — kinematics (calculus-based motion) [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #6 upgraded — parameter recovery). Authored + verified;
+awaiting user commit. Calculus-based motion (x→v→a by differentiation, v→x by integration, a = v dv/dx),
+NOT constant-accel SUVAT. Lessons: kinematics-velocity-acceleration, kinematics-displacement-from-velocity,
+kinematics-motion-analysis, kinematics-exam-practice. Before: D5 12, D6 0.
+
+**D6 archetype table (6; single-answer; ≤2/lesson):**
+1. Reverse motion reconstruction [displacement] — a = 6t, x=2@t=0, x=16@t=2; v(0) = 3 (two positions fix both constants).
+2. Reverse motion reconstruction [velocity-acceleration] — a = 6t−12, rest at t=1; v(0) = 9 (recover constant from rest).
+3. a–v–x interaction [velocity-acceleration] — v² = 16 − x²; a at x=2 = −2 (a = d/dx(½v²) = −x; no time).
+4. a–v–x interaction [exam] — a = −4x, speed 6 at x=0; speed at x=1 = 4√2 (½v² = −2x² + 18).
+5. Validity/contradiction [motion-analysis] — v² = −x² + 6x − 13; max v² = −4 < 0 ⟹ motion impossible.
+6. **[UPGRADED]** Model/condition inference [displacement] — A: vₐ=2t, B: v_b=3t²−kt, equal displacement at t=3 → k = 4
+   (parameter recovery at a specified time — one interpretive step beyond directly equating positions).
+
+**Coverage vs gates:** reverse motion reconstruction 2 (#1,#2); a–v–x interaction 2 (#3,#4);
+validity/contradiction 1 (#5); model/condition inference 1 (#6). Reverse-reasoning = 4 (#1,#2,#5,#6).
+No archetype > 2. None are SUVAT; none reduce to algebra-after-formula.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** x=t³−2t², v at t=2 (4); x=t³−2t², a at t=2 (8);
+v=4t+1 with x=3@t=0, x at t=2 (13); v=2t−6, time at rest (3); a=10−2t, time accel=0 (5);
+v=3t²−6t, initial acceleration (−6).
+
+**Reject list:** direct SUVAT substitution; routine differentiation/integration with no reconstruction;
+direct evaluation; any item whose difficulty is just algebra after the motion formula is identified.
+
+**Before → after:** D5 12→18; D6-single 0→6 ⟹ replay-ready ✅ (no existing D6 to retain).
+
+**Domain-richness note:** difficulty carried by reverse/relational motion reasoning — reconstruct initial
+conditions from later motion states, link a, v and x via a = v dv/dx without time, expose an impossible motion
+via v² < 0, infer a parameter from a model comparison — not by substituting into a known formula. Motion /
+phase-relationship exemplar for Ext1.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 18, D6 6,
+all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min (4 lessons → mild single-topic
+concentration, per the accepted small-topic ruling).
+
+---
+
+## Y12 Extension 1 — binomial-distribution [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #3 upgraded — complement-probability layer). Authored +
+verified; awaiting user commit. 7 lessons (bernoulli-trials, binomial-probabilities, mean-and-variance,
+binomial-exam-practice, sampling-distribution-mean, central-limit-theorem, binomial-revision). Before: D5 9,
+D6 1 (multipart, retained).
+
+**D6 archetype table (6; single-answer; ≤2/lesson; no coefficient grind):**
+1. Parameter reconstruction [mean-and-variance] — X~B(n,p), mean 12, var 3 → n=16 (1−p = Var/mean = 0.25).
+2. Parameter reconstruction [sampling-distribution-mean] — pop var 36, sample-mean var 4 → n=9 (Var(x̄)=σ²/n).
+3. **[UPGRADED]** Tail/probability constraint [binomial-probabilities] — X~B(n,1/3), P(X≥1)=65/81 → n=4
+   (complement: 1−(2/3)ⁿ=65/81 ⟹ (2/3)ⁿ=16/81=(2/3)⁴).
+4. Expectation/variance interaction [mean-and-variance] — X~B(n,0.4), var 2.4 → E(2X−1)=7 (n=10, E=4).
+5. Validity/contradiction [exam] — claimed mean 6 & var 8 → 1−p=4/3 (>1 ⟹ p<0, impossible; Var<mean always).
+6. Model comparison/equivalence [exam] — B(12,0.5) vs B(n,0.25) equal variance → n=16 (3 = 0.1875n).
+
+**Coverage vs gates:** parameter reconstruction 2 (#1,#2); probability/tail constraint 1 (#3);
+expectation/variance interaction 1 (#4); validity/contradiction 1 (#5); model comparison/equivalence 1 (#6).
+Reverse-reasoning = 6. No archetype > 2. No binomial-coefficient grind.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** B(4,0.5) P(X=2) (0.375); B(3,1/3) P(X=0) (8/27);
+B(20,0.3) mean (6); B(20,0.3) variance (4.2); pop var 50 with n=10, Var(x̄) (5); CLT z-score (1).
+
+**Reject list:** binomial-coefficient expansion as difficulty; direct P(X=k) evaluation; single-step np=mean
+or np(1−p)=var; direct mean/variance plug-in; any item that is just arithmetic once the formula is identified.
+
+**Before → after:** D5 9→15; D6-single 0→6 ⟹ replay-ready ✅ (existing 1 multipart D6 retained → D6 total 7).
+
+**Domain-richness note:** difficulty carried by reconstructing n/p from moments or tail probabilities,
+interacting expectation with variance and a linear transform, exposing an impossible binomial via Var < mean,
+and comparing two models by equal variance — not by grinding coefficients. Ext1 probability-distribution exemplar.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 15, D6-single 6,
++1 mp retained); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min, max/subtopic 4 across 7 subtopics.
+
+---
+
+## Y12 Extension 1 — inverse-trigonometric functions [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #5 upgraded — parameter constraint). Authored + verified;
+awaiting user commit. 5 lessons (inverse-sine-cosine, inverse-tangent, differentiating-inverse-trig,
+inverse-trig-properties, inverse-trig-revision). Before: D5 15, D6 0. No direct arcsin/arccos/arctan evaluation.
+
+**D6 archetype table (6; single-answer; ≤2/lesson):**
+1. Principal-value composition [inverse-sine-cosine] — arcsin(sin(5π/6)) → π/6 (5π/6 outside [−π/2,π/2]).
+2. Domain reconstruction [differentiating-inverse-trig] — domain length of arcsin(2x−1) → 1.
+3. Inverse-composition + identity interaction [inverse-tangent] — sin(arctan(3/4)+arccos(4/5)) → 24/25
+   (both angles reduce to the same α; sin(2α)).
+4. Parameter reconstruction [inverse-trig-properties] — y = a·arcsin(x) has range [−π,π] → a=2.
+5. **[UPGRADED]** Validity/parameter constraint [inverse-sine-cosine] — arcsin(x)=2k−π has a real solution;
+   interval of k has length → π/2 (need 2k−π ∈ [−π/2,π/2] ⟹ π/4 ≤ k ≤ 3π/4).
+6. Equation/constraint structure [inverse-trig-properties] — arcsin(x)=arccos(x) → √2/2
+   (identity ⟹ 2 arcsin x = π/2).
+
+**Coverage vs gates:** principal-value/domain-range 2 (#1,#2); inverse-composition/identity 1 (#3);
+parameter reconstruction 1 (#4); validity/contradiction 1 (#5); equation/constraint structure 1 (#6).
+Reverse-reasoning = 6. No archetype > 2. No direct arcsin/arccos/arctan evaluation.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** arcsin(√2/2) (π/4); arccos(1/2) (π/3); arctan(1) (π/4);
+derivative of arcsin(x) at x=0 (1); arcsin(x)+arccos(x) (π/2); sin(π/6) (1/2).
+
+**Reject list:** direct arcsin/arccos/arctan evaluation as the difficulty; routine inverse-trig derivative;
+routine exact-value lookup; any item that is just substitution once the function is identified.
+
+**Before → after:** D5 15→21; D6-single 0→6 ⟹ replay-ready ✅ (no existing D6 to retain).
+
+**Domain-richness note:** difficulty carried by principal-value range reasoning, domain reconstruction,
+identity-driven composite evaluation, parameter recovery from a stated range, a parameter constraint from the
+principal range, and identity-converted equation solving — not by evaluating an inverse-trig function. Ext1
+inverse-trig exemplar.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 21, D6 6,
+all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min, max/subtopic 4 across 5 subtopics.

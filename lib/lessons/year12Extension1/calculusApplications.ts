@@ -379,6 +379,19 @@ const relatedRates: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-relrates-pool-d5-1",
+      prompt:
+        "Given dy/dx = 3 and dx/dt = 2, use the chain rule to find dy/dt.",
+      latex: "\\frac{dy}{dt}=\\frac{dy}{dx}\\cdot\\frac{dx}{dt}",
+      answer: "6",
+      acceptedAnswers: ["6 units/s"],
+      hint: "Multiply the two rates.",
+      explanation: "dy/dt = (dy/dx)(dx/dt) = 3 × 2 = 6.",
+      difficulty: 5,
+    },
+  ],
 };
 
 // ─── Lesson 2: Exponential Growth and Decay ──────────────────────────────────
@@ -658,6 +671,42 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
       ["\\ln(2)/5", "\\tfrac{\\ln 2}{5}"],
       "k = (1/5)\\ln 2 = \\ln 2/5."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-growth-pool-d5-1",
+      prompt:
+        "A population is modelled by P = 200 e^(0.5t). State the initial population (t = 0).",
+      latex: "P = 200 e^{0.5t}",
+      answer: "200",
+      acceptedAnswers: ["P=200"],
+      hint: "Substitute t = 0; e^0 = 1.",
+      explanation: "At t = 0, P = 200 e^0 = 200.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-growth-pool-d5-2",
+      prompt:
+        "A radioactive substance has a half-life of 4 years and decays as A = A₀ e^(−kt). Find the exact value of k.",
+      latex: "A = A_0 e^{-kt}",
+      answer: "(ln 2)/4",
+      acceptedAnswers: ["ln2/4", "0.25 ln 2", "\\frac{\\ln 2}{4}"],
+      hint: "Half-life means A = A₀/2 when t = 4.",
+      explanation:
+        "A₀/2 = A₀ e^(−4k) ⟹ e^(−4k) = 1/2 ⟹ 4k = ln 2 ⟹ k = (ln 2)/4.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-growth-pool-d5-3",
+      prompt:
+        "An object cools according to T = 20 + 30 e^(−2t). Find the temperature it approaches as t → ∞.",
+      latex: "T = 20 + 30 e^{-2t}",
+      answer: "20",
+      acceptedAnswers: ["20°C", "20 degrees"],
+      hint: "As t → ∞, e^(−2t) → 0.",
+      explanation: "e^(−2t) → 0, so T → 20.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };
@@ -949,6 +998,20 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
       "|v|_{max} = 8 \\times \\pi/4 = 2\\pi\\text{ m/s}."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-shm-pool-d5-1",
+      prompt:
+        "A particle moves in simple harmonic motion with x = 5 cos(3t). Find its maximum speed.",
+      latex: "x = 5\\cos(3t)",
+      answer: "15",
+      acceptedAnswers: ["15 units/s"],
+      hint: "Maximum speed of x = a cos(nt) is a·n.",
+      explanation:
+        "v = −15 sin(3t), so the maximum speed is |a·n| = 5 × 3 = 15.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1231,6 +1294,18 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
       ],
       "SHM describes repeated oscillation about a fixed centre; the defining equation is \\ddot x = -n^2 x."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-calcapps-pool-d5-1",
+      prompt: "Find the x-coordinate of the minimum of y = x² − 6x + 5.",
+      latex: "y = x^2 - 6x + 5",
+      answer: "3",
+      acceptedAnswers: ["x=3"],
+      hint: "The vertex of a parabola is at x = −b/(2a).",
+      explanation: "x = −(−6)/(2·1) = 3.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };

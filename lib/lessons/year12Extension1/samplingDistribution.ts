@@ -286,6 +286,18 @@ const samplingDistributionMean: Partial<ExplicitLesson> = {
       "By knowing the distribution of x̄, we can calculate probabilities and make inferences about the population mean μ."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-sampling-mean-pool-d5-1",
+      prompt: "A population has variance 50. Samples of size 10 are taken. Find the variance of the sample mean x̄.",
+      latex: "\\mathrm{Var}(\\bar{x}) = \\sigma^2/n",
+      answer: "5",
+      acceptedAnswers: [],
+      hint: "Var(x̄) = σ²/n.",
+      explanation: "Var(x̄) = 50/10 = 5.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -541,6 +553,18 @@ const centralLimitTheorem: Partial<ExplicitLesson> = {
       ],
       "When the population is normal, x̄ ~ N(μ, σ²/n) exactly for any n — the CLT approximation is not needed."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-clt-pool-d5-1",
+      prompt: "The sample mean x̄ has mean μ = 50 and standard deviation 2. Find the z-score for x̄ = 52.",
+      latex: "z = \\frac{\\bar{x} - \\mu}{\\sigma_{\\bar{x}}}",
+      answer: "1",
+      acceptedAnswers: [],
+      hint: "z = (x̄ − μ) / (standard deviation of x̄).",
+      explanation: "z = (52 − 50) / 2 = 1.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };

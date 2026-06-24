@@ -316,6 +316,18 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
       ["sqrt(3)/2", "√3/2"]
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-invrev-pool-d5-1",
+      prompt: "Find the exact value of sin(π/6).",
+      latex: "\\sin\\left(\\tfrac{\\pi}{6}\\right)",
+      answer: "1/2",
+      acceptedAnswers: ["0.5"],
+      hint: "π/6 is a standard angle (30°).",
+      explanation: "sin(π/6) = 1/2.",
+      difficulty: 5,
+    },
+  ],
 };
 
 export function year12Extension1InverseTrigRevisionLessonOverride(

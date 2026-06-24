@@ -315,6 +315,28 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
       "Acceleration is the second derivative of displacement with respect to time: a = dÂ²x/dtÂ²."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-kin-va-pool-d5-1",
+      prompt: "A particle has displacement x = t³ − 2t². Find its velocity when t = 2.",
+      latex: "x = t^3 - 2t^2",
+      answer: "4",
+      acceptedAnswers: ["4 m/s"],
+      hint: "Velocity is dx/dt; differentiate then substitute t = 2.",
+      explanation: "v = 3t² − 4t, so v(2) = 12 − 8 = 4.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-kin-va-pool-d5-2",
+      prompt: "A particle has displacement x = t³ − 2t². Find its acceleration when t = 2.",
+      latex: "x = t^3 - 2t^2",
+      answer: "8",
+      acceptedAnswers: ["8 m/s²", "8 m/s^2"],
+      hint: "Acceleration is d²x/dt²; differentiate twice then substitute t = 2.",
+      explanation: "v = 3t² − 4t and a = 6t − 4, so a(2) = 12 − 4 = 8.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -588,6 +610,18 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
       "Velocity is the integral of acceleration; displacement is the integral of velocity. Differentiation goes the other way."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-kin-disp-pool-d5-1",
+      prompt: "A particle has velocity v = 4t + 1 and is at x = 3 when t = 0. Find its displacement when t = 2.",
+      latex: "v = 4t + 1,\\ x(0) = 3",
+      answer: "13",
+      acceptedAnswers: [],
+      hint: "Integrate v to get x, then use x(0) = 3 to find the constant before substituting t = 2.",
+      explanation: "x = 2t² + t + C; x(0) = C = 3, so x = 2t² + t + 3 and x(2) = 8 + 2 + 3 = 13.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -853,6 +887,18 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
       "Distance [0,3] = 9. Distance [3,8] = 25. Total = 34 m."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-kin-ma-pool-d5-1",
+      prompt: "A particle moves with velocity v = 2t − 6. Find the time at which it is momentarily at rest.",
+      latex: "v = 2t - 6",
+      answer: "3",
+      acceptedAnswers: ["t=3", "3 s"],
+      hint: "The particle is at rest when v = 0.",
+      explanation: "2t − 6 = 0 ⟹ t = 3.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1111,6 +1157,28 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
       ["0 m"],
       "x(t) = t²/2 − 4t. x(8) = 32 − 32 = 0 m. The particle returns to the origin at t = 8."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-kin-ep-pool-d5-1",
+      prompt: "A particle has acceleration a = 10 − 2t. Find the time at which its acceleration is zero.",
+      latex: "a = 10 - 2t",
+      answer: "5",
+      acceptedAnswers: ["t=5", "5 s"],
+      hint: "Set a = 0 and solve for t.",
+      explanation: "10 − 2t = 0 ⟹ t = 5.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-kin-ep-pool-d5-2",
+      prompt: "A particle has velocity v = 3t² − 6t. Find its initial acceleration.",
+      latex: "v = 3t^2 - 6t",
+      answer: "-6",
+      acceptedAnswers: ["−6", "-6 m/s²"],
+      hint: "Acceleration is dv/dt; evaluate at t = 0.",
+      explanation: "a = 6t − 6, so a(0) = −6.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };

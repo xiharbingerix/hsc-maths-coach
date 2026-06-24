@@ -112,6 +112,42 @@ import {
 } from "./year12AdvancedTrigEquations";
 import { trigMeasureChallenge } from "./year12AdvancedTrigMeasure";
 import {
+  vectorsCollinearityChallenge,
+  vectorsGeometryChallenge,
+  vectorsDotProductChallenge,
+  vectorsProjectionChallenge,
+} from "./year12Extension1Vectors";
+import {
+  calcAppsGrowthChallenge,
+  calcAppsShmChallenge,
+  calcAppsRatesChallenge,
+  calcAppsExamChallenge,
+} from "./year12Extension1CalculusApplications";
+import {
+  fcalcTrigChallenge,
+  fcalcSubstitutionChallenge,
+  fcalcPartsChallenge,
+  fcalcExamChallenge,
+} from "./year12Extension1FurtherCalculus";
+import {
+  kinVelocityAccelChallenge,
+  kinDisplacementChallenge,
+  kinMotionAnalysisChallenge,
+  kinExamChallenge,
+} from "./year12Extension1Kinematics";
+import {
+  bdMeanVarianceChallenge,
+  bdSamplingChallenge,
+  bdProbabilitiesChallenge,
+  bdExamChallenge,
+} from "./year12Extension1BinomialDistribution";
+import {
+  itPrincipalChallenge,
+  itTangentChallenge,
+  itDifferentiatingChallenge,
+  itPropertiesChallenge,
+} from "./year12Extension1InverseTrig";
+import {
   integersNumberLineChallenge,
   addingSubtractingIntegersChallenge,
   multiplyingDividingIntegersChallenge,
@@ -328,6 +364,36 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "inverse-trig": inverseTrigChallenge,
   vectors: vectorsChallenge,
   "intro-to-mathematical-induction": inductionChallenge,
+  // Year 12 Extension 1 — Vectors high-difficulty pool (per-lesson, ≤2 each)
+  "vectors-scalars-notation": vectorsCollinearityChallenge,
+  "vector-addition-subtraction": vectorsGeometryChallenge,
+  "dot-product": vectorsDotProductChallenge,
+  "vector-projections-applications": vectorsProjectionChallenge,
+  // Year 12 Extension 1 — Calculus Applications high-difficulty pool (per-lesson, ≤2 each)
+  "newtons-law-cooling-growth-decay": calcAppsGrowthChallenge,
+  "simple-harmonic-motion-intro": calcAppsShmChallenge,
+  "related-rates-of-change": calcAppsRatesChallenge,
+  "calculus-applications-exam-practice": calcAppsExamChallenge,
+  // Year 12 Extension 1 — Further Calculus (integration) high-difficulty pool (per-lesson, ≤2 each)
+  "trig-integrals": fcalcTrigChallenge,
+  "simple-substitution": fcalcSubstitutionChallenge,
+  "integration-by-parts": fcalcPartsChallenge,
+  "further-calculus-exam-practice": fcalcExamChallenge,
+  // Year 12 Extension 1 — Kinematics (calculus-based motion) high-difficulty pool (per-lesson, ≤2 each)
+  "kinematics-velocity-acceleration": kinVelocityAccelChallenge,
+  "kinematics-displacement-from-velocity": kinDisplacementChallenge,
+  "kinematics-motion-analysis": kinMotionAnalysisChallenge,
+  "kinematics-exam-practice": kinExamChallenge,
+  // Year 12 Extension 1 — Binomial Distribution high-difficulty pool (per-lesson, ≤2 each)
+  "mean-and-variance": bdMeanVarianceChallenge,
+  "sampling-distribution-mean": bdSamplingChallenge,
+  "binomial-probabilities": bdProbabilitiesChallenge,
+  "binomial-exam-practice": bdExamChallenge,
+  // Year 12 Extension 1 — Inverse Trigonometric Functions high-difficulty pool (per-lesson, ≤2 each)
+  "inverse-sine-cosine": itPrincipalChallenge,
+  "inverse-tangent": itTangentChallenge,
+  "differentiating-inverse-trig": itDifferentiatingChallenge,
+  "inverse-trig-properties": itPropertiesChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
