@@ -5732,11 +5732,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Statistics and Probability",
         focus: "Build data literacy — classification, collection methods and graphical displays — before summary statistics in Year 8.",
         lessons: [
-          { slug: "data-types-and-collection",       title: "Data Types and Collection" },
-          { slug: "frequency-tables",                title: "Frequency Tables" },
-          { slug: "dot-plots-stem-and-leaf",         title: "Dot Plots and Stem-and-Leaf Plots" },
-          { slug: "column-bar-line-graphs",          title: "Column, Bar and Line Graphs" },
-          { slug: "choosing-and-interpreting-displays", title: "Choosing and Interpreting Displays" },
+          { slug: "data-types-and-collection",       title: "Data Types and Collection", pathTag: "core", stableSkillId: "y7-data-types-and-collection", skillCheckpoints: [{ stableCheckpointId: "y7-data-types-and-collection-c1", label: "Classify data and collection methods" }] },
+          { slug: "frequency-tables",                title: "Frequency Tables", pathTag: "core", stableSkillId: "y7-frequency-tables", skillCheckpoints: [{ stableCheckpointId: "y7-frequency-tables-c1", label: "Build and read frequency tables" }] },
+          { slug: "dot-plots-stem-and-leaf",         title: "Dot Plots and Stem-and-Leaf Plots", pathTag: "core", stableSkillId: "y7-dot-plots-stem-and-leaf", skillCheckpoints: [{ stableCheckpointId: "y7-dot-plots-stem-and-leaf-c1", label: "Read dot plots and stem-and-leaf plots" }] },
+          { slug: "column-bar-line-graphs",          title: "Column, Bar and Line Graphs", pathTag: "core", stableSkillId: "y7-column-bar-line-graphs", skillCheckpoints: [{ stableCheckpointId: "y7-column-bar-line-graphs-c1", label: "Read and interpret column, bar and line graphs" }] },
+          { slug: "choosing-and-interpreting-displays", title: "Choosing and Interpreting Displays", pathTag: "extending", stableSkillId: "y7-choosing-and-interpreting-displays", skillCheckpoints: [{ stableCheckpointId: "y7-choosing-and-interpreting-displays-c1", label: "Choose and interpret suitable displays" }] },
         ],
       },
       {
@@ -5778,30 +5778,45 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Probability Language and Scale",
             description:
               "Describe likelihood using words and the probability scale from 0 to 1.",
+            pathTag: "core",
+            stableSkillId: "y7-probability-language-and-scale",
+            skillCheckpoints: [{ stableCheckpointId: "y7-probability-language-and-scale-c1", label: "Use probability language and the 0-1 scale" }],
           },
           {
             slug: "simple-probability",
             title: "Simple Probability",
             description:
               "Calculate P(event) = favourable outcomes Ã· total outcomes and apply the complement rule.",
+            pathTag: "core",
+            stableSkillId: "y7-simple-probability",
+            skillCheckpoints: [{ stableCheckpointId: "y7-simple-probability-c1", label: "Calculate simple probabilities and complements" }],
           },
           {
             slug: "two-step-chance-experiments",
             title: "Two-Step Chance Experiments",
             description:
               "List all outcomes of two-step experiments using arrays and tree diagrams, and calculate combined probabilities.",
+            pathTag: "extending",
+            stableSkillId: "y7-two-step-chance-experiments",
+            skillCheckpoints: [{ stableCheckpointId: "y7-two-step-chance-experiments-c1", label: "List outcomes and find two-step probabilities" }],
           },
           {
             slug: "relative-frequency",
             title: "Relative Frequency",
             description:
               "Calculate relative frequency from experimental results and explain how it approaches theoretical probability as trials increase.",
+            pathTag: "core",
+            stableSkillId: "y7-relative-frequency",
+            skillCheckpoints: [{ stableCheckpointId: "y7-relative-frequency-c1", label: "Calculate and interpret relative frequency" }],
           },
           {
             slug: "expected-outcomes",
             title: "Expected Outcomes",
             description:
               "Use expected count = P(event) × n to predict how many times an event will occur in a repeated experiment.",
+            pathTag: "extending",
+            stableSkillId: "y7-expected-outcomes",
+            skillCheckpoints: [{ stableCheckpointId: "y7-expected-outcomes-c1", label: "Predict expected outcomes from probability" }],
           },
         ],
       },
