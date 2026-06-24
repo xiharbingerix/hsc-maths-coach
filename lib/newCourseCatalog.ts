@@ -5980,10 +5980,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-ALG-C-01 — extends Year 7/8 algebra into Stage 5 manipulation needed for quadratics and beyond.",
         lessons: [
-          { slug: "algebraic-fractions",       title: "Algebraic Fractions" },
-          { slug: "expanding-expressions",     title: "Expanding Expressions" },
-          { slug: "binomial-products",         title: "Binomial Products" },
-          { slug: "equivalent-expressions",    title: "Equivalent Expressions" },
+          { slug: "algebraic-fractions",       title: "Algebraic Fractions", pathTag: "extending", stableSkillId: "y8-algebraic-fractions", skillCheckpoints: [{ stableCheckpointId: "y8-algebraic-fractions-c1", label: "Simplify and operate with algebraic fractions" }] },
+          { slug: "expanding-expressions",     title: "Expanding Expressions", pathTag: "core", stableSkillId: "y8-expanding-expressions", skillCheckpoints: [{ stableCheckpointId: "y8-expanding-expressions-c1", label: "Expand and simplify expressions" }] },
+          { slug: "binomial-products",         title: "Binomial Products", pathTag: "extending", stableSkillId: "y8-binomial-products", skillCheckpoints: [{ stableCheckpointId: "y8-binomial-products-c1", label: "Expand binomial products" }] },
+          { slug: "equivalent-expressions",    title: "Equivalent Expressions", pathTag: "core", stableSkillId: "y8-equivalent-expressions", skillCheckpoints: [{ stableCheckpointId: "y8-equivalent-expressions-c1", label: "Recognise equivalent expressions" }] },
         ],
       },
       {
@@ -5993,11 +5993,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "MA4-ALG-C-02 — extends Year 7 index laws to negative exponents and scientific notation.",
         lessons: [
-          { slug: "negative-indices",                  title: "Negative Indices" },
-          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers" },
-          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers" },
-          { slug: "significant-figures",               title: "Significant Figures" },
-          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation" },
+          { slug: "negative-indices",                  title: "Negative Indices", pathTag: "core", stableSkillId: "y8-negative-indices", skillCheckpoints: [{ stableCheckpointId: "y8-negative-indices-c1", label: "Use negative indices" }] },
+          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers", pathTag: "core", stableSkillId: "y8-scientific-notation-large-numbers", skillCheckpoints: [{ stableCheckpointId: "y8-scientific-notation-large-numbers-c1", label: "Write and interpret large numbers in scientific notation" }] },
+          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers", pathTag: "core", stableSkillId: "y8-scientific-notation-small-numbers", skillCheckpoints: [{ stableCheckpointId: "y8-scientific-notation-small-numbers-c1", label: "Write and interpret small numbers in scientific notation" }] },
+          { slug: "significant-figures",               title: "Significant Figures", pathTag: "consolidating", stableSkillId: "y8-significant-figures", skillCheckpoints: [{ stableCheckpointId: "y8-significant-figures-c1", label: "Round to significant figures" }] },
+          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation", pathTag: "extending", stableSkillId: "y8-operations-with-scientific-notation", skillCheckpoints: [{ stableCheckpointId: "y8-operations-with-scientific-notation-c1", label: "Multiply and divide in scientific notation" }] },
         ],
       },
       {
@@ -6009,9 +6009,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-IND-P-01 — extension index work: multiple-law manipulation, algebraic bases and indicial equations.",
         lessons: [
-          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation" },
-          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases" },
-          { slug: "indicial-equations",          title: "Indicial Equations" },
+          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation", pathTag: "extending", stableSkillId: "y8-advanced-index-manipulation", skillCheckpoints: [{ stableCheckpointId: "y8-advanced-index-manipulation-c1", label: "Apply combined index laws" }] },
+          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases", pathTag: "extending", stableSkillId: "y8-algebraic-bases", skillCheckpoints: [{ stableCheckpointId: "y8-algebraic-bases-c1", label: "Apply index laws to algebraic bases" }] },
+          { slug: "indicial-equations",          title: "Indicial Equations", pathTag: "extending", stableSkillId: "y8-indicial-equations", skillCheckpoints: [{ stableCheckpointId: "y8-indicial-equations-c1", label: "Solve indicial equations" }] },
         ],
       },
       {
