@@ -218,6 +218,20 @@ import {
   expectedOutcomesChallenge,
 } from "./year7DataProbability";
 import {
+  numberPatternsRulesChallenge as y8NumberPatternsRulesChallenge,
+  coordinatesPointsChallenge as y8CoordinatesPointsChallenge,
+  tablesOfValuesChallenge as y8TablesOfValuesChallenge,
+  graphingLinearRelationshipsChallenge as y8GraphingLinearChallenge,
+  gradientRateOfChangeChallenge as y8GradientRateChallenge,
+  interpretingLinearGraphsChallenge as y8InterpretingLinearChallenge,
+  rightAngledTrianglesPythagorasChallenge as y8RightAngledPythagChallenge,
+  findingHypotenuseChallenge as y8FindingHypotenuseChallenge,
+  findingShorterSideChallenge as y8FindingShorterSideChallenge,
+  pythagorasRealContextsChallenge as y8PythagRealContextsChallenge,
+  pythagoreanTriplesChallenge as y8PythagoreanTriplesChallenge,
+  distanceBetweenPointsChallenge as y8DistanceBetweenPointsChallenge,
+} from "./year8LinearPythagoras";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -785,6 +799,19 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/two-step-chance-experiments": twoStepChanceExperimentsChallenge,
   "year-7-mathematics/relative-frequency": relativeFrequencyChallenge,
   "year-7-mathematics/expected-outcomes": expectedOutcomesChallenge,
+  // Year 8 — Wave 1 (linear-relationships, pythagoras-theorem).
+  "year-8-mathematics/number-patterns-and-rules": y8NumberPatternsRulesChallenge,
+  "year-8-mathematics/coordinates-and-points": y8CoordinatesPointsChallenge,
+  "year-8-mathematics/tables-of-values": y8TablesOfValuesChallenge,
+  "year-8-mathematics/graphing-linear-relationships": y8GraphingLinearChallenge,
+  "year-8-mathematics/gradient-as-rate-of-change": y8GradientRateChallenge,
+  "year-8-mathematics/interpreting-linear-graphs": y8InterpretingLinearChallenge,
+  "year-8-mathematics/right-angled-triangles-pythagoras": y8RightAngledPythagChallenge,
+  "year-8-mathematics/finding-the-hypotenuse": y8FindingHypotenuseChallenge,
+  "year-8-mathematics/finding-a-shorter-side": y8FindingShorterSideChallenge,
+  "year-8-mathematics/pythagoras-real-contexts": y8PythagRealContextsChallenge,
+  "year-8-mathematics/pythagorean-triples": y8PythagoreanTriplesChallenge,
+  "year-8-mathematics/distance-between-two-points": y8DistanceBetweenPointsChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so

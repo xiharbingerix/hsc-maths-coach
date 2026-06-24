@@ -5842,12 +5842,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Establish the Cartesian plane and linear graph fluency required for Year 9 constant rates of change and Year 10 linear relationships.",
         lessons: [
-          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules" },
-          { slug: "coordinates-and-points",         title: "Coordinates and Points" },
-          { slug: "tables-of-values",               title: "Tables of Values" },
-          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships" },
-          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change" },
-          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs" },
+          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules", pathTag: "core", stableSkillId: "y8-number-patterns-and-rules", skillCheckpoints: [{ stableCheckpointId: "y8-number-patterns-and-rules-c1", label: "Find and apply rules for number patterns" }] },
+          { slug: "coordinates-and-points",         title: "Coordinates and Points", pathTag: "consolidating", stableSkillId: "y8-coordinates-and-points", skillCheckpoints: [{ stableCheckpointId: "y8-coordinates-and-points-c1", label: "Plot and use points on the Cartesian plane" }] },
+          { slug: "tables-of-values",               title: "Tables of Values", pathTag: "core", stableSkillId: "y8-tables-of-values", skillCheckpoints: [{ stableCheckpointId: "y8-tables-of-values-c1", label: "Build tables of values from a rule" }] },
+          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships", pathTag: "core", stableSkillId: "y8-graphing-linear-relationships", skillCheckpoints: [{ stableCheckpointId: "y8-graphing-linear-relationships-c1", label: "Graph linear relationships and find intercepts" }] },
+          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change", pathTag: "extending", stableSkillId: "y8-gradient-as-rate-of-change", skillCheckpoints: [{ stableCheckpointId: "y8-gradient-as-rate-of-change-c1", label: "Find and interpret gradient as a rate" }] },
+          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs", pathTag: "extending", stableSkillId: "y8-interpreting-linear-graphs", skillCheckpoints: [{ stableCheckpointId: "y8-interpreting-linear-graphs-c1", label: "Interpret and solve from linear graphs" }] },
         ],
       },
       {
@@ -5859,12 +5859,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Develop Pythagoras fluency as the direct prerequisite for Year 9 working with triangles and trigonometric ratios.",
         lessons: [
-          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras" },
-          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse" },
-          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side" },
-          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts" },
-          { slug: "pythagorean-triples",             title: "Pythagorean Triples" },
-          { slug: "distance-between-two-points",      title: "Distance Between Two Points" },
+          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras", pathTag: "core", stableSkillId: "y8-right-angled-triangles-pythagoras", skillCheckpoints: [{ stableCheckpointId: "y8-right-angled-triangles-pythagoras-c1", label: "Apply Pythagoras' theorem" }] },
+          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse", pathTag: "core", stableSkillId: "y8-finding-the-hypotenuse", skillCheckpoints: [{ stableCheckpointId: "y8-finding-the-hypotenuse-c1", label: "Find the hypotenuse" }] },
+          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side", pathTag: "core", stableSkillId: "y8-finding-a-shorter-side", skillCheckpoints: [{ stableCheckpointId: "y8-finding-a-shorter-side-c1", label: "Find a shorter side" }] },
+          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts", pathTag: "extending", stableSkillId: "y8-pythagoras-real-contexts", skillCheckpoints: [{ stableCheckpointId: "y8-pythagoras-real-contexts-c1", label: "Apply Pythagoras in real contexts" }] },
+          { slug: "pythagorean-triples",             title: "Pythagorean Triples", pathTag: "extending", stableSkillId: "y8-pythagorean-triples", skillCheckpoints: [{ stableCheckpointId: "y8-pythagorean-triples-c1", label: "Recognise and use Pythagorean triples" }] },
+          { slug: "distance-between-two-points",      title: "Distance Between Two Points", pathTag: "extending", stableSkillId: "y8-distance-between-two-points", skillCheckpoints: [{ stableCheckpointId: "y8-distance-between-two-points-c1", label: "Find the distance between two points" }] },
         ],
       },
       {
