@@ -201,3 +201,19 @@ export const quadraticAx2cY9Challenge: PracticeQuestion[] = [
   q("y9c-q-11", "Solve 9x² = 1. Give the positive solution as a fraction.", "9x^2=1", "1/3", "x² = 1/9 → x = 1/3.", ["1 / 3"]),
   q("y9c-q-12", "Solve x²/5 = 20. Give the positive solution.", "\\tfrac{x^2}{5}=20", "10", "x² = 100 → x = 10.", []),
 ];
+
+// linear-equations-involving-fractions (core) — Year 9 Core conformance, Cambridge 3F
+export const linearEquationsFractionsY9Challenge: PracticeQuestion[] = [
+  q("y9c-lef-1", "Solve x/2 + x/3 + x/4 = 13.", "\\tfrac{x}{2}+\\tfrac{x}{3}+\\tfrac{x}{4}=13", "12", "×12: 6x + 4x + 3x = 156 → 13x = 156 → x = 12.", xv("12")),
+  q("y9c-lef-2", "Solve (3x − 1)/2 = x + 4.", "\\tfrac{3x-1}{2}=x+4", "9", "×2: 3x − 1 = 2x + 8 → x = 9.", xv("9")),
+  q("y9c-lef-3", "Solve (x + 5)/2 − (x − 3)/4 = 4.", "\\tfrac{x+5}{2}-\\tfrac{x-3}{4}=4", "3", "×4: 2(x + 5) − (x − 3) = 16 → x + 13 = 16 → x = 3.", xv("3")),
+  q("y9c-lef-4", "Solve x/2 + (3x + 1)/4 = 9.", "\\tfrac{x}{2}+\\tfrac{3x+1}{4}=9", "7", "×4: 2x + 3x + 1 = 36 → 5x = 35 → x = 7.", xv("7")),
+  q("y9c-lef-5", "Solve (4x − 5)/3 = (x + 5)/2.", "\\tfrac{4x-5}{3}=\\tfrac{x+5}{2}", "5", "×6: 2(4x − 5) = 3(x + 5) → 8x − 10 = 3x + 15 → 5x = 25 → x = 5.", xv("5")),
+  q("y9c-lef-6", "Solve 2x/5 + x/2 = 9.", "\\tfrac{2x}{5}+\\tfrac{x}{2}=9", "10", "×10: 4x + 5x = 90 → 9x = 90 → x = 10.", xv("10")),
+  q("y9c-lef-7", "Solve (x − 2)/3 + (x + 4)/6 = 3.", "\\tfrac{x-2}{3}+\\tfrac{x+4}{6}=3", "6", "×6: 2(x − 2) + (x + 4) = 18 → 3x = 18 → x = 6.", xv("6")),
+  q("y9c-lef-8", "Solve (5x + 2)/3 − x = 4.", "\\tfrac{5x+2}{3}-x=4", "5", "×3: 5x + 2 − 3x = 12 → 2x = 10 → x = 5.", xv("5")),
+  q("y9c-lef-9", "Solve (x + 1)/2 + (x + 1)/3 + (x + 1)/6 = 4.", "\\tfrac{x+1}{2}+\\tfrac{x+1}{3}+\\tfrac{x+1}{6}=4", "3", "×6: 6(x + 1) = 24 → x + 1 = 4 → x = 3.", xv("3")),
+  q("y9c-lef-10", "Solve (2x − 7)/3 = (x − 2)/2.", "\\tfrac{2x-7}{3}=\\tfrac{x-2}{2}", "8", "×6: 2(2x − 7) = 3(x − 2) → 4x − 14 = 3x − 6 → x = 8.", xv("8")),
+  q("y9c-lef-11", "Solve (x + 7)/2 − (x − 1)/3 = 5.", "\\tfrac{x+7}{2}-\\tfrac{x-1}{3}=5", "7", "×6: 3(x + 7) − 2(x − 1) = 30 → x + 23 = 30 → x = 7.", xv("7")),
+  q("y9c-lef-12", "Solve x/2 − x/5 = 3.", "\\tfrac{x}{2}-\\tfrac{x}{5}=3", "10", "×10: 5x − 2x = 30 → 3x = 30 → x = 10.", xv("10")),
+];

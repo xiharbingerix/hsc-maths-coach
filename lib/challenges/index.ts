@@ -161,6 +161,7 @@ import {
   eliminationY9Challenge,
   simProblemsY9Challenge,
   quadraticAx2cY9Challenge,
+  linearEquationsFractionsY9Challenge,
 } from "./year9Chapter2";
 import {
   pythTheoremY9Challenge,
@@ -229,6 +230,7 @@ import {
   groupingY9Challenge,
   iqrY9Challenge,
   boxPlotY9Challenge,
+  interpretingDataY9Challenge,
 } from "./year9Chapter8";
 import {
   ebpY9Challenge,
@@ -424,6 +426,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/simultaneous-equations-problems": simProblemsY9Challenge,
   "year-9-mathematics/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
   "year-9-mathematics-advanced/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
+  // Year 9 Core conformance — net-new core section 3F (all 3 courses)
+  "year-9-mathematics/linear-equations-involving-fractions": linearEquationsFractionsY9Challenge,
+  "year-9-mathematics-core/linear-equations-involving-fractions": linearEquationsFractionsY9Challenge,
+  "year-9-mathematics-advanced/linear-equations-involving-fractions": linearEquationsFractionsY9Challenge,
   // Year 9 Wave 4 — Chapter 3 (Pythagoras & Trigonometry). consolidating → Core only;
   // path (pythagoras-3d-problems) → base + advanced; core → all three derived courses.
   "year-9-mathematics-core/pythagoras-theorem": pythTheoremY9Challenge,
@@ -562,6 +568,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics/box-plots": boxPlotY9Challenge,
   "year-9-mathematics-core/box-plots": boxPlotY9Challenge,
   "year-9-mathematics-advanced/box-plots": boxPlotY9Challenge,
+  // Year 9 Core conformance — net-new core section 10G (all 3 courses)
+  "year-9-mathematics/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
+  "year-9-mathematics-core/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
+  "year-9-mathematics-advanced/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
   // Year 9 Wave 10 — Chapter 9 (Quadratic Expressions & Algebraic Techniques). All 11 sections are
   // path-tagged → base + advanced only.
   "year-9-mathematics/expanding-binomial-products": ebpY9Challenge,
