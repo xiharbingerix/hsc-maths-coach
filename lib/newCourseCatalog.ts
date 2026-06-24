@@ -5718,11 +5718,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus: "Build geometric reasoning with angles before congruence, similarity and coordinate geometry.",
         lessons: [
-          { slug: "angle-types-and-relationships",     title: "Angle Types and Relationships" },
-          { slug: "angles-in-triangles",               title: "Angles in Triangles" },
-          { slug: "angles-in-quadrilaterals",          title: "Angles in Quadrilaterals" },
-          { slug: "parallel-lines-and-transversals",   title: "Parallel Lines and Transversals" },
-          { slug: "angle-relationships-problem-solving", title: "Angle Relationships Problem Solving" },
+          { slug: "angle-types-and-relationships",     title: "Angle Types and Relationships", pathTag: "core", stableSkillId: "y7-angle-types-and-relationships", skillCheckpoints: [{ stableCheckpointId: "y7-angle-types-and-relationships-c1", label: "Use complementary, supplementary and angles at a point" }] },
+          { slug: "angles-in-triangles",               title: "Angles in Triangles", pathTag: "core", stableSkillId: "y7-angles-in-triangles", skillCheckpoints: [{ stableCheckpointId: "y7-angles-in-triangles-c1", label: "Find unknown angles in triangles" }] },
+          { slug: "angles-in-quadrilaterals",          title: "Angles in Quadrilaterals", pathTag: "core", stableSkillId: "y7-angles-in-quadrilaterals", skillCheckpoints: [{ stableCheckpointId: "y7-angles-in-quadrilaterals-c1", label: "Find unknown angles in quadrilaterals" }] },
+          { slug: "parallel-lines-and-transversals",   title: "Parallel Lines and Transversals", pathTag: "core", stableSkillId: "y7-parallel-lines-and-transversals", skillCheckpoints: [{ stableCheckpointId: "y7-parallel-lines-and-transversals-c1", label: "Use corresponding, alternate and co-interior angles" }] },
+          { slug: "angle-relationships-problem-solving", title: "Angle Relationships Problem Solving", pathTag: "extending", stableSkillId: "y7-angle-relationships-problem-solving", skillCheckpoints: [{ stableCheckpointId: "y7-angle-relationships-problem-solving-c1", label: "Solve multi-step angle problems" }] },
         ],
       },
       {
@@ -5746,11 +5746,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "MA4-RAT-C-01 — ratios and rates complete the Stage 4 number content.",
         lessons: [
-          { slug: "introduction-to-ratios",       title: "Introduction to Ratios" },
-          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio" },
-          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates" },
-          { slug: "speed-distance-time",          title: "Speed, Distance and Time" },
-          { slug: "scale-drawings",               title: "Scale Drawings" },
+          { slug: "introduction-to-ratios",       title: "Introduction to Ratios", pathTag: "core", stableSkillId: "y7-introduction-to-ratios", skillCheckpoints: [{ stableCheckpointId: "y7-introduction-to-ratios-c1", label: "Write and simplify ratios" }] },
+          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio", pathTag: "core", stableSkillId: "y7-dividing-quantities-in-ratio", skillCheckpoints: [{ stableCheckpointId: "y7-dividing-quantities-in-ratio-c1", label: "Divide a quantity in a given ratio" }] },
+          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates", pathTag: "core", stableSkillId: "y7-rates-and-unit-rates", skillCheckpoints: [{ stableCheckpointId: "y7-rates-and-unit-rates-c1", label: "Calculate and use rates" }] },
+          { slug: "speed-distance-time",          title: "Speed, Distance and Time", pathTag: "extending", stableSkillId: "y7-speed-distance-time", skillCheckpoints: [{ stableCheckpointId: "y7-speed-distance-time-c1", label: "Use the speed-distance-time relationship" }] },
+          { slug: "scale-drawings",               title: "Scale Drawings", pathTag: "extending", stableSkillId: "y7-scale-drawings", skillCheckpoints: [{ stableCheckpointId: "y7-scale-drawings-c1", label: "Use scales in drawings and maps" }] },
         ],
       },
       {
