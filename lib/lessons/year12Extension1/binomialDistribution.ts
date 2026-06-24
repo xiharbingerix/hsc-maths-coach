@@ -142,6 +142,18 @@ const bernoulliTrials: Partial<ExplicitLesson> = {
       "q is the complement of p."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-binomial-bern-pool-d5-1",
+      prompt: "For X ~ B(4, 0.5), find P(X = 2).",
+      latex: "X \\sim B(4, 0.5)",
+      answer: "0.375",
+      acceptedAnswers: ["3/8"],
+      hint: "P(X=2) = C(4,2) p² (1−p)².",
+      explanation: "P(X=2) = 6 · (0.5)² · (0.5)² = 6 · 0.0625 = 0.375.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -244,6 +256,18 @@ const binomialProbabilities: Partial<ExplicitLesson> = {
       "q is 1 minus p."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-binomial-prob-pool-d5-1",
+      prompt: "For X ~ B(3, 1/3), find P(X = 0).",
+      latex: "X \\sim B(3, \\tfrac{1}{3})",
+      answer: "8/27",
+      acceptedAnswers: ["0.296", "0.2963"],
+      hint: "P(X=0) = (1−p)³ with 1−p = 2/3.",
+      explanation: "P(X=0) = (2/3)³ = 8/27.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -339,6 +363,18 @@ const meanVariance: Partial<ExplicitLesson> = {
       ["12/5"],
       "Use q=0.8 and npq = 15 \\times 0.2 \\times 0.8."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-binomial-mean-pool-d5-1",
+      prompt: "For X ~ B(20, 0.3), find the mean.",
+      latex: "X \\sim B(20, 0.3)",
+      answer: "6",
+      acceptedAnswers: [],
+      hint: "Mean = np.",
+      explanation: "E(X) = np = 20 × 0.3 = 6.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 
@@ -492,6 +528,18 @@ const examPractice: Partial<ExplicitLesson> = {
       ["1/32"],
       "Use q^5 with q = 0.5."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-binomial-exam-pool-d5-1",
+      prompt: "For X ~ B(20, 0.3), find the variance.",
+      latex: "X \\sim B(20, 0.3)",
+      answer: "4.2",
+      acceptedAnswers: ["21/5"],
+      hint: "Variance = np(1−p).",
+      explanation: "Var(X) = np(1−p) = 20 × 0.3 × 0.7 = 4.2.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };

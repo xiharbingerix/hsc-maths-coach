@@ -776,3 +776,40 @@ phase-relationship exemplar for Ext1.
 **Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 18, D6 6,
 all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min (4 lessons → mild single-topic
 concentration, per the accepted small-topic ruling).
+
+---
+
+## Y12 Extension 1 — binomial-distribution [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #3 upgraded — complement-probability layer). Authored +
+verified; awaiting user commit. 7 lessons (bernoulli-trials, binomial-probabilities, mean-and-variance,
+binomial-exam-practice, sampling-distribution-mean, central-limit-theorem, binomial-revision). Before: D5 9,
+D6 1 (multipart, retained).
+
+**D6 archetype table (6; single-answer; ≤2/lesson; no coefficient grind):**
+1. Parameter reconstruction [mean-and-variance] — X~B(n,p), mean 12, var 3 → n=16 (1−p = Var/mean = 0.25).
+2. Parameter reconstruction [sampling-distribution-mean] — pop var 36, sample-mean var 4 → n=9 (Var(x̄)=σ²/n).
+3. **[UPGRADED]** Tail/probability constraint [binomial-probabilities] — X~B(n,1/3), P(X≥1)=65/81 → n=4
+   (complement: 1−(2/3)ⁿ=65/81 ⟹ (2/3)ⁿ=16/81=(2/3)⁴).
+4. Expectation/variance interaction [mean-and-variance] — X~B(n,0.4), var 2.4 → E(2X−1)=7 (n=10, E=4).
+5. Validity/contradiction [exam] — claimed mean 6 & var 8 → 1−p=4/3 (>1 ⟹ p<0, impossible; Var<mean always).
+6. Model comparison/equivalence [exam] — B(12,0.5) vs B(n,0.25) equal variance → n=16 (3 = 0.1875n).
+
+**Coverage vs gates:** parameter reconstruction 2 (#1,#2); probability/tail constraint 1 (#3);
+expectation/variance interaction 1 (#4); validity/contradiction 1 (#5); model comparison/equivalence 1 (#6).
+Reverse-reasoning = 6. No archetype > 2. No binomial-coefficient grind.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** B(4,0.5) P(X=2) (0.375); B(3,1/3) P(X=0) (8/27);
+B(20,0.3) mean (6); B(20,0.3) variance (4.2); pop var 50 with n=10, Var(x̄) (5); CLT z-score (1).
+
+**Reject list:** binomial-coefficient expansion as difficulty; direct P(X=k) evaluation; single-step np=mean
+or np(1−p)=var; direct mean/variance plug-in; any item that is just arithmetic once the formula is identified.
+
+**Before → after:** D5 9→15; D6-single 0→6 ⟹ replay-ready ✅ (existing 1 multipart D6 retained → D6 total 7).
+
+**Domain-richness note:** difficulty carried by reconstructing n/p from moments or tail probabilities,
+interacting expectation with variance and a linear transform, exposing an impossible binomial via Var < mean,
+and comparing two models by equal variance — not by grinding coefficients. Ext1 probability-distribution exemplar.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 15, D6-single 6,
++1 mp retained); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min, max/subtopic 4 across 7 subtopics.

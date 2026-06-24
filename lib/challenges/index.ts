@@ -30,6 +30,9 @@ import {
   simpleInterestChallenge,
   speedDistanceTimeChallenge,
   fiveNumberSummaryChallenge,
+  summaryStatsDisplaysChallenge,
+  outlierEffectChallenge,
+  groupedDataChallenge,
 } from "./year11Standard";
 import {
   combinationsChallenge,
@@ -135,6 +138,12 @@ import {
   kinMotionAnalysisChallenge,
   kinExamChallenge,
 } from "./year12Extension1Kinematics";
+import {
+  bdMeanVarianceChallenge,
+  bdSamplingChallenge,
+  bdProbabilitiesChallenge,
+  bdExamChallenge,
+} from "./year12Extension1BinomialDistribution";
 import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
@@ -302,6 +311,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "kinematics-displacement-from-velocity": kinDisplacementChallenge,
   "kinematics-motion-analysis": kinMotionAnalysisChallenge,
   "kinematics-exam-practice": kinExamChallenge,
+  // Year 12 Extension 1 — Binomial Distribution high-difficulty pool (per-lesson, ≤2 each)
+  "mean-and-variance": bdMeanVarianceChallenge,
+  "sampling-distribution-mean": bdSamplingChallenge,
+  "binomial-probabilities": bdProbabilitiesChallenge,
+  "binomial-exam-practice": bdExamChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
@@ -316,6 +330,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "simple-interest": simpleInterestChallenge,
   "speed-distance-time": speedDistanceTimeChallenge,
   "box-plots-five-number-summary": fiveNumberSummaryChallenge,
+  // Year 11 Standard — Data Analysis high-difficulty pools. Course-scoped keys so shared lesson
+  // slugs (e.g. data-displays-summary-statistics, also used by Year 12 Standard 1) stay separate.
+  "year-11-standard/data-displays-summary-statistics": summaryStatsDisplaysChallenge,
+  "year-11-standard/interpreting-data-outliers": outlierEffectChallenge,
+  "year-11-standard/grouped-data-frequency-tables": groupedDataChallenge,
   // Year 11 Extension
   combinations: combinationsChallenge,
   "roots-and-coefficients": [
