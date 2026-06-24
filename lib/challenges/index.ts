@@ -259,6 +259,16 @@ import {
   indicialEquationsChallenge as y8IndicialEquationsChallenge,
 } from "./year8AlgebraIndices";
 import {
+  meanMedianModeRangeChallenge as y8MeanMedianModeRangeChallenge,
+  comparingDataDisplaysChallenge as y8ComparingDataDisplaysChallenge,
+  stemAndLeafPlotsChallenge as y8StemAndLeafPlotsChallenge,
+  quartilesIqrChallenge as y8QuartilesIqrChallenge,
+  outliersInterpretationChallenge as y8OutliersInterpretationChallenge,
+  boxPlotsChallenge as y8BoxPlotsChallenge,
+  comparingBoxPlotsChallenge as y8ComparingBoxPlotsChallenge,
+  shapeOfDistributionsChallenge as y8ShapeOfDistributionsChallenge,
+} from "./year8Data";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -864,6 +874,15 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-8-mathematics/advanced-index-manipulation": y8AdvancedIndexChallenge,
   "year-8-mathematics/algebraic-bases": y8AlgebraicBasesChallenge,
   "year-8-mathematics/indicial-equations": y8IndicialEquationsChallenge,
+  // Year 8 — Wave 4 (data-and-graphs).
+  "year-8-mathematics/mean-median-mode-range": y8MeanMedianModeRangeChallenge,
+  "year-8-mathematics/comparing-data-displays": y8ComparingDataDisplaysChallenge,
+  "year-8-mathematics/stem-and-leaf-plots": y8StemAndLeafPlotsChallenge,
+  "year-8-mathematics/quartiles-and-iqr": y8QuartilesIqrChallenge,
+  "year-8-mathematics/outliers-and-interpretation": y8OutliersInterpretationChallenge,
+  "year-8-mathematics/box-plots": y8BoxPlotsChallenge,
+  "year-8-mathematics/comparing-data-with-box-plots": y8ComparingBoxPlotsChallenge,
+  "year-8-mathematics/shape-of-distributions": y8ShapeOfDistributionsChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
