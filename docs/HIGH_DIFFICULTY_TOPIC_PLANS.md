@@ -603,3 +603,51 @@ reading the unit circle or plugging a formula forward. Completes the Y12 Advance
 slug. A 14-Q `harder` worksheet will draw up to 6 from that single subtopic — this is purely a
 generation-scope artifact of the smallest topic in the program, not an authoring gap (cf. ma-s3/ma-t3, more
 pronounced here).
+
+---
+
+## vectors (Year 12 Extension 1) — Domain: Vectors — Target: 6 D5 + 6 D6 — ✅ AUTHORED (2026-06-24)
+
+First **senior Extension** topic in the program. P1, zero-D6. **4 lessons**
+(`vectors-scalars-notation`, `vector-addition-subtraction`, `dot-product`,
+`vector-projections-applications`). Before: **D5 29 / D6-single 0**. Difficulty carried by
+vector STRUCTURE — geometric reconstruction, dot-product/projection identities used abstractly
+(proof without coordinate grind), parameterised lines, perpendicular/parallel & collinearity
+constraints, ratio/section reasoning.
+
+**Supervisor mods applied:** #4 made reverse (recover endpoint B); #5 upgraded to parameter recovery
+(intersection forced onto the x-axis); #6 replaced with genuine projection + perpendicular
+decomposition so projection is materially used. **Projection-dependent D6 = 1** (#6);
+**proof-without-coordinate-grind = 2** (#2, #6). D5 → the four override partials' `masteryQuizPool`;
+D6 → `lib/challenges/year12Extension1Vectors.ts` (4 sets, ≤2 per lesson).
+
+**D6 archetype table (6; all single-answer, auto-markable):**
+1. **Perpendicular-constraint reconstruction** — a = 2i + 3j, b = i − j; find λ so that a + λb ⊥ b → **1/2** (expand (a + λb)·b = 0 ⟹ a·b + λ|b|² = 0).
+2. **Abstract dot-product identity (proof, no coordinates)** — |a| = 3, |b| = 4, a·b = 6; find |a + b| → **√37** (|a+b|² = |a|² + 2a·b + |b|²).
+3. **Collinearity reconstruction** — A(1, 2), B(4, 6), C(k, 14) are collinear; find k → **10** (AB ∥ AC ⟹ 3·12 = 4(k−1)).
+4. **Ratio/section reconstruction (reverse)** *(upgraded)* — P(5, 4) divides AB with AP : PB = 2 : 1, A(1, 2); recover B → **(7, 5)** (invert P = A + ⅔(B − A)).
+5. **Parameterised-line parameter recovery** *(upgraded)* — r = (1, 0) + t(2, 1) and r = (a, 3) + s(−1, 1) intersect on the x-axis; find a → **−2**.
+6. **Projection + perpendicular decomposition (proof)** *(upgraded)* — |a| = 5, scalar projection of a onto b = 4; find the magnitude of the component of a perpendicular to b → **3** (√(5² − 4²)).
+
+**Coverage vs gates:** perpendicular constraint 1 (#1); abstract dot-product identity 1 (#2);
+parallel/collinearity 1 (#3); ratio/section reverse 1 (#4); parameterised-line parameter recovery 1 (#5);
+projection + perpendicular decomposition 1 (#6) — all distinct, none > 2.
+**Reverse-reasoning ≥4** = #1 (find λ), #3 (find k), #4 (recover B), #5 (recover a).
+**Projection-dependent = 1** (#6). **Proof-without-coordinate-grind = 2** (#2, #6).
+
+**D5 archetype table (6; single-answer):** |(−6, 8)| (10); (2, 3)·(4, −1) (5); find k so (2, k) ⊥ (3, −6) (1);
+|(1, 2) + (3, 4)| (2√13); scalar projection of (3, 4) onto (1, 0) (3); cos of the angle between (1, 1) and (1, 0) (√2/2).
+
+**Reject list:** compute a magnitude / dot product / sum in one step as the whole task; state "parallel ⟺ scalar
+multiple" without using it; forward projection plug-in; read perpendicularity off given perpendicular vectors;
+any item that is arithmetic once the vector operation is identified.
+
+**Before → after:** D5 29→35; D6-single 0→6 ⟹ replay-ready ✅.
+
+**Domain-richness note:** difficulty carried by vector structure — abstract dot-product/magnitude identities
+(no coordinates), geometric reconstruction (collinearity, section), parameterised-line intersection, and
+perpendicular/parallel constraints solved backwards — not coordinate arithmetic. First Extension-domain
+exemplar.
+
+**Small-topic note:** 4 lessons → 6 D6 sit ~1–2 per lesson (mild concentration, comparable to ma-f2; far less
+than the 1–2-lesson trig topics).

@@ -112,6 +112,12 @@ import {
 } from "./year12AdvancedTrigEquations";
 import { trigMeasureChallenge } from "./year12AdvancedTrigMeasure";
 import {
+  vectorsCollinearityChallenge,
+  vectorsGeometryChallenge,
+  vectorsDotProductChallenge,
+  vectorsProjectionChallenge,
+} from "./year12Extension1Vectors";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -258,6 +264,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "inverse-trig": inverseTrigChallenge,
   vectors: vectorsChallenge,
   "intro-to-mathematical-induction": inductionChallenge,
+  // Year 12 Extension 1 — Vectors high-difficulty pool (per-lesson, ≤2 each)
+  "vectors-scalars-notation": vectorsCollinearityChallenge,
+  "vector-addition-subtraction": vectorsGeometryChallenge,
+  "dot-product": vectorsDotProductChallenge,
+  "vector-projections-applications": vectorsProjectionChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
