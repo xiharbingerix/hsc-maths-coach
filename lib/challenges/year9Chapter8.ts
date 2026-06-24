@@ -201,3 +201,19 @@ export const boxPlotY9Challenge: PracticeQuestion[] = [
   q("y9c-bp-11", "A box plot has min 3 and max 28. Find the range.", "range", "25", "28 − 3 = 25.", []),
   q("y9c-bp-12", "A box plot has Q1 12 and Q3 40. Find the IQR.", "iqr", "28", "40 − 12 = 28.", []),
 ];
+
+// interpreting-data-from-tables-and-graphs (core) — Year 9 Core conformance, Cambridge 10G
+export const interpretingDataY9Challenge: PracticeQuestion[] = [
+  q("y9c-idt-1", "A frequency table: 5→3, 6→5, 7→8, 8→4. Find the mean, to 1 decimal place.", "", "6.7", "Σ(f×value) = 15 + 30 + 56 + 32 = 133; Σf = 20; mean = 133 ÷ 20 = 6.65 ≈ 6.7.", ["6.65"]),
+  q("y9c-idt-2", "A sector graph represents 720 people; the 'walk' sector is 120°. How many walk?", "", "240", "120 ÷ 360 × 720 = 240 people.", ["240 people"]),
+  q("y9c-idt-3", "A line graph shows a population growing by a constant percentage: 2018 = 4000, 2019 = 4400, 2020 = 4840. Predict the 2021 population.", "", "5324", "Each year ×1.1 (10% growth): 4840 × 1.1 = 5324.", []),
+  q("y9c-idt-4", "Class A: 25 students, mean 64. Class B: 15 students, mean 72. Find the combined mean of all 40 students.", "", "67", "Totals 1600 and 1080; combined 2680 ÷ 40 = 67.", ["67 marks"]),
+  q("y9c-idt-5", "A column graph shows quarterly sales ($000s): Q1 200, Q2 250, Q3 300, Q4 250. What percentage of the year's total came from Q3?", "", "30", "Total = 1000; Q3 = 300; 300 ÷ 1000 × 100 = 30%.", ["30%"]),
+  q("y9c-idt-6", "A frequency table: 1→2, 2→4, 3→6, 4→8 (20 values). Find the median.", "", "3", "Median = average of 10th and 11th values; cumulative 2, 6, 12, 20, so both lie in value 3.", []),
+  q("y9c-idt-7", "A travel survey of 50 students: 40% bus, 30% car, 30% walk. How many more take the bus than walk?", "", "5", "Bus = 20, walk = 15; 20 − 15 = 5.", ["5 students"]),
+  q("y9c-idt-8", "A line graph shows temperature falling steadily from 30°C at noon to 18°C at 6 pm. Find the average rate of fall per hour (°C/h).", "", "2", "(30 − 18) ÷ 6 = 12 ÷ 6 = 2 °C per hour.", ["2°C/h"]),
+  q("y9c-idt-9", "A divided bar graph of 200 students shows art 90, music 70, drama 40. What fraction chose music? Give the simplest fraction.", "", "7/20", "70 ÷ 200 = 7/20.", ["0.35"]),
+  q("y9c-idt-10", "A column graph shows sales doubling each month from $50: month 1 = 50, then 100, 200, 400. Find the total over the four months.", "", "750", "50 + 100 + 200 + 400 = 750.", ["$750"]),
+  q("y9c-idt-11", "A sector graph of 240 people shows sport 90°, music 120°, art 60°, and the rest 'other'. How many people are in 'other'?", "", "60", "Other angle = 360 − (90 + 120 + 60) = 90°; 90 ÷ 360 × 240 = 60.", ["60 people"]),
+  q("y9c-idt-12", "A table shows town populations: A 1000, B 800, C 1500, D 700. What percentage of the total lives in town C?", "", "37.5", "Total = 4000; C = 1500; 1500 ÷ 4000 × 100 = 37.5%.", ["37.5%"]),
+];

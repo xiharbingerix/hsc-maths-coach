@@ -274,9 +274,81 @@ const linearInequalities: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// ── linear-equations-involving-fractions (core) ────────────────────────────────────────
+// Cambridge Core & Standard Paths Year 9, 3F. Net-new Core section (Year 9 Core conformance).
+const linearEquationsInvolvingFractions: Partial<ExplicitLesson> = {
+  description: "Solve linear equations involving fractions by clearing denominators with the lowest common denominator.",
+  learningIntention: "Clear fractions from a linear equation and solve.",
+  successCriteria: [
+    "Solve x/a = b by multiplying both sides by a.",
+    "Clear a single fraction such as (x + c)/a = b.",
+    "Clear two fractions by multiplying every term by the lowest common denominator (LCD).",
+    "Check the solution by substituting back.",
+  ],
+  teaching: {
+    paragraphs: [
+      "To solve an equation with a fraction, MULTIPLY both sides by the denominator to clear it. For x/4 = 3, multiply both sides by 4: x = 12.",
+      "If a whole expression is over a number, multiply the whole side by that number first. For (x + 2)/5 = 3, multiply by 5: x + 2 = 15, so x = 13.",
+      "When there are TWO fractions with different denominators, multiply EVERY term by the lowest common denominator (LCD). For x/2 + x/3 = 5 the LCD is 6: 3x + 2x = 30, so 5x = 30 and x = 6.",
+      "Multiply every term — including any whole numbers — by the LCD, expand any brackets that appear, then solve and CHECK by substituting back.",
+    ],
+    latexBlocks: ["\\tfrac{x}{4} = 3 \\Rightarrow x = 12", "\\tfrac{x+2}{5} = 3 \\Rightarrow x = 13", "\\tfrac{x}{2} + \\tfrac{x}{3} = 5 \\Rightarrow x = 6"],
+  },
+  workedExamples: [
+    { title: "Single fraction", questionLatex: "\\text{Solve } \\tfrac{x}{3} = 5.", steps: [{ explanation: "Multiply both sides by 3.", latex: "x = 15" }], finalAnswerLatex: "x = 15" },
+    { title: "Expression over a number", questionLatex: "\\text{Solve } \\tfrac{x-1}{4} = 2.", steps: [{ explanation: "Multiply by 4, then add 1.", latex: "x - 1 = 8 \\Rightarrow x = 9" }], finalAnswerLatex: "x = 9" },
+    { title: "Two fractions (LCD)", questionLatex: "\\text{Solve } \\tfrac{x}{2} + \\tfrac{x}{4} = 9.", steps: [{ explanation: "Multiply every term by 4.", latex: "2x + x = 36 \\Rightarrow x = 12" }], finalAnswerLatex: "x = 12" },
+  ],
+  guidedPractice: [
+    ans("y9-lef-g1", "Solve x/5 = 4.", "\\tfrac{x}{5}=4", "20", 2, "Multiply both sides by 5: x = 20.", ["x=20"]),
+    ans("y9-lef-g2", "Solve (x + 3)/2 = 6.", "\\tfrac{x+3}{2}=6", "9", 2, "Multiply by 2: x + 3 = 12, so x = 9.", ["x=9"]),
+    ans("y9-lef-g3", "Solve x/3 + 1 = 4.", "\\tfrac{x}{3}+1=4", "9", 3, "x/3 = 3, so x = 9.", ["x=9"]),
+    mcq("y9-lef-g4", "To solve x/4 = 3, the first step is to multiply both sides by:", "C", ["3", "12", "4", "7"], 2, "Multiply by the denominator, 4, to clear the fraction."),
+  ],
+  independentPractice: [
+    ans("y9-lef-i1", "Solve x/6 = 3.", "\\tfrac{x}{6}=3", "18", 2, "Multiply by 6: x = 18.", ["x=18"]),
+    ans("y9-lef-i2", "Solve (x − 2)/3 = 4.", "\\tfrac{x-2}{3}=4", "14", 3, "x − 2 = 12, so x = 14.", ["x=14"]),
+    ans("y9-lef-i3", "Solve x/2 + x/3 = 10.", "\\tfrac{x}{2}+\\tfrac{x}{3}=10", "12", 3, "×6: 3x + 2x = 60, so 5x = 60 and x = 12.", ["x=12"]),
+    ans("y9-lef-i4", "Solve (2x + 1)/3 = 5.", "\\tfrac{2x+1}{3}=5", "7", 3, "2x + 1 = 15, so 2x = 14 and x = 7.", ["x=7"]),
+    mcq("y9-lef-i5", "The lowest common denominator of x/2 and x/3 is:", "B", ["5", "6", "2", "3"], 2, "The LCD is the smallest number both 2 and 3 divide into, which is 6."),
+  ],
+  masteryQuiz: [
+    ans("y9-lef-m1", "Solve x/7 = 2.", "\\tfrac{x}{7}=2", "14", 2, "Multiply by 7: x = 14.", ["x=14"]),
+    ans("y9-lef-m2", "Solve (x + 4)/2 = 5.", "\\tfrac{x+4}{2}=5", "6", 3, "x + 4 = 10, so x = 6.", ["x=6"]),
+    ans("y9-lef-m3", "Solve x/4 − 1 = 2.", "\\tfrac{x}{4}-1=2", "12", 3, "x/4 = 3, so x = 12.", ["x=12"]),
+    ans("y9-lef-m4", "Solve x/2 + x/5 = 7.", "\\tfrac{x}{2}+\\tfrac{x}{5}=7", "10", 3, "×10: 5x + 2x = 70, so 7x = 70 and x = 10.", ["x=10"]),
+    mcq("y9-lef-m5", "To clear the fraction in (x − 3)/5 = 2, you first:", "C", ["subtract 3", "divide by 5", "multiply both sides by 5", "add 2"], 2, "Multiply both sides by 5 to remove the denominator."),
+    ans("y9-lef-m6", "Solve (3x − 2)/4 = 4.", "\\tfrac{3x-2}{4}=4", "6", 3, "3x − 2 = 16, so 3x = 18 and x = 6.", ["x=6"]),
+    ans("y9-lef-m7", "Solve x/3 = x/4 + 1.", "\\tfrac{x}{3}=\\tfrac{x}{4}+1", "12", 3, "×12: 4x = 3x + 12, so x = 12.", ["x=12"]),
+    ans("y9-lef-m8", "Solve (x + 1)/2 + (x − 1)/3 = 6.", "\\tfrac{x+1}{2}+\\tfrac{x-1}{3}=6", "7", 3, "×6: 3(x + 1) + 2(x − 1) = 36, so 5x + 1 = 36 and x = 7.", ["x=7"]),
+    ans("y9-lef-m9", "Solve 2x/3 = 8.", "\\tfrac{2x}{3}=8", "12", 2, "2x = 24, so x = 12.", ["x=12"]),
+    ans("y9-lef-m10", "Solve (x − 5)/2 = x/4.", "\\tfrac{x-5}{2}=\\tfrac{x}{4}", "10", 3, "×4: 2(x − 5) = x, so 2x − 10 = x and x = 10.", ["x=10"]),
+  ],
+  masteryQuizPool: [
+    ans("y9-lef-p1", "Solve (2x − 1)/3 = (x + 1)/2.", "\\tfrac{2x-1}{3}=\\tfrac{x+1}{2}", "5", 5, "×6: 2(2x − 1) = 3(x + 1), so 4x − 2 = 3x + 3 and x = 5.", ["x=5"]),
+    ans("y9-lef-p2", "Solve x/2 + x/3 + x/6 = 6.", "\\tfrac{x}{2}+\\tfrac{x}{3}+\\tfrac{x}{6}=6", "6", 5, "×6: 3x + 2x + x = 36, so 6x = 36 and x = 6.", ["x=6"]),
+    ans("y9-lef-p3", "Solve (x + 4)/3 = (x − 2)/2.", "\\tfrac{x+4}{3}=\\tfrac{x-2}{2}", "14", 5, "×6: 2(x + 4) = 3(x − 2), so 2x + 8 = 3x − 6 and x = 14.", ["x=14"]),
+    ans("y9-lef-p4", "Solve x/4 + 5 = x/2.", "\\tfrac{x}{4}+5=\\tfrac{x}{2}", "20", 5, "×4: x + 20 = 2x, so x = 20.", ["x=20"]),
+    ans("y9-lef-p5", "Solve (3x + 1)/4 = (x + 3)/2.", "\\tfrac{3x+1}{4}=\\tfrac{x+3}{2}", "5", 5, "×4: 3x + 1 = 2(x + 3) = 2x + 6, so x = 5.", ["x=5"]),
+    ans("y9-lef-p6", "Solve 2x/3 − x/6 = 4.", "\\tfrac{2x}{3}-\\tfrac{x}{6}=4", "8", 5, "×6: 4x − x = 24, so 3x = 24 and x = 8.", ["x=8"]),
+    ans("y9-lef-p7", "Solve (x − 1)/2 + (x + 1)/4 = 5.", "\\tfrac{x-1}{2}+\\tfrac{x+1}{4}=5", "7", 5, "×4: 2(x − 1) + (x + 1) = 20, so 3x − 1 = 20 and x = 7.", ["x=7"]),
+    ans("y9-lef-p8", "Solve (5x − 3)/2 = 2x + 1.", "\\tfrac{5x-3}{2}=2x+1", "5", 5, "×2: 5x − 3 = 4x + 2, so x = 5.", ["x=5"]),
+    ans("y9-lef-p9", "Solve x/3 + (x − 2)/2 = 4.", "\\tfrac{x}{3}+\\tfrac{x-2}{2}=4", "6", 5, "×6: 2x + 3(x − 2) = 24, so 5x − 6 = 24 and x = 6.", ["x=6"]),
+    ans("y9-lef-p10", "Solve (x + 6)/4 = (2x − 3)/3.", "\\tfrac{x+6}{4}=\\tfrac{2x-3}{3}", "6", 5, "×12: 3(x + 6) = 4(2x − 3), so 3x + 18 = 8x − 12 and 5x = 30, x = 6.", ["x=6"]),
+  ],
+  commonMistakes: [
+    { mistake: "Multiplying only the fraction by the denominator, not every term.", fix: "Multiply EVERY term on both sides (including whole numbers) by the LCD." },
+    { mistake: "Using the wrong common denominator for two different fractions.", fix: "The LCD is the smallest number every denominator divides into — e.g. for halves and thirds it is 6." },
+    { mistake: "Forgetting to expand a bracket after clearing, e.g. 3(x + 1).", fix: "After multiplying out, expand each bracket before collecting like terms." },
+    { mistake: "Not checking the solution.", fix: "Substitute your answer back into the original equation to confirm it works." },
+  ],
+  masteryPassMark: 0.8,
+};
+
 const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "linear-equations-one-side": linearEquationsOneSide,
   "linear-equations-both-sides": linearEquationsBothSides,
+  "linear-equations-involving-fractions": linearEquationsInvolvingFractions,
   "solving-word-problems": solvingWordProblems,
   "linear-inequalities": linearInequalities,
 };
