@@ -245,6 +245,20 @@ import {
   volumeOfCompositeSolidsChallenge as y8VolumeCompositeChallenge,
 } from "./year8GeometryMeasurement";
 import {
+  algebraicFractionsChallenge as y8AlgebraicFractionsChallenge,
+  expandingExpressionsChallenge as y8ExpandingExpressionsChallenge,
+  binomialProductsChallenge as y8BinomialProductsChallenge,
+  equivalentExpressionsChallenge as y8EquivalentExpressionsChallenge,
+  negativeIndicesChallenge as y8NegativeIndicesChallenge,
+  scientificNotationLargeChallenge as y8SciNotationLargeChallenge,
+  scientificNotationSmallChallenge as y8SciNotationSmallChallenge,
+  significantFiguresChallenge as y8SignificantFiguresChallenge,
+  operationsScientificNotationChallenge as y8OpsSciNotationChallenge,
+  advancedIndexManipulationChallenge as y8AdvancedIndexChallenge,
+  algebraicBasesChallenge as y8AlgebraicBasesChallenge,
+  indicialEquationsChallenge as y8IndicialEquationsChallenge,
+} from "./year8AlgebraIndices";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -837,6 +851,19 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-8-mathematics/volume-of-prisms": volumeOfPrismsY8Challenge,
   "year-8-mathematics/volume-of-cylinders": volumeOfCylindersY8Challenge,
   "year-8-mathematics/volume-of-composite-solids": y8VolumeCompositeChallenge,
+  // Year 8 — Wave 3 (algebraic-techniques-stage5, index-laws-extension, indices-b).
+  "year-8-mathematics/algebraic-fractions": y8AlgebraicFractionsChallenge,
+  "year-8-mathematics/expanding-expressions": y8ExpandingExpressionsChallenge,
+  "year-8-mathematics/binomial-products": y8BinomialProductsChallenge,
+  "year-8-mathematics/equivalent-expressions": y8EquivalentExpressionsChallenge,
+  "year-8-mathematics/negative-indices": y8NegativeIndicesChallenge,
+  "year-8-mathematics/scientific-notation-large-numbers": y8SciNotationLargeChallenge,
+  "year-8-mathematics/scientific-notation-small-numbers": y8SciNotationSmallChallenge,
+  "year-8-mathematics/significant-figures": y8SignificantFiguresChallenge,
+  "year-8-mathematics/operations-with-scientific-notation": y8OpsSciNotationChallenge,
+  "year-8-mathematics/advanced-index-manipulation": y8AdvancedIndexChallenge,
+  "year-8-mathematics/algebraic-bases": y8AlgebraicBasesChallenge,
+  "year-8-mathematics/indicial-equations": y8IndicialEquationsChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
