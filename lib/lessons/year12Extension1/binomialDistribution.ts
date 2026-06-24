@@ -732,6 +732,18 @@ const meanVariance: Partial<ExplicitLesson> = {
       "Use q=0.8 and npq = 15 \\times 0.2 \\times 0.8."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-binomial-mean-pool-d5-1",
+      prompt: "For X ~ B(20, 0.3), find the mean.",
+      latex: "X \\sim B(20, 0.3)",
+      answer: "6",
+      acceptedAnswers: [],
+      hint: "Mean = np.",
+      explanation: "E(X) = np = 20 × 0.3 = 6.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 
   multiPartPractice: [
@@ -884,6 +896,18 @@ const examPractice: Partial<ExplicitLesson> = {
       ["1/32"],
       "Use q^5 with q = 0.5."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-binomial-exam-pool-d5-1",
+      prompt: "For X ~ B(20, 0.3), find the variance.",
+      latex: "X \\sim B(20, 0.3)",
+      answer: "4.2",
+      acceptedAnswers: ["21/5"],
+      hint: "Variance = np(1−p).",
+      explanation: "Var(X) = np(1−p) = 20 × 0.3 × 0.7 = 4.2.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };

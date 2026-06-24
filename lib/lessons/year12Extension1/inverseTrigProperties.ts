@@ -373,6 +373,18 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
       ["sqrt(1-x^2)", "√(1-x²)", "\\sqrt{1-x^2}"]
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-invprop-pool-d5-1",
+      prompt: "For −1 ≤ x ≤ 1, find the value of arcsin(x) + arccos(x).",
+      latex: "\\arcsin x + \\arccos x",
+      answer: "pi/2",
+      acceptedAnswers: ["\\pi/2", "π/2"],
+      hint: "This is a standard inverse-trig identity, independent of x.",
+      explanation: "arcsin x + arccos x = π/2 for all x in [−1, 1].",
+      difficulty: 5,
+    },
+  ],
 };
 
 export function year12Extension1InverseTrigPropertiesLessonOverride(
