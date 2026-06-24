@@ -5610,11 +5610,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Build fluency with directed numbers and order of operations before extending to algebra.",
         lessons: [
-          { slug: "integers-number-line",           title: "Integers on the Number Line" },
-          { slug: "adding-subtracting-integers",    title: "Adding and Subtracting Integers" },
-          { slug: "multiplying-dividing-integers",  title: "Multiplying and Dividing Integers" },
-          { slug: "order-of-operations-integers",   title: "Order of Operations" },
-          { slug: "integers-problem-solving",       title: "Integer Problem Solving" },
+          { slug: "integers-number-line",           title: "Integers on the Number Line", pathTag: "consolidating", stableSkillId: "y7-integers-number-line", skillCheckpoints: [{ stableCheckpointId: "y7-integers-number-line-c1", label: "Compare, order and locate integers" }] },
+          { slug: "adding-subtracting-integers",    title: "Adding and Subtracting Integers", pathTag: "core", stableSkillId: "y7-adding-subtracting-integers", skillCheckpoints: [{ stableCheckpointId: "y7-adding-subtracting-integers-c1", label: "Add and subtract integers" }] },
+          { slug: "multiplying-dividing-integers",  title: "Multiplying and Dividing Integers", pathTag: "core", stableSkillId: "y7-multiplying-dividing-integers", skillCheckpoints: [{ stableCheckpointId: "y7-multiplying-dividing-integers-c1", label: "Multiply and divide integers" }] },
+          { slug: "order-of-operations-integers",   title: "Order of Operations", pathTag: "core", stableSkillId: "y7-order-of-operations-integers", skillCheckpoints: [{ stableCheckpointId: "y7-order-of-operations-integers-c1", label: "Apply order of operations with integers" }] },
+          { slug: "integers-problem-solving",       title: "Integer Problem Solving", pathTag: "extending", stableSkillId: "y7-integers-problem-solving", skillCheckpoints: [{ stableCheckpointId: "y7-integers-problem-solving-c1", label: "Solve multi-step integer problems" }] },
         ],
       },
       {
