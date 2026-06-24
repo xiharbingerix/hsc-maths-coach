@@ -33,6 +33,7 @@ import {
   summaryStatsDisplaysChallenge,
   outlierEffectChallenge,
   groupedDataChallenge,
+  boxPlotChallenge,
 } from "./year11Standard";
 import {
   combinationsChallenge,
@@ -144,6 +145,12 @@ import {
   bdProbabilitiesChallenge,
   bdExamChallenge,
 } from "./year12Extension1BinomialDistribution";
+import {
+  itPrincipalChallenge,
+  itTangentChallenge,
+  itDifferentiatingChallenge,
+  itPropertiesChallenge,
+} from "./year12Extension1InverseTrig";
 import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
@@ -316,6 +323,11 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "sampling-distribution-mean": bdSamplingChallenge,
   "binomial-probabilities": bdProbabilitiesChallenge,
   "binomial-exam-practice": bdExamChallenge,
+  // Year 12 Extension 1 — Inverse Trigonometric Functions high-difficulty pool (per-lesson, ≤2 each)
+  "inverse-sine-cosine": itPrincipalChallenge,
+  "inverse-tangent": itTangentChallenge,
+  "differentiating-inverse-trig": itDifferentiatingChallenge,
+  "inverse-trig-properties": itPropertiesChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
@@ -335,6 +347,7 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-11-standard/data-displays-summary-statistics": summaryStatsDisplaysChallenge,
   "year-11-standard/interpreting-data-outliers": outlierEffectChallenge,
   "year-11-standard/grouped-data-frequency-tables": groupedDataChallenge,
+  "year-11-standard/box-plots-five-number-summary": boxPlotChallenge,
   // Year 11 Extension
   combinations: combinationsChallenge,
   "roots-and-coefficients": [

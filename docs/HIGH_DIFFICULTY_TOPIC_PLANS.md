@@ -813,3 +813,42 @@ and comparing two models by equal variance — not by grinding coefficients. Ext
 
 **Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 15, D6-single 6,
 +1 mp retained); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min, max/subtopic 4 across 7 subtopics.
+
+---
+
+## Y12 Extension 1 — inverse-trigonometric functions [GPT-approved, authored]
+
+**Status:** GPT approved with one modification (D6 #5 upgraded — parameter constraint). Authored + verified;
+awaiting user commit. 5 lessons (inverse-sine-cosine, inverse-tangent, differentiating-inverse-trig,
+inverse-trig-properties, inverse-trig-revision). Before: D5 15, D6 0. No direct arcsin/arccos/arctan evaluation.
+
+**D6 archetype table (6; single-answer; ≤2/lesson):**
+1. Principal-value composition [inverse-sine-cosine] — arcsin(sin(5π/6)) → π/6 (5π/6 outside [−π/2,π/2]).
+2. Domain reconstruction [differentiating-inverse-trig] — domain length of arcsin(2x−1) → 1.
+3. Inverse-composition + identity interaction [inverse-tangent] — sin(arctan(3/4)+arccos(4/5)) → 24/25
+   (both angles reduce to the same α; sin(2α)).
+4. Parameter reconstruction [inverse-trig-properties] — y = a·arcsin(x) has range [−π,π] → a=2.
+5. **[UPGRADED]** Validity/parameter constraint [inverse-sine-cosine] — arcsin(x)=2k−π has a real solution;
+   interval of k has length → π/2 (need 2k−π ∈ [−π/2,π/2] ⟹ π/4 ≤ k ≤ 3π/4).
+6. Equation/constraint structure [inverse-trig-properties] — arcsin(x)=arccos(x) → √2/2
+   (identity ⟹ 2 arcsin x = π/2).
+
+**Coverage vs gates:** principal-value/domain-range 2 (#1,#2); inverse-composition/identity 1 (#3);
+parameter reconstruction 1 (#4); validity/contradiction 1 (#5); equation/constraint structure 1 (#6).
+Reverse-reasoning = 6. No archetype > 2. No direct arcsin/arccos/arctan evaluation.
+
+**D5 archetype table (6; procedural, ≤2/lesson):** arcsin(√2/2) (π/4); arccos(1/2) (π/3); arctan(1) (π/4);
+derivative of arcsin(x) at x=0 (1); arcsin(x)+arccos(x) (π/2); sin(π/6) (1/2).
+
+**Reject list:** direct arcsin/arccos/arctan evaluation as the difficulty; routine inverse-trig derivative;
+routine exact-value lookup; any item that is just substitution once the function is identified.
+
+**Before → after:** D5 15→21; D6-single 0→6 ⟹ replay-ready ✅ (no existing D6 to retain).
+
+**Domain-richness note:** difficulty carried by principal-value range reasoning, domain reconstruction,
+identity-driven composite evaluation, parameter recovery from a stated range, a parameter constraint from the
+principal range, and identity-converted equation solving — not by evaluating an inverse-trig function. Ext1
+inverse-trig exemplar.
+
+**Verification:** tsc clean; git diff --check clean; collector 12/12 at correct difficulties (D5 21, D6 6,
+all single-answer); worksheet harder/14 = D3×1/D4×3/D5×4/D6×6, ~53.5 min, max/subtopic 4 across 5 subtopics.

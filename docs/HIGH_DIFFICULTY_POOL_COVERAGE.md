@@ -55,7 +55,7 @@
 | year-11-extension | permutations-combinations | 15 | 3 | 3 | 0 | — | P2 |
 | year-11-extension | polynomials | 21 | 9 | 9 | 0 | ✅ | — |
 | year-11-standard | applications-of-measurement | 27 | 0 | 0 | 0 | — | P1 |
-| year-11-standard | data-analysis | 27 | 8 | 8 | 0 | ✅ | — |
+| year-11-standard | data-analysis | 27 | 18 | 18 | 0 | ✅ | — |
 | year-11-standard | exam-practice | 2 | 0 | 0 | 0 | — | P1 |
 | year-11-standard | formulae-equations | 27 | 0 | 0 | 0 | — | P1 |
 | year-11-standard | linear-relationships | 24 | 0 | 0 | 0 | — | P1 |
@@ -82,7 +82,7 @@
 | year-12-extension-1 | calculus-applications | 33 | 7 | 6 | 1 | ✅ | — |
 | year-12-extension-1 | exam-practice | 2 | 3 | 1 | 2 | — | P2 |
 | year-12-extension-1 | further-calculus | 21 | 6 | 6 | 0 | ✅ | — |
-| year-12-extension-1 | inverse-trig | 15 | 0 | 0 | 0 | — | P1 |
+| year-12-extension-1 | inverse-trig | 21 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | kinematics | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | proof-induction | 13 | 3 | 3 | 0 | — | P2 |
 | year-12-extension-1 | vectors | 35 | 6 | 6 | 0 | ✅ | — |
@@ -170,11 +170,11 @@
 
 ## Priority summary
 
-- **P1**: 36
+- **P1**: 35
 - **P2**: 15
 - **P3**: 36
 - **P4**: 35
-- **Replay-ready:** 41
+- **Replay-ready:** 42
 
-**TOTAL: 163 topics · 41 replay-ready · 74 zero-D6.**
+**TOTAL: 163 topics · 42 replay-ready · 73 zero-D6.**
 

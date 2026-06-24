@@ -176,6 +176,28 @@ const inverseSineCosine: Partial<ExplicitLesson> = {
     inverseTrigChoice("y12e1-invsc-m9", "Why is $\\arcsin(1/2)$ not $5\\pi/6$?", "A", ["5pi/6 is outside the arcsin principal range", "5pi/6 has cosine 1/2", "arcsin has no exact values", "1/2 is outside the domain"], "Arcsin chooses the principal angle between -pi/2 and pi/2."),
     inverseTrigChoice("y12e1-invsc-m10", "Which inverse trig graph has domain [-1,1] and decreases?", "B", ["arcsin", "arccos", "arctan", "tan"], "Arccos decreases from pi to 0."),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-invsc-pool-d5-1",
+      prompt: "Evaluate arcsin(√2/2).",
+      latex: "\\arcsin\\left(\\tfrac{\\sqrt{2}}{2}\\right)",
+      answer: "pi/4",
+      acceptedAnswers: ["\\pi/4", "π/4"],
+      hint: "Find the principal angle in [−π/2, π/2] whose sine is √2/2.",
+      explanation: "sin(π/4) = √2/2 and π/4 is in the arcsin range, so arcsin(√2/2) = π/4.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-invsc-pool-d5-2",
+      prompt: "Evaluate arccos(1/2).",
+      latex: "\\arccos\\left(\\tfrac{1}{2}\\right)",
+      answer: "pi/3",
+      acceptedAnswers: ["\\pi/3", "π/3"],
+      hint: "Find the angle in [0, π] whose cosine is 1/2.",
+      explanation: "cos(π/3) = 1/2 and π/3 is in the arccos range, so arccos(1/2) = π/3.",
+      difficulty: 5,
+    },
+  ],
 };
 
 const inverseTangent: Partial<ExplicitLesson> = {
@@ -298,6 +320,18 @@ const inverseTangent: Partial<ExplicitLesson> = {
     inverseTrigChoice("y12e1-invtan-m8", "Which exact value is correct?", "D", ["arctan(1)=pi/2", "arctan(0)=pi", "arctan(sqrt3)=pi/6", "arctan(sqrt3)=pi/3"], "tan(pi/3)=sqrt(3)."),
     inverseTrigChoice("y12e1-invtan-m9", "Why is $\\arctan(\\sqrt3)$ not $4\\pi/3$?", "A", ["4pi/3 is outside the principal range", "sqrt3 is outside the domain", "arctan only takes negative values", "tan(4pi/3)=0"], "Arctan returns an angle between -pi/2 and pi/2."),
     inverseTrigChoice("y12e1-invtan-m10", "Combining arcsin, arccos and arctan in triangle problems means:", "C", ["Always use arcsin", "Ignore the side labels", "Choose the inverse function matching the known ratio", "Always use arctan because its domain is largest"], "The side ratio decides the inverse trig function."),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-invtan-pool-d5-1",
+      prompt: "Evaluate arctan(1).",
+      latex: "\\arctan(1)",
+      answer: "pi/4",
+      acceptedAnswers: ["\\pi/4", "π/4"],
+      hint: "Find the angle in (−π/2, π/2) whose tangent is 1.",
+      explanation: "tan(π/4) = 1 and π/4 is in the arctan range, so arctan(1) = π/4.",
+      difficulty: 5,
+    },
   ],
 };
 
@@ -428,6 +462,18 @@ const differentiatingInverseTrig: Partial<ExplicitLesson> = {
     inverseTrigTyped("y12e1-diff-inv-m8", "Differentiate.", "y=\\arccos(3x)", "-3/sqrt(1-9x^2)", ["\\frac{-3}{\\sqrt{1-9x^2}}"], "The negative arccos derivative and u' = 3 combine."),
     inverseTrigChoice("y12e1-diff-inv-m9", "In $\\arctan(4x)$, the denominator after differentiating is:", "B", ["$1+4x^2$", "$1+16x^2$", "$1-16x^2$", "$\\sqrt{1-16x^2}$"], "The inside expression is squared: $(4x)^2 = 16x^2$."),
     inverseTrigChoice("y12e1-diff-inv-m10", "Which pair is correctly matched?", "C", ["arcsin: $1/(1+x^2)$", "arctan: $-1/\\sqrt{1-x^2}$", "arccos: $-1/\\sqrt{1-x^2}$", "arctan: $\\sqrt{1-x^2}$"], "Arccos is the inverse trig derivative with the negative square-root form."),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-diff-inv-pool-d5-1",
+      prompt: "Find the value of the derivative of arcsin(x) at x = 0.",
+      latex: "\\frac{d}{dx}\\arcsin x = \\frac{1}{\\sqrt{1-x^2}}",
+      answer: "1",
+      acceptedAnswers: [],
+      hint: "The derivative is 1/√(1−x²); substitute x = 0.",
+      explanation: "d/dx[arcsin x] = 1/√(1−x²); at x = 0 this is 1/√1 = 1.",
+      difficulty: 5,
+    },
   ],
 };
 
