@@ -112,6 +112,13 @@ import {
 } from "./year12AdvancedTrigEquations";
 import { trigMeasureChallenge } from "./year12AdvancedTrigMeasure";
 import {
+  integersNumberLineChallenge,
+  addingSubtractingIntegersChallenge,
+  multiplyingDividingIntegersChallenge,
+  orderOfOperationsIntegersChallenge,
+  integersProblemSolvingChallenge,
+} from "./year7Integers";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -585,6 +592,12 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/sketching-translations": strY9Challenge,
   "year-9-mathematics/sketching-parabolas-intercept-form": spiY9Challenge,
   "year-9-mathematics-advanced/sketching-parabolas-intercept-form": spiY9Challenge,
+  // Year 7 — Wave 0 pilot (single course; D6 12/section, course-scoped).
+  "year-7-mathematics/integers-number-line": integersNumberLineChallenge,
+  "year-7-mathematics/adding-subtracting-integers": addingSubtractingIntegersChallenge,
+  "year-7-mathematics/multiplying-dividing-integers": multiplyingDividingIntegersChallenge,
+  "year-7-mathematics/order-of-operations-integers": orderOfOperationsIntegersChallenge,
+  "year-7-mathematics/integers-problem-solving": integersProblemSolvingChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
