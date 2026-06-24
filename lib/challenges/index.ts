@@ -119,6 +119,17 @@ import {
   integersProblemSolvingChallenge,
 } from "./year7Integers";
 import {
+  perimeterOfPolygonsChallenge,
+  perimeterCompositeShapesChallenge,
+  perimeterProblemSolvingChallenge,
+  areaRectanglesTrianglesChallenge,
+  areaParallelogramsTrapezoidsChallenge,
+  areaCompositeShapesChallenge,
+  areaProblemSolvingChallenge,
+  volumeOfPrismsChallenge,
+  volumeOfCylindersChallenge,
+} from "./year7Measurement";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -598,6 +609,16 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/multiplying-dividing-integers": multiplyingDividingIntegersChallenge,
   "year-7-mathematics/order-of-operations-integers": orderOfOperationsIntegersChallenge,
   "year-7-mathematics/integers-problem-solving": integersProblemSolvingChallenge,
+  // Year 7 — Wave 1 measurement cluster (perimeter, area, volume).
+  "year-7-mathematics/perimeter-of-polygons": perimeterOfPolygonsChallenge,
+  "year-7-mathematics/perimeter-composite-shapes": perimeterCompositeShapesChallenge,
+  "year-7-mathematics/perimeter-problem-solving": perimeterProblemSolvingChallenge,
+  "year-7-mathematics/area-rectangles-triangles": areaRectanglesTrianglesChallenge,
+  "year-7-mathematics/area-parallelograms-trapezoids": areaParallelogramsTrapezoidsChallenge,
+  "year-7-mathematics/area-composite-shapes": areaCompositeShapesChallenge,
+  "year-7-mathematics/area-problem-solving": areaProblemSolvingChallenge,
+  "year-7-mathematics/volume-of-prisms": volumeOfPrismsChallenge,
+  "year-7-mathematics/volume-of-cylinders": volumeOfCylindersChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
