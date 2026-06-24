@@ -69,6 +69,14 @@ import {
   mechProjectileChallenge,
 } from "./year12Extension2Mechanics";
 import {
+  vec3dMagnitudeChallenge,
+  vec3dPerpendicularChallenge,
+  vec3dLineChallenge,
+  vec3dProjectionChallenge,
+  vec3dSphereChallenge,
+  vec3dProofChallenge,
+} from "./year12Extension2Vectors3D";
+import {
   functionsParamChallenge,
   functionsTransformChallenge,
   functionsModellingChallenge,
@@ -494,6 +502,13 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "circular-motion-uniform": mechCircularChallenge,
   "resisted-motion": mechResistedChallenge,
   "projectile-motion-resistance": mechProjectileChallenge,
+  // Year 12 Extension 2 — Vectors in 3D single-answer D6 pool (per-lesson)
+  "vectors-and-points-3d": vec3dMagnitudeChallenge,
+  "dot-product-and-angle": vec3dPerpendicularChallenge,
+  "equations-of-lines-3d": vec3dLineChallenge,
+  "vector-applications-exam-practice": vec3dProjectionChallenge,
+  "vector-curves-circles-spheres": vec3dSphereChallenge,
+  "geometric-proofs-vectors": vec3dProofChallenge,
   // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
   // D6 items carry distinct subtopic slugs.
   "intercepts-key-features": functionsParamChallenge,
