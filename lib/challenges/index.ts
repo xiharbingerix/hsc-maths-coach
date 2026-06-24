@@ -232,6 +232,19 @@ import {
   distanceBetweenPointsChallenge as y8DistanceBetweenPointsChallenge,
 } from "./year8LinearPythagoras";
 import {
+  anglesTrianglesQuadrilateralsChallenge as y8AnglesTriQuadChallenge,
+  propertiesOfPolygonsChallenge as y8PropertiesOfPolygonsChallenge,
+  congruentTrianglesChallenge as y8CongruentTrianglesChallenge,
+  geometricReasoningChallenge as y8GeometricReasoningChallenge,
+  quadrilateralPropertiesChallenge as y8QuadrilateralPropertiesChallenge,
+  surfaceAreaPrismsChallenge as y8SurfaceAreaPrismsChallenge,
+  surfaceAreaCylindersChallenge as y8SurfaceAreaCylindersChallenge,
+  surfaceAreaCompositeSolidsChallenge as y8SurfaceAreaCompositeChallenge,
+  volumeOfPrismsY8Challenge,
+  volumeOfCylindersY8Challenge,
+  volumeOfCompositeSolidsChallenge as y8VolumeCompositeChallenge,
+} from "./year8GeometryMeasurement";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -812,6 +825,18 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-8-mathematics/pythagoras-real-contexts": y8PythagRealContextsChallenge,
   "year-8-mathematics/pythagorean-triples": y8PythagoreanTriplesChallenge,
   "year-8-mathematics/distance-between-two-points": y8DistanceBetweenPointsChallenge,
+  // Year 8 — Wave 2 (geometry-angles, surface-area-of-solids, volume-of-composite-solids).
+  "year-8-mathematics/angles-triangles-quadrilaterals": y8AnglesTriQuadChallenge,
+  "year-8-mathematics/properties-of-polygons": y8PropertiesOfPolygonsChallenge,
+  "year-8-mathematics/congruent-triangles": y8CongruentTrianglesChallenge,
+  "year-8-mathematics/geometric-reasoning": y8GeometricReasoningChallenge,
+  "year-8-mathematics/quadrilateral-properties": y8QuadrilateralPropertiesChallenge,
+  "year-8-mathematics/surface-area-of-prisms": y8SurfaceAreaPrismsChallenge,
+  "year-8-mathematics/surface-area-of-cylinders": y8SurfaceAreaCylindersChallenge,
+  "year-8-mathematics/surface-area-of-composite-solids": y8SurfaceAreaCompositeChallenge,
+  "year-8-mathematics/volume-of-prisms": volumeOfPrismsY8Challenge,
+  "year-8-mathematics/volume-of-cylinders": volumeOfCylindersY8Challenge,
+  "year-8-mathematics/volume-of-composite-solids": y8VolumeCompositeChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so

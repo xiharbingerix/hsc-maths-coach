@@ -5876,11 +5876,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Build Stage 4 geometric fluency â€” angle relationships, parallel lines, polygon properties and introductory congruence â€” as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
         lessons: [
-          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals" },
-          { slug: "properties-of-polygons",          title: "Properties of Polygons" },
-          { slug: "congruent-triangles",             title: "Congruent Triangles" },
-          { slug: "geometric-reasoning",             title: "Geometric Reasoning" },
-          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals" },
+          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals", pathTag: "consolidating", stableSkillId: "y8-angles-triangles-quadrilaterals", skillCheckpoints: [{ stableCheckpointId: "y8-angles-triangles-quadrilaterals-c1", label: "Find angles in triangles and quadrilaterals" }] },
+          { slug: "properties-of-polygons",          title: "Properties of Polygons", pathTag: "extending", stableSkillId: "y8-properties-of-polygons", skillCheckpoints: [{ stableCheckpointId: "y8-properties-of-polygons-c1", label: "Use interior and exterior angle sums of polygons" }] },
+          { slug: "congruent-triangles",             title: "Congruent Triangles", pathTag: "extending", stableSkillId: "y8-congruent-triangles", skillCheckpoints: [{ stableCheckpointId: "y8-congruent-triangles-c1", label: "Apply congruence tests" }] },
+          { slug: "geometric-reasoning",             title: "Geometric Reasoning", pathTag: "core", stableSkillId: "y8-geometric-reasoning", skillCheckpoints: [{ stableCheckpointId: "y8-geometric-reasoning-c1", label: "Solve multi-step geometric reasoning problems" }] },
+          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals", pathTag: "consolidating", stableSkillId: "y8-quadrilateral-properties", skillCheckpoints: [{ stableCheckpointId: "y8-quadrilateral-properties-c1", label: "Use properties of special quadrilaterals" }] },
         ],
       },
       {
@@ -5936,9 +5936,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Establish 3D surface-area fluency that Stage 5 surface-area content directly extends.",
         lessons: [
-          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms" },
-          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders" },
-          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids" },
+          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms", pathTag: "core", stableSkillId: "y8-surface-area-of-prisms", skillCheckpoints: [{ stableCheckpointId: "y8-surface-area-of-prisms-c1", label: "Find the surface area of prisms" }] },
+          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders", pathTag: "core", stableSkillId: "y8-surface-area-of-cylinders", skillCheckpoints: [{ stableCheckpointId: "y8-surface-area-of-cylinders-c1", label: "Find the surface area of cylinders" }] },
+          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids", pathTag: "extending", stableSkillId: "y8-surface-area-of-composite-solids", skillCheckpoints: [{ stableCheckpointId: "y8-surface-area-of-composite-solids-c1", label: "Find the surface area of composite solids" }] },
         ],
       },
       {
@@ -5950,9 +5950,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Establish 3D volume fluency that Stage 5 composite-volume content directly extends.",
         lessons: [
-          { slug: "volume-of-prisms",                  title: "Volume of Prisms" },
-          { slug: "volume-of-cylinders",               title: "Volume of Cylinders" },
-          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids" },
+          { slug: "volume-of-prisms",                  title: "Volume of Prisms", pathTag: "core", stableSkillId: "y8-volume-of-prisms", skillCheckpoints: [{ stableCheckpointId: "y8-volume-of-prisms-c1", label: "Find the volume of prisms" }] },
+          { slug: "volume-of-cylinders",               title: "Volume of Cylinders", pathTag: "core", stableSkillId: "y8-volume-of-cylinders", skillCheckpoints: [{ stableCheckpointId: "y8-volume-of-cylinders-c1", label: "Find the volume of cylinders" }] },
+          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids", pathTag: "extending", stableSkillId: "y8-volume-of-composite-solids", skillCheckpoints: [{ stableCheckpointId: "y8-volume-of-composite-solids-c1", label: "Find the volume of composite solids" }] },
         ],
       },
       {
