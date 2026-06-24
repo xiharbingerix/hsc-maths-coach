@@ -5979,11 +5979,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-NET-P-01 — introduces graph/network thinking used in logistics, transport and computer science.",
         lessons: [
-          { slug: "network-fundamentals",      title: "Network Fundamentals" },
-          { slug: "paths-and-circuits",        title: "Paths and Circuits" },
-          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits" },
-          { slug: "planar-graphs",             title: "Planar Graphs" },
-          { slug: "network-applications",      title: "Network Applications" },
+          { slug: "network-fundamentals",      title: "Network Fundamentals", pathTag: "core", stableSkillId: "y8-network-fundamentals", skillCheckpoints: [{ stableCheckpointId: "y8-network-fundamentals-c1", label: "Use vertices, edges and degree" }] },
+          { slug: "paths-and-circuits",        title: "Paths and Circuits", pathTag: "core", stableSkillId: "y8-paths-and-circuits", skillCheckpoints: [{ stableCheckpointId: "y8-paths-and-circuits-c1", label: "Identify paths and circuits" }] },
+          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits", pathTag: "extending", stableSkillId: "y8-eulerian-trails-circuits", skillCheckpoints: [{ stableCheckpointId: "y8-eulerian-trails-circuits-c1", label: "Apply the Eulerian degree conditions" }] },
+          { slug: "planar-graphs",             title: "Planar Graphs", pathTag: "extending", stableSkillId: "y8-planar-graphs", skillCheckpoints: [{ stableCheckpointId: "y8-planar-graphs-c1", label: "Apply Euler's formula V − E + F = 2" }] },
+          { slug: "network-applications",      title: "Network Applications", pathTag: "extending", stableSkillId: "y8-network-applications", skillCheckpoints: [{ stableCheckpointId: "y8-network-applications-c1", label: "Use spanning trees and shortest paths" }] },
         ],
       },
       {
@@ -6038,11 +6038,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Build financial numeracy needed for Year 9 financial mathematics and real-world problem solving.",
         lessons: [
-          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
-          { slug: "wages-and-salary",              title: "Wages and Salary" },
-          { slug: "income-tax-basics",             title: "Income Tax Basics" },
-          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management" },
-          { slug: "credit-and-debit",              title: "Credit and Debit" },
+          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction", pathTag: "core", stableSkillId: "y8-simple-interest-introduction", skillCheckpoints: [{ stableCheckpointId: "y8-simple-interest-introduction-c1", label: "Calculate simple interest" }] },
+          { slug: "wages-and-salary",              title: "Wages and Salary", pathTag: "core", stableSkillId: "y8-wages-and-salary", skillCheckpoints: [{ stableCheckpointId: "y8-wages-and-salary-c1", label: "Calculate wages, salaries and overtime" }] },
+          { slug: "income-tax-basics",             title: "Income Tax Basics", pathTag: "core", stableSkillId: "y8-income-tax-basics", skillCheckpoints: [{ stableCheckpointId: "y8-income-tax-basics-c1", label: "Calculate income tax and net pay" }] },
+          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management", pathTag: "core", stableSkillId: "y8-budgeting-and-money-management", skillCheckpoints: [{ stableCheckpointId: "y8-budgeting-and-money-management-c1", label: "Plan and balance a budget" }] },
+          { slug: "credit-and-debit",              title: "Credit and Debit", pathTag: "extending", stableSkillId: "y8-credit-and-debit", skillCheckpoints: [{ stableCheckpointId: "y8-credit-and-debit-c1", label: "Work with credit, debit and interest on debt" }] },
         ],
       },
       {
@@ -6054,10 +6054,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-DAT-C-01 / MA5-DAT-P-01 — run an end-to-end statistical investigation and critique data-based claims.",
         lessons: [
-          { slug: "statistical-questions",     title: "Statistical Questions" },
-          { slug: "data-collection",           title: "Data Collection" },
-          { slug: "statistical-analysis",      title: "Statistical Analysis" },
-          { slug: "communicating-findings",    title: "Communicating Findings" },
+          { slug: "statistical-questions",     title: "Statistical Questions", pathTag: "consolidating", stableSkillId: "y8-statistical-questions", skillCheckpoints: [{ stableCheckpointId: "y8-statistical-questions-c1", label: "Pose statistical questions and classify data" }] },
+          { slug: "data-collection",           title: "Data Collection", pathTag: "core", stableSkillId: "y8-data-collection", skillCheckpoints: [{ stableCheckpointId: "y8-data-collection-c1", label: "Choose samples and collection methods" }] },
+          { slug: "statistical-analysis",      title: "Statistical Analysis", pathTag: "core", stableSkillId: "y8-statistical-analysis", skillCheckpoints: [{ stableCheckpointId: "y8-statistical-analysis-c1", label: "Summarise data with centre and spread" }] },
+          { slug: "communicating-findings",    title: "Communicating Findings", pathTag: "extending", stableSkillId: "y8-communicating-findings", skillCheckpoints: [{ stableCheckpointId: "y8-communicating-findings-c1", label: "Interpret and communicate statistical findings" }] },
         ],
       },
     ],
