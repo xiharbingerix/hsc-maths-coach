@@ -532,7 +532,7 @@ const methodSelectionLesson: Partial<ExplicitLesson> = {
       "\\int 2x e^{x^2}\\,dx,\\quad u=\\,?",
       "x^2",
       ["x²"],
-      "With u = x^2, du = 2x dx. The integral becomes the integral of e^u du = e^u + C, so substituting back gives e^(x^2) + C.",
+      "With $u = x^2$, $du = 2x\\,dx$. The integral becomes $\\int e^u\\,du = e^u + C$, so substituting back gives $e^{x^2} + C$.",
       "Look for a factor proportional to the derivative of the exponent."
     ),
     calcTyped(
@@ -1100,7 +1100,7 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
         "$I_0$",
       ],
       "To find I₇ directly, the recurrence needs I₅ because I₇ = (6/7)·I₅. Values from the even chain do not connect to I₇.",
-      "The recurrence always uses I_{n-2}; for I₇ that means I₅."
+      "The recurrence always uses $I_{n-2}$; for $I_7$ that means $I_5$."
     ),
     calcTyped(
       "y12e2-red-m4",
@@ -1174,7 +1174,7 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
       "",
       "11pi/16",
       ["11π/16", "11*pi/16"],
-      "Split the integral: ∫₀^{π/2}1 dx + ∫₀^{π/2}sin⁴x dx = π/2 + I₄ = π/2 + 3π/16 = 11π/16.",
+      "Split the integral: $\\int_0^{\\pi/2} 1\\,dx + \\int_0^{\\pi/2}\\sin^4 x\\,dx = \\pi/2 + I_4 = \\pi/2 + 3\\pi/16 = 11\\pi/16$.",
       "Use the supplied value of I₄ and add the area from the constant term separately."
     ),
   ],

@@ -47,6 +47,36 @@ import {
   polarDeMoivreChallenge,
 } from "./year12Extension2";
 import {
+  proofContradictionChallenge,
+  proofContrapositiveChallenge,
+  proofInequalitiesChallenge,
+  proofInductionChallenge,
+} from "./year12Extension2Proof";
+import {
+  calcReductionChallenge,
+  calcPartialFractionsChallenge,
+  calcSymmetryChallenge,
+  calcTSubstitutionChallenge,
+  calcVolumeChallenge,
+  calcCompletingSquareChallenge,
+} from "./year12Extension2Calculus";
+import {
+  mechForcesChallenge,
+  mechRectilinearChallenge,
+  mechShmChallenge,
+  mechCircularChallenge,
+  mechResistedChallenge,
+  mechProjectileChallenge,
+} from "./year12Extension2Mechanics";
+import {
+  vec3dMagnitudeChallenge,
+  vec3dPerpendicularChallenge,
+  vec3dLineChallenge,
+  vec3dProjectionChallenge,
+  vec3dSphereChallenge,
+  vec3dProofChallenge,
+} from "./year12Extension2Vectors3D";
+import {
   functionsParamChallenge,
   functionsTransformChallenge,
   functionsModellingChallenge,
@@ -493,6 +523,32 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "complex-number-arithmetic": complexArithmeticChallenge,
   "modulus-argument-conjugate": modulusArgumentChallenge,
   "polar-form-de-moivre": polarDeMoivreChallenge,
+  // Year 12 Extension 2 — Proof high-difficulty pool (per-lesson, ≤2 each)
+  "proof-by-contradiction": proofContradictionChallenge,
+  "proof-by-contrapositive": proofContrapositiveChallenge,
+  "inequalities-algebraic-proof": proofInequalitiesChallenge,
+  "proof-by-mathematical-induction": proofInductionChallenge,
+  // Year 12 Extension 2 — Calculus (integration) single-answer D6 pool (per-lesson)
+  "reduction-formulae-introduction": calcReductionChallenge,
+  "partial-fractions-integration": calcPartialFractionsChallenge,
+  "trig-identity-integration": calcSymmetryChallenge,
+  "t-substitution-weierstrass": calcTSubstitutionChallenge,
+  "volumes-of-revolution": calcVolumeChallenge,
+  "completing-square-integration": calcCompletingSquareChallenge,
+  // Year 12 Extension 2 — Mechanics single-answer D6 pool (per-lesson)
+  "forces-inclined-planes": mechForcesChallenge,
+  "rectilinear-motion-calculus": mechRectilinearChallenge,
+  "simple-harmonic-motion-extended": mechShmChallenge,
+  "circular-motion-uniform": mechCircularChallenge,
+  "resisted-motion": mechResistedChallenge,
+  "projectile-motion-resistance": mechProjectileChallenge,
+  // Year 12 Extension 2 — Vectors in 3D single-answer D6 pool (per-lesson)
+  "vectors-and-points-3d": vec3dMagnitudeChallenge,
+  "dot-product-and-angle": vec3dPerpendicularChallenge,
+  "equations-of-lines-3d": vec3dLineChallenge,
+  "vector-applications-exam-practice": vec3dProjectionChallenge,
+  "vector-curves-circles-spheres": vec3dSphereChallenge,
+  "geometric-proofs-vectors": vec3dProofChallenge,
   // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
   // D6 items carry distinct subtopic slugs.
   "intercepts-key-features": functionsParamChallenge,
