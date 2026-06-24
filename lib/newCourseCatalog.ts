@@ -5693,9 +5693,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus: "Establish perimeter skills for polygons before extending to circumference of circles in Year 8.",
         lessons: [
-          { slug: "perimeter-of-polygons",       title: "Perimeter of Polygons" },
-          { slug: "perimeter-composite-shapes",  title: "Perimeter of Composite Shapes" },
-          { slug: "perimeter-problem-solving",   title: "Perimeter Problem Solving" },
+          { slug: "perimeter-of-polygons",       title: "Perimeter of Polygons", pathTag: "consolidating", stableSkillId: "y7-perimeter-of-polygons", skillCheckpoints: [{ stableCheckpointId: "y7-perimeter-of-polygons-c1", label: "Find the perimeter of polygons" }] },
+          { slug: "perimeter-composite-shapes",  title: "Perimeter of Composite Shapes", pathTag: "core", stableSkillId: "y7-perimeter-composite-shapes", skillCheckpoints: [{ stableCheckpointId: "y7-perimeter-composite-shapes-c1", label: "Find the perimeter of composite shapes" }] },
+          { slug: "perimeter-problem-solving",   title: "Perimeter Problem Solving", pathTag: "extending", stableSkillId: "y7-perimeter-problem-solving", skillCheckpoints: [{ stableCheckpointId: "y7-perimeter-problem-solving-c1", label: "Solve perimeter problems" }] },
         ],
       },
       {
@@ -5705,10 +5705,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus: "Develop area formula fluency for common shapes before extending to circles and prisms.",
         lessons: [
-          { slug: "area-rectangles-triangles",     title: "Area of Rectangles and Triangles" },
-          { slug: "area-parallelograms-trapezoids", title: "Area of Parallelograms and Trapezoids" },
-          { slug: "area-composite-shapes",         title: "Area of Composite Shapes" },
-          { slug: "area-problem-solving",          title: "Area Problem Solving" },
+          { slug: "area-rectangles-triangles",     title: "Area of Rectangles and Triangles", pathTag: "core", stableSkillId: "y7-area-rectangles-triangles", skillCheckpoints: [{ stableCheckpointId: "y7-area-rectangles-triangles-c1", label: "Find areas of rectangles and triangles" }] },
+          { slug: "area-parallelograms-trapezoids", title: "Area of Parallelograms and Trapezoids", pathTag: "core", stableSkillId: "y7-area-parallelograms-trapezoids", skillCheckpoints: [{ stableCheckpointId: "y7-area-parallelograms-trapezoids-c1", label: "Find areas of parallelograms and trapeziums" }] },
+          { slug: "area-composite-shapes",         title: "Area of Composite Shapes", pathTag: "extending", stableSkillId: "y7-area-composite-shapes", skillCheckpoints: [{ stableCheckpointId: "y7-area-composite-shapes-c1", label: "Find areas of composite shapes" }] },
+          { slug: "area-problem-solving",          title: "Area Problem Solving", pathTag: "extending", stableSkillId: "y7-area-problem-solving", skillCheckpoints: [{ stableCheckpointId: "y7-area-problem-solving-c1", label: "Solve area problems" }] },
         ],
       },
       {
@@ -5760,8 +5760,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus: "MA4-VOL-C-01 — establish basic volume fluency before composite solids in Year 8.",
         lessons: [
-          { slug: "volume-of-prisms",     title: "Volume of Prisms" },
-          { slug: "volume-of-cylinders",  title: "Volume of Cylinders" },
+          { slug: "volume-of-prisms",     title: "Volume of Prisms", pathTag: "core", stableSkillId: "y7-volume-of-prisms", skillCheckpoints: [{ stableCheckpointId: "y7-volume-of-prisms-c1", label: "Find the volume of prisms" }] },
+          { slug: "volume-of-cylinders",  title: "Volume of Cylinders", pathTag: "core", stableSkillId: "y7-volume-of-cylinders", skillCheckpoints: [{ stableCheckpointId: "y7-volume-of-cylinders-c1", label: "Find the volume of cylinders" }] },
         ],
       },
       {
