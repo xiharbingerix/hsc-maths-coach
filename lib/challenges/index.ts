@@ -53,6 +53,14 @@ import {
   proofInductionChallenge,
 } from "./year12Extension2Proof";
 import {
+  calcReductionChallenge,
+  calcPartialFractionsChallenge,
+  calcSymmetryChallenge,
+  calcTSubstitutionChallenge,
+  calcVolumeChallenge,
+  calcCompletingSquareChallenge,
+} from "./year12Extension2Calculus";
+import {
   functionsParamChallenge,
   functionsTransformChallenge,
   functionsModellingChallenge,
@@ -464,6 +472,13 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "proof-by-contrapositive": proofContrapositiveChallenge,
   "inequalities-algebraic-proof": proofInequalitiesChallenge,
   "proof-by-mathematical-induction": proofInductionChallenge,
+  // Year 12 Extension 2 — Calculus (integration) single-answer D6 pool (per-lesson)
+  "reduction-formulae-introduction": calcReductionChallenge,
+  "partial-fractions-integration": calcPartialFractionsChallenge,
+  "trig-identity-integration": calcSymmetryChallenge,
+  "t-substitution-weierstrass": calcTSubstitutionChallenge,
+  "volumes-of-revolution": calcVolumeChallenge,
+  "completing-square-integration": calcCompletingSquareChallenge,
   // Year 12 Advanced — Working with Functions (ma-f1); spread across lessons so the
   // D6 items carry distinct subtopic slugs.
   "intercepts-key-features": functionsParamChallenge,
