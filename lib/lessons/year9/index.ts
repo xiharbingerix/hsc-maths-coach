@@ -24,6 +24,8 @@ export { year9Chapter8StatisticsLessonOverride } from "./chapter8Statistics";
 export { year9Chapter9ExpandingLessonOverride } from "./chapter9Expanding";
 export { year9Chapter9FactorisingLessonOverride } from "./chapter9Factorising";
 export { year9Chapter9FractionsLessonOverride } from "./chapter9Fractions";
+export { year9Chapter10QuadraticEquationsLessonOverride } from "./chapter10QuadraticEquations";
+export { year9Chapter10ParabolasLessonOverride } from "./chapter10Parabolas";
 export { year9IndexLawsLessonOverride } from "./indexLaws";
 export { year9FinancialMathematicsLessonOverride } from "./financialMathematics";
 export { year9ConstantRatesOfChangeLessonOverride } from "./constantRatesOfChange";

@@ -160,6 +160,16 @@ import {
   fafsY9Challenge,
   eafY9Challenge,
 } from "./year9Chapter9";
+import {
+  qeY9Challenge,
+  sqfbY9Challenge,
+  sqfY9Challenge,
+  qepY9Challenge,
+  parY9Challenge,
+  sdrY9Challenge,
+  strY9Challenge,
+  spiY9Challenge,
+} from "./year9Chapter10";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -435,6 +445,23 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/further-add-subtract-algebraic-fractions": fafsY9Challenge,
   "year-9-mathematics/equations-with-algebraic-fractions": eafY9Challenge,
   "year-9-mathematics-advanced/equations-with-algebraic-fractions": eafY9Challenge,
+  // Year 9 Wave 11 — Chapter 10 (Quadratic Equations & Parabolas). All 8 sections path → base + advanced.
+  "year-9-mathematics/quadratic-equations": qeY9Challenge,
+  "year-9-mathematics-advanced/quadratic-equations": qeY9Challenge,
+  "year-9-mathematics/solving-quadratics-factorising-basic": sqfbY9Challenge,
+  "year-9-mathematics-advanced/solving-quadratics-factorising-basic": sqfbY9Challenge,
+  "year-9-mathematics/solving-quadratics-factorising": sqfY9Challenge,
+  "year-9-mathematics-advanced/solving-quadratics-factorising": sqfY9Challenge,
+  "year-9-mathematics/quadratic-equations-problems": qepY9Challenge,
+  "year-9-mathematics-advanced/quadratic-equations-problems": qepY9Challenge,
+  "year-9-mathematics/the-parabola": parY9Challenge,
+  "year-9-mathematics-advanced/the-parabola": parY9Challenge,
+  "year-9-mathematics/sketching-dilations-reflections": sdrY9Challenge,
+  "year-9-mathematics-advanced/sketching-dilations-reflections": sdrY9Challenge,
+  "year-9-mathematics/sketching-translations": strY9Challenge,
+  "year-9-mathematics-advanced/sketching-translations": strY9Challenge,
+  "year-9-mathematics/sketching-parabolas-intercept-form": spiY9Challenge,
+  "year-9-mathematics-advanced/sketching-parabolas-intercept-form": spiY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
