@@ -30,6 +30,15 @@ import {
   simpleInterestChallenge,
   speedDistanceTimeChallenge,
   fiveNumberSummaryChallenge,
+  summaryStatsDisplaysChallenge,
+  outlierEffectChallenge,
+  groupedDataChallenge,
+  boxPlotChallenge,
+  stemLeafChallenge,
+  timeSeriesChallenge,
+  dataExamChallenge,
+  samplingMethodsChallenge,
+  dataRevisionChallenge,
 } from "./year11Standard";
 import {
   combinationsChallenge,
@@ -507,6 +516,17 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "simple-interest": simpleInterestChallenge,
   "speed-distance-time": speedDistanceTimeChallenge,
   "box-plots-five-number-summary": fiveNumberSummaryChallenge,
+  // Year 11 Standard — Data Analysis high-difficulty pools. Course-scoped keys so shared lesson
+  // slugs (e.g. data-displays-summary-statistics, also used by Year 12 Standard 1) stay separate.
+  "year-11-standard/data-displays-summary-statistics": summaryStatsDisplaysChallenge,
+  "year-11-standard/interpreting-data-outliers": outlierEffectChallenge,
+  "year-11-standard/grouped-data-frequency-tables": groupedDataChallenge,
+  "year-11-standard/box-plots-five-number-summary": boxPlotChallenge,
+  "year-11-standard/stem-leaf-plots": stemLeafChallenge,
+  "year-11-standard/time-series-trend-lines": timeSeriesChallenge,
+  "year-11-standard/data-analysis-exam-practice": dataExamChallenge,
+  "year-11-standard/data-collection-sampling-methods": samplingMethodsChallenge,
+  "year-11-standard/data-analysis-revision": dataRevisionChallenge,
   // Year 11 Extension
   combinations: combinationsChallenge,
   "roots-and-coefficients": [
