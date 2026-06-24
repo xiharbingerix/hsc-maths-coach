@@ -146,6 +146,18 @@ import {
   substitutionChallenge,
 } from "./year7Algebra";
 import {
+  fractionsTypesEquivalenceChallenge,
+  comparingOrderingFractionsChallenge,
+  addingSubtractingFractionsChallenge as y7AddingSubtractingFractionsChallenge,
+  multiplyingDividingFractionsChallenge,
+  fractionsDecimalsConversionChallenge,
+  decimalsOperationsChallenge,
+  convertingFractionsDecimalsPercentagesChallenge,
+  percentageOfQuantityChallenge,
+  percentageIncreaseDecreaseChallenge,
+  percentageApplicationsChallenge,
+} from "./year7Numbers";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -650,6 +662,17 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/expanding-brackets": expandingBracketsChallenge,
   "year-7-mathematics/factorising-common-factors": factorisingCommonFactorsChallenge,
   "year-7-mathematics/substitution": substitutionChallenge,
+  // Year 7 — Wave 3 number cluster (fractions, percentages).
+  "year-7-mathematics/fractions-types-and-equivalence": fractionsTypesEquivalenceChallenge,
+  "year-7-mathematics/comparing-ordering-fractions": comparingOrderingFractionsChallenge,
+  "year-7-mathematics/adding-subtracting-fractions": y7AddingSubtractingFractionsChallenge,
+  "year-7-mathematics/multiplying-dividing-fractions": multiplyingDividingFractionsChallenge,
+  "year-7-mathematics/fractions-decimals-conversion": fractionsDecimalsConversionChallenge,
+  "year-7-mathematics/decimals-operations": decimalsOperationsChallenge,
+  "year-7-mathematics/converting-fractions-decimals-percentages": convertingFractionsDecimalsPercentagesChallenge,
+  "year-7-mathematics/percentage-of-quantity": percentageOfQuantityChallenge,
+  "year-7-mathematics/percentage-increase-decrease": percentageIncreaseDecreaseChallenge,
+  "year-7-mathematics/percentage-applications": percentageApplicationsChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so

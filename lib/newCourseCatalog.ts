@@ -5624,12 +5624,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Develop fluency with fractions and decimals before percentages and algebraic fractions.",
         lessons: [
-          { slug: "fractions-types-and-equivalence",  title: "Fraction Types and Equivalence" },
-          { slug: "comparing-ordering-fractions",     title: "Comparing and Ordering Fractions" },
-          { slug: "adding-subtracting-fractions",     title: "Adding and Subtracting Fractions" },
-          { slug: "multiplying-dividing-fractions",   title: "Multiplying and Dividing Fractions" },
-          { slug: "fractions-decimals-conversion",    title: "Fractions and Decimals" },
-          { slug: "decimals-operations",              title: "Decimal Operations" },
+          { slug: "fractions-types-and-equivalence",  title: "Fraction Types and Equivalence", pathTag: "consolidating", stableSkillId: "y7-fractions-types-and-equivalence", skillCheckpoints: [{ stableCheckpointId: "y7-fractions-types-and-equivalence-c1", label: "Identify and simplify equivalent fractions" }] },
+          { slug: "comparing-ordering-fractions",     title: "Comparing and Ordering Fractions", pathTag: "core", stableSkillId: "y7-comparing-ordering-fractions", skillCheckpoints: [{ stableCheckpointId: "y7-comparing-ordering-fractions-c1", label: "Compare and order fractions" }] },
+          { slug: "adding-subtracting-fractions",     title: "Adding and Subtracting Fractions", pathTag: "core", stableSkillId: "y7-adding-subtracting-fractions", skillCheckpoints: [{ stableCheckpointId: "y7-adding-subtracting-fractions-c1", label: "Add and subtract fractions" }] },
+          { slug: "multiplying-dividing-fractions",   title: "Multiplying and Dividing Fractions", pathTag: "core", stableSkillId: "y7-multiplying-dividing-fractions", skillCheckpoints: [{ stableCheckpointId: "y7-multiplying-dividing-fractions-c1", label: "Multiply and divide fractions" }] },
+          { slug: "fractions-decimals-conversion",    title: "Fractions and Decimals", pathTag: "core", stableSkillId: "y7-fractions-decimals-conversion", skillCheckpoints: [{ stableCheckpointId: "y7-fractions-decimals-conversion-c1", label: "Convert between fractions and decimals" }] },
+          { slug: "decimals-operations",              title: "Decimal Operations", pathTag: "core", stableSkillId: "y7-decimals-operations", skillCheckpoints: [{ stableCheckpointId: "y7-decimals-operations-c1", label: "Operate with decimals" }] },
         ],
       },
       {
@@ -5653,10 +5653,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Build percentage fluency for financial mathematics and real-world problem solving.",
         lessons: [
-          { slug: "converting-fractions-decimals-percentages", title: "Converting Fractions, Decimals and Percentages" },
-          { slug: "percentage-of-quantity",                    title: "Percentage of a Quantity" },
-          { slug: "percentage-increase-decrease",              title: "Percentage Increase and Decrease" },
-          { slug: "percentage-applications",                   title: "Percentage Applications" },
+          { slug: "converting-fractions-decimals-percentages", title: "Converting Fractions, Decimals and Percentages", pathTag: "core", stableSkillId: "y7-converting-fractions-decimals-percentages", skillCheckpoints: [{ stableCheckpointId: "y7-converting-fractions-decimals-percentages-c1", label: "Convert between fractions, decimals and percentages" }] },
+          { slug: "percentage-of-quantity",                    title: "Percentage of a Quantity", pathTag: "core", stableSkillId: "y7-percentage-of-quantity", skillCheckpoints: [{ stableCheckpointId: "y7-percentage-of-quantity-c1", label: "Find a percentage of a quantity" }] },
+          { slug: "percentage-increase-decrease",              title: "Percentage Increase and Decrease", pathTag: "extending", stableSkillId: "y7-percentage-increase-decrease", skillCheckpoints: [{ stableCheckpointId: "y7-percentage-increase-decrease-c1", label: "Increase or decrease by a percentage" }] },
+          { slug: "percentage-applications",                   title: "Percentage Applications", pathTag: "extending", stableSkillId: "y7-percentage-applications", skillCheckpoints: [{ stableCheckpointId: "y7-percentage-applications-c1", label: "Solve percentage application problems" }] },
         ],
       },
       {
