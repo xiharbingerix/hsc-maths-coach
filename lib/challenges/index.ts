@@ -269,6 +269,22 @@ import {
   shapeOfDistributionsChallenge as y8ShapeOfDistributionsChallenge,
 } from "./year8Data";
 import {
+  networkFundamentalsChallenge as y8NetworkFundamentalsChallenge,
+  pathsCircuitsChallenge as y8PathsCircuitsChallenge,
+  eulerianTrailsCircuitsChallenge as y8EulerianTrailsChallenge,
+  planarGraphsChallenge as y8PlanarGraphsChallenge,
+  networkApplicationsChallenge as y8NetworkApplicationsChallenge,
+  simpleInterestIntroChallenge as y8SimpleInterestIntroChallenge,
+  wagesSalaryChallenge as y8WagesSalaryChallenge,
+  incomeTaxBasicsChallenge as y8IncomeTaxBasicsChallenge,
+  budgetingMoneyManagementChallenge as y8BudgetingChallenge,
+  creditDebitChallenge as y8CreditDebitChallenge,
+  statisticalQuestionsChallenge as y8StatisticalQuestionsChallenge,
+  dataCollectionChallenge as y8DataCollectionChallenge,
+  statisticalAnalysisChallenge as y8StatisticalAnalysisChallenge,
+  communicatingFindingsChallenge as y8CommunicatingFindingsChallenge,
+} from "./year8NetworksFinanceData";
+import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
   circleY9Challenge,
@@ -883,6 +899,21 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-8-mathematics/box-plots": y8BoxPlotsChallenge,
   "year-8-mathematics/comparing-data-with-box-plots": y8ComparingBoxPlotsChallenge,
   "year-8-mathematics/shape-of-distributions": y8ShapeOfDistributionsChallenge,
+  // Year 8 — Wave 5 closeout (networks, financial maths, data investigation).
+  "year-8-mathematics/network-fundamentals": y8NetworkFundamentalsChallenge,
+  "year-8-mathematics/paths-and-circuits": y8PathsCircuitsChallenge,
+  "year-8-mathematics/eulerian-trails-circuits": y8EulerianTrailsChallenge,
+  "year-8-mathematics/planar-graphs": y8PlanarGraphsChallenge,
+  "year-8-mathematics/network-applications": y8NetworkApplicationsChallenge,
+  "year-8-mathematics/simple-interest-introduction": y8SimpleInterestIntroChallenge,
+  "year-8-mathematics/wages-and-salary": y8WagesSalaryChallenge,
+  "year-8-mathematics/income-tax-basics": y8IncomeTaxBasicsChallenge,
+  "year-8-mathematics/budgeting-and-money-management": y8BudgetingChallenge,
+  "year-8-mathematics/credit-and-debit": y8CreditDebitChallenge,
+  "year-8-mathematics/statistical-questions": y8StatisticalQuestionsChallenge,
+  "year-8-mathematics/data-collection": y8DataCollectionChallenge,
+  "year-8-mathematics/statistical-analysis": y8StatisticalAnalysisChallenge,
+  "year-8-mathematics/communicating-findings": y8CommunicatingFindingsChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
