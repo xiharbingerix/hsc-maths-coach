@@ -207,6 +207,19 @@ import {
   iqrY9Challenge,
   boxPlotY9Challenge,
 } from "./year9Chapter8";
+import {
+  ebpY9Challenge,
+  psdY9Challenge,
+  faeY9Challenge,
+  fdsY9Challenge,
+  fbgY9Challenge,
+  fmtY9Challenge,
+  fntY9Challenge,
+  afmdY9Challenge,
+  afasY9Challenge,
+  fafsY9Challenge,
+  eafY9Challenge,
+} from "./year9Chapter9";
 
 /**
  * Skill Map V2 — Level-6 challenge layer.
@@ -511,6 +524,30 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics/box-plots": boxPlotY9Challenge,
   "year-9-mathematics-core/box-plots": boxPlotY9Challenge,
   "year-9-mathematics-advanced/box-plots": boxPlotY9Challenge,
+  // Year 9 Wave 10 — Chapter 9 (Quadratic Expressions & Algebraic Techniques). All 11 sections are
+  // path-tagged → base + advanced only.
+  "year-9-mathematics/expanding-binomial-products": ebpY9Challenge,
+  "year-9-mathematics-advanced/expanding-binomial-products": ebpY9Challenge,
+  "year-9-mathematics/perfect-squares-difference-of-squares": psdY9Challenge,
+  "year-9-mathematics-advanced/perfect-squares-difference-of-squares": psdY9Challenge,
+  "year-9-mathematics/factorising-algebraic-expressions": faeY9Challenge,
+  "year-9-mathematics-advanced/factorising-algebraic-expressions": faeY9Challenge,
+  "year-9-mathematics/factorising-difference-of-squares": fdsY9Challenge,
+  "year-9-mathematics-advanced/factorising-difference-of-squares": fdsY9Challenge,
+  "year-9-mathematics/factorising-by-grouping": fbgY9Challenge,
+  "year-9-mathematics-advanced/factorising-by-grouping": fbgY9Challenge,
+  "year-9-mathematics/factorising-monic-trinomials": fmtY9Challenge,
+  "year-9-mathematics-advanced/factorising-monic-trinomials": fmtY9Challenge,
+  "year-9-mathematics/factorising-non-monic-trinomials": fntY9Challenge,
+  "year-9-mathematics-advanced/factorising-non-monic-trinomials": fntY9Challenge,
+  "year-9-mathematics/simplifying-algebraic-fractions-multiply-divide": afmdY9Challenge,
+  "year-9-mathematics-advanced/simplifying-algebraic-fractions-multiply-divide": afmdY9Challenge,
+  "year-9-mathematics/simplifying-algebraic-fractions-add-subtract": afasY9Challenge,
+  "year-9-mathematics-advanced/simplifying-algebraic-fractions-add-subtract": afasY9Challenge,
+  "year-9-mathematics/further-add-subtract-algebraic-fractions": fafsY9Challenge,
+  "year-9-mathematics-advanced/further-add-subtract-algebraic-fractions": fafsY9Challenge,
+  "year-9-mathematics/equations-with-algebraic-fractions": eafY9Challenge,
+  "year-9-mathematics-advanced/equations-with-algebraic-fractions": eafY9Challenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so
