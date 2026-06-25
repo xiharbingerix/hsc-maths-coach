@@ -2359,6 +2359,20 @@ const completingSquareIntegrationLesson: Partial<ExplicitLesson> = {
       "Factor 4 from the denominator or substitute u = 2x."
     ),
   ],
+  masteryQuizPool: [
+    { ...calcChoice("y12e2-calc-cs-pool-1", "Completing the square on a quadratic denominator is needed to integrate which form?", "B", ["1/(x − a) — a single linear factor.", "1/(x²+bx+c) where the quadratic has no real roots (giving an arctan).", "A polynomial.", "1/x."], "When x²+bx+c does not factorise over the reals, completing the square turns it into (x+h)² + k², an arctan-type integral."), difficulty: 2 },
+    { ...calcTyped("y12e2-calc-cs-pool-2", "Complete the square: x²+2x+5 = (x+1)² + c. Find c.", "x^2+2x+5 = (x+1)^2 + c", "4", [], "(x+1)² = x²+2x+1, so x²+2x+5 = (x+1)² + 4 and c = 4."), difficulty: 2 },
+    { ...calcTyped("y12e2-calc-cs-pool-3", "Hence ∫ 1/(x²+2x+5) dx = (1/k)·arctan((x+1)/2) + C. Find k.", "\\int \\frac{1}{(x+1)^2+4}\\,dx", "2", [], "With (x+1)² + 2², ∫ 1/((x+1)²+2²) dx = (1/2)·arctan((x+1)/2) + C; k = 2."), difficulty: 3 },
+    { ...calcTyped("y12e2-calc-cs-pool-4", "Complete the square: x²−6x+13 = (x−3)² + c. Find c.", "x^2-6x+13 = (x-3)^2 + c", "4", [], "(x−3)² = x²−6x+9, so x²−6x+13 = (x−3)² + 4 and c = 4."), difficulty: 3 },
+    { ...calcChoice("y12e2-calc-cs-pool-5", "A student integrates 1/(x²+2x+5) as ln(x²+2x+5)/(2x+2). Why is this wrong?", "C", ["x²+2x+5 factorises.", "The integral diverges.", "There is no x factor matching the derivative in the numerator; completing the square gives an arctan, not a log.", "ln cannot appear in integration."], "Dividing by the derivative of the denominator is invalid. The denominator is irreducible, so completing the square yields (1/2)arctan((x+1)/2)."), difficulty: 3 },
+    { ...calcTyped("y12e2-calc-cs-pool-6", "∫ 1/(x²−4x+8) dx completes to (x−2)² + 4, giving (1/2)·arctan((x−2)/2) + C. Evaluate the integral from x = 2 to x = 4; it equals π/k. Find k.", "\\int_2^4 \\frac{1}{(x-2)^2+4}\\,dx", "8", [], "[(1/2)arctan((x−2)/2)] from 2 to 4 = (1/2)(arctan 1 − arctan 0) = (1/2)(π/4) = π/8, so k = 8."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-cs-pool-7", "Recognising a square-root denominator: ∫ 1/√(4−x²) dx = arcsin(x/a) + C. Find a.", "\\int \\frac{1}{\\sqrt{4-x^2}}\\,dx = \\arcsin\\tfrac{x}{a}", "2", [], "∫ 1/√(a²−x²) dx = arcsin(x/a). Here 4 = 2², so a = 2."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-cs-pool-8", "Complete the square: x²+4x+13 = (x+2)² + a². Find a.", "x^2+4x+13 = (x+2)^2 + a^2", "3", [], "(x+2)² = x²+4x+4, so x²+4x+13 = (x+2)² + 9 = (x+2)² + 3²; a = 3."), difficulty: 4 },
+    { ...calcChoice("y12e2-calc-cs-pool-9", "A student completes the square as x²+2x+5 = (x+1)² + 5. What is the error?", "C", ["The coefficient of x should be 4.", "(x+1)² should be (x−1)².", "(x+1)² already includes +1, so you must subtract it: x²+2x+5 = (x+1)² + 4, not + 5.", "There is no error."], "Expanding (x+1)² gives x²+2x+1. To recover +5 you add 4, not 5, so the constant is +4."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-cs-pool-10", "For ∫ (2x+3)/(x²+2x+5) dx, split the numerator as (2x+2) + d so the first part is the derivative of the denominator. Find d.", "2x+3 = (2x+2) + d", "1", [], "The derivative of x²+2x+5 is 2x+2, so 2x+3 = (2x+2) + 1; d = 1. The integral splits into a log part and an arctan part."), difficulty: 5 },
+    { ...calcTyped("y12e2-calc-cs-pool-11", "Complete the square on the non-monic-looking quadratic x²+x+1 = (x + 1/2)² + a². Find a².", "x^2+x+1 = (x+\\tfrac12)^2 + a^2", "3/4", ["0.75"], "(x + 1/2)² = x²+x+1/4, so x²+x+1 = (x+1/2)² + 3/4; a² = 3/4."), difficulty: 5 },
+    { ...calcTyped("y12e2-calc-cs-pool-12", "For ∫ 1/(x²−6x+5) dx, completing the square gives (x−3)² + c. Evaluate c (its sign tells you whether to use arctan or partial fractions).", "x^2-6x+5 = (x-3)^2 + c", "-4", ["−4"], "(x−3)² = x²−6x+9, so x²−6x+5 = (x−3)² − 4; c = −4. The NEGATIVE constant means the quadratic factors as (x−1)(x−5), so use partial fractions (logs), not arctan."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 8: Partial Fractions with Quadratic Factors ───────────────────────

@@ -376,17 +376,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // trig-identity-integration intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "completing-square-integration": {
-    topic: "completing the square for integration",
-    object: "a quadratic denominator or expression",
-    validMove: "Rewrite the quadratic as a shifted square plus or minus a constant.",
-    trap1: "Forgetting to balance the constant term.",
-    trap2: "Matching the wrong standard inverse-trig/log form.",
-    trap3: "Ignoring the shift in the substitution.",
-    representation: "shifted-square standard form",
-    check: "expanding the completed square recovers the original quadratic",
-    d5Context: "non-monic quadratics and inverse-trig/log decisions",
-  },
+  // completing-square-integration intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "volumes-of-revolution": {
     topic: "volumes of revolution",
     object: "a radius swept through a circular cross-section",
