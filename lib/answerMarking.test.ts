@@ -39,6 +39,40 @@ describe("markTypedAnswer — derivative prefix stripping", () => {
   });
 });
 
+describe("markTypedAnswer — LaTeX normalisation (MathLive output)", () => {
+  it("\\frac{1}{2} matches 1/2", () => {
+    expect(mark("\\frac{1}{2}", "1/2")).toBe(true);
+  });
+
+  it("\\frac{3x}{4} matches 3x/4", () => {
+    expect(mark("\\frac{3x}{4}", "3x/4")).toBe(true);
+  });
+
+  it("x^{2} matches x^2", () => {
+    expect(mark("x^{2}", "x^2")).toBe(true);
+  });
+
+  it("\\sqrt{x} matches sqrt(x)", () => {
+    expect(mark("\\sqrt{x}", "sqrt(x)")).toBe(true);
+  });
+
+  it("\\pi matches pi", () => {
+    expect(mark("\\pi", "pi")).toBe(true);
+  });
+
+  it("\\theta matches theta", () => {
+    expect(mark("\\theta", "theta")).toBe(true);
+  });
+
+  it("\\infty matches infinity", () => {
+    expect(mark("\\infty", "infinity")).toBe(true);
+  });
+
+  it("\\left(x+1\\right) matches (x+1)", () => {
+    expect(mark("\\left(x+1\\right)", "(x+1)")).toBe(true);
+  });
+});
+
 describe("markTypedAnswer — inequality/symbol normalisation", () => {
   it("≠ matches !=", () => {
     expect(mark("x≠0", "x!=0")).toBe(true);

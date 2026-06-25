@@ -1,8 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
-import katex from "katex";
-import { parseStudentMath } from "../../lib/mathInput/parseStudentMath";
+import { useEffect, useRef } from "react";
+
+// React 19 web component JSX types for <math-field>
+declare module "react" {
+  namespace JSX {
+    interface IntrinsicElements {
+      "math-field": React.HTMLAttributes<HTMLElement> & {
+        ref?: React.RefObject<HTMLElement | null>;
+        "math-virtual-keyboard-policy"?: string;
+        "smart-mode"?: string;
+        "remove-extraneous-parentheses"?: string;
+      };
+    }
+  }
+}
 
 type MathAnswerInputProps = {
   value: string;
@@ -12,64 +24,17 @@ type MathAnswerInputProps = {
   ariaLabel?: string;
   id?: string;
   className?: string;
-  /** Show the toolbar of insertion helpers. Defaults to true. */
+  /** Ignored — kept for API compatibility; MathLive renders its own toolbar/keyboard. */
   showToolbar?: boolean;
 };
 
-type Preview =
-  | { kind: "rendered"; html: string }
-  | { kind: "fallback"; text: string }
-  | null;
-
-function buildPreview(raw: string): Preview {
-  const trimmed = raw.trim();
-  if (!trimmed) return null;
-
-  const latex = parseStudentMath(trimmed);
-
-  try {
-    const html = katex.renderToString(latex, {
-      throwOnError: true,
-      displayMode: false,
-      strict: false,
-    });
-    return { kind: "rendered", html };
-  } catch {
-    return { kind: "fallback", text: trimmed };
-  }
-}
-
 /**
- * Splice `template` into `value` at [selStart, selEnd), replacing any
- * selection. Returns the new string and the absolute cursor position derived
- * from (selStart + cursorOffset).
- */
-function spliceTemplate(
-  value: string,
-  selStart: number,
-  selEnd: number,
-  template: string,
-  cursorOffset: number
-): { newValue: string; cursorPos: number } {
-  return {
-    newValue: value.slice(0, selStart) + template + value.slice(selEnd),
-    cursorPos: selStart + cursorOffset,
-  };
-}
-
-const TOOLBAR_BTN =
-  "rounded-lg border border-slate-200 bg-white px-2 py-1 text-sm font-medium " +
-  "text-slate-600 hover:border-slate-300 hover:bg-slate-50 active:bg-slate-100 " +
-  "disabled:cursor-not-allowed disabled:opacity-40 " +
-  "focus:outline-none focus:ring-1 focus:ring-slate-400";
-
-/**
- * A text input that shows a live KaTeX preview and provides a toolbar for
- * inserting common math templates.
+ * A math answer input that renders inline LaTeX as you type, powered by MathLive.
+ * Outputs the raw LaTeX string via onChange. The marking layer (normaliseText /
+ * CAS) handles the LaTeX on the server side.
  *
- * Raw value contract: the value passed to onChange is always unmodified plain
- * text and is safe to pass directly to markTypedAnswer. Toolbar buttons insert
- * plain-text syntax (e.g. "()/()") — the parser converts it for preview only.
+ * MathLive is loaded dynamically (browser-only) so this component renders a
+ * plain <input> until hydration is complete.
  */
 export function MathAnswerInput({
   value,
@@ -79,255 +44,115 @@ export function MathAnswerInput({
   ariaLabel,
   id,
   className = "",
-  showToolbar = true,
 }: MathAnswerInputProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mathfieldRef = useRef<HTMLElement | null>(null);
+  // Track whether MathLive has loaded so we can swap to the real field.
+  const loadedRef = useRef(false);
 
-  // Cursor position to restore after the next render triggered by a toolbar
-  // button's onChange call. null during normal keystrokes (no-op in effect).
-  const pendingCursorRef = useRef<number | null>(null);
-
-  const preview = useMemo(() => buildPreview(value), [value]);
-
-  // Apply pending cursor position after each commit. Runs on every render but
-  // is a null-check no-op during normal typing.
+  // Dynamically load MathLive and upgrade the placeholder <div> to a <math-field>.
   useEffect(() => {
-    if (pendingCursorRef.current !== null && inputRef.current) {
-      const pos = pendingCursorRef.current;
-      pendingCursorRef.current = null;
-      inputRef.current.focus();
-      inputRef.current.setSelectionRange(pos, pos);
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+
+    import("mathlive").then(() => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      // Replace the SSR placeholder with a real math-field element.
+      const mf = document.createElement("math-field") as HTMLElement & {
+        value: string;
+        readOnly: boolean;
+      };
+
+      mf.id = id ?? "";
+      mf.setAttribute("aria-label", ariaLabel ?? placeholder);
+      mf.setAttribute("math-virtual-keyboard-policy", "auto");
+      // Remove extraneous parentheses MathLive sometimes adds for display
+      mf.setAttribute("remove-extraneous-parentheses", "true");
+
+      applyStyles(mf);
+      applyDisabled(mf, disabled);
+
+      // Set initial value before appending.
+      if (value) mf.value = value;
+
+      mf.addEventListener("input", () => {
+        onChange(mf.value);
+      });
+
+      container.innerHTML = "";
+      container.appendChild(mf);
+      mathfieldRef.current = mf;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Sync disabled state after mount.
+  useEffect(() => {
+    const mf = mathfieldRef.current as (HTMLElement & { readOnly: boolean }) | null;
+    if (!mf) return;
+    applyDisabled(mf, disabled);
+  }, [disabled]);
+
+  // Sync value if parent resets it (e.g. advancing to the next question).
+  useEffect(() => {
+    const mf = mathfieldRef.current as (HTMLElement & { value: string }) | null;
+    if (!mf) return;
+    // Only push downward when the field itself did not just produce this value,
+    // i.e. when the parent is explicitly resetting (empty string after "Next →").
+    if (value === "" && mf.value !== "") {
+      mf.value = "";
     }
-  });
-
-  // --- Toolbar handlers ---
-
-  function readSelection() {
-    const el = inputRef.current;
-    const start = el?.selectionStart ?? value.length;
-    const end = el?.selectionEnd ?? value.length;
-    return { start, end, selected: value.slice(start, end) };
-  }
-
-  function applyTemplate(template: string, cursorOffset: number) {
-    const { start, end } = readSelection();
-    const { newValue, cursorPos } = spliceTemplate(
-      value, start, end, template, cursorOffset
-    );
-    onChange(newValue);
-    pendingCursorRef.current = cursorPos;
-  }
-
-  function handleFraction() {
-    const { start, end, selected } = readSelection();
-
-    if (selected.length > 0) {
-      // Wrap selected text as the numerator: (selected)/()
-      // Cursor lands inside the denominator parentheses.
-      //   "(selected)/()"
-      //   0         sel.len+1 sel.len+2 sel.len+3 sel.len+4
-      //   (  ...sel...  )  /  (  )
-      //                              ^ cursor here = 1 + sel.len + 3
-      const template = `(${selected})/()`;
-      const { newValue, cursorPos } = spliceTemplate(
-        value, start, end, template, 1 + selected.length + 3
-      );
-      onChange(newValue);
-      pendingCursorRef.current = cursorPos;
-    } else {
-      // No selection: insert "()/()" and place cursor inside the numerator.
-      //   ( ) / ( )
-      //   0 1 2 3 4   → cursor at offset 1
-      applyTemplate("()/()", 1);
-    }
-  }
-
-  function handlePower() {
-    const { start, end, selected } = readSelection();
-
-    if (selected.length > 0) {
-      // Use selection as the exponent: ^(selected), cursor after closing paren.
-      const template = `^(${selected})`;
-      const { newValue, cursorPos } = spliceTemplate(
-        value, start, end, template, template.length
-      );
-      onChange(newValue);
-      pendingCursorRef.current = cursorPos;
-    } else {
-      // Insert "^()" and place cursor inside the parens.
-      //   ^  (  )
-      //   0  1  2  → cursor at offset 2
-      applyTemplate("^()", 2);
-    }
-  }
-
-  function handleSqrt() {
-    const { start, end, selected } = readSelection();
-
-    if (selected.length > 0) {
-      // Wrap selection: sqrt(selected), cursor after closing paren.
-      const template = `sqrt(${selected})`;
-      const { newValue, cursorPos } = spliceTemplate(
-        value, start, end, template, template.length
-      );
-      onChange(newValue);
-      pendingCursorRef.current = cursorPos;
-    } else {
-      // Insert "sqrt()" and place cursor inside the parens.
-      //   s q r t (  )
-      //   0 1 2 3 4  5  → cursor at offset 5
-      applyTemplate("sqrt()", 5);
-    }
-  }
-
-  function handleSymbol(text: string) {
-    // Insert the symbol at cursor and place cursor immediately after it.
-    applyTemplate(text, text.length);
-  }
+  }, [value]);
 
   return (
-    <div className={`space-y-1.5 ${className}`}>
-      {showToolbar && !disabled ? (
-        <div
-          role="toolbar"
-          aria-label="Math input helpers"
-          className="flex flex-wrap gap-1"
-        >
-          <button
-            type="button"
-            onClick={handleFraction}
-            title="Insert fraction: (numerator)/(denominator)"
-            aria-label="Insert fraction"
-            className={TOOLBAR_BTN}
-          >
-            a/b
-          </button>
-          <button
-            type="button"
-            onClick={handlePower}
-            title="Insert power: base^(exponent)"
-            aria-label="Insert power"
-            className={TOOLBAR_BTN}
-          >
-            x<sup>n</sup>
-          </button>
-          <button
-            type="button"
-            onClick={handleSqrt}
-            title="Insert square root: sqrt(expression)"
-            aria-label="Insert square root"
-            className={TOOLBAR_BTN}
-          >
-            √
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("pi")}
-            title="Insert pi"
-            aria-label="Insert pi"
-            className={TOOLBAR_BTN}
-          >
-            π
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("theta")}
-            title="Insert theta"
-            aria-label="Insert theta"
-            className={TOOLBAR_BTN}
-          >
-            θ
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("!=")}
-            title="Not equal to (!=)"
-            aria-label="Insert not equal"
-            className={TOOLBAR_BTN}
-          >
-            ≠
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("<=")}
-            title="Less than or equal to (<=)"
-            aria-label="Insert less than or equal"
-            className={TOOLBAR_BTN}
-          >
-            ≤
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol(">=")}
-            title="Greater than or equal to (>=)"
-            aria-label="Insert greater than or equal"
-            className={TOOLBAR_BTN}
-          >
-            ≥
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("+-")}
-            title="Plus or minus (+-)"
-            aria-label="Insert plus or minus"
-            className={TOOLBAR_BTN}
-          >
-            ±
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("infinity")}
-            title="Infinity"
-            aria-label="Insert infinity"
-            className={TOOLBAR_BTN}
-          >
-            ∞
-          </button>
-          <button
-            type="button"
-            onClick={() => handleSymbol("°")}
-            title="Degree symbol (°)"
-            aria-label="Insert degree symbol"
-            className={TOOLBAR_BTN}
-          >
-            °
-          </button>
-        </div>
-      ) : null}
-
-      <input
-        ref={inputRef}
-        id={id}
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        disabled={disabled}
-        aria-label={ariaLabel ?? placeholder}
-        autoComplete="off"
-        autoCorrect="off"
-        autoCapitalize="off"
-        spellCheck={false}
-        className="w-full rounded-xl border border-slate-300 px-3 py-2 font-mono text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-400 disabled:cursor-not-allowed disabled:opacity-50"
-      />
-
-      {preview ? (
-        <div className="flex min-h-[2.25rem] items-center gap-2.5 rounded-xl border border-slate-100 bg-slate-50 px-3 py-1.5">
-          <span className="shrink-0 select-none text-xs font-semibold uppercase tracking-wide text-slate-400">
-            Preview
-          </span>
-          {preview.kind === "rendered" ? (
-            // KaTeX-generated HTML is safe; it contains no user-supplied markup.
-            // eslint-disable-next-line react/no-danger
-            <span
-              className="overflow-x-auto text-sm text-slate-800"
-              dangerouslySetInnerHTML={{ __html: preview.html }}
-            />
-          ) : (
-            <span className="text-sm text-slate-600">{preview.text}</span>
-          )}
-        </div>
-      ) : null}
+    <div className={`space-y-1 ${className}`}>
+      {/* Container — holds the plain-text fallback until MathLive loads, then
+          the MathLive web component. */}
+      <div ref={containerRef}>
+        {/* SSR / pre-hydration fallback: plain text input with identical sizing */}
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          disabled={disabled}
+          aria-label={ariaLabel ?? placeholder}
+          id={id}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          className={FIELD_CLASS}
+        />
+      </div>
+      <p className="text-xs text-slate-400">
+        Type maths — it renders as you go. Use / for fractions, ^ for powers.
+      </p>
     </div>
   );
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+const FIELD_CLASS =
+  "w-full min-h-[2.5rem] rounded-xl border border-slate-300 px-3 py-2 " +
+  "text-lg focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-400 " +
+  "disabled:cursor-not-allowed disabled:opacity-50";
+
+function applyStyles(el: HTMLElement) {
+  el.className = FIELD_CLASS;
+  // Override MathLive's default styling so it blends with the design system.
+  el.style.fontFamily = "inherit";
+  el.style.fontSize = "1.125rem";
+}
+
+function applyDisabled(el: HTMLElement & { readOnly?: boolean }, isDisabled: boolean) {
+  if ("readOnly" in el) el.readOnly = isDisabled;
+  if (isDisabled) {
+    el.setAttribute("disabled", "");
+  } else {
+    el.removeAttribute("disabled");
+  }
 }

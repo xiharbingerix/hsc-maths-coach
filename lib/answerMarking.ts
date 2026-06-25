@@ -37,6 +37,36 @@ function normaliseText(value: string) {
     // Normalise Unicode prime (\u2032) to ASCII apostrophe so the derivative prefix
     // strip below recognises y\u2032 = ... the same as y' = ...
     .replace(/\u2032/g, "'")
+    // \u2500\u2500 LaTeX structural forms emitted by MathLive \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+    // \left( \right) \u2192 plain parens
+    .replace(/\\left\s*\(/g, "(")
+    .replace(/\\right\s*\)/g, ")")
+    .replace(/\\left\s*\[/g, "[")
+    .replace(/\\right\s*\]/g, "]")
+    // Simple fractions: \frac{a}{b} \u2192 a/b when numerator+denominator are tokens
+    // (no operators); complex fractions fall through to (a)/(b).
+    .replace(
+      /\\(?:d?frac)\{([^{}+\-*/^ ]+)\}\{([^{}+\-*/^ ]+)\}/g,
+      "$1/$2"
+    )
+    // Complex fractions: \frac{a+b}{c} \u2192 (a+b)/(c)
+    .replace(
+      /\\(?:d?frac)\{([^{}]+)\}\{([^{}]+)\}/g,
+      "($1)/($2)"
+    )
+    // \sqrt{x} \u2192 sqrt(x)
+    .replace(/\\sqrt\{([^{}]+)\}/g, "sqrt($1)")
+    // Strip curly braces around single tokens (exponents, groups): x^{2} \u2192 x^2
+    .replace(/\{([^{}]{1,6})\}/g, "$1")
+    // Additional Greek letters MathLive emits
+    .replace(/\\theta/g, "theta")
+    .replace(/\\alpha/g, "alpha")
+    .replace(/\\beta/g, "beta")
+    .replace(/\\gamma/g, "gamma")
+    .replace(/\\delta/g, "delta")
+    .replace(/\\omega/g, "omega")
+    .replace(/\\infty/g, "infinity")
+    .replace(/\\pm/g, "+-")
     .replace(/\^\((\d+)\)/g, "^$1")
     .toLowerCase()
     .trim()
