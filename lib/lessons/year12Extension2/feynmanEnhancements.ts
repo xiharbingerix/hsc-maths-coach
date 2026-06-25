@@ -399,17 +399,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   // circular-motion-uniform intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
-  "resisted-motion": {
-    topic: "resisted motion",
-    object: "a differential equation with velocity-dependent force",
-    validMove: "Set up m dv/dt as driving force minus resistance.",
-    trap1: "Using constant acceleration after resistance is introduced.",
-    trap2: "Giving terminal velocity before setting acceleration to zero.",
-    trap3: "Using the wrong sign for resistance.",
-    representation: "first-order velocity differential equation",
-    check: "terminal velocity makes acceleration zero",
-    d5Context: "vertical motion with linear resistance and limiting behaviour",
-  },
+  // resisted-motion intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   "projectile-motion-resistance": {
     topic: "projectile motion with resistance",
     object: "component differential equations",
