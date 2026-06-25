@@ -378,17 +378,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // completing-square-integration intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "volumes-of-revolution": {
-    topic: "volumes of revolution",
-    object: "a radius swept through a circular cross-section",
-    validMove: "Use pi times the integral of radius squared.",
-    trap1: "Integrating y instead of y squared.",
-    trap2: "Using x-limits for a y-axis rotation without rewriting.",
-    trap3: "Forgetting washer subtraction when there is an inner radius.",
-    representation: "disk or washer integral",
-    check: "the squared radius matches the axis of rotation",
-    d5Context: "washer regions and y-axis rotations",
-  },
+  // volumes-of-revolution intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // partial-fractions-quadratic intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "forces-inclined-planes": {
