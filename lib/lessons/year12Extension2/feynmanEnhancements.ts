@@ -366,17 +366,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   },
   // advanced-integration-method-selection intentionally omitted: replaced by a
   // hand-authored masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "integration-by-parts-extension": {
-    topic: "integration by parts",
-    object: "a product where one factor simplifies when differentiated",
-    validMove: "Choose u and dv, then use integral u dv equals uv minus integral v du.",
-    trap1: "Differentiating both factors.",
-    trap2: "Choosing u so the next integral becomes harder.",
-    trap3: "Dropping the remaining integral after uv.",
-    representation: "reverse product rule",
-    check: "differentiate the result to recover the integrand",
-    d5Context: "repeated parts and logarithmic/inverse-trig products",
-  },
+  // integration-by-parts-extension intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "reduction-formulae-introduction": {
     topic: "reduction formulae",
     object: "an integral sequence indexed by n",

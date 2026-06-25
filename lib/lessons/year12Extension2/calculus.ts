@@ -887,6 +887,20 @@ const integrationByPartsLesson: Partial<ExplicitLesson> = {
       "Integrate dv = cos(2x)dx using the standard form ∫cos(ax)dx = sin(ax)/a."
     ),
   ],
+  masteryQuizPool: [
+    { ...calcChoice("y12e2-calc-ibp-pool-1", "How many times must integration by parts be applied to evaluate ∫ x² eˣ dx?", "B", ["Once.", "Twice — each application lowers the power of x by one.", "Three times.", "It cannot be done by parts."], "Each application of parts (u = power of x) reduces the power by 1: x² → x → constant, so two applications are needed."), difficulty: 2 },
+    { ...calcTyped("y12e2-calc-ibp-pool-2", "Integration by parts twice gives ∫ x² eˣ dx = (x² − 2x + 2)eˣ + C. Evaluate this antiderivative at x = 0.", "(x^2 - 2x + 2)e^x", "2", [], "At x = 0: (0 − 0 + 2)·e⁰ = 2·1 = 2."), difficulty: 2 },
+    { ...calcTyped("y12e2-calc-ibp-pool-3", "By parts, ∫ x sin x dx = −x cos x + sin x + C. Evaluate the integral of x sin x from 0 to π.", "\\int_0^{\\pi} x\\sin x\\,dx = [-x\\cos x + \\sin x]_0^{\\pi}", "π", ["pi", "\\pi", "3.142"], "[−x cos x + sin x]₀^π = (−π·(−1) + 0) − (0 + 0) = π."), difficulty: 3 },
+    { ...calcTyped("y12e2-calc-ibp-pool-4", "Using ∫ x² eˣ dx = (x² − 2x + 2)eˣ + C, evaluate the integral of x² eˣ from 0 to 1.", "\\int_0^1 x^2 e^x\\,dx", "e - 2", ["e-2", "0.718"], "(1 − 2 + 2)e¹ − (0 − 0 + 2)e⁰ = e − 2."), difficulty: 3 },
+    { ...calcChoice("y12e2-calc-ibp-pool-5", "For ∫ x eˣ dx a student chooses u = eˣ, dv = x dx. Why is this a poor choice?", "C", ["It is not allowed.", "Both factors must be differentiated.", "It makes the next integral ∫ (x²/2)eˣ dx harder, not simpler; choosing u = x makes du simpler.", "eˣ has no antiderivative."], "The point of parts is to make ∫ v du simpler. Choosing u = x (du = dx) lowers the polynomial; choosing u = eˣ raises the polynomial power instead."), difficulty: 3 },
+    { ...calcTyped("y12e2-calc-ibp-pool-6", "For I = ∫ eˣ sin x dx, applying parts twice gives I = eˣ sin x − eˣ cos x − I. Solving, I = (eˣ sin x − eˣ cos x)/d + C. Find d.", "I = e^x\\sin x - e^x\\cos x - I", "2", [], "I + I = eˣ sin x − eˣ cos x, so 2I = eˣ sin x − eˣ cos x and I = (eˣ sin x − eˣ cos x)/2; d = 2."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-ibp-pool-7", "By parts, ∫ x ln x dx = (x²/2)ln x − x²/4 + C. Evaluate this antiderivative at x = 1 (the lower-limit contribution).", "\\tfrac{x^2}{2}\\ln x - \\tfrac{x^2}{4}", "-1/4", ["−1/4", "-0.25"], "At x = 1: (1/2)·ln 1 − 1/4 = 0 − 1/4 = −1/4."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-ibp-pool-8", "Repeated parts give ∫ x² cos x dx = x² sin x + 2x cos x − 2 sin x + C. Evaluate this antiderivative at x = 0.", "x^2\\sin x + 2x\\cos x - 2\\sin x", "0", [], "At x = 0: 0·0 + 0·1 − 2·0 = 0."), difficulty: 4 },
+    { ...calcChoice("y12e2-calc-ibp-pool-9", "Which integral requires integration by parts applied twice with a cyclic (self-referencing) argument?", "B", ["∫ 2x√(1+x²) dx", "∫ eˣ cos x dx", "∫ 1/x dx", "∫ x/(x²+1) dx"], "∫ eˣ cos x dx returns a multiple of itself after two applications of parts, giving a cyclic equation to solve for I. The others are substitution or standard forms."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-ibp-pool-10", "Reduction by parts: Iₙ = ∫₀¹ xⁿ eˣ dx satisfies Iₙ = e − n·Iₙ₋₁ (since [xⁿeˣ]₀¹ = e). Given I₀ = e − 1, find I₁.", "I_n = e - n\\,I_{n-1}", "1", [], "I₁ = e − 1·I₀ = e − (e − 1) = 1."), difficulty: 5 },
+    { ...calcTyped("y12e2-calc-ibp-pool-11", "For I = ∫ eˣ cos x dx, applying parts twice gives I = eˣ cos x + eˣ sin x − I, so I = (eˣ cos x + eˣ sin x)/d + C. Find d.", "I = e^x\\cos x + e^x\\sin x - I", "2", [], "2I = eˣ cos x + eˣ sin x, so I = (eˣ cos x + eˣ sin x)/2; d = 2."), difficulty: 5 },
+    { ...calcTyped("y12e2-calc-ibp-pool-12", "Before applying integration by parts to ∫₋₁¹ x³ dx, recognise the integrand is odd over the symmetric interval. State the value of the integral.", "\\int_{-1}^{1} x^3\\,dx", "0", [], "x³ is odd, so its integral over the symmetric interval [−1, 1] is 0 — no integration by parts is needed."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 3: Reduction Formulae Introduction ───────────────────────────────
