@@ -401,17 +401,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   // resisted-motion intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
-  "projectile-motion-resistance": {
-    topic: "projectile motion with resistance",
-    object: "component differential equations",
-    validMove: "Resolve resistance against each velocity component and solve with initial conditions.",
-    trap1: "Using parabolic no-resistance motion.",
-    trap2: "Forgetting horizontal velocity decays.",
-    trap3: "Using one equation for both components.",
-    representation: "coupled component motion model",
-    check: "long-time behaviour agrees with terminal or decaying velocity",
-    d5Context: "projectile components under linear resistance",
-  },
+  // projectile-motion-resistance intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
 };
 
 function choicePoolItem(
