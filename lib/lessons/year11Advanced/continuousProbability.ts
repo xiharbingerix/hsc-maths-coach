@@ -102,8 +102,8 @@ const ndWorked: WorkedExample[] = [
 
 const ndGuided: PracticeQuestion[] = [
   mc("y11adv-cp-nd-g1", "The normal distribution is symmetric about:", "B",
-    [{ label: "A", text: "The standard deviation" }, { label: "B", text: "The mean" }, { label: "C", text: "Zero always" }, { label: "D", text: "The median, which is different from the mean" }],
-    "The normal distribution is perfectly symmetric about the mean μ. For a normal distribution, mean = median = mode all coincide.", ""),
+    [{ label: "A", text: "The standard deviation" }, { label: "B", text: "The mean" }, { label: "C", text: "Zero always" }, { label: "D", text: "The variance" }],
+    "The normal distribution is perfectly symmetric about the mean μ. For a normal distribution, mean = median = mode all coincide. It is NOT necessarily centred at zero (only the standard normal Z is), and symmetry is about the mean, not the SD or variance.", ""),
   fa("y11adv-cp-nd-g2", "X ~ N(100, 15²). What interval contains 68% of values?", "\\mu\\pm\\sigma", "85 to 115", ["85 to 115", "(85, 115)"]),
   mc("y11adv-cp-nd-g3", "For X ~ N(μ, σ²), approximately what percentage of values lie within 3 standard deviations of the mean?", "D",
     [{ label: "A", text: "$68\\%$" }, { label: "B", text: "$90\\%$" }, { label: "C", text: "$95\\%$" }, { label: "D", text: "$99.7\\%$" }],
