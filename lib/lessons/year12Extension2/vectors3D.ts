@@ -572,6 +572,20 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-dot-pool-1", "The dot product a·b equals zero exactly when:", "B", ["a and b are parallel.", "a and b are perpendicular.", "a and b are equal.", "a or b is a unit vector."], "a·b = |a||b|cosθ; this is zero (for non-zero vectors) precisely when cosθ = 0, i.e. θ = 90°."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-dot-pool-2", "Find the dot product (1, 2, 3)·(4, 5, 6).", "(1,2,3)\\cdot(4,5,6)", "32", [], "1·4 + 2·5 + 3·6 = 4 + 10 + 18 = 32."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-dot-pool-3", "Find the dot product (2, −1, 3)·(1, 4, 2).", "(2,-1,3)\\cdot(1,4,2)", "4", [], "2·1 + (−1)·4 + 3·2 = 2 − 4 + 6 = 4."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-dot-pool-4", "Find t so that (t, 2, 1) is perpendicular to (3, −1, −1).", "(t,2,1)\\cdot(3,-1,-1)=0", "1", [], "Dot = 3t − 2 − 1 = 3t − 3 = 0, so t = 1."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-dot-pool-5", "A student says the dot product a·b is a vector. What is wrong?", "C", ["a·b is undefined in 3D.", "a·b is a matrix.", "a·b is a SCALAR (a single number), not a vector.", "a·b is always zero."], "The dot product combines two vectors into one number (a scalar). The cross product, by contrast, returns a vector."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-dot-pool-6", "The angle θ between two vectors satisfies cosθ = (a·b)/(|a||b|). If a·b = 0, find θ in degrees.", "\\cos\\theta = \\frac{a\\cdot b}{|a||b|}", "90", ["90°"], "cosθ = 0 gives θ = 90° — the vectors are perpendicular."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-dot-pool-7", "For a = (1, 0, 0) and b = (1, 1, 0): a·b = 1, |a| = 1, |b| = √2, so cosθ = 1/√2. Find θ in degrees.", "\\cos\\theta = \\tfrac{1}{\\sqrt2}", "45", ["45°"], "cosθ = 1/√2 gives θ = 45°."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-dot-pool-8", "If |a| = 3, |b| = 4, and the angle between them is 60°, find a·b. (a·b = |a||b|cosθ, cos60° = 1/2.)", "a\\cdot b = |a||b|\\cos\\theta", "6", [], "a·b = 3·4·cos60° = 12·(1/2) = 6."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-dot-pool-9", "If a·b > 0 for two non-zero vectors, the angle between them is:", "B", ["Obtuse (greater than 90°).", "Acute (less than 90°).", "Exactly 90°.", "Exactly 180°."], "a·b = |a||b|cosθ. A positive dot product means cosθ > 0, so θ is acute."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-dot-pool-10", "The scalar projection of a onto b is (a·b)/|b|. For a = (3, 4, 0) and b = (0, 5, 0), find this projection.", "\\text{proj} = \\frac{a\\cdot b}{|b|}", "4", [], "a·b = 0 + 20 + 0 = 20 and |b| = 5, so the scalar projection is 20/5 = 4."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-dot-pool-11", "Find t so that (1, 1, 0) and (1, t, 0) are perpendicular.", "(1,1,0)\\cdot(1,t,0)=0", "-1", ["−1"], "Dot = 1 + t = 0, so t = −1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-dot-pool-12", "Explain by result: a·a equals |a|² (a vector dotted with itself gives its magnitude squared). For a = (2, 3, 6), compute a·a.", "a\\cdot a = |a|^2", "49", [], "a·a = 4 + 9 + 36 = 49, which equals |a|² since |a| = 7 — dotting a vector with itself recovers its squared length."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 3: Equations of Lines in 3D ──────────────────────────────────────

@@ -234,17 +234,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
   // vectors-and-points-3d intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
-  "dot-product-and-angle": {
-    topic: "dot product and angle",
-    object: "directional overlap of two vectors",
-    validMove: "Use a dot b equals |a||b| cos theta.",
-    trap1: "Using component-wise multiplication as a vector answer.",
-    trap2: "Forgetting to divide by both magnitudes before inverse cosine.",
-    trap3: "Calling vectors perpendicular without checking the dot product is zero.",
-    representation: "scalar dot product and angle formula",
-    check: "the cosine value lies between -1 and 1",
-    d5Context: "angle constraints, perpendicularity, and projection problems",
-  },
+  // dot-product-and-angle intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   "equations-of-lines-3d": {
     topic: "3D line equations",
     object: "a point plus a direction vector",
