@@ -246,17 +246,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   // complex-number-arithmetic intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
-  "modulus-argument-conjugate": {
-    topic: "modulus, argument, and conjugate",
-    object: "distance, direction, and reflection on the Argand plane",
-    validMove: "Use Pythagoras for modulus and quadrant-aware trigonometry for argument.",
-    trap1: "Using arctan without checking the quadrant.",
-    trap2: "Changing the modulus when taking a conjugate.",
-    trap3: "Writing argument as a positive acute angle in every quadrant.",
-    representation: "Argand geometry",
-    check: "the argument points to the correct quadrant",
-    d5Context: "loci, conjugate symmetry, and argument constraints",
-  },
+  // modulus-argument-conjugate intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   "argand-diagram-geometry": {
     topic: "Argand diagram geometry",
     object: "a complex number as a point or vector",

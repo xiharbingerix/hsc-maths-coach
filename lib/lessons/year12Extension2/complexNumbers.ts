@@ -669,6 +669,20 @@ const modulusArgumentConjugate: Partial<ExplicitLesson> = {
       "Expand (1−i)² first, then multiply by (1+i)."
     ),
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-mod-pool-1", "The modulus of z = a + bi is given by:", "B", ["a + b", "√(a² + b²)", "a² + b²", "|a| + |b|"], "The modulus is the distance from the origin on the Argand plane: |z| = √(a² + b²)."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-mod-pool-2", "Find |3 + 4i|.", "|3+4i| = \\sqrt{3^2+4^2}", "5", [], "√(9 + 16) = √25 = 5."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-mod-pool-3", "Find |5 − 12i|.", "|5-12i| = \\sqrt{5^2+12^2}", "13", [], "√(25 + 144) = √169 = 13."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-mod-pool-4", "Find the argument of z = 1 + i in degrees.", "\\arg(1+i) = \\arctan\\tfrac{1}{1}", "45", ["45°"], "z is in the first quadrant with arg = arctan(1/1) = 45°."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-mod-pool-5", "A student computes |3 + 4i| as 3 + 4 = 7. What is the error?", "C", ["The modulus is 4.", "The modulus is 12.", "The modulus is √(3² + 4²) = 5, not the sum of the parts.", "There is no error."], "Modulus is a Pythagorean distance: √(9 + 16) = 5. Adding the real and imaginary parts is not the modulus."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-mod-pool-6", "Find the argument of z = i in degrees.", "\\arg(i)", "90", ["90°"], "z = i lies on the positive imaginary axis, so its argument is 90°."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-mod-pool-7", "The modulus is multiplicative: |zw| = |z||w|. For |z| = 2 and |w| = 3, find |zw|.", "|zw| = |z||w|", "6", [], "|zw| = 2·3 = 6."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-mod-pool-8", "Using z·z̄ = |z|², find |z|² for z = 2 + 3i.", "z\\bar{z} = |z|^2", "13", [], "z·z̄ = (2 + 3i)(2 − 3i) = 4 + 9 = 13 = |z|²."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-mod-pool-9", "For a complex number in the second quadrant (negative real part, positive imaginary part), the argument is:", "B", ["Between 0° and 90°.", "Between 90° and 180°.", "Between 180° and 270°.", "Always 45°."], "Second-quadrant numbers have arguments between 90° and 180°; the raw arctan(b/a) must be adjusted for the quadrant."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-mod-pool-10", "Arguments add under multiplication: arg(zw) = arg z + arg w. For arg z = 30° and arg w = 45°, find arg(zw) in degrees.", "\\arg(zw) = \\arg z + \\arg w", "75", ["75°"], "arg(zw) = 30° + 45° = 75°."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-mod-pool-11", "Find the modulus of (3 + 4i)(5 − 12i) using |zw| = |z||w|, without expanding the product.", "|zw| = |z||w|", "65", [], "|3 + 4i| = 5 and |5 − 12i| = 13, so |zw| = 5·13 = 65 — multiplying the moduli avoids expanding."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-mod-pool-12", "Explain by result: |z̄| = |z| — conjugating reflects z across the real axis but keeps its distance from the origin. For z = 8 − 6i, state |z̄|.", "|\\bar{z}| = |z|", "10", [], "|z̄| = |z| = √(8² + 6²) = √100 = 10 — the reflection preserves the modulus."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
