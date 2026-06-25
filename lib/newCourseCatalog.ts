@@ -131,6 +131,7 @@ import {
   year11AdvancedTrigCalculusLessonOverride,
   year11AdvancedMotionRatesLessonOverride,
   year11AdvancedSeriesFinanceLessonOverride,
+  year11AdvancedGraphsEquationsLessonOverride,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -426,6 +427,7 @@ export function buildLesson(
     year11AdvancedTrigCalculusLessonOverride(course, unit, lesson) ??
     year11AdvancedMotionRatesLessonOverride(course, unit, lesson) ??
     year11AdvancedSeriesFinanceLessonOverride(course, unit, lesson) ??
+    year11AdvancedGraphsEquationsLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
@@ -2603,6 +2605,20 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "superannuation-future-value", title: "Superannuation and Future Value of Annuities" },
           { slug: "loan-repayments-present-value", title: "Loan Repayments and Present Value of Annuities" },
           { slug: "series-finance-exam-practice", title: "Series and Finance Exam Practice" },
+        ],
+      },
+      {
+        slug: "graphs-equations",
+        title: "Graphs and Equations",
+        description: "Apply the factor and remainder theorems to polynomials, use Vieta's formulas for sum and product of roots, sketch polynomial graphs from factored form, and solve non-linear simultaneous equations.",
+        syllabusArea: "Functions",
+        focus: "Polynomial analysis and non-linear simultaneous equations",
+        lessons: [
+          { slug: "factor-remainder-theorem", title: "The Factor and Remainder Theorems" },
+          { slug: "sum-product-of-roots", title: "Sum and Product of Roots" },
+          { slug: "graphing-polynomials", title: "Graphing Polynomials" },
+          { slug: "simultaneous-equations-nonlinear", title: "Non-Linear Simultaneous Equations" },
+          { slug: "graphs-equations-exam-practice", title: "Graphs and Equations Exam Practice" },
         ],
       },
     ],
