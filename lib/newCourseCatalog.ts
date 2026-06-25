@@ -3695,7 +3695,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 12 Mathematics Extension 2",
     yearLevel: "Year 12",
     courseType: "Mathematics Extension 2",
-    status: "in_progress",
+    status: "available",
     description:
       "Year 12 Mathematics Extension 2 pathway with active Phase 1 content across Proof, Vectors in Three Dimensions, Complex Numbers, Calculus and Mechanics.",
     positioning:
@@ -4382,7 +4382,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 9 Mathematics",
     yearLevel: "9",
     courseType: "standard",
-    status: "available",
+    // Base pathway: exists only to derive the core/advanced variants; not shown to students.
+    status: "hidden",
     description:
       "Build the Stage 5 foundations for Year 10 Mathematics through geometry, trigonometry, algebra, measurement, finance, probability and statistics.",
     positioning:
@@ -4609,7 +4610,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 10 Mathematics",
     yearLevel: "Year 10",
     courseType: "Mathematics",
-    status: "available",
+    // Base pathway: exists only to derive the core/advanced variants; not shown to students.
+    status: "hidden",
     description:
       "Build the algebraic, graphical, measurement and trigonometric foundations needed for senior mathematics.",
     positioning:
@@ -5768,7 +5770,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
     title: "Year 7 Mathematics",
     yearLevel: "Year 7",
     courseType: "Mathematics",
-    status: "in_progress",
+    status: "available",
     description:
       "Build Stage 4 foundations across number, algebra, geometry, measurement and statistics — the essential groundwork for Year 8 Mathematics.",
     positioning:
@@ -6303,9 +6305,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       title: "Year 9 Mathematics Advanced",
       yearLevel: "Year 9",
       courseType: "Mathematics Advanced",
-      // Hidden during the Year 9 restructure (Wave 0, ADR-Y9-001) so students never see the
-      // transitional stub-skeleton state. Restore to "in_progress"/"available" at release.
-      status: "in_progress",
+      // Live: the Year 9 restructure has been released; this pathway is student-facing.
+      status: "available",
       description:
         "Stage 5.2/5.3 Year 9 Mathematics for students on the Advanced pathway. Includes full trigonometry, coordinate geometry, extended algebra, simultaneous equations, Venn diagrams and conditional probability.",
       positioning:
@@ -6317,9 +6318,8 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       title: "Year 9 Mathematics Core",
       yearLevel: "Year 9",
       courseType: "Mathematics Core",
-      // Hidden during the Year 9 restructure (Wave 0, ADR-Y9-001) so students never see the
-      // transitional stub-skeleton state. Restore to "in_progress"/"available" at release.
-      status: "in_progress",
+      // Live: the Year 9 restructure has been released; this pathway is student-facing.
+      status: "available",
       description:
         "Stage 5.1/5.2 Year 9 Mathematics for students on the Core pathway. Covers geometry, measurement, index laws, financial maths, linear relationships and statistics.",
       positioning:
@@ -6331,7 +6331,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       title: "Year 10 Mathematics Advanced",
       yearLevel: "Year 10",
       courseType: "Mathematics Advanced",
-      status: "in_progress",
+      status: "available",
       description:
         "Stage 5.3 Year 10 Mathematics for students on the Advanced pathway. Includes circle geometry, geometric proofs, full trigonometry (sine/cosine rule, bearings) and all non-linear function types.",
       positioning:
@@ -6343,7 +6343,7 @@ export const newCoursePathways: CoursePathwaySeed[] = [
       title: "Year 10 Mathematics Core",
       yearLevel: "Year 10",
       courseType: "Mathematics Core",
-      status: "in_progress",
+      status: "available",
       description:
         "Stage 5.2 Year 10 Mathematics for students on the Core pathway. Covers algebra, linear and non-linear relationships, right-angled trigonometry, measurement, probability and statistics.",
       positioning:
