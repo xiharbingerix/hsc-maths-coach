@@ -1464,6 +1464,20 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
       "Apply the sum-of-roots-of-unity result."
     ),
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-rou-pool-1", "How many distinct nth roots does a non-zero complex number have?", "B", ["1", "Exactly n", "2", "Infinitely many"], "Every non-zero complex number has exactly n distinct nth roots, equally spaced around a circle."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-rou-pool-2", "How many distinct 5th roots of unity are there?", "z^5 = 1", "5", [], "z⁵ = 1 has exactly 5 distinct solutions."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-rou-pool-3", "The nth roots of unity are equally spaced around the unit circle, separated by 360°/n. For n = 6, find the angular spacing in degrees.", "\\tfrac{360°}{n}", "60", ["60°"], "360°/6 = 60° between consecutive roots."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-rou-pool-4", "The cube roots of unity are 1, ω, ω² where ω = cis(120°). State the argument of ω in degrees.", "\\omega = \\text{cis}(120°)", "120", ["120°"], "ω = cis(120°), so its argument is 120°."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-rou-pool-5", "A student claims z⁴ = 1 has only two solutions, z = ±1. What is wrong?", "C", ["z⁴ = 1 has only one solution.", "z⁴ = 1 has three solutions.", "z⁴ = 1 has FOUR roots: 1, i, −1, −i.", "z⁴ = 1 has no solutions."], "A degree-4 equation has 4 roots. The 4th roots of unity are 1, i, −1, −i — the student missed the two imaginary roots."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-rou-pool-6", "Among the 4th roots of unity 1, i, −1, −i, state the argument (in degrees) of the root i.", "\\arg(i)", "90", ["90°"], "i = cis(90°), so its argument is 90°."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-rou-pool-7", "The sum of all n nth-roots of unity is 0 (for n ≥ 2). For the cube roots, state the value of 1 + ω + ω².", "1 + \\omega + \\omega^2", "0", [], "The roots of unity sum to zero, so 1 + ω + ω² = 0."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-rou-pool-8", "The nth roots of unity all lie on the unit circle, so they have modulus 1. State the modulus of any 7th root of unity.", "|z| = 1", "1", [], "All roots of unity have modulus 1 — they sit on the unit circle."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-rou-pool-9", "The nth roots of unity lie:", "B", ["On the real axis.", "Equally spaced on the unit circle, forming a regular n-gon.", "On a circle of radius n.", "All at the origin."], "The n roots are evenly spaced around the unit circle (separation 2π/n), so they are the vertices of a regular n-gon."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-rou-pool-10", "To find the three cube roots of 8, write 8 = 8 cis(0°); each root has arguments 0°, 120°, 240° and a common modulus equal to the real cube root of 8. State that common modulus.", "8 = 8\\,\\text{cis}(0°)", "2", [], "The modulus of each cube root is the real cube root of 8, which is 2."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-rou-pool-11", "The cube roots of unity satisfy ω³ = 1 and 1 + ω + ω² = 0. Hence find ω + ω².", "1 + \\omega + \\omega^2 = 0", "-1", ["−1"], "From 1 + ω + ω² = 0, we get ω + ω² = −1."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-rou-pool-12", "Explain by result: the n nth-roots of unity sum to zero because they are symmetric about the origin (the centroid of a regular n-gon centred at the origin is the origin). State the sum of the ten 10th-roots of unity.", "\\sum \\text{roots} = 0", "0", [], "By symmetry the roots cancel in conjugate/opposite pairs, so their sum is 0 — the centroid of the regular 10-gon is the origin."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 

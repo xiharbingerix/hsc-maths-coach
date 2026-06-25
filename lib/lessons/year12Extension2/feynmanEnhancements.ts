@@ -252,17 +252,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   // polar-form-de-moivre intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
-  "roots-of-unity": {
-    topic: "roots of unity",
-    object: "equally spaced points on the unit circle",
-    validMove: "Divide a full turn into n equal arguments.",
-    trap1: "Listing only the principal root.",
-    trap2: "Using pi/n instead of 2pi/n spacing.",
-    trap3: "Changing the modulus away from 1 for roots of unity.",
-    representation: "regular polygon on the unit circle",
-    check: "there are n distinct roots spaced by 2pi/n",
-    d5Context: "factorisation, sums of roots, and geometric symmetry",
-  },
+  // roots-of-unity intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   "complex-polynomials": {
     topic: "complex polynomial roots",
     object: "factor and conjugate-root structure",
