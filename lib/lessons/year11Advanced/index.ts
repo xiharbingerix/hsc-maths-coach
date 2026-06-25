@@ -7,3 +7,4 @@ export * from "./graphTransformations";
 export * from "./probabilityData";
 export * from "./sequencesSeries";
 export * from "./integration";
+export * from "./curveSketching";
