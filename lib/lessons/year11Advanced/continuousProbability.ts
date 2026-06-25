@@ -280,7 +280,7 @@ const ntMastery: PracticeQuestion[] = [
 
 const cpExGuided: PracticeQuestion[] = [
   mc("y11adv-cp-ex-g1", "A continuous RV has pdf f(x) = cx on [0, 4]. Find c.", "C",
-    [{ label: "A", text: "$1/4$" }, { label: "B", text: "$1/8$" }, { label: "C", text: "$1/8$" }, { label: "D", text: "$1/16$" }],
+    [{ label: "A", text: "$1/4$" }, { label: "B", text: "$1/2$" }, { label: "C", text: "$1/8$" }, { label: "D", text: "$1/16$" }],
     "∫₀⁴ cx dx = c[x²/2]₀⁴ = 8c = 1 → c = 1/8.", ""),
   fa("y11adv-cp-ex-g2", "X ~ N(45, 6²). Find P(33 < X < 57) using the empirical rule.", "33=45-2\\sigma,\\;57=45+2\\sigma", "95%", ["95%"]),
   fa("y11adv-cp-ex-g3", "X ~ N(80, 10²). Find the z-score for X = 65.", "z=(65-80)/10", "z = −1.5", ["-1.5"]),
