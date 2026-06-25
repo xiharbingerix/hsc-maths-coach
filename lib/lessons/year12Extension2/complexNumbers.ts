@@ -425,6 +425,20 @@ const complexArithmetic: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-arith-pool-1", "What is the value of i²?", "B", ["1", "−1", "i", "0"], "By definition i = √(−1), so i² = −1."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-arith-pool-2", "Find the real part of (3 + 4i) + (1 − 2i).", "(3+4i)+(1-2i)", "4", [], "Sum = (3 + 1) + (4 − 2)i = 4 + 2i, so the real part is 4."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-arith-pool-3", "Find the imaginary part of (3 + 4i) + (1 − 2i).", "(3+4i)+(1-2i)", "2", [], "Sum = 4 + 2i, so the imaginary part is 2."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-arith-pool-4", "Simplify i³ (give the answer in the form a + bi or a single term).", "i^3", "-i", ["−i"], "i³ = i²·i = (−1)·i = −i."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-arith-pool-5", "A student claims (2i)² = 4i. What is the error?", "C", ["(2i)² = 2i.", "(2i)² = 4.", "(2i)² = 4i² = 4(−1) = −4, a real number.", "(2i)² is undefined."], "Squaring gives 2²·i² = 4·(−1) = −4. The i² must be replaced by −1, turning the result real."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-arith-pool-6", "Expand (1 + 2i)(3 − i) and give the real part.", "(1+2i)(3-i)", "5", [], "(1 + 2i)(3 − i) = 3 − i + 6i − 2i² = 3 + 5i + 2 = 5 + 5i, so the real part is 5."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-arith-pool-7", "Give the imaginary part of (1 + 2i)(3 − i).", "(1+2i)(3-i)", "5", [], "The product is 5 + 5i, so the imaginary part is 5."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-arith-pool-8", "To divide by a complex number, multiply by its conjugate. For 1/(1 + i), multiplying by (1 − i)/(1 − i) gives (1 − i)/2. Find the real part.", "\\frac{1}{1+i} = \\frac{1-i}{2}", "1/2", ["0.5"], "1/(1 + i) = (1 − i)/((1 + i)(1 − i)) = (1 − i)/2, so the real part is 1/2."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-arith-pool-9", "The conjugate of 3 − 2i is:", "B", ["−3 + 2i", "3 + 2i", "−3 − 2i", "2 − 3i"], "The conjugate flips the sign of the imaginary part only: 3 − 2i becomes 3 + 2i."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-arith-pool-10", "Find i⁴⁰⁰⁷. (Powers of i repeat with period 4: i¹ = i, i² = −1, i³ = −i, i⁴ = 1.)", "i^{4007}", "-i", ["−i"], "4007 = 4·1001 + 3, so i⁴⁰⁰⁷ = i³ = −i."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-arith-pool-11", "Compute (3 + 4i)/(1 − 2i) by multiplying by the conjugate (1 + 2i), then give the imaginary part. (Numerator (3+4i)(1+2i), denominator (1−2i)(1+2i) = 5.)", "\\frac{3+4i}{1-2i}", "2", [], "Numerator = (3 + 4i)(1 + 2i) = 3 + 10i + 8i² = −5 + 10i; denominator = 5. So the quotient is −1 + 2i and the imaginary part is 2."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-arith-pool-12", "Explain by result: z·z̄ = |z|², always a non-negative real number. For z = 3 + 4i (so z̄ = 3 − 4i), compute z·z̄.", "z\\bar{z} = |z|^2", "25", [], "z·z̄ = (3 + 4i)(3 − 4i) = 9 − 16i² = 9 + 16 = 25 = |z|² — the imaginary parts cancel, leaving the squared modulus."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 2: Modulus, Argument and Conjugate ───────────────────────────────

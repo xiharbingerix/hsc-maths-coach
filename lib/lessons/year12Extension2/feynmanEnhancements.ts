@@ -244,17 +244,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   // geometric-proofs-vectors intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
-  "complex-number-arithmetic": {
-    topic: "complex arithmetic",
-    object: "real and imaginary components",
-    validMove: "Collect real parts and imaginary parts, using i squared equals -1.",
-    trap1: "Treating i squared as positive 1.",
-    trap2: "Combining real and imaginary terms as like terms.",
-    trap3: "Forgetting conjugates when dividing.",
-    representation: "a + bi form",
-    check: "the final answer has separated real and imaginary parts",
-    d5Context: "division, powers of i, and mixed arithmetic",
-  },
+  // complex-number-arithmetic intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   "modulus-argument-conjugate": {
     topic: "modulus, argument, and conjugate",
     object: "distance, direction, and reflection on the Argand plane",
