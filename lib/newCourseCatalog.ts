@@ -127,6 +127,9 @@ import {
   year11AdvancedWorkingFunctionsLessonOverride,
   year11AdvancedIntegrationLessonOverride,
   year11AdvancedCurveSketchingLessonOverride,
+  year11AdvancedExpLogCalculusLessonOverride,
+  year11AdvancedTrigCalculusLessonOverride,
+  year11AdvancedMotionRatesLessonOverride,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -418,6 +421,9 @@ export function buildLesson(
     year11AdvancedSequencesSeriesLessonOverride(course, unit, lesson) ??
     year11AdvancedIntegrationLessonOverride(course, unit, lesson) ??
     year11AdvancedCurveSketchingLessonOverride(course, unit, lesson) ??
+    year11AdvancedExpLogCalculusLessonOverride(course, unit, lesson) ??
+    year11AdvancedTrigCalculusLessonOverride(course, unit, lesson) ??
+    year11AdvancedMotionRatesLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
@@ -2537,6 +2543,50 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "reading-derivative-graphs", title: "Reading Derivative Graphs" },
           { slug: "optimisation", title: "Optimisation" },
           { slug: "curve-sketching-exam-practice", title: "Curve Sketching Exam Practice" },
+        ],
+      },
+      {
+        slug: "exp-log-calculus",
+        title: "Exponential and Logarithmic Calculus",
+        description: "Differentiate eˣ and ln x using the chain rule, integrate e^(ax) and 1/x, and apply these results to curve analysis and area calculations.",
+        syllabusArea: "Calculus",
+        focus: "Calculus of exponential and logarithmic functions",
+        lessons: [
+          { slug: "differentiating-exponential-functions", title: "Differentiating Exponential Functions" },
+          { slug: "differentiating-logarithmic-functions", title: "Differentiating Logarithmic Functions" },
+          { slug: "integrating-exponential-functions", title: "Integrating Exponential Functions" },
+          { slug: "integrating-reciprocal-functions", title: "Integrating Reciprocal Functions" },
+          { slug: "applications-exp-log-calculus", title: "Applications of Exp and Log Calculus" },
+          { slug: "exp-log-calculus-exam-practice", title: "Exp and Log Calculus Exam Practice" },
+        ],
+      },
+      {
+        slug: "trig-calculus",
+        title: "Trigonometric Calculus",
+        description: "Differentiate sin x, cos x and tan x, integrate sin x and cos x, apply the chain rule to composite trig functions, and use these results to find areas and analyse trig curves.",
+        syllabusArea: "Calculus",
+        focus: "Calculus of trigonometric functions",
+        lessons: [
+          { slug: "differentiating-sin-cos", title: "Differentiating sin x and cos x" },
+          { slug: "differentiating-trig-chain-rule", title: "Differentiating Trig Functions with the Chain Rule" },
+          { slug: "integrating-sin-cos", title: "Integrating sin x and cos x" },
+          { slug: "integrating-trig-chain-rule", title: "Integrating Trig Functions with the Chain Rule" },
+          { slug: "applications-trig-calculus", title: "Applications of Trigonometric Calculus" },
+          { slug: "trig-calculus-exam-practice", title: "Trig Calculus Exam Practice" },
+        ],
+      },
+      {
+        slug: "motion-rates",
+        title: "Motion and Rates of Change",
+        description: "Apply calculus to straight-line motion: find velocity and acceleration by differentiation, recover displacement by integration, analyse direction changes and total distance, and model practical rates of change.",
+        syllabusArea: "Calculus",
+        focus: "Kinematics and rates of change",
+        lessons: [
+          { slug: "displacement-velocity-acceleration", title: "Displacement, Velocity and Acceleration" },
+          { slug: "finding-displacement-by-integration", title: "Finding Displacement by Integration" },
+          { slug: "motion-analysis", title: "Motion Analysis: Direction Changes and Total Distance" },
+          { slug: "rates-of-change-applications", title: "Rates of Change Applications" },
+          { slug: "motion-rates-exam-practice", title: "Motion and Rates Exam Practice" },
         ],
       },
     ],
