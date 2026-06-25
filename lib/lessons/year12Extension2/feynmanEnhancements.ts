@@ -248,17 +248,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   // modulus-argument-conjugate intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
-  "argand-diagram-geometry": {
-    topic: "Argand diagram geometry",
-    object: "a complex number as a point or vector",
-    validMove: "Translate modulus into distance and argument into angle.",
-    trap1: "Reading |z-a| as distance from the origin.",
-    trap2: "Ignoring the centre of a circle or locus.",
-    trap3: "Confusing real and imaginary axes.",
-    representation: "locus on the Argand plane",
-    check: "the locus matches the distance or angle condition",
-    d5Context: "circle, perpendicular bisector, and ray loci",
-  },
+  // argand-diagram-geometry intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   "polar-form-de-moivre": {
     topic: "polar form and de Moivre's theorem",
     object: "modulus and argument",

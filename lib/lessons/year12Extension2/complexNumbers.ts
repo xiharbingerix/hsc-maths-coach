@@ -907,6 +907,20 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
       "z₂ − z₁ = 3 + 4i. |3+4i| = √(9+16) = 5."
     ),
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-argand-pool-1", "On the Argand diagram, where is z = a + bi plotted?", "B", ["At (b, a)", "At the point (a, b)", "On the real axis only", "At (a + b, 0)"], "The real part a is the horizontal coordinate and the imaginary part b is the vertical coordinate, so z sits at (a, b)."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-argand-pool-2", "The number z = 3 − 2i is plotted at the point (3, −2). State its x-coordinate (the real part).", "z = 3 - 2i", "3", [], "The real part is 3, which is the horizontal coordinate."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-argand-pool-3", "The point representing z = −4 + 5i has what y-coordinate (imaginary part)?", "z = -4 + 5i", "5", [], "The imaginary part is 5, the vertical coordinate."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-argand-pool-4", "Adding complex numbers adds their position vectors. For z₁ = 1 + 2i and z₂ = 3 + i, find the real part of z₁ + z₂.", "z_1 + z_2", "4", [], "z₁ + z₂ = (1 + 3) + (2 + 1)i = 4 + 3i, so the real part is 4."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-argand-pool-5", "The locus |z − (1 + i)| = 3 represents:", "B", ["A straight line through (1, 1).", "A circle of radius 3 centred at (1, 1).", "A ray from (1, 1).", "A single point."], "|z − c| = r is the set of points a fixed distance r from c — a circle of radius 3 centred at (1, 1)."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-argand-pool-6", "The locus |z| = 5 is a circle centred at the origin. State its radius.", "|z| = 5", "5", [], "|z| = 5 means every point is distance 5 from the origin: a circle of radius 5."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-argand-pool-7", "The locus |z − 2| = |z − 4| is the perpendicular bisector of the segment joining (2, 0) and (4, 0). It is the vertical line Re(z) = ?", "|z-2| = |z-4|", "3", [], "Points equidistant from (2, 0) and (4, 0) lie on the vertical line through their midpoint, Re(z) = 3."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-argand-pool-8", "The locus |z − 4i| = 2 is a circle. State the y-coordinate of its centre.", "|z - 4i| = 2", "4", [], "The centre is at 4i, i.e. the point (0, 4), so its y-coordinate is 4."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-argand-pool-9", "The locus arg(z) = π/4 represents:", "B", ["A full straight line through the origin.", "A ray (half-line) from the origin at 45° (excluding the origin).", "A circle.", "The real axis."], "arg(z) = π/4 fixes the DIRECTION at 45° from the positive real axis — a ray from (but not including) the origin, not the whole line (the opposite ray has argument −3π/4)."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-argand-pool-10", "Multiplying z by i rotates it 90° anticlockwise about the origin. For z = 3 (the point (3, 0)), iz = 3i is the point (0, 3). State the y-coordinate of iz.", "iz = 3i", "3", [], "i·3 = 3i, which plots at (0, 3); multiplication by i is a 90° anticlockwise rotation."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-argand-pool-11", "The locus |z − 1| = |z + 1| is the perpendicular bisector of (1, 0) and (−1, 0). It is the imaginary axis, Re(z) = ?", "|z-1| = |z+1|", "0", [], "Equidistant from (1, 0) and (−1, 0) means lying on the imaginary axis, Re(z) = 0."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-argand-pool-12", "Explain by result: |z − c| = r is always a circle, since it is the set of points a fixed distance r from the centre c. For |z − (4 + 3i)| = 10, state the radius.", "|z - c| = r", "10", [], "The right-hand side is the radius, so r = 10 (centred at (4, 3)) — the form |z − c| = r is a circle by definition of distance."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
