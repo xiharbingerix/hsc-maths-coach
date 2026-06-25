@@ -117,7 +117,11 @@ test("diagnostics assign mastery only to real course topics", () => {
 });
 
 test("senior diagnostic pilots are calibrated as D5 transfer", () => {
-  for (const courseSlug of ["year-12-advanced", "year-12-extension-1"]) {
+  for (const courseSlug of [
+    "year-12-advanced",
+    "year-12-extension-1",
+    "year-12-standard-2",
+  ]) {
     const diagnostic = diagnosticDataByCourseSlug[courseSlug];
 
     assert.equal(diagnostic.questions.length, 10);
