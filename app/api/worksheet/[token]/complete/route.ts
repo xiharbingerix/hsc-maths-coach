@@ -92,7 +92,7 @@ export async function POST(
 
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, expires_at")
+    .select("id, expires_at, assigned_to_user")
     .eq("id", attempt.worksheet_id)
     .eq("share_token", token)
     .maybeSingle();
@@ -214,7 +214,13 @@ export async function POST(
     );
   }
 
-  const userId = (attempt as { user_id?: string | null }).user_id;
+  const attemptUserId = (attempt as { user_id?: string | null }).user_id;
+  const worksheetAssignedUserId =
+    typeof (worksheet as { assigned_to_user?: string | null }).assigned_to_user === "string" &&
+    (worksheet as { assigned_to_user?: string | null }).assigned_to_user
+      ? (worksheet as { assigned_to_user?: string | null }).assigned_to_user!
+      : null;
+  const userId = attemptUserId ?? worksheetAssignedUserId;
   if (userId) {
     try {
       const questionIds = [...latestAnswersByQuestion.keys()];
