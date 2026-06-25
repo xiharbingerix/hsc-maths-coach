@@ -116,8 +116,9 @@ test("diagnostics assign mastery only to real course topics", () => {
   }
 });
 
-test("senior diagnostic pilots are calibrated as D5 transfer", () => {
+test("calibrated diagnostic pilots are authored as D5 transfer", () => {
   for (const courseSlug of [
+    "year-10-mathematics-advanced",
     "year-11-advanced",
     "year-11-extension",
     "year-11-standard",
