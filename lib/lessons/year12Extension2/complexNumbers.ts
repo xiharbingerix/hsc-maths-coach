@@ -425,6 +425,20 @@ const complexArithmetic: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-arith-pool-1", "What is the value of i²?", "B", ["1", "−1", "i", "0"], "By definition i = √(−1), so i² = −1."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-arith-pool-2", "Find the real part of (3 + 4i) + (1 − 2i).", "(3+4i)+(1-2i)", "4", [], "Sum = (3 + 1) + (4 − 2)i = 4 + 2i, so the real part is 4."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-arith-pool-3", "Find the imaginary part of (3 + 4i) + (1 − 2i).", "(3+4i)+(1-2i)", "2", [], "Sum = 4 + 2i, so the imaginary part is 2."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-arith-pool-4", "Simplify i³ (give the answer in the form a + bi or a single term).", "i^3", "-i", ["−i"], "i³ = i²·i = (−1)·i = −i."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-arith-pool-5", "A student claims (2i)² = 4i. What is the error?", "C", ["(2i)² = 2i.", "(2i)² = 4.", "(2i)² = 4i² = 4(−1) = −4, a real number.", "(2i)² is undefined."], "Squaring gives 2²·i² = 4·(−1) = −4. The i² must be replaced by −1, turning the result real."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-arith-pool-6", "Expand (1 + 2i)(3 − i) and give the real part.", "(1+2i)(3-i)", "5", [], "(1 + 2i)(3 − i) = 3 − i + 6i − 2i² = 3 + 5i + 2 = 5 + 5i, so the real part is 5."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-arith-pool-7", "Give the imaginary part of (1 + 2i)(3 − i).", "(1+2i)(3-i)", "5", [], "The product is 5 + 5i, so the imaginary part is 5."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-arith-pool-8", "To divide by a complex number, multiply by its conjugate. For 1/(1 + i), multiplying by (1 − i)/(1 − i) gives (1 − i)/2. Find the real part.", "\\frac{1}{1+i} = \\frac{1-i}{2}", "1/2", ["0.5"], "1/(1 + i) = (1 − i)/((1 + i)(1 − i)) = (1 − i)/2, so the real part is 1/2."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-arith-pool-9", "The conjugate of 3 − 2i is:", "B", ["−3 + 2i", "3 + 2i", "−3 − 2i", "2 − 3i"], "The conjugate flips the sign of the imaginary part only: 3 − 2i becomes 3 + 2i."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-arith-pool-10", "Find i⁴⁰⁰⁷. (Powers of i repeat with period 4: i¹ = i, i² = −1, i³ = −i, i⁴ = 1.)", "i^{4007}", "-i", ["−i"], "4007 = 4·1001 + 3, so i⁴⁰⁰⁷ = i³ = −i."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-arith-pool-11", "Compute (3 + 4i)/(1 − 2i) by multiplying by the conjugate (1 + 2i), then give the imaginary part. (Numerator (3+4i)(1+2i), denominator (1−2i)(1+2i) = 5.)", "\\frac{3+4i}{1-2i}", "2", [], "Numerator = (3 + 4i)(1 + 2i) = 3 + 10i + 8i² = −5 + 10i; denominator = 5. So the quotient is −1 + 2i and the imaginary part is 2."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-arith-pool-12", "Explain by result: z·z̄ = |z|², always a non-negative real number. For z = 3 + 4i (so z̄ = 3 − 4i), compute z·z̄.", "z\\bar{z} = |z|^2", "25", [], "z·z̄ = (3 + 4i)(3 − 4i) = 9 − 16i² = 9 + 16 = 25 = |z|² — the imaginary parts cancel, leaving the squared modulus."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 2: Modulus, Argument and Conjugate ───────────────────────────────
@@ -655,6 +669,20 @@ const modulusArgumentConjugate: Partial<ExplicitLesson> = {
       "Expand (1−i)² first, then multiply by (1+i)."
     ),
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-mod-pool-1", "The modulus of z = a + bi is given by:", "B", ["a + b", "√(a² + b²)", "a² + b²", "|a| + |b|"], "The modulus is the distance from the origin on the Argand plane: |z| = √(a² + b²)."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-mod-pool-2", "Find |3 + 4i|.", "|3+4i| = \\sqrt{3^2+4^2}", "5", [], "√(9 + 16) = √25 = 5."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-mod-pool-3", "Find |5 − 12i|.", "|5-12i| = \\sqrt{5^2+12^2}", "13", [], "√(25 + 144) = √169 = 13."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-mod-pool-4", "Find the argument of z = 1 + i in degrees.", "\\arg(1+i) = \\arctan\\tfrac{1}{1}", "45", ["45°"], "z is in the first quadrant with arg = arctan(1/1) = 45°."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-mod-pool-5", "A student computes |3 + 4i| as 3 + 4 = 7. What is the error?", "C", ["The modulus is 4.", "The modulus is 12.", "The modulus is √(3² + 4²) = 5, not the sum of the parts.", "There is no error."], "Modulus is a Pythagorean distance: √(9 + 16) = 5. Adding the real and imaginary parts is not the modulus."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-mod-pool-6", "Find the argument of z = i in degrees.", "\\arg(i)", "90", ["90°"], "z = i lies on the positive imaginary axis, so its argument is 90°."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-mod-pool-7", "The modulus is multiplicative: |zw| = |z||w|. For |z| = 2 and |w| = 3, find |zw|.", "|zw| = |z||w|", "6", [], "|zw| = 2·3 = 6."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-mod-pool-8", "Using z·z̄ = |z|², find |z|² for z = 2 + 3i.", "z\\bar{z} = |z|^2", "13", [], "z·z̄ = (2 + 3i)(2 − 3i) = 4 + 9 = 13 = |z|²."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-mod-pool-9", "For a complex number in the second quadrant (negative real part, positive imaginary part), the argument is:", "B", ["Between 0° and 90°.", "Between 90° and 180°.", "Between 180° and 270°.", "Always 45°."], "Second-quadrant numbers have arguments between 90° and 180°; the raw arctan(b/a) must be adjusted for the quadrant."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-mod-pool-10", "Arguments add under multiplication: arg(zw) = arg z + arg w. For arg z = 30° and arg w = 45°, find arg(zw) in degrees.", "\\arg(zw) = \\arg z + \\arg w", "75", ["75°"], "arg(zw) = 30° + 45° = 75°."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-mod-pool-11", "Find the modulus of (3 + 4i)(5 − 12i) using |zw| = |z||w|, without expanding the product.", "|zw| = |z||w|", "65", [], "|3 + 4i| = 5 and |5 − 12i| = 13, so |zw| = 5·13 = 65 — multiplying the moduli avoids expanding."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-mod-pool-12", "Explain by result: |z̄| = |z| — conjugating reflects z across the real axis but keeps its distance from the origin. For z = 8 − 6i, state |z̄|.", "|\\bar{z}| = |z|", "10", [], "|z̄| = |z| = √(8² + 6²) = √100 = 10 — the reflection preserves the modulus."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -878,6 +906,20 @@ const argandDiagramGeometry: Partial<ExplicitLesson> = {
       [],
       "z₂ − z₁ = 3 + 4i. |3+4i| = √(9+16) = 5."
     ),
+  ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-argand-pool-1", "On the Argand diagram, where is z = a + bi plotted?", "B", ["At (b, a)", "At the point (a, b)", "On the real axis only", "At (a + b, 0)"], "The real part a is the horizontal coordinate and the imaginary part b is the vertical coordinate, so z sits at (a, b)."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-argand-pool-2", "The number z = 3 − 2i is plotted at the point (3, −2). State its x-coordinate (the real part).", "z = 3 - 2i", "3", [], "The real part is 3, which is the horizontal coordinate."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-argand-pool-3", "The point representing z = −4 + 5i has what y-coordinate (imaginary part)?", "z = -4 + 5i", "5", [], "The imaginary part is 5, the vertical coordinate."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-argand-pool-4", "Adding complex numbers adds their position vectors. For z₁ = 1 + 2i and z₂ = 3 + i, find the real part of z₁ + z₂.", "z_1 + z_2", "4", [], "z₁ + z₂ = (1 + 3) + (2 + 1)i = 4 + 3i, so the real part is 4."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-argand-pool-5", "The locus |z − (1 + i)| = 3 represents:", "B", ["A straight line through (1, 1).", "A circle of radius 3 centred at (1, 1).", "A ray from (1, 1).", "A single point."], "|z − c| = r is the set of points a fixed distance r from c — a circle of radius 3 centred at (1, 1)."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-argand-pool-6", "The locus |z| = 5 is a circle centred at the origin. State its radius.", "|z| = 5", "5", [], "|z| = 5 means every point is distance 5 from the origin: a circle of radius 5."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-argand-pool-7", "The locus |z − 2| = |z − 4| is the perpendicular bisector of the segment joining (2, 0) and (4, 0). It is the vertical line Re(z) = ?", "|z-2| = |z-4|", "3", [], "Points equidistant from (2, 0) and (4, 0) lie on the vertical line through their midpoint, Re(z) = 3."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-argand-pool-8", "The locus |z − 4i| = 2 is a circle. State the y-coordinate of its centre.", "|z - 4i| = 2", "4", [], "The centre is at 4i, i.e. the point (0, 4), so its y-coordinate is 4."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-argand-pool-9", "The locus arg(z) = π/4 represents:", "B", ["A full straight line through the origin.", "A ray (half-line) from the origin at 45° (excluding the origin).", "A circle.", "The real axis."], "arg(z) = π/4 fixes the DIRECTION at 45° from the positive real axis — a ray from (but not including) the origin, not the whole line (the opposite ray has argument −3π/4)."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-argand-pool-10", "Multiplying z by i rotates it 90° anticlockwise about the origin. For z = 3 (the point (3, 0)), iz = 3i is the point (0, 3). State the y-coordinate of iz.", "iz = 3i", "3", [], "i·3 = 3i, which plots at (0, 3); multiplication by i is a 90° anticlockwise rotation."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-argand-pool-11", "The locus |z − 1| = |z + 1| is the perpendicular bisector of (1, 0) and (−1, 0). It is the imaginary axis, Re(z) = ?", "|z-1| = |z+1|", "0", [], "Equidistant from (1, 0) and (−1, 0) means lying on the imaginary axis, Re(z) = 0."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-argand-pool-12", "Explain by result: |z − c| = r is always a circle, since it is the set of points a fixed distance r from the centre c. For |z − (4 + 3i)| = 10, state the radius.", "|z - c| = r", "10", [], "The right-hand side is the radius, so r = 10 (centred at (4, 3)) — the form |z − c| = r is a circle by definition of distance."), difficulty: 5 },
   ],
   masteryPassMark: 0.8,
 };
@@ -1133,6 +1175,20 @@ const polarFormDeMoivre: Partial<ExplicitLesson> = {
         },
       ],
     },
+  ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-demoivre-pool-1", "De Moivre's theorem states that (cos θ + i sin θ)ⁿ equals:", "B", ["cos θ + i sin θ", "cos(nθ) + i sin(nθ)", "n cos θ + i n sin θ", "cos(θⁿ) + i sin(θⁿ)"], "De Moivre's theorem: (cis θ)ⁿ = cis(nθ) = cos(nθ) + i sin(nθ) — the argument is multiplied by n."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-2", "For z = 2 cis(π/3) (that is, 2(cos π/3 + i sin π/3)), state the modulus.", "z = 2\\,\\text{cis}(\\pi/3)", "2", [], "The coefficient in front of cis is the modulus, r = 2."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-3", "The argument of z = 2 cis(π/3) is π/3. State this in degrees.", "\\arg z = \\pi/3", "60", ["60°"], "π/3 radians = 60°."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-4", "By De Moivre, (2 cis(π/6))³ = 2³ cis(3·π/6) = 8 cis(π/2). State the modulus.", "(2\\,\\text{cis}(\\pi/6))^3", "8", [], "The modulus is raised to the power: 2³ = 8."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-demoivre-pool-5", "A student computes (2 cis 30°)³ as 2 cis 90°, forgetting to cube the modulus. The correct modulus is:", "C", ["2", "6", "8 (the modulus is also raised to the power: 2³)", "3"], "De Moivre raises the modulus to the power too: (2 cis 30°)³ = 2³ cis 90° = 8 cis 90°. Leaving the modulus as 2 is the classic slip."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-6", "By De Moivre, (cis(π/4))⁴ = cis(π) = cos π + i sin π. State the real part.", "(\\text{cis}(\\pi/4))^4 = \\text{cis}(\\pi)", "-1", ["−1"], "cis(π) = cos π + i sin π = −1 + 0i, so the real part is −1."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-7", "Multiplication in polar form multiplies moduli and adds arguments: 3 cis(20°) × 2 cis(40°) = 6 cis(60°). State the modulus of the product.", "r_1 r_2\\,\\text{cis}(\\theta_1+\\theta_2)", "6", [], "Moduli multiply: 3·2 = 6."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-8", "Division in polar form divides moduli and subtracts arguments: (6 cis 50°)/(2 cis 20°) = 3 cis 30°. State the argument in degrees.", "\\frac{r_1}{r_2}\\,\\text{cis}(\\theta_1-\\theta_2)", "30", ["30°"], "Arguments subtract: 50° − 20° = 30°."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-demoivre-pool-9", "In the polar form z = r cis θ, the value r (the modulus) must be:", "B", ["Any real number.", "Non-negative (r ≥ 0).", "An integer.", "Less than 1."], "r is a modulus — a distance — so r ≥ 0. A negative coefficient is rewritten by adding π to the argument."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-10", "Find (1 + i)⁸ using polar form. Since |1 + i| = √2 and arg = 45°, (1 + i)⁸ = (√2)⁸ cis(8·45°) = 16 cis(360°). State the real part.", "(1+i)^8 = (\\sqrt2)^8\\,\\text{cis}(360°)", "16", [], "(√2)⁸ = 2⁴ = 16 and cis(360°) = 1, so (1 + i)⁸ = 16 (a real number)."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-11", "By De Moivre, (cos 36° + i sin 36°)⁵ = cos(5·36°) + i sin(5·36°) = cos 180° + i sin 180°. State the real part.", "(\\text{cis}\\,36°)^5 = \\text{cis}\\,180°", "-1", ["−1"], "cos 180° = −1 and sin 180° = 0, so the value is −1."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-12", "Explain by result: (cis θ)ⁿ = cis(nθ) keeps the modulus at 1 for every power, since 1ⁿ = 1. For (cis 27°)¹⁰ = cis(270°), state the modulus.", "(\\text{cis}\\,\\theta)^n = \\text{cis}(n\\theta)", "1", [], "A point on the unit circle stays on the unit circle under any power: the modulus is 1ⁿ = 1, only the angle changes."), difficulty: 5 },
   ],
 };
 
@@ -1408,6 +1464,20 @@ const rootsOfUnity: Partial<ExplicitLesson> = {
       "Apply the sum-of-roots-of-unity result."
     ),
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-rou-pool-1", "How many distinct nth roots does a non-zero complex number have?", "B", ["1", "Exactly n", "2", "Infinitely many"], "Every non-zero complex number has exactly n distinct nth roots, equally spaced around a circle."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-rou-pool-2", "How many distinct 5th roots of unity are there?", "z^5 = 1", "5", [], "z⁵ = 1 has exactly 5 distinct solutions."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-rou-pool-3", "The nth roots of unity are equally spaced around the unit circle, separated by 360°/n. For n = 6, find the angular spacing in degrees.", "\\tfrac{360°}{n}", "60", ["60°"], "360°/6 = 60° between consecutive roots."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-rou-pool-4", "The cube roots of unity are 1, ω, ω² where ω = cis(120°). State the argument of ω in degrees.", "\\omega = \\text{cis}(120°)", "120", ["120°"], "ω = cis(120°), so its argument is 120°."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-rou-pool-5", "A student claims z⁴ = 1 has only two solutions, z = ±1. What is wrong?", "C", ["z⁴ = 1 has only one solution.", "z⁴ = 1 has three solutions.", "z⁴ = 1 has FOUR roots: 1, i, −1, −i.", "z⁴ = 1 has no solutions."], "A degree-4 equation has 4 roots. The 4th roots of unity are 1, i, −1, −i — the student missed the two imaginary roots."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-rou-pool-6", "Among the 4th roots of unity 1, i, −1, −i, state the argument (in degrees) of the root i.", "\\arg(i)", "90", ["90°"], "i = cis(90°), so its argument is 90°."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-rou-pool-7", "The sum of all n nth-roots of unity is 0 (for n ≥ 2). For the cube roots, state the value of 1 + ω + ω².", "1 + \\omega + \\omega^2", "0", [], "The roots of unity sum to zero, so 1 + ω + ω² = 0."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-rou-pool-8", "The nth roots of unity all lie on the unit circle, so they have modulus 1. State the modulus of any 7th root of unity.", "|z| = 1", "1", [], "All roots of unity have modulus 1 — they sit on the unit circle."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-rou-pool-9", "The nth roots of unity lie:", "B", ["On the real axis.", "Equally spaced on the unit circle, forming a regular n-gon.", "On a circle of radius n.", "All at the origin."], "The n roots are evenly spaced around the unit circle (separation 2π/n), so they are the vertices of a regular n-gon."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-rou-pool-10", "To find the three cube roots of 8, write 8 = 8 cis(0°); each root has arguments 0°, 120°, 240° and a common modulus equal to the real cube root of 8. State that common modulus.", "8 = 8\\,\\text{cis}(0°)", "2", [], "The modulus of each cube root is the real cube root of 8, which is 2."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-rou-pool-11", "The cube roots of unity satisfy ω³ = 1 and 1 + ω + ω² = 0. Hence find ω + ω².", "1 + \\omega + \\omega^2 = 0", "-1", ["−1"], "From 1 + ω + ω² = 0, we get ω + ω² = −1."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-rou-pool-12", "Explain by result: the n nth-roots of unity sum to zero because they are symmetric about the origin (the centroid of a regular n-gon centred at the origin is the origin). State the sum of the ten 10th-roots of unity.", "\\sum \\text{roots} = 0", "0", [], "By symmetry the roots cancel in conjugate/opposite pairs, so their sum is 0 — the centroid of the regular 10-gon is the origin."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1679,6 +1749,20 @@ const complexPolynomials: Partial<ExplicitLesson> = {
       "P(0) = (0−4×0+5)(0−r) = 5×(−r) = −10. So r = 2.",
       "Substitute z = 0 and solve for r."
     ),
+  ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-poly-pool-1", "For a polynomial with REAL coefficients, non-real complex roots occur:", "B", ["Singly.", "In conjugate pairs (a + bi and a − bi together).", "Only at the origin.", "Only for even degree."], "The conjugate root theorem: if a + bi is a root of a real-coefficient polynomial, so is its conjugate a − bi."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-poly-pool-2", "A real-coefficient polynomial has 2 + 3i as a root. Its conjugate is also a root. State the imaginary part of that conjugate root.", "\\overline{2+3i} = 2-3i", "-3", ["−3"], "The conjugate is 2 − 3i, whose imaginary part is −3."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-poly-pool-3", "A real quadratic has roots 1 + i and 1 − i. State the sum of the roots.", "(1+i)+(1-i)", "2", [], "(1 + i) + (1 − i) = 2 (the imaginary parts cancel)."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-poly-pool-4", "For the same roots 1 + i and 1 − i, state the product of the roots.", "(1+i)(1-i)", "2", [], "(1 + i)(1 − i) = 1 − i² = 1 + 1 = 2."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-poly-pool-5", "A real cubic has roots 2 and 3 + i. A student says those are all the roots. What is wrong?", "C", ["2 is not a valid root.", "A cubic has only two roots.", "3 − i must also be a root (conjugate pairs), giving roots 2, 3 + i, 3 − i.", "Nothing is wrong."], "Real coefficients force conjugate pairs, so 3 − i is also a root. The cubic has three roots: 2, 3 + i, 3 − i."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-poly-pool-6", "The monic real quadratic with roots 1 + i and 1 − i is x² − (sum)x + (product) = x² − 2x + 2. State its constant term.", "x^2 - 2x + 2", "2", [], "Constant term = product of roots = 2."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-poly-pool-7", "A real polynomial of degree 4 has roots i and 2i; their conjugates −i and −2i are also roots. How many REAL roots does it have?", "\\text{roots: } \\pm i, \\pm 2i", "0", [], "All four roots (i, −i, 2i, −2i) are non-real, so there are 0 real roots."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-poly-pool-8", "z = 1 + i is a root of z² + bz + c with b, c real, so 1 − i is also a root. Since the sum of roots is 2 = −b, find b.", "\\text{sum} = -b", "-2", ["−2"], "Sum of roots = (1 + i) + (1 − i) = 2 = −b, so b = −2."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-poly-pool-9", "Over the complex numbers, how many roots (counting multiplicity) does a degree-n polynomial have?", "B", ["At most 1.", "Exactly n (Fundamental Theorem of Algebra).", "n − 1.", "It depends on the coefficients."], "The Fundamental Theorem of Algebra guarantees exactly n roots over ℂ, counted with multiplicity."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-poly-pool-10", "Find c if z² − 2z + c = 0 (c real) has 1 + 2i as a root. Substitute: (1 + 2i)² − 2(1 + 2i) + c = 0, where (1 + 2i)² = −3 + 4i.", "(1+2i)^2 - 2(1+2i) + c = 0", "5", [], "(−3 + 4i) + (−2 − 4i) + c = −5 + c = 0, so c = 5 (the imaginary parts cancel, as they must)."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-poly-pool-11", "A monic real quadratic has 3 − 4i as a root, so 3 + 4i is the other root. Its constant term is the product of the roots. Find the constant term.", "(3-4i)(3+4i)", "25", [], "(3 − 4i)(3 + 4i) = 9 − 16i² = 9 + 16 = 25 — the conjugate pair multiplies to a real quadratic with constant 25."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-poly-pool-12", "Explain by result: a real polynomial of ODD degree must have at least one REAL root, because non-real roots pair up as conjugates and an odd count cannot pair completely. State the minimum number of real roots of a real degree-7 polynomial.", "\\text{odd degree} \\Rightarrow \\ge 1 \\text{ real root}", "1", [], "7 is odd; conjugate pairs account for an even number of non-real roots, so at least one root must be real. The minimum is 1."), difficulty: 5 },
   ],
   masteryPassMark: 0.8,
 };

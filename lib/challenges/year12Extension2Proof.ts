@@ -74,13 +74,13 @@ export const proofInductionChallenge: PracticeQuestion[] = [
     // Induction-step reconstruction: the remainder that exposes the divisibility.
     id: "chal-y12e2-proof-5",
     prompt:
-      "In an induction proof that 3 divides 4ⁿ − 1, the inductive step writes 4^(k+1) − 1 = 4(4^k − 1) + c. Find c.",
+      "In an induction proof that 3 divides 4ⁿ − 1, the inductive step writes 4ᵏ⁺¹ − 1 = 4(4ᵏ − 1) + c. Find c.",
     latex: "4^{k+1} - 1 = 4\\,(4^{k} - 1) + c",
     answer: "3",
     acceptedAnswers: ["c=3"],
-    hint: "Expand 4(4^k − 1) and compare with 4^(k+1) − 1.",
+    hint: "Expand 4(4ᵏ − 1) and compare with 4ᵏ⁺¹ − 1.",
     explanation:
-      "4(4^k − 1) = 4^(k+1) − 4, so 4^(k+1) − 1 = 4(4^k − 1) + 3, giving c = 3. Since 4^k − 1 is divisible by 3 (hypothesis) and 3 is divisible by 3, so is 4^(k+1) − 1.",
+      "4(4ᵏ − 1) = 4ᵏ⁺¹ − 4, so 4ᵏ⁺¹ − 1 = 4(4ᵏ − 1) + 3, giving c = 3. Since 4ᵏ − 1 is divisible by 3 (hypothesis) and 3 is divisible by 3, so is 4ᵏ⁺¹ − 1.",
   },
   {
     // Parameterised base-case constraint: the induction step holds for any a, the base case
