@@ -55,6 +55,8 @@ function normaliseText(value: string) {
     .replace(/\\[,!]/g, "")
     // Inequalities: Unicode and LaTeX forms -> ASCII. The optional "q" absorbs the
     // longer macro (\leq/\geq) in a single pass; "\left"/"\right" are gone already.
+    .replace(/≠/g, "!=")
+    .replace(/\\neq?/g, "!=")
     .replace(/≤/g, "<=")
     .replace(/\\le(?:q)?/g, "<=")
     .replace(/≥/g, ">=")

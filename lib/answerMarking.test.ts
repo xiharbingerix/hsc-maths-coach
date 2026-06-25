@@ -39,6 +39,24 @@ describe("markTypedAnswer — derivative prefix stripping", () => {
   });
 });
 
+describe("markTypedAnswer — inequality/symbol normalisation", () => {
+  it("≠ matches !=", () => {
+    expect(mark("x≠0", "x!=0")).toBe(true);
+  });
+
+  it("≤ matches <=", () => {
+    expect(mark("x≤5", "x<=5")).toBe(true);
+  });
+
+  it("≥ matches >=", () => {
+    expect(mark("x≥0", "x>=0")).toBe(true);
+  });
+
+  it("\\neq matches !=", () => {
+    expect(mark("x\\neq0", "x!=0")).toBe(true);
+  });
+});
+
 describe("markTypedAnswer — existing behaviour preserved", () => {
   it("exact match", () => {
     expect(mark("42", "42")).toBe(true);

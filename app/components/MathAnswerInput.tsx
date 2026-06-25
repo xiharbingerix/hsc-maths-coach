@@ -238,6 +238,60 @@ export function MathAnswerInput({
           >
             θ
           </button>
+          <button
+            type="button"
+            onClick={() => handleSymbol("!=")}
+            title="Not equal to (!=)"
+            aria-label="Insert not equal"
+            className={TOOLBAR_BTN}
+          >
+            ≠
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSymbol("<=")}
+            title="Less than or equal to (<=)"
+            aria-label="Insert less than or equal"
+            className={TOOLBAR_BTN}
+          >
+            ≤
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSymbol(">=")}
+            title="Greater than or equal to (>=)"
+            aria-label="Insert greater than or equal"
+            className={TOOLBAR_BTN}
+          >
+            ≥
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSymbol("+-")}
+            title="Plus or minus (+-)"
+            aria-label="Insert plus or minus"
+            className={TOOLBAR_BTN}
+          >
+            ±
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSymbol("infinity")}
+            title="Infinity"
+            aria-label="Insert infinity"
+            className={TOOLBAR_BTN}
+          >
+            ∞
+          </button>
+          <button
+            type="button"
+            onClick={() => handleSymbol("°")}
+            title="Degree symbol (°)"
+            aria-label="Insert degree symbol"
+            className={TOOLBAR_BTN}
+          >
+            °
+          </button>
         </div>
       ) : null}
 
