@@ -397,17 +397,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   // simple-harmonic-motion-extended intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
-  "circular-motion-uniform": {
-    topic: "uniform circular motion",
-    object: "centripetal acceleration toward the centre",
-    validMove: "Use a = v squared over r or omega squared r.",
-    trap1: "Pointing acceleration tangentially.",
-    trap2: "Using circumference as acceleration radius incorrectly.",
-    trap3: "Forgetting speed is constant but velocity changes.",
-    representation: "radial acceleration model",
-    check: "acceleration direction is inward",
-    d5Context: "period, angular speed, and force constraints",
-  },
+  // circular-motion-uniform intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   "resisted-motion": {
     topic: "resisted motion",
     object: "a differential equation with velocity-dependent force",
