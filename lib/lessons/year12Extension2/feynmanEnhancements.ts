@@ -242,17 +242,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   // vector-curves-circles-spheres intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
-  "geometric-proofs-vectors": {
-    topic: "vector geometric proof",
-    object: "a geometric claim translated into vector facts",
-    validMove: "Use scalar multiples, equal vectors, lengths, or dot products to prove the geometry.",
-    trap1: "Leaving the proof as algebra without a geometric conclusion.",
-    trap2: "Assuming a diagram property not given.",
-    trap3: "Using equal lengths to claim parallel lines.",
-    representation: "vector equations supporting a geometry conclusion",
-    check: "the final sentence translates the vector fact back to geometry",
-    d5Context: "collinearity, parallelograms, perpendicularity, and ratios",
-  },
+  // geometric-proofs-vectors intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   "complex-number-arithmetic": {
     topic: "complex arithmetic",
     object: "real and imaginary components",
