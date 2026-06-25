@@ -243,7 +243,7 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Chooses the route with fewer links without comparing the combined probability of successful independent links.",
       prompt:
-        "Route A uses two independent links, each with reliability $0.9$. Route B uses one link with reliability $0.8$. Which route is more reliable?",
+        "Route A works only if two independent links both work, each with reliability $0.9$. Route B uses one link with reliability $0.8$. Which route is more reliable?",
       choices: [
         {
           label: "A",
