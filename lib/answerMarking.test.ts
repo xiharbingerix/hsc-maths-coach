@@ -1,118 +1,41 @@
-import { describe, expect, it } from "vitest";
+import { test } from "node:test";
+import assert from "node:assert/strict";
 import { markTypedAnswer } from "./answerMarking";
 
 function mark(userAnswer: string, correctAnswer: string, acceptedAnswers: string[] = []) {
   return markTypedAnswer({ userAnswer, correctAnswer, acceptedAnswers }).correct;
 }
 
-describe("markTypedAnswer — derivative prefix stripping", () => {
-  it("bare expression matches itself", () => {
-    expect(mark("2x", "2x")).toBe(true);
-  });
+// derivative prefix stripping
+test("bare expression matches itself", () => assert.equal(mark("2x", "2x"), true));
+test("y' = expr matches bare expr", () => assert.equal(mark("y' = 2x", "2x"), true));
+test("y'' = expr matches bare expr", () => assert.equal(mark("y'' = 6x", "6x"), true));
+test("f'(x) = expr matches bare expr", () => assert.equal(mark("f'(x) = 2x", "2x"), true));
+test("dy/dx = expr matches bare expr", () => assert.equal(mark("dy/dx = 2x", "2x"), true));
+test("y = expr matches bare expr", () => assert.equal(mark("y = 2x", "2x"), true));
+test("Unicode prime is treated same as ASCII apostrophe", () => assert.equal(mark("y′ = 2x", "2x"), true));
+test("wrong expression is still wrong even with prefix", () => assert.equal(mark("y' = 3x", "2x"), false));
 
-  it("y' = expr matches bare expr", () => {
-    expect(mark("y' = 2x", "2x")).toBe(true);
-  });
+// LaTeX normalisation (MathLive output)
+test("\\frac{1}{2} matches 1/2", () => assert.equal(mark("\\frac{1}{2}", "1/2"), true));
+test("\\frac{3x}{4} matches 3x/4", () => assert.equal(mark("\\frac{3x}{4}", "3x/4"), true));
+test("x^{2} matches x^2", () => assert.equal(mark("x^{2}", "x^2"), true));
+test("\\sqrt{x} matches sqrt(x)", () => assert.equal(mark("\\sqrt{x}", "sqrt(x)"), true));
+test("\\pi matches pi", () => assert.equal(mark("\\pi", "pi"), true));
+test("\\theta matches theta", () => assert.equal(mark("\\theta", "theta"), true));
+test("\\infty matches infinity", () => assert.equal(mark("\\infty", "infinity"), true));
+test("\\left(x+1\\right) matches (x+1)", () => assert.equal(mark("\\left(x+1\\right)", "(x+1)"), true));
 
-  it("y'' = expr matches bare expr", () => {
-    expect(mark("y'' = 6x", "6x")).toBe(true);
-  });
+// inequality/symbol normalisation
+test("not-equal matches !=", () => assert.equal(mark("x≠0", "x!=0"), true));
+test("<= symbol matches <=", () => assert.equal(mark("x≤5", "x<=5"), true));
+test(">= symbol matches >=", () => assert.equal(mark("x≥0", "x>=0"), true));
+test("\\neq matches !=", () => assert.equal(mark("x\\neq0", "x!=0"), true));
 
-  it("f'(x) = expr matches bare expr", () => {
-    expect(mark("f'(x) = 2x", "2x")).toBe(true);
-  });
-
-  it("dy/dx = expr matches bare expr", () => {
-    expect(mark("dy/dx = 2x", "2x")).toBe(true);
-  });
-
-  it("y = expr matches bare expr", () => {
-    expect(mark("y = 2x", "2x")).toBe(true);
-  });
-
-  it("Unicode prime ′ is treated same as ASCII apostrophe", () => {
-    expect(mark("y′ = 2x", "2x")).toBe(true);
-  });
-
-  it("wrong expression is still wrong even with prefix", () => {
-    expect(mark("y' = 3x", "2x")).toBe(false);
-  });
-});
-
-describe("markTypedAnswer — LaTeX normalisation (MathLive output)", () => {
-  it("\\frac{1}{2} matches 1/2", () => {
-    expect(mark("\\frac{1}{2}", "1/2")).toBe(true);
-  });
-
-  it("\\frac{3x}{4} matches 3x/4", () => {
-    expect(mark("\\frac{3x}{4}", "3x/4")).toBe(true);
-  });
-
-  it("x^{2} matches x^2", () => {
-    expect(mark("x^{2}", "x^2")).toBe(true);
-  });
-
-  it("\\sqrt{x} matches sqrt(x)", () => {
-    expect(mark("\\sqrt{x}", "sqrt(x)")).toBe(true);
-  });
-
-  it("\\pi matches pi", () => {
-    expect(mark("\\pi", "pi")).toBe(true);
-  });
-
-  it("\\theta matches theta", () => {
-    expect(mark("\\theta", "theta")).toBe(true);
-  });
-
-  it("\\infty matches infinity", () => {
-    expect(mark("\\infty", "infinity")).toBe(true);
-  });
-
-  it("\\left(x+1\\right) matches (x+1)", () => {
-    expect(mark("\\left(x+1\\right)", "(x+1)")).toBe(true);
-  });
-});
-
-describe("markTypedAnswer — inequality/symbol normalisation", () => {
-  it("≠ matches !=", () => {
-    expect(mark("x≠0", "x!=0")).toBe(true);
-  });
-
-  it("≤ matches <=", () => {
-    expect(mark("x≤5", "x<=5")).toBe(true);
-  });
-
-  it("≥ matches >=", () => {
-    expect(mark("x≥0", "x>=0")).toBe(true);
-  });
-
-  it("\\neq matches !=", () => {
-    expect(mark("x\\neq0", "x!=0")).toBe(true);
-  });
-});
-
-describe("markTypedAnswer — existing behaviour preserved", () => {
-  it("exact match", () => {
-    expect(mark("42", "42")).toBe(true);
-  });
-
-  it("acceptedAnswers match", () => {
-    expect(mark("1/2", "0.5", ["1/2"])).toBe(true);
-  });
-
-  it("normalised numeric match", () => {
-    expect(mark("0.5 ", "0.5")).toBe(true);
-  });
-
-  it("coordinate match", () => {
-    expect(mark("(3, -1)", "(3, -1)")).toBe(true);
-  });
-
-  it("solution set — order independent", () => {
-    expect(mark("x = -4 or x = 1", "x = 1 or x = -4")).toBe(true);
-  });
-
-  it("pi normalisation", () => {
-    expect(mark("π", "pi")).toBe(true);
-  });
-});
+// existing behaviour preserved
+test("exact match", () => assert.equal(mark("42", "42"), true));
+test("acceptedAnswers match", () => assert.equal(mark("1/2", "0.5", ["1/2"]), true));
+test("normalised numeric match", () => assert.equal(mark("0.5 ", "0.5"), true));
+test("coordinate match", () => assert.equal(mark("(3, -1)", "(3, -1)"), true));
+test("solution set — order independent", () => assert.equal(mark("x = -4 or x = 1", "x = 1 or x = -4"), true));
+test("pi normalisation", () => assert.equal(mark("π", "pi"), true));
