@@ -130,6 +130,7 @@ import {
   year11AdvancedExpLogCalculusLessonOverride,
   year11AdvancedTrigCalculusLessonOverride,
   year11AdvancedMotionRatesLessonOverride,
+  year11AdvancedSeriesFinanceLessonOverride,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -424,6 +425,7 @@ export function buildLesson(
     year11AdvancedExpLogCalculusLessonOverride(course, unit, lesson) ??
     year11AdvancedTrigCalculusLessonOverride(course, unit, lesson) ??
     year11AdvancedMotionRatesLessonOverride(course, unit, lesson) ??
+    year11AdvancedSeriesFinanceLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
@@ -2587,6 +2589,20 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "motion-analysis", title: "Motion Analysis: Direction Changes and Total Distance" },
           { slug: "rates-of-change-applications", title: "Rates of Change Applications" },
           { slug: "motion-rates-exam-practice", title: "Motion and Rates Exam Practice" },
+        ],
+      },
+      {
+        slug: "series-finance",
+        title: "Series and Financial Mathematics",
+        description: "Apply geometric sequences and series to compound interest, superannuation and loan repayments using recursive formulas and the future/present value of annuity formulas.",
+        syllabusArea: "Financial Mathematics",
+        focus: "Compound interest, superannuation, and loan repayments",
+        lessons: [
+          { slug: "compound-interest", title: "Compound Interest" },
+          { slug: "recursive-formulas-financial", title: "Recursive Formulas for Financial Problems" },
+          { slug: "superannuation-future-value", title: "Superannuation and Future Value of Annuities" },
+          { slug: "loan-repayments-present-value", title: "Loan Repayments and Present Value of Annuities" },
+          { slug: "series-finance-exam-practice", title: "Series and Finance Exam Practice" },
         ],
       },
     ],

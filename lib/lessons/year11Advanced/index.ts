@@ -11,3 +11,4 @@ export * from "./curveSketching";
 export * from "./expLogCalculus";
 export * from "./trigCalculus";
 export * from "./motionRates";
+export * from "./seriesFinance";
