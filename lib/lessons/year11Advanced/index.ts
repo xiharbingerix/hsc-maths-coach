@@ -5,3 +5,5 @@ export * from "./exponentialLogarithmicFunctions";
 export * from "./introductionDifferentiation";
 export * from "./graphTransformations";
 export * from "./probabilityData";
+export * from "./sequencesSeries";
+export * from "./integration";

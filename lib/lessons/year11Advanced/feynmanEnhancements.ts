@@ -148,6 +148,62 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
     "Mixed probability and data questions often test whether you know what the denominator should be. Conditional probability changes the sample space, while ordinary probability uses the whole relevant population.",
     "For data displays, the calculation is only half the work. Decide whether the question asks for centre, spread, comparison, probability, or expected value, then choose the statistic that answers that exact question.",
   ],
+
+  // ── Sequences and Series ──────────────────────────────────────────────────
+  "arithmetic-sequences": [
+    "An arithmetic sequence is a model of constant change. The common difference d is the rate, and the general term formula Tₙ = a + (n-1)d is a linear function of n dressed in sequence notation.",
+    "When two terms are given, treat a and d as two unknowns in two equations. Subtracting one equation from the other eliminates a and gives d directly.",
+  ],
+  "geometric-sequences": [
+    "A geometric sequence models repeated multiplication — compound growth, not additive growth. The ratio r is the growth factor, and Tₙ = arⁿ⁻¹ is an exponential function of n.",
+    "If |r| < 1, the terms shrink toward zero. If r is negative, the terms alternate in sign. Both behaviours are explained by what happens when you raise a fraction or a negative number to increasing powers.",
+  ],
+  "arithmetic-series-sigma-notation": [
+    "The formula Sₙ = n/2 (a + l) comes from pairing first and last terms. Gauss's trick: if you write the series forwards and backwards and add them, every pair sums to the same value a + l, and there are n pairs — giving 2Sₙ = n(a+l).",
+    "Sigma notation is a compact way to say 'sum these terms'. The bottom number gives the starting index and the top gives the ending index. Evaluating a sigma is just substituting each index value and adding the results.",
+  ],
+  "geometric-series-limiting-sums": [
+    "The partial sum formula Sₙ = a(1-rⁿ)/(1-r) is derived by multiplying Sₙ by r and subtracting. Most terms cancel in the resulting rSₙ − Sₙ, leaving just the first and last.",
+    "A limiting sum exists only when |r| < 1, because rⁿ → 0 as n → ∞. Sending rⁿ → 0 in the partial sum formula gives S∞ = a/(1-r). This is the geometric meaning of a convergent series.",
+  ],
+  "sequences-series-exam-practice": [
+    "Exam questions mix sequences and series, and the deciding step is recognising which type of sequence you have. Constant difference means arithmetic; constant ratio means geometric; neither means neither formula applies directly.",
+    "When the question gives two pieces of information, write two equations, then solve the system. For arithmetic, subtract to find d; for geometric, divide to find r. This systematic approach avoids guessing.",
+  ],
+
+  // ── Integration ───────────────────────────────────────────────────────────
+  "primitives-and-antidifferentiation": [
+    "Antidifferentiation and differentiation are inverse processes, just like multiplication and division. If the derivative of F(x) is f(x), then the antiderivative of f(x) is F(x) plus any constant.",
+    "The family of curves F(x) + C all have the same derivative. They are parallel curves, vertically shifted versions of each other. Without an initial condition they are indistinguishable from each other by their slopes alone.",
+  ],
+  "standard-antiderivatives": [
+    "The standard antiderivative table is built entirely from derivative facts run backwards. If you know that the derivative of sin x is cos x, then the antiderivative of cos x is sin x. The table has no new information — it is the same chain read from right to left.",
+    "The most surprising entry is ∫(1/x) dx = ln|x| + C. The reverse power rule gives x⁰/0 which is undefined, so 1/x is the one power function that needs a completely different antiderivative — one that comes from the logarithm.",
+  ],
+  "initial-value-problems": [
+    "An initial condition resolves the ambiguity of +C. The full family of antiderivatives F(x) + C is a sheaf of parallel curves; specifying one point selects exactly one member of that sheaf.",
+    "Initial-value problems appear constantly in physics and modelling: if you know the rate of change and one reference measurement, you can reconstruct the full function. The derivative is the description; the integral is the reconstruction.",
+  ],
+  "definite-integrals": [
+    "A definite integral has no +C because the constants cancel in F(b) − F(a). The result is a single number, not a family of functions, because the ambiguity was resolved by the subtraction.",
+    "The sign of the definite integral depends on whether the signed area is above or below the x-axis. This is not an error — it is the geometric content of the integral. Area and signed area are different ideas.",
+  ],
+  "fundamental-theorem-of-calculus": [
+    "The FTC is the deepest result in elementary calculus: it shows that the accumulated sum of infinitely many infinitely thin strips equals the net change in the antiderivative. A continuous sum of rates equals a net change — this is the unifying idea behind all of integration.",
+    "The version d/dx ∫₀ˣ f(t) dt = f(x) says that if you accumulate an area up to a moving boundary and then ask how fast the area is growing, the answer is the height of the curve at that boundary. Rate equals height.",
+  ],
+  "areas-under-curves": [
+    "The connection between areas and antiderivatives is not obvious until the FTC makes it so. Summing thin rectangles under a curve converges to the antiderivative evaluated at the endpoints — this is the theorem that turned area from geometry into algebra.",
+    "Signed area and geometric area are genuinely different. A curve below the axis contributes negative signed area; to find the physical region's size you must take absolute values. HSC exams often test whether students recognise this distinction.",
+  ],
+  "reverse-chain-rule-integration": [
+    "The reverse chain rule is the chain rule read backwards. When you differentiate f(ax+b), the result has an extra factor of a from the inner derivative. To undo this, the integral must divide by a.",
+    "This is why the technique only works cleanly for linear inner functions. If the inner function were quadratic, the extra factor after differentiation would be 2x — and the integral would require you to supply that 2x from nowhere. Linear inner functions produce constant factors, which can be divided away.",
+  ],
+  "trapezoidal-rule": [
+    "The trapezoidal rule replaces the curve with straight-line chords, then sums the areas of the resulting trapezoids. The interior function values get doubled because each interior strip-height is a shared edge between two adjacent trapezoids.",
+    "The accuracy of the rule is geometric: a nearly-straight arc is well approximated by a chord, so the trapezoidal rule is very accurate for gradual curves and less accurate for rapidly-changing ones. Concavity determines whether you are over- or underestimating, not the direction of the function.",
+  ],
 };
 
 const FEYNMAN_WORKED_EXAMPLES: Record<string, WorkedExample[]> = {
