@@ -372,17 +372,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // partial-fractions-integration intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "t-substitution-weierstrass": {
-    topic: "t-substitution",
-    object: "a rational expression in sine and cosine",
-    validMove: "Set t = tan(x/2) and rewrite sin x, cos x, and dx.",
-    trap1: "Replacing sin x and cos x but forgetting dx.",
-    trap2: "Using tan x instead of tan(x/2).",
-    trap3: "Leaving the integral partly in x and partly in t.",
-    representation: "rational function of t",
-    check: "all trig functions and dx are converted",
-    d5Context: "rational trig integrals resistant to simpler identities",
-  },
+  // t-substitution-weierstrass intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "trig-identity-integration": {
     topic: "trig identity integration",
     object: "an integrand needing an identity before integration",
