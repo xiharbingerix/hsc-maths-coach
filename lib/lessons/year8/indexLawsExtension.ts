@@ -149,6 +149,15 @@ const negativeIndices: LessonContent = {
       ],
       finalAnswerLatex: "a^2",
     } as WorkedExample,
+    {
+      title: "Evaluate a negative index as a fraction",
+      questionLatex: "\\text{Evaluate } 2^{-3}.",
+      steps: [
+        { explanation: "A negative index means the reciprocal of the positive-index value.", latex: "2^{-3} = \\frac{1}{2^3}" },
+        { explanation: "Work out the denominator.", latex: "\\frac{1}{2^3} = \\frac{1}{8}" },
+      ],
+      finalAnswerLatex: "\\frac{1}{8}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -250,6 +259,10 @@ const negativeIndices: LessonContent = {
     {
       mistake: "Adding indices incorrectly with mixed signs: $a^3 \\times a^{-5} = a^{15}$ by multiplying indices.",
       fix: "Use the multiplication law — add the indices: $a^3 \\times a^{-5} = a^{3+(-5)} = a^{-2}$.",
+    },
+    {
+      mistake: "Thinking a negative index makes the number negative, e.g. $2^{-3} = -8$.",
+      fix: "A negative index means reciprocal, not negative: $2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$, a positive fraction.",
     },
   ],
   masteryQuiz: [
@@ -509,6 +522,15 @@ const scientificNotationLarge: LessonContent = {
       ],
       finalAnswerLatex: "8.2 \\times 10^4 < 3.1 \\times 10^6 < 5.0 \\times 10^6",
     } as WorkedExample,
+    {
+      title: "Write a large number in scientific notation",
+      questionLatex: "\\text{Write } 53\\,000 \\text{ in scientific notation.}",
+      steps: [
+        { explanation: "Put the decimal point after the first non-zero digit to get a number between 1 and 10.", latex: "5.3" },
+        { explanation: "Count how many places the point moved (4 to the left) — that is the power of 10.", latex: "53\\,000 = 5.3 \\times 10^4" },
+      ],
+      finalAnswerLatex: "5.3 \\times 10^4",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -615,6 +637,10 @@ const scientificNotationLarge: LessonContent = {
     {
       mistake: "Comparing $9.9 \\times 10^4$ and $1.2 \\times 10^5$ by looking at coefficients only and choosing 9.9.",
       fix: "Always compare exponents first. $10^5 > 10^4$, so $1.2 \\times 10^5 = 120\\,000 > 99\\,000 = 9.9 \\times 10^4$.",
+    },
+    {
+      mistake: "Leaving the coefficient outside 1–10, e.g. writing $53\\,000 = 53 \\times 10^3$.",
+      fix: "The first part must be between 1 and 10: $53\\,000 = 5.3 \\times 10^4$, not $53 \\times 10^3$.",
     },
   ],
   masteryQuiz: [
@@ -882,6 +908,15 @@ const scientificNotationSmall: LessonContent = {
       ],
       finalAnswerLatex: "8.0 \\times 10^{-5} < 3.0 \\times 10^{-3} < 2.5 \\times 10^{2}",
     } as WorkedExample,
+    {
+      title: "Write a small number in scientific notation",
+      questionLatex: "\\text{Write } 0.0007 \\text{ in scientific notation.}",
+      steps: [
+        { explanation: "Move the decimal point to just after the first non-zero digit.", latex: "0.0007 \\to 7" },
+        { explanation: "The point moved 4 places to the right, so the index is negative 4.", latex: "0.0007 = 7 \\times 10^{-4}" },
+      ],
+      finalAnswerLatex: "7 \\times 10^{-4}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -986,6 +1021,10 @@ const scientificNotationSmall: LessonContent = {
     {
       mistake: "Counting zeros incorrectly: writing $0.0034 = 3.4 \\times 10^{-2}$ instead of $10^{-3}$.",
       fix: "Count places moved, not zeros. From $0.0034$: $0.0034 \\to 0.034 \\to 0.34 \\to 3.4$ — that is 3 moves, so $10^{-3}$.",
+    },
+    {
+      mistake: "Using a positive index for a number less than 1, e.g. $0.0007 = 7 \\times 10^{4}$.",
+      fix: "Numbers below 1 take a negative index: $0.0007 = 7 \\times 10^{-4}$. Positive indices make numbers bigger, not smaller.",
     },
   ],
   masteryQuiz: [
@@ -1250,6 +1289,15 @@ const significantFigures: LessonContent = {
       ],
       finalAnswerLatex: "47\\,900",
     } as WorkedExample,
+    {
+      title: "Round a small decimal to significant figures",
+      questionLatex: "\\text{Round } 0.004562 \\text{ to 2 significant figures.}",
+      steps: [
+        { explanation: "Leading zeros are not significant; the first significant figure is the 4.", latex: "0.00\\underline{4}562" },
+        { explanation: "Keep two significant figures (4 and 5); the next digit 6 rounds the 5 up to 6.", latex: "0.004562 \\to 0.0046" },
+      ],
+      finalAnswerLatex: "0.0046",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -1349,6 +1397,10 @@ const significantFigures: LessonContent = {
     {
       mistake: "Ignoring trailing zeros after the decimal: writing $4.20$ as $4.2$ when recording a precise measurement.",
       fix: "In a measured value, $4.20$ and $4.2$ are different — $4.20$ has 3 sig figs and $4.2$ has 2 sig figs. Keep trailing zeros that are significant.",
+    },
+    {
+      mistake: "Counting leading zeros as significant, e.g. saying $0.0046$ has 4 significant figures.",
+      fix: "Leading zeros only mark place value: $0.0046$ has 2 significant figures (the 4 and the 6).",
     },
   ],
   masteryQuiz: [
@@ -1604,6 +1656,15 @@ const operationsWithScientificNotation: LessonContent = {
       ],
       finalAnswerLatex: "5.7 \\times 10^6",
     } as WorkedExample,
+    {
+      title: "Multiply numbers in scientific notation",
+      questionLatex: "\\text{Evaluate } (2 \\times 10^3)(3 \\times 10^4).",
+      steps: [
+        { explanation: "Multiply the coefficients together.", latex: "2 \\times 3 = 6" },
+        { explanation: "Add the indices using the multiplication law for powers of 10.", latex: "10^3 \\times 10^4 = 10^{3+4} = 10^7" },
+      ],
+      finalAnswerLatex: "6 \\times 10^7",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -1710,6 +1771,10 @@ const operationsWithScientificNotation: LessonContent = {
     {
       mistake: "Subtracting exponents in the wrong order when dividing: $\\frac{10^3}{10^7} = 10^{7-3} = 10^4$.",
       fix: "Subtract bottom from top: $\\frac{10^3}{10^7} = 10^{3-7} = 10^{-4}$.",
+    },
+    {
+      mistake: "Leaving a result un-normalised when the coefficient falls outside 1–10, e.g. $40 \\times 10^3$.",
+      fix: "Re-normalise to standard form: $40 \\times 10^3 = 4 \\times 10^4$ — shift one place and add 1 to the index.",
     },
   ],
   masteryQuiz: [

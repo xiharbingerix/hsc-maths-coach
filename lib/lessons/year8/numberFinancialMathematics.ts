@@ -2078,6 +2078,16 @@ const wagesAndSalary: LessonContent = {
       ],
       finalAnswerLatex: "\\$3450\\text{ per fortnight}",
     } as WorkedExample,
+    {
+      title: "Pay with overtime at time-and-a-half",
+      questionLatex: "\\text{Maya earns \\$24/h and works 38 normal hours plus 4 hours at time-and-a-half. Find her weekly pay.}",
+      steps: [
+        { explanation: "Normal pay is the hourly rate times the normal hours.", latex: "38 \\times 24 = 912" },
+        { explanation: "Overtime is paid at 1.5 times the rate.", latex: "4 \\times 24 \\times 1.5 = 144" },
+        { explanation: "Add the two parts for total weekly pay.", latex: "912 + 144 = 1056" },
+      ],
+      finalAnswerLatex: "\\$1056",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -2171,6 +2181,10 @@ const wagesAndSalary: LessonContent = {
     {
       mistake: "Confusing time-and-a-half (×1.5) with double time (×2).",
       fix: "Time-and-a-half means 1.5 times the regular rate. Double time means 2 times the regular rate.",
+    },
+    {
+      mistake: "Dividing an annual salary by 12 to get a fortnightly amount.",
+      fix: "There are 26 fortnights in a year, not 12 — divide the annual salary by 26 for fortnightly pay (by 12 only for monthly).",
     },
   ],
   masteryQuiz: [
@@ -2392,6 +2406,15 @@ const incomeTaxBasics: LessonContent = {
       ],
       finalAnswerLatex: "\\$120",
     } as WorkedExample,
+    {
+      title: "Tax payable from a simple bracket",
+      questionLatex: "\\text{A worker earns \\$25\\,000. Tax is nil on the first \\$18\\,200, then 19c per \\$1 above it. Find the tax payable.}",
+      steps: [
+        { explanation: "Only the income above the tax-free threshold is taxed.", latex: "25\\,000 - 18\\,200 = 6\\,800" },
+        { explanation: "Apply 19 cents (0.19) per dollar to the taxable part.", latex: "6\\,800 \\times 0.19 = 1\\,292" },
+      ],
+      finalAnswerLatex: "\\$1292",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -2485,6 +2508,10 @@ const incomeTaxBasics: LessonContent = {
     {
       mistake: "Finding 10% of the GST-inclusive price to reverse GST instead of dividing by 1.10.",
       fix: "To find the pre-GST price, divide the GST-inclusive price by 1.10, not by 1 + 10% of the final price.",
+    },
+    {
+      mistake: "Taxing the whole income instead of only the amount above the tax-free threshold.",
+      fix: "The first \\$18\\,200 is tax-free — apply the rate only to income above the threshold, not to the full salary.",
     },
   ],
   masteryQuiz: [
