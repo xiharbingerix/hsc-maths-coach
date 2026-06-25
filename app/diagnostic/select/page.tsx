@@ -1,22 +1,7 @@
 import Link from "next/link";
 import { PageViewTracker } from "../../components/PageViewTracker";
 import { DiagnosticSelectLink } from "../../components/DiagnosticSelectLink";
-
-const yearLevels = [
-  { slug: "year-8-mathematics", label: "Year 8 Mathematics", available: true },
-  { slug: "year-9-mathematics", label: "Year 9 Mathematics", available: true },
-  { slug: "year-9-mathematics-advanced", label: "Year 9 Mathematics Advanced", available: true },
-  { slug: "year-9-mathematics-core", label: "Year 9 Mathematics Core", available: true },
-  { slug: "year-10-mathematics", label: "Year 10 Mathematics", available: true },
-  { slug: "year-10-mathematics-advanced", label: "Year 10 Mathematics Advanced", available: true },
-  { slug: "year-10-mathematics-core", label: "Year 10 Mathematics Core", available: true },
-  { slug: "year-11-standard", label: "Year 11 Standard", available: true },
-  { slug: "year-11-advanced", label: "Year 11 Advanced", available: true },
-  { slug: "year-12-advanced", label: "Year 12 Advanced", available: true },
-  { slug: "year-12-standard-2", label: "Year 12 Standard 2", available: true },
-  { slug: "year-12-standard-1", label: "Year 12 Standard 1", available: true },
-  { slug: "year-12-extension-1", label: "Year 12 Extension 1", available: true },
-];
+import { visibleDiagnostics } from "../../../lib/diagnostics";
 
 export default function DiagnosticSelectPage() {
   return (
@@ -39,40 +24,23 @@ export default function DiagnosticSelectPage() {
         </header>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {yearLevels.map((yl) =>
-            yl.available ? (
-              <DiagnosticSelectLink
-                key={yl.slug}
-                slug={yl.slug}
-                className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <div>
-                  <p className="font-semibold text-lg">{yl.label}</p>
-                  <p className="mt-1 text-sm text-slate-600">
-                    20 questions across all major units
-                  </p>
-                </div>
-                <span className="mt-4 inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
-                  Available now
-                </span>
-              </DiagnosticSelectLink>
-            ) : (
-              <div
-                key={yl.slug}
-                className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 opacity-60"
-              >
-                <div>
-                  <p className="font-semibold text-lg">{yl.label}</p>
-                  <p className="mt-1 text-sm text-slate-600">
-                    Questions in development
-                  </p>
-                </div>
-                <span className="mt-4 inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                  Coming soon
-                </span>
+          {visibleDiagnostics.map((diagnostic) => (
+            <DiagnosticSelectLink
+              key={diagnostic.slug}
+              slug={diagnostic.slug}
+              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+            >
+              <div>
+                <p className="font-semibold text-lg">{diagnostic.label}</p>
+                <p className="mt-1 text-sm text-slate-600">
+                  Targeted questions across major units
+                </p>
               </div>
-            )
-          )}
+              <span className="mt-4 inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
+                Available now
+              </span>
+            </DiagnosticSelectLink>
+          ))}
         </div>
 
         <p className="text-center text-sm text-slate-500">

@@ -5,376 +5,309 @@ export const diagnosticData: DiagnosticData = {
 
   units: [
     {
-      slug: "functions-graphing-techniques",
-      title: "Functions and Graphing Techniques",
-      startHref: "/course/functions-graphing-techniques",
+      slug: "ma-f1-working-with-functions",
+      title: "Working with Functions",
+      startHref: "/course/year-12-advanced/ma-f1-working-with-functions",
     },
     {
-      slug: "trigonometric-functions-graphs",
-      title: "Trigonometric Functions and Graphs",
-      startHref: "/course/trigonometric-functions-graphs",
+      slug: "ma-f2-graphing-techniques",
+      title: "Graphing Techniques",
+      startHref: "/course/year-12-advanced/ma-f2-graphing-techniques",
     },
     {
-      slug: "differential-calculus",
+      slug: "ma-t1-trigonometry-and-measure-of-angles",
+      title: "Trigonometry and Measure of Angles",
+      startHref: "/course/year-12-advanced/ma-t1-trigonometry-and-measure-of-angles",
+    },
+    {
+      slug: "ma-t2-trigonometric-functions-and-identities",
+      title: "Trigonometric Functions and Identities",
+      startHref: "/course/year-12-advanced/ma-t2-trigonometric-functions-and-identities",
+    },
+    {
+      slug: "ma-t3-trigonometric-equations",
+      title: "Trigonometric Equations",
+      startHref: "/course/year-12-advanced/ma-t3-trigonometric-equations",
+    },
+    {
+      slug: "ma-c1-introduction-to-differentiation",
+      title: "Introduction to Differentiation",
+      startHref: "/course/year-12-advanced/ma-c1-introduction-to-differentiation",
+    },
+    {
+      slug: "ma-c2-differential-calculus",
       title: "Differential Calculus",
-      startHref: "/course/differential-calculus",
+      startHref: "/course/year-12-advanced/ma-c2-differential-calculus",
     },
     {
-      slug: "integral-calculus",
+      slug: "ma-c3-applications-of-differentiation",
+      title: "Applications of Differentiation",
+      startHref: "/course/year-12-advanced/ma-c3-applications-of-differentiation",
+    },
+    {
+      slug: "ma-c4-integral-calculus",
       title: "Integral Calculus",
-      startHref: "/course/integral-calculus",
+      startHref: "/course/year-12-advanced/ma-c4-integral-calculus",
     },
     {
-      slug: "sequences-series-financial-maths",
-      title: "Sequences, Series and Financial Mathematics",
-      startHref: "/course/sequences-series-financial-maths",
+      slug: "ma-e1-exponential-and-logarithmic-functions",
+      title: "Exponential and Logarithmic Functions",
+      startHref: "/course/year-12-advanced/ma-e1-exponential-and-logarithmic-functions",
     },
     {
-      slug: "statistical-analysis",
-      title: "Statistical Analysis",
-      startHref: "/course/statistical-analysis",
+      slug: "ma-m1-modelling-financial-situations",
+      title: "Modelling Financial Situations",
+      startHref: "/course/year-12-advanced/ma-m1-modelling-financial-situations",
+    },
+    {
+      slug: "ma-s1-probability-and-discrete-probability-distributions",
+      title: "Probability and Discrete Probability Distributions",
+      startHref: "/course/year-12-advanced/ma-s1-probability-and-discrete-probability-distributions",
+    },
+    {
+      slug: "ma-s2-descriptive-statistics-and-bivariate-data",
+      title: "Descriptive Statistics and Bivariate Data Analysis",
+      startHref: "/course/year-12-advanced/ma-s2-descriptive-statistics-and-bivariate-data",
+    },
+    {
+      slug: "ma-s3-random-variables",
+      title: "Random Variables",
+      startHref: "/course/year-12-advanced/ma-s3-random-variables",
     },
   ],
 
   questions: [
-    // ── Functions and Graphing Techniques (3 questions) ───────────────────────
     {
-      id: "y12adv-f1",
-      unitSlug: "functions-graphing-techniques",
-      prompt: "What is the domain of $f(x) = \\sqrt{4 - x}$?",
-      latex: "f(x)=\\sqrt{4-x}",
+      id: "y12adv-d5-function-transform-domain",
+      unitSlug: "ma-f1-working-with-functions",
+      assessedUnitSlugs: [
+        "ma-f1-working-with-functions",
+        "ma-f2-graphing-techniques",
+      ],
+      difficulty: 5,
+      targetMisconception:
+        "Confuses horizontal transformations with outside transformations, or applies the original function's domain without recomposing it.",
+      prompt:
+        "A function is transformed by $g(x)=f(2-x)+3$, where $f(x)=\\sqrt{x-1}$. Which domain and range are correct for $g$?",
+      latex: "f(x)=\\sqrt{x-1}, \\qquad g(x)=f(2-x)+3",
       choices: [
-        { label: "A", text: "$x \\leq 4$" },
-        { label: "B", text: "$x \\geq 4$" },
-        { label: "C", text: "$x < 4$" },
-        { label: "D", text: "All real $x$" },
+        { label: "A", text: "Domain $x\\leq1$, range $y\\geq3$" },
+        { label: "B", text: "Domain $x\\geq1$, range $y\\geq3$" },
+        { label: "C", text: "Domain $x\\leq1$, range $y\\leq3$" },
+        { label: "D", text: "Domain $x\\geq3$, range $y\\geq1$" },
       ],
       correctAnswer: "A",
       explanation:
-        "The expression under the square root must be non-negative: $4 - x \\geq 0 \\Rightarrow x \\leq 4$. Domain is $(-\\infty, 4]$.",
+        "The input to $f$ is $2-x$, and $f$ needs its input to be at least $1$. So $2-x\\geq1$, giving $x\\leq1$. The square root is non-negative and the outside $+3$ shifts the range to $y\\geq3$.",
     },
     {
-      id: "y12adv-f2",
-      unitSlug: "functions-graphing-techniques",
-      prompt:
-        "If $f(x) = 2x + 1$ and $g(x) = x^2$, find $f(g(3))$.",
-      latex: "f(x)=2x+1, \\quad g(x)=x^2",
-      choices: [
-        { label: "A", text: "$7$" },
-        { label: "B", text: "$19$" },
-        { label: "C", text: "$17$" },
-        { label: "D", text: "$49$" },
+      id: "y12adv-d5-log-model-features",
+      unitSlug: "ma-e1-exponential-and-logarithmic-functions",
+      assessedUnitSlugs: [
+        "ma-f2-graphing-techniques",
+        "ma-e1-exponential-and-logarithmic-functions",
       ],
-      correctAnswer: "B",
-      explanation:
-        "Work from the inside out: $g(3) = 3^2 = 9$, then $f(9) = 2(9) + 1 = 19$. Option A applies $f$ to $3$ without $g$; C makes a sign slip ($2(9) - 1$); D reverses the order as $g(f(3)) = 7^2 = 49$.",
-    },
-    {
-      id: "y12adv-f3",
-      unitSlug: "functions-graphing-techniques",
+      difficulty: 5,
+      targetMisconception:
+        "Treats a logarithmic model as though its shift controls a horizontal asymptote, or misses the domain restriction inside the logarithm.",
       prompt:
-        "The graph $y = f(x)$ is shifted $2$ units right and $3$ units up. The new equation is:",
+        "A sensor is calibrated by $R=3\\log_2(t-1)-6$, where $t$ is time in seconds. Which statement about the model is correct?",
+      latex: "R=3\\log_2(t-1)-6",
       choices: [
-        { label: "A", text: "$y = f(x - 2) + 3$" },
-        { label: "B", text: "$y = f(x + 2) + 3$" },
-        { label: "C", text: "$y = f(x - 2) - 3$" },
-        { label: "D", text: "$y = f(x + 2) - 3$" },
+        { label: "A", text: "It is defined for $t>1$, and $R=0$ when $t=5$." },
+        { label: "B", text: "It is defined for $t\\geq1$, and $R=0$ when $t=4$." },
+        { label: "C", text: "It has horizontal asymptote $R=-6$, and $R=0$ when $t=5$." },
+        { label: "D", text: "It is defined for all $t$, and $R=0$ when $t=3$." },
       ],
       correctAnswer: "A",
       explanation:
-        "Shifting right by $2$ replaces $x$ with $x - 2$ inside the function. Shifting up by $3$ adds $3$ outside. Result: $y = f(x - 2) + 3$.",
+        "The logarithm requires $t-1>0$, so $t>1$. For $R=0$, $3\\log_2(t-1)-6=0$, so $\\log_2(t-1)=2$ and $t-1=4$, giving $t=5$.",
     },
-
-    // ── Trigonometric Functions and Graphs (3 questions) ─────────────────────
     {
-      id: "y12adv-t1",
-      unitSlug: "trigonometric-functions-graphs",
-      prompt: "What is the period of $y = \\sin(3x)$?",
-      latex: "y=\\sin(3x)",
-      choices: [
-        { label: "A", text: "$\\dfrac{\\pi}{3}$" },
-        { label: "B", text: "$\\dfrac{2\\pi}{3}$" },
-        { label: "C", text: "$3\\pi$" },
-        { label: "D", text: "$6\\pi$" },
+      id: "y12adv-d5-trig-period-sector",
+      unitSlug: "ma-t1-trigonometry-and-measure-of-angles",
+      assessedUnitSlugs: [
+        "ma-t1-trigonometry-and-measure-of-angles",
+        "ma-t2-trigonometric-functions-and-identities",
+        "ma-t3-trigonometric-equations",
       ],
-      correctAnswer: "B",
-      explanation:
-        "The period of $y = \\sin(nx)$ is $\\dfrac{2\\pi}{n}$. With $n = 3$, period $= \\dfrac{2\\pi}{3}$.",
-    },
-    {
-      id: "y12adv-t2",
-      unitSlug: "trigonometric-functions-graphs",
+      difficulty: 5,
+      targetMisconception:
+        "Uses degrees and radians interchangeably, or solves the trigonometric equation using only the first-quadrant solution.",
       prompt:
-        "From the graph of $y = \\cos x$ below, at what value of $x$ in $[0, 2\\pi]$ does the curve reach its minimum?",
-      trigGraphDiagram: {
-        description:
-          "Graph of y = cos x from 0 to 2pi. It starts at (0, 1), falls to a minimum of -1 at x = pi, and returns to 1 at x = 2pi.",
-        functionType: "cos",
-        equationLabel: "y = cos x",
-        xMin: "0",
-        xMax: "2pi",
-        yMin: -1.5,
-        yMax: 1.5,
-      },
+        "A sector has radius $9$ cm and arc length $3\\pi$ cm. The sector angle is used as the period of $y=\\sin(kx)$. Which value of $k$ and first positive solution of $\\sin(kx)=1$ are correct?",
+      latex: "s=r\\theta, \\qquad y=\\sin(kx)",
       choices: [
-        { label: "A", text: "$x = 0$" },
-        { label: "B", text: "$x = \\dfrac{\\pi}{2}$" },
-        { label: "C", text: "$x = \\pi$" },
-        { label: "D", text: "$x = 2\\pi$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "The cosine graph starts at its maximum of $1$ when $x = 0$, decreases to its minimum of $-1$ at $x = \\pi$, then returns to $1$ at $x = 2\\pi$. Options A and D are where the curve is at its maximum; B is where it crosses zero.",
-    },
-    {
-      id: "y12adv-t3",
-      unitSlug: "trigonometric-functions-graphs",
-      prompt:
-        "Solve $2\\sin x - 1 = 0$ for $x \\in [0,\\,2\\pi]$. The solutions are:",
-      latex: "2\\sin x - 1 = 0, \\quad x \\in [0,\\,2\\pi]",
-      choices: [
-        { label: "A", text: "$x = \\dfrac{\\pi}{6}$ only" },
-        { label: "B", text: "$x = \\dfrac{\\pi}{6}$ and $x = \\dfrac{5\\pi}{6}$" },
-        { label: "C", text: "$x = \\dfrac{\\pi}{6}$ and $x = \\dfrac{11\\pi}{6}$" },
-        { label: "D", text: "$x = \\dfrac{\\pi}{3}$ and $x = \\dfrac{2\\pi}{3}$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\sin x = \\dfrac{1}{2}$. Sine is positive in the first and second quadrants: $x = \\dfrac{\\pi}{6}$ and $x = \\pi - \\dfrac{\\pi}{6} = \\dfrac{5\\pi}{6}$.",
-    },
-
-    // ── Differential Calculus (4 questions) ───────────────────────────────────
-    {
-      id: "y12adv-dc1",
-      unitSlug: "differential-calculus",
-      prompt: "Find $f'(x)$ for $f(x) = 4x^3 - 3x^2 + 2x - 7$.",
-      latex: "f(x)=4x^3-3x^2+2x-7",
-      choices: [
-        { label: "A", text: "$12x^2 - 6x + 2$" },
-        { label: "B", text: "$12x^2 - 3x + 2$" },
-        { label: "C", text: "$12x^3 - 6x + 2$" },
-        { label: "D", text: "$4x^2 - 6x + 2$" },
+        { label: "A", text: "$k=6$, first solution $x=\\dfrac{\\pi}{12}$" },
+        { label: "B", text: "$k=6$, first solution $x=\\dfrac{\\pi}{6}$" },
+        { label: "C", text: "$k=\\dfrac{1}{6}$, first solution $x=3\\pi$" },
+        { label: "D", text: "$k=3$, first solution $x=\\dfrac{\\pi}{6}$" },
       ],
       correctAnswer: "A",
       explanation:
-        "Differentiating term by term: $4x^3 \\to 12x^2$, $-3x^2 \\to -6x$, $2x \\to 2$, $-7 \\to 0$. So $f'(x) = 12x^2 - 6x + 2$.",
+        "The sector angle is $\\theta=3\\pi/9=\\pi/3$. For $\\sin(kx)$, period $=2\\pi/k$, so $2\\pi/k=\\pi/3$ gives $k=6$. Then $\\sin(6x)=1$ first occurs when $6x=\\pi/2$, so $x=\\pi/12$.",
     },
     {
-      id: "y12adv-dc2",
-      unitSlug: "differential-calculus",
+      id: "y12adv-d5-implicit-chain-rate",
+      unitSlug: "ma-c2-differential-calculus",
+      assessedUnitSlugs: [
+        "ma-c1-introduction-to-differentiation",
+        "ma-c2-differential-calculus",
+        "ma-e1-exponential-and-logarithmic-functions",
+      ],
+      difficulty: 5,
+      targetMisconception:
+        "Differentiates a logarithmic composite as $1/u$ only, or fails to connect the derivative to a rate of change.",
       prompt:
-        "The $x$-value of the stationary point of $y = x^2 - 4x + 3$ is:",
-      latex: "y=x^2-4x+3",
+        "A population index is $P(t)=50\\ln(2t+1)$. At what time is the instantaneous growth rate first equal to $10$ units per year?",
+      latex: "P(t)=50\\ln(2t+1)",
       choices: [
-        { label: "A", text: "$x = -2$" },
-        { label: "B", text: "$x = 2$" },
-        { label: "C", text: "$x = 4$" },
-        { label: "D", text: "$x = 1$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\dfrac{dy}{dx} = 2x - 4 = 0 \\Rightarrow x = 2$.",
-    },
-    {
-      id: "y12adv-dc3",
-      unitSlug: "differential-calculus",
-      prompt: "The gradient of the tangent to $y = x^3$ at $x = 2$ is:",
-      latex: "y=x^3, \\quad x=2",
-      choices: [
-        { label: "A", text: "$6$" },
-        { label: "B", text: "$8$" },
-        { label: "C", text: "$12$" },
-        { label: "D", text: "$24$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$\\dfrac{dy}{dx} = 3x^2$. At $x = 2$: $3(2)^2 = 12$.",
-    },
-    {
-      id: "y12adv-dc4",
-      unitSlug: "differential-calculus",
-      prompt: "Differentiate $f(x) = (3x^2 + 1)^4$.",
-      latex: "f(x)=(3x^2+1)^4",
-      choices: [
-        { label: "A", text: "$4(3x^2+1)^3$" },
-        { label: "B", text: "$24x(3x^2+1)^3$" },
-        { label: "C", text: "$24(3x^2+1)^3$" },
-        { label: "D", text: "$24x(3x^2+1)^4$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "Use the chain rule: differentiate the outer power, then multiply by the derivative of the inside. $f'(x) = 4(3x^2+1)^3 \\times \\dfrac{d}{dx}(3x^2+1) = 4(3x^2+1)^3 \\times 6x = 24x(3x^2+1)^3$. Option A omits the inner derivative; C uses $6$ instead of $6x$; D fails to reduce the power.",
-    },
-
-    // ── Integral Calculus (4 questions) ───────────────────────────────────────
-    {
-      id: "y12adv-ic1",
-      unitSlug: "integral-calculus",
-      prompt: "$\\displaystyle\\int (6x^2 - 4x + 3)\\,dx =$",
-      latex: "\\int(6x^2-4x+3)\\,dx",
-      choices: [
-        { label: "A", text: "$2x^3 - 2x^2 + 3x + C$" },
-        { label: "B", text: "$12x - 4 + C$" },
-        { label: "C", text: "$2x^3 - 4x^2 + 3x + C$" },
-        { label: "D", text: "$6x^3 - 4x^2 + 3x + C$" },
+        { label: "A", text: "$t=4.5$" },
+        { label: "B", text: "$t=2$" },
+        { label: "C", text: "$t=5$" },
+        { label: "D", text: "$t=9$" },
       ],
       correctAnswer: "A",
       explanation:
-        "$\\int 6x^2\\,dx = 2x^3$, $\\int{-4x}\\,dx = -2x^2$, $\\int 3\\,dx = 3x$. Result: $2x^3 - 2x^2 + 3x + C$.",
+        "$P'(t)=50\\cdot\\frac{2}{2t+1}=\\frac{100}{2t+1}$. Set this equal to $10$: $100/(2t+1)=10$, so $2t+1=10$ and $t=4.5$.",
     },
     {
-      id: "y12adv-ic2",
-      unitSlug: "integral-calculus",
-      prompt: "Evaluate $\\displaystyle\\int_1^3 2x\\,dx$.",
-      latex: "\\int_1^3 2x\\,dx",
-      choices: [
-        { label: "A", text: "$4$" },
-        { label: "B", text: "$6$" },
-        { label: "C", text: "$8$" },
-        { label: "D", text: "$12$" },
+      id: "y12adv-d5-optimisation-area",
+      unitSlug: "ma-c3-applications-of-differentiation",
+      assessedUnitSlugs: [
+        "ma-c1-introduction-to-differentiation",
+        "ma-c3-applications-of-differentiation",
       ],
-      correctAnswer: "C",
-      explanation:
-        "$\\bigl[x^2\\bigr]_1^3 = 3^2 - 1^2 = 9 - 1 = 8$.",
-    },
-    {
-      id: "y12adv-ic3",
-      unitSlug: "integral-calculus",
+      difficulty: 5,
+      targetMisconception:
+        "Maximises before forming the constrained model, or treats perimeter as area.",
       prompt:
-        "The area bounded by $y = x^2$, the $x$-axis, and $x = 0$ to $x = 2$ is:",
-      latex: "\\int_0^2 x^2\\,dx",
+        "A rectangle has its base on a river, so fencing is needed only for the other three sides. There is $60$ m of fencing. What maximum area can be enclosed?",
+      latex: "2x+y=60",
       choices: [
-        { label: "A", text: "$2$" },
-        { label: "B", text: "$\\dfrac{4}{3}$" },
-        { label: "C", text: "$\\dfrac{8}{3}$" },
-        { label: "D", text: "$4$" },
+        { label: "A", text: "$450\\text{ m}^2$" },
+        { label: "B", text: "$600\\text{ m}^2$" },
+        { label: "C", text: "$900\\text{ m}^2$" },
+        { label: "D", text: "$1800\\text{ m}^2$" },
       ],
-      correctAnswer: "C",
+      correctAnswer: "A",
       explanation:
-        "$\\left[\\dfrac{x^3}{3}\\right]_0^2 = \\dfrac{8}{3} - 0 = \\dfrac{8}{3}$.",
+        "Let the two equal fenced sides be $x$ and the side parallel to the river be $y$. Then $2x+y=60$, so $y=60-2x$. Area $A=x(60-2x)=60x-2x^2$, maximised when $A'=60-4x=0$, so $x=15$, $y=30$, and $A=450$.",
     },
     {
-      id: "y12adv-ic4",
-      unitSlug: "integral-calculus",
-      prompt: "Given $F'(x) = 4x + 1$ and $F(0) = 3$, find $F(2)$.",
-      latex: "F'(x)=4x+1, \\quad F(0)=3",
-      choices: [
-        { label: "A", text: "$9$" },
-        { label: "B", text: "$10$" },
-        { label: "C", text: "$13$" },
-        { label: "D", text: "$21$" },
+      id: "y12adv-d5-signed-area-total",
+      unitSlug: "ma-c4-integral-calculus",
+      assessedUnitSlugs: [
+        "ma-c3-applications-of-differentiation",
+        "ma-c4-integral-calculus",
       ],
-      correctAnswer: "C",
-      explanation:
-        "Integrate first: $\\int (4x + 1)\\,dx = 2x^2 + x + C$. Use $F(0) = 3$ to find $C = 3$. Then $F(2) = 2(2)^2 + 2 + 3 = 8 + 2 + 3 = 13$. Option A evaluates $F'(2)$ instead of $F$; B forgets the constant $C$; D does not halve the $4x$ term.",
-    },
-
-    // ── Sequences, Series and Financial Mathematics (3 questions) ─────────────
-    {
-      id: "y12adv-fm1",
-      unitSlug: "sequences-series-financial-maths",
+      difficulty: 5,
+      targetMisconception:
+        "Finds signed displacement when the question asks for total distance/area, or misses the sign change inside the interval.",
       prompt:
-        "Using \\(A = P(1 + r)^n\\), find the value of $2000 invested at 5% p.a. compounded annually for 3 years.",
-      latex: "A = 2000(1.05)^3",
+        "A particle has velocity $v(t)=t^2-4t+3$ for $0\\leq t\\leq4$. What total distance does it travel?",
+      latex: "v(t)=t^2-4t+3",
       choices: [
-        { label: "A", text: "$2200.00" },
-        { label: "B", text: "$2300.00" },
-        { label: "C", text: "$2315.25" },
-        { label: "D", text: "$2420.50" },
+        { label: "A", text: "$\\dfrac{10}{3}$ units" },
+        { label: "B", text: "$\\dfrac{14}{3}$ units" },
+        { label: "C", text: "$\\dfrac{16}{3}$ units" },
+        { label: "D", text: "$\\dfrac{22}{3}$ units" },
       ],
-      correctAnswer: "C",
+      correctAnswer: "D",
       explanation:
-        "$A = 2000 \\times (1.05)^3 = 2000 \\times 1.157625 = 2315.25$. The investment is worth $2315.25.",
+        "$v(t)=(t-1)(t-3)$, so the sign changes at $t=1$ and $t=3$. With antiderivative $F(t)=t^3/3-2t^2+3t$, the distances are $F(1)-F(0)=4/3$, $-(F(3)-F(1))=8/3$, and $F(4)-F(3)=10/3$, totalling $22/3$.",
     },
     {
-      id: "y12adv-fm2",
-      unitSlug: "sequences-series-financial-maths",
+      id: "y12adv-d5-financial-break-even",
+      unitSlug: "ma-m1-modelling-financial-situations",
+      assessedUnitSlugs: [
+        "ma-e1-exponential-and-logarithmic-functions",
+        "ma-m1-modelling-financial-situations",
+      ],
+      difficulty: 5,
+      targetMisconception:
+        "Compares yearly rates additively instead of solving the exponential break-even condition.",
       prompt:
-        "$1000 is invested at the end of each year for 3 years at 5% p.a. compounded annually. The total value just after the final deposit is:",
-      latex: "FV = R \\cdot \\dfrac{(1+r)^n - 1}{r}",
+        "Account A starts with 5000 dollars and grows at $6\\%$ p.a. compounded annually. Account B starts with 6200 dollars and grows at $3\\%$ p.a. compounded annually. After how many whole years is Account A first worth more than Account B?",
+      latex: "5000(1.06)^n>6200(1.03)^n",
       choices: [
-        { label: "A", text: "$3000.00" },
-        { label: "B", text: "$3152.50" },
-        { label: "C", text: "$3310.13" },
-        { label: "D", text: "$2152.50" },
+        { label: "A", text: "$7$ years" },
+        { label: "B", text: "$8$ years" },
+        { label: "C", text: "$9$ years" },
+        { label: "D", text: "$10$ years" },
       ],
       correctAnswer: "B",
       explanation:
-        "Each deposit earns interest only for the years after it is made: $1000(1.05)^2 + 1000(1.05) + 1000 = 1102.50 + 1050 + 1000 = 3152.50$. Option A ignores interest entirely; C treats the deposits as made at the start of each year (one extra year of growth each); D omits the final deposit.",
+        "Divide both sides by $5000(1.03)^n$ to get $(1.06/1.03)^n>1.24$. This gives $n>\\ln(1.24)/\\ln(1.06/1.03)\\approx7.50$, so the first whole year is $8$.",
     },
     {
-      id: "y12adv-fm3",
-      unitSlug: "sequences-series-financial-maths",
+      id: "y12adv-d5-probability-random-variable",
+      unitSlug: "ma-s1-probability-and-discrete-probability-distributions",
+      assessedUnitSlugs: [
+        "ma-s1-probability-and-discrete-probability-distributions",
+        "ma-s3-random-variables",
+      ],
+      difficulty: 5,
+      targetMisconception:
+        "Uses replacement when the sampling is without replacement, or treats expected value as the most likely value.",
       prompt:
-        "An arithmetic sequence has first term $a = 5$ and common difference $d = 3$. The $10$th term $T_{10}$ is:",
-      latex: "T_n = a + (n-1)d",
+        "A bag has $5$ red and $3$ blue counters. Two counters are drawn without replacement. Let $X$ be the number of red counters drawn. Which pair is correct?",
+      latex: "X=\\text{number of red counters in two draws}",
       choices: [
-        { label: "A", text: "$30$" },
-        { label: "B", text: "$32$" },
-        { label: "C", text: "$35$" },
-        { label: "D", text: "$38$" },
+        { label: "A", text: "$P(X=2)=\\dfrac{25}{64}$ and $E(X)=\\dfrac{5}{4}$" },
+        { label: "B", text: "$P(X=2)=\\dfrac{5}{14}$ and $E(X)=\\dfrac{5}{4}$" },
+        { label: "C", text: "$P(X=2)=\\dfrac{5}{14}$ and $E(X)=\\dfrac{10}{7}$" },
+        { label: "D", text: "$P(X=2)=\\dfrac{25}{64}$ and $E(X)=\\dfrac{10}{7}$" },
       ],
       correctAnswer: "B",
       explanation:
-        "$T_{10} = 5 + (10 - 1) \\times 3 = 5 + 27 = 32$.",
+        "$P(X=2)=\\frac{5}{8}\\cdot\\frac{4}{7}=\\frac{5}{14}$. Linearity of expectation gives $E(X)=2\\cdot\\frac{5}{8}=\\frac{5}{4}$, even without replacement.",
     },
-
-    // ── Statistical Analysis (3 questions) ────────────────────────────────────
     {
-      id: "y12adv-sa1",
-      unitSlug: "statistical-analysis",
+      id: "y12adv-d5-regression-standardised-residual",
+      unitSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+      assessedUnitSlugs: [
+        "ma-s2-descriptive-statistics-and-bivariate-data",
+        "ma-s3-random-variables",
+      ],
+      difficulty: 5,
+      targetMisconception:
+        "Computes residual with the wrong sign, or standardises the raw observed value instead of the residual.",
       prompt:
-        "The shaded region covers the values within $1$ standard deviation of the mean. Approximately what percentage of the data lies in the shaded region?",
-      normalDistributionDiagram: {
-        description:
-          "Normal distribution curve centred at the mean with the band within 1 standard deviation of the mean shaded.",
-        mean: 0,
-        standardDeviation: 1,
-        showStandardDeviationLabels: true,
-        shadedBands: [{ standardDeviations: 1, color: "blue" }],
-      },
+        "A regression model predicts $\\hat y=2.5x+18$. For $x=20$, the observed value is $75$. If residuals have standard deviation $4$, what are the residual and its standardised value?",
+      latex: "\\hat y=2.5x+18",
       choices: [
-        { label: "A", text: "$50\\%$" },
-        { label: "B", text: "$68\\%$" },
-        { label: "C", text: "$95\\%$" },
-        { label: "D", text: "$99.7\\%$" },
+        { label: "A", text: "Residual $7$, standardised value $1.75$" },
+        { label: "B", text: "Residual $-7$, standardised value $-1.75$" },
+        { label: "C", text: "Residual $7$, standardised value $18.75$" },
+        { label: "D", text: "Residual $57$, standardised value $14.25$" },
+      ],
+      correctAnswer: "A",
+      explanation:
+        "The predicted value is $2.5(20)+18=68$. Residual is observed minus predicted: $75-68=7$. Standardising the residual gives $7/4=1.75$.",
+    },
+    {
+      id: "y12adv-d5-normal-conditional",
+      unitSlug: "ma-s3-random-variables",
+      assessedUnitSlugs: [
+        "ma-s1-probability-and-discrete-probability-distributions",
+        "ma-s3-random-variables",
+      ],
+      difficulty: 5,
+      targetMisconception:
+        "Finds an unconditional normal probability when the question asks for a conditional probability in a restricted tail.",
+      prompt:
+        "A score $X$ is normally distributed with mean $70$ and standard deviation $8$. A student is known to have scored above $70$. What is the probability they scored above $86$?",
+      latex: "X\\sim N(70,8^2)",
+      choices: [
+        { label: "A", text: "$0.0228$" },
+        { label: "B", text: "$0.0456$" },
+        { label: "C", text: "$0.4772$" },
+        { label: "D", text: "$0.9544$" },
       ],
       correctAnswer: "B",
       explanation:
-        "By the empirical rule, about $68\\%$ of data lies within $1$ standard deviation of the mean, $95\\%$ within $2\\sigma$, and $99.7\\%$ within $3\\sigma$. Option C is the proportion within $2$ standard deviations; D is within $3$.",
-    },
-    {
-      id: "y12adv-sa2",
-      unitSlug: "statistical-analysis",
-      prompt:
-        "A score of $72$ comes from a distribution with mean $\\mu = 60$ and standard deviation $\\sigma = 8$. The $z$-score is:",
-      latex: "z = \\dfrac{x - \\mu}{\\sigma}",
-      choices: [
-        { label: "A", text: "$z = 0.8$" },
-        { label: "B", text: "$z = 1.0$" },
-        { label: "C", text: "$z = 1.5$" },
-        { label: "D", text: "$z = 2.0$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$z = \\dfrac{72 - 60}{8} = \\dfrac{12}{8} = 1.5$.",
-    },
-    {
-      id: "y12adv-sa3",
-      unitSlug: "statistical-analysis",
-      prompt: "A $95\\%$ confidence interval for the population mean means:",
-      choices: [
-        { label: "A", text: "$95\\%$ of the data lies within the interval" },
-        {
-          label: "B",
-          text: "In repeated sampling, $95\\%$ of such intervals would contain the true population mean",
-        },
-        { label: "C", text: "The sample mean is definitely within the interval" },
-        { label: "D", text: "$95\\%$ of samples will be identical" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "A $95\\%$ CI means that if the procedure were repeated many times, $95\\%$ of the constructed intervals would contain the true population parameter.",
+        "$86$ is two standard deviations above the mean, so $P(X>86)\\approx0.0228$. Given $X>70$, the denominator is $0.5$, so $P(X>86\\mid X>70)=0.0228/0.5=0.0456$.",
     },
   ],
 };

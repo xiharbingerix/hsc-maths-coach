@@ -5,9 +5,9 @@ export const diagnosticData: DiagnosticData = {
 
   units: [
     {
-      slug: "number-operations",
-      title: "Number Operations and Properties",
-      startHref: "/course/year-8-mathematics/number-operations",
+      slug: "index-laws-extension",
+      title: "Indices A",
+      startHref: "/course/year-8-mathematics/index-laws-extension",
     },
     {
       slug: "number-financial-mathematics",
@@ -15,14 +15,9 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-8-mathematics/number-financial-mathematics",
     },
     {
-      slug: "algebra-foundations",
-      title: "Algebra Foundations",
-      startHref: "/course/year-8-mathematics/algebra-foundations",
-    },
-    {
-      slug: "algebra-equations",
-      title: "Algebra and Equations",
-      startHref: "/course/year-8-mathematics/algebra-equations",
+      slug: "algebraic-techniques-stage5",
+      title: "Algebraic Techniques (Stage 5)",
+      startHref: "/course/year-8-mathematics/algebraic-techniques-stage5",
     },
     {
       slug: "linear-relationships",
@@ -40,9 +35,9 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-8-mathematics/geometry-angles",
     },
     {
-      slug: "volume-and-surface-area",
-      title: "Volume and Surface Area",
-      startHref: "/course/year-8-mathematics/volume-and-surface-area",
+      slug: "volume-of-composite-solids",
+      title: "Volume of Composite Solids",
+      startHref: "/course/year-8-mathematics/volume-of-composite-solids",
     },
     {
       slug: "data-and-graphs",
@@ -50,9 +45,9 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-8-mathematics/data-and-graphs",
     },
     {
-      slug: "probability-and-chance",
-      title: "Probability and Chance",
-      startHref: "/course/year-8-mathematics/probability-and-chance",
+      slug: "introduction-to-networks",
+      title: "Introduction to Networks",
+      startHref: "/course/year-8-mathematics/introduction-to-networks",
     },
   ],
 
@@ -60,20 +55,20 @@ export const diagnosticData: DiagnosticData = {
 
     {
       id: "y8-no2",
-      unitSlug: "number-operations",
-      prompt: "Which number is irrational?",
+      unitSlug: "index-laws-extension",
+      prompt: "Which number is equal to $4.5 \\times 10^{-3}$?",
       choices: [
-        { label: "A", text: "$0.75$" },
-        { label: "B", text: "$\\sqrt{16}$" },
-        { label: "C", text: "$\\sqrt{20}$" },
-        { label: "D", text: "$\\frac{3}{5}$" },
+        { label: "A", text: "$4500$" },
+        { label: "B", text: "$0.45$" },
+        { label: "C", text: "$0.0045$" },
+        { label: "D", text: "$0.00045$" },
       ],
       correctAnswer: "C",
-      explanation: "$\\sqrt{20}$ cannot be written as an exact fraction because 20 is not a perfect square.",
+      explanation: "$10^{-3}$ moves the decimal point three places left, so $4.5 \\times 10^{-3}=0.0045$.",
     },
     {
       id: "y8-no3",
-      unitSlug: "number-operations",
+      unitSlug: "number-financial-mathematics",
       prompt: "A $20\\%$ discount is applied to an item priced at $80 before sale. What is the sale price?",
       choices: [
         { label: "A", text: "$16" },
@@ -112,7 +107,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-af1",
-      unitSlug: "algebra-foundations",
+      unitSlug: "algebraic-techniques-stage5",
       prompt: "Simplify $5x - 3 + 2x + 7$.",
       choices: [
         { label: "A", text: "$7x + 4$" },
@@ -125,7 +120,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-af2",
-      unitSlug: "algebra-foundations",
+      unitSlug: "algebraic-techniques-stage5",
       prompt: "Evaluate $4p - 3$ when $p = 5$.",
       choices: [
         { label: "A", text: "$7$" },
@@ -138,7 +133,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-ae2",
-      unitSlug: "algebra-equations",
+      unitSlug: "algebraic-techniques-stage5",
       prompt: "Solve $2x + 5 = 17$.",
       choices: [
         { label: "A", text: "$x = 6$" },
@@ -151,7 +146,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-ae3",
-      unitSlug: "algebra-equations",
+      unitSlug: "algebraic-techniques-stage5",
       prompt: "Factorise $6x + 9$ using the highest common factor.",
       choices: [
         { label: "A", text: "$3(2x + 3)$" },
@@ -243,7 +238,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-vs1",
-      unitSlug: "volume-and-surface-area",
+      unitSlug: "volume-of-composite-solids",
       prompt: "What is the volume of a rectangular prism with length 5 cm, width 4 cm and height 3 cm?",
       choices: [
         { label: "A", text: "$12$ cm$^3$" },
@@ -256,7 +251,7 @@ export const diagnosticData: DiagnosticData = {
     },
     {
       id: "y8-vs2",
-      unitSlug: "volume-and-surface-area",
+      unitSlug: "volume-of-composite-solids",
       prompt: "A cylinder has radius 3 cm and height 10 cm. Which expression gives its volume?",
       choices: [
         { label: "A", text: "$\\pi \\times 3 \\times 10$" },
@@ -295,30 +290,30 @@ export const diagnosticData: DiagnosticData = {
       explanation: "Randomly choosing across the school reduces bias because different groups have a chance to be included.",
     },
     {
-      id: "y8-pc1",
-      unitSlug: "probability-and-chance",
-      prompt: "A fair die is rolled. What is the probability of rolling an even number?",
+      id: "y8-net1",
+      unitSlug: "introduction-to-networks",
+      prompt: "In a network diagram, what do vertices represent?",
       choices: [
-        { label: "A", text: "$\\frac{1}{6}$" },
-        { label: "B", text: "$\\frac{1}{3}$" },
-        { label: "C", text: "$\\frac{1}{2}$" },
-        { label: "D", text: "$\\frac{2}{3}$" },
+        { label: "A", text: "The connection lines between locations" },
+        { label: "B", text: "The points or locations in the network" },
+        { label: "C", text: "The total distance around the network" },
+        { label: "D", text: "The number of possible routes only" },
       ],
-      correctAnswer: "C",
-      explanation: "There are 3 even outcomes out of 6 possible outcomes, so the probability is $\\frac{3}{6}=\\frac{1}{2}$.",
+      correctAnswer: "B",
+      explanation: "Vertices are the points or locations in a network. Edges are the connections between them.",
     },
     {
-      id: "y8-pc2",
-      unitSlug: "probability-and-chance",
-      prompt: "A coin is flipped twice. Which outcome list shows the full sample space?",
+      id: "y8-net2",
+      unitSlug: "introduction-to-networks",
+      prompt: "Which route type starts and finishes at the same vertex?",
       choices: [
-        { label: "A", text: "HH, TT" },
-        { label: "B", text: "HT, TH" },
-        { label: "C", text: "HH, HT, TH, TT" },
-        { label: "D", text: "H, T" },
+        { label: "A", text: "A path" },
+        { label: "B", text: "A circuit" },
+        { label: "C", text: "A bridge" },
+        { label: "D", text: "A vertex" },
       ],
-      correctAnswer: "C",
-      explanation: "A two-stage experiment needs both results in order, giving four possible outcomes.",
+      correctAnswer: "B",
+      explanation: "A circuit is a route that starts and ends at the same vertex.",
     },
   ],
 };

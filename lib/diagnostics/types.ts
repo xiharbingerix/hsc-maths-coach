@@ -5,6 +5,9 @@ import type { DiagramFields } from "../lessons/diagramRegistry";
 export type DiagnosticQuestion = {
   id: string;
   unitSlug: string;
+  assessedUnitSlugs?: string[];
+  difficulty?: 1 | 2 | 3 | 4 | 5;
+  targetMisconception?: string;
   prompt: string;
   latex?: string;
   choices: { label: string; text: string }[];

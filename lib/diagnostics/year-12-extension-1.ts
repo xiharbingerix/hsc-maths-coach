@@ -7,32 +7,32 @@ export const diagnosticData: DiagnosticData = {
     {
       slug: "proof-induction",
       title: "Proof by Mathematical Induction",
-      startHref: "/course/year-12-extension-1",
+      startHref: "/course/year-12-extension-1/proof-induction",
     },
     {
       slug: "vectors",
       title: "Introduction to Vectors",
-      startHref: "/course/year-12-extension-1",
+      startHref: "/course/year-12-extension-1/vectors",
     },
     {
       slug: "inverse-trig",
       title: "Inverse Trigonometric Functions",
-      startHref: "/course/year-12-extension-1",
+      startHref: "/course/year-12-extension-1/inverse-trig",
     },
     {
       slug: "further-calculus",
       title: "Further Calculus Skills",
-      startHref: "/course/year-12-extension-1",
+      startHref: "/course/year-12-extension-1/further-calculus",
     },
     {
       slug: "calculus-applications",
       title: "Further Applications of Calculus",
-      startHref: "/course/year-12-extension-1",
+      startHref: "/course/year-12-extension-1/calculus-applications",
     },
     {
       slug: "binomial-distribution",
       title: "The Binomial Distribution",
-      startHref: "/course/year-12-extension-1",
+      startHref: "/course/year-12-extension-1/binomial-distribution",
     },
   ],
 

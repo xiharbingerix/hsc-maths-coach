@@ -8,6 +8,7 @@ export const runtime = "nodejs";
 type DiagnosticEventInput = {
   questionId: string;
   topicSlug: string;
+  difficulty?: number;
   isCorrect: boolean;
 };
 
@@ -90,7 +91,7 @@ export async function POST(request: Request) {
     courseSlug,
     topicSlug: ev.topicSlug,
     subtopicSlug: null,
-    difficulty: 3,
+    difficulty: Math.max(1, Math.min(5, Math.round(ev.difficulty ?? 3))),
     isCorrect: Boolean(ev.isCorrect),
   }));
 

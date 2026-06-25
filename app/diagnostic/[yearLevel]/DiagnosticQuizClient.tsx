@@ -21,7 +21,11 @@ type UnitResult = DiagnosticUnit & {
   total: number;
 };
 
-
+function assessedUnitSlugs(question: DiagnosticQuestion): string[] {
+  return Array.from(
+    new Set([question.unitSlug, ...(question.assessedUnitSlugs ?? [])])
+  );
+}
 
 function priorityLevel(
   correct: number,
@@ -57,10 +61,12 @@ function computeUnitResults(
   const tally = new Map<string, { correct: number; total: number }>();
 
   for (const q of questions) {
-    if (!tally.has(q.unitSlug)) tally.set(q.unitSlug, { correct: 0, total: 0 });
-    const entry = tally.get(q.unitSlug)!;
-    entry.total++;
-    if (answers[q.id] === q.correctAnswer) entry.correct++;
+    for (const unitSlug of assessedUnitSlugs(q)) {
+      if (!tally.has(unitSlug)) tally.set(unitSlug, { correct: 0, total: 0 });
+      const entry = tally.get(unitSlug)!;
+      entry.total++;
+      if (answers[q.id] === q.correctAnswer) entry.correct++;
+    }
   }
 
   return units
@@ -87,7 +93,7 @@ export function DiagnosticQuizClient({
   const totalQuestions = questions.length;
   const diagnosticUnits = useMemo(() => {
     const unitSlugsWithQuestions = new Set(
-      questions.map((question) => question.unitSlug)
+      questions.flatMap((question) => assessedUnitSlugs(question))
     );
     return units.filter((unit) => unitSlugsWithQuestions.has(unit.slug));
   }, [questions, units]);
@@ -131,7 +137,10 @@ export function DiagnosticQuizClient({
     [unitResults, studiedUnitSlugSet]
   );
 
-  const totalCorrect = unitResults.reduce((sum, u) => sum + u.correct, 0);
+  const totalCorrect = useMemo(
+    () => questions.filter((q) => answers[q.id] === q.correctAnswer).length,
+    [answers, questions]
+  );
 
   useEffect(() => {
     if (phase !== "results" || saveAttemptedRef.current) return;
@@ -181,12 +190,18 @@ export function DiagnosticQuizClient({
 
       const sourceId = crypto.randomUUID();
       const events = questions
-        .filter((q) => studiedUnitSlugSet.has(q.unitSlug))
-        .map((q) => ({
-        questionId: q.id,
-        topicSlug: q.unitSlug,
-        isCorrect: answers[q.id] === q.correctAnswer,
-        }));
+        .flatMap((q) =>
+          assessedUnitSlugs(q)
+            .filter((unitSlug) => studiedUnitSlugSet.has(unitSlug))
+            .map((unitSlug) => ({
+              questionId: `${q.id}:${unitSlug}`,
+              topicSlug: unitSlug,
+              difficulty: q.difficulty ?? 3,
+              isCorrect: answers[q.id] === q.correctAnswer,
+            }))
+        );
+
+      if (events.length === 0) return;
 
       void fetch("/api/mastery/diagnostic", {
         method: "POST",
