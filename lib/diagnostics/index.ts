@@ -11,6 +11,7 @@ import { diagnosticData as y12AdvancedData } from "./year-12-advanced";
 import { diagnosticData as y12Std1Data } from "./year-12-standard-1";
 import { diagnosticData as y12Std2Data } from "./year-12-standard-2";
 import { diagnosticData as y12Ext1Data } from "./year-12-extension-1";
+import { diagnosticData as y12Ext2Data } from "./year-12-extension-2";
 import type { DiagnosticData } from "./types";
 
 export const diagnosticDataByCourseSlug: Record<string, DiagnosticData> = {
@@ -27,6 +28,9 @@ export const diagnosticDataByCourseSlug: Record<string, DiagnosticData> = {
   "year-12-standard-1": y12Std1Data,
   "year-12-advanced": y12AdvancedData,
   "year-12-extension-1": y12Ext1Data,
+  // Registered for validation and ready to launch, but kept out of
+  // visibleDiagnosticCourseSlugs while the Extension 2 course is in_progress.
+  "year-12-extension-2": y12Ext2Data,
 };
 
 export const visibleDiagnosticCourseSlugs = [
