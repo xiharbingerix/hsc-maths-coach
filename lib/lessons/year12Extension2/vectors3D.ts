@@ -1138,6 +1138,20 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-app-pool-1", "The work done by a constant force F through a displacement d is given by:", "B", ["F + d", "F·d (the dot product)", "|F||d|", "F − d"], "Work is the dot product W = F·d = |F||d|cosθ — only the component of force along the displacement does work."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-app-pool-2", "Find the work W = F·d for F = (3, 0, 4) and d = (2, 0, 1).", "W = F\\cdot d", "10", [], "W = 3·2 + 0·0 + 4·1 = 6 + 0 + 4 = 10."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-app-pool-3", "Find the angle (in degrees) between (1, 0, 0) and (0, 1, 0).", "\\cos\\theta = \\frac{a\\cdot b}{|a||b|}", "90", ["90°"], "Dot product = 0, so cosθ = 0 and θ = 90°."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-app-pool-4", "Points A(0, 0, 0), B(1, 2, 3), C(2, 4, 6). Since AB = (1, 2, 3) and AC = (2, 4, 6), the points are collinear. Find the scalar λ with AC = λ·AB.", "\\vec{AC} = \\lambda\\,\\vec{AB}", "2", [], "(2, 4, 6) = 2(1, 2, 3), so λ = 2 — A, B, C lie on one line."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-app-pool-5", "The work done by a force acting perpendicular to the displacement is:", "C", ["Equal to |F||d|.", "Negative.", "Zero, because F·d = 0.", "Undefined."], "If F ⊥ d then F·d = 0, so no work is done — this is why a normal force or a centripetal force does zero work."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-app-pool-6", "The scalar projection of a = (3, 4, 0) onto b = (1, 0, 0) is (a·b)/|b|. Find it.", "\\text{proj} = \\frac{a\\cdot b}{|b|}", "3", [], "a·b = 3 and |b| = 1, so the scalar projection is 3."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-app-pool-7", "A force F = (0, −5, 0) moves an object along d = (4, 0, 0). Find the work W = F·d.", "W = F\\cdot d", "0", [], "W = 0·4 + (−5)·0 + 0·0 = 0 — the force is perpendicular to the motion, so no work is done."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-app-pool-8", "Two lines have direction vectors (1, 0, 0) and (1, 1, 0). The angle between them satisfies cosθ = 1/√2. Find θ in degrees.", "\\cos\\theta = \\tfrac{1}{\\sqrt2}", "45", ["45°"], "cosθ = (1)/(1·√2) = 1/√2, so θ = 45°."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-app-pool-9", "Three points A, B, C are collinear if and only if:", "B", ["AB·AC = 0.", "AB and AC are parallel (one is a scalar multiple of the other).", "|AB| = |AC|.", "AB + AC = 0."], "Collinear means the displacements AB and AC point along the same line, i.e. one is a scalar multiple of the other (parallel), not perpendicular."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-app-pool-10", "To find the foot of the perpendicular from a point P to a line, project AP onto the line's unit direction. For AP = (3, 4, 0) and unit direction d = (0, 1, 0), find the scalar projection AP·d.", "AP\\cdot \\hat{d}", "4", [], "AP·d = 3·0 + 4·1 + 0·0 = 4 — this is how far along the line the foot of the perpendicular sits."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-app-pool-11", "A force of magnitude 20 N acts at 60° to a displacement of magnitude 5 m. The work is W = |F||d|cosθ, with cos60° = 1/2. Find W.", "W = |F||d|\\cos\\theta", "50", ["50 J"], "W = 20·5·(1/2) = 50 J."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-app-pool-12", "Explain by result: when a force is perpendicular to the motion it does no work — this is why the normal reaction and the centripetal force do zero work. For F = (0, 0, 7) and motion d = (3, 4, 0), state W = F·d.", "W = F\\cdot d", "0", [], "F·d = 0·3 + 0·4 + 7·0 = 0 — F points purely in z while the motion lies in the xy-plane, so the force is perpendicular and does no work."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 5: Vector Equations of Curves, Circles and Spheres ───────────────

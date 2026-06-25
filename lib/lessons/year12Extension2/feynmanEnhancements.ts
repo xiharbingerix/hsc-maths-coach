@@ -238,17 +238,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   // equations-of-lines-3d intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
-  "vector-applications-exam-practice": {
-    topic: "vector applications",
-    object: "the geometric condition hidden in the wording",
-    validMove: "Translate parallel, perpendicular, midpoint, or intersection into a vector condition.",
-    trap1: "Calculating without identifying the geometric condition.",
-    trap2: "Using a dot product for parallelism rather than perpendicularity.",
-    trap3: "Ignoring that 3D lines may be skew.",
-    representation: "geometry statement converted to vector algebra",
-    check: "the final scalar/vector type matches the geometry asked for",
-    d5Context: "multi-condition 3D geometry in unfamiliar diagrams",
-  },
+  // vector-applications-exam-practice intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   "vector-curves-circles-spheres": {
     topic: "vector curves, circles, and spheres",
     object: "a distance constraint in 3D",
