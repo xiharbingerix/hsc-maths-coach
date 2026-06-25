@@ -389,17 +389,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
     check: "the squared radius matches the axis of rotation",
     d5Context: "washer regions and y-axis rotations",
   },
-  "partial-fractions-quadratic": {
-    topic: "partial fractions with quadratics",
-    object: "an irreducible quadratic denominator",
-    validMove: "Use a linear numerator over each irreducible quadratic factor.",
-    trap1: "Using a constant numerator where Ax+B is needed.",
-    trap2: "Factoring an irreducible quadratic over the reals.",
-    trap3: "Missing the log part from derivative-over-function structure.",
-    representation: "linear-over-quadratic decomposition",
-    check: "coefficients match after recombining",
-    d5Context: "decomposition plus completing square integration",
-  },
+  // partial-fractions-quadratic intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "forces-inclined-planes": {
     topic: "forces on inclined planes",
     object: "components parallel and perpendicular to the plane",
