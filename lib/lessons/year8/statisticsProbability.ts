@@ -3442,6 +3442,24 @@ const relativeFrequency: LessonContent = {
       ],
       finalAnswerLatex: "\\text{Relative frequency } 0.2 \\text{ vs theoretical } \\tfrac{1}{6} \\approx 0.167",
     } as WorkedExample,
+    {
+      title: "Estimate an experimental probability",
+      questionLatex: "\\text{A spinner lands on red 18 times out of 50 spins. Estimate the probability of red as a decimal.}",
+      steps: [
+        { explanation: "Relative frequency = successes ÷ trials.", latex: "\\frac{18}{50}" },
+        { explanation: "Divide to get a decimal estimate of P(red).", latex: "\\frac{18}{50} = 0.36" },
+      ],
+      finalAnswerLatex: "0.36",
+    } as WorkedExample,
+    {
+      title: "Predict a count from a probability",
+      questionLatex: "\\text{From earlier trials P(win) is about 0.25. In 60 new games, how many wins are expected?}",
+      steps: [
+        { explanation: "Expected count = probability × number of trials.", latex: "0.25 \\times 60" },
+        { explanation: "Calculate.", latex: "0.25 \\times 60 = 15" },
+      ],
+      finalAnswerLatex: "15 \\text{ wins}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
