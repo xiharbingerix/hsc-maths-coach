@@ -749,6 +749,20 @@ const shmExtendedLesson: Partial<ExplicitLesson> = {
       "Apply T = 2π/n with n = 2."
     ),
   ],
+  masteryQuizPool: [
+    { ...mechChoice("y12e2-mech-shm-pool-1", "Simple harmonic motion is defined by which equation of motion?", "B", ["a = n²x", "a = −n²x (acceleration proportional to displacement, directed toward equilibrium)", "a = −nx", "v = −n²x"], "SHM means the restoring acceleration is proportional to displacement and always points back toward the centre: a = −n²x."), difficulty: 2 },
+    { ...mechTyped("y12e2-mech-shm-pool-2", "A particle moves as x = 5 cos(3t). State the amplitude.", "x = 5\\cos 3t", "5", ["5 m"], "The coefficient of the cosine is the amplitude, so a = 5."), difficulty: 2 },
+    { ...mechTyped("y12e2-mech-shm-pool-3", "For x = 5 cos(3t) the angular frequency is n = 3. Using T = 2π/n, find the period T.", "T = \\frac{2\\pi}{n}", "2π/3", ["2pi/3", "2.09"], "T = 2π/3 seconds."), difficulty: 3 },
+    { ...mechTyped("y12e2-mech-shm-pool-4", "For x = 5 cos(3t), the maximum speed is a·n. Find the maximum speed.", "v_{max} = a\\,n", "15", ["15 m/s"], "v_max = a·n = 5·3 = 15 m/s, attained as the particle passes through the centre."), difficulty: 3 },
+    { ...mechChoice("y12e2-mech-shm-pool-5", "A student claims the acceleration in SHM is greatest at the centre (x = 0). Why is this wrong?", "C", ["Acceleration is constant in SHM.", "Acceleration is greatest when speed is greatest.", "Since a = −n²x, the magnitude |a| is greatest at the extremes (x = ±a) and zero at the centre.", "Acceleration is always zero."], "a = −n²x is proportional to displacement, so it is zero at x = 0 and maximal at the turning points."), difficulty: 3 },
+    { ...mechTyped("y12e2-mech-shm-pool-6", "For x = 5 cos(3t), the velocity is v = −15 sin(3t). Find v at t = 0.", "v = -15\\sin 3t", "0", ["0 m/s"], "v(0) = −15 sin 0 = 0 — the particle starts at rest at the extreme x = 5."), difficulty: 4 },
+    { ...mechTyped("y12e2-mech-shm-pool-7", "Using v² = n²(a² − x²) with n = 3 and amplitude a = 5, find the speed when x = 4.", "v^2 = n^2(a^2 - x^2)", "9", ["9 m/s"], "v² = 9(25 − 16) = 9·9 = 81, so v = 9 m/s."), difficulty: 4 },
+    { ...mechTyped("y12e2-mech-shm-pool-8", "For x = 5 cos(3t), acceleration satisfies a = −n²x = −9x. Find the acceleration when x = 2.", "a = -9x", "-18", ["−18", "-18 m/s²"], "a = −9(2) = −18 m/s² — directed back toward the centre."), difficulty: 4 },
+    { ...mechChoice("y12e2-mech-shm-pool-9", "At which position does a particle in SHM have its maximum speed?", "C", ["At the extremes x = ±a.", "Halfway between centre and extreme.", "At the centre x = 0, where all the energy is kinetic.", "Speed is the same everywhere."], "Speed peaks at the centre (x = 0): from v² = n²(a² − x²), v is largest when x = 0. At the extremes the particle is momentarily at rest."), difficulty: 4 },
+    { ...mechTyped("y12e2-mech-shm-pool-10", "A particle in SHM has period π seconds. Using T = 2π/n, find n.", "\\pi = \\frac{2\\pi}{n}", "2", [], "π = 2π/n gives n = 2."), difficulty: 5 },
+    { ...mechTyped("y12e2-mech-shm-pool-11", "A particle moves as x = 3 sin(2t) + 4 cos(2t). Writing this as a single sinusoid R sin(2t + φ), the amplitude is R = √(3² + 4²). Find R.", "R = \\sqrt{3^2 + 4^2}", "5", ["5 m"], "R = √(9 + 16) = √25 = 5 — combining the sine and cosine components of the same frequency."), difficulty: 5 },
+    { ...mechTyped("y12e2-mech-shm-pool-12", "By energy: at the centre of SHM all energy is kinetic and at the extremes all potential. Explain by result — for amplitude 5 with n = 3, the centre speed is a·n = 15 m/s, so state the speed at the extreme x = 5.", "v(\\pm a) = 0", "0", ["0 m/s"], "At the extreme all energy is potential, so the kinetic energy (and speed) is 0 — the particle is momentarily at rest before reversing."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 3: Uniform Circular Motion ───────────────────────────────────────

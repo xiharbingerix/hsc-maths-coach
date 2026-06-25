@@ -395,17 +395,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   },
   // rectilinear-motion-calculus intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
-  "simple-harmonic-motion-extended": {
-    topic: "simple harmonic motion",
-    object: "acceleration proportional to displacement toward equilibrium",
-    validMove: "Use a = -omega squared x and connect to sinusoidal motion.",
-    trap1: "Missing the negative sign toward equilibrium.",
-    trap2: "Confusing amplitude with angular frequency.",
-    trap3: "Using maximum speed at maximum displacement.",
-    representation: "sinusoidal displacement model",
-    check: "acceleration points opposite displacement",
-    d5Context: "energy, phase, and boundary-condition models",
-  },
+  // simple-harmonic-motion-extended intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   "circular-motion-uniform": {
     topic: "uniform circular motion",
     object: "centripetal acceleration toward the centre",
