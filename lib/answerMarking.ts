@@ -14,6 +14,19 @@ export type MarkTypedAnswerResult = {
   matchedBy: "exact" | "accepted" | "normalised" | "cas";
 };
 
+function stripDerivativePrefix(value: string): string {
+  // Strip function-equals prefixes students add when the expected answer is a bare expression.
+  // e.g. "y' = 2x", "dy/dx = 2x", "f'(x) = 2x", "y = 2x" \u2192 "2x"
+  // Applied after toLowerCase so the prime (\u2032 \u2192 ') is already ASCII.
+  return value
+    // Leibniz: dy/dx = ..., df/dt = ...
+    .replace(/^d[a-z]\/d[a-z]\s*=\s*/, "")
+    // Prime notation: y' = ..., y'' = ..., f'(x) = ..., g''(t) = ...
+    .replace(/^[a-z]'+(?:\([a-z]+\))?\s*=\s*/, "")
+    // Plain function: y = ..., f = ...  (leave this last \u2014 least specific)
+    .replace(/^[a-z](?:\([a-z]+\))?\s*=\s*/, "");
+}
+
 function normaliseText(value: string) {
   return value
     .replace(/\u00b2/g, "^2")
@@ -21,9 +34,14 @@ function normaliseText(value: string) {
     .normalize("NFKC")
     .replace(/\u2044/g, "/")
     .replace(/[\u2212\u2013\u2014]/g, "-")
+    // Normalise Unicode prime (\u2032) to ASCII apostrophe so the derivative prefix
+    // strip below recognises y\u2032 = ... the same as y' = ...
+    .replace(/\u2032/g, "'")
     .replace(/\^\((\d+)\)/g, "^$1")
     .toLowerCase()
     .trim()
+    // Strip derivative/function prefixes before comparing expressions.
+    .replace(/^.+/, (s) => stripDerivativePrefix(s))
     // --- Bridge Unicode/LaTeX maths glyphs to canonical ASCII (catalog audit P2) ---
     // Pi constant: π (U+03C0; also covers Π since toLowerCase ran above) and the
     // LaTeX macro \pi both canonicalise to "pi". Only the glyph/macro is mapped —
