@@ -149,16 +149,16 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Uses simple-interest growth or adds percentages instead of modelling repeated percentage change exponentially.",
       prompt:
-        "An investment grows by $8\\%$ each year. Which expression finds the first whole year when it has at least doubled?",
+        "An investment grows by $8\\%$ each year. After how many whole years is it first at least double its starting value?",
       choices: [
-        { label: "A", text: "$(1.08)^n\\geq2$" },
-        { label: "B", text: "$1+0.08n\\geq2$" },
-        { label: "C", text: "$(0.08)^n\\geq2$" },
-        { label: "D", text: "$1.08n\\geq2$" },
+        { label: "A", text: "$10$ years" },
+        { label: "B", text: "$9$ years" },
+        { label: "C", text: "$13$ years" },
+        { label: "D", text: "$25$ years" },
       ],
       correctAnswer: "A",
       explanation:
-        "Growing by $8\\%$ each year means multiplying by $1.08$ each year. Doubling occurs when the growth factor satisfies $(1.08)^n\\geq2$.",
+        "Doubling requires $(1.08)^n\\geq2$. Since $1.08^9\\approx1.999<2$ and $1.08^{10}\\approx2.159$, the first whole year is 10.",
     },
     {
       id: "y10adv-d5-ramp-trig-surd",
@@ -206,16 +206,16 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Counts favourable outcomes but uses replacement or fails to condition the second choice after the first digit is fixed.",
       prompt:
-        "A 3-digit code uses different digits from $1$ to $6$. What is the probability the code starts with an even digit?",
+        "A 3-digit code uses different digits from $1$ to $6$. What is the probability it starts with an even digit and ends with a digit greater than $4$?",
       choices: [
-        { label: "A", text: "$\\dfrac{1}{2}$" },
-        { label: "B", text: "$\\dfrac{1}{3}$" },
-        { label: "C", text: "$\\dfrac{3}{20}$" },
-        { label: "D", text: "$\\dfrac{1}{6}$" },
+        { label: "A", text: "$\\dfrac{1}{6}$" },
+        { label: "B", text: "$\\dfrac{1}{4}$" },
+        { label: "C", text: "$\\dfrac{1}{3}$" },
+        { label: "D", text: "$\\dfrac{1}{2}$" },
       ],
       correctAnswer: "A",
       explanation:
-        "There are $6\\times5\\times4=120$ possible codes. If the first digit is even, there are $3\\times5\\times4=60$ codes. The probability is $60/120=1/2$.",
+        "There are $6\\times5\\times4=120$ possible codes. If the first digit is 2 or 4, the last digit can be 5 or 6, giving $2\\times4\\times2=16$ codes. If the first digit is 6, the last digit must be 5, giving $4$ more. The probability is $20/120=1/6$.",
     },
     {
       id: "y10adv-d5-residual-line",
