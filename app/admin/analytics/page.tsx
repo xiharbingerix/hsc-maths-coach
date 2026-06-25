@@ -438,6 +438,92 @@ export default async function AdminAnalyticsPage({
     .order("created_at", { ascending: false })
     .limit(3000);
 
+  // Activation funnel: last 50 profiles + their key activation events.
+  const activationSince = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+  const { data: activationProfiles } = await supabaseAdmin
+    .from("profiles")
+    .select("id,email,student_first_name,selected_course_slug,created_at")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  const activationUserIds = ((activationProfiles ?? []) as {
+    id: string;
+    email: string | null;
+    student_first_name: string | null;
+    selected_course_slug: string | null;
+    created_at: string;
+  }[]).map((p) => p.id);
+
+  const { data: activationEvents } = activationUserIds.length > 0
+    ? await supabaseAdmin
+        .from("analytics_events")
+        .select("user_id, event_name, created_at")
+        .in("user_id", activationUserIds)
+        .in("event_name", [
+          "onboarding_completed",
+          "lesson_started",
+          "mastery_quiz_started",
+          "lesson_mastery_passed",
+          "subscription_page_viewed",
+          "trial_started",
+        ])
+        .gte("created_at", activationSince)
+        .order("created_at", { ascending: true })
+    : { data: [] };
+
+  type ActivationRow = {
+    id: string;
+    email: string | null;
+    name: string | null;
+    courseSlug: string | null;
+    signupAt: string;
+    onboardingAt: string | null;
+    lessonStartedAt: string | null;
+    masteryAttemptedAt: string | null;
+    masteryPassedAt: string | null;
+    subscriptionPageAt: string | null;
+    trialStartedAt: string | null;
+  };
+
+  const activationByUser = new Map<string, ActivationRow>();
+  for (const p of (activationProfiles ?? []) as {
+    id: string;
+    email: string | null;
+    student_first_name: string | null;
+    selected_course_slug: string | null;
+    created_at: string;
+  }[]) {
+    activationByUser.set(p.id, {
+      id: p.id,
+      email: p.email,
+      name: p.student_first_name,
+      courseSlug: p.selected_course_slug,
+      signupAt: p.created_at,
+      onboardingAt: null,
+      lessonStartedAt: null,
+      masteryAttemptedAt: null,
+      masteryPassedAt: null,
+      subscriptionPageAt: null,
+      trialStartedAt: null,
+    });
+  }
+  for (const ev of (activationEvents ?? []) as {
+    user_id: string | null;
+    event_name: string;
+    created_at: string;
+  }[]) {
+    if (!ev.user_id) continue;
+    const row = activationByUser.get(ev.user_id);
+    if (!row) continue;
+    if (ev.event_name === "onboarding_completed" && !row.onboardingAt) row.onboardingAt = ev.created_at;
+    if (ev.event_name === "lesson_started" && !row.lessonStartedAt) row.lessonStartedAt = ev.created_at;
+    if (ev.event_name === "mastery_quiz_started" && !row.masteryAttemptedAt) row.masteryAttemptedAt = ev.created_at;
+    if (ev.event_name === "lesson_mastery_passed" && !row.masteryPassedAt) row.masteryPassedAt = ev.created_at;
+    if (ev.event_name === "subscription_page_viewed" && !row.subscriptionPageAt) row.subscriptionPageAt = ev.created_at;
+    if (ev.event_name === "trial_started" && !row.trialStartedAt) row.trialStartedAt = ev.created_at;
+  }
+  const activationRows = [...activationByUser.values()];
+
   const tableNotReady =
     countError?.message?.includes("does not exist") ||
     recentError?.message?.includes("does not exist") ||
@@ -1170,6 +1256,68 @@ export default async function AdminAnalyticsPage({
             Could not load recent activity log: {recentError.message}
           </div>
         )}
+
+        {/* ── Activation funnel ──────────────────────────────────────── */}
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            Activation
+          </p>
+          <h2 className="mt-2 text-xl font-bold tracking-tight">
+            New user funnel (last 50 signups)
+          </h2>
+          <p className="mt-1 text-xs text-slate-500">
+            Onboarding &rarr; Lesson &rarr; Mastery quiz &rarr; Pass &rarr; Subscription page &rarr; Trial
+          </p>
+          <div className="mt-5 overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-slate-100 text-left text-slate-500">
+                  <th className="pb-2 pr-3 font-semibold">User</th>
+                  <th className="pb-2 pr-3 font-semibold">Course</th>
+                  <th className="pb-2 pr-3 font-semibold">Signed up</th>
+                  <th className="pb-2 pr-2 font-semibold text-center">Onboarding</th>
+                  <th className="pb-2 pr-2 font-semibold text-center">Lesson</th>
+                  <th className="pb-2 pr-2 font-semibold text-center">Quiz</th>
+                  <th className="pb-2 pr-2 font-semibold text-center">Passed</th>
+                  <th className="pb-2 pr-2 font-semibold text-center">Sub page</th>
+                  <th className="pb-2 font-semibold text-center">Trial</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {activationRows.map((row) => {
+                  const dot = (at: string | null) =>
+                    at ? (
+                      <span title={formatDateTime(at)} className="text-emerald-600 font-bold">&#10003;</span>
+                    ) : (
+                      <span className="text-slate-300">&ndash;</span>
+                    );
+                  const courseLabel = row.courseSlug
+                    ? row.courseSlug.replace("year-", "Y").replace(/-/g, " ")
+                    : <span className="text-slate-300">none</span>;
+                  return (
+                    <tr key={row.id} className="hover:bg-slate-50">
+                      <td className="py-2 pr-3 text-slate-700">
+                        <div>{row.name ?? <span className="text-slate-400">unnamed</span>}</div>
+                        <div className="text-slate-400">{row.email ?? shortId(row.id)}</div>
+                      </td>
+                      <td className="py-2 pr-3 text-slate-500 whitespace-nowrap">{courseLabel}</td>
+                      <td className="py-2 pr-3 text-slate-500 whitespace-nowrap">{formatDateTime(row.signupAt)}</td>
+                      <td className="py-2 pr-2 text-center">{dot(row.onboardingAt)}</td>
+                      <td className="py-2 pr-2 text-center">{dot(row.lessonStartedAt)}</td>
+                      <td className="py-2 pr-2 text-center">{dot(row.masteryAttemptedAt)}</td>
+                      <td className="py-2 pr-2 text-center">{dot(row.masteryPassedAt)}</td>
+                      <td className="py-2 pr-2 text-center">{dot(row.subscriptionPageAt)}</td>
+                      <td className="py-2 text-center">{dot(row.trialStartedAt)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            {activationRows.length === 0 && (
+              <p className="mt-4 text-sm text-slate-400">No signups yet.</p>
+            )}
+          </div>
+        </section>
 
         {/* ── Data freshness and source health ───────────────────────── */}
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
