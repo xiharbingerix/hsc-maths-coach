@@ -8,3 +8,6 @@ export * from "./probabilityData";
 export * from "./sequencesSeries";
 export * from "./integration";
 export * from "./curveSketching";
+export * from "./expLogCalculus";
+export * from "./trigCalculus";
+export * from "./motionRates";

@@ -233,6 +233,77 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
     "Curve sketching problems are graded in both directions: forward (given function, produce sketch) and reverse (given sketch features, state derivative properties). Mastering the reverse direction — knowing that a local max forces f′=0 and f″<0 — separates students who memorise procedures from those who understand the structure.",
     "The calculus chain closes here: differentiation extracts slope information, curve sketching uses that slope to reconstruct shape, and integration (the next unit) works backwards from rate of change to accumulated quantity. This unit sits at the hinge of the chain.",
   ],
+  // ── Exp/Log Calculus ─────────────────────────────────────────────────────────
+  "differentiating-exponential-functions": [
+    "The exponential function eˣ is defined to be its own derivative. That is not an accident of calculation — it is the defining property that makes e special. Every other exponential aˣ (a ≠ e) has a derivative equal to aˣ multiplied by a corrective constant, which is why e is the 'natural' base.",
+    "The chain rule extension is direct: eˣ differentiated at a compound input f(x) picks up a factor of f′(x). Think of it as the outer derivative (eˣ stays the same) times the inner derivative. The eˣ factor never changes — only the multiplier changes.",
+  ],
+  "differentiating-logarithmic-functions": [
+    "The derivative 1/x for ln x is the mirror image of the derivative rule eˣ for eˣ: where one says 'divide', the other says 'multiply', because ln and exp are inverse operations. Differentiating and then anti-differentiating 1/x brings you back to ln|x|, closing the circle.",
+    "The remarkable collapse of d/dx(ln kx) to 1/x shows that the scalar k inside a logarithm is irrelevant to the derivative. This comes from the log law ln(kx) = ln k + ln x — constants contribute zero derivative, leaving only 1/x.",
+  ],
+  "integrating-exponential-functions": [
+    "Integrating eˣ returns eˣ, the only function that is both its own derivative and its own antiderivative. The 1/a correction for e^(ax) exists because differentiating introduces an extra a, and integration must undo that by dividing by a.",
+    "The check-by-differentiation habit is especially valuable here: because eˣ is self-similar under both operations, an error like writing 2e^(2x)+C is easy to catch — differentiating gives 4e^(2x), not e^(2x).",
+  ],
+  "integrating-reciprocal-functions": [
+    "The integral ∫(1/x) dx = ln|x| + C fills the gap left by the power rule at n = −1. This gap is not a minor technicality — it creates an entirely new antiderivative class. Without it, areas under hyperbolas and exponential-growth models could not be computed in closed form.",
+    "The pattern ∫(f′/f) dx = ln|f| is one of the most powerful recognition patterns in calculus. The key question is always: 'Is the numerator the derivative of the denominator?' If yes, the answer is ln of the denominator.",
+  ],
+  "applications-exp-log-calculus": [
+    "Applying calculus to exponential and log curves tests whether you can transfer the same six-step sketching process (domain, intercepts, behaviour, stationary points, concavity, sketch) to functions that don't factor. The tools are the same; the algebra is different.",
+    "The self-referential properties of eˣ and ln x make their calculus symmetric and geometric. The tangent to y = eˣ at (a, eᵃ) has gradient eᵃ — the y-coordinate and the gradient are always equal, which means the tangent line's steepness reflects the height of the curve.",
+  ],
+  "exp-log-calculus-exam-practice": [
+    "HSC questions combine differentiation, integration, and initial conditions in one problem. The central decision in each is: 'Am I differentiating or integrating? What is the function form? Does the chain rule or f′/f pattern apply?' Answering these three questions routes you to the correct technique.",
+    "Exact answers — e − 1, ln 3, 2/e — are expected throughout. Rounding to a decimal loses marks even if the method is correct. Recognise that ∫₀¹ eˣ dx = e − 1 and ∫₁ᵉ (1/x) dx = 1 are the two benchmark definite integrals for this unit.",
+  ],
+  // ── Trig Calculus ─────────────────────────────────────────────────────────────
+  "differentiating-sin-cos": [
+    "The derivative of sin x = cos x is both a formula and a geometric truth. At x = 0, sin x is rising as steeply as possible (gradient 1 = cos 0). At x = π/2, sin x is at its peak, gradient 0 = cos(π/2). The cosine graph traces the slope of the sine graph — that is why they are 90° apart.",
+    "Radians are not optional for these derivatives. The proof uses lim(h→0)(sin h/h) = 1, which fails in degrees. Students who mix radian and degree mode get wrong answers for every trig derivative and integral — verify your calculator is in radian mode before any trig calculus computation.",
+  ],
+  "differentiating-trig-chain-rule": [
+    "The chain rule for trig functions produces the a factor that corresponds to the frequency. Higher frequency (larger a) means the function oscillates faster, so its gradient changes faster — and the a multiplier reflects exactly this steeper slope.",
+    "The derivative of tan x = sec²x is worth proving once from the quotient rule rather than memorising. Then the proof itself becomes the memory aid: you remember why it is sec²x, not sec x or 1/sin²x, because you can re-derive it in 30 seconds.",
+  ],
+  "integrating-sin-cos": [
+    "The sign pattern for trig integration — integrating sin gives minus cos — is the most common source of sign errors in HSC calculus. The mnemonic: differentiation follows sin → cos → −sin → −cos, and integration reverses this cycle.",
+    "The area under one arch of y = sin x from 0 to π equals exactly 2. This benchmark is the trig equivalent of ∫₀¹ eˣ dx = e−1 — both are fundamental definite integral values every HSC student should know cold.",
+  ],
+  "integrating-trig-chain-rule": [
+    "Integrating sin(ax) divides by a; differentiating multiplied by a. These two operations are exact inverses, and the a factor tracks this symmetry. A quick check: after integrating, differentiate your result — if you recover the original integrand, the a factor is correct.",
+    "For area calculations with trig functions, the sign of the integrand must be tracked across the interval. Where sin or cos is negative, the definite integral is negative, and subtracting absolute values gives the true enclosed area. Sketch the curve or reason from the sign of cos/sin before computing.",
+  ],
+  "applications-trig-calculus": [
+    "Stationary points of trig functions correspond to the peaks and troughs of the sine and cosine waves — geometrically obvious, but the chain rule makes it algebraic. Finding these points is the same process as for polynomials: set dy/dx = 0, solve, classify with the second derivative.",
+    "Area under a trig curve is one of the most visual results in calculus. ∫₀^π sin x dx = 2 is the area under one complete arch — a neat, finite number despite the curve's infinite oscillation elsewhere. This finite-area result is why integration extends to all functions, not just polynomials.",
+  ],
+  "trig-calculus-exam-practice": [
+    "Three disciplines keep trig calculus error-free: (1) sign discipline — d/dx(cos x) = −sin x, never +sin x; (2) factor discipline — d/dx(sin(2x)) = 2cos(2x), never cos(2x); (3) area discipline — always check whether the integrand changes sign before computing the area using a single definite integral.",
+    "Product-rule combinations like d/dx(x sin x) = sin x + x cos x are HSC standard. The product rule and trig derivatives compose cleanly — the challenge is not the algebra but tracking every term through two steps without dropping a factor.",
+  ],
+  // ── Motion and Rates ──────────────────────────────────────────────────────────
+  "displacement-velocity-acceleration": [
+    "Velocity is the derivative of displacement and acceleration is the derivative of velocity. This is not just notation — it captures the physical meaning of 'rate of change'. Speed increasing means acceleration and velocity share the same sign. Speed decreasing means they have opposite signs. Algebra and physics describe the same thing.",
+    "Setting v = 0 to find rest times is the first derivative test applied to position: the particle is stationary where dx/dt = 0. Whether the particle changes direction depends on whether v changes sign at that time — the same sign-chart reasoning used for function stationary points.",
+  ],
+  "finding-displacement-by-integration": [
+    "Integration recovers position from velocity, just as differentiation found velocity from position. The constant of integration C is not a detail to ignore — it represents the initial position, and without knowing where the particle started, you cannot say where it ended.",
+    "The definite integral ∫ₐᵇ v dt = x(b) − x(a) is displacement (signed), not distance. A particle that travels 5 m forward and 3 m back has displacement 2 m but distance 8 m. Integration gives displacement; splitting at direction changes and summing absolute values gives distance.",
+  ],
+  "motion-analysis": [
+    "Total distance requires finding every turning point in the interval. Skipping this step and just computing |x(end) − x(start)| gives displacement, not distance — a different number whenever the particle reverses direction. The right process: find v = 0, evaluate x at each turning time, then add up path segments.",
+    "The relationship between signed area (∫v dt) and total area (∫|v| dt) in motion is the same as in any definite integral problem: sign matters. Displacement is the net result; distance is the cumulative effort. Both are valid questions — read carefully to determine which is being asked.",
+  ],
+  "rates-of-change-applications": [
+    "Every derivative in a practical context is a rate: dT/dt is degrees per hour, dV/dt is litres per second, dP/dt is people per year. The algebra is identical to pure calculus, but the units must be preserved. A rate without units is incomplete — HSC examiners award marks for unit interpretation.",
+    "Exponential models N = N₀e^(kt) have the property dN/dt = kN: the rate of change is proportional to the current value. This is the mathematical definition of exponential growth (k > 0) and decay (k < 0), and it is why these models appear in every application from bacteria to radioactive materials.",
+  ],
+  "motion-rates-exam-practice": [
+    "Kinematics problems often chain differentiation and integration in a single question: 'Given x = ..., find v when a = 0' requires two derivatives; 'given v = ..., find x when the particle is at rest' requires setting v = 0 and then integrating to find x. Recognise which direction you are travelling along the differentiation chain before writing any algebra.",
+    "Multi-step motion problems test systematic thinking. Write x(t), find v(t), find all t when v = 0, evaluate x at those t-values and at the endpoints, then sum the segments. Every step is a standard technique; the challenge is completing the sequence without error under exam conditions.",
+  ],
 };
 
 const FEYNMAN_WORKED_EXAMPLES: Record<string, WorkedExample[]> = {
