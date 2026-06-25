@@ -29,6 +29,10 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
   const isAnonymousOnlineLearning = offer.slug === "online-learning" && !user;
 
   useEffect(() => {
+    clientTrackEvent("subscription_page_viewed", { offer: offerSlug });
+  }, []);
+
+  useEffect(() => {
     let tracked = false;
 
     const {

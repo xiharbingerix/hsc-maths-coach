@@ -128,6 +128,11 @@ export default function SignupPage() {
     trackSignupCompleted();
     clientTrackEvent("signup_completed", { source: "signup_page" });
 
+    if (!isCheckoutFlow && nextPath === "/dashboard") {
+      router.push("/onboarding");
+      return;
+    }
+
     if (isCheckoutFlow) {
       const accessToken = data.session?.access_token;
 
