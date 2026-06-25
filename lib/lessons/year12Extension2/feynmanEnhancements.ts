@@ -368,17 +368,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // hand-authored masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // integration-by-parts-extension intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "reduction-formulae-introduction": {
-    topic: "reduction formulae",
-    object: "an integral sequence indexed by n",
-    validMove: "Relate I_n to a simpler I_{n-1} or I_{n-2}.",
-    trap1: "Treating n as a variable of integration.",
-    trap2: "Forgetting the base integral.",
-    trap3: "Using the recurrence outside its valid range.",
-    representation: "recurrence relation for integrals",
-    check: "each recurrence step lowers the power/index",
-    d5Context: "evaluating high-power integrals efficiently",
-  },
+  // reduction-formulae-introduction intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "partial-fractions-integration": {
     topic: "partial fractions integration",
     object: "a rational function with factorised denominator",

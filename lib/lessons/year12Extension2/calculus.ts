@@ -1206,6 +1206,20 @@ const reductionFormulaeLesson: Partial<ExplicitLesson> = {
       "Use the supplied value of I₄ and add the area from the constant term separately."
     ),
   ],
+  masteryQuizPool: [
+    { ...calcChoice("y12e2-calc-red-pool-1", "A reduction formula expresses the integral Iₙ in terms of what?", "B", ["A higher-index integral such as Iₙ₊₂.", "A lower-index integral such as Iₙ₋₂ or Iₙ₋₁.", "The derivative of the integrand.", "A definite numerical constant only."], "A reduction formula relates Iₙ to a lower index (e.g. Iₙ₋₂), so repeated application drops to a known base integral."), difficulty: 2 },
+    { ...calcTyped("y12e2-calc-red-pool-2", "For Iₙ = ∫ sinⁿx dx from 0 to π/2, evaluate the base case I₀ (the integral of 1 from 0 to π/2).", "I_0 = \\int_0^{\\pi/2} 1\\,dx", "π/2", ["pi/2", "\\pi/2", "1.571"], "I₀ = ∫ 1 dx from 0 to π/2 = π/2."), difficulty: 2 },
+    { ...calcTyped("y12e2-calc-red-pool-3", "The reduction formula is Iₙ = ((n−1)/n)·Iₙ₋₂ with I₀ = π/2. Find I₂.", "I_n = \\tfrac{n-1}{n} I_{n-2}", "π/4", ["pi/4", "\\pi/4", "0.785"], "I₂ = (1/2)·I₀ = (1/2)(π/2) = π/4."), difficulty: 3 },
+    { ...calcTyped("y12e2-calc-red-pool-4", "Using Iₙ = ((n−1)/n)·Iₙ₋₂ with I₂ = π/4, find I₄.", "I_4 = \\tfrac{3}{4} I_2", "3π/16", ["3pi/16", "0.589"], "I₄ = (3/4)·I₂ = (3/4)(π/4) = 3π/16."), difficulty: 3 },
+    { ...calcChoice("y12e2-calc-red-pool-5", "To evaluate I₅ using Iₙ = ((n−1)/n)·Iₙ₋₂, which base case is ultimately needed?", "B", ["I₀, because the chain always ends at I₀.", "I₁, because odd indices chain down to I₁ (5 → 3 → 1).", "I₂, halfway down.", "No base case is needed."], "The recurrence steps down by 2, so an odd index 5 → 3 → 1 ends at I₁, while even indices end at I₀."), difficulty: 3 },
+    { ...calcTyped("y12e2-calc-red-pool-6", "Evaluate the odd base case I₁ = ∫ sin x dx from 0 to π/2.", "I_1 = \\int_0^{\\pi/2} \\sin x\\,dx", "1", [], "[−cos x] from 0 to π/2 = 0 − (−1) = 1."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-red-pool-7", "Using I₅ = (4/5)·I₃ = (4/5)(2/3)·I₁ and I₁ = 1, find I₅.", "I_5 = \\tfrac{4}{5}\\cdot\\tfrac{2}{3}\\cdot I_1", "8/15", ["0.533"], "I₅ = (4/5)(2/3)(1) = 8/15."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-red-pool-8", "The reduction Iₙ = ((n−1)/n)·Iₙ₋₂ comes from integration by parts on ∫ sin x · sinⁿ⁻¹x dx; the factor (n−1) appears when differentiating sinⁿ⁻¹x. For n = 4, state the value of (n−1).", "I_n = \\tfrac{n-1}{n} I_{n-2}", "3", [], "For n = 4, n − 1 = 3 — the coefficient produced by differentiating sin³x in the by-parts step."), difficulty: 4 },
+    { ...calcChoice("y12e2-calc-red-pool-9", "A student writes the reduction as Iₙ = ((n−1)/n)·Iₙ₋₁ (stepping down by one). Why is this wrong?", "C", ["The fraction should be n/(n−1).", "There is no base case.", "Integration by parts on ∫ sinⁿx dx produces sinⁿ⁻²x, so the index drops by TWO; the correct recurrence is Iₙ = ((n−1)/n)·Iₙ₋₂.", "Reduction formulae only work for even n."], "Parts turns one sin factor into a cos² = 1 − sin², lowering the power by 2. The recurrence therefore links Iₙ to Iₙ₋₂, not Iₙ₋₁."), difficulty: 4 },
+    { ...calcTyped("y12e2-calc-red-pool-10", "A different reduction: Iₙ = ∫ xⁿ eˣ dx from 0 to 1 satisfies Iₙ = e − n·Iₙ₋₁, with I₀ = e − 1. Find I₂.", "I_n = e - n\\,I_{n-1}", "e - 2", ["e-2", "0.718"], "I₁ = e − 1·I₀ = e − (e − 1) = 1; then I₂ = e − 2·I₁ = e − 2."), difficulty: 5 },
+    { ...calcTyped("y12e2-calc-red-pool-11", "For Iₙ = ∫ sinⁿx dx from 0 to π/2, the recurrence gives the ratio I₄/I₂. Using Iₙ = ((n−1)/n)·Iₙ₋₂, state this ratio.", "\\frac{I_4}{I_2} = \\frac{n-1}{n}\\big|_{n=4}", "3/4", ["0.75"], "I₄ = (3/4)·I₂, so I₄/I₂ = 3/4 (the recurrence factor at n = 4)."), difficulty: 5 },
+    { ...calcTyped("y12e2-calc-red-pool-12", "Wallis pattern: I₆ = (5/6)(3/4)(1/2)·I₀ with I₀ = π/2. Compute I₆ (give it as a multiple of π).", "I_6 = \\tfrac{5}{6}\\cdot\\tfrac{3}{4}\\cdot\\tfrac{1}{2}\\cdot I_0", "5π/32", ["5pi/32", "0.491"], "I₆ = (5/6)(3/4)(1/2)(π/2) = (5/16)(π/2) = 5π/32."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 4: Partial Fractions Integration ──────────────────────────────────
