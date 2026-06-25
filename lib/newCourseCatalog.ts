@@ -121,9 +121,11 @@ import {
   year11AdvancedGraphTransformationsLessonOverride,
   year11AdvancedIntroductionDifferentiationLessonOverride,
   year11AdvancedProbabilityDataLessonOverride,
+  year11AdvancedSequencesSeriesLessonOverride,
   year11AdvancedTrigIdentitiesEquationsLessonOverride,
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
+  year11AdvancedIntegrationLessonOverride,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -412,6 +414,8 @@ export function buildLesson(
     year11AdvancedExponentialLogarithmicLessonOverride(course, unit, lesson) ??
     year11AdvancedIntroductionDifferentiationLessonOverride(course, unit, lesson) ??
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
+    year11AdvancedSequencesSeriesLessonOverride(course, unit, lesson) ??
+    year11AdvancedIntegrationLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
@@ -2482,6 +2486,39 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "discrete-random-variables", title: "Discrete Random Variables" },
           { slug: "expected-value-standard-deviation", title: "Expected Value and Standard Deviation" },
           { slug: "probability-data-exam-practice", title: "Probability and Data Exam Practice" },
+        ],
+      },
+      {
+        slug: "sequences-series",
+        title: "Sequences and Series",
+        description:
+          "Arithmetic and geometric sequences, series, sigma notation, and limiting sums of geometric series.",
+        syllabusArea: "Algebra",
+        focus: "Sequences and series",
+        lessons: [
+          { slug: "arithmetic-sequences", title: "Arithmetic Sequences" },
+          { slug: "geometric-sequences", title: "Geometric Sequences" },
+          { slug: "arithmetic-series-sigma-notation", title: "Arithmetic Series and Sigma Notation" },
+          { slug: "geometric-series-limiting-sums", title: "Geometric Series and Limiting Sums" },
+          { slug: "sequences-series-exam-practice", title: "Sequences and Series Exam Practice" },
+        ],
+      },
+      {
+        slug: "integration",
+        title: "Integration",
+        description:
+          "Antidifferentiation, definite integrals, the Fundamental Theorem of Calculus, areas under and between curves, the reverse chain rule, and the trapezoidal rule.",
+        syllabusArea: "Calculus",
+        focus: "Integral calculus",
+        lessons: [
+          { slug: "primitives-and-antidifferentiation", title: "Primitives and Antidifferentiation" },
+          { slug: "standard-antiderivatives", title: "Standard Antiderivatives" },
+          { slug: "initial-value-problems", title: "Initial Value Problems" },
+          { slug: "definite-integrals", title: "Definite Integrals" },
+          { slug: "fundamental-theorem-of-calculus", title: "Fundamental Theorem of Calculus" },
+          { slug: "areas-under-curves", title: "Areas Under and Between Curves" },
+          { slug: "reverse-chain-rule-integration", title: "Reverse Chain Rule Integration" },
+          { slug: "trapezoidal-rule", title: "The Trapezoidal Rule" },
         ],
       },
     ],

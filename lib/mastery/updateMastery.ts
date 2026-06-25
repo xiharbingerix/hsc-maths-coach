@@ -22,6 +22,7 @@ const CORRECT_VALUES: Record<number, number> = {
   3: 80,
   4: 95,
   5: 100,
+  6: 100,
 };
 
 // Penalty magnitude subtracted from current score on an incorrect answer.
@@ -31,6 +32,7 @@ const INCORRECT_PENALTIES: Record<number, number> = {
   3: 8,
   4: 5,
   5: 5,
+  6: 5,
 };
 
 function computeEventValue(
