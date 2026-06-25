@@ -791,7 +791,7 @@ export function year11AdvancedIntegrationLessonOverride(
           "To find the true geometric area when a curve dips below the axis, take the absolute value of the integral over that region, or negate it: Area = −∫ₐᵇ f(x) dx for the below-axis part.",
           "When a curve crosses the x-axis at some point c inside [a, b], you must split the integral: Area = ∫ₐ^c f(x) dx + |∫_c^b f(x) dx|. A single integral over the whole interval would partially cancel.",
           "To find the area between two curves y = f(x) (upper) and y = g(x) (lower) on [a, b]: Area = ∫ₐᵇ [f(x) − g(x)] dx. Check which curve is on top on the given interval before setting up.",
-          "Finding intersection points is the key step before setting up an area-between-curves problem. Set f(x) = g(x) and solve to locate where the curves swap order.",
+          "Finding intersection points is the key step before setting up an area-between-curves problem. Set f(x) = g(x) and solve to locate where the curves swap order. At this stage all intersection equations reduce to simple factoring — expect expressions like x² = x or x² = 4 that factor easily. Problems requiring more complex intersections are a Year 12 extension.",
         ],
         latexBlocks: [
           "\\text{Area above axis: }\\int_a^b f(x)\\,dx\\quad (f(x)\\ge0)",

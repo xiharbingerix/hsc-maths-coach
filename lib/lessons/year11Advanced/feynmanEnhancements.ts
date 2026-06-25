@@ -203,6 +203,7 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
   "trapezoidal-rule": [
     "The trapezoidal rule replaces the curve with straight-line chords, then sums the areas of the resulting trapezoids. The interior function values get doubled because each interior strip-height is a shared edge between two adjacent trapezoids.",
     "The accuracy of the rule is geometric: a nearly-straight arc is well approximated by a chord, so the trapezoidal rule is very accurate for gradual curves and less accurate for rapidly-changing ones. Concavity determines whether you are over- or underestimating, not the direction of the function.",
+    "The tools built in this unit — antidifferentiation, definite integrals, the FTC, and area — are the engine for almost every applied calculus topic ahead: velocity-to-displacement in motion problems, loan repayment accumulation in finance, and probability density functions in statistics.",
   ],
 };
 
