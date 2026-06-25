@@ -364,17 +364,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
     check: "conjugate pairs multiply to real quadratic factors",
     d5Context: "factorisation from mixed real and complex roots",
   },
-  "advanced-integration-method-selection": {
-    topic: "integration method selection",
-    object: "the structure of the integrand",
-    validMove: "Match composition, product, rational form, or trig power to the corresponding method.",
-    trap1: "Trying integration by parts on every product.",
-    trap2: "Using substitution without a derivative-like factor.",
-    trap3: "Skipping algebraic simplification before choosing a method.",
-    representation: "integrand structure map",
-    check: "the chosen method reverses a known differentiation or algebra process",
-    d5Context: "integrals requiring method switching after simplification",
-  },
+  // advanced-integration-method-selection intentionally omitted: replaced by a
+  // hand-authored masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "integration-by-parts-extension": {
     topic: "integration by parts",
     object: "a product where one factor simplifies when differentiated",
