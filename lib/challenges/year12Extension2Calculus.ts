@@ -13,7 +13,7 @@ export const calcReductionChallenge: PracticeQuestion[] = [
     // Apply the reduction recurrence down the chain from I0.
     id: "chal-y12e2-calc-1",
     prompt:
-      "For Iₙ = ∫₀^(π/2) sinⁿx dx the reduction formula gives Iₙ = ((n−1)/n)·Iₙ₋₂. Given I₀ = π/2, find I₄.",
+      "For Iₙ = ∫ sinⁿx dx from 0 to π/2, the reduction formula gives Iₙ = ((n−1)/n)·Iₙ₋₂. Given I₀ = π/2, find I₄.",
     latex: "I_n = \\frac{n-1}{n}\\,I_{n-2},\\quad I_0 = \\tfrac{\\pi}{2}",
     answer: "3π/16",
     acceptedAnswers: ["3pi/16", "\\frac{3\\pi}{16}", "0.589"],
@@ -45,13 +45,13 @@ export const calcSymmetryChallenge: PracticeQuestion[] = [
     // King-rule symmetry: replace x by (a − x) and add.
     id: "chal-y12e2-calc-3",
     prompt:
-      "Evaluate ∫₀^(π/2) 1/(1 + tan x) dx.",
+      "Evaluate ∫ 1/(1 + tan x) dx from 0 to π/2.",
     latex: "\\int_0^{\\pi/2} \\frac{1}{1+\\tan x}\\,dx",
     answer: "π/4",
     acceptedAnswers: ["pi/4", "\\frac{\\pi}{4}", "0.785"],
     hint: "Let I be the integral; replace x by π/2 − x (so tan x → cot x) and add the two forms.",
     explanation:
-      "With x → π/2 − x, I = ∫₀^(π/2) 1/(1+cot x) dx = ∫₀^(π/2) tan x/(1+tan x) dx. Adding to the original: 2I = ∫₀^(π/2) 1 dx = π/2, so I = π/4.",
+      "With x → π/2 − x, I = ∫ 1/(1+cot x) dx from 0 to π/2 = ∫ tan x/(1+tan x) dx from 0 to π/2. Adding to the original: 2I = ∫ 1 dx from 0 to π/2 = π/2, so I = π/4.",
   },
 ];
 
@@ -61,7 +61,7 @@ export const calcTSubstitutionChallenge: PracticeQuestion[] = [
     // Weierstrass substitution reduces the integral to a rational one.
     id: "chal-y12e2-calc-4",
     prompt:
-      "Using t = tan(x/2), the integral ∫₀^(π/2) 1/(1 + sin x) dx becomes ∫₀¹ 2/(1+t)² dt. Evaluate it.",
+      "Using t = tan(x/2), the integral ∫ 1/(1 + sin x) dx from 0 to π/2 becomes ∫₀¹ 2/(1+t)² dt. Evaluate it.",
     latex: "t = \\tan\\tfrac{x}{2}:\\ \\int_0^1 \\frac{2}{(1+t)^2}\\,dt",
     answer: "1",
     acceptedAnswers: [],
@@ -81,9 +81,9 @@ export const calcVolumeChallenge: PracticeQuestion[] = [
     latex: "V = \\pi\\int_0^1 (e^x)^2\\,dx = \\tfrac{\\pi}{2}(e^2 - k)",
     answer: "1",
     acceptedAnswers: ["k=1"],
-    hint: "V = π∫₀¹ e^(2x) dx; integrate and compare with (π/2)(e² − k).",
+    hint: "V = π∫₀¹ e²ˣ dx; integrate and compare with (π/2)(e² − k).",
     explanation:
-      "V = π∫₀¹ e^(2x) dx = π[e^(2x)/2]₀¹ = π(e² − 1)/2 = (π/2)(e² − 1). Matching gives k = 1.",
+      "V = π∫₀¹ e²ˣ dx = π[e²ˣ/2]₀¹ = π(e² − 1)/2 = (π/2)(e² − 1). Matching gives k = 1.",
   },
 ];
 
