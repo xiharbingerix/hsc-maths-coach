@@ -46,6 +46,10 @@ type AdminAuthUser = {
     student_name?: string;
     student_first_name?: string;
     parent_email?: string;
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    utm_gclid?: string;
   };
 };
 
@@ -797,6 +801,7 @@ function StudentsAccountsSection({
               <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 <th className="px-3 py-2 text-left">Name</th>
                 <th className="px-3 py-2 text-left">Email</th>
+                <th className="px-3 py-2 text-left">Source</th>
                 <th className="px-3 py-2 text-left">Signed up</th>
                 <th className="px-3 py-2 text-left">Last login</th>
                 <th className="px-3 py-2 text-left">Access</th>
@@ -828,6 +833,35 @@ function StudentsAccountsSection({
                     </td>
                     <td className="px-3 py-3 break-all text-slate-600">
                       {user.email}
+                    </td>
+                    <td className="px-3 py-3 whitespace-nowrap">
+                      {(() => {
+                        const src = user.user_metadata?.utm_source;
+                        const gclid = user.user_metadata?.utm_gclid;
+                        const medium = user.user_metadata?.utm_medium;
+                        const campaign = user.user_metadata?.utm_campaign;
+                        if (!src && !gclid) {
+                          return <span className="text-xs text-slate-400">direct</span>;
+                        }
+                        const label = src ?? (gclid ? "google" : "unknown");
+                        const detail = [medium, campaign].filter(Boolean).join(" / ");
+                        const colorClass =
+                          label === "google" || gclid
+                            ? "bg-blue-50 text-blue-700"
+                            : label === "facebook" || label === "meta"
+                              ? "bg-indigo-50 text-indigo-700"
+                              : "bg-slate-100 text-slate-600";
+                        return (
+                          <div>
+                            <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${colorClass}`}>
+                              {label}
+                            </span>
+                            {detail && (
+                              <p className="mt-0.5 text-xs text-slate-400 max-w-[120px] truncate" title={detail}>{detail}</p>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </td>
                     <td className="px-3 py-3 whitespace-nowrap text-slate-500">
                       {formatOptionalDateTime(user.created_at)}

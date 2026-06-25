@@ -9,7 +9,7 @@ import {
   trackSignupCompleted,
   trackSignupCheckoutWallViewed,
 } from "../../lib/analytics";
-import { clientTrackEvent } from "../../lib/analytics/clientTrackEvent";
+import { clientTrackEvent, readMarketingParams } from "../../lib/analytics/clientTrackEvent";
 
 function safeInternalNext(value: string | null) {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
@@ -94,6 +94,8 @@ export default function SignupPage() {
     setNotice("");
     setIsSubmitting(true);
 
+    const utmParams = readMarketingParams();
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -101,6 +103,10 @@ export default function SignupPage() {
         data: {
           student_first_name: studentFirstName,
           parent_email: parentEmail || null,
+          utm_source: utmParams.utm_source ?? null,
+          utm_medium: utmParams.utm_medium ?? null,
+          utm_campaign: utmParams.utm_campaign ?? null,
+          utm_gclid: utmParams.gclid ?? null,
         },
       },
     });
@@ -122,6 +128,10 @@ export default function SignupPage() {
         student_first_name: studentFirstName,
         parent_email: parentEmail || null,
         role: "student",
+        utm_source: utmParams.utm_source ?? null,
+        utm_medium: utmParams.utm_medium ?? null,
+        utm_campaign: utmParams.utm_campaign ?? null,
+        utm_gclid: utmParams.gclid ?? null,
       });
     }
 

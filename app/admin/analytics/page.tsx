@@ -442,7 +442,7 @@ export default async function AdminAnalyticsPage({
   const activationSince = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
   const { data: activationProfiles } = await supabaseAdmin
     .from("profiles")
-    .select("id,email,student_first_name,selected_course_slug,created_at")
+    .select("id,email,student_first_name,selected_course_slug,created_at,utm_source,utm_medium,utm_campaign")
     .order("created_at", { ascending: false })
     .limit(50);
 
@@ -477,6 +477,9 @@ export default async function AdminAnalyticsPage({
     name: string | null;
     courseSlug: string | null;
     signupAt: string;
+    utmSource: string | null;
+    utmMedium: string | null;
+    utmCampaign: string | null;
     onboardingAt: string | null;
     lessonStartedAt: string | null;
     masteryAttemptedAt: string | null;
@@ -492,6 +495,9 @@ export default async function AdminAnalyticsPage({
     student_first_name: string | null;
     selected_course_slug: string | null;
     created_at: string;
+    utm_source: string | null;
+    utm_medium: string | null;
+    utm_campaign: string | null;
   }[]) {
     activationByUser.set(p.id, {
       id: p.id,
@@ -499,6 +505,9 @@ export default async function AdminAnalyticsPage({
       name: p.student_first_name,
       courseSlug: p.selected_course_slug,
       signupAt: p.created_at,
+      utmSource: p.utm_source ?? null,
+      utmMedium: p.utm_medium ?? null,
+      utmCampaign: p.utm_campaign ?? null,
       onboardingAt: null,
       lessonStartedAt: null,
       masteryAttemptedAt: null,
@@ -1311,6 +1320,7 @@ export default async function AdminAnalyticsPage({
               <thead>
                 <tr className="border-b border-slate-100 text-left text-slate-500">
                   <th className="pb-2 pr-3 font-semibold">User</th>
+                  <th className="pb-2 pr-3 font-semibold">Source</th>
                   <th className="pb-2 pr-3 font-semibold">Course</th>
                   <th className="pb-2 pr-3 font-semibold">Signed up</th>
                   <th className="pb-2 pr-2 font-semibold text-center">Onboarding</th>
@@ -1337,6 +1347,15 @@ export default async function AdminAnalyticsPage({
                       <td className="py-2 pr-3 text-slate-700">
                         <div>{row.name ?? <span className="text-slate-400">unnamed</span>}</div>
                         <div className="text-slate-400">{row.email ?? shortId(row.id)}</div>
+                      </td>
+                      <td className="py-2 pr-3 whitespace-nowrap">
+                        {row.utmSource ? (
+                          <span className={`inline-flex rounded-full px-1.5 py-0.5 text-xs font-semibold ${row.utmSource === "google" ? "bg-blue-50 text-blue-700" : row.utmSource === "facebook" || row.utmSource === "meta" ? "bg-indigo-50 text-indigo-700" : "bg-slate-100 text-slate-600"}`}>
+                            {row.utmSource}
+                          </span>
+                        ) : (
+                          <span className="text-slate-300 text-xs">direct</span>
+                        )}
                       </td>
                       <td className="py-2 pr-3 text-slate-500 whitespace-nowrap">{courseLabel}</td>
                       <td className="py-2 pr-3 text-slate-500 whitespace-nowrap">{formatDateTime(row.signupAt)}</td>
