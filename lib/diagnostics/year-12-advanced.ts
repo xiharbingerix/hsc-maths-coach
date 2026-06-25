@@ -208,14 +208,14 @@ export const diagnosticData: DiagnosticData = {
         "A particle has velocity $v(t)=t^2-4t+3$ for $0\\leq t\\leq4$. What total distance does it travel?",
       latex: "v(t)=t^2-4t+3",
       choices: [
-        { label: "A", text: "$\\dfrac{10}{3}$ units" },
-        { label: "B", text: "$\\dfrac{14}{3}$ units" },
-        { label: "C", text: "$\\dfrac{16}{3}$ units" },
-        { label: "D", text: "$\\dfrac{22}{3}$ units" },
+        { label: "A", text: "$\\dfrac{4}{3}$ units" },
+        { label: "B", text: "$\\dfrac{8}{3}$ units" },
+        { label: "C", text: "$4$ units" },
+        { label: "D", text: "$\\dfrac{16}{3}$ units" },
       ],
-      correctAnswer: "D",
+      correctAnswer: "C",
       explanation:
-        "$v(t)=(t-1)(t-3)$, so the sign changes at $t=1$ and $t=3$. With antiderivative $F(t)=t^3/3-2t^2+3t$, the distances are $F(1)-F(0)=4/3$, $-(F(3)-F(1))=8/3$, and $F(4)-F(3)=10/3$, totalling $22/3$.",
+        "$v(t)=(t-1)(t-3)$, so the sign changes at $t=1$ and $t=3$. With antiderivative $F(t)=t^3/3-2t^2+3t$, the signed areas are $4/3$, $-4/3$, and $4/3$, so the total distance is $4/3+4/3+4/3=4$.",
     },
     {
       id: "y12adv-d5-financial-break-even",
