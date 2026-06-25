@@ -205,6 +205,34 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
     "The accuracy of the rule is geometric: a nearly-straight arc is well approximated by a chord, so the trapezoidal rule is very accurate for gradual curves and less accurate for rapidly-changing ones. Concavity determines whether you are over- or underestimating, not the direction of the function.",
     "The tools built in this unit — antidifferentiation, definite integrals, the FTC, and area — are the engine for almost every applied calculus topic ahead: velocity-to-displacement in motion problems, loan repayment accumulation in finance, and probability density functions in statistics.",
   ],
+  "stationary-points": [
+    "A stationary point is where the gradient machine outputs zero — the tangent is horizontal. The function is neither rising nor falling at that instant, like a ball at the top of its arc or the bottom of a valley.",
+    "The sign chart is the key reasoning tool. Positive gradient means the function is climbing; negative means it is falling. The stationary point is where it transitions, and the sign chart tells you which transition it is.",
+  ],
+  "classifying-stationary-points": [
+    "The second derivative test asks: at the stationary point, is the gradient itself increasing or decreasing? If the gradient goes from negative to positive (increasing through zero), the function has a local minimum — the shape of a bowl. If the gradient goes from positive to negative (decreasing through zero), the function has a local maximum — the shape of an upside-down bowl.",
+    "A horizontal inflection is the exception: the gradient touches zero but then continues in the same direction. The function pauses momentarily but does not change from rising to falling or vice versa. y = x³ at the origin is the prototype.",
+  ],
+  "concavity-inflection": [
+    "Concavity is the shape of the bend, not the direction. A concave-up curve opens like a cup — the gradient is increasing even if the function itself is decreasing. A concave-down curve opens like a dome — the gradient is decreasing even if the function is increasing.",
+    "An inflection point is where the bending reverses. The second derivative changes sign there, which means the rate of change of the gradient switches from positive to negative (or vice versa). On a cubic, this happens exactly once — at the middle of the S-shape.",
+  ],
+  "systematic-curve-sketching": [
+    "Systematic curve sketching is a translation process: algebraic information in, geometric picture out. The hierarchy — domain, intercepts, end behaviour, stationary points, concavity, sketch — is ordered so each step constrains the sketch further, leaving less and less ambiguity by the time you draw.",
+    "A double root at x = a is where the curve kisses the x-axis and turns back. The factor (x−a)² means the curve touches (tangent contact) rather than crosses. This always coincides with a local minimum or maximum because the derivative is also zero there.",
+  ],
+  "reading-derivative-graphs": [
+    "Reading the derivative graph is like reading a weather map for the function: the altitude of f′ tells you the slope of f, and the slope of f′ tells you the concavity of f. Every feature of f is encoded one layer deeper.",
+    "The most common error is confusing the zeros of f′ with the turning points of f′. Zeros of f′ are the stationary points of f. Turning points of f′ — where f′ itself has a local max or min — are the inflection points of f. These are completely different features at different x-values.",
+  ],
+  "optimisation": [
+    "Optimisation is applied curve sketching with a real-world constraint. The constraint reduces the problem to one variable, then you find the stationary point of the resulting function. The only new skill is the justification step: proving the stationary point is the type of extremum the context requires.",
+    "On a closed interval, the largest or smallest value might be at an endpoint, not at an interior stationary point. The calculus finds interior candidates; you then compare with both endpoints to determine the global extremum.",
+  ],
+  "curve-sketching-exam-practice": [
+    "Curve sketching problems are graded in both directions: forward (given function, produce sketch) and reverse (given sketch features, state derivative properties). Mastering the reverse direction — knowing that a local max forces f′=0 and f″<0 — separates students who memorise procedures from those who understand the structure.",
+    "The calculus chain closes here: differentiation extracts slope information, curve sketching uses that slope to reconstruct shape, and integration (the next unit) works backwards from rate of change to accumulated quantity. This unit sits at the hinge of the chain.",
+  ],
 };
 
 const FEYNMAN_WORKED_EXAMPLES: Record<string, WorkedExample[]> = {

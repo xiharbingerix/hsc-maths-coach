@@ -126,6 +126,7 @@ import {
   year11AdvancedTrigonometryMeasureLessonOverride,
   year11AdvancedWorkingFunctionsLessonOverride,
   year11AdvancedIntegrationLessonOverride,
+  year11AdvancedCurveSketchingLessonOverride,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -416,6 +417,7 @@ export function buildLesson(
     year11AdvancedGraphTransformationsLessonOverride(course, unit, lesson) ??
     year11AdvancedSequencesSeriesLessonOverride(course, unit, lesson) ??
     year11AdvancedIntegrationLessonOverride(course, unit, lesson) ??
+    year11AdvancedCurveSketchingLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
@@ -2519,6 +2521,22 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "areas-under-curves", title: "Areas Under and Between Curves" },
           { slug: "reverse-chain-rule-integration", title: "Reverse Chain Rule Integration" },
           { slug: "trapezoidal-rule", title: "The Trapezoidal Rule" },
+        ],
+      },
+      {
+        slug: "curve-sketching",
+        title: "Curve Sketching",
+        description: "Use first and second derivatives to locate stationary points, classify them, determine concavity and inflection, and produce complete curve sketches. Includes reading derivative graphs and applied optimisation.",
+        syllabusArea: "Calculus",
+        focus: "Graphical analysis using calculus",
+        lessons: [
+          { slug: "stationary-points", title: "Stationary Points" },
+          { slug: "classifying-stationary-points", title: "Classifying Stationary Points" },
+          { slug: "concavity-inflection", title: "Concavity and Inflection Points" },
+          { slug: "systematic-curve-sketching", title: "Systematic Curve Sketching" },
+          { slug: "reading-derivative-graphs", title: "Reading Derivative Graphs" },
+          { slug: "optimisation", title: "Optimisation" },
+          { slug: "curve-sketching-exam-practice", title: "Curve Sketching Exam Practice" },
         ],
       },
     ],
