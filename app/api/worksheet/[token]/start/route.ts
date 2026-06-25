@@ -46,7 +46,7 @@ export async function POST(
   // Verify the worksheet exists and is not expired
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, expires_at, assigned_student_name")
+    .select("id, expires_at, assigned_student_name, assigned_to_user")
     .eq("share_token", token)
     .maybeSingle();
 
@@ -64,7 +64,14 @@ export async function POST(
     );
   }
 
-  const userId = await getUserIdFromRequest(request);
+  const authUserId = await getUserIdFromRequest(request);
+  // Fall back to the assigned user so mastery is recorded even when the
+  // student opens the link without being logged in.
+  const assignedUserId =
+    typeof worksheet.assigned_to_user === "string" && worksheet.assigned_to_user
+      ? worksheet.assigned_to_user
+      : null;
+  const userId = authUserId ?? assignedUserId;
   const resolvedStudentName =
     studentName ??
     (typeof worksheet.assigned_student_name === "string" &&
