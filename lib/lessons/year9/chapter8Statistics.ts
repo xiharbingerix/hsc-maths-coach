@@ -337,10 +337,116 @@ const boxPlots: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+// ── interpreting-data-from-tables-and-graphs (core) ────────────────────────────────────
+// Cambridge Core & Standard Paths Year 9, 10G. Net-new Core section (Year 9 Core conformance).
+const fruitChart = {
+  description: "Column graph of favourite fruits: Apple 8, Banana 12, Orange 5, Grape 7.",
+  bars: [
+    { label: "Apple", value: 8 },
+    { label: "Banana", value: 12 },
+    { label: "Orange", value: 5 },
+    { label: "Grape", value: 7 },
+  ],
+  valueAxisLabel: "Students",
+  categoryAxisLabel: "Fruit",
+};
+const transportChart = {
+  description: "Column graph of travel method: Bus 14, Train 8, Car 6, Walk 9.",
+  bars: [
+    { label: "Bus", value: 14 },
+    { label: "Train", value: 8 },
+    { label: "Car", value: 6 },
+    { label: "Walk", value: 9 },
+  ],
+  valueAxisLabel: "Students",
+  categoryAxisLabel: "Travel method",
+};
+const sportChart = {
+  description: "Column graph of favourite sport: Soccer 12, Netball 9, Basketball 7, Tennis 5.",
+  bars: [
+    { label: "Soccer", value: 12 },
+    { label: "Netball", value: 9 },
+    { label: "Basketball", value: 7 },
+    { label: "Tennis", value: 5 },
+  ],
+  valueAxisLabel: "Students",
+  categoryAxisLabel: "Sport",
+};
+
+const interpretingDataTablesGraphs: Partial<ExplicitLesson> = {
+  description: "Read and interpret information from frequency tables, column graphs, line graphs and sector graphs.",
+  learningIntention: "Extract and compare information from data displays.",
+  successCriteria: [
+    "Read a frequency or value from a table or column graph.",
+    "Find the total, most common and least common category.",
+    "Compare categories (how many more or fewer).",
+    "Interpret a line graph (change over time) and a sector graph (parts of a whole).",
+  ],
+  teaching: {
+    paragraphs: [
+      "A FREQUENCY TABLE or COLUMN GRAPH shows how often each category occurs. Read a category's value directly from its row, or from the HEIGHT of its column — the height is the frequency (how many), not the label.",
+      "The TOTAL is the sum of every frequency. The MOST common category is the tallest column (largest frequency) and the LEAST common is the shortest.",
+      "To COMPARE two categories, subtract one frequency from the other ('how many more'). Read carefully so you do not confuse a difference with a total.",
+      "A LINE GRAPH shows how a quantity changes over time — read the value above a given time. A SECTOR (pie) GRAPH shows each category as a fraction of the whole, so a category's amount is its fraction of the total.",
+    ],
+    latexBlocks: ["\\text{total} = \\text{sum of all frequencies}", "\\text{difference} = \\text{larger frequency} - \\text{smaller frequency}"],
+  },
+  workedExamples: [
+    { title: "Total from a table", questionLatex: "\\text{Votes: cat 7, dog 10, fish 3. Total?}", steps: [{ explanation: "Add all frequencies.", latex: "7 + 10 + 3 = 20" }], finalAnswerLatex: "20" },
+    { title: "Most common", questionLatex: "\\text{Fruit: apple 8, banana 12, orange 5. Most common?}", steps: [{ explanation: "Largest frequency.", latex: "\\text{Banana (12)}" }], finalAnswerLatex: "\\text{Banana}" },
+    { title: "How many more", questionLatex: "\\text{Banana 12, orange 5. How many more bananas?}", steps: [{ explanation: "Subtract.", latex: "12 - 5 = 7" }], finalAnswerLatex: "7" },
+  ],
+  guidedPractice: [
+    ans("y9-idt-g1", "A table shows votes: cat 7, dog 10, fish 3. How many votes were there in total?", "\\text{cat }7,\\ \\text{dog }10,\\ \\text{fish }3", "20", 2, "Add the frequencies: 7 + 10 + 3 = 20.", ["20 votes"]),
+    { ...ans("y9-idt-g2", "The column graph shows favourite fruits. How many students chose bananas?", "", "12", 2, "Read the height of the Banana column: 12.", ["12 students"]), barChartDiagram: fruitChart },
+    ans("y9-idt-g3", "Favourite fruits are: apple 8, banana 12, orange 5, grape 7. How many more students chose bananas than oranges?", "\\text{apple }8,\\ \\text{banana }12,\\ \\text{orange }5,\\ \\text{grape }7", "7", 3, "Difference = 12 − 5 = 7.", ["7 students"]),
+    mcq("y9-idt-g4", "On a column graph, the height of each column shows:", "A", ["how many there are (the frequency)", "the name of the category", "the total of all categories", "the average value"], 2, "Column height is the frequency — how many fall in that category."),
+  ],
+  independentPractice: [
+    ans("y9-idt-i1", "A table shows sales: Mon 20, Tue 35, Wed 25. What were the total sales?", "\\text{Mon }20,\\ \\text{Tue }35,\\ \\text{Wed }25", "80", 2, "Add: 20 + 35 + 25 = 80.", ["80 sales"]),
+    { ...ans("y9-idt-i2", "The column graph shows how students travel to school. How many travel by bus?", "", "14", 2, "Read the Bus column: 14.", ["14 students"]), barChartDiagram: transportChart },
+    ans("y9-idt-i3", "Students travel by: bus 14, train 8, car 6, walk 9. How many students were surveyed in total?", "\\text{bus }14,\\ \\text{train }8,\\ \\text{car }6,\\ \\text{walk }9", "37", 3, "Add all four: 14 + 8 + 6 + 9 = 37.", ["37 students"]),
+    ans("y9-idt-i4", "A line graph of temperature shows: 9 am 18°C, 12 pm 24°C, 3 pm 21°C. By how much did the temperature rise from 9 am to noon?", "9\\text{am }18,\\ 12\\text{pm }24,\\ 3\\text{pm }21", "6", 3, "Rise = 24 − 18 = 6°C.", ["6°C", "6 degrees"]),
+    mcq("y9-idt-i5", "A sector (pie) graph is best for showing:", "B", ["change over time", "each category as a fraction of the whole", "the exact order of events", "a single number"], 2, "A pie graph splits a whole into fractional sectors for each category."),
+  ],
+  masteryQuiz: [
+    ans("y9-idt-m1", "A table shows: A 5, B 8, C 2, D 5. How many results were recorded in total?", "A\\,5,\\ B\\,8,\\ C\\,2,\\ D\\,5", "20", 2, "Add: 5 + 8 + 2 + 5 = 20.", ["20 results"]),
+    { ...ans("y9-idt-m2", "The column graph shows favourite sports. How many more students chose soccer than tennis?", "", "7", 3, "Soccer 12 − tennis 5 = 7.", ["7 students"]), barChartDiagram: sportChart },
+    ans("y9-idt-m3", "Favourite sports: soccer 12, netball 9, basketball 7, tennis 5. Which sport is the most popular?", "\\text{soccer }12,\\ \\text{netball }9,\\ \\text{basketball }7,\\ \\text{tennis }5", "soccer", 2, "Soccer has the largest frequency (12).", ["Soccer"]),
+    ans("y9-idt-m4", "A product's ratings: 1→2, 2→3, 3→5, 4→8, 5→2. How many people rated the product?", "1{:}2,\\ 2{:}3,\\ 3{:}5,\\ 4{:}8,\\ 5{:}2", "20", 3, "Add the frequencies: 2 + 3 + 5 + 8 + 2 = 20.", ["20 people"]),
+    mcq("y9-idt-m5", "The most common value in a data display is found by looking for the:", "C", ["shortest column", "middle column", "tallest column (highest frequency)", "first column"], 2, "The most common category is the tallest column / highest frequency."),
+    ans("y9-idt-m6", "A line graph of a plant's height shows: week 1 = 4 cm, week 2 = 7 cm, week 3 = 11 cm. How much did it grow from week 1 to week 3?", "\\text{wk1 }4,\\ \\text{wk2 }7,\\ \\text{wk3 }11", "7", 3, "11 − 4 = 7 cm.", ["7 cm"]),
+    ans("y9-idt-m7", "Daily visitors: Mon 50, Tue 65, Wed 40, Thu 70, Fri 55. On which day were there the fewest visitors?", "\\text{Mon }50,\\ \\text{Tue }65,\\ \\text{Wed }40,\\ \\text{Thu }70,\\ \\text{Fri }55", "Wednesday", 2, "Wednesday has the smallest value (40).", ["Wed", "wednesday"]),
+    ans("y9-idt-m8", "Using those visitor numbers (50, 65, 40, 70, 55), what was the total for the week?", "50,\\ 65,\\ 40,\\ 70,\\ 55", "280", 3, "Add all five: 50 + 65 + 40 + 70 + 55 = 280.", ["280 visitors"]),
+    mcq("y9-idt-m9", "A line graph is most useful for showing:", "B", ["parts of a whole", "change over time", "the most common category", "a single total"], 2, "Line graphs show how a quantity changes over time."),
+    ans("y9-idt-m10", "A divided bar graph of 100 students shows 40 walk, 35 take the bus, 25 go by car. How many more students walk than go by car?", "40\\text{ walk},\\ 35\\text{ bus},\\ 25\\text{ car}", "15", 3, "40 − 25 = 15.", ["15 students"]),
+  ],
+  masteryQuizPool: [
+    ans("y9-idt-p1", "A column graph shows monthly sales: Jan 20, Feb 35, Mar 25, Apr 40, May 30. How many months had sales above the mean?", "20,\\ 35,\\ 25,\\ 40,\\ 30", "2", 5, "Mean = 150 ÷ 5 = 30. Above 30: February (35) and April (40) → 2 months.", ["2 months"]),
+    ans("y9-idt-p2", "A table shows transport for 200 people: 80 bus, 60 car, 40 walk, 20 cycle. What percentage cycle?", "80,\\ 60,\\ 40,\\ 20", "10", 5, "20 ÷ 200 × 100 = 10%.", ["10%"]),
+    ans("y9-idt-p3", "A sector graph represents 360 people. The 'sport' sector has an angle of 90°. How many people like sport?", "\\tfrac{90}{360}\\times 360", "90", 5, "90 ÷ 360 × 360 = 90 people (the sport sector is one quarter).", ["90 people"]),
+    ans("y9-idt-p4", "A line graph of a car's distance shows: 0 h = 0 km, 1 h = 60 km, 2 h = 100 km, 3 h = 150 km. Find the average speed over the 3 hours (km/h).", "\\tfrac{150}{3}", "50", 5, "Average speed = total distance ÷ total time = 150 ÷ 3 = 50 km/h.", ["50 km/h"]),
+    ans("y9-idt-p5", "A frequency table: value 1→4, 2→6, 3→8, 4→2. Find the mean using Σ(f × value) ÷ Σf.", "\\tfrac{1(4)+2(6)+3(8)+4(2)}{20}", "2.4", 5, "Σ(f × value) = 4 + 12 + 24 + 8 = 48; Σf = 20; mean = 48 ÷ 20 = 2.4.", ["2.40"]),
+    ans("y9-idt-p6", "Two column graphs compare classes. Class A has 20 students with mean 60; Class B has 10 students with mean 75. Find the combined mean of all 30 students.", "\\tfrac{20\\times60 + 10\\times75}{30}", "65", 5, "Totals: 1200 and 750; combined = 1950 ÷ 30 = 65.", ["65 marks"]),
+    ans("y9-idt-p7", "A table shows weekly rainfall (mm): Mon 4, Tue 0, Wed 12, Thu 6, Fri 8. What fraction of the week's rain fell on Wednesday? Give the simplest fraction.", "\\tfrac{12}{4+0+12+6+8}", "2/5", 5, "Total = 30 mm; Wednesday = 12 mm; 12/30 = 2/5.", ["0.4"]),
+    ans("y9-idt-p8", "A column graph shows weekly profit ($): week 1 = 200, week 4 = 400. By what percentage did profit increase from week 1 to week 4?", "\\tfrac{400-200}{200}\\times100", "100", 5, "Increase = 200 on 200 = 100%.", ["100%"]),
+    ans("y9-idt-p9", "A sector graph of a $1200 budget shows rent 50%, food 25%, other 25%. How many dollars are spent on food?", "0.25\\times1200", "300", 5, "25% of $1200 = 0.25 × 1200 = $300.", ["$300", "300 dollars"]),
+    ans("y9-idt-p10", "A line graph shows a population growing by a constant percentage: 2020 = 5000, 2021 = 5500. What is the yearly percentage increase?", "\\tfrac{5500-5000}{5000}\\times100", "10", 5, "Increase = 500 on 5000 = 10%.", ["10%"]),
+  ],
+  commonMistakes: [
+    { mistake: "Reading the category label instead of the column height (frequency).", fix: "The number you want is the height of the column — how many — not the label underneath." },
+    { mistake: "Forgetting to add every category when finding a total.", fix: "Sum all the frequencies, not just the largest ones." },
+    { mistake: "Confusing 'how many more' (a difference) with the total.", fix: "'How many more' means subtract the two frequencies; a total means add them all." },
+    { mistake: "Reading a line graph at the wrong time point.", fix: "Find the time on the horizontal axis first, then read straight up to the line." },
+  ],
+  masteryPassMark: 0.8,
+};
+
 const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "mean-median-mode": meanMedianMode,
   "stem-and-leaf-plots": stemAndLeaf,
   "grouping-data-into-classes": groupingData,
+  "interpreting-data-from-tables-and-graphs": interpretingDataTablesGraphs,
   "range-interquartile-range": rangeIqr,
   "box-plots": boxPlots,
 };

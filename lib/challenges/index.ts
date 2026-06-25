@@ -30,6 +30,15 @@ import {
   simpleInterestChallenge,
   speedDistanceTimeChallenge,
   fiveNumberSummaryChallenge,
+  summaryStatsDisplaysChallenge,
+  outlierEffectChallenge,
+  groupedDataChallenge,
+  boxPlotChallenge,
+  stemLeafChallenge,
+  timeSeriesChallenge,
+  dataExamChallenge,
+  samplingMethodsChallenge,
+  dataRevisionChallenge,
 } from "./year11Standard";
 import {
   combinationsChallenge,
@@ -112,23 +121,41 @@ import {
 } from "./year12AdvancedTrigEquations";
 import { trigMeasureChallenge } from "./year12AdvancedTrigMeasure";
 import {
-  integersNumberLineChallenge,
-  addingSubtractingIntegersChallenge,
-  multiplyingDividingIntegersChallenge,
-  orderOfOperationsIntegersChallenge,
-  integersProblemSolvingChallenge,
-} from "./year7Integers";
+  vectorsCollinearityChallenge,
+  vectorsGeometryChallenge,
+  vectorsDotProductChallenge,
+  vectorsProjectionChallenge,
+} from "./year12Extension1Vectors";
 import {
-  perimeterOfPolygonsChallenge,
-  perimeterCompositeShapesChallenge,
-  perimeterProblemSolvingChallenge,
-  areaRectanglesTrianglesChallenge,
-  areaParallelogramsTrapezoidsChallenge,
-  areaCompositeShapesChallenge,
-  areaProblemSolvingChallenge,
-  volumeOfPrismsChallenge,
-  volumeOfCylindersChallenge,
-} from "./year7Measurement";
+  calcAppsGrowthChallenge,
+  calcAppsShmChallenge,
+  calcAppsRatesChallenge,
+  calcAppsExamChallenge,
+} from "./year12Extension1CalculusApplications";
+import {
+  fcalcTrigChallenge,
+  fcalcSubstitutionChallenge,
+  fcalcPartsChallenge,
+  fcalcExamChallenge,
+} from "./year12Extension1FurtherCalculus";
+import {
+  kinVelocityAccelChallenge,
+  kinDisplacementChallenge,
+  kinMotionAnalysisChallenge,
+  kinExamChallenge,
+} from "./year12Extension1Kinematics";
+import {
+  bdMeanVarianceChallenge,
+  bdSamplingChallenge,
+  bdProbabilitiesChallenge,
+  bdExamChallenge,
+} from "./year12Extension1BinomialDistribution";
+import {
+  itPrincipalChallenge,
+  itTangentChallenge,
+  itDifferentiatingChallenge,
+  itPropertiesChallenge,
+} from "./year12Extension1InverseTrig";
 import {
   simpleInterestY9Challenge,
   gradientY9Challenge,
@@ -161,6 +188,7 @@ import {
   eliminationY9Challenge,
   simProblemsY9Challenge,
   quadraticAx2cY9Challenge,
+  linearEquationsFractionsY9Challenge,
 } from "./year9Chapter2";
 import {
   pythTheoremY9Challenge,
@@ -229,6 +257,7 @@ import {
   groupingY9Challenge,
   iqrY9Challenge,
   boxPlotY9Challenge,
+  interpretingDataY9Challenge,
 } from "./year9Chapter8";
 import {
   ebpY9Challenge,
@@ -276,6 +305,36 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "inverse-trig": inverseTrigChallenge,
   vectors: vectorsChallenge,
   "intro-to-mathematical-induction": inductionChallenge,
+  // Year 12 Extension 1 — Vectors high-difficulty pool (per-lesson, ≤2 each)
+  "vectors-scalars-notation": vectorsCollinearityChallenge,
+  "vector-addition-subtraction": vectorsGeometryChallenge,
+  "dot-product": vectorsDotProductChallenge,
+  "vector-projections-applications": vectorsProjectionChallenge,
+  // Year 12 Extension 1 — Calculus Applications high-difficulty pool (per-lesson, ≤2 each)
+  "newtons-law-cooling-growth-decay": calcAppsGrowthChallenge,
+  "simple-harmonic-motion-intro": calcAppsShmChallenge,
+  "related-rates-of-change": calcAppsRatesChallenge,
+  "calculus-applications-exam-practice": calcAppsExamChallenge,
+  // Year 12 Extension 1 — Further Calculus (integration) high-difficulty pool (per-lesson, ≤2 each)
+  "trig-integrals": fcalcTrigChallenge,
+  "simple-substitution": fcalcSubstitutionChallenge,
+  "integration-by-parts": fcalcPartsChallenge,
+  "further-calculus-exam-practice": fcalcExamChallenge,
+  // Year 12 Extension 1 — Kinematics (calculus-based motion) high-difficulty pool (per-lesson, ≤2 each)
+  "kinematics-velocity-acceleration": kinVelocityAccelChallenge,
+  "kinematics-displacement-from-velocity": kinDisplacementChallenge,
+  "kinematics-motion-analysis": kinMotionAnalysisChallenge,
+  "kinematics-exam-practice": kinExamChallenge,
+  // Year 12 Extension 1 — Binomial Distribution high-difficulty pool (per-lesson, ≤2 each)
+  "mean-and-variance": bdMeanVarianceChallenge,
+  "sampling-distribution-mean": bdSamplingChallenge,
+  "binomial-probabilities": bdProbabilitiesChallenge,
+  "binomial-exam-practice": bdExamChallenge,
+  // Year 12 Extension 1 — Inverse Trigonometric Functions high-difficulty pool (per-lesson, ≤2 each)
+  "inverse-sine-cosine": itPrincipalChallenge,
+  "inverse-tangent": itTangentChallenge,
+  "differentiating-inverse-trig": itDifferentiatingChallenge,
+  "inverse-trig-properties": itPropertiesChallenge,
   // Year 12 Standard 2
   "investment-compound-interest": compoundInterestChallenge,
   "sine-rule-cosine-rule-area-triangle": sineCosineRuleChallenge,
@@ -290,6 +349,17 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "simple-interest": simpleInterestChallenge,
   "speed-distance-time": speedDistanceTimeChallenge,
   "box-plots-five-number-summary": fiveNumberSummaryChallenge,
+  // Year 11 Standard — Data Analysis high-difficulty pools. Course-scoped keys so shared lesson
+  // slugs (e.g. data-displays-summary-statistics, also used by Year 12 Standard 1) stay separate.
+  "year-11-standard/data-displays-summary-statistics": summaryStatsDisplaysChallenge,
+  "year-11-standard/interpreting-data-outliers": outlierEffectChallenge,
+  "year-11-standard/grouped-data-frequency-tables": groupedDataChallenge,
+  "year-11-standard/box-plots-five-number-summary": boxPlotChallenge,
+  "year-11-standard/stem-leaf-plots": stemLeafChallenge,
+  "year-11-standard/time-series-trend-lines": timeSeriesChallenge,
+  "year-11-standard/data-analysis-exam-practice": dataExamChallenge,
+  "year-11-standard/data-collection-sampling-methods": samplingMethodsChallenge,
+  "year-11-standard/data-analysis-revision": dataRevisionChallenge,
   // Year 11 Extension
   combinations: combinationsChallenge,
   "roots-and-coefficients": [
@@ -424,6 +494,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/simultaneous-equations-problems": simProblemsY9Challenge,
   "year-9-mathematics/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
   "year-9-mathematics-advanced/quadratic-equations-ax2-c": quadraticAx2cY9Challenge,
+  // Year 9 Core conformance — net-new core section 3F (all 3 courses)
+  "year-9-mathematics/linear-equations-involving-fractions": linearEquationsFractionsY9Challenge,
+  "year-9-mathematics-core/linear-equations-involving-fractions": linearEquationsFractionsY9Challenge,
+  "year-9-mathematics-advanced/linear-equations-involving-fractions": linearEquationsFractionsY9Challenge,
   // Year 9 Wave 4 — Chapter 3 (Pythagoras & Trigonometry). consolidating → Core only;
   // path (pythagoras-3d-problems) → base + advanced; core → all three derived courses.
   "year-9-mathematics-core/pythagoras-theorem": pythTheoremY9Challenge,
@@ -562,6 +636,10 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics/box-plots": boxPlotY9Challenge,
   "year-9-mathematics-core/box-plots": boxPlotY9Challenge,
   "year-9-mathematics-advanced/box-plots": boxPlotY9Challenge,
+  // Year 9 Core conformance — net-new core section 10G (all 3 courses)
+  "year-9-mathematics/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
+  "year-9-mathematics-core/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
+  "year-9-mathematics-advanced/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
   // Year 9 Wave 10 — Chapter 9 (Quadratic Expressions & Algebraic Techniques). All 11 sections are
   // path-tagged → base + advanced only.
   "year-9-mathematics/expanding-binomial-products": ebpY9Challenge,
@@ -603,22 +681,6 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/sketching-translations": strY9Challenge,
   "year-9-mathematics/sketching-parabolas-intercept-form": spiY9Challenge,
   "year-9-mathematics-advanced/sketching-parabolas-intercept-form": spiY9Challenge,
-  // Year 7 — Wave 0 pilot (single course; D6 12/section, course-scoped).
-  "year-7-mathematics/integers-number-line": integersNumberLineChallenge,
-  "year-7-mathematics/adding-subtracting-integers": addingSubtractingIntegersChallenge,
-  "year-7-mathematics/multiplying-dividing-integers": multiplyingDividingIntegersChallenge,
-  "year-7-mathematics/order-of-operations-integers": orderOfOperationsIntegersChallenge,
-  "year-7-mathematics/integers-problem-solving": integersProblemSolvingChallenge,
-  // Year 7 — Wave 1 measurement cluster (perimeter, area, volume).
-  "year-7-mathematics/perimeter-of-polygons": perimeterOfPolygonsChallenge,
-  "year-7-mathematics/perimeter-composite-shapes": perimeterCompositeShapesChallenge,
-  "year-7-mathematics/perimeter-problem-solving": perimeterProblemSolvingChallenge,
-  "year-7-mathematics/area-rectangles-triangles": areaRectanglesTrianglesChallenge,
-  "year-7-mathematics/area-parallelograms-trapezoids": areaParallelogramsTrapezoidsChallenge,
-  "year-7-mathematics/area-composite-shapes": areaCompositeShapesChallenge,
-  "year-7-mathematics/area-problem-solving": areaProblemSolvingChallenge,
-  "year-7-mathematics/volume-of-prisms": volumeOfPrismsChallenge,
-  "year-7-mathematics/volume-of-cylinders": volumeOfCylindersChallenge,
 };
 
 // Look up a lesson's Level-6 challenge set. Prefers a COURSE-SCOPED key ("<course>/<lesson>") so

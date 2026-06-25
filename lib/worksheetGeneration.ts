@@ -227,8 +227,11 @@ export async function selectWorksheetQuestionsWithMetadata({
       }
     }
 
-    // Phase 2: fill remaining from all subtopics in the topic
-    if (levelCount < needed) {
+    // Phase 2: fill remaining from all subtopics in the topic.
+    // Skipped for manual subtopic selection — that is a hard filter, so a worksheet
+    // scoped to specific lessons must never backfill from other lessons in the topic
+    // (Phase 1 already pulls 100% from the selected subtopics).
+    if (levelCount < needed && !isManual) {
       const { data, error } = await supabaseAdmin
         .from("questions")
         .select(QUESTION_SELECT)

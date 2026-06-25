@@ -1,9 +1,8 @@
 import Link from "next/link";
+import { diagnosticData as y7Data } from "../../../lib/diagnostics/year-7-mathematics";
 import { diagnosticData as y8Data } from "../../../lib/diagnostics/year-8-mathematics";
-import { diagnosticData as y9Data } from "../../../lib/diagnostics/year-9-mathematics";
 import { diagnosticData as y9AdvData } from "../../../lib/diagnostics/year-9-mathematics-advanced";
 import { diagnosticData as y9CoreData } from "../../../lib/diagnostics/year-9-mathematics-core";
-import { diagnosticData as y10Data } from "../../../lib/diagnostics/year-10-mathematics";
 import { diagnosticData as y10AdvData } from "../../../lib/diagnostics/year-10-mathematics-advanced";
 import { diagnosticData as y10CoreData } from "../../../lib/diagnostics/year-10-mathematics-core";
 import { diagnosticData as y11StdData } from "../../../lib/diagnostics/year-11-standard";
@@ -17,11 +16,10 @@ import type { DiagnosticData } from "../../../lib/diagnostics/types";
 import { DiagnosticQuizClient } from "./DiagnosticQuizClient";
 
 const dataByYearLevel: Record<string, DiagnosticData> = {
+  "year-7-mathematics": y7Data,
   "year-8-mathematics": y8Data,
-  "year-9-mathematics": y9Data,
   "year-9-mathematics-advanced": y9AdvData,
   "year-9-mathematics-core": y9CoreData,
-  "year-10-mathematics": y10Data,
   "year-10-mathematics-advanced": y10AdvData,
   "year-10-mathematics-core": y10CoreData,
   "year-11-standard": y11StdData,

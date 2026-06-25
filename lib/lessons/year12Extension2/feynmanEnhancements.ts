@@ -646,11 +646,6 @@ function blueprintPool(lesson: ExplicitLesson, blueprint: PoolBlueprint) {
 
   const templates = [
     {
-      prompt: `For ${blueprint.topic}, what is the object you should identify first?`,
-      correct: blueprint.object,
-      explanation: `The first move is to identify ${blueprint.object}; that determines the method.`,
-    },
-    {
       prompt: `Which first step best matches ${blueprint.topic}?`,
       correct: blueprint.validMove,
       explanation: `The valid first step is: ${blueprint.validMove}`,
@@ -666,14 +661,19 @@ function blueprintPool(lesson: ExplicitLesson, blueprint: PoolBlueprint) {
       explanation: `${blueprint.representation} exposes the structure needed for the calculation.`,
     },
     {
+      prompt: `A student working on ${blueprint.topic} makes this error: ${blueprint.trap2} Which correction should come first?`,
+      correct: blueprint.validMove,
+      explanation: `The correction is to ${blueprint.validMove} That replaces the incorrect start and restores the right structure.`,
+    },
+    {
       prompt: `What check should be made after solving a ${blueprint.topic} problem?`,
       correct: blueprint.check,
       explanation: `The answer should be checked by confirming that ${blueprint.check}.`,
     },
     {
-      prompt: `In a Band-6 style ${blueprint.topic} question involving ${blueprint.d5Context}, what should you identify before choosing a method?`,
-      correct: blueprint.object,
-      explanation: `Even in an unfamiliar context, first identify ${blueprint.object}. Then apply the correct move: ${blueprint.validMove}`,
+      prompt: `A student working on ${blueprint.topic} makes this error: ${blueprint.trap3} Which correction is needed first?`,
+      correct: blueprint.validMove,
+      explanation: `The first correction is to ${blueprint.validMove} That fixes the structural mistake before any calculation continues.`,
     },
   ];
 
@@ -699,8 +699,6 @@ function blueprintPool(lesson: ExplicitLesson, blueprint: PoolBlueprint) {
 }
 
 function buildPool(lesson: ExplicitLesson): PracticeQuestion[] {
-  const blueprint = POOL_BLUEPRINTS[lesson.slug];
-  if (blueprint) return blueprintPool(lesson, blueprint);
   return lesson.masteryQuizPool ?? [];
 }
 
@@ -713,43 +711,7 @@ function typedPartSource(lesson: ExplicitLesson) {
 }
 
 function buildMultiPart(lesson: ExplicitLesson): PracticeQuestion[] {
-  if (lesson.multiPartPractice?.length) return lesson.multiPartPractice;
-
-  const partsSource = typedPartSource(lesson).slice(0, 3);
-  if (partsSource.length < 3) return lesson.multiPartPractice ?? [];
-
-  const dependencyNote =
-    "Use the result and method from earlier parts to keep the later calculations aligned with the same lesson structure.";
-
-  return [
-    {
-      id: `${lesson.slug}-mp-backfill-1`,
-      prompt:
-        `Extension 2 multi-part practice for ${lesson.title}. The parts are designed as the main exam-style depth layer for this lesson.`,
-      latex: "\\text{Answer each part exactly.}",
-      answer: partsSource[0].answer,
-      acceptedAnswers: partsSource[0].acceptedAnswers,
-      hint:
-        `Work through each part in order. ${dependencyNote}`,
-      explanation:
-        "This multi-part item carries the deeper exam practice: each part targets a connected calculation from the lesson and is marked separately for partial credit.",
-      parts: partsSource.map((question, index) => ({
-        key: ["a", "b", "c"][index],
-        label: `(${["a", "b", "c"][index]})`,
-        prompt: question.prompt,
-        latex: question.latex,
-        marks: index === 2 ? 2 : 1,
-        answer: question.answer,
-        acceptedAnswers: question.acceptedAnswers,
-        hint:
-          question.hint ??
-          dependencyNote,
-        explanation:
-          question.explanation ??
-          "Apply the lesson method carefully and state the requested value.",
-      })),
-    },
-  ];
+  return lesson.multiPartPractice ?? [];
 }
 
 export function enrichYear12Extension2Depth(lesson: ExplicitLesson): ExplicitLesson {
