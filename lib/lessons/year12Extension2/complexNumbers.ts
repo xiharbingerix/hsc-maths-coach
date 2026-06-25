@@ -1750,6 +1750,20 @@ const complexPolynomials: Partial<ExplicitLesson> = {
       "Substitute z = 0 and solve for r."
     ),
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-poly-pool-1", "For a polynomial with REAL coefficients, non-real complex roots occur:", "B", ["Singly.", "In conjugate pairs (a + bi and a − bi together).", "Only at the origin.", "Only for even degree."], "The conjugate root theorem: if a + bi is a root of a real-coefficient polynomial, so is its conjugate a − bi."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-poly-pool-2", "A real-coefficient polynomial has 2 + 3i as a root. Its conjugate is also a root. State the imaginary part of that conjugate root.", "\\overline{2+3i} = 2-3i", "-3", ["−3"], "The conjugate is 2 − 3i, whose imaginary part is −3."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-poly-pool-3", "A real quadratic has roots 1 + i and 1 − i. State the sum of the roots.", "(1+i)+(1-i)", "2", [], "(1 + i) + (1 − i) = 2 (the imaginary parts cancel)."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-poly-pool-4", "For the same roots 1 + i and 1 − i, state the product of the roots.", "(1+i)(1-i)", "2", [], "(1 + i)(1 − i) = 1 − i² = 1 + 1 = 2."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-poly-pool-5", "A real cubic has roots 2 and 3 + i. A student says those are all the roots. What is wrong?", "C", ["2 is not a valid root.", "A cubic has only two roots.", "3 − i must also be a root (conjugate pairs), giving roots 2, 3 + i, 3 − i.", "Nothing is wrong."], "Real coefficients force conjugate pairs, so 3 − i is also a root. The cubic has three roots: 2, 3 + i, 3 − i."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-poly-pool-6", "The monic real quadratic with roots 1 + i and 1 − i is x² − (sum)x + (product) = x² − 2x + 2. State its constant term.", "x^2 - 2x + 2", "2", [], "Constant term = product of roots = 2."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-poly-pool-7", "A real polynomial of degree 4 has roots i and 2i; their conjugates −i and −2i are also roots. How many REAL roots does it have?", "\\text{roots: } \\pm i, \\pm 2i", "0", [], "All four roots (i, −i, 2i, −2i) are non-real, so there are 0 real roots."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-poly-pool-8", "z = 1 + i is a root of z² + bz + c with b, c real, so 1 − i is also a root. Since the sum of roots is 2 = −b, find b.", "\\text{sum} = -b", "-2", ["−2"], "Sum of roots = (1 + i) + (1 − i) = 2 = −b, so b = −2."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-poly-pool-9", "Over the complex numbers, how many roots (counting multiplicity) does a degree-n polynomial have?", "B", ["At most 1.", "Exactly n (Fundamental Theorem of Algebra).", "n − 1.", "It depends on the coefficients."], "The Fundamental Theorem of Algebra guarantees exactly n roots over ℂ, counted with multiplicity."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-poly-pool-10", "Find c if z² − 2z + c = 0 (c real) has 1 + 2i as a root. Substitute: (1 + 2i)² − 2(1 + 2i) + c = 0, where (1 + 2i)² = −3 + 4i.", "(1+2i)^2 - 2(1+2i) + c = 0", "5", [], "(−3 + 4i) + (−2 − 4i) + c = −5 + c = 0, so c = 5 (the imaginary parts cancel, as they must)."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-poly-pool-11", "A monic real quadratic has 3 − 4i as a root, so 3 + 4i is the other root. Its constant term is the product of the roots. Find the constant term.", "(3-4i)(3+4i)", "25", [], "(3 − 4i)(3 + 4i) = 9 − 16i² = 9 + 16 = 25 — the conjugate pair multiplies to a real quadratic with constant 25."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-poly-pool-12", "Explain by result: a real polynomial of ODD degree must have at least one REAL root, because non-real roots pair up as conjugates and an odd count cannot pair completely. State the minimum number of real roots of a real degree-7 polynomial.", "\\text{odd degree} \\Rightarrow \\ge 1 \\text{ real root}", "1", [], "7 is odd; conjugate pairs account for an even number of non-real roots, so at least one root must be real. The minimum is 1."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 

@@ -254,17 +254,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   // roots-of-unity intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
-  "complex-polynomials": {
-    topic: "complex polynomial roots",
-    object: "factor and conjugate-root structure",
-    validMove: "Use conjugate pairs for real-coefficient polynomials.",
-    trap1: "Including a + bi without a - bi in a real polynomial.",
-    trap2: "Treating an irreducible real quadratic as irreducible over C.",
-    trap3: "Losing multiplicity when writing factors.",
-    representation: "linear factors over C",
-    check: "conjugate pairs multiply to real quadratic factors",
-    d5Context: "factorisation from mixed real and complex roots",
-  },
+  // complex-polynomials intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   // advanced-integration-method-selection intentionally omitted: replaced by a
   // hand-authored masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // integration-by-parts-extension intentionally omitted: replaced by a hand-authored
