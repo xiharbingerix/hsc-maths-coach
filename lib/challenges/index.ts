@@ -157,6 +157,24 @@ import {
   vectorsProjectionChallenge,
 } from "./year12Extension1Vectors";
 import {
+  integersNumberLineChallenge,
+  addingSubtractingIntegersChallenge,
+  multiplyingDividingIntegersChallenge,
+  orderOfOperationsIntegersChallenge,
+  integersProblemSolvingChallenge,
+} from "./year7Integers";
+import {
+  perimeterOfPolygonsChallenge,
+  perimeterCompositeShapesChallenge,
+  perimeterProblemSolvingChallenge,
+  areaRectanglesTrianglesChallenge,
+  areaParallelogramsTrapezoidsChallenge,
+  areaCompositeShapesChallenge,
+  areaProblemSolvingChallenge,
+  volumeOfPrismsChallenge,
+  volumeOfCylindersChallenge,
+} from "./year7Measurement";
+import {
   calcAppsGrowthChallenge,
   calcAppsShmChallenge,
   calcAppsRatesChallenge,
@@ -186,24 +204,6 @@ import {
   itDifferentiatingChallenge,
   itPropertiesChallenge,
 } from "./year12Extension1InverseTrig";
-import {
-  integersNumberLineChallenge,
-  addingSubtractingIntegersChallenge,
-  multiplyingDividingIntegersChallenge,
-  orderOfOperationsIntegersChallenge,
-  integersProblemSolvingChallenge,
-} from "./year7Integers";
-import {
-  perimeterOfPolygonsChallenge,
-  perimeterCompositeShapesChallenge,
-  perimeterProblemSolvingChallenge,
-  areaRectanglesTrianglesChallenge,
-  areaParallelogramsTrapezoidsChallenge,
-  areaCompositeShapesChallenge,
-  areaProblemSolvingChallenge,
-  volumeOfPrismsChallenge,
-  volumeOfCylindersChallenge,
-} from "./year7Measurement";
 import {
   factorsMultiplesHcfLcmChallenge,
   primesPrimeFactorisationChallenge,
