@@ -374,17 +374,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // t-substitution-weierstrass intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "trig-identity-integration": {
-    topic: "trig identity integration",
-    object: "an integrand needing an identity before integration",
-    validMove: "Rewrite powers or products using an exact trig identity.",
-    trap1: "Integrating sin squared as if it were sin.",
-    trap2: "Using an identity with the wrong sign.",
-    trap3: "Changing the integrand rather than rewriting it equivalently.",
-    representation: "identity-transformed integrand",
-    check: "the rewritten expression is algebraically identical",
-    d5Context: "products and powers requiring multiple identities",
-  },
+  // trig-identity-integration intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "completing-square-integration": {
     topic: "completing the square for integration",
     object: "a quadratic denominator or expression",
