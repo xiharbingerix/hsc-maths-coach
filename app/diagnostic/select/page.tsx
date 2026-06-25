@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { PageViewTracker } from "../../components/PageViewTracker";
+import { DiagnosticSelectLink } from "../../components/DiagnosticSelectLink";
 
 const yearLevels = [
   { slug: "year-8-mathematics", label: "Year 8 Mathematics", available: true },
@@ -19,6 +21,11 @@ const yearLevels = [
 export default function DiagnosticSelectPage() {
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+      <PageViewTracker
+        eventName="diagnostic_select_viewed"
+        includeMarketingParams
+        includeCtaExperiment
+      />
       <div className="mx-auto max-w-2xl space-y-8">
         <header className="rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
@@ -34,9 +41,9 @@ export default function DiagnosticSelectPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           {yearLevels.map((yl) =>
             yl.available ? (
-              <Link
+              <DiagnosticSelectLink
                 key={yl.slug}
-                href={`/diagnostic/${yl.slug}`}
+                slug={yl.slug}
                 className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <div>
@@ -48,7 +55,7 @@ export default function DiagnosticSelectPage() {
                 <span className="mt-4 inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-800">
                   Available now
                 </span>
-              </Link>
+              </DiagnosticSelectLink>
             ) : (
               <div
                 key={yl.slug}

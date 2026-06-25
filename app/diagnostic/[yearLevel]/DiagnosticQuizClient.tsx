@@ -13,7 +13,7 @@ import {
   clientTrackEvent,
   readMarketingParams,
 } from "../../../lib/analytics/clientTrackEvent";
-import { trackDiagnosticCompleted } from "../../../lib/analytics";
+import { trackDiagnosticBegun, trackDiagnosticCompleted } from "../../../lib/analytics";
 import { ctaExperimentProps } from "../../../lib/experiments/ctaExperiment";
 
 type UnitResult = DiagnosticUnit & {
@@ -245,6 +245,10 @@ export function DiagnosticQuizClient({
       startedWithNoSelection: studiedUnitSlugs.length === 0,
       ...readMarketingParams(),
     });
+
+    // Google Ads conversion (Diagnostic Begun) — gives Smart Bidding a
+    // higher-frequency signal than diagnostic_completed at current ad volume.
+    trackDiagnosticBegun();
 
     setPhase("quiz");
     setSubmitWarning(null);
