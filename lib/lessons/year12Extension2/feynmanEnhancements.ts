@@ -370,17 +370,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // reduction-formulae-introduction intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "partial-fractions-integration": {
-    topic: "partial fractions integration",
-    object: "a rational function with factorised denominator",
-    validMove: "Decompose into simple fractions before integrating.",
-    trap1: "Using one constant over a repeated factor only once.",
-    trap2: "Using a constant numerator over an irreducible quadratic.",
-    trap3: "Integrating before decomposing.",
-    representation: "sum of simpler rational terms",
-    check: "recombining the fractions gives the original numerator",
-    d5Context: "mixed repeated and irreducible factors",
-  },
+  // partial-fractions-integration intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   "t-substitution-weierstrass": {
     topic: "t-substitution",
     object: "a rational expression in sine and cosine",
