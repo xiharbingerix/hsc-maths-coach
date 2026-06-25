@@ -1329,6 +1329,7 @@ function MasteryResultPanel({
   nextHref,
   nextLabel,
   backHref,
+  attemptNumber,
 }: {
   correctCount: number;
   totalQuestions: number;
@@ -1341,6 +1342,7 @@ function MasteryResultPanel({
   nextHref?: string;
   nextLabel?: string;
   backHref: string;
+  attemptNumber: number;
 }) {
   const score = correctCount / totalQuestions;
   const passed = score >= passMark;
@@ -1571,6 +1573,36 @@ function MasteryResultPanel({
           );
         })}
       </div>
+
+      {attemptNumber >= 2 && (
+        <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
+          <p className="font-semibold">Learning Coach</p>
+          <p className="mt-1">
+            You&apos;ve attempted this quiz {attemptNumber} times. Here&apos;s what usually helps:
+          </p>
+          <ul className="mt-2 space-y-1 pl-4 list-disc">
+            <li>
+              <button
+                type="button"
+                onClick={onReviewLesson}
+                className="underline underline-offset-2 hover:text-blue-700"
+              >
+                Re-read the lesson
+              </button>{" "}
+              — focus on the worked examples for the questions you got wrong.
+            </li>
+            <li>
+              Use the{" "}
+              <span className="font-medium">AI tutor button</span> on any
+              practice question you&apos;re unsure about before retrying the quiz.
+            </li>
+            <li>
+              If you&apos;re still stuck, it&apos;s worth checking the previous lesson in
+              this unit — there may be a gap in an earlier concept.
+            </li>
+          </ul>
+        </div>
+      )}
 
       <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <button
@@ -2437,6 +2469,7 @@ export function LessonRenderer({
             nextHref={nextHref}
             nextLabel={nextLabel}
             backHref={backHref}
+            attemptNumber={quizAttemptNumberRef.current}
           />
         )}
 
