@@ -109,7 +109,7 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Counts the choices but forgets that a selected term in the binomial expansion determines both the combinatorial coefficient and the power.",
       prompt:
-        "A committee of 6 is chosen from 4 teachers and 6 students. Which expression gives the number of committees with exactly 2 teachers, matching the coefficient of $t^2s^4$ in $(1+t)^4(1+s)^6$?",
+        "A committee of 6 is chosen from 4 teachers and 6 students. Which expression counts committees with exactly 2 teachers?",
       choices: [
         {
           label: "A",
@@ -130,7 +130,7 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "A",
       explanation:
-        "Choosing exactly 2 teachers means choosing $2$ from $4$ teachers and $4$ from $6$ students: $\\binom42\\binom64$. In a generating-function view, the $x^2$ from the teacher factor represents selecting 2 teachers.",
+        "Choosing exactly 2 teachers means choosing $2$ from $4$ teachers and $4$ from $6$ students: $\\binom42\\binom64$. In a generating-function view, the $t^2s^4$ term represents 2 teachers and 4 students.",
     },
     {
       id: "y11ext-d5-binomial-middle-term",

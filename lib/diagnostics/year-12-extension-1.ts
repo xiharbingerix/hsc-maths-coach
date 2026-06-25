@@ -50,7 +50,7 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Treats the next binomial row as the previous row plus one extra endpoint instead of using Pascal's identity across the whole row.",
       prompt:
-        "A student wants to prove $\\sum_{r=0}^{n} {n \\choose r}=2^n$ for all $n \\geq 0$ using induction and Pascal's identity. After assuming the result for $n=k$, which line correctly proves the $k+1$ case?",
+        "Assume $\\sum_{r=0}^{k}{k \\choose r}=2^k$. Which line correctly proves the $k+1$ case using Pascal's identity?",
       choices: [
         {
           label: "A",
@@ -250,7 +250,7 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Differentiates the product but fails to convert the sine-cosine combination into the next phase-shifted form.",
       prompt:
-        "Let $f_n(x)=\\dfrac{d^n}{dx^n}\\left(e^x\\sin x\\right)$. A student conjectures $f_n(x)=2^{n/2}e^x\\sin\\left(x+\\frac{n\\pi}{4}\\right)$. Which induction step correctly proves the $n=k+1$ case from the $n=k$ case?",
+        "Assume $f_k(x)=2^{k/2}e^x\\sin\\left(x+\\frac{k\\pi}{4}\\right)$ for $f_n(x)=\\dfrac{d^n}{dx^n}(e^x\\sin x)$. Which step proves the $k+1$ case?",
       choices: [
         {
           label: "A",

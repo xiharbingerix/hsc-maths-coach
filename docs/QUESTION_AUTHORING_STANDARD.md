@@ -337,6 +337,26 @@ author cannot state it in one sentence, the item fails: rewrite it, or relabel i
 * For MCQ, the misconception mapping is per-distractor (below).
 * For typed items, the wrong-answer story is the method a student would mis-execute.
 
+## Diagnostic focus rule
+
+Every diagnostic question should identify one primary misconception. Supporting skills
+may be present, but they must not obscure the diagnostic signal.
+
+**Author test:** if two students choose the same wrong answer, they should most likely
+need the same next lesson. If the same distractor can be produced by several unrelated
+misunderstandings, split or simplify the item.
+
+For onboarding diagnostics, prefer:
+
+* 70-80% focused items: one primary misconception plus at most one supporting skill.
+* 20-30% integrated items: two connected skills where the misconception remains clear.
+* Rare three-skill items only when all skills are tightly coupled and the wrong-answer
+  story remains unambiguous.
+
+Onboarding diagnostics should stay lean. Remove decorative context, names, or prose
+that does not change the mathematical decision. A hard question that takes too long to
+parse is a weaker diagnostic question.
+
 ## Authentic distractors (MCQ)
 
 Every distractor MUST be the **actual output of one specific, common wrong method** —

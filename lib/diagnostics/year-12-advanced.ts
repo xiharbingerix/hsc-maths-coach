@@ -111,7 +111,7 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Treats a logarithmic model as though its shift controls a horizontal asymptote, or misses the domain restriction inside the logarithm.",
       prompt:
-        "A sensor is calibrated by $R=3\\log_2(t-1)-6$, where $t$ is time in seconds. Which statement about the model is correct?",
+        "For $R=3\\log_2(t-1)-6$, which statement is correct?",
       latex: "R=3\\log_2(t-1)-6",
       choices: [
         { label: "A", text: "It is defined for $t>1$, and $R=0$ when $t=5$." },
@@ -124,19 +124,18 @@ export const diagnosticData: DiagnosticData = {
         "The logarithm requires $t-1>0$, so $t>1$. For $R=0$, $3\\log_2(t-1)-6=0$, so $\\log_2(t-1)=2$ and $t-1=4$, giving $t=5$.",
     },
     {
-      id: "y12adv-d5-trig-period-sector",
+      id: "y12adv-d5-trig-period-equation",
       unitSlug: "ma-t1-trigonometry-and-measure-of-angles",
       assessedUnitSlugs: [
-        "ma-t1-trigonometry-and-measure-of-angles",
         "ma-t2-trigonometric-functions-and-identities",
         "ma-t3-trigonometric-equations",
       ],
       difficulty: 5,
       targetMisconception:
-        "Uses degrees and radians interchangeably, or solves the trigonometric equation using only the first-quadrant solution.",
+        "Confuses the period with the coefficient, or solves the transformed trigonometric equation before accounting for the coefficient.",
       prompt:
-        "A sector has radius $9$ cm and arc length $3\\pi$ cm. The sector angle is used as the period of $y=\\sin(kx)$. Which value of $k$ and first positive solution of $\\sin(kx)=1$ are correct?",
-      latex: "s=r\\theta, \\qquad y=\\sin(kx)",
+        "The function $y=\\sin(kx)$ has period $\\dfrac{\\pi}{3}$. Which value of $k$ and first positive solution of $\\sin(kx)=1$ are correct?",
+      latex: "y=\\sin(kx)",
       choices: [
         { label: "A", text: "$k=6$, first solution $x=\\dfrac{\\pi}{12}$" },
         { label: "B", text: "$k=6$, first solution $x=\\dfrac{\\pi}{6}$" },
@@ -145,7 +144,7 @@ export const diagnosticData: DiagnosticData = {
       ],
       correctAnswer: "A",
       explanation:
-        "The sector angle is $\\theta=3\\pi/9=\\pi/3$. For $\\sin(kx)$, period $=2\\pi/k$, so $2\\pi/k=\\pi/3$ gives $k=6$. Then $\\sin(6x)=1$ first occurs when $6x=\\pi/2$, so $x=\\pi/12$.",
+        "For $\\sin(kx)$, period $=2\\pi/k$, so $2\\pi/k=\\pi/3$ gives $k=6$. Then $\\sin(6x)=1$ first occurs when $6x=\\pi/2$, so $x=\\pi/12$.",
     },
     {
       id: "y12adv-d5-implicit-chain-rate",
@@ -159,7 +158,7 @@ export const diagnosticData: DiagnosticData = {
       targetMisconception:
         "Differentiates a logarithmic composite as $1/u$ only, or fails to connect the derivative to a rate of change.",
       prompt:
-        "A population index is $P(t)=50\\ln(2t+1)$. At what time is the instantaneous growth rate first equal to $10$ units per year?",
+        "For $P(t)=50\\ln(2t+1)$, when is the instantaneous rate of change equal to $10$?",
       latex: "P(t)=50\\ln(2t+1)",
       choices: [
         { label: "A", text: "$t=4.5$" },
