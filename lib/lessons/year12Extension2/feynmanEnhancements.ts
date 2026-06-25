@@ -393,17 +393,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
     check: "components align with the plane and normal directions",
     d5Context: "limiting equilibrium and acceleration on inclines",
   },
-  "rectilinear-motion-calculus": {
-    topic: "rectilinear motion calculus",
-    object: "position, velocity, and acceleration as derivatives/integrals",
-    validMove: "Use v = dx/dt and a = dv/dt, with initial conditions after integrating.",
-    trap1: "Forgetting constants of integration.",
-    trap2: "Using displacement and distance interchangeably.",
-    trap3: "Solving for time without checking the physical interval.",
-    representation: "calculus chain x, v, a",
-    check: "differentiate/integrate back to the given function",
-    d5Context: "turning points, direction changes, and constrained times",
-  },
+  // rectilinear-motion-calculus intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   "simple-harmonic-motion-extended": {
     topic: "simple harmonic motion",
     object: "acceleration proportional to displacement toward equilibrium",
