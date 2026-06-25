@@ -870,6 +870,20 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-line-pool-1", "In the vector equation of a line r = a + λb, what does b represent?", "B", ["A second point on the line.", "The direction vector of the line.", "The midpoint of the line.", "A unit normal to the line."], "a is a fixed point (anchor) on the line and b is its direction vector; varying λ sweeps out every point of the line."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-line-pool-2", "For the line r = (1, 0, 2) + λ(2, 1, 3), find the x-coordinate of the point at λ = 1.", "r = (1,0,2) + \\lambda(2,1,3)", "3", [], "x = 1 + 2(1) = 3."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-line-pool-3", "For the same line r = (1, 0, 2) + λ(2, 1, 3), find the x-coordinate at λ = 2.", "r = (1,0,2) + \\lambda(2,1,3)", "5", [], "x = 1 + 2(2) = 5."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-line-pool-4", "For r = (1, 0, 2) + λ(2, 1, 3), find the value of λ at which the y-coordinate equals 4.", "y = 0 + \\lambda", "4", [], "y = 0 + λ = 4, so λ = 4."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-line-pool-5", "Two lines have direction vectors (1, 2, 3) and (2, 4, 6). The lines are:", "B", ["Perpendicular.", "Parallel (one direction is a scalar multiple of the other).", "Skew.", "Always intersecting at the origin."], "(2, 4, 6) = 2(1, 2, 3), so the directions are scalar multiples — the lines are parallel."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-line-pool-6", "A line passes through A(1, 2, 3) with direction (4, 0, −1): r = (1, 2, 3) + λ(4, 0, −1). Find the z-coordinate at λ = 3.", "z = 3 + \\lambda(-1)", "0", [], "z = 3 + 3(−1) = 0."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-line-pool-7", "Does (5, 2, 2) lie on r = (1, 2, 3) + λ(4, 0, −1)? Find λ from the x-equation 1 + 4λ = 5 (the z-equation then confirms it).", "1 + 4\\lambda = 5", "1", [], "λ = 1 from x; check z: 3 + 1(−1) = 2 ✓ and y: 2 ✓. So the point lies on the line at λ = 1."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-line-pool-8", "A line passes through (1, 1, 1) and (3, 4, 5). Its direction vector is the displacement (3, 4, 5) − (1, 1, 1). Find the z-component of this direction.", "d = Q - P", "4", [], "(3, 4, 5) − (1, 1, 1) = (2, 3, 4), so the z-component is 4."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-line-pool-9", "A student writes the direction of the line through P and Q as P + Q. What is wrong?", "C", ["The direction should be the midpoint.", "P + Q is correct.", "The direction is Q − P (the displacement between the points), not P + Q.", "A line through two points has no direction."], "The direction of a line through two points is their difference Q − P. Adding the position vectors gives an unrelated vector."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-line-pool-10", "Lines r = (1, 0, 0) + λ(1, 2, 0) and r = (0, 1, 0) + μ(2, 1, 0) intersect. Equating components gives 1 + λ = 2μ and 2λ = 1 + μ. Solve for λ.", "1+\\lambda = 2\\mu,\\ 2\\lambda = 1+\\mu", "1", [], "From the first, μ = (1 + λ)/2. Substituting: 2λ = 1 + (1 + λ)/2 → 4λ = 3 + λ → λ = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-line-pool-11", "For the line r = (2, −1, 4) + λ(1, 3, −2), find the parameter λ at which the line crosses the plane z = 0.", "z = 4 - 2\\lambda = 0", "2", [], "z = 4 − 2λ = 0, so λ = 2."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-line-pool-12", "Explain by result: two lines are parallel iff their direction vectors are scalar multiples of one common direction. Directions (2, 4, 6) and (3, 6, 9) are both multiples of (1, 2, 3); the second is 3×(1,2,3). State the scalar for the first.", "(2,4,6) = k(1,2,3)", "2", [], "(2, 4, 6) = 2(1, 2, 3), so the scalar is 2 — both lines share the direction (1, 2, 3), confirming they are parallel."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 4: Vector Applications and Exam Practice ─────────────────────────

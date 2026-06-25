@@ -236,17 +236,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   // dot-product-and-angle intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
-  "equations-of-lines-3d": {
-    topic: "3D line equations",
-    object: "a point plus a direction vector",
-    validMove: "Write r = a + lambda d using an anchor point and direction.",
-    trap1: "Using two points as if both were direction vectors.",
-    trap2: "Treating the parameter as a coordinate.",
-    trap3: "Equating only one component when testing intersection.",
-    representation: "vector, parametric, or Cartesian line form",
-    check: "the same parameter value satisfies all three components",
-    d5Context: "intersection, skew lines, and shortest-distance checks",
-  },
+  // equations-of-lines-3d intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   "vector-applications-exam-practice": {
     topic: "vector applications",
     object: "the geometric condition hidden in the wording",
