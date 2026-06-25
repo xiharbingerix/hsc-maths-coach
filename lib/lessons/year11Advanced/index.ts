@@ -12,3 +12,4 @@ export * from "./expLogCalculus";
 export * from "./trigCalculus";
 export * from "./motionRates";
 export * from "./seriesFinance";
+export * from "./graphsEquations";

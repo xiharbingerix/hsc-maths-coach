@@ -325,6 +325,27 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
     "Three formulas, three contexts: A = P(1+r)ⁿ for single amounts; FV = M·[(1+r)ⁿ−1]/r for regular savings (money grows); PV = M·[1−(1+r)^(−n)]/r for loans (money is owed). Identifying which context applies — and whether you are solving for M, PV, FV, r or n — is the primary skill tested in HSC finance questions.",
     "Comparison questions are almost always about total cost or total return. Compute the total repaid (M × n) for a loan and compare with the principal; compute the FV for a savings plan and compare with total deposited. The 'better' financial choice depends on whether you are borrowing (minimise total repaid) or saving (maximise FV for a given total deposited).",
   ],
+  // ── Graphs and Equations ──────────────────────────────────────────────────────
+  "factor-remainder-theorem": [
+    "The remainder theorem is not a new idea — it is just polynomial evaluation combined with the division algorithm. The reason P(a) equals the remainder is that substituting x = a kills the (x−a) factor entirely, leaving only r. Understanding this derivation in one line makes the theorem unforgettable: P(x) = (x−a)·Q(x) + r → P(a) = 0 + r = r.",
+    "The factor theorem turns root-finding from trial-and-error guessing into a systematic algorithm: test divisors of the constant term, find one zero α, divide to reduce to a lower degree, and repeat. This process always terminates for polynomials with rational roots — it is the polynomial analogue of prime factorisation.",
+  ],
+  "sum-product-of-roots": [
+    "Vieta's formulas extract the sum and product of roots directly from the coefficients without solving the equation. This is powerful when the roots are irrational or complex — you can still compute α²+β² = (α+β)²−2αβ exactly, even if α and β individually are messy surds.",
+    "The symmetric expressions (sum, product, sum of squares, sum of cubes) are the natural language for describing what both roots share without naming them individually. The identity α²+β² = (α+β)²−2αβ is worth memorising not just as a formula but as the insight that squaring the sum double-counts the cross term αβ, which must be subtracted twice.",
+  ],
+  "graphing-polynomials": [
+    "The key insight for polynomial graphs is that multiplicity tells you the geometry at a root: odd multiplicity = the graph passes through (sign change); even multiplicity = the graph bounces (no sign change). A double root is where the polynomial has a horizontal tangent touching the x-axis — calculus later confirms this by showing P′(a) = 0 at a double root.",
+    "Reading a polynomial graph backwards — from shape to equation — is as important as sketching forward. A graph that bounces at x = 2 and crosses at x = −1 and x = 4 has at least factors (x−2)² and (x+1)(x−4). The y-intercept and end behaviour together determine the leading coefficient sign and degree.",
+  ],
+  "simultaneous-equations-nonlinear": [
+    "The geometry of simultaneous equations is the geometry of intersection. Two curves sharing a point means their equations have a common solution. Substitution converts this geometric intersection question into an algebraic question about roots. The discriminant then converts it back to geometry: Δ > 0 means two crossings, Δ = 0 means tangency, Δ < 0 means the curves miss entirely.",
+    "Tangency via Δ = 0 is one of the most elegant applications of the discriminant. It does not require knowing the tangent point in advance — you just parameterise the line, substitute, and set Δ = 0. This same technique applies to lines and parabolas, lines and circles, and more generally any quadratic-linear system.",
+  ],
+  "graphs-equations-exam-practice": [
+    "The four techniques in this unit (factor theorem, Vieta's, polynomial graphing, simultaneous equations) share a common thread: they are all ways of working with the roots of a polynomial without necessarily finding them explicitly. The factor theorem checks for integer roots; Vieta's extracts symmetric functions of roots from the coefficients; graphing reads the roots' geometry; simultaneous equations finds where roots of a derived polynomial lie.",
+    "HSC exam questions often combine these: 'factorise the polynomial (factor theorem), state the sum and product of two of its roots (Vieta's), sketch the graph, then find where it intersects a given line (simultaneous equations)'. Each sub-part is routine in isolation; the challenge is executing them sequentially without error. Practice each sub-part until automatic, then practise chaining them.",
+  ],
 };
 
 const FEYNMAN_WORKED_EXAMPLES: Record<string, WorkedExample[]> = {
