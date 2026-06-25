@@ -187,10 +187,17 @@ function latexLeakForms(value: string) {
 function shouldHideLatex(latex: string | null | undefined, candidates: string[]) {
   if (!latex) return false;
 
-  const latexForms = latexLeakForms(latex);
-  if (latexForms.length === 0) return false;
-
   if (/(answer|solution|therefore|hence)/i.test(latex)) return true;
+
+  // Only match against command-stripped forms. Checking the raw base form causes false
+  // positives: e.g. \ln in \int x\ln(x)\,dx would match a candidate of "ln(x)" because
+  // the LaTeX command name "ln" appears as a substring of the raw string.
+  const expanded = normaliseForLatexLeak(expandLatexFractions(latex));
+  const withoutCommands = expanded.replace(/\\[a-z]+/g, "").replace(/[{}]/g, "");
+  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
+  const latexForms = [...new Set([withoutCommands, compact])].filter(Boolean);
+
+  if (latexForms.length === 0) return false;
 
   for (const candidate of candidates) {
     const trimmed = candidate.trim();
