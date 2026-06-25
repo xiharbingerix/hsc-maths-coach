@@ -62,6 +62,22 @@ export function MathAnswerInput({
     import("mathlive").then(() => setMathLiveReady(true));
   }
 
+  // When MathLive finishes loading and the <math-field> swaps in, carry over
+  // any text the student typed into the fallback during the load and restore
+  // focus, so the swap is seamless (no lost keystrokes, no second click).
+  const handedOffRef = useRef(false);
+  useEffect(() => {
+    if (!mathLiveReady) return;
+    const mf = mathfieldRef.current as (HTMLElement & {
+      value: string;
+      focus: () => void;
+    }) | null;
+    if (!mf || handedOffRef.current) return;
+    handedOffRef.current = true;
+    if (value && mf.value !== value) mf.value = value;
+    mf.focus();
+  }, [mathLiveReady, value]);
+
   // Sync readOnly and value onto the math-field imperatively when they change.
   useEffect(() => {
     const mf = mathfieldRef.current as (HTMLElement & {
