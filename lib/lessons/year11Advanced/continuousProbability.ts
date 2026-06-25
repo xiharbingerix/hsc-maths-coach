@@ -302,13 +302,13 @@ const cpExIndep: PracticeQuestion[] = [
 ];
 
 const cpExMastery: PracticeQuestion[] = [
-  fa("y11adv-cp-ex-m1", "f(x) = (3/8)(4−x²) on [−2/√3... wait, let me simplify: f(x)=3x²/8 on [0,2]. Find P(X > 1).", "f(x)=3x^2/8,\\;\\int_1^2 3x^2/8\\,dx", "= [x³/8]₁² = 8/8 − 1/8 = 7/8", ["7/8"]),
-  mc("y11adv-cp-ex-m2", "N(100, 16). A value is at the 84th percentile. Find X.", "C",
-    [{ label: "A", text: "$104$" }, { label: "B", text: "$116$" }, { label: "C", text: "$104$" }, { label: "D", text: "$108$" }],
+  fa("y11adv-cp-ex-m1", "f(x) = 3x²/8 on [0, 2]. Find P(X > 1).", "f(x)=3x^2/8,\\;\\int_1^2 3x^2/8\\,dx", "= [x³/8]₁² = 8/8 − 1/8 = 7/8", ["7/8"]),
+  mc("y11adv-cp-ex-m2", "X ~ N(100, 16). A value is at the 84th percentile. Find X. (Recall P(Z < 1) ≈ 0.84.)", "C",
+    [{ label: "A", text: "$100$" }, { label: "B", text: "$116$" }, { label: "C", text: "$104$" }, { label: "D", text: "$108$" }],
     "P(Z < 1) ≈ 0.8413 ≈ 84th percentile. X = μ + z·σ = 100 + 1·4 = 104. (σ = 4 since σ² = 16.)", ""),
   fa("y11adv-cp-ex-m3", "Quality control: bolts N(50 mm, 1.5²) accepted if 47 < X < 53. Find the acceptance rate.", "z_1=(47-50)/1.5=-2,\\;z_2=(53-50)/1.5=2", "P(−2<Z<2) = 0.9772−0.0228 = 0.9544 (95.44%)", ["0.9544", "95.44%"]),
   mc("y11adv-cp-ex-m4", "X ~ N(μ, σ²). If P(X < 70) = 0.84 and P(X < 80) = 0.975, find μ and σ.", "B",
-    [{ label: "A", text: "$\\mu=60,\\sigma=10$" }, { label: "B", text: "$\\mu=60,\\sigma=10$" }, { label: "C", text: "$\\mu=70,\\sigma=5$" }, { label: "D", text: "$\\mu=75,\\sigma=5$" }],
+    [{ label: "A", text: "$\\mu=70,\\sigma=10$" }, { label: "B", text: "$\\mu=60,\\sigma=10$" }, { label: "C", text: "$\\mu=70,\\sigma=5$" }, { label: "D", text: "$\\mu=75,\\sigma=5$" }],
     "P(X < 70) = 0.84 → z = 1 → μ + σ = 70. P(X < 80) = 0.975 → z = 1.96 ≈ 2 → μ + 2σ = 80. Solving: σ = 10, μ = 60.", ""),
   fa("y11adv-cp-ex-m5", "In a N(0, 1) distribution, find k such that P(−k < Z < k) = 0.9.", "P(Z<k)=0.95", "k ≈ 1.645", ["1.645", "1.64"]),
   mc("y11adv-cp-ex-m6", "A continuous pdf f(x) must integrate to 1. Which of the following CANNOT be a pdf on [0, 1]?", "D",
