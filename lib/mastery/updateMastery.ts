@@ -229,6 +229,9 @@ export async function recordMasteryEvents(
       .maybeSingle();
 
     if (isMissingSubtopicMasteryTable(currentError)) {
+      console.error(
+        `[updateMastery] student_subtopic_mastery table is missing; subtopic mastery not recorded for ${courseSlug}/${topicSlug}/${subtopicSlug}`
+      );
       return;
     }
 
@@ -260,6 +263,9 @@ export async function recordMasteryEvents(
       );
 
     if (isMissingSubtopicMasteryTable(upsertError)) {
+      console.error(
+        `[updateMastery] student_subtopic_mastery table is missing; subtopic mastery upsert skipped for ${courseSlug}/${topicSlug}/${subtopicSlug}`
+      );
       return;
     }
 

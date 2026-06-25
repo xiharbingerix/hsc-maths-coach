@@ -41,7 +41,6 @@ type LessonStage =
 
 type MasteryState = {
   passed: boolean;
-  mustCompleteLesson: boolean;
   completedStages: LessonStage[];
   lastScore?: number;
   updatedAt?: string;
@@ -1068,7 +1067,12 @@ function PracticeCard({
         section={section}
       />
 
-      <TutorPanel question={question} />
+      <TutorPanel
+        question={question}
+        courseSlug={courseSlug}
+        topicSlug={unitSlug}
+        subtopicSlug={lessonSlug}
+      />
     </div>
   );
 }
@@ -1627,7 +1631,6 @@ export function LessonRenderer({
   const [quizChecking, setQuizChecking] = useState(false);
   const [masteryState, setMasteryState] = useState<MasteryState>({
     passed: false,
-    mustCompleteLesson: false,
     completedStages: [],
   });
 
@@ -1660,6 +1663,10 @@ export function LessonRenderer({
   const progressChangedRef = useRef(false);
   const progressSyncRef = useRef(Promise.resolve());
   const masteryRecordedRef = useRef(false);
+  // Tracks how many mastery quiz attempts have been started for this lesson load.
+  const quizAttemptNumberRef = useRef(0);
+  // Records the timestamp when the mastery quiz was opened (for time_on_quiz_seconds).
+  const quizStartedAtRef = useRef<number | null>(null);
 
   function queueProgressSync(
     record: Parameters<typeof upsertLessonProgress>[1]
@@ -1679,7 +1686,6 @@ export function LessonRenderer({
     progressChangedRef.current = false;
     setMasteryState({
       passed: false,
-      mustCompleteLesson: false,
       completedStages: [],
     });
 
@@ -1704,15 +1710,11 @@ export function LessonRenderer({
       const storedValue = localStorage.getItem(storageKey);
       if (storedValue) {
         const storedState = JSON.parse(storedValue) as Partial<
-          MasteryState & { sequenceLocked: boolean }
+          MasteryState & { sequenceLocked: boolean; mustCompleteLesson: boolean }
         >;
 
         localState = {
           passed: storedState.passed ?? false,
-          mustCompleteLesson:
-            storedState.mustCompleteLesson ??
-            storedState.sequenceLocked ??
-            false,
           completedStages: storedState.completedStages ?? [],
           lastScore: storedState.lastScore,
           updatedAt: storedState.updatedAt,
@@ -1758,7 +1760,6 @@ export function LessonRenderer({
         );
         const remoteState: MasteryState = {
           passed: remoteRecord.passed,
-          mustCompleteLesson: false,
           completedStages,
           lastScore: remoteRecord.lastScore ?? undefined,
           updatedAt: remoteRecord.updatedAt,
@@ -1769,8 +1770,13 @@ export function LessonRenderer({
           localState !== null &&
           Number.isFinite(localUpdatedAt) &&
           (!Number.isFinite(remoteUpdatedAt) || localUpdatedAt > remoteUpdatedAt);
-        const hydratedState =
-          shouldKeepLocalState && localState ? localState : remoteState;
+        // Always trust the server for `passed` — local state is not authoritative
+        // for this field and a student could manipulate localStorage to bypass the
+        // mastery quiz. The DB lesson_progress.passed column is the source of truth.
+        const hydratedState: MasteryState =
+          shouldKeepLocalState && localState
+            ? { ...localState, passed: remoteRecord.passed }
+            : remoteState;
 
         setMasteryState(hydratedState);
         localStorage.setItem(storageKey, JSON.stringify(hydratedState));
@@ -1811,8 +1817,44 @@ export function LessonRenderer({
     if (activeStage !== "mastery-quiz" || !lesson) return;
     if (masteryStartedRef.current === lessonSlug) return;
     masteryStartedRef.current = lessonSlug;
+    quizAttemptNumberRef.current += 1;
+    quizStartedAtRef.current = Date.now();
     trackMasteryStarted(lesson.courseTitle, lesson.moduleTitle, lesson.title);
-  }, [activeStage, lesson, lessonSlug]);
+    clientTrackEvent("mastery_quiz_started", {
+      course_slug: courseSlug ?? null,
+      topic_slug: unitSlug ?? null,
+      subtopic_slug: lessonSlug,
+      attempt_number: quizAttemptNumberRef.current,
+    });
+  }, [activeStage, courseSlug, lesson, lessonSlug, unitSlug]);
+
+  // Phase 1 instrumentation: lesson abandonment.
+  // Fires on browser tab close/navigate (beforeunload) and on React unmount
+  // (client-side navigation away from the lesson). We only fire if the student
+  // has made some progress (at least one completed stage) and hasn't passed yet.
+  useEffect(() => {
+    function fireAbandonEvent() {
+      if (masteryState.passed) return;
+      if (masteryState.completedStages.length === 0) return;
+
+      clientTrackEvent("lesson_abandoned", {
+        course_slug: courseSlug ?? null,
+        topic_slug: unitSlug ?? null,
+        subtopic_slug: lessonSlug,
+        current_stage: activeStage,
+        stages_completed: masteryState.completedStages.length,
+      }, { beacon: true });
+    }
+
+    window.addEventListener("beforeunload", fireAbandonEvent);
+    return () => {
+      window.removeEventListener("beforeunload", fireAbandonEvent);
+      // Also fire on unmount (client-side navigation).
+      fireAbandonEvent();
+    };
+  // Re-register whenever lesson or progress state changes.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeStage, courseSlug, lessonSlug, masteryState.completedStages.length, masteryState.passed, unitSlug]);
 
   if (!lesson) {
     return (
@@ -1895,9 +1937,7 @@ export function LessonRenderer({
       return hasCompleted("guided-practice");
     }
 
-    return (
-      !masteryState.mustCompleteLesson || hasCompleted("independent-practice")
-    );
+    return true;
   }
 
   function openStage(stage: LessonStage) {
@@ -1958,18 +1998,30 @@ export function LessonRenderer({
     if (score >= currentLesson.masteryPassMark) {
       saveMasteryState({
         passed: true,
-        mustCompleteLesson: false,
         completedStages: currentLessonStages.map((stage) => stage.id),
         lastScore: score,
       });
     } else {
       saveMasteryState({
         passed: false,
-        mustCompleteLesson: false,
         completedStages: masteryState.completedStages,
         lastScore: score,
       });
     }
+
+    // Phase 1 instrumentation: quiz attempt result.
+    clientTrackEvent("mastery_quiz_completed", {
+      course_slug: courseSlug ?? null,
+      topic_slug: unitSlug ?? null,
+      subtopic_slug: lessonSlug,
+      score,
+      passed: score >= currentLesson.masteryPassMark,
+      attempt_number: quizAttemptNumberRef.current,
+      time_on_quiz_seconds:
+        quizStartedAtRef.current !== null
+          ? Math.round((Date.now() - quizStartedAtRef.current) / 1000)
+          : null,
+    });
 
     // Supabase analytics — fire-and-forget, always safe.
     clientTrackEvent("lesson_mastery_submitted", {
@@ -2002,7 +2054,7 @@ export function LessonRenderer({
           if (!token) return;
           const events = capturedQuestions.map((q) => ({
             questionId: q.id,
-            difficulty: 4,
+            difficulty: q.difficulty ?? 4,
             isCorrect:
               isCorrectAnswer(q, capturedAnswers[q.id] ?? "") ||
               Boolean(overrides[q.id]),
@@ -2030,6 +2082,7 @@ export function LessonRenderer({
 
   function retryQuiz() {
     masteryRecordedRef.current = false;
+    masteryStartedRef.current = null; // allow mastery_quiz_started to re-fire
     setQuizAnswers({});
     setCasCorrectIds({});
     setQuizSubmitted(false);
@@ -2346,12 +2399,6 @@ export function LessonRenderer({
           </p>
         </div>
 
-        {masteryState.mustCompleteLesson && (
-          <div className="rounded-xl bg-amber-50 p-4 text-sm font-medium text-amber-900">
-            Complete each stage in order before reattempting the quiz.
-          </div>
-        )}
-
         {activeQuiz.map((question, index) => (
           <QuizQuestion
             key={question.id}
@@ -2534,13 +2581,7 @@ export function LessonRenderer({
             })}
           </div>
 
-          {masteryState.mustCompleteLesson && (
-            <p className="mt-3 px-2 text-sm font-medium text-amber-700">
-              Mastery reattempt locked: move through the stages in order.
-            </p>
-          )}
-
-          {!masteryState.mustCompleteLesson && !masteryState.passed && (
+          {!masteryState.passed && (
             <p className="mt-3 px-2 text-sm text-slate-600">
               You can jump straight to the Mastery Quiz whenever you are ready.
             </p>

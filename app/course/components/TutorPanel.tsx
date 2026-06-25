@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MathText } from "../../components/MathText";
 import { supabase } from "../../../lib/supabaseClient";
+import { clientTrackEvent } from "../../../lib/analytics/clientTrackEvent";
 import type { PracticeQuestion } from "../../../lib/lessons/differentialCalculus";
 
 type Mode = "rephrase" | "steps";
@@ -16,13 +17,20 @@ const LABELS: Record<Mode, string> = {
   steps: "How do I approach this?",
 };
 
+type Props = {
+  question: PracticeQuestion;
+  courseSlug?: string;
+  topicSlug?: string;
+  subtopicSlug?: string;
+};
+
 /**
  * Button-only AI help for a single practice question. No free-text input: each
  * button asks the server to re-present this question's existing worked solution
  * in a fixed shape. Results are cached per mode so re-clicking just toggles.
  * Silently hides itself if the feature is off or the user isn't signed in.
  */
-export function TutorPanel({ question }: { question: PracticeQuestion }) {
+export function TutorPanel({ question, courseSlug, topicSlug, subtopicSlug }: Props) {
   const [results, setResults] = useState<Partial<Record<Mode, TutorResult>>>({});
   const [open, setOpen] = useState<Mode | null>(null);
   const [loading, setLoading] = useState<Mode | null>(null);
@@ -36,6 +44,17 @@ export function TutorPanel({ question }: { question: PracticeQuestion }) {
       return;
     }
     setLoading(mode);
+
+    // Fire analytics on the first real request (not toggle).
+    clientTrackEvent("ai_help_requested", {
+      course_slug: courseSlug ?? null,
+      topic_slug: topicSlug ?? null,
+      subtopic_slug: subtopicSlug ?? null,
+      question_id: question.id,
+      difficulty: question.difficulty ?? null,
+      mode,
+    });
+
     try {
       const { data } = await supabase.auth.getSession();
       const token = data.session?.access_token;
