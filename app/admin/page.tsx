@@ -283,6 +283,18 @@ function numericScore(score: number | string | null) {
   return Number.isFinite(value) ? value : null;
 }
 
+function formatDuration(minutes: number | null) {
+  if (minutes === null) return "—";
+  if (minutes < 60) return `${Math.round(minutes)}m`;
+  if (minutes < 60 * 24) return `${(minutes / 60).toFixed(1)}h`;
+  return `${(minutes / (60 * 24)).toFixed(1)}d`;
+}
+
+function conversionRate(numerator: number, denominator: number): number | null {
+  if (denominator === 0) return null;
+  return Math.round((numerator / denominator) * 100);
+}
+
 function lessonProgressKey({
   courseSlug,
   unitSlug,
@@ -365,6 +377,7 @@ function funnelStageClass(stage: string) {
   if (stage === "Lesson started") return "bg-blue-100 text-blue-900";
   if (stage === "Paid") return "bg-indigo-100 text-indigo-900";
   if (stage === "Checkout started") return "bg-amber-100 text-amber-900";
+  if (stage === "Onboarding done") return "bg-sky-100 text-sky-900";
   return "bg-slate-100 text-slate-700";
 }
 
@@ -478,115 +491,16 @@ function OperationsQueueSection({
   );
 }
 
-function ActionRequiredSection({
-  hasAlerts,
-  pendingAccessStudents,
-  newEnquiriesList,
-  paidButNotActive,
-  setStudentAccessStatusAction,
-}: {
-  hasAlerts: boolean;
-  pendingAccessStudents: StudentUserRow[];
-  newEnquiriesList: EnquiryRow[];
-  paidButNotActive: PaymentRow[];
-  setStudentAccessStatusAction: (formData: FormData) => Promise<void>;
-}) {
-  if (!hasAlerts) return null;
-
-  return (
-    <section className="rounded-3xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
-      <h2 className="text-base font-semibold text-amber-900">Action required</h2>
-      <ul className="mt-3 space-y-3 text-sm">
-        {pendingAccessStudents.length > 0 && (
-          <li>
-            <p className="font-semibold text-amber-900">
-              {pendingAccessStudents.length} student
-              {pendingAccessStudents.length === 1 ? "" : "s"} waiting for access
-              approval
-            </p>
-            <div className="mt-2 space-y-2">
-              {pendingAccessStudents.map(({ user, profile }) => {
-                const name = studentDisplayName({
-                  profile,
-                  authUser: user,
-                });
-                return (
-                  <div
-                    key={user.id}
-                    className="flex flex-wrap items-center gap-3 rounded-2xl bg-white/80 px-4 py-2.5"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <span className="font-medium text-slate-900">{name}</span>
-                      <span className="ml-2 text-slate-500">{user.email}</span>
-                    </div>
-                    <form action={setStudentAccessStatusAction} className="flex gap-2">
-                      <input type="hidden" name="userId" value={user.id} />
-                      <input type="hidden" name="email" value={user.email ?? ""} />
-                      <button
-                        name="status"
-                        value="active"
-                        type="submit"
-                        className="rounded-lg bg-emerald-700 px-3 py-1 text-xs font-semibold text-white hover:bg-emerald-800"
-                      >
-                        Approve
-                      </button>
-                      <button
-                        name="status"
-                        value="revoked"
-                        type="submit"
-                        className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
-                      >
-                        Revoke
-                      </button>
-                    </form>
-                  </div>
-                );
-              })}
-            </div>
-          </li>
-        )}
-
-        {newEnquiriesList.length > 0 && (
-          <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
-            <span className="font-semibold">
-              {newEnquiriesList.length} new enquir
-              {newEnquiriesList.length === 1 ? "y" : "ies"}
-            </span>
-            {" — "}
-            {newEnquiriesList.map((e) => (
-              <span key={e.id} className="mr-2">
-                {e.student_first_name ?? e.parent_email ?? "Unknown"}
-              </span>
-            ))}
-          </li>
-        )}
-
-        {paidButNotActive.length > 0 && (
-          <li className="rounded-2xl bg-white/80 px-4 py-2.5 text-slate-800">
-            <span className="font-semibold">
-              {paidButNotActive.length} online learning payment
-              {paidButNotActive.length === 1 ? "" : "s"} without active access
-            </span>
-            {" — "}
-            {paidButNotActive.map((p) => (
-              <span key={p.id} className="mr-2">
-                {p.parent_email ?? p.student_first_name ?? "Unknown"}
-              </span>
-            ))}
-          </li>
-        )}
-      </ul>
-    </section>
-  );
-}
-
 function SignupFunnelSection({
   signupFunnelMetrics,
   signupFunnelRows,
   checkoutFunnelError,
+  ttfsMedianMinutes,
+  ttfsP90Minutes,
 }: {
   signupFunnelMetrics: {
     signedUp: number;
+    onboardingCompleted: number;
     checkoutStarted: number;
     paid: number;
     lessonStarted: number;
@@ -595,6 +509,8 @@ function SignupFunnelSection({
     checkoutStartedNotPaid: number;
     paidNoLessonProgress: number;
   };
+  ttfsMedianMinutes: number | null;
+  ttfsP90Minutes: number | null;
   signupFunnelRows: Array<{
     user: AdminAuthUser;
     profile?: ProfileRow;
@@ -638,29 +554,73 @@ function SignupFunnelSection({
         </div>
       ) : null}
 
-      <div className="mt-5 grid grid-cols-2 gap-4 lg:grid-cols-5">
-        <SummaryCard label="Signed up" value={signupFunnelMetrics.signedUp} />
-        <SummaryCard
-          label="Checkout started"
-          value={signupFunnelMetrics.checkoutStarted}
-          highlight={
-            signupFunnelMetrics.checkoutStartedNotPaid > 0 ? "amber" : undefined
-          }
-        />
-        <SummaryCard
-          label="Paid online"
-          value={signupFunnelMetrics.paid}
-          highlight={signupFunnelMetrics.paid > 0 ? "emerald" : undefined}
-        />
-        <SummaryCard
-          label="Lesson started"
-          value={signupFunnelMetrics.lessonStarted}
-        />
-        <SummaryCard
-          label="Mastery passed"
-          value={signupFunnelMetrics.masteryPassed}
-        />
+      <div className="mt-5 overflow-x-auto">
+        <div className="flex min-w-max items-stretch gap-1.5">
+          {(
+            [
+              { label: "Signed up", count: signupFunnelMetrics.signedUp, base: null },
+              {
+                label: "Onboarded",
+                count: signupFunnelMetrics.onboardingCompleted,
+                base: signupFunnelMetrics.signedUp,
+              },
+              {
+                label: "Lesson started",
+                count: signupFunnelMetrics.lessonStarted,
+                base: signupFunnelMetrics.onboardingCompleted || signupFunnelMetrics.signedUp,
+              },
+              {
+                label: "Mastery passed",
+                count: signupFunnelMetrics.masteryPassed,
+                base: signupFunnelMetrics.lessonStarted,
+              },
+              { label: "Paid", count: signupFunnelMetrics.paid, base: signupFunnelMetrics.masteryPassed },
+            ] as Array<{ label: string; count: number; base: number | null }>
+          ).map((stage, i) => {
+            const rate = stage.base !== null && stage.base > 0 ? stage.count / stage.base : null;
+            const rateClass =
+              rate === null
+                ? ""
+                : rate >= 0.7
+                  ? "text-emerald-600"
+                  : rate >= 0.4
+                    ? "text-amber-600"
+                    : "text-red-500";
+            return (
+              <div key={stage.label} className="flex items-center gap-1.5">
+                {i > 0 && (
+                  <span className="text-slate-300 text-base select-none">→</span>
+                )}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-center w-36">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 leading-tight">
+                    {stage.label}
+                  </p>
+                  <p className="mt-2 text-3xl font-bold tracking-tight text-slate-900">
+                    {stage.count}
+                  </p>
+                  {rate !== null ? (
+                    <p className={`mt-1 text-sm font-semibold ${rateClass}`}>
+                      {Math.round(rate * 100)}%
+                    </p>
+                  ) : (
+                    <p className="mt-1 text-sm text-transparent select-none">—</p>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
+      {(ttfsMedianMinutes !== null || signupFunnelMetrics.masteryPassed > 0) && (
+        <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+          <span className="font-semibold text-slate-900">Time to first mastery:</span>{" "}
+          {ttfsMedianMinutes !== null
+            ? <>median <span className="font-semibold text-slate-900">{formatDuration(ttfsMedianMinutes)}</span>{ttfsP90Minutes !== null && <>, 90th pct <span className="font-semibold">{formatDuration(ttfsP90Minutes)}</span></>}</>
+            : "no data yet"
+          }
+        </div>
+      )}
 
       <div className="mt-5 grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 md:grid-cols-3">
         <p>
@@ -1518,6 +1478,20 @@ export default async function AdminPage() {
   const lessonProgressRows = (lessonProgressData ??
     []) as LessonProgressAdminRow[];
 
+  // Onboarding completions
+  const { data: onboardingEventsData } = await supabaseAdmin
+    .from("analytics_events")
+    .select("user_id")
+    .eq("event_name", "onboarding_completed")
+    .not("user_id", "is", null)
+    .limit(5000);
+
+  const usersCompletedOnboarding = new Set(
+    ((onboardingEventsData ?? []) as { user_id: string }[])
+      .map((r) => r.user_id)
+      .filter(Boolean),
+  );
+
   const { data: usersData, error: usersError } =
     await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
 
@@ -1650,6 +1624,27 @@ export default async function AdminPage() {
     lessonProgressRows.filter((row) => row.passed).map((row) => row.user_id),
   );
 
+  // Time to First Success: signup → first mastery pass
+  const firstPassByUser = new Map<string, Date>();
+  lessonProgressRows.forEach((row) => {
+    if (!row.passed || !row.updated_at) return;
+    const passDate = new Date(row.updated_at);
+    const existing = firstPassByUser.get(row.user_id);
+    if (!existing || passDate < existing) firstPassByUser.set(row.user_id, passDate);
+  });
+  const ttfsMinutes: number[] = [];
+  firstPassByUser.forEach((passDate, userId) => {
+    const user = adminUsers.find((u) => u.id === userId);
+    if (!user?.created_at) return;
+    const minutes = (passDate.getTime() - new Date(user.created_at).getTime()) / 60_000;
+    if (minutes > 0 && minutes < 60 * 24 * 90) ttfsMinutes.push(minutes);
+  });
+  ttfsMinutes.sort((a, b) => a - b);
+  const ttfsMedianMinutes =
+    ttfsMinutes.length > 0 ? ttfsMinutes[Math.floor(ttfsMinutes.length / 2)] : null;
+  const ttfsP90Minutes =
+    ttfsMinutes.length > 0 ? ttfsMinutes[Math.floor(ttfsMinutes.length * 0.9)] : null;
+
   const signupFunnelRows = studentUsers
     .map(({ user, profile, access }) => {
       const userPayments = onlineLearningPayments.filter(
@@ -1676,7 +1671,9 @@ export default async function AdminPage() {
             ? "Paid"
             : checkoutEvent
               ? "Checkout started"
-              : "Signed up only";
+              : usersCompletedOnboarding.has(user.id)
+                ? "Onboarding done"
+                : "Signed up only";
 
       return {
         user,
@@ -1701,6 +1698,7 @@ export default async function AdminPage() {
   );
   const signupFunnelMetrics = {
     signedUp: studentUsers.length,
+    onboardingCompleted: usersCompletedOnboarding.size,
     checkoutStarted: userHasOnlineLearningCheckout.size,
     paid: signupFunnelPaidUserIds.size,
     lessonStarted: userHasProgress.size,
@@ -1726,11 +1724,6 @@ export default async function AdminPage() {
       p.offer_selected === "online-learning" &&
       p.access_status !== "active",
   );
-  const hasAlerts =
-    pendingAccessStudents.length > 0 ||
-    newEnquiriesList.length > 0 ||
-    paidButNotActive.length > 0;
-
   const paidNoProgressRows = signupFunnelRows.filter(
     (row) => Boolean(row.paidPayment) && !row.latestProgress,
   );
@@ -1852,44 +1845,40 @@ export default async function AdminPage() {
         </header>
 
         {/* ── Summary cards ─────────────────────────────────────────────── */}
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          <SummaryCard label="Total users" value={totalUsers} />
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          <SummaryCard label="Signups" value={totalUsers} />
           <SummaryCard
-            label="Active students"
-            value={activeStudents}
-            highlight="emerald"
+            label="Onboarded"
+            value={totalUsers > 0 ? `${conversionRate(usersCompletedOnboarding.size, totalUsers) ?? 0}%` : "—"}
           />
           <SummaryCard
-            label="Pending access"
-            value={pendingCount}
-            highlight={pendingCount > 0 ? "amber" : undefined}
+            label="Lesson started"
+            value={totalUsers > 0 ? `${conversionRate(userHasProgress.size, totalUsers) ?? 0}%` : "—"}
           />
           <SummaryCard
-            label="New enquiries"
-            value={newEnquiryCount}
-            highlight={newEnquiryCount > 0 ? "amber" : undefined}
+            label="Mastery passed"
+            value={totalUsers > 0 ? `${conversionRate(userHasMasteryPass.size, totalUsers) ?? 0}%` : "—"}
+            highlight={userHasMasteryPass.size > 0 ? "emerald" : undefined}
           />
           <SummaryCard
-            label="Recent revenue"
+            label="Revenue"
             value={formatRevenue(totalRevenueCents)}
             highlight={totalRevenueCents > 0 ? "emerald" : undefined}
+          />
+          <SummaryCard
+            label="Time to mastery"
+            value={formatDuration(ttfsMedianMinutes)}
           />
         </div>
 
         <OperationsQueueSection actionQueueItems={actionQueueItems} />
 
-        <ActionRequiredSection
-          hasAlerts={hasAlerts}
-          pendingAccessStudents={pendingAccessStudents}
-          newEnquiriesList={newEnquiriesList}
-          paidButNotActive={paidButNotActive}
-          setStudentAccessStatusAction={setStudentAccessStatus}
-        />
-
         <SignupFunnelSection
           signupFunnelMetrics={signupFunnelMetrics}
           signupFunnelRows={signupFunnelRows}
           checkoutFunnelError={checkoutFunnelError}
+          ttfsMedianMinutes={ttfsMedianMinutes}
+          ttfsP90Minutes={ttfsP90Minutes}
         />
 
         <StudentsAccountsSection

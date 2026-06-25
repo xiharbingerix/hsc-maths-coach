@@ -1265,10 +1265,48 @@ export default async function AdminAnalyticsPage({
           <h2 className="mt-2 text-xl font-bold tracking-tight">
             New user funnel (last 50 signups)
           </h2>
-          <p className="mt-1 text-xs text-slate-500">
-            Onboarding &rarr; Lesson &rarr; Mastery quiz &rarr; Pass &rarr; Subscription page &rarr; Trial
+
+          {/* Aggregate conversion summary */}
+          {activationRows.length > 0 && (() => {
+            const n = activationRows.length;
+            const steps = [
+              { label: "Onboarded", count: activationRows.filter((r) => r.onboardingAt).length },
+              { label: "Lesson", count: activationRows.filter((r) => r.lessonStartedAt).length },
+              { label: "Quiz", count: activationRows.filter((r) => r.masteryAttemptedAt).length },
+              { label: "Passed", count: activationRows.filter((r) => r.masteryPassedAt).length },
+              { label: "Sub page", count: activationRows.filter((r) => r.subscriptionPageAt).length },
+              { label: "Trial", count: activationRows.filter((r) => r.trialStartedAt).length },
+            ];
+            return (
+              <div className="mt-4 flex flex-wrap gap-2">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Signups</p>
+                  <p className="mt-0.5 text-xl font-bold text-slate-900">{n}</p>
+                </div>
+                {steps.map((step, i) => {
+                  const prev = i === 0 ? n : steps[i - 1].count;
+                  const stepRate = prev > 0 ? Math.round((step.count / prev) * 100) : 0;
+                  const overallRate = Math.round((step.count / n) * 100);
+                  const rateClass = stepRate >= 70 ? "text-emerald-600" : stepRate >= 40 ? "text-amber-600" : "text-red-500";
+                  return (
+                    <div key={step.label} className="flex items-center gap-1.5">
+                      <span className="text-slate-300 text-sm">→</span>
+                      <div className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-center min-w-[4.5rem]">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{step.label}</p>
+                        <p className="mt-0.5 text-xl font-bold text-slate-900">{step.count}</p>
+                        <p className={`text-xs font-semibold ${rateClass}`}>{stepRate}% <span className="text-slate-400 font-normal">({overallRate}%)</span></p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
+          <p className="mt-3 text-xs text-slate-400">
+            Rate shown: step-over-step % (overall % of signups). Last 50 signups, events within 30 days.
           </p>
-          <div className="mt-5 overflow-x-auto">
+          <div className="mt-3 overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-slate-100 text-left text-slate-500">
