@@ -116,24 +116,26 @@ test("diagnostics assign mastery only to real course topics", () => {
   }
 });
 
-test("Year 12 Advanced diagnostic pilot is calibrated as D5 transfer", () => {
-  const diagnostic = diagnosticDataByCourseSlug["year-12-advanced"];
+test("senior diagnostic pilots are calibrated as D5 transfer", () => {
+  for (const courseSlug of ["year-12-advanced", "year-12-extension-1"]) {
+    const diagnostic = diagnosticDataByCourseSlug[courseSlug];
 
-  assert.equal(diagnostic.questions.length, 10);
+    assert.equal(diagnostic.questions.length, 10);
 
-  for (const question of diagnostic.questions) {
-    assert.equal(
-      question.difficulty,
-      5,
-      `${question.id} should be explicitly authored as D5`
-    );
-    assert.ok(
-      question.targetMisconception?.trim(),
-      `${question.id} needs a target misconception`
-    );
-    assert.ok(
-      assessedUnitSlugs(question).length >= 2,
-      `${question.id} should assess multiple units`
-    );
+    for (const question of diagnostic.questions) {
+      assert.equal(
+        question.difficulty,
+        5,
+        `${question.id} should be explicitly authored as D5`
+      );
+      assert.ok(
+        question.targetMisconception?.trim(),
+        `${question.id} needs a target misconception`
+      );
+      assert.ok(
+        assessedUnitSlugs(question).length >= 2,
+        `${question.id} should assess multiple units`
+      );
+    }
   }
 });
