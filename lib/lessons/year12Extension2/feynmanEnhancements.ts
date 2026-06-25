@@ -240,17 +240,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   // vector-applications-exam-practice intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
-  "vector-curves-circles-spheres": {
-    topic: "vector curves, circles, and spheres",
-    object: "a distance constraint in 3D",
-    validMove: "Use distance from a centre equals radius.",
-    trap1: "Forgetting the z component in a sphere.",
-    trap2: "Using radius where radius squared is required.",
-    trap3: "Treating a parameter as fixed before applying the constraint.",
-    representation: "circle/sphere equation or parametric locus",
-    check: "substitution satisfies the distance equation",
-    d5Context: "parametric points constrained to lie on a sphere or circle",
-  },
+  // vector-curves-circles-spheres intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   "geometric-proofs-vectors": {
     topic: "vector geometric proof",
     object: "a geometric claim translated into vector facts",

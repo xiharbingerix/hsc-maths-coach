@@ -1365,6 +1365,20 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
       "Centre (1,2,3), R = 5, so R² = 25."
     ),
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-sph-pool-1", "The vector equation |r − c| = R describes:", "B", ["A plane through c.", "A sphere with centre c and radius R.", "A line in direction c.", "A single point c."], "|r − c| = R says every point r is a fixed distance R from the centre c — that is a sphere (a circle in 2D)."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-sph-pool-2", "A sphere is given by |r − (1, 2, 3)| = 5. State its radius.", "|r - (1,2,3)| = 5", "5", [], "The right-hand side is the radius, R = 5."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-sph-pool-3", "A sphere has equation (x − 1)² + (y − 2)² + (z − 3)² = 25. State its radius.", "(x-1)^2+(y-2)^2+(z-3)^2 = 25", "5", [], "R² = 25, so R = √25 = 5."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-sph-pool-4", "A sphere has centre (2, 3, 6) and passes through the origin. Its radius is the distance from the centre to the origin. Find the radius.", "R = |(2,3,6)|", "7", [], "R = √(4 + 9 + 36) = √49 = 7."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-sph-pool-5", "The sphere (x − 1)² + (y − 2)² + (z − 3)² = 16 has radius:", "C", ["16", "8", "4 (the square root of 16)", "256"], "The right-hand side is R², so R = √16 = 4. Reading 16 as the radius is the classic error."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-sph-pool-6", "The sphere x² + y² + z² = 9 has centre at the origin. State its radius.", "x^2+y^2+z^2 = 9", "3", [], "R² = 9, so R = 3."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-sph-pool-7", "Test whether (3, 0, 0) lies on the sphere x² + y² + z² = 9 by computing x² + y² + z² at that point.", "x^2+y^2+z^2", "9", [], "3² + 0² + 0² = 9, which equals the right-hand side, so the point lies on the sphere."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-sph-pool-8", "A sphere has centre (1, 1, 1) and radius 2, written (x − 1)² + (y − 1)² + (z − 1)² = R². Find R².", "(x-1)^2+(y-1)^2+(z-1)^2 = R^2", "4", [], "R = 2, so R² = 4."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-sph-pool-9", "A student claims that r(t) = (cos t, sin t, 0), for parameter t, describes a sphere. Why is that wrong?", "C", ["It describes a plane.", "It describes a single point.", "A single parameter t traces a one-dimensional CURVE (here a unit circle in the xy-plane), not a sphere.", "cos t and sin t are never both defined."], "One free parameter gives a curve. (cos t, sin t, 0) satisfies x² + y² = 1, z = 0 — a circle, not a 2D spherical surface."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-sph-pool-10", "Complete the square to find the radius of x² − 2x + y² + z² = 0. (x² − 2x = (x − 1)² − 1.)", "(x-1)^2 + y^2 + z^2 = 1", "1", [], "x² − 2x + y² + z² = (x − 1)² − 1 + y² + z² = 0, so (x − 1)² + y² + z² = 1 and R = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-sph-pool-11", "A sphere has centre (3, 0, 0) and radius 2. The closest point on the sphere to the origin lies along the line from the origin to the centre; its distance from the origin is (distance to centre) − radius. Find that distance.", "d = |c| - R", "1", [], "Distance from origin to centre = 3; subtract the radius 2 to get 3 − 2 = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-sph-pool-12", "Explain by result: the parametric curve r(t) = (2cos t, 2sin t, 0) satisfies x² + y² = (2cos t)² + (2sin t)² = 4, so it lies on a circle. State the radius of that circle.", "x^2 + y^2 = 4", "2", [], "(2cos t)² + (2sin t)² = 4(cos²t + sin²t) = 4 = 2², so the curve is a circle of radius 2 — the Pythagorean identity collapses the parameter."), difficulty: 5 },
+  ],
   masteryPassMark: 0.8,
 };
 
