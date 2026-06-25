@@ -232,17 +232,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
   // proof-by-mathematical-induction intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
-  "vectors-and-points-3d": {
-    topic: "3D vectors and points",
-    object: "a displacement vector in component form",
-    validMove: "Subtract coordinates endpoint minus start point.",
-    trap1: "Adding point coordinates when a displacement is required.",
-    trap2: "Subtracting in the wrong order.",
-    trap3: "Treating a position vector as independent of the chosen origin.",
-    representation: "component vector i, j, k or ordered triple",
-    check: "adding the displacement to the start point reaches the endpoint",
-    d5Context: "points constrained by midpoint, ratio, or collinearity conditions",
-  },
+  // vectors-and-points-3d intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
   "dot-product-and-angle": {
     topic: "dot product and angle",
     object: "directional overlap of two vectors",

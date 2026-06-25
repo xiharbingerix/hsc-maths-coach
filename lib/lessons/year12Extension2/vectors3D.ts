@@ -302,6 +302,20 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-pts-pool-1", "The magnitude of a 3D vector (a, b, c) is given by:", "B", ["a + b + c", "√(a² + b² + c²)", "a² + b² + c²", "(a + b + c)/3"], "Magnitude is the 3D Pythagorean distance: |(a,b,c)| = √(a² + b² + c²)."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-pts-pool-2", "Find the magnitude |(2, 3, 6)|.", "|(2,3,6)| = \\sqrt{2^2+3^2+6^2}", "7", [], "√(4 + 9 + 36) = √49 = 7."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-pts-pool-3", "Find the magnitude |(1, 2, 2)|.", "|(1,2,2)| = \\sqrt{1^2+2^2+2^2}", "3", [], "√(1 + 4 + 4) = √9 = 3."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-pts-pool-4", "A unit vector in the direction of (1, 2, 2) is (1/k)(1, 2, 2). Find k.", "\\hat{u} = \\frac{1}{k}(1,2,2)", "3", [], "k = |(1,2,2)| = 3, so the unit vector is (1/3)(1,2,2)."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-pts-pool-5", "A student computes |(3, 4, 0)| as 3 + 4 + 0 = 7. What is the error?", "C", ["The 0 should be ignored entirely.", "Magnitude is the largest component, 4.", "Magnitude is √(3² + 4² + 0²) = 5, not the sum of components.", "There is no error."], "Magnitude squares and roots the components: √(9 + 16 + 0) = 5. Adding components is not the magnitude."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-pts-pool-6", "For points A(1, 2, 3) and B(4, 6, 3), the displacement AB = B − A. Find |AB|.", "\\vec{AB} = B - A", "5", [], "AB = (3, 4, 0), so |AB| = √(9 + 16 + 0) = 5."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-pts-pool-7", "Find the x-coordinate of the midpoint of A(1, 2, 3) and B(3, 6, 5).", "M = \\tfrac12(A + B)", "2", [], "Midpoint x = (1 + 3)/2 = 2."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-pts-pool-8", "Vectors (2, 4, 6) and (1, 2, k) are parallel (one is a scalar multiple of the other). Find k.", "(2,4,6) = \\lambda(1,2,k)", "3", [], "(2,4,6) = 2(1,2,3), so the second vector is (1,2,3) and k = 3."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-pts-pool-9", "Two non-zero vectors are parallel if and only if:", "B", ["Their dot product is zero.", "One is a scalar multiple of the other.", "They have the same magnitude.", "Their components add to zero."], "Parallel means one is a scalar multiple of the other. Dot product zero means perpendicular, not parallel."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-pts-pool-10", "Point P divides AB so that AP = 2·PB (ratio 2:1 from A). For A(0, 0, 0) and B(3, 3, 3), find the x-coordinate of P.", "P = A + \\tfrac{2}{3}(B - A)", "2", [], "P = A + (2/3)(B − A) = (2, 2, 2), so the x-coordinate is 2."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-pts-pool-11", "Find the positive value of t for which |(t, 2, 2)| = 3.", "|(t,2,2)| = 3", "1", [], "t² + 4 + 4 = 9, so t² = 1 and the positive value is t = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-pts-pool-12", "Explain by result: the distance from the origin to the point (a, b, c) equals |(a, b, c)|. For the point (6, 6, 7), state this distance.", "d = \\sqrt{a^2+b^2+c^2}", "11", [], "√(36 + 36 + 49) = √121 = 11 — the position vector's magnitude IS the distance from the origin."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 2: Dot Product and Angle ─────────────────────────────────────────
