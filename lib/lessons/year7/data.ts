@@ -169,6 +169,24 @@ const dataTypesAndCollection: LessonContent = {
       ],
       finalAnswerLatex: "\\text{Target population: all 600 students. Method: survey.}",
     },
+    {
+      title: "Classify a variable two ways",
+      questionLatex: "\\text{Is 'time taken to finish a race (in seconds)' categorical or numerical, and discrete or continuous?}",
+      steps: [
+        { explanation: "It is measured as a number, so it is numerical (not a label like a colour).", latex: "\\text{numerical}" },
+        { explanation: "Time can take any value in a range (e.g. 12.37 s), not just whole steps, so it is continuous.", latex: "\\text{continuous}" },
+      ],
+      finalAnswerLatex: "\\text{numerical and continuous}",
+    },
+    {
+      title: "Spot a biased question",
+      questionLatex: "\\text{Is the survey question 'Do you agree our wonderful library should get more funding?' fair or biased?}",
+      steps: [
+        { explanation: "Look for words that push the respondent toward one answer.", latex: "\\text{'wonderful' praises the library}" },
+        { explanation: "A leading word makes 'yes' more likely, so the question is biased.", latex: "\\text{biased}" },
+      ],
+      finalAnswerLatex: "\\text{Biased — the word 'wonderful' leads the respondent}",
+    },
   ],
   guidedPractice: [
     choice(
@@ -461,6 +479,24 @@ const frequencyTables: LessonContent = {
         { explanation: "Add all frequencies to find the total number of data values.", latex: "2 + 5 + 8 + 3 + 2 = 20" },
       ],
       finalAnswerLatex: "\\text{Mode} = 3,\\quad \\text{Total} = 20",
+    },
+    {
+      title: "Find a relative frequency",
+      questionLatex: "\\text{In a table of 50 data values, one class has a frequency of 20. Find its relative frequency.}",
+      steps: [
+        { explanation: "Relative frequency is the class frequency divided by the total.", latex: "\\frac{20}{50}" },
+        { explanation: "Simplify to a decimal.", latex: "\\frac{20}{50} = 0.4" },
+      ],
+      finalAnswerLatex: "0.4",
+    },
+    {
+      title: "Find a missing frequency",
+      questionLatex: "\\text{A table of 40 values has frequencies 12, 15, 8 and }x.\\text{ Find }x.",
+      steps: [
+        { explanation: "All frequencies add to the total of 40.", latex: "12 + 15 + 8 + x = 40" },
+        { explanation: "Subtract the known frequencies.", latex: "x = 40 - 35 = 5" },
+      ],
+      finalAnswerLatex: "x = 5",
     },
   ],
   guidedPractice: [
@@ -756,6 +792,24 @@ const dotPlotsStemAndLeaf: LessonContent = {
         { explanation: "Draw a number line from 0 to 4. Place one dot above each value for each occurrence. The value 2 gets 4 dots stacked.", latex: "\\text{Value 2 has 4 dots (highest stack)} \\rightarrow \\text{mode} = 2" },
       ],
       finalAnswerLatex: "\\text{Mode} = 2 \\text{ (4 dots — the tallest stack)}",
+    },
+    {
+      title: "Read a stem-and-leaf plot",
+      questionLatex: "\\text{Stem 2 | 1 4 7 and Stem 3 | 0 5. List the values and find the range.}",
+      steps: [
+        { explanation: "Join each stem to its leaves: stem 2 gives 21, 24, 27; stem 3 gives 30, 35.", latex: "21,\\;24,\\;27,\\;30,\\;35" },
+        { explanation: "Range = largest − smallest.", latex: "35 - 21 = 14" },
+      ],
+      finalAnswerLatex: "\\text{Values }21,24,27,30,35;\\;\\text{range }14",
+    },
+    {
+      title: "Median from an ordered list",
+      questionLatex: "\\text{Find the median of }0,\\,1,\\,1,\\,2,\\,2,\\,2,\\,2,\\,3,\\,3,\\,4\\text{ (10 values).}",
+      steps: [
+        { explanation: "With 10 values the median is the average of the 5th and 6th.", latex: "5\\text{th}=2,\\;6\\text{th}=2" },
+        { explanation: "Average them.", latex: "\\frac{2+2}{2} = 2" },
+      ],
+      finalAnswerLatex: "\\text{Median} = 2",
     },
   ],
   guidedPractice: [
@@ -1355,6 +1409,24 @@ const choosingAndInterpretingDisplays: LessonContent = {
         { explanation: "Spread: the range from the minimum (4) to the maximum (12) is 8, but most values are clustered between 5 and 7.", latex: "\\text{Range} = 12 - 4 = 8\\text{; cluster at 5–7}" },
       ],
       finalAnswerLatex: "\\text{Mode} = 6,\\text{ outlier at } 12,\\text{ most values cluster between 5 and 7}",
+    },
+    {
+      title: "Choose the right display",
+      questionLatex: "\\text{Which display best shows how a quantity changes over time — a column graph, a line graph, or a pie chart?}",
+      steps: [
+        { explanation: "Over time means a trend, which needs points joined in order.", latex: "\\text{change over time} \\rightarrow \\text{trend}" },
+        { explanation: "A line graph joins the points so the trend is visible.", latex: "\\text{line graph}" },
+      ],
+      finalAnswerLatex: "\\text{Line graph}",
+    },
+    {
+      title: "Interpret a pie-chart sector",
+      questionLatex: "\\text{A category makes up 25\\% of the data. What angle is its pie-chart sector?}",
+      steps: [
+        { explanation: "A full pie chart is 360°, so take that fraction of 360°.", latex: "25\\% \\times 360^\\circ" },
+        { explanation: "Calculate.", latex: "0.25 \\times 360 = 90^\\circ" },
+      ],
+      finalAnswerLatex: "90^\\circ",
     },
   ],
   guidedPractice: [

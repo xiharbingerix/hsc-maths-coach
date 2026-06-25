@@ -28,32 +28,77 @@
 | Year 10 Mathematics | No | pending | |
 | Year 10 Mathematics Advanced | No | pending | |
 | Year 10 Mathematics Core | No | pending | |
-| Year 11 Standard | No | pending | |
+| Year 11 Standard | Partial | in_progress | Data Analysis unit (9 lessons) audited + reworked to standard on 2026-06-24 and seeded LIVE — see Unit Audit Board. Other units pending. |
 | Year 11 Advanced | No | pending | |
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
 | Year 12 Advanced | No | pending | |
-| Year 12 Extension 1 | No | pending | |
+| Year 12 Extension 1 | Yes | in_progress | Units added from current `year-12-extension-1` course state on 2026-06-19; begin with Proof by Mathematical Induction. |
 | Year 12 Extension 2 | Yes | complete | All five tracked units complete, including Vectors in 3D on 2026-06-19. |
 
 ---
 
-## Active Year: Year 12 Extension 2
+## Active Year: Year 12 Extension 1
 
-Source folder: `lib/lessons/year12Extension2/`
+Source folder: `lib/lessons/year12Extension1/`
 
 | Unit | Source file | Audit status | Notes |
 |---|---|---|---|
-| Proof | `lib/lessons/year12Extension2/proof.ts` | complete | Audit complete on 2026-06-19. |
-| Vectors in 3D | `lib/lessons/year12Extension2/vectors3D.ts` | complete | Audit complete on 2026-06-19. |
-| Complex Numbers | `lib/lessons/year12Extension2/complexNumbers.ts` | complete | Audit complete on 2026-06-19. |
-| Calculus | `lib/lessons/year12Extension2/calculus.ts` | complete | Audit complete on 2026-06-19. |
-| Mechanics | `lib/lessons/year12Extension2/mechanics.ts` | complete | Audit complete on 2026-06-19. |
+| Proof by Mathematical Induction | `lib/lessons/year12Extension1/proofInduction.ts` | in_progress | First queued unit for audit from the current repo state. |
+| Introduction to Vectors | `lib/lessons/year12Extension1/vectors.ts` | pending | |
+| Inverse Trigonometric Functions | `lib/lessons/year12Extension1/inverseTrig.ts` | pending | |
+| Further Calculus Skills | `lib/lessons/year12Extension1/furtherCalculus.ts` | pending | |
+| Further Applications of Calculus | `lib/lessons/year12Extension1/calculusApplications.ts` | pending | |
+| The Binomial Distribution and Sampling Distribution of the Mean | `lib/lessons/year12Extension1/binomialDistribution.ts` | pending | |
+| Rates of Change and Kinematics (Year 11 Ext 1 support unit) | `lib/lessons/year12Extension1/kinematics.ts` | pending | Supplementary unit retained in the current course structure. |
 
 ---
 
 ## Unit Audit Board
+
+### Year 11 Standard - Data Analysis
+
+Status: `complete` (2026-06-24)
+
+Source file: `lib/lessons/year11Standard/dataAnalysis.ts`; challenge pools in `lib/challenges/year11Standard.ts` (wired course-scoped in `lib/challenges/index.ts`).
+
+Audit focus:
+- overall question quality vs PRACTICE_QUESTION_STANDARD + QUESTION_AUTHORING_STANDARD
+- missing visual payloads (stats displays presented as text/LaTeX)
+- answer-leaking `latex` and prompt-reveals-answer leaks
+- mastery cognitive mix + MCQ/typed balance
+- add high-difficulty challenge pools and top up to the 19-question standard
+
+#### Findings Summary
+
+- `audit:lessons` started at **58 warnings** across the unit (typed-answer-no-variants 26, prompt-reveals-answer 23, no-visual-payload 9). Now **0**.
+- All 9 lessons rewritten to gold standard with **specific step-by-step explanations** (the old `dataAnswer` helper emitted generic keyword feedback) via new local `typedQ` / `mcqQ` helpers.
+- Every stats display is now a **real renderer payload** instead of text/`\begin{array}`: barChart, dotPlot, histogram, boxPlot (incl. parallel), stemAndLeaf (incl. back-to-back), and cartesianGraph time-series line graphs (`timeSeriesGraph` helper).
+- Fixed a real bug in the stem-and-leaf back-to-back worked example (median was computed from the 4th–5th values instead of 3rd–4th → corrected 26.5 to 23).
+- Rebalanced MCQ-heavy lessons (time-series, revision) toward typed production and the documented cognitive mix.
+- Added a **high-difficulty (D5/D6) challenge pool per lesson** (course-scoped keys `year-11-standard/<slug>` so the shared `data-displays-summary-statistics` slug does not clobber Year 12 Standard 1) and one `multiPartPractice` exam item in `data-analysis-exam-practice`.
+
+#### Per-lesson result (each 0 warnings)
+
+| Lesson | Visuals added | Challenge pool |
+|---|---|---|
+| data-displays-summary-statistics | bar, dot | summaryStatsDisplaysChallenge (5) |
+| interpreting-data-outliers | dot ×4 | outlierEffectChallenge (4) |
+| grouped-data-frequency-tables | histogram | groupedDataChallenge (4) |
+| box-plots-five-number-summary | box, parallel box | boxPlotChallenge (5) |
+| stem-leaf-plots | stem&leaf, back-to-back | stemLeafChallenge (4) |
+| time-series-trend-lines | line graphs | timeSeriesChallenge (4) |
+| data-analysis-exam-practice | bar, dot, box, histogram, stem (+multiPart) | dataExamChallenge (4) |
+| data-collection-sampling-methods | bar (stratified) | samplingMethodsChallenge (4) |
+| data-analysis-revision | dot ×2 | dataRevisionChallenge (4) |
+
+#### Verification
+
+- `audit:lessons` data-analysis unit: **0 warnings** (was 58).
+- `tsc --noEmit`: **0 errors** project-wide.
+- `test-mastery-quiz`, `registry.test.ts` (7/7), `test-answer-marking` (129/129): all pass.
+- Seeded LIVE to Supabase: `seed-question-bank --course=year-11-standard` → **0 warnings, 1501 questions upserted** (idempotent; existing lesson IDs reused, challenge pools inserted).
 
 ### Year 12 Extension 2 - Complex Numbers
 
@@ -357,7 +402,8 @@ Audit focus:
 
 ## Next Recommended Queue
 
-Year 12 Extension 2 is now fully complete in this tracker.
-
-Recommended next year to add and audit:
+Current active year:
 - `Year 12 Extension 1`
+
+Recommended next unit to audit:
+- `Proof by Mathematical Induction`

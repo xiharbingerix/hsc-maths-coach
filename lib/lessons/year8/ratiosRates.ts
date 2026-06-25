@@ -129,6 +129,15 @@ const introductionToRatios: LessonContent = {
       ],
       finalAnswerLatex: "3:4 \\text{ is larger}",
     } as WorkedExample,
+    {
+      title: "Find a missing value in equivalent ratios",
+      questionLatex: "\\text{Find }n\\text{ so that }5:n = 20:28.",
+      steps: [
+        { explanation: "See what the first part was multiplied by: 5 → 20 is × 4.", latex: "5 \\times 4 = 20" },
+        { explanation: "Apply the same multiplier to the second part.", latex: "n = 28 \\div 4 = 7" },
+      ],
+      finalAnswerLatex: "n = 7",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -218,6 +227,10 @@ const introductionToRatios: LessonContent = {
     {
       mistake: "Writing ratios in the wrong order — reversing the quantities described.",
       fix: "Follow the stated order exactly. 'Boys to girls' means boys first: $14:11$, not $11:14$.",
+    },
+    {
+      mistake: "Simplifying a ratio of different units without converting first, e.g. $40\\text{ cm} : 1\\text{ m} = 40:1$.",
+      fix: "Convert to the same unit before simplifying: $40\\text{ cm} : 100\\text{ cm} = 2:5$.",
     },
   ],
   masteryQuiz: [
@@ -442,6 +455,24 @@ const dividingQuantitiesInRatio: LessonContent = {
       ],
       finalAnswerLatex: "10 \\text{ cm}, \\; 20 \\text{ cm}, \\; 30 \\text{ cm}",
     } as WorkedExample,
+    {
+      title: "Find the difference between two shares",
+      questionLatex: "\\text{\\$200 is shared in the ratio }7:3.\\text{ How much more does the larger share get?}",
+      steps: [
+        { explanation: "Total parts, then the value of one part.", latex: "7 + 3 = 10,\\quad \\$200 \\div 10 = \\$20" },
+        { explanation: "The difference is the gap in parts (7 − 3 = 4) times one part.", latex: "(7-3) \\times \\$20 = 4 \\times \\$20 = \\$80" },
+      ],
+      finalAnswerLatex: "\\$80 \\text{ more}",
+    } as WorkedExample,
+    {
+      title: "Work backwards from one share to the total",
+      questionLatex: "\\text{Sweets are shared }5:7.\\text{ The smaller share is 30. Find the total.}",
+      steps: [
+        { explanation: "The smaller share is 5 parts, so find one part.", latex: "30 \\div 5 = 6 \\text{ per part}" },
+        { explanation: "The total is all 5 + 7 = 12 parts.", latex: "12 \\times 6 = 72" },
+      ],
+      finalAnswerLatex: "72",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -534,6 +565,10 @@ const dividingQuantitiesInRatio: LessonContent = {
     {
       mistake: "Assigning the larger ratio number to the wrong person when order matters.",
       fix: "Match each ratio number to the correct person or quantity in the order they are stated in the question.",
+    },
+    {
+      mistake: "When given one share, treating it as the total (or the value of one part) by mistake.",
+      fix: "Decide how many parts that share represents, divide to get one part, then multiply by the total parts for the whole.",
     },
   ],
   masteryQuiz: [
@@ -767,6 +802,15 @@ const ratesAndUnitRates: LessonContent = {
       ],
       finalAnswerLatex: "25 \\text{ m/s}",
     } as WorkedExample,
+    {
+      title: "Use unit rates to find the better buy",
+      questionLatex: "\\text{Which is cheaper per kg: 5 kg for \\$12, or 8 kg for \\$20?}",
+      steps: [
+        { explanation: "Find the price per kilogram for each (price ÷ quantity).", latex: "\\$12 \\div 5 = \\$2.40,\\quad \\$20 \\div 8 = \\$2.50" },
+        { explanation: "Compare the unit prices — smaller is cheaper.", latex: "\\$2.40 < \\$2.50 \\Rightarrow 5\\text{ kg for \\$12 is cheaper}" },
+      ],
+      finalAnswerLatex: "5\\text{ kg for \\$12 (\\$2.40/kg)}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -863,6 +907,10 @@ const ratesAndUnitRates: LessonContent = {
     {
       mistake: "Confusing which direction to convert: multiplying instead of dividing (or vice versa) between km/h and m/s.",
       fix: "km/h to m/s: multiply by $\\frac{5}{18}$ (values get smaller). m/s to km/h: multiply by $3.6$ (values get larger).",
+    },
+    {
+      mistake: "Comparing two buys by their total price instead of their unit price.",
+      fix: "A bigger pack costs more in total but may be cheaper per unit. Divide price by quantity for each, then compare those unit rates.",
     },
   ],
   masteryQuiz: [
@@ -1090,6 +1138,15 @@ const speedDistanceTime: LessonContent = {
       ],
       finalAnswerLatex: "30 \\text{ km/h}",
     } as WorkedExample,
+    {
+      title: "Distance with a part-hour time",
+      questionLatex: "\\text{Travelling at 80 km/h, how far do you go in 45 minutes?}",
+      steps: [
+        { explanation: "Convert the time to hours, because the speed is in km/h.", latex: "45 \\text{ min} = \\tfrac{45}{60} = 0.75 \\text{ h}" },
+        { explanation: "Distance = speed × time.", latex: "80 \\times 0.75 = 60 \\text{ km}" },
+      ],
+      finalAnswerLatex: "60 \\text{ km}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -1196,6 +1253,10 @@ const speedDistanceTime: LessonContent = {
     {
       mistake: "Rearranging the formula incorrectly — for example, writing $d = t \\div s$ instead of $d = s \\times t$.",
       fix: "Use the triangle: cover the quantity you want to find and read off the operation for the remaining two variables.",
+    },
+    {
+      mistake: "Putting minutes straight into a km/h formula, e.g. using 45 instead of 0.75 hours.",
+      fix: "Convert time to hours first: 45 min $= 0.75$ h, 1 h 30 min $= 1.5$ h. The time unit must match the speed unit.",
     },
   ],
   masteryQuiz: [
@@ -1436,6 +1497,15 @@ const scaleDrawings: LessonContent = {
       ],
       finalAnswerLatex: "1 : 500\\,000",
     } as WorkedExample,
+    {
+      title: "Find a real distance from the scale",
+      questionLatex: "\\text{On a 1 : 25\\,000 map two towns are 12 cm apart. Find the real distance in km.}",
+      steps: [
+        { explanation: "Actual length = drawing length × scale factor.", latex: "12 \\times 25\\,000 = 300\\,000 \\text{ cm}" },
+        { explanation: "Convert centimetres to kilometres (÷ 100 000).", latex: "300\\,000 \\text{ cm} = 3 \\text{ km}" },
+      ],
+      finalAnswerLatex: "3 \\text{ km}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -1536,6 +1606,10 @@ const scaleDrawings: LessonContent = {
     {
       mistake: "Dividing the drawing length by the scale factor to find the actual length (instead of multiplying).",
       fix: "Actual length $=$ drawing length $\\times$ scale factor. Dividing gives the drawing length from the actual, not the other way around.",
+    },
+    {
+      mistake: "Leaving the answer in centimetres when the question asks for metres or kilometres.",
+      fix: "After multiplying by the scale you have centimetres; convert at the end — ÷100 for metres, ÷100 000 for kilometres.",
     },
   ],
   masteryQuiz: [

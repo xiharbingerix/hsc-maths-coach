@@ -1,6 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
-import { financeChoice, dataAnswer as baseDataAnswer } from "../questionHelpers";
+import { financeChoice, dataAnswer as baseDataAnswer, formatChoiceText } from "../questionHelpers";
 
 function dataAnalysisFeedback(prompt: string, latex: string, answer: string): string {
   const context = `${prompt} ${latex}`.toLowerCase();
@@ -94,6 +94,94 @@ function dataAnswer(
     explanation: dataAnalysisFeedback(prompt, latex, answer),
   };
 }
+
+// Gold-standard authoring helpers (per docs/QUESTION_AUTHORING_STANDARD.md):
+// every question carries a specific, step-by-step explanation and may attach a
+// visual payload (bar chart, dot plot, box plot, stem-and-leaf, histogram, …).
+type QuestionExtras = {
+  latex?: string;
+  accepted?: string[];
+  hint?: string;
+} & Partial<PracticeQuestion>;
+
+function typedQ(
+  id: string,
+  prompt: string,
+  answer: string,
+  explanation: string,
+  extras: QuestionExtras = {}
+): PracticeQuestion {
+  const { latex = "", accepted = [], hint, ...payload } = extras;
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...accepted])),
+    hint:
+      hint ??
+      "Decide which statistic the question needs, then work through the data values carefully.",
+    explanation,
+    ...payload,
+  };
+}
+
+function mcqQ(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  explanation: string,
+  extras: { latex?: string; hint?: string } & Partial<PracticeQuestion> = {}
+): PracticeQuestion {
+  const { latex = "\\text{Select A, B, C, or D.}", hint, ...payload } = extras;
+  return {
+    id,
+    prompt,
+    latex,
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: formatChoiceText(choices[index]),
+    })),
+    answer,
+    hint: hint ?? "Rule out the options that come from a common error.",
+    explanation,
+    ...payload,
+  };
+}
+
+// Build a time-series line graph (points at consecutive time steps joined by
+// segments) as a cartesianGraph payload for spreading onto a question.
+function timeSeriesGraph(
+  description: string,
+  xAxisLabel: string,
+  yAxisLabel: string,
+  values: number[],
+  yMin: number,
+  yMax: number,
+  yStep: number
+): Partial<PracticeQuestion> {
+  const points = values.map((y, index) => ({ x: index + 1, y }));
+  const lineSegments = points
+    .slice(0, -1)
+    .map((from, index) => ({ from, to: points[index + 1] }));
+  return {
+    cartesianGraph: {
+      description,
+      xAxisLabel,
+      yAxisLabel,
+      showAxisLabels: true,
+      showGrid: true,
+      xMin: 0,
+      xMax: values.length + 1,
+      yMin,
+      yMax,
+      yStep,
+      points,
+      lineSegments,
+    },
+  };
+}
 function dataAnalysisWorkedExamples(slug: string, title: string): WorkedExample[] {
   if (slug === "data-displays-summary-statistics") {
     return [
@@ -120,12 +208,25 @@ function dataAnalysisWorkedExamples(slug: string, title: string): WorkedExample[
       {
         title: "Reading a frequency table",
         questionLatex:
-          "\\begin{array}{c|c}\\text{Rating}&\\text{Frequency}\\\\1&2\\\\2&3\\\\3&5\\\\4&8\\\\5&12\\end{array}",
+          "\\text{30 customers rate a product from 1 to 5 stars. Which rating is the mode?}",
         steps: [
-          { explanation: "Frequency tells how many times each rating occurred." },
-          { explanation: "The largest frequency is 12 for rating 5." },
+          { explanation: "Frequency tells how many times each rating occurred — read it from the height of each column." },
+          { explanation: "The tallest column is rating 5 with a frequency of 12, so the mode is rating 5." },
         ],
         finalAnswerLatex: "\\text{Rating }5",
+        barChartDiagram: {
+          description:
+            "Column graph of product ratings from 30 customers: rating 1 has frequency 2, rating 2 has 3, rating 3 has 5, rating 4 has 8, rating 5 has 12.",
+          bars: [
+            { label: "1", value: 2 },
+            { label: "2", value: 3 },
+            { label: "3", value: 5 },
+            { label: "4", value: 8 },
+            { label: "5", value: 12 },
+          ],
+          valueAxisLabel: "Frequency",
+          categoryAxisLabel: "Rating (stars)",
+        },
       },
     ];
   }
@@ -223,22 +324,40 @@ function dataAnalysisWorkedExamples(slug: string, title: string): WorkedExample[
     return [
       {
         title: "Reading a stem-and-leaf plot and finding the median",
-        questionLatex:
-          "\\begin{array}{r|l}\\text{Stem}&\\text{Leaf}\\\\1&2\\quad5\\quad8\\\\2&0\\quad3\\quad6\\quad7\\\\3&1\\quad4\\quad9\\end{array}",
+        questionLatex: "\\text{Use the stem-and-leaf plot to find the median.}",
+        stemAndLeafDiagram: {
+          description: "Stem-and-leaf plot with stems 1, 2, 3. Stem 1 leaves 2 5 8; stem 2 leaves 0 3 6 7; stem 3 leaves 1 4 9.",
+          keyText: "1 | 2 = 12",
+          rows: [
+            { stem: 1, leaves: [2, 5, 8] },
+            { stem: 2, leaves: [0, 3, 6, 7] },
+            { stem: 3, leaves: [1, 4, 9] },
+          ],
+        },
         steps: [
-          { explanation: "List all data values in order by reading stems and leaves.", latex: "12,15,18,20,23,26,27,31,34,39\\quad(n=10)" },
+          { explanation: "Read the values in order from the plot.", latex: "12,15,18,20,23,26,27,31,34,39\\quad(n=10)" },
           { explanation: "The median of 10 values is the average of the 5th and 6th.", latex: "Q_2 = \\frac{23+26}{2} = 24.5" },
         ],
         finalAnswerLatex: "\\text{Median} = 24.5",
       },
       {
         title: "Comparing two groups in a back-to-back plot",
-        questionLatex:
-          "\\begin{array}{r|c|l}\\text{Group A}&\\text{Stem}&\\text{Group B}\\\\8\\quad5\\quad2&1&3\\quad7\\\\8\\quad5&2&1\\quad5\\quad8\\\\&3&3\\end{array}",
+        questionLatex: "\\text{Compare the two groups using the back-to-back plot.}",
+        stemAndLeafDiagram: {
+          description: "Back-to-back stem-and-leaf plot. Group A (left): stem 1 has 12, 15, 18; stem 2 has 25, 28. Group B (right): stem 1 has 13, 17; stem 2 has 21, 25, 28; stem 3 has 33.",
+          keyText: "1 | 3 = 13",
+          leftLabel: "Group A",
+          rightLabel: "Group B",
+          rows: [
+            { stem: 1, leftLeaves: [2, 5, 8], leaves: [3, 7] },
+            { stem: 2, leftLeaves: [5, 8], leaves: [1, 5, 8] },
+            { stem: 3, leftLeaves: [], leaves: [3] },
+          ],
+        },
         steps: [
-          { explanation: "Read Group A values right-to-left from the stem: 12, 15, 18, 25, 28. Median = 18.", latex: "\\text{Group A median} = 18" },
-          { explanation: "Read Group B values left-to-right: 13, 17, 21, 25, 28, 33. Median = (25+28)/2 = 26.5.", latex: "\\text{Group B median} = 26.5" },
-          { explanation: "Group B's higher median means Group B values are typically larger than Group A." },
+          { explanation: "Group A values are 12, 15, 18, 25, 28 (n = 5). The median is the 3rd value.", latex: "\\text{Group A median} = 18" },
+          { explanation: "Group B values are 13, 17, 21, 25, 28, 33 (n = 6). The median is the average of the 3rd and 4th.", latex: "\\text{Group B median} = \\frac{21+25}{2} = 23" },
+          { explanation: "Group B's higher median (23 vs 18) means Group B values are typically larger than Group A." },
         ],
         finalAnswerLatex: "\\text{Group B typically higher}",
       },
@@ -319,17 +438,17 @@ export function year11StandardDataAnalysisLessonOverride(
       learningIntention:
         "Summarise and display practical data using frequency tables, graphs and summary statistics.",
       successCriteria: [
-        "Distinguish categorical and numerical data.",
-        "Read frequency tables and simple column graphs.",
+        "Classify data as categorical (nominal or ordinal) or numerical (discrete or continuous).",
+        "Read frequency tables, column/bar graphs and dot plots.",
         "Calculate mean, median, mode and range.",
         "Choose a suitable summary statistic for a context.",
       ],
       teaching: {
         paragraphs: [
-          "Data can be categorical, such as transport type, or numerical, such as travel time in minutes.",
-          "Frequency tables and column graphs show how often categories or values occur.",
-          "The mean shares the total equally among all the values — what each would be if they were levelled off — found by dividing the total by the number of values. The median is the middle value after ordering, and the mode is the most common value.",
-          "The range is the highest value minus the lowest value. It gives a quick measure of spread.",
+          "Categorical data sorts items into groups, such as transport type or drink choice. It is nominal when the groups have no natural order, and ordinal when they do (e.g. small/medium/large). Numerical data is a quantity: discrete when it is counted in whole numbers (e.g. number of siblings) and continuous when it is measured and can take in-between values (e.g. height in cm).",
+          "Frequency tables, column graphs and dot plots all show how often each category or value occurs. The height of a column (or the number of dots) is the frequency — not the data value itself.",
+          "The mean shares the total equally among all the values — what each would be if they were levelled off — found by dividing the total by the number of values. The median is the middle value after ordering (for an even count, the average of the two middle values), and the mode is the most common value.",
+          "The range is the highest value minus the lowest value. It gives a quick measure of spread. Choose the statistic that answers the question: the mode for the most common outcome, the median for a typical value when the data is skewed, and the mean for an even share.",
         ],
         latexBlocks: [
           "\\text{mean}=\\frac{\\text{total}}{\\text{number of values}}",
@@ -337,35 +456,269 @@ export function year11StandardDataAnalysisLessonOverride(
         ],
       },
       guidedPractice: [
-        dataAnswer("data-display-g1", "A cafe records coffees sold over five mornings: 42, 38, 45, 51, 44. Find the mean number sold.", "42,\\ 38,\\ 45,\\ 51,\\ 44", "44", ["44.0", "44 coffees"]),
-        dataAnswer("data-display-g2", "A delivery team records travel times: 18, 20, 21, 22, 24. Find the median travel time.", "18,\\ 20,\\ 21,\\ 22,\\ 24", "21", ["21 min", "21 minutes"]),
-        dataAnswer("data-display-g3", "Daily absences at a school are 6, 4, 9, 7, 5. Find the range.", "6,\\ 4,\\ 9,\\ 7,\\ 5", "5", ["5 absences"]),
-        financeChoice("data-display-g4", "A survey asks students to choose bus, train, walk or car. This data is:", "A", ["Categorical", "Numerical, because the choices could be counted", "Ordinal, because the options have a set order", "Continuous, because it is collected over time"], "Transport type sorts students into unordered groups (bus, train, walk, car), so it is categorical — not numerical (the options are labels, not counts) and not ordinal (no option ranks above another)."),
+        mcqQ(
+          "data-display-g1",
+          "A café records the drink each customer orders: latte, flat white, mocha or tea. What type of data is this?",
+          "A",
+          ["Categorical", "Numerical and discrete", "Numerical and continuous", "Ordinal, because some drinks cost more"],
+          "Drink type sorts customers into named groups with no numerical value and no natural order, so it is categorical (nominal). The entries are labels, not counts or measurements (so not numerical), and price is not part of the recorded data (so not ordinal).",
+        ),
+        typedQ(
+          "data-display-g2",
+          "The column graph shows how many coffees a café sold each day. How many coffees were sold across the whole week?",
+          "220",
+          "Add the five daily values from the graph: 38 + 42 + 45 + 51 + 44 = 220 coffees.",
+          {
+            accepted: ["220 coffees"],
+            hint: "Read each column's height, then add the five days together.",
+            barChartDiagram: {
+              description: "Column graph of coffees sold each day: Mon 38, Tue 42, Wed 45, Thu 51, Fri 44.",
+              bars: [
+                { label: "Mon", value: 38 },
+                { label: "Tue", value: 42 },
+                { label: "Wed", value: 45 },
+                { label: "Thu", value: 51 },
+                { label: "Fri", value: 44 },
+              ],
+              valueAxisLabel: "Coffees sold",
+              categoryAxisLabel: "Day",
+            },
+          },
+        ),
+        typedQ(
+          "data-display-g3",
+          "Four delivery times (in minutes) are recorded: 24, 18, 22, 20. Find the median delivery time.",
+          "21",
+          "Order the times first: 18, 20, 22, 24. With four values the median is the average of the two middle values: (20 + 22) ÷ 2 = 21 minutes.",
+          { accepted: ["21 min", "21 minutes"], hint: "Order the values, then average the two in the middle." },
+        ),
+        typedQ(
+          "data-display-g4",
+          "A school records daily absences over a week: 6, 4, 9, 7, 8. Find the range.",
+          "5",
+          "Range = highest − lowest = 9 − 4 = 5 absences.",
+          { accepted: ["5 absences"], hint: "Subtract the smallest value from the largest." },
+        ),
       ],
       independentPractice: [
-        dataAnswer("data-display-i1", "A sports team scores 12, 15, 15, 18 and 20 points in five games. Find the mode.", "12,\\ 15,\\ 15,\\ 18,\\ 20", "15", ["15 points"]),
-        dataAnswer("data-display-i2", "A shop records customer counts: 30, 34, 29, 37, 35. Find the mean customer count.", "30,\\ 34,\\ 29,\\ 37,\\ 35", "33", ["33.0", "33 customers"]),
-        dataAnswer("data-display-i3", "Study hours over a week are 1, 2, 2, 3, 4, 5, 6. Find the median.", "1,\\ 2,\\ 2,\\ 3,\\ 4,\\ 5,\\ 6", "3", ["3 hours", "3 h"]),
-        financeChoice("data-display-i4", "A frequency table has the largest frequency beside rating 4. The mode is:", "C", ["The total frequency", "The smallest rating", "Rating 4", "The range"], "The mode is the category or value with highest frequency."),
-        financeChoice("data-display-i5", "A column graph is useful because it shows:", "B", ["Only the mean", "Comparisons between categories", "The exact share of a whole", "Change over time"], "A column graph compares the frequencies across categories. It is not limited to the mean, does not give the exact share of a whole (a pie chart's role), and does not show change over time (a line graph's role)."),
+        typedQ(
+          "data-display-i1",
+          "The dot plot shows the number of goals a team scored in each match this season. What is the modal number of goals?",
+          "2",
+          "The mode is the value with the most dots. Three matches had 2 goals — more than any other value — so the mode is 2 goals.",
+          {
+            accepted: ["2 goals"],
+            hint: "Find the column of dots that is tallest.",
+            dotPlotDiagram: {
+              description: "Dot plot of goals per match: 0 goals (1 match), 1 goal (2 matches), 2 goals (3 matches), 3 goals (1 match), 4 goals (1 match).",
+              min: 0,
+              max: 5,
+              counts: [
+                { value: 0, count: 1 },
+                { value: 1, count: 2 },
+                { value: 2, count: 3 },
+                { value: 3, count: 1 },
+                { value: 4, count: 1 },
+              ],
+              axisLabel: "Goals per match",
+            },
+          },
+        ),
+        typedQ(
+          "data-display-i2",
+          "The column graph shows how 20 customers rated a product from 1 to 5 stars. Calculate the mean rating.",
+          "3",
+          "Multiply each rating by its frequency and add: 1×2 + 2×4 + 3×8 + 4×4 + 5×2 = 60. Divide by the 20 ratings: 60 ÷ 20 = 3.0 stars.",
+          {
+            accepted: ["3.0", "3 stars"],
+            hint: "Total of (rating × frequency), then divide by the number of customers.",
+            barChartDiagram: {
+              description: "Column graph of 20 product ratings: rating 1 has frequency 2, rating 2 has 4, rating 3 has 8, rating 4 has 4, rating 5 has 2.",
+              bars: [
+                { label: "1", value: 2 },
+                { label: "2", value: 4 },
+                { label: "3", value: 8 },
+                { label: "4", value: 4 },
+                { label: "5", value: 2 },
+              ],
+              valueAxisLabel: "Frequency",
+              categoryAxisLabel: "Rating (stars)",
+            },
+          },
+        ),
+        typedQ(
+          "data-display-i3",
+          "A shop counts customers each day for five days: 27, 33, 29, 35, 26. Find the mean number of customers per day.",
+          "30",
+          "Add the five counts: 27 + 33 + 29 + 35 + 26 = 150. Divide by 5 days: 150 ÷ 5 = 30 customers.",
+          { accepted: ["30 customers", "30.0"], hint: "Add the counts, then divide by the number of days." },
+        ),
+        mcqQ(
+          "data-display-i4",
+          "A shoe shop wants to know which size to stock the most of. Which summary statistic is most useful?",
+          "A",
+          [
+            "The mode — the most frequently sold size",
+            "The mean — the average of all sizes sold",
+            "The range — the spread of sizes",
+            "The median — the middle size",
+          ],
+          "Stocking decisions need the size sold most often, which is the mode. The mean could be a size nobody wears (e.g. 8.5), the median ignores how often each size sells, and the range only describes spread.",
+        ),
+        typedQ(
+          "data-display-i5",
+          "The column graph shows the favourite sport of a class. How many more students chose the most popular sport than the least popular sport?",
+          "7",
+          "The most popular is soccer (12) and the least popular is tennis (5). The difference is 12 − 5 = 7 students.",
+          {
+            accepted: ["7 students"],
+            hint: "Identify the tallest and shortest columns, then subtract.",
+            barChartDiagram: {
+              description: "Column graph of favourite sport: Soccer 12, Netball 9, Basketball 7, Tennis 5.",
+              bars: [
+                { label: "Soccer", value: 12 },
+                { label: "Netball", value: 9 },
+                { label: "Basketball", value: 7 },
+                { label: "Tennis", value: 5 },
+              ],
+              valueAxisLabel: "Students",
+              categoryAxisLabel: "Sport",
+            },
+          },
+        ),
       ],
       commonMistakes: [
-        { mistake: "Writing the total as the mean, such as giving 307 for seven cafe sales instead of 307 ÷ 7.", fix: "Divide the total by the number of values to find the mean." },
-        { mistake: "Finding the median of an unordered list such as 6, 4, 9, 7, 5 by picking the middle position without sorting.", fix: "Always order the data first: 4, 5, 6, 7, 9. The middle value is 6." },
-        { mistake: "Writing the highest value as the range, such as giving 25 for delivery times 12, 15, 17, 20, 25.", fix: "Range = highest - lowest: 25 - 12 = 13." },
-        { mistake: "Confusing frequency with the data value.", fix: "Frequency is how often a value or category occurs, not the value itself." },
+        { mistake: "Writing the total as the mean, such as giving 220 for five café sales instead of 220 ÷ 5.", fix: "Divide the total by the number of values to find the mean." },
+        { mistake: "Finding the median of an unordered list such as 24, 18, 22, 20 without sorting first.", fix: "Always order the data first: 18, 20, 22, 24. With an even count, average the two middle values." },
+        { mistake: "Writing the highest value as the range, such as giving 9 for absences 6, 4, 9, 7, 8.", fix: "Range = highest − lowest: 9 − 4 = 5." },
+        { mistake: "Confusing frequency (column height) with the data value on the axis.", fix: "Frequency is how often a value or category occurs, not the value itself." },
       ],
       masteryQuiz: [
-        dataAnswer("data-display-m1", "A cafe sells 42, 38, 45, 51, 39, 44 and 48 coffees over 7 mornings. Find the mean to 1 decimal place.", "42,\\ 38,\\ 45,\\ 51,\\ 39,\\ 44,\\ 48", "43.9", ["43.86", "43.857", "43.9 coffees"]),
-        dataAnswer("data-display-m2", "Temperatures recorded at midday are 21, 23, 24, 24, 26. Find the mode.", "21,\\ 23,\\ 24,\\ 24,\\ 26", "24", ["24 degrees", "24°C", "24 C"]),
-        dataAnswer("data-display-m3", "Customer ratings are 2, 3, 3, 4, 5. Find the median rating.", "2,\\ 3,\\ 3,\\ 4,\\ 5", "3", ["3 stars", "rating 3"]),
-        dataAnswer("data-display-m4", "Delivery times are 12, 15, 17, 20 and 25 minutes. Find the range.", "12,\\ 15,\\ 17,\\ 20,\\ 25", "13", ["13 min", "13 minutes"]),
-        financeChoice("data-display-m5", "Number of pets owned by students is:", "B", ["Categorical, because it sorts students into groups", "Numerical discrete", "Numerical continuous, because the count can grow", "Ordinal, because owning more ranks higher"], "A pet count is a whole-number count, so it is numerical discrete — not categorical (it is a quantity, not a label), not continuous (you cannot own 2.5 pets), and not ordinal (the numbers are real amounts, not ranked labels)."),
-        financeChoice("data-display-m6", "A bar chart column for Wednesday is highest. This means Wednesday had:", "A", ["The greatest frequency", "The lowest frequency", "The median day", "The total of all days"], "The tallest column shows the greatest frequency. A short column would be the lowest, the median is a middle value rather than a column height, and no single column shows the total."),
-        dataAnswer("data-display-m7", "A sports team scores in five games: 14, 19, 23, 17, 22. Find the mean score.", "14,\\ 19,\\ 23,\\ 17,\\ 22", "19", ["19 points", "19.0"]),
-        financeChoice("data-display-m8", "To find the median of 8, 3, 7, 4, 5, first:", "D", ["Add all the values", "Find the highest value", "Take the middle position without sorting", "Order the data"], "The median is the middle of the ordered data, so order the values first. Adding gives the mean, the highest value is the maximum, and taking a middle position before sorting gives the wrong value."),
-        dataAnswer("data-display-m9", "A frequency table shows 6 students chose soccer, 9 chose netball, 4 chose tennis. How many students were surveyed?", "\\text{soccer}=6,\\quad \\text{netball}=9,\\quad \\text{tennis}=4", "19", ["19 students"]),
-        financeChoice("data-display-m10", "The best display for comparing favourite subjects is usually:", "C", ["A line graph, to show change over time", "A sector (pie) chart of one student's choices", "A column graph", "A scatter plot relating two variables"], "Favourite subject is a category compared across students, so a column graph compares the group frequencies. A line graph shows trends over time, a pie chart shows parts of one whole, and a scatter plot relates two numerical variables."),
+        typedQ(
+          "data-display-m1",
+          "Seven days of rainfall (mm) are: 4, 1, 12, 3, 8, 6, 9. Find the mean daily rainfall, correct to 1 decimal place.",
+          "6.1",
+          "Add the seven values: 4 + 1 + 12 + 3 + 8 + 6 + 9 = 43. Divide by 7: 43 ÷ 7 = 6.142… ≈ 6.1 mm.",
+          { accepted: ["6.14", "6.143", "6.1 mm"], hint: "Sum all seven values, divide by 7, then round." },
+        ),
+        typedQ(
+          "data-display-m2",
+          "The dot plot shows the number of pets owned by each student in a group. Find the median number of pets.",
+          "1.5",
+          "There are 10 students, so the median is the average of the 5th and 6th values in order. Reading the dots in order, the 5th value is 1 and the 6th is 2, so the median is (1 + 2) ÷ 2 = 1.5 pets.",
+          {
+            accepted: ["1.5 pets"],
+            hint: "Count the dots (n = 10); the median is the average of the 5th and 6th in order.",
+            dotPlotDiagram: {
+              description: "Dot plot of pets owned: 0 pets (2 students), 1 pet (3 students), 2 pets (4 students), 3 pets (1 student).",
+              min: 0,
+              max: 4,
+              counts: [
+                { value: 0, count: 2 },
+                { value: 1, count: 3 },
+                { value: 2, count: 4 },
+                { value: 3, count: 1 },
+              ],
+              axisLabel: "Number of pets",
+            },
+          },
+        ),
+        mcqQ(
+          "data-display-m3",
+          "A survey records the number of siblings each student has. This data is best described as:",
+          "B",
+          [
+            "Categorical, because it sorts students into groups",
+            "Numerical and discrete",
+            "Numerical and continuous",
+            "Ordinal, because more siblings ranks higher",
+          ],
+          "A sibling count is a whole-number quantity, so it is numerical and discrete. It is a count, not a label (not categorical); it cannot take in-between values like 2.5 (not continuous); and the numbers are real amounts, not ranked labels (not ordinal).",
+        ),
+        typedQ(
+          "data-display-m4",
+          "The column graph shows how many students travel to school by each method. How many students were surveyed in total?",
+          "40",
+          "Add the frequencies of every category: 14 + 8 + 6 + 9 + 3 = 40 students.",
+          {
+            accepted: ["40 students"],
+            hint: "The total surveyed is the sum of all the column heights.",
+            barChartDiagram: {
+              description: "Column graph of travel method: Bus 14, Train 8, Car 6, Walk 9, Bike 3.",
+              bars: [
+                { label: "Bus", value: 14 },
+                { label: "Train", value: 8 },
+                { label: "Car", value: 6 },
+                { label: "Walk", value: 9 },
+                { label: "Bike", value: 3 },
+              ],
+              valueAxisLabel: "Students",
+              categoryAxisLabel: "Travel method",
+            },
+          },
+        ),
+        typedQ(
+          "data-display-m5",
+          "The mean of five numbers is 15. Four of them are 12, 14, 16 and 13. Find the fifth number.",
+          "20",
+          "If the mean of five numbers is 15, their total is 5 × 15 = 75. The four known numbers add to 12 + 14 + 16 + 13 = 55, so the fifth number is 75 − 55 = 20.",
+          { accepted: ["20.0"], hint: "Work out the total the five numbers must have, then subtract the four you know." },
+        ),
+        typedQ(
+          "data-display-m6",
+          "The column graph shows monthly sales for five months. How many months had sales above the mean?",
+          "2",
+          "First find the mean: (20 + 35 + 25 + 40 + 30) ÷ 5 = 150 ÷ 5 = 30. The months above 30 are February (35) and April (40), so 2 months are above the mean.",
+          {
+            accepted: ["2 months"],
+            hint: "Find the mean first, then count the columns taller than it.",
+            barChartDiagram: {
+              description: "Column graph of monthly sales: Jan 20, Feb 35, Mar 25, Apr 40, May 30.",
+              bars: [
+                { label: "Jan", value: 20 },
+                { label: "Feb", value: 35 },
+                { label: "Mar", value: 25 },
+                { label: "Apr", value: 40 },
+                { label: "May", value: 30 },
+              ],
+              valueAxisLabel: "Sales",
+              categoryAxisLabel: "Month",
+            },
+          },
+        ),
+        typedQ(
+          "data-display-m7",
+          "Eight house prices (in $000s) are: 540, 610, 580, 720, 560, 650, 590, 600. Find the median price (in $000s).",
+          "595",
+          "Order the prices: 540, 560, 580, 590, 600, 610, 650, 720. With eight values the median is the average of the 4th and 5th: (590 + 600) ÷ 2 = 595 (i.e. $595,000).",
+          { accepted: ["595000", "595,000", "$595,000", "595 thousand"], hint: "Order all eight values, then average the 4th and 5th." },
+        ),
+        mcqQ(
+          "data-display-m8",
+          "A real-estate agent reports the 'typical' house price in a suburb where most homes sell for $600,000 to $800,000, but one mansion sold for $5 million. Which measure best represents a typical price?",
+          "A",
+          [
+            "The median, because it is barely affected by the single very high sale",
+            "The mean, because it uses every sale price",
+            "The range, because it shows the spread of prices",
+            "The mode, because it is always the best average",
+          ],
+          "The $5 million sale is an outlier that pulls the mean well above what most homes cost. The median depends on the middle value, so it stays inside the typical $600k–$800k range. The range only measures spread, and the mode is not always representative.",
+        ),
+        typedQ(
+          "data-display-m9",
+          "Class A has 18 students with a mean test score of 70. Class B has 12 students with a mean score of 80. Find the mean score of all 30 students combined.",
+          "74",
+          "Find each class total: Class A = 18 × 70 = 1260, Class B = 12 × 80 = 960. The combined total is 2220 over 30 students, so the overall mean is 2220 ÷ 30 = 74. It is not 75 (the simple average of 70 and 80) because Class A has more students.",
+          { accepted: ["74.0", "74 marks"], hint: "Use each class's total marks (mean × size), not the average of the two means." },
+        ),
+        typedQ(
+          "data-display-m10",
+          "Six numbers have a mean of 9. A seventh number is added and the new mean becomes 10. Find the seventh number.",
+          "16",
+          "The original total is 6 × 9 = 54. After adding the seventh number the total must be 7 × 10 = 70, so the seventh number is 70 − 54 = 16. It is larger than 10 because it has to pull the mean up.",
+          { accepted: ["16.0"], hint: "Compare the total before (6 × 9) with the total after (7 × 10)." },
+        ),
       ],
     };
   }
@@ -378,53 +731,260 @@ export function year11StandardDataAnalysisLessonOverride(
       learningIntention:
         "Interpret data sets with outliers and choose suitable summary statistics for practical conclusions.",
       successCriteria: [
-        "Identify an outlier in a practical data set.",
-        "Describe how an outlier can affect the mean.",
-        "Choose when median is more appropriate than mean.",
-        "Make cautious conclusions from data in context.",
+        "Identify an outlier as a value clearly separated from the main cluster of data.",
+        "Describe and quantify how an outlier pulls the mean while the median stays resistant.",
+        "Choose the median rather than the mean for skewed data or data with an outlier.",
+        "Make cautious, data-based conclusions and avoid overclaiming.",
       ],
       teaching: {
         paragraphs: [
-          "An outlier is a value that is noticeably far away from the rest of the data.",
-          "Outliers can pull the mean toward the unusual value because every value feeds into the total. The median is usually less affected because it depends only on the middle position, not on how extreme the outlier is.",
-          "When data are skewed or include an unusual result, the median may better represent a typical value.",
-          "Conclusions from data should be cautious. A small data set or unusual value may not represent every situation.",
+          "An outlier is a value that sits noticeably far from the rest of the data. On a dot plot it shows up as an isolated dot, away from the main cluster.",
+          "An outlier pulls the mean toward itself, because every value feeds into the total. The median is resistant: it depends only on the middle position, not on how extreme a value is, so a single far-out value barely moves it.",
+          "When a high outlier is present the data is positively skewed and the mean ends up above the median. In that case the median is the better description of a typical value.",
+          "Conclusions from data should be cautious. A small data set or an unusual value may not represent every situation, so match the conclusion to what the data actually shows.",
         ],
         latexBlocks: [
-          "\\text{outlier}=\\text{value far from the main group}",
-          "\\text{median is resistant to outliers}",
+          "\\text{outlier}=\\text{value far from the main cluster}",
+          "\\text{high outlier} \\Rightarrow \\text{mean} > \\text{median}",
         ],
       },
       guidedPractice: [
-        dataAnswer("data-outlier-g1", "Delivery times are 18, 20, 21, 22, 23, 24 and 47 minutes. Which value is the outlier?", "18,\\ 20,\\ 21,\\ 22,\\ 23,\\ 24,\\ 47", "47", ["47 min", "47 minutes"]),
-        financeChoice("data-outlier-g2", "For delivery times 18, 20, 21, 22, 23, 24, 47, which measure is usually better for a typical delivery time?", "B", ["Mean", "Median", "Range only", "Highest value"], "The median is less affected by the outlier 47."),
-        financeChoice("data-outlier-g3", "An outlier usually affects the mean by:", "A", ["Pulling it toward the outlier", "Leaving it always unchanged", "Turning it into the range", "Making it categorical"], "The mean uses every value, including outliers."),
-        dataAnswer("data-outlier-g4", "Travel times are 14, 15, 16, 16, 17, 18 and 42 minutes. What is the range?", "14,\\ 15,\\ 16,\\ 16,\\ 17,\\ 18,\\ 42", "28", ["28 min", "28 minutes"]),
+        mcqQ(
+          "data-outlier-g1",
+          "Which statement best describes an outlier in a data set?",
+          "B",
+          [
+            "The largest value in the data set",
+            "A value that sits noticeably far from the rest of the data",
+            "The value that occurs most often",
+            "The middle value once the data is ordered",
+          ],
+          "An outlier is set apart from the main cluster — it is not simply the largest value (an ordinary data set's maximum need not be an outlier), nor the mode (most common) or median (middle).",
+        ),
+        typedQ(
+          "data-outlier-g2",
+          "The dot plot shows delivery times (in minutes). Which value is the outlier?",
+          "38",
+          "Most deliveries cluster between 18 and 22 minutes. The value 38 sits far above that cluster on its own, so it is the outlier.",
+          {
+            accepted: ["38 min", "38 minutes"],
+            hint: "Look for the isolated dot, separated from the main group.",
+            dotPlotDiagram: {
+              description: "Dot plot of delivery times: 18 (1), 19 (1), 20 (2), 21 (1), 22 (1), and an isolated value at 38.",
+              min: 15,
+              max: 40,
+              counts: [
+                { value: 18, count: 1 },
+                { value: 19, count: 1 },
+                { value: 20, count: 2 },
+                { value: 21, count: 1 },
+                { value: 22, count: 1 },
+                { value: 38, count: 1 },
+              ],
+              axisLabel: "Delivery time (min)",
+            },
+          },
+        ),
+        typedQ(
+          "data-outlier-g3",
+          "Customer wait times (in minutes) are: 3, 4, 4, 5, 6, 19. Find the median wait time.",
+          "4.5",
+          "Order the data: 3, 4, 4, 5, 6, 19. With six values the median is the average of the 3rd and 4th: (4 + 5) ÷ 2 = 4.5 minutes. Notice the outlier 19 does not change the median.",
+          { accepted: ["4.5 min", "4.5 minutes"], hint: "Order the six values, then average the two in the middle." },
+        ),
+        mcqQ(
+          "data-outlier-g4",
+          "Which measure of centre is most affected by a single outlier?",
+          "A",
+          ["The mean", "The median", "The mode", "All are affected equally"],
+          "The mean uses every value in its total, so one extreme value drags it toward the outlier. The median (position-based) and mode (most frequent) barely change.",
+        ),
       ],
       independentPractice: [
-        financeChoice("data-outlier-i1", "A data set of house prices includes one extremely expensive house. Which measure is more resistant?", "C", ["Mean", "Range", "Median", "Total"], "Median is more resistant to an extreme value."),
-        dataAnswer("data-outlier-i2", "Customer waiting times are 3, 4, 4, 5, 6 and 19 minutes. Identify the outlier.", "3,\\ 4,\\ 4,\\ 5,\\ 6,\\ 19", "19", ["19 min", "19 minutes"]),
-        financeChoice("data-outlier-i3", "A class wants a typical homework time but one student reports 9 hours. The best cautious choice is:", "A", ["Use the median", "Use the maximum only", "Ignore all data", "Use the range as the typical value"], "Median is less affected by the unusually high value."),
-        financeChoice("data-outlier-i4", "A conclusion from a survey of 12 people should be:", "D", ["Certain for all students", "Unrelated to data", "Based only on the largest value", "Cautious because the sample is small"], "Small samples support cautious conclusions."),
-        dataAnswer("data-outlier-i5", "Daily sales are 38, 40, 41, 42, 43 and 79. What value is likely an outlier?", "38,\\ 40,\\ 41,\\ 42,\\ 43,\\ 79", "79", ["79 sales"]),
+        typedQ(
+          "data-outlier-i1",
+          "The dot plot shows midday temperatures (°C) over a week. Which value is the outlier?",
+          "9",
+          "Most temperatures cluster between 19 and 23 °C. The value 9 sits far below that cluster on its own, so it is the (low) outlier.",
+          {
+            accepted: ["9 degrees", "9°C", "9 C"],
+            hint: "An outlier can be unusually low as well as unusually high — find the isolated dot.",
+            dotPlotDiagram: {
+              description: "Dot plot of midday temperatures: an isolated value at 9, then 19 (1), 20 (1), 21 (2), 22 (1), 23 (1).",
+              min: 5,
+              max: 25,
+              counts: [
+                { value: 9, count: 1 },
+                { value: 19, count: 1 },
+                { value: 20, count: 1 },
+                { value: 21, count: 2 },
+                { value: 22, count: 1 },
+                { value: 23, count: 1 },
+              ],
+              axisLabel: "Temperature (°C)",
+            },
+          },
+        ),
+        typedQ(
+          "data-outlier-i2",
+          "Seven delivery times (in minutes) are: 18, 20, 21, 22, 23, 24, 47. Find the mean delivery time, correct to 1 decimal place.",
+          "25",
+          "Add the values: 18 + 20 + 21 + 22 + 23 + 24 + 47 = 175. Divide by 7: 175 ÷ 7 = 25.0 minutes. The outlier 47 pulls the mean up to 25, even though six of the seven deliveries took 24 minutes or less.",
+          { accepted: ["25.0", "25 min", "25 minutes"], hint: "Add all seven times and divide by 7; notice how the outlier lifts the result." },
+        ),
+        typedQ(
+          "data-outlier-i3",
+          "In a suburb, the mean house price is $890,000 but the median is $640,000, because of a few very expensive homes. How much higher is the mean than the median, in dollars?",
+          "250000",
+          "The gap between the mean and median measures the pull of the expensive homes: $890,000 − $640,000 = $250,000. The mean is higher because those few high prices inflate the average.",
+          { accepted: ["$250,000", "250,000", "$250000"], hint: "Subtract the median from the mean." },
+        ),
+        typedQ(
+          "data-outlier-i4",
+          "Eight waiting times (in minutes) are: 4, 5, 5, 6, 7, 8, 9, 32. Find the median waiting time.",
+          "6.5",
+          "Order (already ordered): 4, 5, 5, 6, 7, 8, 9, 32. With eight values the median is the average of the 4th and 5th: (6 + 7) ÷ 2 = 6.5 minutes. The outlier 32 has no effect on the median.",
+          { accepted: ["6.5 min", "6.5 minutes"], hint: "With eight values, average the 4th and 5th once ordered." },
+        ),
+        mcqQ(
+          "data-outlier-i5",
+          "A survey of 12 people found most spend 1–2 hours a day on homework, but one reported 9 hours. Which conclusion is cautious and data-based?",
+          "C",
+          [
+            "Everyone spends about 9 hours on homework",
+            "All students in the school spend 1–2 hours on homework",
+            "Most of those surveyed spent 1–2 hours, with one unusually high response",
+            "The survey proves homework takes too long",
+          ],
+          "Option C reports the cluster and flags the outlier without overclaiming. The others either generalise from one value, extend a sample of 12 to the whole school, or make a value judgement the data does not support.",
+        ),
       ],
       commonMistakes: [
-        { mistake: "Calling the highest value in a data set an outlier without checking how far it sits from the rest.", fix: "An outlier is noticeably separated from the main group, not just the largest value." },
-        { mistake: "Using the mean as the typical delivery time for 18, 20, 21, 22, 23, 24, 47 without noticing the outlier.", fix: "The outlier 47 pulls the mean upward. The median 22 better represents a typical delivery time here." },
-        { mistake: "Concluding that all deliveries are late from data showing most took 18–24 minutes.", fix: "Match the conclusion to the data: most recorded deliveries were around 18–24 minutes." },
-        { mistake: "Giving the range as a typical delivery time.", fix: "Range measures the spread from lowest to highest; it does not describe a typical value." },
+        { mistake: "Calling the largest value an outlier without checking how far it sits from the rest.", fix: "An outlier is clearly separated from the main cluster — an ordinary maximum that is close to the other values is not an outlier." },
+        { mistake: "Using the mean as the typical value when a high outlier is present.", fix: "A high outlier pulls the mean above the cluster (mean > median). Report the median as the typical value instead." },
+        { mistake: "Generalising from one unusual value, e.g. concluding everyone is slow because one delivery took 47 minutes.", fix: "Match the conclusion to the data: most deliveries were 18–24 minutes, with one unusually long time." },
+        { mistake: "Giving the range as a typical value.", fix: "Range measures spread (highest − lowest); it does not describe a typical value." },
       ],
       masteryQuiz: [
-        dataAnswer("data-outlier-m1", "Customer wait times are 3, 4, 5, 5, 6, 4, 28 minutes. Which value is the outlier?", "3,\\ 4,\\ 5,\\ 5,\\ 6,\\ 4,\\ 28", "28", ["28 min", "28 minutes"]),
-        financeChoice("data-outlier-m2", "In that delivery data set, the median is preferred because:", "B", ["It is always the largest value", "It is less affected by the outlier", "It uses every value equally, like the mean", "It is the same as the range"], "The median sits in the middle of the ordered data, so a single very high value barely moves it. The mean uses every value equally and is pulled toward the outlier."),
-        financeChoice("data-outlier-m3", "An outlier in a small data set should make conclusions:", "C", ["More certain", "Based only on the outlier", "More cautious", "Unaffected by the outlier"], "An outlier in a small set makes summaries less reliable, so be more cautious. It does not make conclusions more certain, base them only on the outlier, or leave them unaffected."),
-        dataAnswer("data-outlier-m4", "Sport scores are 8, 9, 10, 10, 11, 30. Identify the outlier.", "8,\\ 9,\\ 10,\\ 10,\\ 11,\\ 30", "30", ["30 points"]),
-        dataAnswer("data-outlier-m5", "Temperatures are 19, 20, 21, 21, 22 and 35. What is the range?", "19,\\ 20,\\ 21,\\ 21,\\ 22,\\ 35", "16", ["16 degrees", "16°C", "16 C"]),
-        financeChoice("data-outlier-m6", "If an unusually high value is added to a data set, the mean will usually:", "A", ["Increase", "Decrease", "Stay exactly the same", "Become the median"], "A high outlier pulls the mean upward, so it increases. It will not decrease, stay the same (the mean uses every value), or become the median."),
-        financeChoice("data-outlier-m7", "Which statement is cautious and data-based?", "D", ["All deliveries are always late", "The company is perfect", "One value proves everything", "Most recorded deliveries were around 18 to 24 minutes"], "This matches the recorded data without overclaiming."),
-        dataAnswer("data-outlier-m8", "Customer ratings are 4, 4, 5, 5, 5 and 1. Which value is unusually low?", "4,\\ 4,\\ 5,\\ 5,\\ 5,\\ 1", "1", ["rating 1", "1 star"]),
-        financeChoice("data-outlier-m9", "When an outlier is present, range can become:", "B", ["Smaller than before", "Much larger", "Unchanged", "Negative"], "The range is highest minus lowest, so a far-out value stretches it much larger. It will not shrink, stay unchanged, or become negative."),
-        financeChoice("data-outlier-m10", "For skewed travel-time data, the best typical value is often:", "C", ["Highest value", "Range", "Median", "Total"], "Median is useful for skewed data."),
+        typedQ(
+          "data-outlier-m1",
+          "The dot plot shows points scored by a player across the season. Which value is the outlier?",
+          "30",
+          "The scores cluster between 8 and 11. The value 30 sits far above the rest on its own, so it is the outlier.",
+          {
+            accepted: ["30 points"],
+            hint: "Find the isolated dot well away from the cluster.",
+            dotPlotDiagram: {
+              description: "Dot plot of points scored: 8 (1), 9 (1), 10 (2), 11 (1), and an isolated value at 30.",
+              min: 5,
+              max: 32,
+              counts: [
+                { value: 8, count: 1 },
+                { value: 9, count: 1 },
+                { value: 10, count: 2 },
+                { value: 11, count: 1 },
+                { value: 30, count: 1 },
+              ],
+              axisLabel: "Points per game",
+            },
+          },
+        ),
+        mcqQ(
+          "data-outlier-m2",
+          "A high outlier is added to a data set. What happens to the mean and the median?",
+          "A",
+          [
+            "The mean increases noticeably; the median changes little",
+            "The mean changes little; the median increases noticeably",
+            "Both increase by the same amount",
+            "Neither changes",
+          ],
+          "Every value feeds the mean, so a high outlier lifts it; the median depends only on the middle position, so it barely moves. This is exactly why mean > median for positively skewed data.",
+        ),
+        typedQ(
+          "data-outlier-m3",
+          "Six daily sales totals are: 6, 7, 8, 9, 10, 40. Find the mean, correct to 1 decimal place.",
+          "13.3",
+          "Add the values: 6 + 7 + 8 + 9 + 10 + 40 = 80. Divide by 6: 80 ÷ 6 = 13.33… ≈ 13.3. The outlier 40 lifts the mean well above the cluster of 6–10.",
+          { accepted: ["13.33", "13.333"], hint: "Add all six values and divide by 6, then round." },
+        ),
+        typedQ(
+          "data-outlier-m4",
+          "A data set is 5, 6, 7, 8, 40. Find the mean after removing the outlier.",
+          "6.5",
+          "Remove the outlier 40, leaving 5, 6, 7, 8. Their mean is (5 + 6 + 7 + 8) ÷ 4 = 26 ÷ 4 = 6.5. (With the outlier the mean would be 13.2, more than double.)",
+          { accepted: ["6.50"], hint: "Drop the far-out value first, then average the four that remain." },
+        ),
+        typedQ(
+          "data-outlier-m5",
+          "A town's monthly salaries (in $000s) are 52, 55, 58, 60, 62, 65, 68 and 500, where 500 is a company owner. Find the median salary (in $000s) — the better description of a typical worker than the mean.",
+          "61",
+          "Order (already ordered): 52, 55, 58, 60, 62, 65, 68, 500. With eight values the median is the average of the 4th and 5th: (60 + 62) ÷ 2 = 61 (i.e. $61,000). The mean would be inflated by the $500,000 owner, so the median is the fairer typical value.",
+          { accepted: ["61000", "61,000", "$61,000", "61 thousand"], hint: "Order the eight values and average the 4th and 5th; ignore how extreme the 500 is." },
+        ),
+        typedQ(
+          "data-outlier-m6",
+          "The dot plot shows waiting times (in minutes). Find the median waiting time.",
+          "6.5",
+          "There are 8 values: 4, 5, 5, 6, 7, 8, 9, 30. The median is the average of the 4th and 5th: (6 + 7) ÷ 2 = 6.5 minutes. The outlier 30 does not affect it.",
+          {
+            accepted: ["6.5 min", "6.5 minutes"],
+            hint: "Count the dots (n = 8) and average the 4th and 5th in order.",
+            dotPlotDiagram: {
+              description: "Dot plot of waiting times: 4 (1), 5 (2), 6 (1), 7 (1), 8 (1), 9 (1), and an isolated value at 30.",
+              min: 0,
+              max: 32,
+              counts: [
+                { value: 4, count: 1 },
+                { value: 5, count: 2 },
+                { value: 6, count: 1 },
+                { value: 7, count: 1 },
+                { value: 8, count: 1 },
+                { value: 9, count: 1 },
+                { value: 30, count: 1 },
+              ],
+              axisLabel: "Waiting time (min)",
+            },
+          },
+        ),
+        typedQ(
+          "data-outlier-m7",
+          "Six values have a mean of 20. One value, an outlier of 50, is removed. Find the mean of the remaining five values.",
+          "14",
+          "The total of the six values is 6 × 20 = 120. Removing the outlier 50 leaves a total of 120 − 50 = 70 over five values, so the new mean is 70 ÷ 5 = 14.",
+          { accepted: ["14.0"], hint: "Find the original total (6 × 20), subtract the outlier, then divide by 5." },
+        ),
+        mcqQ(
+          "data-outlier-m8",
+          "A class of 12 students is surveyed about screen time. Most report 1–3 hours, but one reports 14 hours. Which is the most appropriate way to report a typical value?",
+          "B",
+          [
+            "The mean, because it uses all 12 values",
+            "The median, because the 14-hour response is an outlier that inflates the mean",
+            "The maximum, because it shows the worst case",
+            "The range, because it shows the spread",
+          ],
+          "The 14-hour response is an outlier that pulls the mean above the cluster, so the median better represents a typical student. The maximum and range describe extremes and spread, not a typical value.",
+        ),
+        typedQ(
+          "data-outlier-m9",
+          "Eight house prices have a mean of $700,000. The most expensive home, at $1.4 million, is removed. Find the new mean of the remaining seven prices, in $000s.",
+          "600",
+          "The total of the eight prices is 8 × 700 = 5600 (in $000s). Removing 1400 leaves 5600 − 1400 = 4200 over seven prices, so the new mean is 4200 ÷ 7 = 600 (i.e. $600,000).",
+          { accepted: ["600000", "600,000", "$600,000", "600 thousand"], hint: "Work in $000s: total is 8 × 700; subtract 1400, then divide by 7." },
+        ),
+        mcqQ(
+          "data-outlier-m10",
+          "For a data set, the mean is clearly greater than the median. What does this most likely indicate?",
+          "A",
+          [
+            "The data is positively skewed, probably with one or more high outliers",
+            "The data is negatively skewed, with low outliers",
+            "The data is perfectly symmetric",
+            "An arithmetic error must have been made",
+          ],
+          "High values pull the mean up while leaving the median in place, so mean > median signals a positive skew (a tail of high values or outliers). A symmetric set would have mean ≈ median.",
+        ),
       ],
     };
   }
@@ -437,17 +997,17 @@ export function year11StandardDataAnalysisLessonOverride(
       learningIntention:
         "Summarise grouped data by identifying the modal class and estimating the mean from a grouped frequency table.",
       successCriteria: [
-        "Identify the modal class as the class interval with the highest frequency.",
+        "Read a frequency histogram and identify the modal class as the class with the highest frequency.",
         "Find the midpoint of a class interval.",
-        "Multiply each midpoint by its frequency and sum to find Σ(f × m).",
-        "Estimate the mean by dividing Σ(f × m) by the total frequency.",
+        "Estimate the mean as Σ(f × m) ÷ Σf using class midpoints.",
+        "Reason about grouped data — missing frequencies and what changes the modal class.",
       ],
       teaching: {
         paragraphs: [
-          "When data are grouped into class intervals such as 10–19 or 20–29, we cannot see exact values — only how many fall in each class. This is called a grouped frequency table.",
+          "When data are grouped into class intervals such as 10–19 or 20–29, we cannot see exact values — only how many fall in each class. This is a grouped frequency table.",
           "The modal class is the class interval with the highest frequency. It is the most common class, but it is not a single value like an ordinary mode.",
-          "To estimate the mean, assume all values in a class are equal to the midpoint of that class. The midpoint of 10–19 is (10 + 19) ÷ 2 = 14.5. Multiply each midpoint by its class frequency, sum those products, then divide by the total frequency.",
-          "This gives an estimate, not an exact mean, because we do not know the exact value of each individual data point within each class.",
+          "To estimate the mean, assume every value in a class equals the midpoint of that class. The midpoint of 10–19 is (10 + 19) ÷ 2 = 14.5. Multiply each midpoint by its class frequency, add those products to get Σ(f × m), then divide by the total frequency Σf. This is an estimate, because the exact values within each class are unknown.",
+          "Grouped continuous data is displayed as a histogram: adjacent bars with no gaps, whose heights are the class frequencies. Joining the top-midpoint of each bar with straight line segments gives a frequency polygon. The tallest bar of the histogram is the modal class.",
         ],
         latexBlocks: [
           "\\text{midpoint} = \\frac{\\text{lower boundary} + \\text{upper boundary}}{2}",
@@ -455,65 +1015,274 @@ export function year11StandardDataAnalysisLessonOverride(
         ],
       },
       guidedPractice: [
-        financeChoice(
+        mcqQ(
           "data-group-g1",
-          "In a grouped frequency table, a class interval such as '20–29' means:",
+          "In a grouped frequency table, a class interval written '20–29' means:",
           "B",
           ["Only the value 20 is included", "Values from 20 up to and including 29", "Only the value 29 is included", "Values less than 20"],
-          "A class interval covers all values between and including both boundaries.",
+          "A class interval covers every value between and including both boundaries, so '20–29' holds all values from 20 to 29.",
         ),
-        dataAnswer("data-group-g2", "A frequency table has intervals 0–9, 10–19, 20–29, 30–39 with frequencies 2, 5, 8, 5. Find the total number of data values.", "2+5+8+5", "20", ["20 values"]),
-        dataAnswer("data-group-g3", "Using that frequency table, which is the modal class?", "\\text{Frequencies: }2,\\ 5,\\ 8,\\ 5\\text{ for intervals }0\\text{–}9,\\ 10\\text{–}19,\\ 20\\text{–}29,\\ 30\\text{–}39", "20–29", ["20-29", "20 to 29", "the 20–29 class"]),
-        dataAnswer("data-group-g4", "Find the midpoint of the class interval 10–19.", "\\frac{10+19}{2}", "14.5", ["14.5"]),
+        typedQ(
+          "data-group-g2",
+          "The histogram shows test scores grouped into classes. Which class is the modal class?",
+          "20–29",
+          "The modal class is the tallest bar. The 20–29 bar has the highest frequency (8), more than any other class, so 20–29 is the modal class.",
+          {
+            accepted: ["20-29", "20 to 29", "the 20–29 class"],
+            hint: "The modal class is simply the tallest bar of the histogram.",
+            histogramDiagram: {
+              description: "Histogram of test scores: 0–9 has frequency 2, 10–19 has 5, 20–29 has 8, 30–39 has 5.",
+              bins: [
+                { label: "0–9", frequency: 2 },
+                { label: "10–19", frequency: 5 },
+                { label: "20–29", frequency: 8 },
+                { label: "30–39", frequency: 5 },
+              ],
+              axisLabel: "Score",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
+        ),
+        typedQ(
+          "data-group-g3",
+          "Find the midpoint of the class interval 30–39.",
+          "34.5",
+          "Midpoint = (lower + upper) ÷ 2 = (30 + 39) ÷ 2 = 69 ÷ 2 = 34.5.",
+          { accepted: ["34.50"], hint: "Average the two boundaries of the class." },
+        ),
+        typedQ(
+          "data-group-g4",
+          "The histogram shows the number of emails staff received in a day, grouped into classes. How many staff were surveyed in total?",
+          "25",
+          "Add the frequencies of every class (the bar heights): 4 + 12 + 9 = 25 staff.",
+          {
+            accepted: ["25 staff", "25 values"],
+            hint: "The total is the sum of all the bar heights.",
+            histogramDiagram: {
+              description: "Histogram of emails received: 0–4 has frequency 4, 5–9 has 12, 10–14 has 9.",
+              bins: [
+                { label: "0–4", frequency: 4 },
+                { label: "5–9", frequency: 12 },
+                { label: "10–14", frequency: 9 },
+              ],
+              axisLabel: "Emails received",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
+        ),
       ],
       independentPractice: [
-        dataAnswer("data-group-i1", "Using intervals 0–9, 10–19, 20–29, 30–39 with frequencies 2, 5, 8, 5 and midpoints 4.5, 14.5, 24.5, 34.5, find f × m for the class 20–29.", "8 \\times 24.5", "196", ["196"]),
-        dataAnswer("data-group-i2", "Find the total Σ(f × m) for all four classes: (2×4.5) + (5×14.5) + (8×24.5) + (5×34.5).", "9 + 72.5 + 196 + 172.5", "450", ["450"]),
-        dataAnswer("data-group-i3", "Estimate the mean using Σ(f × m) = 450 and total frequency = 20.", "\\frac{450}{20}", "22.5", ["22.5"]),
-        financeChoice(
-          "data-group-i4",
-          "A frequency polygon is drawn by:",
-          "A",
-          ["Plotting class midpoints against frequencies and joining the points with straight lines", "Drawing one bar per class with no gaps", "Plotting individual raw data values against time", "Drawing a pie sector for each class"],
-          "A frequency polygon joins the midpoints of each class plotted against their frequencies.",
+        typedQ(
+          "data-group-i1",
+          "The histogram shows test scores. Estimate the mean score using class midpoints.",
+          "22.5",
+          "Midpoints are 4.5, 14.5, 24.5, 34.5. Σ(f × m) = 2×4.5 + 5×14.5 + 8×24.5 + 5×34.5 = 9 + 72.5 + 196 + 172.5 = 450. Total frequency Σf = 20, so the estimated mean = 450 ÷ 20 = 22.5.",
+          {
+            accepted: ["22.50"],
+            hint: "Multiply each midpoint by its frequency, add the products, then divide by the total frequency.",
+            histogramDiagram: {
+              description: "Histogram of test scores: 0–9 has frequency 2, 10–19 has 5, 20–29 has 8, 30–39 has 5.",
+              bins: [
+                { label: "0–9", frequency: 2 },
+                { label: "10–19", frequency: 5 },
+                { label: "20–29", frequency: 8 },
+                { label: "30–39", frequency: 5 },
+              ],
+              axisLabel: "Score",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
         ),
-        dataAnswer("data-group-i5", "A frequency table has intervals 0–4, 5–9, 10–14 with frequencies 3, 10, 7. What is the modal class?", "\\text{Frequencies: }3,\\ 10,\\ 7", "5–9", ["5-9", "5 to 9", "the 5–9 class"]),
+        typedQ(
+          "data-group-i2",
+          "The histogram shows ages of people at a workshop, grouped into classes. Which is the modal class?",
+          "30–39",
+          "The tallest bar is the 30–39 class with frequency 12, the highest of all the classes, so 30–39 is the modal class.",
+          {
+            accepted: ["30-39", "30 to 39", "the 30–39 class"],
+            hint: "Read off the tallest bar.",
+            histogramDiagram: {
+              description: "Histogram of ages: 10–19 has frequency 4, 20–29 has 8, 30–39 has 12, 40–49 has 6.",
+              bins: [
+                { label: "10–19", frequency: 4 },
+                { label: "20–29", frequency: 8 },
+                { label: "30–39", frequency: 12 },
+                { label: "40–49", frequency: 6 },
+              ],
+              axisLabel: "Age (years)",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
+        ),
+        typedQ(
+          "data-group-i3",
+          "Find the midpoint of the class interval 45–54.",
+          "49.5",
+          "Midpoint = (lower + upper) ÷ 2 = (45 + 54) ÷ 2 = 99 ÷ 2 = 49.5.",
+          { accepted: ["49.50"], hint: "Average the two boundaries." },
+        ),
+        mcqQ(
+          "data-group-i4",
+          "A frequency polygon for grouped data is drawn by:",
+          "A",
+          [
+            "Plotting each class midpoint against its frequency and joining the points with straight lines",
+            "Drawing one bar per class with gaps between them",
+            "Plotting individual raw data values against time",
+            "Drawing a pie sector for each class",
+          ],
+          "A frequency polygon joins the (midpoint, frequency) points with straight segments. Bars with gaps describe a bar chart of categories, raw-value-versus-time is a time series, and pie sectors show proportions of a whole.",
+        ),
+        typedQ(
+          "data-group-i5",
+          "The histogram shows how long (in minutes) customers waited. Estimate the mean waiting time using class midpoints.",
+          "9",
+          "Midpoints are 2, 7, 12, 17. Σ(f × m) = 4×2 + 6×7 + 8×12 + 2×17 = 8 + 42 + 96 + 34 = 180. Total frequency Σf = 20, so the estimated mean = 180 ÷ 20 = 9.0 minutes.",
+          {
+            accepted: ["9.0", "9 min", "9 minutes"],
+            hint: "Use the midpoint of each class (2, 7, 12, 17), weight by frequency, and divide by the total.",
+            histogramDiagram: {
+              description: "Histogram of waiting times: 0–4 has frequency 4, 5–9 has 6, 10–14 has 8, 15–19 has 2.",
+              bins: [
+                { label: "0–4", frequency: 4 },
+                { label: "5–9", frequency: 6 },
+                { label: "10–14", frequency: 8 },
+                { label: "15–19", frequency: 2 },
+              ],
+              axisLabel: "Waiting time (min)",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
+        ),
       ],
       commonMistakes: [
-        { mistake: "Identifying the modal class as the class with the largest midpoint, not the highest frequency.", fix: "The modal class has the highest frequency. Check the frequency column, not the interval boundaries." },
-        { mistake: "Forgetting to divide by total frequency when estimating the mean — giving 450 instead of 22.5.", fix: "Estimated mean = Σ(f × m) ÷ Σf. Always divide the sum of products by the total number of data values." },
-        { mistake: "Using the class boundaries (10 and 19) rather than their average (14.5) as the midpoint.", fix: "Midpoint = (lower + upper) ÷ 2. For 10–19, midpoint = (10 + 19) ÷ 2 = 14.5." },
-        { mistake: "Using the class frequency as the estimate for each data value instead of the midpoint.", fix: "Multiply the midpoint (not the frequency) by the frequency: f × m, then sum all products." },
+        { mistake: "Choosing the class with the largest midpoint (e.g. 30–39) as the modal class instead of the one with the highest frequency.", fix: "The modal class is the tallest bar — read the frequency, not the interval boundaries." },
+        { mistake: "Stopping at Σ(f × m) and reporting it as the mean.", fix: "Estimated mean = Σ(f × m) ÷ Σf. Always divide the sum of products by the total frequency." },
+        { mistake: "Using a class boundary (e.g. 10 or 19) instead of the midpoint (14.5).", fix: "Midpoint = (lower + upper) ÷ 2. For 10–19 that is (10 + 19) ÷ 2 = 14.5." },
+        { mistake: "Multiplying the frequency by the frequency, or the midpoint by the midpoint.", fix: "Each product is f × m (frequency × midpoint), one per class, then summed." },
       ],
       masteryQuiz: [
-        financeChoice(
+        typedQ(
           "data-group-m1",
-          "In a grouped frequency table, the modal class is:",
-          "B",
-          ["The class with the smallest frequency", "The class with the highest frequency", "The class with the largest midpoint", "The class in the middle of the table"],
-          "The modal class is the most common class — it has the highest frequency.",
+          "The histogram shows daily rainfall (mm) grouped into classes. Which is the modal class?",
+          "20–29",
+          "The 20–29 bar is the tallest, with frequency 8 — higher than any other class — so it is the modal class.",
+          {
+            accepted: ["20-29", "20 to 29", "the 20–29 class"],
+            hint: "Identify the tallest bar.",
+            histogramDiagram: {
+              description: "Histogram of daily rainfall: 0–9 has frequency 3, 10–19 has 7, 20–29 has 8, 30–39 has 2.",
+              bins: [
+                { label: "0–9", frequency: 3 },
+                { label: "10–19", frequency: 7 },
+                { label: "20–29", frequency: 8 },
+                { label: "30–39", frequency: 2 },
+              ],
+              axisLabel: "Rainfall (mm)",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
         ),
-        dataAnswer("data-group-m2", "A table has intervals 10–19, 20–29, 30–39, 40–49 with frequencies 4, 8, 12, 6. Find the modal class.", "\\text{Frequencies: }4,\\ 8,\\ 12,\\ 6", "30–39", ["30-39", "30 to 39", "the 30–39 class"]),
-        dataAnswer("data-group-m3", "Find the total number of data values for that table.", "4+8+12+6", "30", ["30 values"]),
-        dataAnswer("data-group-m4", "Find the midpoint of the class interval 20–29.", "\\frac{20+29}{2}", "24.5", ["24.5"]),
-        dataAnswer("data-group-m5", "Find f × m for the class 30–39 (frequency 12, midpoint 34.5).", "12 \\times 34.5", "414", ["414"]),
-        dataAnswer("data-group-m6", "The sum of all f × m values is 935. Total frequency is 30. Estimate the mean to 1 decimal place.", "\\frac{935}{30}", "31.2", ["31.17", "31.2"]),
-        financeChoice(
+        typedQ(
+          "data-group-m2",
+          "Find the midpoint of the class interval 60–69.",
+          "64.5",
+          "Midpoint = (60 + 69) ÷ 2 = 129 ÷ 2 = 64.5.",
+          { accepted: ["64.50"], hint: "Average the boundaries of the class." },
+        ),
+        typedQ(
+          "data-group-m3",
+          "A grouped frequency table has classes with frequencies 5, 9, 14, 7 and 5. How many data values are there in total?",
+          "40",
+          "Add all the class frequencies: 5 + 9 + 14 + 7 + 5 = 40 data values.",
+          { accepted: ["40 values"], hint: "The total is the sum of every class frequency." },
+        ),
+        typedQ(
+          "data-group-m4",
+          "For a class interval 30–39 with frequency 12, find the product f × m (use the midpoint).",
+          "414",
+          "The midpoint of 30–39 is (30 + 39) ÷ 2 = 34.5. Then f × m = 12 × 34.5 = 414.",
+          { accepted: ["414.0"], hint: "Find the midpoint first, then multiply by the frequency." },
+        ),
+        typedQ(
+          "data-group-m5",
+          "The histogram shows daily rainfall (mm). Estimate the mean rainfall using class midpoints, correct to 1 decimal place.",
+          "19",
+          "Midpoints are 4.5, 14.5, 24.5, 34.5. Σ(f × m) = 3×4.5 + 7×14.5 + 8×24.5 + 2×34.5 = 13.5 + 101.5 + 196 + 69 = 380. Σf = 20, so the estimated mean = 380 ÷ 20 = 19.0 mm.",
+          {
+            accepted: ["19.0", "19 mm"],
+            hint: "Weight each midpoint by its frequency, sum, then divide by the total frequency.",
+            histogramDiagram: {
+              description: "Histogram of daily rainfall: 0–9 has frequency 3, 10–19 has 7, 20–29 has 8, 30–39 has 2.",
+              bins: [
+                { label: "0–9", frequency: 3 },
+                { label: "10–19", frequency: 7 },
+                { label: "20–29", frequency: 8 },
+                { label: "30–39", frequency: 2 },
+              ],
+              axisLabel: "Rainfall (mm)",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
+        ),
+        mcqQ(
+          "data-group-m6",
+          "Why do we use class midpoints to estimate the mean of grouped data?",
+          "B",
+          [
+            "Because every value in a class equals the lower boundary",
+            "Because the midpoint is the best single estimate for the values in a class when the exact values are unknown",
+            "Because the class total always equals the midpoint",
+            "Because grouped data has no variability",
+          ],
+          "We cannot see the exact values inside a class, so the midpoint is the most balanced single estimate for them. The other options misuse the boundary, confuse a total with a midpoint, or wrongly assume no spread.",
+        ),
+        typedQ(
           "data-group-m7",
-          "Why do we use midpoints to estimate the mean from grouped data?",
-          "B",
-          ["Because all values in a class equal the lower boundary", "Because midpoints represent the best estimate for each value in the class when exact values are unknown", "Because the class total is always equal to the midpoint", "Because grouped data has no variability"],
-          "Without knowing exact values, the midpoint is the best single estimate for all data in that class.",
+          "The histogram shows times (in minutes). Estimate the mean using midpoints, correct to 1 decimal place.",
+          "12.7",
+          "Midpoints are 7, 12, 17. Σ(f × m) = 3×7 + 7×12 + 5×17 = 21 + 84 + 85 = 190. Σf = 15, so the estimated mean = 190 ÷ 15 = 12.67 ≈ 12.7 minutes.",
+          {
+            accepted: ["12.67", "12.7 min"],
+            hint: "Sum f × m over the three classes, then divide by 15.",
+            histogramDiagram: {
+              description: "Histogram of times: 5–9 has frequency 3, 10–14 has 7, 15–19 has 5.",
+              bins: [
+                { label: "5–9", frequency: 3 },
+                { label: "10–14", frequency: 7 },
+                { label: "15–19", frequency: 5 },
+              ],
+              axisLabel: "Time (min)",
+              frequencyAxisLabel: "Frequency",
+            },
+          },
         ),
-        dataAnswer("data-group-m8", "A table has intervals 0–4, 5–9, 10–14, 15–19 with frequencies 2, 6, 10, 2. Find the modal class.", "\\text{Frequencies: }2,\\ 6,\\ 10,\\ 2", "10–14", ["10-14", "10 to 14", "the 10–14 class"]),
-        financeChoice(
+        typedQ(
+          "data-group-m8",
+          "A grouped data set has three classes with midpoints 5, 15 and 25 and frequencies 4, f and 6. The estimated mean is 16. Find the missing frequency f.",
+          "10",
+          "Σ(f × m) = 4×5 + 15f + 6×25 = 20 + 15f + 150 = 170 + 15f, and Σf = 4 + f + 6 = 10 + f. Setting (170 + 15f) ÷ (10 + f) = 16 gives 170 + 15f = 160 + 16f, so f = 10.",
+          { accepted: ["f=10", "10.0"], hint: "Write Σ(f × m) ÷ Σf = 16 with f as the unknown, then solve the equation." },
+        ),
+        mcqQ(
           "data-group-m9",
-          "A frequency polygon joins which set of points?",
+          "Two students disagree about a grouped table. Which statement is correct?",
           "B",
-          ["Class boundaries plotted against cumulative frequency", "Class midpoints plotted against frequency", "Raw data values plotted against time", "Class upper endpoints only"],
-          "A frequency polygon uses midpoints on the x-axis and frequencies on the y-axis.",
+          [
+            "The modal class is the class with the largest midpoint",
+            "The modal class is the class with the highest frequency, which may not be the class with the largest values",
+            "The estimated mean must equal one of the class midpoints",
+            "The modal class is always the middle class of the table",
+          ],
+          "The modal class is defined by frequency (the tallest bar), independent of where its values sit. The estimated mean is a weighted average and need not equal any midpoint, and the middle class has no special status.",
         ),
-        dataAnswer("data-group-m10", "Intervals 5–9, 10–14, 15–19 have frequencies 3, 7, 5. Estimate the mean using midpoints 7, 12, 17.", "\\frac{3\\times7 + 7\\times12 + 5\\times17}{15} = \\frac{190}{15}", "12.7", ["12.67", "12.7"]),
+        typedQ(
+          "data-group-m10",
+          "In a grouped table the modal class 20–29 has frequency 8, and the 30–39 class has frequency 5. By how much must the 30–39 frequency increase so that 30–39 becomes the new modal class?",
+          "4",
+          "To be the modal class, 30–39 must have a strictly higher frequency than 8, so it needs at least 9. From 5 that is an increase of 9 − 5 = 4.",
+          { accepted: ["4 more", "by 4"], hint: "The new frequency must exceed 8. Find the smallest whole number above 8, then subtract the current 5." },
+        ),
       ],
     };
   }
@@ -526,10 +1295,10 @@ export function year11StandardDataAnalysisLessonOverride(
       learningIntention:
         "Construct and interpret a five-number summary and use IQR to identify outliers and compare distributions.",
       successCriteria: [
-        "Find the minimum, Q1, median (Q2), Q3 and maximum from ordered data.",
-        "Calculate IQR = Q3 − Q1.",
-        "Calculate lower and upper fences using the 1.5 × IQR rule.",
-        "Identify values outside the fences as outliers, and compare two box plots using medians and IQR.",
+        "Read a five-number summary from a box plot and find it from ordered data.",
+        "Calculate IQR = Q3 − Q1 from a plot or from quartiles.",
+        "Calculate lower and upper fences and decide whether a value is an outlier (1.5 × IQR rule).",
+        "Compare two distributions from parallel box plots using medians and IQR.",
       ],
       teaching: {
         paragraphs: [
@@ -545,82 +1314,263 @@ export function year11StandardDataAnalysisLessonOverride(
         ],
       },
       guidedPractice: [
-        financeChoice(
+        mcqQ(
           "data-box-g1",
           "Which five values make up the five-number summary?",
           "B",
-          ["Mean, mode, range, max, min", "Min, Q1, median, Q3, max", "Min, mean, mode, Q3, max", "Mean, Q1, Q2, Q3, range"],
-          "The five-number summary is: minimum, Q1, median (Q2), Q3, maximum.",
+          ["Mean, mode, range, max, min", "Minimum, Q1, median, Q3, maximum", "Min, mean, mode, Q3, max", "Mean, Q1, Q2, Q3, range"],
+          "The five-number summary is the minimum, lower quartile Q1, median (Q2), upper quartile Q3, and maximum — the five marks shown on a box plot.",
         ),
-        dataAnswer("data-box-g2", "Ordered data: 3, 7, 8, 10, 12, 14, 15, 18, 20, 25 (n = 10). Find the median Q2.", "Q_2 = \\frac{12+14}{2}", "13", ["13"]),
-        dataAnswer("data-box-g3", "Using Q1 = 8 and Q3 = 18, find the IQR.", "Q_3 - Q_1 = 18 - 8", "10", ["10"]),
-        dataAnswer("data-box-g4", "Find the upper fence: Q3 + 1.5 × IQR = 18 + 1.5 × 10.", "18 + 15", "33", ["33"]),
+        typedQ(
+          "data-box-g2",
+          "The box plot shows reaction times (in milliseconds). Read off the median.",
+          "15",
+          "The median is the line inside the box. On this plot it sits at 15 milliseconds.",
+          {
+            accepted: ["15.0", "15 ms"],
+            hint: "The median is the vertical line dividing the box, not an edge.",
+            boxPlotDiagram: {
+              description: "Box plot of reaction times with minimum 4, Q1 10, median 15, Q3 22, maximum 30.",
+              plots: [{ label: "Reaction time", min: 4, q1: 10, median: 15, q3: 22, max: 30 }],
+              axisLabel: "Reaction time (ms)",
+              xMin: 0,
+              xMax: 35,
+              showValueLabels: true,
+            },
+          },
+        ),
+        typedQ(
+          "data-box-g3",
+          "The box plot shows reaction times (in milliseconds). Find the interquartile range (IQR).",
+          "12",
+          "IQR = Q3 − Q1. From the plot Q3 = 22 and Q1 = 10, so IQR = 22 − 10 = 12 milliseconds.",
+          {
+            accepted: ["12.0", "12 ms"],
+            hint: "Read Q1 (left edge of the box) and Q3 (right edge), then subtract.",
+            boxPlotDiagram: {
+              description: "Box plot of reaction times with minimum 4, Q1 10, median 15, Q3 22, maximum 30.",
+              plots: [{ label: "Reaction time", min: 4, q1: 10, median: 15, q3: 22, max: 30 }],
+              axisLabel: "Reaction time (ms)",
+              xMin: 0,
+              xMax: 35,
+              showValueLabels: true,
+            },
+          },
+        ),
+        typedQ(
+          "data-box-g4",
+          "Ordered data: 3, 7, 8, 10, 12, 14, 15, 18, 20, 25 (n = 10). Find the median.",
+          "13",
+          "With 10 values the median is the average of the 5th and 6th: (12 + 14) ÷ 2 = 13.",
+          { accepted: ["13.0"], hint: "For 10 values, average the 5th and 6th once ordered." },
+        ),
       ],
       independentPractice: [
-        dataAnswer("data-box-i1", "Ordered lower half: 3, 7, 8, 10, 12. Find Q1 (the median of this group).", "\\text{middle of }\\{3,\\ 7,\\ 8,\\ 10,\\ 12\\}", "8", ["8"]),
-        dataAnswer("data-box-i2", "Ordered upper half: 14, 15, 18, 20, 25. Find Q3 (the median of this group).", "\\text{middle of }\\{14,\\ 15,\\ 18,\\ 20,\\ 25\\}", "18", ["18"]),
-        financeChoice(
+        typedQ(
+          "data-box-i1",
+          "Ordered data: 5, 9, 11, 13, 15, 17, 19, 22 (n = 8). Find the lower quartile Q1.",
+          "10",
+          "Q1 is the median of the lower half {5, 9, 11, 13}. With four values that is (9 + 11) ÷ 2 = 10.",
+          { accepted: ["10.0"], hint: "Take the lower four values and find their median." },
+        ),
+        typedQ(
+          "data-box-i2",
+          "Ordered data: 5, 9, 11, 13, 15, 17, 19, 22 (n = 8). Find the upper quartile Q3.",
+          "18",
+          "Q3 is the median of the upper half {15, 17, 19, 22}. With four values that is (17 + 19) ÷ 2 = 18.",
+          { accepted: ["18.0"], hint: "Take the upper four values and find their median." },
+        ),
+        typedQ(
           "data-box-i3",
-          "Lower fence = Q1 − 1.5 × IQR = 8 − 15 = −7. Is the minimum value of 3 an outlier?",
-          "B",
-          ["Yes — 3 is less than −7", "No — 3 is greater than −7, so it is within the fence", "Yes — 3 is the smallest value", "Cannot determine without more data"],
-          "3 > −7, so the minimum is within the lower fence and is not an outlier.",
+          "The box plot shows daily download sizes (in MB). Find the interquartile range.",
+          "16",
+          "IQR = Q3 − Q1. From the plot Q3 = 41 and Q1 = 25, so IQR = 41 − 25 = 16 MB.",
+          {
+            accepted: ["16.0", "16 MB"],
+            hint: "Subtract the left edge of the box from the right edge.",
+            boxPlotDiagram: {
+              description: "Box plot of download sizes with minimum 12, Q1 25, median 33, Q3 41, maximum 60.",
+              plots: [{ label: "Download size", min: 12, q1: 25, median: 33, q3: 41, max: 60 }],
+              axisLabel: "Download size (MB)",
+              xMin: 0,
+              xMax: 65,
+              showValueLabels: true,
+            },
+          },
         ),
-        financeChoice(
+        typedQ(
           "data-box-i4",
-          "Two box plots are compared. Group A has median 14 and Group B has median 20. Which group typically scored higher?",
-          "B",
-          ["Group A", "Group B", "Both the same", "Cannot tell from medians alone"],
-          "A higher median means Group B's typical value is higher.",
+          "A data set has Q1 = 12 and an IQR of 8. Find the lower fence (Q1 − 1.5 × IQR).",
+          "0",
+          "Lower fence = Q1 − 1.5 × IQR = 12 − 1.5 × 8 = 12 − 12 = 0.",
+          { accepted: ["0.0"], hint: "Multiply the IQR by 1.5, then subtract from Q1." },
         ),
-        financeChoice(
+        mcqQ(
           "data-box-i5",
-          "Group A has IQR = 6 and Group B has IQR = 12. Which group shows more spread in the middle 50% of scores?",
+          "The parallel box plots compare exam marks for two classes. Which statement is best supported?",
           "B",
-          ["Group A — smaller IQR means more spread", "Group B — larger IQR means more spread", "Neither group has any spread", "IQR does not measure spread"],
-          "A larger IQR means the middle 50% of data is more spread out.",
+          [
+            "Class A typically scored higher than Class B",
+            "Class B typically scored higher, since its median is further to the right",
+            "Both classes have identical medians",
+            "Class A has the larger spread in the middle 50%",
+          ],
+          "Class B's median sits to the right of Class A's, so Class B's typical mark is higher. (Class B also has a smaller box, meaning less spread in its middle 50%.)",
+          {
+            boxPlotDiagram: {
+              description: "Parallel box plots. Class A: min 30, Q1 45, median 55, Q3 65, max 80. Class B: min 40, Q1 60, median 70, Q3 78, max 90.",
+              plots: [
+                { label: "Class A", min: 30, q1: 45, median: 55, q3: 65, max: 80 },
+                { label: "Class B", min: 40, q1: 60, median: 70, q3: 78, max: 90 },
+              ],
+              axisLabel: "Exam mark",
+              xMin: 20,
+              xMax: 100,
+              showValueLabels: true,
+            },
+          },
         ),
       ],
       commonMistakes: [
-        { mistake: "Splitting data into halves incorrectly for Q1 and Q3 when n is even.", fix: "For 10 values, the lower half is the first 5 values and the upper half is the last 5. Q1 and Q3 are their respective medians." },
-        { mistake: "Applying the 1.5 × IQR rule to all values, not just those outside the fences.", fix: "Only values below the lower fence or above the upper fence are outliers. Check each extreme value against the fence." },
-        { mistake: "Subtracting IQR from Q3 or adding IQR to Q1 when calculating fences.", fix: "Lower fence = Q1 − 1.5 × IQR (subtract from Q1). Upper fence = Q3 + 1.5 × IQR (add to Q3)." },
-        { mistake: "Stating that a larger IQR means the data has a higher median.", fix: "IQR measures spread of the middle 50%, not the centre. Compare medians for typical values and IQR for variability." },
+        { mistake: "Splitting the data into halves incorrectly for Q1 and Q3 when n is even.", fix: "For 8 values, the lower half is the first 4 and the upper half is the last 4. Q1 and Q3 are the medians of those halves." },
+        { mistake: "Applying the 1.5 × IQR rule to every value instead of only the extremes.", fix: "Only values below the lower fence or above the upper fence are outliers. Check the smallest and largest values against the fences." },
+        { mistake: "Subtracting IQR from Q3 or adding it to Q1 when finding fences.", fix: "Lower fence = Q1 − 1.5 × IQR (subtract from Q1). Upper fence = Q3 + 1.5 × IQR (add to Q3)." },
+        { mistake: "Claiming a larger IQR means a higher median.", fix: "IQR measures spread of the middle 50%, not the centre. Compare medians for typical values and IQR for variability." },
       ],
       masteryQuiz: [
-        dataAnswer("data-box-m1", "Ordered data: 5, 9, 11, 13, 15, 17, 19, 22 (n = 8). Find the median Q2.", "Q_2 = \\frac{13+15}{2}", "14", ["14"]),
-        dataAnswer("data-box-m2", "Lower half: 5, 9, 11, 13. Find Q1.", "Q_1 = \\frac{9+11}{2}", "10", ["10"]),
-        dataAnswer("data-box-m3", "Upper half: 15, 17, 19, 22. Find Q3.", "Q_3 = \\frac{17+19}{2}", "18", ["18"]),
-        dataAnswer("data-box-m4", "Find the IQR using Q1 = 10 and Q3 = 18.", "18 - 10", "8", ["8"]),
-        financeChoice(
+        typedQ(
+          "data-box-m1",
+          "The box plot shows masses (in grams) of a sample of apples. Read off the median mass.",
+          "24",
+          "The median is the line inside the box. On this plot it sits at 24 grams.",
+          {
+            accepted: ["24.0", "24 g"],
+            hint: "Find the line that divides the box, not an edge or whisker end.",
+            boxPlotDiagram: {
+              description: "Box plot of apple masses with minimum 8, Q1 18, median 24, Q3 33, maximum 45.",
+              plots: [{ label: "Apple mass", min: 8, q1: 18, median: 24, q3: 33, max: 45 }],
+              axisLabel: "Mass (g)",
+              xMin: 0,
+              xMax: 50,
+              showValueLabels: true,
+            },
+          },
+        ),
+        typedQ(
+          "data-box-m2",
+          "Ordered data: 5, 9, 11, 13, 15, 17, 19, 22 (n = 8). Find the median.",
+          "14",
+          "With 8 values the median is the average of the 4th and 5th: (13 + 15) ÷ 2 = 14.",
+          { accepted: ["14.0"], hint: "Average the 4th and 5th values." },
+        ),
+        typedQ(
+          "data-box-m3",
+          "A data set has Q1 = 23 and Q3 = 41. Find the interquartile range.",
+          "18",
+          "IQR = Q3 − Q1 = 41 − 23 = 18.",
+          { accepted: ["18.0"], hint: "Subtract Q1 from Q3." },
+        ),
+        typedQ(
+          "data-box-m4",
+          "A data set has Q1 = 20 and Q3 = 40. Find the upper fence (Q3 + 1.5 × IQR).",
+          "70",
+          "IQR = 40 − 20 = 20. Upper fence = Q3 + 1.5 × IQR = 40 + 1.5 × 20 = 40 + 30 = 70. (A value such as 75 would lie above this fence and so be an outlier.)",
+          { accepted: ["70.0"], hint: "Find the IQR first, multiply by 1.5, then add to Q3." },
+        ),
+        mcqQ(
           "data-box-m5",
-          "The IQR measures:",
+          "The interquartile range (IQR) measures:",
           "B",
-          ["The range of all data values", "The spread of the middle 50% of data", "The mean of Q1 and Q3", "The distance from the minimum to the median"],
-          "IQR = Q3 − Q1 covers the spread of the central half of the data.",
+          [
+            "The range of all data values",
+            "The spread of the middle 50% of the data",
+            "The mean of Q1 and Q3",
+            "The distance from the minimum to the median",
+          ],
+          "IQR = Q3 − Q1 spans the central half of the data, so it describes the spread of the middle 50%. Because it ignores the extremes, it is resistant to outliers.",
         ),
-        dataAnswer("data-box-m6", "Find the upper fence: Q3 + 1.5 × IQR = 18 + 1.5 × 8.", "18 + 12", "30", ["30"]),
-        dataAnswer("data-box-m7", "Find the lower fence: Q1 − 1.5 × IQR = 10 − 1.5 × 8.", "10 - 12", "-2", ["−2", "-2"]),
-        financeChoice(
+        typedQ(
+          "data-box-m6",
+          "The box plot shows finishing times (in minutes); the dot marks an outlier. Find the interquartile range of the data.",
+          "14",
+          "IQR uses the quartiles, not the outlier. From the plot Q3 = 44 and Q1 = 30, so IQR = 44 − 30 = 14 minutes.",
+          {
+            accepted: ["14.0", "14 min"],
+            hint: "Use the edges of the box (Q1 and Q3); ignore the separate outlier dot.",
+            boxPlotDiagram: {
+              description: "Box plot of finishing times: whisker minimum 20, Q1 30, median 36, Q3 44, whisker maximum 52, with an outlier at 80.",
+              plots: [{ label: "Finishing time", min: 20, q1: 30, median: 36, q3: 44, max: 52, outliers: [80] }],
+              axisLabel: "Time (min)",
+              xMin: 0,
+              xMax: 90,
+              showValueLabels: true,
+            },
+          },
+        ),
+        typedQ(
+          "data-box-m7",
+          "A data set has Q1 = 10 and Q3 = 18. Find the lower fence (Q1 − 1.5 × IQR).",
+          "-2",
+          "IQR = 18 − 10 = 8. Lower fence = Q1 − 1.5 × IQR = 10 − 1.5 × 8 = 10 − 12 = −2. Any value below −2 would be a low outlier.",
+          { accepted: ["−2", "-2.0"], hint: "Find the IQR, multiply by 1.5, then subtract from Q1 — the result can be negative." },
+        ),
+        mcqQ(
           "data-box-m8",
-          "A value is an outlier by the IQR rule if it is:",
+          "By the 1.5 × IQR rule, a value is an outlier if it is:",
           "C",
-          ["Less than Q1", "Greater than Q3", "More than 1.5 × IQR below Q1 or above Q3", "Equal to the median"],
-          "Only values outside the fences (Q1 − 1.5×IQR or Q3 + 1.5×IQR) are outliers.",
+          [
+            "Less than Q1",
+            "Greater than Q3",
+            "More than 1.5 × IQR below Q1 or above Q3",
+            "Equal to the median",
+          ],
+          "Only values beyond the fences (below Q1 − 1.5×IQR or above Q3 + 1.5×IQR) are outliers. Being merely below Q1 or above Q3 just means a value is in the outer half — not an outlier.",
         ),
-        financeChoice(
+        typedQ(
           "data-box-m9",
-          "The maximum value is 22. The upper fence is 30. Is 22 an outlier?",
-          "B",
-          ["Yes — 22 is the maximum", "No — 22 < 30, so it is within the fence", "Yes — it is above Q3", "Cannot determine"],
-          "22 < 30 (upper fence), so 22 is within the fence and is not an outlier.",
+          "The parallel box plots compare delivery times for two couriers. How much higher is Courier Y's median than Courier X's median?",
+          "9",
+          "Read each median: Courier X = 66 and Courier Y = 75. The difference is 75 − 66 = 9 minutes.",
+          {
+            accepted: ["9.0", "9 min"],
+            hint: "Read the median line of each box, then subtract the smaller from the larger.",
+            boxPlotDiagram: {
+              description: "Parallel box plots. Courier X: min 50, Q1 60, median 66, Q3 72, max 85. Courier Y: min 55, Q1 68, median 75, Q3 82, max 95.",
+              plots: [
+                { label: "Courier X", min: 50, q1: 60, median: 66, q3: 72, max: 85 },
+                { label: "Courier Y", min: 55, q1: 68, median: 75, q3: 82, max: 95 },
+              ],
+              axisLabel: "Delivery time (min)",
+              xMin: 40,
+              xMax: 100,
+              showValueLabels: true,
+            },
+          },
         ),
-        financeChoice(
+        mcqQ(
           "data-box-m10",
-          "Comparing two box plots, the medians tell you about:",
-          "B",
-          ["The total range of each group", "The typical value in each group", "The spread only, not the centre", "The outliers only"],
-          "Comparing medians tells you which group typically has higher or lower values.",
+          "Using the same parallel box plots for Couriers X and Y, which conclusion is best supported?",
+          "A",
+          [
+            "Courier X is typically faster, and both couriers have a similar spread (IQR)",
+            "Courier Y is typically faster, because its box is further left",
+            "Courier X has a much larger spread than Courier Y",
+            "The two couriers have identical distributions",
+          ],
+          "Courier X's median (66) is lower — faster delivery — and both IQRs are 12, so the spreads match. Courier Y's box sits further right (slower), and the distributions are clearly not identical.",
+          {
+            boxPlotDiagram: {
+              description: "Parallel box plots. Courier X: min 50, Q1 60, median 66, Q3 72, max 85. Courier Y: min 55, Q1 68, median 75, Q3 82, max 95.",
+              plots: [
+                { label: "Courier X", min: 50, q1: 60, median: 66, q3: 72, max: 85 },
+                { label: "Courier Y", min: 55, q1: 68, median: 75, q3: 82, max: 95 },
+              ],
+              axisLabel: "Delivery time (min)",
+              xMin: 40,
+              xMax: 100,
+              showValueLabels: true,
+            },
+          },
         ),
       ],
     };
@@ -652,77 +1602,337 @@ export function year11StandardDataAnalysisLessonOverride(
         ],
       },
       guidedPractice: [
-        financeChoice(
+        mcqQ(
           "data-stem-g1",
-          "In a stem-and-leaf plot, if stem = 3 and leaf = 5, the data value is:",
+          "In a stem-and-leaf plot, a row with stem 3 and a leaf 5 represents which data value?",
           "A",
           ["35", "53", "3.5", "8"],
-          "Combine stem and leaf: 3|5 = 35.",
+          "Combine the stem (tens digit) with the leaf (units digit): 3 | 5 = 35. Reversing them gives 53, treating the leaf as a decimal gives 3.5, and adding them gives 8 — all common errors.",
         ),
-        dataAnswer("data-stem-g2", "A plot has stem 1 with leaves 2, 5, 8 and stem 2 with leaves 0, 3, 6, 7. How many data values are there in total?", "3 + 4", "7", ["7 values"]),
-        dataAnswer("data-stem-g3", "The 7 values in order are: 12, 15, 18, 20, 23, 26, 27. Find the median.", "\\text{4th value of 7}", "20", ["20"]),
-        financeChoice(
+        typedQ(
+          "data-stem-g2",
+          "How many data values are shown in the stem-and-leaf plot?",
+          "9",
+          "Count every leaf across all stems: 3 leaves on stem 1, 4 on stem 2, and 2 on stem 3 give 3 + 4 + 2 = 9 values.",
+          {
+            accepted: ["9 values"],
+            hint: "Count all the leaves, across every stem row.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 2 5 8. Stem 2: leaves 0 3 6 7. Stem 3: leaves 1 4.",
+              keyText: "1 | 2 = 12",
+              rows: [
+                { stem: 1, leaves: [2, 5, 8] },
+                { stem: 2, leaves: [0, 3, 6, 7] },
+                { stem: 3, leaves: [1, 4] },
+              ],
+            },
+          },
+        ),
+        typedQ(
+          "data-stem-g3",
+          "Find the median of the data shown in the stem-and-leaf plot.",
+          "23",
+          "The plot lists the values in order: 12, 15, 18, 20, 23, 26, 27, 31, 34 (n = 9). The median is the 5th value, which is 23.",
+          {
+            accepted: ["23.0"],
+            hint: "The values are already in order. With 9 values, the median is the 5th.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 2 5 8. Stem 2: leaves 0 3 6 7. Stem 3: leaves 1 4.",
+              keyText: "1 | 2 = 12",
+              rows: [
+                { stem: 1, leaves: [2, 5, 8] },
+                { stem: 2, leaves: [0, 3, 6, 7] },
+                { stem: 3, leaves: [1, 4] },
+              ],
+            },
+          },
+        ),
+        mcqQ(
           "data-stem-g4",
-          "In a back-to-back stem-and-leaf plot:",
+          "How is a back-to-back stem-and-leaf plot organised?",
           "A",
-          ["Both groups share the same central stem column", "Each group has a separate stem column on opposite sides", "Only one group's data is shown at a time", "Stems are listed in columns rather than rows"],
-          "The stem is shared in the centre; Group A's leaves go left and Group B's go right.",
+          [
+            "Both groups share one central stem column, with one group's leaves on each side",
+            "Each group has a separate stem column on opposite sides",
+            "Only one group's data is shown at a time",
+            "Stems are listed across the top rather than down the side",
+          ],
+          "A back-to-back plot uses a single shared stem in the centre: one group's leaves read outward to the left, the other's to the right — allowing a direct comparison of two data sets.",
         ),
       ],
       independentPractice: [
-        dataAnswer("data-stem-i1", "A back-to-back plot shows Group A leaves 8, 5, 2 on stem 1 (reading right-to-left: 12, 15, 18) and leaves 8, 5 on stem 2 (25, 28). What is Group A's largest value?", "\\text{Group A values: }12,15,18,25,28", "28", ["28"]),
-        dataAnswer("data-stem-i2", "Group A data in order: 12, 15, 18, 25, 28. Find the median.", "\\text{3rd of 5 values}", "18", ["18"]),
-        dataAnswer("data-stem-i3", "Group B data in order: 13, 17, 21, 25, 28, 33. Find the median.", "\\frac{25+28}{2}", "26.5", ["26.5"]),
-        financeChoice(
-          "data-stem-i4",
-          "Comparing Group A (median 18) and Group B (median 26.5), which is most accurate?",
-          "B",
-          ["Group A typically scored higher than Group B", "Group B typically scored higher than Group A", "Both groups have identical distributions", "Medians cannot be compared in back-to-back plots"],
-          "Group B's higher median means Group B values are typically larger.",
+        typedQ(
+          "data-stem-i1",
+          "What is the largest value shown in the stem-and-leaf plot?",
+          "53",
+          "The largest value is the last leaf on the largest stem: stem 5 with leaf 3 gives 5 | 3 = 53.",
+          {
+            accepted: ["53.0"],
+            hint: "Look at the highest stem and its largest leaf.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 2: leaves 4 7. Stem 3: leaves 1 5 8. Stem 4: leaves 0 2 6 9. Stem 5: leaf 3.",
+              keyText: "2 | 4 = 24",
+              rows: [
+                { stem: 2, leaves: [4, 7] },
+                { stem: 3, leaves: [1, 5, 8] },
+                { stem: 4, leaves: [0, 2, 6, 9] },
+                { stem: 5, leaves: [3] },
+              ],
+            },
+          },
         ),
-        dataAnswer("data-stem-i5", "Group A data: 12, 15, 18, 25, 28. Find the range.", "28 - 12", "16", ["16"]),
+        typedQ(
+          "data-stem-i2",
+          "Find the median of the data shown in the stem-and-leaf plot.",
+          "39",
+          "The values in order are 24, 27, 31, 35, 38, 40, 42, 46, 49, 53 (n = 10). The median is the average of the 5th and 6th values: (38 + 40) ÷ 2 = 39.",
+          {
+            accepted: ["39.0"],
+            hint: "There are 10 values, so average the 5th and 6th.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 2: leaves 4 7. Stem 3: leaves 1 5 8. Stem 4: leaves 0 2 6 9. Stem 5: leaf 3.",
+              keyText: "2 | 4 = 24",
+              rows: [
+                { stem: 2, leaves: [4, 7] },
+                { stem: 3, leaves: [1, 5, 8] },
+                { stem: 4, leaves: [0, 2, 6, 9] },
+                { stem: 5, leaves: [3] },
+              ],
+            },
+          },
+        ),
+        typedQ(
+          "data-stem-i3",
+          "Find the range of the data shown in the stem-and-leaf plot.",
+          "29",
+          "Range = largest − smallest = 53 − 24 = 29.",
+          {
+            accepted: ["29.0"],
+            hint: "Subtract the smallest value (top-left) from the largest (bottom-right).",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 2: leaves 4 7. Stem 3: leaves 1 5 8. Stem 4: leaves 0 2 6 9. Stem 5: leaf 3.",
+              keyText: "2 | 4 = 24",
+              rows: [
+                { stem: 2, leaves: [4, 7] },
+                { stem: 3, leaves: [1, 5, 8] },
+                { stem: 4, leaves: [0, 2, 6, 9] },
+                { stem: 5, leaves: [3] },
+              ],
+            },
+          },
+        ),
+        typedQ(
+          "data-stem-i4",
+          "The back-to-back plot compares two classes. Find the median mark for Class A.",
+          "18",
+          "Class A's values (left side) are 12, 15, 18, 25, 28 (n = 5). The median is the 3rd value, which is 18.",
+          {
+            accepted: ["18.0"],
+            hint: "Read Class A's values from the left of the stem; with 5 values the median is the 3rd.",
+            stemAndLeafDiagram: {
+              description: "Back-to-back stem-and-leaf plot. Class A (left): stem 1 has 12, 15, 18; stem 2 has 25, 28. Class B (right): stem 1 has 13, 17; stem 2 has 21, 25, 28; stem 3 has 33.",
+              keyText: "1 | 3 = 13",
+              leftLabel: "Class A",
+              rightLabel: "Class B",
+              rows: [
+                { stem: 1, leftLeaves: [2, 5, 8], leaves: [3, 7] },
+                { stem: 2, leftLeaves: [5, 8], leaves: [1, 5, 8] },
+                { stem: 3, leftLeaves: [], leaves: [3] },
+              ],
+            },
+          },
+        ),
+        mcqQ(
+          "data-stem-i5",
+          "Using the same back-to-back plot (Class A median 18, Class B median 23), which statement is best supported?",
+          "B",
+          [
+            "Class A typically scored higher than Class B",
+            "Class B typically scored higher than Class A",
+            "Both classes have identical distributions",
+            "Medians cannot be compared from a back-to-back plot",
+          ],
+          "Class B's median (23) is higher than Class A's (18), so Class B's typical value is larger. A back-to-back plot is designed exactly for this kind of median-to-median comparison.",
+        ),
       ],
       commonMistakes: [
-        { mistake: "Reading Group A leaves left-to-right instead of right-to-left in a back-to-back plot.", fix: "Group A (left side) is read from the stem outward — right to left. 8, 5, 2 on stem 1 gives values 12, 15, 18 (not 82, 51, 21)." },
-        { mistake: "Forgetting to count both stems' leaves when finding the total number of data values.", fix: "Count every leaf in the plot — not just one stem. Add up all leaves across all stems." },
-        { mistake: "Confusing stem 2, leaf 3 with the value 2.3 or 23 without checking the context.", fix: "For two-digit numbers, stem is the tens digit and leaf is the units digit: 2|3 = 23." },
-        { mistake: "Comparing the two groups by looking at individual leaf values rather than medians and ranges.", fix: "Summarise each group with its median (typical value) and range (spread) before making a comparison statement." },
+        { mistake: "Reading a left-hand leaf as the tens digit, e.g. taking 8 | 1 as 81 instead of 18.", fix: "The stem is always the tens digit. On the left side read outward from the stem: stem 1 with leaf 8 is still 18." },
+        { mistake: "Counting the leaves on only one stem when finding the total number of values.", fix: "Add up every leaf across all stem rows — each leaf is one data value." },
+        { mistake: "Treating stem 2, leaf 3 as 2.3 instead of 23.", fix: "For two-digit data the stem is the tens digit and the leaf the units digit, so 2 | 3 = 23." },
+        { mistake: "Comparing two groups by eyeballing individual leaves rather than summary statistics.", fix: "Compare medians (typical value) and ranges (spread) before stating which group is higher or more variable." },
       ],
       masteryQuiz: [
-        financeChoice(
+        mcqQ(
           "data-stem-m1",
-          "In a stem-and-leaf plot, stem 2 with leaves 2, 5, 8 represents which values?",
+          "In a stem-and-leaf plot, a row with stem 2 and leaves 2, 5, 8 represents which values?",
           "B",
           ["2, 5, 8", "22, 25, 28", "2.2, 2.5, 2.8", "225 and 28"],
-          "Combine stem 2 with each leaf: 22, 25, 28.",
+          "Each leaf pairs with the stem to give a value: 2 | 2 = 22, 2 | 5 = 25, 2 | 8 = 28. The leaves are not standalone values or decimals, and they are not concatenated into one number.",
         ),
-        dataAnswer("data-stem-m2", "A plot has stems 1, 2, 3, 4 with 3, 3, 3, 1 leaves respectively. How many data values are there?", "3+3+3+1", "10", ["10 values"]),
-        dataAnswer("data-stem-m3", "Data values in order: 14, 16, 19, 22, 25, 28, 30, 33, 37, 41 (n = 10). Find the median.", "\\frac{25+28}{2}", "26.5", ["26.5"]),
-        dataAnswer("data-stem-m4", "Find the range of that dataset (min 14, max 41).", "41 - 14", "27", ["27"]),
-        financeChoice(
+        typedQ(
+          "data-stem-m2",
+          "How many data values are shown in the stem-and-leaf plot?",
+          "10",
+          "Count every leaf: 3 on stem 1, 3 on stem 2, 3 on stem 3, and 1 on stem 4 give 3 + 3 + 3 + 1 = 10 values.",
+          {
+            accepted: ["10 values"],
+            hint: "Total the leaves across all four stems.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 4 6 9. Stem 2: leaves 2 5 8. Stem 3: leaves 0 3 7. Stem 4: leaf 1.",
+              keyText: "1 | 4 = 14",
+              rows: [
+                { stem: 1, leaves: [4, 6, 9] },
+                { stem: 2, leaves: [2, 5, 8] },
+                { stem: 3, leaves: [0, 3, 7] },
+                { stem: 4, leaves: [1] },
+              ],
+            },
+          },
+        ),
+        typedQ(
+          "data-stem-m3",
+          "Find the median of the data shown in the stem-and-leaf plot.",
+          "26.5",
+          "The values in order are 14, 16, 19, 22, 25, 28, 30, 33, 37, 41 (n = 10). The median is the average of the 5th and 6th: (25 + 28) ÷ 2 = 26.5.",
+          {
+            accepted: ["26.50"],
+            hint: "With 10 values, average the 5th and 6th.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 4 6 9. Stem 2: leaves 2 5 8. Stem 3: leaves 0 3 7. Stem 4: leaf 1.",
+              keyText: "1 | 4 = 14",
+              rows: [
+                { stem: 1, leaves: [4, 6, 9] },
+                { stem: 2, leaves: [2, 5, 8] },
+                { stem: 3, leaves: [0, 3, 7] },
+                { stem: 4, leaves: [1] },
+              ],
+            },
+          },
+        ),
+        typedQ(
+          "data-stem-m4",
+          "Find the range of the data shown in the stem-and-leaf plot.",
+          "27",
+          "Range = largest − smallest = 41 − 14 = 27.",
+          {
+            accepted: ["27.0"],
+            hint: "Subtract the smallest value from the largest.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 4 6 9. Stem 2: leaves 2 5 8. Stem 3: leaves 0 3 7. Stem 4: leaf 1.",
+              keyText: "1 | 4 = 14",
+              rows: [
+                { stem: 1, leaves: [4, 6, 9] },
+                { stem: 2, leaves: [2, 5, 8] },
+                { stem: 3, leaves: [0, 3, 7] },
+                { stem: 4, leaves: [1] },
+              ],
+            },
+          },
+        ),
+        mcqQ(
           "data-stem-m5",
-          "The main advantage of a stem-and-leaf plot over a simple list of values is:",
+          "What is the main advantage of a stem-and-leaf plot over a plain list of values?",
           "A",
-          ["It displays data in numerical order and allows the shape of the distribution to be seen", "It hides individual data values", "It is only useful for data values below 10", "It calculates the mean automatically"],
-          "Stem-and-leaf plots preserve individual values while also showing the overall shape of the distribution.",
+          [
+            "It keeps every individual value while also showing the shape of the distribution",
+            "It hides the individual data values",
+            "It works only for values below 10",
+            "It calculates the mean automatically",
+          ],
+          "A stem-and-leaf plot orders the data and reveals its shape (like a sideways histogram) without losing any individual value — which a histogram or a plain list cannot do at once.",
         ),
-        financeChoice(
+        typedQ(
           "data-stem-m6",
-          "A back-to-back plot shows Group A leaves 4, 7, 9 (read right-to-left) on stem 1. What are those Group A values?",
-          "B",
-          ["1, 4, 7, 9", "14, 17, 19", "41, 71, 91", "4, 7, 9"],
-          "Read left from stem 1: leaves 4, 7, 9 give values 14, 17, 19.",
+          "The back-to-back plot compares two groups. Find the median for Group A.",
+          "33",
+          "Group A's values (left side) are 22, 26, 31, 35, 38, 40 (n = 6). The median is the average of the 3rd and 4th: (31 + 35) ÷ 2 = 33.",
+          {
+            accepted: ["33.0"],
+            hint: "Read Group A from the left of the stem; with 6 values average the 3rd and 4th.",
+            stemAndLeafDiagram: {
+              description: "Back-to-back stem-and-leaf plot. Group A (left): stem 2 has 22, 26; stem 3 has 31, 35, 38; stem 4 has 40. Group B (right): stem 2 has 24, 29; stem 3 has 30, 36; stem 4 has 42, 45, 48.",
+              keyText: "2 | 4 = 24",
+              leftLabel: "Group A",
+              rightLabel: "Group B",
+              rows: [
+                { stem: 2, leftLeaves: [2, 6], leaves: [4, 9] },
+                { stem: 3, leftLeaves: [1, 5, 8], leaves: [0, 6] },
+                { stem: 4, leftLeaves: [0], leaves: [2, 5, 8] },
+              ],
+            },
+          },
         ),
-        dataAnswer("data-stem-m7", "Group A data in order: 14, 17, 19, 23, 28, 32. Find the median.", "\\frac{19+23}{2}", "21", ["21"]),
-        dataAnswer("data-stem-m8", "Group B data in order: 12, 16, 21, 25, 29, 30, 34, 38. Find the median.", "\\frac{25+29}{2}", "27", ["27"]),
-        financeChoice(
+        typedQ(
+          "data-stem-m7",
+          "Using the same back-to-back plot, find the median for Group B.",
+          "36",
+          "Group B's values (right side) are 24, 29, 30, 36, 42, 45, 48 (n = 7). The median is the 4th value, which is 36.",
+          {
+            accepted: ["36.0"],
+            hint: "Read Group B from the right of the stem; with 7 values the median is the 4th.",
+            stemAndLeafDiagram: {
+              description: "Back-to-back stem-and-leaf plot. Group A (left): stem 2 has 22, 26; stem 3 has 31, 35, 38; stem 4 has 40. Group B (right): stem 2 has 24, 29; stem 3 has 30, 36; stem 4 has 42, 45, 48.",
+              keyText: "2 | 4 = 24",
+              leftLabel: "Group A",
+              rightLabel: "Group B",
+              rows: [
+                { stem: 2, leftLeaves: [2, 6], leaves: [4, 9] },
+                { stem: 3, leftLeaves: [1, 5, 8], leaves: [0, 6] },
+                { stem: 4, leftLeaves: [0], leaves: [2, 5, 8] },
+              ],
+            },
+          },
+        ),
+        mcqQ(
+          "data-stem-m8",
+          "Group A has median 33 and range 18; Group B has median 36 and range 24. Which comparison is best supported?",
+          "B",
+          [
+            "Group A is typically higher and more spread out",
+            "Group B is typically higher and more spread out than Group A",
+            "The two groups are identical",
+            "Group B is typically higher but more consistent than Group A",
+          ],
+          "Group B's larger median (36 vs 33) means typically higher values, and its larger range (24 vs 18) means more spread — so B is both higher and more variable, not more consistent.",
+        ),
+        typedQ(
           "data-stem-m9",
-          "Comparing Group A (median 21) and Group B (median 27), which conclusion is most appropriate?",
-          "B",
-          ["Group A has higher typical values than Group B", "Group B has higher typical values than Group A", "Both groups are identical", "Medians cannot be compared in back-to-back plots"],
-          "Group B's higher median indicates Group B values are typically larger.",
+          "Find the lower quartile (Q1) of the data shown in the stem-and-leaf plot.",
+          "15",
+          "The 9 ordered values are 11, 14, 16, 20, 22, 25, 28, 33, 37. The median (5th value, 22) splits off a lower half of 11, 14, 16, 20; Q1 is the median of that half: (14 + 16) ÷ 2 = 15.",
+          {
+            accepted: ["15.0"],
+            hint: "Find the median first, then take the median of the four values below it.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 1 4 6. Stem 2: leaves 0 2 5 8. Stem 3: leaves 3 7.",
+              keyText: "1 | 1 = 11",
+              rows: [
+                { stem: 1, leaves: [1, 4, 6] },
+                { stem: 2, leaves: [0, 2, 5, 8] },
+                { stem: 3, leaves: [3, 7] },
+              ],
+            },
+          },
         ),
-        dataAnswer("data-stem-m10", "Group A data: 14, 17, 19, 23, 28, 32. Find the range.", "32 - 14", "18", ["18"]),
+        typedQ(
+          "data-stem-m10",
+          "Find the range of the data shown in the stem-and-leaf plot above (the one used for Q1).",
+          "26",
+          "Range = largest − smallest = 37 − 11 = 26.",
+          {
+            accepted: ["26.0"],
+            hint: "Subtract the smallest value from the largest in the same plot.",
+            stemAndLeafDiagram: {
+              description: "Stem-and-leaf plot. Stem 1: leaves 1 4 6. Stem 2: leaves 0 2 5 8. Stem 3: leaves 3 7.",
+              keyText: "1 | 1 = 11",
+              rows: [
+                { stem: 1, leaves: [1, 4, 6] },
+                { stem: 2, leaves: [0, 2, 5, 8] },
+                { stem: 3, leaves: [3, 7] },
+              ],
+            },
+          },
+        ),
       ],
     };
   }
@@ -753,112 +1963,254 @@ export function year11StandardDataAnalysisLessonOverride(
         ],
       },
       guidedPractice: [
-        financeChoice(
+        mcqQ(
           "data-time-g1",
-          "In a time series graph, time is placed on the x-axis. This means time is the:",
+          "In a time series graph, time is plotted on the horizontal axis. This means time is the:",
           "B",
           ["Dependent variable", "Independent variable", "Mean of the data", "Range of the data"],
-          "Time is the independent variable — it is what we measure the other quantity against.",
+          "Time is the independent variable — it is the input we measure the other quantity against, so it goes on the horizontal axis.",
         ),
-        financeChoice(
+        typedQ(
           "data-time-g2",
-          "Monthly sales (Jan–Jun): 40, 45, 42, 50, 55, 58. The overall trend is:",
-          "A",
-          ["Increasing — sales are generally rising despite one dip", "Decreasing — sales are falling overall", "Stable — no change over time", "Random with no trend"],
-          "Despite a dip in March, the overall direction from 40 to 58 is increasing.",
+          "The time series graph shows a café's monthly sales. What were the sales in April (month 4)?",
+          "50",
+          "Read the height of the point above month 4 on the graph: the April value is 50.",
+          {
+            accepted: ["50 sales"],
+            hint: "Find month 4 on the horizontal axis and read the value of the point above it.",
+            ...timeSeriesGraph(
+              "Time series of monthly café sales for months 1–6: 40, 45, 42, 50, 55, 58.",
+              "Month",
+              "Sales",
+              [40, 45, 42, 50, 55, 58],
+              0,
+              70,
+              10
+            ),
+          },
         ),
-        financeChoice(
+        mcqQ(
           "data-time-g3",
-          "A trend line predicts July sales of 62. One reason this prediction may be unreliable is:",
-          "B",
-          ["Predictions are always exact if the trend line is drawn correctly", "The trend may not continue — seasonal changes or competition could alter sales", "January data is incorrectly recorded", "62 is too large a number to be a valid prediction"],
-          "Predictions beyond the data range are uncertain — real conditions may change.",
+          "Using the same monthly sales graph, how is the overall trend best described?",
+          "A",
+          [
+            "Increasing — sales generally rise, despite one dip",
+            "Decreasing — sales fall overall",
+            "Stable — no change over time",
+            "Seasonal — a repeating yearly cycle",
+          ],
+          "From month 1 (40) to month 6 (58) the values rise overall, even though March dips. That is an increasing trend, not a stable, falling, or repeating one.",
+          {
+            ...timeSeriesGraph(
+              "Time series of monthly café sales for months 1–6: 40, 45, 42, 50, 55, 58.",
+              "Month",
+              "Sales",
+              [40, 45, 42, 50, 55, 58],
+              0,
+              70,
+              10
+            ),
+          },
         ),
-        dataAnswer("data-time-g4", "Sales were 42 in March (month 3) and 55 in May (month 5). Find the average rate of increase per month.", "\\frac{55-42}{5-3} = \\frac{13}{2}", "6.5", ["6.5 per month"]),
+        typedQ(
+          "data-time-g4",
+          "A café's sales were 42 in March and 55 in May. Find the average rate of increase in sales per month.",
+          "6.5",
+          "Average rate of change = change in value ÷ change in time = (55 − 42) ÷ (5 − 3) = 13 ÷ 2 = 6.5 sales per month.",
+          { accepted: ["6.5 per month", "6.5 sales/month"], hint: "Divide the change in sales by the number of months between March and May." },
+        ),
       ],
       independentPractice: [
-        financeChoice(
+        typedQ(
           "data-time-i1",
-          "Weekly café customers: 80, 85, 90, 88, 95. The overall trend is:",
-          "B",
-          ["Decreasing — customer numbers are falling", "Increasing — customer numbers are generally rising", "Perfectly constant from week to week", "Cannot be determined from 5 data points"],
-          "The overall direction from 80 to 95 is increasing despite one dip.",
+          "The time series graph shows weekly café customers. How many customers came in week 3?",
+          "90",
+          "Read the height of the point above week 3: the value is 90 customers.",
+          {
+            accepted: ["90 customers"],
+            hint: "Find week 3 on the horizontal axis and read the point's height.",
+            ...timeSeriesGraph(
+              "Time series of weekly café customers for weeks 1–5: 80, 85, 90, 88, 95.",
+              "Week",
+              "Customers",
+              [80, 85, 90, 88, 95],
+              0,
+              100,
+              10
+            ),
+          },
         ),
-        dataAnswer("data-time-i2", "A trend line predicts Week 6 customers as 100. Find the increase from Week 1 (80) to this prediction.", "100 - 80", "20", ["20 customers", "20"]),
-        financeChoice(
+        typedQ(
+          "data-time-i2",
+          "Using the same graph, find the average rate of change in customers per week from week 1 to week 5.",
+          "3.75",
+          "Average rate of change = (95 − 80) ÷ (5 − 1) = 15 ÷ 4 = 3.75 customers per week.",
+          {
+            accepted: ["3.75 per week"],
+            hint: "Divide the change from week 1 to week 5 by the 4 weeks between them.",
+            ...timeSeriesGraph(
+              "Time series of weekly café customers for weeks 1–5: 80, 85, 90, 88, 95.",
+              "Week",
+              "Customers",
+              [80, 85, 90, 88, 95],
+              0,
+              100,
+              10
+            ),
+          },
+        ),
+        typedQ(
           "data-time-i3",
-          "Annual rainfall (mm): 600, 580, 620, 560, 590. This time series is best described as:",
-          "C",
-          ["Strongly increasing", "Strongly decreasing", "Fluctuating with no clear overall trend", "Constant at 590 mm"],
-          "The values alternate up and down without a consistent direction.",
+          "A trend line for monthly downloads rises by 4 thousand per month. If month 6 had 30 thousand downloads, predict the downloads in month 9 (in thousands).",
+          "42",
+          "From month 6 to month 9 is 3 months. Prediction = 30 + 4 × 3 = 30 + 12 = 42 thousand downloads.",
+          { accepted: ["42 thousand", "42000", "42,000"], hint: "Add the rate times the number of extra months to the month-6 value." },
         ),
-        financeChoice(
+        mcqQ(
           "data-time-i4",
-          "Monthly temperatures: Jan 22, Feb 25, Mar 28, Apr 26, May 20, Jun 16, Jul 14°C. The pattern is best described as:",
+          "The graph shows monthly temperatures across part of a year. Which description best fits the pattern?",
           "B",
-          ["Constant throughout the year", "Increasing then decreasing — a seasonal pattern", "Decreasing then increasing — a U-shape", "No change from month to month"],
-          "Temperatures rise into summer (Jan–Mar) and fall towards winter (Apr–Jul) — a seasonal pattern.",
+          [
+            "Constant throughout the year",
+            "Seasonal — rising to a peak, then falling",
+            "Steadily decreasing all year",
+            "Fluctuating with no overall shape",
+          ],
+          "The values climb to a mid-year peak and then fall away, which is a seasonal pattern — not constant, steadily falling, or directionless.",
+          {
+            ...timeSeriesGraph(
+              "Time series of monthly temperatures (°C) for months 1–7: 22, 25, 28, 26, 20, 16, 14.",
+              "Month",
+              "Temperature (°C)",
+              [22, 25, 28, 26, 20, 16, 14],
+              0,
+              30,
+              5
+            ),
+          },
         ),
-        financeChoice(
+        typedQ(
           "data-time-i5",
-          "A trend line predicts sales of 200 in 3 months. Actual sales turn out to be 185. The prediction was:",
-          "B",
-          ["Exactly correct", "Too high by 15", "Too low by 15", "Impossible to evaluate"],
-          "Predicted 200, actual 185: 200 − 185 = 15 too high.",
+          "A trend line predicted 200 sales for a month, but the actual figure was 185. By how much was the prediction too high?",
+          "15",
+          "Prediction error = predicted − actual = 200 − 185 = 15, so the prediction was 15 too high.",
+          { accepted: ["15 sales"], hint: "Subtract the actual value from the predicted value." },
         ),
       ],
       commonMistakes: [
-        { mistake: "Describing a trend based on one or two data points rather than the overall pattern.", fix: "Look at the general direction from the first point to the last. A single dip or spike does not change an overall increasing trend." },
-        { mistake: "Stating a prediction as certain rather than cautious.", fix: "Predictions from trend lines are estimates. Always use language like 'approximately' or 'based on the trend' to acknowledge uncertainty." },
-        { mistake: "Describing the range of values as the 'trend'.", fix: "Trend describes the direction of change over time (increasing, decreasing, fluctuating), not the numerical range." },
-        { mistake: "Using the rate of change between just two points to make long-term predictions as if they were exact.", fix: "The average rate of change gives an estimate, but real data rarely follows a perfectly constant rate over a long period." },
+        { mistake: "Describing a trend from one or two points rather than the overall pattern.", fix: "Look at the general direction from the first point to the last; a single dip or spike does not overturn an overall increasing trend." },
+        { mistake: "Stating a prediction as a certainty.", fix: "Predictions from a trend line are estimates — use 'approximately' or 'based on the trend' and note the trend may not continue." },
+        { mistake: "Calling the spread of values the 'trend'.", fix: "Trend is the direction of change over time (increasing, decreasing, fluctuating, seasonal), not the numerical range." },
+        { mistake: "Treating the average rate of change between two points as exact for long-range predictions.", fix: "The average rate is an estimate; real data rarely follows a perfectly constant rate, so distant predictions are less reliable." },
       ],
       masteryQuiz: [
-        financeChoice(
+        mcqQ(
           "data-time-m1",
-          "Monthly revenue ($000s): 12, 15, 14, 17, 18, 20. The overall trend is:",
-          "B",
-          ["Revenue is generally decreasing over time", "Revenue is generally increasing over time", "Revenue is perfectly stable", "Revenue fluctuates randomly with no trend"],
-          "The overall direction from 12 to 20 over 6 months is increasing.",
+          "The graph shows a region's annual rainfall over five years. How is the trend best described?",
+          "C",
+          [
+            "Strongly increasing",
+            "Strongly decreasing",
+            "Fluctuating with no clear overall direction",
+            "A repeating seasonal cycle",
+          ],
+          "The values rise and fall from year to year without settling into an overall upward or downward direction, so the series is fluctuating.",
+          {
+            ...timeSeriesGraph(
+              "Time series of annual rainfall (mm) for years 1–5: 600, 580, 620, 560, 590.",
+              "Year",
+              "Rainfall (mm)",
+              [600, 580, 620, 560, 590],
+              500,
+              650,
+              25
+            ),
+          },
         ),
-        dataAnswer("data-time-m2", "Find the average monthly increase from month 1 (revenue $12k) to month 6 (revenue $20k).", "\\frac{20-12}{6-1} = \\frac{8}{5}", "1.6", ["1.6 per month", "$1.6k per month"]),
-        financeChoice(
+        typedQ(
+          "data-time-m2",
+          "A business's revenue rose from $12k in month 1 to $20k in month 6. Find the average increase in revenue per month (in $000s).",
+          "1.6",
+          "Average rate of change = (20 − 12) ÷ (6 − 1) = 8 ÷ 5 = 1.6, i.e. $1.6k per month.",
+          { accepted: ["1.6 per month", "$1.6k per month"], hint: "Divide the change in revenue by the 5 months between month 1 and month 6." },
+        ),
+        typedQ(
           "data-time-m3",
-          "Using the average rate of $1.6k per month, a prediction for month 7 would be approximately:",
-          "A",
-          ["20 + 1.6 = $21.6k", "20 + 6 = $26k", "20 + 0.16 = $20.16k", "12 + 20 = $32k"],
-          "Add one more period's average increase to the last known value: 20 + 1.6 = 21.6.",
+          "Revenue is increasing by an average of $1.6k per month and was $20k in month 6. Predict the revenue in month 7 (in $000s).",
+          "21.6",
+          "Prediction = last value + rate × extra periods = 20 + 1.6 × 1 = 21.6, i.e. $21.6k.",
+          { accepted: ["21.6k", "$21.6k"], hint: "Add one month's average increase to the month-6 value." },
         ),
-        dataAnswer("data-time-m4", "Website visits per day: Mon 200, Tue 210, Wed 195, Thu 220, Fri 230. Find the range of daily visits.", "230 - 195", "35", ["35 visits", "35"]),
-        financeChoice(
+        typedQ(
+          "data-time-m4",
+          "Daily website visits for a week were: 200, 210, 195, 220, 230. Find the range of daily visits.",
+          "35",
+          "Range = highest − lowest = 230 − 195 = 35 visits.",
+          { accepted: ["35 visits"], hint: "Subtract the smallest day's visits from the largest." },
+        ),
+        mcqQ(
           "data-time-m5",
-          "A decreasing trend in a time series means:",
+          "A time series shows a decreasing trend. This means:",
           "B",
-          ["Each value is exactly smaller than the previous one", "The overall pattern shows a decline over time, though individual values may occasionally rise", "All data values are negative", "The time axis must be reversed"],
-          "A decreasing trend is about the overall direction, not every single step.",
+          [
+            "Each value is exactly smaller than the one before it",
+            "The overall direction is downward, though individual values may sometimes rise",
+            "Every data value is negative",
+            "The time axis runs right to left",
+          ],
+          "A decreasing trend describes the overall downward direction. It does not require every step to fall, nor does it mean the values or the axis are negative/reversed.",
         ),
-        financeChoice(
+        typedQ(
           "data-time-m6",
-          "Annual rainfall: 450, 420, 460, 430, 410, 390 mm. The trend is:",
-          "B",
-          ["Increasing overall", "Decreasing overall", "Stable with no trend", "A repeating seasonal pattern"],
-          "Despite one rise to 460, the overall direction from 450 to 390 is decreasing.",
+          "The graph shows monthly revenue ($000s). Find the average rate of change in revenue per month from month 2 to month 6.",
+          "1.25",
+          "From the graph, month 2 = 15 and month 6 = 20. Average rate = (20 − 15) ÷ (6 − 2) = 5 ÷ 4 = 1.25 ($000s per month).",
+          {
+            accepted: ["1.25 per month", "$1.25k per month"],
+            hint: "Read the month-2 and month-6 values from the graph, then divide the change by 4.",
+            ...timeSeriesGraph(
+              "Time series of monthly revenue ($000s) for months 1–6: 12, 15, 14, 17, 18, 20.",
+              "Month",
+              "Revenue ($000s)",
+              [12, 15, 14, 17, 18, 20],
+              0,
+              25,
+              5
+            ),
+          },
         ),
-        financeChoice(
+        typedQ(
           "data-time-m7",
-          "A trend line predicts rainfall of 370 mm next year. One reason this may be unreliable is:",
-          "B",
-          ["Any prediction from 6 data points is always wrong", "Rainfall is affected by climate events not captured in the past 6-year trend", "The trend line must always be horizontal", "370 mm is an impossible rainfall amount"],
-          "Climate variability means the trend may change — extrapolation is always uncertain.",
+          "A trend line predicted next year's rainfall as 410 mm, but the actual rainfall was 372 mm. By how much was the prediction too high?",
+          "38",
+          "Prediction error = predicted − actual = 410 − 372 = 38 mm too high.",
+          { accepted: ["38 mm"], hint: "Subtract the actual rainfall from the predicted value." },
         ),
-        dataAnswer("data-time-m8", "Daily temperatures for a week: 18, 20, 22, 21, 24, 26, 23. Find the mean temperature.", "\\frac{18+20+22+21+24+26+23}{7} = \\frac{154}{7}", "22", ["22°C", "22 degrees"]),
-        dataAnswer("data-time-m9", "Find the range of that week's temperatures (max 26, min 18).", "26 - 18", "8", ["8°C", "8 degrees"]),
-        financeChoice(
-          "data-time-m10",
-          "A cautious conclusion from an increasing time series trend is:",
+        typedQ(
+          "data-time-m8",
+          "Daily maximum temperatures (°C) for five days were: 18, 21, 25, 27, 24. Find the mean maximum temperature.",
+          "23",
+          "Mean = (18 + 21 + 25 + 27 + 24) ÷ 5 = 115 ÷ 5 = 23 °C.",
+          { accepted: ["23°C", "23 degrees"], hint: "Add the five temperatures and divide by 5." },
+        ),
+        mcqQ(
+          "data-time-m9",
+          "A shop's sales have risen steadily for six months. Which is the most appropriate conclusion?",
           "B",
-          ["The increase will definitely continue forever based on past data", "Based on past data, an increase appears likely, but the trend may not continue", "Only decreasing trends can generate valid predictions", "Time series data cannot be used to support any predictions"],
-          "Predictions should acknowledge that real conditions may change.",
+          [
+            "Sales will definitely keep rising forever, based on the past six months",
+            "Based on the trend, sales appear likely to rise, but the trend may not continue",
+            "Only falling trends can be used to make predictions",
+            "Time series data cannot support any prediction",
+          ],
+          "A sound conclusion uses the trend but acknowledges uncertainty: extrapolation beyond the data is not guaranteed. The other options over-claim certainty or wrongly dismiss prediction altogether.",
+        ),
+        typedQ(
+          "data-time-m10",
+          "A trend line for monthly sales is modelled by S = 8 + 3t, where t is the month number. Use it to predict the sales when t = 12.",
+          "44",
+          "Substitute t = 12: S = 8 + 3 × 12 = 8 + 36 = 44. The trend line predicts 44 sales in month 12.",
+          { accepted: ["44 sales"], hint: "Substitute t = 12 into the trend-line equation and evaluate." },
         ),
       ],
     };
@@ -890,35 +2242,291 @@ export function year11StandardDataAnalysisLessonOverride(
       ],
     },
     guidedPractice: [
-      dataAnswer("data-exam-g1", "A table shows cafe sales: Mon 42, Tue 38, Wed 45, Thu 51, Fri 44. What is the total sales count?", "42,\\ 38,\\ 45,\\ 51,\\ 44", "220", ["220 coffees"]),
-      dataAnswer("data-exam-g2", "The same cafe sales are 42, 38, 45, 51 and 44. Find the mean.", "42,\\ 38,\\ 45,\\ 51,\\ 44", "44", ["44.0", "44 coffees"]),
-      financeChoice("data-exam-g3", "A delivery time data set has 18, 20, 21, 22, 23, 24, 47. Which measure is better for a typical time?", "B", ["Mean", "Median", "Maximum", "Total"], "Median is less affected by the outlier."),
-      financeChoice("data-exam-g4", "A column graph has the tallest column on Friday. Friday had the:", "A", ["Greatest frequency", "Smallest value", "Median only", "Range"], "The tallest column shows the greatest frequency."),
+      typedQ(
+        "data-exam-g1",
+        "The column graph shows a café's sales for the week. How many coffees were sold in total?",
+        "220",
+        "Add the five daily column heights: 38 + 42 + 45 + 51 + 44 = 220 coffees.",
+        {
+          accepted: ["220 coffees"],
+          hint: "Sum the heights of all five columns.",
+          barChartDiagram: {
+            description: "Column graph of coffees sold: Mon 38, Tue 42, Wed 45, Thu 51, Fri 44.",
+            bars: [
+              { label: "Mon", value: 38 },
+              { label: "Tue", value: 42 },
+              { label: "Wed", value: 45 },
+              { label: "Thu", value: 51 },
+              { label: "Fri", value: 44 },
+            ],
+            valueAxisLabel: "Coffees sold",
+            categoryAxisLabel: "Day",
+          },
+        },
+      ),
+      typedQ(
+        "data-exam-g2",
+        "A team's attendance over five games was: 85, 92, 78, 96, 89. Find the mean attendance.",
+        "88",
+        "Add the five values: 85 + 92 + 78 + 96 + 89 = 440. Divide by 5: 440 ÷ 5 = 88.",
+        { accepted: ["88.0", "88 people"], hint: "Sum the five attendances and divide by 5." },
+      ),
+      mcqQ(
+        "data-exam-g3",
+        "Delivery times (minutes) are 18, 20, 21, 22, 23, 24, 47. Which measure best represents a typical delivery time?",
+        "B",
+        ["The mean", "The median", "The maximum", "The total"],
+        "The 47 is an outlier that inflates the mean, so the median (22) better represents a typical time. The maximum and total are not measures of a typical value.",
+      ),
+      mcqQ(
+        "data-exam-g4",
+        "On a column graph of weekly sales, Friday has the tallest column. This tells you Friday had the:",
+        "A",
+        ["Greatest frequency", "Smallest value", "Median value", "Range of the data"],
+        "Column height represents frequency, so the tallest column is the greatest frequency. A short column would be the smallest; height is not the median or the range.",
+      ),
     ],
     independentPractice: [
-      dataAnswer("data-exam-i1", "Absences over five days are 4, 6, 5, 8 and 7. Find the mean absences.", "4,\\ 6,\\ 5,\\ 8,\\ 7", "6", ["6.0", "6 absences"]),
-      dataAnswer("data-exam-i2", "Customer ratings are 2, 3, 4, 4, 5. Find the mode.", "2,\\ 3,\\ 4,\\ 4,\\ 5", "4", ["rating 4", "4 stars"]),
-      dataAnswer("data-exam-i3", "Travel times are 12, 14, 15, 15, 18 and 34 minutes. Find the range.", "12,\\ 14,\\ 15,\\ 15,\\ 18,\\ 34", "22", ["22 min", "22 minutes"]),
-      financeChoice("data-exam-i4", "The value 34 in the travel-time data is likely to:", "C", ["Lower the mean", "Not affect any statistic", "Pull the mean upward", "Sharply lower the median"], "The high value 34 pulls the mean upward. It does not lower the mean, leave every statistic unchanged, or sharply move the median (the median resists outliers)."),
-      financeChoice("data-exam-i5", "A careful conclusion from a survey should:", "D", ["Ignore the data", "Claim it proves all people agree", "Use only the highest value", "Match the data and avoid overclaiming"], "Data conclusions should be cautious."),
+      typedQ(
+        "data-exam-i1",
+        "Travel times (minutes) on six trips were: 12, 14, 15, 15, 18, 34. Find the range.",
+        "22",
+        "Range = highest − lowest = 34 − 12 = 22 minutes.",
+        { accepted: ["22 min", "22 minutes"], hint: "Subtract the smallest time from the largest." },
+      ),
+      typedQ(
+        "data-exam-i2",
+        "The dot plot shows goals scored each match. What is the modal number of goals?",
+        "2",
+        "The mode is the value with the most dots. Four matches scored 2 goals, more than any other value, so the mode is 2.",
+        {
+          accepted: ["2 goals"],
+          hint: "Find the tallest stack of dots.",
+          dotPlotDiagram: {
+            description: "Dot plot of goals per match: 0 goals (1 match), 1 goal (2 matches), 2 goals (4 matches), 3 goals (1 match).",
+            min: 0,
+            max: 4,
+            counts: [
+              { value: 0, count: 1 },
+              { value: 1, count: 2 },
+              { value: 2, count: 4 },
+              { value: 3, count: 1 },
+            ],
+            axisLabel: "Goals per match",
+          },
+        },
+      ),
+      typedQ(
+        "data-exam-i3",
+        "A shop's daily customer counts were: 27, 33, 29, 35, 26. Find the mean number of customers per day.",
+        "30",
+        "Add the counts: 27 + 33 + 29 + 35 + 26 = 150. Divide by 5: 150 ÷ 5 = 30 customers.",
+        { accepted: ["30 customers", "30.0"], hint: "Add the five counts, then divide by 5." },
+      ),
+      mcqQ(
+        "data-exam-i4",
+        "A travel-time data set includes one unusually long trip of 34 minutes among values in the teens. This outlier will:",
+        "C",
+        [
+          "Lower the mean below the cluster",
+          "Leave every statistic unchanged",
+          "Pull the mean upward, while the median is barely affected",
+          "Sharply lower the median",
+        ],
+        "A high outlier raises the mean because every value feeds the total, but the median (position-based) barely moves. It does not lower the mean or leave all statistics unchanged.",
+      ),
+      typedQ(
+        "data-exam-i5",
+        "In a survey, 18 of 30 students answered 'yes'. What percentage answered 'yes'?",
+        "60",
+        "Percentage = (18 ÷ 30) × 100 = 0.6 × 100 = 60%.",
+        { accepted: ["60%", "60 percent"], hint: "Divide the yes count by the total, then multiply by 100." },
+      ),
     ],
     commonMistakes: [
-      { mistake: "Including a row total shown in the table when calculating mean or range.", fix: "Use only the listed data values, not any totals that the table already shows." },
-      { mistake: "Writing 220 as the mean for Monday–Friday sales that add up to 220.", fix: "Divide the total by the number of values: 220 ÷ 5 = 44." },
-      { mistake: "Reporting the mean of 18, 20, 21, 22, 23, 24, 47 without noticing that 47 is an outlier.", fix: "When an unusual value skews the mean, use the median as the typical value instead." },
-      { mistake: "Writing 'all customers prefer rating 5' from a frequency table where rating 5 has the highest count.", fix: "High frequency shows the most common response, not universal preference — use cautious wording." },
+      { mistake: "Adding a row total already shown in a table back into a mean or range calculation.", fix: "Use only the individual data values, not a total the display has already worked out." },
+      { mistake: "Reporting the total (e.g. 220) as the mean.", fix: "Divide the total by the number of values: 220 ÷ 5 = 44." },
+      { mistake: "Taking the mean as the typical value when a clear outlier is present.", fix: "When an outlier skews the mean, report the median as the typical value instead." },
+      { mistake: "Reading a tall column as 'everyone prefers this', or confusing column height with the category label.", fix: "Column height is the frequency (how many) — the tallest column is the most common response, not a universal preference." },
     ],
     masteryQuiz: [
-      dataAnswer("data-exam-m1", "A sports club records attendance over five events: 85, 92, 78, 96, 89. Find the mean attendance.", "85,\\ 92,\\ 78,\\ 96,\\ 89", "88", ["88.0", "88 people", "88 students"]),
-      dataAnswer("data-exam-m2", "Study hours are 1, 2, 2, 3, 4, 5, 6. Find the median.", "1,\\ 2,\\ 2,\\ 3,\\ 4,\\ 5,\\ 6", "3", ["3 hours", "3 h"]),
-      dataAnswer("data-exam-m3", "Daily temperatures are 18, 21, 22, 23, 25. Find the range.", "18,\\ 21,\\ 22,\\ 23,\\ 25", "7", ["7 degrees", "7°C", "7 C"]),
-      financeChoice("data-exam-m4", "A frequency table shows 12 students chose bus, 7 chose train and 5 chose walk. Which category is most common?", "A", ["Bus", "Train", "Walk", "They are equally common"], "Bus has the greatest frequency (12), so it is the most common. Train (7) and walk (5) are less common, and the three are not equally common."),
-      dataAnswer("data-exam-m5", "Test scores are 55, 60, 62, 65, 68, 97. Which score is likely the outlier?", "55,\\ 60,\\ 62,\\ 65,\\ 68,\\ 97", "97", ["97 points", "score 97"]),
-      financeChoice("data-exam-m6", "With the delivery-time outlier present, the better typical measure is:", "C", ["Range", "Maximum", "Median", "Total"], "Median is less affected by the outlier."),
-      dataAnswer("data-exam-m7", "A survey has 18 yes responses out of 30 students. What percentage said yes?", "\\text{yes}=18,\\quad \\text{total}=30", "60%", ["60", "60 percent", "60percent", "60 %"]),
-      financeChoice("data-exam-m8", "A column graph is read by:", "B", ["Choosing the smallest label only", "Matching each category to its column height", "Ignoring the frequencies", "Adding all the column heights together"], "Read a column graph by matching each category to its column height. Do not pick the smallest label, ignore the frequencies, or add all the heights together."),
-      dataAnswer("data-exam-m9", "Sport scores are 9, 12, 12, 15 and 17. Find the mode.", "9,\\ 12,\\ 12,\\ 15,\\ 17", "12", ["12 points"]),
-      financeChoice("data-exam-m10", "A practical conclusion should be based on:", "D", ["Personal opinion", "Only the largest number", "Only the smallest number", "The data and its limitations"], "A practical conclusion should rest on the data and acknowledge its limitations — not on opinion, or only the largest or smallest single value."),
+      typedQ(
+        "data-exam-m1",
+        "Four test scores were: 61, 64, 66, 70. Find the mean score.",
+        "65.25",
+        "Add the scores: 61 + 64 + 66 + 70 = 261. Divide by 4: 261 ÷ 4 = 65.25.",
+        { accepted: ["65.3"], hint: "Sum the four scores and divide by 4." },
+      ),
+      typedQ(
+        "data-exam-m2",
+        "The box plot shows masses (g) of a sample of apples. Read off the median mass.",
+        "24",
+        "The median is the line inside the box, which sits at 24 grams.",
+        {
+          accepted: ["24 g", "24.0"],
+          hint: "Read the line dividing the box.",
+          boxPlotDiagram: {
+            description: "Box plot of apple masses with minimum 8, Q1 18, median 24, Q3 33, maximum 45.",
+            plots: [{ label: "Apple mass", min: 8, q1: 18, median: 24, q3: 33, max: 45 }],
+            axisLabel: "Mass (g)",
+            xMin: 0,
+            xMax: 50,
+            showValueLabels: true,
+          },
+        },
+      ),
+      typedQ(
+        "data-exam-m3",
+        "The histogram shows ages grouped into classes. Which is the modal class?",
+        "30–39",
+        "The modal class is the tallest bar: 30–39 has frequency 14, the highest of all the classes.",
+        {
+          accepted: ["30-39", "30 to 39", "the 30–39 class"],
+          hint: "Read off the tallest bar.",
+          histogramDiagram: {
+            description: "Histogram of ages: 10–19 frequency 5, 20–29 frequency 9, 30–39 frequency 14, 40–49 frequency 7.",
+            bins: [
+              { label: "10–19", frequency: 5 },
+              { label: "20–29", frequency: 9 },
+              { label: "30–39", frequency: 14 },
+              { label: "40–49", frequency: 7 },
+            ],
+            axisLabel: "Age (years)",
+            frequencyAxisLabel: "Frequency",
+          },
+        },
+      ),
+      mcqQ(
+        "data-exam-m4",
+        "The column graph shows how students travel to school. Which method is the most common?",
+        "A",
+        ["Bus", "Train", "Car", "Walk"],
+        "The tallest column is Bus (14), so it is the most common method. Train (8), car (6) and walk (9) are all shorter columns.",
+        {
+          barChartDiagram: {
+            description: "Column graph of travel method: Bus 14, Train 8, Car 6, Walk 9.",
+            bars: [
+              { label: "Bus", value: 14 },
+              { label: "Train", value: 8 },
+              { label: "Car", value: 6 },
+              { label: "Walk", value: 9 },
+            ],
+            valueAxisLabel: "Students",
+            categoryAxisLabel: "Travel method",
+          },
+        },
+      ),
+      typedQ(
+        "data-exam-m5",
+        "Find the median of the data shown in the stem-and-leaf plot.",
+        "23.5",
+        "The values in order are 14, 17, 22, 25, 29, 31 (n = 6). The median is the average of the 3rd and 4th: (22 + 25) ÷ 2 = 23.5.",
+        {
+          accepted: ["23.50"],
+          hint: "With 6 values, average the 3rd and 4th.",
+          stemAndLeafDiagram: {
+            description: "Stem-and-leaf plot. Stem 1: leaves 4 7. Stem 2: leaves 2 5 9. Stem 3: leaf 1.",
+            keyText: "1 | 4 = 14",
+            rows: [
+              { stem: 1, leaves: [4, 7] },
+              { stem: 2, leaves: [2, 5, 9] },
+              { stem: 3, leaves: [1] },
+            ],
+          },
+        },
+      ),
+      typedQ(
+        "data-exam-m6",
+        "In a survey, 21 of 28 customers were satisfied. What percentage were satisfied?",
+        "75",
+        "Percentage = (21 ÷ 28) × 100 = 0.75 × 100 = 75%.",
+        { accepted: ["75%", "75 percent"], hint: "Divide the satisfied count by the total, then multiply by 100." },
+      ),
+      typedQ(
+        "data-exam-m7",
+        "A data set has lower quartile Q1 = 34 and upper quartile Q3 = 58. Find the interquartile range.",
+        "24",
+        "IQR = Q3 − Q1 = 58 − 34 = 24.",
+        { accepted: ["24.0"], hint: "Subtract Q1 from Q3." },
+      ),
+      mcqQ(
+        "data-exam-m8",
+        "A data set of house prices has a few very expensive homes. Which statement is correct?",
+        "C",
+        [
+          "The mean is the best typical value because it uses every price",
+          "The median and mean will be equal",
+          "The few high prices pull the mean above the median, so the median is the better typical value",
+          "The range is the best typical value",
+        ],
+        "High prices inflate the mean above the median (positive skew), so the median better represents a typical home. The range measures spread, not a typical value.",
+      ),
+      typedQ(
+        "data-exam-m9",
+        "Daily website visits for a week were: 200, 210, 195, 220, 230. Find the range.",
+        "35",
+        "Range = highest − lowest = 230 − 195 = 35 visits.",
+        { accepted: ["35 visits"], hint: "Subtract the smallest day's visits from the largest." },
+      ),
+      mcqQ(
+        "data-exam-m10",
+        "Which conclusion from a small survey is the most appropriate?",
+        "D",
+        [
+          "It is based on personal opinion",
+          "It uses only the largest value recorded",
+          "It uses only the smallest value recorded",
+          "It reflects what the data shows and notes the survey's limitations",
+        ],
+        "A sound conclusion rests on the actual data and acknowledges limitations (such as a small sample) rather than cherry-picking a single value or relying on opinion.",
+      ),
+    ],
+    multiPartPractice: [
+      {
+        id: "data-exam-mp1",
+        prompt:
+          "The masses (in grams) of eight parcels are: 210, 230, 245, 260, 275, 290, 310, 520.",
+        latex: "210,\\ 230,\\ 245,\\ 260,\\ 275,\\ 290,\\ 310,\\ 520",
+        answer: "267.5",
+        acceptedAnswers: ["267.50"],
+        hint: "Work through median, IQR, then the outlier test in order.",
+        explanation:
+          "Median = 267.5 g; IQR = 62.5 g; upper fence = 393.75 g, and since 520 > 393.75 the heaviest parcel is an outlier.",
+        parts: [
+          {
+            key: "a",
+            label: "(a)",
+            prompt: "Find the median mass (in grams).",
+            marks: 1,
+            answer: "267.5",
+            acceptedAnswers: ["267.50"],
+            hint: "With 8 values the median is the average of the 4th and 5th.",
+            explanation: "The 4th and 5th values are 260 and 275, so the median is (260 + 275) ÷ 2 = 267.5 g.",
+          },
+          {
+            key: "b",
+            label: "(b)",
+            prompt: "Find the interquartile range (in grams).",
+            marks: 2,
+            answer: "62.5",
+            acceptedAnswers: ["62.50"],
+            hint: "Q1 is the median of the lower four values; Q3 is the median of the upper four.",
+            explanation:
+              "Lower half 210, 230, 245, 260 gives Q1 = (230 + 245) ÷ 2 = 237.5. Upper half 275, 290, 310, 520 gives Q3 = (290 + 310) ÷ 2 = 300. IQR = 300 − 237.5 = 62.5 g.",
+          },
+          {
+            key: "c",
+            label: "(c)",
+            prompt: "Find the upper fence (Q3 + 1.5 × IQR) used to test whether 520 g is an outlier.",
+            marks: 2,
+            answer: "393.75",
+            acceptedAnswers: ["393.8"],
+            hint: "Add 1.5 × IQR to Q3.",
+            explanation:
+              "Upper fence = Q3 + 1.5 × IQR = 300 + 1.5 × 62.5 = 300 + 93.75 = 393.75 g. Since 520 > 393.75, the heaviest parcel is an outlier.",
+          },
+        ],
+      },
     ],
     };
   }
@@ -1010,13 +2618,27 @@ export function year11StandardDataAnalysisLessonOverride(
           ["Census", "Stratified sample", "Random sample", "Convenience sample"],
           "A census collects data from the entire population."
         ),
-        dataAnswer(
-          "y11s-dcs-g2",
-          "A company has 300 full-time and 200 part-time workers. A stratified sample of 50 is needed. How many full-time workers should be in the sample?",
-          "\\frac{300}{500} \\times 50",
-          "30",
-          ["30 full-time", "30 workers"]
-        ),
+        {
+          ...dataAnswer(
+            "y11s-dcs-g2",
+            "The column graph shows a company's workforce. A stratified sample of 50 workers is needed. How many should be full-time?",
+            "",
+            "30",
+            ["30 full-time", "30 workers"]
+          ),
+          explanation:
+            "Full-time workers are 300 out of 500 total, so they take the same share of the sample: (300 ÷ 500) × 50 = 0.6 × 50 = 30 full-time workers.",
+          hint: "Find full-time as a fraction of the whole workforce, then apply that fraction to the sample of 50.",
+          barChartDiagram: {
+            description: "Column graph of a company's workforce: 300 full-time workers and 200 part-time workers.",
+            bars: [
+              { label: "Full-time", value: 300 },
+              { label: "Part-time", value: 200 },
+            ],
+            valueAxisLabel: "Number of workers",
+            categoryAxisLabel: "Worker type",
+          },
+        },
         financeChoice(
           "y11s-dcs-g3",
           "Which sampling method gives every person an equal chance of being selected?",
@@ -1185,70 +2807,85 @@ export function year11StandardDataAnalysisLessonOverride(
         },
       ],
       guidedPractice: [
-        dataAnswer(
+        typedQ(
           "y11s-dar-g1",
-          "Find the mean of: 5, 8, 11, 6, 10.",
-          "\\bar{x} = (5+8+11+6+10) \\div 5 = 40 \\div 5",
+          "Find the mean of: 5, 9, 11, 6, 9.",
           "8",
-          ["8.0", "mean=8"]
+          "Add the values: 5 + 9 + 11 + 6 + 9 = 40. Divide by 5: 40 ÷ 5 = 8.",
+          { accepted: ["8.0"], hint: "Add all five values, then divide by 5." },
         ),
-        dataAnswer(
+        typedQ(
           "y11s-dar-g2",
-          "Find the median of: 3, 7, 2, 9, 5.",
-          "\\text{Order: }2,3,5,7,9\\text{ → middle value}",
-          "5",
-          ["5.0", "median=5"]
+          "Find the median of: 3, 7, 2, 9, 5, 8.",
+          "6",
+          "Order the data: 2, 3, 5, 7, 8, 9. With six values the median is the average of the 3rd and 4th: (5 + 7) ÷ 2 = 6.",
+          { accepted: ["6.0"], hint: "Order the values, then average the two in the middle." },
         ),
-        dataAnswer(
+        typedQ(
           "y11s-dar-g3",
-          "Find the range of: 12, 7, 19, 4, 15.",
-          "\\text{Range} = 19 - 4",
+          "Find the range of: 12, 7, 19, 4, 16.",
           "15",
-          ["15.0", "range=15"]
+          "Range = highest − lowest = 19 − 4 = 15.",
+          { accepted: ["15.0"], hint: "Subtract the smallest value from the largest." },
         ),
-        financeChoice(
+        mcqQ(
           "y11s-dar-g4",
-          "The mode of the dataset 4, 6, 6, 7, 8, 8, 8 is:",
+          "What is the mode of the data set 4, 6, 6, 7, 8, 8, 8?",
           "C",
           ["6", "7", "8", "4"],
-          "8 appears 3 times — more than any other value."
+          "The mode is the most frequent value. 8 appears three times — more than any other value — so the mode is 8.",
         ),
       ],
       independentPractice: [
-        dataAnswer(
+        typedQ(
           "y11s-dar-i1",
-          "Find the mean of: 14, 18, 22, 10, 16.",
-          "\\bar{x} = (14+18+22+10+16) \\div 5 = 80 \\div 5",
+          "Find the mean of: 14, 18, 22, 11, 15.",
           "16",
-          ["16.0"]
+          "Add the values: 14 + 18 + 22 + 11 + 15 = 80. Divide by 5: 80 ÷ 5 = 16.",
+          { accepted: ["16.0"], hint: "Add all five values, then divide by 5." },
         ),
-        dataAnswer(
+        typedQ(
           "y11s-dar-i2",
           "Find the median of: 8, 3, 12, 5, 9, 7.",
-          "\\text{Order: }3,5,7,8,9,12\\text{; median} = (7+8)/2",
           "7.5",
-          ["7.5", "median=7.5"]
+          "Order the data: 3, 5, 7, 8, 9, 12. With six values the median is the average of the 3rd and 4th: (7 + 8) ÷ 2 = 7.5.",
+          { accepted: ["7.50"], hint: "Order the values, then average the two middle ones." },
         ),
-        dataAnswer(
+        typedQ(
           "y11s-dar-i3",
           "Find the range of: 23, 41, 17, 35, 29.",
-          "41 - 17",
           "24",
-          ["24.0"]
+          "Range = highest − lowest = 41 − 17 = 24.",
+          { accepted: ["24.0"], hint: "Subtract the smallest value from the largest." },
         ),
-        financeChoice(
+        mcqQ(
           "y11s-dar-i4",
-          "In which dataset is the mean most affected by an outlier?",
+          "In which data set is the mean most affected by an outlier?",
           "D",
           ["10, 11, 12, 13", "5, 6, 7, 8, 9", "100, 101, 102", "2, 3, 4, 5, 100"],
-          "In option D, 100 is far from 2-5, pulling the mean up significantly."
+          "In option D the value 100 sits far from the cluster 2–5, dragging the mean well above the other values. The other sets are tightly grouped, so their means are barely affected.",
         ),
-        dataAnswer(
+        typedQ(
           "y11s-dar-i5",
-          "Scores: 55, 60, 65, 70, 75. Find the median.",
-          "\\text{5 values — middle (3rd) value}",
-          "65",
-          ["65.0"]
+          "The dot plot shows test scores. Find the median score.",
+          "67.5",
+          "There are 6 scores: 60, 65, 65, 70, 70, 75. The median is the average of the 3rd and 4th: (65 + 70) ÷ 2 = 67.5.",
+          {
+            accepted: ["67.50"],
+            hint: "Count the dots (n = 6) and average the 3rd and 4th values.",
+            dotPlotDiagram: {
+              description: "Dot plot of test scores: 60 (1), 65 (2), 70 (2), 75 (1).",
+              min: 55,
+              max: 80,
+              counts: [
+                { value: 60, count: 1 },
+                { value: 65, count: 2 },
+                { value: 70, count: 2 },
+                { value: 75, count: 1 },
+              ],
+              axisLabel: "Test score",
+            },
+          },
         ),
       ],
       commonMistakes: [
@@ -1270,16 +2907,38 @@ export function year11StandardDataAnalysisLessonOverride(
         },
       ],
       masteryQuiz: [
-        dataAnswer("y11s-dar-m1", "Find the mean of: 6, 9, 12, 3, 15.", "\\bar{x} = 45 \\div 5", "9", ["9.0"]),
-        dataAnswer("y11s-dar-m2", "Find the median of: 11, 4, 7, 9, 2.", "\\text{Order: }2,4,7,9,11\\text{ → middle}", "7", ["7.0"]),
-        dataAnswer("y11s-dar-m3", "Find the range of: 8, 15, 3, 20, 11.", "20 - 3", "17", ["17.0"]),
-        financeChoice("y11s-dar-m4", "The mode of 5, 3, 5, 8, 3, 5, 2 is:", "B", ["3", "5", "8", "2"], "5 appears 3 times — more than any other value."),
-        dataAnswer("y11s-dar-m5", "Find the median of: 4, 8, 12, 16, 20, 24.", "(12+16)\\div 2", "14", ["14.0"]),
-        financeChoice("y11s-dar-m6", "Which measure is most affected by an outlier?", "A", ["Mean", "Median", "Mode", "Range is always the same"], "The mean uses every value; a single extreme value can shift it significantly."),
-        dataAnswer("y11s-dar-m7", "Dataset: 20, 22, 21, 19, 18. Find the mean.", "\\bar{x} = 100 \\div 5", "20", ["20.0"]),
-        financeChoice("y11s-dar-m8", "A dataset has values 3, 4, 5, 6, 50. The 50 is best described as:", "C", ["The mode", "The median", "An outlier", "The mean"], "50 is far separated from the other values — it is an outlier."),
-        dataAnswer("y11s-dar-m9", "Find the range of: 100, 45, 72, 88, 60.", "100 - 45", "55", ["55.0"]),
-        financeChoice("y11s-dar-m10", "When an outlier is present, the better measure of centre is usually:", "B", ["Mean", "Median", "Mode", "Range"], "The median is resistant to outliers; the mean is pulled toward extreme values."),
+        typedQ("y11s-dar-m1", "Find the mean of: 6, 8, 12, 4, 15.", "9", "Add the values: 6 + 8 + 12 + 4 + 15 = 45. Divide by 5: 45 ÷ 5 = 9.", { accepted: ["9.0"], hint: "Add the five values, then divide by 5." }),
+        typedQ("y11s-dar-m2", "Find the median of: 11, 4, 7, 9, 2, 15.", "8", "Order the data: 2, 4, 7, 9, 11, 15. With six values the median is the average of the 3rd and 4th: (7 + 9) ÷ 2 = 8.", { accepted: ["8.0"], hint: "Order the six values and average the 3rd and 4th." }),
+        typedQ("y11s-dar-m3", "Find the range of: 8, 15, 3, 20, 11.", "17", "Range = highest − lowest = 20 − 3 = 17.", { accepted: ["17.0"], hint: "Subtract the smallest value from the largest." }),
+        mcqQ("y11s-dar-m4", "What is the mode of 5, 3, 5, 8, 3, 5, 2?", "B", ["3", "5", "8", "2"], "The mode is the most frequent value. 5 appears three times — more than any other value — so the mode is 5."),
+        typedQ("y11s-dar-m5", "Find the median of: 4, 8, 12, 16, 20, 24.", "14", "The data is already ordered with six values, so the median is the average of the 3rd and 4th: (12 + 16) ÷ 2 = 14.", { accepted: ["14.0"], hint: "Average the two middle values." }),
+        mcqQ("y11s-dar-m6", "Which measure of centre is most affected by an outlier?", "A", ["Mean", "Median", "Mode", "All are affected equally"], "The mean uses every value in its total, so one extreme value shifts it. The median (position) and mode (most frequent) are barely affected."),
+        typedQ("y11s-dar-m7", "Find the mean of: 24, 22, 21, 19, 14.", "20", "Add the values: 24 + 22 + 21 + 19 + 14 = 100. Divide by 5: 100 ÷ 5 = 20.", { accepted: ["20.0"], hint: "Add the five values, then divide by 5." }),
+        typedQ(
+          "y11s-dar-m8",
+          "The dot plot shows daily sales. Which value is the outlier?",
+          "22",
+          "Most values cluster between 3 and 6. The value 22 sits far above the rest on its own, so it is the outlier.",
+          {
+            accepted: ["22 sales"],
+            hint: "Look for the isolated dot, away from the main cluster.",
+            dotPlotDiagram: {
+              description: "Dot plot of daily sales: 3 (1), 4 (1), 5 (1), 6 (1), and an isolated value at 22.",
+              min: 0,
+              max: 25,
+              counts: [
+                { value: 3, count: 1 },
+                { value: 4, count: 1 },
+                { value: 5, count: 1 },
+                { value: 6, count: 1 },
+                { value: 22, count: 1 },
+              ],
+              axisLabel: "Daily sales",
+            },
+          },
+        ),
+        typedQ("y11s-dar-m9", "Find the range of: 100, 45, 72, 88, 60.", "55", "Range = highest − lowest = 100 − 45 = 55.", { accepted: ["55.0"], hint: "Subtract the smallest value from the largest." }),
+        mcqQ("y11s-dar-m10", "When a data set contains an outlier, the better measure of centre is usually the:", "B", ["Mean", "Median", "Mode", "Range"], "The median is resistant to outliers because it depends on position, not magnitude. The mean is pulled toward an extreme value, and the range is a measure of spread, not centre."),
       ],
       masteryPassMark: 0.8,
     };
