@@ -382,17 +382,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
   // partial-fractions-quadratic intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
-  "forces-inclined-planes": {
-    topic: "forces on inclined planes",
-    object: "components parallel and perpendicular to the plane",
-    validMove: "Resolve weight into mg sin theta down the plane and mg cos theta normal to it.",
-    trap1: "Swapping sine and cosine components.",
-    trap2: "Putting normal reaction parallel to the plane.",
-    trap3: "Ignoring friction direction.",
-    representation: "force balance along chosen axes",
-    check: "components align with the plane and normal directions",
-    d5Context: "limiting equilibrium and acceleration on inclines",
-  },
+  // forces-inclined-planes intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   // rectilinear-motion-calculus intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
   // simple-harmonic-motion-extended intentionally omitted: replaced by a hand-authored
