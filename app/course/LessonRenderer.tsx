@@ -1330,6 +1330,9 @@ function MasteryResultPanel({
   nextLabel,
   backHref,
   attemptNumber,
+  courseSlug,
+  topicSlug,
+  subtopicSlug,
 }: {
   correctCount: number;
   totalQuestions: number;
@@ -1343,9 +1346,13 @@ function MasteryResultPanel({
   nextLabel?: string;
   backHref: string;
   attemptNumber: number;
+  courseSlug?: string;
+  topicSlug?: string;
+  subtopicSlug?: string;
 }) {
   const score = correctCount / totalQuestions;
   const passed = score >= passMark;
+  const showCoach = !passed && attemptNumber >= 2;
   const requiredCorrect = Math.ceil(passMark * totalQuestions);
   const incorrectQuestions = questions
     .map((question, index) => ({ question, quizIndex: index }))
@@ -1356,6 +1363,18 @@ function MasteryResultPanel({
     );
 
   const [reviewOpen, setReviewOpen] = useState(false);
+
+  useEffect(() => {
+    if (!showCoach) return;
+    clientTrackEvent("learning_coach_shown", {
+      coach_variant: "generic_v1",
+      attempt_number: attemptNumber,
+      course_slug: courseSlug ?? null,
+      topic_slug: topicSlug ?? null,
+      subtopic_slug: subtopicSlug ?? null,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showCoach]);
 
   if (passed) {
     return (
@@ -1584,7 +1603,16 @@ function MasteryResultPanel({
             <li>
               <button
                 type="button"
-                onClick={onReviewLesson}
+                onClick={() => {
+                  clientTrackEvent("learning_coach_reread_clicked", {
+                    coach_variant: "generic_v1",
+                    attempt_number: attemptNumber,
+                    course_slug: courseSlug ?? null,
+                    topic_slug: topicSlug ?? null,
+                    subtopic_slug: subtopicSlug ?? null,
+                  });
+                  onReviewLesson();
+                }}
                 className="underline underline-offset-2 hover:text-blue-700"
               >
                 Re-read the lesson
@@ -1607,7 +1635,18 @@ function MasteryResultPanel({
       <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <button
           type="button"
-          onClick={onTryAgain}
+          onClick={() => {
+            if (showCoach) {
+              clientTrackEvent("learning_coach_retry_clicked", {
+                coach_variant: "generic_v1",
+                attempt_number: attemptNumber,
+                course_slug: courseSlug ?? null,
+                topic_slug: topicSlug ?? null,
+                subtopic_slug: subtopicSlug ?? null,
+              });
+            }
+            onTryAgain();
+          }}
           className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
         >
           Try again
@@ -2470,6 +2509,9 @@ export function LessonRenderer({
             nextLabel={nextLabel}
             backHref={backHref}
             attemptNumber={quizAttemptNumberRef.current}
+            courseSlug={courseSlug}
+            topicSlug={unitSlug}
+            subtopicSlug={lessonSlug}
           />
         )}
 
