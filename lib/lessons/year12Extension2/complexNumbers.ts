@@ -1176,6 +1176,20 @@ const polarFormDeMoivre: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...cxChoice("y12e2-cx-demoivre-pool-1", "De Moivre's theorem states that (cos θ + i sin θ)ⁿ equals:", "B", ["cos θ + i sin θ", "cos(nθ) + i sin(nθ)", "n cos θ + i n sin θ", "cos(θⁿ) + i sin(θⁿ)"], "De Moivre's theorem: (cis θ)ⁿ = cis(nθ) = cos(nθ) + i sin(nθ) — the argument is multiplied by n."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-2", "For z = 2 cis(π/3) (that is, 2(cos π/3 + i sin π/3)), state the modulus.", "z = 2\\,\\text{cis}(\\pi/3)", "2", [], "The coefficient in front of cis is the modulus, r = 2."), difficulty: 2 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-3", "The argument of z = 2 cis(π/3) is π/3. State this in degrees.", "\\arg z = \\pi/3", "60", ["60°"], "π/3 radians = 60°."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-4", "By De Moivre, (2 cis(π/6))³ = 2³ cis(3·π/6) = 8 cis(π/2). State the modulus.", "(2\\,\\text{cis}(\\pi/6))^3", "8", [], "The modulus is raised to the power: 2³ = 8."), difficulty: 3 },
+    { ...cxChoice("y12e2-cx-demoivre-pool-5", "A student computes (2 cis 30°)³ as 2 cis 90°, forgetting to cube the modulus. The correct modulus is:", "C", ["2", "6", "8 (the modulus is also raised to the power: 2³)", "3"], "De Moivre raises the modulus to the power too: (2 cis 30°)³ = 2³ cis 90° = 8 cis 90°. Leaving the modulus as 2 is the classic slip."), difficulty: 3 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-6", "By De Moivre, (cis(π/4))⁴ = cis(π) = cos π + i sin π. State the real part.", "(\\text{cis}(\\pi/4))^4 = \\text{cis}(\\pi)", "-1", ["−1"], "cis(π) = cos π + i sin π = −1 + 0i, so the real part is −1."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-7", "Multiplication in polar form multiplies moduli and adds arguments: 3 cis(20°) × 2 cis(40°) = 6 cis(60°). State the modulus of the product.", "r_1 r_2\\,\\text{cis}(\\theta_1+\\theta_2)", "6", [], "Moduli multiply: 3·2 = 6."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-8", "Division in polar form divides moduli and subtracts arguments: (6 cis 50°)/(2 cis 20°) = 3 cis 30°. State the argument in degrees.", "\\frac{r_1}{r_2}\\,\\text{cis}(\\theta_1-\\theta_2)", "30", ["30°"], "Arguments subtract: 50° − 20° = 30°."), difficulty: 4 },
+    { ...cxChoice("y12e2-cx-demoivre-pool-9", "In the polar form z = r cis θ, the value r (the modulus) must be:", "B", ["Any real number.", "Non-negative (r ≥ 0).", "An integer.", "Less than 1."], "r is a modulus — a distance — so r ≥ 0. A negative coefficient is rewritten by adding π to the argument."), difficulty: 4 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-10", "Find (1 + i)⁸ using polar form. Since |1 + i| = √2 and arg = 45°, (1 + i)⁸ = (√2)⁸ cis(8·45°) = 16 cis(360°). State the real part.", "(1+i)^8 = (\\sqrt2)^8\\,\\text{cis}(360°)", "16", [], "(√2)⁸ = 2⁴ = 16 and cis(360°) = 1, so (1 + i)⁸ = 16 (a real number)."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-11", "By De Moivre, (cos 36° + i sin 36°)⁵ = cos(5·36°) + i sin(5·36°) = cos 180° + i sin 180°. State the real part.", "(\\text{cis}\\,36°)^5 = \\text{cis}\\,180°", "-1", ["−1"], "cos 180° = −1 and sin 180° = 0, so the value is −1."), difficulty: 5 },
+    { ...cxTyped("y12e2-cx-demoivre-pool-12", "Explain by result: (cis θ)ⁿ = cis(nθ) keeps the modulus at 1 for every power, since 1ⁿ = 1. For (cis 27°)¹⁰ = cis(270°), state the modulus.", "(\\text{cis}\\,\\theta)^n = \\text{cis}(n\\theta)", "1", [], "A point on the unit circle stays on the unit circle under any power: the modulus is 1ⁿ = 1, only the angle changes."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 5: Roots of Unity ─────────────────────────────────────────────────

@@ -250,17 +250,8 @@ const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   // argand-diagram-geometry intentionally omitted: replaced by a hand-authored
   // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
-  "polar-form-de-moivre": {
-    topic: "polar form and de Moivre's theorem",
-    object: "modulus and argument",
-    validMove: "Raise the modulus to the power and multiply the argument.",
-    trap1: "Multiplying the modulus by n instead of raising it to n.",
-    trap2: "Adding arguments when taking a power.",
-    trap3: "Forgetting equivalent arguments modulo 2pi.",
-    representation: "r cis theta",
-    check: "the modulus and argument transformations are both applied",
-    d5Context: "high powers, roots, and rotated polygons",
-  },
+  // polar-form-de-moivre intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
   "roots-of-unity": {
     topic: "roots of unity",
     object: "equally spaced points on the unit circle",
