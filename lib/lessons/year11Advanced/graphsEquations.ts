@@ -131,7 +131,7 @@ const spMastery: PracticeQuestion[] = [
   mc("y11adv-ge-sp-m4", "A quadratic has roots r and 3r. If the sum is 8, the product is:", "C",
     [{ label: "A", text: "$4$" }, { label: "B", text: "$6$" }, { label: "C", text: "$12$" }, { label: "D", text: "$24$" }],
     "r + 3r = 4r = 8 → r = 2. Roots: 2 and 6. Product = 12.", ""),
-  fa("y11adv-ge-sp-m4", "For 3x² − kx + 12 = 0, the roots are reciprocals (αβ = 1). Find k.", "\\alpha\\beta=12/3=4=1?", "No: αβ = c/a = 12/3 = 4. For roots to be reciprocals: αβ = 1 → 4 ≠ 1. Impossible for this form. Instead: find k if one root is double the other. α = 2β: 2β² = 12/3 = 4 → β² = 2 → β = √2. α+β = 3√2 = k/3 → k = 9√2.", ["9√2"]),
+  fa("y11adv-ge-sp-m4b", "For 3x² − kx + 12 = 0, one root is double the other. Find k.", "\\alpha=2\\beta:\\;3\\beta=k/3,\\;2\\beta^2=4", "k = 9√2", ["9√2"]),
   mc("y11adv-ge-sp-m5", "For x² + bx + c = 0, the sum of cubes α³ + β³ can be written as:", "B",
     [{ label: "A", text: "$(\\alpha+\\beta)^3$" }, { label: "B", text: "$(\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta)$" }, { label: "C", text: "$(\\alpha+\\beta)^3 + 3\\alpha\\beta$" }, { label: "D", text: "$(\\alpha\\beta)^3$" }],
     "α³+β³ = (α+β)³ − 3αβ(α+β). This is the algebraic identity for sum of cubes.", ""),
