@@ -47,305 +47,243 @@ export const diagnosticData: DiagnosticData = {
   ],
 
   questions: [
-    // ── Formulae and Equations (2 questions) ──────────────────────────────────
     {
-      id: "y11std-fe1",
-      unitSlug: "formulae-equations",
-      prompt: "Substitute $x = 3$ into $y = 2x^2 - 5$. Find $y$.",
-      latex: "y = 2x^2 - 5",
-      choices: [
-        { label: "A", text: "$1$" },
-        { label: "B", text: "$4$" },
-        { label: "C", text: "$13$" },
-        { label: "D", text: "$18$" },
-      ],
-      correctAnswer: "C",
-      explanation: "$y = 2(3)^2 - 5 = 2(9) - 5 = 18 - 5 = 13$.",
-    },
-    {
-      id: "y11std-fe2",
-      unitSlug: "formulae-equations",
-      prompt: "Make $r$ the subject of $A = \\pi r^2$.",
-      latex: "A = \\pi r^2",
-      choices: [
-        { label: "A", text: "$r = \\sqrt{\\dfrac{A}{\\pi}}$" },
-        { label: "B", text: "$r = \\dfrac{A}{\\pi}$" },
-        { label: "C", text: "$r = \\sqrt{A\\pi}$" },
-        { label: "D", text: "$r = \\dfrac{A}{2\\pi}$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "$r^2 = \\dfrac{A}{\\pi} \\Rightarrow r = \\sqrt{\\dfrac{A}{\\pi}}$.",
-    },
-
-    // ── Linear Relationships (2 questions) ────────────────────────────────────
-    {
-      id: "y11std-lr1",
+      id: "y11std-d5-plan-threshold",
       unitSlug: "linear-relationships",
-      prompt: "The equation $y = 3x - 2$ has a $y$-intercept of:",
-      choices: [
-        { label: "A", text: "$3$" },
-        { label: "B", text: "$-2$" },
-        { label: "C", text: "$2$" },
-        { label: "D", text: "$-3$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "In $y = mx + b$, the $y$-intercept is $b$. Here $b = -2$.",
-    },
-    {
-      id: "y11std-lr2",
-      unitSlug: "linear-relationships",
-      prompt: "Which of the following is a linear relationship?",
-      choices: [
-        { label: "A", text: "$y = x^2$" },
-        { label: "B", text: "$y = 2x + 1$" },
-        { label: "C", text: "$y = \\dfrac{1}{x}$" },
-        { label: "D", text: "$y = x^3$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "A linear relationship has the form $y = mx + b$. Only $y = 2x + 1$ fits this pattern.",
-    },
-
-    // ── Money and Financial Mathematics (4 questions) ─────────────────────────
-    {
-      id: "y11std-em1",
-      unitSlug: "money-and-financial-mathematics",
+      assessedUnitSlugs: ["formulae-equations"],
+      difficulty: 5,
+      targetMisconception:
+        "Solves a break-even equation but does not interpret which linear model is cheaper before and after the intersection.",
       prompt:
-        "Sarah earns \\$18 per hour and works $35$ hours. Her weekly gross pay is:",
+        "Service A costs 35 dollars plus 18 dollars per hour. Service B costs 15 dollars plus 23 dollars per hour. Which statement is correct?",
       choices: [
-        { label: "A", text: "\\$540" },
-        { label: "B", text: "\\$630" },
-        { label: "C", text: "\\$680" },
-        { label: "D", text: "\\$720" },
-      ],
-      correctAnswer: "B",
-      explanation: "$\\$18 \\times 35 = \\$630$.",
-    },
-    {
-      id: "y11std-em2",
-      unitSlug: "money-and-financial-mathematics",
-      prompt:
-        "Overtime is paid at time-and-a-half. If the regular rate is \\$20/hr, the overtime rate is:",
-      choices: [
-        { label: "A", text: "\\$25/hr" },
-        { label: "B", text: "\\$28/hr" },
-        { label: "C", text: "\\$30/hr" },
-        { label: "D", text: "\\$40/hr" },
-      ],
-      correctAnswer: "C",
-      explanation: "$\\$20 \\times 1.5 = \\$30$/hr.",
-    },
-    {
-      id: "y11std-mm1",
-      unitSlug: "money-and-financial-mathematics",
-      prompt:
-        "Weekly income is \\$900. Weekly expenses are \\$680. The surplus is:",
-      choices: [
-        { label: "A", text: "\\$120" },
-        { label: "B", text: "\\$180" },
-        { label: "C", text: "\\$220" },
-        { label: "D", text: "\\$300" },
-      ],
-      correctAnswer: "C",
-      explanation: "$\\$900 - \\$680 = \\$220$.",
-    },
-    {
-      id: "y11std-mm2",
-      unitSlug: "money-and-financial-mathematics",
-      prompt: "A phone plan costs \\$45 per month. The annual cost is:",
-      choices: [
-        { label: "A", text: "\\$480" },
-        { label: "B", text: "\\$520" },
-        { label: "C", text: "\\$540" },
-        { label: "D", text: "\\$560" },
-      ],
-      correctAnswer: "C",
-      explanation: "$\\$45 \\times 12 = \\$540$.",
-    },
-
-    // ── Applications of Measurement (3 questions) ─────────────────────────────
-    {
-      id: "y11std-am1",
-      unitSlug: "applications-of-measurement",
-      prompt:
-        "A fence is measured as $85$ m to the nearest metre. The maximum possible error is:",
-      choices: [
-        { label: "A", text: "$0.1$ m" },
-        { label: "B", text: "$0.5$ m" },
-        { label: "C", text: "$1$ m" },
-        { label: "D", text: "$5$ m" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "When rounding to the nearest metre, the maximum error is half the unit of measurement: $0.5$ m.",
-    },
-    {
-      id: "y11std-am2",
-      unitSlug: "applications-of-measurement",
-      prompt: "Convert $2.5$ km to metres.",
-      choices: [
-        { label: "A", text: "$25$ m" },
-        { label: "B", text: "$250$ m" },
-        { label: "C", text: "$2500$ m" },
-        { label: "D", text: "$25\\,000$ m" },
-      ],
-      correctAnswer: "C",
-      explanation: "$2.5 \\times 1000 = 2500$ m.",
-    },
-    {
-      id: "y11std-am3",
-      unitSlug: "applications-of-measurement",
-      prompt: "The area of a rectangle $8$ cm $\\times$ $5$ cm is:",
-      choices: [
-        { label: "A", text: "$26$ cm$^2$" },
-        { label: "B", text: "$40$ cm$^2$" },
-        { label: "C", text: "$13$ cm$^2$" },
-        { label: "D", text: "$80$ cm$^2$" },
-      ],
-      correctAnswer: "B",
-      explanation: "$A = 8 \\times 5 = 40$ cm$^2$.",
-    },
-
-    // ── Working with Time (2 questions) ───────────────────────────────────────
-    {
-      id: "y11std-tl1",
-      unitSlug: "working-with-time",
-      prompt:
-        "A train leaves at 9:45 am and arrives at 1:20 pm. The journey takes:",
-      choices: [
-        { label: "A", text: "$3$ hr $25$ min" },
-        { label: "B", text: "$3$ hr $35$ min" },
-        { label: "C", text: "$4$ hr $25$ min" },
-        { label: "D", text: "$4$ hr $35$ min" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "9:45 am to 1:20 pm: $9{:}45 \\to 1{:}20$ is $3$ hours and $35$ minutes.",
-    },
-    {
-      id: "y11std-tl2",
-      unitSlug: "working-with-time",
-      prompt:
-        "Sydney is UTC+11. London is UTC+0. When it is 3:00 pm in Sydney, the time in London is:",
-      choices: [
-        { label: "A", text: "$2{:}00$ am" },
-        { label: "B", text: "$4{:}00$ am" },
-        { label: "C", text: "$2{:}00$ pm" },
-        { label: "D", text: "$4{:}00$ pm" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "Sydney is $11$ hours ahead: $3{:}00$ pm $- 11$ hours $= 4{:}00$ am in London.",
-    },
-
-    // ── Networks and Paths (2 questions) ─────────────────────────────────────
-    {
-      id: "y11std-np1",
-      unitSlug: "networks-and-paths",
-      prompt:
-        "The minimum number of edges needed to connect $5$ vertices without forming a cycle (a spanning tree) is:",
-      choices: [
-        { label: "A", text: "$4$" },
-        { label: "B", text: "$5$" },
-        { label: "C", text: "$6$" },
-        { label: "D", text: "$10$" },
+        {
+          label: "A",
+          text: "They cost the same at 4 hours; for 2 hours, Service B is cheaper.",
+        },
+        {
+          label: "B",
+          text: "They cost the same at 4 hours; for 2 hours, Service A is cheaper.",
+        },
+        {
+          label: "C",
+          text: "They cost the same at 10 hours; for 2 hours, Service B is cheaper.",
+        },
+        {
+          label: "D",
+          text: "Service A is always cheaper because its hourly rate is lower.",
+        },
       ],
       correctAnswer: "A",
       explanation:
-        "A spanning tree on $n$ vertices has exactly $n - 1$ edges. For $n = 5$: $4$ edges.",
+        "Solve $35+18h=15+23h$, giving $20=5h$ and $h=4$. At 2 hours, Service A costs 71 dollars and Service B costs 61 dollars, so Service B is cheaper.",
     },
     {
-      id: "y11std-np2",
-      unitSlug: "networks-and-paths",
-      prompt: "In a network diagram, the degree of a vertex is:",
+      id: "y11std-d5-overtime-shift",
+      unitSlug: "money-and-financial-mathematics",
+      assessedUnitSlugs: ["working-with-time"],
+      difficulty: 5,
+      targetMisconception:
+        "Calculates total shift length but ignores unpaid break time or applies overtime to all hours.",
+      prompt:
+        "A shift runs from 8:30 am to 5:15 pm with a 45 minute unpaid break. Pay is 28 dollars per hour for the first 7.5 paid hours and time-and-a-half after that. What is the gross pay?",
       choices: [
-        { label: "A", text: "The number of edges connected to it" },
-        { label: "B", text: "The number of vertices in the network" },
-        { label: "C", text: "The number of paths through the network" },
-        { label: "D", text: "The weight of the vertex" },
+        { label: "A", text: "224 dollars" },
+        { label: "B", text: "231 dollars" },
+        { label: "C", text: "245 dollars" },
+        { label: "D", text: "367.50 dollars" },
+      ],
+      correctAnswer: "B",
+      explanation:
+        "The shift is 8 hours 45 minutes, but the 45 minute break is unpaid, so paid time is 8 hours. Regular pay is $7.5\\times28=210$ dollars and overtime is $0.5\\times42=21$ dollars, totalling 231 dollars.",
+    },
+    {
+      id: "y11std-d5-tiles-whole-boxes",
+      unitSlug: "applications-of-measurement",
+      assessedUnitSlugs: ["money-and-financial-mathematics"],
+      difficulty: 5,
+      targetMisconception:
+        "Finds the area but rounds the number of boxes down instead of interpreting whole-purchase constraints.",
+      prompt:
+        "A floor is $4.2\\text{ m}$ by $3.5\\text{ m}$. One box of tiles covers $1.2\\text{ m}^2$ and costs 38 dollars. Boxes cannot be split. What is the minimum cost?",
+      choices: [
+        { label: "A", text: "456 dollars" },
+        { label: "B", text: "465.50 dollars" },
+        { label: "C", text: "494 dollars" },
+        { label: "D", text: "558.60 dollars" },
+      ],
+      correctAnswer: "C",
+      explanation:
+        "The floor area is $4.2\\times3.5=14.7\\text{ m}^2$. Since $14.7\\div1.2=12.25$, 13 boxes are needed. The cost is $13\\times38=494$ dollars.",
+    },
+    {
+      id: "y11std-d5-linear-time-tank",
+      unitSlug: "working-with-time",
+      assessedUnitSlugs: ["linear-relationships"],
+      difficulty: 5,
+      targetMisconception:
+        "Uses the total change as the rate or mishandles elapsed time when building the linear model.",
+      prompt:
+        "A tank has 900 L at 10:15 am and 660 L at 11:45 am, decreasing at a constant rate. When will it first reach 500 L?",
+      choices: [
+        { label: "A", text: "12:15 pm" },
+        { label: "B", text: "12:45 pm" },
+        { label: "C", text: "1:15 pm" },
+        { label: "D", text: "2:30 pm" },
+      ],
+      correctAnswer: "B",
+      explanation:
+        "The tank loses 240 L in 1.5 hours, so the rate is 160 L per hour. To fall from 900 L to 500 L is a 400 L drop, which takes 2.5 hours after 10:15 am: 12:45 pm.",
+    },
+    {
+      id: "y11std-d5-network-deadline",
+      unitSlug: "networks-and-paths",
+      assessedUnitSlugs: ["working-with-time"],
+      difficulty: 5,
+      targetMisconception:
+        "Chooses the path with the fewest edges instead of comparing complete path weights against the time deadline.",
+      prompt:
+        "Travel times are $A-B-D:9+8$ min, $A-C-D:6+12$ min, and $A-C-E-D:6+4+5$ min. Leaving $A$ at 9:05 am, which path arrives by 9:20 am?",
+      choices: [
+        { label: "A", text: "$A-B-D$ only" },
+        { label: "B", text: "$A-C-D$ only" },
+        { label: "C", text: "$A-C-E-D$ only" },
+        { label: "D", text: "All three paths" },
+      ],
+      correctAnswer: "C",
+      explanation:
+        "The path times are 17 min, 18 min, and 15 min. Leaving at 9:05 am gives 15 minutes to arrive by 9:20 am, so only $A-C-E-D$ meets the deadline.",
+    },
+    {
+      id: "y11std-d5-relative-frequency-forecast",
+      unitSlug: "relative-frequency-and-probability",
+      assessedUnitSlugs: ["data-analysis"],
+      difficulty: 5,
+      targetMisconception:
+        "Treats a sample count as a percentage or fails to compare an observed result with the expected frequency.",
+      prompt:
+        "In 60 trial games, a player wins 18 times. Using this relative frequency, what is the expected number of wins in 250 games, and how does 90 actual wins compare?",
+      choices: [
+        {
+          label: "A",
+          text: "Expected 75 wins; 90 is 15 more than expected.",
+        },
+        {
+          label: "B",
+          text: "Expected 45 wins; 90 is 45 more than expected.",
+        },
+        {
+          label: "C",
+          text: "Expected 18 wins; 90 is 72 more than expected.",
+        },
+        {
+          label: "D",
+          text: "Expected 75 wins; 90 is 15 fewer than expected.",
+        },
       ],
       correctAnswer: "A",
       explanation:
-        "The degree of a vertex is the number of edges that connect to it.",
+        "The relative frequency is $18/60=0.3$. In 250 games, the expected wins are $0.3\\times250=75$. An actual 90 wins is 15 more than expected.",
     },
-
-    // ── Data Analysis (3 questions) ───────────────────────────────────────────
     {
-      id: "y11std-da1",
-      unitSlug: "data-analysis",
-      prompt: "The median of $4, 7, 9, 11, 14, 16$ is:",
+      id: "y11std-d5-cylinder-rearrange",
+      unitSlug: "formulae-equations",
+      assessedUnitSlugs: ["applications-of-measurement"],
+      difficulty: 5,
+      targetMisconception:
+        "Substitutes into a measurement formula but cannot rearrange it before interpreting the required dimension.",
+      prompt:
+        "A cylinder has volume $2.4\\text{ m}^3$ and height $1.5\\text{ m}$. Using $V=\\pi r^2h$, which radius is closest?",
       choices: [
-        { label: "A", text: "$9$" },
-        { label: "B", text: "$10$" },
-        { label: "C", text: "$11$" },
-        { label: "D", text: "$14$" },
+        { label: "A", text: "$0.51\\text{ m}$" },
+        { label: "B", text: "$0.71\\text{ m}$" },
+        { label: "C", text: "$1.02\\text{ m}$" },
+        { label: "D", text: "$1.60\\text{ m}$" },
       ],
       correctAnswer: "B",
       explanation:
-        "With $6$ values, the median is the average of the $3$rd and $4$th values: $\\dfrac{9 + 11}{2} = 10$.",
+        "Rearrange to $r=\\sqrt{V/(\\pi h)}$. Then $r=\\sqrt{2.4/(1.5\\pi)}\\approx\\sqrt{0.509}\\approx0.71\\text{ m}$.",
     },
     {
-      id: "y11std-da2",
+      id: "y11std-d5-measurement-spread",
       unitSlug: "data-analysis",
+      assessedUnitSlugs: ["applications-of-measurement"],
+      difficulty: 5,
+      targetMisconception:
+        "Chooses using the average error only and ignores variation when judging measurement consistency.",
       prompt:
-        "If every value in a dataset increases by $5$, the mean will:",
+        "Two devices measure error in millimetres. Device A errors are $-2,-1,0,1,2$. Device B errors are $-5,0,0,0,5$. Which device is more consistent?",
       choices: [
-        { label: "A", text: "Stay the same" },
-        { label: "B", text: "Increase by $5$" },
-        { label: "C", text: "Increase by $25$" },
-        { label: "D", text: "Double" },
+        {
+          label: "A",
+          text: "Device A, because both mean errors are 0 but A has smaller spread.",
+        },
+        {
+          label: "B",
+          text: "Device B, because it has more zero errors.",
+        },
+        {
+          label: "C",
+          text: "They are equally consistent because both mean errors are 0.",
+        },
+        {
+          label: "D",
+          text: "Device B, because its largest positive error is greater.",
+        },
       ],
-      correctAnswer: "B",
+      correctAnswer: "A",
       explanation:
-        "Adding a constant to every value shifts the mean by the same constant.",
+        "Both devices have mean error 0. Device A ranges from -2 to 2, while Device B ranges from -5 to 5, so Device A has the smaller spread and is more consistent.",
     },
     {
-      id: "y11std-da3",
-      unitSlug: "data-analysis",
-      prompt:
-        "In a histogram, the height of each bar represents the:",
-      choices: [
-        { label: "A", text: "Mean of the class interval" },
-        { label: "B", text: "Median of the class interval" },
-        { label: "C", text: "Mode of the data" },
-        { label: "D", text: "Frequency of the class interval" },
-      ],
-      correctAnswer: "D",
-      explanation:
-        "In a frequency histogram, the height of each bar shows the frequency (count) of data values in that class interval.",
-    },
-
-    // ── Relative Frequency and Probability (2 questions) ─────────────────────
-    {
-      id: "y11std-pr1",
+      id: "y11std-d5-route-reliability",
       unitSlug: "relative-frequency-and-probability",
+      assessedUnitSlugs: ["networks-and-paths"],
+      difficulty: 5,
+      targetMisconception:
+        "Chooses the route with fewer links without comparing the combined probability of successful independent links.",
       prompt:
-        "A spinner has $8$ equal sections, $3$ of which are red. In $200$ spins, the expected number of red results is:",
+        "Route A uses two independent links, each with reliability $0.9$. Route B uses one link with reliability $0.8$. Which route is more reliable?",
       choices: [
-        { label: "A", text: "$50$" },
-        { label: "B", text: "$60$" },
-        { label: "C", text: "$75$" },
-        { label: "D", text: "$80$" },
+        {
+          label: "A",
+          text: "Route A, because its reliability is $0.81$.",
+        },
+        {
+          label: "B",
+          text: "Route B, because it has fewer links.",
+        },
+        {
+          label: "C",
+          text: "Route A, because its reliability is $1.8$.",
+        },
+        {
+          label: "D",
+          text: "They are equally reliable because both reliabilities round to $0.8$.",
+        },
       ],
-      correctAnswer: "C",
+      correctAnswer: "A",
       explanation:
-        "$200 \\times \\dfrac{3}{8} = 75$.",
+        "For both independent links on Route A to work, multiply: $0.9\\times0.9=0.81$. Since $0.81>0.8$, Route A is more reliable.",
     },
     {
-      id: "y11std-pr2",
-      unitSlug: "relative-frequency-and-probability",
-      prompt: "$P(\\text{not } A) = 0.3$. Therefore $P(A) =$",
+      id: "y11std-d5-converted-mean",
+      unitSlug: "formulae-equations",
+      assessedUnitSlugs: ["data-analysis"],
+      difficulty: 5,
+      targetMisconception:
+        "Converts individual values or subtracts from the mean without applying the whole conversion formula to the mean.",
+      prompt:
+        "A set of temperatures has mean $68^\\circ\\text{F}$. Using $C=\\frac{5}{9}(F-32)$, what is the mean in degrees Celsius?",
       choices: [
-        { label: "A", text: "$0.3$" },
-        { label: "B", text: "$0.6$" },
-        { label: "C", text: "$0.7$" },
-        { label: "D", text: "$1.3$" },
+        { label: "A", text: "$20^\\circ\\text{C}$" },
+        { label: "B", text: "$36^\\circ\\text{C}$" },
+        { label: "C", text: "$37.8^\\circ\\text{C}$" },
+        { label: "D", text: "$52^\\circ\\text{C}$" },
       ],
-      correctAnswer: "C",
+      correctAnswer: "A",
       explanation:
-        "$P(A) = 1 - P(\\text{not } A) = 1 - 0.3 = 0.7$.",
+        "Because the conversion is linear, convert the mean directly: $C=\\frac{5}{9}(68-32)=\\frac{5}{9}\\times36=20^\\circ\\text{C}$.",
     },
   ],
 };

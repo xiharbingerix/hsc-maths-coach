@@ -120,6 +120,7 @@ test("senior diagnostic pilots are calibrated as D5 transfer", () => {
   for (const courseSlug of [
     "year-11-advanced",
     "year-11-extension",
+    "year-11-standard",
     "year-12-advanced",
     "year-12-extension-1",
     "year-12-standard-1",
