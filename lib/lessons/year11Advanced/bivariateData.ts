@@ -127,7 +127,7 @@ const lfIndep: PracticeQuestion[] = [
   mc("y11adv-bd-lf-i4", "If r = 1, what is true about the least squares line?", "D",
     [{ label: "A", text: "The slope is 1" }, { label: "B", text: "The intercept is 0" }, { label: "C", text: "The line has no slope" }, { label: "D", text: "All data points lie exactly on the line" }],
     "r = 1 means a perfect positive linear relationship. Every data point lies exactly on the regression line with no deviation.", ""),
-  fa("y11adv-bd-lf-i5", "Summary stats: x̄ = 5, ȳ = 14, r = 0.9, s_x = 2, s_y = 6. Find the regression equation.", "b=0.9\\times 6/2,\\;a=14-b(5)", "y = −0.5 + 2.7x", ["y=-0.5+2.7x"]),
+  fa("y11adv-bd-lf-i5", "Summary stats: x̄ = 5, ȳ = 14, r = 0.9, s_x = 2, s_y = 6. Find the regression equation.", "b=0.9\\times 6/2,\\;a=14-b(5)", "y = 0.5 + 2.7x", ["y=0.5+2.7x"]),
 ];
 
 const lfMastery: PracticeQuestion[] = [
