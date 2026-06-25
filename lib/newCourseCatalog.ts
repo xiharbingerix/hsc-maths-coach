@@ -132,6 +132,8 @@ import {
   year11AdvancedMotionRatesLessonOverride,
   year11AdvancedSeriesFinanceLessonOverride,
   year11AdvancedGraphsEquationsLessonOverride,
+  year11AdvancedBivariateDataLessonOverride,
+  year11AdvancedContinuousProbabilityLessonOverride,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -428,6 +430,8 @@ export function buildLesson(
     year11AdvancedMotionRatesLessonOverride(course, unit, lesson) ??
     year11AdvancedSeriesFinanceLessonOverride(course, unit, lesson) ??
     year11AdvancedGraphsEquationsLessonOverride(course, unit, lesson) ??
+    year11AdvancedBivariateDataLessonOverride(course, unit, lesson) ??
+    year11AdvancedContinuousProbabilityLessonOverride(course, unit, lesson) ??
     year12Extension1ProofInductionLessonOverride(course, unit, lesson) ??
     year12Extension1VectorsLessonOverride(course, unit, lesson) ??
     year12Extension1InverseTrigLessonOverride(course, unit, lesson) ??
@@ -2619,6 +2623,34 @@ export const newCoursePathways: CoursePathwaySeed[] = [
           { slug: "graphing-polynomials", title: "Graphing Polynomials" },
           { slug: "simultaneous-equations-nonlinear", title: "Non-Linear Simultaneous Equations" },
           { slug: "graphs-equations-exam-practice", title: "Graphs and Equations Exam Practice" },
+        ],
+      },
+      {
+        slug: "bivariate-data",
+        title: "Bivariate Data Analysis",
+        description: "Scatter plots and correlation, lines of best fit, interpolation and extrapolation, data transformations to linearise non-linear relationships, and exam practice.",
+        syllabusArea: "Statistical Analysis",
+        focus: "Bivariate data analysis",
+        lessons: [
+          { slug: "scatter-plots-correlation", title: "Scatter Plots and Correlation" },
+          { slug: "line-of-best-fit", title: "Line of Best Fit" },
+          { slug: "interpolation-extrapolation", title: "Interpolation and Extrapolation" },
+          { slug: "data-transformation", title: "Data Transformation and Linearisation" },
+          { slug: "bivariate-data-exam-practice", title: "Bivariate Data Exam Practice" },
+        ],
+      },
+      {
+        slug: "continuous-probability",
+        title: "Continuous Probability Distributions",
+        description: "Continuous random variables, probability density functions, normal distribution properties, z-scores, and using the standard normal table.",
+        syllabusArea: "Statistical Analysis",
+        focus: "Continuous probability distributions",
+        lessons: [
+          { slug: "continuous-random-variables", title: "Continuous Random Variables" },
+          { slug: "normal-distribution", title: "The Normal Distribution" },
+          { slug: "z-scores-standardising", title: "z-Scores and Standardising" },
+          { slug: "normal-tables-probabilities", title: "Normal Tables and Probabilities" },
+          { slug: "continuous-probability-exam-practice", title: "Continuous Probability Exam Practice" },
         ],
       },
     ],

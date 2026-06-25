@@ -13,3 +13,5 @@ export * from "./trigCalculus";
 export * from "./motionRates";
 export * from "./seriesFinance";
 export * from "./graphsEquations";
+export * from "./bivariateData";
+export * from "./continuousProbability";

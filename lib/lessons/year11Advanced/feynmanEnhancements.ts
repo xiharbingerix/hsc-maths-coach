@@ -346,6 +346,46 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
     "The four techniques in this unit (factor theorem, Vieta's, polynomial graphing, simultaneous equations) share a common thread: they are all ways of working with the roots of a polynomial without necessarily finding them explicitly. The factor theorem checks for integer roots; Vieta's extracts symmetric functions of roots from the coefficients; graphing reads the roots' geometry; simultaneous equations finds where roots of a derived polynomial lie.",
     "HSC exam questions often combine these: 'factorise the polynomial (factor theorem), state the sum and product of two of its roots (Vieta's), sketch the graph, then find where it intersects a given line (simultaneous equations)'. Each sub-part is routine in isolation; the challenge is executing them sequentially without error. Practice each sub-part until automatic, then practise chaining them.",
   ],
+  "scatter-plots-correlation": [
+    "A scatterplot is not just a cloud of points — it is a picture of a relationship. The direction (positive or negative), the form (linear or curved), and the strength (tight or spread) are independent features. Reading all three before writing a description prevents partial answers.",
+    "Correlation does not imply causation. When two variables rise together, a third variable may be causing both, or the association may be coincidental. Always ask whether a controlled experiment was done before claiming that one variable causes the other.",
+  ],
+  "line-of-best-fit": [
+    "The line of best fit minimises the total squared distance from each point to the line — this is called least squares regression. The result is a line that 'fits through' the pattern rather than touching any particular point, so it is incorrect to draw a line that passes through the most extreme points.",
+    "The gradient of the regression line has units: (units of y) per (units of x). This unit interpretation tells you what a one-unit increase in x predicts for y. Interpreting the y-intercept requires care — it is the predicted y when x = 0, which may be outside the data range and therefore meaningless in context.",
+  ],
+  "interpolation-extrapolation": [
+    "Interpolation and extrapolation look the same algebraically — both substitute x into the regression equation. The difference is whether x is inside the range of the original data. Inside is interpolation; outside is extrapolation. Reliability falls sharply for extrapolation because the linear pattern may not continue beyond the observed data.",
+    "The further outside the data range you extrapolate, the less trustworthy the prediction. This is not a mathematical rule but a practical one: relationships that hold over a limited observed range may not hold when conditions change. In exam answers, always qualify extrapolated predictions with 'assuming the linear trend continues'.",
+  ],
+  "data-transformation": [
+    "Data transformation is used when a scatterplot suggests a non-linear relationship. Taking logarithms or reciprocals of variables can convert a curved relationship into a linear one, allowing a line of best fit to be fitted and used for prediction.",
+    "Common transformations: if y is proportional to x², plot y against x²; if y = ab^x (exponential), plot log y against x to linearise. The transformed regression equation must be converted back to the original variables before making predictions in context — forgetting this step means the predicted value is in the wrong units or scale.",
+  ],
+  "bivariate-data-exam-practice": [
+    "Bivariate data exam questions often chain four tasks: describe the scatterplot, find the regression equation, make a prediction, and evaluate reliability. Each step depends on the previous. A common error is making a prediction from a poor-fitting line without commenting on whether the prediction is reliable.",
+    "The key phrase to practise is 'within/outside the range of the data' when discussing interpolation and extrapolation. Examiners reward precise language here. Also: if the question asks for the regression equation, read the given summary statistics carefully — many students lose marks by calculating the gradient correctly but misreading the mean values.",
+  ],
+  "continuous-random-variables": [
+    "The fundamental shift from discrete to continuous probability is that probabilities are no longer found at single points — they are areas. The probability density function f(x) is a height (density), not a probability. The area under the curve between two values is the probability. This is why P(X = a) = 0 always: a single point has no width, and therefore no area.",
+    "The two pdf conditions (f(x) ≥ 0 and total area = 1) come from the same place as the discrete rules (each probability is non-negative and they sum to 1). The continuous version just replaces a sum with an integral. When finding an unknown constant k, you are imposing that second condition: the integral over the domain must equal 1.",
+  ],
+  "normal-distribution": [
+    "The normal distribution is not just a shape — it is the limit that almost all averages converge to as sample size grows (the Central Limit Theorem). This is why it appears so often in nature, measurement errors, and test scores: any quantity that results from many small additive contributions tends toward the bell curve.",
+    "The empirical rule (68/95/99.7) is worth memorising as anchor probabilities. But more importantly, understand why it works: 1 standard deviation out captures most of the curve because the bell is narrow, 2 out gets nearly all of it, and 3 out gets essentially all of it. Any interval that does not align with μ±σ, μ±2σ, or μ±3σ requires the z-table.",
+  ],
+  "z-scores-standardising": [
+    "The z-score answers the question 'how unusual is this value?'. It measures distance from the mean in units of standard deviation. A z-score of 2 means the value is 2 standard deviations above the mean, regardless of whether we are talking about heights in centimetres or battery lifetimes in hours. This universality is what makes standardisation useful for comparison.",
+    "When comparing results from different tests or different distributions, raw scores are meaningless without context. A mark of 80 is excellent in one class and poor in another. The z-score removes that context-dependence: z = 2 is always in the top 2.5% of a normal distribution, regardless of the original scale.",
+  ],
+  "normal-tables-probabilities": [
+    "A normal table gives Φ(z) = P(Z < z) — the cumulative probability up to z. All other normal probabilities are derived from this. P(Z > z) = 1 − Φ(z) uses complementarity. P(a < Z < b) = Φ(b) − Φ(a) uses the fact that the area between two values is the difference of the areas to the left. These three operations handle every exam scenario.",
+    "The inverse normal problem (find x given P(X < x) = p) reverses the process. Start in the probability column of the table, find the corresponding z, then convert back to the original scale: x = μ + zσ. Common critical values to know: z = 1.28 (90th percentile), z = 1.645 (95th), z = 1.96 (97.5th), z = 2.326 (99th).",
+  ],
+  "continuous-probability-exam-practice": [
+    "In continuous probability, there are four distinct problem types: finding constants in a pdf (integrate and set equal to 1), applying the empirical rule (check the interval aligns with μ±kσ), using the z-table (convert to z, apply symmetry, subtract), and inverse normal (read z from table, convert back). Identify the type before starting — most errors come from applying the wrong technique.",
+    "Drawing a sketch for every normal probability problem is not optional — it is how you catch sign errors. Shade the region, label the mean, and mark the x-values. If your shaded region is large and your probability is small, something is wrong. This visual check takes 10 seconds and catches the most common exam mistakes.",
+  ],
 };
 
 const FEYNMAN_WORKED_EXAMPLES: Record<string, WorkedExample[]> = {

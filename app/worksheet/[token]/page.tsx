@@ -74,30 +74,22 @@ function leakCheckForms(value: string) {
 function shouldStripLatex(latex: string | null, candidates: string[]) {
   if (!latex) return false;
 
-  const latexForms = leakCheckForms(latex);
-  if (latexForms.length === 0) return false;
-
   // Explicit answer/solution cue words.
   if (/(answer|solution|therefore|hence)/i.test(latex)) {
     return true;
   }
 
-  // If the expression after the last "=" is purely numeric/arithmetic
-  // (only digits, /, -, +, ., *, ^, parentheses — no letters or variable names),
-  // the latex is showing a worked result, not a question-setup formula.
-  //
-  // This catches P(A) = 17/20, P(not A) = 1 − 1/5, σ² = 14.2, etc.
-  // It does NOT strip formulas like f(x) = 2x − 3 (has "x") or P(A) = P(B)+P(C) (has letters).
-  const expandedNorm = leakCheckForms(latex)[1] ?? leakCheckForms(latex)[0];
-  if (expandedNorm.includes("=")) {
-    const afterLastEquals = expandedNorm.split("=").pop() ?? "";
-    if (
-      afterLastEquals.trim().length > 0 &&
-      /^[\s\d/\-.+()^*]*$/.test(afterLastEquals)
-    ) {
-      return true;
-    }
-  }
+  // Only match against command-stripped forms. Checking the raw base form causes false
+  // positives: e.g. \ln in \int x\ln(x)\,dx would match a candidate of "ln(x)" because
+  // the LaTeX command name "ln" appears as a substring of the raw string. The purely-numeric
+  // RHS check (e.g. n = 10, p = 0.4) was also removed — it incorrectly stripped question
+  // setup parameters; the candidate-matching below already catches genuine answer leaks.
+  const expanded = normaliseForLeakCheck(expandLatexFractions(latex));
+  const withoutCommands = expanded.replace(/\\[a-z]+/g, "").replace(/[{}]/g, "");
+  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
+  const latexForms = [...new Set([withoutCommands, compact])].filter(Boolean);
+
+  if (latexForms.length === 0) return false;
 
   for (const candidate of candidates) {
     const trimmed = candidate.trim();
