@@ -15,11 +15,6 @@ export const diagnosticData: DiagnosticData = {
       startHref: "/course/year-11-advanced/graph-transformations",
     },
     {
-      slug: "sequences-series",
-      title: "Sequences and Series",
-      startHref: "/course/year-11-advanced/sequences-series",
-    },
-    {
       slug: "trigonometry-measure-angles",
       title: "Trigonometry and Measure of Angles",
       startHref: "/course/year-11-advanced/trigonometry-measure-angles",
@@ -27,7 +22,8 @@ export const diagnosticData: DiagnosticData = {
     {
       slug: "trigonometric-identities-equations",
       title: "Trigonometric Identities and Equations",
-      startHref: "/course/year-11-advanced/trigonometric-identities-equations",
+      startHref:
+        "/course/year-11-advanced/trigonometric-identities-equations",
     },
     {
       slug: "exponential-logarithmic-functions",
@@ -44,317 +40,344 @@ export const diagnosticData: DiagnosticData = {
       title: "Probability and Data",
       startHref: "/course/year-11-advanced/probability-data",
     },
+    {
+      slug: "sequences-series",
+      title: "Sequences and Series",
+      startHref: "/course/year-11-advanced/sequences-series",
+    },
+    {
+      slug: "integration",
+      title: "Integration",
+      startHref: "/course/year-11-advanced/integration",
+    },
+    {
+      slug: "curve-sketching",
+      title: "Curve Sketching",
+      startHref: "/course/year-11-advanced/curve-sketching",
+    },
+    {
+      slug: "exp-log-calculus",
+      title: "Exponential and Logarithmic Calculus",
+      startHref: "/course/year-11-advanced/exp-log-calculus",
+    },
+    {
+      slug: "trig-calculus",
+      title: "Trigonometric Calculus",
+      startHref: "/course/year-11-advanced/trig-calculus",
+    },
+    {
+      slug: "motion-rates",
+      title: "Motion and Rates of Change",
+      startHref: "/course/year-11-advanced/motion-rates",
+    },
+    {
+      slug: "series-finance",
+      title: "Series and Financial Mathematics",
+      startHref: "/course/year-11-advanced/series-finance",
+    },
+    {
+      slug: "graphs-equations",
+      title: "Graphs and Equations",
+      startHref: "/course/year-11-advanced/graphs-equations",
+    },
+    {
+      slug: "bivariate-data",
+      title: "Bivariate Data Analysis",
+      startHref: "/course/year-11-advanced/bivariate-data",
+    },
+    {
+      slug: "continuous-probability",
+      title: "Continuous Probability Distributions",
+      startHref: "/course/year-11-advanced/continuous-probability",
+    },
   ],
 
   questions: [
-    // ── Working with Functions (3 questions) ──────────────────────────────────
     {
-      id: "y11adv-wf1",
+      id: "y11adv-d5-log-transform-domain",
       unitSlug: "working-with-functions",
-      prompt: "For $f(x) = x^2 - 3$, find $f(-2)$.",
-      latex: "f(x) = x^2 - 3",
-      choices: [
-        { label: "A", text: "$1$" },
-        { label: "B", text: "$7$" },
-        { label: "C", text: "$-7$" },
-        { label: "D", text: "$-1$" },
-      ],
-      correctAnswer: "A",
-      explanation: "$f(-2) = (-2)^2 - 3 = 4 - 3 = 1$.",
-    },
-    {
-      id: "y11adv-wf2",
-      unitSlug: "working-with-functions",
-      prompt: "The domain of $f(x) = \\dfrac{1}{x - 2}$ is:",
-      latex: "f(x) = \\frac{1}{x-2}",
-      choices: [
-        { label: "A", text: "All real $x$" },
-        { label: "B", text: "$x \\ne 2$" },
-        { label: "C", text: "$x > 2$" },
-        { label: "D", text: "$x < 2$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "The denominator cannot equal zero: $x - 2 \\ne 0 \\Rightarrow x \\ne 2$.",
-    },
-    {
-      id: "y11adv-wf3",
-      unitSlug: "working-with-functions",
-      prompt: "Which of the following represents a function?",
-      choices: [
-        { label: "A", text: "$x = 4$ (a vertical line)" },
-        { label: "B", text: "$x^2 + y^2 = 9$ (a circle)" },
-        { label: "C", text: "$y = x + 1$" },
-        { label: "D", text: "$y^2 = x$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "A function passes the vertical line test — each $x$ gives exactly one $y$. Only $y = x + 1$ satisfies this.",
-    },
-
-    // ── Graph Transformations (2 questions) ───────────────────────────────────
-    {
-      id: "y11adv-gt1",
-      unitSlug: "graph-transformations",
-      prompt: "The graph $y = f(x) + 3$ is a translation of $y = f(x)$:",
-      choices: [
-        { label: "A", text: "$3$ units left" },
-        { label: "B", text: "$3$ units right" },
-        { label: "C", text: "$3$ units up" },
-        { label: "D", text: "$3$ units down" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "Adding a constant outside the function shifts the graph vertically upward by that amount.",
-    },
-    {
-      id: "y11adv-gt2",
-      unitSlug: "graph-transformations",
-      prompt: "$y = -f(x)$ reflects the graph $y = f(x)$ over the:",
-      choices: [
-        { label: "A", text: "$x$-axis" },
-        { label: "B", text: "$y$-axis" },
-        { label: "C", text: "Origin" },
-        { label: "D", text: "Line $y = x$" },
-      ],
-      correctAnswer: "A",
-      explanation:
-        "Multiplying the output by $-1$ negates every $y$-value, reflecting over the $x$-axis.",
-    },
-
-    // ── Sequences and Series (2 questions) ────────────────────────────────────
-    {
-      id: "y11adv-ss1",
-      unitSlug: "sequences-series",
+      assessedUnitSlugs: ["graph-transformations", "graphs-equations"],
+      difficulty: 5,
+      targetMisconception:
+        "Applies vertical transformations correctly but forgets that the horizontal shift changes the logarithm's domain and asymptote.",
       prompt:
-        "An arithmetic sequence has first term $a = 3$ and common difference $d = 4$. The $8$th term is:",
-      latex: "T_n = a + (n-1)d",
+        "Let $f(x)=\\ln(x-1)$ and $g(x)=2f(x-3)+1$. Which statement about $g$ is correct?",
       choices: [
-        { label: "A", text: "$31$" },
-        { label: "B", text: "$32$" },
-        { label: "C", text: "$35$" },
-        { label: "D", text: "$27$" },
+        {
+          label: "A",
+          text: "The domain is $x>4$, the vertical asymptote is $x=4$, and the range is all real numbers.",
+        },
+        {
+          label: "B",
+          text: "The domain is $x>2$, the vertical asymptote is $x=2$, and the range is $y>1$.",
+        },
+        {
+          label: "C",
+          text: "The domain is $x>4$, the vertical asymptote is $x=1$, and the range is $y>1$.",
+        },
+        {
+          label: "D",
+          text: "The domain is all real numbers except $x=4$, the vertical asymptote is $x=4$, and the range is all real numbers.",
+        },
       ],
       correctAnswer: "A",
       explanation:
-        "$T_8 = 3 + (8-1) \\times 4 = 3 + 28 = 31$.",
+        "$g(x)=2\\ln((x-3)-1)+1=2\\ln(x-4)+1$. The logarithm requires $x-4>0$, so the domain is $x>4$ and the vertical asymptote is $x=4$. The vertical stretch and shift do not restrict the range.",
     },
     {
-      id: "y11adv-ss2",
-      unitSlug: "sequences-series",
+      id: "y11adv-d5-polynomial-end-behaviour",
+      unitSlug: "curve-sketching",
+      assessedUnitSlugs: ["working-with-functions", "graphs-equations"],
+      difficulty: 5,
+      targetMisconception:
+        "Identifies the roots but treats a repeated root as a crossing or misses the negative leading coefficient's end behaviour.",
       prompt:
-        "A geometric sequence has first term $a = 2$ and common ratio $r = 3$. The $4$th term is:",
-      latex: "T_n = a \\cdot r^{n-1}",
+        "For $h(x)=-(x-2)^2(x+1)$, which description matches the graph?",
       choices: [
-        { label: "A", text: "$18$" },
-        { label: "B", text: "$27$" },
-        { label: "C", text: "$54$" },
-        { label: "D", text: "$162$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "$T_4 = 2 \\times 3^{4-1} = 2 \\times 27 = 54$.",
-    },
-
-    // ── Trigonometry and Measure of Angles (3 questions) ──────────────────────
-    {
-      id: "y11adv-tm1",
-      unitSlug: "trigonometry-measure-angles",
-      prompt: "$\\dfrac{\\pi}{4}$ radians in degrees is:",
-      latex: "\\frac{\\pi}{4} \\text{ radians}",
-      choices: [
-        { label: "A", text: "$30°$" },
-        { label: "B", text: "$45°$" },
-        { label: "C", text: "$60°$" },
-        { label: "D", text: "$90°$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\dfrac{\\pi}{4} \\times \\dfrac{180°}{\\pi} = 45°$.",
-    },
-    {
-      id: "y11adv-tm2",
-      unitSlug: "trigonometry-measure-angles",
-      prompt: "The exact value of $\\sin\\!\\left(\\dfrac{\\pi}{6}\\right)$ is:",
-      latex: "\\sin\\!\\left(\\frac{\\pi}{6}\\right)",
-      choices: [
-        { label: "A", text: "$\\dfrac{1}{2}$" },
-        { label: "B", text: "$\\dfrac{\\sqrt{3}}{2}$" },
-        { label: "C", text: "$1$" },
-        { label: "D", text: "$\\dfrac{\\sqrt{2}}{2}$" },
+        {
+          label: "A",
+          text: "It crosses at $x=-1$, touches at $x=2$, rises to the left, and falls to the right.",
+        },
+        {
+          label: "B",
+          text: "It touches at $x=-1$, crosses at $x=2$, falls to the left, and rises to the right.",
+        },
+        {
+          label: "C",
+          text: "It crosses both roots and rises to the right because it is cubic.",
+        },
+        {
+          label: "D",
+          text: "It touches both roots and has the same end behaviour on both sides.",
+        },
       ],
       correctAnswer: "A",
       explanation:
-        "$\\sin(30°) = \\dfrac{1}{2}$, and $\\dfrac{\\pi}{6} = 30°$.",
+        "The root $x=-1$ has odd multiplicity, so the graph crosses there. The root $x=2$ has even multiplicity, so it touches there. The leading term is $-x^3$, so the graph rises left and falls right.",
     },
     {
-      id: "y11adv-tm3",
+      id: "y11adv-d5-trig-gradient-exact",
       unitSlug: "trigonometry-measure-angles",
+      assessedUnitSlugs: ["trigonometric-identities-equations", "trig-calculus"],
+      difficulty: 5,
+      targetMisconception:
+        "Evaluates the trig value but differentiates with respect to the wrong angle or drops the chain-rule factor.",
       prompt:
-        "On the unit circle, $\\sin(\\theta)$ is defined as the:",
+        "For $y=\\sin(2x)$, what are the value of $y$ and the gradient at $x=\\frac{\\pi}{3}$?",
       choices: [
-        { label: "A", text: "$x$-coordinate of the point" },
-        { label: "B", text: "$y$-coordinate of the point" },
-        { label: "C", text: "Ratio $x/y$" },
-        { label: "D", text: "Ratio $y/x$" },
+        {
+          label: "A",
+          text: "$y=\\dfrac{\\sqrt{3}}{2}$ and gradient $=-1$",
+        },
+        {
+          label: "B",
+          text: "$y=\\dfrac{\\sqrt{3}}{2}$ and gradient $=-2$",
+        },
+        {
+          label: "C",
+          text: "$y=-\\dfrac{\\sqrt{3}}{2}$ and gradient $=-1$",
+        },
+        {
+          label: "D",
+          text: "$y=\\dfrac{1}{2}$ and gradient $=2$",
+        },
       ],
-      correctAnswer: "B",
+      correctAnswer: "A",
       explanation:
-        "On the unit circle, the point $(\\cos\\theta, \\sin\\theta)$ lies on the circle. $\\sin\\theta$ is the $y$-coordinate.",
-    },
-
-    // ── Trigonometric Identities and Equations (2 questions) ──────────────────
-    {
-      id: "y11adv-ti1",
-      unitSlug: "trigonometric-identities-equations",
-      prompt: "Which identity is correct?",
-      choices: [
-        { label: "A", text: "$\\sin^2 x + \\cos^2 x = 0$" },
-        { label: "B", text: "$\\sin^2 x - \\cos^2 x = 1$" },
-        { label: "C", text: "$\\sin^2 x + \\cos^2 x = 1$" },
-        { label: "D", text: "$\\sin x + \\cos x = 1$" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "The Pythagorean identity: $\\sin^2 x + \\cos^2 x = 1$ for all $x$.",
+        "At $x=\\frac{\\pi}{3}$, $2x=\\frac{2\\pi}{3}$, so $y=\\sin\\frac{2\\pi}{3}=\\frac{\\sqrt{3}}{2}$. Since $y'=2\\cos(2x)$, the gradient is $2\\cos\\frac{2\\pi}{3}=2(-\\frac12)=-1$.",
     },
     {
-      id: "y11adv-ti2",
-      unitSlug: "trigonometric-identities-equations",
-      prompt: "Solve $\\sin x = 0$ for $x \\in [0, 2\\pi]$. The solutions are:",
-      latex: "\\sin x = 0, \\quad x \\in [0, 2\\pi]",
-      choices: [
-        { label: "A", text: "$x = 0$ only" },
-        { label: "B", text: "$x = \\pi$ only" },
-        { label: "C", text: "$x = 0$ and $x = \\pi$" },
-        { label: "D", text: "$x = 0,\\, \\pi,\\, 2\\pi$" },
-      ],
-      correctAnswer: "D",
-      explanation:
-        "$\\sin x = 0$ when $x$ is a multiple of $\\pi$. In $[0, 2\\pi]$: $x = 0, \\pi, 2\\pi$.",
-    },
-
-    // ── Exponential and Logarithmic Functions (3 questions) ───────────────────
-    {
-      id: "y11adv-el1",
+      id: "y11adv-d5-exp-log-tangent",
       unitSlug: "exponential-logarithmic-functions",
-      prompt: "$\\log_2 8 =$",
+      assessedUnitSlugs: ["exp-log-calculus", "graphs-equations"],
+      difficulty: 5,
+      targetMisconception:
+        "Solves the logarithmic equation but finds the tangent gradient using the function value instead of the derivative.",
+      prompt:
+        "The curve $y=e^x$ has a tangent at the point where $e^x=4$. Which equation is that tangent?",
+      choices: [
+        { label: "A", text: "$y=4x+4-4\\ln4$" },
+        { label: "B", text: "$y=(\\ln4)x+4-\\ln4$" },
+        { label: "C", text: "$y=4x$" },
+        { label: "D", text: "$y=x+4-\\ln4$" },
+      ],
+      correctAnswer: "A",
+      explanation:
+        "The point is $(\\ln4,4)$. For $y=e^x$, the derivative is also $e^x$, so the gradient there is $4$. The tangent is $y-4=4(x-\\ln4)$, or $y=4x+4-4\\ln4$.",
+    },
+    {
+      id: "y11adv-d5-motion-displacement",
+      unitSlug: "motion-rates",
+      assessedUnitSlugs: ["integration", "introduction-differentiation"],
+      difficulty: 5,
+      targetMisconception:
+        "Uses velocity at the endpoints instead of integrating velocity and checking whether the particle changes direction.",
+      prompt:
+        "A particle has velocity $v(t)=3t^2-12t+9$ for $0\\leq t\\leq3$. Which statement about its displacement and distance travelled is correct?",
+      choices: [
+        {
+          label: "A",
+          text: "Displacement is $0$ and distance travelled is $8$.",
+        },
+        {
+          label: "B",
+          text: "Displacement is $0$ and distance travelled is $0$.",
+        },
+        {
+          label: "C",
+          text: "Displacement is $-9$ and distance travelled is $9$.",
+        },
+        {
+          label: "D",
+          text: "Displacement is $8$ and distance travelled is $8$.",
+        },
+      ],
+      correctAnswer: "A",
+      explanation:
+        "$v(t)=3(t-1)(t-3)$ changes sign at $t=1$ in the interval. An antiderivative is $t^3-6t^2+9t$. The displacement from 0 to 3 is $0$. The signed area is $4$ from 0 to 1 and $-4$ from 1 to 3, so distance is $8$.",
+    },
+    {
+      id: "y11adv-d5-sequence-finance-limit",
+      unitSlug: "sequences-series",
+      assessedUnitSlugs: ["series-finance"],
+      difficulty: 5,
+      targetMisconception:
+        "Treats regular deposits as simple addition and ignores the geometric multiplier created by compound interest.",
+      prompt:
+        "An account starts at 0 dollars. At the end of each year, 1000 dollars is deposited, and the balance then earns 5% annual interest. Which expression gives the balance after 4 deposits and interest applications?",
+      choices: [
+        {
+          label: "A",
+          text: "$1000(1.05)+1000(1.05)^2+1000(1.05)^3+1000(1.05)^4$",
+        },
+        {
+          label: "B",
+          text: "$4000(1.05)^4$",
+        },
+        {
+          label: "C",
+          text: "$1000\\dfrac{1.05^4-1}{0.05}$",
+        },
+        {
+          label: "D",
+          text: "$1000+1000(1.05)+1000(1.05)^2+1000(1.05)^3$",
+        },
+      ],
+      correctAnswer: "A",
+      explanation:
+        "Because interest is applied after each end-of-year deposit, the first deposit earns interest four times and the last earns interest once. That gives $1000(1.05)+1000(1.05)^2+1000(1.05)^3+1000(1.05)^4$.",
+    },
+    {
+      id: "y11adv-d5-probability-regression-risk",
+      unitSlug: "probability-data",
+      assessedUnitSlugs: ["bivariate-data", "continuous-probability"],
+      difficulty: 5,
+      targetMisconception:
+        "Calculates a regression residual but interprets raw error without standardising against the residual distribution.",
+      prompt:
+        "A model predicts running time by $\\hat{t}=18-0.4x$, where $x$ is training hours and $t$ is minutes. For $x=15$, an athlete runs 10.5 min. Residuals are approximately normal with standard deviation 1.5 min. Which interpretation is best?",
+      choices: [
+        {
+          label: "A",
+          text: "The residual is $-1.5$ min, about 1 standard deviation faster than predicted.",
+        },
+        {
+          label: "B",
+          text: "The residual is $1.5$ min, about 1 standard deviation slower than predicted.",
+        },
+        {
+          label: "C",
+          text: "The residual is $7.5$ min, about 5 standard deviations slower than predicted.",
+        },
+        {
+          label: "D",
+          text: "The residual is $0$ because $18-0.4(15)=10.5$.",
+        },
+      ],
+      correctAnswer: "A",
+      explanation:
+        "The predicted time is $18-0.4(15)=12$ min. The residual is actual minus predicted, $10.5-12=-1.5$ min, which is one residual standard deviation below prediction. For running time, lower is faster.",
+    },
+    {
+      id: "y11adv-d5-optimisation-area",
+      unitSlug: "introduction-differentiation",
+      assessedUnitSlugs: ["curve-sketching", "working-with-functions"],
+      difficulty: 5,
+      targetMisconception:
+        "Finds a stationary point but does not use the constraint to build the correct quadratic or classify the turning point.",
+      prompt:
+        "A rectangle has perimeter 40 cm. If its width is $x$ cm, which statement about its maximum area is correct?",
+      choices: [
+        {
+          label: "A",
+          text: "Area $A=x(20-x)$, maximum area $100\\text{ cm}^2$ at $x=10$.",
+        },
+        {
+          label: "B",
+          text: "Area $A=x(40-x)$, maximum area $400\\text{ cm}^2$ at $x=20$.",
+        },
+        {
+          label: "C",
+          text: "Area $A=2x(20-x)$, maximum area $200\\text{ cm}^2$ at $x=10$.",
+        },
+        {
+          label: "D",
+          text: "Area increases without bound as $x$ increases.",
+        },
+      ],
+      correctAnswer: "A",
+      explanation:
+        "If width is $x$, the length is $20-x$ because $2L+2x=40$. Thus $A=x(20-x)=20x-x^2$, a downward-opening parabola with vertex at $x=10$ and maximum area $100\\text{ cm}^2$.",
+    },
+    {
+      id: "y11adv-d5-trig-equation-domain",
+      unitSlug: "trigonometric-identities-equations",
+      assessedUnitSlugs: ["graphs-equations", "trigonometry-measure-angles"],
+      difficulty: 5,
+      targetMisconception:
+        "Solves the reference-angle equation but ignores the transformed period and the restricted interval.",
+      prompt:
+        "How many solutions does $\\cos(2x)=\\frac12$ have for $0\\leq x\\leq2\\pi$?",
       choices: [
         { label: "A", text: "$2$" },
         { label: "B", text: "$3$" },
         { label: "C", text: "$4$" },
-        { label: "D", text: "$16$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$\\log_2 8 = 3$ because $2^3 = 8$.",
-    },
-    {
-      id: "y11adv-el2",
-      unitSlug: "exponential-logarithmic-functions",
-      prompt: "$e^{\\ln 5} =$",
-      choices: [
-        { label: "A", text: "$1$" },
-        { label: "B", text: "$5$" },
-        { label: "C", text: "$e + 5$" },
-        { label: "D", text: "$\\ln(e+5)$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$e^{\\ln x} = x$ for all $x > 0$. Therefore $e^{\\ln 5} = 5$.",
-    },
-    {
-      id: "y11adv-el3",
-      unitSlug: "exponential-logarithmic-functions",
-      prompt: "Solve $3^x = 81$.",
-      choices: [
-        { label: "A", text: "$x = 3$" },
-        { label: "B", text: "$x = 4$" },
-        { label: "C", text: "$x = 5$" },
-        { label: "D", text: "$x = 27$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$3^4 = 81$, so $x = 4$.",
-    },
-
-    // ── Introduction to Differentiation (3 questions) ─────────────────────────
-    {
-      id: "y11adv-id1",
-      unitSlug: "introduction-differentiation",
-      prompt: "The gradient of $f(x) = x^2$ at $x = 3$ is:",
-      latex: "f(x) = x^2",
-      choices: [
-        { label: "A", text: "$3$" },
-        { label: "B", text: "$6$" },
-        { label: "C", text: "$9$" },
-        { label: "D", text: "$12$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "$f'(x) = 2x$. At $x = 3$: $f'(3) = 2(3) = 6$.",
-    },
-    {
-      id: "y11adv-id2",
-      unitSlug: "introduction-differentiation",
-      prompt: "Differentiate $y = 5x^3$.",
-      latex: "y = 5x^3",
-      choices: [
-        { label: "A", text: "$5x^2$" },
-        { label: "B", text: "$15x^2$" },
-        { label: "C", text: "$15x^3$" },
-        { label: "D", text: "$x^2$" },
-      ],
-      correctAnswer: "B",
-      explanation:
-        "Using the power rule: $\\dfrac{dy}{dx} = 5 \\times 3x^{3-1} = 15x^2$.",
-    },
-    {
-      id: "y11adv-id3",
-      unitSlug: "introduction-differentiation",
-      prompt:
-        "If $f'(x) > 0$ on an interval, then the function is:",
-      choices: [
-        { label: "A", text: "Decreasing" },
-        { label: "B", text: "Concave up" },
-        { label: "C", text: "Increasing" },
-        { label: "D", text: "Stationary" },
+        { label: "D", text: "$6$" },
       ],
       correctAnswer: "C",
       explanation:
-        "A positive first derivative means the function is increasing on that interval.",
-    },
-
-    // ── Probability and Data (2 questions) ────────────────────────────────────
-    {
-      id: "y11adv-pd1",
-      unitSlug: "probability-data",
-      prompt:
-        "In a normal distribution, data is distributed:",
-      choices: [
-        { label: "A", text: "Mostly above the mean" },
-        { label: "B", text: "Mostly below the mean" },
-        { label: "C", text: "Symmetrically around the mean" },
-        { label: "D", text: "Uniformly across all values" },
-      ],
-      correctAnswer: "C",
-      explanation:
-        "A normal distribution is symmetric: the mean, median, and mode coincide at the centre.",
+        "Let $u=2x$. Then $0\\leq u\\leq4\\pi$. The equation $\\cos u=\\frac12$ has two solutions in each $2\\pi$ cycle, so it has four solutions over $0\\leq u\\leq4\\pi$, hence four corresponding $x$ values.",
     },
     {
-      id: "y11adv-pd2",
-      unitSlug: "probability-data",
+      id: "y11adv-d5-calculus-composite-rate",
+      unitSlug: "exp-log-calculus",
+      assessedUnitSlugs: ["trig-calculus", "motion-rates"],
+      difficulty: 5,
+      targetMisconception:
+        "Differentiates each component separately but fails to combine the chain rule with rate interpretation.",
       prompt:
-        "Two events $A$ and $B$ are independent if:",
+        "A displacement is modelled by $s(t)=e^{-t}\\sin t$. Which expression gives the velocity at time $t$, and what is $v(0)$?",
       choices: [
-        { label: "A", text: "$P(A \\cap B) = 0$" },
-        { label: "B", text: "$P(A \\cap B) = P(A) \\times P(B)$" },
-        { label: "C", text: "$P(A) = P(B)$" },
-        { label: "D", text: "$P(A \\cup B) = 1$" },
+        {
+          label: "A",
+          text: "$v(t)=e^{-t}(\\cos t-\\sin t)$ and $v(0)=1$.",
+        },
+        {
+          label: "B",
+          text: "$v(t)=e^{-t}(\\sin t+\\cos t)$ and $v(0)=1$.",
+        },
+        {
+          label: "C",
+          text: "$v(t)=-e^{-t}\\sin t$ and $v(0)=0$.",
+        },
+        {
+          label: "D",
+          text: "$v(t)=e^{-t}\\cos t$ and $v(0)=1$.",
+        },
       ],
-      correctAnswer: "B",
+      correctAnswer: "A",
       explanation:
-        "Events are independent when $P(A \\cap B) = P(A) \\times P(B)$.",
+        "Use the product rule: $s'(t)=(-e^{-t})\\sin t+e^{-t}\\cos t=e^{-t}(\\cos t-\\sin t)$. At $t=0$, this is $1(1-0)=1$.",
     },
   ],
 };
