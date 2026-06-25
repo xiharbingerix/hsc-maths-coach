@@ -511,6 +511,8 @@ export default async function AdminAnalyticsPage({
   const homepageViews = count("homepage_viewed");
   const hscMathsViews = count("hsc_maths_viewed");
   const diagnosticCtaClicks = count("diagnostic_cta_clicked");
+  const diagnosticSelectViews = count("diagnostic_select_viewed");
+  const diagnosticYearSelections = count("diagnostic_year_level_selected");
   const diagnosticStarts = count("diagnostic_started");
   const diagnosticBegins = count("diagnostic_begun");
   const diagnosticCompletions = count("diagnostic_completed");
@@ -539,6 +541,8 @@ export default async function AdminAnalyticsPage({
   const uniqueHomepageViews = unique("homepage_viewed");
   const uniqueHscMathsViews = unique("hsc_maths_viewed");
   const uniqueDiagnosticCtaClicks = unique("diagnostic_cta_clicked");
+  const uniqueDiagnosticSelectViews = unique("diagnostic_select_viewed");
+  const uniqueDiagnosticYearSelections = unique("diagnostic_year_level_selected");
   const uniqueTrialCtaClicks = unique("trial_cta_clicked");
   const uniqueCheckoutStarts = unique("checkout_started");
   const uniqueCheckoutForms = unique("checkout_form_submitted");
@@ -559,6 +563,8 @@ export default async function AdminAnalyticsPage({
     { label: "Homepage viewed",       event: "homepage_viewed",               total: homepageViews,             uniq: uniqueHomepageViews },
     { label: "HSC maths viewed",      event: "hsc_maths_viewed",              total: hscMathsViews,             uniq: uniqueHscMathsViews },
     { label: "Diagnostic CTA clicked", event: "diagnostic_cta_clicked",       total: diagnosticCtaClicks,       uniq: uniqueDiagnosticCtaClicks },
+    { label: "Chooser viewed",        event: "diagnostic_select_viewed",      total: diagnosticSelectViews,     uniq: uniqueDiagnosticSelectViews },
+    { label: "Year level selected",   event: "diagnostic_year_level_selected", total: diagnosticYearSelections, uniq: uniqueDiagnosticYearSelections },
     { label: "Diagnostic started",    event: "diagnostic_started",            total: diagnosticStarts,          uniq: uniqueDiagnosticStarts },
     { label: "Diagnostic begun",      event: "diagnostic_begun",              total: diagnosticBegins,          uniq: uniqueDiagnosticBegins },
     { label: "Diagnostic completed",  event: "diagnostic_completed",          total: diagnosticCompletions,     uniq: uniqueDiagnosticCompletions },

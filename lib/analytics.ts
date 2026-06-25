@@ -93,3 +93,14 @@ export function trackDiagnosticCompleted() {
     currency: "AUD",
   });
 }
+
+// Fires when a visitor starts the diagnostic quiz (intro → quiz). This is a
+// higher-frequency micro-conversion than Diagnostic_completed, so Smart Bidding
+// has a trainable signal at current ad volume. Value is configured account-side
+// ("same value", 1 AUD), so the event only needs send_to — matching the snippet
+// Google generated for the "Diagnostic Begun" conversion action.
+export function trackDiagnosticBegun() {
+  return track("conversion", {
+    send_to: "AW-18195883998/y4G0CMO3gcUcEN7PvORD",
+  });
+}
