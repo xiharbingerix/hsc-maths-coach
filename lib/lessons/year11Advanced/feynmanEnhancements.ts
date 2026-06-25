@@ -304,6 +304,27 @@ const FEYNMAN_PARAGRAPHS: Record<string, string[]> = {
     "Kinematics problems often chain differentiation and integration in a single question: 'Given x = ..., find v when a = 0' requires two derivatives; 'given v = ..., find x when the particle is at rest' requires setting v = 0 and then integrating to find x. Recognise which direction you are travelling along the differentiation chain before writing any algebra.",
     "Multi-step motion problems test systematic thinking. Write x(t), find v(t), find all t when v = 0, evaluate x at those t-values and at the endpoints, then sum the segments. Every step is a standard technique; the challenge is completing the sequence without error under exam conditions.",
   ],
+  // ── Series and Financial Mathematics ─────────────────────────────────────────
+  "compound-interest": [
+    "Compound interest is the concrete realisation of a geometric sequence. The successive balances P, P(1+r), P(1+r)², ... are exact geometric terms — the formula A = P(1+r)ⁿ is just Tₙ = a·rⁿ⁻¹ with a = P and ratio (1+r). Understanding this means you never need to memorise compound interest as a separate formula if you know geometric sequences.",
+    "The difference between compounding frequencies is entirely captured by adjusting r and n. Monthly at 6% p.a. is not the same as annual at 6% — the monthly effective rate is 0.5%, not 6%, and there are 12n periods not n. Students who forget this adjustment underestimate the actual return (or cost).",
+  ],
+  "recursive-formulas-financial": [
+    "Recursive formulas are the step-by-step version of compound interest. They do not give new mathematics — they express the same growth/decay as a formula you iterate rather than evaluate. Their power is transparency: each line of a recursion table shows exactly what happened to the money in that period.",
+    "The sign on M (the payment) is the key distinction between a loan and a savings account. Subtract M for a loan (money leaves after interest accrues); add M for savings (money enters). The structure Aₙ = Aₙ₋₁(1+r) ± M is identical — only the sign changes the interpretation.",
+  ],
+  "superannuation-future-value": [
+    "The FV annuity formula is a geometric series in disguise. The first deposit earns compound interest for n−1 periods, the next for n−2, and so on. The sum M + M(1+r) + ... + M(1+r)^(n-1) is a geometric series whose sum formula is exactly FV = M·[(1+r)ⁿ−1]/r. Knowing the derivation means you can adapt the formula if the question changes the payment timing.",
+    "Total interest earned = FV − M·n. The ratio of interest to principal deposited grows dramatically with time. Over 30 years at a typical rate, a super fund may accumulate twice the total deposited as interest. Starting early is more powerful than increasing the deposit amount — each extra year of compounding multiplies the whole existing balance.",
+  ],
+  "loan-repayments-present-value": [
+    "The PV annuity formula is the 'mirror' of the FV formula: instead of growing deposits forward, it discounts future repayments backward. Each repayment M at the end of period k is worth M(1+r)^(−k) today. Their sum — the loan principal — is PV = M·[1−(1+r)^(−n)]/r.",
+    "The amortisation pattern (early payments mostly interest, later payments mostly principal) is a consequence of the reducing balance. The formula for the balance after k payments is Aₖ = PV(1+r)^k − M·[(1+r)^k−1]/r. At k = n this gives exactly zero — the loan is cleared. This formula verifies that the chosen M was correct.",
+  ],
+  "series-finance-exam-practice": [
+    "Three formulas, three contexts: A = P(1+r)ⁿ for single amounts; FV = M·[(1+r)ⁿ−1]/r for regular savings (money grows); PV = M·[1−(1+r)^(−n)]/r for loans (money is owed). Identifying which context applies — and whether you are solving for M, PV, FV, r or n — is the primary skill tested in HSC finance questions.",
+    "Comparison questions are almost always about total cost or total return. Compute the total repaid (M × n) for a loan and compare with the principal; compute the FV for a savings plan and compare with total deposited. The 'better' financial choice depends on whether you are borrowing (minimise total repaid) or saving (maximise FV for a given total deposited).",
+  ],
 };
 
 const FEYNMAN_WORKED_EXAMPLES: Record<string, WorkedExample[]> = {
