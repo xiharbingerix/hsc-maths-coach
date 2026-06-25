@@ -44,7 +44,7 @@
 | year-11-advanced | exponential-logarithmic-functions | 18 | 2 | 0 | 2 | — | P1 |
 | year-11-advanced | graph-transformations | 15 | 2 | 0 | 2 | — | P1 |
 | year-11-advanced | introduction-differentiation | 33 | 10 | 2 | 8 | — | P2 |
-| year-11-advanced | probability-data | 21 | 4 | 0 | 4 | — | P1 |
+| year-11-advanced | probability-data | 21 | 7 | 3 | 4 | — | P2 |
 | year-11-advanced | trigonometric-identities-equations | 27 | 7 | 3 | 4 | — | P2 |
 | year-11-advanced | trigonometry-measure-angles | 45 | 11 | 3 | 8 | — | P2 |
 | year-11-advanced | working-with-functions | 48 | 13 | 7 | 6 | ✅ | — |
@@ -55,7 +55,7 @@
 | year-11-extension | permutations-combinations | 15 | 3 | 3 | 0 | — | P2 |
 | year-11-extension | polynomials | 21 | 9 | 9 | 0 | ✅ | — |
 | year-11-standard | applications-of-measurement | 27 | 0 | 0 | 0 | — | P1 |
-| year-11-standard | data-analysis | 27 | 6 | 6 | 0 | ✅ | — |
+| year-11-standard | data-analysis | 27 | 18 | 18 | 0 | ✅ | — |
 | year-11-standard | exam-practice | 2 | 0 | 0 | 0 | — | P1 |
 | year-11-standard | formulae-equations | 27 | 0 | 0 | 0 | — | P1 |
 | year-11-standard | linear-relationships | 24 | 0 | 0 | 0 | — | P1 |
@@ -78,14 +78,14 @@
 | year-12-advanced | ma-t1-trigonometry-and-measure-of-angles | 9 | 6 | 6 | 0 | ✅ | — |
 | year-12-advanced | ma-t2-trigonometric-functions-and-identities | 33 | 9 | 9 | 0 | ✅ | — |
 | year-12-advanced | ma-t3-trigonometric-equations | 12 | 6 | 6 | 0 | ✅ | — |
-| year-12-extension-1 | binomial-distribution | 9 | 1 | 0 | 1 | — | P1 |
-| year-12-extension-1 | calculus-applications | 27 | 1 | 0 | 1 | — | P1 |
+| year-12-extension-1 | binomial-distribution | 15 | 7 | 6 | 1 | ✅ | — |
+| year-12-extension-1 | calculus-applications | 33 | 7 | 6 | 1 | ✅ | — |
 | year-12-extension-1 | exam-practice | 2 | 3 | 1 | 2 | — | P2 |
-| year-12-extension-1 | further-calculus | 15 | 0 | 0 | 0 | — | P1 |
-| year-12-extension-1 | inverse-trig | 15 | 0 | 0 | 0 | — | P1 |
-| year-12-extension-1 | kinematics | 12 | 0 | 0 | 0 | — | P1 |
+| year-12-extension-1 | further-calculus | 21 | 6 | 6 | 0 | ✅ | — |
+| year-12-extension-1 | inverse-trig | 21 | 6 | 6 | 0 | ✅ | — |
+| year-12-extension-1 | kinematics | 18 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-1 | proof-induction | 13 | 3 | 3 | 0 | — | P2 |
-| year-12-extension-1 | vectors | 29 | 0 | 0 | 0 | — | P1 |
+| year-12-extension-1 | vectors | 35 | 6 | 6 | 0 | ✅ | — |
 | year-12-extension-2 | calculus | 27 | 0 | 0 | 0 | — | P1 |
 | year-12-extension-2 | complex-numbers | 18 | 11 | 9 | 2 | ✅ | — |
 | year-12-extension-2 | exam-practice | 3 | 2 | 1 | 1 | — | P2 |
@@ -144,30 +144,37 @@
 | year-9-mathematics | indices-surds | 90 | 108 | 108 | 0 | ✅ | — |
 | year-9-mathematics | length-area-surface-area-volume | 50 | 60 | 60 | 0 | ✅ | — |
 | year-9-mathematics | linear-relationships | 100 | 120 | 120 | 0 | ✅ | — |
+| year-9-mathematics | probability-data-analysis | 80 | 96 | 96 | 0 | ✅ | — |
 | year-9-mathematics | properties-geometrical-figures | 60 | 72 | 72 | 0 | ✅ | — |
 | year-9-mathematics | pythagoras-trigonometry | 70 | 84 | 84 | 0 | ✅ | — |
+| year-9-mathematics | quadratic-equations-parabolas | 81 | 96 | 96 | 0 | ✅ | — |
+| year-9-mathematics | quadratic-expressions-algebraic-techniques | 124 | 132 | 132 | 0 | ✅ | — |
 | year-9-mathematics-advanced | computation-financial-maths | 60 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-advanced | expressions-equations-inequalities | 100 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-advanced | indices-surds | 90 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-advanced | length-area-surface-area-volume | 50 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-advanced | linear-relationships | 100 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | probability-data-analysis | 90 | 12 | 12 | 0 | ✅ | — |
 | year-9-mathematics-advanced | properties-geometrical-figures | 60 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-advanced | pythagoras-trigonometry | 70 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | quadratic-equations-parabolas | 81 | 0 | 0 | 0 | — | P4 |
+| year-9-mathematics-advanced | quadratic-expressions-algebraic-techniques | 124 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-core | computation-financial-maths | 130 | 84 | 84 | 0 | ✅ | — |
 | year-9-mathematics-core | expressions-equations-inequalities | 70 | 24 | 24 | 0 | ✅ | — |
 | year-9-mathematics-core | indices-surds | 50 | 0 | 0 | 0 | — | P4 |
 | year-9-mathematics-core | length-area-surface-area-volume | 70 | 36 | 36 | 0 | ✅ | — |
 | year-9-mathematics-core | linear-relationships | 70 | 12 | 12 | 0 | ✅ | — |
+| year-9-mathematics-core | probability-data-analysis | 80 | 36 | 36 | 0 | ✅ | — |
 | year-9-mathematics-core | properties-geometrical-figures | 40 | 24 | 24 | 0 | ✅ | — |
 | year-9-mathematics-core | pythagoras-trigonometry | 90 | 36 | 36 | 0 | ✅ | — |
 
 ## Priority summary
 
-- **P1**: 42
-- **P2**: 14
+- **P1**: 35
+- **P2**: 15
 - **P3**: 36
-- **P4**: 33
-- **Replay-ready:** 31
+- **P4**: 35
+- **Replay-ready:** 42
 
-**TOTAL: 156 topics · 31 replay-ready · 75 zero-D6.**
+**TOTAL: 163 topics · 42 replay-ready · 73 zero-D6.**
 

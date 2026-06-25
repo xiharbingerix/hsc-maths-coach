@@ -302,6 +302,20 @@ const vectorsAndPoints3D: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-pts-pool-1", "The magnitude of a 3D vector (a, b, c) is given by:", "B", ["a + b + c", "√(a² + b² + c²)", "a² + b² + c²", "(a + b + c)/3"], "Magnitude is the 3D Pythagorean distance: |(a,b,c)| = √(a² + b² + c²)."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-pts-pool-2", "Find the magnitude |(2, 3, 6)|.", "|(2,3,6)| = \\sqrt{2^2+3^2+6^2}", "7", [], "√(4 + 9 + 36) = √49 = 7."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-pts-pool-3", "Find the magnitude |(1, 2, 2)|.", "|(1,2,2)| = \\sqrt{1^2+2^2+2^2}", "3", [], "√(1 + 4 + 4) = √9 = 3."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-pts-pool-4", "A unit vector in the direction of (1, 2, 2) is (1/k)(1, 2, 2). Find k.", "\\hat{u} = \\frac{1}{k}(1,2,2)", "3", [], "k = |(1,2,2)| = 3, so the unit vector is (1/3)(1,2,2)."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-pts-pool-5", "A student computes |(3, 4, 0)| as 3 + 4 + 0 = 7. What is the error?", "C", ["The 0 should be ignored entirely.", "Magnitude is the largest component, 4.", "Magnitude is √(3² + 4² + 0²) = 5, not the sum of components.", "There is no error."], "Magnitude squares and roots the components: √(9 + 16 + 0) = 5. Adding components is not the magnitude."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-pts-pool-6", "For points A(1, 2, 3) and B(4, 6, 3), the displacement AB = B − A. Find |AB|.", "\\vec{AB} = B - A", "5", [], "AB = (3, 4, 0), so |AB| = √(9 + 16 + 0) = 5."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-pts-pool-7", "Find the x-coordinate of the midpoint of A(1, 2, 3) and B(3, 6, 5).", "M = \\tfrac12(A + B)", "2", [], "Midpoint x = (1 + 3)/2 = 2."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-pts-pool-8", "Vectors (2, 4, 6) and (1, 2, k) are parallel (one is a scalar multiple of the other). Find k.", "(2,4,6) = \\lambda(1,2,k)", "3", [], "(2,4,6) = 2(1,2,3), so the second vector is (1,2,3) and k = 3."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-pts-pool-9", "Two non-zero vectors are parallel if and only if:", "B", ["Their dot product is zero.", "One is a scalar multiple of the other.", "They have the same magnitude.", "Their components add to zero."], "Parallel means one is a scalar multiple of the other. Dot product zero means perpendicular, not parallel."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-pts-pool-10", "Point P divides AB so that AP = 2·PB (ratio 2:1 from A). For A(0, 0, 0) and B(3, 3, 3), find the x-coordinate of P.", "P = A + \\tfrac{2}{3}(B - A)", "2", [], "P = A + (2/3)(B − A) = (2, 2, 2), so the x-coordinate is 2."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-pts-pool-11", "Find the positive value of t for which |(t, 2, 2)| = 3.", "|(t,2,2)| = 3", "1", [], "t² + 4 + 4 = 9, so t² = 1 and the positive value is t = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-pts-pool-12", "Explain by result: the distance from the origin to the point (a, b, c) equals |(a, b, c)|. For the point (6, 6, 7), state this distance.", "d = \\sqrt{a^2+b^2+c^2}", "11", [], "√(36 + 36 + 49) = √121 = 11 — the position vector's magnitude IS the distance from the origin."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 2: Dot Product and Angle ─────────────────────────────────────────
@@ -557,6 +571,20 @@ const dotProductAndAngle: Partial<ExplicitLesson> = {
         },
       ],
     },
+  ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-dot-pool-1", "The dot product a·b equals zero exactly when:", "B", ["a and b are parallel.", "a and b are perpendicular.", "a and b are equal.", "a or b is a unit vector."], "a·b = |a||b|cosθ; this is zero (for non-zero vectors) precisely when cosθ = 0, i.e. θ = 90°."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-dot-pool-2", "Find the dot product (1, 2, 3)·(4, 5, 6).", "(1,2,3)\\cdot(4,5,6)", "32", [], "1·4 + 2·5 + 3·6 = 4 + 10 + 18 = 32."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-dot-pool-3", "Find the dot product (2, −1, 3)·(1, 4, 2).", "(2,-1,3)\\cdot(1,4,2)", "4", [], "2·1 + (−1)·4 + 3·2 = 2 − 4 + 6 = 4."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-dot-pool-4", "Find t so that (t, 2, 1) is perpendicular to (3, −1, −1).", "(t,2,1)\\cdot(3,-1,-1)=0", "1", [], "Dot = 3t − 2 − 1 = 3t − 3 = 0, so t = 1."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-dot-pool-5", "A student says the dot product a·b is a vector. What is wrong?", "C", ["a·b is undefined in 3D.", "a·b is a matrix.", "a·b is a SCALAR (a single number), not a vector.", "a·b is always zero."], "The dot product combines two vectors into one number (a scalar). The cross product, by contrast, returns a vector."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-dot-pool-6", "The angle θ between two vectors satisfies cosθ = (a·b)/(|a||b|). If a·b = 0, find θ in degrees.", "\\cos\\theta = \\frac{a\\cdot b}{|a||b|}", "90", ["90°"], "cosθ = 0 gives θ = 90° — the vectors are perpendicular."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-dot-pool-7", "For a = (1, 0, 0) and b = (1, 1, 0): a·b = 1, |a| = 1, |b| = √2, so cosθ = 1/√2. Find θ in degrees.", "\\cos\\theta = \\tfrac{1}{\\sqrt2}", "45", ["45°"], "cosθ = 1/√2 gives θ = 45°."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-dot-pool-8", "If |a| = 3, |b| = 4, and the angle between them is 60°, find a·b. (a·b = |a||b|cosθ, cos60° = 1/2.)", "a\\cdot b = |a||b|\\cos\\theta", "6", [], "a·b = 3·4·cos60° = 12·(1/2) = 6."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-dot-pool-9", "If a·b > 0 for two non-zero vectors, the angle between them is:", "B", ["Obtuse (greater than 90°).", "Acute (less than 90°).", "Exactly 90°.", "Exactly 180°."], "a·b = |a||b|cosθ. A positive dot product means cosθ > 0, so θ is acute."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-dot-pool-10", "The scalar projection of a onto b is (a·b)/|b|. For a = (3, 4, 0) and b = (0, 5, 0), find this projection.", "\\text{proj} = \\frac{a\\cdot b}{|b|}", "4", [], "a·b = 0 + 20 + 0 = 20 and |b| = 5, so the scalar projection is 20/5 = 4."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-dot-pool-11", "Find t so that (1, 1, 0) and (1, t, 0) are perpendicular.", "(1,1,0)\\cdot(1,t,0)=0", "-1", ["−1"], "Dot = 1 + t = 0, so t = −1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-dot-pool-12", "Explain by result: a·a equals |a|² (a vector dotted with itself gives its magnitude squared). For a = (2, 3, 6), compute a·a.", "a\\cdot a = |a|^2", "49", [], "a·a = 4 + 9 + 36 = 49, which equals |a|² since |a| = 7 — dotting a vector with itself recovers its squared length."), difficulty: 5 },
   ],
 };
 
@@ -842,6 +870,20 @@ const equationsOfLines3D: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-line-pool-1", "In the vector equation of a line r = a + λb, what does b represent?", "B", ["A second point on the line.", "The direction vector of the line.", "The midpoint of the line.", "A unit normal to the line."], "a is a fixed point (anchor) on the line and b is its direction vector; varying λ sweeps out every point of the line."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-line-pool-2", "For the line r = (1, 0, 2) + λ(2, 1, 3), find the x-coordinate of the point at λ = 1.", "r = (1,0,2) + \\lambda(2,1,3)", "3", [], "x = 1 + 2(1) = 3."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-line-pool-3", "For the same line r = (1, 0, 2) + λ(2, 1, 3), find the x-coordinate at λ = 2.", "r = (1,0,2) + \\lambda(2,1,3)", "5", [], "x = 1 + 2(2) = 5."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-line-pool-4", "For r = (1, 0, 2) + λ(2, 1, 3), find the value of λ at which the y-coordinate equals 4.", "y = 0 + \\lambda", "4", [], "y = 0 + λ = 4, so λ = 4."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-line-pool-5", "Two lines have direction vectors (1, 2, 3) and (2, 4, 6). The lines are:", "B", ["Perpendicular.", "Parallel (one direction is a scalar multiple of the other).", "Skew.", "Always intersecting at the origin."], "(2, 4, 6) = 2(1, 2, 3), so the directions are scalar multiples — the lines are parallel."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-line-pool-6", "A line passes through A(1, 2, 3) with direction (4, 0, −1): r = (1, 2, 3) + λ(4, 0, −1). Find the z-coordinate at λ = 3.", "z = 3 + \\lambda(-1)", "0", [], "z = 3 + 3(−1) = 0."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-line-pool-7", "Does (5, 2, 2) lie on r = (1, 2, 3) + λ(4, 0, −1)? Find λ from the x-equation 1 + 4λ = 5 (the z-equation then confirms it).", "1 + 4\\lambda = 5", "1", [], "λ = 1 from x; check z: 3 + 1(−1) = 2 ✓ and y: 2 ✓. So the point lies on the line at λ = 1."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-line-pool-8", "A line passes through (1, 1, 1) and (3, 4, 5). Its direction vector is the displacement (3, 4, 5) − (1, 1, 1). Find the z-component of this direction.", "d = Q - P", "4", [], "(3, 4, 5) − (1, 1, 1) = (2, 3, 4), so the z-component is 4."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-line-pool-9", "A student writes the direction of the line through P and Q as P + Q. What is wrong?", "C", ["The direction should be the midpoint.", "P + Q is correct.", "The direction is Q − P (the displacement between the points), not P + Q.", "A line through two points has no direction."], "The direction of a line through two points is their difference Q − P. Adding the position vectors gives an unrelated vector."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-line-pool-10", "Lines r = (1, 0, 0) + λ(1, 2, 0) and r = (0, 1, 0) + μ(2, 1, 0) intersect. Equating components gives 1 + λ = 2μ and 2λ = 1 + μ. Solve for λ.", "1+\\lambda = 2\\mu,\\ 2\\lambda = 1+\\mu", "1", [], "From the first, μ = (1 + λ)/2. Substituting: 2λ = 1 + (1 + λ)/2 → 4λ = 3 + λ → λ = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-line-pool-11", "The point on the line r = (−9, 0, 0) + λ(1, 2, 2) closest to the origin is where the position vector r is perpendicular to the direction d = (1, 2, 2), i.e. r·d = 0. Set up r·d = 0 and solve for λ.", "\\vec{r}\\cdot\\vec{d} = 0", "1", [], "r = (−9 + λ, 2λ, 2λ), so r·d = (−9 + λ) + 2(2λ) + 2(2λ) = −9 + 9λ = 0, giving λ = 1 — the foot of the perpendicular from the origin. Recognising 'closest point ⇔ r·d = 0' is the key step, not just solving a single coordinate equation."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-line-pool-12", "Explain by result: two lines are parallel iff their direction vectors are scalar multiples of one common direction. Directions (2, 4, 6) and (3, 6, 9) are both multiples of (1, 2, 3); the second is 3×(1,2,3). State the scalar for the first.", "(2,4,6) = k(1,2,3)", "2", [], "(2, 4, 6) = 2(1, 2, 3), so the scalar is 2 — both lines share the direction (1, 2, 3), confirming they are parallel."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 4: Vector Applications and Exam Practice ─────────────────────────
@@ -1096,6 +1138,20 @@ const vectorApplicationsExamPractice: Partial<ExplicitLesson> = {
       ],
     },
   ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-app-pool-1", "The work done by a constant force F through a displacement d is given by:", "B", ["F + d", "F·d (the dot product)", "|F||d|", "F − d"], "Work is the dot product W = F·d = |F||d|cosθ — only the component of force along the displacement does work."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-app-pool-2", "Find the work W = F·d for F = (3, 0, 4) and d = (2, 0, 1).", "W = F\\cdot d", "10", [], "W = 3·2 + 0·0 + 4·1 = 6 + 0 + 4 = 10."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-app-pool-3", "Find the angle (in degrees) between (1, 0, 0) and (0, 1, 0).", "\\cos\\theta = \\frac{a\\cdot b}{|a||b|}", "90", ["90°"], "Dot product = 0, so cosθ = 0 and θ = 90°."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-app-pool-4", "Points A(0, 0, 0), B(1, 2, 3), C(2, 4, 6). Since AB = (1, 2, 3) and AC = (2, 4, 6), the points are collinear. Find the scalar λ with AC = λ·AB.", "\\vec{AC} = \\lambda\\,\\vec{AB}", "2", [], "(2, 4, 6) = 2(1, 2, 3), so λ = 2 — A, B, C lie on one line."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-app-pool-5", "The work done by a force acting perpendicular to the displacement is:", "C", ["Equal to |F||d|.", "Negative.", "Zero, because F·d = 0.", "Undefined."], "If F ⊥ d then F·d = 0, so no work is done — this is why a normal force or a centripetal force does zero work."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-app-pool-6", "The scalar projection of a = (3, 4, 0) onto b = (1, 0, 0) is (a·b)/|b|. Find it.", "\\text{proj} = \\frac{a\\cdot b}{|b|}", "3", [], "a·b = 3 and |b| = 1, so the scalar projection is 3."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-app-pool-7", "A force F = (0, −5, 0) moves an object along d = (4, 0, 0). Find the work W = F·d.", "W = F\\cdot d", "0", [], "W = 0·4 + (−5)·0 + 0·0 = 0 — the force is perpendicular to the motion, so no work is done."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-app-pool-8", "Two lines have direction vectors (1, 0, 0) and (1, 1, 0). The angle between them satisfies cosθ = 1/√2. Find θ in degrees.", "\\cos\\theta = \\tfrac{1}{\\sqrt2}", "45", ["45°"], "cosθ = (1)/(1·√2) = 1/√2, so θ = 45°."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-app-pool-9", "Three points A, B, C are collinear if and only if:", "B", ["AB·AC = 0.", "AB and AC are parallel (one is a scalar multiple of the other).", "|AB| = |AC|.", "AB + AC = 0."], "Collinear means the displacements AB and AC point along the same line, i.e. one is a scalar multiple of the other (parallel), not perpendicular."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-app-pool-10", "To find the foot of the perpendicular from a point P to a line, project AP onto the line's unit direction. For AP = (3, 4, 0) and unit direction d = (0, 1, 0), find the scalar projection AP·d.", "AP\\cdot \\hat{d}", "4", [], "AP·d = 3·0 + 4·1 + 0·0 = 4 — this is how far along the line the foot of the perpendicular sits."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-app-pool-11", "A force of magnitude 20 N acts at 60° to a displacement of magnitude 5 m. The work is W = |F||d|cosθ, with cos60° = 1/2. Find W.", "W = |F||d|\\cos\\theta", "50", ["50 J"], "W = 20·5·(1/2) = 50 J."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-app-pool-12", "Explain by result: when a force is perpendicular to the motion it does no work — this is why the normal reaction and the centripetal force do zero work. For F = (0, 0, 7) and motion d = (3, 4, 0), state W = F·d.", "W = F\\cdot d", "0", [], "F·d = 0·3 + 0·4 + 7·0 = 0 — F points purely in z while the motion lies in the xy-plane, so the force is perpendicular and does no work."), difficulty: 5 },
+  ],
 };
 
 // ─── Lesson 5: Vector Equations of Curves, Circles and Spheres ───────────────
@@ -1308,6 +1364,20 @@ const vectorCurvesCirclesSpheres: Partial<ExplicitLesson> = {
       ["(x-1)²+(y-2)²+(z-3)²=25"],
       "Centre (1,2,3), R = 5, so R² = 25."
     ),
+  ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-sph-pool-1", "The vector equation |r − c| = R describes:", "B", ["A plane through c.", "A sphere with centre c and radius R.", "A line in direction c.", "A single point c."], "|r − c| = R says every point r is a fixed distance R from the centre c — that is a sphere (a circle in 2D)."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-sph-pool-2", "A sphere is given by |r − (1, 2, 3)| = 5. State its radius.", "|r - (1,2,3)| = 5", "5", [], "The right-hand side is the radius, R = 5."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-sph-pool-3", "A sphere has equation (x − 1)² + (y − 2)² + (z − 3)² = 25. State its radius.", "(x-1)^2+(y-2)^2+(z-3)^2 = 25", "5", [], "R² = 25, so R = √25 = 5."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-sph-pool-4", "A sphere has centre (2, 3, 6) and passes through the origin. Its radius is the distance from the centre to the origin. Find the radius.", "R = |(2,3,6)|", "7", [], "R = √(4 + 9 + 36) = √49 = 7."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-sph-pool-5", "The sphere (x − 1)² + (y − 2)² + (z − 3)² = 16 has radius:", "C", ["16", "8", "4 (the square root of 16)", "256"], "The right-hand side is R², so R = √16 = 4. Reading 16 as the radius is the classic error."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-sph-pool-6", "The sphere x² + y² + z² = 9 has centre at the origin. State its radius.", "x^2+y^2+z^2 = 9", "3", [], "R² = 9, so R = 3."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-sph-pool-7", "Test whether (3, 0, 0) lies on the sphere x² + y² + z² = 9 by computing x² + y² + z² at that point.", "x^2+y^2+z^2", "9", [], "3² + 0² + 0² = 9, which equals the right-hand side, so the point lies on the sphere."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-sph-pool-8", "A sphere has centre (1, 1, 1) and radius 2, written (x − 1)² + (y − 1)² + (z − 1)² = R². Find R².", "(x-1)^2+(y-1)^2+(z-1)^2 = R^2", "4", [], "R = 2, so R² = 4."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-sph-pool-9", "A student claims that r(t) = (cos t, sin t, 0), for parameter t, describes a sphere. Why is that wrong?", "C", ["It describes a plane.", "It describes a single point.", "A single parameter t traces a one-dimensional CURVE (here a unit circle in the xy-plane), not a sphere.", "cos t and sin t are never both defined."], "One free parameter gives a curve. (cos t, sin t, 0) satisfies x² + y² = 1, z = 0 — a circle, not a 2D spherical surface."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-sph-pool-10", "Complete the square to find the radius of x² − 2x + y² + z² = 0. (x² − 2x = (x − 1)² − 1.)", "(x-1)^2 + y^2 + z^2 = 1", "1", [], "x² − 2x + y² + z² = (x − 1)² − 1 + y² + z² = 0, so (x − 1)² + y² + z² = 1 and R = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-sph-pool-11", "A sphere has centre (3, 0, 0) and radius 2. The closest point on the sphere to the origin lies along the line from the origin to the centre; its distance from the origin is (distance to centre) − radius. Find that distance.", "d = |c| - R", "1", [], "Distance from origin to centre = 3; subtract the radius 2 to get 3 − 2 = 1."), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-sph-pool-12", "Explain by result: the parametric curve r(t) = (2cos t, 2sin t, 0) satisfies x² + y² = (2cos t)² + (2sin t)² = 4, so it lies on a circle. State the radius of that circle.", "x^2 + y^2 = 4", "2", [], "(2cos t)² + (2sin t)² = 4(cos²t + sin²t) = 4 = 2², so the curve is a circle of radius 2 — the Pythagorean identity collapses the parameter."), difficulty: 5 },
   ],
   masteryPassMark: 0.8,
 };
@@ -1525,6 +1595,20 @@ const geometricProofsVectors: Partial<ExplicitLesson> = {
       "a·b = 0 means a ⊥ b. A parallelogram with perpendicular adjacent sides is a rectangle.",
       "What does a ⊥ b mean for the shape of a parallelogram?"
     ),
+  ],
+  masteryQuizPool: [
+    { ...v3Choice("y12e2-vec-proof-pool-1", "To prove two vectors are perpendicular, you show that:", "B", ["They have equal magnitude.", "Their dot product is zero.", "One is a scalar multiple of the other.", "Their sum is zero."], "Perpendicularity is captured by a·b = 0. Equal magnitude or scalar-multiple conditions describe other relationships."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-proof-pool-2", "To prove AB ⊥ BC you compute AB·BC and show it is zero. For AB = (1, 0, 0) and BC = (0, 1, 0), find AB·BC.", "\\vec{AB}\\cdot\\vec{BC}", "0", [], "1·0 + 0·1 + 0·0 = 0, so AB ⊥ BC."), difficulty: 2 },
+    { ...v3Typed("y12e2-vec-proof-pool-3", "To prove AB is parallel to CD you show AB = λ·CD. For AB = (2, 4, 6) and CD = (1, 2, 3), find λ.", "\\vec{AB} = \\lambda\\,\\vec{CD}", "2", [], "(2, 4, 6) = 2(1, 2, 3), so λ = 2 and AB ∥ CD."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-proof-pool-4", "In a parallelogram the diagonals bisect each other, so the midpoint of AC equals the midpoint of BD. For A(0, 0, 0) and C(2, 2, 2), find the x-coordinate of the midpoint of AC.", "M = \\tfrac12(A + C)", "1", [], "Midpoint of AC = (1, 1, 1); its x-coordinate is 1. Showing it equals the midpoint of BD proves the diagonals bisect."), difficulty: 3 },
+    { ...v3Choice("y12e2-vec-proof-pool-5", "To prove a triangle ABC is right-angled at B, the cleanest vector test is:", "B", ["Show |BA| = |BC|.", "Show BA·BC = 0 (the vectors from B are perpendicular).", "Show BA + BC = 0.", "Show BA = BC."], "A right angle at B means the two sides meeting at B are perpendicular, i.e. BA·BC = 0. Equal lengths would make it isosceles, not right-angled."), difficulty: 3 },
+    { ...v3Typed("y12e2-vec-proof-pool-6", "Prove the triangle with A(1, 0, 0), B(0, 0, 0), C(0, 1, 0) is right-angled at B by computing BA·BC. (BA = A − B, BC = C − B.)", "\\vec{BA}\\cdot\\vec{BC}", "0", [], "BA = (1, 0, 0), BC = (0, 1, 0), so BA·BC = 0 — the right angle is at B."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-proof-pool-7", "Midpoint theorem: the segment joining the midpoints of two sides of a triangle is half the length of the third side. If the third side BC has length 8, find the length of that midsegment.", "\\text{midsegment} = \\tfrac12 |BC|", "4", [], "Half of 8 is 4 — the midsegment is parallel to BC and half its length."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-proof-pool-8", "To prove M is the midpoint of A and B you show 2M = A + B. For A(0, 0, 0) and B(4, 0, 0), find the x-component of A + B (which must equal 2 times the midpoint's x-coordinate).", "2M = A + B", "4", [], "A + B = (4, 0, 0), so its x-component is 4 = 2·2, confirming the midpoint x-coordinate is 2."), difficulty: 4 },
+    { ...v3Choice("y12e2-vec-proof-pool-9", "To prove ABDC is a parallelogram from vertices A, B, C, D, the correct equal-vector condition is:", "B", ["AB = CD", "AB = DC (so AB and DC are equal and parallel)", "AB = BC", "AC = BD"], "For the parallelogram with that vertex order, opposite sides AB and DC must be equal vectors. Writing AB = CD reverses one side and gives a crossed (non-parallelogram) figure."), difficulty: 4 },
+    { ...v3Typed("y12e2-vec-proof-pool-10", "The diagonals of a rhombus are p = a + b and q = a − b, where a, b are adjacent sides with |a| = |b|. Since p·q = |a|² − |b|², find p·q for a rhombus.", "p\\cdot q = |a|^2 - |b|^2", "0", [], "With |a| = |b|, |a|² − |b|² = 0, so p·q = 0 — the diagonals are perpendicular. (This is the whole proof in one line.)"), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-proof-pool-11", "Using the identity (a + b)·(a − b) = |a|² − |b|², evaluate it for a = (3, 0, 0) and b = (0, 4, 0).", "(a+b)\\cdot(a-b) = |a|^2 - |b|^2", "-7", ["−7"], "|a|² = 9, |b|² = 16, so the value is 9 − 16 = −7. (Non-zero here because |a| ≠ |b|.)"), difficulty: 5 },
+    { ...v3Typed("y12e2-vec-proof-pool-12", "To prove a triangle with sides a = (2, 2, 1) and b = (1, 2, 2) is isosceles WITHOUT square roots, the invariant that captures the proof step is a·a − b·b (zero exactly when |a| = |b|). Compute a·a − b·b.", "a\\cdot a - b\\cdot b", "0", [], "a·a = 4 + 4 + 1 = 9 and b·b = 1 + 4 + 4 = 9, so a·a − b·b = 0 — the two sides have equal length and the triangle is isosceles. Comparing a·a with b·b is the proof, avoiding any square root."), difficulty: 5 },
   ],
   masteryPassMark: 0.8,
 };

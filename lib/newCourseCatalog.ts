@@ -5626,12 +5626,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Develop fluency with fractions and decimals before percentages and algebraic fractions.",
         lessons: [
-          { slug: "fractions-types-and-equivalence",  title: "Fraction Types and Equivalence" },
-          { slug: "comparing-ordering-fractions",     title: "Comparing and Ordering Fractions" },
-          { slug: "adding-subtracting-fractions",     title: "Adding and Subtracting Fractions" },
-          { slug: "multiplying-dividing-fractions",   title: "Multiplying and Dividing Fractions" },
-          { slug: "fractions-decimals-conversion",    title: "Fractions and Decimals" },
-          { slug: "decimals-operations",              title: "Decimal Operations" },
+          { slug: "fractions-types-and-equivalence",  title: "Fraction Types and Equivalence", pathTag: "consolidating", stableSkillId: "y7-fractions-types-and-equivalence", skillCheckpoints: [{ stableCheckpointId: "y7-fractions-types-and-equivalence-c1", label: "Identify and simplify equivalent fractions" }] },
+          { slug: "comparing-ordering-fractions",     title: "Comparing and Ordering Fractions", pathTag: "core", stableSkillId: "y7-comparing-ordering-fractions", skillCheckpoints: [{ stableCheckpointId: "y7-comparing-ordering-fractions-c1", label: "Compare and order fractions" }] },
+          { slug: "adding-subtracting-fractions",     title: "Adding and Subtracting Fractions", pathTag: "core", stableSkillId: "y7-adding-subtracting-fractions", skillCheckpoints: [{ stableCheckpointId: "y7-adding-subtracting-fractions-c1", label: "Add and subtract fractions" }] },
+          { slug: "multiplying-dividing-fractions",   title: "Multiplying and Dividing Fractions", pathTag: "core", stableSkillId: "y7-multiplying-dividing-fractions", skillCheckpoints: [{ stableCheckpointId: "y7-multiplying-dividing-fractions-c1", label: "Multiply and divide fractions" }] },
+          { slug: "fractions-decimals-conversion",    title: "Fractions and Decimals", pathTag: "core", stableSkillId: "y7-fractions-decimals-conversion", skillCheckpoints: [{ stableCheckpointId: "y7-fractions-decimals-conversion-c1", label: "Convert between fractions and decimals" }] },
+          { slug: "decimals-operations",              title: "Decimal Operations", pathTag: "core", stableSkillId: "y7-decimals-operations", skillCheckpoints: [{ stableCheckpointId: "y7-decimals-operations-c1", label: "Operate with decimals" }] },
         ],
       },
       {
@@ -5641,11 +5641,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Establish core algebraic notation and manipulation skills before equations and linear relationships.",
         lessons: [
-          { slug: "algebraic-notation",         title: "Algebraic Notation" },
-          { slug: "collecting-like-terms",      title: "Collecting Like Terms" },
-          { slug: "expanding-brackets",         title: "Expanding Brackets" },
-          { slug: "factorising-common-factors", title: "Factorising with Common Factors" },
-          { slug: "substitution",               title: "Substitution" },
+          { slug: "algebraic-notation",         title: "Algebraic Notation", pathTag: "core", stableSkillId: "y7-algebraic-notation", skillCheckpoints: [{ stableCheckpointId: "y7-algebraic-notation-c1", label: "Use algebraic notation and substitute values" }] },
+          { slug: "collecting-like-terms",      title: "Collecting Like Terms", pathTag: "core", stableSkillId: "y7-collecting-like-terms", skillCheckpoints: [{ stableCheckpointId: "y7-collecting-like-terms-c1", label: "Collect like terms" }] },
+          { slug: "expanding-brackets",         title: "Expanding Brackets", pathTag: "core", stableSkillId: "y7-expanding-brackets", skillCheckpoints: [{ stableCheckpointId: "y7-expanding-brackets-c1", label: "Expand brackets" }] },
+          { slug: "factorising-common-factors", title: "Factorising with Common Factors", pathTag: "extending", stableSkillId: "y7-factorising-common-factors", skillCheckpoints: [{ stableCheckpointId: "y7-factorising-common-factors-c1", label: "Factorise using common factors" }] },
+          { slug: "substitution",               title: "Substitution", pathTag: "core", stableSkillId: "y7-substitution", skillCheckpoints: [{ stableCheckpointId: "y7-substitution-c1", label: "Substitute into formulas" }] },
         ],
       },
       {
@@ -5655,10 +5655,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Build percentage fluency for financial mathematics and real-world problem solving.",
         lessons: [
-          { slug: "converting-fractions-decimals-percentages", title: "Converting Fractions, Decimals and Percentages" },
-          { slug: "percentage-of-quantity",                    title: "Percentage of a Quantity" },
-          { slug: "percentage-increase-decrease",              title: "Percentage Increase and Decrease" },
-          { slug: "percentage-applications",                   title: "Percentage Applications" },
+          { slug: "converting-fractions-decimals-percentages", title: "Converting Fractions, Decimals and Percentages", pathTag: "core", stableSkillId: "y7-converting-fractions-decimals-percentages", skillCheckpoints: [{ stableCheckpointId: "y7-converting-fractions-decimals-percentages-c1", label: "Convert between fractions, decimals and percentages" }] },
+          { slug: "percentage-of-quantity",                    title: "Percentage of a Quantity", pathTag: "core", stableSkillId: "y7-percentage-of-quantity", skillCheckpoints: [{ stableCheckpointId: "y7-percentage-of-quantity-c1", label: "Find a percentage of a quantity" }] },
+          { slug: "percentage-increase-decrease",              title: "Percentage Increase and Decrease", pathTag: "extending", stableSkillId: "y7-percentage-increase-decrease", skillCheckpoints: [{ stableCheckpointId: "y7-percentage-increase-decrease-c1", label: "Increase or decrease by a percentage" }] },
+          { slug: "percentage-applications",                   title: "Percentage Applications", pathTag: "extending", stableSkillId: "y7-percentage-applications", skillCheckpoints: [{ stableCheckpointId: "y7-percentage-applications-c1", label: "Solve percentage application problems" }] },
         ],
       },
       {
@@ -5668,10 +5668,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Develop equation-solving skills using inverse operations before tackling Year 9 multi-step and algebraic fraction equations.",
         lessons: [
-          { slug: "one-step-equations",               title: "One-Step Equations" },
-          { slug: "two-step-equations",               title: "Two-Step Equations" },
-          { slug: "equations-worded-problems",        title: "Equations from Worded Problems" },
-          { slug: "quadratic-equations-ax2-equals-c", title: "Quadratic Equations (ax² = c)" },
+          { slug: "one-step-equations",               title: "One-Step Equations", pathTag: "core", stableSkillId: "y7-one-step-equations", skillCheckpoints: [{ stableCheckpointId: "y7-one-step-equations-c1", label: "Solve one-step equations" }] },
+          { slug: "two-step-equations",               title: "Two-Step Equations", pathTag: "core", stableSkillId: "y7-two-step-equations", skillCheckpoints: [{ stableCheckpointId: "y7-two-step-equations-c1", label: "Solve two-step equations" }] },
+          { slug: "equations-worded-problems",        title: "Equations from Worded Problems", pathTag: "extending", stableSkillId: "y7-equations-worded-problems", skillCheckpoints: [{ stableCheckpointId: "y7-equations-worded-problems-c1", label: "Form and solve equations from worded problems" }] },
+          { slug: "quadratic-equations-ax2-equals-c", title: "Quadratic Equations (ax² = c)", pathTag: "extending", stableSkillId: "y7-quadratic-equations-ax2-equals-c", skillCheckpoints: [{ stableCheckpointId: "y7-quadratic-equations-ax2-equals-c-c1", label: "Solve ax² = c equations" }] },
         ],
       },
       {
@@ -5681,11 +5681,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "Build index fluency for algebraic indices and scientific notation in Years 9–10.",
         lessons: [
-          { slug: "factors-multiples-hcf-lcm",         title: "Factors, Multiples, HCF and LCM" },
-          { slug: "primes-and-prime-factorisation",     title: "Primes and Prime Factorisation" },
-          { slug: "squares-cubes-index-notation",      title: "Squares, Cubes and Index Notation" },
-          { slug: "index-laws-product-quotient-power",  title: "Index Laws" },
-          { slug: "zero-index-and-mixed-indices",       title: "Zero Index and Mixed Applications" },
+          { slug: "factors-multiples-hcf-lcm",         title: "Factors, Multiples, HCF and LCM", pathTag: "consolidating", stableSkillId: "y7-factors-multiples-hcf-lcm", skillCheckpoints: [{ stableCheckpointId: "y7-factors-multiples-hcf-lcm-c1", label: "Find factors, multiples, HCF and LCM" }] },
+          { slug: "primes-and-prime-factorisation",     title: "Primes and Prime Factorisation", pathTag: "core", stableSkillId: "y7-primes-and-prime-factorisation", skillCheckpoints: [{ stableCheckpointId: "y7-primes-and-prime-factorisation-c1", label: "Find prime factorisations" }] },
+          { slug: "squares-cubes-index-notation",      title: "Squares, Cubes and Index Notation", pathTag: "core", stableSkillId: "y7-squares-cubes-index-notation", skillCheckpoints: [{ stableCheckpointId: "y7-squares-cubes-index-notation-c1", label: "Evaluate squares, cubes, roots and index notation" }] },
+          { slug: "index-laws-product-quotient-power",  title: "Index Laws", pathTag: "core", stableSkillId: "y7-index-laws-product-quotient-power", skillCheckpoints: [{ stableCheckpointId: "y7-index-laws-product-quotient-power-c1", label: "Apply the product, quotient and power index laws" }] },
+          { slug: "zero-index-and-mixed-indices",       title: "Zero Index and Mixed Applications", pathTag: "extending", stableSkillId: "y7-zero-index-and-mixed-indices", skillCheckpoints: [{ stableCheckpointId: "y7-zero-index-and-mixed-indices-c1", label: "Apply the zero index in mixed problems" }] },
         ],
       },
       {
@@ -5720,11 +5720,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Measurement and Space",
         focus: "Build geometric reasoning with angles before congruence, similarity and coordinate geometry.",
         lessons: [
-          { slug: "angle-types-and-relationships",     title: "Angle Types and Relationships" },
-          { slug: "angles-in-triangles",               title: "Angles in Triangles" },
-          { slug: "angles-in-quadrilaterals",          title: "Angles in Quadrilaterals" },
-          { slug: "parallel-lines-and-transversals",   title: "Parallel Lines and Transversals" },
-          { slug: "angle-relationships-problem-solving", title: "Angle Relationships Problem Solving" },
+          { slug: "angle-types-and-relationships",     title: "Angle Types and Relationships", pathTag: "core", stableSkillId: "y7-angle-types-and-relationships", skillCheckpoints: [{ stableCheckpointId: "y7-angle-types-and-relationships-c1", label: "Use complementary, supplementary and angles at a point" }] },
+          { slug: "angles-in-triangles",               title: "Angles in Triangles", pathTag: "core", stableSkillId: "y7-angles-in-triangles", skillCheckpoints: [{ stableCheckpointId: "y7-angles-in-triangles-c1", label: "Find unknown angles in triangles" }] },
+          { slug: "angles-in-quadrilaterals",          title: "Angles in Quadrilaterals", pathTag: "core", stableSkillId: "y7-angles-in-quadrilaterals", skillCheckpoints: [{ stableCheckpointId: "y7-angles-in-quadrilaterals-c1", label: "Find unknown angles in quadrilaterals" }] },
+          { slug: "parallel-lines-and-transversals",   title: "Parallel Lines and Transversals", pathTag: "core", stableSkillId: "y7-parallel-lines-and-transversals", skillCheckpoints: [{ stableCheckpointId: "y7-parallel-lines-and-transversals-c1", label: "Use corresponding, alternate and co-interior angles" }] },
+          { slug: "angle-relationships-problem-solving", title: "Angle Relationships Problem Solving", pathTag: "extending", stableSkillId: "y7-angle-relationships-problem-solving", skillCheckpoints: [{ stableCheckpointId: "y7-angle-relationships-problem-solving-c1", label: "Solve multi-step angle problems" }] },
         ],
       },
       {
@@ -5734,11 +5734,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Statistics and Probability",
         focus: "Build data literacy — classification, collection methods and graphical displays — before summary statistics in Year 8.",
         lessons: [
-          { slug: "data-types-and-collection",       title: "Data Types and Collection" },
-          { slug: "frequency-tables",                title: "Frequency Tables" },
-          { slug: "dot-plots-stem-and-leaf",         title: "Dot Plots and Stem-and-Leaf Plots" },
-          { slug: "column-bar-line-graphs",          title: "Column, Bar and Line Graphs" },
-          { slug: "choosing-and-interpreting-displays", title: "Choosing and Interpreting Displays" },
+          { slug: "data-types-and-collection",       title: "Data Types and Collection", pathTag: "core", stableSkillId: "y7-data-types-and-collection", skillCheckpoints: [{ stableCheckpointId: "y7-data-types-and-collection-c1", label: "Classify data and collection methods" }] },
+          { slug: "frequency-tables",                title: "Frequency Tables", pathTag: "core", stableSkillId: "y7-frequency-tables", skillCheckpoints: [{ stableCheckpointId: "y7-frequency-tables-c1", label: "Build and read frequency tables" }] },
+          { slug: "dot-plots-stem-and-leaf",         title: "Dot Plots and Stem-and-Leaf Plots", pathTag: "core", stableSkillId: "y7-dot-plots-stem-and-leaf", skillCheckpoints: [{ stableCheckpointId: "y7-dot-plots-stem-and-leaf-c1", label: "Read dot plots and stem-and-leaf plots" }] },
+          { slug: "column-bar-line-graphs",          title: "Column, Bar and Line Graphs", pathTag: "core", stableSkillId: "y7-column-bar-line-graphs", skillCheckpoints: [{ stableCheckpointId: "y7-column-bar-line-graphs-c1", label: "Read and interpret column, bar and line graphs" }] },
+          { slug: "choosing-and-interpreting-displays", title: "Choosing and Interpreting Displays", pathTag: "extending", stableSkillId: "y7-choosing-and-interpreting-displays", skillCheckpoints: [{ stableCheckpointId: "y7-choosing-and-interpreting-displays-c1", label: "Choose and interpret suitable displays" }] },
         ],
       },
       {
@@ -5748,11 +5748,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "MA4-RAT-C-01 — ratios and rates complete the Stage 4 number content.",
         lessons: [
-          { slug: "introduction-to-ratios",       title: "Introduction to Ratios" },
-          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio" },
-          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates" },
-          { slug: "speed-distance-time",          title: "Speed, Distance and Time" },
-          { slug: "scale-drawings",               title: "Scale Drawings" },
+          { slug: "introduction-to-ratios",       title: "Introduction to Ratios", pathTag: "core", stableSkillId: "y7-introduction-to-ratios", skillCheckpoints: [{ stableCheckpointId: "y7-introduction-to-ratios-c1", label: "Write and simplify ratios" }] },
+          { slug: "dividing-quantities-in-ratio", title: "Dividing Quantities in Ratio", pathTag: "core", stableSkillId: "y7-dividing-quantities-in-ratio", skillCheckpoints: [{ stableCheckpointId: "y7-dividing-quantities-in-ratio-c1", label: "Divide a quantity in a given ratio" }] },
+          { slug: "rates-and-unit-rates",         title: "Rates and Unit Rates", pathTag: "core", stableSkillId: "y7-rates-and-unit-rates", skillCheckpoints: [{ stableCheckpointId: "y7-rates-and-unit-rates-c1", label: "Calculate and use rates" }] },
+          { slug: "speed-distance-time",          title: "Speed, Distance and Time", pathTag: "extending", stableSkillId: "y7-speed-distance-time", skillCheckpoints: [{ stableCheckpointId: "y7-speed-distance-time-c1", label: "Use the speed-distance-time relationship" }] },
+          { slug: "scale-drawings",               title: "Scale Drawings", pathTag: "extending", stableSkillId: "y7-scale-drawings", skillCheckpoints: [{ stableCheckpointId: "y7-scale-drawings-c1", label: "Use scales in drawings and maps" }] },
         ],
       },
       {
@@ -5780,30 +5780,45 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Probability Language and Scale",
             description:
               "Describe likelihood using words and the probability scale from 0 to 1.",
+            pathTag: "core",
+            stableSkillId: "y7-probability-language-and-scale",
+            skillCheckpoints: [{ stableCheckpointId: "y7-probability-language-and-scale-c1", label: "Use probability language and the 0-1 scale" }],
           },
           {
             slug: "simple-probability",
             title: "Simple Probability",
             description:
               "Calculate P(event) = favourable outcomes Ã· total outcomes and apply the complement rule.",
+            pathTag: "core",
+            stableSkillId: "y7-simple-probability",
+            skillCheckpoints: [{ stableCheckpointId: "y7-simple-probability-c1", label: "Calculate simple probabilities and complements" }],
           },
           {
             slug: "two-step-chance-experiments",
             title: "Two-Step Chance Experiments",
             description:
               "List all outcomes of two-step experiments using arrays and tree diagrams, and calculate combined probabilities.",
+            pathTag: "extending",
+            stableSkillId: "y7-two-step-chance-experiments",
+            skillCheckpoints: [{ stableCheckpointId: "y7-two-step-chance-experiments-c1", label: "List outcomes and find two-step probabilities" }],
           },
           {
             slug: "relative-frequency",
             title: "Relative Frequency",
             description:
               "Calculate relative frequency from experimental results and explain how it approaches theoretical probability as trials increase.",
+            pathTag: "core",
+            stableSkillId: "y7-relative-frequency",
+            skillCheckpoints: [{ stableCheckpointId: "y7-relative-frequency-c1", label: "Calculate and interpret relative frequency" }],
           },
           {
             slug: "expected-outcomes",
             title: "Expected Outcomes",
             description:
               "Use expected count = P(event) × n to predict how many times an event will occur in a repeated experiment.",
+            pathTag: "extending",
+            stableSkillId: "y7-expected-outcomes",
+            skillCheckpoints: [{ stableCheckpointId: "y7-expected-outcomes-c1", label: "Predict expected outcomes from probability" }],
           },
         ],
       },
@@ -5829,12 +5844,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Establish the Cartesian plane and linear graph fluency required for Year 9 constant rates of change and Year 10 linear relationships.",
         lessons: [
-          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules" },
-          { slug: "coordinates-and-points",         title: "Coordinates and Points" },
-          { slug: "tables-of-values",               title: "Tables of Values" },
-          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships" },
-          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change" },
-          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs" },
+          { slug: "number-patterns-and-rules",     title: "Number Patterns and Rules", pathTag: "core", stableSkillId: "y8-number-patterns-and-rules", skillCheckpoints: [{ stableCheckpointId: "y8-number-patterns-and-rules-c1", label: "Find and apply rules for number patterns" }] },
+          { slug: "coordinates-and-points",         title: "Coordinates and Points", pathTag: "consolidating", stableSkillId: "y8-coordinates-and-points", skillCheckpoints: [{ stableCheckpointId: "y8-coordinates-and-points-c1", label: "Plot and use points on the Cartesian plane" }] },
+          { slug: "tables-of-values",               title: "Tables of Values", pathTag: "core", stableSkillId: "y8-tables-of-values", skillCheckpoints: [{ stableCheckpointId: "y8-tables-of-values-c1", label: "Build tables of values from a rule" }] },
+          { slug: "graphing-linear-relationships",  title: "Graphing Linear Relationships", pathTag: "core", stableSkillId: "y8-graphing-linear-relationships", skillCheckpoints: [{ stableCheckpointId: "y8-graphing-linear-relationships-c1", label: "Graph linear relationships and find intercepts" }] },
+          { slug: "gradient-as-rate-of-change",     title: "Gradient as Rate of Change", pathTag: "extending", stableSkillId: "y8-gradient-as-rate-of-change", skillCheckpoints: [{ stableCheckpointId: "y8-gradient-as-rate-of-change-c1", label: "Find and interpret gradient as a rate" }] },
+          { slug: "interpreting-linear-graphs",     title: "Interpreting Linear Graphs", pathTag: "extending", stableSkillId: "y8-interpreting-linear-graphs", skillCheckpoints: [{ stableCheckpointId: "y8-interpreting-linear-graphs-c1", label: "Interpret and solve from linear graphs" }] },
         ],
       },
       {
@@ -5846,12 +5861,12 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Develop Pythagoras fluency as the direct prerequisite for Year 9 working with triangles and trigonometric ratios.",
         lessons: [
-          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras" },
-          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse" },
-          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side" },
-          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts" },
-          { slug: "pythagorean-triples",             title: "Pythagorean Triples" },
-          { slug: "distance-between-two-points",      title: "Distance Between Two Points" },
+          { slug: "right-angled-triangles-pythagoras", title: "Right-Angled Triangles and Pythagoras", pathTag: "core", stableSkillId: "y8-right-angled-triangles-pythagoras", skillCheckpoints: [{ stableCheckpointId: "y8-right-angled-triangles-pythagoras-c1", label: "Apply Pythagoras' theorem" }] },
+          { slug: "finding-the-hypotenuse",            title: "Finding the Hypotenuse", pathTag: "core", stableSkillId: "y8-finding-the-hypotenuse", skillCheckpoints: [{ stableCheckpointId: "y8-finding-the-hypotenuse-c1", label: "Find the hypotenuse" }] },
+          { slug: "finding-a-shorter-side",            title: "Finding a Shorter Side", pathTag: "core", stableSkillId: "y8-finding-a-shorter-side", skillCheckpoints: [{ stableCheckpointId: "y8-finding-a-shorter-side-c1", label: "Find a shorter side" }] },
+          { slug: "pythagoras-real-contexts",        title: "Pythagoras in Real Contexts", pathTag: "extending", stableSkillId: "y8-pythagoras-real-contexts", skillCheckpoints: [{ stableCheckpointId: "y8-pythagoras-real-contexts-c1", label: "Apply Pythagoras in real contexts" }] },
+          { slug: "pythagorean-triples",             title: "Pythagorean Triples", pathTag: "extending", stableSkillId: "y8-pythagorean-triples", skillCheckpoints: [{ stableCheckpointId: "y8-pythagorean-triples-c1", label: "Recognise and use Pythagorean triples" }] },
+          { slug: "distance-between-two-points",      title: "Distance Between Two Points", pathTag: "extending", stableSkillId: "y8-distance-between-two-points", skillCheckpoints: [{ stableCheckpointId: "y8-distance-between-two-points-c1", label: "Find the distance between two points" }] },
         ],
       },
       {
@@ -5863,11 +5878,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Build Stage 4 geometric fluency â€” angle relationships, parallel lines, polygon properties and introductory congruence â€” as the foundation for Year 9 geometric representations and Year 10 geometry proofs.",
         lessons: [
-          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals" },
-          { slug: "properties-of-polygons",          title: "Properties of Polygons" },
-          { slug: "congruent-triangles",             title: "Congruent Triangles" },
-          { slug: "geometric-reasoning",             title: "Geometric Reasoning" },
-          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals" },
+          { slug: "angles-triangles-quadrilaterals", title: "Angles in Triangles and Quadrilaterals", pathTag: "consolidating", stableSkillId: "y8-angles-triangles-quadrilaterals", skillCheckpoints: [{ stableCheckpointId: "y8-angles-triangles-quadrilaterals-c1", label: "Find angles in triangles and quadrilaterals" }] },
+          { slug: "properties-of-polygons",          title: "Properties of Polygons", pathTag: "extending", stableSkillId: "y8-properties-of-polygons", skillCheckpoints: [{ stableCheckpointId: "y8-properties-of-polygons-c1", label: "Use interior and exterior angle sums of polygons" }] },
+          { slug: "congruent-triangles",             title: "Congruent Triangles", pathTag: "extending", stableSkillId: "y8-congruent-triangles", skillCheckpoints: [{ stableCheckpointId: "y8-congruent-triangles-c1", label: "Apply congruence tests" }] },
+          { slug: "geometric-reasoning",             title: "Geometric Reasoning", pathTag: "core", stableSkillId: "y8-geometric-reasoning", skillCheckpoints: [{ stableCheckpointId: "y8-geometric-reasoning-c1", label: "Solve multi-step geometric reasoning problems" }] },
+          { slug: "quadrilateral-properties",        title: "Properties of Special Quadrilaterals", pathTag: "consolidating", stableSkillId: "y8-quadrilateral-properties", skillCheckpoints: [{ stableCheckpointId: "y8-quadrilateral-properties-c1", label: "Use properties of special quadrilaterals" }] },
         ],
       },
       {
@@ -5884,34 +5899,49 @@ export const newCoursePathways: CoursePathwaySeed[] = [
             title: "Mean, Median, Mode and Range",
             description:
               "Calculate mean, median, mode and range to describe the centre and spread of a data set.",
+            pathTag: "core",
+            stableSkillId: "y8-mean-median-mode-range",
+            skillCheckpoints: [{ stableCheckpointId: "y8-mean-median-mode-range-c1", label: "Find mean, median, mode and range" }],
           },
           {
             slug: "comparing-data-displays",
             title: "Comparing Data Displays",
             description:
               "Compare two data sets using median, mean and range, and interpret differences in centre and spread.",
+            pathTag: "core",
+            stableSkillId: "y8-comparing-data-displays",
+            skillCheckpoints: [{ stableCheckpointId: "y8-comparing-data-displays-c1", label: "Compare data sets across displays" }],
           },
           {
             slug: "stem-and-leaf-plots",
             title: "Stem-and-Leaf Plots",
             description:
               "Read and construct ordered stem-and-leaf plots, find the median and range from ordered leaves, and compare two groups using a back-to-back display.",
+            pathTag: "consolidating",
+            stableSkillId: "y8-stem-and-leaf-plots",
+            skillCheckpoints: [{ stableCheckpointId: "y8-stem-and-leaf-plots-c1", label: "Read and use stem-and-leaf plots" }],
           },
           {
             slug: "quartiles-and-iqr",
             title: "Quartiles and Interquartile Range",
             description:
               "Find Q1, Q2 and Q3 by splitting an ordered data set, calculate IQR = Q3 − Q1, and use it to compare the spread of two groups.",
+            pathTag: "extending",
+            stableSkillId: "y8-quartiles-and-iqr",
+            skillCheckpoints: [{ stableCheckpointId: "y8-quartiles-and-iqr-c1", label: "Find quartiles and the IQR" }],
           },
           {
             slug: "outliers-and-interpretation",
             title: "Outliers and Data Interpretation",
             description:
               "Identify outliers, explain how they affect the mean but not the median, and choose the appropriate measure of centre.",
+            pathTag: "extending",
+            stableSkillId: "y8-outliers-and-interpretation",
+            skillCheckpoints: [{ stableCheckpointId: "y8-outliers-and-interpretation-c1", label: "Identify outliers and choose a measure of centre" }],
           },
-          { slug: "box-plots",                      title: "Box Plots" },
-          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots" },
-          { slug: "shape-of-distributions",         title: "Shape of Distributions" },
+          { slug: "box-plots",                      title: "Box Plots", pathTag: "extending", stableSkillId: "y8-box-plots", skillCheckpoints: [{ stableCheckpointId: "y8-box-plots-c1", label: "Read and build box plots" }] },
+          { slug: "comparing-data-with-box-plots",  title: "Comparing Data with Box Plots", pathTag: "extending", stableSkillId: "y8-comparing-data-with-box-plots", skillCheckpoints: [{ stableCheckpointId: "y8-comparing-data-with-box-plots-c1", label: "Compare data sets using box plots" }] },
+          { slug: "shape-of-distributions",         title: "Shape of Distributions", pathTag: "extending", stableSkillId: "y8-shape-of-distributions", skillCheckpoints: [{ stableCheckpointId: "y8-shape-of-distributions-c1", label: "Describe the shape of a distribution" }] },
         ],
       },
       {
@@ -5923,9 +5953,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Establish 3D surface-area fluency that Stage 5 surface-area content directly extends.",
         lessons: [
-          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms" },
-          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders" },
-          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids" },
+          { slug: "surface-area-of-prisms",            title: "Surface Area of Prisms", pathTag: "core", stableSkillId: "y8-surface-area-of-prisms", skillCheckpoints: [{ stableCheckpointId: "y8-surface-area-of-prisms-c1", label: "Find the surface area of prisms" }] },
+          { slug: "surface-area-of-cylinders",         title: "Surface Area of Cylinders", pathTag: "core", stableSkillId: "y8-surface-area-of-cylinders", skillCheckpoints: [{ stableCheckpointId: "y8-surface-area-of-cylinders-c1", label: "Find the surface area of cylinders" }] },
+          { slug: "surface-area-of-composite-solids",  title: "Surface Area of Composite Solids", pathTag: "extending", stableSkillId: "y8-surface-area-of-composite-solids", skillCheckpoints: [{ stableCheckpointId: "y8-surface-area-of-composite-solids-c1", label: "Find the surface area of composite solids" }] },
         ],
       },
       {
@@ -5937,9 +5967,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Establish 3D volume fluency that Stage 5 composite-volume content directly extends.",
         lessons: [
-          { slug: "volume-of-prisms",                  title: "Volume of Prisms" },
-          { slug: "volume-of-cylinders",               title: "Volume of Cylinders" },
-          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids" },
+          { slug: "volume-of-prisms",                  title: "Volume of Prisms", pathTag: "core", stableSkillId: "y8-volume-of-prisms", skillCheckpoints: [{ stableCheckpointId: "y8-volume-of-prisms-c1", label: "Find the volume of prisms" }] },
+          { slug: "volume-of-cylinders",               title: "Volume of Cylinders", pathTag: "core", stableSkillId: "y8-volume-of-cylinders", skillCheckpoints: [{ stableCheckpointId: "y8-volume-of-cylinders-c1", label: "Find the volume of cylinders" }] },
+          { slug: "volume-of-composite-solids",        title: "Volume of Composite Solids", pathTag: "extending", stableSkillId: "y8-volume-of-composite-solids", skillCheckpoints: [{ stableCheckpointId: "y8-volume-of-composite-solids-c1", label: "Find the volume of composite solids" }] },
         ],
       },
       {
@@ -5951,11 +5981,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-NET-P-01 — introduces graph/network thinking used in logistics, transport and computer science.",
         lessons: [
-          { slug: "network-fundamentals",      title: "Network Fundamentals" },
-          { slug: "paths-and-circuits",        title: "Paths and Circuits" },
-          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits" },
-          { slug: "planar-graphs",             title: "Planar Graphs" },
-          { slug: "network-applications",      title: "Network Applications" },
+          { slug: "network-fundamentals",      title: "Network Fundamentals", pathTag: "core", stableSkillId: "y8-network-fundamentals", skillCheckpoints: [{ stableCheckpointId: "y8-network-fundamentals-c1", label: "Use vertices, edges and degree" }] },
+          { slug: "paths-and-circuits",        title: "Paths and Circuits", pathTag: "core", stableSkillId: "y8-paths-and-circuits", skillCheckpoints: [{ stableCheckpointId: "y8-paths-and-circuits-c1", label: "Identify paths and circuits" }] },
+          { slug: "eulerian-trails-circuits",  title: "Eulerian Trails and Circuits", pathTag: "extending", stableSkillId: "y8-eulerian-trails-circuits", skillCheckpoints: [{ stableCheckpointId: "y8-eulerian-trails-circuits-c1", label: "Apply the Eulerian degree conditions" }] },
+          { slug: "planar-graphs",             title: "Planar Graphs", pathTag: "extending", stableSkillId: "y8-planar-graphs", skillCheckpoints: [{ stableCheckpointId: "y8-planar-graphs-c1", label: "Apply Euler's formula V − E + F = 2" }] },
+          { slug: "network-applications",      title: "Network Applications", pathTag: "extending", stableSkillId: "y8-network-applications", skillCheckpoints: [{ stableCheckpointId: "y8-network-applications-c1", label: "Use spanning trees and shortest paths" }] },
         ],
       },
       {
@@ -5967,10 +5997,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-ALG-C-01 — extends Year 7/8 algebra into Stage 5 manipulation needed for quadratics and beyond.",
         lessons: [
-          { slug: "algebraic-fractions",       title: "Algebraic Fractions" },
-          { slug: "expanding-expressions",     title: "Expanding Expressions" },
-          { slug: "binomial-products",         title: "Binomial Products" },
-          { slug: "equivalent-expressions",    title: "Equivalent Expressions" },
+          { slug: "algebraic-fractions",       title: "Algebraic Fractions", pathTag: "extending", stableSkillId: "y8-algebraic-fractions", skillCheckpoints: [{ stableCheckpointId: "y8-algebraic-fractions-c1", label: "Simplify and operate with algebraic fractions" }] },
+          { slug: "expanding-expressions",     title: "Expanding Expressions", pathTag: "core", stableSkillId: "y8-expanding-expressions", skillCheckpoints: [{ stableCheckpointId: "y8-expanding-expressions-c1", label: "Expand and simplify expressions" }] },
+          { slug: "binomial-products",         title: "Binomial Products", pathTag: "extending", stableSkillId: "y8-binomial-products", skillCheckpoints: [{ stableCheckpointId: "y8-binomial-products-c1", label: "Expand binomial products" }] },
+          { slug: "equivalent-expressions",    title: "Equivalent Expressions", pathTag: "core", stableSkillId: "y8-equivalent-expressions", skillCheckpoints: [{ stableCheckpointId: "y8-equivalent-expressions-c1", label: "Recognise equivalent expressions" }] },
         ],
       },
       {
@@ -5980,11 +6010,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         syllabusArea: "Number and Algebra",
         focus: "MA4-ALG-C-02 — extends Year 7 index laws to negative exponents and scientific notation.",
         lessons: [
-          { slug: "negative-indices",                  title: "Negative Indices" },
-          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers" },
-          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers" },
-          { slug: "significant-figures",               title: "Significant Figures" },
-          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation" },
+          { slug: "negative-indices",                  title: "Negative Indices", pathTag: "core", stableSkillId: "y8-negative-indices", skillCheckpoints: [{ stableCheckpointId: "y8-negative-indices-c1", label: "Use negative indices" }] },
+          { slug: "scientific-notation-large-numbers", title: "Scientific Notation: Large Numbers", pathTag: "core", stableSkillId: "y8-scientific-notation-large-numbers", skillCheckpoints: [{ stableCheckpointId: "y8-scientific-notation-large-numbers-c1", label: "Write and interpret large numbers in scientific notation" }] },
+          { slug: "scientific-notation-small-numbers", title: "Scientific Notation: Small Numbers", pathTag: "core", stableSkillId: "y8-scientific-notation-small-numbers", skillCheckpoints: [{ stableCheckpointId: "y8-scientific-notation-small-numbers-c1", label: "Write and interpret small numbers in scientific notation" }] },
+          { slug: "significant-figures",               title: "Significant Figures", pathTag: "consolidating", stableSkillId: "y8-significant-figures", skillCheckpoints: [{ stableCheckpointId: "y8-significant-figures-c1", label: "Round to significant figures" }] },
+          { slug: "operations-with-scientific-notation", title: "Operations with Scientific Notation", pathTag: "extending", stableSkillId: "y8-operations-with-scientific-notation", skillCheckpoints: [{ stableCheckpointId: "y8-operations-with-scientific-notation-c1", label: "Multiply and divide in scientific notation" }] },
         ],
       },
       {
@@ -5996,9 +6026,9 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-IND-P-01 — extension index work: multiple-law manipulation, algebraic bases and indicial equations.",
         lessons: [
-          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation" },
-          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases" },
-          { slug: "indicial-equations",          title: "Indicial Equations" },
+          { slug: "advanced-index-manipulation", title: "Advanced Index Manipulation", pathTag: "extending", stableSkillId: "y8-advanced-index-manipulation", skillCheckpoints: [{ stableCheckpointId: "y8-advanced-index-manipulation-c1", label: "Apply combined index laws" }] },
+          { slug: "algebraic-bases",             title: "Powers of Algebraic Bases", pathTag: "extending", stableSkillId: "y8-algebraic-bases", skillCheckpoints: [{ stableCheckpointId: "y8-algebraic-bases-c1", label: "Apply index laws to algebraic bases" }] },
+          { slug: "indicial-equations",          title: "Indicial Equations", pathTag: "extending", stableSkillId: "y8-indicial-equations", skillCheckpoints: [{ stableCheckpointId: "y8-indicial-equations-c1", label: "Solve indicial equations" }] },
         ],
       },
       {
@@ -6010,11 +6040,11 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "Build financial numeracy needed for Year 9 financial mathematics and real-world problem solving.",
         lessons: [
-          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction" },
-          { slug: "wages-and-salary",              title: "Wages and Salary" },
-          { slug: "income-tax-basics",             title: "Income Tax Basics" },
-          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management" },
-          { slug: "credit-and-debit",              title: "Credit and Debit" },
+          { slug: "simple-interest-introduction",  title: "Simple Interest Introduction", pathTag: "core", stableSkillId: "y8-simple-interest-introduction", skillCheckpoints: [{ stableCheckpointId: "y8-simple-interest-introduction-c1", label: "Calculate simple interest" }] },
+          { slug: "wages-and-salary",              title: "Wages and Salary", pathTag: "core", stableSkillId: "y8-wages-and-salary", skillCheckpoints: [{ stableCheckpointId: "y8-wages-and-salary-c1", label: "Calculate wages, salaries and overtime" }] },
+          { slug: "income-tax-basics",             title: "Income Tax Basics", pathTag: "core", stableSkillId: "y8-income-tax-basics", skillCheckpoints: [{ stableCheckpointId: "y8-income-tax-basics-c1", label: "Calculate income tax and net pay" }] },
+          { slug: "budgeting-and-money-management", title: "Budgeting and Money Management", pathTag: "core", stableSkillId: "y8-budgeting-and-money-management", skillCheckpoints: [{ stableCheckpointId: "y8-budgeting-and-money-management-c1", label: "Plan and balance a budget" }] },
+          { slug: "credit-and-debit",              title: "Credit and Debit", pathTag: "extending", stableSkillId: "y8-credit-and-debit", skillCheckpoints: [{ stableCheckpointId: "y8-credit-and-debit-c1", label: "Work with credit, debit and interest on debt" }] },
         ],
       },
       {
@@ -6026,10 +6056,10 @@ export const newCoursePathways: CoursePathwaySeed[] = [
         focus:
           "MA5-DAT-C-01 / MA5-DAT-P-01 — run an end-to-end statistical investigation and critique data-based claims.",
         lessons: [
-          { slug: "statistical-questions",     title: "Statistical Questions" },
-          { slug: "data-collection",           title: "Data Collection" },
-          { slug: "statistical-analysis",      title: "Statistical Analysis" },
-          { slug: "communicating-findings",    title: "Communicating Findings" },
+          { slug: "statistical-questions",     title: "Statistical Questions", pathTag: "consolidating", stableSkillId: "y8-statistical-questions", skillCheckpoints: [{ stableCheckpointId: "y8-statistical-questions-c1", label: "Pose statistical questions and classify data" }] },
+          { slug: "data-collection",           title: "Data Collection", pathTag: "core", stableSkillId: "y8-data-collection", skillCheckpoints: [{ stableCheckpointId: "y8-data-collection-c1", label: "Choose samples and collection methods" }] },
+          { slug: "statistical-analysis",      title: "Statistical Analysis", pathTag: "core", stableSkillId: "y8-statistical-analysis", skillCheckpoints: [{ stableCheckpointId: "y8-statistical-analysis-c1", label: "Summarise data with centre and spread" }] },
+          { slug: "communicating-findings",    title: "Communicating Findings", pathTag: "extending", stableSkillId: "y8-communicating-findings", skillCheckpoints: [{ stableCheckpointId: "y8-communicating-findings-c1", label: "Interpret and communicate statistical findings" }] },
         ],
       },
     ],

@@ -223,351 +223,69 @@ type PoolBlueprint = {
 };
 
 const POOL_BLUEPRINTS: Record<string, PoolBlueprint> = {
-  "proof-by-contradiction": {
-    topic: "proof by contradiction",
-    object: "the negation of the statement",
-    validMove: "Assume the negation, derive an impossibility, then reject the assumption.",
-    trap1: "Assuming the original statement instead of its negation.",
-    trap2: "Stopping after an unlikely result rather than a logical contradiction.",
-    trap3: "Using a numerical example as if it proved the general statement.",
-    representation: "a chain from assumption to contradiction",
-    check: "the contradiction must conflict with a known fact or earlier condition",
-    d5Context: "irrationality, parity, divisibility, and infinitude arguments",
-    proofFlaw: "The proof assumes the result it is trying to prove, then calls that a contradiction.",
-  },
-  "proof-by-contrapositive": {
-    topic: "proof by contrapositive",
-    object: "the logically equivalent implication",
-    validMove: "Rewrite 'if P then Q' as 'if not Q then not P'.",
-    trap1: "Proving the converse instead of the contrapositive.",
-    trap2: "Negating only one side of the implication.",
-    trap3: "Treating one example as proof of the implication.",
-    representation: "not Q implies not P",
-    check: "both the hypothesis and conclusion have been negated and reversed",
-    d5Context: "divisibility, parity, and square-number implications",
-    proofFlaw: "The proof reverses the implication but does not negate both statements.",
-  },
-  "inequalities-algebraic-proof": {
-    topic: "algebraic inequality proof",
-    object: "a non-negative difference or square",
-    validMove: "Move all terms to one side and rewrite as a visibly non-negative expression.",
-    trap1: "Multiplying by a quantity whose sign is unknown.",
-    trap2: "Taking square roots without checking both sides are non-negative.",
-    trap3: "Checking a few values instead of proving all allowed values.",
-    representation: "difference equals a square or sum of squares",
-    check: "every sign-sensitive operation is justified",
-    d5Context: "parameter inequalities and equality cases",
-    proofFlaw: "The proof divides by an expression that may be negative or zero.",
-  },
-  "proof-by-mathematical-induction": {
-    topic: "mathematical induction",
-    object: "the base case and inductive step",
-    validMove: "Prove the base case, assume the k case, then prove the k + 1 case.",
-    trap1: "Assuming the k + 1 case directly.",
-    trap2: "Omitting the base case.",
-    trap3: "Using the induction hypothesis for a value it does not cover.",
-    representation: "base case plus k to k + 1 implication",
-    check: "the inductive step uses only the k case to reach k + 1",
-    d5Context: "divisibility, inequalities, and recurrence-style statements",
-    proofFlaw: "The proof verifies n = 1 and n = 2 but never proves the chain from k to k + 1.",
-  },
-  "vectors-and-points-3d": {
-    topic: "3D vectors and points",
-    object: "a displacement vector in component form",
-    validMove: "Subtract coordinates endpoint minus start point.",
-    trap1: "Adding point coordinates when a displacement is required.",
-    trap2: "Subtracting in the wrong order.",
-    trap3: "Treating a position vector as independent of the chosen origin.",
-    representation: "component vector i, j, k or ordered triple",
-    check: "adding the displacement to the start point reaches the endpoint",
-    d5Context: "points constrained by midpoint, ratio, or collinearity conditions",
-  },
-  "dot-product-and-angle": {
-    topic: "dot product and angle",
-    object: "directional overlap of two vectors",
-    validMove: "Use a dot b equals |a||b| cos theta.",
-    trap1: "Using component-wise multiplication as a vector answer.",
-    trap2: "Forgetting to divide by both magnitudes before inverse cosine.",
-    trap3: "Calling vectors perpendicular without checking the dot product is zero.",
-    representation: "scalar dot product and angle formula",
-    check: "the cosine value lies between -1 and 1",
-    d5Context: "angle constraints, perpendicularity, and projection problems",
-  },
-  "equations-of-lines-3d": {
-    topic: "3D line equations",
-    object: "a point plus a direction vector",
-    validMove: "Write r = a + lambda d using an anchor point and direction.",
-    trap1: "Using two points as if both were direction vectors.",
-    trap2: "Treating the parameter as a coordinate.",
-    trap3: "Equating only one component when testing intersection.",
-    representation: "vector, parametric, or Cartesian line form",
-    check: "the same parameter value satisfies all three components",
-    d5Context: "intersection, skew lines, and shortest-distance checks",
-  },
-  "vector-applications-exam-practice": {
-    topic: "vector applications",
-    object: "the geometric condition hidden in the wording",
-    validMove: "Translate parallel, perpendicular, midpoint, or intersection into a vector condition.",
-    trap1: "Calculating without identifying the geometric condition.",
-    trap2: "Using a dot product for parallelism rather than perpendicularity.",
-    trap3: "Ignoring that 3D lines may be skew.",
-    representation: "geometry statement converted to vector algebra",
-    check: "the final scalar/vector type matches the geometry asked for",
-    d5Context: "multi-condition 3D geometry in unfamiliar diagrams",
-  },
-  "vector-curves-circles-spheres": {
-    topic: "vector curves, circles, and spheres",
-    object: "a distance constraint in 3D",
-    validMove: "Use distance from a centre equals radius.",
-    trap1: "Forgetting the z component in a sphere.",
-    trap2: "Using radius where radius squared is required.",
-    trap3: "Treating a parameter as fixed before applying the constraint.",
-    representation: "circle/sphere equation or parametric locus",
-    check: "substitution satisfies the distance equation",
-    d5Context: "parametric points constrained to lie on a sphere or circle",
-  },
-  "geometric-proofs-vectors": {
-    topic: "vector geometric proof",
-    object: "a geometric claim translated into vector facts",
-    validMove: "Use scalar multiples, equal vectors, lengths, or dot products to prove the geometry.",
-    trap1: "Leaving the proof as algebra without a geometric conclusion.",
-    trap2: "Assuming a diagram property not given.",
-    trap3: "Using equal lengths to claim parallel lines.",
-    representation: "vector equations supporting a geometry conclusion",
-    check: "the final sentence translates the vector fact back to geometry",
-    d5Context: "collinearity, parallelograms, perpendicularity, and ratios",
-  },
-  "complex-number-arithmetic": {
-    topic: "complex arithmetic",
-    object: "real and imaginary components",
-    validMove: "Collect real parts and imaginary parts, using i squared equals -1.",
-    trap1: "Treating i squared as positive 1.",
-    trap2: "Combining real and imaginary terms as like terms.",
-    trap3: "Forgetting conjugates when dividing.",
-    representation: "a + bi form",
-    check: "the final answer has separated real and imaginary parts",
-    d5Context: "division, powers of i, and mixed arithmetic",
-  },
-  "modulus-argument-conjugate": {
-    topic: "modulus, argument, and conjugate",
-    object: "distance, direction, and reflection on the Argand plane",
-    validMove: "Use Pythagoras for modulus and quadrant-aware trigonometry for argument.",
-    trap1: "Using arctan without checking the quadrant.",
-    trap2: "Changing the modulus when taking a conjugate.",
-    trap3: "Writing argument as a positive acute angle in every quadrant.",
-    representation: "Argand geometry",
-    check: "the argument points to the correct quadrant",
-    d5Context: "loci, conjugate symmetry, and argument constraints",
-  },
-  "argand-diagram-geometry": {
-    topic: "Argand diagram geometry",
-    object: "a complex number as a point or vector",
-    validMove: "Translate modulus into distance and argument into angle.",
-    trap1: "Reading |z-a| as distance from the origin.",
-    trap2: "Ignoring the centre of a circle or locus.",
-    trap3: "Confusing real and imaginary axes.",
-    representation: "locus on the Argand plane",
-    check: "the locus matches the distance or angle condition",
-    d5Context: "circle, perpendicular bisector, and ray loci",
-  },
-  "polar-form-de-moivre": {
-    topic: "polar form and de Moivre's theorem",
-    object: "modulus and argument",
-    validMove: "Raise the modulus to the power and multiply the argument.",
-    trap1: "Multiplying the modulus by n instead of raising it to n.",
-    trap2: "Adding arguments when taking a power.",
-    trap3: "Forgetting equivalent arguments modulo 2pi.",
-    representation: "r cis theta",
-    check: "the modulus and argument transformations are both applied",
-    d5Context: "high powers, roots, and rotated polygons",
-  },
-  "roots-of-unity": {
-    topic: "roots of unity",
-    object: "equally spaced points on the unit circle",
-    validMove: "Divide a full turn into n equal arguments.",
-    trap1: "Listing only the principal root.",
-    trap2: "Using pi/n instead of 2pi/n spacing.",
-    trap3: "Changing the modulus away from 1 for roots of unity.",
-    representation: "regular polygon on the unit circle",
-    check: "there are n distinct roots spaced by 2pi/n",
-    d5Context: "factorisation, sums of roots, and geometric symmetry",
-  },
-  "complex-polynomials": {
-    topic: "complex polynomial roots",
-    object: "factor and conjugate-root structure",
-    validMove: "Use conjugate pairs for real-coefficient polynomials.",
-    trap1: "Including a + bi without a - bi in a real polynomial.",
-    trap2: "Treating an irreducible real quadratic as irreducible over C.",
-    trap3: "Losing multiplicity when writing factors.",
-    representation: "linear factors over C",
-    check: "conjugate pairs multiply to real quadratic factors",
-    d5Context: "factorisation from mixed real and complex roots",
-  },
-  "advanced-integration-method-selection": {
-    topic: "integration method selection",
-    object: "the structure of the integrand",
-    validMove: "Match composition, product, rational form, or trig power to the corresponding method.",
-    trap1: "Trying integration by parts on every product.",
-    trap2: "Using substitution without a derivative-like factor.",
-    trap3: "Skipping algebraic simplification before choosing a method.",
-    representation: "integrand structure map",
-    check: "the chosen method reverses a known differentiation or algebra process",
-    d5Context: "integrals requiring method switching after simplification",
-  },
-  "integration-by-parts-extension": {
-    topic: "integration by parts",
-    object: "a product where one factor simplifies when differentiated",
-    validMove: "Choose u and dv, then use integral u dv equals uv minus integral v du.",
-    trap1: "Differentiating both factors.",
-    trap2: "Choosing u so the next integral becomes harder.",
-    trap3: "Dropping the remaining integral after uv.",
-    representation: "reverse product rule",
-    check: "differentiate the result to recover the integrand",
-    d5Context: "repeated parts and logarithmic/inverse-trig products",
-  },
-  "reduction-formulae-introduction": {
-    topic: "reduction formulae",
-    object: "an integral sequence indexed by n",
-    validMove: "Relate I_n to a simpler I_{n-1} or I_{n-2}.",
-    trap1: "Treating n as a variable of integration.",
-    trap2: "Forgetting the base integral.",
-    trap3: "Using the recurrence outside its valid range.",
-    representation: "recurrence relation for integrals",
-    check: "each recurrence step lowers the power/index",
-    d5Context: "evaluating high-power integrals efficiently",
-  },
-  "partial-fractions-integration": {
-    topic: "partial fractions integration",
-    object: "a rational function with factorised denominator",
-    validMove: "Decompose into simple fractions before integrating.",
-    trap1: "Using one constant over a repeated factor only once.",
-    trap2: "Using a constant numerator over an irreducible quadratic.",
-    trap3: "Integrating before decomposing.",
-    representation: "sum of simpler rational terms",
-    check: "recombining the fractions gives the original numerator",
-    d5Context: "mixed repeated and irreducible factors",
-  },
-  "t-substitution-weierstrass": {
-    topic: "t-substitution",
-    object: "a rational expression in sine and cosine",
-    validMove: "Set t = tan(x/2) and rewrite sin x, cos x, and dx.",
-    trap1: "Replacing sin x and cos x but forgetting dx.",
-    trap2: "Using tan x instead of tan(x/2).",
-    trap3: "Leaving the integral partly in x and partly in t.",
-    representation: "rational function of t",
-    check: "all trig functions and dx are converted",
-    d5Context: "rational trig integrals resistant to simpler identities",
-  },
-  "trig-identity-integration": {
-    topic: "trig identity integration",
-    object: "an integrand needing an identity before integration",
-    validMove: "Rewrite powers or products using an exact trig identity.",
-    trap1: "Integrating sin squared as if it were sin.",
-    trap2: "Using an identity with the wrong sign.",
-    trap3: "Changing the integrand rather than rewriting it equivalently.",
-    representation: "identity-transformed integrand",
-    check: "the rewritten expression is algebraically identical",
-    d5Context: "products and powers requiring multiple identities",
-  },
-  "completing-square-integration": {
-    topic: "completing the square for integration",
-    object: "a quadratic denominator or expression",
-    validMove: "Rewrite the quadratic as a shifted square plus or minus a constant.",
-    trap1: "Forgetting to balance the constant term.",
-    trap2: "Matching the wrong standard inverse-trig/log form.",
-    trap3: "Ignoring the shift in the substitution.",
-    representation: "shifted-square standard form",
-    check: "expanding the completed square recovers the original quadratic",
-    d5Context: "non-monic quadratics and inverse-trig/log decisions",
-  },
-  "volumes-of-revolution": {
-    topic: "volumes of revolution",
-    object: "a radius swept through a circular cross-section",
-    validMove: "Use pi times the integral of radius squared.",
-    trap1: "Integrating y instead of y squared.",
-    trap2: "Using x-limits for a y-axis rotation without rewriting.",
-    trap3: "Forgetting washer subtraction when there is an inner radius.",
-    representation: "disk or washer integral",
-    check: "the squared radius matches the axis of rotation",
-    d5Context: "washer regions and y-axis rotations",
-  },
-  "partial-fractions-quadratic": {
-    topic: "partial fractions with quadratics",
-    object: "an irreducible quadratic denominator",
-    validMove: "Use a linear numerator over each irreducible quadratic factor.",
-    trap1: "Using a constant numerator where Ax+B is needed.",
-    trap2: "Factoring an irreducible quadratic over the reals.",
-    trap3: "Missing the log part from derivative-over-function structure.",
-    representation: "linear-over-quadratic decomposition",
-    check: "coefficients match after recombining",
-    d5Context: "decomposition plus completing square integration",
-  },
-  "forces-inclined-planes": {
-    topic: "forces on inclined planes",
-    object: "components parallel and perpendicular to the plane",
-    validMove: "Resolve weight into mg sin theta down the plane and mg cos theta normal to it.",
-    trap1: "Swapping sine and cosine components.",
-    trap2: "Putting normal reaction parallel to the plane.",
-    trap3: "Ignoring friction direction.",
-    representation: "force balance along chosen axes",
-    check: "components align with the plane and normal directions",
-    d5Context: "limiting equilibrium and acceleration on inclines",
-  },
-  "rectilinear-motion-calculus": {
-    topic: "rectilinear motion calculus",
-    object: "position, velocity, and acceleration as derivatives/integrals",
-    validMove: "Use v = dx/dt and a = dv/dt, with initial conditions after integrating.",
-    trap1: "Forgetting constants of integration.",
-    trap2: "Using displacement and distance interchangeably.",
-    trap3: "Solving for time without checking the physical interval.",
-    representation: "calculus chain x, v, a",
-    check: "differentiate/integrate back to the given function",
-    d5Context: "turning points, direction changes, and constrained times",
-  },
-  "simple-harmonic-motion-extended": {
-    topic: "simple harmonic motion",
-    object: "acceleration proportional to displacement toward equilibrium",
-    validMove: "Use a = -omega squared x and connect to sinusoidal motion.",
-    trap1: "Missing the negative sign toward equilibrium.",
-    trap2: "Confusing amplitude with angular frequency.",
-    trap3: "Using maximum speed at maximum displacement.",
-    representation: "sinusoidal displacement model",
-    check: "acceleration points opposite displacement",
-    d5Context: "energy, phase, and boundary-condition models",
-  },
-  "circular-motion-uniform": {
-    topic: "uniform circular motion",
-    object: "centripetal acceleration toward the centre",
-    validMove: "Use a = v squared over r or omega squared r.",
-    trap1: "Pointing acceleration tangentially.",
-    trap2: "Using circumference as acceleration radius incorrectly.",
-    trap3: "Forgetting speed is constant but velocity changes.",
-    representation: "radial acceleration model",
-    check: "acceleration direction is inward",
-    d5Context: "period, angular speed, and force constraints",
-  },
-  "resisted-motion": {
-    topic: "resisted motion",
-    object: "a differential equation with velocity-dependent force",
-    validMove: "Set up m dv/dt as driving force minus resistance.",
-    trap1: "Using constant acceleration after resistance is introduced.",
-    trap2: "Giving terminal velocity before setting acceleration to zero.",
-    trap3: "Using the wrong sign for resistance.",
-    representation: "first-order velocity differential equation",
-    check: "terminal velocity makes acceleration zero",
-    d5Context: "vertical motion with linear resistance and limiting behaviour",
-  },
-  "projectile-motion-resistance": {
-    topic: "projectile motion with resistance",
-    object: "component differential equations",
-    validMove: "Resolve resistance against each velocity component and solve with initial conditions.",
-    trap1: "Using parabolic no-resistance motion.",
-    trap2: "Forgetting horizontal velocity decays.",
-    trap3: "Using one equation for both components.",
-    representation: "coupled component motion model",
-    check: "long-time behaviour agrees with terminal or decaying velocity",
-    d5Context: "projectile components under linear resistance",
-  },
+  // proof-by-contradiction intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts (production-first, cognitive-demand-true) per the
+  // Ext2 practice-pool replacement standard.
+  // proof-by-contrapositive intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
+  // inequalities-algebraic-proof intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
+  // proof-by-mathematical-induction intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in proof.ts per the Ext2 practice-pool replacement standard.
+  // vectors-and-points-3d intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
+  // dot-product-and-angle intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
+  // equations-of-lines-3d intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
+  // vector-applications-exam-practice intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
+  // vector-curves-circles-spheres intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
+  // geometric-proofs-vectors intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in vectors3D.ts per the Ext2 practice-pool standard.
+  // complex-number-arithmetic intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
+  // modulus-argument-conjugate intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
+  // argand-diagram-geometry intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
+  // polar-form-de-moivre intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
+  // roots-of-unity intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
+  // complex-polynomials intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in complexNumbers.ts per the Ext2 practice-pool standard.
+  // advanced-integration-method-selection intentionally omitted: replaced by a
+  // hand-authored masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // integration-by-parts-extension intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // reduction-formulae-introduction intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // partial-fractions-integration intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // t-substitution-weierstrass intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // trig-identity-integration intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // completing-square-integration intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // volumes-of-revolution intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // partial-fractions-quadratic intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in calculus.ts per the Ext2 practice-pool standard.
+  // forces-inclined-planes intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
+  // rectilinear-motion-calculus intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
+  // simple-harmonic-motion-extended intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
+  // circular-motion-uniform intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
+  // resisted-motion intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
+  // projectile-motion-resistance intentionally omitted: replaced by a hand-authored
+  // masteryQuizPool in mechanics.ts per the Ext2 practice-pool standard.
 };
 
 function choicePoolItem(

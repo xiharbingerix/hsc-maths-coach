@@ -501,6 +501,8 @@ const findingHypotenuse: LessonContent = {
       "When both shorter sides are known, the hypotenuse is found by adding their squares and then taking the square root. Use c for the hypotenuse and a, b for the shorter sides.",
       "Some calculations produce a whole-number answer — these are called Pythagorean triples and should be left exact.",
       "When the answer is not a whole number, use a calculator and round to the stated number of decimal places at the very end.",
+      "Why add the squares? Pythagoras' theorem says the square built on the hypotenuse has exactly the same area as the two squares on the shorter sides combined: a² + b² = c². So to find c you first rebuild that large square by adding a² and b², then undo the squaring with a square root. The hypotenuse is always the longest side, because c² is a sum of two positive areas and must exceed either one on its own.",
+      "A quick sanity check: the hypotenuse must be longer than each shorter side but shorter than their sum. If your c comes out smaller than one of the given sides, you have probably subtracted instead of added, or solved for the wrong side.",
     ],
     latexBlocks: [
       "c = \\sqrt{a^2 + b^2}",
@@ -535,6 +537,15 @@ const findingHypotenuse: LessonContent = {
         { explanation: "Evaluate and round only at the end.", latex: "c \\approx 8.06\\ldots \\approx 8.1" },
       ],
       finalAnswerLatex: "8.1\\text{ cm}",
+    } as WorkedExample,
+    {
+      title: "Recognise a scaled triple to save work",
+      questionLatex: "\\text{Find the hypotenuse when the shorter sides are }9\\text{ cm and }12\\text{ cm.}",
+      steps: [
+        { explanation: "Notice 9 and 12 are 3 times 3 and 4 — a scaled 3-4-5 triple — so the hypotenuse should be 3 × 5 = 15.", latex: "(9,12,?) = 3\\times(3,4,5)" },
+        { explanation: "Confirm with the theorem.", latex: "c = \\sqrt{9^2+12^2} = \\sqrt{81+144} = \\sqrt{225} = 15" },
+      ],
+      finalAnswerLatex: "c = 15\\text{ cm}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -662,6 +673,8 @@ const findingShorterSide: LessonContent = {
       "When the unknown is a shorter side, start with the hypotenuse square and subtract the square of the known shorter side.",
       "Always identify the hypotenuse first — it is the longest side, opposite the right angle. The method only works if you subtract from the correct (largest) value.",
       "Subtract first, then take the square root. A common mistake is to take the square root of each value separately.",
+      "Why subtract here? Pythagoras balances areas: a² + b² = c². If you already know the hypotenuse c and one leg, that leg's square uses up part of the c² area, so the missing leg's square is simply what is left over: b² = c² − a². Taking the square root then recovers the side. You subtract (rather than add) precisely because the unknown is a shorter side, whose square must be less than the hypotenuse's.",
+      "This is why identifying the hypotenuse first is essential — it is the only side whose square you start from. If you accidentally add instead, you get a length longer than the hypotenuse, which is impossible in a right-angled triangle and is an instant signal that the set-up is wrong.",
     ],
     latexBlocks: [
       "a^2 + b^2 = c^2",
@@ -697,6 +710,15 @@ const findingShorterSide: LessonContent = {
         { explanation: "Evaluate and round.", latex: "x \\approx 8.485\\ldots \\approx 8.5" },
       ],
       finalAnswerLatex: "8.5\\text{ cm}",
+    } as WorkedExample,
+    {
+      title: "Recover a shorter side in a scaled triple",
+      questionLatex: "\\text{Hypotenuse }25\\text{ m, one shorter side }20\\text{ m. Find the other shorter side.}",
+      steps: [
+        { explanation: "Subtract the known leg's square from the hypotenuse's square.", latex: "b^2 = 25^2 - 20^2 = 625 - 400 = 225" },
+        { explanation: "Take the square root (this is a scaled 3-4-5: 15-20-25).", latex: "b = \\sqrt{225} = 15" },
+      ],
+      finalAnswerLatex: "b = 15\\text{ m}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -824,6 +846,8 @@ const realContexts: LessonContent = {
       "Many real situations hide a right-angled triangle: a ladder against a wall, the diagonal of a rectangle, a ramp from floor to platform, or a direct path between two points.",
       "Start every problem by drawing a rough sketch. Label the right angle and any known lengths. Decide: is the unknown the hypotenuse, or is the hypotenuse already known?",
       "If the unknown is opposite the right angle, add the squares and take the square root. If the hypotenuse is known and a shorter side is missing, subtract squares and take the square root.",
+      "The hard part of a worded Pythagoras problem is not the arithmetic — it is spotting the right angle hiding in the situation. Walls meet floors at 90°, the sides of a rectangle meet at 90°, and 'due east then due north' turns through 90°. Wherever two directions are perpendicular, the straight-line distance between the far ends is a hypotenuse, and Pythagoras applies.",
+      "Once the triangle is sketched and labelled, the whole decision reduces to one question: is the unknown the longest side (opposite the right angle) or not? Longest unknown → add the squares; a shorter unknown with the hypotenuse known → subtract. Marking the right angle on your sketch makes that choice obvious and stops the classic error of subtracting when you should add.",
     ],
     latexBlocks: [
       "\\text{unknown hypotenuse: }c = \\sqrt{a^2+b^2}",
@@ -857,6 +881,15 @@ const realContexts: LessonContent = {
         { explanation: "Evaluate.", latex: "r = \\sqrt{6.25} = 2.5" },
       ],
       finalAnswerLatex: "2.5\\text{ m}",
+    } as WorkedExample,
+    {
+      title: "Navigation: distance from the start",
+      questionLatex: "\\text{A ship sails }9\\text{ km east, then }12\\text{ km north. How far is it from its start?}",
+      steps: [
+        { explanation: "East then north turn through a right angle, so the direct distance back is the hypotenuse.", latex: "d = \\sqrt{9^2 + 12^2}" },
+        { explanation: "Add the squares and take the root (a 9-12-15 triple).", latex: "d = \\sqrt{81+144} = \\sqrt{225} = 15" },
+      ],
+      finalAnswerLatex: "15\\text{ km}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -984,6 +1017,8 @@ const pythagoreanTriples: LessonContent = {
       "A Pythagorean triple is a set of three whole numbers that satisfies Pythagoras' theorem exactly. The four most common families are 3-4-5, 5-12-13, 8-15-17 and 7-24-25.",
       "Multiplying all three numbers in a triple by the same value creates a new triple. For example, 3-4-5 multiplied by 2 gives 6-8-10; multiplied by 3 gives 9-12-15.",
       "Recognising a triple means you can write the exact answer as a whole number without using a calculator.",
+      "Why does multiplying a triple by a constant give another triple? If a² + b² = c², multiply every side by k: (ka)² + (kb)² = k²(a² + b²) = k²c² = (kc)². The k² factors out of every term, so the equation still balances. That is why 3-4-5 scales to 6-8-10, 9-12-15, 12-16-20, … — the same triangle shape, just enlarged.",
+      "Triples are worth memorising because they let you skip the calculator: if the two given sides are a multiple of a known triple, the third side is that same multiple of the triple's third number. Always check that the largest number is the hypotenuse — in 8-15-17 the 17 sits opposite the right angle.",
     ],
     latexBlocks: [
       "3\\text{-}4\\text{-}5,\\quad 5\\text{-}12\\text{-}13,\\quad 8\\text{-}15\\text{-}17,\\quad 7\\text{-}24\\text{-}25",
@@ -1018,6 +1053,15 @@ const pythagoreanTriples: LessonContent = {
         { explanation: "Multiply the third number in the triple by the scale factor.", latex: "c = 17 \\times 2 = 34" },
       ],
       finalAnswerLatex: "34\\text{ m}",
+    } as WorkedExample,
+    {
+      title: "Test whether three numbers form a triple",
+      questionLatex: "\\text{Is }9,\\;40,\\;41\\text{ a Pythagorean triple?}",
+      steps: [
+        { explanation: "Square the two smaller numbers and add; compare with the largest squared.", latex: "9^2 + 40^2 = 81 + 1600 = 1681" },
+        { explanation: "Check against the largest side squared.", latex: "41^2 = 1681 \\Rightarrow \\text{equal, so yes}" },
+      ],
+      finalAnswerLatex: "\\text{Yes — }9\\text{-}40\\text{-}41\\text{ is a triple}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1145,6 +1189,8 @@ const distanceBetweenPoints: LessonContent = {
       "To find the straight-line distance between two points, draw a right-angled triangle by moving horizontally then vertically from one point to the other.",
       "The horizontal change (Δx) and vertical change (Δy) are the two shorter sides. The direct distance between the points is the hypotenuse.",
       "Use Pythagoras' theorem: distance equals the square root of Δx squared plus Δy squared. The sign of the change does not matter because you will square it.",
+      "The distance formula is just Pythagoras wearing a coordinate disguise. Moving from one point to the other, the horizontal gap Δx and the vertical gap Δy are the two legs of a right-angled triangle, and the straight line joining the points is its hypotenuse — so d² = Δx² + Δy². There is nothing new beyond 'across, up, hypotenuse.'",
+      "Squaring the gaps is also why the order of the points and the signs do not matter: (x₂ − x₁) and (x₁ − x₂) differ only in sign, and squaring erases it. So subtract in whichever order is easier and you still get the same positive distance.",
     ],
     latexBlocks: [
       "\\Delta x = x_2 - x_1,\\qquad \\Delta y = y_2 - y_1",
@@ -1190,6 +1236,15 @@ const distanceBetweenPoints: LessonContent = {
         { explanation: "Apply Pythagoras and round.", latex: "d = \\sqrt{16+36} = \\sqrt{52} \\approx 7.2" },
       ],
       finalAnswerLatex: "7.2\\text{ units}",
+    } as WorkedExample,
+    {
+      title: "A whole-number distance via a triple",
+      questionLatex: "\\text{Find the distance between }(1,\\,2)\\text{ and }(13,\\,7).",
+      steps: [
+        { explanation: "Find the horizontal and vertical separations.", latex: "\\Delta x = 13-1 = 12,\\quad \\Delta y = 7-2 = 5" },
+        { explanation: "Apply Pythagoras — a 5-12-13 triple gives a whole number.", latex: "d = \\sqrt{12^2+5^2} = \\sqrt{144+25} = \\sqrt{169} = 13" },
+      ],
+      finalAnswerLatex: "13\\text{ units}",
     } as WorkedExample,
   ],
   guidedPractice: [

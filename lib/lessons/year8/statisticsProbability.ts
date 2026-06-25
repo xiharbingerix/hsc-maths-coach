@@ -2703,6 +2703,26 @@ const quartilesAndIQR: LessonContent = {
       ],
       finalAnswerLatex: "Q_1 = 7,\\quad Q_3 = 16,\\quad \\text{IQR} = 9",
     } as WorkedExample,
+    {
+      title: "Quartiles of an even-sized data set",
+      questionLatex: "\\text{Find } Q_1,\\text{ the median and } Q_3 \\text{ of } 4,\\,6,\\,8,\\,10,\\,12,\\,14.",
+      steps: [
+        { explanation: "With 6 values the median is the average of the 3rd and 4th.", latex: "\\text{median} = \\frac{8+10}{2} = 9" },
+        { explanation: "The lower half is 4, 6, 8; its middle value is Q1.", latex: "Q_1 = 6" },
+        { explanation: "The upper half is 10, 12, 14; its middle value is Q3.", latex: "Q_3 = 12,\\quad \\text{IQR} = 12 - 6 = 6" },
+      ],
+      finalAnswerLatex: "Q_1 = 6,\\ \\text{median} = 9,\\ Q_3 = 12",
+    } as WorkedExample,
+    {
+      title: "Test for an outlier with 1.5 × IQR",
+      questionLatex: "\\text{A data set has } Q_1 = 10,\\ Q_3 = 18.\\ \\text{Is a value of } 35 \\text{ an outlier?}",
+      steps: [
+        { explanation: "First find the IQR.", latex: "\\text{IQR} = 18 - 10 = 8" },
+        { explanation: "The upper fence is Q3 plus 1.5 times the IQR.", latex: "18 + 1.5 \\times 8 = 30" },
+        { explanation: "Since 35 is above the upper fence of 30, it is an outlier.", latex: "35 > 30 \\Rightarrow \\text{outlier}" },
+      ],
+      finalAnswerLatex: "\\text{Yes — 35 exceeds the upper fence of 30, so it is an outlier.}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -3441,6 +3461,24 @@ const relativeFrequency: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{Relative frequency } 0.2 \\text{ vs theoretical } \\tfrac{1}{6} \\approx 0.167",
+    } as WorkedExample,
+    {
+      title: "Estimate an experimental probability",
+      questionLatex: "\\text{A spinner lands on red 18 times out of 50 spins. Estimate the probability of red as a decimal.}",
+      steps: [
+        { explanation: "Relative frequency = successes ÷ trials.", latex: "\\frac{18}{50}" },
+        { explanation: "Divide to get a decimal estimate of P(red).", latex: "\\frac{18}{50} = 0.36" },
+      ],
+      finalAnswerLatex: "0.36",
+    } as WorkedExample,
+    {
+      title: "Predict a count from a probability",
+      questionLatex: "\\text{From earlier trials P(win) is about 0.25. In 60 new games, how many wins are expected?}",
+      steps: [
+        { explanation: "Expected count = probability × number of trials.", latex: "0.25 \\times 60" },
+        { explanation: "Calculate.", latex: "0.25 \\times 60 = 15" },
+      ],
+      finalAnswerLatex: "15 \\text{ wins}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -4205,6 +4243,15 @@ const boxPlots: LessonContent = {
       ],
       finalAnswerLatex: "\\text{The distribution is skewed right (positively skewed).}",
     } as WorkedExample,
+    {
+      title: "Read IQR and range from a box plot",
+      questionLatex: "\\text{A box plot shows minimum 4, } Q_1 = 8,\\ \\text{median } 12,\\ Q_3 = 16,\\ \\text{maximum } 28.\\ \\text{Find the IQR and the range.}",
+      steps: [
+        { explanation: "The IQR is the width of the box, from Q1 to Q3.", latex: "\\text{IQR} = 16 - 8 = 8" },
+        { explanation: "The range spans the whole plot, from minimum to maximum (whisker tip to whisker tip).", latex: "\\text{range} = 28 - 4 = 24" },
+      ],
+      finalAnswerLatex: "\\text{IQR} = 8,\\quad \\text{range} = 24",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -4296,6 +4343,10 @@ const boxPlots: LessonContent = {
     {
       mistake: "Including the median in both halves when computing Q1 and Q3 from an odd-count data set.",
       fix: "For an odd number of values, exclude the median from both the lower and upper halves before finding Q1 and Q3.",
+    },
+    {
+      mistake: "Thinking a wider section of a box plot holds more data values.",
+      fix: "Each of the four sections — lower whisker, lower box, upper box, upper whisker — holds about 25% of the data. A wider section just means that quarter is more spread out, not that it has more values.",
     },
   ],
   masteryQuiz: [
@@ -4577,6 +4628,15 @@ const comparingDataWithBoxPlots: LessonContent = {
       finalAnswerLatex:
         "\\text{Group P: higher median. Group Q: greater spread. Group P performs better and more consistently.}",
     } as WorkedExample,
+    {
+      title: "Compare centre and spread together",
+      questionLatex: "\\text{Class A: median } 14,\\ \\text{IQR } 6.\\ \\text{Class B: median } 11,\\ \\text{IQR } 12.\\ \\text{Which class is higher on average, and which is more consistent?}",
+      steps: [
+        { explanation: "Compare the medians for the typical (central) value.", latex: "14 > 11 \\Rightarrow \\text{Class A higher on average}" },
+        { explanation: "Compare the IQRs for consistency — a smaller IQR means the middle 50% is tighter.", latex: "6 < 12 \\Rightarrow \\text{Class A more consistent}" },
+      ],
+      finalAnswerLatex: "\\text{Class A is both higher on average and more consistent.}",
+    } as WorkedExample,
   ],
   guidedPractice: [
     choice(
@@ -4678,6 +4738,10 @@ const comparingDataWithBoxPlots: LessonContent = {
     {
       mistake: "Writing a comparison without linking statistics to the context.",
       fix: "Always name the context in your conclusion. Instead of 'Group A has a higher median', write 'Class A has a higher median mark, suggesting it performed better on the test on average'.",
+    },
+    {
+      mistake: "Comparing only the medians and ignoring the spread.",
+      fix: "A higher median can still come with much greater spread. Always compare both centre (median) and spread (IQR or range) before deciding which group is 'better'.",
     },
   ],
   masteryQuiz: [

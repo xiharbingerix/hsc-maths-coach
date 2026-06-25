@@ -172,6 +172,8 @@ const numberPatternsAndRules: LessonContent = {
       "A number pattern (or sequence) is a list of numbers that follow a rule. In a linear pattern, the same amount is added or subtracted each time. This constant amount is called the common difference.",
       "To write a rule, use the position number n (1st term, 2nd term, etc.) and find what you multiply n by and what you add or subtract. The rule has the form T = mn + c, where m is the common difference and c is found by substituting n = 1 and solving.",
       "Once you have the rule, you can find any term by substituting n. You can also work backwards: if you know the term T, substitute into the rule and solve for n.",
+      "Why does the rule have the form T = mn + c? Build the terms by repeated addition: the 1st term is c + m, the 2nd is c + 2m, and the nth is c + mn — each step adds exactly one more copy of the common difference m. So m is the rate the pattern grows by and c is a fixed offset that shifts the whole sequence up or down. This is the same structure as the straight line y = mx + c, which is exactly why a linear pattern graphs as a straight line.",
+      "You never have to guess c. The rule must reproduce the first term, so set n = 1: c = (first term) − m. For 4, 7, 10, … the difference m = 3, so c = 4 − 3 = 1 and T = 3n + 1. Checking a second term (n = 2 gives 7 ✓) confirms it — two points are always enough to pin down a straight line, so once two terms agree the whole rule is locked in.",
     ],
     latexBlocks: [
       "\\text{Rule: } T = mn + c",
@@ -230,6 +232,27 @@ const numberPatternsAndRules: LessonContent = {
         },
       ],
       finalAnswerLatex: "n = 7",
+    } as WorkedExample,
+    {
+      title: "Find the rule from two non-consecutive terms",
+      questionLatex:
+        "\\text{A linear pattern has }T_3 = 11\\text{ and }T_7 = 23.\\text{ Find the rule.}",
+      steps: [
+        {
+          explanation:
+            "The common difference m is the change in T divided by the change in n (just like a gradient).",
+          latex: "m = \\frac{23 - 11}{7 - 3} = \\frac{12}{4} = 3",
+        },
+        {
+          explanation: "Substitute one known term, say n = 3, T = 11, to find c.",
+          latex: "11 = 3(3) + c \\Rightarrow c = 2",
+        },
+        {
+          explanation: "Check the other term: n = 7 → 3(7) + 2 = 23 ✓.",
+          latex: "T = 3n + 2",
+        },
+      ],
+      finalAnswerLatex: "T = 3n + 2",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -673,6 +696,8 @@ const coordinatesAndPoints: LessonContent = {
       "The Cartesian plane is formed by two perpendicular number lines: the horizontal x-axis and the vertical y-axis. They meet at the origin (0, 0). Every point on the plane is described by an ordered pair (x, y).",
       "To read a point, move from the origin: the x-coordinate tells you how far to move left or right; the y-coordinate tells you how far to move up or down. Always write x first, then y.",
       "The plane is divided into four quadrants. Quadrant I has both coordinates positive (+, +). Quadrant II has a negative x and positive y (−, +). Quadrant III has both negative (−, −). Quadrant IV has positive x and negative y (+, −).",
+      "Why two numbers, and why in a fixed order? A single number can only place you along one line. To pin down a point anywhere on a flat surface you need two independent directions — how far across and how far up. The pair (x, y) follows an agreed convention (x always first) so everyone reads the same point; swapping them, e.g. (3, 5) versus (5, 3), lands you somewhere completely different.",
+      "The signs of the coordinates are exactly what carve the plane into quadrants. The x-axis (where y = 0) and the y-axis (where x = 0) cross like two roads, and which corner you stand in is decided purely by whether x and y are positive or negative. So you can name the quadrant from the signs alone: (−, +) must be Quadrant II before you plot anything.",
     ],
     latexBlocks: [
       "\\text{Point }(x,\\, y):\\; x\\text{ first (horizontal), }y\\text{ second (vertical)}",
@@ -715,6 +740,19 @@ const coordinatesAndPoints: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{On the y-axis at }(0,\\;-6)",
+    } as WorkedExample,
+    {
+      title: "Find the midpoint of two points",
+      questionLatex:
+        "\\text{Find the midpoint of }(2,\\;4)\\text{ and }(8,\\;10).",
+      steps: [
+        {
+          explanation:
+            "The midpoint sits exactly halfway, so average the x-coordinates and average the y-coordinates separately.",
+          latex: "x = \\frac{2+8}{2} = 5,\\quad y = \\frac{4+10}{2} = 7",
+        },
+      ],
+      finalAnswerLatex: "(5,\\; 7)",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1177,6 +1215,8 @@ const tablesOfValues: LessonContent = {
       "A table of values lists input (x) and output (y) pairs for a rule. To complete a table, substitute each x-value into the rule and calculate y.",
       "For a linear rule y = mx + c, the y-values increase by the same amount m each time x increases by 1. This constant increase is the gradient. If the table has equal x-steps, look for the constant difference in y to find m.",
       "To find c, substitute any known (x, y) pair into y = mx + c and solve. Then check the rule against at least one other pair in the table.",
+      "Why do the y-values step up evenly for a linear rule? Each time x rises by 1, the term mx gains exactly m while c stays fixed — so the y-column climbs by the constant amount m. That steady step is the fingerprint of a straight line. If the differences are not constant, the relationship is not linear and no rule y = mx + c can fit it.",
+      "This gives a fast way to read the rule straight off a table with equal x-steps: m is the constant jump in y, and c is the value of y when x = 0 (the starting height). If x = 0 is not shown, find c by substituting any row into y = mx + c. Two rows fix the whole line, so always confirm with a third before trusting the rule.",
     ],
     latexBlocks: [
       "\\text{Rule: } y = mx + c",
@@ -1236,6 +1276,27 @@ const tablesOfValues: LessonContent = {
         },
       ],
       finalAnswerLatex: "x = 7",
+    } as WorkedExample,
+    {
+      title: "Read a decreasing rule and extend it",
+      questionLatex:
+        "\\text{Table: }x=1\\to20,\\; x=2\\to17,\\; x=3\\to14.\\text{ Find }y\\text{ when }x=6.",
+      steps: [
+        {
+          explanation:
+            "The y-values drop by 3 for each step of 1 in x, so the gradient is m = −3.",
+          latex: "m = 17 - 20 = -3",
+        },
+        {
+          explanation: "Find c by substituting a row, say x = 1, y = 20.",
+          latex: "20 = -3(1) + c \\Rightarrow c = 23,\\quad y = -3x + 23",
+        },
+        {
+          explanation: "Substitute x = 6 into the rule.",
+          latex: "y = -3(6) + 23 = 5",
+        },
+      ],
+      finalAnswerLatex: "y = 5",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -1681,6 +1742,8 @@ const graphingLinearRelationships: LessonContent = {
       "A linear relationship produces a straight-line graph when plotted on the Cartesian plane. To draw the graph, complete a table of values, plot each (x, y) point, then draw a line through them.",
       "The y-intercept is where the graph crosses the y-axis. It occurs when x = 0. Substitute x = 0 into the rule to find the y-intercept, which always equals the constant c in y = mx + c.",
       "The x-intercept is where the graph crosses the x-axis. It occurs when y = 0. Substitute y = 0 into the rule and solve for x.",
+      "Why is the graph straight at all? Because equal steps in x always produce equal steps in y — the gradient m never changes — so the points march in one even direction without bending. That is also why two points are enough: a single straight direction cannot curve back, so two plotted points fix the entire line and a third only guards against an arithmetic slip.",
+      "The two intercepts are just the two easiest points to find. The y-intercept is the starting height c (let x = 0); the x-intercept is where the line crosses zero height (let y = 0 and solve). Plotting those two crossings and ruling a line through them is normally the quickest accurate sketch.",
     ],
     latexBlocks: [
       "\\text{y-intercept: let }x=0 \\Rightarrow y = c",
@@ -1730,6 +1793,23 @@ const graphingLinearRelationships: LessonContent = {
         },
       ],
       finalAnswerLatex: "\\text{Yes. }(2, 7)\\text{ lies on }y = 3x + 1.",
+    } as WorkedExample,
+    {
+      title: "Read the gradient and y-intercept, then find a point",
+      questionLatex:
+        "\\text{For }y = -2x + 5,\\text{ state the gradient and y-intercept, then find }y\\text{ when }x = 3.",
+      steps: [
+        {
+          explanation:
+            "Compare with y = mx + c: m is the coefficient of x, c is the constant.",
+          latex: "m = -2\\quad(\\text{falls 2 each step}),\\quad \\text{y-intercept }(0,\\;5)",
+        },
+        {
+          explanation: "Substitute x = 3 into the rule.",
+          latex: "y = -2(3) + 5 = -1",
+        },
+      ],
+      finalAnswerLatex: "m=-2,\\;(0,5),\\;\\text{and }(3,-1)",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -2213,6 +2293,8 @@ const gradientAsRateOfChange: LessonContent = {
       "The gradient of a line measures its steepness. A steeper line has a larger gradient. Gradient is calculated as rise ÷ run: the vertical change divided by the horizontal change.",
       "A line that rises from left to right has a positive gradient. A line that falls from left to right has a negative gradient. A horizontal line has gradient 0.",
       "In practical situations, the gradient represents a rate of change. For example, on a distance-time graph, gradient gives speed (km/h). On a cost graph, gradient gives cost per item.",
+      "Why divide rise by run? Gradient answers the question 'for every 1 unit across, how much up?' Dividing the total rise by the total run scales the climb down to a per-unit rate — and because a straight line climbs at one fixed rate everywhere, it does not matter which two points you choose: a long section and a short section of the same line give the identical ratio.",
+      "Both the sign and the size carry meaning. A positive gradient means y grows as x grows; a negative gradient means y shrinks; zero means no change (a flat line). The larger the number, the steeper the climb. Reading the gradient as 'units of y per 1 unit of x' is exactly what turns it into a real-world rate — dollars per item, metres per second, degrees per hour.",
     ],
     latexBlocks: [
       "\\text{gradient} = \\frac{\\text{rise}}{\\text{run}} = \\frac{\\text{vertical change}}{\\text{horizontal change}}",
@@ -2264,6 +2346,22 @@ const gradientAsRateOfChange: LessonContent = {
         },
       ],
       finalAnswerLatex: "60\\text{ km/h}",
+    } as WorkedExample,
+    {
+      title: "Interpret a negative rate",
+      questionLatex:
+        "\\text{A tank drains from 50 L to 20 L in 6 minutes. Find the gradient and say what it means.}",
+      steps: [
+        {
+          explanation: "Gradient = change in volume ÷ change in time. The volume falls, so the rise is negative.",
+          latex: "\\text{gradient} = \\frac{20 - 50}{6} = \\frac{-30}{6} = -5",
+        },
+        {
+          explanation: "The negative sign means decreasing; the size is the rate.",
+          latex: "-5 \\Rightarrow \\text{the tank loses 5 L per minute}",
+        },
+      ],
+      finalAnswerLatex: "-5\\text{ L/min}",
     } as WorkedExample,
   ],
   guidedPractice: [
@@ -2735,6 +2833,8 @@ const interpretingLinearGraphs: LessonContent = {
       "In a practical linear model, the rule y = mx + c has a clear meaning. The y-intercept c is the starting value when x = 0 (e.g. a fixed fee). The gradient m is the rate of change (e.g. cost per item, speed, or fill rate).",
       "To make a prediction, substitute the known value into the rule and calculate. To work backwards, substitute the known output and solve for the unknown input.",
       "On a distance-time graph, a horizontal line means the object is not moving. A steeper line means a greater speed. A downward slope means the object is moving back towards the starting point.",
+      "Reading a linear model is really translating between three views of the same thing: the rule y = mx + c, the table, and the graph. c is where you start (at x = 0) and m is how fast it changes, so every prediction is just 'start, then add the rate that many times.' Because the relationship is linear, a value between two known points can be read off by following the straight line (interpolation) and a value beyond them by continuing it (extrapolation) — reliable only while the real situation stays linear.",
+      "Where two linear models cross, both give the same y for the same x — that intersection is the 'break-even' or same-value point. Find it by setting the two rules equal and solving for x, then substitute back for y. On a distance–time graph this is where two travellers meet; on a cost graph it is where two plans cost exactly the same.",
     ],
     latexBlocks: [
       "y = mx + c",
@@ -2790,6 +2890,26 @@ const interpretingLinearGraphs: LessonContent = {
         },
       ],
       finalAnswerLatex: "n = 4",
+    } as WorkedExample,
+    {
+      title: "Find where two plans cost the same (break-even)",
+      questionLatex:
+        "\\text{Plan A: }C = 2n + 10.\\text{ Plan B: }C = 4n.\\text{ For how many items }n\\text{ do they cost the same?}",
+      steps: [
+        {
+          explanation: "At the break-even point both plans give the same cost, so set the rules equal.",
+          latex: "2n + 10 = 4n",
+        },
+        {
+          explanation: "Solve for n.",
+          latex: "10 = 2n \\Rightarrow n = 5",
+        },
+        {
+          explanation: "Check: both give the same cost at n = 5.",
+          latex: "2(5)+10 = 20,\\quad 4(5) = 20\\;\\checkmark",
+        },
+      ],
+      finalAnswerLatex: "n = 5\\;(\\text{both cost }\\$20)",
     } as WorkedExample,
   ],
   guidedPractice: [

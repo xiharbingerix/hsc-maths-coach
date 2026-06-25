@@ -177,6 +177,19 @@ const vectorsScalarsNotation: Partial<ExplicitLesson> = {
     vectorChoice("y12e1-vectors-notation-m9", "To find a unit vector, divide each component by:", "D", ["The x-component", "The y-component", "2", "The magnitude"], "Dividing by the magnitude scales the length to 1."),
     vectorTyped("y12e1-vectors-notation-m10", "Find the magnitude.", "\\begin{pmatrix}1\\\\-2\\end{pmatrix}", "sqrt(5)", ["\\sqrt{5}", "√5"], "The length is $\\sqrt{1^2 + (-2)^2} = \\sqrt{5}$."),
   ],
+  masteryQuizPool: [
+    {
+      ...vectorTyped(
+        "y12e1-vectors-notation-pool-d5-1",
+        "Find the magnitude.",
+        "\\begin{pmatrix}-6\\\\8\\end{pmatrix}",
+        "10",
+        ["|a|=10"],
+        "Use Pythagoras: sqrt(36 + 64) = sqrt(100) = 10."
+      ),
+      difficulty: 5,
+    },
+  ],
 };
 
 const vectorAdditionSubtraction: Partial<ExplicitLesson> = {
@@ -301,6 +314,19 @@ const vectorAdditionSubtraction: Partial<ExplicitLesson> = {
     vectorChoice("y12e1-vector-add-m8", "Which operation reverses the direction of $(2,4)$?", "D", ["Multiply by 2", "Add (0,0)", "Find magnitude", "Multiply by -1"], "A negative scalar points the vector in the opposite direction."),
     vectorTyped("y12e1-vector-add-m9", "Find $\\mathbf{a}+2\\mathbf{b}$.", "\\mathbf{a}=\\begin{pmatrix}0\\\\5\\end{pmatrix},\\quad \\mathbf{b}=\\begin{pmatrix}3\\\\-2\\end{pmatrix}", "(6,1)", ["(6, 1)", "6,1"], "Double b first, then add a."),
     vectorChoice("y12e1-vector-add-m10", "A vector word problem about total movement usually asks for:", "C", ["The product of components", "Only the largest component", "The sum of displacement vectors", "The square root first"], "Successive movements are combined by vector addition."),
+  ],
+  masteryQuizPool: [
+    {
+      ...vectorTyped(
+        "y12e1-vector-add-pool-d5-1",
+        "Find the magnitude of a + b.",
+        "\\mathbf{a}=\\begin{pmatrix}1\\\\2\\end{pmatrix},\\quad \\mathbf{b}=\\begin{pmatrix}3\\\\4\\end{pmatrix}",
+        "2sqrt(5)",
+        ["2√5", "2\\sqrt5", "sqrt(20)", "√20"],
+        "a + b = (4, 6); |(4, 6)| = sqrt(16 + 36) = sqrt(52) = 2 sqrt(5)."
+      ),
+      difficulty: 5,
+    },
   ],
 };
 
@@ -430,6 +456,41 @@ const dotProduct: Partial<ExplicitLesson> = {
     vectorChoice("y12e1-dot-m9", "Which is the common dot-product mistake?", "A", ["Treating the result as a vector", "Using matching components", "Adding the products", "Checking for zero"], "The result is scalar, not a new arrow."),
     vectorTyped("y12e1-dot-m10", "Find the dot product.", "\\begin{pmatrix}-2\\\\-3\\end{pmatrix}\\cdot\\begin{pmatrix}4\\\\-1\\end{pmatrix}", "-5", ["dot=-5"], "-2(4) + (-3)(-1) = -8 + 3 = -5."),
   ],
+  masteryQuizPool: [
+    {
+      ...vectorTyped(
+        "y12e1-dot-pool-d5-1",
+        "Find the dot product.",
+        "\\begin{pmatrix}2\\\\3\\end{pmatrix}\\cdot\\begin{pmatrix}4\\\\-1\\end{pmatrix}",
+        "5",
+        ["dot=5"],
+        "2(4) + 3(-1) = 8 - 3 = 5."
+      ),
+      difficulty: 5,
+    },
+    {
+      ...vectorTyped(
+        "y12e1-dot-pool-d5-2",
+        "Find the value of k for which the vectors are perpendicular.",
+        "\\begin{pmatrix}2\\\\k\\end{pmatrix}\\perp\\begin{pmatrix}3\\\\-6\\end{pmatrix}",
+        "1",
+        ["k=1"],
+        "Perpendicular ⟹ dot product 0: 2(3) + k(-6) = 6 - 6k = 0, so k = 1."
+      ),
+      difficulty: 5,
+    },
+    {
+      ...vectorTyped(
+        "y12e1-dot-pool-d5-3",
+        "Find the exact value of cos(theta), the angle between the vectors.",
+        "\\begin{pmatrix}1\\\\1\\end{pmatrix},\\ \\begin{pmatrix}1\\\\0\\end{pmatrix}",
+        "√2/2",
+        ["sqrt(2)/2", "1/sqrt(2)", "\\frac{\\sqrt2}{2}"],
+        "cos theta = (1·1 + 1·0)/(sqrt(2)·1) = 1/sqrt(2) = sqrt(2)/2."
+      ),
+      difficulty: 5,
+    },
+  ],
 };
 
 const vectorProjectionsApplications: Partial<ExplicitLesson> = {
@@ -553,6 +614,19 @@ const vectorProjectionsApplications: Partial<ExplicitLesson> = {
     vectorTyped("y12e1-proj-m8", "Find the component of $(4,5)$ in the x-direction.", "\\mathbf{v}=\\begin{pmatrix}4\\\\5\\end{pmatrix},\\quad \\mathbf{d}=\\begin{pmatrix}1\\\\0\\end{pmatrix}", "4", ["x component=4"], "The x-direction projection is the x-component."),
     vectorChoice("y12e1-proj-m9", "In a force problem, projection helps find:", "A", ["The component of force in a chosen direction", "The median force", "The domain restriction", "The number of trials"], "Projection resolves a vector into a direction."),
     vectorChoice("y12e1-proj-m10", "What does a negative scalar projection tell you?", "B", ["The vector has no length", "The component points opposite to the chosen direction", "The angle is impossible", "The vector is a scalar"], "The sign gives direction along or against the chosen vector."),
+  ],
+  masteryQuizPool: [
+    {
+      ...vectorTyped(
+        "y12e1-proj-pool-d5-1",
+        "Find the scalar projection of a on b.",
+        "\\mathbf{a}=\\begin{pmatrix}3\\\\4\\end{pmatrix},\\quad \\mathbf{b}=\\begin{pmatrix}1\\\\0\\end{pmatrix}",
+        "3",
+        ["proj=3"],
+        "Scalar projection = a·b/|b| = (3·1 + 4·0)/1 = 3."
+      ),
+      difficulty: 5,
+    },
   ],
 };
 

@@ -326,6 +326,28 @@ const trigIntegrals: Partial<ExplicitLesson> = {
       "The first is a standard trig integral, while the others require substitution or parts."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-fcalc-trig-pool-d5-1",
+      prompt: "Evaluate ∫₀^(π/4) sec²x dx.",
+      latex: "\\int_0^{\\pi/4} \\sec^2 x\\,dx",
+      answer: "1",
+      acceptedAnswers: [],
+      hint: "The antiderivative of sec²x is tan x.",
+      explanation: "[tan x]₀^(π/4) = tan(π/4) − tan 0 = 1 − 0 = 1.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-fcalc-trig-pool-d5-2",
+      prompt: "Evaluate ∫₀^(π/4) cos 2x dx.",
+      latex: "\\int_0^{\\pi/4} \\cos 2x\\,dx",
+      answer: "1/2",
+      acceptedAnswers: ["0.5"],
+      hint: "The antiderivative of cos 2x is (sin 2x)/2.",
+      explanation: "[(sin 2x)/2]₀^(π/4) = sin(π/2)/2 − 0 = 1/2.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -594,6 +616,18 @@ const substitutionIntegrals: Partial<ExplicitLesson> = {
       "$e^{2x}$ is a linear exponential and uses the reverse chain rule."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-fcalc-sub-pool-d5-1",
+      prompt: "Evaluate ∫₀¹ (2x+1)³ dx.",
+      latex: "\\int_0^1 (2x+1)^3\\,dx",
+      answer: "10",
+      acceptedAnswers: [],
+      hint: "Reverse chain rule: the antiderivative of (2x+1)³ is (2x+1)⁴/8.",
+      explanation: "[(2x+1)⁴/8]₀¹ = 81/8 − 1/8 = 80/8 = 10.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -831,6 +865,18 @@ const integrationByParts: Partial<ExplicitLesson> = {
       "x^2 is a power function best handled by the power rule."
     ),
   ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-fcalc-parts-pool-d5-1",
+      prompt: "Evaluate ∫₀¹ x eˣ dx using integration by parts.",
+      latex: "\\int_0^1 x e^x\\,dx",
+      answer: "1",
+      acceptedAnswers: [],
+      hint: "Take u = x, dv = eˣ dx, so the antiderivative is x eˣ − eˣ.",
+      explanation: "[x eˣ − eˣ]₀¹ = (e − e) − (0 − 1) = 0 + 1 = 1.",
+      difficulty: 5,
+    },
+  ],
   masteryPassMark: 0.8,
 };
 
@@ -1064,6 +1110,28 @@ const examPractice: Partial<ExplicitLesson> = {
       ["\\int 1/(2x+3)\\,dx", "\\int x e^x\\,dx", "\\int \\cos x\\,dx", "\\int x\\sin x\\,dx"],
       "A reciprocal linear integrand gives a logarithmic antiderivative."
     ),
+  ],
+  masteryQuizPool: [
+    {
+      id: "y12e1-fcalc-exam-pool-d5-1",
+      prompt: "Evaluate ∫₁^e (1/x) dx.",
+      latex: "\\int_1^e \\frac{1}{x}\\,dx",
+      answer: "1",
+      acceptedAnswers: [],
+      hint: "The antiderivative of 1/x is ln x.",
+      explanation: "[ln x]₁^e = ln e − ln 1 = 1 − 0 = 1.",
+      difficulty: 5,
+    },
+    {
+      id: "y12e1-fcalc-exam-pool-d5-2",
+      prompt: "Evaluate ∫₀² (3x² − 2x) dx.",
+      latex: "\\int_0^2 (3x^2 - 2x)\\,dx",
+      answer: "4",
+      acceptedAnswers: [],
+      hint: "Integrate term by term using the power rule.",
+      explanation: "[x³ − x²]₀² = (8 − 4) − 0 = 4.",
+      difficulty: 5,
+    },
   ],
   masteryPassMark: 0.8,
 };
