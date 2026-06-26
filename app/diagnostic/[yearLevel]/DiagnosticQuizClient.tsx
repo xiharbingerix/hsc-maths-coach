@@ -152,11 +152,17 @@ export function DiagnosticQuizClient({
       yearLevel,
       totalCorrect,
       totalQuestions,
+      unitResults: studiedUnitResults.map((u) => ({
+        unitSlug: u.slug,
+        unitTitle: u.title,
+        correct: u.correct,
+        total: u.total,
+      })),
       ...ctaExperimentProps(),
       ...readMarketingParams(),
     });
     trackDiagnosticCompleted();
-  }, [phase, yearLevel, totalCorrect, totalQuestions]);
+  }, [phase, yearLevel, totalCorrect, totalQuestions, studiedUnitResults]);
 
   // Save results whenever we have a logged-in user and haven't saved yet.
   // Runs on initial results load AND when isLoggedIn transitions to true
