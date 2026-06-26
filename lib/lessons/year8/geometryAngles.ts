@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { geometryQuestionVisuals } from "./geometryVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -2671,6 +2672,22 @@ const lessons: Record<string, LessonContent> = {
   "geometric-reasoning":              geometricReasoning,
   "quadrilateral-properties":         quadrilateralProperties,
 };
+
+for (const content of Object.values(lessons)) {
+  const questions = [
+    ...content.guidedPractice,
+    ...content.independentPractice,
+    ...content.masteryQuiz,
+    ...(content.masteryQuizPool ?? []),
+    ...(content.multiPartPractice ?? []),
+  ];
+
+  for (const question of questions) {
+    const visual = geometryQuestionVisuals[question.id];
+    if (!visual) continue;
+    Object.assign(question, visual);
+  }
+}
 
 export function year8GeometryAnglesLessonOverride(
   course: CoursePathwaySeed,

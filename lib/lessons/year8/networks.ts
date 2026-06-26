@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { networkQuestionVisuals } from "./networkVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -1930,6 +1931,23 @@ const lessons: Record<string, LessonContent> = {
   "planar-graphs":             planarGraphs,
   "network-applications":      networkApplications,
 };
+
+for (const content of Object.values(lessons)) {
+  const questions = [
+    ...content.guidedPractice,
+    ...content.independentPractice,
+    ...content.masteryQuiz,
+    ...(content.masteryQuizPool ?? []),
+    ...(content.multiPartPractice ?? []),
+  ];
+
+  for (const question of questions) {
+    const visual = networkQuestionVisuals[question.id];
+    if (!visual) continue;
+    question.prompt = visual.prompt;
+    question.diagram = visual.diagram;
+  }
+}
 
 export function year8NetworksLessonOverride(
   course: CoursePathwaySeed,
