@@ -21,8 +21,27 @@ type QuestionRow = {
   hint: string | null;
   explanation: string;
   syllabus_ref: string | null;
+  diagram_data: Record<string, unknown> | null;
   question_parts: unknown | null;
 };
+
+function choiceDiagramMetadata(choice: Choice) {
+  const metadata = Object.fromEntries(
+    Object.entries(choice).filter(([key]) => key !== "label" && key !== "text")
+  );
+
+  return Object.keys(metadata).length > 0 ? metadata : null;
+}
+
+function questionDiagramLabel(question: QuestionRow) {
+  if (question.diagram_data) {
+    return String(question.diagram_data.type ?? "Unknown");
+  }
+
+  return question.choices?.some((choice) => choiceDiagramMetadata(choice))
+    ? "Choice-level"
+    : "None";
+}
 
 function prettify(slug: string) {
   return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
@@ -60,6 +79,9 @@ function toMd(questions: QuestionRow[], filters: Record<string, string>): string
   }
   lines.push(`**Generated:** ${now}  `);
   lines.push(`**Questions:** ${questions.length}  `);
+  lines.push(
+    `**Questions with diagram metadata:** ${questions.filter((q) => questionDiagramLabel(q) !== "None").length}  `
+  );
   lines.push(``);
   lines.push(`---`);
   lines.push(``);
@@ -82,6 +104,7 @@ function toMd(questions: QuestionRow[], filters: Record<string, string>): string
     lines.push(`| Course | ${prettify(q.course_slug)} |`);
     lines.push(`| Topic | ${prettify(q.topic_slug)} |`);
     lines.push(`| Subtopic | ${prettify(q.subtopic_slug)} |`);
+    lines.push(`| Diagram | ${questionDiagramLabel(q)} |`);
     if (q.syllabus_ref) {
       lines.push(`| Syllabus ref | ${q.syllabus_ref} |`);
     }
@@ -101,6 +124,15 @@ function toMd(questions: QuestionRow[], filters: Record<string, string>): string
       lines.push(``);
     }
 
+    if (q.diagram_data) {
+      lines.push(`### Diagram metadata`);
+      lines.push(``);
+      lines.push("```json");
+      lines.push(JSON.stringify(q.diagram_data, null, 2));
+      lines.push("```");
+      lines.push(``);
+    }
+
     // MCQ choices
     if (isMcq && q.choices) {
       lines.push(`### Choices`);
@@ -109,6 +141,15 @@ function toMd(questions: QuestionRow[], filters: Record<string, string>): string
         const isCorrect = choice.label === q.answer;
         lines.push(`**${choice.label}.** ${choice.text}${isCorrect ? " ✓" : ""}`);
         lines.push(``);
+        const metadata = choiceDiagramMetadata(choice);
+        if (metadata) {
+          lines.push(`*Choice ${choice.label} diagram metadata:*`);
+          lines.push(``);
+          lines.push("```json");
+          lines.push(JSON.stringify(metadata, null, 2));
+          lines.push("```");
+          lines.push(``);
+        }
       }
     }
 
@@ -163,7 +204,7 @@ export async function GET(request: NextRequest) {
     let query = supabaseAdmin
       .from("questions")
       .select(
-        "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, question_type, prompt, latex, choices, answer, accepted_answers, hint, explanation, syllabus_ref, question_parts"
+        "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, question_type, prompt, latex, choices, answer, accepted_answers, hint, explanation, syllabus_ref, diagram_data, question_parts"
       )
       .order("course_slug")
       .order("topic_slug")
