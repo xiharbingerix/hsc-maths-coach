@@ -128,21 +128,21 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-g2",
       "Simplify 1 × y.",
-      "1 \\times y = \\;?",
+      "",
       "y",
       "A coefficient of 1 is not written in simplified algebra."
     ),
     answer(
       "y8-alg-simp-g3",
       "Simplify 4 × 5b.",
-      "4 \\times 5b = \\;?",
+      "",
       "20b",
       "4 × 5 = 20, so the result is 20b."
     ),
     answer(
       "y8-alg-simp-g4",
       "Simplify 15a ÷ 3.",
-      "15a \\div 3 = \\;?",
+      "",
       "5a",
       "15 ÷ 3 = 5, so the result is 5a."
     ),
@@ -166,14 +166,14 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-i3",
       "Simplify 3 × 6m.",
-      "3 \\times 6m = \\;?",
+      "",
       "18m",
       "3 × 6 = 18, so the result is 18m."
     ),
     answer(
       "y8-alg-simp-i4",
       "Simplify 20y ÷ 4.",
-      "20y \\div 4 = \\;?",
+      "",
       "5y",
       "20 ÷ 4 = 5, so the result is 5y."
     ),
@@ -216,7 +216,7 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-m2",
       "Simplify 1 × a.",
-      "1 \\times a = \\;?",
+      "",
       "a",
       "A coefficient of 1 is never written. The answer is a."
     ),
@@ -231,14 +231,14 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-m4",
       "Simplify 2 × 7n.",
-      "2 \\times 7n = \\;?",
+      "",
       "14n",
       "2 × 7 = 14, so the result is 14n."
     ),
     answer(
       "y8-alg-simp-m5",
       "Simplify 24p ÷ 6.",
-      "24p \\div 6 = \\;?",
+      "",
       "4p",
       "24 ÷ 6 = 4, so the result is 4p."
     ),
@@ -257,14 +257,14 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-m7",
       "Simplify 3 × 8t.",
-      "3 \\times 8t = \\;?",
+      "",
       "24t",
       "3 × 8 = 24, so the result is 24t."
     ),
     answer(
       "y8-alg-simp-m8",
       "Simplify 18m ÷ 9.",
-      "18m \\div 9 = \\;?",
+      "",
       "2m",
       "18 ÷ 9 = 2, so the result is 2m."
     ),
@@ -279,7 +279,7 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-m10",
       "Simplify 5 × 4ab.",
-      "5 \\times 4ab = \\;?",
+      "",
       "20ab",
       "5 × 4 = 20, so the result is 20ab."
     ),
@@ -353,21 +353,21 @@ const collectingLikeTerms: LessonContent = {
     answer(
       "y8-alg-like-g2",
       "Simplify 6p + 4p.",
-      "6p + 4p = \\;?",
+      "",
       "10p",
       "6 + 4 = 10, so the result is 10p."
     ),
     answer(
       "y8-alg-like-g3",
       "Simplify 7a - 3a + 2b.",
-      "7a - 3a + 2b = \\;?",
+      "",
       "4a + 2b",
       "7 - 3 = 4 for the a terms. 2b has no like term and is left unchanged."
     ),
     answer(
       "y8-alg-like-g4",
       "Simplify 3x + 5 + 2x - 1.",
-      "3x + 5 + 2x - 1 = \\;?",
+      "",
       "5x + 4",
       "3x + 2x = 5x and 5 - 1 = 4."
     ),
@@ -376,7 +376,7 @@ const collectingLikeTerms: LessonContent = {
     answer(
       "y8-alg-like-i1",
       "Simplify 9m - 4m.",
-      "9m - 4m = \\;?",
+      "",
       "5m",
       "9 - 4 = 5, so the result is 5m."
     ),
@@ -395,14 +395,14 @@ const collectingLikeTerms: LessonContent = {
     answer(
       "y8-alg-like-i3",
       "Simplify 2a + 3b + 5a - b.",
-      "2a + 3b + 5a - b = \\;?",
+      "",
       "7a + 2b",
       "2a + 5a = 7a and 3b - b = 2b."
     ),
     answer(
       "y8-alg-like-i4",
       "Simplify 4x + 6 - x + 2.",
-      "4x + 6 - x + 2 = \\;?",
+      "",
       "3x + 8",
       "4x - x = 3x and 6 + 2 = 8."
     ),
@@ -449,14 +449,14 @@ const collectingLikeTerms: LessonContent = {
     answer(
       "y8-alg-like-m2",
       "Simplify 8t + 3t.",
-      "8t + 3t = \\;?",
+      "",
       "11t",
       "8 + 3 = 11, so the result is 11t."
     ),
     answer(
       "y8-alg-like-m3",
       "Simplify 10k - 7k.",
-      "10k - 7k = \\;?",
+      "",
       "3k",
       "10 - 7 = 3, so the result is 3k."
     ),
@@ -466,19 +466,19 @@ const collectingLikeTerms: LessonContent = {
       "B",
       ["10pq", "8p + 2q", "5p + 2q", "3p + 7pq"],
       "3p + 5p = 8p. The term 2q has no like term and is unchanged.",
-      "3p + 2q + 5p = \\;?"
+      ""
     ),
     answer(
       "y8-alg-like-m5",
       "Simplify 5x + 3y - 2x + y.",
-      "5x + 3y - 2x + y = \\;?",
+      "",
       "3x + 4y",
       "5x - 2x = 3x and 3y + y = 4y."
     ),
     answer(
       "y8-alg-like-m6",
       "Simplify 6a - 4 + a + 9.",
-      "6a - 4 + a + 9 = \\;?",
+      "",
       "7a + 5",
       "6a + a = 7a and -4 + 9 = 5."
     ),
@@ -497,7 +497,7 @@ const collectingLikeTerms: LessonContent = {
     answer(
       "y8-alg-like-m8",
       "Simplify 7b - 3b + 2c - c.",
-      "7b - 3b + 2c - c = \\;?",
+      "",
       "4b + c",
       "7b - 3b = 4b and 2c - c = c."
     ),
@@ -512,7 +512,7 @@ const collectingLikeTerms: LessonContent = {
     answer(
       "y8-alg-like-m10",
       "Simplify 9n + 3 - 4n - 1.",
-      "9n + 3 - 4n - 1 = \\;?",
+      "",
       "5n + 2",
       "9n - 4n = 5n and 3 - 1 = 2."
     ),
@@ -578,14 +578,14 @@ const substitution: LessonContent = {
     answer(
       "y8-alg-sub-g1",
       "Find 4x when x = 3.",
-      "4x = \\;?\\text{ when }x = 3",
+      "",
       "12",
       "4 × 3 = 12."
     ),
     answer(
       "y8-alg-sub-g2",
       "Find 2a + 5 when a = 4.",
-      "2a + 5 = \\;?\\text{ when }a = 4",
+      "",
       "13",
       "2(4) + 5 = 8 + 5 = 13."
     ),
@@ -604,7 +604,7 @@ const substitution: LessonContent = {
     answer(
       "y8-alg-sub-g4",
       "Find 5p - q when p = 3 and q = 7.",
-      "5p - q = \\;?\\text{ when }p = 3,\\;q = 7",
+      "",
       "8",
       "5(3) - 7 = 15 - 7 = 8."
     ),
@@ -613,14 +613,14 @@ const substitution: LessonContent = {
     answer(
       "y8-alg-sub-i1",
       "Find 6 - x when x = 2.",
-      "6 - x = \\;?\\text{ when }x = 2",
+      "",
       "4",
       "6 - 2 = 4."
     ),
     answer(
       "y8-alg-sub-i2",
       "Find 3m + 2n when m = 4 and n = 1.",
-      "3m + 2n = \\;?\\text{ when }m = 4,\\;n = 1",
+      "",
       "14",
       "3(4) + 2(1) = 12 + 2 = 14."
     ),
@@ -639,14 +639,14 @@ const substitution: LessonContent = {
     answer(
       "y8-alg-sub-i4",
       "Find a² - 3 when a = 4.",
-      "a^2 - 3 = \\;?\\text{ when }a = 4",
+      "",
       "13",
       "4² - 3 = 16 - 3 = 13."
     ),
     answer(
       "y8-alg-sub-i5",
       "Find 3x - 2y + 4 when x = 2 and y = 3.",
-      "3x - 2y + 4 = \\;?\\text{ when }x = 2,\\;y = 3",
+      "",
       "4",
       "3(2) - 2(3) + 4 = 6 - 6 + 4 = 4."
     ),
@@ -673,14 +673,14 @@ const substitution: LessonContent = {
     answer(
       "y8-alg-sub-m1",
       "Find 5x when x = 4.",
-      "5x = \\;?\\text{ when }x = 4",
+      "",
       "20",
       "5 × 4 = 20."
     ),
     answer(
       "y8-alg-sub-m2",
       "Find 3a - 1 when a = 5.",
-      "3a - 1 = \\;?\\text{ when }a = 5",
+      "",
       "14",
       "3(5) - 1 = 15 - 1 = 14."
     ),
@@ -690,19 +690,19 @@ const substitution: LessonContent = {
       "B",
       ["9", "13", "17", "27"],
       "2(3) + 7 = 6 + 7 = 13.",
-      "2x + 7 = \\;?\\text{ when }x = 3"
+      ""
     ),
     answer(
       "y8-alg-sub-m4",
       "Find x² when x = 7.",
-      "x^2 = \\;?\\text{ when }x = 7",
+      "",
       "49",
       "7² = 7 × 7 = 49."
     ),
     answer(
       "y8-alg-sub-m5",
       "Find 4p + 3q when p = 2 and q = 3.",
-      "4p + 3q = \\;?\\text{ when }p = 2,\\;q = 3",
+      "",
       "17",
       "4(2) + 3(3) = 8 + 9 = 17."
     ),
@@ -712,12 +712,12 @@ const substitution: LessonContent = {
       "A",
       ["20", "8", "16", "24"],
       "4² + 4 = 16 + 4 = 20.",
-      "a^2 + a = \\;?\\text{ when }a = 4"
+      ""
     ),
     answer(
       "y8-alg-sub-m7",
       "Find 10 - 3x when x = 2.",
-      "10 - 3x = \\;?\\text{ when }x = 2",
+      "",
       "4",
       "10 - 3(2) = 10 - 6 = 4."
     ),
@@ -731,14 +731,14 @@ const substitution: LessonContent = {
     answer(
       "y8-alg-sub-m9",
       "Find 2m - 3n when m = 5 and n = 2.",
-      "2m - 3n = \\;?\\text{ when }m = 5,\\;n = 2",
+      "",
       "4",
       "2(5) - 3(2) = 10 - 6 = 4."
     ),
     answer(
       "y8-alg-sub-m10",
       "Find a² - 2b + 1 when a = 3 and b = 5.",
-      "a^2 - 2b + 1 = \\;?\\text{ when }a = 3,\\;b = 5",
+      "",
       "0",
       "3² - 2(5) + 1 = 9 - 10 + 1 = 0."
     ),
@@ -816,21 +816,21 @@ const expandingBrackets: LessonContent = {
     answer(
       "y8-alg-exp-g2",
       "Expand 3(x + 6).",
-      "3(x + 6) = \\;?",
+      "",
       "3x + 18",
       "3 × x = 3x and 3 × 6 = 18."
     ),
     answer(
       "y8-alg-exp-g3",
       "Expand 2(4x - 3).",
-      "2(4x - 3) = \\;?",
+      "",
       "8x - 6",
       "2 × 4x = 8x and 2 × (-3) = -6."
     ),
     answer(
       "y8-alg-exp-g4",
       "Expand -3(x + 2).",
-      "-3(x + 2) = \\;?",
+      "",
       "-3x - 6",
       "-3 × x = -3x and -3 × 2 = -6."
     ),
@@ -839,7 +839,7 @@ const expandingBrackets: LessonContent = {
     answer(
       "y8-alg-exp-i1",
       "Expand 5(x + 4).",
-      "5(x + 4) = \\;?",
+      "",
       "5x + 20",
       "5 × x = 5x and 5 × 4 = 20."
     ),
@@ -849,19 +849,19 @@ const expandingBrackets: LessonContent = {
       "B",
       ["-4x - 12", "-4x + 12", "4x - 12", "4x + 12"],
       "-4 × x = -4x and -4 × (-3) = +12. A negative times a negative gives a positive.",
-      "-4(x - 3) = \\;?"
+      ""
     ),
     answer(
       "y8-alg-exp-i3",
       "Expand 6(2x + 1).",
-      "6(2x + 1) = \\;?",
+      "",
       "12x + 6",
       "6 × 2x = 12x and 6 × 1 = 6."
     ),
     answer(
       "y8-alg-exp-i4",
       "Expand and collect like terms: 3(x + 4) + 2x.",
-      "3(x + 4) + 2x = \\;?",
+      "",
       "5x + 12",
       "3(x + 4) = 3x + 12, then 3x + 12 + 2x = 5x + 12."
     ),
@@ -900,14 +900,14 @@ const expandingBrackets: LessonContent = {
     answer(
       "y8-alg-exp-m1",
       "Expand 2(x + 7).",
-      "2(x + 7) = \\;?",
+      "",
       "2x + 14",
       "2 × x = 2x and 2 × 7 = 14."
     ),
     answer(
       "y8-alg-exp-m2",
       "Expand 4(3x - 2).",
-      "4(3x - 2) = \\;?",
+      "",
       "12x - 8",
       "4 × 3x = 12x and 4 × (-2) = -8."
     ),
@@ -917,12 +917,12 @@ const expandingBrackets: LessonContent = {
       "A",
       ["-5x - 5", "-5x + 5", "5x + 5", "5x - 5"],
       "-5 × x = -5x and -5 × 1 = -5.",
-      "-5(x + 1) = \\;?"
+      ""
     ),
     answer(
       "y8-alg-exp-m4",
       "Expand 3(2x + 5).",
-      "3(2x + 5) = \\;?",
+      "",
       "6x + 15",
       "3 × 2x = 6x and 3 × 5 = 15."
     ),
@@ -932,19 +932,19 @@ const expandingBrackets: LessonContent = {
       "B",
       ["-6x - 8", "-6x + 8", "6x - 8", "6x + 8"],
       "-2 × 3x = -6x and -2 × (-4) = +8.",
-      "-2(3x - 4) = \\;?"
+      ""
     ),
     answer(
       "y8-alg-exp-m6",
       "Expand and collect: 2(x + 3) + 4x.",
-      "2(x + 3) + 4x = \\;?",
+      "",
       "6x + 6",
       "2x + 6 + 4x = 6x + 6."
     ),
     answer(
       "y8-alg-exp-m7",
       "Expand 7(x - 2).",
-      "7(x - 2) = \\;?",
+      "",
       "7x - 14",
       "7 × x = 7x and 7 × (-2) = -14."
     ),
@@ -963,14 +963,14 @@ const expandingBrackets: LessonContent = {
     answer(
       "y8-alg-exp-m9",
       "Expand -3(2x - 5).",
-      "-3(2x - 5) = \\;?",
+      "",
       "-6x + 15",
       "-3 × 2x = -6x and -3 × (-5) = +15."
     ),
     answer(
       "y8-alg-exp-m10",
       "Expand and collect: 4(x + 2) - 3(x + 1).",
-      "4(x + 2) - 3(x + 1) = \\;?",
+      "",
       "x + 5",
       "4x + 8 - 3x - 3 = x + 5."
     ),
@@ -1048,7 +1048,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-g2",
       "Solve x + 6 = 14.",
-      "x + 6 = 14,\\quad x = \\;?",
+      "",
       "8",
       "14 - 6 = 8.",
       ["x = 8"]
@@ -1056,7 +1056,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-g3",
       "Solve 5x = 35.",
-      "5x = 35,\\quad x = \\;?",
+      "",
       "7",
       "35 ÷ 5 = 7.",
       ["x = 7"]
@@ -1064,7 +1064,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-g4",
       "Solve x - 3 = 9.",
-      "x - 3 = 9,\\quad x = \\;?",
+      "",
       "12",
       "9 + 3 = 12.",
       ["x = 12"]
@@ -1074,7 +1074,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-i1",
       "Solve x + 11 = 20.",
-      "x + 11 = 20,\\quad x = \\;?",
+      "",
       "9",
       "20 - 11 = 9.",
       ["x = 9"]
@@ -1090,7 +1090,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-i3",
       "Solve x ÷ 4 = 5.",
-      "x \\div 4 = 5,\\quad x = \\;?",
+      "",
       "20",
       "5 × 4 = 20.",
       ["x = 20"]
@@ -1098,7 +1098,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-i4",
       "Solve 7x = 56.",
-      "7x = 56,\\quad x = \\;?",
+      "",
       "8",
       "56 ÷ 7 = 8.",
       ["x = 8"]
@@ -1138,7 +1138,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-m1",
       "Solve x + 5 = 13.",
-      "x + 5 = 13,\\quad x = \\;?",
+      "",
       "8",
       "13 - 5 = 8.",
       ["x = 8"]
@@ -1146,7 +1146,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-m2",
       "Solve x - 7 = 4.",
-      "x - 7 = 4,\\quad x = \\;?",
+      "",
       "11",
       "4 + 7 = 11.",
       ["x = 11"]
@@ -1166,7 +1166,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-m4",
       "Solve 9x = 72.",
-      "9x = 72,\\quad x = \\;?",
+      "",
       "8",
       "72 ÷ 9 = 8.",
       ["x = 8"]
@@ -1174,7 +1174,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-m5",
       "Solve x + 15 = 24.",
-      "x + 15 = 24,\\quad x = \\;?",
+      "",
       "9",
       "24 - 15 = 9.",
       ["x = 9"]
@@ -1185,12 +1185,12 @@ const solvingOneStep: LessonContent = {
       "C",
       ["5", "2", "35", "12"],
       "Multiply both sides by 5: x = 7 × 5 = 35.",
-      "x \\div 5 = 7,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-alg-1eq-m7",
       "Solve x - 12 = 8.",
-      "x - 12 = 8,\\quad x = \\;?",
+      "",
       "20",
       "8 + 12 = 20.",
       ["x = 20"]
@@ -1205,7 +1205,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-m9",
       "Solve 8x = 40.",
-      "8x = 40,\\quad x = \\;?",
+      "",
       "5",
       "40 ÷ 8 = 5.",
       ["x = 5"]
@@ -1213,7 +1213,7 @@ const solvingOneStep: LessonContent = {
     answer(
       "y8-alg-1eq-m10",
       "Solve x ÷ 3 = 9.",
-      "x \\div 3 = 9,\\quad x = \\;?",
+      "",
       "27",
       "9 × 3 = 27.",
       ["x = 27"]
@@ -1293,7 +1293,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-g2",
       "Solve 2x + 1 = 9.",
-      "2x + 1 = 9,\\quad x = \\;?",
+      "",
       "4",
       "2x = 8, then x = 4.",
       ["x = 4"]
@@ -1301,7 +1301,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-g3",
       "Solve 4x - 3 = 13.",
-      "4x - 3 = 13,\\quad x = \\;?",
+      "",
       "4",
       "4x = 16, then x = 4.",
       ["x = 4"]
@@ -1309,7 +1309,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-g4",
       "Solve x/3 + 2 = 7.",
-      "\\frac{x}{3} + 2 = 7,\\quad x = \\;?",
+      "",
       "15",
       "x/3 = 5, then x = 15.",
       ["x = 15"]
@@ -1319,7 +1319,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-i1",
       "Solve 3x + 4 = 19.",
-      "3x + 4 = 19,\\quad x = \\;?",
+      "",
       "5",
       "3x = 15, then x = 5.",
       ["x = 5"]
@@ -1330,12 +1330,12 @@ const solvingTwoStep: LessonContent = {
       "C",
       ["x = 1", "x = 3", "x = 5", "x = 25"],
       "5x = 25, then x = 5.",
-      "5x - 10 = 15,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-alg-2eq-i3",
       "Solve 2x - 7 = 11.",
-      "2x - 7 = 11,\\quad x = \\;?",
+      "",
       "9",
       "2x = 18, then x = 9.",
       ["x = 9"]
@@ -1343,7 +1343,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-i4",
       "Solve x/5 + 3 = 8.",
-      "\\frac{x}{5} + 3 = 8,\\quad x = \\;?",
+      "",
       "25",
       "x/5 = 5, then x = 25.",
       ["x = 25"]
@@ -1383,7 +1383,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-m1",
       "Solve 2x + 5 = 17.",
-      "2x + 5 = 17,\\quad x = \\;?",
+      "",
       "6",
       "2x = 12, then x = 6.",
       ["x = 6"]
@@ -1391,7 +1391,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-m2",
       "Solve 3x - 6 = 12.",
-      "3x - 6 = 12,\\quad x = \\;?",
+      "",
       "6",
       "3x = 18, then x = 6.",
       ["x = 6"]
@@ -1402,12 +1402,12 @@ const solvingTwoStep: LessonContent = {
       "B",
       ["x = 6.5", "x = 5", "x = 26", "x = 20"],
       "4x = 20, then x = 5.",
-      "4x + 3 = 23,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-alg-2eq-m4",
       "Solve 5x - 4 = 21.",
-      "5x - 4 = 21,\\quad x = \\;?",
+      "",
       "5",
       "5x = 25, then x = 5.",
       ["x = 5"]
@@ -1415,7 +1415,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-m5",
       "Solve x/4 + 1 = 6.",
-      "\\frac{x}{4} + 1 = 6,\\quad x = \\;?",
+      "",
       "20",
       "x/4 = 5, then x = 20.",
       ["x = 20"]
@@ -1435,7 +1435,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-m7",
       "Solve 7x + 2 = 30.",
-      "7x + 2 = 30,\\quad x = \\;?",
+      "",
       "4",
       "7x = 28, then x = 4.",
       ["x = 4"]
@@ -1450,7 +1450,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-m9",
       "Solve 2x - 3 = 15.",
-      "2x - 3 = 15,\\quad x = \\;?",
+      "",
       "9",
       "2x = 18, then x = 9.",
       ["x = 9"]
@@ -1458,7 +1458,7 @@ const solvingTwoStep: LessonContent = {
     answer(
       "y8-alg-2eq-m10",
       "Solve x/6 - 2 = 4.",
-      "\\frac{x}{6} - 2 = 4,\\quad x = \\;?",
+      "",
       "36",
       "x/6 = 6, then x = 36.",
       ["x = 36"]

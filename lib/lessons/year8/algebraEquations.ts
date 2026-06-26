@@ -155,7 +155,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-g2",
       "Solve x + 9 = 15.",
-      "x + 9 = 15,\\quad x = \\;?",
+      "",
       "6",
       "Subtract 9 from both sides: x = 15 − 9 = 6.",
       "Subtract 9 from both sides to remove the 9 from the left side.",
@@ -164,7 +164,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-g3",
       "Solve 8x = 48.",
-      "8x = 48,\\quad x = \\;?",
+      "",
       "6",
       "Divide both sides by 8: x = 48 ÷ 8 = 6.",
       "Divide both sides by 8 to undo the multiplication.",
@@ -173,7 +173,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-g4",
       "Solve x − 4 = 11.",
-      "x - 4 = 11,\\quad x = \\;?",
+      "",
       "15",
       "Add 4 to both sides: x = 11 + 4 = 15.",
       "Add 4 to both sides to undo the subtraction.",
@@ -184,7 +184,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-i1",
       "Solve x ÷ 6 = 4.",
-      "x \\div 6 = 4,\\quad x = \\;?",
+      "",
       "24",
       "Multiply both sides by 6: x = 4 × 6 = 24.",
       "The inverse of dividing by 6 is multiplying by 6.",
@@ -193,7 +193,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-i2",
       "Solve x + 17 = 30.",
-      "x + 17 = 30,\\quad x = \\;?",
+      "",
       "13",
       "Subtract 17 from both sides: x = 30 − 17 = 13.",
       "Undo the addition by subtracting 17 from both sides.",
@@ -202,7 +202,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-i3",
       "Solve 9x = 63.",
-      "9x = 63,\\quad x = \\;?",
+      "",
       "7",
       "Divide both sides by 9: x = 63 ÷ 9 = 7.",
       "Undo the multiplication by dividing both sides by 9.",
@@ -224,7 +224,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-i5",
       "Solve x − 13 = 7.",
-      "x - 13 = 7,\\quad x = \\;?",
+      "",
       "20",
       "Add 13 to both sides: x = 7 + 13 = 20.",
       "Undo the subtraction by adding 13 to both sides.",
@@ -253,7 +253,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-m1",
       "Solve x + 8 = 23.",
-      "x + 8 = 23,\\quad x = \\;?",
+      "",
       "15",
       "Subtract 8 from both sides: x = 23 − 8 = 15.",
       "Subtract the constant from both sides.",
@@ -262,7 +262,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-m2",
       "Solve 6x = 54.",
-      "6x = 54,\\quad x = \\;?",
+      "",
       "9",
       "Divide both sides by 6: x = 54 ÷ 6 = 9.",
       "Divide both sides by the coefficient.",
@@ -275,12 +275,12 @@ const solvingOneStepEquations: LessonContent = {
       ["$x = 9$", "$x = 24$", "$x = 81$", "$x = 8$"],
       "Divide both sides by 3: x = 27 ÷ 3 = 9.",
       "Divide both sides by 3.",
-      "3x = 27,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-1eq-m4",
       "Solve x − 6 = 18.",
-      "x - 6 = 18,\\quad x = \\;?",
+      "",
       "24",
       "Add 6 to both sides: x = 18 + 6 = 24.",
       "Add the constant to both sides.",
@@ -289,7 +289,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-m5",
       "Solve x ÷ 7 = 8.",
-      "x \\div 7 = 8,\\quad x = \\;?",
+      "",
       "56",
       "Multiply both sides by 7: x = 8 × 7 = 56.",
       "Multiply both sides by the divisor.",
@@ -311,7 +311,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-m7",
       "Solve 11x = 77.",
-      "11x = 77,\\quad x = \\;?",
+      "",
       "7",
       "Divide both sides by 11: x = 77 ÷ 11 = 7.",
       "Divide both sides by the coefficient of x.",
@@ -320,7 +320,7 @@ const solvingOneStepEquations: LessonContent = {
     answer(
       "y8-aeq-1eq-m8",
       "Solve x + 25 = 40.",
-      "x + 25 = 40,\\quad x = \\;?",
+      "",
       "15",
       "Subtract 25 from both sides: x = 40 − 25 = 15.",
       "Subtract 25 from both sides.",
@@ -333,12 +333,12 @@ const solvingOneStepEquations: LessonContent = {
       ["$x = 45$", "$x = 14$", "$x = 4$", "$x = 1.8$"],
       "Multiply both sides by 9: x = 5 × 9 = 45.",
       "The inverse of dividing by 9 is multiplying by 9.",
-      "x \\div 9 = 5,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-1eq-m10",
       "Solve x − 15 = 19.",
-      "x - 15 = 19,\\quad x = \\;?",
+      "",
       "34",
       "Add 15 to both sides: x = 19 + 15 = 34.",
       "Add the constant to both sides.",
@@ -441,7 +441,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-g2",
       "Solve 4x + 3 = 23.",
-      "4x + 3 = 23,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 3 from both sides: 4x = 20. Divide by 4: x = 5.",
       "Subtract 3 from both sides first, then divide by 4.",
@@ -450,7 +450,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-g3",
       "Solve 3x − 9 = 6.",
-      "3x - 9 = 6,\\quad x = \\;?",
+      "",
       "5",
       "Add 9 to both sides: 3x = 15. Divide by 3: x = 5.",
       "Add 9 to both sides first, then divide by 3.",
@@ -459,7 +459,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-g4",
       "Solve x/5 + 2 = 6.",
-      "\\dfrac{x}{5} + 2 = 6,\\quad x = \\;?",
+      "",
       "20",
       "Subtract 2 from both sides: x/5 = 4. Multiply by 5: x = 20.",
       "Subtract 2 from both sides first, then multiply by 5.",
@@ -470,7 +470,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-i1",
       "Solve 2x + 9 = 21.",
-      "2x + 9 = 21,\\quad x = \\;?",
+      "",
       "6",
       "Subtract 9 from both sides: 2x = 12. Divide by 2: x = 6.",
       "Undo the constant term first, then undo the coefficient.",
@@ -479,7 +479,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-i2",
       "Solve 6x − 5 = 25.",
-      "6x - 5 = 25,\\quad x = \\;?",
+      "",
       "5",
       "Add 5 to both sides: 6x = 30. Divide by 6: x = 5.",
       "Undo the subtraction first, then divide by 6.",
@@ -488,7 +488,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-i3",
       "Solve x/3 + 6 = 10.",
-      "\\dfrac{x}{3} + 6 = 10,\\quad x = \\;?",
+      "",
       "12",
       "Subtract 6 from both sides: x/3 = 4. Multiply by 3: x = 12.",
       "Subtract 6 first, then multiply both sides by 3.",
@@ -501,12 +501,12 @@ const solvingTwoStepEquations: LessonContent = {
       ["$x = 1.5$", "$x = 3$", "$x = 5$", "$x = 20$"],
       "Add 7 to both sides: 4x = 20. Divide by 4: x = 5.",
       "Undo the subtraction first, then undo the multiplication.",
-      "4x - 7 = 13,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-2eq-i5",
       "Solve 7x + 4 = 39.",
-      "7x + 4 = 39,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 4 from both sides: 7x = 35. Divide by 7: x = 5.",
       "Subtract 4 first, then divide by 7.",
@@ -535,7 +535,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-m1",
       "Solve 3x + 8 = 29.",
-      "3x + 8 = 29,\\quad x = \\;?",
+      "",
       "7",
       "Subtract 8: 3x = 21. Divide by 3: x = 7.",
       "Subtract 8 from both sides, then divide by 3.",
@@ -544,7 +544,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-m2",
       "Solve 5x − 12 = 18.",
-      "5x - 12 = 18,\\quad x = \\;?",
+      "",
       "6",
       "Add 12: 5x = 30. Divide by 5: x = 6.",
       "Add 12 to both sides, then divide by 5.",
@@ -557,12 +557,12 @@ const solvingTwoStepEquations: LessonContent = {
       ["$x = 18$", "$x = 7$", "$x = 4$", "$x = 12$"],
       "Subtract 11: 2x = 14. Divide by 2: x = 7.",
       "Subtract 11 first, then divide by 2.",
-      "2x + 11 = 25,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-2eq-m4",
       "Solve x/6 + 4 = 9.",
-      "\\dfrac{x}{6} + 4 = 9,\\quad x = \\;?",
+      "",
       "30",
       "Subtract 4: x/6 = 5. Multiply by 6: x = 30.",
       "Subtract 4 from both sides, then multiply by 6.",
@@ -571,7 +571,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-m5",
       "Solve 8x − 3 = 45.",
-      "8x - 3 = 45,\\quad x = \\;?",
+      "",
       "6",
       "Add 3: 8x = 48. Divide by 8: x = 6.",
       "Add 3 to both sides, then divide by 8.",
@@ -593,7 +593,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-m7",
       "Solve 9x + 7 = 52.",
-      "9x + 7 = 52,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 7: 9x = 45. Divide by 9: x = 5.",
       "Subtract 7 from both sides, then divide by 9.",
@@ -602,7 +602,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-m8",
       "Solve 4x − 15 = 1.",
-      "4x - 15 = 1,\\quad x = \\;?",
+      "",
       "4",
       "Add 15: 4x = 16. Divide by 4: x = 4.",
       "Add 15 to both sides, then divide by 4.",
@@ -624,7 +624,7 @@ const solvingTwoStepEquations: LessonContent = {
     answer(
       "y8-aeq-2eq-m10",
       "Solve x/2 + 7 = 15.",
-      "\\dfrac{x}{2} + 7 = 15,\\quad x = \\;?",
+      "",
       "16",
       "Subtract 7: x/2 = 8. Multiply by 2: x = 16.",
       "Subtract 7 from both sides, then multiply by 2.",
@@ -731,7 +731,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-g2",
       "Solve 2(x + 5) = 18.",
-      "2(x + 5) = 18,\\quad x = \\;?",
+      "",
       "4",
       "Expand: 2x + 10 = 18. Subtract 10: 2x = 8. Divide by 2: x = 4.",
       "Expand the bracket first: 2 × x and 2 × 5.",
@@ -740,7 +740,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-g3",
       "Solve 3(x − 2) = 15.",
-      "3(x - 2) = 15,\\quad x = \\;?",
+      "",
       "7",
       "Expand: 3x − 6 = 15. Add 6: 3x = 21. Divide by 3: x = 7.",
       "Expand first: 3 × x = 3x and 3 × (−2) = −6.",
@@ -749,7 +749,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-g4",
       "Solve 4(2x + 1) = 20.",
-      "4(2x + 1) = 20,\\quad x = \\;?",
+      "",
       "2",
       "Expand: 8x + 4 = 20. Subtract 4: 8x = 16. Divide by 8: x = 2.",
       "Expand first: 4 × 2x = 8x and 4 × 1 = 4.",
@@ -760,7 +760,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-i1",
       "Solve 5(x + 3) = 35.",
-      "5(x + 3) = 35,\\quad x = \\;?",
+      "",
       "4",
       "Expand: 5x + 15 = 35. Subtract 15: 5x = 20. Divide by 5: x = 4.",
       "Expand the bracket, then solve the two-step equation.",
@@ -769,7 +769,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-i2",
       "Solve 2(3x − 4) = 16.",
-      "2(3x - 4) = 16,\\quad x = \\;?",
+      "",
       "4",
       "Expand: 6x − 8 = 16. Add 8: 6x = 24. Divide by 6: x = 4.",
       "Expand first: 2 × 3x = 6x and 2 × (−4) = −8.",
@@ -778,7 +778,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-i3",
       "Solve 6(x + 1) = 42.",
-      "6(x + 1) = 42,\\quad x = \\;?",
+      "",
       "6",
       "Expand: 6x + 6 = 42. Subtract 6: 6x = 36. Divide by 6: x = 6.",
       "Expand or divide both sides by 6 first.",
@@ -791,12 +791,12 @@ const equationsWithBrackets: LessonContent = {
       ["$x = 0$", "$x = 3$", "$x = 6$", "$x = 15$"],
       "Expand: 4x − 12 = 12. Add 12: 4x = 24. Divide by 4: x = 6.",
       "Expand the bracket, then solve the resulting equation.",
-      "4(x - 3) = 12,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-bkt-i5",
       "Solve 3(2x + 5) = 33.",
-      "3(2x + 5) = 33,\\quad x = \\;?",
+      "",
       "3",
       "Expand: 6x + 15 = 33. Subtract 15: 6x = 18. Divide by 6: x = 3.",
       "Multiply 3 by each term inside the bracket, then solve.",
@@ -825,7 +825,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-m1",
       "Solve 2(x + 7) = 26.",
-      "2(x + 7) = 26,\\quad x = \\;?",
+      "",
       "6",
       "Expand: 2x + 14 = 26. Subtract 14: 2x = 12. Divide by 2: x = 6.",
       "Expand the bracket, then solve.",
@@ -834,7 +834,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-m2",
       "Solve 5(x − 4) = 25.",
-      "5(x - 4) = 25,\\quad x = \\;?",
+      "",
       "9",
       "Expand: 5x − 20 = 25. Add 20: 5x = 45. Divide by 5: x = 9.",
       "Expand the bracket, then solve the two-step equation.",
@@ -847,12 +847,12 @@ const equationsWithBrackets: LessonContent = {
       ["$x = 8$", "$x = 4$", "$x = 16$", "$x = 12$"],
       "Expand: 3x + 18 = 30. Subtract 18: 3x = 12. Divide by 3: x = 4.",
       "Expand the bracket first, then apply inverse operations.",
-      "3(x + 6) = 30,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-bkt-m4",
       "Solve 4(3x − 2) = 28.",
-      "4(3x - 2) = 28,\\quad x = \\;?",
+      "",
       "3",
       "Expand: 12x − 8 = 28. Add 8: 12x = 36. Divide by 12: x = 3.",
       "Expand first: 4 × 3x = 12x and 4 × (−2) = −8.",
@@ -861,7 +861,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-m5",
       "Solve 2(5x + 1) = 32.",
-      "2(5x + 1) = 32,\\quad x = \\;?",
+      "",
       "3",
       "Expand: 10x + 2 = 32. Subtract 2: 10x = 30. Divide by 10: x = 3.",
       "Expand first: 2 × 5x = 10x and 2 × 1 = 2.",
@@ -883,7 +883,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-m7",
       "Solve 7(x − 3) = 28.",
-      "7(x - 3) = 28,\\quad x = \\;?",
+      "",
       "7",
       "Expand: 7x − 21 = 28. Add 21: 7x = 49. Divide by 7: x = 7.",
       "Expand first, then solve the resulting equation.",
@@ -892,7 +892,7 @@ const equationsWithBrackets: LessonContent = {
     answer(
       "y8-aeq-bkt-m8",
       "Solve 6(2x + 3) = 54.",
-      "6(2x + 3) = 54,\\quad x = \\;?",
+      "",
       "3",
       "Expand: 12x + 18 = 54. Subtract 18: 12x = 36. Divide by 12: x = 3.",
       "Expand first: 6 × 2x = 12x and 6 × 3 = 18.",
@@ -905,12 +905,12 @@ const equationsWithBrackets: LessonContent = {
       ["$x = 5$", "$x = 2.5$", "$x = 10$", "$x = 7.5$"],
       "Expand: 8x − 10 = 30. Add 10: 8x = 40. Divide by 8: x = 5.",
       "Expand the bracket, then solve.",
-      "2(4x - 5) = 30,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-bkt-m10",
       "Solve 5(x + 4) = 55.",
-      "5(x + 4) = 55,\\quad x = \\;?",
+      "",
       "7",
       "Expand: 5x + 20 = 55. Subtract 20: 5x = 35. Divide by 5: x = 7.",
       "Expand the bracket, then solve the two-step equation.",
@@ -1017,7 +1017,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-g2",
       "Solve 6x = 2x + 16.",
-      "6x = 2x + 16,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 2x from both sides: 4x = 16. Divide by 4: x = 4.",
       "Subtract 2x from both sides to collect x terms on the left.",
@@ -1026,7 +1026,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-g3",
       "Solve 4x + 3 = x + 12.",
-      "4x + 3 = x + 12,\\quad x = \\;?",
+      "",
       "3",
       "Subtract x: 3x + 3 = 12. Subtract 3: 3x = 9. Divide by 3: x = 3.",
       "Subtract x from both sides first, then subtract the constant.",
@@ -1035,7 +1035,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-g4",
       "Solve 5x − 2 = 2x + 10.",
-      "5x - 2 = 2x + 10,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 2x: 3x − 2 = 10. Add 2: 3x = 12. Divide by 3: x = 4.",
       "Subtract 2x from both sides, then deal with the constant.",
@@ -1046,7 +1046,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-i1",
       "Solve 7x = 3x + 20.",
-      "7x = 3x + 20,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 3x from both sides: 4x = 20. Divide by 4: x = 5.",
       "Collect x terms on one side by subtracting 3x from both sides.",
@@ -1055,7 +1055,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-i2",
       "Solve 6x + 1 = 4x + 9.",
-      "6x + 1 = 4x + 9,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 4x: 2x + 1 = 9. Subtract 1: 2x = 8. Divide by 2: x = 4.",
       "Subtract 4x from both sides, then move the constant.",
@@ -1064,7 +1064,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-i3",
       "Solve 8x − 3 = 5x + 9.",
-      "8x - 3 = 5x + 9,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 5x: 3x − 3 = 9. Add 3: 3x = 12. Divide by 3: x = 4.",
       "Subtract 5x from both sides, then solve the resulting equation.",
@@ -1077,12 +1077,12 @@ const equationsPronumeralsBothSides: LessonContent = {
       ["$x = 2$", "$x = 3$", "$x = 4$", "$x = 6$"],
       "Subtract 3x: 10 = 4x − 2. Add 2: 12 = 4x. Divide by 4: x = 3.",
       "Move all x terms to one side and all constants to the other.",
-      "3x + 10 = 7x - 2,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-pvb-i5",
       "Solve 9x − 5 = 6x + 7.",
-      "9x - 5 = 6x + 7,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 6x: 3x − 5 = 7. Add 5: 3x = 12. Divide by 3: x = 4.",
       "Subtract 6x from both sides, then solve.",
@@ -1111,7 +1111,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-m1",
       "Solve 5x = x + 20.",
-      "5x = x + 20,\\quad x = \\;?",
+      "",
       "5",
       "Subtract x from both sides: 4x = 20. Divide by 4: x = 5.",
       "Subtract x from both sides.",
@@ -1120,7 +1120,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-m2",
       "Solve 7x + 4 = 3x + 16.",
-      "7x + 4 = 3x + 16,\\quad x = \\;?",
+      "",
       "3",
       "Subtract 3x: 4x + 4 = 16. Subtract 4: 4x = 12. Divide by 4: x = 3.",
       "Subtract 3x from both sides, then solve.",
@@ -1133,12 +1133,12 @@ const equationsPronumeralsBothSides: LessonContent = {
       ["$x = 3$", "$x = 4$", "$x = 6$", "$x = 8$"],
       "Subtract 2x: 4x − 2 = 14. Add 2: 4x = 16. Divide by 4: x = 4.",
       "Collect variable terms on one side first.",
-      "6x - 2 = 2x + 14,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-pvb-m4",
       "Solve 4x + 9 = x + 18.",
-      "4x + 9 = x + 18,\\quad x = \\;?",
+      "",
       "3",
       "Subtract x: 3x + 9 = 18. Subtract 9: 3x = 9. Divide by 3: x = 3.",
       "Subtract x from both sides, then subtract the constant.",
@@ -1147,7 +1147,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-m5",
       "Solve 10x = 4x + 24.",
-      "10x = 4x + 24,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 4x from both sides: 6x = 24. Divide by 6: x = 4.",
       "Subtract 4x from both sides.",
@@ -1169,7 +1169,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-m7",
       "Solve 3x + 15 = 8x.",
-      "3x + 15 = 8x,\\quad x = \\;?",
+      "",
       "3",
       "Subtract 3x from both sides: 15 = 5x. Divide by 5: x = 3.",
       "Collect x terms on the right by subtracting 3x from both sides.",
@@ -1178,7 +1178,7 @@ const equationsPronumeralsBothSides: LessonContent = {
     answer(
       "y8-aeq-pvb-m8",
       "Solve 9x − 7 = 5x + 13.",
-      "9x - 7 = 5x + 13,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 5x: 4x − 7 = 13. Add 7: 4x = 20. Divide by 4: x = 5.",
       "Subtract 5x from both sides, then solve the two-step equation.",
@@ -1191,12 +1191,12 @@ const equationsPronumeralsBothSides: LessonContent = {
       ["$x = 1$", "$x = 3$", "$x = 5$", "$x = 9$"],
       "Subtract x: 3x + 3 = 12. Subtract 3: 3x = 9. Divide by 3: x = 3.",
       "Collect x terms on one side by subtracting x from both sides.",
-      "4x + 3 = x + 12,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-pvb-m10",
       "Solve 6x + 1 = 2x + 21.",
-      "6x + 1 = 2x + 21,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 2x: 4x + 1 = 21. Subtract 1: 4x = 20. Divide by 4: x = 5.",
       "Subtract 2x from both sides, then solve.",
@@ -1307,7 +1307,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-g2",
       "A number plus 8 equals 23. Find the number.",
-      "x + 8 = 23,\\quad x = \\;?",
+      "",
       "15",
       "Let x be the number. x + 8 = 23. Subtract 8: x = 15. Check: 15 + 8 = 23. ✓",
       "Write the equation x + 8 = 23, then subtract 8 from both sides.",
@@ -1316,7 +1316,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-g3",
       "Four times a number equals 32. Find the number.",
-      "4x = 32,\\quad x = \\;?",
+      "",
       "8",
       "Let x be the number. 4x = 32. Divide by 4: x = 8. Check: 4 × 8 = 32. ✓",
       "Write 4x = 32, then divide both sides by 4.",
@@ -1325,7 +1325,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-g4",
       "Three times a number minus 4 equals 11. Find the number.",
-      "3x - 4 = 11,\\quad x = \\;?",
+      "",
       "5",
       "Let x be the number. 3x − 4 = 11. Add 4: 3x = 15. Divide by 3: x = 5. Check: 3(5) − 4 = 11. ✓",
       "Write 3x − 4 = 11, then add 4 to both sides, then divide by 3.",
@@ -1422,7 +1422,7 @@ const formingEquationsWordProblems: LessonContent = {
       ["$x = 31$", "$x = 5$", "$x = 6.2$", "$x = 25$"],
       "Subtract 3: 5x = 25. Divide by 5: x = 5.",
       "Solve the equation using inverse operations.",
-      "5x + 3 = 28,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-wrd-m4",
@@ -1596,7 +1596,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-g2",
       "Substitute x = 4 into 3x − 5. Write the result.",
-      "3x - 5 = \\;?\\text{ when }x = 4",
+      "",
       "7",
       "3(4) − 5 = 12 − 5 = 7.",
       "Replace x with 4: calculate 3 × 4 first, then subtract 5.",
@@ -1618,7 +1618,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-g4",
       "Solve 4x + 2 = 18.",
-      "4x + 2 = 18,\\quad x = \\;?",
+      "",
       "4",
       "Subtract 2 from both sides: 4x = 16. Divide by 4: x = 4. Check: 4(4) + 2 = 18. ✓",
       "Subtract 2 from both sides first, then divide by 4.",
@@ -1629,7 +1629,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-i1",
       "Substitute x = 6 into 2x − 4. Write the result.",
-      "2x - 4 = \\;?\\text{ when }x = 6",
+      "",
       "8",
       "2(6) − 4 = 12 − 4 = 8.",
       "Replace x with 6: multiply first, then subtract.",
@@ -1646,7 +1646,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-i3",
       "Substitute x = 5 into 5x + 8. Write the result.",
-      "5x + 8 = \\;?\\text{ when }x = 5",
+      "",
       "33",
       "5(5) + 8 = 25 + 8 = 33.",
       "Replace x with 5: calculate 5 × 5 first, then add 8.",
@@ -1655,7 +1655,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-i4",
       "Solve 3(x + 4) = 33.",
-      "3(x + 4) = 33,\\quad x = \\;?",
+      "",
       "7",
       "Expand: 3x + 12 = 33. Subtract 12: 3x = 21. Divide by 3: x = 7.",
       "Expand the bracket first, then solve the two-step equation.",
@@ -1664,7 +1664,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-i5",
       "Substitute x = 7 into 4x. Write the result.",
-      "4x = \\;?\\text{ when }x = 7",
+      "",
       "28",
       "4 × 7 = 28.",
       "Replace x with 7 and multiply.",
@@ -1693,7 +1693,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-m1",
       "Solve 6x − 5 = 31.",
-      "6x - 5 = 31,\\quad x = \\;?",
+      "",
       "6",
       "Add 5 to both sides: 6x = 36. Divide by 6: x = 6. Check: 6(6) − 5 = 31. ✓",
       "Add 5 to both sides first, then divide by 6.",
@@ -1715,7 +1715,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-m3",
       "Substitute x = 4 into 2(x + 3). Write the result.",
-      "2(x + 3) = \\;?\\text{ when }x = 4",
+      "",
       "14",
       "Substitute: 2(4 + 3) = 2 × 7 = 14.",
       "Replace x with 4 inside the bracket first, then multiply.",
@@ -1724,7 +1724,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-m4",
       "Solve 5(x − 2) = 15.",
-      "5(x - 2) = 15,\\quad x = \\;?",
+      "",
       "5",
       "Expand: 5x − 10 = 15. Add 10: 5x = 25. Divide by 5: x = 5. Check: 5(5 − 2) = 5 × 3 = 15. ✓",
       "Expand the bracket, then solve the two-step equation.",
@@ -1733,7 +1733,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-m5",
       "Substitute x = 6 into 7x. Write the result.",
-      "7x = \\;?\\text{ when }x = 6",
+      "",
       "42",
       "7 × 6 = 42.",
       "Replace x with 6 and multiply.",
@@ -1746,12 +1746,12 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
       ["$x = 4$", "$x = 7$", "$x = 12$", "$x = 2$"],
       "Expand: 6x − 2 = 22. Add 2: 6x = 24. Divide by 6: x = 4.",
       "Expand the bracket first, then solve.",
-      "2(3x - 1) = 22,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-chk-m7",
       "Solve 8x − 3 = 5x + 12.",
-      "8x - 3 = 5x + 12,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 5x: 3x − 3 = 12. Add 3: 3x = 15. Divide by 3: x = 5.",
       "Collect variable terms first by subtracting 5x from both sides.",
@@ -1768,7 +1768,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-m9",
       "Solve 4(2x + 3) = 44.",
-      "4(2x + 3) = 44,\\quad x = \\;?",
+      "",
       "4",
       "Expand: 8x + 12 = 44. Subtract 12: 8x = 32. Divide by 8: x = 4. Check: 4(2(4) + 3) = 4 × 11 = 44. ✓",
       "Expand the bracket first: 4 × 2x = 8x and 4 × 3 = 12.",
@@ -1777,7 +1777,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
     answer(
       "y8-aeq-chk-m10",
       "Solve 6x + 7 = 3x + 22.",
-      "6x + 7 = 3x + 22,\\quad x = \\;?",
+      "",
       "5",
       "Subtract 3x: 3x + 7 = 22. Subtract 7: 3x = 15. Divide by 3: x = 5. Check: 6(5) + 7 = 37 = 3(5) + 22. ✓",
       "Collect variable terms on one side by subtracting 3x from both sides.",
@@ -1882,7 +1882,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-g2",
       "Solve x + 6 > 10.",
-      "x + 6 > 10,\\quad x > \\;?",
+      "",
       "4",
       "Subtract 6 from both sides: x > 10 − 6, so x > 4.",
       "Subtract 6 from both sides to isolate x.",
@@ -1891,7 +1891,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-g3",
       "Solve 2x ≤ 16.",
-      "2x \\leq 16,\\quad x \\leq \\;?",
+      "",
       "8",
       "Divide both sides by 2 (positive, so sign stays): x ≤ 8.",
       "Divide both sides by 2. The sign stays the same because 2 is positive.",
@@ -1900,7 +1900,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-g4",
       "Solve 3x − 4 ≥ 11.",
-      "3x - 4 \\geq 11,\\quad x \\geq \\;?",
+      "",
       "5",
       "Add 4 to both sides: 3x ≥ 15. Divide by 3: x ≥ 5.",
       "Add 4 to both sides first, then divide by 3.",
@@ -1911,7 +1911,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-i1",
       "Solve x − 9 < 2.",
-      "x - 9 < 2,\\quad x < \\;?",
+      "",
       "11",
       "Add 9 to both sides: x < 2 + 9 = 11.",
       "Add 9 to both sides to isolate x.",
@@ -1920,7 +1920,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-i2",
       "Solve 5x > 30.",
-      "5x > 30,\\quad x > \\;?",
+      "",
       "6",
       "Divide both sides by 5: x > 30 ÷ 5 = 6.",
       "Divide both sides by 5. The sign stays the same because 5 is positive.",
@@ -1929,7 +1929,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-i3",
       "Solve 4x + 3 ≤ 19.",
-      "4x + 3 \\leq 19,\\quad x \\leq \\;?",
+      "",
       "4",
       "Subtract 3 from both sides: 4x ≤ 16. Divide by 4: x ≤ 4.",
       "Subtract 3 first, then divide by 4.",
@@ -1947,12 +1947,12 @@ const linearInequalities: LessonContent = {
       ],
       "Divide both sides by −3. Dividing by a negative reverses the sign: x > 12 ÷ (−3) = −4.",
       "Dividing by a negative number reverses the inequality sign.",
-      "-3x < 12,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-ine-i5",
       "Solve 2x − 7 ≥ 1.",
-      "2x - 7 \\geq 1,\\quad x \\geq \\;?",
+      "",
       "4",
       "Add 7 to both sides: 2x ≥ 8. Divide by 2: x ≥ 4.",
       "Add 7 to both sides first, then divide by 2.",
@@ -1999,12 +1999,12 @@ const linearInequalities: LessonContent = {
       ],
       "Multiply both sides by −1 (or divide by −1); the sign reverses: x < −4.",
       "Multiplying or dividing by a negative number reverses the inequality sign.",
-      "-x > 4,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-ine-m3",
       "Solve x + 11 ≥ 20.",
-      "x + 11 \\geq 20,\\quad x \\geq \\;?",
+      "",
       "9",
       "Subtract 11 from both sides: x ≥ 20 − 11 = 9.",
       "Subtract 11 from both sides.",
@@ -2013,7 +2013,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m4",
       "Solve 6x < 42.",
-      "6x < 42,\\quad x < \\;?",
+      "",
       "7",
       "Divide both sides by 6: x < 42 ÷ 6 = 7.",
       "Divide both sides by 6. The sign stays the same.",
@@ -2022,7 +2022,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m5",
       "Solve 5x − 3 > 17.",
-      "5x - 3 > 17,\\quad x > \\;?",
+      "",
       "4",
       "Add 3 to both sides: 5x > 20. Divide by 5: x > 4.",
       "Add 3 to both sides first, then divide by 5.",
@@ -2031,7 +2031,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m6",
       "Solve −2x ≥ 10.",
-      "-2x \\geq 10,\\quad x \\leq \\;?",
+      "",
       "-5",
       "Divide both sides by −2 and reverse the sign: x ≤ 10 ÷ (−2) = −5.",
       "Dividing by a negative reverses the sign — ≥ becomes ≤.",
@@ -2040,7 +2040,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m7",
       "Solve 4x + 6 ≤ 26.",
-      "4x + 6 \\leq 26,\\quad x \\leq \\;?",
+      "",
       "5",
       "Subtract 6: 4x ≤ 20. Divide by 4: x ≤ 5.",
       "Subtract 6 from both sides first, then divide by 4.",
@@ -2049,7 +2049,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m8",
       "Solve 7 − x < 3.",
-      "7 - x < 3,\\quad x > \\;?",
+      "",
       "4",
       "Subtract 7 from both sides: −x < −4. Multiply both sides by −1 and reverse the sign: x > 4.",
       "After subtracting 7, you will have −x on the left. Multiplying by −1 reverses the sign.",
@@ -2058,7 +2058,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m9",
       "Solve 3x + 9 > 3.",
-      "3x + 9 > 3,\\quad x > \\;?",
+      "",
       "-2",
       "Subtract 9: 3x > −6. Divide by 3: x > −2.",
       "Subtract 9 from both sides first, then divide by 3.",
@@ -2067,7 +2067,7 @@ const linearInequalities: LessonContent = {
     answer(
       "y8-aeq-ine-m10",
       "Solve 2x − 5 ≥ −1.",
-      "2x - 5 \\geq -1,\\quad x \\geq \\;?",
+      "",
       "2",
       "Add 5 to both sides: 2x ≥ 4. Divide by 2: x ≥ 2.",
       "Add 5 to both sides first, then divide by 2.",
@@ -2181,7 +2181,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-g3",
       "A hall can hold at most 150 people. There are already 87 people inside. Write and solve an inequality for the number of additional people, n, that can enter.",
-      "87 + n \\leq 150,\\quad n \\leq \\;?",
+      "",
       "63",
       "87 + n ≤ 150. Subtract 87 from both sides: n ≤ 63.",
       "Write 87 + n ≤ 150, then subtract 87 from both sides.",
@@ -2210,7 +2210,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-i2",
       "A student needs at least 65 marks to pass a test worth 80 marks. She has already scored 48 marks on the first part. Find the minimum marks m she must score on the second part.",
-      "48 + m \\geq 65,\\quad m \\geq \\;?",
+      "",
       "17",
       "48 + m ≥ 65. Subtract 48: m ≥ 17.",
       "Write 48 + m ≥ 65, then subtract 48 from both sides.",
@@ -2241,7 +2241,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-i5",
       "A plumber charges $50 call-out fee plus $40 per hour. Find the maximum number of hours h he can work if the total cost must not exceed $250.",
-      "50 + 40h \\leq 250,\\quad h \\leq \\;?",
+      "",
       "5",
       "50 + 40h ≤ 250. Subtract 50: 40h ≤ 200. Divide by 40: h ≤ 5.",
       "Write 50 + 40h ≤ 250, subtract 50, then divide by 40.",
@@ -2288,7 +2288,7 @@ const inequalityProblemSolving: LessonContent = {
       ],
       "Divide both sides by −5 and reverse the sign: x < 20 ÷ (−5) = −4.",
       "Dividing by a negative reverses the inequality sign.",
-      "-5x > 20,\\quad x = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-ips-m3",
@@ -2302,7 +2302,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m4",
       "A phone plan costs $20 per month plus $0.10 per text message. Find the maximum number of texts t you can send if your budget is $35 per month.",
-      "20 + 0.10t \\leq 35,\\quad t \\leq \\;?",
+      "",
       "150",
       "20 + 0.10t ≤ 35. Subtract 20: 0.10t ≤ 15. Divide by 0.10: t ≤ 150.",
       "Write 20 + 0.10t ≤ 35, subtract 20, then divide by 0.10.",
@@ -2320,7 +2320,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m6",
       "A driver must travel at least 180 km in 3 hours. Write and solve an inequality for the minimum average speed s in km/h.",
-      "3s \\geq 180,\\quad s \\geq \\;?",
+      "",
       "60",
       "3s ≥ 180. Divide by 3: s ≥ 60.",
       "Write 3s ≥ 180, then divide both sides by 3.",
@@ -2338,7 +2338,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m8",
       "A school hall has 400 seats. At least 320 must be filled for the event to proceed. Write and solve an inequality for the number of empty seats e.",
-      "400 - e \\geq 320,\\quad e \\leq \\;?",
+      "",
       "80",
       "400 − e ≥ 320. Subtract 400 from both sides: −e ≥ −80. Multiply by −1 and reverse: e ≤ 80.",
       "Write 400 − e ≥ 320, then subtract 400 and remember to reverse the sign when multiplying by −1.",
@@ -2356,7 +2356,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m10",
       "A ticket costs $12. A group wants to spend less than $100 on tickets. Find the maximum number of tickets n the group can buy.",
-      "12n < 100,\\quad n < \\;?",
+      "",
       "8",
       "12n < 100. Divide by 12: n < 8.33... Since n must be a whole number, n ≤ 8.",
       "Write 12n < 100, divide by 12, then consider that the number of tickets must be a whole number.",
@@ -2457,7 +2457,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-g2",
       "Make x the subject of y = 3x + 7.",
-      "y = 3x + 7,\\quad x = \\;?",
+      "",
       "(y - 7) / 3",
       "Subtract 7 from both sides: y − 7 = 3x. Divide by 3: x = (y − 7)/3.",
       "Undo the +7 first (subtract 7), then undo the ×3 (divide by 3).",
@@ -2466,7 +2466,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-g3",
       "Make r the subject of A = πr². Take the positive root only.",
-      "A = \\pi r^2,\\quad r = \\;?",
+      "",
       "sqrt(A/pi)",
       "Divide both sides by π: A/π = r². Take the positive square root: r = √(A/π).",
       "Divide both sides by π first to isolate r², then take the positive square root.",
@@ -2486,7 +2486,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-i1",
       "Make u the subject of v = u + at.",
-      "v = u + at,\\quad u = \\;?",
+      "",
       "v - at",
       "Subtract at from both sides: u = v − at.",
       "at is added to u, so subtract at from both sides.",
@@ -2508,7 +2508,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-i3",
       "Make h the subject of A = ½bh.",
-      "A = \\tfrac{1}{2}bh,\\quad h = \\;?",
+      "",
       "2A / b",
       "Multiply both sides by 2: 2A = bh. Divide both sides by b: h = 2A/b.",
       "Multiply both sides by 2 to clear the fraction, then divide by b.",
@@ -2517,7 +2517,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-i4",
       "Make R the subject of I = V/R.",
-      "I = \\dfrac{V}{R},\\quad R = \\;?",
+      "",
       "V / I",
       "Multiply both sides by R: IR = V. Divide both sides by I: R = V/I.",
       "Multiply both sides by R first to get R out of the denominator, then divide by I.",
@@ -2560,7 +2560,7 @@ const formulaRearrangement: LessonContent = {
       ],
       "Subtract u²: v² − u² = 2as. Divide by 2s: a = (v² − u²)/(2s).",
       "Subtract u² from both sides first, then divide by 2s.",
-      "v^2 = u^2 + 2as,\\quad a = \\;?"
+      ""
     ),
     choice(
       "y8-aeq-frm-m2",
@@ -2574,12 +2574,12 @@ const formulaRearrangement: LessonContent = {
       ],
       "Multiply both sides by 9/5: (9/5)C = F − 32. Add 32: F = 9C/5 + 32.",
       "Multiply both sides by 9/5 to remove the fraction, then add 32.",
-      "C = \\dfrac{5}{9}(F - 32),\\quad F = \\;?"
+      ""
     ),
     answer(
       "y8-aeq-frm-m3",
       "Make b the subject of A = lb.",
-      "A = lb,\\quad b = \\;?",
+      "",
       "A / l",
       "Divide both sides by l: b = A/l.",
       "l is multiplied by b, so divide both sides by l.",
@@ -2588,7 +2588,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m4",
       "Make t the subject of s = d/t.",
-      "s = \\dfrac{d}{t},\\quad t = \\;?",
+      "",
       "d / s",
       "Multiply both sides by t: st = d. Divide by s: t = d/s.",
       "Multiply both sides by t to remove it from the denominator, then divide by s.",
@@ -2597,7 +2597,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m5",
       "Make s the subject of v² = u² + 2as.",
-      "v^2 = u^2 + 2as,\\quad s = \\;?",
+      "",
       "(v^2 - u^2) / (2a)",
       "Subtract u²: v² − u² = 2as. Divide by 2a: s = (v² − u²)/(2a).",
       "Subtract u² from both sides, then divide by 2a.",
@@ -2606,7 +2606,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m6",
       "Make r the subject of I = Prn (simple interest). P, n are constants.",
-      "I = Prn,\\quad r = \\;?",
+      "",
       "I / (Pn)",
       "Divide both sides by Pn: r = I/(Pn).",
       "r is multiplied by P and n, so divide both sides by Pn.",
@@ -2615,7 +2615,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m7",
       "Make x the subject of y = 5x − 3.",
-      "y = 5x - 3,\\quad x = \\;?",
+      "",
       "(y + 3) / 5",
       "Add 3 to both sides: y + 3 = 5x. Divide by 5: x = (y + 3)/5.",
       "Add 3 to both sides first, then divide by 5.",
@@ -2633,7 +2633,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m9",
       "Make u the subject of v² = u² + 2as. Take the positive root only.",
-      "v^2 = u^2 + 2as,\\quad u = \\;?",
+      "",
       "sqrt(v^2 - 2as)",
       "Subtract 2as from both sides: u² = v² − 2as. Take the positive square root: u = √(v² − 2as).",
       "Subtract 2as from both sides to isolate u², then take the positive square root.",

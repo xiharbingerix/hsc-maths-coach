@@ -2742,14 +2742,14 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-g3",
       "Sorted data: 2, 4, 6, 8, 10. Q2 = 6. The lower half (excluding Q2) is 2, 4. Find Q1.",
-      "Q_1 = \\frac{2 + 4}{2}",
+      "",
       "3",
       "Lower half: 2, 4 (two values). Q1 = (2 + 4) ÷ 2 = 3."
     ),
     answer(
       "y8-dat-qrt-g4",
       "Q1 = 3, Q3 = 9. Find the IQR.",
-      "\\text{IQR} = Q_3 - Q_1 = 9 - 3",
+      "",
       "6",
       "IQR = Q3 − Q1 = 9 − 3 = 6."
     ),
@@ -2758,21 +2758,21 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-i1",
       "Sorted data: 1, 3, 5, 7, 9, 11. Find Q2 (the median).",
-      "Q_2 = \\frac{5 + 7}{2}",
+      "",
       "6",
       "6 values → median is the average of 3rd and 4th values: (5 + 7) ÷ 2 = 6."
     ),
     answer(
       "y8-dat-qrt-i2",
       "Sorted data: 1, 3, 5, 7, 9, 11. The lower half is 1, 3, 5. Find Q1.",
-      "Q_1 = \\text{median of } 1,\\; 3,\\; 5",
+      "",
       "3",
       "Lower half: 1, 3, 5. The middle value is 3. Q1 = 3."
     ),
     answer(
       "y8-dat-qrt-i3",
       "Sorted data: 1, 3, 5, 7, 9, 11. Q1 = 3, Q3 = 9. Find the IQR.",
-      "\\text{IQR} = 9 - 3",
+      "",
       "6",
       "IQR = Q3 − Q1 = 9 − 3 = 6."
     ),
@@ -2791,7 +2791,7 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-i5",
       "Sorted data: 4, 8, 12, 16, 20, 24, 28 (7 values). Find the IQR.",
-      "Q_1 = 8,\\; Q_3 = 24,\\; \\text{IQR} = Q_3 - Q_1",
+      "",
       "16",
       "Q2 = 16 (4th value). Lower half: 4, 8, 12 → Q1 = 8. Upper half: 20, 24, 28 → Q3 = 24. IQR = 24 − 8 = 16."
     ),
@@ -2839,7 +2839,7 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-m4",
       "Q1 = 7.5, Q3 = 22.5. Find the IQR.",
-      "\\text{IQR} = 22.5 - 7.5",
+      "",
       "15",
       "IQR = Q3 − Q1 = 22.5 − 7.5 = 15."
     ),
@@ -2858,14 +2858,14 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-m6",
       "Sorted data: 2, 6, 8, 14, 18, 22 (6 values). Find the IQR.",
-      "Q_1 = 6,\\; Q_3 = 18,\\; \\text{IQR} = 18 - 6",
+      "",
       "12",
       "Lower half: 2, 6, 8 → Q1 = 6. Upper half: 14, 18, 22 → Q3 = 18. IQR = 18 − 6 = 12."
     ),
     answer(
       "y8-dat-qrt-m7",
       "Sorted data: 3, 7, 11, 15, 19, 23, 27 (7 values). Find the IQR.",
-      "Q_1 = 7,\\; Q_3 = 23,\\; \\text{IQR} = 23 - 7",
+      "",
       "16",
       "Q2 = 15 (4th). Lower half: 3, 7, 11 → Q1 = 7. Upper half: 19, 23, 27 → Q3 = 23. IQR = 23 − 7 = 16."
     ),
@@ -2884,14 +2884,14 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-m9",
       "Sorted data: 10, 14, 18, 22, 26, 30, 34, 38 (8 values). Find the IQR.",
-      "Q_1 = 16,\\; Q_3 = 32,\\; \\text{IQR} = 32 - 16",
+      "",
       "16",
       "Lower half: 10, 14, 18, 22 → Q1 = (14 + 18) ÷ 2 = 16. Upper half: 26, 30, 34, 38 → Q3 = (30 + 34) ÷ 2 = 32. IQR = 32 − 16 = 16."
     ),
     answer(
       "y8-dat-qrt-m10",
       "Q1 = 12 and IQR = 8. Find Q3.",
-      "Q_3 = Q_1 + \\text{IQR} = 12 + 8",
+      "",
       "20",
       "IQR = Q3 − Q1, so Q3 = Q1 + IQR = 12 + 8 = 20."
     ),
@@ -2942,7 +2942,7 @@ const quartilesAndIQR: LessonContent = {
        "The range covers only the middle 50%."],
       "The IQR spans Q1 to Q3 (middle 50%); the range spans min to max (all values).", 3),
     poolAnswer("y8-dat-qrt-p18", "Q3 = 30 and IQR = 12. Find Q1.",
-      "Q_1 = Q_3 - \\text{IQR} = 30 - 12", "18", "Q1 = Q3 - IQR = 30 - 12 = 18.", 3),
+      "", "18", "Q1 = Q3 - IQR = 30 - 12 = 18.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-qrt-p19", "Sorted data: 5, 9, 13, 17, 21, 25, 29, 33 (8 values). Find the IQR.",
       "Q_3 - Q_1", "16", "Lower half: 5,9,13,17 → Q1 = (9+13)/2 = 11. Upper half: 21,25,29,33 → Q3 = (25+29)/2 = 27. IQR = 27 - 11 = 16.", 4),
@@ -4276,14 +4276,14 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-g3",
       "A box plot has its box drawn from 8 to 20. What is the IQR?",
-      "\\text{IQR} = Q_3 - Q_1 = 20 - 8",
+      "",
       "12",
       "The left edge of the box is Q1 = 8 and the right edge is Q3 = 20. IQR = 20 − 8 = 12."
     ),
     answer(
       "y8-dat-bxp-g4",
       "A box plot shows: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. What is the range?",
-      "\\text{Range} = \\text{Max} - \\text{Min} = 21 - 5",
+      "",
       "16",
       "Range = maximum − minimum = 21 − 5 = 16."
     ),
@@ -4306,7 +4306,7 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-i3",
       "A box plot shows: Q1 = 5 and Q3 = 21. Find the IQR.",
-      "\\text{IQR} = 21 - 5",
+      "",
       "16",
       "IQR = Q3 − Q1 = 21 − 5 = 16."
     ),
@@ -4325,7 +4325,7 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-i5",
       "A box plot has: Min = 10, Q1 = 14, Median = 18, Q3 = 22, Max = 26. Find the IQR and the range.",
-      "\\text{IQR} = 22 - 14,\\quad \\text{Range} = 26 - 10",
+      "",
       "8 and 16",
       "IQR = Q3 − Q1 = 22 − 14 = 8. Range = Max − Min = 26 − 10 = 16.",
       ["IQR = 8, Range = 16", "IQR=8 Range=16"]
@@ -4381,7 +4381,7 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-m5",
       "Q1 = 8, Q3 = 20. Find the IQR.",
-      "\\text{IQR} = 20 - 8",
+      "",
       "12",
       "IQR = Q3 − Q1 = 20 − 8 = 12."
     ),
@@ -4416,7 +4416,7 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-m10",
       "A box plot has: Q1 = 9.5, Q3 = 21.5. Calculate the IQR.",
-      "\\text{IQR} = 21.5 - 9.5",
+      "",
       "12",
       "IQR = Q3 − Q1 = 21.5 − 9.5 = 12."
     ),
