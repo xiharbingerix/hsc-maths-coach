@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "../../../../../lib/adminSession";
+import { normaliseMultiFilter } from "../../../../../lib/questionExportFilters";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 
 type Choice = { label: string; text: string; [key: string]: unknown };
@@ -146,8 +147,8 @@ export async function GET(request: NextRequest) {
 
   const sp = request.nextUrl.searchParams;
   const filterCourse = sp.get("course") ?? "";
-  const filterTopic = sp.get("topic") ?? "";
-  const filterSubtopic = sp.get("subtopic") ?? "";
+  const filterTopics = normaliseMultiFilter(sp.getAll("topic"));
+  const filterSubtopics = normaliseMultiFilter(sp.getAll("subtopic"));
   const filterDiffs = (sp.get("diff") ?? "")
     .split(",")
     .map(Number)
@@ -155,31 +156,37 @@ export async function GET(request: NextRequest) {
   const filterQ = sp.get("q")?.trim().toLowerCase() ?? "";
   const activeOnly = sp.get("active") !== "0";
 
-  let query = supabaseAdmin
-    .from("questions")
-    .select(
-      "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, question_type, prompt, latex, choices, answer, accepted_answers, hint, explanation, syllabus_ref, question_parts"
-    )
-    .order("course_slug")
-    .order("topic_slug")
-    .order("subtopic_slug")
-    .order("difficulty")
-    .order("source_id")
-    .limit(2000);
+  const pageSize = 1000;
+  let questions: QuestionRow[] = [];
 
-  if (activeOnly) query = query.eq("is_active", true);
-  if (filterCourse) query = query.eq("course_slug", filterCourse);
-  if (filterTopic) query = query.eq("topic_slug", filterTopic);
-  if (filterSubtopic) query = query.eq("subtopic_slug", filterSubtopic);
-  if (filterDiffs.length > 0) query = query.in("difficulty", filterDiffs);
+  for (let from = 0; ; from += pageSize) {
+    let query = supabaseAdmin
+      .from("questions")
+      .select(
+        "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, question_type, prompt, latex, choices, answer, accepted_answers, hint, explanation, syllabus_ref, question_parts"
+      )
+      .order("course_slug")
+      .order("topic_slug")
+      .order("subtopic_slug")
+      .order("difficulty")
+      .order("source_id")
+      .range(from, from + pageSize - 1);
 
-  const { data, error } = await query;
+    if (activeOnly) query = query.eq("is_active", true);
+    if (filterCourse) query = query.eq("course_slug", filterCourse);
+    if (filterTopics.length > 0) query = query.in("topic_slug", filterTopics);
+    if (filterSubtopics.length > 0) query = query.in("subtopic_slug", filterSubtopics);
+    if (filterDiffs.length > 0) query = query.in("difficulty", filterDiffs);
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const { data, error } = await query;
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const page = (data as QuestionRow[] | null) ?? [];
+    questions.push(...page);
+    if (page.length < pageSize) break;
   }
-
-  let questions = (data as QuestionRow[]) ?? [];
 
   if (filterQ) {
     questions = questions.filter(
@@ -191,14 +198,16 @@ export async function GET(request: NextRequest) {
 
   const filters: Record<string, string> = {};
   if (filterCourse) filters.course = filterCourse;
-  if (filterTopic) filters.topic = filterTopic;
-  if (filterSubtopic) filters.subtopic = filterSubtopic;
+  if (filterTopics.length > 0) filters.topic = filterTopics.map(prettify).join(", ");
+  if (filterSubtopics.length > 0) {
+    filters.subtopic = filterSubtopics.map(prettify).join(", ");
+  }
   if (filterDiffs.length > 0) filters.diff = filterDiffs.map((d) => `D${d}`).join(", ");
   if (filterQ) filters.q = filterQ;
 
   const md = toMd(questions, filters);
 
-  const slugPart = filterCourse || filterSubtopic || "all";
+  const slugPart = filterCourse || filterSubtopics[0] || filterTopics[0] || "all";
   const filename = `questions-${slugPart}-${new Date().toISOString().slice(0, 10)}.md`;
 
   return new NextResponse(md, {

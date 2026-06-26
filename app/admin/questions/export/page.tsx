@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../../lib/adminSession";
+import { normaliseMultiFilter } from "../../../../lib/questionExportFilters";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import { ExportClient, type ExportQuestion } from "./ExportClient";
 
@@ -25,7 +26,7 @@ function prettify(slug: string) {
 }
 
 async function fetchDistinctQuestionFieldValues(
-  filters: { course?: string; topic?: string; activeOnly?: boolean },
+  filters: { course?: string; topics?: string[]; activeOnly?: boolean },
   field: "topic_slug" | "subtopic_slug"
 ) {
   const values = new Set<string>();
@@ -40,7 +41,7 @@ async function fetchDistinctQuestionFieldValues(
 
     if (filters.activeOnly ?? true) query = query.eq("is_active", true);
     if (filters.course) query = query.eq("course_slug", filters.course);
-    if (filters.topic) query = query.eq("topic_slug", filters.topic);
+    if (filters.topics?.length) query = query.in("topic_slug", filters.topics);
 
     const { data, error } = await query;
     if (error) throw error;
@@ -62,8 +63,8 @@ export default async function AdminQuestionExportPage({
 }: {
   searchParams: Promise<{
     course?: string;
-    topic?: string;
-    subtopic?: string;
+    topic?: string | string[];
+    subtopic?: string | string[];
     diff?: string | string[];
     q?: string;
     active?: string | string[];
@@ -73,8 +74,8 @@ export default async function AdminQuestionExportPage({
 
   const params = await searchParams;
   const filterCourse = params.course?.trim() ?? "";
-  const filterTopic = params.topic?.trim() ?? "";
-  const filterSubtopic = params.subtopic?.trim() ?? "";
+  const filterTopics = normaliseMultiFilter(params.topic);
+  const filterSubtopics = normaliseMultiFilter(params.subtopic);
 
   // diff can be a single string or array (repeated ?diff=3&diff=5)
   const rawDiffs = Array.isArray(params.diff)
@@ -110,8 +111,8 @@ export default async function AdminQuestionExportPage({
 
   if (activeOnly) query = query.eq("is_active", true);
   if (filterCourse) query = query.eq("course_slug", filterCourse);
-  if (filterTopic) query = query.eq("topic_slug", filterTopic);
-  if (filterSubtopic) query = query.eq("subtopic_slug", filterSubtopic);
+  if (filterTopics.length > 0) query = query.in("topic_slug", filterTopics);
+  if (filterSubtopics.length > 0) query = query.in("subtopic_slug", filterSubtopics);
   if (filterDiffs.length > 0) query = query.in("difficulty", filterDiffs);
 
   const { data, error } = await query.limit(500);
@@ -127,13 +128,17 @@ export default async function AdminQuestionExportPage({
   }
 
   const hasFilters =
-    filterCourse || filterTopic || filterSubtopic || filterDiffs.length > 0 || filterQ;
+    filterCourse ||
+    filterTopics.length > 0 ||
+    filterSubtopics.length > 0 ||
+    filterDiffs.length > 0 ||
+    filterQ;
 
   // Build matching URL for the markdown download API route
   const mdParams = new URLSearchParams();
   if (filterCourse) mdParams.set("course", filterCourse);
-  if (filterTopic) mdParams.set("topic", filterTopic);
-  if (filterSubtopic) mdParams.set("subtopic", filterSubtopic);
+  for (const topic of filterTopics) mdParams.append("topic", topic);
+  for (const subtopic of filterSubtopics) mdParams.append("subtopic", subtopic);
   if (filterDiffs.length > 0) mdParams.set("diff", filterDiffs.join(","));
   if (filterQ) mdParams.set("q", filterQ);
   if (!activeOnly) mdParams.set("active", "0");
@@ -148,13 +153,12 @@ export default async function AdminQuestionExportPage({
       )
     : [];
 
-  const uniqueSubtopics =
-    filterCourse && filterTopic
-      ? await fetchDistinctQuestionFieldValues(
-          { course: filterCourse, topic: filterTopic, activeOnly: true },
-          "subtopic_slug"
-        )
-      : [];
+  const uniqueSubtopics = filterCourse
+    ? await fetchDistinctQuestionFieldValues(
+        { course: filterCourse, topics: filterTopics, activeOnly: true },
+        "subtopic_slug"
+      )
+    : [];
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -204,59 +208,69 @@ export default async function AdminQuestionExportPage({
               </select>
             </div>
 
-            {/* Topic */}
+            {/* Topics */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Topic
+                Topics
               </label>
               {uniqueTopics.length > 0 ? (
-                <select
-                  name="topic"
-                  defaultValue={filterTopic}
-                  className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-slate-400 focus:outline-none"
-                >
-                  <option value="">All topics</option>
+                <div className="max-h-40 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-2">
                   {uniqueTopics.map((slug) => (
-                    <option key={slug} value={slug}>
-                      {prettify(slug)}
-                    </option>
+                    <label
+                      key={slug}
+                      className="flex cursor-pointer items-start gap-2 rounded px-2 py-1.5 text-sm text-slate-700 hover:bg-white"
+                    >
+                      <input
+                        type="checkbox"
+                        name="topic"
+                        value={slug}
+                        defaultChecked={filterTopics.includes(slug)}
+                        className="mt-0.5 size-4 shrink-0 accent-slate-900"
+                      />
+                      <span>{prettify(slug)}</span>
+                    </label>
                   ))}
-                </select>
+                </div>
               ) : (
                 <input
                   type="text"
                   name="topic"
-                  defaultValue={filterTopic}
-                  placeholder="e.g. differential-calculus"
+                  defaultValue={filterTopics.join(", ")}
+                  placeholder="Comma-separated topic slugs"
                   className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-slate-400 focus:outline-none"
                 />
               )}
             </div>
 
-            {/* Subtopic */}
+            {/* Subtopics */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Subtopic
+                Subtopics
               </label>
               {uniqueSubtopics.length > 0 ? (
-                <select
-                  name="subtopic"
-                  defaultValue={filterSubtopic}
-                  className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 focus:border-slate-400 focus:outline-none"
-                >
-                  <option value="">All subtopics</option>
+                <div className="max-h-40 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50 p-2">
                   {uniqueSubtopics.map((slug) => (
-                    <option key={slug} value={slug}>
-                      {prettify(slug)}
-                    </option>
+                    <label
+                      key={slug}
+                      className="flex cursor-pointer items-start gap-2 rounded px-2 py-1.5 text-sm text-slate-700 hover:bg-white"
+                    >
+                      <input
+                        type="checkbox"
+                        name="subtopic"
+                        value={slug}
+                        defaultChecked={filterSubtopics.includes(slug)}
+                        className="mt-0.5 size-4 shrink-0 accent-slate-900"
+                      />
+                      <span>{prettify(slug)}</span>
+                    </label>
                   ))}
-                </select>
+                </div>
               ) : (
                 <input
                   type="text"
                   name="subtopic"
-                  defaultValue={filterSubtopic}
-                  placeholder="e.g. stationary-points"
+                  defaultValue={filterSubtopics.join(", ")}
+                  placeholder="Comma-separated subtopic slugs"
                   className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-slate-400 focus:outline-none"
                 />
               )}
