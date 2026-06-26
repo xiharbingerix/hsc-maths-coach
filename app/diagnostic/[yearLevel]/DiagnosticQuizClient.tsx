@@ -144,24 +144,26 @@ export function DiagnosticQuizClient({
     [answers, questions]
   );
 
+  // Fire analytics events once when results phase begins.
   useEffect(() => {
-    if (phase !== "results" || saveAttemptedRef.current) return;
-    saveAttemptedRef.current = true;
+    if (phase !== "results" || completedTrackedRef.current) return;
+    completedTrackedRef.current = true;
+    clientTrackEvent("diagnostic_completed", {
+      yearLevel,
+      totalCorrect,
+      totalQuestions,
+      ...ctaExperimentProps(),
+      ...readMarketingParams(),
+    });
+    trackDiagnosticCompleted();
+  }, [phase, yearLevel, totalCorrect, totalQuestions]);
 
-    if (!completedTrackedRef.current) {
-      completedTrackedRef.current = true;
-      clientTrackEvent("diagnostic_completed", {
-        yearLevel,
-        totalCorrect,
-        totalQuestions,
-        ...ctaExperimentProps(),
-        ...readMarketingParams(),
-      });
-      trackDiagnosticCompleted();
-    }
+  // Save results whenever we have a logged-in user and haven't saved yet.
+  // Runs on initial results load AND when isLoggedIn transitions to true
+  // (e.g. user logs in on another tab while still viewing their results).
+  useEffect(() => {
+    if (phase !== "results" || saved || isLoggedIn !== true) return;
 
-    // Only studied units are persisted because saved diagnostic results feed
-    // recommendations on the dashboard and in the admin view.
     const resultsSnapshot = studiedUnitResults.map((u) => ({
       unitSlug: u.slug,
       unitTitle: u.title,
@@ -169,12 +171,11 @@ export function DiagnosticQuizClient({
       total: u.total,
     }));
 
-    async function checkAndSave() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setIsLoggedIn(!!user);
-      if (!user) return;
+    async function doSave() {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData.session?.user;
+      const token = sessionData.session?.access_token;
+      if (!user || !token) return;
 
       const { error } = await supabase.from("diagnostic_results").insert({
         user_id: user.id,
@@ -184,11 +185,6 @@ export function DiagnosticQuizClient({
 
       if (error) setSaveError(error.message);
       else setSaved(true);
-
-      // Seed student_mastery from diagnostic answers — fire-and-forget.
-      const { data: sessionData } = await supabase.auth.getSession();
-      const token = sessionData.session?.access_token;
-      if (!token) return;
 
       const sourceId = crypto.randomUUID();
       const events = questions
@@ -212,22 +208,33 @@ export function DiagnosticQuizClient({
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ courseSlug: yearLevel, sourceId, events }),
-      }).catch(() => {
-        // Mastery recording failure never affects the student's results.
-      });
+      }).catch(() => {});
     }
 
-    void checkAndSave();
+    void doSave();
   }, [
-    answers,
     phase,
+    saved,
+    isLoggedIn,
+    answers,
     questions,
     studiedUnitResults,
     studiedUnitSlugSet,
-    totalCorrect,
-    totalQuestions,
     yearLevel,
   ]);
+
+  // Detect auth state — including cross-tab login while on the results page.
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setIsLoggedIn(!!user);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session?.user);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   function toggleStudiedUnit(unitSlug: string) {
     setStudiedUnitSlugs((current) =>
@@ -638,12 +645,17 @@ export function DiagnosticQuizClient({
                 <p className="text-sm text-slate-700">
                   Log in to save your results and track progress over time.
                 </p>
-                <Link
+                <a
                   href={`/login?returnTo=/diagnostic/${yearLevel}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700"
                 >
                   Log in to save results
-                </Link>
+                </a>
+                <p className="text-xs text-slate-400">
+                  Opens in a new tab so you don&rsquo;t lose your results.
+                </p>
               </div>
             )}
             {isLoggedIn === null && !saved && (
