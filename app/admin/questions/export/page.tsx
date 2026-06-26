@@ -96,6 +96,16 @@ export default async function AdminQuestionExportPage({
   const hasFilters =
     filterCourse || filterTopic || filterSubtopic || filterDiffs.length > 0 || filterQ;
 
+  // Build matching URL for the markdown download API route
+  const mdParams = new URLSearchParams();
+  if (filterCourse) mdParams.set("course", filterCourse);
+  if (filterTopic) mdParams.set("topic", filterTopic);
+  if (filterSubtopic) mdParams.set("subtopic", filterSubtopic);
+  if (filterDiffs.length > 0) mdParams.set("diff", filterDiffs.join(","));
+  if (filterQ) mdParams.set("q", filterQ);
+  if (!activeOnly) mdParams.set("active", "0");
+  const downloadUrl = `/api/admin/questions/export-md${mdParams.size > 0 ? `?${mdParams.toString()}` : ""}`;
+
   // ── Topic options (only relevant if course is selected) ────────────────────
 
   const { data: topicData } = filterCourse
@@ -308,7 +318,7 @@ export default async function AdminQuestionExportPage({
 
         {/* ── Question cards + print controls ───────────────────────────────── */}
         {hasFilters || questions.length > 0 ? (
-          <ExportClient questions={questions} />
+          <ExportClient questions={questions} downloadUrl={downloadUrl} />
         ) : (
           <div className="no-print rounded-2xl border border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
             Use the filters above to select questions to export.

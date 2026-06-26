@@ -52,7 +52,13 @@ function diagramDataToProps(data: Record<string, unknown>): Record<string, unkno
   return { [field]: rest };
 }
 
-export function ExportClient({ questions }: { questions: ExportQuestion[] }) {
+export function ExportClient({
+  questions,
+  downloadUrl,
+}: {
+  questions: ExportQuestion[];
+  downloadUrl: string;
+}) {
   const [showAnswers, setShowAnswers] = useState(false);
 
   return (
@@ -82,6 +88,13 @@ export function ExportClient({ questions }: { questions: ExportQuestion[] }) {
         >
           Print / Save PDF
         </button>
+        <a
+          href={downloadUrl}
+          download
+          className="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+        >
+          Download .md
+        </a>
         <button
           onClick={() => setShowAnswers((v) => !v)}
           className={`rounded-xl border px-5 py-2.5 text-sm font-semibold transition ${
