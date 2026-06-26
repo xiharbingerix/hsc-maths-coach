@@ -137,7 +137,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-g2",
       "Evaluate $-8 + 3$.",
-      "-8 + 3 = \\;?",
+      "",
       "-5",
       "Start at $-8$ on the number line and move 3 to the right: $-8 + 3 = -5$.",
       "Start at $-8$ on the number line and move right by 3.",
@@ -146,7 +146,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-g3",
       "Evaluate $4 - (-6)$.",
-      "4 - (-6) = \\;?",
+      "",
       "10",
       "Subtracting a negative is the same as adding: $4 - (-6) = 4 + 6 = 10$.",
       "Change the double negative to addition: $4 - (-6) = 4 + 6$.",
@@ -154,7 +154,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-g4",
       "Evaluate $(-5) \\times (-3)$.",
-      "(-5) \\times (-3) = \\;?",
+      "",
       "15",
       "Same signs (both negative) give a positive result: $(-5) \\times (-3) = 15$.",
       "Identify the signs first — same signs give a positive answer.",
@@ -164,7 +164,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-i1",
       "Evaluate $-12 + 7$.",
-      "-12 + 7 = \\;?",
+      "",
       "-5",
       "Moving 7 to the right from $-12$ gives $-5$.",
       "Move right on the number line from $-12$.",
@@ -173,7 +173,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-i2",
       "Evaluate $3 - (-9)$.",
-      "3 - (-9) = \\;?",
+      "",
       "12",
       "$3 - (-9) = 3 + 9 = 12$.",
       "A subtraction of a negative becomes addition.",
@@ -181,7 +181,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-i3",
       "Evaluate $(-7) \\times 5$.",
-      "(-7) \\times 5 = \\;?",
+      "",
       "-35",
       "Different signs give a negative result: $7 \\times 5 = 35$, so $(-7) \\times 5 = -35$.",
       "Different signs produce a negative answer.",
@@ -190,7 +190,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-i4",
       "Evaluate $(-18) \\div (-3)$.",
-      "(-18) \\div (-3) = \\;?",
+      "",
       "6",
       "Same signs give a positive result: $18 \\div 3 = 6$, so $(-18) \\div (-3) = 6$.",
       "Same signs produce a positive answer.",
@@ -226,7 +226,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m1",
       "Evaluate $-9 + 14$.",
-      "-9 + 14 = \\;?",
+      "",
       "5",
       "$-9 + 14 = 5$. Moving 14 to the right from $-9$ lands at 5.",
       "Move right on the number line.",
@@ -234,7 +234,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m2",
       "Evaluate $-6 - (-10)$.",
-      "-6 - (-10) = \\;?",
+      "",
       "4",
       "$-6 - (-10) = -6 + 10 = 4$.",
       "Convert the double negative to addition.",
@@ -255,7 +255,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m4",
       "Evaluate $(-4) \\times (-9)$.",
-      "(-4) \\times (-9) = \\;?",
+      "",
       "36",
       "Same signs give a positive result: $4 \\times 9 = 36$.",
       "Same signs produce a positive answer.",
@@ -263,7 +263,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m5",
       "Evaluate $(-24) \\div 6$.",
-      "(-24) \\div 6 = \\;?",
+      "",
       "-4",
       "Different signs give a negative result: $24 \\div 6 = 4$, so $(-24) \\div 6 = -4$.",
       "Different signs produce a negative answer.",
@@ -272,7 +272,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m6",
       "A submarine is at $-45$ m and rises $18$ m. Find its new depth.",
-      "\\text{New depth} = -45 + 18 = \\;?",
+      "",
       "-27",
       "$-45 + 18 = -27$. The submarine is now at $-27$ m.",
       "Rising means adding a positive value to the current depth.",
@@ -289,7 +289,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m8",
       "Evaluate $2 - 11$.",
-      "2 - 11 = \\;?",
+      "",
       "-9",
       "Subtracting a larger number from a smaller one gives a negative result: $2 - 11 = -9$.",
       "The result is negative when you subtract a larger number from a smaller one.",
@@ -298,7 +298,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m9",
       "Evaluate $(-5) \\times 3 \\times (-2)$.",
-      "(-5) \\times 3 \\times (-2) = \\;?",
+      "",
       "30",
       "$(-5) \\times 3 = -15$, then $(-15) \\times (-2) = 30$. Two negatives in the product give a positive.",
       "Work left to right, applying the sign rule at each step.",
@@ -306,7 +306,7 @@ const directedNumbers: LessonContent = {
     answer(
       "y8-nop-dn-m10",
       "The temperature falls from $2°C$ to $-11°C$. By how many degrees did it fall?",
-      "\\text{Change} = 2 - (-11) = \\;?",
+      "",
       "13",
       "Change = $2 - (-11) = 2 + 11 = 13$. The temperature fell by 13 degrees.",
       "The change in temperature is the final temperature minus the starting temperature.",
@@ -381,7 +381,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-g2",
       "Evaluate $\\frac{1}{2} + \\frac{1}{4}$.",
-      "\\frac{1}{2} + \\frac{1}{4} = \\;?",
+      "",
       "3/4",
       "$\\frac{1}{2} = \\frac{2}{4}$, so $\\frac{2}{4} + \\frac{1}{4} = \\frac{3}{4}$.",
       "Convert $\\frac{1}{2}$ to quarters so the denominators match.",
@@ -390,7 +390,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-g3",
       "Evaluate $\\frac{2}{3} \\times \\frac{3}{4}$.",
-      "\\frac{2}{3} \\times \\frac{3}{4} = \\;?",
+      "",
       "1/2",
       "$\\frac{2 \\times 3}{3 \\times 4} = \\frac{6}{12} = \\frac{1}{2}$.",
       "Multiply numerators together and denominators together, then simplify.",
@@ -399,7 +399,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-g4",
       "Convert $\\frac{3}{4}$ to a decimal.",
-      "\\frac{3}{4} = \\;?",
+      "",
       "0.75",
       "Divide the numerator by the denominator: $3 \\div 4 = 0.75$.",
       "Divide the top number by the bottom number.",
@@ -409,7 +409,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-i1",
       "Evaluate $\\frac{3}{5} - \\frac{1}{4}$.",
-      "\\frac{3}{5} - \\frac{1}{4} = \\;?",
+      "",
       "7/20",
       "LCD is 20. $\\frac{3}{5} = \\frac{12}{20}$, $\\frac{1}{4} = \\frac{5}{20}$. So $\\frac{12}{20} - \\frac{5}{20} = \\frac{7}{20}$.",
       "Find a common denominator for 5 and 4.",
@@ -418,7 +418,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-i2",
       "Evaluate $\\frac{5}{6} \\times \\frac{3}{10}$.",
-      "\\frac{5}{6} \\times \\frac{3}{10} = \\;?",
+      "",
       "1/4",
       "$\\frac{5 \\times 3}{6 \\times 10} = \\frac{15}{60} = \\frac{1}{4}$.",
       "Multiply numerators and denominators, then simplify.",
@@ -427,7 +427,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-i3",
       "Evaluate $\\frac{4}{5} \\div \\frac{2}{3}$.",
-      "\\frac{4}{5} \\div \\frac{2}{3} = \\;?",
+      "",
       "6/5",
       "Keep-change-flip: $\\frac{4}{5} \\times \\frac{3}{2} = \\frac{12}{10} = \\frac{6}{5}$.",
       "Flip the second fraction and multiply.",
@@ -444,7 +444,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-i5",
       "A recipe uses $\\frac{2}{3}$ cup of flour and $\\frac{1}{4}$ cup of sugar. How much dry ingredient is that in total?",
-      "\\frac{2}{3} + \\frac{1}{4} = \\;?",
+      "",
       "11/12",
       "LCD is 12. $\\frac{2}{3} = \\frac{8}{12}$, $\\frac{1}{4} = \\frac{3}{12}$. Total = $\\frac{11}{12}$ cup.",
       "Find a common denominator for 3 and 4.",
@@ -472,7 +472,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m1",
       "Evaluate $\\frac{2}{5} + \\frac{1}{3}$.",
-      "\\frac{2}{5} + \\frac{1}{3} = \\;?",
+      "",
       "11/15",
       "LCD is 15. $\\frac{2}{5} = \\frac{6}{15}$, $\\frac{1}{3} = \\frac{5}{15}$. Sum = $\\frac{11}{15}$.",
       "Find a common denominator for 5 and 3.",
@@ -480,7 +480,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m2",
       "Evaluate $\\frac{5}{6} - \\frac{1}{3}$.",
-      "\\frac{5}{6} - \\frac{1}{3} = \\;?",
+      "",
       "1/2",
       "LCD is 6. $\\frac{1}{3} = \\frac{2}{6}$. So $\\frac{5}{6} - \\frac{2}{6} = \\frac{3}{6} = \\frac{1}{2}$.",
       "Rewrite $\\frac{1}{3}$ with denominator 6.",
@@ -502,7 +502,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m4",
       "Evaluate $\\frac{3}{4} \\div \\frac{9}{8}$.",
-      "\\frac{3}{4} \\div \\frac{9}{8} = \\;?",
+      "",
       "2/3",
       "$\\frac{3}{4} \\times \\frac{8}{9} = \\frac{24}{36} = \\frac{2}{3}$.",
       "Flip the second fraction and multiply.",
@@ -510,7 +510,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m5",
       "Convert $\\frac{7}{8}$ to a decimal.",
-      "\\frac{7}{8} = \\;?",
+      "",
       "0.875",
       "$7 \\div 8 = 0.875$.",
       "Divide the numerator by the denominator.",
@@ -518,7 +518,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m6",
       "Evaluate $1\\frac{1}{2} \\times \\frac{2}{3}$.",
-      "1\\frac{1}{2} \\times \\frac{2}{3} = \\;?",
+      "",
       "1",
       "Convert: $1\\frac{1}{2} = \\frac{3}{2}$. Then $\\frac{3}{2} \\times \\frac{2}{3} = \\frac{6}{6} = 1$.",
       "Convert the mixed number to an improper fraction first.",
@@ -534,7 +534,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m8",
       "Evaluate $\\frac{7}{10} - \\frac{2}{5}$.",
-      "\\frac{7}{10} - \\frac{2}{5} = \\;?",
+      "",
       "3/10",
       "LCD is 10. $\\frac{2}{5} = \\frac{4}{10}$. So $\\frac{7}{10} - \\frac{4}{10} = \\frac{3}{10}$.",
       "Rewrite $\\frac{2}{5}$ with denominator 10.",
@@ -543,7 +543,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m9",
       "A length of $\\frac{3}{4}$ m is cut from a piece of rope $1\\frac{1}{2}$ m long. How much remains?",
-      "1\\frac{1}{2} - \\frac{3}{4} = \\;?",
+      "",
       "3/4",
       "$1\\frac{1}{2} = \\frac{6}{4}$. So $\\frac{6}{4} - \\frac{3}{4} = \\frac{3}{4}$ m.",
       "Convert the mixed number to quarters, then subtract.",
@@ -552,7 +552,7 @@ const fractionsAndDecimals: LessonContent = {
     answer(
       "y8-nop-frd-m10",
       "Evaluate $2\\frac{1}{3} + 1\\frac{1}{2}$.",
-      "2\\frac{1}{3} + 1\\frac{1}{2} = \\;?",
+      "",
       "23/6",
       "$2\\frac{1}{3} = \\frac{7}{3}$, $1\\frac{1}{2} = \\frac{3}{2}$. LCD 6: $\\frac{14}{6} + \\frac{9}{6} = \\frac{23}{6}$.",
       "Convert both mixed numbers to improper fractions, then find a common denominator.",
@@ -628,7 +628,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-g2",
       "Convert $60\\%$ to a fraction in simplest form.",
-      "60\\% = \\frac{60}{100} = \\;?",
+      "",
       "3/5",
       "$\\frac{60}{100} = \\frac{3}{5}$ after dividing numerator and denominator by 20.",
       "Write $\\frac{60}{100}$ and simplify by dividing by the highest common factor.",
@@ -636,7 +636,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-g3",
       "Find $25\\%$ of $80$.",
-      "25\\% \\text{ of } 80 = \\;?",
+      "",
       "20",
       "$25\\% = 0.25$, so $0.25 \\times 80 = 20$.",
       "Convert $25\\%$ to a decimal, then multiply by 80.",
@@ -644,7 +644,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-g4",
       "What percentage is $12$ out of $48$?",
-      "\\frac{12}{48} \\times 100 = \\;?",
+      "",
       "25",
       "$\\frac{12}{48} = 0.25$, and $0.25 \\times 100 = 25\\%$.",
       "Divide 12 by 48, then multiply by 100.",
@@ -655,7 +655,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-i1",
       "Convert $15\\%$ to a decimal.",
-      "15\\% = \\;?",
+      "",
       "0.15",
       "$15 \\div 100 = 0.15$.",
       "Move the decimal point two places to the left.",
@@ -663,7 +663,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-i2",
       "Find $20\\%$ of $65$.",
-      "20\\% \\text{ of } 65 = \\;?",
+      "",
       "13",
       "$0.20 \\times 65 = 13$.",
       "Convert $20\\%$ to $0.20$, then multiply.",
@@ -671,7 +671,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-i3",
       "Express $18$ out of $72$ as a percentage.",
-      "\\frac{18}{72} \\times 100 = \\;?",
+      "",
       "25",
       "$\\frac{18}{72} = 0.25$, and $0.25 \\times 100 = 25\\%$.",
       "Divide 18 by 72, then multiply by 100.",
@@ -693,7 +693,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-i5",
       "A class has 30 students. $70\\%$ brought their lunch. How many students brought lunch?",
-      "70\\% \\text{ of } 30 = \\;?",
+      "",
       "21",
       "$0.70 \\times 30 = 21$ students.",
       "Convert $70\\%$ to a decimal, then multiply by the total.",
@@ -721,7 +721,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m1",
       "Convert $75\\%$ to a fraction in simplest form.",
-      "75\\% = \\;?",
+      "",
       "3/4",
       "$\\frac{75}{100} = \\frac{3}{4}$ after dividing by 25.",
       "Write as a fraction over 100 and simplify.",
@@ -729,7 +729,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m2",
       "Find $12\\%$ of $200$.",
-      "12\\% \\text{ of } 200 = \\;?",
+      "",
       "24",
       "$0.12 \\times 200 = 24$.",
       "Convert to a decimal and multiply.",
@@ -745,7 +745,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m4",
       "What percentage is $9$ out of $36$?",
-      "\\frac{9}{36} \\times 100 = \\;?",
+      "",
       "25",
       "$\\frac{9}{36} = 0.25$, and $0.25 \\times 100 = 25\\%$.",
       "Divide 9 by 36, then multiply by 100.",
@@ -754,7 +754,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m5",
       "Find $8\\%$ of $350$.",
-      "8\\% \\text{ of } 350 = \\;?",
+      "",
       "28",
       "$0.08 \\times 350 = 28$.",
       "Convert $8\\%$ to $0.08$, then multiply.",
@@ -762,7 +762,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m6",
       "A bag of rice weighs $2$ kg. $15\\%$ is wasted. How many grams are wasted?",
-      "15\\% \\text{ of } 2000 = \\;?",
+      "",
       "300",
       "$0.15 \\times 2000 = 300$ g.",
       "Convert the weight to grams first, then find $15\\%$.",
@@ -778,7 +778,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m8",
       "Convert $\\frac{3}{8}$ to a percentage.",
-      "\\frac{3}{8} \\times 100 = \\;?",
+      "",
       "37.5",
       "$3 \\div 8 = 0.375$, and $0.375 \\times 100 = 37.5\\%$.",
       "Divide the numerator by the denominator, then multiply by 100.",
@@ -787,7 +787,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m9",
       "In a survey, $45$ out of $180$ students prefer sport. Express this as a percentage.",
-      "\\frac{45}{180} \\times 100 = \\;?",
+      "",
       "25",
       "$\\frac{45}{180} = 0.25$, and $0.25 \\times 100 = 25\\%$.",
       "Divide the part by the total, then multiply by 100.",
@@ -796,7 +796,7 @@ const percentagesAndFractions: LessonContent = {
     answer(
       "y8-nop-pf-m10",
       "Find $17.5\\%$ of $80$.",
-      "17.5\\% \\text{ of } 80 = \\;?",
+      "",
       "14",
       "$0.175 \\times 80 = 14$.",
       "Convert $17.5\\%$ to $0.175$, then multiply.",
@@ -872,7 +872,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-g2",
       "Evaluate $3 + 4 \\times 2$.",
-      "3 + 4 \\times 2 = \\;?",
+      "",
       "11",
       "Multiplication before addition: $4 \\times 2 = 8$, then $3 + 8 = 11$.",
       "Perform the multiplication before adding.",
@@ -880,7 +880,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-g3",
       "Evaluate $(3 + 4) \\times 2$.",
-      "(3 + 4) \\times 2 = \\;?",
+      "",
       "14",
       "Brackets first: $3 + 4 = 7$, then $7 \\times 2 = 14$.",
       "Evaluate the expression inside the brackets first.",
@@ -888,7 +888,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-g4",
       "Evaluate $20 - 3^2 + 1$.",
-      "20 - 3^2 + 1 = \\;?",
+      "",
       "12",
       "Powers before subtraction: $3^2 = 9$, then $20 - 9 + 1 = 11 + 1 = 12$.",
       "Apply the power before adding or subtracting.",
@@ -898,7 +898,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-i1",
       "Evaluate $5 + 6 \\times 3 - 2$.",
-      "5 + 6 \\times 3 - 2 = \\;?",
+      "",
       "21",
       "$6 \\times 3 = 18$, then $5 + 18 - 2 = 21$.",
       "Handle the multiplication before adding or subtracting.",
@@ -906,7 +906,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-i2",
       "Evaluate $24 \\div 6 \\times 2$.",
-      "24 \\div 6 \\times 2 = \\;?",
+      "",
       "8",
       "Division and multiplication: left to right. $24 \\div 6 = 4$, then $4 \\times 2 = 8$.",
       "Work left to right when operations have equal priority.",
@@ -914,7 +914,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-i3",
       "Evaluate $(8 - 3)^2 + 6$.",
-      "(8 - 3)^2 + 6 = \\;?",
+      "",
       "31",
       "Bracket: $8 - 3 = 5$. Power: $5^2 = 25$. Addition: $25 + 6 = 31$.",
       "Work through B → O → A in order.",
@@ -935,7 +935,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-i5",
       "Evaluate $3 \\times (2 + 4)^2 \\div 9$.",
-      "3 \\times (2 + 4)^2 \\div 9 = \\;?",
+      "",
       "12",
       "Bracket: $2 + 4 = 6$. Power: $6^2 = 36$. Left to right: $3 \\times 36 = 108$, then $108 \\div 9 = 12$.",
       "Work through B → O → then left to right for × and ÷.",
@@ -963,7 +963,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m1",
       "Evaluate $8 + 2 \\times 5$.",
-      "8 + 2 \\times 5 = \\;?",
+      "",
       "18",
       "$2 \\times 5 = 10$, then $8 + 10 = 18$.",
       "Multiplication before addition.",
@@ -971,7 +971,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m2",
       "Evaluate $36 \\div 9 \\times 2$.",
-      "36 \\div 9 \\times 2 = \\;?",
+      "",
       "8",
       "Left to right: $36 \\div 9 = 4$, then $4 \\times 2 = 8$.",
       "Equal-priority operations go left to right.",
@@ -987,7 +987,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m4",
       "Evaluate $(10 - 4) \\times (2 + 3)$.",
-      "(10 - 4) \\times (2 + 3) = \\;?",
+      "",
       "30",
       "Brackets: $10 - 4 = 6$ and $2 + 3 = 5$. Multiply: $6 \\times 5 = 30$.",
       "Evaluate both brackets before multiplying.",
@@ -995,7 +995,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m5",
       "Evaluate $50 - 4 \\times (3 + 2)^2$.",
-      "50 - 4 \\times (3 + 2)^2 = \\;?",
+      "",
       "-50",
       "Bracket: $3 + 2 = 5$. Power: $5^2 = 25$. Multiply: $4 \\times 25 = 100$. Subtract: $50 - 100 = -50$.",
       "Follow B → O → M → S in strict order.",
@@ -1017,7 +1017,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m7",
       "Evaluate $2 \\times 3^2 - 4 \\times 2 + 1$.",
-      "2 \\times 3^2 - 4 \\times 2 + 1 = \\;?",
+      "",
       "11",
       "Power: $3^2 = 9$. Multiplications: $2 \\times 9 = 18$ and $4 \\times 2 = 8$. Then $18 - 8 + 1 = 11$.",
       "Handle powers, then all multiplications, then add/subtract left to right.",
@@ -1025,7 +1025,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m8",
       "Evaluate $100 \\div (2 + 3)^2$.",
-      "100 \\div (2 + 3)^2 = \\;?",
+      "",
       "4",
       "Bracket: $2 + 3 = 5$. Power: $5^2 = 25$. Divide: $100 \\div 25 = 4$.",
       "B → O → D in order.",
@@ -1033,7 +1033,7 @@ const orderOfOperations: LessonContent = {
     answer(
       "y8-nop-oo-m9",
       "Evaluate $3 + 4 \\times [10 - (2 + 3)]$.",
-      "3 + 4 \\times [10 - (2 + 3)] = \\;?",
+      "",
       "23",
       "Inner bracket: $2 + 3 = 5$. Outer bracket: $10 - 5 = 5$. Multiply: $4 \\times 5 = 20$. Add: $3 + 20 = 23$.",
       "Work from the innermost bracket outwards.",
@@ -1127,7 +1127,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-g2",
       "Evaluate $5^3$.",
-      "5^3 = \\;?",
+      "",
       "125",
       "$5^3 = 5 \\times 5 \\times 5 = 25 \\times 5 = 125$.",
       "Multiply $5 \\times 5$ first, then multiply by 5 again.",
@@ -1135,7 +1135,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-g3",
       "Evaluate $\\sqrt{64}$.",
-      "\\sqrt{64} = \\;?",
+      "",
       "8",
       "$8^2 = 64$, so $\\sqrt{64} = 8$.",
       "Ask: what number multiplied by itself gives 64?",
@@ -1143,7 +1143,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-g4",
       "Evaluate $(-2)^4$.",
-      "(-2)^4 = \\;?",
+      "",
       "16",
       "$(-2)^4 = (-2) \\times (-2) \\times (-2) \\times (-2) = 4 \\times 4 = 16$. Even power of a negative is positive.",
       "An even index always produces a positive result, even with a negative base.",
@@ -1153,7 +1153,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-i1",
       "Evaluate $4^3$.",
-      "4^3 = \\;?",
+      "",
       "64",
       "$4 \\times 4 = 16$, then $16 \\times 4 = 64$.",
       "Write out the repeated multiplication.",
@@ -1161,7 +1161,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-i2",
       "Evaluate $\\sqrt{121}$.",
-      "\\sqrt{121} = \\;?",
+      "",
       "11",
       "$11^2 = 121$, so $\\sqrt{121} = 11$.",
       "Recall the perfect squares up to 144.",
@@ -1169,7 +1169,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-i3",
       "Evaluate $(-3)^4$.",
-      "(-3)^4 = \\;?",
+      "",
       "81",
       "$(-3)^4 = (-3) \\times (-3) \\times (-3) \\times (-3) = 9 \\times 9 = 81$. Even power gives positive.",
       "An even power of a negative base is always positive.",
@@ -1185,7 +1185,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-i5",
       "Evaluate $2^3 + 3^2$.",
-      "2^3 + 3^2 = \\;?",
+      "",
       "17",
       "$2^3 = 8$ and $3^2 = 9$. So $8 + 9 = 17$.",
       "Evaluate each power separately, then add.",
@@ -1213,7 +1213,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m1",
       "Evaluate $3^5$.",
-      "3^5 = \\;?",
+      "",
       "243",
       "$3^5 = 3 \\times 3 \\times 3 \\times 3 \\times 3 = 243$.",
       "Multiply step by step.",
@@ -1221,7 +1221,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m2",
       "Evaluate $\\sqrt{144}$.",
-      "\\sqrt{144} = \\;?",
+      "",
       "12",
       "$12^2 = 144$, so $\\sqrt{144} = 12$.",
       "Recall perfect squares up to $12^2$.",
@@ -1237,7 +1237,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m4",
       "Evaluate $\\sqrt{169}$.",
-      "\\sqrt{169} = \\;?",
+      "",
       "13",
       "$13^2 = 169$, so $\\sqrt{169} = 13$.",
       "Check which perfect square equals 169.",
@@ -1245,7 +1245,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m5",
       "Evaluate $2^4 - \\sqrt{36}$.",
-      "2^4 - \\sqrt{36} = \\;?",
+      "",
       "10",
       "$2^4 = 16$ and $\\sqrt{36} = 6$. So $16 - 6 = 10$.",
       "Evaluate the power and root separately, then subtract.",
@@ -1261,7 +1261,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m7",
       "Evaluate $(-4)^3$.",
-      "(-4)^3 = \\;?",
+      "",
       "-64",
       "$(-4)^3 = (-4) \\times (-4) \\times (-4) = 16 \\times (-4) = -64$.",
       "Odd power of a negative base gives a negative result.",
@@ -1270,7 +1270,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m8",
       "Evaluate $\\sqrt{4 \\times 25}$.",
-      "\\sqrt{4 \\times 25} = \\;?",
+      "",
       "10",
       "$4 \\times 25 = 100$, and $\\sqrt{100} = 10$.",
       "Evaluate inside the square root first.",
@@ -1278,7 +1278,7 @@ const powersRootsAndSquares: LessonContent = {
     answer(
       "y8-nop-pr-m9",
       "A square has area $196 \\text{ cm}^2$. Find the side length.",
-      "\\sqrt{196} = \\;?",
+      "",
       "14",
       "$14^2 = 196$, so each side is $\\sqrt{196} = 14$ cm.",
       "The side length of a square is the square root of its area.",
@@ -1366,7 +1366,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-g2",
       "Round $3.762$ to 1 decimal place.",
-      "3.762 \\approx \\;?",
+      "",
       "3.8",
       "The 1st decimal place is 7. The next digit is 6 ≥ 5, so round up: $3.762 \\approx 3.8$.",
       "Look at the 2nd decimal place to decide whether to round up or down.",
@@ -1374,7 +1374,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-g3",
       "Estimate $49 \\times 21$ using leading-digit estimation.",
-      "49 \\times 21 \\approx \\;?",
+      "",
       "1000",
       "$49 \\approx 50$ and $21 \\approx 20$. So $50 \\times 20 = 1000$.",
       "Round each number to its leading (first) digit, then multiply.",
@@ -1382,7 +1382,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-g4",
       "Round $0.0463$ to 2 decimal places.",
-      "0.0463 \\approx \\;?",
+      "",
       "0.05",
       "The 2nd decimal place is 4. The next digit is 6 ≥ 5, so round up: $0.0463 \\approx 0.05$.",
       "Count two digits after the decimal point, then look at the third digit.",
@@ -1392,7 +1392,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-i1",
       "Round $4.275$ to 2 decimal places.",
-      "4.275 \\approx \\;?",
+      "",
       "4.28",
       "2nd decimal place is 7. Next digit is 5 ≥ 5, so round up: $4.275 \\approx 4.28$.",
       "Look at the 3rd decimal place to decide.",
@@ -1400,7 +1400,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-i2",
       "Estimate $287 + 413$ using leading-digit estimation.",
-      "287 + 413 \\approx \\;?",
+      "",
       "700",
       "$287 \\approx 300$ and $413 \\approx 400$. So $300 + 400 = 700$.",
       "Round each number to its leading digit.",
@@ -1421,7 +1421,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-i4",
       "Estimate $\\frac{598}{31}$ by rounding to leading digits.",
-      "\\frac{598}{31} \\approx \\;?",
+      "",
       "20",
       "$598 \\approx 600$ and $31 \\approx 30$. So $600 \\div 30 = 20$.",
       "Round numerator and denominator to leading digits, then divide.",
@@ -1429,7 +1429,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-i5",
       "A jacket costs $89.95. Estimate the cost of 4 jackets.",
-      "\\$89.95 \\times 4 \\approx \\;?",
+      "",
       "360",
       "$89.95 \\approx 90$. So $90 \\times 4 = 360$.",
       "Round the price to the nearest dollar, then multiply.",
@@ -1457,7 +1457,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m1",
       "Round $8.356$ to 2 decimal places.",
-      "8.356 \\approx \\;?",
+      "",
       "8.36",
       "2nd decimal place is 5. Next digit is 6 ≥ 5, so round up: $8.356 \\approx 8.36$.",
       "Look at the 3rd decimal place digit.",
@@ -1465,7 +1465,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m2",
       "Estimate $72 \\times 38$ using leading-digit estimation.",
-      "72 \\times 38 \\approx \\;?",
+      "",
       "2800",
       "$72 \\approx 70$ and $38 \\approx 40$. So $70 \\times 40 = 2800$.",
       "Round each factor to the leading digit.",
@@ -1481,7 +1481,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m4",
       "Estimate $\\frac{803}{42}$ using leading digits.",
-      "\\frac{803}{42} \\approx \\;?",
+      "",
       "20",
       "$803 \\approx 800$ and $42 \\approx 40$. So $800 \\div 40 = 20$.",
       "Round each number to its leading digit.",
@@ -1489,7 +1489,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m5",
       "A phone costs $498 and a case costs $29. Estimate the total cost.",
-      "\\$498 + \\$29 \\approx \\;?",
+      "",
       "530",
       "$498 \\approx 500$ and $29 \\approx 30$. Estimate: $500 + 30 = 530$.",
       "Round each price to the nearest convenient value.",
@@ -1510,7 +1510,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m7",
       "Round $0.00847$ to 3 decimal places.",
-      "0.00847 \\approx \\;?",
+      "",
       "0.008",
       "3rd decimal place is 8. Next digit is 4 < 5, so round down: $0.00847 \\approx 0.008$.",
       "Count three places after the decimal point and look at the fourth.",
@@ -1518,7 +1518,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m8",
       "Estimate the cost of $6$ items at $\\$12.95$ each.",
-      "\\$12.95 \\times 6 \\approx \\;?",
+      "",
       "78",
       "$12.95 \\approx 13$. So $13 \\times 6 = 78$.",
       "Round the price to the nearest dollar.",
@@ -1526,7 +1526,7 @@ const estimationAndReasonableness: LessonContent = {
     answer(
       "y8-nop-er-m9",
       "A car travels $487$ km on $52$ litres of fuel. Estimate the fuel efficiency in km/L.",
-      "487 \\div 52 \\approx \\;?",
+      "",
       "10",
       "$487 \\approx 500$ and $52 \\approx 50$. So $500 \\div 50 = 10$ km/L.",
       "Round both values to leading digits, then divide.",

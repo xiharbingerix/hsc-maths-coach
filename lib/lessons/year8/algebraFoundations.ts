@@ -151,7 +151,7 @@ const simplifyingExpressions: LessonContent = {
     answer(
       "y8-alg-simp-i1",
       "What is the coefficient of -3p?",
-      "\\text{coefficient of }-3p",
+      "",
       "-3",
       "The coefficient is the number multiplying p, including its sign: -3."
     ),

@@ -141,7 +141,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-g2",
       "Find the exact area of a circle with radius 6 cm. Express your answer in terms of π.",
-      "A = \\pi \\times 6^2",
+      "",
       "36π",
       "A = π × 36 = 36π cm².",
       "Square the radius first, then multiply by π.",
@@ -150,7 +150,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-g3",
       "A circular pizza has diameter 30 cm. Find its exact area in terms of π.",
-      "r = 15, \\quad A = \\pi \\times 15^2",
+      "",
       "225π",
       "Radius = 30 ÷ 2 = 15 cm. A = π × 225 = 225π cm².",
       "Halve the diameter to find the radius, then apply A = πr².",
@@ -159,7 +159,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-g4",
       "Find the area of a circle with radius 10 m, correct to 2 decimal places.",
-      "A = \\pi \\times 10^2 = 100\\pi",
+      "",
       "314.16",
       "A = 100π ≈ 314.16 m².",
       "A = π × 100. Evaluate 100π on a calculator and round to 2 decimal places.",
@@ -170,7 +170,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-i1",
       "Find the exact area of a circle with radius 9 cm. Express in terms of π.",
-      "A = \\pi \\times 9^2",
+      "",
       "81π",
       "A = π × 81 = 81π cm².",
       "Apply A = πr² with r = 9.",
@@ -179,7 +179,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-i2",
       "A circular garden bed has diameter 14 m. Find its exact area in terms of π.",
-      "r = 7, \\quad A = \\pi \\times 7^2",
+      "",
       "49π",
       "Radius = 14 ÷ 2 = 7 m. A = π × 49 = 49π m².",
       "Divide the diameter by 2 to get the radius, then square it.",
@@ -188,7 +188,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-i3",
       "Find the area of a circle with radius 5 cm, correct to 1 decimal place.",
-      "A = \\pi \\times 5^2 = 25\\pi",
+      "",
       "78.5",
       "A = 25π ≈ 78.5 cm².",
       "Calculate 25π on a calculator and round to 1 decimal place.",
@@ -210,7 +210,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-i5",
       "A circular pond has area $196\\pi$ m². Find its radius.",
-      "\\pi r^2 = 196\\pi",
+      "",
       "14",
       "r² = 196, so r = 14 m.",
       "Divide both sides of πr² = 196π by π, then take the square root.",
@@ -235,7 +235,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m1",
       "Find the exact area of a circle with radius 11 cm. Express in terms of π.",
-      "A = \\pi \\times 11^2",
+      "",
       "121π",
       "A = π × 121 = 121π cm².",
       "Apply A = πr².",
@@ -244,7 +244,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m2",
       "A circular swimming pool has diameter 16 m. Find its exact area in terms of π.",
-      "r = 8, \\quad A = \\pi \\times 8^2",
+      "",
       "64π",
       "Radius = 8 m. A = π × 64 = 64π m².",
       "Halve the diameter to get r = 8, then apply A = πr².",
@@ -266,7 +266,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m4",
       "Find the area of a circle with diameter 20 cm, correct to 2 decimal places.",
-      "r = 10, \\quad A = \\pi \\times 10^2 = 100\\pi",
+      "",
       "314.16",
       "Radius = 10 cm. A = 100π ≈ 314.16 cm².",
       "Halve the diameter, square the radius, multiply by π.",
@@ -275,7 +275,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m5",
       "A circle has area $64\\pi$ cm². Find its diameter.",
-      "\\pi r^2 = 64\\pi \\Rightarrow r^2 = 64 \\Rightarrow r = 8",
+      "",
       "16",
       "r² = 64, so r = 8 cm. Diameter = 2 × 8 = 16 cm.",
       "Find the radius first, then double it for the diameter.",
@@ -284,7 +284,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m6",
       "Find the exact area of a circle with radius 13 cm. Express in terms of π.",
-      "A = \\pi \\times 13^2",
+      "",
       "169π",
       "A = π × 169 = 169π cm².",
       "Square 13, then multiply by π.",
@@ -293,7 +293,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m7",
       "A circular running track has an inner radius of 40 m. Find its inner area in terms of π.",
-      "A = \\pi \\times 40^2",
+      "",
       "1600π",
       "A = π × 1600 = 1600π m².",
       "Apply A = πr² with r = 40.",
@@ -302,7 +302,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m8",
       "Two circles have radii 3 cm and 4 cm. Find the combined exact area of both circles in terms of π.",
-      "A = \\pi \\times 3^2 + \\pi \\times 4^2",
+      "",
       "25π",
       "A = 9π + 16π = 25π cm².",
       "Find each area separately using A = πr², then add.",
@@ -311,7 +311,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m9",
       "A circular tablecloth has diameter 2.4 m. Find its area correct to 2 decimal places.",
-      "r = 1.2, \\quad A = \\pi \\times 1.2^2 = 1.44\\pi",
+      "",
       "4.52",
       "Radius = 1.2 m. A = 1.44π ≈ 4.52 m².",
       "Divide the diameter by 2: r = 1.2 m. Then A = π × 1.44.",
@@ -320,7 +320,7 @@ const areaOfCircles: LessonContent = {
     answer(
       "y8-acs-aoc-m10",
       "A square has side 10 cm. A circle of radius 5 cm is drawn inside it, touching all four sides. Find the area between the square and the circle, correct to 2 decimal places.",
-      "A = 10^2 - \\pi \\times 5^2",
+      "",
       "21.46",
       "Area of square = 100 cm². Area of circle = 25π ≈ 78.54 cm². Area between = 100 − 78.54 = 21.46 cm².",
       "Subtract the circle area from the square area.",
@@ -405,7 +405,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-g2",
       "Find the exact area of a sector with radius 6 cm and angle 120°. Express in terms of π.",
-      "A = \\frac{120}{360} \\times \\pi \\times 6^2",
+      "",
       "12π",
       "A = (1/3) × π × 36 = 12π cm².",
       "Simplify 120/360 = 1/3, then multiply by πr².",
@@ -414,7 +414,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-g3",
       "Find the exact area of a quarter circle with radius 8 cm. Express in terms of π.",
-      "A = \\frac{90}{360} \\times \\pi \\times 8^2",
+      "",
       "16π",
       "A = (1/4) × π × 64 = 16π cm².",
       "A quarter circle uses θ = 90°. Simplify 90/360 = 1/4.",
@@ -423,7 +423,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-g4",
       "Find the exact area of a semicircle with radius 10 cm. Express in terms of π.",
-      "A = \\frac{1}{2} \\times \\pi \\times 10^2",
+      "",
       "50π",
       "A = (1/2) × π × 100 = 50π cm².",
       "A semicircle has θ = 180°, so the fraction is 180/360 = 1/2.",
@@ -434,7 +434,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-i1",
       "Find the exact area of a sector with radius 12 cm and angle 90°. Express in terms of π.",
-      "A = \\frac{90}{360} \\times \\pi \\times 12^2",
+      "",
       "36π",
       "A = (1/4) × π × 144 = 36π cm².",
       "A quarter circle: use the fraction 1/4.",
@@ -443,7 +443,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-i2",
       "A sector has radius 5 cm and angle 72°. Find its area correct to 2 decimal places.",
-      "A = \\frac{72}{360} \\times \\pi \\times 5^2",
+      "",
       "15.71",
       "A = (1/5) × π × 25 = 5π ≈ 15.71 cm².",
       "Simplify 72/360 = 1/5, then multiply by π × 25.",
@@ -465,7 +465,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-i4",
       "A sector has radius 9 cm and area $27\\pi$ cm². Find the sector angle.",
-      "\\frac{\\theta}{360} \\times \\pi \\times 81 = 27\\pi",
+      "",
       "120",
       "θ/360 = 27/81 = 1/3. θ = 120°.",
       "Rearrange: θ/360 = A ÷ (πr²). Substitute and solve.",
@@ -474,7 +474,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-i5",
       "A sector has angle 60° and area $12\\pi$ cm². Find the radius.",
-      "\\frac{60}{360} \\times \\pi r^2 = 12\\pi",
+      "",
       "6√2",
       "(1/6) × πr² = 12π. Multiply both sides by 6: πr² = 72π. Divide by π: r² = 72. So r = √72 = 6√2 ≈ 8.49 cm.",
       "Rearrange (1/6) × πr² = 12π → r² = 72 → r = 6√2.",
@@ -499,7 +499,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m1",
       "Find the exact area of a sector with radius 10 cm and angle 180°. Express in terms of π.",
-      "A = \\frac{1}{2} \\times \\pi \\times 10^2",
+      "",
       "50π",
       "A = (1/2) × 100π = 50π cm².",
       "θ = 180° is a semicircle: fraction = 1/2.",
@@ -508,7 +508,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m2",
       "Find the exact area of a sector with radius 9 cm and angle 40°. Express in terms of π.",
-      "A = \\frac{40}{360} \\times \\pi \\times 9^2",
+      "",
       "9π",
       "A = (1/9) × π × 81 = 9π cm².",
       "Simplify 40/360 = 1/9, then multiply by 81π.",
@@ -530,7 +530,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m4",
       "A sector has radius 6 cm and angle 30°. Find its area correct to 2 decimal places.",
-      "A = \\frac{30}{360} \\times \\pi \\times 6^2",
+      "",
       "9.42",
       "A = (1/12) × π × 36 = 3π ≈ 9.42 cm².",
       "Simplify 30/360 = 1/12, multiply by 36π, then evaluate.",
@@ -539,7 +539,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m5",
       "A sector has radius 5 cm and area $\\frac{25\\pi}{4}$ cm². Find the sector angle.",
-      "\\frac{\\theta}{360} \\times \\pi \\times 25 = \\frac{25\\pi}{4}",
+      "",
       "90",
       "θ/360 = (25π/4) ÷ (25π) = 1/4. θ = 90°.",
       "Divide the area by πr² to find θ/360, then multiply by 360.",
@@ -548,7 +548,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m6",
       "A sector has angle 60° and area $6\\pi$ cm². Find the radius.",
-      "\\frac{60}{360} \\times \\pi r^2 = 6\\pi",
+      "",
       "6",
       "(1/6) × πr² = 6π → r² = 36 → r = 6 cm.",
       "Rearrange to isolate r², then take the square root.",
@@ -557,7 +557,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m7",
       "Find the exact area of a sector with radius 15 cm and angle 120°. Express in terms of π.",
-      "A = \\frac{120}{360} \\times \\pi \\times 15^2",
+      "",
       "75π",
       "A = (1/3) × π × 225 = 75π cm².",
       "120/360 = 1/3. Then multiply by 225π.",
@@ -566,7 +566,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m8",
       "Find the area of a sector with radius 7 cm and angle 315°, correct to 2 decimal places.",
-      "A = \\frac{315}{360} \\times \\pi \\times 7^2",
+      "",
       "134.68",
       "A = (7/8) × π × 49 = (343π/8) ≈ 134.68 cm².",
       "Simplify 315/360 = 7/8, then multiply by 49π.",
@@ -575,7 +575,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m9",
       "Two sectors both have radius 8 cm. One has angle 60° and the other has angle 90°. Find the combined exact area of both sectors in terms of π.",
-      "A = \\frac{60}{360} \\times \\pi \\times 64 + \\frac{90}{360} \\times \\pi \\times 64",
+      "",
       "40π",
       "The combined angle is 60° + 90° = 150°. Use the combined fraction: 150/360 = 5/12. A = (5/12) × π × 64 = 320π/12 = 80π/3 cm².",
       "Find each sector area using (θ/360) × πr², then add. The combined fraction is (60+90)/360 = 150/360 = 5/12.",
@@ -584,7 +584,7 @@ const areaOfSectors: LessonContent = {
     answer(
       "y8-acs-sec-m10",
       "A sprinkler irrigates a sector-shaped region with radius 12 m and angle 150°. Find the irrigated area correct to 2 decimal places.",
-      "A = \\frac{150}{360} \\times \\pi \\times 12^2",
+      "",
       "188.50",
       "A = (5/12) × π × 144 = 60π ≈ 188.50 m².",
       "150/360 = 5/12. Multiply by 144π, then evaluate.",
@@ -667,7 +667,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-g2",
       "Find the exact area of an annulus with outer radius 10 cm and inner radius 6 cm. Express in terms of π.",
-      "A = \\pi(10^2 - 6^2)",
+      "",
       "64π",
       "A = π(100 − 36) = 64π cm².",
       "Square each radius separately, subtract, then multiply by π.",
@@ -676,7 +676,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-g3",
       "A circular garden has radius 5 m. A path 2 m wide surrounds it. Find the exact area of the path in terms of π.",
-      "A = \\pi(7^2 - 5^2)",
+      "",
       "24π",
       "Outer radius = 5 + 2 = 7 m. A = π(49 − 25) = 24π m².",
       "Add the path width to the inner radius to find the outer radius.",
@@ -685,7 +685,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-g4",
       "A washer has outer radius 8 mm and inner radius 4 mm. Find its area correct to 2 decimal places.",
-      "A = \\pi(8^2 - 4^2)",
+      "",
       "150.80",
       "A = π(64 − 16) = 48π ≈ 150.80 mm².",
       "Apply A = π(R² − r²) and use a calculator.",
@@ -696,7 +696,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-i1",
       "Find the exact area of an annulus with outer radius 7 cm and inner radius 3 cm. Express in terms of π.",
-      "A = \\pi(7^2 - 3^2)",
+      "",
       "40π",
       "A = π(49 − 9) = 40π cm².",
       "Square each radius, subtract, multiply by π.",
@@ -705,7 +705,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-i2",
       "A pipe has an outer diameter of 20 cm and an inner diameter of 14 cm. Find the exact area of the pipe's cross-section in terms of π.",
-      "R = 10,\\; r = 7,\\; A = \\pi(10^2 - 7^2)",
+      "",
       "51π",
       "R = 10 cm, r = 7 cm. A = π(100 − 49) = 51π cm².",
       "Halve each diameter to get the radii, then apply the annulus formula.",
@@ -727,7 +727,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-i4",
       "An annulus has outer radius 8 cm and area $48\\pi$ cm². Find the inner radius.",
-      "\\pi(64 - r^2) = 48\\pi",
+      "",
       "4",
       "64 − r² = 48. r² = 16. r = 4 cm.",
       "Divide both sides by π, then solve 64 − r² = 48.",
@@ -736,7 +736,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-i5",
       "A circular running track is 3 m wide. The inner edge has radius 40 m. Find the area of the track, correct to the nearest whole number.",
-      "A = \\pi(43^2 - 40^2)",
+      "",
       "783",
       "Outer radius = 43 m. A = π(1849 − 1600) = 249π ≈ 782.54 ≈ 783 m².",
       "Outer radius = 40 + 3 = 43 m. Use A = π(R² − r²).",
@@ -761,7 +761,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m1",
       "Find the exact area of an annulus with outer radius 12 cm and inner radius 9 cm. Express in terms of π.",
-      "A = \\pi(12^2 - 9^2)",
+      "",
       "63π",
       "A = π(144 − 81) = 63π cm².",
       "Apply A = π(R² − r²).",
@@ -770,7 +770,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m2",
       "A circular path 4 m wide surrounds a pond of radius 6 m. Find the exact area of the path in terms of π.",
-      "A = \\pi(10^2 - 6^2)",
+      "",
       "64π",
       "Outer radius = 6 + 4 = 10 m. A = π(100 − 36) = 64π m².",
       "Add the path width to the inner radius, then apply the annulus formula.",
@@ -792,7 +792,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m4",
       "A steel washer has an outer radius of 15 mm and an inner radius of 9 mm. Find its area correct to 2 decimal places.",
-      "A = \\pi(15^2 - 9^2)",
+      "",
       "452.39",
       "A = π(225 − 81) = 144π ≈ 452.39 mm².",
       "Apply A = π(R² − r²) with R = 15 and r = 9, then evaluate on a calculator.",
@@ -801,7 +801,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m5",
       "An annulus has outer radius 10 cm and area $51\\pi$ cm². Find the inner radius.",
-      "\\pi(100 - r^2) = 51\\pi",
+      "",
       "7",
       "100 − r² = 51. r² = 49. r = 7 cm.",
       "Divide both sides by π, then solve for r².",
@@ -810,7 +810,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m6",
       "A pipe has outer diameter 30 cm and wall thickness 3 cm. Find the exact cross-sectional area of the pipe wall in terms of π.",
-      "R = 15,\\; r = 12,\\; A = \\pi(15^2 - 12^2)",
+      "",
       "81π",
       "R = 15 cm, r = 15 − 3 = 12 cm. A = π(225 − 144) = 81π cm².",
       "Outer radius = 30 ÷ 2 = 15. Inner radius = 15 − wall thickness = 12.",
@@ -819,7 +819,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m7",
       "Find the exact area of an annulus with outer radius 20 m and inner radius 15 m. Express in terms of π.",
-      "A = \\pi(20^2 - 15^2)",
+      "",
       "175π",
       "A = π(400 − 225) = 175π m².",
       "Apply A = π(R² − r²) with R = 20 and r = 15.",
@@ -828,7 +828,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m8",
       "Two annuli share the same outer radius of 10 cm. Annulus A has inner radius 4 cm; Annulus B has inner radius 6 cm. How much greater is the area of Annulus A than Annulus B? Give an exact answer in terms of π.",
-      "A_A - A_B = \\pi(100 - 16) - \\pi(100 - 36)",
+      "",
       "20π",
       "A_A = π(100 − 16) = 84π. A_B = π(100 − 36) = 64π. Difference = 84π − 64π = 20π cm².",
       "Find each annulus area separately using π(R² − r²), then subtract.",
@@ -837,7 +837,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m9",
       "An annulus has area $77\\pi$ cm². The outer radius is 11 cm. Find the inner radius.",
-      "\\pi(121 - r^2) = 77\\pi",
+      "",
       "2√11",
       "121 − r² = 77. r² = 44. r = √44 = 2√11 ≈ 6.63 cm.",
       "Rearrange to r² = 121 − 77 = 44, then take the square root.",
@@ -846,7 +846,7 @@ const areaOfAnnuli: LessonContent = {
     answer(
       "y8-acs-ann-m10",
       "A circular road has two kerbs. The inner kerb has radius 30 m and the outer kerb has radius 34 m. Two lanes run side by side, each of equal width. Find the exact area of the inner lane in terms of π.",
-      "r_{\\text{mid}} = 32,\\; A_{\\text{inner}} = \\pi(32^2 - 30^2)",
+      "",
       "124π",
       "Each lane is 2 m wide. Inner lane: inner radius 30 m, outer radius 32 m. A = π(1024 − 900) = 124π m².",
       "Split the road into two equal-width lanes. The inner lane has radii 30 m and 32 m.",
@@ -928,7 +928,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-g2",
       "A shape consists of a 10 cm × 6 cm rectangle with a semicircle of diameter 6 cm on top. Find the exact total area in terms of π.",
-      "A = 10 \\times 6 + \\tfrac{1}{2} \\times \\pi \\times 3^2",
+      "",
       "60 + 4.5π",
       "Rectangle: 60 cm². Semicircle: r = 3, area = (1/2)π×9 = 4.5π cm². Total = (60 + 4.5π) cm².",
       "Find each component area separately, then add. The semicircle diameter equals the rectangle width.",
@@ -937,7 +937,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-g3",
       "A 20 cm × 15 cm rectangular metal plate has a circular hole of radius 4 cm cut from its centre. Find the remaining area correct to 2 decimal places.",
-      "A = 20 \\times 15 - \\pi \\times 4^2",
+      "",
       "249.73",
       "Rectangle: 300 cm². Circle: 16π ≈ 50.27 cm². Remaining = 300 − 50.27 = 249.73 cm².",
       "Subtract the circular hole area from the rectangle area.",
@@ -946,7 +946,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-g4",
       "A composite shape is made from a square of side 10 cm with a quarter circle of radius 10 cm removed from one corner. Find the remaining area correct to 2 decimal places.",
-      "A = 10^2 - \\tfrac{1}{4} \\times \\pi \\times 10^2",
+      "",
       "21.46",
       "Square: 100 cm². Quarter circle: (1/4)π×100 = 25π ≈ 78.54 cm². Remaining = 100 − 78.54 = 21.46 cm².",
       "Subtract the quarter circle area from the square area.",
@@ -957,7 +957,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-i1",
       "A figure consists of a 16 cm × 10 cm rectangle with a semicircle of diameter 10 cm on each short end. Find the exact total area in terms of π.",
-      "A = 16 \\times 10 + \\pi \\times 5^2",
+      "",
       "160 + 25π",
       "Rectangle: 160 cm². Two semicircles of radius 5 cm form one full circle: π×25 = 25π. Total = (160 + 25π) cm².",
       "The two semicircles combine to form one full circle.",
@@ -966,7 +966,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-i2",
       "A triangle has base 12 cm and perpendicular height 8 cm. A semicircle of diameter 12 cm is attached to the base. Find the exact total area in terms of π.",
-      "A = \\tfrac{1}{2} \\times 12 \\times 8 + \\tfrac{1}{2} \\times \\pi \\times 6^2",
+      "",
       "48 + 18π",
       "Triangle: (1/2) × 12 × 8 = 48 cm². Semicircle: r = 6, (1/2)π×36 = 18π. Total = (48 + 18π) cm².",
       "Find each area separately. The semicircle radius is half the base length.",
@@ -988,7 +988,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-i4",
       "A large rectangle is 3 m × 2 m. A circular logo of radius 40 cm is painted on it. Find the area of the rectangle NOT covered by the logo. Give your answer in m², correct to 4 decimal places.",
-      "A = 3 \\times 2 - \\pi \\times 0.4^2",
+      "",
       "5.4973",
       "Rectangle: 6 m². Radius = 40 cm = 0.4 m. Circle = π × 0.16 ≈ 0.5027 m². Remaining ≈ 6 − 0.5027 = 5.4973 m².",
       "Convert 40 cm to 0.4 m before computing the circle area.",
@@ -997,7 +997,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-i5",
       "A composite shape is formed by a rectangle 14 cm × 8 cm with a semicircle of diameter 8 cm on one short end and a triangular notch (base 8 cm, height 4 cm) removed from the other end. Find the exact area in terms of π.",
-      "A = 14 \\times 8 + \\tfrac{1}{2}\\pi \\times 4^2 - \\tfrac{1}{2} \\times 8 \\times 4",
+      "",
       "96 + 8π",
       "Rectangle: 112 cm². Semicircle (r=4): 8π cm². Triangle removed: (1/2)×8×4 = 16 cm². Total = 112 + 8π − 16 = (96 + 8π) cm².",
       "Identify what is added (rectangle and semicircle) and what is removed (triangle notch).",
@@ -1022,7 +1022,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m1",
       "A rectangular room is 8 m × 5 m. A semicircular bay window of diameter 2 m protrudes from one long wall (adding area to the room). Find the exact total floor area in terms of π.",
-      "A = 8 \\times 5 + \\tfrac{1}{2} \\times \\pi \\times 1^2",
+      "",
       "40 + π/2",
       "Rectangle: 40 m². Semicircle r = 1 m: (1/2)π×1 = π/2. Total = (40 + π/2) m².",
       "The bay window adds a semicircle of radius 1 m to the room area.",
@@ -1031,7 +1031,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m2",
       "A circular target board has radius 30 cm. The bullseye is a circle of radius 5 cm. Find the exact area of the board excluding the bullseye in terms of π.",
-      "A = \\pi \\times 30^2 - \\pi \\times 5^2",
+      "",
       "875π",
       "Board: 900π. Bullseye: 25π. Remaining = 875π cm².",
       "This is an annulus: A = π(30² − 5²) = π(900 − 25) = 875π.",
@@ -1053,7 +1053,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m4",
       "A rectangular window frame is 1.2 m × 0.8 m. A circular porthole of diameter 60 cm is cut into it. Find the remaining frame area in m², correct to 4 decimal places.",
-      "A = 1.2 \\times 0.8 - \\pi \\times 0.3^2",
+      "",
       "0.6773",
       "Frame: 0.96 m². Porthole radius = 0.3 m. Circle = 0.09π ≈ 0.2827 m². Remaining ≈ 0.96 − 0.2827 = 0.6773 m².",
       "Convert 60 cm to 0.6 m diameter, so r = 0.3 m. Compute in m² throughout.",
@@ -1062,7 +1062,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m5",
       "A shape consists of a right triangle with legs 12 cm and 16 cm, with a semicircle drawn on the hypotenuse as the diameter. Find the exact total area in terms of π.",
-      "\\text{hyp} = 20,\\; A = \\tfrac{1}{2} \\times 12 \\times 16 + \\tfrac{1}{2} \\times \\pi \\times 10^2",
+      "",
       "96 + 50π",
       "Hypotenuse = √(144+256) = √400 = 20 cm. r = 10. Triangle: 96 cm². Semicircle: (1/2)π×100 = 50π. Total = (96 + 50π) cm².",
       "Find the hypotenuse using Pythagoras, then r = hypotenuse/2.",
@@ -1071,7 +1071,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m6",
       "A garden bed is shaped like a rectangle 6 m × 4 m with a quarter circle of radius 4 m removed from one corner. Find the remaining area correct to 2 decimal places.",
-      "A = 6 \\times 4 - \\tfrac{1}{4} \\times \\pi \\times 4^2",
+      "",
       "11.43",
       "Rectangle: 24 m². Quarter circle: (1/4)π×16 = 4π ≈ 12.57 m². Remaining ≈ 24 − 12.57 = 11.43 m².",
       "Subtract the quarter circle area from the rectangle area.",
@@ -1080,7 +1080,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m7",
       "A composite figure consists of a 20 cm × 10 cm rectangle with a full circle of radius 5 cm centred on the top edge (half inside, half outside). Find the exact total area of the figure in terms of π.",
-      "A = 20 \\times 10 + \\tfrac{1}{2} \\times \\pi \\times 5^2",
+      "",
       "200 + 12.5π",
       "Rectangle: 200 cm². Only the upper semicircle (outside) is added: (1/2)π×25 = 12.5π. Total = (200 + 12.5π) cm².",
       "Only half the circle is outside the rectangle (the upper semicircle). Add that half.",
@@ -1089,7 +1089,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m8",
       "A floor tile is a square of side 40 cm. Four quarter circles, each of radius 20 cm, are removed from the corners. Find the remaining area correct to 2 decimal places.",
-      "A = 40^2 - \\pi \\times 20^2",
+      "",
       "343.36",
       "Square: 1600 cm². Four quarter circles = one full circle of radius 20: π×400 = 400π ≈ 1256.64 cm². Remaining ≈ 1600 − 1256.64 = 343.36 cm².",
       "Four quarter circles combine to form one full circle.",
@@ -1098,7 +1098,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m9",
       "A running track has two straight sections (each 100 m × 10 m) and two semicircular ends. The outer radius of each curved end is 42 m and the inner radius is 32 m. Find the total track area in terms of π.",
-      "A = 2 \\times 100 \\times 10 + \\pi(42^2 - 32^2)",
+      "",
       "2000 + 740π",
       "Straight sections: 2000 m². Two semicircular annuli form one full annulus: π(1764 − 1024) = 740π. Total = (2000 + 740π) m².",
       "Two semicircular annuli combine to one full annulus: π(R² − r²).",
@@ -1107,7 +1107,7 @@ const compositeAreasWithCircles: LessonContent = {
     answer(
       "y8-acs-com-m10",
       "A decorative panel is a 50 cm × 30 cm rectangle. A row of 3 semicircles of diameter 10 cm is cut from the top edge, and a single circle of radius 6 cm is cut from the centre. Find the remaining area correct to 2 decimal places. (Use π ≈ 3.14159.)",
-      "A = 50 \\times 30 - 3 \\times \\tfrac{1}{2}\\pi \\times 5^2 - \\pi \\times 6^2",
+      "",
       "1269.09",
       "Rectangle: 1500 cm². Three semicircles (r=5): 3×(1/2)π×25 = 37.5π ≈ 117.81 cm². Circle (r=6): π×36 ≈ 113.10 cm². Remaining ≈ 1500 − 117.81 − 113.10 = 1269.09 cm².",
       "Find the area removed by the semicircles and the circle separately, then subtract both from the rectangle.",

@@ -193,14 +193,14 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-g2",
       "A frequency table shows: Monday 5, Tuesday 8, Wednesday 6, Thursday 4, Friday 7. How many students were surveyed in total?",
-      "5 + 8 + 6 + 4 + 7",
+      "",
       "30",
       "Add all frequencies: 5 + 8 + 6 + 4 + 7 = 30."
     ),
     answer(
       "y8-dat-col-g3",
       "Frequency table — Cats: 12, Dogs: 18, Fish: 7, Birds: 3. How many more students chose Dogs than Cats?",
-      "18 - 12",
+      "",
       "6",
       "18 - 12 = 6. Six more students chose Dogs than Cats."
     ),
@@ -216,14 +216,14 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-i1",
       "Frequency table — A: 15, B: 22, C: 9, D: 14. What is the total frequency?",
-      "15 + 22 + 9 + 14",
+      "",
       "60",
       "15 + 22 + 9 + 14 = 60."
     ),
     answer(
       "y8-dat-col-i2",
       "Dot plot values: 3, 4, 4, 5, 5, 5, 6, 7. What is the range?",
-      "\\text{Range} = 7 - 3",
+      "",
       "4",
       "Range = largest value - smallest value = 7 - 3 = 4."
     ),
@@ -242,14 +242,14 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-i4",
       "Frequency table — Red: 12, Blue: 9, Green: 7, Yellow: 2. How many students chose Red or Blue?",
-      "12 + 9",
+      "",
       "21",
       "12 + 9 = 21."
     ),
     answer(
       "y8-dat-col-i5",
       "A frequency table has 5 categories with frequencies 8, 5, 12, 3, and 7. What is the total number of data values?",
-      "8 + 5 + 12 + 3 + 7",
+      "",
       "35",
       "8 + 5 + 12 + 3 + 7 = 35."
     ),
@@ -276,7 +276,7 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-m1",
       "Dot plot: 3 dots at 6, 1 dot at 7, 2 dots at 8, 4 dots at 9, 2 dots at 10. How many data values are there in total?",
-      "3 + 1 + 2 + 4 + 2",
+      "",
       "12",
       "3 + 1 + 2 + 4 + 2 = 12 data values in total."
     ),
@@ -290,14 +290,14 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-m3",
       "Frequency table — Soccer: 14, Basketball: 9, Swimming: 7, Tennis: 10. How many more students chose Soccer than Swimming?",
-      "14 - 7",
+      "",
       "7",
       "14 - 7 = 7. Seven more students chose Soccer than Swimming."
     ),
     answer(
       "y8-dat-col-m4",
       "A frequency table has total frequency 50. Category A has frequency 20. How many students chose something other than A?",
-      "50 - 20",
+      "",
       "30",
       "50 - 20 = 30 students chose a category other than A."
     ),
@@ -316,21 +316,21 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-m6",
       "Dot plot values: 10, 10, 12, 14, 14, 14, 16. The mode is 14 and the range is 6. Find the difference between the mode and the range.",
-      "14 - 6",
+      "",
       "8",
       "Mode = 14 (appears 3 times). Range = 16 - 10 = 6. Difference = 14 - 6 = 8."
     ),
     answer(
       "y8-dat-col-m7",
       "Frequency table — Rock: 18, Pop: 24, Jazz: 8, Classical: 10. How many more students chose Pop than Rock?",
-      "24 - 18",
+      "",
       "6",
       "24 - 18 = 6."
     ),
     answer(
       "y8-dat-col-m8",
       "A data set has 10 values: 5, 6, 6, 7, 7, 7, 8, 8, 9, 10. The current mode is 7. A student joins and scores 7. How many times does the mode value now appear?",
-      "7 + 1 = 8\\text{ occurrences total}",
+      "",
       "4",
       "The value 7 originally appears 3 times. Adding one more score of 7 gives 4 occurrences. The mode remains 7."
     ),
@@ -344,7 +344,7 @@ const collectingAndDisplayingData: LessonContent = {
     answer(
       "y8-dat-col-m10",
       "Frequency table — Mon: 7, Tue: 11, Wed: ?, Thu: 9, Fri: 8. The total is 42. Find the missing frequency for Wednesday.",
-      "7 + 11 + ? + 9 + 8 = 42",
+      "",
       "7",
       "Sum of known frequencies = 7 + 11 + 9 + 8 = 35. Missing value = 42 - 35 = 7."
     ),
@@ -355,39 +355,39 @@ const collectingAndDisplayingData: LessonContent = {
       ["Favourite fruit", "Height in cm", "Number of pets", "Mass in kg"],
       "Favourite fruit is a label/group, so it is categorical; the others are numerical.", 1),
     poolAnswer("y8-dat-col-p2", "Frequency table — Walk: 9, Bus: 14, Car: 7. How many students in total?",
-      "9 + 14 + 7", "30", "9 + 14 + 7 = 30.", 1),
+      "", "30", "9 + 14 + 7 = 30.", 1),
     poolChoice("y8-dat-col-p3", "Dot plot: 2 dots at 4, 5 dots at 5, 1 dot at 6. What is the mode?", "B",
       ["4", "5", "6", "8"], "The value 5 has the most dots (5), so the mode is 5.", 1),
     poolAnswer("y8-dat-col-p4", "Frequency table — Red: 11, Blue: 6, Green: 9. How many more chose Red than Blue?",
-      "11 - 6", "5", "11 - 6 = 5.", 1),
+      "", "5", "11 - 6 = 5.", 1),
     poolChoice("y8-dat-col-p5", "Which display shows each individual data value on a number line?", "C",
       ["Sector chart", "Column graph", "Dot plot", "Frequency table"],
       "A dot plot places one dot for every value on a number line.", 1),
     poolAnswer("y8-dat-col-p6", "A frequency table has frequencies 4, 9, 6, and 1. What is the total frequency?",
-      "4 + 9 + 6 + 1", "20", "4 + 9 + 6 + 1 = 20.", 1),
+      "", "20", "4 + 9 + 6 + 1 = 20.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-col-p7", "Frequency table — Mon 6, Tue 9, Wed 5, Thu 8, Fri 7. How many students chose Tuesday or Thursday?",
-      "9 + 8", "17", "9 + 8 = 17.", 2),
+      "", "17", "9 + 8 = 17.", 2),
     poolChoice("y8-dat-col-p8", "A column graph has bars of height 8, 12, 5, 15. What is the total count?", "B",
       ["35", "40", "45", "30"], "8 + 12 + 5 + 15 = 40.", 2),
     poolAnswer("y8-dat-col-p9", "Dot plot values: 5, 5, 6, 7, 7, 7, 9. What is the range?",
-      "\\text{Range} = 9 - 5", "4", "Range = largest - smallest = 9 - 5 = 4.", 2),
+      "", "4", "Range = largest - smallest = 9 - 5 = 4.", 2),
     poolAnswer("y8-dat-col-p10", "A frequency table has total 60. Category A has frequency 25. How many chose a category other than A?",
-      "60 - 25", "35", "60 - 25 = 35.", 2),
+      "", "35", "60 - 25 = 35.", 2),
     poolChoice("y8-dat-col-p11", "Which display best shows how one whole budget is divided among 4 spending categories?", "A",
       ["Sector (pie) chart", "Dot plot", "Number line", "Stem-and-leaf plot"],
       "A sector chart shows parts of a single whole.", 2),
     poolAnswer("y8-dat-col-p12", "Dot plot: 1 dot at 3, 4 dots at 4, 2 dots at 5, 3 dots at 6. How many data values in total?",
-      "1 + 4 + 2 + 3", "10", "1 + 4 + 2 + 3 = 10 data values.", 2),
+      "", "10", "1 + 4 + 2 + 3 = 10 data values.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-col-p13", "Frequency table — Soccer 16, Netball 12, Cricket 9, Hockey ?, total 45. Find the Hockey frequency.",
-      "45 - (16 + 12 + 9)", "8", "Known sum = 16 + 12 + 9 = 37. Missing = 45 - 37 = 8.", 3),
+      "", "8", "Known sum = 16 + 12 + 9 = 37. Missing = 45 - 37 = 8.", 3),
     poolChoice("y8-dat-col-p14", "A frequency table has total 50. Category X has frequency 30. What percentage is Category X?", "C",
       ["30%", "50%", "60%", "80%"], "30 / 50 = 0.6 = 60%.", 3),
     poolAnswer("y8-dat-col-p15", "Dot plot values: 8, 8, 10, 12, 12, 12, 15. The mode is 12 and the range is 7. Find the sum of the mode and range.",
-      "12 + 7", "19", "Mode = 12 (three dots). Range = 15 - 8 = 7. Sum = 12 + 7 = 19.", 3),
+      "", "19", "Mode = 12 (three dots). Range = 15 - 8 = 7. Sum = 12 + 7 = 19.", 3),
     poolAnswer("y8-dat-col-p16", "A survey of 80 students records favourite sport. 28 chose soccer. What fraction chose soccer? Give a simplified fraction.",
-      "\\frac{28}{80}", "7/20", "28/80 = 7/20 (divide top and bottom by 4).", 3, ["0.35", "35%"]),
+      "", "7/20", "28/80 = 7/20 (divide top and bottom by 4).", 3, ["0.35", "35%"]),
     poolChoice("y8-dat-col-p17", "Which statement is TRUE?", "B",
       ["The mode of numerical data must be the largest value.",
        "Categorical data can have a mode but not a mean.",
@@ -395,34 +395,34 @@ const collectingAndDisplayingData: LessonContent = {
        "Relative frequency is always greater than 1."],
       "Categorical data can have a mode (most common category) but no mean. The other statements are false.", 3),
     poolAnswer("y8-dat-col-p18", "A frequency table has 6 categories with frequencies 5, 8, 3, 11, 6, and 7. What is the total number of data values?",
-      "5 + 8 + 3 + 11 + 6 + 7", "40", "5 + 8 + 3 + 11 + 6 + 7 = 40.", 3),
+      "", "40", "5 + 8 + 3 + 11 + 6 + 7 = 40.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-col-p19", "Frequency table — Red 12, Blue 18, Green 6, Yellow 4 (total 40). Find the relative frequency of Blue as a decimal.",
-      "\\frac{18}{40}", "0.45", "18 / 40 = 0.45.", 4, ["9/20", "45%"]),
+      "", "0.45", "18 / 40 = 0.45.", 4, ["9/20", "45%"]),
     poolChoice("y8-dat-col-p20", "A sector chart shows 4 categories. Category A's sector is exactly a quarter of the circle. If the total is 200, how many are in A?", "C",
       ["25", "40", "50", "100"], "A quarter of 200 = 200 / 4 = 50.", 4),
     poolAnswer("y8-dat-col-p21", "A frequency table has total 90. Categories A, B, C have frequencies 30, 25, and 20. The rest is category D. Find the frequency of D.",
-      "90 - (30 + 25 + 20)", "15", "Known = 30 + 25 + 20 = 75. D = 90 - 75 = 15.", 4),
+      "", "15", "Known = 30 + 25 + 20 = 75. D = 90 - 75 = 15.", 4),
     poolAnswer("y8-dat-col-p22", "Dot plot values: 2, 3, 3, 3, 4, 4, 5, 9. How much larger is the range than the mode?",
-      "(9 - 2) - 3", "4", "Range = 9 - 2 = 7. Mode = 3 (three dots). Difference = 7 - 3 = 4.", 4),
+      "", "4", "Range = 9 - 2 = 7. Mode = 3 (three dots). Difference = 7 - 3 = 4.", 4),
     poolChoice("y8-dat-col-p23", "120 students are surveyed. A sector chart shows 'walk' as 25% of the circle. How many students walk?", "B",
       ["25", "30", "35", "48"], "25% of 120 = 0.25 x 120 = 30.", 4),
     poolAnswer("y8-dat-col-p24", "In a frequency table the frequencies are 7, 13, x, and 5. The total is 40. Find x.",
-      "40 - (7 + 13 + 5)", "15", "Known sum = 7 + 13 + 5 = 25. x = 40 - 25 = 15.", 4),
+      "", "15", "Known sum = 7 + 13 + 5 = 25. x = 40 - 25 = 15.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-col-p25", "A frequency table of test grades: A 6, B 12, C 15, D 7. What percentage of students scored a C? Round to the nearest whole percent.",
-      "\\frac{15}{40} \\times 100", "38", "Total = 6 + 12 + 15 + 7 = 40. 15 / 40 = 0.375 = 37.5% ≈ 38%.", 5, ["37.5", "38%"]),
+      "", "38", "Total = 6 + 12 + 15 + 7 = 40. 15 / 40 = 0.375 = 37.5% ≈ 38%.", 5, ["37.5", "38%"]),
     poolChoice("y8-dat-col-p26", "A sector chart of 360 responses shows 'bus' occupying 90 degrees of the circle. How many responses is that?", "A",
       ["90", "120", "180", "45"], "90 degrees is 90/360 = 1/4 of the circle. 1/4 of 360 = 90.", 5),
     poolAnswer("y8-dat-col-p27", "A frequency table has total 200. Category A is 40% of the data. Category B has 50 responses. How many are in neither A nor B?",
-      "200 - (0.4 \\times 200) - 50", "70", "A = 40% of 200 = 80. Neither = 200 - 80 - 50 = 70.", 5),
+      "", "70", "A = 40% of 200 = 80. Neither = 200 - 80 - 50 = 70.", 5),
     poolAnswer("y8-dat-col-p28", "A dot plot has 12 values. After adding 3 more values, the largest value rises from 18 to 25 and the smallest stays at 6. By how much does the range increase?",
-      "(25 - 6) - (18 - 6)", "7", "Old range = 18 - 6 = 12. New range = 25 - 6 = 19. Increase = 19 - 12 = 7.", 5),
+      "", "7", "Old range = 18 - 6 = 12. New range = 25 - 6 = 19. Increase = 19 - 12 = 7.", 5),
     poolChoice("y8-dat-col-p29", "Two frequency tables each total 50. In table 1, category A = 20; in table 2, category A = 35. Which has the larger relative frequency for A, and what is it (as a decimal)?", "D",
       ["Table 1, 0.40", "Table 1, 0.70", "Table 2, 0.40", "Table 2, 0.70"],
       "Table 2: 35/50 = 0.70, which is larger than Table 1's 20/50 = 0.40.", 5),
     poolAnswer("y8-dat-col-p30", "A frequency table has frequencies in the ratio 2 : 3 : 5 for three categories, with a total of 60. Find the frequency of the largest category.",
-      "\\frac{5}{2+3+5} \\times 60", "30", "Ratio total = 2 + 3 + 5 = 10 parts. Largest = 5/10 x 60 = 30.", 5),
+      "", "30", "Ratio total = 2 + 3 + 5 = 10 parts. Largest = 5/10 x 60 = 30.", 5),
   ],
   multiPartPractice: [
     {
@@ -554,21 +554,21 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-g2",
       "Find the mean of: 4, 6, 8, 10, 12.",
-      "\\text{Mean} = \\frac{4+6+8+10+12}{5}",
+      "",
       "8",
       "Sum = 4 + 6 + 8 + 10 + 12 = 40. Mean = 40 ÷ 5 = 8."
     ),
     answer(
       "y8-dat-avg-g3",
       "Find the median of: 3, 7, 2, 9, 5.",
-      "\\text{Sort: }2,\\; 3,\\; 5,\\; 7,\\; 9",
+      "",
       "5",
       "Sort: 2, 3, 5, 7, 9. There are 5 values, so the median is the 3rd value: 5."
     ),
     answer(
       "y8-dat-avg-g4",
       "Find the range of: 14, 7, 22, 3, 18.",
-      "\\text{Range} = 22 - 3",
+      "",
       "19",
       "Largest = 22, smallest = 3. Range = 22 - 3 = 19."
     ),
@@ -577,14 +577,14 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-i1",
       "Find the mean of: 8, 5, 11, 6, 10.",
-      "\\text{Mean} = \\frac{8+5+11+6+10}{5}",
+      "",
       "8",
       "Sum = 8 + 5 + 11 + 6 + 10 = 40. Mean = 40 ÷ 5 = 8."
     ),
     answer(
       "y8-dat-avg-i2",
       "Find the median of: 4, 9, 2, 6, 8, 5.",
-      "\\text{Sort: }2,\\; 4,\\; 5,\\; 6,\\; 8,\\; 9",
+      "",
       "5.5",
       "Sort: 2, 4, 5, 6, 8, 9. Two middle values (3rd and 4th) are 5 and 6. Median = (5 + 6) ÷ 2 = 5.5."
     ),
@@ -598,14 +598,14 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-i4",
       "Find the mode of: 5, 9, 3, 7, 5, 11.",
-      "\\text{Count each value}",
+      "",
       "5",
       "5 appears twice; all other values appear once. Mode = 5."
     ),
     answer(
       "y8-dat-avg-i5",
       "Find the median of: 6, 8, 14, 3, 9.",
-      "\\text{Sort: }3,\\; 6,\\; 8,\\; 9,\\; 14",
+      "",
       "8",
       "Sort: 3, 6, 8, 9, 14. There are 5 values, so the median is the 3rd value: 8."
     ),
@@ -632,7 +632,7 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-m1",
       "Find the mean of: 2, 4, 6, 8, 10.",
-      "\\text{Mean} = \\frac{2+4+6+8+10}{5}",
+      "",
       "6",
       "Sum = 2 + 4 + 6 + 8 + 10 = 30. Mean = 30 ÷ 5 = 6."
     ),
@@ -646,21 +646,21 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-m3",
       "Find the range of: 7, 2, 9, 4, 7, 3.",
-      "\\text{Range} = 9 - 2",
+      "",
       "7",
       "Largest = 9, smallest = 2. Range = 9 - 2 = 7."
     ),
     answer(
       "y8-dat-avg-m4",
       "Find the median of: 5, 9, 3, 7.",
-      "\\text{Sort: }3,\\; 5,\\; 7,\\; 9",
+      "",
       "6",
       "Sort: 3, 5, 7, 9. Two middle values are 5 and 7. Median = (5 + 7) ÷ 2 = 6."
     ),
     answer(
       "y8-dat-avg-m5",
       "Five test scores sum to 185. Find the mean score.",
-      "\\text{Mean} = \\frac{185}{5}",
+      "",
       "37",
       "Mean = total ÷ number of values = 185 ÷ 5 = 37."
     ),
@@ -679,14 +679,14 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-m7",
       "Find the median of: 8, 5, 11, 8, 6, 7, 9.",
-      "\\text{Sort: }5,\\; 6,\\; 7,\\; 8,\\; 8,\\; 9,\\; 11",
+      "",
       "8",
       "Sort: 5, 6, 7, 8, 8, 9, 11. There are 7 values, so the median is the 4th value: 8."
     ),
     answer(
       "y8-dat-avg-m8",
       "Find the mean of: 6, 7, 8, 8, 9, 10.",
-      "\\text{Mean} = \\frac{6+7+8+8+9+10}{6}",
+      "",
       "8",
       "Sum = 6 + 7 + 8 + 8 + 9 + 10 = 48. Mean = 48 ÷ 6 = 8."
     ),
@@ -700,7 +700,7 @@ const meanMedianModeRange: LessonContent = {
     answer(
       "y8-dat-avg-m10",
       "The mean of five values is 12. Four of the values are 8, 10, 14, 16. Find the fifth value.",
-      "12 \\times 5 = 60,\\quad 60 - (8+10+14+16)",
+      "",
       "12",
       "Total sum = 12 × 5 = 60. Sum of known four = 8 + 10 + 14 + 16 = 48. Fifth value = 60 - 48 = 12."
     ),
@@ -708,73 +708,73 @@ const meanMedianModeRange: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-dat-avg-p1", "Find the mean of: 3, 5, 7.",
-      "\\frac{3+5+7}{3}", "5", "Sum = 15. Mean = 15 ÷ 3 = 5.", 1),
+      "", "5", "Sum = 15. Mean = 15 ÷ 3 = 5.", 1),
     poolChoice("y8-dat-avg-p2", "Data: 4, 4, 6, 9. What is the mode?", "A",
       ["4", "6", "9", "No mode"], "4 appears twice; the others once. Mode = 4.", 1),
     poolAnswer("y8-dat-avg-p3", "Find the range of: 12, 5, 9, 3.",
-      "12 - 3", "9", "Largest 12, smallest 3. Range = 12 - 3 = 9.", 1),
+      "", "9", "Largest 12, smallest 3. Range = 12 - 3 = 9.", 1),
     poolAnswer("y8-dat-avg-p4", "Find the median of: 7, 2, 5.",
-      "\\text{Sort: } 2, 5, 7", "5", "Sorted: 2, 5, 7. The middle value is 5.", 1),
+      "", "5", "Sorted: 2, 5, 7. The middle value is 5.", 1),
     poolAnswer("y8-dat-avg-p5", "Find the mean of: 2, 4, 6, 8.",
-      "\\frac{2+4+6+8}{4}", "5", "Sum = 20. Mean = 20 ÷ 4 = 5.", 1),
+      "", "5", "Sum = 20. Mean = 20 ÷ 4 = 5.", 1),
     poolChoice("y8-dat-avg-p6", "Which statistic measures spread, not centre?", "C",
       ["Mean", "Median", "Range", "Mode"], "Range measures spread; the others measure centre.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-avg-p7", "Find the median of: 9, 3, 7, 1, 5.",
-      "\\text{Sort: } 1, 3, 5, 7, 9", "5", "Sorted: 1, 3, 5, 7, 9. The 3rd (middle) value is 5.", 2),
+      "", "5", "Sorted: 1, 3, 5, 7, 9. The 3rd (middle) value is 5.", 2),
     poolAnswer("y8-dat-avg-p8", "Find the mean of: 11, 7, 9, 13.",
-      "\\frac{11+7+9+13}{4}", "10", "Sum = 40. Mean = 40 ÷ 4 = 10.", 2),
+      "", "10", "Sum = 40. Mean = 40 ÷ 4 = 10.", 2),
     poolChoice("y8-dat-avg-p9", "Data: 2, 2, 5, 5, 8. How many modes does this set have?", "B",
       ["1", "2", "3", "0"], "Both 2 and 5 appear twice, so the set is bimodal — 2 modes.", 2),
     poolAnswer("y8-dat-avg-p10", "Find the median of: 6, 10, 2, 8.",
-      "\\text{Sort: } 2, 6, 8, 10", "7", "Sorted: 2, 6, 8, 10. Median = (6 + 8) ÷ 2 = 7.", 2),
+      "", "7", "Sorted: 2, 6, 8, 10. Median = (6 + 8) ÷ 2 = 7.", 2),
     poolAnswer("y8-dat-avg-p11", "Find the range of: 23, 8, 17, 8, 30.",
-      "30 - 8", "22", "Largest 30, smallest 8. Range = 30 - 8 = 22.", 2),
+      "", "22", "Largest 30, smallest 8. Range = 30 - 8 = 22.", 2),
     poolChoice("y8-dat-avg-p12", "Five values have a mean of 9. What is their sum?", "C",
       ["9", "14", "45", "59"], "Sum = mean × count = 9 × 5 = 45.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-avg-p13", "Find the median of: 8, 5, 12, 8, 6, 7, 10.",
-      "\\text{Sort: } 5, 6, 7, 8, 8, 10, 12", "8", "Sorted: 5, 6, 7, 8, 8, 10, 12. 7 values → median is the 4th: 8.", 3),
+      "", "8", "Sorted: 5, 6, 7, 8, 8, 10, 12. 7 values → median is the 4th: 8.", 3),
     poolAnswer("y8-dat-avg-p14", "Four test scores sum to 312. Find the mean score.",
-      "\\frac{312}{4}", "78", "Mean = 312 ÷ 4 = 78.", 3),
+      "", "78", "Mean = 312 ÷ 4 = 78.", 3),
     poolChoice("y8-dat-avg-p15", "Data: 10, 12, 12, 14, 17. Which is correct?", "A",
       ["Mean = 13 and mode = 12", "Mean = 12 and mode = 13",
        "Mean = 13 and mode = 14", "Mean = 14 and mode = 12"],
       "Sum = 65, mean = 13. Mode = 12 (appears twice).", 3),
     poolAnswer("y8-dat-avg-p16", "The data set 4, 8, 10, 6 has mean 7. A value of 5 is added. Find the new mean.",
-      "\\frac{28 + 5}{5}", "6.6", "Old sum = 28. New sum = 33, count = 5. Mean = 33 ÷ 5 = 6.6.", 3),
+      "", "6.6", "Old sum = 28. New sum = 33, count = 5. Mean = 33 ÷ 5 = 6.6.", 3),
     poolAnswer("y8-dat-avg-p17", "Find the mean of: 14, 18, 11, 9, 13.",
-      "\\frac{14+18+11+9+13}{5}", "13", "Sum = 65. Mean = 65 ÷ 5 = 13.", 3),
+      "", "13", "Sum = 65. Mean = 65 ÷ 5 = 13.", 3),
     poolChoice("y8-dat-avg-p18", "A set of 6 values has median 14. The two middle values are 12 and x. Find x.", "D",
       ["12", "14", "15", "16"], "Median = (12 + x) ÷ 2 = 14, so 12 + x = 28, x = 16.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-avg-p19", "The mean of six values is 15. Five of them are 12, 14, 18, 11, and 20. Find the sixth.",
-      "15 \\times 6 - (12+14+18+11+20)", "15", "Total = 90. Known five = 75. Sixth = 90 - 75 = 15.", 4),
+      "", "15", "Total = 90. Known five = 75. Sixth = 90 - 75 = 15.", 4),
     poolAnswer("y8-dat-avg-p20", "A data set is 5, 8, x, 12, 15 with median 10. Find the only possible value of x that keeps the list sorted.",
-      "\\text{Median = 3rd value} = 10", "10", "With 5 sorted values the median is the 3rd value, so x = 10.", 4),
+      "", "10", "With 5 sorted values the median is the 3rd value, so x = 10.", 4),
     poolChoice("y8-dat-avg-p21", "Six numbers have a mean of 20. If each number is increased by 4, what is the new mean?", "C",
       ["20", "22", "24", "26"], "Adding 4 to every value adds 4 to the mean: 20 + 4 = 24.", 4),
     poolAnswer("y8-dat-avg-p22", "The mean of 9, 12, 15, and one more value is 13. Find the missing value.",
-      "13 \\times 4 - (9+12+15)", "16", "Total = 52. Known = 36. Missing = 52 - 36 = 16.", 4),
+      "", "16", "Total = 52. Known = 36. Missing = 52 - 36 = 16.", 4),
     poolAnswer("y8-dat-avg-p23", "Find the median of: 22, 18, 25, 20, 19, 24, 21, 23.",
-      "\\text{Sort 8 values, average the 4th and 5th}", "21.5",
+      "", "21.5",
       "Sorted: 18, 19, 20, 21, 22, 23, 24, 25. Median = (21 + 22) ÷ 2 = 21.5.", 4),
     poolChoice("y8-dat-avg-p24", "A set of 5 numbers has mean 10 and one value is changed from 8 to 18. What is the new mean?", "C",
       ["10", "11", "12", "14"], "The sum rises by 10, so the mean rises by 10 ÷ 5 = 2. New mean = 12.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-avg-p25", "A student's first four test means out of 100 are 72, 68, 80, and 76. What score on a fifth test gives an overall mean of exactly 75?",
-      "75 \\times 5 - (72+68+80+76)", "79", "Required total = 375. Known four = 296. Fifth = 375 - 296 = 79.", 5),
+      "", "79", "Required total = 375. Known four = 296. Fifth = 375 - 296 = 79.", 5),
     poolChoice("y8-dat-avg-p26", "Seven values have a mean of 8. One value of 8 is removed. What is the new mean of the remaining six?", "A",
       ["8", "7", "9", "Cannot be found"],
       "Total = 56; remove 8 → 48 over 6 values = 8. Removing a value equal to the mean leaves the mean unchanged.", 5),
     poolAnswer("y8-dat-avg-p27", "The mean of a class of 20 students is 14. A new student scores 35, raising the count to 21. Find the new mean (round to 2 decimal places).",
-      "\\frac{20 \\times 14 + 35}{21}", "15", "Old total = 280. New total = 315 over 21 = 15.00.", 5, ["15.00"]),
+      "", "15", "Old total = 280. New total = 315 over 21 = 15.00.", 5, ["15.00"]),
     poolAnswer("y8-dat-avg-p28", "A data set of six numbers has a mode of 7, a median of 9, and the values 7, 7, 8, 10, 12, and one unknown value k where k < 7. The mean is 8. Find k.",
-      "8 \\times 6 - (7+7+8+10+12)", "4", "Total = 48. Known five = 44. k = 48 - 44 = 4 (and 4 < 7, consistent).", 5),
+      "", "4", "Total = 48. Known five = 44. k = 48 - 44 = 4 (and 4 < 7, consistent).", 5),
     poolChoice("y8-dat-avg-p29", "Two groups: Group A has 4 values with mean 10; Group B has 6 values with mean 20. What is the combined mean of all 10 values?", "C",
       ["14", "15", "16", "18"], "Combined sum = 40 + 120 = 160 over 10 values = 16.", 5),
     poolAnswer("y8-dat-avg-p30", "The mean of five numbers is 30. Increasing the largest number by 25 and decreasing the smallest by 5 changes the mean by how much?",
-      "\\frac{25 - 5}{5}", "4", "Net change to the sum = +25 - 5 = +20, over 5 values = +4. The mean rises by 4.", 5),
+      "", "4", "Net change to the sum = +25 - 5 = +20, over 5 values = +4. The mean rises by 4.", 5),
   ],
   multiPartPractice: [
     {
@@ -917,14 +917,14 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-g2",
       "Group A: 4, 7, 9, 11, 14. Find the median.",
-      "\\text{Sort: }4,\\; 7,\\; 9,\\; 11,\\; 14",
+      "",
       "9",
       "Sorted: 4, 7, 9, 11, 14. There are 5 values, so the median is the 3rd value: 9."
     ),
     answer(
       "y8-dat-cmp-g3",
       "Group B: 3, 5, 9, 13, 20. Find the range.",
-      "\\text{Range} = 20 - 3",
+      "",
       "17",
       "Largest = 20, smallest = 3. Range = 20 - 3 = 17."
     ),
@@ -945,14 +945,14 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-i1",
       "Group A: 5, 7, 9, 11, 13. Find the mean.",
-      "\\text{Mean} = \\frac{5+7+9+11+13}{5}",
+      "",
       "9",
       "Sum = 5 + 7 + 9 + 11 + 13 = 45. Mean = 45 ÷ 5 = 9."
     ),
     answer(
       "y8-dat-cmp-i2",
       "Group B: 2, 6, 9, 14, 19. Find the median.",
-      "\\text{Sort: }2,\\; 6,\\; 9,\\; 14,\\; 19",
+      "",
       "9",
       "Sorted: 2, 6, 9, 14, 19. The middle (3rd) value is 9."
     ),
@@ -971,14 +971,14 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-i4",
       "Group C: 6, 8, 10, 12, 14. Find the range.",
-      "\\text{Range} = 14 - 6",
+      "",
       "8",
       "Largest = 14, smallest = 6. Range = 14 - 6 = 8."
     ),
     answer(
       "y8-dat-cmp-i5",
       "Group D: 3, 7, 11, 15, 19. Find the mean.",
-      "\\text{Mean} = \\frac{3+7+11+15+19}{5}",
+      "",
       "11",
       "Sum = 3 + 7 + 11 + 15 + 19 = 55. Mean = 55 ÷ 5 = 11."
     ),
@@ -1005,14 +1005,14 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-m1",
       "Group A: 6, 9, 11, 15, 19. Find the median.",
-      "\\text{Sort: }6,\\; 9,\\; 11,\\; 15,\\; 19",
+      "",
       "11",
       "Sorted: 6, 9, 11, 15, 19. The middle (3rd) value is 11."
     ),
     answer(
       "y8-dat-cmp-m2",
       "Group B: 4, 8, 11, 16, 21. Find the range.",
-      "\\text{Range} = 21 - 4",
+      "",
       "17",
       "Largest = 21, smallest = 4. Range = 21 - 4 = 17."
     ),
@@ -1031,21 +1031,21 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-m4",
       "Group A: 6, 9, 11, 15, 19. Find the mean.",
-      "\\text{Mean} = \\frac{6+9+11+15+19}{5}",
+      "",
       "12",
       "Sum = 6 + 9 + 11 + 15 + 19 = 60. Mean = 60 ÷ 5 = 12."
     ),
     answer(
       "y8-dat-cmp-m5",
       "Group B: 4, 8, 11, 16, 21. Find the median.",
-      "\\text{Sort: }4,\\; 8,\\; 11,\\; 16,\\; 21",
+      "",
       "11",
       "Sorted: 4, 8, 11, 16, 21. The middle (3rd) value is 11."
     ),
     answer(
       "y8-dat-cmp-m6",
       "Group A: 6, 9, 11, 15, 19. Find the range.",
-      "\\text{Range} = 19 - 6",
+      "",
       "13",
       "Largest = 19, smallest = 6. Range = 19 - 6 = 13."
     ),
@@ -1064,7 +1064,7 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-m8",
       "Five scores have a mean of 14. Find the sum of the scores.",
-      "\\text{Sum} = 14 \\times 5",
+      "",
       "70",
       "Sum = mean × number of values = 14 × 5 = 70."
     ),
@@ -1083,7 +1083,7 @@ const comparingDataDisplays: LessonContent = {
     answer(
       "y8-dat-cmp-m10",
       "Group C: 3, 7, x, 13, 17. The mean is 10. Find the value of x.",
-      "3 + 7 + x + 13 + 17 = 10 \\times 5",
+      "",
       "10",
       "Total sum = 10 × 5 = 50. Known sum = 3 + 7 + 13 + 17 = 40. x = 50 - 40 = 10."
     ),
@@ -1091,70 +1091,70 @@ const comparingDataDisplays: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-dat-cmp-p1", "Group A: 3, 6, 9, 12, 15. Find the median.",
-      "\\text{Middle (3rd) value}", "9", "Sorted middle value of 5 is the 3rd: 9.", 1),
+      "", "9", "Sorted middle value of 5 is the 3rd: 9.", 1),
     poolAnswer("y8-dat-cmp-p2", "Group B: 4, 8, 12, 16, 20. Find the range.",
-      "20 - 4", "16", "Largest 20, smallest 4. Range = 16.", 1),
+      "", "16", "Largest 20, smallest 4. Range = 16.", 1),
     poolChoice("y8-dat-cmp-p3", "Which statistic measures the typical value?", "B",
       ["Range", "Median", "Total", "Spread"], "The median (a measure of centre) describes the typical value.", 1),
     poolAnswer("y8-dat-cmp-p4", "Group C: 5, 7, 9, 11, 13. Find the mean.",
-      "\\frac{5+7+9+11+13}{5}", "9", "Sum = 45. Mean = 45 ÷ 5 = 9.", 1),
+      "", "9", "Sum = 45. Mean = 45 ÷ 5 = 9.", 1),
     poolChoice("y8-dat-cmp-p5", "A smaller range means the data is…", "A",
       ["more consistent", "more spread out", "always larger", "categorical"],
       "A smaller range means values are closer together — more consistent.", 1),
     poolAnswer("y8-dat-cmp-p6", "Group D: 2, 5, 8, 11, 14. Find the range.",
-      "14 - 2", "12", "14 - 2 = 12.", 1),
+      "", "12", "14 - 2 = 12.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-cmp-p7", "Group A: 6, 8, 10, 12, 14, 16. Find the median.",
-      "\\frac{10 + 12}{2}", "11", "6 values → median = (10 + 12) ÷ 2 = 11.", 2),
+      "", "11", "6 values → median = (10 + 12) ÷ 2 = 11.", 2),
     poolChoice("y8-dat-cmp-p8", "Group P: median 18, range 5. Group Q: median 18, range 12. Which is more consistent?", "A",
       ["Group P", "Group Q", "Both equal", "Cannot tell"],
       "Same median; Group P's smaller range (5) makes it more consistent.", 2),
     poolAnswer("y8-dat-cmp-p9", "Group B: 7, 9, 11, 13, 15. Find the mean.",
-      "\\frac{7+9+11+13+15}{5}", "11", "Sum = 55. Mean = 55 ÷ 5 = 11.", 2),
+      "", "11", "Sum = 55. Mean = 55 ÷ 5 = 11.", 2),
     poolAnswer("y8-dat-cmp-p10", "Six scores have a mean of 16. Find the sum of the scores.",
-      "16 \\times 6", "96", "Sum = mean × count = 16 × 6 = 96.", 2),
+      "", "96", "Sum = mean × count = 16 × 6 = 96.", 2),
     poolChoice("y8-dat-cmp-p11", "Group X: median 22. Group Y: median 17. Which has the higher typical value?", "A",
       ["Group X", "Group Y", "Both equal", "Cannot tell"], "Group X's higher median (22) means a higher typical value.", 2),
     poolAnswer("y8-dat-cmp-p12", "Group C: 10, 14, 18, 22, 26. Find the range.",
-      "26 - 10", "16", "26 - 10 = 16.", 2),
+      "", "16", "26 - 10 = 16.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-cmp-p13", "Group A: 4, 9, 11, 16, 25. Group B: 7, 8, 11, 12, 14. Both have median 11. Find Group A's range minus Group B's range.",
-      "(25 - 4) - (14 - 7)", "14", "Group A range = 21, Group B range = 7. Difference = 21 - 7 = 14.", 3),
+      "", "14", "Group A range = 21, Group B range = 7. Difference = 21 - 7 = 14.", 3),
     poolChoice("y8-dat-cmp-p14", "Two groups have equal means but Group A's range is 30 and Group B's is 8. Which statement is correct?", "C",
       ["The groups have identical data.", "Group A is more consistent.",
        "Group B's values are clustered more tightly.", "Group A has a higher mean."],
       "Equal means ≠ identical data. Group B's smaller range means tighter clustering.", 3),
     poolAnswer("y8-dat-cmp-p15", "Group A mean = 12 (5 values). Group B mean = 16 (5 values). Find the combined mean of all 10 values.",
-      "\\frac{5\\times12 + 5\\times16}{10}", "14", "Combined sum = 60 + 80 = 140 over 10 = 14.", 3),
+      "", "14", "Combined sum = 60 + 80 = 140 over 10 = 14.", 3),
     poolAnswer("y8-dat-cmp-p16", "Group C: 5, 8, x, 14, 18. The mean is 11. Find x.",
-      "11 \\times 5 - (5+8+14+18)", "10", "Total = 55. Known = 45. x = 55 - 45 = 10.", 3),
+      "", "10", "Total = 55. Known = 45. x = 55 - 45 = 10.", 3),
     poolChoice("y8-dat-cmp-p17", "Group A: median 15, range 10. Group B: median 15, range 10. What can you conclude?", "D",
       ["Group A performed better.", "Group B is more consistent.",
        "The data sets must be identical.", "They have the same typical value and the same spread."],
       "Equal medians and equal ranges mean the same typical value and the same spread — but the data need not be identical.", 3),
     poolAnswer("y8-dat-cmp-p18", "Group D: 6, 10, 14, 18, 22, 26, 30. Find the median.",
-      "\\text{Middle (4th) value of 7}", "18", "7 values → median is the 4th: 18.", 3),
+      "", "18", "7 values → median is the 4th: 18.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-cmp-p19", "Group A has 4 values with mean 8; Group B has 6 values with mean 13. Find the combined mean of all 10 values.",
-      "\\frac{4\\times8 + 6\\times13}{10}", "11", "Combined sum = 32 + 78 = 110 over 10 = 11.", 4),
+      "", "11", "Combined sum = 32 + 78 = 110 over 10 = 11.", 4),
     poolChoice("y8-dat-cmp-p20", "Group P median = 14, Group Q median = 14, Group P range = 6, Group Q range = 6. A teacher says 'Group P performed better'. Why is this NOT supported?", "B",
       ["Group P has a higher range.", "Both groups have the same median and spread, so neither is clearly better.",
        "Group Q has a higher median.", "Range cannot be compared."],
       "Identical median and range give no basis to call one group better.", 4),
     poolAnswer("y8-dat-cmp-p21", "Group A: 12, 15, 18, 21, 24. Group B: 10, 14, 18, 22, 26. Both have median 18. Find Group B's range minus Group A's range.",
-      "(26 - 10) - (24 - 12)", "4", "Group B range = 16, Group A range = 12. Difference = 4.", 4),
+      "", "4", "Group B range = 16, Group A range = 12. Difference = 4.", 4),
     poolAnswer("y8-dat-cmp-p22", "A class of 25 has mean 60. A class of 15 has mean 68. Find the combined mean of all 40 students.",
-      "\\frac{25\\times60 + 15\\times68}{40}", "63", "Combined sum = 1500 + 1020 = 2520 over 40 = 63.", 4),
+      "", "63", "Combined sum = 1500 + 1020 = 2520 over 40 = 63.", 4),
     poolChoice("y8-dat-cmp-p23", "Group A: scores tightly packed near 70. Group B: scores spread from 40 to 100, also centred near 70. Which is correct?", "A",
       ["Both have a similar median but Group A has a smaller range.",
        "Group B has a higher median.", "Group A has a larger range.",
        "The groups cannot be compared."],
       "Both centre near 70 (similar median); Group A's tighter packing gives a smaller range.", 4),
     poolAnswer("y8-dat-cmp-p24", "Group C: 3, 7, x, 15, 19, 23 (6 values). The median is 13. The two middle values are x and 15. Find x.",
-      "\\frac{x + 15}{2} = 13", "11", "Median = (x + 15) ÷ 2 = 13, so x + 15 = 26, x = 11.", 4),
+      "", "11", "Median = (x + 15) ÷ 2 = 13, so x + 15 = 26, x = 11.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-cmp-p25", "Group A (4 values) has mean 25; Group B (k values) has mean 10. The combined mean of all values is 16. Find k.",
-      "\\frac{100 + 10k}{4 + k} = 16", "6", "100 + 10k = 16(4 + k) → 100 + 10k = 64 + 16k → 36 = 6k → k = 6.", 5),
+      "", "6", "100 + 10k = 16(4 + k) → 100 + 10k = 64 + 16k → 36 = 6k → k = 6.", 5),
     poolChoice("y8-dat-cmp-p26", "Group A: median 50, range 20. Group B: median 50, range 20. A student claims the two groups must contain exactly the same numbers. Why is this WRONG?", "C",
       ["Medians cannot match unless data is identical.",
        "Range and median together fix every value.",
@@ -1162,16 +1162,16 @@ const comparingDataDisplays: LessonContent = {
        "Group B must have more values."],
       "Many different data sets share a median and a range; these two summaries do not determine the full data.", 5),
     poolAnswer("y8-dat-cmp-p27", "Group A: 8, 12, 16, 20, 24 (mean 16). Each value is doubled. Find the new mean.",
-      "16 \\times 2", "32", "Doubling every value doubles the mean: 16 × 2 = 32.", 5),
+      "", "32", "Doubling every value doubles the mean: 16 × 2 = 32.", 5),
     poolAnswer("y8-dat-cmp-p28", "Group X has 10 values with mean 12. After removing one value, the mean of the remaining 9 is 11. Find the removed value.",
-      "10\\times12 - 9\\times11", "21", "Old sum = 120. New sum = 99. Removed = 120 - 99 = 21.", 5),
+      "", "21", "Old sum = 120. New sum = 99. Removed = 120 - 99 = 21.", 5),
     poolChoice("y8-dat-cmp-p29", "Group A and Group B both have median 30. Group A range = 8; Group B range = 40, but Group B has a single far outlier. Which is the fairer 'consistency' comparison?", "B",
       ["Group B is more consistent because it covers more values.",
        "Group A is more consistent; Group B's range is inflated by one outlier.",
        "Both are equally consistent.", "Range tells us nothing here."],
       "An outlier inflates Group B's range. Group A's small range shows it is genuinely more consistent.", 5),
     poolAnswer("y8-dat-cmp-p30", "Two groups of 5 students each have means 14 and 22. By how much must the mean of the second group decrease so that both groups share the same combined mean as before but the second group's mean equals the first group's? Give the required decrease.",
-      "22 - 14", "8", "To make the second group's mean equal the first's (14), it must drop from 22 to 14, a decrease of 8.", 5),
+      "", "8", "To make the second group's mean equal the first's (14), it must drop from 22 to 14, a decrease of 8.", 5),
   ],
   multiPartPractice: [
     {
@@ -1303,14 +1303,14 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-g2",
       "An impossible event is placed at which value on the probability scale?",
-      "0 \\leq P \\leq 1",
+      "",
       "0",
       "An impossible event has zero chance of occurring. It sits at 0 on the probability scale."
     ),
     answer(
       "y8-pro-lan-g3",
       "A certain event is placed at which value on the probability scale?",
-      "0 \\leq P \\leq 1",
+      "",
       "1",
       "A certain event always occurs. It sits at 1 (the top of the scale)."
     ),
@@ -1326,28 +1326,28 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-i1",
       "From the values 0.2, 0.6, 0.4, 0.1, which represents the most likely event? Enter the value.",
-      "\\text{Compare: }0.2,\\; 0.6,\\; 0.4,\\; 0.1",
+      "",
       "0.6",
       "The highest probability represents the most likely event. 0.6 is the largest of the four values."
     ),
     answer(
       "y8-pro-lan-i2",
       "A spinner has 10 equal sections, all red. What is the probability of landing on red?",
-      "P(\\text{red}) = \\frac{10}{10}",
+      "",
       "1",
       "All 10 sections are red — landing on red is certain. P(red) = 10 ÷ 10 = 1."
     ),
     answer(
       "y8-pro-lan-i3",
       "A standard die is rolled. It is impossible to roll a number less than 1. What is this probability?",
-      "P(\\text{less than 1})",
+      "",
       "0",
       "The minimum face on a standard die is 1. Rolling less than 1 is impossible. P = 0."
     ),
     answer(
       "y8-pro-lan-i4",
       "A spinner has 5 equal sections, 3 of which are blue. Write the probability of landing on blue as a decimal.",
-      "P(\\text{blue}) = \\frac{3}{5}",
+      "",
       "0.6",
       "P(blue) = 3 ÷ 5 = 0.6. Since 0.6 > 0.5, landing on blue is likely.",
       ["3/5"]
@@ -1382,7 +1382,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m1",
       "An event is described as '50-50'. Write its probability as a decimal.",
-      "\\text{equally likely to occur or not occur}",
+      "",
       "0.5",
       "A 50-50 event is equally likely to happen as not to happen. P = 0.5."
     ),
@@ -1396,7 +1396,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m3",
       "A spinner has 4 equal sections: 1 red, 1 blue, 1 green, 1 yellow. What is the probability of landing on red? Give your answer as a decimal.",
-      "P(\\text{red}) = \\frac{1}{4}",
+      "",
       "0.25",
       "P(red) = 1 ÷ 4 = 0.25.",
       ["1/4"]
@@ -1404,7 +1404,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m4",
       "A bag has 6 yellow and 4 green counters. What is the probability of drawing a blue counter?",
-      "\\text{No blue counters in the bag}",
+      "",
       "0",
       "There are no blue counters. Drawing blue is impossible. P(blue) = 0."
     ),
@@ -1423,7 +1423,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m6",
       "A spinner has 10 equal sections, 7 of which are green. Find the probability of NOT landing on green.",
-      "P(\\text{not green}) = 1 - \\frac{7}{10}",
+      "",
       "0.3",
       "P(green) = 7 ÷ 10 = 0.7. P(not green) = 1 - 0.7 = 0.3.",
       ["3/10"]
@@ -1431,7 +1431,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m7",
       "An event has probability 3/5. Write it as a decimal.",
-      "\\frac{3}{5}",
+      "",
       "0.6",
       "3 ÷ 5 = 0.6.",
       ["3/5"]
@@ -1451,7 +1451,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m9",
       "A spinner has 8 equal sections, 6 of which are shaded. Find the probability of landing on an unshaded section.",
-      "P(\\text{unshaded}) = \\frac{8-6}{8}",
+      "",
       "0.25",
       "Unshaded sections = 8 - 6 = 2. P(unshaded) = 2 ÷ 8 = 0.25.",
       ["1/4", "2/8"]
@@ -1459,7 +1459,7 @@ const probabilityLanguageAndScale: LessonContent = {
     answer(
       "y8-pro-lan-m10",
       "An event has probability 0.6. A second event is 3 times as unlikely. Find the probability of the second event.",
-      "P = \\frac{0.6}{3}",
+      "",
       "0.2",
       "3 times as unlikely means the probability is divided by 3. 0.6 ÷ 3 = 0.2.",
       ["1/5"]
@@ -1470,69 +1470,69 @@ const probabilityLanguageAndScale: LessonContent = {
     poolChoice("y8-pro-lan-p1", "Which word describes an event with probability 1?", "C",
       ["Impossible", "Unlikely", "Certain", "Even chance"], "Probability 1 means the event always happens — certain.", 1),
     poolAnswer("y8-pro-lan-p2", "Write the probability of a certain event as a whole number.",
-      "P(\\text{certain})", "1", "A certain event sits at 1 on the scale.", 1),
+      "", "1", "A certain event sits at 1 on the scale.", 1),
     poolChoice("y8-pro-lan-p3", "Which event is impossible?", "B",
       ["Flipping tails on a coin", "Rolling an 8 on a standard die",
        "Drawing a king from a deck", "Rolling an even number"],
       "A standard die only shows 1–6, so rolling an 8 is impossible.", 1),
     poolAnswer("y8-pro-lan-p4", "Write the probability of an impossible event as a whole number.",
-      "P(\\text{impossible})", "0", "An impossible event sits at 0 on the scale.", 1),
+      "", "0", "An impossible event sits at 0 on the scale.", 1),
     poolChoice("y8-pro-lan-p5", "An event with probability 0.5 is described as…", "A",
       ["even chance", "certain", "impossible", "very likely"], "0.5 means equally likely to happen or not — an even chance.", 1),
     poolAnswer("y8-pro-lan-p6", "A spinner has 4 equal sections, 1 of which is red. Write P(red) as a decimal.",
-      "\\frac{1}{4}", "0.25", "1 ÷ 4 = 0.25.", 1, ["1/4"]),
+      "", "0.25", "1 ÷ 4 = 0.25.", 1, ["1/4"]),
     // Difficulty 2
     poolAnswer("y8-pro-lan-p7", "A bag has 10 counters, 3 of which are blue. Write P(blue) as a decimal.",
-      "\\frac{3}{10}", "0.3", "3 ÷ 10 = 0.3.", 2, ["3/10"]),
+      "", "0.3", "3 ÷ 10 = 0.3.", 2, ["3/10"]),
     poolChoice("y8-pro-lan-p8", "Which value describes an unlikely (but possible) event?", "A",
       ["0.2", "0.5", "0.9", "1"], "Unlikely means 0 < P < 0.5. Only 0.2 fits.", 2),
     poolAnswer("y8-pro-lan-p9", "P(rain) = 0.35. Find P(no rain).",
-      "1 - 0.35", "0.65", "P(no rain) = 1 - 0.35 = 0.65.", 2, ["13/20"]),
+      "", "0.65", "P(no rain) = 1 - 0.35 = 0.65.", 2, ["13/20"]),
     poolChoice("y8-pro-lan-p10", "From the values 0.1, 0.45, 0.8, 0.6, which is the most likely event?", "C",
       ["0.1", "0.45", "0.8", "0.6"], "The highest probability is the most likely: 0.8.", 2),
     poolAnswer("y8-pro-lan-p11", "A spinner has 8 equal sections, 5 are green. Write P(green) as a decimal.",
-      "\\frac{5}{8}", "0.625", "5 ÷ 8 = 0.625.", 2, ["5/8"]),
+      "", "0.625", "5 ÷ 8 = 0.625.", 2, ["5/8"]),
     poolChoice("y8-pro-lan-p12", "Which is NOT a valid probability?", "D",
       ["0", "0.5", "1", "1.2"], "Probabilities must satisfy 0 ≤ P ≤ 1, so 1.2 is invalid.", 2),
     // Difficulty 3
     poolAnswer("y8-pro-lan-p13", "A spinner has 5 equal sections, 2 of which are shaded. Find P(unshaded) as a decimal.",
-      "\\frac{5-2}{5}", "0.6", "Unshaded = 3. P = 3 ÷ 5 = 0.6.", 3, ["3/5"]),
+      "", "0.6", "Unshaded = 3. P = 3 ÷ 5 = 0.6.", 3, ["3/5"]),
     poolChoice("y8-pro-lan-p14", "An event has probability 7/10. Which description is correct?", "B",
       ["Unlikely", "Likely", "Impossible", "Even chance"], "7/10 = 0.7 > 0.5, so the event is likely.", 3),
     poolAnswer("y8-pro-lan-p15", "P(win) = 0.28. Find P(not win).",
-      "1 - 0.28", "0.72", "P(not win) = 1 - 0.28 = 0.72.", 3),
+      "", "0.72", "P(not win) = 1 - 0.28 = 0.72.", 3),
     poolAnswer("y8-pro-lan-p16", "A bag has 12 counters: 4 red, 5 blue, 3 green. Find P(green) as a decimal.",
-      "\\frac{3}{12}", "0.25", "3 ÷ 12 = 0.25.", 3, ["1/4"]),
+      "", "0.25", "3 ÷ 12 = 0.25.", 3, ["1/4"]),
     poolChoice("y8-pro-lan-p17", "Two events have probabilities 0.3 and 0.55. What is the probability of an outcome that is neither, if these are the only other outcome?", "A",
       ["0.15", "0.25", "0.85", "0.45"], "All probabilities sum to 1: 1 - 0.3 - 0.55 = 0.15.", 3),
     poolAnswer("y8-pro-lan-p18", "An event has probability 9/20. Write it as a decimal.",
-      "\\frac{9}{20}", "0.45", "9 ÷ 20 = 0.45.", 3, ["9/20"]),
+      "", "0.45", "9 ÷ 20 = 0.45.", 3, ["9/20"]),
     // Difficulty 4
     poolAnswer("y8-pro-lan-p19", "A spinner has 20 equal sections, 13 of which are yellow. Find P(not yellow) as a decimal.",
-      "\\frac{20 - 13}{20}", "0.35", "Not yellow = 7. P = 7 ÷ 20 = 0.35.", 4, ["7/20"]),
+      "", "0.35", "Not yellow = 7. P = 7 ÷ 20 = 0.35.", 4, ["7/20"]),
     poolChoice("y8-pro-lan-p20", "Event A has probability 0.4. Event B is half as likely as A. What is P(B)?", "B",
       ["0.4", "0.2", "0.8", "0.1"], "Half as likely: 0.4 ÷ 2 = 0.2.", 4),
     poolAnswer("y8-pro-lan-p21", "P(A) = 0.18, P(B) = 0.42, P(C) = 0.15. If A, B, C, D are the only outcomes, find P(D).",
-      "1 - (0.18 + 0.42 + 0.15)", "0.25", "P(D) = 1 - 0.75 = 0.25.", 4),
+      "", "0.25", "P(D) = 1 - 0.75 = 0.25.", 4),
     poolAnswer("y8-pro-lan-p22", "A bag has 25 marbles. P(red) = 0.36. How many red marbles are there?",
-      "0.36 \\times 25", "9", "Number of red = 0.36 × 25 = 9.", 4),
+      "", "9", "Number of red = 0.36 × 25 = 9.", 4),
     poolChoice("y8-pro-lan-p23", "An event has probability 3/8. A second event is twice as likely. What is the second event's probability as a decimal?", "C",
       ["0.375", "0.5", "0.75", "0.875"], "3/8 = 0.375; twice as likely = 0.75.", 4),
     poolAnswer("y8-pro-lan-p24", "A spinner has 16 equal sections. 6 are red and 4 are blue. Find P(red or blue) as a decimal.",
-      "\\frac{6 + 4}{16}", "0.625", "Red or blue = 10. P = 10 ÷ 16 = 0.625.", 4, ["5/8"]),
+      "", "0.625", "Red or blue = 10. P = 10 ÷ 16 = 0.625.", 4, ["5/8"]),
     // Difficulty 5
     poolAnswer("y8-pro-lan-p25", "A bag has 40 counters. P(green) = 0.15 and P(red) = 0.4. How many counters are neither green nor red?",
-      "40 - (0.15\\times40 + 0.4\\times40)", "18", "Green = 6, red = 16; neither = 40 - 22 = 18.", 5),
+      "", "18", "Green = 6, red = 16; neither = 40 - 22 = 18.", 5),
     poolChoice("y8-pro-lan-p26", "Event A is twice as likely as event B, and together they cover all outcomes (P(A) + P(B) = 1). What is P(A)?", "C",
       ["1/3", "1/2", "2/3", "3/4"], "If P(B) = x and P(A) = 2x, then 3x = 1, so x = 1/3 and P(A) = 2/3.", 5),
     poolAnswer("y8-pro-lan-p27", "A spinner is built so P(win) = 0.2. To make winning exactly twice as likely, the designer adds winning sections. What is the new P(win) as a decimal?",
-      "0.2 \\times 2", "0.4", "Twice as likely: 0.2 × 2 = 0.4.", 5, ["2/5"]),
+      "", "0.4", "Twice as likely: 0.2 × 2 = 0.4.", 5, ["2/5"]),
     poolAnswer("y8-pro-lan-p28", "P(A) = 0.5, P(B) = 0.3, and the events cannot both happen. Find P(neither A nor B).",
-      "1 - (0.5 + 0.3)", "0.2", "For mutually exclusive A and B, P(neither) = 1 - 0.5 - 0.3 = 0.2.", 5, ["1/5"]),
+      "", "0.2", "For mutually exclusive A and B, P(neither) = 1 - 0.5 - 0.3 = 0.2.", 5, ["1/5"]),
     poolChoice("y8-pro-lan-p29", "A bag has counters numbered 1 to 30. P(a multiple of 5) equals which value as a decimal?", "B",
       ["0.1", "0.2", "0.3", "0.5"], "Multiples of 5 from 1–30: 5,10,15,20,25,30 = 6 of 30. P = 6/30 = 0.2.", 5),
     poolAnswer("y8-pro-lan-p30", "An event has probability 0.45. A 'success' is defined as the event NOT happening across two separate parts; for a single part, find P(not happening).",
-      "1 - 0.45", "0.55", "P(not happening) = 1 - 0.45 = 0.55.", 5, ["11/20"]),
+      "", "0.55", "P(not happening) = 1 - 0.45 = 0.55.", 5, ["11/20"]),
   ],
   multiPartPractice: [
     {
@@ -1662,7 +1662,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-g2",
       "A bag has 3 red, 4 blue and 1 green counter (8 total). Find P(blue) as a simplified fraction.",
-      "P(\\text{blue}) = \\frac{4}{8}",
+      "",
       "1/2",
       "P(blue) = 4 ÷ 8 = 4/8 = 1/2.",
       ["0.5", "4/8"]
@@ -1670,7 +1670,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-g3",
       "A standard die is rolled. How many outcomes are in the sample space?",
-      "\\{1,\\, 2,\\, 3,\\, 4,\\, 5,\\, 6\\}",
+      "",
       "6",
       "A standard die has faces 1, 2, 3, 4, 5, 6 — giving 6 equally likely outcomes."
     ),
@@ -1686,7 +1686,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-i1",
       "A standard die is rolled. Find the probability of rolling a number greater than 4. Give your answer as a simplified fraction.",
-      "P(>4) = \\frac{2}{6}",
+      "",
       "1/3",
       "Numbers greater than 4: {5, 6} — 2 favourable outcomes out of 6. P = 2/6 = 1/3.",
       ["2/6"]
@@ -1694,7 +1694,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-i2",
       "P(event) = 0.4. Find P(not event).",
-      "P(\\text{not event}) = 1 - 0.4",
+      "",
       "0.6",
       "P(not event) = 1 - 0.4 = 0.6.",
       ["3/5"]
@@ -1702,7 +1702,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-i3",
       "A bag has 5 red, 3 blue and 2 yellow counters (10 total). Find P(yellow) as a simplified fraction.",
-      "P(\\text{yellow}) = \\frac{2}{10}",
+      "",
       "1/5",
       "P(yellow) = 2 ÷ 10 = 2/10 = 1/5.",
       ["2/10", "0.2"]
@@ -1717,7 +1717,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-i5",
       "From a standard deck of 52 cards, find the probability of drawing a heart. Give your answer as a simplified fraction.",
-      "P(\\text{heart}) = \\frac{13}{52}",
+      "",
       "1/4",
       "There are 13 hearts in a deck of 52 cards. P(heart) = 13 ÷ 52 = 1/4.",
       ["13/52"]
@@ -1745,7 +1745,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-m1",
       "A bag has 4 white, 3 black and 3 grey counters (10 total). Find P(white) as a simplified fraction.",
-      "P(\\text{white}) = \\frac{4}{10}",
+      "",
       "2/5",
       "P(white) = 4 ÷ 10 = 2/5.",
       ["4/10", "0.4"]
@@ -1753,7 +1753,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-m2",
       "P(raining) = 3/10. Find P(not raining) as a simplified fraction.",
-      "P(\\text{not raining}) = 1 - \\frac{3}{10}",
+      "",
       "7/10",
       "P(not raining) = 1 - 3/10 = 7/10.",
       ["0.7"]
@@ -1768,7 +1768,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-m4",
       "A spinner has 10 equal sections, 6 of which are red. Find P(red) as a simplified fraction.",
-      "P(\\text{red}) = \\frac{6}{10}",
+      "",
       "3/5",
       "P(red) = 6 ÷ 10 = 3/5.",
       ["6/10", "0.6"]
@@ -1776,7 +1776,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-m5",
       "A bag has 12 counters: 3 red, 5 blue, 4 green. Find P(blue) as a fraction.",
-      "P(\\text{blue}) = \\frac{5}{12}",
+      "",
       "5/12",
       "P(blue) = 5 ÷ 12 = 5/12."
     ),
@@ -1790,7 +1790,7 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-m7",
       "A standard die is rolled. Find P(prime number). Primes on a die: {2, 3, 5}.",
-      "P(\\text{prime}) = \\frac{3}{6}",
+      "",
       "1/2",
       "Prime numbers on a die: {2, 3, 5} — 3 outcomes out of 6. P(prime) = 3/6 = 1/2.",
       ["3/6"]
@@ -1798,14 +1798,14 @@ const simpleProbability: LessonContent = {
     answer(
       "y8-pro-sim-m8",
       "A bag has 4 red, 3 blue and n green counters. P(blue) = 1/4. Find n.",
-      "\\frac{3}{4+3+n} = \\frac{1}{4}",
+      "",
       "5",
       "P(blue) = 3/(7 + n) = 1/4. Cross-multiply: 12 = 7 + n. So n = 5."
     ),
     answer(
       "y8-pro-sim-m9",
       "A spinner has 12 equal sections. P(landing on yellow) = 1/3. How many sections are yellow?",
-      "\\frac{1}{3} \\times 12",
+      "",
       "4",
       "Number of yellow sections = (1/3) × 12 = 4."
     ),
@@ -1820,70 +1820,70 @@ const simpleProbability: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-pro-sim-p1", "A bag has 2 red and 3 blue counters. Find P(red) as a fraction.",
-      "\\frac{2}{5}", "2/5", "Favourable = 2, total = 5. P(red) = 2/5.", 1, ["0.4", "40%"]),
+      "", "2/5", "Favourable = 2, total = 5. P(red) = 2/5.", 1, ["0.4", "40%"]),
     poolChoice("y8-pro-sim-p2", "A standard die is rolled. What is P(rolling a 4)?", "B",
       ["1/3", "1/6", "1/2", "4/6"], "One favourable face out of 6. P = 1/6.", 1),
     poolAnswer("y8-pro-sim-p3", "P(A) = 1/3. Find P(not A).",
-      "1 - \\frac{1}{3}", "2/3", "P(not A) = 1 - 1/3 = 2/3.", 1, ["0.667"]),
+      "", "2/3", "P(not A) = 1 - 1/3 = 2/3.", 1, ["0.667"]),
     poolChoice("y8-pro-sim-p4", "How many outcomes are in the sample space of one die roll?", "C",
       ["1", "3", "6", "12"], "A die has faces 1–6, so 6 outcomes.", 1),
     poolAnswer("y8-pro-sim-p5", "A bag has 4 green and 4 yellow counters. Find P(green) as a fraction.",
-      "\\frac{4}{8}", "1/2", "4/8 simplifies to 1/2.", 1, ["0.5", "4/8"]),
+      "", "1/2", "4/8 simplifies to 1/2.", 1, ["0.5", "4/8"]),
     poolChoice("y8-pro-sim-p6", "A coin is flipped. What is P(heads)?", "A",
       ["1/2", "1/3", "1/4", "1"], "A fair coin has 2 outcomes; one is heads. P = 1/2.", 1),
     // Difficulty 2
     poolAnswer("y8-pro-sim-p7", "A die is rolled. Find P(an even number) as a fraction.",
-      "\\frac{3}{6}", "1/2", "Even faces: 2, 4, 6 → 3 of 6. P = 1/2.", 2, ["0.5", "3/6"]),
+      "", "1/2", "Even faces: 2, 4, 6 → 3 of 6. P = 1/2.", 2, ["0.5", "3/6"]),
     poolAnswer("y8-pro-sim-p8", "A bag has 3 red, 5 blue, 2 green (10 total). Find P(blue) as a decimal.",
-      "\\frac{5}{10}", "0.5", "5 of 10 are blue. P = 0.5.", 2, ["1/2"]),
+      "", "0.5", "5 of 10 are blue. P = 0.5.", 2, ["1/2"]),
     poolChoice("y8-pro-sim-p9", "A die is rolled. What is P(a number greater than 4)?", "B",
       ["1/6", "1/3", "1/2", "2/3"], "Greater than 4: 5, 6 → 2 of 6 = 1/3.", 2),
     poolAnswer("y8-pro-sim-p10", "P(event) = 7/10. Find P(not event) as a decimal.",
-      "1 - \\frac{7}{10}", "0.3", "1 - 0.7 = 0.3.", 2, ["3/10"]),
+      "", "0.3", "1 - 0.7 = 0.3.", 2, ["3/10"]),
     poolAnswer("y8-pro-sim-p11", "A spinner has 8 equal sections numbered 1–8. Find P(an odd number) as a fraction.",
-      "\\frac{4}{8}", "1/2", "Odd: 1, 3, 5, 7 → 4 of 8 = 1/2.", 2, ["0.5", "4/8"]),
+      "", "1/2", "Odd: 1, 3, 5, 7 → 4 of 8 = 1/2.", 2, ["0.5", "4/8"]),
     poolChoice("y8-pro-sim-p12", "Which simplifies the fraction 6/8 correctly?", "C",
       ["1/2", "2/3", "3/4", "6/8"], "6/8 = 3/4 (divide top and bottom by 2).", 2),
     // Difficulty 3
     poolAnswer("y8-pro-sim-p13", "A bag has 5 red, 3 blue, 4 green (12 total). Find P(not blue) as a fraction.",
-      "\\frac{12-3}{12}", "3/4", "Not blue = 9 of 12 = 3/4.", 3, ["0.75", "9/12"]),
+      "", "3/4", "Not blue = 9 of 12 = 3/4.", 3, ["0.75", "9/12"]),
     poolChoice("y8-pro-sim-p14", "A card is drawn from 1–20. What is P(a multiple of 4)?", "A",
       ["1/4", "1/5", "1/2", "1/10"], "Multiples of 4: 4,8,12,16,20 = 5 of 20 = 1/4.", 3),
     poolAnswer("y8-pro-sim-p15", "A die is rolled. Find P(a prime number) as a fraction.",
-      "\\frac{3}{6}", "1/2", "Primes on a die: 2, 3, 5 → 3 of 6 = 1/2.", 3, ["0.5", "3/6"]),
+      "", "1/2", "Primes on a die: 2, 3, 5 → 3 of 6 = 1/2.", 3, ["0.5", "3/6"]),
     poolAnswer("y8-pro-sim-p16", "A bag has only red and blue counters. P(red) = 0.35. Find P(blue) as a decimal.",
-      "1 - 0.35", "0.65", "P(blue) = 1 - 0.35 = 0.65.", 3, ["13/20"]),
+      "", "0.65", "P(blue) = 1 - 0.35 = 0.65.", 3, ["13/20"]),
     poolChoice("y8-pro-sim-p17", "A spinner has sections numbered 1–12. What is P(a number divisible by 3)?", "B",
       ["1/4", "1/3", "1/2", "3/12"], "Divisible by 3: 3,6,9,12 = 4 of 12 = 1/3.", 3),
     poolAnswer("y8-pro-sim-p18", "A bag has 6 red, 9 blue (15 total). Find P(red) as a fraction in simplest form.",
-      "\\frac{6}{15}", "2/5", "6/15 = 2/5 (divide by 3).", 3, ["0.4", "6/15"]),
+      "", "2/5", "6/15 = 2/5 (divide by 3).", 3, ["0.4", "6/15"]),
     // Difficulty 4
     poolAnswer("y8-pro-sim-p19", "A bag has 8 red, 7 blue, 5 green (20 total). Find P(red or green) as a decimal.",
-      "\\frac{8+5}{20}", "0.65", "Red or green = 13 of 20 = 0.65.", 4, ["13/20"]),
+      "", "0.65", "Red or green = 13 of 20 = 0.65.", 4, ["13/20"]),
     poolAnswer("y8-pro-sim-p20", "A card is drawn from 1–30. How many cards are a multiple of 5 or a multiple of 7? (Count them.)",
-      "\\text{multiples of 5 and of 7, no overlap}", "10",
+      "", "10",
       "Multiples of 5: 5,10,15,20,25,30 (6). Multiples of 7: 7,14,21,28 (4). No overlap, so 6 + 4 = 10.", 4),
     poolAnswer("y8-pro-sim-p21", "A bag has 25 counters. P(red) = 2/5. How many counters are NOT red?",
-      "25 - \\frac{2}{5}\\times25", "15", "Red = 2/5 × 25 = 10. Not red = 25 - 10 = 15.", 4),
+      "", "15", "Red = 2/5 × 25 = 10. Not red = 25 - 10 = 15.", 4),
     poolAnswer("y8-pro-sim-p22", "A die is rolled. Find P(a number that is even OR greater than 4) as a fraction.",
-      "\\text{Even or >4: } 2,4,5,6", "2/3", "Even: 2,4,6; greater than 4: 5,6. Union = 2,4,5,6 = 4 of 6 = 2/3.", 4, ["4/6", "0.667"]),
+      "", "2/3", "Even: 2,4,6; greater than 4: 5,6. Union = 2,4,5,6 = 4 of 6 = 2/3.", 4, ["4/6", "0.667"]),
     poolChoice("y8-pro-sim-p23", "A bag has red and blue counters only. There are 9 red and the probability of blue is 0.4. How many counters in total?", "B",
       ["12", "15", "18", "24"], "P(red) = 0.6, and 9 red, so total = 9 ÷ 0.6 = 15.", 4),
     poolAnswer("y8-pro-sim-p24", "A spinner is numbered 1–24. Find P(a factor of 24) as a fraction in simplest form.",
-      "\\frac{8}{24}", "1/3", "Factors of 24: 1,2,3,4,6,8,12,24 = 8 of 24 = 1/3.", 4, ["8/24", "0.333"]),
+      "", "1/3", "Factors of 24: 1,2,3,4,6,8,12,24 = 8 of 24 = 1/3.", 4, ["8/24", "0.333"]),
     // Difficulty 5
     poolAnswer("y8-pro-sim-p25", "A bag has red, blue and green counters. P(red) = 1/4 and P(blue) = 1/3. Find P(green) as a fraction.",
-      "1 - \\frac{1}{4} - \\frac{1}{3}", "5/12", "P(green) = 1 - 1/4 - 1/3 = 12/12 - 3/12 - 4/12 = 5/12.", 5, ["0.417"]),
+      "", "5/12", "P(green) = 1 - 1/4 - 1/3 = 12/12 - 3/12 - 4/12 = 5/12.", 5, ["0.417"]),
     poolAnswer("y8-pro-sim-p26", "A card is drawn from 1–50. Find P(a multiple of 10) as a decimal.",
-      "\\frac{5}{50}", "0.1", "Multiples of 10: 10,20,30,40,50 = 5 of 50 = 0.1.", 5, ["1/10", "5/50"]),
+      "", "0.1", "Multiples of 10: 10,20,30,40,50 = 5 of 50 = 0.1.", 5, ["1/10", "5/50"]),
     poolAnswer("y8-pro-sim-p27", "A bag has 3 red, 4 blue, 5 green. One green is removed. Find the new P(green) as a fraction in simplest form.",
-      "\\frac{5-1}{12-1}", "4/11", "After removing one green: 4 green of 11 total. P = 4/11.", 5, ["0.364"]),
+      "", "4/11", "After removing one green: 4 green of 11 total. P = 4/11.", 5, ["0.364"]),
     poolChoice("y8-pro-sim-p28", "A spinner numbered 1–18. What is P(a number that is both even and a multiple of 3)?", "A",
       ["1/6", "1/3", "1/2", "2/9"], "Even multiples of 3 = multiples of 6: 6,12,18 = 3 of 18 = 1/6.", 5),
     poolAnswer("y8-pro-sim-p29", "A bag has only red and blue counters. The probability of red is twice the probability of blue. Find P(red) as a fraction.",
-      "P(\\text{red}) = 2P(\\text{blue}),\\ \\text{sum} = 1", "2/3", "If P(blue) = x then 2x + x = 1, x = 1/3, so P(red) = 2/3.", 5, ["0.667"]),
+      "", "2/3", "If P(blue) = x then 2x + x = 1, x = 1/3, so P(red) = 2/3.", 5, ["0.667"]),
     poolAnswer("y8-pro-sim-p30", "A bag has 20 counters. P(red) = 0.45 and P(blue) = 0.3; the rest are green. How many green counters are there?",
-      "20 - (0.45\\times20 + 0.3\\times20)", "5", "Red = 9, blue = 6; green = 20 - 15 = 5.", 5),
+      "", "5", "Red = 9, blue = 6; green = 20 - 15 = 5.", 5),
   ],
   multiPartPractice: [
     {
@@ -2018,14 +2018,14 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-g2",
       "A spinner with 3 sections (Red, Blue, Green) is spun and a coin is flipped. How many outcomes are in the combined sample space?",
-      "3 \\times 2",
+      "",
       "6",
       "Spinner: 3 outcomes. Coin: 2 outcomes. Total = 3 × 2 = 6 combined outcomes."
     ),
     answer(
       "y8-pro-two-g3",
       "Two dice are rolled. How many outcomes are in the combined sample space?",
-      "6 \\times 6",
+      "",
       "36",
       "Each die has 6 outcomes. Total = 6 × 6 = 36 equally likely combined outcomes."
     ),
@@ -2041,14 +2041,14 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-i1",
       "A coin is flipped twice. How many outcomes are in the sample space?",
-      "2 \\times 2",
+      "",
       "4",
       "Each flip has 2 outcomes. Total = 2 × 2 = 4. Outcomes: HH, HT, TH, TT."
     ),
     answer(
       "y8-pro-two-i2",
       "A coin is flipped twice (sample space: HH, HT, TH, TT). How many outcomes show at least one head?",
-      "\\text{Count: HH, HT, TH}",
+      "",
       "3",
       "Outcomes with at least one head: HH, HT, TH — 3 outcomes. TT has no heads."
     ),
@@ -2062,14 +2062,14 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-i4",
       "Two dice are rolled (36 total outcomes). How many outcomes have a sum of 2?",
-      "\\text{Only }(1,1)\\text{ sums to 2}",
+      "",
       "1",
       "Sum of 2 occurs only when both dice show 1: outcome (1, 1). There is 1 such outcome out of 36."
     ),
     answer(
       "y8-pro-two-i5",
       "A counter is drawn from a bag (Red or Blue) and replaced, then drawn again. How many combined outcome types are there?",
-      "2 \\times 2",
+      "",
       "4",
       "Each draw has 2 outcome types (Red or Blue). With replacement, total combined outcome types = 2 × 2 = 4."
     ),
@@ -2096,14 +2096,14 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-m1",
       "A spinner with 4 sections and a coin are used in a two-step experiment. How many outcomes are in the sample space?",
-      "4 \\times 2",
+      "",
       "8",
       "Spinner: 4 outcomes. Coin: 2 outcomes. Total = 4 × 2 = 8."
     ),
     answer(
       "y8-pro-two-m2",
       "A coin is flipped three times. How many outcomes are in the sample space?",
-      "2 \\times 2 \\times 2",
+      "",
       "8",
       "Each flip has 2 outcomes. Total = 2 × 2 × 2 = 8."
     ),
@@ -2117,14 +2117,14 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-m4",
       "Two dice are rolled (36 total outcomes). How many outcomes have a sum of 7?",
-      "(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)",
+      "",
       "6",
       "Pairs summing to 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1) — 6 outcomes."
     ),
     answer(
       "y8-pro-two-m5",
       "A coin is flipped and a 4-section spinner (1, 2, 3, 4) is spun (8 total outcomes). Find P(Heads and an even number).",
-      "P = \\frac{2}{8}",
+      "",
       "1/4",
       "Favourable: (H, 2) and (H, 4) — 2 outcomes. P = 2/8 = 1/4.",
       ["2/8", "0.25"]
@@ -2139,14 +2139,14 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-m7",
       "A coin is flipped and a standard die is rolled (12 total outcomes). How many outcomes show Tails and an odd number?",
-      "\\text{Tails with odd: }(T,1),(T,3),(T,5)",
+      "",
       "3",
       "Tails with odd numbers on the die: (T, 1), (T, 3), (T, 5) — 3 outcomes."
     ),
     answer(
       "y8-pro-two-m8",
       "Two dice are rolled (36 total outcomes). Find P(rolling a double — same number on both dice).",
-      "P(\\text{double}) = \\frac{6}{36}",
+      "",
       "1/6",
       "Doubles: (1,1),(2,2),(3,3),(4,4),(5,5),(6,6) — 6 outcomes out of 36. P = 6/36 = 1/6.",
       ["6/36"]
@@ -2154,7 +2154,7 @@ const twoStepChanceExperiments: LessonContent = {
     answer(
       "y8-pro-two-m9",
       "A coin is flipped and a 3-section spinner (R, G, B) is spun (6 total outcomes). How many outcomes show Heads?",
-      "\\text{(H,R),(H,G),(H,B)}",
+      "",
       "3",
       "(H, R), (H, G), (H, B) — 3 outcomes have Heads, one for each spinner section."
     ),
@@ -2169,71 +2169,71 @@ const twoStepChanceExperiments: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-pro-two-p1", "A coin is flipped and a 3-section spinner is spun. How many outcomes in the sample space?",
-      "2 \\times 3", "6", "2 × 3 = 6 combined outcomes.", 1),
+      "", "6", "2 × 3 = 6 combined outcomes.", 1),
     poolChoice("y8-pro-two-p2", "Two coins are flipped. How many outcomes are in the sample space?", "B",
       ["2", "4", "6", "8"], "2 × 2 = 4: HH, HT, TH, TT.", 1),
     poolAnswer("y8-pro-two-p3", "A spinner with 5 sections and a coin are used. How many combined outcomes?",
-      "5 \\times 2", "10", "5 × 2 = 10.", 1),
+      "", "10", "5 × 2 = 10.", 1),
     poolChoice("y8-pro-two-p4", "Two dice are rolled. How many outcomes in the sample space?", "C",
       ["12", "24", "36", "6"], "6 × 6 = 36.", 1),
     poolAnswer("y8-pro-two-p5", "A coin is flipped 3 times. How many outcomes in total?",
-      "2 \\times 2 \\times 2", "8", "2 × 2 × 2 = 8.", 1),
+      "", "8", "2 × 2 × 2 = 8.", 1),
     poolChoice("y8-pro-two-p6", "To find total outcomes of a two-step experiment you should…", "A",
       ["multiply the step sizes", "add the step sizes", "subtract them", "divide them"],
       "Total combined outcomes = n₁ × n₂.", 1),
     // Difficulty 2
     poolAnswer("y8-pro-two-p7", "A coin and a die (12 outcomes). Find P(Heads and a 5).",
-      "\\frac{1}{12}", "1/12", "Only (H,5) is favourable: 1 of 12.", 2, ["0.083"]),
+      "", "1/12", "Only (H,5) is favourable: 1 of 12.", 2, ["0.083"]),
     poolAnswer("y8-pro-two-p8", "A coin is flipped twice (HH, HT, TH, TT). How many outcomes have at least one tail?",
-      "\\text{HT, TH, TT}", "3", "At least one tail: HT, TH, TT = 3 outcomes.", 2),
+      "", "3", "At least one tail: HT, TH, TT = 3 outcomes.", 2),
     poolChoice("y8-pro-two-p9", "Two dice are rolled (36 outcomes). How many show a sum of 2?", "A",
       ["1", "2", "3", "6"], "Only (1,1) sums to 2.", 2),
     poolAnswer("y8-pro-two-p10", "A coin and a 4-section spinner (1–4), 8 outcomes. How many show Tails?",
-      "(T,1),(T,2),(T,3),(T,4)", "4", "Tails paired with each of 4 spinner results = 4 outcomes.", 2),
+      "", "4", "Tails paired with each of 4 spinner results = 4 outcomes.", 2),
     poolAnswer("y8-pro-two-p11", "Two dice are rolled (36 outcomes). How many show a sum of 12?",
-      "\\text{Only }(6,6)", "1", "Only (6,6) sums to 12.", 2),
+      "", "1", "Only (6,6) sums to 12.", 2),
     poolChoice("y8-pro-two-p12", "A spinner (3) and a coin (2). Which is a valid combined outcome?", "B",
       ["33", "(2, H)", "HH", "(H, H)"], "A valid outcome takes one result from each step: (spinner, coin) e.g. (2, H).", 2),
     // Difficulty 3
     poolAnswer("y8-pro-two-p13", "Two dice are rolled (36 outcomes). Find P(sum = 7) as a fraction.",
-      "\\frac{6}{36}", "1/6", "Six pairs sum to 7. P = 6/36 = 1/6.", 3, ["6/36", "0.167"]),
+      "", "1/6", "Six pairs sum to 7. P = 6/36 = 1/6.", 3, ["6/36", "0.167"]),
     poolAnswer("y8-pro-two-p14", "Two dice are rolled (36 outcomes). How many show a sum of 5?",
-      "(1,4),(2,3),(3,2),(4,1)", "4", "Pairs: (1,4),(2,3),(3,2),(4,1) = 4 outcomes.", 3),
+      "", "4", "Pairs: (1,4),(2,3),(3,2),(4,1) = 4 outcomes.", 3),
     poolChoice("y8-pro-two-p15", "A coin and a die (12 outcomes). What is P(Tails and an even number)?", "B",
       ["1/12", "1/4", "1/3", "1/2"], "Tails with 2,4,6 = 3 outcomes. P = 3/12 = 1/4.", 3),
     poolAnswer("y8-pro-two-p16", "Two dice are rolled (36 outcomes). Find P(a double) as a fraction.",
-      "\\frac{6}{36}", "1/6", "Doubles: (1,1)...(6,6) = 6 outcomes. P = 6/36 = 1/6.", 3, ["6/36", "0.167"]),
+      "", "1/6", "Doubles: (1,1)...(6,6) = 6 outcomes. P = 6/36 = 1/6.", 3, ["6/36", "0.167"]),
     poolAnswer("y8-pro-two-p17", "A coin and a 5-section spinner (1–5), 10 outcomes. How many show Heads and an odd number?",
-      "(H,1),(H,3),(H,5)", "3", "Heads with odd 1,3,5 = 3 outcomes.", 3),
+      "", "3", "Heads with odd 1,3,5 = 3 outcomes.", 3),
     poolChoice("y8-pro-two-p18", "Two coins are flipped. What is P(exactly one head)?", "C",
       ["1/4", "1/3", "1/2", "3/4"], "HT and TH = 2 of 4 outcomes. P = 2/4 = 1/2.", 3),
     // Difficulty 4
     poolAnswer("y8-pro-two-p19", "Two dice are rolled (36 outcomes). Find P(sum greater than 9) as a fraction in simplest form.",
-      "\\text{sums of 10, 11, 12}", "1/6", "Sum 10: 3, sum 11: 2, sum 12: 1 → 6 outcomes. P = 6/36 = 1/6.", 4, ["6/36", "0.167"]),
+      "", "1/6", "Sum 10: 3, sum 11: 2, sum 12: 1 → 6 outcomes. P = 6/36 = 1/6.", 4, ["6/36", "0.167"]),
     poolAnswer("y8-pro-two-p20", "Two dice are rolled (36 outcomes). How many show a sum of 8?",
-      "(2,6),(3,5),(4,4),(5,3),(6,2)", "5", "Five pairs sum to 8.", 4),
+      "", "5", "Five pairs sum to 8.", 4),
     poolChoice("y8-pro-two-p21", "A coin and a die (12 outcomes). What is P(Heads and a number less than 3)?", "A",
       ["1/6", "1/4", "1/3", "1/2"], "Heads with 1 or 2 = 2 outcomes. P = 2/12 = 1/6.", 4),
     poolAnswer("y8-pro-two-p22", "Two dice are rolled (36 outcomes). Find P(both numbers the same OR sum = 4) as a fraction in simplest form.",
-      "\\text{doubles (6) + (1,3),(3,1)}", "2/9", "Doubles = 6; sum 4 with different dice = (1,3),(3,1) = 2; total 8. P = 8/36 = 2/9.", 4, ["8/36", "0.222"]),
+      "", "2/9", "Doubles = 6; sum 4 with different dice = (1,3),(3,1) = 2; total 8. P = 8/36 = 2/9.", 4, ["8/36", "0.222"]),
     poolAnswer("y8-pro-two-p23", "A spinner (1–4) is spun twice (16 outcomes). How many show the same number twice?",
-      "(1,1),(2,2),(3,3),(4,4)", "4", "Four matching pairs out of 16.", 4),
+      "", "4", "Four matching pairs out of 16.", 4),
     poolChoice("y8-pro-two-p24", "Two dice are rolled (36 outcomes). P(sum = 7) compared with P(sum = 6): which is more likely?", "A",
       ["Sum 7 (6 ways vs 5 ways)", "Sum 6 (more ways)", "They are equal", "Neither can occur"],
       "Sum 7 has 6 ways; sum 6 has 5 ways, so sum 7 is more likely.", 4),
     // Difficulty 5
     poolAnswer("y8-pro-two-p25", "Two dice are rolled (36 outcomes). Find P(at least one 6) as a fraction in simplest form.",
-      "1 - \\frac{25}{36}", "11/36", "P(no 6) = (5/6)² = 25/36. P(at least one 6) = 1 - 25/36 = 11/36.", 5, ["0.306"]),
+      "", "11/36", "P(no 6) = (5/6)² = 25/36. P(at least one 6) = 1 - 25/36 = 11/36.", 5, ["0.306"]),
     poolAnswer("y8-pro-two-p26", "A coin is flipped 3 times (8 outcomes). Find P(exactly 2 heads) as a fraction in simplest form.",
-      "\\text{HHT, HTH, THH}", "3/8", "Three outcomes have exactly 2 heads. P = 3/8.", 5, ["0.375"]),
+      "", "3/8", "Three outcomes have exactly 2 heads. P = 3/8.", 5, ["0.375"]),
     poolAnswer("y8-pro-two-p27", "Two dice are rolled (36 outcomes). Find P(product is even) as a fraction in simplest form.",
-      "1 - \\frac{9}{36}", "3/4", "Product is odd only when both are odd: 3×3 = 9 ways. P(even) = 1 - 9/36 = 27/36 = 3/4.", 5, ["27/36", "0.75"]),
+      "", "3/4", "Product is odd only when both are odd: 3×3 = 9 ways. P(even) = 1 - 9/36 = 27/36 = 3/4.", 5, ["27/36", "0.75"]),
     poolAnswer("y8-pro-two-p28", "A bag has 3 counters: A, B, C. One is drawn, replaced, then another drawn (9 outcomes). Find P(the two draws differ) as a fraction in simplest form.",
-      "1 - \\frac{3}{9}", "2/3", "Same: AA, BB, CC = 3 of 9. Different = 6 of 9 = 2/3.", 5, ["6/9", "0.667"]),
+      "", "2/3", "Same: AA, BB, CC = 3 of 9. Different = 6 of 9 = 2/3.", 5, ["6/9", "0.667"]),
     poolChoice("y8-pro-two-p29", "Two dice are rolled (36 outcomes). Which sum is the single most likely?", "C",
       ["6", "8", "7", "All equally likely"], "Sum 7 has the most ways (6), making it the most likely.", 5),
     poolAnswer("y8-pro-two-p30", "A coin is flipped 3 times (8 outcomes). Find P(at least one head) as a fraction in simplest form.",
-      "1 - \\frac{1}{8}", "7/8", "Only TTT has no head (1 of 8). P(at least one head) = 1 - 1/8 = 7/8.", 5, ["0.875"]),
+      "", "7/8", "Only TTT has no head (1 of 8). P(at least one head) = 1 - 1/8 = 7/8.", 5, ["0.875"]),
   ],
   multiPartPractice: [
     {
@@ -2372,14 +2372,14 @@ const stemAndLeafPlots: LessonContent = {
     answer(
       "y8-dat-stm-g2",
       "Ordered plot — 2 | 3 5 8, 3 | 1 4 9. How many data values are there in total?",
-      "\\text{Count all leaves: } 3 + 3",
+      "",
       "6",
       "Stem 2 has 3 leaves (23, 25, 28). Stem 3 has 3 leaves (31, 34, 39). Total = 6 values."
     ),
     answer(
       "y8-dat-stm-g3",
       "Ordered plot — 1 | 3 6 9, 2 | 0 4. What is the range?",
-      "\\text{Range} = 24 - 13",
+      "",
       "11",
       "Smallest value = 13 (stem 1, leaf 3). Largest value = 24 (stem 2, leaf 4). Range = 24 − 13 = 11."
     ),
@@ -2395,28 +2395,28 @@ const stemAndLeafPlots: LessonContent = {
     answer(
       "y8-dat-stm-i1",
       "Ordered plot — 1 | 2 5 7, 2 | 0 3 8, 3 | 1 6. How many data values are there in total?",
-      "\\text{Count all leaves: } 3 + 3 + 2",
+      "",
       "8",
       "Stem 1: 3 leaves. Stem 2: 3 leaves. Stem 3: 2 leaves. Total = 8 values."
     ),
     answer(
       "y8-dat-stm-i2",
       "Ordered plot — 1 | 2 5 7, 2 | 0 3 8, 3 | 1 6 (8 values). What is the median?",
-      "\\text{Average 4th and 5th: } \\frac{20 + 23}{2}",
+      "",
       "21.5",
       "Values in order: 12, 15, 17, 20, 23, 28, 31, 36. 4th = 20, 5th = 23. Median = (20 + 23) ÷ 2 = 21.5."
     ),
     answer(
       "y8-dat-stm-i3",
       "Ordered plot — 2 | 4 8, 3 | 1 5 9, 4 | 2. What is the range?",
-      "\\text{Range} = 42 - 24",
+      "",
       "18",
       "Smallest value = 24, largest value = 42. Range = 42 − 24 = 18."
     ),
     answer(
       "y8-dat-stm-i4",
       "Ordered plot — 3 | 2 4 7, 4 | 1 3 8. How many values are greater than 40?",
-      "\\text{Values with stem 4: } 41,\\; 43,\\; 48",
+      "",
       "3",
       "All values with stem 4 are greater than 40: 41, 43, 48. There are 3 such values."
     ),
@@ -2450,14 +2450,14 @@ const stemAndLeafPlots: LessonContent = {
     answer(
       "y8-dat-stm-m1",
       "For the value 63, what is the leaf (using tens as stems)?",
-      "63 \\Rightarrow \\text{stem } 6,\\; \\text{leaf } ?",
+      "",
       "3",
       "Stem = 6 (tens digit), leaf = 3 (units digit)."
     ),
     answer(
       "y8-dat-stm-m2",
       "Ordered plot — 2 | 1 3 5, 3 | 0 2 7, 4 | 4. What is the range?",
-      "\\text{Range} = 44 - 21",
+      "",
       "23",
       "Smallest value = 21, largest = 44. Range = 44 − 21 = 23."
     ),
@@ -2471,14 +2471,14 @@ const stemAndLeafPlots: LessonContent = {
     answer(
       "y8-dat-stm-m4",
       "Ordered plot — 1 | 4 6 9, 2 | 1 3 5, 3 | 0 2 8 (9 values). What is the median?",
-      "\\text{Middle (5th) value}",
+      "",
       "23",
       "9 values → median is the 5th. In order: 14, 16, 19, 21, 23, 25, 30, 32, 38. The 5th value is 23."
     ),
     answer(
       "y8-dat-stm-m5",
       "Data: 32, 41, 35, 28, 43, 30. How many stems are needed for a stem-and-leaf plot?",
-      "\\text{Distinct tens digits: } 2,\\; 3,\\; 4",
+      "",
       "3",
       "Tens digits present: 2 (for 28), 3 (for 30, 32, 35), 4 (for 41, 43). Three stems are needed."
     ),
@@ -2492,14 +2492,14 @@ const stemAndLeafPlots: LessonContent = {
     answer(
       "y8-dat-stm-m7",
       "Ordered plot — 4 | 2 5 8, 5 | 1 3, 6 | 0 4 7 (8 values). Find the median.",
-      "\\text{Average 4th and 5th values}",
+      "",
       "52",
       "Values: 42, 45, 48, 51, 53, 60, 64, 67. 4th = 51, 5th = 53. Median = (51 + 53) ÷ 2 = 52."
     ),
     answer(
       "y8-dat-stm-m8",
       "Ordered plot — 4 | 2 5 8, 5 | 1 3, 6 | 0 4 7. What is the range?",
-      "\\text{Range} = 67 - 42",
+      "",
       "25",
       "Smallest value = 42, largest = 67. Range = 67 − 42 = 25."
     ),
@@ -2513,7 +2513,7 @@ const stemAndLeafPlots: LessonContent = {
     answer(
       "y8-dat-stm-m10",
       "Ordered plot — 2 | 0 4 8, 3 | 2 6 (5 values). Find the mean.",
-      "\\frac{20 + 24 + 28 + 32 + 36}{5}",
+      "",
       "28",
       "Values: 20, 24, 28, 32, 36. Sum = 140. Mean = 140 ÷ 5 = 28."
     ),
@@ -2521,70 +2521,70 @@ const stemAndLeafPlots: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-dat-stm-p1", "For the value 52, what is the stem (using tens as stems)?",
-      "52 \\Rightarrow \\text{stem } ?", "5", "The stem is the tens digit: 5.", 1),
+      "", "5", "The stem is the tens digit: 5.", 1),
     poolAnswer("y8-dat-stm-p2", "For the value 38, what is the leaf?",
-      "38 \\Rightarrow \\text{leaf } ?", "8", "The leaf is the units digit: 8.", 1),
+      "", "8", "The leaf is the units digit: 8.", 1),
     poolChoice("y8-dat-stm-p3", "In a stem-and-leaf plot, what does the stem usually represent for two-digit numbers?", "B",
       ["The units digit", "The tens digit", "The total count", "The mean"], "The stem is the tens digit.", 1),
     poolAnswer("y8-dat-stm-p4", "Ordered plot — 1 | 2 5, 2 | 0 7 9. How many data values in total?",
-      "2 + 3", "5", "Stem 1 has 2 leaves, stem 2 has 3 leaves. Total = 5.", 1),
+      "", "5", "Stem 1 has 2 leaves, stem 2 has 3 leaves. Total = 5.", 1),
     poolAnswer("y8-dat-stm-p5", "Ordered plot — 3 | 1 4, 4 | 2. What is the smallest value?",
-      "\\text{stem 3, first leaf 1}", "31", "Smallest = stem 3, leaf 1 = 31.", 1),
+      "", "31", "Smallest = stem 3, leaf 1 = 31.", 1),
     poolChoice("y8-dat-stm-p6", "Which value has stem 6 and leaf 2?", "C",
       ["26", "16", "62", "60"], "Stem 6 (tens), leaf 2 (units) = 62.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-stm-p7", "Ordered plot — 2 | 3 6 8, 3 | 1 5. What is the range?",
-      "35 - 23", "12", "Smallest = 23, largest = 35. Range = 12.", 2),
+      "", "12", "Smallest = 23, largest = 35. Range = 12.", 2),
     poolAnswer("y8-dat-stm-p8", "Ordered plot — 1 | 4 7, 2 | 2 5 8, 3 | 0. How many data values in total?",
-      "2 + 3 + 1", "6", "2 + 3 + 1 = 6 values.", 2),
+      "", "6", "2 + 3 + 1 = 6 values.", 2),
     poolChoice("y8-dat-stm-p9", "An ordered stem-and-leaf plot has 9 values. Which position is the median?", "B",
       ["4th", "5th", "6th", "Average of 4th and 5th"], "(9 + 1) ÷ 2 = 5th value.", 2),
     poolAnswer("y8-dat-stm-p10", "Ordered plot — 4 | 1 3 6, 5 | 2 (4 values). Find the median.",
-      "\\frac{43 + 46}{2}", "44.5", "Values: 41, 43, 46, 52. Median = (43 + 46) ÷ 2 = 44.5.", 2),
+      "", "44.5", "Values: 41, 43, 46, 52. Median = (43 + 46) ÷ 2 = 44.5.", 2),
     poolAnswer("y8-dat-stm-p11", "Data: 24, 31, 28, 35, 22. How many stems are needed?",
-      "\\text{tens digits } 2, 3", "2", "Tens digits are 2 and 3, so 2 stems.", 2),
+      "", "2", "Tens digits are 2 and 3, so 2 stems.", 2),
     poolChoice("y8-dat-stm-p12", "Ordered plot — 1 | 5 5 8, 2 | 3. What is the mode?", "A",
       ["15", "18", "23", "No mode"], "Leaf 5 appears twice on stem 1, giving 15 twice. Mode = 15.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-stm-p13", "Ordered plot — 1 | 2 4 9, 2 | 1 5 7, 3 | 3 (7 values). Find the median.",
-      "\\text{Middle (4th) value}", "21", "Values: 12,14,19,21,25,27,33. 4th value = 21.", 3),
+      "", "21", "Values: 12,14,19,21,25,27,33. 4th value = 21.", 3),
     poolAnswer("y8-dat-stm-p14", "Ordered plot — 5 | 2 6, 6 | 1 4 9, 7 | 0. What is the range?",
-      "70 - 52", "18", "Smallest = 52, largest = 70. Range = 18.", 3),
+      "", "18", "Smallest = 52, largest = 70. Range = 18.", 3),
     poolChoice("y8-dat-stm-p15", "Ordered plot — 2 | 0 0 5, 3 | 1 8. How many values are less than 30?", "C",
       ["1", "2", "3", "4"], "Values with stem 2: 20, 20, 25 = 3 values less than 30.", 3),
     poolAnswer("y8-dat-stm-p16", "Ordered plot — 3 | 0 5, 4 | 2 8 (4 values). Find the mean.",
-      "\\frac{30 + 35 + 42 + 48}{4}", "38.75", "Values: 30, 35, 42, 48. Sum = 155. Mean = 155 ÷ 4 = 38.75.", 3),
+      "", "38.75", "Values: 30, 35, 42, 48. Sum = 155. Mean = 155 ÷ 4 = 38.75.", 3),
     poolAnswer("y8-dat-stm-p17", "Ordered plot — 1 | 1 1 1 8, 2 | 4. What is the mode?",
-      "\\text{leaf 1 appears 3 times on stem 1}", "11", "Value 11 appears three times. Mode = 11.", 3),
+      "", "11", "Value 11 appears three times. Mode = 11.", 3),
     poolChoice("y8-dat-stm-p18", "Ordered plot — 4 | 3 7, 5 | 1 1 6, 6 | 2 (6 values). What is the median?", "B",
       ["49", "51", "53", "56"], "Values: 43,47,51,51,56,62. Median = (51 + 51) ÷ 2 = 51.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-stm-p19", "Ordered plot — 2 | 1 4 8, 3 | 2 5 5 9, 4 | 3 (8 values). Find the median.",
-      "\\text{Average 4th and 5th values}", "33.5", "Values: 21,24,28,32,35,35,39,43. 4th=32, 5th=35. Median = (32 + 35) ÷ 2 = 33.5.", 4),
+      "", "33.5", "Values: 21,24,28,32,35,35,39,43. 4th=32, 5th=35. Median = (32 + 35) ÷ 2 = 33.5.", 4),
     poolAnswer("y8-dat-stm-p20", "Ordered plot — 1 | 3 7 9, 2 | 2 6, 3 | 0 4 (7 values). Find the mean. Round to 1 decimal place.",
-      "\\frac{13+17+19+22+26+30+34}{7}", "23", "Sum = 161. Mean = 161 ÷ 7 = 23.0.", 4, ["23.0"]),
+      "", "23", "Sum = 161. Mean = 161 ÷ 7 = 23.0.", 4, ["23.0"]),
     poolChoice("y8-dat-stm-p21", "Ordered plot — 3 | 2 2 2 5, 4 | 1 7. How many values equal the mode?", "C",
       ["1", "2", "3", "4"], "Leaf 2 appears 3 times on stem 3 (value 32). Mode 32 appears 3 times.", 4),
     poolAnswer("y8-dat-stm-p22", "Ordered plot — 6 | 1 4, 7 | 0 3 8, 8 | 5. Find Q2 (the median) of the 6 values.",
-      "\\frac{70 + 73}{2}", "71.5", "Values: 61,64,70,73,78,85. Median = (70 + 73) ÷ 2 = 71.5.", 4),
+      "", "71.5", "Values: 61,64,70,73,78,85. Median = (70 + 73) ÷ 2 = 71.5.", 4),
     poolAnswer("y8-dat-stm-p23", "Ordered plot — 2 | 5 8, 3 | 0 4 7, 4 | 1 9. How many values are greater than 35?",
-      "\\text{37, 41, 49}", "3", "Values above 35: 37, 41, 49 = 3 values.", 4),
+      "", "3", "Values above 35: 37, 41, 49 = 3 values.", 4),
     poolChoice("y8-dat-stm-p24", "A back-to-back plot has the left side read away from the stem. For the row '7 6 | 2 | 3 8', what is the smallest value on the LEFT side?", "B",
       ["27", "26", "62", "76"], "Left leaves read right-to-left: leaf 6 (closest to stem) gives 26, the smallest on the left.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-stm-p25", "Ordered plot — 1 | 0 5, 2 | 1 3 8, 3 | 2 6, 4 | 0 (8 values). Find the mean. Round to 2 decimal places.",
-      "\\frac{10+15+21+23+28+32+36+40}{8}", "25.63", "Sum = 205. Mean = 205 ÷ 8 = 25.625 ≈ 25.63.", 5, ["25.625"]),
+      "", "25.63", "Sum = 205. Mean = 205 ÷ 8 = 25.625 ≈ 25.63.", 5, ["25.625"]),
     poolAnswer("y8-dat-stm-p26", "Ordered plot — 3 | 1 4 8, 4 | 2 6, 5 | 0 (6 values). Find Q1 (median of the lower half).",
-      "\\text{Lower half: }31, 34, 38", "34", "Lower half (first 3 values): 31, 34, 38. Q1 = middle = 34.", 5),
+      "", "34", "Lower half (first 3 values): 31, 34, 38. Q1 = middle = 34.", 5),
     poolAnswer("y8-dat-stm-p27", "Ordered plot — 2 | 2 7, 3 | 1 5 9, 4 | 4 (6 values). Find the range and the median; give range minus median.",
-      "(44 - 22) - \\frac{31 + 35}{2}", "-11", "Range = 44 - 22 = 22. Median = (31 + 35) ÷ 2 = 33. Range - median = 22 - 33 = -11.", 5),
+      "", "-11", "Range = 44 - 22 = 22. Median = (31 + 35) ÷ 2 = 33. Range - median = 22 - 33 = -11.", 5),
     poolChoice("y8-dat-stm-p28", "Ordered plot — 5 | 0 0 0 4, 6 | 7. A new value of 50 is added. What happens to the mode?", "A",
       ["It stays 50 and now appears 4 times", "It changes to 67", "There is no mode", "It becomes 54"],
       "Value 50 already appears 3 times (leaf 0,0,0); adding another 50 makes it appear 4 times — still the mode.", 5),
     poolAnswer("y8-dat-stm-p29", "Ordered plot — 1 | 2 6, 2 | 0 4 4 8, 3 | 5 (7 values). Find the median.",
-      "\\text{Middle (4th) value}", "24", "Values: 12,16,20,24,24,28,35. 4th value = 24.", 5),
+      "", "24", "Values: 12,16,20,24,24,28,35. 4th value = 24.", 5),
     poolAnswer("y8-dat-stm-p30", "Ordered plot — 4 | 1 5 9, 5 | 3 7, 6 | 2 (6 values). By how much would the median change if the largest value, 62, were replaced by 82?",
-      "\\text{median depends on the 3rd and 4th values}", "0", "Values: 41, 45, 49, 53, 57, 62. Median = (49 + 53) ÷ 2 = 51. Replacing the largest value does not change the 3rd and 4th values, so the median stays 51 — a change of 0.", 5),
+      "", "0", "Values: 41, 45, 49, 53, 57, 62. Median = (49 + 53) ÷ 2 = 51. Replacing the largest value does not change the 3rd and 4th values, so the median stays 51 — a change of 0.", 5),
   ],
   multiPartPractice: [
     {
@@ -2735,7 +2735,7 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-g2",
       "Sorted data: 2, 4, 6, 8, 10. Find Q2 (the median).",
-      "\\text{Middle value of } 5",
+      "",
       "6",
       "5 values → median is the 3rd value. Sorted: 2, 4, 6, 8, 10. Q2 = 6."
     ),
@@ -2818,21 +2818,21 @@ const quartilesAndIQR: LessonContent = {
     answer(
       "y8-dat-qrt-m1",
       "Sorted data: 5, 10, 15, 20, 25. Find Q2.",
-      "\\text{Middle (3rd) value}",
+      "",
       "15",
       "5 values → median is the 3rd value: 15. Q2 = 15."
     ),
     answer(
       "y8-dat-qrt-m2",
       "Sorted data: 5, 10, 15, 20, 25. Q2 = 15. Lower half: 5, 10. Find Q1.",
-      "Q_1 = \\frac{5 + 10}{2}",
+      "",
       "7.5",
       "Lower half (excluding Q2): 5, 10. Q1 = (5 + 10) ÷ 2 = 7.5."
     ),
     answer(
       "y8-dat-qrt-m3",
       "Sorted data: 5, 10, 15, 20, 25. Upper half: 20, 25. Find Q3.",
-      "Q_3 = \\frac{20 + 25}{2}",
+      "",
       "22.5",
       "Upper half (excluding Q2): 20, 25. Q3 = (20 + 25) ÷ 2 = 22.5."
     ),
@@ -2901,41 +2901,41 @@ const quartilesAndIQR: LessonContent = {
     poolChoice("y8-dat-qrt-p1", "Which quartile equals the median?", "B",
       ["Q1", "Q2", "Q3", "IQR"], "Q2 is the median of the whole data set.", 1),
     poolAnswer("y8-dat-qrt-p2", "Sorted data: 1, 3, 5, 7, 9. Find Q2.",
-      "\\text{Middle (3rd) value}", "5", "5 values → median is the 3rd: 5.", 1),
+      "", "5", "5 values → median is the 3rd: 5.", 1),
     poolAnswer("y8-dat-qrt-p3", "Q1 = 4 and Q3 = 10. Find the IQR.",
-      "10 - 4", "6", "IQR = Q3 - Q1 = 10 - 4 = 6.", 1),
+      "", "6", "IQR = Q3 - Q1 = 10 - 4 = 6.", 1),
     poolChoice("y8-dat-qrt-p4", "The IQR is calculated as…", "C",
       ["Q1 - Q3", "Max - Min", "Q3 - Q1", "Q2 - Q1"], "IQR = Q3 - Q1.", 1),
     poolAnswer("y8-dat-qrt-p5", "Sorted data: 2, 4, 6. Find Q2.",
-      "\\text{Middle value}", "4", "The middle value of 2, 4, 6 is 4.", 1),
+      "", "4", "The middle value of 2, 4, 6 is 4.", 1),
     poolChoice("y8-dat-qrt-p6", "A smaller IQR means…", "A",
       ["the middle 50% is more tightly clustered", "the data is larger",
        "there are more values", "the range is bigger"],
       "A smaller IQR means the central 50% of values are closer together.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-qrt-p7", "Sorted data: 2, 4, 6, 8, 10, 12. Find Q2.",
-      "\\frac{6 + 8}{2}", "7", "6 values → median = (6 + 8) ÷ 2 = 7.", 2),
+      "", "7", "6 values → median = (6 + 8) ÷ 2 = 7.", 2),
     poolAnswer("y8-dat-qrt-p8", "Sorted data: 3, 5, 7, 9, 11. Q2 = 7. Lower half: 3, 5. Find Q1.",
-      "\\frac{3 + 5}{2}", "4", "Lower half 3, 5. Q1 = (3 + 5) ÷ 2 = 4.", 2),
+      "", "4", "Lower half 3, 5. Q1 = (3 + 5) ÷ 2 = 4.", 2),
     poolAnswer("y8-dat-qrt-p9", "Q1 = 4, Q3 = 16. Find the IQR.",
-      "16 - 4", "12", "IQR = 16 - 4 = 12.", 2),
+      "", "12", "IQR = 16 - 4 = 12.", 2),
     poolChoice("y8-dat-qrt-p10", "Group A: IQR = 5. Group B: IQR = 15. Which has more consistent central values?", "A",
       ["Group A", "Group B", "Both equal", "Cannot tell"], "Smaller IQR (Group A) means tighter central clustering.", 2),
     poolAnswer("y8-dat-qrt-p11", "Sorted data: 1, 3, 5, 7, 9, 11. Lower half: 1, 3, 5. Find Q1.",
-      "\\text{median of }1, 3, 5", "3", "Q1 is the middle of the lower half: 3.", 2),
+      "", "3", "Q1 is the middle of the lower half: 3.", 2),
     poolChoice("y8-dat-qrt-p12", "For an odd-count data set, when finding Q1 and Q3 you should…", "B",
       ["include the median in both halves", "exclude the median from both halves",
        "use only the median", "ignore the smallest value"],
       "For odd counts, exclude the median from both halves.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-qrt-p13", "Sorted data: 4, 8, 12, 16, 20, 24, 28 (7 values). Find the IQR.",
-      "Q_3 - Q_1 = 24 - 8", "16", "Q1 = 8 (median of 4,8,12). Q3 = 24 (median of 20,24,28). IQR = 16.", 3),
+      "", "16", "Q1 = 8 (median of 4,8,12). Q3 = 24 (median of 20,24,28). IQR = 16.", 3),
     poolAnswer("y8-dat-qrt-p14", "Sorted data: 2, 6, 8, 14, 18, 22 (6 values). Find Q1.",
-      "\\text{median of }2, 6, 8", "6", "Lower half: 2, 6, 8. Q1 = 6.", 3),
+      "", "6", "Lower half: 2, 6, 8. Q1 = 6.", 3),
     poolAnswer("y8-dat-qrt-p15", "Sorted data: 2, 6, 8, 14, 18, 22 (6 values). Find Q3.",
-      "\\text{median of }14, 18, 22", "18", "Upper half: 14, 18, 22. Q3 = 18.", 3),
+      "", "18", "Upper half: 14, 18, 22. Q3 = 18.", 3),
     poolAnswer("y8-dat-qrt-p16", "Q1 = 6, Q3 = 18. Find the IQR.",
-      "18 - 6", "12", "IQR = 18 - 6 = 12.", 3),
+      "", "12", "IQR = 18 - 6 = 12.", 3),
     poolChoice("y8-dat-qrt-p17", "Which best describes how the IQR differs from the range?", "C",
       ["They are always equal.", "The IQR covers all the data.",
        "The IQR covers only the middle 50%, the range covers all values.",
@@ -2945,35 +2945,35 @@ const quartilesAndIQR: LessonContent = {
       "", "18", "Q1 = Q3 - IQR = 30 - 12 = 18.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-qrt-p19", "Sorted data: 5, 9, 13, 17, 21, 25, 29, 33 (8 values). Find the IQR.",
-      "Q_3 - Q_1", "16", "Lower half: 5,9,13,17 → Q1 = (9+13)/2 = 11. Upper half: 21,25,29,33 → Q3 = (25+29)/2 = 27. IQR = 27 - 11 = 16.", 4),
+      "", "16", "Lower half: 5,9,13,17 → Q1 = (9+13)/2 = 11. Upper half: 21,25,29,33 → Q3 = (25+29)/2 = 27. IQR = 27 - 11 = 16.", 4),
     poolAnswer("y8-dat-qrt-p20", "Sorted data: 3, 7, 11, 15, 19, 23, 27, 31, 35 (9 values). Find the IQR.",
-      "Q_3 - Q_1", "20", "Q2 = 19 (5th). Lower half: 3,7,11,15 → Q1 = (7+11)/2 = 9. Upper half: 23,27,31,35 → Q3 = (27+31)/2 = 29. IQR = 29 - 9 = 20.", 4),
+      "", "20", "Q2 = 19 (5th). Lower half: 3,7,11,15 → Q1 = (7+11)/2 = 9. Upper half: 23,27,31,35 → Q3 = (27+31)/2 = 29. IQR = 29 - 9 = 20.", 4),
     poolAnswer("y8-dat-qrt-p21", "Q1 = 14 and IQR = 11. Find Q3.",
-      "Q_3 = 14 + 11", "25", "Q3 = Q1 + IQR = 14 + 11 = 25.", 4),
+      "", "25", "Q3 = Q1 + IQR = 14 + 11 = 25.", 4),
     poolChoice("y8-dat-qrt-p22", "Group A: median 20, IQR 6. Group B: median 20, IQR 18. Which statement is correct?", "C",
       ["Group A has a higher centre.", "Group B is more consistent.",
        "Both have the same centre but Group A's middle 50% is more clustered.",
        "Group B has a smaller spread."],
       "Same median means same centre. Group A's smaller IQR means tighter central clustering.", 4),
     poolAnswer("y8-dat-qrt-p23", "Sorted data: 10, 12, 14, 16, 18, 20 (6 values). Find the IQR.",
-      "Q_3 - Q_1", "6", "Lower half: 10,12,14 → Q1 = 12. Upper half: 16,18,20 → Q3 = 18. IQR = 18 - 12 = 6.", 4),
+      "", "6", "Lower half: 10,12,14 → Q1 = 12. Upper half: 16,18,20 → Q3 = 18. IQR = 18 - 12 = 6.", 4),
     poolAnswer("y8-dat-qrt-p24", "A data set has Q1 = 22, Q2 = 30, Q3 = 41. Find IQR and (Q2 - Q1); give IQR minus (Q2 - Q1).",
-      "(41 - 22) - (30 - 22)", "11", "IQR = 41 - 22 = 19. Q2 - Q1 = 8. Difference = 19 - 8 = 11.", 4),
+      "", "11", "IQR = 41 - 22 = 19. Q2 - Q1 = 8. Difference = 19 - 8 = 11.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-qrt-p25", "Sorted data: 4, 6, 9, 13, 14, 18, 21, 24, 27, 30 (10 values). Find the IQR.",
-      "Q_3 - Q_1", "15", "Lower half: 4,6,9,13,14 → Q1 = 9 (3rd). Upper half: 18,21,24,27,30 → Q3 = 24 (3rd). IQR = 24 - 9 = 15.", 5),
+      "", "15", "Lower half: 4,6,9,13,14 → Q1 = 9 (3rd). Upper half: 18,21,24,27,30 → Q3 = 24 (3rd). IQR = 24 - 9 = 15.", 5),
     poolAnswer("y8-dat-qrt-p26", "A data set has IQR = 14 and Q3 = 38. The minimum is 12 and maximum is 60. Find the difference between the range and the IQR.",
-      "(60 - 12) - 14", "34", "Range = 60 - 12 = 48. IQR = 14. Difference = 48 - 14 = 34.", 5),
+      "", "34", "Range = 60 - 12 = 48. IQR = 14. Difference = 48 - 14 = 34.", 5),
     poolAnswer("y8-dat-qrt-p27", "Sorted data: 8, 12, 12, 15, 20, 24, 24, 28 (8 values). Find the IQR.",
-      "Q_3 - Q_1", "12", "Lower half: 8,12,12,15 → Q1 = (12+12)/2 = 12. Upper half: 20,24,24,28 → Q3 = (24+24)/2 = 24. IQR = 24 - 12 = 12.", 5),
+      "", "12", "Lower half: 8,12,12,15 → Q1 = (12+12)/2 = 12. Upper half: 20,24,24,28 → Q3 = (24+24)/2 = 24. IQR = 24 - 12 = 12.", 5),
     poolChoice("y8-dat-qrt-p28", "Why is the IQR often preferred over the range to describe spread?", "B",
       ["It is always larger.", "It is not distorted by a single extreme outlier.",
        "It includes every value.", "It equals the median."],
       "The IQR uses only the middle 50%, so a single extreme outlier does not distort it the way it distorts the range.", 5),
     poolAnswer("y8-dat-qrt-p29", "A set of 11 sorted values has Q1 at the 3rd value and Q3 at the 9th value. If the 3rd value is 17 and the 9th value is 41, find the IQR.",
-      "41 - 17", "24", "IQR = Q3 - Q1 = 41 - 17 = 24.", 5),
+      "", "24", "IQR = Q3 - Q1 = 41 - 17 = 24.", 5),
     poolAnswer("y8-dat-qrt-p30", "Sorted data: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60 (12 values). Find the IQR.",
-      "Q_3 - Q_1", "30", "Lower half (first 6): 5,10,15,20,25,30 → Q1 = (15+20)/2 = 17.5. Upper half: 35,40,45,50,55,60 → Q3 = (45+50)/2 = 47.5. IQR = 47.5 - 17.5 = 30.", 5),
+      "", "30", "Lower half (first 6): 5,10,15,20,25,30 → Q1 = (15+20)/2 = 17.5. Upper half: 35,40,45,50,55,60 → Q3 = (45+50)/2 = 47.5. IQR = 47.5 - 17.5 = 30.", 5),
   ],
   multiPartPractice: [
     {
@@ -3116,14 +3116,14 @@ const outliersAndInterpretation: LessonContent = {
     answer(
       "y8-dat-out-g2",
       "Data: 3, 5, 6, 7, 9. Find the mean.",
-      "\\text{Mean} = \\frac{3+5+6+7+9}{5}",
+      "",
       "6",
       "Sum = 3 + 5 + 6 + 7 + 9 = 30. Mean = 30 ÷ 5 = 6."
     ),
     answer(
       "y8-dat-out-g3",
       "Data: 3, 5, 6, 7, 99. Find the median.",
-      "\\text{Sorted: } 3,\\;5,\\;6,\\;7,\\;99",
+      "",
       "6",
       "Sorted: 3, 5, 6, 7, 99. 5 values → median is the 3rd value = 6. The outlier 99 does not change the median."
     ),
@@ -3139,21 +3139,21 @@ const outliersAndInterpretation: LessonContent = {
     answer(
       "y8-dat-out-i1",
       "Data: 4, 6, 8, 10, 12. Find the mean.",
-      "\\text{Mean} = \\frac{4+6+8+10+12}{5}",
+      "",
       "8",
       "Sum = 4 + 6 + 8 + 10 + 12 = 40. Mean = 40 ÷ 5 = 8."
     ),
     answer(
       "y8-dat-out-i2",
       "Data: 4, 6, 8, 10, 72. Find the median.",
-      "\\text{Sorted: } 4,\\;6,\\;8,\\;10,\\;72",
+      "",
       "8",
       "Sorted: 4, 6, 8, 10, 72. 5 values → median is the 3rd value = 8. The outlier 72 does not shift the median."
     ),
     answer(
       "y8-dat-out-i3",
       "Data: 4, 6, 8, 10, 72. Find the mean.",
-      "\\text{Mean} = \\frac{4+6+8+10+72}{5}",
+      "",
       "20",
       "Sum = 4 + 6 + 8 + 10 + 72 = 100. Mean = 100 ÷ 5 = 20."
     ),
@@ -3167,7 +3167,7 @@ const outliersAndInterpretation: LessonContent = {
     answer(
       "y8-dat-out-i5",
       "Data: 10, 11, 12, 13, 14. The outlier value 60 is added. What is the new range?",
-      "\\text{Range} = 60 - 10",
+      "",
       "50",
       "New largest value = 60, smallest = 10. New range = 60 − 10 = 50."
     ),
@@ -3194,21 +3194,21 @@ const outliersAndInterpretation: LessonContent = {
     answer(
       "y8-dat-out-m1",
       "Data: 5, 7, 8, 9, 11. Find the mean.",
-      "\\text{Mean} = \\frac{5+7+8+9+11}{5}",
+      "",
       "8",
       "Sum = 5 + 7 + 8 + 9 + 11 = 40. Mean = 40 ÷ 5 = 8."
     ),
     answer(
       "y8-dat-out-m2",
       "Data: 5, 7, 8, 9, 51. Find the mean.",
-      "\\text{Mean} = \\frac{5+7+8+9+51}{5}",
+      "",
       "16",
       "Sum = 5 + 7 + 8 + 9 + 51 = 80. Mean = 80 ÷ 5 = 16."
     ),
     answer(
       "y8-dat-out-m3",
       "Data: 5, 7, 8, 9, 51. Find the median.",
-      "\\text{Sorted: } 5,\\;7,\\;8,\\;9,\\;51",
+      "",
       "8",
       "5 values → median is the 3rd value = 8. The outlier 51 does not change the median."
     ),
@@ -3222,21 +3222,21 @@ const outliersAndInterpretation: LessonContent = {
     answer(
       "y8-dat-out-m5",
       "Data: 2, 4, 6, 8, 10. The outlier 60 is added. Find the new mean.",
-      "\\text{Mean} = \\frac{2+4+6+8+10+60}{6}",
+      "",
       "15",
       "Sum = 2 + 4 + 6 + 8 + 10 + 60 = 90. Mean = 90 ÷ 6 = 15."
     ),
     answer(
       "y8-dat-out-m6",
       "Data: 2, 4, 6, 8, 10. The outlier 60 is added (6 values). Find the new median.",
-      "\\text{Sorted: } 2,\\;4,\\;6,\\;8,\\;10,\\;60",
+      "",
       "7",
       "6 values → median = average of 3rd and 4th values = (6 + 8) ÷ 2 = 7."
     ),
     answer(
       "y8-dat-out-m7",
       "Data: 2, 4, 6, 8, 10. The outlier 60 is added. Find the new range.",
-      "\\text{Range} = 60 - 2",
+      "",
       "58",
       "New largest = 60, smallest = 2. New range = 60 − 2 = 58. Original range was 10 − 2 = 8."
     ),
@@ -3262,7 +3262,7 @@ const outliersAndInterpretation: LessonContent = {
     answer(
       "y8-dat-out-m10",
       "Data: 10, 20, 30, 40, 50 (mean = 30). An outlier of 120 is added. By how much does the mean increase?",
-      "\\text{New mean} = \\frac{10+20+30+40+50+120}{6} = \\frac{270}{6} = 45",
+      "",
       "15",
       "Sum with outlier = 10 + 20 + 30 + 40 + 50 + 120 = 270. New mean = 270 ÷ 6 = 45. Increase = 45 − 30 = 15."
     ),
@@ -3272,78 +3272,78 @@ const outliersAndInterpretation: LessonContent = {
     poolChoice("y8-dat-out-p1", "Which value is an outlier in: 4, 5, 6, 7, 40?", "D",
       ["4", "5", "6", "40"], "40 is far from the others (4–7), so it is the outlier.", 1),
     poolAnswer("y8-dat-out-p2", "Data: 2, 4, 6, 8, 10. Find the mean.",
-      "\\frac{2+4+6+8+10}{5}", "6", "Sum = 30. Mean = 30 ÷ 5 = 6.", 1),
+      "", "6", "Sum = 30. Mean = 30 ÷ 5 = 6.", 1),
     poolAnswer("y8-dat-out-p3", "Data: 2, 4, 6, 8, 90. Find the median.",
-      "\\text{Sorted middle value}", "6", "5 values → median is the 3rd: 6. The outlier 90 does not change it.", 1),
+      "", "6", "5 values → median is the 3rd: 6. The outlier 90 does not change it.", 1),
     poolChoice("y8-dat-out-p4", "Which measure of centre is most affected by an outlier?", "A",
       ["Mean", "Median", "Mode", "None of them"], "The mean uses every value, so an outlier shifts it the most.", 1),
     poolAnswer("y8-dat-out-p5", "Data: 3, 5, 7. An outlier of 35 is added. Find the new range.",
-      "35 - 3", "32", "New largest = 35, smallest = 3. Range = 32.", 1),
+      "", "32", "New largest = 35, smallest = 3. Range = 32.", 1),
     poolChoice("y8-dat-out-p6", "An outlier is best described as a value that is…", "B",
       ["exactly the median", "much larger or smaller than the rest",
        "always the mode", "the average"],
       "An outlier sits far away from the rest of the data.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-out-p7", "Data: 5, 6, 7, 8, 9. Find the mean.",
-      "\\frac{5+6+7+8+9}{5}", "7", "Sum = 35. Mean = 35 ÷ 5 = 7.", 2),
+      "", "7", "Sum = 35. Mean = 35 ÷ 5 = 7.", 2),
     poolAnswer("y8-dat-out-p8", "Data: 5, 6, 7, 8, 49. Find the mean.",
-      "\\frac{5+6+7+8+49}{5}", "15", "Sum = 75. Mean = 75 ÷ 5 = 15.", 2),
+      "", "15", "Sum = 75. Mean = 75 ÷ 5 = 15.", 2),
     poolAnswer("y8-dat-out-p9", "Mean without outlier = 7, mean with outlier = 15. By how much did the outlier raise the mean?",
-      "15 - 7", "8", "15 - 7 = 8.", 2),
+      "", "8", "15 - 7 = 8.", 2),
     poolChoice("y8-dat-out-p10", "Which statistic should you use to describe the typical value when an outlier is present?", "B",
       ["Mean", "Median", "Range", "Sum"], "The median is resistant to outliers, so it best describes the typical value.", 2),
     poolAnswer("y8-dat-out-p11", "Data: 11, 12, 13, 14. An outlier of 50 is added. Find the new range.",
-      "50 - 11", "39", "New largest = 50, smallest = 11. Range = 39.", 2),
+      "", "39", "New largest = 50, smallest = 11. Range = 39.", 2),
     poolChoice("y8-dat-out-p12", "Is 13 an outlier in the set 5, 7, 9, 11, 13?", "B",
       ["Yes, it is the largest.", "No, it is close to the others.",
        "Yes, all maximums are outliers.", "Cannot tell."],
       "13 is just the maximum and close to the rest — not an outlier.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-out-p13", "Data: 4, 6, 8, 10, 12. An outlier of 60 is added. Find the new mean.",
-      "\\frac{4+6+8+10+12+60}{6}", "16.67", "Sum = 100. Mean = 100 ÷ 6 ≈ 16.67.", 3, ["16.7", "16.667"]),
+      "", "16.67", "Sum = 100. Mean = 100 ÷ 6 ≈ 16.67.", 3, ["16.7", "16.667"]),
     poolAnswer("y8-dat-out-p14", "Data: 4, 6, 8, 10, 12. An outlier of 60 is added (6 values). Find the new median.",
-      "\\frac{8 + 10}{2}", "9", "Sorted: 4,6,8,10,12,60. Median = (8 + 10) ÷ 2 = 9.", 3),
+      "", "9", "Sorted: 4,6,8,10,12,60. Median = (8 + 10) ÷ 2 = 9.", 3),
     poolChoice("y8-dat-out-p15", "Why does the median barely change when a large outlier is added at one end?", "A",
       ["It depends on position, not the size of values.", "It uses the sum of all values.",
        "It is always the largest value.", "It equals the range."],
       "The median depends on the middle position, so an extreme value at one end does not move it much.", 3),
     poolAnswer("y8-dat-out-p16", "House prices ($000s): 380, 400, 410, 420, 1500. Find the median.",
-      "\\text{Sorted middle value}", "410", "Sorted: 380,400,410,420,1500. Median (3rd) = 410.", 3),
+      "", "410", "Sorted: 380,400,410,420,1500. Median (3rd) = 410.", 3),
     poolAnswer("y8-dat-out-p17", "House prices ($000s): 380, 400, 410, 420, 1500. Find the mean.",
-      "\\frac{380+400+410+420+1500}{5}", "622", "Sum = 3110. Mean = 3110 ÷ 5 = 622.", 3),
+      "", "622", "Sum = 3110. Mean = 3110 ÷ 5 = 622.", 3),
     poolChoice("y8-dat-out-p18", "For the house prices above (median 410, mean 622), which better represents a typical price?", "B",
       ["Mean, because it uses all values.", "Median, because the $1.5m outlier inflates the mean.",
        "Both are equal.", "Neither — use the range."],
       "The $1.5m outlier inflates the mean; the median (410) better reflects a typical price.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-out-p19", "Data: 3, 5, 6, 7, 9 (mean 6). Replace the 9 with 39. Find the new mean.",
-      "\\frac{3+5+6+7+39}{5}", "12", "New sum = 60. Mean = 60 ÷ 5 = 12.", 4),
+      "", "12", "New sum = 60. Mean = 60 ÷ 5 = 12.", 4),
     poolAnswer("y8-dat-out-p20", "Data: 3, 5, 6, 7, 9 (median 6). Replace the 9 with 39. Find the new median.",
-      "\\text{middle value unchanged}", "6", "Sorted: 3,5,6,7,39. Median (3rd) = 6. The median is unchanged.", 4),
+      "", "6", "Sorted: 3,5,6,7,39. Median (3rd) = 6. The median is unchanged.", 4),
     poolAnswer("y8-dat-out-p21", "A class of 5 has test scores 60, 65, 70, 75, and 5. By how much higher is the median than the mean?",
-      "\\text{median} - \\text{mean}", "10", "Sorted: 5,60,65,70,75. Median = 65. Mean = 275 ÷ 5 = 55. Difference = 65 - 55 = 10.", 4),
+      "", "10", "Sorted: 5,60,65,70,75. Median = 65. Mean = 275 ÷ 5 = 55. Difference = 65 - 55 = 10.", 4),
     poolChoice("y8-dat-out-p22", "Adding a very large outlier to a data set will…", "C",
       ["decrease the range", "leave the range unchanged",
        "increase the range significantly", "halve the range"],
       "A large outlier becomes the new maximum, increasing the range significantly.", 4),
     poolAnswer("y8-dat-out-p23", "Data: 12, 14, 16, 18, 20 (mean 16). An outlier of 100 is added. Find the new mean.",
-      "\\frac{80 + 100}{6}", "30", "Old sum = 80. New sum = 180 over 6 = 30.", 4),
+      "", "30", "Old sum = 80. New sum = 180 over 6 = 30.", 4),
     poolAnswer("y8-dat-out-p24", "Data: 12, 14, 16, 18, 20. An outlier of 100 is added (6 values). Find the new median.",
-      "\\frac{16 + 18}{2}", "17", "Sorted: 12,14,16,18,20,100. Median = (16 + 18) ÷ 2 = 17.", 4),
+      "", "17", "Sorted: 12,14,16,18,20,100. Median = (16 + 18) ÷ 2 = 17.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-out-p25", "A data set of 6 values has mean 20. One value, currently 15, is changed to 75. Find the new mean.",
-      "20 + \\frac{75 - 15}{6}", "30", "The sum rises by 60, so the mean rises by 60 ÷ 6 = 10. New mean = 30.", 5),
+      "", "30", "The sum rises by 60, so the mean rises by 60 ÷ 6 = 10. New mean = 30.", 5),
     poolAnswer("y8-dat-out-p26", "Salaries ($000s): 40, 42, 45, 48, 50, 300. Find the difference between the mean and the median.",
-      "\\text{mean} - \\text{median}", "41", "Mean = 525 ÷ 6 = 87.5. Median = (45 + 48) ÷ 2 = 46.5. Difference = 87.5 - 46.5 = 41.", 5),
+      "", "41", "Mean = 525 ÷ 6 = 87.5. Median = (45 + 48) ÷ 2 = 46.5. Difference = 87.5 - 46.5 = 41.", 5),
     poolChoice("y8-dat-out-p27", "A report uses the mean income of a small town to claim residents are wealthy, but most earn modest wages. What is the likely issue?", "A",
       ["A few very high earners inflate the mean — the median would be lower and fairer.",
        "The mean is always wrong.", "Income cannot be averaged.",
        "The median must equal the mean."],
       "A few very high incomes pull the mean up; the median better reflects the typical resident.", 5),
     poolAnswer("y8-dat-out-p28", "Data: 8, 10, 12, 14, 16. The mean is 12. A new value k is added making the new mean 20. Find k.",
-      "20 \\times 6 - (8+10+12+14+16)", "60", "New total needed = 120. Old sum = 60. k = 120 - 60 = 60.", 5),
+      "", "60", "New total needed = 120. Old sum = 60. k = 120 - 60 = 60.", 5),
     poolAnswer("y8-dat-out-p29", "Data: 5, 7, 9, 11, 13 has mean 9 and median 9. An outlier of 49 replaces the 13. By how much does the mean change?",
-      "\\frac{49 - 13}{5}", "7.2", "The sum rises by 49 - 13 = 36, so the mean rises by 36 ÷ 5 = 7.2.", 5),
+      "", "7.2", "The sum rises by 49 - 13 = 36, so the mean rises by 36 ÷ 5 = 7.2.", 5),
     poolChoice("y8-dat-out-p30", "Two data sets have the same five middle values but Set B has one extra extreme outlier. Which statement is true?", "B",
       ["Both have the same mean.", "Set B's mean is pulled toward the outlier, but the medians are similar.",
        "Set B's median equals the outlier.", "Neither has a median."],
@@ -3497,14 +3497,14 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-g2",
       "A spinner is spun 50 times. Blue appears 10 times. Find the relative frequency of blue as a decimal.",
-      "\\text{Relative frequency} = \\frac{10}{50}",
+      "",
       "0.2",
       "Relative frequency = 10 ÷ 50 = 0.2."
     ),
     answer(
       "y8-pro-rel-g3",
       "A spinner is spun 50 times. Blue appears 10 times. Express the relative frequency of blue as a percentage.",
-      "0.2 \\times 100",
+      "",
       "20",
       "Relative frequency as decimal = 0.2. As a percentage: 0.2 × 100 = 20%."
     ),
@@ -3525,7 +3525,7 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-i1",
       "A die is rolled 60 times. The number 4 appears 9 times. Find the relative frequency of rolling a 4 as a fraction in simplest form.",
-      "\\frac{9}{60}",
+      "",
       "3/20",
       "9 ÷ 60 = 3/20. Both 9 and 60 are divisible by 3.",
       ["3/20", "0.15", "15%"]
@@ -3533,21 +3533,21 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-i2",
       "A bag contains red, blue, and green marbles. From 40 draws (with replacement): red=16, blue=14, green=10. What is the relative frequency of green?",
-      "\\frac{10}{40}",
+      "",
       "0.25",
       "Relative frequency of green = 10 ÷ 40 = 0.25."
     ),
     answer(
       "y8-pro-rel-i3",
       "The relative frequency of red is 16/40 = 0.4 and the relative frequency of blue is 14/40 = 0.35. What must the sum of relative frequencies of red, blue, and green equal?",
-      "0.4 + 0.35 + 0.25",
+      "",
       "1",
       "The relative frequencies of all outcomes must sum to 1. 0.4 + 0.35 + 0.25 = 1."
     ),
     answer(
       "y8-pro-rel-i4",
       "A die is rolled 600 times. The number 6 appears 112 times. What is the relative frequency of 6 as a decimal? Round to 2 decimal places.",
-      "\\frac{112}{600}",
+      "",
       "0.19",
       "112 ÷ 600 = 0.1867... ≈ 0.19 (rounded to 2 decimal places).",
       ["0.19", "0.187", "0.1867"]
@@ -3587,21 +3587,21 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-m1",
       "A spinner is spun 40 times. Red appears 8 times. Find the relative frequency of red as a decimal.",
-      "\\frac{8}{40}",
+      "",
       "0.2",
       "Relative frequency = 8 ÷ 40 = 0.2."
     ),
     answer(
       "y8-pro-rel-m2",
       "A spinner is spun 40 times. Red appears 8 times. Express the relative frequency of red as a percentage.",
-      "0.2 \\times 100",
+      "",
       "20",
       "0.2 × 100 = 20%."
     ),
     answer(
       "y8-pro-rel-m3",
       "A coin is flipped 200 times. Tails appears 94 times. Find the relative frequency of tails as a decimal.",
-      "\\frac{94}{200}",
+      "",
       "0.47",
       "Relative frequency = 94 ÷ 200 = 0.47."
     ),
@@ -3620,7 +3620,7 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-m5",
       "A die is rolled 90 times. Results: 1→12, 2→18, 3→15, 4→10, 5→20, 6→15. Find the relative frequency of rolling a 5.",
-      "\\frac{20}{90}",
+      "",
       "2/9",
       "Relative frequency = 20 ÷ 90 = 2/9 ≈ 0.222.",
       ["2/9", "0.222", "0.22"]
@@ -3628,14 +3628,14 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-m6",
       "The sum of all relative frequencies in an experiment must equal what value?",
-      "\\text{sum} = ?",
+      "",
       "1",
       "All possible outcomes cover every trial. Their relative frequencies must sum to 1 (or 100%)."
     ),
     answer(
       "y8-pro-rel-m7",
       "In an experiment, P(red) = 0.3 and P(blue) = 0.45. What is the relative frequency of neither red nor blue?",
-      "1 - 0.3 - 0.45",
+      "",
       "0.25",
       "All relative frequencies sum to 1. P(other) = 1 − 0.3 − 0.45 = 0.25."
     ),
@@ -3649,7 +3649,7 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-m9",
       "A student rolls a die 30 times and gets a 2 exactly 5 times. What is the relative frequency of 2 as a percentage?",
-      "\\frac{5}{30} \\times 100",
+      "",
       "16.67",
       "Relative frequency = 5 ÷ 30 = 1/6 ≈ 0.1667. As percentage: ≈ 16.67%.",
       ["16.67", "16.7", "16.667"]
@@ -3657,7 +3657,7 @@ const relativeFrequency: LessonContent = {
     answer(
       "y8-pro-rel-m10",
       "In 300 trials, an event has a relative frequency of 0.4. How many times did the event occur?",
-      "0.4 \\times 300",
+      "",
       "120",
       "Frequency = relative frequency × total trials = 0.4 × 300 = 120."
     ),
@@ -3665,78 +3665,78 @@ const relativeFrequency: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-pro-rel-p1", "A coin is flipped 20 times. Heads appears 9 times. Find the relative frequency of heads as a decimal.",
-      "\\frac{9}{20}", "0.45", "9 ÷ 20 = 0.45.", 1, ["9/20"]),
+      "", "0.45", "9 ÷ 20 = 0.45.", 1, ["9/20"]),
     poolChoice("y8-pro-rel-p2", "The formula for relative frequency is…", "B",
       ["total trials ÷ frequency", "frequency ÷ total trials",
        "frequency × total trials", "frequency + total trials"],
       "Relative frequency = frequency ÷ total trials.", 1),
     poolAnswer("y8-pro-rel-p3", "A spinner is spun 25 times. Red appears 5 times. Find the relative frequency of red as a decimal.",
-      "\\frac{5}{25}", "0.2", "5 ÷ 25 = 0.2.", 1, ["1/5"]),
+      "", "0.2", "5 ÷ 25 = 0.2.", 1, ["1/5"]),
     poolAnswer("y8-pro-rel-p4", "Express the relative frequency 0.3 as a percentage.",
-      "0.3 \\times 100", "30", "0.3 × 100 = 30%.", 1),
+      "", "30", "0.3 × 100 = 30%.", 1),
     poolChoice("y8-pro-rel-p5", "The relative frequencies of all outcomes in an experiment must sum to…", "C",
       ["0", "0.5", "1", "100"], "All relative frequencies sum to 1 (or 100%).", 1),
     poolAnswer("y8-pro-rel-p6", "A die is rolled 30 times. A 4 appears 6 times. Find the relative frequency of 4 as a decimal.",
-      "\\frac{6}{30}", "0.2", "6 ÷ 30 = 0.2.", 1, ["1/5"]),
+      "", "0.2", "6 ÷ 30 = 0.2.", 1, ["1/5"]),
     // Difficulty 2
     poolAnswer("y8-pro-rel-p7", "A coin is flipped 80 times. Tails appears 36 times. Find the relative frequency of tails as a decimal.",
-      "\\frac{36}{80}", "0.45", "36 ÷ 80 = 0.45.", 2, ["9/20"]),
+      "", "0.45", "36 ÷ 80 = 0.45.", 2, ["9/20"]),
     poolAnswer("y8-pro-rel-p8", "A spinner is spun 50 times. Green appears 8 times. Express the relative frequency of green as a percentage.",
-      "\\frac{8}{50} \\times 100", "16", "8 ÷ 50 = 0.16 = 16%.", 2),
+      "", "16", "8 ÷ 50 = 0.16 = 16%.", 2),
     poolChoice("y8-pro-rel-p9", "As the number of trials increases, the relative frequency tends to…", "A",
       ["approach the theoretical probability", "move toward 1",
        "stay exactly the same", "become unpredictable"],
       "By the Law of Large Numbers, relative frequency approaches the theoretical probability.", 2),
     poolAnswer("y8-pro-rel-p10", "A die is rolled 60 times. A 2 appears 9 times. Find the relative frequency of 2 as a simplified fraction.",
-      "\\frac{9}{60}", "3/20", "9/60 = 3/20.", 2, ["0.15", "15%"]),
+      "", "3/20", "9/60 = 3/20.", 2, ["0.15", "15%"]),
     poolAnswer("y8-pro-rel-p11", "In an experiment, P(red) = 0.4 and P(blue) = 0.35. Find the relative frequency of all other outcomes combined.",
-      "1 - 0.4 - 0.35", "0.25", "1 - 0.4 - 0.35 = 0.25.", 2),
+      "", "0.25", "1 - 0.4 - 0.35 = 0.25.", 2),
     poolChoice("y8-pro-rel-p12", "Theoretical P(heads) = 0.5, but 40 flips give a relative frequency of 0.55. The most likely reason is…", "B",
       ["the coin is biased", "natural variation in a finite experiment",
        "the formula is wrong", "coins have no probability"],
       "Natural variation causes small differences in a finite experiment.", 2),
     // Difficulty 3
     poolAnswer("y8-pro-rel-p13", "A die is rolled 600 times. A 6 appears 88 times. Find the relative frequency of 6 as a decimal, rounded to 2 decimal places.",
-      "\\frac{88}{600}", "0.15", "88 ÷ 600 = 0.1466... ≈ 0.15.", 3, ["0.147", "0.1467"]),
+      "", "0.15", "88 ÷ 600 = 0.1466... ≈ 0.15.", 3, ["0.147", "0.1467"]),
     poolAnswer("y8-pro-rel-p14", "A bag draw (with replacement) 40 times gives red 18, blue 14, green 8. Find the relative frequency of green as a decimal.",
-      "\\frac{8}{40}", "0.2", "8 ÷ 40 = 0.2.", 3, ["1/5"]),
+      "", "0.2", "8 ÷ 40 = 0.2.", 3, ["1/5"]),
     poolAnswer("y8-pro-rel-p15", "From the data above, the relative frequencies of red and blue are 0.45 and 0.35. Confirm the relative frequency of green so all sum to 1.",
-      "1 - 0.45 - 0.35", "0.2", "1 - 0.45 - 0.35 = 0.2, matching 8/40.", 3),
+      "", "0.2", "1 - 0.45 - 0.35 = 0.2, matching 8/40.", 3),
     poolChoice("y8-pro-rel-p16", "Experiment A: 10 flips, 6 heads. Experiment B: 1000 flips, 504 heads. Whose relative frequency is more reliable?", "B",
       ["Experiment A", "Experiment B", "Both equal", "Neither"],
       "More trials give a more reliable relative frequency, so Experiment B (1000 flips) is more reliable.", 3),
     poolAnswer("y8-pro-rel-p17", "A student rolls a die 30 times and gets a 3 exactly 5 times. Express the relative frequency as a percentage, rounded to 2 decimal places.",
-      "\\frac{5}{30} \\times 100", "16.67", "5 ÷ 30 = 0.1667 = 16.67%.", 3, ["16.7", "16.667"]),
+      "", "16.67", "5 ÷ 30 = 0.1667 = 16.67%.", 3, ["16.7", "16.667"]),
     poolAnswer("y8-pro-rel-p18", "In 200 trials, an event has relative frequency 0.35. How many times did the event occur?",
-      "0.35 \\times 200", "70", "Frequency = 0.35 × 200 = 70.", 3),
+      "", "70", "Frequency = 0.35 × 200 = 70.", 3),
     // Difficulty 4
     poolAnswer("y8-pro-rel-p19", "A coin is flipped 250 times. Heads appears 130 times. Find the relative frequency of heads as a decimal.",
-      "\\frac{130}{250}", "0.52", "130 ÷ 250 = 0.52.", 4, ["13/25"]),
+      "", "0.52", "130 ÷ 250 = 0.52.", 4, ["13/25"]),
     poolAnswer("y8-pro-rel-p20", "In an experiment with outcomes A, B, C: P(A) = 0.5, P(C) = 0.2. If 300 trials were run, how many were outcome B?",
-      "(1 - 0.5 - 0.2) \\times 300", "90", "P(B) = 1 - 0.5 - 0.2 = 0.3. Count = 0.3 × 300 = 90.", 4),
+      "", "90", "P(B) = 1 - 0.5 - 0.2 = 0.3. Count = 0.3 × 300 = 90.", 4),
     poolAnswer("y8-pro-rel-p21", "A die is rolled 90 times. Results: 1→12, 2→18, 3→15, 4→10, 5→20, 6→15. Find the relative frequency of rolling a 5 as a simplified fraction.",
-      "\\frac{20}{90}", "2/9", "20/90 = 2/9.", 4, ["0.222", "0.22"]),
+      "", "2/9", "20/90 = 2/9.", 4, ["0.222", "0.22"]),
     poolChoice("y8-pro-rel-p22", "A biased coin has P(heads) = 0.7. After 1000 flips, the most likely relative frequency of heads is closest to…", "C",
       ["0.50", "0.60", "0.70", "0.85"], "With many trials, relative frequency converges to 0.7.", 4),
     poolAnswer("y8-pro-rel-p23", "An event occurred 84 times in 240 trials. Find the relative frequency as a decimal.",
-      "\\frac{84}{240}", "0.35", "84 ÷ 240 = 0.35.", 4, ["7/20"]),
+      "", "0.35", "84 ÷ 240 = 0.35.", 4, ["7/20"]),
     poolAnswer("y8-pro-rel-p24", "In a survey of 400 people, 0.18 had relative frequency 'prefers tea'. How many preferred tea?",
-      "0.18 \\times 400", "72", "0.18 × 400 = 72.", 4),
+      "", "72", "0.18 × 400 = 72.", 4),
     // Difficulty 5
     poolAnswer("y8-pro-rel-p25", "A spinner with colours red, blue, green is spun 500 times. Red occurred 210 times and blue 165 times. Find the relative frequency of green as a decimal.",
-      "1 - \\frac{210}{500} - \\frac{165}{500}", "0.25", "Green count = 500 - 210 - 165 = 125. RF = 125 ÷ 500 = 0.25.", 5, ["1/4"]),
+      "", "0.25", "Green count = 500 - 210 - 165 = 125. RF = 125 ÷ 500 = 0.25.", 5, ["1/4"]),
     poolAnswer("y8-pro-rel-p26", "An event has relative frequency 0.16 after 250 trials. After 150 more trials it occurred 30 more times. Find the new overall relative frequency as a decimal.",
-      "\\frac{0.16\\times250 + 30}{400}", "0.175", "First count = 40. New total count = 70 over 400 trials = 0.175.", 5),
+      "", "0.175", "First count = 40. New total count = 70 over 400 trials = 0.175.", 5),
     poolAnswer("y8-pro-rel-p27", "A die is rolled n times and a 6 appears 25 times, giving a relative frequency of 0.2. Find n.",
-      "n = \\frac{25}{0.2}", "125", "n = 25 ÷ 0.2 = 125.", 5),
+      "", "125", "n = 25 ÷ 0.2 = 125.", 5),
     poolChoice("y8-pro-rel-p28", "Two students estimate P(heads). Student A: 0.6 from 20 flips. Student B: 0.51 from 2000 flips. Which estimate should you trust more and why?", "B",
       ["A, because 0.6 is a round number.", "B, because more trials give a more reliable estimate.",
        "A, because fewer flips reduce error.", "Neither can be trusted."],
       "Student B's far larger sample gives a more reliable relative frequency.", 5),
     poolAnswer("y8-pro-rel-p29", "A survey records that the relative frequency of 'walks to school' is 0.225 from 360 students. How many students walk?",
-      "0.225 \\times 360", "81", "0.225 × 360 = 81.", 5),
+      "", "81", "0.225 × 360 = 81.", 5),
     poolAnswer("y8-pro-rel-p30", "In 800 trials, three outcomes have relative frequencies 0.3, 0.45, and the rest. How many trials gave the third outcome?",
-      "(1 - 0.3 - 0.45) \\times 800", "200", "RF of third = 1 - 0.3 - 0.45 = 0.25. Count = 0.25 × 800 = 200.", 5),
+      "", "200", "RF of third = 1 - 0.3 - 0.45 = 0.25. Count = 0.25 × 800 = 200.", 5),
   ],
   multiPartPractice: [
     {
@@ -3876,21 +3876,21 @@ const expectedOutcomes: LessonContent = {
     answer(
       "y8-pro-exp-g2",
       "P(heads) = 0.5. A coin is flipped 100 times. Find the expected number of heads.",
-      "\\text{Expected} = 0.5 \\times 100",
+      "",
       "50",
       "Expected count = P(heads) × n = 0.5 × 100 = 50."
     ),
     answer(
       "y8-pro-exp-g3",
       "P(rolling a 6) = 1/6. A die is rolled 120 times. Find the expected number of 6s.",
-      "\\text{Expected} = \\frac{1}{6} \\times 120",
+      "",
       "20",
       "Expected count = (1/6) × 120 = 20."
     ),
     answer(
       "y8-pro-exp-g4",
       "P(event) = 0.4 and the event is expected to occur 36 times. How many trials were there?",
-      "n = \\frac{36}{0.4}",
+      "",
       "90",
       "Rearrange: n = expected count ÷ P(event) = 36 ÷ 0.4 = 90."
     ),
@@ -3899,28 +3899,28 @@ const expectedOutcomes: LessonContent = {
     answer(
       "y8-pro-exp-i1",
       "A spinner has 4 equal sections: red, blue, green, yellow. It is spun 80 times. How many times is red expected to appear?",
-      "P(\\text{red}) = \\frac{1}{4},\\; \\text{Expected} = \\frac{1}{4} \\times 80",
+      "",
       "20",
       "P(red) = 1/4. Expected count = (1/4) × 80 = 20."
     ),
     answer(
       "y8-pro-exp-i2",
       "A bag has 3 red and 7 blue marbles. A marble is drawn and replaced 50 times. How many times is a red marble expected?",
-      "P(\\text{red}) = \\frac{3}{10},\\; \\text{Expected} = \\frac{3}{10} \\times 50",
+      "",
       "15",
       "P(red) = 3/10. Expected count = (3/10) × 50 = 15."
     ),
     answer(
       "y8-pro-exp-i3",
       "P(rain on any given day) = 0.3. How many rainy days are expected in 30 days?",
-      "\\text{Expected} = 0.3 \\times 30",
+      "",
       "9",
       "Expected rainy days = 0.3 × 30 = 9."
     ),
     answer(
       "y8-pro-exp-i4",
       "A die is rolled and getting a number less than 3 is recorded. If 48 such outcomes are expected, how many times was the die rolled?",
-      "P(< 3) = \\frac{2}{6} = \\frac{1}{3},\\; n = \\frac{48}{1/3}",
+      "",
       "144",
       "P(< 3) = 2/6 = 1/3. n = 48 ÷ (1/3) = 48 × 3 = 144."
     ),
@@ -3959,21 +3959,21 @@ const expectedOutcomes: LessonContent = {
     answer(
       "y8-pro-exp-m1",
       "P(event) = 0.6. The event is run 50 times. Find the expected count.",
-      "0.6 \\times 50",
+      "",
       "30",
       "Expected count = 0.6 × 50 = 30."
     ),
     answer(
       "y8-pro-exp-m2",
       "A die is rolled 300 times. How many times is rolling a 1 expected?",
-      "P(1) = \\frac{1}{6},\\; \\frac{1}{6} \\times 300",
+      "",
       "50",
       "P(1) = 1/6. Expected count = (1/6) × 300 = 50."
     ),
     answer(
       "y8-pro-exp-m3",
       "P(event) = 0.2. The event is expected to occur 14 times. How many trials were there?",
-      "n = \\frac{14}{0.2}",
+      "",
       "70",
       "n = 14 ÷ 0.2 = 70."
     ),
@@ -3987,21 +3987,21 @@ const expectedOutcomes: LessonContent = {
     answer(
       "y8-pro-exp-m5",
       "A spinner has 5 equal sections. It is spun 150 times. How many times is any one section expected to appear?",
-      "P = \\frac{1}{5},\\; \\frac{1}{5} \\times 150",
+      "",
       "30",
       "P(one section) = 1/5. Expected count = (1/5) × 150 = 30."
     ),
     answer(
       "y8-pro-exp-m6",
       "A bag has 4 red and 6 blue marbles. It is drawn from (with replacement) 200 times. How many times is a blue marble expected?",
-      "P(\\text{blue}) = \\frac{6}{10} = 0.6,\\; 0.6 \\times 200",
+      "",
       "120",
       "P(blue) = 6/10 = 0.6. Expected count = 0.6 × 200 = 120."
     ),
     answer(
       "y8-pro-exp-m7",
       "P(event) = 0.4. The event is expected to occur 36 times. How many trials were there?",
-      "n = \\frac{36}{0.4}",
+      "",
       "90",
       "n = 36 ÷ 0.4 = 90 trials."
     ),
@@ -4020,14 +4020,14 @@ const expectedOutcomes: LessonContent = {
     answer(
       "y8-pro-exp-m9",
       "The probability of a seed germinating is 0.75. A gardener plants 80 seeds. How many are expected to germinate?",
-      "0.75 \\times 80",
+      "",
       "60",
       "Expected count = P(germinate) × n = 0.75 × 80 = 60."
     ),
     answer(
       "y8-pro-exp-m10",
       "In 500 trials, an event is expected to occur 200 times. What is the probability of the event?",
-      "P = \\frac{200}{500}",
+      "",
       "0.4",
       "Rearrange: P(event) = expected count ÷ n = 200 ÷ 500 = 0.4."
     ),
@@ -4035,75 +4035,75 @@ const expectedOutcomes: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-pro-exp-p1", "P(event) = 0.5. The event runs 60 times. Find the expected count.",
-      "0.5 \\times 60", "30", "Expected count = 0.5 × 60 = 30.", 1),
+      "", "30", "Expected count = 0.5 × 60 = 30.", 1),
     poolChoice("y8-pro-exp-p2", "The expected count formula is…", "C",
       ["n ÷ P", "P + n", "P × n", "P - n"], "Expected count = P(event) × n.", 1),
     poolAnswer("y8-pro-exp-p3", "A coin is flipped 80 times. How many heads are expected?",
-      "0.5 \\times 80", "40", "Expected heads = 0.5 × 80 = 40.", 1),
+      "", "40", "Expected heads = 0.5 × 80 = 40.", 1),
     poolAnswer("y8-pro-exp-p4", "P(rolling a 6) = 1/6. A die is rolled 60 times. Find the expected number of 6s.",
-      "\\frac{1}{6} \\times 60", "10", "(1/6) × 60 = 10.", 1),
+      "", "10", "(1/6) × 60 = 10.", 1),
     poolChoice("y8-pro-exp-p5", "Expected count is best described as…", "B",
       ["a guaranteed result", "a prediction that actual results vary around",
        "the largest possible value", "always exactly correct"],
       "Expected count is a prediction; actual results vary.", 1),
     poolAnswer("y8-pro-exp-p6", "P(event) = 0.2. The event runs 100 times. Find the expected count.",
-      "0.2 \\times 100", "20", "0.2 × 100 = 20.", 1),
+      "", "20", "0.2 × 100 = 20.", 1),
     // Difficulty 2
     poolAnswer("y8-pro-exp-p7", "A spinner has 4 equal sections. It is spun 80 times. How many times is one section expected?",
-      "\\frac{1}{4} \\times 80", "20", "P = 1/4. Expected = (1/4) × 80 = 20.", 2),
+      "", "20", "P = 1/4. Expected = (1/4) × 80 = 20.", 2),
     poolAnswer("y8-pro-exp-p8", "P(event) = 0.3. The event is expected to occur 24 times. Find the number of trials.",
-      "\\frac{24}{0.3}", "80", "n = 24 ÷ 0.3 = 80.", 2),
+      "", "80", "n = 24 ÷ 0.3 = 80.", 2),
     poolAnswer("y8-pro-exp-p9", "A die is rolled 120 times. How many even numbers are expected?",
-      "\\frac{1}{2} \\times 120", "60", "P(even) = 1/2. Expected = 60.", 2),
+      "", "60", "P(even) = 1/2. Expected = 60.", 2),
     poolChoice("y8-pro-exp-p10", "A coin is flipped 50 times. What is the expected number of tails?", "B",
       ["20", "25", "30", "50"], "P(tails) = 0.5. Expected = 0.5 × 50 = 25.", 2),
     poolAnswer("y8-pro-exp-p11", "A bag has 2 red and 8 blue marbles, drawn (with replacement) 50 times. How many reds are expected?",
-      "\\frac{2}{10} \\times 50", "10", "P(red) = 2/10 = 0.2. Expected = 0.2 × 50 = 10.", 2),
+      "", "10", "P(red) = 2/10 = 0.2. Expected = 0.2 × 50 = 10.", 2),
     poolAnswer("y8-pro-exp-p12", "In 200 trials, an event is expected to occur 50 times. Find P(event).",
-      "\\frac{50}{200}", "0.25", "P = 50 ÷ 200 = 0.25.", 2, ["1/4"]),
+      "", "0.25", "P = 50 ÷ 200 = 0.25.", 2, ["1/4"]),
     // Difficulty 3
     poolAnswer("y8-pro-exp-p13", "A spinner has 5 equal sections. It is spun 150 times. How many times is one section expected?",
-      "\\frac{1}{5} \\times 150", "30", "P = 1/5. Expected = 30.", 3),
+      "", "30", "P = 1/5. Expected = 30.", 3),
     poolAnswer("y8-pro-exp-p14", "P(rain) = 0.3. How many rainy days are expected in 60 days?",
-      "0.3 \\times 60", "18", "Expected = 0.3 × 60 = 18.", 3),
+      "", "18", "Expected = 0.3 × 60 = 18.", 3),
     poolAnswer("y8-pro-exp-p15", "A die is rolled. P(number less than 3) = 1/3. If 90 such outcomes are expected, how many rolls were there?",
-      "\\frac{90}{1/3}", "270", "n = 90 ÷ (1/3) = 90 × 3 = 270.", 3),
+      "", "270", "n = 90 ÷ (1/3) = 90 × 3 = 270.", 3),
     poolChoice("y8-pro-exp-p16", "P(event) = 0.25 and 60 trials are run. You get 10 outcomes. What does this tell you?", "B",
       ["The model is definitely wrong.", "Expected is 15; 10 is below but within natural variation.",
        "Actual must equal expected.", "The formula was wrong."],
       "Expected = 0.25 × 60 = 15. Getting 10 is below but plausible with only 60 trials.", 3),
     poolAnswer("y8-pro-exp-p17", "A seed has germination probability 0.8. A gardener plants 120 seeds. How many are expected to germinate?",
-      "0.8 \\times 120", "96", "Expected = 0.8 × 120 = 96.", 3),
+      "", "96", "Expected = 0.8 × 120 = 96.", 3),
     poolAnswer("y8-pro-exp-p18", "P(event) = 0.15. The event is expected 27 times. Find the number of trials.",
-      "\\frac{27}{0.15}", "180", "n = 27 ÷ 0.15 = 180.", 3),
+      "", "180", "n = 27 ÷ 0.15 = 180.", 3),
     // Difficulty 4
     poolAnswer("y8-pro-exp-p19", "A die is rolled 240 times. How many times is a number greater than 4 expected?",
-      "\\frac{2}{6} \\times 240", "80", "P(>4) = 2/6 = 1/3. Expected = (1/3) × 240 = 80.", 4),
+      "", "80", "P(>4) = 2/6 = 1/3. Expected = (1/3) × 240 = 80.", 4),
     poolAnswer("y8-pro-exp-p20", "A bag has 3 red, 5 blue, 2 green. It is drawn (with replacement) 250 times. How many blues are expected?",
-      "\\frac{5}{10} \\times 250", "125", "P(blue) = 5/10 = 0.5. Expected = 0.5 × 250 = 125.", 4),
+      "", "125", "P(blue) = 5/10 = 0.5. Expected = 0.5 × 250 = 125.", 4),
     poolAnswer("y8-pro-exp-p21", "A spinner has 8 equal sections, 3 shaded. It is spun 200 times. How many shaded results are expected?",
-      "\\frac{3}{8} \\times 200", "75", "P(shaded) = 3/8. Expected = (3/8) × 200 = 75.", 4),
+      "", "75", "P(shaded) = 3/8. Expected = (3/8) × 200 = 75.", 4),
     poolChoice("y8-pro-exp-p22", "A die is rolled 600 times and a 6 appears 60 times. Expected = 100. What is the best interpretation?", "B",
       ["This is normal variation.", "A large gap suggesting the die may be biased.",
        "The die must be fair.", "The formula failed."],
       "60 vs an expected 100 over 600 rolls is a large gap, suggesting possible bias.", 4),
     poolAnswer("y8-pro-exp-p23", "P(event) = 0.45 and the event occurs an expected 90 times. Find the number of trials.",
-      "\\frac{90}{0.45}", "200", "n = 90 ÷ 0.45 = 200.", 4),
+      "", "200", "n = 90 ÷ 0.45 = 200.", 4),
     poolAnswer("y8-pro-exp-p24", "Two dice are rolled 180 times. P(sum = 7) = 1/6. How many sums of 7 are expected?",
-      "\\frac{1}{6} \\times 180", "30", "Expected = (1/6) × 180 = 30.", 4),
+      "", "30", "Expected = (1/6) × 180 = 30.", 4),
     // Difficulty 5
     poolAnswer("y8-pro-exp-p25", "A spinner has sections numbered 1–10. It is spun 350 times. How many times is a multiple of 3 expected?",
-      "\\frac{3}{10} \\times 350", "105", "Multiples of 3 in 1–10: 3,6,9 → P = 3/10. Expected = 0.3 × 350 = 105.", 5),
+      "", "105", "Multiples of 3 in 1–10: 3,6,9 → P = 3/10. Expected = 0.3 × 350 = 105.", 5),
     poolAnswer("y8-pro-exp-p26", "A factory's defect rate is 0.02. In a batch of 4500 items, how many defects are expected?",
-      "0.02 \\times 4500", "90", "Expected = 0.02 × 4500 = 90.", 5),
+      "", "90", "Expected = 0.02 × 4500 = 90.", 5),
     poolAnswer("y8-pro-exp-p27", "Two dice are rolled 360 times. P(a double) = 1/6. How many doubles are expected?",
-      "\\frac{1}{6} \\times 360", "60", "Expected = (1/6) × 360 = 60.", 5),
+      "", "60", "Expected = (1/6) × 360 = 60.", 5),
     poolAnswer("y8-pro-exp-p28", "A bag has counters numbered 1–20. P(a prime) is found, then 400 draws (with replacement) are made. How many primes are expected?",
-      "\\frac{8}{20} \\times 400", "160", "Primes 1–20: 2,3,5,7,11,13,17,19 = 8. P = 8/20 = 0.4. Expected = 0.4 × 400 = 160.", 5),
+      "", "160", "Primes 1–20: 2,3,5,7,11,13,17,19 = 8. P = 8/20 = 0.4. Expected = 0.4 × 400 = 160.", 5),
     poolChoice("y8-pro-exp-p29", "An event with P = 0.1 is run 50 times, then 150 more times. What is the total expected count across all 200 trials?", "C",
       ["5", "15", "20", "50"], "Expected = 0.1 × 200 = 20.", 5),
     poolAnswer("y8-pro-exp-p30", "A game is fair if the expected number of wins in 300 plays is 50. Find P(win) as a decimal, rounded to 3 decimal places.",
-      "\\frac{50}{300}", "0.167", "P = 50 ÷ 300 = 0.1667 ≈ 0.167.", 5, ["1/6", "0.1667"]),
+      "", "0.167", "P = 50 ÷ 300 = 0.1667 ≈ 0.167.", 5, ["1/6", "0.1667"]),
   ],
   multiPartPractice: [
     {
@@ -4269,7 +4269,7 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-g2",
       "Sorted data: 4, 8, 11, 15, 19. Find the five-number summary median (Q2).",
-      "\\text{Middle (3rd) value of 5}",
+      "",
       "11",
       "5 values → the median is the 3rd value: 11."
     ),
@@ -4292,14 +4292,14 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-i1",
       "Sorted data: 2, 5, 9, 13, 17, 21, 25. Find Q1 (the median of the lower half, excluding the overall median).",
-      "\\text{Lower half: } 2,\\; 5,\\; 9",
+      "",
       "5",
       "Overall median (4th value) = 13. Lower half: 2, 5, 9. The median of the lower half is the middle value = 5. Q1 = 5."
     ),
     answer(
       "y8-dat-bxp-i2",
       "Sorted data: 2, 5, 9, 13, 17, 21, 25. Find Q3 (the median of the upper half, excluding the overall median).",
-      "\\text{Upper half: } 17,\\; 21,\\; 25",
+      "",
       "21",
       "Upper half (excluding median 13): 17, 21, 25. The median of the upper half is 21. Q3 = 21."
     ),
@@ -4367,14 +4367,14 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-m3",
       "Sorted data: 6, 10, 14, 18, 22. Find Q1.",
-      "\\text{Lower half (excl. median 14): }6,\\;10",
+      "",
       "8",
       "Median is the 3rd value = 14. Lower half: 6, 10. Q1 = (6 + 10) ÷ 2 = 8."
     ),
     answer(
       "y8-dat-bxp-m4",
       "Sorted data: 6, 10, 14, 18, 22. Find Q3.",
-      "\\text{Upper half (excl. median 14): }18,\\;22",
+      "",
       "20",
       "Upper half: 18, 22. Q3 = (18 + 22) ÷ 2 = 20."
     ),
@@ -4388,28 +4388,28 @@ const boxPlots: LessonContent = {
     answer(
       "y8-dat-bxp-m6",
       "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the right whisker?",
-      "30 - 14",
+      "",
       "16",
       "The right whisker extends from Q3 to the maximum: 30 − 14 = 16."
     ),
     answer(
       "y8-dat-bxp-m7",
       "A box plot shows: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. What is the length of the left whisker?",
-      "6 - 2",
+      "",
       "4",
       "The left whisker extends from the minimum to Q1: 6 − 2 = 4."
     ),
     answer(
       "y8-dat-bxp-m8",
       "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q1.",
-      "\\text{Lower half: }5,\\;8,\\;11,\\;14 \\Rightarrow Q_1 = \\frac{8+11}{2}",
+      "",
       "9.5",
       "8 values split evenly: lower half is 5, 8, 11, 14. Q1 = (8 + 11) ÷ 2 = 9.5."
     ),
     answer(
       "y8-dat-bxp-m9",
       "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q3.",
-      "\\text{Upper half: }17,\\;20,\\;23,\\;26 \\Rightarrow Q_3 = \\frac{20+23}{2}",
+      "",
       "21.5",
       "Upper half: 17, 20, 23, 26. Q3 = (20 + 23) ÷ 2 = 21.5."
     ),
@@ -4426,75 +4426,75 @@ const boxPlots: LessonContent = {
     poolChoice("y8-dat-bxp-p1", "Which is NOT part of the five-number summary?", "C",
       ["Minimum", "Q1", "Mean", "Maximum"], "The five-number summary is Min, Q1, Median, Q3, Max — not the mean.", 1),
     poolAnswer("y8-dat-bxp-p2", "A box plot has its box from 6 to 16. Find the IQR.",
-      "16 - 6", "10", "IQR = Q3 - Q1 = 16 - 6 = 10.", 1),
+      "", "10", "IQR = Q3 - Q1 = 16 - 6 = 10.", 1),
     poolAnswer("y8-dat-bxp-p3", "A box plot has Min = 4 and Max = 24. Find the range.",
-      "24 - 4", "20", "Range = Max - Min = 24 - 4 = 20.", 1),
+      "", "20", "Range = Max - Min = 24 - 4 = 20.", 1),
     poolChoice("y8-dat-bxp-p4", "On a box plot, the box represents…", "B",
       ["all the data", "the middle 50% of the data", "the largest 25%", "the mode"],
       "The box spans Q1 to Q3 — the middle 50% of the data.", 1),
     poolAnswer("y8-dat-bxp-p5", "Sorted data: 3, 7, 11, 15, 19. Find Q2 (the median).",
-      "\\text{3rd value}", "11", "5 values → median is the 3rd: 11.", 1),
+      "", "11", "5 values → median is the 3rd: 11.", 1),
     poolChoice("y8-dat-bxp-p6", "The IQR equals the…", "A",
       ["width of the box", "length of a whisker", "total range", "median"],
       "The IQR (Q3 - Q1) is the width of the box.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-bxp-p7", "A box plot: Min = 5, Q1 = 9, Median = 13, Q3 = 17, Max = 21. Find the IQR.",
-      "17 - 9", "8", "IQR = Q3 - Q1 = 17 - 9 = 8.", 2),
+      "", "8", "IQR = Q3 - Q1 = 17 - 9 = 8.", 2),
     poolAnswer("y8-dat-bxp-p8", "Same box plot (Min 5, Max 21). Find the range.",
-      "21 - 5", "16", "Range = 21 - 5 = 16.", 2),
+      "", "16", "Range = 21 - 5 = 16.", 2),
     poolAnswer("y8-dat-bxp-p9", "Sorted data: 6, 10, 14, 18, 22. Find Q1 (median of the lower half, excluding the median).",
-      "\\frac{6 + 10}{2}", "8", "Median = 14 (3rd). Lower half: 6, 10. Q1 = (6 + 10) ÷ 2 = 8.", 2),
+      "", "8", "Median = 14 (3rd). Lower half: 6, 10. Q1 = (6 + 10) ÷ 2 = 8.", 2),
     poolAnswer("y8-dat-bxp-p10", "Sorted data: 6, 10, 14, 18, 22. Find Q3 (median of the upper half).",
-      "\\frac{18 + 22}{2}", "20", "Upper half: 18, 22. Q3 = (18 + 22) ÷ 2 = 20.", 2),
+      "", "20", "Upper half: 18, 22. Q3 = (18 + 22) ÷ 2 = 20.", 2),
     poolChoice("y8-dat-bxp-p11", "A box plot has the median line in the centre of the box and equal whiskers. The shape is…", "A",
       ["symmetric", "skewed right", "skewed left", "bimodal"],
       "A central median and equal whiskers indicate a symmetric distribution.", 2),
     poolAnswer("y8-dat-bxp-p12", "A box plot has Q3 = 30 and a right whisker reaching Max = 45. Find the right whisker length.",
-      "45 - 30", "15", "Right whisker = Max - Q3 = 45 - 30 = 15.", 2),
+      "", "15", "Right whisker = Max - Q3 = 45 - 30 = 15.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-bxp-p13", "Sorted data: 2, 5, 9, 13, 17, 21, 25 (7 values). Find Q1.",
-      "\\text{median of }2, 5, 9", "5", "Median = 13 (4th). Lower half: 2, 5, 9. Q1 = 5.", 3),
+      "", "5", "Median = 13 (4th). Lower half: 2, 5, 9. Q1 = 5.", 3),
     poolAnswer("y8-dat-bxp-p14", "Sorted data: 2, 5, 9, 13, 17, 21, 25 (7 values). Find Q3.",
-      "\\text{median of }17, 21, 25", "21", "Upper half: 17, 21, 25. Q3 = 21.", 3),
+      "", "21", "Upper half: 17, 21, 25. Q3 = 21.", 3),
     poolAnswer("y8-dat-bxp-p15", "From the data above, find the IQR.",
-      "21 - 5", "16", "IQR = Q3 - Q1 = 21 - 5 = 16.", 3),
+      "", "16", "IQR = Q3 - Q1 = 21 - 5 = 16.", 3),
     poolChoice("y8-dat-bxp-p16", "A box plot has the median close to Q1 and a long right whisker. The shape is…", "B",
       ["symmetric", "skewed right", "skewed left", "bimodal"],
       "Median near Q1 with a long right tail indicates a right (positive) skew.", 3),
     poolAnswer("y8-dat-bxp-p17", "A box plot: Min = 8, Q1 = 12, Median = 16, Q3 = 22, Max = 30. Find IQR.",
-      "22 - 12", "10", "IQR = 22 - 12 = 10.", 3),
+      "", "10", "IQR = 22 - 12 = 10.", 3),
     poolAnswer("y8-dat-bxp-p18", "Same box plot. Find the range minus the IQR.",
-      "(30 - 8) - (22 - 12)", "12", "Range = 22, IQR = 10. Difference = 22 - 10 = 12.", 3),
+      "", "12", "Range = 22, IQR = 10. Difference = 22 - 10 = 12.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-bxp-p19", "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q1.",
-      "\\frac{8 + 11}{2}", "9.5", "Lower half: 5,8,11,14. Q1 = (8 + 11) ÷ 2 = 9.5.", 4),
+      "", "9.5", "Lower half: 5,8,11,14. Q1 = (8 + 11) ÷ 2 = 9.5.", 4),
     poolAnswer("y8-dat-bxp-p20", "Sorted data: 5, 8, 11, 14, 17, 20, 23, 26 (8 values). Find Q3.",
-      "\\frac{20 + 23}{2}", "21.5", "Upper half: 17,20,23,26. Q3 = (20 + 23) ÷ 2 = 21.5.", 4),
+      "", "21.5", "Upper half: 17,20,23,26. Q3 = (20 + 23) ÷ 2 = 21.5.", 4),
     poolAnswer("y8-dat-bxp-p21", "From the data above, find the IQR.",
-      "21.5 - 9.5", "12", "IQR = 21.5 - 9.5 = 12.", 4),
+      "", "12", "IQR = 21.5 - 9.5 = 12.", 4),
     poolChoice("y8-dat-bxp-p22", "A box plot has a long LEFT whisker and the median close to Q3. The shape is…", "C",
       ["symmetric", "skewed right", "skewed left", "bimodal"],
       "A long left tail with median near Q3 indicates a left (negative) skew.", 4),
     poolAnswer("y8-dat-bxp-p23", "A box plot: Min = 2, Q1 = 6, Median = 10, Q3 = 14, Max = 30. Find the right whisker length minus the left whisker length.",
-      "(30 - 14) - (6 - 2)", "12", "Right whisker = 16, left whisker = 4. Difference = 16 - 4 = 12.", 4),
+      "", "12", "Right whisker = 16, left whisker = 4. Difference = 16 - 4 = 12.", 4),
     poolAnswer("y8-dat-bxp-p24", "A box plot has IQR = 9 and Q1 = 14. Find Q3.",
-      "14 + 9", "23", "Q3 = Q1 + IQR = 14 + 9 = 23.", 4),
+      "", "23", "Q3 = Q1 + IQR = 14 + 9 = 23.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-bxp-p25", "Sorted data: 4, 7, 7, 10, 13, 16, 16, 19, 22, 25 (10 values). Find the IQR.",
-      "Q_3 - Q_1", "12", "Lower half: 4,7,7,10,13 → Q1 = 7 (3rd value). Upper half: 16,16,19,22,25 → Q3 = 19 (3rd value). IQR = 19 - 7 = 12.", 5),
+      "", "12", "Lower half: 4,7,7,10,13 → Q1 = 7 (3rd value). Upper half: 16,16,19,22,25 → Q3 = 19 (3rd value). IQR = 19 - 7 = 12.", 5),
     poolAnswer("y8-dat-bxp-p26", "A box plot: Min = 10, Q1 = 18, Median = 24, Q3 = 30, Max = 50. A new maximum of 70 replaces 50. By how much does the IQR change?",
-      "\\text{IQR depends on Q1 and Q3 only}", "0", "The IQR = Q3 - Q1 = 12 does not depend on the maximum, so changing the max does not change the IQR — change of 0.", 5),
+      "", "0", "The IQR = Q3 - Q1 = 12 does not depend on the maximum, so changing the max does not change the IQR — change of 0.", 5),
     poolAnswer("y8-dat-bxp-p27", "A box plot: Q1 = 22, Q3 = 38, Min = 10, Max = 60. Find the range minus the IQR.",
-      "(60 - 10) - (38 - 22)", "34", "Range = 50, IQR = 16. Difference = 50 - 16 = 34.", 5),
+      "", "34", "Range = 50, IQR = 16. Difference = 50 - 16 = 34.", 5),
     poolChoice("y8-dat-bxp-p28", "Two box plots have the same box (same Q1, Q3) but Plot B's box is drawn wider on paper. What does this tell you about the data?", "C",
       ["Plot B has more data values.", "Plot B has a larger IQR.",
        "Nothing — equal Q1 and Q3 mean the same IQR regardless of drawing width.",
        "Plot B is skewed."],
       "Equal Q1 and Q3 mean the same IQR; drawing width on paper does not change the data.", 5),
     poolAnswer("y8-dat-bxp-p29", "Sorted data: 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 (12 values). Find the IQR.",
-      "Q_3 - Q_1", "18", "Lower 6: 3,6,9,12,15,18 → Q1 = (9+12)/2 = 10.5. Upper 6: 21,24,27,30,33,36 → Q3 = (27+30)/2 = 28.5. IQR = 28.5 - 10.5 = 18.", 5),
+      "", "18", "Lower 6: 3,6,9,12,15,18 → Q1 = (9+12)/2 = 10.5. Upper 6: 21,24,27,30,33,36 → Q3 = (27+30)/2 = 28.5. IQR = 28.5 - 10.5 = 18.", 5),
     poolAnswer("y8-dat-bxp-p30", "A box plot has Median = 20 exactly in the centre of a box from 14 to 26, with whiskers to Min = 8 and Max = 32 of equal length. Describe the shape in one word.",
-      "\\text{equal box halves and equal whiskers}", "symmetric", "The median is central and the whiskers are equal (6 each), so the distribution is symmetric.", 5),
+      "", "symmetric", "The median is central and the whiskers are equal (6 each), so the distribution is symmetric.", 5),
   ],
   multiPartPractice: [
     {
@@ -4654,7 +4654,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-g2",
       "Group A box plot: Q1 = 12, Q3 = 24. Group B box plot: Q1 = 10, Q3 = 28. Which group has the larger IQR?",
-      "\\text{IQR A}=24-12,\\quad \\text{IQR B}=28-10",
+      "",
       "Group B",
       "IQR A = 24 − 12 = 12. IQR B = 28 − 10 = 18. Group B has the larger IQR (18 > 12), so it has more variability.",
       ["B", "group b"]
@@ -4662,7 +4662,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-g3",
       "Group A has median = 18. Group B has median = 25. Which group has the higher typical value?",
-      "\\text{Compare: } 18 \\text{ vs } 25",
+      "",
       "Group B",
       "The median represents the typical value. Group B's median (25) is higher than Group A's (18), so Group B has the higher typical value.",
       ["B", "group b"]
@@ -4684,7 +4684,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-i1",
       "Group X: Q1 = 14, Q3 = 26. Group Y: Q1 = 10, Q3 = 20. Find the IQR of each group.",
-      "\\text{IQR X}=26-14,\\quad \\text{IQR Y}=20-10",
+      "",
       "IQR X = 12, IQR Y = 10",
       "IQR X = 26 − 14 = 12. IQR Y = 20 − 10 = 10.",
       ["X=12 Y=10", "12 and 10"]
@@ -4692,7 +4692,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-i2",
       "Group X: Min = 5, Max = 35. Group Y: Min = 8, Max = 28. Which group has the larger range?",
-      "\\text{Range X}=35-5,\\quad \\text{Range Y}=28-8",
+      "",
       "Group X",
       "Range X = 35 − 5 = 30. Range Y = 28 − 8 = 20. Group X has the larger range (30 > 20).",
       ["X", "group x"]
@@ -4700,7 +4700,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-i3",
       "Group X has median = 20. Group Y has median = 20. Group X has IQR = 12 and Group Y has IQR = 6. Which group is more consistent?",
-      "\\text{Smaller IQR} \\Rightarrow \\text{more consistent}",
+      "",
       "Group Y",
       "Both groups have the same typical value (median = 20). Group Y's IQR (6) is smaller than Group X's (12), so Group Y's central values are clustered more tightly — it is more consistent.",
       ["Y", "group y"]
@@ -4720,7 +4720,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-i5",
       "Group A: Min=4, Q1=10, Median=18, Q3=22, Max=28. Group B: Min=4, Q1=8, Median=12, Q3=24, Max=28. Which group has the larger IQR?",
-      "\\text{IQR A}=22-10,\\quad \\text{IQR B}=24-8",
+      "",
       "Group B",
       "IQR A = 22 − 10 = 12. IQR B = 24 − 8 = 16. Group B has the larger IQR (16 > 12).",
       ["B", "group b"]
@@ -4772,7 +4772,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m3",
       "Group A: Q1 = 15, Q3 = 35. Group B: Q1 = 20, Q3 = 32. Find the IQR for each group.",
-      "\\text{IQR A}=35-15,\\quad \\text{IQR B}=32-20",
+      "",
       "IQR A = 20, IQR B = 12",
       "IQR A = 35 − 15 = 20. IQR B = 32 − 20 = 12.",
       ["A=20 B=12", "20 and 12"]
@@ -4780,7 +4780,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m4",
       "Group A: Min = 5, Max = 45. Group B: Min = 10, Max = 40. Find the range of each group.",
-      "\\text{Range A}=45-5,\\quad \\text{Range B}=40-10",
+      "",
       "Range A = 40, Range B = 30",
       "Range A = 45 − 5 = 40. Range B = 40 − 10 = 30.",
       ["A=40 B=30", "40 and 30"]
@@ -4788,7 +4788,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m5",
       "Two groups both have IQR = 10. Group X has median = 30 and Group Y has median = 45. Which group has a higher typical value and by how much?",
-      "45 - 30",
+      "",
       "Group Y by 15",
       "Group Y's median (45) is higher than Group X's (30). The difference is 45 − 30 = 15.",
       ["Y by 15", "group y, 15"]
@@ -4796,7 +4796,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m6",
       "Group A box plot: Q1 = 10, Median = 18, Q3 = 22. Is Group A's distribution symmetric, skewed left, or skewed right? The left half of the box = Median − Q1 and the right half = Q3 − Median.",
-      "\\text{Left half: }18-10=8,\\quad \\text{Right half: }22-18=4",
+      "",
       "Skewed left",
       "The left half of the box (8) is larger than the right half (4). The median sits closer to Q3, meaning more data is compressed toward the upper end. The distribution is skewed left.",
       ["left", "left-skewed", "negatively skewed"]
@@ -4804,7 +4804,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m7",
       "Group B box plot: Q1 = 14, Median = 16, Q3 = 24. The left half of the box = Median − Q1 and the right half = Q3 − Median. Is Group B symmetric, skewed left, or skewed right?",
-      "\\text{Left half: }16-14=2,\\quad \\text{Right half: }24-16=8",
+      "",
       "Skewed right",
       "The right half of the box (8) is much larger than the left half (2). The median sits very close to Q1, indicating more data bunched at lower values with a long right tail. The distribution is skewed right.",
       ["right", "right-skewed", "positively skewed"]
@@ -4812,14 +4812,14 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m8",
       "Group A: median = 50, IQR = 20. Group B: median = 38, IQR = 20. By how much is Group A's median higher than Group B's?",
-      "50 - 38",
+      "",
       "12",
       "The difference in medians = 50 − 38 = 12. Group A's typical value is 12 units higher."
     ),
     answer(
       "y8-dat-cmpbxp-m9",
       "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 45, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the larger IQR?",
-      "\\text{IQR A}=45-20,\\quad \\text{IQR B}=35-15",
+      "",
       "Group A",
       "IQR A = 45 − 20 = 25. IQR B = 35 − 15 = 20. Group A has the larger IQR.",
       ["Group A", "A", "group a"]
@@ -4827,7 +4827,7 @@ const comparingDataWithBoxPlots: LessonContent = {
     answer(
       "y8-dat-cmpbxp-m10",
       "Group A: Min = 10, Q1 = 20, Median = 30, Q3 = 40, Max = 50. Group B: Min = 10, Q1 = 15, Median = 20, Q3 = 35, Max = 50. Which group has the higher median and by how much?",
-      "30 - 20",
+      "",
       "Group A by 10",
       "Median A = 30, Median B = 20. Group A's median is higher by 30 − 20 = 10.",
       ["A by 10", "group a, 10"]
@@ -4836,63 +4836,63 @@ const comparingDataWithBoxPlots: LessonContent = {
   masteryQuizPool: [
     // Difficulty 1
     poolAnswer("y8-dat-cmpbxp-p1", "Box plot A has median 18; box plot B has median 12. Which group has the higher typical value? Answer 'A' or 'B'.",
-      "18 > 12", "A", "Group A's higher median (18) means a higher typical value.", 1, ["Group A"]),
+      "", "A", "Group A's higher median (18) means a higher typical value.", 1, ["Group A"]),
     poolAnswer("y8-dat-cmpbxp-p2", "Box plot A: box from 10 to 22. Find IQR A.",
-      "22 - 10", "12", "IQR = Q3 - Q1 = 22 - 10 = 12.", 1),
+      "", "12", "IQR = Q3 - Q1 = 22 - 10 = 12.", 1),
     poolChoice("y8-dat-cmpbxp-p3", "When comparing two box plots, a smaller IQR shows…", "A",
       ["more consistent middle values", "a higher median", "a larger range", "more data"],
       "A smaller IQR means the middle 50% is more tightly clustered — more consistent.", 1),
     poolAnswer("y8-dat-cmpbxp-p4", "Box plot B: Min = 5, Max = 29. Find the range of B.",
-      "29 - 5", "24", "Range = 29 - 5 = 24.", 1),
+      "", "24", "Range = 29 - 5 = 24.", 1),
     poolChoice("y8-dat-cmpbxp-p5", "Side-by-side box plots are most useful for…", "B",
       ["measuring one value", "comparing centre and spread of two data sets",
        "drawing a pie chart", "finding the mode"],
       "Side-by-side box plots compare the centre and spread of two data sets.", 1),
     poolAnswer("y8-dat-cmpbxp-p6", "Group A median = 25, Group B median = 25. Find the difference in their medians.",
-      "25 - 25", "0", "Both medians are 25, so the difference is 0.", 1),
+      "", "0", "Both medians are 25, so the difference is 0.", 1),
     // Difficulty 2
     poolAnswer("y8-dat-cmpbxp-p7", "Group A: Q1 = 12, Q3 = 28. Group B: Q1 = 16, Q3 = 24. Find IQR A minus IQR B.",
-      "(28 - 12) - (24 - 16)", "8", "IQR A = 16, IQR B = 8. Difference = 8.", 2),
+      "", "8", "IQR A = 16, IQR B = 8. Difference = 8.", 2),
     poolChoice("y8-dat-cmpbxp-p8", "Group A IQR = 6, Group B IQR = 18, same median. Which is more consistent?", "A",
       ["Group A", "Group B", "Both equal", "Cannot tell"], "Smaller IQR (Group A) means more consistent middle values.", 2),
     poolAnswer("y8-dat-cmpbxp-p9", "Group A: Min 4, Max 30. Group B: Min 8, Max 26. Find range A minus range B.",
-      "(30 - 4) - (26 - 8)", "8", "Range A = 26, range B = 18. Difference = 8.", 2),
+      "", "8", "Range A = 26, range B = 18. Difference = 8.", 2),
     poolAnswer("y8-dat-cmpbxp-p10", "Group A median = 40, Group B median = 28. By how much is A's median higher?",
-      "40 - 28", "12", "40 - 28 = 12.", 2),
+      "", "12", "40 - 28 = 12.", 2),
     poolChoice("y8-dat-cmpbxp-p11", "Box plot A's median sits centrally with equal whiskers; this shape is…", "A",
       ["symmetric", "skewed right", "skewed left", "bimodal"], "Central median and equal whiskers indicate symmetry.", 2),
     poolAnswer("y8-dat-cmpbxp-p12", "Group A: Q1 = 20, Q3 = 35. Find IQR A.",
-      "35 - 20", "15", "IQR = 35 - 20 = 15.", 2),
+      "", "15", "IQR = 35 - 20 = 15.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-cmpbxp-p13", "Group A: Min 5, Q1 12, Med 18, Q3 26, Max 40. Group B: Min 5, Q1 14, Med 18, Q3 22, Max 40. Both have the same median; find IQR A minus IQR B.",
-      "(26 - 12) - (22 - 14)", "6", "IQR A = 14, IQR B = 8. Difference = 6.", 3),
+      "", "6", "IQR A = 14, IQR B = 8. Difference = 6.", 3),
     poolChoice("y8-dat-cmpbxp-p14", "Two box plots share a median of 30. Group A IQR = 20, Group B IQR = 8. Which statement is correct?", "C",
       ["Group A is more consistent.", "Group B has a higher centre.",
        "Same centre, but Group B's middle values are more tightly clustered.",
        "Group A has a lower median."],
       "Same median; Group B's smaller IQR means tighter central clustering.", 3),
     poolAnswer("y8-dat-cmpbxp-p15", "Group A range = 45, Group B range = 30. By how much is A more spread out (by range)?",
-      "45 - 30", "15", "45 - 30 = 15.", 3),
+      "", "15", "45 - 30 = 15.", 3),
     poolAnswer("y8-dat-cmpbxp-p16", "Group A: median 60. Group B: median 72. A student says Group A performed better. Find how much higher B's median actually is.",
-      "72 - 60", "12", "Group B's median is higher by 72 - 60 = 12; the student was wrong.", 3),
+      "", "12", "Group B's median is higher by 72 - 60 = 12; the student was wrong.", 3),
     poolChoice("y8-dat-cmpbxp-p17", "A box plot has a long right whisker and median near Q1. Compared with a symmetric plot of the same median, it is…", "B",
       ["more symmetric", "skewed right", "skewed left", "identical"],
       "A long right tail with median near Q1 indicates a right skew.", 3),
     poolAnswer("y8-dat-cmpbxp-p18", "Group A: Q1 18, Q3 30. Group B: Q1 22, Q3 38. Find IQR B minus IQR A.",
-      "(38 - 22) - (30 - 18)", "4", "IQR B = 16, IQR A = 12. Difference = 4.", 3),
+      "", "4", "IQR B = 16, IQR A = 12. Difference = 4.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-cmpbxp-p19", "Group A: Min 10, Q1 18, Med 24, Q3 30, Max 50. Group B: Min 10, Q1 20, Med 28, Q3 34, Max 40. Find median B minus median A.",
-      "28 - 24", "4", "Median B = 28, median A = 24. Difference = 4.", 4),
+      "", "4", "Median B = 28, median A = 24. Difference = 4.", 4),
     poolAnswer("y8-dat-cmpbxp-p20", "For the groups above, find IQR A minus IQR B.",
-      "(30 - 18) - (34 - 20)", "-2", "IQR A = 12, IQR B = 14. Difference = 12 - 14 = -2.", 4),
+      "", "-2", "IQR A = 12, IQR B = 14. Difference = 12 - 14 = -2.", 4),
     poolChoice("y8-dat-cmpbxp-p21", "Group A: median 50, IQR 8, range 20. Group B: median 50, IQR 8, range 48 (one far outlier). Which is the fairer way to compare consistency?", "B",
       ["Range, because it uses all values.", "IQR, because it is not distorted by the single outlier.",
        "The median, because it is the centre.", "Neither can compare them."],
       "The IQR is resistant to the outlier inflating Group B's range, so it gives the fairer consistency comparison.", 4),
     poolAnswer("y8-dat-cmpbxp-p22", "Group A: Min 6, Max 46. Group B: Min 12, Max 40. Find range A minus range B.",
-      "(46 - 6) - (40 - 12)", "12", "Range A = 40, range B = 28. Difference = 12.", 4),
+      "", "12", "Range A = 40, range B = 28. Difference = 12.", 4),
     poolAnswer("y8-dat-cmpbxp-p23", "Group A median 35, Group B median 35, IQR A = 10, IQR B = 22. By how much larger is B's IQR?",
-      "22 - 10", "12", "22 - 10 = 12.", 4),
+      "", "12", "22 - 10 = 12.", 4),
     poolChoice("y8-dat-cmpbxp-p24", "Two classes sit a test. Class X: median 70, IQR 6. Class Y: median 64, IQR 18. The best one-line comparison is…", "A",
       ["Class X typically scored higher (median 70 vs 64) and more consistently (IQR 6 vs 18).",
        "Class Y did better because its IQR is larger.",
@@ -4901,17 +4901,17 @@ const comparingDataWithBoxPlots: LessonContent = {
       "Class X has the higher median and smaller IQR, so it scored higher and more consistently.", 4),
     // Difficulty 5
     poolAnswer("y8-dat-cmpbxp-p25", "Group A: Min 20, Q1 30, Med 40, Q3 55, Max 80. Group B: Min 20, Q1 35, Med 40, Q3 48, Max 60. Both share median 40. Find IQR A minus IQR B.",
-      "(55 - 30) - (48 - 35)", "12", "IQR A = 25, IQR B = 13. Difference = 12.", 5),
+      "", "12", "IQR A = 25, IQR B = 13. Difference = 12.", 5),
     poolAnswer("y8-dat-cmpbxp-p26", "For the groups above, find range A minus range B.",
-      "(80 - 20) - (60 - 20)", "20", "Range A = 60, range B = 40. Difference = 20.", 5),
+      "", "20", "Range A = 60, range B = 40. Difference = 20.", 5),
     poolChoice("y8-dat-cmpbxp-p27", "Group A's box plot is skewed right; Group B's is symmetric, with the same median. Which measure of centre best compares their typical values fairly?", "B",
       ["Mean for both.", "Median for both, since it is resistant to skew.",
        "Mean for A, median for B.", "Mode for both."],
       "The median is resistant to skew, so using it for both gives a fair comparison.", 5),
     poolAnswer("y8-dat-cmpbxp-p28", "Group A: median 55, Q1 40, Q3 70. Group B: median 55, Q1 48, Q3 62. Which group's middle 50% spans a wider range, and by how much? (Give the IQR difference.)",
-      "(70 - 40) - (62 - 48)", "16", "IQR A = 30, IQR B = 14. Group A is wider by 30 - 14 = 16.", 5),
+      "", "16", "IQR A = 30, IQR B = 14. Group A is wider by 30 - 14 = 16.", 5),
     poolAnswer("y8-dat-cmpbxp-p29", "Group A: Min 5, Q1 12, Med 18, Q3 24, Max 60. The right whisker (Max - Q3) compared with the left whisker (Q1 - Min): find the difference (right minus left).",
-      "(60 - 24) - (12 - 5)", "29", "Right whisker = 36, left whisker = 7. Difference = 36 - 7 = 29 — a strong right skew.", 5),
+      "", "29", "Right whisker = 36, left whisker = 7. Difference = 36 - 7 = 29 — a strong right skew.", 5),
     poolChoice("y8-dat-cmpbxp-p30", "Two delivery companies' times (minutes) are shown as box plots. A: median 30, IQR 10. B: median 30, IQR 4 but Max far out at 90. Which is the better choice for reliable delivery, and why?", "B",
       ["A, because its range is smaller.",
        "B, because its middle 50% is far more consistent (IQR 4), despite one rare long delivery.",
@@ -5075,7 +5075,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-g2",
       "Data set: 5, 6, 6, 7, 7, 7, 8, 8, 20. The value 20 creates a long tail to the right. State whether the distribution is symmetric, positively skewed, or negatively skewed.",
-      "\\text{Long tail to the right}",
+      "",
       "positively skewed",
       "Most values cluster between 5 and 8, but 20 creates a long right tail. This is a positively skewed (right-skewed) distribution.",
       ["positive skew", "right skewed", "skewed right", "right-skewed"]
@@ -5083,7 +5083,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-g3",
       "A stem-and-leaf plot shows most leaves on the high stems (7, 8, 9) with a few leaves on the low stem (2). State the shape of the distribution.",
-      "\\text{Most values are high; a few very low values pull the tail left.}",
+      "",
       "negatively skewed",
       "When most values are high and a few very low values stretch the tail to the left, the distribution is negatively skewed (left-skewed).",
       ["negative skew", "left skewed", "skewed left", "left-skewed"]
@@ -5091,7 +5091,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-g4",
       "A data set has mean = 55 and median = 70. Explain whether you would use the mean or the median to report the typical value, and why.",
-      "\\text{Mean}=55 < \\text{Median}=70",
+      "",
       "median",
       "Mean < Median indicates negatively skewed data — a few very low values are pulling the mean down. The median (70) sits closer to where most values lie and gives a more honest picture of the typical value.",
       ["the median", "use median"]
@@ -5113,7 +5113,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-i2",
       "Data: 12, 14, 14, 15, 15, 15, 16, 16, 17. Calculate the mean and the median. State the shape of the distribution.",
-      "\\text{Mean} = \\frac{12+14+14+15+15+15+16+16+17}{9}",
+      "",
       "symmetric",
       "Sum = 134. Mean = 134 ÷ 9 ≈ 14.9. Sorted: 12,14,14,15,15,15,16,16,17. Median (5th value) = 15. Mean ≈ median, so the distribution is approximately symmetric.",
       ["approximately symmetric", "roughly symmetric"]
@@ -5121,7 +5121,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-i3",
       "Distribution A has mean = 30 and median = 30. Distribution B has mean = 45 and median = 32. For which distribution is the mean a less reliable measure of centre?",
-      "\\text{Mean} \\gg \\text{Median in Distribution B}",
+      "",
       "Distribution B",
       "In Distribution A the mean equals the median — the data is symmetric and the mean is reliable. In Distribution B the mean (45) is much higher than the median (32), suggesting positive skew with high outliers pulling the mean up. The mean is a less reliable measure of centre for Distribution B.",
       ["B", "distribution b"]
@@ -5129,14 +5129,14 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-i4",
       "A histogram shows two peaks: one cluster of values between 20 and 30, and a second cluster between 60 and 70, with very few values in between. What shape is this distribution?",
-      "\\text{Two peaks separated by a gap}",
+      "",
       "bimodal",
       "Two distinct peaks separated by a gap indicate a bimodal distribution. This often means there are two distinct groups within the data."
     ),
     answer(
       "y8-dat-shp-i5",
       "Data: 3, 5, 6, 7, 8, 9, 9, 10, 10, 10. Calculate the mean and the median, then state the shape of the distribution.",
-      "\\text{Mean} = \\frac{3+5+6+7+8+9+9+10+10+10}{10}",
+      "",
       "negatively skewed",
       "Sum = 3+5+6+7+8+9+9+10+10+10 = 77. Mean = 77 ÷ 10 = 7.7. Sorted (already in order): the 5th value is 8 and the 6th is 9, so Median = (8+9) ÷ 2 = 8.5. Mean (7.7) < Median (8.5): the single low value 3 drags the mean below the median, creating a slight long tail to the left. The distribution is negatively skewed.",
       ["negative skew", "slightly negatively skewed", "left skewed"]
@@ -5188,7 +5188,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m3",
       "Data: 1, 2, 3, 4, 5, 6, 7, 8, 9 (9 values). Find the mean and the median. State whether the distribution is symmetric, positively skewed, or negatively skewed.",
-      "\\text{Mean} = \\frac{1+2+3+4+5+6+7+8+9}{9} = \\frac{45}{9} = 5",
+      "",
       "symmetric",
       "Mean = 45 ÷ 9 = 5. Median = 5th value = 5. Mean = Median = 5, so the distribution is symmetric.",
       ["approximately symmetric", "roughly symmetric"]
@@ -5196,7 +5196,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m4",
       "Box plot: Min = 10, Q1 = 11, Median = 12, Q3 = 20, Max = 40. State the shape of the distribution.",
-      "\\text{Left half of box: }12-11=1.\\quad \\text{Right half: }20-12=8.\\quad \\text{Right whisker: }40-20=20.",
+      "",
       "positively skewed",
       "The right half of the box (8) is much larger than the left half (1), and the right whisker (20) is much longer than the left whisker (1). The data has a long tail to the right — positively skewed.",
       ["positive skew", "right skewed", "skewed right", "right-skewed"]
@@ -5204,7 +5204,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m5",
       "A data set has mean = 18 and median = 25. State the direction of skew and identify whether the mean or median is the better measure of centre.",
-      "\\text{Mean}=18 < \\text{Median}=25",
+      "",
       "negatively skewed; median",
       "Mean < Median indicates a few very low values are pulling the mean below the median — negative (left) skew. The median (25) is less affected by those low values and better represents the typical value.",
       ["negative skew, median", "left skewed, median", "negatively skewed, use median"]
@@ -5212,7 +5212,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m6",
       "Stem-and-leaf plot: 1 | 2 3, 2 | 1 4 6 8, 3 | 0 2 5 7 9, 4 | 1 3. Describe the shape of the distribution.",
-      "\\text{Most values in the 20s and 30s with a short tail on each side}",
+      "",
       "approximately symmetric",
       "The bulk of the data sits in the 20s and 30s, with similar short tails in the 10s and 40s. The distribution is roughly bell-shaped and approximately symmetric.",
       ["symmetric", "roughly symmetric"]
@@ -5220,7 +5220,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m7",
       "A class of 20 students sits a very easy test. Most students score between 85 and 100, but two students score 30 and 35. Will the mean be above or below the median? What shape is the distribution?",
-      "\\text{Two very low scores pull mean downward}",
+      "",
       "mean below median; negatively skewed",
       "The two low scores (30, 35) drag the mean downward while the median remains among the cluster of high scores. Mean < Median confirms negative (left) skew.",
       ["mean is below median, negatively skewed", "negative skew", "left-skewed"]
@@ -5228,7 +5228,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m8",
       "Data: 50, 52, 54, 55, 55, 56, 57, 58, 59, 100. Calculate the mean and the median. By how much does the mean exceed the median, and what shape is the distribution?",
-      "\\text{Sum} = 50+52+54+55+55+56+57+58+59+100 = 596",
+      "",
       "mean exceeds median by 4.1; positively skewed",
       "Sum = 596. Mean = 596 ÷ 10 = 59.6. Sorted median = average of 5th and 6th values = (55+56) ÷ 2 = 55.5. Mean (59.6) − Median (55.5) = 4.1. The high outlier 100 pulls the mean above the median — positively skewed.",
       ["positively skewed", "right skewed", "mean > median, positive skew"]
@@ -5236,7 +5236,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m9",
       "Box plot A: Min=5, Q1=6, Median=7, Q3=14, Max=30. Box plot B: Min=5, Q1=18, Median=24, Q3=26, Max=30. Which box plot shows negative skew?",
-      "\\text{Box plot B: median closer to Q3, longer left whisker}",
+      "",
       "Box plot B",
       "Box plot B has the median (24) sitting close to Q3 (26) and a much longer left section (Q1=18 to Min=5 spans 13 units) versus the right whisker (30−26=4 units). This indicates a long left tail — negative skew. Box plot A has the median close to Q1 and a long right tail — positive skew.",
       ["B", "plot B", "box plot b"]
@@ -5244,7 +5244,7 @@ const shapeOfDistributions: LessonContent = {
     answer(
       "y8-dat-shp-m10",
       "A survey records the number of hours per week students spend on social media. The results are: mean = 14 hours, median = 9 hours. A student argues that the typical student uses social media for 14 hours per week. Explain the error and state the correct typical value to report.",
-      "\\text{Mean}=14 > \\text{Median}=9 \\Rightarrow \\text{positively skewed}",
+      "",
       "The median (9 hours) is the correct typical value",
       "Mean (14) > Median (9) indicates a positively skewed distribution — a few students who spend very many hours online are pulling the mean upward. The median of 9 hours better represents the typical student because it sits in the middle of the ordered data and is not distorted by those extreme values.",
       ["median is 9", "use the median (9)", "median 9 hours"]
@@ -5282,15 +5282,15 @@ const shapeOfDistributions: LessonContent = {
       ["symmetric", "positively skewed", "negatively skewed", "bimodal"],
       "Long left whisker and median near Q3 indicate left (negative) skew.", 2),
     poolAnswer("y8-dat-shp-p11", "Data: 4, 4, 5, 6, 6 has mean 5 and median 5. State the shape in one word.",
-      "\\text{mean} \\approx \\text{median}", "symmetric", "Mean = median = 5, so the distribution is symmetric.", 2),
+      "", "symmetric", "Mean = median = 5, so the distribution is symmetric.", 2),
     poolChoice("y8-dat-shp-p12", "Heights of a group containing both 8-year-olds and 16-year-olds would most likely be…", "D",
       ["symmetric", "positively skewed", "negatively skewed", "bimodal"],
       "Two distinct age groups create two peaks — bimodal.", 2),
     // Difficulty 3
     poolAnswer("y8-dat-shp-p13", "Data: 1, 2, 2, 3, 3, 3, 4, 4, 20. Find the mean (round to 2 decimal places).",
-      "\\frac{1+2+2+3+3+3+4+4+20}{9}", "4.67", "Sum = 42. Mean = 42 ÷ 9 = 4.666... ≈ 4.67.", 3, ["4.666", "4.67"]),
+      "", "4.67", "Sum = 42. Mean = 42 ÷ 9 = 4.666... ≈ 4.67.", 3, ["4.666", "4.67"]),
     poolAnswer("y8-dat-shp-p14", "For that data (sorted, 9 values), find the median.",
-      "\\text{5th value}", "3", "9 values → median is the 5th: 3.", 3),
+      "", "3", "9 values → median is the 5th: 3.", 3),
     poolChoice("y8-dat-shp-p15", "From the data above (mean ≈ 4.67, median 3), the shape is…", "A",
       ["positively skewed", "negatively skewed", "symmetric", "bimodal"],
       "Mean (4.67) > median (3), so the distribution is positively skewed.", 3),
@@ -5304,12 +5304,12 @@ const shapeOfDistributions: LessonContent = {
       ["mean", "median", "maximum", "range"], "The median is not distorted by the high earners, so it is the better 'typical' value.", 3),
     // Difficulty 4
     poolAnswer("y8-dat-shp-p19", "Data: 5, 6, 6, 7, 7, 7, 8, 8, 9 is symmetric. Find the mean.",
-      "\\frac{5+6+6+7+7+7+8+8+9}{9}", "7", "Sum = 63. Mean = 63 ÷ 9 = 7 (equals the median, confirming symmetry).", 4),
+      "", "7", "Sum = 63. Mean = 63 ÷ 9 = 7 (equals the median, confirming symmetry).", 4),
     poolChoice("y8-dat-shp-p20", "A box plot: Min 10, Q1 12, Median 14, Q3 22, Max 40. The shape is…", "B",
       ["symmetric", "positively skewed", "negatively skewed", "bimodal"],
       "Median near Q1 (left half of box small) with a long right whisker → positively skewed.", 4),
     poolAnswer("y8-dat-shp-p21", "Data: 10, 12, 12, 13, 40 has median 12. Find the mean.",
-      "\\frac{10+12+12+13+40}{5}", "17.4", "Sum = 87. Mean = 87 ÷ 5 = 17.4.", 4),
+      "", "17.4", "Sum = 87. Mean = 87 ÷ 5 = 17.4.", 4),
     poolChoice("y8-dat-shp-p22", "For the data above (mean 17.4, median 12), which is the better measure of the typical value and why?", "A",
       ["Median 12, because the value 40 pulls the mean upward.",
        "Mean 17.4, because it uses all values.",
@@ -5319,13 +5319,13 @@ const shapeOfDistributions: LessonContent = {
       ["symmetric", "positively skewed", "negatively skewed", "bimodal"],
       "Two separated clusters indicate a bimodal distribution.", 4),
     poolAnswer("y8-dat-shp-p24", "A box plot: Min 5, Q1 20, Median 28, Q3 32, Max 35. The left whisker is much longer than the right. State the shape in one word.",
-      "\\text{long left tail}", "negatively skewed",
+      "", "negatively skewed",
       "The long left whisker (Q1 - Min = 15 vs Max - Q3 = 3) indicates a negative skew.", 4, ["negative", "left", "left skewed"]),
     // Difficulty 5
     poolAnswer("y8-dat-shp-p25", "Data: 3, 4, 4, 5, 5, 5, 6, 6, 7, 40. Find the mean.",
-      "\\frac{3+4+4+5+5+5+6+6+7+40}{10}", "8.5", "Sum = 85. Mean = 85 ÷ 10 = 8.5.", 5),
+      "", "8.5", "Sum = 85. Mean = 85 ÷ 10 = 8.5.", 5),
     poolAnswer("y8-dat-shp-p26", "For that data (10 values, sorted), find the median.",
-      "\\frac{5 + 5}{2}", "5", "10 values → median = (5th + 6th) ÷ 2 = (5 + 5) ÷ 2 = 5.", 5),
+      "", "5", "10 values → median = (5th + 6th) ÷ 2 = (5 + 5) ÷ 2 = 5.", 5),
     poolChoice("y8-dat-shp-p27", "From the data above (mean 8.5, median 5), the most accurate description is…", "A",
       ["positively skewed; report the median (5)",
        "negatively skewed; report the mean (8.5)",
@@ -5339,7 +5339,7 @@ const shapeOfDistributions: LessonContent = {
        "Half the class scored 68."],
       "Mean (68) < median (76) indicates negative skew: a few low marks dragged the mean below the median.", 5),
     poolAnswer("y8-dat-shp-p29", "A box plot has Q1 = 30, Median = 33, Q3 = 50, Min = 28, Max = 80. Compare the box halves: find (Q3 - Median) minus (Median - Q1).",
-      "(50 - 33) - (33 - 30)", "14", "Right box half = 17, left box half = 3. Difference = 17 - 3 = 14, confirming a strong right skew.", 5),
+      "", "14", "Right box half = 17, left box half = 3. Difference = 17 - 3 = 14, confirming a strong right skew.", 5),
     poolChoice("y8-dat-shp-p30", "Two data sets have the same mean and median but one is symmetric and the other is bimodal. Why is describing the shape still important?", "A",
       ["Because a single mean/median hides the two-group structure of the bimodal data.",
        "Because the mean must be wrong.",

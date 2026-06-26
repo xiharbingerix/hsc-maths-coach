@@ -266,14 +266,14 @@ const numberPatternsAndRules: LessonContent = {
     answer(
       "y8-lin-pat-g2",
       "Rule: T = 3n + 1. Find T when n = 6.",
-      "T = 3(6) + 1",
+      "",
       "19",
       "T = 3 × 6 + 1 = 18 + 1 = 19."
     ),
     answer(
       "y8-lin-pat-g3",
       "Rule: T = 3n + 3. Find the 10th term.",
-      "T = 3(10) + 3",
+      "",
       "33",
       "T = 3 × 10 + 3 = 30 + 3 = 33."
     ),
@@ -289,14 +289,14 @@ const numberPatternsAndRules: LessonContent = {
     answer(
       "y8-lin-pat-i1",
       "Pattern: 7, 10, 13, 16, … Find the 6th term.",
-      "\\text{common difference }= 3,\\; T_6 = 7 + 5 \\times 3",
+      "",
       "22",
       "The 6th term is 7 + 5 × 3 = 7 + 15 = 22."
     ),
     answer(
       "y8-lin-pat-i2",
       "Rule: T = 5n − 3. Find T when n = 8.",
-      "T = 5(8) - 3",
+      "",
       "37",
       "T = 5 × 8 − 3 = 40 − 3 = 37."
     ),
@@ -310,14 +310,14 @@ const numberPatternsAndRules: LessonContent = {
     answer(
       "y8-lin-pat-i4",
       "Rule: T = 2n + 7. For which value of n is T = 21?",
-      "2n + 7 = 21",
+      "",
       "7",
       "2n = 21 − 7 = 14, so n = 7."
     ),
     answer(
       "y8-lin-pat-i5",
       "Pattern: 100, 94, 88, 82, … Find the next term.",
-      "\\text{common difference }= -6",
+      "",
       "76",
       "The common difference is −6. The next term is 82 − 6 = 76."
     ),
@@ -344,21 +344,21 @@ const numberPatternsAndRules: LessonContent = {
     answer(
       "y8-lin-pat-m1",
       "Pattern: 4, 7, 10, 13, … Find the next term.",
-      "\\text{common difference }= 3",
+      "",
       "16",
       "13 + 3 = 16."
     ),
     answer(
       "y8-lin-pat-m2",
       "Rule: T = 6n − 4. Find T when n = 5.",
-      "T = 6(5) - 4",
+      "",
       "26",
       "T = 30 − 4 = 26."
     ),
     answer(
       "y8-lin-pat-m3",
       "Table: n = 1 → 3, n = 2 → 5, n = 3 → 7. Rule is T = 2n + 1. Find the 10th term.",
-      "T = 2(10) + 1",
+      "",
       "21",
       "T = 20 + 1 = 21."
     ),
@@ -372,14 +372,14 @@ const numberPatternsAndRules: LessonContent = {
     answer(
       "y8-lin-pat-m5",
       "Rule: T = 4n − 1. Find T when n = 12.",
-      "T = 4(12) - 1",
+      "",
       "47",
       "T = 48 − 1 = 47."
     ),
     answer(
       "y8-lin-pat-m6",
       "Rule: T = 3n + 5. For which n is T = 29?",
-      "3n + 5 = 29",
+      "",
       "8",
       "3n = 24, so n = 8."
     ),
@@ -393,14 +393,14 @@ const numberPatternsAndRules: LessonContent = {
     answer(
       "y8-lin-pat-m8",
       "Pattern: 50, 44, 38, 32, … Find the 5th term.",
-      "\\text{common difference }= -6",
+      "",
       "26",
       "32 − 6 = 26."
     ),
     answer(
       "y8-lin-pat-m9",
       "Rule: T = 4n + 3. Find T when n = 9.",
-      "T = 4(9) + 3",
+      "",
       "39",
       "T = 36 + 3 = 39."
     ),
@@ -768,7 +768,7 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-g2",
       "What is the x-coordinate of the point (7, −2)?",
-      "(7,\\; -2)",
+      "",
       "7",
       "The x-coordinate is always the first number in the pair. It is 7.",
       [],
@@ -777,7 +777,7 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-g3",
       "What is the y-coordinate of the point (−3, 5)?",
-      "(-3,\\; 5)",
+      "",
       "5",
       "The y-coordinate is the second number in the pair. It is 5.",
       [],
@@ -795,14 +795,14 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-i1",
       "A point is 4 units right of the origin and 3 units below. What is its x-coordinate?",
-      "\\text{right }4\\text{ units, down }3\\text{ units}",
+      "",
       "4",
       "Right means positive x. The x-coordinate is 4. The full point is (4, −3)."
     ),
     answer(
       "y8-lin-coo-i2",
       "Points A(2, 5) and B(2, −3) both have the same x-coordinate. What is it?",
-      "x_A = x_B",
+      "",
       "2",
       "Both points have x = 2. They lie on the same vertical line x = 2."
     ),
@@ -816,14 +816,14 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-i4",
       "A point lies on the y-axis. What is its x-coordinate?",
-      "\\text{y-axis: }x = ?",
+      "",
       "0",
       "Every point on the y-axis has x = 0."
     ),
     answer(
       "y8-lin-coo-i5",
       "What is the y-coordinate of the midpoint of (0, 0) and (0, 6)?",
-      "\\text{midpoint y} = \\frac{0 + 6}{2}",
+      "",
       "3",
       "The midpoint is halfway: (0 + 6) ÷ 2 = 3. The midpoint is (0, 3)."
     ),
@@ -850,7 +850,7 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-m1",
       "What is the y-coordinate of the point (−5, 2)?",
-      "(-5,\\; 2)",
+      "",
       "2",
       "The y-coordinate is the second number in the pair. It is 2."
     ),
@@ -864,14 +864,14 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-m3",
       "What is the distance along the y-axis from (0, 0) to (0, 8)?",
-      "(0,0)\\text{ to }(0,8)",
+      "",
       "8",
       "Both points are on the y-axis. The distance is |8 − 0| = 8 units."
     ),
     answer(
       "y8-lin-coo-m4",
       "What is the x-coordinate of the point (−3, −4)?",
-      "(-3,\\; -4)",
+      "",
       "-3",
       "The x-coordinate is the first number: −3.",
       ["-3", "−3"]
@@ -886,7 +886,7 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-m6",
       "The point (x, 0) lies on which axis? Enter 'x-axis' or 'y-axis'.",
-      "y = 0",
+      "",
       "x-axis",
       "When y = 0, the point lies on the horizontal x-axis.",
       ["x-axis", "X-axis", "the x-axis"]
@@ -894,7 +894,7 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-m7",
       "A point is 6 units left of the origin on the x-axis. What is its x-coordinate?",
-      "\\text{left of origin: } x < 0",
+      "",
       "-6",
       "Left of the origin means negative x. The x-coordinate is −6.",
       ["-6", "−6"]
@@ -914,7 +914,7 @@ const coordinatesAndPoints: LessonContent = {
     answer(
       "y8-lin-coo-m9",
       "A point lies on the y-axis. What is its x-coordinate?",
-      "\\text{y-axis: } x = ?",
+      "",
       "0",
       "Every point on the y-axis has x = 0."
     ),
@@ -1303,14 +1303,14 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-g1",
       "Rule: y = 2x + 1. Find y when x = 3.",
-      "y = 2(3) + 1",
+      "",
       "7",
       "y = 6 + 1 = 7."
     ),
     answer(
       "y8-lin-tab-g2",
       "Rule: y = 3x − 2. Find y when x = 4.",
-      "y = 3(4) - 2",
+      "",
       "10",
       "y = 12 − 2 = 10."
     ),
@@ -1324,7 +1324,7 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-g4",
       "Rule: y = 5x + 3. Find y when x = 0.",
-      "y = 5(0) + 3",
+      "",
       "3",
       "y = 0 + 3 = 3. Substituting x = 0 always gives the y-intercept c."
     ),
@@ -1333,14 +1333,14 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-i1",
       "Rule: y = 4x − 1. Find y when x = 5.",
-      "y = 4(5) - 1",
+      "",
       "19",
       "y = 20 − 1 = 19."
     ),
     answer(
       "y8-lin-tab-i2",
       "Rule: y = −2x + 8. Find y when x = 3.",
-      "y = -2(3) + 8",
+      "",
       "2",
       "y = −6 + 8 = 2.",
       ["2"]
@@ -1355,14 +1355,14 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-i4",
       "Rule: y = x + 6. Find y when x = 14.",
-      "y = 14 + 6",
+      "",
       "20",
       "y = 14 + 6 = 20."
     ),
     answer(
       "y8-lin-tab-i5",
       "Rule: y = 3x. Find y when x = 7.",
-      "y = 3(7)",
+      "",
       "21",
       "y = 3 × 7 = 21."
     ),
@@ -1389,21 +1389,21 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-m1",
       "Rule: y = 2x + 4. Find y when x = 6.",
-      "y = 2(6) + 4",
+      "",
       "16",
       "y = 12 + 4 = 16."
     ),
     answer(
       "y8-lin-tab-m2",
       "Table: x = 0 → 3, x = 1 → 5, x = 2 → 7, x = 3 → 9. What is the constant difference in y?",
-      "5 - 3 = 2,\\; 7 - 5 = 2",
+      "",
       "2",
       "Each y increases by 2 as x increases by 1. The constant difference is 2."
     ),
     answer(
       "y8-lin-tab-m3",
       "Rule: y = 6x − 5. Find y when x = 3.",
-      "y = 6(3) - 5",
+      "",
       "13",
       "y = 18 − 5 = 13."
     ),
@@ -1417,14 +1417,14 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-m5",
       "Rule: y = −x + 10. Find y when x = 7.",
-      "y = -(7) + 10",
+      "",
       "3",
       "y = −7 + 10 = 3."
     ),
     answer(
       "y8-lin-tab-m6",
       "Rule: y = 2x + 1. For which x is y = 15?",
-      "2x + 1 = 15",
+      "",
       "7",
       "2x = 14, so x = 7."
     ),
@@ -1438,14 +1438,14 @@ const tablesOfValues: LessonContent = {
     answer(
       "y8-lin-tab-m8",
       "Rule: y = 10x − 3. Find y when x = 4.",
-      "y = 10(4) - 3",
+      "",
       "37",
       "y = 40 − 3 = 37."
     ),
     answer(
       "y8-lin-tab-m9",
       "Rule: y = 5x + 1. Find y when x = 8.",
-      "y = 5(8) + 1",
+      "",
       "41",
       "y = 40 + 1 = 41."
     ),
@@ -1823,7 +1823,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-g2",
       "Rule: y = x + 2. Find y when x = 0 (the y-intercept).",
-      "y = 0 + 2",
+      "",
       "2",
       "The y-intercept is y = 2. The graph crosses the y-axis at (0, 2).",
       [],
@@ -1832,7 +1832,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-g3",
       "Rule: y = 2x − 1. Find y when x = 3.",
-      "y = 2(3) - 1",
+      "",
       "5",
       "y = 6 − 1 = 5. The point (3, 5) is on the line.",
       [],
@@ -1852,7 +1852,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-i1",
       "Rule: y = x − 3. Find the y-intercept (let x = 0).",
-      "y = 0 - 3",
+      "",
       "-3",
       "y = −3. The graph crosses the y-axis at (0, −3).",
       ["-3", "−3"],
@@ -1861,7 +1861,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-i2",
       "Rule: y = 2x + 5. Find y when x = −1.",
-      "y = 2(-1) + 5",
+      "",
       "3",
       "y = −2 + 5 = 3.",
       [],
@@ -1882,14 +1882,14 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-i4",
       "Rule: y = 4x. Find y when x = 0.",
-      "y = 4(0)",
+      "",
       "0",
       "y = 0. The graph passes through the origin (0, 0)."
     ),
     answer(
       "y8-lin-gra-i5",
       "Find the y-intercept of y = 3x + 7.",
-      "\\text{let }x = 0:\\; y = 3(0) + 7",
+      "",
       "7",
       "The y-intercept is 7. The graph crosses the y-axis at (0, 7)."
     ),
@@ -1916,7 +1916,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-m1",
       "Rule: y = 2x + 3. Find y when x = −2.",
-      "y = 2(-2) + 3",
+      "",
       "-1",
       "y = −4 + 3 = −1.",
       ["-1", "−1"]
@@ -1945,7 +1945,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-m3",
       "Find the x-intercept of y = x + 4 (let y = 0).",
-      "0 = x + 4",
+      "",
       "-4",
       "x = −4. The graph crosses the x-axis at (−4, 0).",
       ["-4", "−4"],
@@ -1954,7 +1954,7 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-m4",
       "Rule: y = 3x − 6. Find y when x = 2.",
-      "y = 3(2) - 6",
+      "",
       "0",
       "y = 6 − 6 = 0. The point (2, 0) is the x-intercept."
     ),
@@ -1970,14 +1970,14 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-m6",
       "Rule: y = 5x + 2. Find y when x = 4.",
-      "y = 5(4) + 2",
+      "",
       "22",
       "y = 20 + 2 = 22."
     ),
     answer(
       "y8-lin-gra-m7",
       "Rule: y = x. Find y when x = 7.",
-      "y = 7",
+      "",
       "7",
       "y = 7. The graph y = x passes through all points where y equals x."
     ),
@@ -1991,14 +1991,14 @@ const graphingLinearRelationships: LessonContent = {
     answer(
       "y8-lin-gra-m9",
       "Find the x-intercept of y = 2x − 4 (let y = 0).",
-      "0 = 2x - 4",
+      "",
       "2",
       "2x = 4, so x = 2. The x-intercept is (2, 0)."
     ),
     answer(
       "y8-lin-gra-m10",
       "Rule: y = −x + 8. Find y when x = 5.",
-      "y = -(5) + 8",
+      "",
       "3",
       "y = −5 + 8 = 3."
     ),
@@ -2375,14 +2375,14 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-g2",
       "A line rises 6 units for every 3 units it runs. Find the gradient.",
-      "\\text{gradient} = \\frac{6}{3}",
+      "",
       "2",
       "Gradient = 6 ÷ 3 = 2."
     ),
     answer(
       "y8-lin-grd-g3",
       "A line falls 4 units for every 2 units it runs. Find the gradient.",
-      "\\text{gradient} = \\frac{-4}{2}",
+      "",
       "-2",
       "A falling line has a negative gradient. Gradient = −4 ÷ 2 = −2.",
       ["-2", "−2"]
@@ -2404,14 +2404,14 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-i1",
       "A line rises 6 units over a run of 2 units. Find the gradient.",
-      "\\text{gradient} = \\frac{6}{2}",
+      "",
       "3",
       "Gradient = 6 ÷ 2 = 3."
     ),
     answer(
       "y8-lin-grd-i2",
       "A line falls 10 units for every 5 units of run. Find the gradient.",
-      "\\text{gradient} = \\frac{-10}{5}",
+      "",
       "-2",
       "A falling line has a negative gradient. Gradient = −10 ÷ 5 = −2.",
       ["-2", "−2"]
@@ -2426,14 +2426,14 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-i4",
       "A car travels 200 km in 4 hours. What is the gradient of the distance-time graph in km/h?",
-      "\\text{gradient} = \\frac{200}{4}",
+      "",
       "50",
       "Gradient = 200 ÷ 4 = 50 km/h."
     ),
     answer(
       "y8-lin-grd-i5",
       "A line passes through (0, 0) and (4, 8). Find the gradient.",
-      "\\text{gradient} = \\frac{8 - 0}{4 - 0}",
+      "",
       "2",
       "Rise = 8, run = 4. Gradient = 8 ÷ 4 = 2."
     ),
@@ -2460,7 +2460,7 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-m1",
       "Rise = 9, run = 3. Find the gradient.",
-      "\\text{gradient} = \\frac{9}{3}",
+      "",
       "3",
       "Gradient = 9 ÷ 3 = 3."
     ),
@@ -2474,14 +2474,14 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-m3",
       "Find the gradient of the line through (1, 2) and (3, 8).",
-      "\\text{gradient} = \\frac{8-2}{3-1}",
+      "",
       "3",
       "Rise = 6, run = 2. Gradient = 6 ÷ 2 = 3."
     ),
     answer(
       "y8-lin-grd-m4",
       "Find the gradient of the line through (2, 5) and (6, 1).",
-      "\\text{gradient} = \\frac{1-5}{6-2}",
+      "",
       "-1",
       "Rise = 1 − 5 = −4, run = 6 − 2 = 4. Gradient = −4 ÷ 4 = −1.",
       ["-1", "−1"]
@@ -2501,7 +2501,7 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-m6",
       "A swimming pool drains 50 litres per hour. What is the gradient of the volume-time graph?",
-      "\\text{gradient} = \\frac{-50}{1}",
+      "",
       "-50",
       "Volume decreases by 50 each hour, so the gradient is −50.",
       ["-50", "−50"]
@@ -2509,7 +2509,7 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-m7",
       "Find the gradient of the line through (0, 3) and (4, 11).",
-      "\\text{gradient} = \\frac{11-3}{4-0}",
+      "",
       "2",
       "Rise = 8, run = 4. Gradient = 8 ÷ 4 = 2."
     ),
@@ -2528,14 +2528,14 @@ const gradientAsRateOfChange: LessonContent = {
     answer(
       "y8-lin-grd-m9",
       "A line rises 15 units over a run of 5 units. Find the gradient.",
-      "\\text{gradient} = \\frac{15}{5}",
+      "",
       "3",
       "Gradient = 15 ÷ 5 = 3."
     ),
     answer(
       "y8-lin-grd-m10",
       "Find the gradient of the line through (1, 7) and (3, 3).",
-      "\\text{gradient} = \\frac{3-7}{3-1}",
+      "",
       "-2",
       "Rise = 3 − 7 = −4, run = 3 − 1 = 2. Gradient = −4 ÷ 2 = −2.",
       ["-2", "−2"]
@@ -2923,14 +2923,14 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-g2",
       "Rule: y = 2x + 10. What is the starting value when x = 0?",
-      "y = 2(0) + 10",
+      "",
       "10",
       "When x = 0, y = 10. The starting value (y-intercept) is 10."
     ),
     answer(
       "y8-lin-int-g3",
       "Cost rule: C = 4n + 8. Find C when n = 6.",
-      "C = 4(6) + 8",
+      "",
       "32",
       "C = 24 + 8 = 32."
     ),
@@ -2946,14 +2946,14 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-i1",
       "A hire car costs $50 plus $30 per hour. Rule: C = 30h + 50. Find C when h = 3.",
-      "C = 30(3) + 50",
+      "",
       "140",
       "C = 90 + 50 = 140. The total cost for 3 hours is $140."
     ),
     answer(
       "y8-lin-int-i2",
       "Rule: C = 5n + 20. Find C when n = 8.",
-      "C = 5(8) + 20",
+      "",
       "60",
       "C = 40 + 20 = 60."
     ),
@@ -2967,14 +2967,14 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-i4",
       "A phone plan costs $20 per month plus $0.10 per text. Rule: C = 0.10t + 20. Find C for 50 texts.",
-      "C = 0.10(50) + 20",
+      "",
       "25",
       "C = 5 + 20 = 25."
     ),
     answer(
       "y8-lin-int-i5",
       "A distance-time graph has gradient 60 (km/h). How far does the object travel in 3 hours?",
-      "\\text{distance} = 60 \\times 3",
+      "",
       "180",
       "Distance = gradient × time = 60 × 3 = 180 km."
     ),
@@ -3001,7 +3001,7 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-m1",
       "Rule: D = 80t, where D = distance (km) and t = time (hours). Find D when t = 4.",
-      "D = 80(4)",
+      "",
       "320",
       "D = 80 × 4 = 320 km."
     ),
@@ -3015,14 +3015,14 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-m3",
       "Rule: C = 6n + 15. Find C when n = 10.",
-      "C = 6(10) + 15",
+      "",
       "75",
       "C = 60 + 15 = 75."
     ),
     answer(
       "y8-lin-int-m4",
       "What is the y-intercept of y = −3x + 24?",
-      "\\text{let }x = 0:\\; y = 24",
+      "",
       "24",
       "Substitute x = 0: y = −3(0) + 24 = 24."
     ),
@@ -3041,14 +3041,14 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-m6",
       "Rule: W = 250 − 5d, where W = weight (kg) and d = days. Find W when d = 10.",
-      "W = 250 - 5(10)",
+      "",
       "200",
       "W = 250 − 50 = 200 kg."
     ),
     answer(
       "y8-lin-int-m7",
       "Rule: P = 12h − 4, where P = profit ($) and h = hours. Find P when h = 5.",
-      "P = 12(5) - 4",
+      "",
       "56",
       "P = 60 − 4 = 56."
     ),
@@ -3062,14 +3062,14 @@ const interpretingLinearGraphs: LessonContent = {
     answer(
       "y8-lin-int-m9",
       "Rule: F = 2C + 32 converts Celsius to Fahrenheit. Find F when C = 15.",
-      "F = 2(15) + 32",
+      "",
       "62",
       "F = 30 + 32 = 62°F."
     ),
     answer(
       "y8-lin-int-m10",
       "Rule: C = 7n + 3. For which n is C = 31?",
-      "7n + 3 = 31",
+      "",
       "4",
       "7n = 28, so n = 4."
     ),

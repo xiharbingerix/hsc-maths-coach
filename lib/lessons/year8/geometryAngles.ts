@@ -166,7 +166,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-g2",
       "Two angles are complementary. One angle is 37°. Find the other angle in degrees.",
-      "37 + x = 90",
+      "",
       "53",
       "Complementary angles sum to 90°. x = 90 − 37 = 53°.",
       ["53°"]
@@ -174,7 +174,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-g3",
       "Two angles are supplementary. One angle is 145°. Find the other angle in degrees.",
-      "145 + x = 180",
+      "",
       "35",
       "Supplementary angles sum to 180°. x = 180 − 145 = 35°.",
       ["35°"]
@@ -182,7 +182,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-g4",
       "Three angles meet at a point. Two of them are 95° and 130°. Find the third angle in degrees.",
-      "95 + 130 + x = 360",
+      "",
       "135",
       "Angles at a point sum to 360°. x = 360 − 95 − 130 = 135°.",
       ["135°"]
@@ -192,7 +192,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-i1",
       "Two lines intersect. One angle is 68°. Find the vertically opposite angle in degrees.",
-      "\\text{vertically opposite to }68^\\circ",
+      "",
       "68",
       "Vertically opposite angles are equal. The answer is 68°.",
       ["68°"]
@@ -200,7 +200,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-i2",
       "Two angles are supplementary. One is 73°. Find the other angle in degrees.",
-      "73 + x = 180",
+      "",
       "107",
       "x = 180 − 73 = 107°.",
       ["107°"]
@@ -220,7 +220,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-i4",
       "A straight line is divided into three adjacent angles: 65°, 90°, and x°. Find x.",
-      "65 + 90 + x = 180",
+      "",
       "25",
       "65 + 90 = 155. x = 180 − 155 = 25°.",
       ["25°"]
@@ -228,7 +228,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-i5",
       "Four angles meet at a point: 72°, 95°, 85°, and x°. Find x.",
-      "72 + 95 + 85 + x = 360",
+      "",
       "108",
       "72 + 95 + 85 = 252. x = 360 − 252 = 108°.",
       ["108°"]
@@ -256,7 +256,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m1",
       "Two angles are complementary. One is 56°. Find the other angle in degrees.",
-      "56 + x = 90",
+      "",
       "34",
       "x = 90 − 56 = 34°.",
       ["34°"]
@@ -264,7 +264,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m2",
       "Two lines intersect. One angle is 127°. State the vertically opposite angle in degrees.",
-      "\\text{vertically opposite to }127^\\circ",
+      "",
       "127",
       "Vertically opposite angles are equal. The answer is 127°.",
       ["127°"]
@@ -284,7 +284,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m4",
       "Angles at a point: three angles are 110°, 115°, and x°. Find x.",
-      "110 + 115 + x = 360",
+      "",
       "135",
       "110 + 115 = 225. x = 360 − 225 = 135°.",
       ["135°"]
@@ -292,7 +292,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m5",
       "The supplement of 27° is…",
-      "27 + x = 180",
+      "",
       "153",
       "x = 180 − 27 = 153°.",
       ["153°"]
@@ -312,7 +312,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m7",
       "Three angles lie on a straight line: 48°, 97°, and x°. Find x.",
-      "48 + 97 + x = 180",
+      "",
       "35",
       "48 + 97 = 145. x = 180 − 145 = 35°.",
       ["35°"]
@@ -320,7 +320,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m8",
       "The complement of 19° is…",
-      "19 + x = 90",
+      "",
       "71",
       "x = 90 − 19 = 71°.",
       ["71°"]
@@ -340,7 +340,7 @@ const angleRelationships: LessonContent = {
     answer(
       "y8-geo-ang-m10",
       "At a point, three angles are 2x°, 3x°, and 4x°. Find x.",
-      "2x + 3x + 4x = 360",
+      "",
       "40",
       "9x = 360, so x = 40.",
       ["40°"]
@@ -444,7 +444,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-g2",
       "Lines AB and CD are parallel. A transversal makes a 65° angle at AB. Find the corresponding angle at CD in degrees.",
-      "\\text{corresponding angles (F): equal}",
+      "",
       "65",
       "Corresponding angles are equal when lines are parallel. The angle is 65°.",
       ["65°"]
@@ -452,7 +452,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-g3",
       "Parallel lines cut by a transversal. An alternate angle at one line is 48°. Find the alternate angle at the other line in degrees.",
-      "\\text{alternate angles (Z): equal}",
+      "",
       "48",
       "Alternate angles are equal when lines are parallel. The angle is 48°.",
       ["48°"]
@@ -460,7 +460,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-g4",
       "Parallel lines cut by a transversal. One co-interior angle is 115°. Find the other co-interior angle in degrees.",
-      "115 + x = 180",
+      "",
       "65",
       "Co-interior angles sum to 180°. x = 180 − 115 = 65°.",
       ["65°"]
@@ -470,7 +470,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-i1",
       "Parallel lines. A corresponding angle is 73°. Find the other corresponding angle in degrees.",
-      "\\text{corresponding angles (F): equal}",
+      "",
       "73",
       "Corresponding angles are equal when lines are parallel. The angle is 73°.",
       ["73°"]
@@ -478,7 +478,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-i2",
       "Parallel lines. One co-interior angle is 54°. Find the other co-interior angle in degrees.",
-      "54 + x = 180",
+      "",
       "126",
       "Co-interior angles sum to 180°. x = 180 − 54 = 126°.",
       ["126°"]
@@ -498,7 +498,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-i4",
       "Parallel lines. An alternate angle at one line is 117°. Find the alternate angle at the other line in degrees.",
-      "\\text{alternate angles (Z): equal}",
+      "",
       "117",
       "Alternate angles are equal when lines are parallel. The angle is 117°.",
       ["117°"]
@@ -506,7 +506,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-i5",
       "Parallel lines cut by a transversal. Co-interior angles are (3x + 10)° and (2x + 20)°. Find x.",
-      "(3x+10) + (2x+20) = 180",
+      "",
       "30",
       "5x + 30 = 180, so 5x = 150, giving x = 30.",
       ["x = 30"]
@@ -534,7 +534,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m1",
       "Parallel lines. A corresponding angle is 82°. Find the other in degrees.",
-      "\\text{corresponding angles (F): equal}",
+      "",
       "82",
       "Corresponding angles are equal when lines are parallel.",
       ["82°"]
@@ -542,7 +542,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m2",
       "Parallel lines. An alternate angle is 35°. Find the other alternate angle in degrees.",
-      "\\text{alternate angles (Z): equal}",
+      "",
       "35",
       "Alternate angles are equal when lines are parallel.",
       ["35°"]
@@ -550,7 +550,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m3",
       "Parallel lines. One co-interior angle is 142°. Find the other in degrees.",
-      "142 + x = 180",
+      "",
       "38",
       "Co-interior angles sum to 180°. x = 180 − 142 = 38°.",
       ["38°"]
@@ -570,7 +570,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m5",
       "Parallel lines. Corresponding angles: (4x − 20)° and (2x + 40)°. Find x.",
-      "4x - 20 = 2x + 40",
+      "",
       "30",
       "4x − 20 = 2x + 40, so 2x = 60, giving x = 30.",
       ["x = 30"]
@@ -578,7 +578,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m6",
       "Parallel lines. Alternate angles: (5x + 15)° and (3x + 35)°. Find x.",
-      "5x + 15 = 3x + 35",
+      "",
       "10",
       "5x + 15 = 3x + 35, so 2x = 20, giving x = 10.",
       ["x = 10"]
@@ -598,7 +598,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m8",
       "Parallel lines. One co-interior angle is 67°. Find the other in degrees.",
-      "67 + x = 180",
+      "",
       "113",
       "x = 180 − 67 = 113°.",
       ["113°"]
@@ -606,7 +606,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m9",
       "Parallel lines. Co-interior angles are x° and 2x°. Find x.",
-      "x + 2x = 180",
+      "",
       "60",
       "3x = 180, so x = 60.",
       ["60°"]
@@ -614,7 +614,7 @@ const parallelLinesTransversals: LessonContent = {
     answer(
       "y8-geo-par-m10",
       "Parallel lines. An angle at the first line is 131°. Find the alternate angle at the second line in degrees.",
-      "\\text{alternate angles (Z): equal}",
+      "",
       "131",
       "Alternate angles are equal when lines are parallel. The angle is 131°.",
       ["131°"]
@@ -713,7 +713,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-g1",
       "A triangle has angles 65° and 72°. Find the third angle in degrees.",
-      "65 + 72 + x = 180",
+      "",
       "43",
       "x = 180 − 65 − 72 = 43°.",
       ["43°"]
@@ -733,7 +733,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-g3",
       "A quadrilateral has angles 85°, 110°, 95°, and x°. Find x.",
-      "85 + 110 + 95 + x = 360",
+      "",
       "70",
       "85 + 110 + 95 = 290. x = 360 − 290 = 70°.",
       ["70°"]
@@ -741,7 +741,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-g4",
       "An exterior angle of a triangle is 115°. One non-adjacent interior angle is 48°. Find the other non-adjacent interior angle in degrees.",
-      "x + 48 = 115",
+      "",
       "67",
       "x = 115 − 48 = 67°.",
       ["67°"]
@@ -751,7 +751,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-i1",
       "An isosceles triangle has two base angles each of 52°. Find the apex angle in degrees.",
-      "52 + 52 + x = 180",
+      "",
       "76",
       "52 + 52 = 104. x = 180 − 104 = 76°.",
       ["76°"]
@@ -759,7 +759,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-i2",
       "An exterior angle of a triangle is 132°. One non-adjacent interior angle is 55°. Find the other non-adjacent interior angle in degrees.",
-      "x + 55 = 132",
+      "",
       "77",
       "x = 132 − 55 = 77°.",
       ["77°"]
@@ -779,7 +779,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-i4",
       "A quadrilateral has three angles: 70°, 95°, and 115°. Find the fourth angle in degrees.",
-      "70 + 95 + 115 + x = 360",
+      "",
       "80",
       "70 + 95 + 115 = 280. x = 360 − 280 = 80°.",
       ["80°"]
@@ -787,7 +787,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-i5",
       "A right-angled triangle has one acute angle of 37°. Find the other acute angle in degrees.",
-      "90 + 37 + x = 180",
+      "",
       "53",
       "x = 180 − 90 − 37 = 53°.",
       ["53°"]
@@ -815,7 +815,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m1",
       "Triangle angles: 54° and 78°. Find the third angle in degrees.",
-      "54 + 78 + x = 180",
+      "",
       "48",
       "x = 180 − 54 − 78 = 48°.",
       ["48°"]
@@ -823,7 +823,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m2",
       "An exterior angle is 108°. One non-adjacent interior angle is 43°. Find the other in degrees.",
-      "x + 43 = 108",
+      "",
       "65",
       "x = 108 − 43 = 65°.",
       ["65°"]
@@ -843,7 +843,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m4",
       "Quadrilateral angles: 100°, 85°, 75°, and x°. Find x.",
-      "100 + 85 + 75 + x = 360",
+      "",
       "100",
       "100 + 85 + 75 = 260. x = 360 − 260 = 100°.",
       ["100°"]
@@ -851,7 +851,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m5",
       "State each interior angle of an equilateral triangle in degrees.",
-      "\\frac{180}{3} = 60",
+      "",
       "60",
       "All three angles are equal: 180° ÷ 3 = 60°.",
       ["60°"]
@@ -859,7 +859,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m6",
       "A right-angled triangle has one acute angle of 27°. Find the other acute angle in degrees.",
-      "90 + 27 + x = 180",
+      "",
       "63",
       "x = 180 − 90 − 27 = 63°.",
       ["63°"]
@@ -879,7 +879,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m8",
       "A quadrilateral has angles x°, 2x°, 3x°, and 4x°. Find x.",
-      "x + 2x + 3x + 4x = 360",
+      "",
       "36",
       "10x = 360, so x = 36.",
       ["36°"]
@@ -887,7 +887,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m9",
       "A triangle has two equal angles of 35°. Find the third angle in degrees.",
-      "35 + 35 + x = 180",
+      "",
       "110",
       "x = 180 − 35 − 35 = 110°.",
       ["110°"]
@@ -895,7 +895,7 @@ const anglesTrianglesQuadrilaterals: LessonContent = {
     answer(
       "y8-geo-tri-m10",
       "An exterior angle of a triangle is 95°. One non-adjacent interior angle is 48°. Find the other in degrees.",
-      "x + 48 = 95",
+      "",
       "47",
       "x = 95 − 48 = 47°.",
       ["47°"]
@@ -985,7 +985,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-g1",
       "Find the interior angle sum of a hexagon (6 sides).",
-      "(6-2) \\times 180",
+      "",
       "720",
       "(6 − 2) × 180 = 4 × 180 = 720°.",
       ["720°"]
@@ -993,7 +993,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-g2",
       "Find each interior angle of a regular hexagon in degrees.",
-      "\\frac{720}{6}",
+      "",
       "120",
       "720° ÷ 6 = 120°.",
       ["120°"]
@@ -1001,7 +1001,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-g3",
       "Find each exterior angle of a regular octagon (8 sides) in degrees.",
-      "\\frac{360}{8}",
+      "",
       "45",
       "360° ÷ 8 = 45°.",
       ["45°"]
@@ -1023,7 +1023,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-i1",
       "Find the interior angle sum of a pentagon (5 sides).",
-      "(5-2) \\times 180",
+      "",
       "540",
       "(5 − 2) × 180 = 3 × 180 = 540°.",
       ["540°"]
@@ -1031,7 +1031,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-i2",
       "Find each interior angle of a regular pentagon in degrees.",
-      "\\frac{540}{5}",
+      "",
       "108",
       "540° ÷ 5 = 108°.",
       ["108°"]
@@ -1039,7 +1039,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-i3",
       "Find the interior angle sum of a decagon (10 sides).",
-      "(10-2) \\times 180",
+      "",
       "1440",
       "(10 − 2) × 180 = 8 × 180 = 1440°.",
       ["1440°"]
@@ -1047,7 +1047,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-i4",
       "A regular polygon has each interior angle of 140°. How many sides does it have?",
-      "\\frac{(n-2) \\times 180}{n} = 140",
+      "",
       "9",
       "(n−2)×180 = 140n → 180n−360 = 140n → 40n = 360 → n = 9."
     ),
@@ -1087,7 +1087,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m1",
       "Find the interior angle sum of a heptagon (7 sides).",
-      "(7-2) \\times 180",
+      "",
       "900",
       "(7 − 2) × 180 = 5 × 180 = 900°.",
       ["900°"]
@@ -1095,7 +1095,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m2",
       "Find each interior angle of a regular 12-sided polygon (dodecagon).",
-      "\\frac{(12-2) \\times 180}{12}",
+      "",
       "150",
       "(12 − 2) × 180 = 1800. 1800 ÷ 12 = 150°.",
       ["150°"]
@@ -1103,7 +1103,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m3",
       "Find each exterior angle of a regular hexagon in degrees.",
-      "\\frac{360}{6}",
+      "",
       "60",
       "360° ÷ 6 = 60°.",
       ["60°"]
@@ -1123,7 +1123,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m5",
       "Find the interior angle sum of a 12-sided polygon.",
-      "(12-2) \\times 180",
+      "",
       "1800",
       "(12 − 2) × 180 = 10 × 180 = 1800°.",
       ["1800°"]
@@ -1131,14 +1131,14 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m6",
       "A regular polygon has each interior angle of 108°. How many sides?",
-      "\\frac{(n-2)\\times180}{n} = 108",
+      "",
       "5",
       "108n = (n−2)×180 → 108n = 180n−360 → 72n = 360 → n = 5 (pentagon)."
     ),
     answer(
       "y8-geo-pol-m7",
       "Find each exterior angle of an equilateral triangle (3 sides) in degrees.",
-      "\\frac{360}{3}",
+      "",
       "120",
       "360° ÷ 3 = 120°.",
       ["120°"]
@@ -1158,7 +1158,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m9",
       "Find the interior angle sum of a 9-sided polygon.",
-      "(9-2) \\times 180",
+      "",
       "1260",
       "(9 − 2) × 180 = 7 × 180 = 1260°.",
       ["1260°"]
@@ -1166,7 +1166,7 @@ const propertiesOfPolygons: LessonContent = {
     answer(
       "y8-geo-pol-m10",
       "A regular polygon has 20 sides. Find each interior angle in degrees.",
-      "\\frac{(20-2) \\times 180}{20}",
+      "",
       "162",
       "(20 − 2) × 180 = 3240. 3240 ÷ 20 = 162°.",
       ["162°"]
@@ -1279,7 +1279,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-g3",
       "Name the congruence test: right angle, hypotenuse equal, one other side equal.",
-      "\\text{right angle + hypotenuse + one side}",
+      "",
       "RHS",
       "RHS = Right angle, Hypotenuse, Side.",
       ["rhs"]
@@ -1301,7 +1301,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-i1",
       "In triangles PQR and XYZ: PQ = XY, QR = YZ, PR = XZ. Name the congruence test.",
-      "\\text{three pairs of equal sides}",
+      "",
       "SSS",
       "Three pairs of equal sides → SSS.",
       ["sss"]
@@ -1309,7 +1309,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-i2",
       "Two right-angled triangles have equal hypotenuses and one other equal side. Name the congruence test.",
-      "\\text{right angle + hypotenuse + one side}",
+      "",
       "RHS",
       "RHS = Right angle, Hypotenuse, Side.",
       ["rhs"]
@@ -1329,7 +1329,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-i4",
       "Two triangles share two equal angles and one pair of corresponding equal sides. Name the congruence test.",
-      "\\text{two angles + corresponding side}",
+      "",
       "AAS",
       "Two equal angles and a corresponding side → AAS.",
       ["aas"]
@@ -1369,7 +1369,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-m1",
       "Three pairs of corresponding sides are equal. Name the congruence test.",
-      "\\text{three equal sides}",
+      "",
       "SSS",
       "Three equal sides → SSS.",
       ["sss"]
@@ -1377,7 +1377,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-m2",
       "Two pairs of corresponding sides and the included angle are equal. Name the test.",
-      "\\text{two sides + included angle}",
+      "",
       "SAS",
       "Two sides and the included angle → SAS.",
       ["sas"]
@@ -1385,7 +1385,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-m3",
       "Two pairs of corresponding angles and one pair of corresponding sides are equal. Name the test.",
-      "\\text{two angles + corresponding side}",
+      "",
       "AAS",
       "Two equal angles and a corresponding side → AAS.",
       ["aas"]
@@ -1393,7 +1393,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-m4",
       "Both triangles have a right angle, and the hypotenuse and one other side are equal. Name the test.",
-      "\\text{right angle + hypotenuse + side}",
+      "",
       "RHS",
       "Right angle, Hypotenuse, Side → RHS.",
       ["rhs"]
@@ -1425,7 +1425,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-m7",
       "Two right-angled triangles have hypotenuse 10 cm and one other side 6 cm each. Are they congruent? Enter yes or no.",
-      "\\text{RHS: hypotenuse }10\\text{ cm, side }6\\text{ cm}",
+      "",
       "yes",
       "Right angle + hypotenuse 10 cm + side 6 cm satisfies the RHS test. They are congruent.",
       ["Yes", "YES"]
@@ -1445,7 +1445,7 @@ const congruentTriangles: LessonContent = {
     answer(
       "y8-geo-con-m9",
       "In △ABC ≅ △PQR, angle B = 55° and angle C = 65°. Find angle P in degrees.",
-      "\\angle A = 180 - 55 - 65 = 60^\\circ,\\quad \\angle P = \\angle A",
+      "",
       "60",
       "Angle A = 180 − 55 − 65 = 60°. A corresponds to P in the congruence statement, so angle P = 60°.",
       ["60°"]
@@ -1564,7 +1564,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-g1",
       "Parallel lines. Corresponding angles are (2x + 10)° and (4x − 30)°. Find x.",
-      "2x + 10 = 4x - 30",
+      "",
       "20",
       "2x + 10 = 4x − 30. So 40 = 2x, giving x = 20.",
       ["x = 20"]
@@ -1572,7 +1572,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-g2",
       "A triangle has angles 55°, 72°, and x°. Find x using the angle sum of a triangle.",
-      "55 + 72 + x = 180",
+      "",
       "53",
       "x = 180 − 55 − 72 = 53°.",
       ["53°"]
@@ -1592,7 +1592,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-g4",
       "Parallel lines. A co-interior angle is 115°. Find the other co-interior angle y° in degrees.",
-      "115 + y = 180",
+      "",
       "65",
       "Co-interior angles sum to 180°. y = 180 − 115 = 65°.",
       ["65°"]
@@ -1602,7 +1602,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-i1",
       "An exterior angle of a triangle is 125°. One non-adjacent interior angle is 55°. Find the other non-adjacent interior angle in degrees.",
-      "x + 55 = 125",
+      "",
       "70",
       "Exterior angle = sum of two non-adjacent interior angles. x = 125 − 55 = 70°.",
       ["70°"]
@@ -1610,7 +1610,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-i2",
       "Parallel lines. Co-interior angles are 3x° and (2x + 30)°. Find x.",
-      "3x + (2x+30) = 180",
+      "",
       "30",
       "5x + 30 = 180, so 5x = 150, giving x = 30.",
       ["x = 30"]
@@ -1630,7 +1630,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-i4",
       "A triangle has angles (2x + 10)°, (x + 20)°, and 90°. Find x.",
-      "(2x+10) + (x+20) + 90 = 180",
+      "",
       "20",
       "3x + 120 = 180, so 3x = 60, giving x = 20.",
       ["x = 20"]
@@ -1638,7 +1638,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-i5",
       "Quadrilateral ABCD has angles 2x°, 3x°, 4x°, and x°. Find angle A (= 2x°) in degrees.",
-      "2x + 3x + 4x + x = 360",
+      "",
       "72",
       "10x = 360, so x = 36. Angle A = 2 × 36 = 72°.",
       ["72°"]
@@ -1666,7 +1666,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m1",
       "Parallel lines. An angle at the first line is 78°. State the alternate angle at the second line in degrees.",
-      "\\text{alternate angles (Z): equal}",
+      "",
       "78",
       "Alternate angles are equal when lines are parallel.",
       ["78°"]
@@ -1674,7 +1674,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m2",
       "Triangle: angles are x°, (x + 30)°, and (x + 60)°. Find x.",
-      "x + (x+30) + (x+60) = 180",
+      "",
       "30",
       "3x + 90 = 180, so 3x = 90, giving x = 30.",
       ["x = 30"]
@@ -1682,7 +1682,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m3",
       "Parallel lines. Corresponding angles: (3x + 15)° = (x + 55)°. Find x.",
-      "3x + 15 = x + 55",
+      "",
       "20",
       "3x + 15 = x + 55, so 2x = 40, giving x = 20.",
       ["x = 20"]
@@ -1690,7 +1690,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m4",
       "An exterior angle of a triangle is 110°. The two non-adjacent interior angles are equal. Find each in degrees.",
-      "2a = 110",
+      "",
       "55",
       "Each angle = 110° ÷ 2 = 55°.",
       ["55°"]
@@ -1710,7 +1710,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m6",
       "In triangle ABC, angle A = 50° and angle B = 65°. Find angle C in degrees.",
-      "50 + 65 + \\angle C = 180",
+      "",
       "65",
       "Angle C = 180 − 50 − 65 = 65°.",
       ["65°"]
@@ -1718,7 +1718,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m7",
       "Two lines intersect. One angle is 5x° and the vertically opposite angle is (3x + 20)°. Find x.",
-      "5x = 3x + 20",
+      "",
       "10",
       "Vertically opposite angles are equal: 5x = 3x + 20, so 2x = 20, giving x = 10.",
       ["x = 10"]
@@ -1738,7 +1738,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m9",
       "A polygon has 5 sides. Find the sum of its interior angles in degrees.",
-      "(5-2) \\times 180",
+      "",
       "540",
       "(5 − 2) × 180 = 3 × 180 = 540°.",
       ["540°"]
@@ -1746,7 +1746,7 @@ const geometricReasoning: LessonContent = {
     answer(
       "y8-geo-rea-m10",
       "A triangle has one angle that is twice another. The third angle is 90°. Find the smallest angle in degrees.",
-      "x + 2x + 90 = 180",
+      "",
       "30",
       "3x + 90 = 180, so 3x = 90, giving x = 30°. The smallest angle is 30°.",
       ["30°"]
@@ -1861,7 +1861,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-g2",
       "In parallelogram ABCD, angle A = 74°. Find angle C in degrees.",
-      "\\text{opposite angles of a parallelogram are equal}",
+      "",
       "74",
       "Opposite angles of a parallelogram are equal. Angle C = angle A = 74°.",
       ["74°"]
@@ -1869,7 +1869,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-g3",
       "A rhombus has a side length of 9 cm. Find the length of the other three sides in cm.",
-      "\\text{all sides of a rhombus are equal}",
+      "",
       "9",
       "All four sides of a rhombus are equal. Every side is 9 cm.",
       ["9 cm"]
@@ -1877,7 +1877,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-g4",
       "State TWO properties of a rectangle's diagonals. Write your answer as: 'The diagonals are [property 1] and [property 2].'",
-      "\\text{rectangle diagonal properties}",
+      "",
       "equal and bisect each other",
       "The diagonals of a rectangle are equal in length and bisect each other (each diagonal cuts the other in half).",
       ["equal length and bisect each other", "equal and bisect", "bisect each other and are equal"]
@@ -1887,7 +1887,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-i1",
       "In a trapezoid, one co-interior angle between the parallel sides is 118°. Find the other co-interior angle in degrees.",
-      "118 + x = 180",
+      "",
       "62",
       "Co-interior angles between parallel sides are supplementary. x = 180 − 118 = 62°.",
       ["62°"]
@@ -1895,7 +1895,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-i2",
       "A quadrilateral has opposite sides equal and parallel, opposite angles equal, and diagonals that bisect each other — but the angles are NOT all 90° and the sides are NOT all equal. What is the shape?",
-      "\\text{identify from properties}",
+      "",
       "parallelogram",
       "These are exactly the properties of a parallelogram (not a rectangle or rhombus, since angles are not 90° and sides are not all equal).",
       ["a parallelogram"]
@@ -1915,7 +1915,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-i4",
       "In a kite, the longer diagonal bisects one pair of vertex angles. Each bisected angle is 38°. Find the full vertex angle in degrees.",
-      "2 \\times 38",
+      "",
       "76",
       "The longer diagonal of a kite bisects the vertex angle, so the full angle is 2 × 38° = 76°.",
       ["76°"]
@@ -1923,7 +1923,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-i5",
       "Parallelogram ABCD has angle A = (3x + 10)° and angle B = (2x + 20)°. Find x, then find angle A in degrees. Enter angle A.",
-      "(3x+10) + (2x+20) = 180",
+      "",
       "100",
       "Co-interior angles between parallel sides are supplementary: (3x + 10) + (2x + 20) = 180, so 5x + 30 = 180, giving x = 30. Angle A = 3(30) + 10 = 100°.",
       ["100°"]
@@ -1975,7 +1975,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m3",
       "In parallelogram WXYZ, angle W = 63°. Find angle X in degrees.",
-      "\\angle W + \\angle X = 180",
+      "",
       "117",
       "Co-interior angles between parallel sides are supplementary. Angle X = 180 − 63 = 117°.",
       ["117°"]
@@ -1983,7 +1983,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m4",
       "A rectangle has a diagonal of length 13 cm. What is the length of the other diagonal in cm?",
-      "\\text{diagonals of a rectangle are equal}",
+      "",
       "13",
       "The diagonals of a rectangle are equal in length. The other diagonal is also 13 cm.",
       ["13 cm"]
@@ -1991,7 +1991,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m5",
       "In rhombus ABCD, the diagonals intersect at point O. State the size of angle AOB in degrees.",
-      "\\text{diagonals of a rhombus bisect at } 90^\\circ",
+      "",
       "90",
       "The diagonals of a rhombus bisect each other at right angles. Angle AOB = 90°.",
       ["90°"]
@@ -1999,7 +1999,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m6",
       "In trapezoid PQRS, PQ is parallel to SR. Angle P = 71°. Find angle S in degrees. Give the geometric reason.",
-      "\\angle P + \\angle S = 180",
+      "",
       "109",
       "Angle P and angle S are co-interior angles between the parallel sides PQ and SR, so they are supplementary. Angle S = 180 − 71 = 109°.",
       ["109°"]
@@ -2007,7 +2007,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m7",
       "A quadrilateral has two pairs of adjacent equal sides and one diagonal that bisects the other at 90°. Name the shape.",
-      "\\text{identify from properties}",
+      "",
       "kite",
       "Two pairs of adjacent equal sides and one diagonal bisecting the other at 90° are defining properties of a kite.",
       ["a kite"]
@@ -2015,7 +2015,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m8",
       "In parallelogram ABCD, angle A = (4x − 10)° and angle C = (2x + 30)°. Find x, then find angle A in degrees. Enter angle A.",
-      "4x - 10 = 2x + 30",
+      "",
       "70",
       "Opposite angles of a parallelogram are equal: 4x − 10 = 2x + 30, so 2x = 40, giving x = 20. Angle A = 4(20) − 10 = 80 − 10 = 70°.",
       ["70°"]
@@ -2023,7 +2023,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m9",
       "In rectangle KLMN, the diagonals intersect at point O. KM = 18 cm. Find the length OK in cm.",
-      "OK = \\frac{1}{2} \\times KM",
+      "",
       "9",
       "The diagonals of a rectangle bisect each other. OK = ½ × KM = ½ × 18 = 9 cm.",
       ["9 cm"]
@@ -2031,7 +2031,7 @@ const quadrilateralProperties: LessonContent = {
     answer(
       "y8-geo-qprop-m10",
       "A quadrilateral has all angles equal to 90° but the sides are not all equal. Which shape is it, and justify using one diagonal property.",
-      "\\text{all angles }90^\\circ\\text{; diagonals equal and bisect each other}",
+      "",
       "rectangle",
       "All four angles are 90°, which defines a rectangle. A rectangle's diagonals are equal in length and bisect each other — confirming this property distinguishes it from a general parallelogram.",
       ["a rectangle", "Rectangle"]
@@ -2118,7 +2118,7 @@ angleRelationships.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find ∠QOS (the angle vertically opposite ∠POR) in degrees.",
-        latex: "\\angle QOS = \\;?",
+        latex: "",
         marks: 1,
         answer: "64",
         acceptedAnswers: ["64°"],
@@ -2129,7 +2129,7 @@ angleRelationships.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "Find ∠ROQ (adjacent to ∠POR on the straight line) in degrees.",
-        latex: "\\angle ROQ = \\;?",
+        latex: "",
         marks: 1,
         answer: "116",
         acceptedAnswers: ["116°"],
@@ -2140,7 +2140,7 @@ angleRelationships.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "Find the sum of all four angles around the point O in degrees.",
-        latex: "\\angle POR + \\angle ROQ + \\angle QOS + \\angle SOP = \\;?",
+        latex: "",
         marks: 1,
         answer: "360",
         acceptedAnswers: ["360°"],
@@ -2203,7 +2203,7 @@ parallelLinesTransversals.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find the corresponding angle at the lower line in degrees.",
-        latex: "\\text{corresponding} = \\;?",
+        latex: "",
         marks: 1,
         answer: "68",
         acceptedAnswers: ["68°"],
@@ -2214,7 +2214,7 @@ parallelLinesTransversals.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "Find the alternate angle at the lower line in degrees.",
-        latex: "\\text{alternate} = \\;?",
+        latex: "",
         marks: 1,
         answer: "68",
         acceptedAnswers: ["68°"],
@@ -2225,7 +2225,7 @@ parallelLinesTransversals.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "Find the co-interior angle on the same side of the transversal in degrees.",
-        latex: "\\text{co-interior} = \\;?",
+        latex: "",
         marks: 2,
         answer: "112",
         acceptedAnswers: ["112°"],
@@ -2288,7 +2288,7 @@ anglesTrianglesQuadrilaterals.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find the interior angle ∠ACB in degrees.",
-        latex: "\\angle ACB = \\;?",
+        latex: "",
         marks: 1,
         answer: "70",
         acceptedAnswers: ["70°"],
@@ -2299,7 +2299,7 @@ anglesTrianglesQuadrilaterals.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "Find the exterior angle ∠ACD in degrees.",
-        latex: "\\angle ACD = \\;?",
+        latex: "",
         marks: 1,
         answer: "110",
         acceptedAnswers: ["110°"],
@@ -2310,7 +2310,7 @@ anglesTrianglesQuadrilaterals.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "A quadrilateral is formed by adding angles 50°, 60°, 70° and one more angle. Find the fourth angle in degrees.",
-        latex: "50 + 60 + 70 + x = 360",
+        latex: "",
         marks: 1,
         answer: "180",
         acceptedAnswers: ["180°"],
@@ -2373,7 +2373,7 @@ propertiesOfPolygons.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find the interior angle sum of the nonagon in degrees.",
-        latex: "(9-2) \\times 180 = \\;?",
+        latex: "",
         marks: 1,
         answer: "1260",
         acceptedAnswers: ["1260°"],
@@ -2384,7 +2384,7 @@ propertiesOfPolygons.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "Find each interior angle of the regular nonagon in degrees.",
-        latex: "\\frac{1260}{9} = \\;?",
+        latex: "",
         marks: 1,
         answer: "140",
         acceptedAnswers: ["140°"],
@@ -2395,7 +2395,7 @@ propertiesOfPolygons.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "Find each exterior angle of the regular nonagon in degrees.",
-        latex: "\\frac{360}{9} = \\;?",
+        latex: "",
         marks: 1,
         answer: "40",
         acceptedAnswers: ["40°"],
@@ -2458,7 +2458,7 @@ congruentTriangles.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find ∠ABC in degrees.",
-        latex: "\\angle ABC = \\;?",
+        latex: "",
         marks: 1,
         answer: "48",
         acceptedAnswers: ["48°"],
@@ -2469,7 +2469,7 @@ congruentTriangles.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "By congruence, find ∠DEF in degrees.",
-        latex: "\\angle DEF = \\;?",
+        latex: "",
         marks: 1,
         answer: "48",
         acceptedAnswers: ["48°"],
@@ -2480,7 +2480,7 @@ congruentTriangles.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "If DE = 9 cm and AB corresponds to DE, find AB in cm.",
-        latex: "AB = \\;?",
+        latex: "",
         marks: 1,
         answer: "9",
         acceptedAnswers: ["9 cm"],
@@ -2543,7 +2543,7 @@ geometricReasoning.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find the corresponding angle at Q (matching the 110° at P) in degrees.",
-        latex: "\\text{corresponding} = \\;?",
+        latex: "",
         marks: 1,
         answer: "110",
         acceptedAnswers: ["110°"],
@@ -2554,7 +2554,7 @@ geometricReasoning.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "Find the co-interior angle x in degrees.",
-        latex: "x = \\;?",
+        latex: "",
         marks: 1,
         answer: "70",
         acceptedAnswers: ["70°"],
@@ -2565,7 +2565,7 @@ geometricReasoning.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "In triangle PQT, ∠QPT = 70° and ∠PTQ = 40°. Find ∠PQT in degrees.",
-        latex: "70 + 40 + \\angle PQT = 180",
+        latex: "",
         marks: 1,
         answer: "70",
         acceptedAnswers: ["70°"],
@@ -2628,7 +2628,7 @@ quadrilateralProperties.multiPartPractice = [
         key: "a",
         label: "(a)",
         prompt: "Find ∠C in degrees.",
-        latex: "\\angle C = \\;?",
+        latex: "",
         marks: 1,
         answer: "108",
         acceptedAnswers: ["108°"],
@@ -2639,7 +2639,7 @@ quadrilateralProperties.multiPartPractice = [
         key: "b",
         label: "(b)",
         prompt: "Find ∠B in degrees.",
-        latex: "\\angle B = \\;?",
+        latex: "",
         marks: 1,
         answer: "72",
         acceptedAnswers: ["72°"],
@@ -2650,7 +2650,7 @@ quadrilateralProperties.multiPartPractice = [
         key: "c",
         label: "(c)",
         prompt: "If diagonal BD = 16 cm, find OB in cm.",
-        latex: "OB = \\;?",
+        latex: "",
         marks: 1,
         answer: "8",
         acceptedAnswers: ["8 cm"],

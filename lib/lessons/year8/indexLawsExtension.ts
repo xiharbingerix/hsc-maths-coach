@@ -176,7 +176,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-g2",
       "Evaluate $5^{-2}$.",
-      "5^{-2} = \\frac{1}{5^2} = \\;?",
+      "",
       "1/25",
       "$5^{-2} = \\frac{1}{5^2} = \\frac{1}{25}$.",
       "The negative index means take the reciprocal of $5^2$.",
@@ -184,7 +184,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-g3",
       "Write $\\frac{1}{7^3}$ using a negative index.",
-      "\\frac{1}{7^3} = \\;?",
+      "",
       "7^{-3}",
       "$\\frac{1}{7^3} = 7^{-3}$. The negative index form of $\\frac{1}{a^n}$ is $a^{-n}$.",
       "Recognise that $\\frac{1}{a^n} = a^{-n}$.",
@@ -192,7 +192,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-g4",
       "Simplify $x^6 \\times x^{-4}$.",
-      "x^6 \\times x^{-4} = \\;?",
+      "",
       "x^2",
       "$x^6 \\times x^{-4} = x^{6+(-4)} = x^2$. Add the indices.",
       "Use the multiplication index law: add the exponents.",
@@ -202,7 +202,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-i1",
       "Evaluate $4^{-2}$.",
-      "4^{-2} = \\;?",
+      "",
       "1/16",
       "$4^{-2} = \\frac{1}{4^2} = \\frac{1}{16}$.",
       "Apply the negative index law.",
@@ -210,7 +210,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-i2",
       "Evaluate $10^{-3}$.",
-      "10^{-3} = \\;?",
+      "",
       "1/1000",
       "$10^{-3} = \\frac{1}{10^3} = \\frac{1}{1000}$.",
       "Negative indices on base 10 give unit fractions: thousandths, millionths, etc.",
@@ -219,7 +219,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-i3",
       "Simplify $m^2 \\times m^{-7}$.",
-      "m^2 \\times m^{-7} = \\;?",
+      "",
       "m^{-5}",
       "$m^2 \\times m^{-7} = m^{2+(-7)} = m^{-5} = \\frac{1}{m^5}$.",
       "Add the indices: $2 + (-7)$.",
@@ -228,7 +228,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-i4",
       "Write $\\frac{1}{2^6}$ using a negative index.",
-      "\\frac{1}{2^6} = \\;?",
+      "",
       "2^{-6}",
       "$\\frac{1}{2^6} = 2^{-6}$.",
       "Use the rule $\\frac{1}{a^n} = a^{-n}$.",
@@ -269,7 +269,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m1",
       "Evaluate $2^{-5}$.",
-      "2^{-5} = \\;?",
+      "",
       "1/32",
       "$2^{-5} = \\frac{1}{2^5} = \\frac{1}{32}$.",
       "Apply the negative index law.",
@@ -277,7 +277,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m2",
       "Evaluate $10^{-4}$.",
-      "10^{-4} = \\;?",
+      "",
       "1/10000",
       "$10^{-4} = \\frac{1}{10^4} = \\frac{1}{10\\,000}$.",
       "Powers of 10 with negative indices give unit fractions.",
@@ -299,7 +299,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m4",
       "Write $\\frac{1}{10^5}$ using a negative index.",
-      "\\frac{1}{10^5} = \\;?",
+      "",
       "10^{-5}",
       "$\\frac{1}{10^5} = 10^{-5}$.",
       "Use the rule $\\frac{1}{a^n} = a^{-n}$.",
@@ -307,7 +307,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m5",
       "Simplify $p^4 \\times p^{-6}$.",
-      "p^4 \\times p^{-6} = \\;?",
+      "",
       "p^{-2}",
       "$p^4 \\times p^{-6} = p^{4-6} = p^{-2} = \\frac{1}{p^2}$.",
       "Add the indices: $4 + (-6)$.",
@@ -316,7 +316,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m6",
       "Evaluate $3^{-3}$.",
-      "3^{-3} = \\;?",
+      "",
       "1/27",
       "$3^{-3} = \\frac{1}{3^3} = \\frac{1}{27}$.",
       "Apply $a^{-n} = \\frac{1}{a^n}$ with $a=3$, $n=3$.",
@@ -337,7 +337,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m8",
       "Simplify $\\frac{a^2}{a^5}$ using index laws.",
-      "\\frac{a^2}{a^5} = \\;?",
+      "",
       "a^{-3}",
       "$\\frac{a^2}{a^5} = a^{2-5} = a^{-3} = \\frac{1}{a^3}$.",
       "Use the division index law: subtract the indices.",
@@ -346,7 +346,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m9",
       "Evaluate $2^{-3} \\times 2^5$.",
-      "2^{-3} \\times 2^5 = \\;?",
+      "",
       "4",
       "$2^{-3} \\times 2^5 = 2^{-3+5} = 2^2 = 4$.",
       "Add the indices: $-3 + 5 = 2$.",
@@ -354,7 +354,7 @@ const negativeIndices: LessonContent = {
     answer(
       "y8-ile-neg-m10",
       "Simplify $\\frac{3^2 \\times 3^{-5}}{3^{-4}}$ and write as a whole number or simple fraction.",
-      "\\frac{3^2 \\times 3^{-5}}{3^{-4}} = \\;?",
+      "",
       "3",
       "Numerator: $3^2 \\times 3^{-5} = 3^{-3}$. Then $\\frac{3^{-3}}{3^{-4}} = 3^{-3-(-4)} = 3^1 = 3$.",
       "Simplify the numerator first using the multiplication law, then apply the division law.",
@@ -434,7 +434,7 @@ const negativeIndices: LessonContent = {
           key: "a",
           label: "(a)",
           prompt: "Simplify the numerator $a^{-2} \\times a^{5}$ as a single power of $a$.",
-          latex: "a^{-2} \\times a^{5} = \\;?",
+          latex: "",
           marks: 1,
           answer: "a^3",
           acceptedAnswers: ["a^{3}"],
@@ -445,7 +445,7 @@ const negativeIndices: LessonContent = {
           key: "b",
           label: "(b)",
           prompt: "Hence simplify $Q$, writing your answer as a power of $a$ with a negative index.",
-          latex: "Q = \\frac{a^3}{a^4} = \\;?",
+          latex: "",
           marks: 1,
           answer: "a^{-1}",
           acceptedAnswers: ["1/a"],
@@ -456,7 +456,7 @@ const negativeIndices: LessonContent = {
           key: "c",
           label: "(c)",
           prompt: "Evaluate $Q$ when $a = 2$. Give your answer as a fraction.",
-          latex: "Q = 2^{-1} = \\;?",
+          latex: "",
           marks: 1,
           answer: "1/2",
           acceptedAnswers: ["0.5"],
@@ -549,7 +549,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-g2",
       "Write $3\\,800\\,000$ in scientific notation.",
-      "3\\,800\\,000 = \\;?",
+      "",
       "3.8 × 10^6",
       "The decimal moves 6 places left: $3\\,800\\,000 = 3.8 \\times 10^6$.",
       "Place the decimal after the first digit, then count the places moved.",
@@ -558,7 +558,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-g3",
       "Write $5.04 \\times 10^4$ in standard form.",
-      "5.04 \\times 10^4 = \\;?",
+      "",
       "50400",
       "Move the decimal 4 places right: $5.04 \\times 10^4 = 50\\,400$.",
       "Multiply by $10^4$ by moving the decimal point 4 places to the right.",
@@ -567,7 +567,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-g4",
       "Write $920\\,000\\,000$ in scientific notation.",
-      "920\\,000\\,000 = \\;?",
+      "",
       "9.2 × 10^8",
       "The decimal moves 8 places left: $920\\,000\\,000 = 9.2 \\times 10^8$.",
       "Count the digits after the first significant digit.",
@@ -578,7 +578,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-i1",
       "Write $67\\,000$ in scientific notation.",
-      "67\\,000 = \\;?",
+      "",
       "6.7 × 10^4",
       "$67\\,000 = 6.7 \\times 10^4$. The decimal moves 4 places left.",
       "Place the decimal after the 6.",
@@ -587,7 +587,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-i2",
       "Write $1.35 \\times 10^7$ in standard form.",
-      "1.35 \\times 10^7 = \\;?",
+      "",
       "13500000",
       "Move the decimal 7 places right: $1.35 \\times 10^7 = 13\\,500\\,000$.",
       "Move the decimal point 7 places to the right.",
@@ -596,7 +596,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-i3",
       "The population of Australia is approximately $26\\,500\\,000$. Write this in scientific notation.",
-      "26\\,500\\,000 = \\;?",
+      "",
       "2.65 × 10^7",
       "$26\\,500\\,000 = 2.65 \\times 10^7$.",
       "Place the decimal after the first significant digit and count the places.",
@@ -618,7 +618,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-i5",
       "The distance from Earth to the nearest star (other than the Sun) is about $40\\,000\\,000\\,000\\,000$ km. Write this in scientific notation.",
-      "40\\,000\\,000\\,000\\,000 = \\;?",
+      "",
       "4.0 × 10^13",
       "$40\\,000\\,000\\,000\\,000 = 4.0 \\times 10^{13}$. Count 13 places from the decimal to the right of the 4.",
       "Count how many places the decimal moves from after the 4 to the end of the number.",
@@ -647,7 +647,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m1",
       "Write $580\\,000$ in scientific notation.",
-      "580\\,000 = \\;?",
+      "",
       "5.8 × 10^5",
       "$580\\,000 = 5.8 \\times 10^5$.",
       "The decimal moves 5 places left.",
@@ -656,7 +656,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m2",
       "Write $8.1 \\times 10^6$ in standard form.",
-      "8.1 \\times 10^6 = \\;?",
+      "",
       "8100000",
       "Move the decimal 6 places right: $8\\,100\\,000$.",
       "Move the decimal point 6 places to the right.",
@@ -678,7 +678,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m4",
       "Write $1.08 \\times 10^9$ in standard form.",
-      "1.08 \\times 10^9 = \\;?",
+      "",
       "1080000000",
       "Move the decimal 9 places right: $1\\,080\\,000\\,000$.",
       "Move the decimal 9 places right, padding with zeros.",
@@ -687,7 +687,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m5",
       "The national debt is approximately $\\$905\\,000\\,000\\,000$. Write this in scientific notation.",
-      "\\$905\\,000\\,000\\,000 = \\;?",
+      "",
       "9.05 × 10^11",
       "$905\\,000\\,000\\,000 = 9.05 \\times 10^{11}$.",
       "Place the decimal after the 9 and count the remaining digits.",
@@ -696,7 +696,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m6",
       "Write $7\\,200\\,000\\,000$ in scientific notation.",
-      "7\\,200\\,000\\,000 = \\;?",
+      "",
       "7.2 × 10^9",
       "$7\\,200\\,000\\,000 = 7.2 \\times 10^9$.",
       "Count the digits after the first significant digit.",
@@ -718,7 +718,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m8",
       "A light-year is approximately $9\\,461\\,000\\,000\\,000$ km. Write this in scientific notation.",
-      "9\\,461\\,000\\,000\\,000 = \\;?",
+      "",
       "9.461 × 10^12",
       "$9\\,461\\,000\\,000\\,000 = 9.461 \\times 10^{12}$.",
       "Place the decimal after the 9 and count the remaining digits.",
@@ -727,7 +727,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m9",
       "Write $3.0 \\times 10^8$ in standard form. (This is approximately the speed of light in m/s.)",
-      "3.0 \\times 10^8 = \\;?",
+      "",
       "300000000",
       "Move the decimal 8 places right: $300\\,000\\,000$.",
       "Move the decimal point 8 places to the right.",
@@ -736,7 +736,7 @@ const scientificNotationLarge: LessonContent = {
     answer(
       "y8-ile-snl-m10",
       "A company's revenue is $2.4 \\times 10^8$ dollars and its costs are $1.75 \\times 10^8$ dollars. Find the profit in scientific notation.",
-      "2.4 \\times 10^8 - 1.75 \\times 10^8 = \\;?",
+      "",
       "6.5 × 10^7",
       "Same exponent, so subtract coefficients: $(2.4 - 1.75) \\times 10^8 = 0.65 \\times 10^8 = 6.5 \\times 10^7$.",
       "Subtract the coefficients (same power of 10), then check the result is in proper scientific notation.",
@@ -818,7 +818,7 @@ const scientificNotationLarge: LessonContent = {
           key: "a",
           label: "(a)",
           prompt: "Write the land area in scientific notation.",
-          latex: "7\\,690\\,000 = \\;?",
+          latex: "",
           marks: 1,
           answer: "7.69 × 10^6",
           acceptedAnswers: ["7.69 * 10^6"],
@@ -829,7 +829,7 @@ const scientificNotationLarge: LessonContent = {
           key: "b",
           label: "(b)",
           prompt: "Write the population in scientific notation.",
-          latex: "26\\,000\\,000 = \\;?",
+          latex: "",
           marks: 1,
           answer: "2.6 × 10^7",
           acceptedAnswers: ["2.6 * 10^7"],
@@ -841,7 +841,7 @@ const scientificNotationLarge: LessonContent = {
           label: "(c)",
           prompt:
             "Which number is larger: the area value or the population value? Answer 'area' or 'population'.",
-          latex: "\\text{Compare } 7.69 \\times 10^6 \\text{ and } 2.6 \\times 10^7",
+          latex: "",
           marks: 1,
           answer: "population",
           acceptedAnswers: ["the population"],
@@ -935,7 +935,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-g2",
       "Write $0.00091$ in scientific notation.",
-      "0.00091 = \\;?",
+      "",
       "9.1 × 10^{-4}",
       "Move the decimal 4 places right: $0.00091 = 9.1 \\times 10^{-4}$.",
       "Count how many places the decimal moves to the right.",
@@ -944,7 +944,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-g3",
       "Write $3.2 \\times 10^{-5}$ as a decimal.",
-      "3.2 \\times 10^{-5} = \\;?",
+      "",
       "0.000032",
       "Move the decimal 5 places left: $3.2 \\times 10^{-5} = 0.000032$.",
       "Move the decimal point 5 places to the left.",
@@ -952,7 +952,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-g4",
       "A red blood cell has a diameter of about $0.000007$ m. Write this in scientific notation.",
-      "0.000007 = \\;?",
+      "",
       "7.0 × 10^{-6}",
       "Move the decimal 6 places right: $0.000007 = 7.0 \\times 10^{-6}$ m.",
       "Count the places to move the decimal to reach a number between 1 and 10.",
@@ -963,7 +963,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-i1",
       "Write $0.00000045$ in scientific notation.",
-      "0.00000045 = \\;?",
+      "",
       "4.5 × 10^{-7}",
       "Move the decimal 7 places right: $0.00000045 = 4.5 \\times 10^{-7}$.",
       "Count the zeros and the leading position.",
@@ -972,7 +972,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-i2",
       "Write $6.04 \\times 10^{-4}$ as a decimal.",
-      "6.04 \\times 10^{-4} = \\;?",
+      "",
       "0.000604",
       "Move the decimal 4 places left: $6.04 \\times 10^{-4} = 0.000604$.",
       "Move the decimal point 4 places to the left.",
@@ -980,7 +980,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-i3",
       "Write $0.000000001$ (one nanometre in metres) in scientific notation.",
-      "0.000000001 = \\;?",
+      "",
       "1.0 × 10^{-9}",
       "Move the decimal 9 places right: $0.000000001 = 1.0 \\times 10^{-9}$.",
       "Count the zeros after the decimal point.",
@@ -1002,7 +1002,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-i5",
       "Write $1.25 \\times 10^{-3}$ as a decimal, then write $0.00085$ in scientific notation.",
-      "\\text{Convert both; give the scientific notation answer.}",
+      "",
       "8.5 × 10^{-4}",
       "$1.25 \\times 10^{-3} = 0.00125$. For $0.00085$: move decimal 4 places right to get $8.5 \\times 10^{-4}$.",
       "Convert the first to decimal form, then express the second in scientific notation.",
@@ -1031,7 +1031,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m1",
       "Write $0.0000062$ in scientific notation.",
-      "0.0000062 = \\;?",
+      "",
       "6.2 × 10^{-6}",
       "Move decimal 6 places right: $6.2 \\times 10^{-6}$.",
       "Count the places the decimal moves right.",
@@ -1040,7 +1040,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m2",
       "Write $9.9 \\times 10^{-7}$ as a decimal.",
-      "9.9 \\times 10^{-7} = \\;?",
+      "",
       "0.00000099",
       "Move the decimal 7 places left: $0.00000099$.",
       "Move the decimal point 7 places to the left.",
@@ -1061,7 +1061,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m4",
       "A grain of sand has a diameter of approximately $0.00025$ m. Write this in scientific notation.",
-      "0.00025 = \\;?",
+      "",
       "2.5 × 10^{-4}",
       "Move the decimal 4 places right: $2.5 \\times 10^{-4}$.",
       "Count the places moved to reach a coefficient between 1 and 10.",
@@ -1070,7 +1070,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m5",
       "Write $3.07 \\times 10^{-5}$ as a decimal.",
-      "3.07 \\times 10^{-5} = \\;?",
+      "",
       "0.0000307",
       "Move the decimal 5 places left: $0.0000307$.",
       "Move the decimal point 5 places to the left.",
@@ -1078,7 +1078,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m6",
       "Order from smallest to largest: $7.0 \\times 10^{-4}$, $3.0 \\times 10^{2}$, $5.5 \\times 10^{-6}$. Give the smallest.",
-      "\\text{Smallest of the three?}",
+      "",
       "5.5 × 10^{-6}",
       "$5.5 \\times 10^{-6} = 0.0000055$, which is the smallest. Then $7.0 \\times 10^{-4} = 0.0007$, then $3.0 \\times 10^2 = 300$.",
       "The most negative exponent gives the smallest value.",
@@ -1100,7 +1100,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m8",
       "Write $0.000000008$ in scientific notation.",
-      "0.000000008 = \\;?",
+      "",
       "8.0 × 10^{-9}",
       "Move the decimal 9 places right: $8.0 \\times 10^{-9}$.",
       "Count the digits after the decimal point before the 8.",
@@ -1109,7 +1109,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m9",
       "The wavelength of green light is about $5.5 \\times 10^{-7}$ m. Write this as a decimal.",
-      "5.5 \\times 10^{-7} = \\;?",
+      "",
       "0.00000055",
       "Move the decimal 7 places left: $0.00000055$.",
       "Move the decimal point 7 places to the left.",
@@ -1117,7 +1117,7 @@ const scientificNotationSmall: LessonContent = {
     answer(
       "y8-ile-sns-m10",
       "A sample contains $4.8 \\times 10^{-3}$ g of a substance, split equally into 6 vials. How many grams are in each vial? Give your answer in scientific notation.",
-      "\\frac{4.8 \\times 10^{-3}}{6} = \\;?",
+      "",
       "8.0 × 10^{-4}",
       "$\\frac{4.8}{6} = 0.8$ and the exponent stays $-3$: $0.8 \\times 10^{-3} = 8.0 \\times 10^{-4}$.",
       "Divide the coefficient by 6, then adjust to proper scientific notation.",
@@ -1199,7 +1199,7 @@ const scientificNotationSmall: LessonContent = {
           key: "a",
           label: "(a)",
           prompt: "Write the bacterium's length in scientific notation.",
-          latex: "0.000002 = \\;?",
+          latex: "",
           marks: 1,
           answer: "2.0 × 10^{-6}",
           acceptedAnswers: ["2 × 10^{-6}", "2 * 10^{-6}"],
@@ -1210,7 +1210,7 @@ const scientificNotationSmall: LessonContent = {
           key: "b",
           label: "(b)",
           prompt: "Write the virus's length in scientific notation.",
-          latex: "0.00000003 = \\;?",
+          latex: "",
           marks: 1,
           answer: "3.0 × 10^{-8}",
           acceptedAnswers: ["3 × 10^{-8}", "3 * 10^{-8}"],
@@ -1222,7 +1222,7 @@ const scientificNotationSmall: LessonContent = {
           label: "(c)",
           prompt:
             "Which is longer: the bacterium or the virus? Answer 'bacterium' or 'virus'.",
-          latex: "\\text{Compare } 2.0 \\times 10^{-6} \\text{ and } 3.0 \\times 10^{-8}",
+          latex: "",
           marks: 1,
           answer: "bacterium",
           acceptedAnswers: ["the bacterium"],
@@ -1316,7 +1316,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-g2",
       "Round $7463$ to 2 significant figures.",
-      "7463 \\approx \\;?\\text{ (2 sig figs)}",
+      "",
       "7500",
       "First 2 sig figs: 7 and 4. Next digit is 6 (≥ 5), round up: $7463 \\approx 7500$.",
       "Find the 2nd sig fig and look at the next digit to decide.",
@@ -1324,7 +1324,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-g3",
       "Round $0.005826$ to 2 significant figures.",
-      "0.005826 \\approx \\;?\\text{ (2 sig figs)}",
+      "",
       "0.0058",
       "First 2 sig figs: 5 and 8. Next digit is 2 (< 5), round down: $0.005826 \\approx 0.0058$.",
       "Start counting significant figures from the 5.",
@@ -1332,7 +1332,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-g4",
       "How many significant figures does $3.080$ have?",
-      "\\text{Number of sig figs in } 3.080 = \\;?",
+      "",
       "4",
       "All digits in $3.080$ are significant: the trailing zero after the decimal point counts. So 4 sig figs: $3, 0, 8, 0$.",
       "Trailing zeros after the decimal point are always significant.",
@@ -1342,7 +1342,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-i1",
       "Round $23\\,481$ to 3 significant figures.",
-      "23\\,481 \\approx \\;?\\text{ (3 sig figs)}",
+      "",
       "23500",
       "First 3 sig figs: 2, 3, 4. Next digit is 8 (≥ 5), round up: $23\\,481 \\approx 23\\,500$.",
       "Identify the 3rd significant digit and look at the next one.",
@@ -1350,7 +1350,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-i2",
       "Round $0.0009271$ to 2 significant figures.",
-      "0.0009271 \\approx \\;?\\text{ (2 sig figs)}",
+      "",
       "0.00093",
       "First 2 sig figs: 9 and 2. Next digit is 7 (≥ 5), round up: $0.0009271 \\approx 0.00093$.",
       "Start from the first non-zero digit.",
@@ -1358,7 +1358,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-i3",
       "How many significant figures does $40\\,200$ have, assuming all non-zero digits and sandwiched zeros are significant but trailing zeros in a whole number are not?",
-      "\\text{Sig figs in } 40\\,200 = \\;?",
+      "",
       "3",
       "The digits 4, 0 (between non-zeros), and 2 are significant; the trailing zeros are ambiguous in standard form, so 3 sig figs are certain.",
       "Zeros between non-zero digits are significant; trailing zeros in a whole number are ambiguous without a decimal point.",
@@ -1379,7 +1379,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-i5",
       "Round $0.08456$ to 1 significant figure.",
-      "0.08456 \\approx \\;?\\text{ (1 sig fig)}",
+      "",
       "0.08",
       "First sig fig is 8. Next digit is 4 (< 5), round down: $0.08456 \\approx 0.08$.",
       "Only keep one sig fig; the rest become zeros or are dropped.",
@@ -1407,7 +1407,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m1",
       "How many significant figures does $0.00709$ have?",
-      "\\text{Sig figs in } 0.00709 = \\;?",
+      "",
       "3",
       "Leading zeros not counted; 7, 0 (between non-zeros), 9 are all significant — 3 sig figs.",
       "Start counting from the first non-zero digit.",
@@ -1415,7 +1415,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m2",
       "Round $56\\,390$ to 2 significant figures.",
-      "56\\,390 \\approx \\;?\\text{ (2 sig figs)}",
+      "",
       "56000",
       "First 2 sig figs: 5, 6. Next digit is 3 (< 5), round down: $56\\,390 \\approx 56\\,000$.",
       "Look at the digit after the 2nd sig fig.",
@@ -1436,7 +1436,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m4",
       "Round $0.0008354$ to 3 significant figures.",
-      "0.0008354 \\approx \\;?\\text{ (3 sig figs)}",
+      "",
       "0.000835",
       "First 3 sig figs: 8, 3, 5. Next digit is 4 (< 5), round down: $0.000835$.",
       "Start from the 8 and count 3 significant digits.",
@@ -1444,7 +1444,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m5",
       "The mass of an electron is approximately $0.000000000000000000000000000000911$ kg. In scientific notation this is $9.11 \\times 10^{-31}$ kg. How many significant figures does this have?",
-      "\\text{Sig figs in } 9.11 \\times 10^{-31} = \\;?",
+      "",
       "3",
       "In scientific notation, the number of sig figs equals the digits in the coefficient. $9.11$ has 3 digits, so 3 sig figs.",
       "Count the digits in the coefficient of the scientific notation form.",
@@ -1452,7 +1452,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m6",
       "Round $1.0047$ to 3 significant figures.",
-      "1.0047 \\approx \\;?\\text{ (3 sig figs)}",
+      "",
       "1.00",
       "First 3 sig figs: 1, 0 (between non-zeros), 0 (between non-zeros). Next digit is 4 (< 5), round down: $1.0047 \\approx 1.00$.",
       "The zeros between 1 and 4 are significant — count them.",
@@ -1460,7 +1460,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m7",
       "A length is measured as $34.70$ cm. Round to 3 significant figures.",
-      "34.70 \\approx \\;?\\text{ (3 sig figs)}",
+      "",
       "34.7",
       "First 3 sig figs: 3, 4, 7. Next digit is 0 (< 5), round down: $34.7$.",
       "The 4th sig fig is 0 — look at it to decide rounding for the 3rd.",
@@ -1481,7 +1481,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m9",
       "Express $8400$ in scientific notation so that it clearly shows 3 significant figures.",
-      "8400 = \\;?\\text{ (3 sig figs, scientific notation)}",
+      "",
       "8.40 × 10^3",
       "$8400$ to 3 sig figs is $8.40 \\times 10^3$. The trailing zero in the coefficient shows the third sig fig.",
       "Include the trailing zero in the coefficient to show the precision.",
@@ -1490,7 +1490,7 @@ const significantFigures: LessonContent = {
     answer(
       "y8-ile-sig-m10",
       "A chemist records two masses: $12.36$ g (4 sig figs) and $5.8$ g (2 sig figs). Their sum is $18.16$ g. Round the result to the appropriate number of significant figures for addition (match the least precise decimal place).",
-      "18.16 \\approx \\;?\\text{ (to nearest 0.1 g)}",
+      "",
       "18.2",
       "When adding, match the least precise decimal place. $5.8$ g is given to 1 decimal place, so round to $18.2$ g.",
       "For addition, round to the same decimal place as the least precise measurement.",
@@ -1568,7 +1568,7 @@ const significantFigures: LessonContent = {
           key: "a",
           label: "(a)",
           prompt: "How many significant figures does the measurement $0.0048372$ have?",
-          latex: "\\text{Sig figs in } 0.0048372 = \\;?",
+          latex: "",
           marks: 1,
           answer: "5",
           acceptedAnswers: [],
@@ -1579,7 +1579,7 @@ const significantFigures: LessonContent = {
           key: "b",
           label: "(b)",
           prompt: "Round the measurement to 2 significant figures.",
-          latex: "0.0048372 \\approx \\;?\\text{ (2 sig figs)}",
+          latex: "",
           marks: 1,
           answer: "0.0048",
           acceptedAnswers: [],
@@ -1590,7 +1590,7 @@ const significantFigures: LessonContent = {
           key: "c",
           label: "(c)",
           prompt: "Round to 3 significant figures and write the result in scientific notation.",
-          latex: "0.0048372 \\approx \\;?\\text{ (3 sig figs, scientific notation)}",
+          latex: "",
           marks: 2,
           answer: "4.84 × 10^{-3}",
           acceptedAnswers: ["4.84 * 10^{-3}"],
@@ -1683,7 +1683,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-g2",
       "Calculate $(2 \\times 10^3) \\times (3 \\times 10^4)$.",
-      "(2 \\times 10^3) \\times (3 \\times 10^4) = \\;?",
+      "",
       "6 × 10^7",
       "$2 \\times 3 = 6$ and $10^{3+4} = 10^7$. Result: $6 \\times 10^7$.",
       "Multiply the coefficients and add the exponents.",
@@ -1692,7 +1692,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-g3",
       "Calculate $\\frac{8 \\times 10^9}{4 \\times 10^3}$.",
-      "\\frac{8 \\times 10^9}{4 \\times 10^3} = \\;?",
+      "",
       "2 × 10^6",
       "$\\frac{8}{4} = 2$ and $10^{9-3} = 10^6$. Result: $2 \\times 10^6$.",
       "Divide the coefficients and subtract the exponents.",
@@ -1701,7 +1701,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-g4",
       "Calculate $3.0 \\times 10^5 + 2.0 \\times 10^5$.",
-      "3.0 \\times 10^5 + 2.0 \\times 10^5 = \\;?",
+      "",
       "5.0 × 10^5",
       "Same exponent — add coefficients: $(3.0 + 2.0) \\times 10^5 = 5.0 \\times 10^5$.",
       "When exponents match, just add the coefficients.",
@@ -1712,7 +1712,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-i1",
       "Calculate $(5 \\times 10^6) \\times (4 \\times 10^3)$.",
-      "(5 \\times 10^6) \\times (4 \\times 10^3) = \\;?",
+      "",
       "2 × 10^10",
       "$5 \\times 4 = 20$ and $10^{6+3} = 10^9$. So $20 \\times 10^9 = 2 \\times 10^{10}$.",
       "Multiply coefficients and add exponents, then adjust if the coefficient is ≥ 10.",
@@ -1721,7 +1721,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-i2",
       "Calculate $\\frac{6.0 \\times 10^{-2}}{2.0 \\times 10^3}$.",
-      "\\frac{6.0 \\times 10^{-2}}{2.0 \\times 10^3} = \\;?",
+      "",
       "3.0 × 10^{-5}",
       "$\\frac{6.0}{2.0} = 3.0$ and $10^{-2-3} = 10^{-5}$. Result: $3.0 \\times 10^{-5}$.",
       "Divide coefficients and subtract exponents: $-2 - 3 = -5$.",
@@ -1730,7 +1730,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-i3",
       "Calculate $7.4 \\times 10^4 + 6.0 \\times 10^3$.",
-      "7.4 \\times 10^4 + 6.0 \\times 10^3 = \\;?",
+      "",
       "8.0 × 10^4",
       "$6.0 \\times 10^3 = 0.60 \\times 10^4$. Then $(7.4 + 0.60) \\times 10^4 = 8.0 \\times 10^4$.",
       "Convert the smaller-exponent term so both have the same power of 10.",
@@ -1752,7 +1752,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-i5",
       "Calculate $5.8 \\times 10^{-3} - 2.3 \\times 10^{-3}$.",
-      "5.8 \\times 10^{-3} - 2.3 \\times 10^{-3} = \\;?",
+      "",
       "3.5 × 10^{-3}",
       "Same exponent — subtract coefficients: $(5.8 - 2.3) \\times 10^{-3} = 3.5 \\times 10^{-3}$.",
       "When exponents match, subtract the coefficients directly.",
@@ -1781,7 +1781,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m1",
       "Calculate $(3 \\times 10^5) \\times (3 \\times 10^5)$.",
-      "(3 \\times 10^5) \\times (3 \\times 10^5) = \\;?",
+      "",
       "9 × 10^10",
       "$3 \\times 3 = 9$ and $10^{5+5} = 10^{10}$. Result: $9 \\times 10^{10}$.",
       "Multiply coefficients and add exponents.",
@@ -1790,7 +1790,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m2",
       "Calculate $\\frac{1.2 \\times 10^7}{4.0 \\times 10^4}$.",
-      "\\frac{1.2 \\times 10^7}{4.0 \\times 10^4} = \\;?",
+      "",
       "3.0 × 10^2",
       "$\\frac{1.2}{4.0} = 0.3$ and $10^{7-4} = 10^3$. So $0.3 \\times 10^3 = 3.0 \\times 10^2$.",
       "Divide coefficients and subtract exponents, then adjust to proper form.",
@@ -1812,7 +1812,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m4",
       "Calculate $4.5 \\times 10^8 + 3.0 \\times 10^7$.",
-      "4.5 \\times 10^8 + 3.0 \\times 10^7 = \\;?",
+      "",
       "4.8 × 10^8",
       "$3.0 \\times 10^7 = 0.30 \\times 10^8$. Then $(4.5 + 0.30) \\times 10^8 = 4.8 \\times 10^8$.",
       "Rewrite the smaller term so both exponents match.",
@@ -1821,7 +1821,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m5",
       "Calculate $6.0 \\times 10^{-4} - 1.5 \\times 10^{-5}$.",
-      "6.0 \\times 10^{-4} - 1.5 \\times 10^{-5} = \\;?",
+      "",
       "5.85 × 10^{-4}",
       "$1.5 \\times 10^{-5} = 0.15 \\times 10^{-4}$. Then $(6.0 - 0.15) \\times 10^{-4} = 5.85 \\times 10^{-4}$.",
       "Convert to match the larger exponent, then subtract coefficients.",
@@ -1830,7 +1830,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m6",
       "The speed of light is $3.0 \\times 10^8$ m/s. How far does light travel in $5.0 \\times 10^2$ seconds? Give your answer in scientific notation.",
-      "(3.0 \\times 10^8) \\times (5.0 \\times 10^2) = \\;?",
+      "",
       "1.5 × 10^11",
       "$3.0 \\times 5.0 = 15$ and $10^{8+2} = 10^{10}$. So $15 \\times 10^{10} = 1.5 \\times 10^{11}$ m.",
       "Multiply and then adjust the coefficient.",
@@ -1839,7 +1839,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m7",
       "Calculate $\\frac{9.0 \\times 10^{-3}}{3.0 \\times 10^{-7}}$.",
-      "\\frac{9.0 \\times 10^{-3}}{3.0 \\times 10^{-7}} = \\;?",
+      "",
       "3.0 × 10^4",
       "$\\frac{9.0}{3.0} = 3.0$ and $10^{-3-(-7)} = 10^{-3+7} = 10^4$. Result: $3.0 \\times 10^4$.",
       "Subtract exponents: top minus bottom, $-3 - (-7) = 4$.",
@@ -1861,7 +1861,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m9",
       "A cell phone battery holds $2.4 \\times 10^4$ joules of energy. A device uses $8.0 \\times 10^2$ joules per hour. How many hours will the battery last? Give your answer in scientific notation.",
-      "\\frac{2.4 \\times 10^4}{8.0 \\times 10^2} = \\;?",
+      "",
       "3.0 × 10^1",
       "$\\frac{2.4}{8.0} = 0.3$ and $10^{4-2} = 10^2$. So $0.3 \\times 10^2 = 3.0 \\times 10^1 = 30$ hours.",
       "Divide coefficients and subtract exponents, then adjust.",
@@ -1870,7 +1870,7 @@ const operationsWithScientificNotation: LessonContent = {
     answer(
       "y8-ile-ops-m10",
       "The mass of Jupiter is $1.898 \\times 10^{27}$ kg and the mass of Saturn is $5.683 \\times 10^{26}$ kg. Find the combined mass in scientific notation (round coefficient to 3 sig figs).",
-      "(1.898 \\times 10^{27}) + (5.683 \\times 10^{26}) = \\;?",
+      "",
       "2.47 × 10^27",
       "$5.683 \\times 10^{26} = 0.5683 \\times 10^{27}$. Sum: $(1.898 + 0.5683) \\times 10^{27} = 2.4663 \\times 10^{27} \\approx 2.47 \\times 10^{27}$.",
       "Match exponents, add coefficients, then round as required.",
@@ -1948,7 +1948,7 @@ const operationsWithScientificNotation: LessonContent = {
           key: "a",
           label: "(a)",
           prompt: "Find the distance travelled in the first stage. Give your answer in scientific notation.",
-          latex: "d = (2.0 \\times 10^4)(3.0 \\times 10^3) = \\;?",
+          latex: "",
           marks: 2,
           answer: "6.0 × 10^7",
           acceptedAnswers: ["6 × 10^7", "6 * 10^7"],
@@ -1960,7 +1960,7 @@ const operationsWithScientificNotation: LessonContent = {
           label: "(b)",
           prompt:
             "In a second stage the spacecraft travels a further $4.0 \\times 10^6$ m. Write this distance as a coefficient times $10^7$.",
-          latex: "4.0 \\times 10^6 = \\;? \\times 10^7",
+          latex: "",
           marks: 1,
           answer: "0.40",
           acceptedAnswers: ["0.4"],
@@ -1972,7 +1972,7 @@ const operationsWithScientificNotation: LessonContent = {
           label: "(c)",
           prompt:
             "Find the total distance for both stages, giving your answer in scientific notation.",
-          latex: "6.0 \\times 10^7 + 0.40 \\times 10^7 = \\;?",
+          latex: "",
           marks: 1,
           answer: "6.4 × 10^7",
           acceptedAnswers: ["6.4 * 10^7"],

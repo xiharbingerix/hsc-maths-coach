@@ -185,7 +185,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-g2",
       "A rectangular prism has length 8 cm, width 5 cm and height 3 cm. Find its volume.",
-      "V = 8 \\times 5 \\times 3",
+      "",
       "120",
       "V = 8 × 5 × 3 = 120 cm³.",
       "Multiply all three dimensions: length × width × height.",
@@ -194,7 +194,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-g3",
       "A triangular prism has a cross-section with base 6 cm and height 4 cm, and a prism length of 10 cm. Find its volume.",
-      "V = \\frac{1}{2} \\times 6 \\times 4 \\times 10",
+      "",
       "120",
       "Area of cross-section = ½ × 6 × 4 = 12 cm². V = 12 × 10 = 120 cm³.",
       "Find the triangular cross-section area first using A = ½bh, then multiply by the prism length.",
@@ -203,7 +203,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-g4",
       "A rectangular prism has length 10 cm, width 4 cm and height 2 cm. Find its volume.",
-      "V = 10 \\times 4 \\times 2",
+      "",
       "80",
       "V = 10 × 4 × 2 = 80 cm³.",
       "Multiply length × width × height.",
@@ -214,7 +214,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-i1",
       "A rectangular prism has length 7 cm, width 3 cm and height 4 cm. Find its volume.",
-      "V = 7 \\times 3 \\times 4",
+      "",
       "84",
       "V = 7 × 3 × 4 = 84 cm³.",
       "Use V = l × w × h.",
@@ -223,7 +223,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-i2",
       "A triangular prism has a cross-section with base 10 cm and height 6 cm, and a prism length of 5 cm. Find its volume.",
-      "V = \\frac{1}{2} \\times 10 \\times 6 \\times 5",
+      "",
       "150",
       "Area = ½ × 10 × 6 = 30 cm². V = 30 × 5 = 150 cm³.",
       "Calculate the triangular area with ½ × base × height, then multiply by the prism length.",
@@ -245,7 +245,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-i4",
       "A prism has a cross-sectional area of 24 cm² and a length of 7 cm. Find its volume.",
-      "V = 24 \\times 7",
+      "",
       "168",
       "V = A × l = 24 × 7 = 168 cm³.",
       "Apply V = A × l directly with the given cross-sectional area.",
@@ -254,7 +254,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-i5",
       "A rectangular prism has length 5 cm and width 6 cm. Its volume is 120 cm³. Find the height.",
-      "5 \\times 6 \\times h = 120",
+      "",
       "4",
       "5 × 6 = 30. So 30h = 120, giving h = 120 ÷ 30 = 4 cm.",
       "Divide the volume by the product of the two known dimensions.",
@@ -283,7 +283,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m1",
       "A rectangular prism has length 9 cm, width 4 cm and height 5 cm. Find its volume.",
-      "V = 9 \\times 4 \\times 5",
+      "",
       "180",
       "V = 9 × 4 × 5 = 180 cm³.",
       "Multiply all three dimensions.",
@@ -292,7 +292,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m2",
       "A triangular prism has a cross-section with base 12 cm and height 5 cm, and a prism length of 8 cm. Find its volume.",
-      "V = \\frac{1}{2} \\times 12 \\times 5 \\times 8",
+      "",
       "240",
       "Area = ½ × 12 × 5 = 30 cm². V = 30 × 8 = 240 cm³.",
       "Find the triangular cross-section area first.",
@@ -314,7 +314,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m4",
       "A prism has a cross-sectional area of 30 cm² and volume 210 cm³. Find its length.",
-      "30 \\times l = 210",
+      "",
       "7",
       "l = V ÷ A = 210 ÷ 30 = 7 cm.",
       "Rearrange V = A × l to get l = V ÷ A.",
@@ -323,7 +323,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m5",
       "A triangular prism has a cross-section with base 9 cm and height 8 cm, and a prism length of 15 cm. Find its volume.",
-      "V = \\frac{1}{2} \\times 9 \\times 8 \\times 15",
+      "",
       "540",
       "Area = ½ × 9 × 8 = 36 cm². V = 36 × 15 = 540 cm³.",
       "Calculate the triangular area first, then multiply by the prism length.",
@@ -345,7 +345,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m7",
       "A rectangular prism has length 7 cm and width 6 cm. Its volume is 336 cm³. Find its height.",
-      "7 \\times 6 \\times h = 336",
+      "",
       "8",
       "7 × 6 = 42. So 42h = 336, giving h = 336 ÷ 42 = 8 cm.",
       "Divide the volume by l × w to find h.",
@@ -354,7 +354,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m8",
       "A concrete step is a rectangular prism with length 120 cm, width 40 cm and height 20 cm. Find its volume.",
-      "V = 120 \\times 40 \\times 20",
+      "",
       "96000",
       "V = 120 × 40 × 20 = 96 000 cm³.",
       "Apply V = l × w × h to the three given dimensions.",
@@ -363,7 +363,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m9",
       "A triangular prism has a cross-section with base 10 cm and prism length 12 cm. Its volume is 360 cm³. Find the height of the triangular cross-section.",
-      "\\frac{1}{2} \\times 10 \\times h \\times 12 = 360",
+      "",
       "6",
       "½ × 10 × h × 12 = 60h = 360. So h = 360 ÷ 60 = 6 cm.",
       "Set up ½ × 10 × h × 12 = 360, simplify, then solve for h.",
@@ -372,7 +372,7 @@ const volumeOfPrisms: LessonContent = {
     answer(
       "y8-vsa-vp-m10",
       "A swimming pool is 25 m long, 8 m wide and has a uniform depth of 2 m. Find the volume of water it holds.",
-      "V = 25 \\times 8 \\times 2",
+      "",
       "400",
       "The pool is a rectangular prism. V = 25 × 8 × 2 = 400 m³.",
       "Treat the pool as a rectangular prism and apply V = l × w × h.",
@@ -423,10 +423,10 @@ const volumeOfPrisms: LessonContent = {
       explanation:
         "(a) Base area = 60 × 30 = 1800 cm². (b) Water volume = 1800 × 25 = 45 000 cm³. (c) Full capacity = 60 × 30 × 40 = 72 000 cm³. (d) Extra water to fill = 72 000 − 45 000 = 27 000 cm³.",
       parts: [
-        { key: "a", label: "(a)", prompt: "Find the area of the rectangular base in cm².", latex: "A = 60 \\times 30", marks: 1, answer: "1800", acceptedAnswers: ["1800 cm^2"], hint: "Multiply length × width.", explanation: "A = 60 × 30 = 1800 cm²." },
-        { key: "b", label: "(b)", prompt: "Find the volume of water (depth 25 cm) in cm³.", latex: "V = 1800 \\times 25", marks: 1, answer: "45000", acceptedAnswers: ["45 000", "45000 cm^3"], hint: "Multiply the base area by the water depth.", explanation: "V = 1800 × 25 = 45 000 cm³." },
-        { key: "c", label: "(c)", prompt: "Find the total capacity of the tank (filled to the top) in cm³.", latex: "V = 60 \\times 30 \\times 40", marks: 1, answer: "72000", acceptedAnswers: ["72 000", "72000 cm^3"], hint: "Use the full height of 40 cm.", explanation: "V = 60 × 30 × 40 = 72 000 cm³." },
-        { key: "d", label: "(d)", prompt: "How much more water (cm³) is needed to fill the tank to the top?", latex: "72000 - 45000", marks: 1, answer: "27000", acceptedAnswers: ["27 000", "27000 cm^3"], hint: "Subtract the current water volume from the full capacity.", explanation: "72 000 − 45 000 = 27 000 cm³." },
+        { key: "a", label: "(a)", prompt: "Find the area of the rectangular base in cm².", latex: "", marks: 1, answer: "1800", acceptedAnswers: ["1800 cm^2"], hint: "Multiply length × width.", explanation: "A = 60 × 30 = 1800 cm²." },
+        { key: "b", label: "(b)", prompt: "Find the volume of water (depth 25 cm) in cm³.", latex: "", marks: 1, answer: "45000", acceptedAnswers: ["45 000", "45000 cm^3"], hint: "Multiply the base area by the water depth.", explanation: "V = 1800 × 25 = 45 000 cm³." },
+        { key: "c", label: "(c)", prompt: "Find the total capacity of the tank (filled to the top) in cm³.", latex: "", marks: 1, answer: "72000", acceptedAnswers: ["72 000", "72000 cm^3"], hint: "Use the full height of 40 cm.", explanation: "V = 60 × 30 × 40 = 72 000 cm³." },
+        { key: "d", label: "(d)", prompt: "How much more water (cm³) is needed to fill the tank to the top?", latex: "", marks: 1, answer: "27000", acceptedAnswers: ["27 000", "27000 cm^3"], hint: "Subtract the current water volume from the full capacity.", explanation: "72 000 − 45 000 = 27 000 cm³." },
       ],
     },
   ],
@@ -500,7 +500,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-g2",
       "A rectangular prism has length 5 cm, width 4 cm and height 3 cm. Find its surface area.",
-      "SA = 2(lw + lh + wh)",
+      "",
       "94",
       "SA = 2(5×4 + 5×3 + 4×3) = 2(20+15+12) = 2×47 = 94 cm².",
       "Apply SA = 2(lw + lh + wh): find each product, add, then double.",
@@ -509,7 +509,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-g3",
       "A cube has side length 6 cm. Find its total surface area.",
-      "SA = 6 \\times 6^2",
+      "",
       "216",
       "All 6 faces are identical squares. SA = 6 × 6² = 6 × 36 = 216 cm².",
       "A cube has 6 equal square faces — find one face area and multiply by 6.",
@@ -518,7 +518,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-g4",
       "A rectangular prism has length 8 cm, width 3 cm and height 2 cm. Find its surface area.",
-      "SA = 2(lw + lh + wh)",
+      "",
       "92",
       "SA = 2(8×3 + 8×2 + 3×2) = 2(24+16+6) = 2×46 = 92 cm².",
       "List the three pairs of faces: lw, lh, and wh.",
@@ -529,7 +529,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-i1",
       "A rectangular prism has length 10 cm, width 5 cm and height 4 cm. Find its surface area.",
-      "SA = 2(lw + lh + wh)",
+      "",
       "220",
       "SA = 2(10×5 + 10×4 + 5×4) = 2(50+40+20) = 2×110 = 220 cm².",
       "Calculate each of the three pairs: lw, lh, wh.",
@@ -538,7 +538,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-i2",
       "A triangular prism has a right-angled cross-section with legs 6 cm and 8 cm (hypotenuse 10 cm) and a prism length of 12 cm. Find its surface area.",
-      "SA = 2 \\times \\tfrac{1}{2} \\times 6 \\times 8 + (6+8+10) \\times 12",
+      "",
       "336",
       "Two triangular faces: 2 × ½ × 6 × 8 = 48 cm². Three rectangular faces: (6+8+10) × 12 = 24 × 12 = 288 cm². SA = 48 + 288 = 336 cm².",
       "Add the two triangular end areas to the total area of the three rectangular sides.",
@@ -560,7 +560,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-i4",
       "A rectangular prism has length 7 cm and height 2 cm. Its total surface area is 100 cm². Find the width.",
-      "2(7w + 2w + 7 \\times 2) = 100",
+      "",
       "4",
       "SA = 2(7w + 2w + 14) = 2(9w + 14) = 18w + 28 = 100. So 18w = 72, w = 4 cm.",
       "Substitute l = 7 and h = 2 into SA = 2(lw + lh + wh), then solve for w.",
@@ -569,7 +569,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-i5",
       "An open-top rectangular fish tank has length 50 cm, width 30 cm and height 40 cm. Find the total area of glass needed for the base and four sides.",
-      "SA = lw + 2lh + 2wh",
+      "",
       "7900",
       "Base: 50×30 = 1500. Two long sides: 2×50×40 = 4000. Two short sides: 2×30×40 = 2400. Total = 7900 cm².",
       "Calculate the base plus the four side panels. There is no top face.",
@@ -598,7 +598,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m1",
       "A rectangular prism has length 7 cm, width 5 cm and height 4 cm. Find its surface area.",
-      "SA = 2(lw + lh + wh)",
+      "",
       "166",
       "SA = 2(7×5 + 7×4 + 5×4) = 2(35+28+20) = 2×83 = 166 cm².",
       "Apply SA = 2(lw + lh + wh).",
@@ -607,7 +607,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m2",
       "A cube has side length 7 cm. Find its total surface area.",
-      "SA = 6 \\times 7^2",
+      "",
       "294",
       "SA = 6 × 7² = 6 × 49 = 294 cm².",
       "A cube has 6 identical square faces.",
@@ -624,7 +624,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m4",
       "A triangular prism has a right-angled cross-section with legs 5 cm and 12 cm (hypotenuse 13 cm) and a prism length of 10 cm. Find the surface area.",
-      "SA = 2 \\times \\tfrac{1}{2} \\times 5 \\times 12 + (5+12+13) \\times 10",
+      "",
       "360",
       "Two triangular faces: 2 × ½ × 5 × 12 = 60 cm². Three rectangular faces: (5+12+13) × 10 = 30 × 10 = 300 cm². SA = 60 + 300 = 360 cm².",
       "Find the two triangular end areas and three rectangular side areas separately.",
@@ -633,7 +633,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m5",
       "A rectangular prism has length 6 cm and width 4 cm. Its total surface area is 148 cm². Find its height.",
-      "2(6 \\times 4 + 6h + 4h) = 148",
+      "",
       "5",
       "SA = 2(24 + 10h) = 48 + 20h = 148. So 20h = 100, h = 5 cm.",
       "Substitute l = 6 and w = 4 into SA = 2(lw + lh + wh), then solve for h.",
@@ -655,7 +655,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m7",
       "A triangular prism has a right-angled cross-section with legs 8 cm and 6 cm (hypotenuse 10 cm) and a prism length of 15 cm. Find the surface area.",
-      "SA = 2 \\times \\tfrac{1}{2} \\times 8 \\times 6 + (8+6+10) \\times 15",
+      "",
       "408",
       "Two triangular faces: 2 × ½ × 8 × 6 = 48 cm². Three rectangular faces: (8+6+10) × 15 = 24 × 15 = 360 cm². SA = 48 + 360 = 408 cm².",
       "Calculate the two triangular end areas and the three rectangular face areas separately.",
@@ -664,7 +664,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m8",
       "An open-top box has length 40 cm, width 25 cm and height 30 cm. Find the total inner surface area including the base but not the top.",
-      "SA = lw + 2lh + 2wh",
+      "",
       "4900",
       "Base: 40×25 = 1000. Two long sides: 2×40×30 = 2400. Two short sides: 2×25×30 = 1500. Total = 1000+2400+1500 = 4900 cm².",
       "Add the base plus the four side panels — there is no top face.",
@@ -673,7 +673,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m9",
       "A triangular prism has a right-angled cross-section with legs 3 cm and 4 cm (hypotenuse 5 cm). Its total surface area is 108 cm². Find the prism length.",
-      "2 \\times \\tfrac{1}{2} \\times 3 \\times 4 + (3+4+5) \\times l = 108",
+      "",
       "8",
       "Two triangular faces: 2 × ½ × 3 × 4 = 12 cm². Rectangular faces: 12 × l cm². So 12 + 12l = 108, 12l = 96, l = 8 cm.",
       "Find the area of the two triangular ends, then solve 12 + 12l = 108 for l.",
@@ -682,7 +682,7 @@ const surfaceAreaOfPrisms: LessonContent = {
     answer(
       "y8-vsa-sp-m10",
       "A rectangular crate has length 120 cm, width 80 cm and height 60 cm. Find the total surface area of all 6 faces.",
-      "SA = 2(lw + lh + wh)",
+      "",
       "43200",
       "SA = 2(120×80 + 120×60 + 80×60) = 2(9600+7200+4800) = 2×21600 = 43200 cm².",
       "Apply SA = 2(lw + lh + wh) to the three given dimensions.",
@@ -733,10 +733,10 @@ const surfaceAreaOfPrisms: LessonContent = {
       explanation:
         "(a) lw = 20 × 15 = 300 cm². (b) lh = 20 × 10 = 200 cm². (c) Total SA = 2(300 + 200 + 150) = 1300 cm². (d) Removing the top (one lw = 300 cm²) leaves 1300 − 300 = 1000 cm².",
       parts: [
-        { key: "a", label: "(a)", prompt: "Find the area of the top face (lw) in cm².", latex: "20 \\times 15", marks: 1, answer: "300", acceptedAnswers: ["300 cm^2"], hint: "Multiply length × width.", explanation: "lw = 20 × 15 = 300 cm²." },
-        { key: "b", label: "(b)", prompt: "Find the area of one front face (lh) in cm².", latex: "20 \\times 10", marks: 1, answer: "200", acceptedAnswers: ["200 cm^2"], hint: "Multiply length × height.", explanation: "lh = 20 × 10 = 200 cm²." },
-        { key: "c", label: "(c)", prompt: "Find the total surface area of all 6 faces in cm².", latex: "2(300 + 200 + 150)", marks: 2, answer: "1300", acceptedAnswers: ["1300 cm^2"], hint: "wh = 15 × 10 = 150. Add the three products and double.", explanation: "SA = 2(300 + 200 + 150) = 2 × 650 = 1300 cm²." },
-        { key: "d", label: "(d)", prompt: "If the box has no lid, find the area to be painted (omit one top face) in cm².", latex: "1300 - 300", marks: 1, answer: "1000", acceptedAnswers: ["1000 cm^2"], hint: "Subtract one lw face from the total.", explanation: "1300 − 300 = 1000 cm²." },
+        { key: "a", label: "(a)", prompt: "Find the area of the top face (lw) in cm².", latex: "", marks: 1, answer: "300", acceptedAnswers: ["300 cm^2"], hint: "Multiply length × width.", explanation: "lw = 20 × 15 = 300 cm²." },
+        { key: "b", label: "(b)", prompt: "Find the area of one front face (lh) in cm².", latex: "", marks: 1, answer: "200", acceptedAnswers: ["200 cm^2"], hint: "Multiply length × height.", explanation: "lh = 20 × 10 = 200 cm²." },
+        { key: "c", label: "(c)", prompt: "Find the total surface area of all 6 faces in cm².", latex: "", marks: 2, answer: "1300", acceptedAnswers: ["1300 cm^2"], hint: "wh = 15 × 10 = 150. Add the three products and double.", explanation: "SA = 2(300 + 200 + 150) = 2 × 650 = 1300 cm²." },
+        { key: "d", label: "(d)", prompt: "If the box has no lid, find the area to be painted (omit one top face) in cm².", latex: "", marks: 1, answer: "1000", acceptedAnswers: ["1000 cm^2"], hint: "Subtract one lw face from the total.", explanation: "1300 − 300 = 1000 cm²." },
       ],
     },
   ],
@@ -809,7 +809,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-g2",
       "Find the exact volume of a cylinder with radius 5 cm and height 8 cm. Express in terms of π.",
-      "V = \\pi \\times 5^2 \\times 8",
+      "",
       "200π",
       "V = π × 25 × 8 = 200π cm³.",
       "Substitute r = 5 and h = 8 into V = πr²h. Square the radius first.",
@@ -818,7 +818,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-g3",
       "Find the exact volume of a cylinder with radius 3 cm and height 4 cm. Express in terms of π.",
-      "V = \\pi \\times 3^2 \\times 4",
+      "",
       "36π",
       "V = π × 9 × 4 = 36π cm³.",
       "Square the radius, then multiply by π and the height.",
@@ -827,7 +827,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-g4",
       "Find the exact volume of a cylinder with radius 10 cm and height 6 cm. Express in terms of π.",
-      "V = \\pi \\times 10^2 \\times 6",
+      "",
       "600π",
       "V = π × 100 × 6 = 600π cm³.",
       "Square the radius (10² = 100), then multiply by π and height.",
@@ -838,7 +838,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-i1",
       "Find the exact volume of a cylinder with radius 7 cm and height 5 cm. Express in terms of π.",
-      "V = \\pi \\times 7^2 \\times 5",
+      "",
       "245π",
       "V = π × 49 × 5 = 245π cm³.",
       "Apply V = πr²h with r = 7 and h = 5.",
@@ -847,7 +847,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-i2",
       "Find the exact volume of a cylinder with radius 6 cm and height 3 cm. Express in terms of π.",
-      "V = \\pi \\times 6^2 \\times 3",
+      "",
       "108π",
       "V = π × 36 × 3 = 108π cm³.",
       "Square r = 6 to get 36, then multiply by π and h.",
@@ -869,7 +869,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-i4",
       "A cylinder has radius 5 cm and volume $100\\pi$ cm³. Find its height.",
-      "\\pi \\times 5^2 \\times h = 100\\pi",
+      "",
       "4",
       "π × 25 × h = 100π. Divide both sides by 25π: h = 100π ÷ (25π) = 4 cm.",
       "Divide the volume by πr². The π will cancel.",
@@ -878,7 +878,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-i5",
       "A cylindrical tin can has radius 4 cm and height 12 cm. Find its exact volume in terms of π.",
-      "V = \\pi \\times 4^2 \\times 12",
+      "",
       "192π",
       "V = π × 16 × 12 = 192π cm³.",
       "Square r = 4 to get 16, then multiply by 12 and π.",
@@ -907,7 +907,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m1",
       "Find the exact volume of a cylinder with radius 8 cm and height 5 cm. Express in terms of π.",
-      "V = \\pi \\times 8^2 \\times 5",
+      "",
       "320π",
       "V = π × 64 × 5 = 320π cm³.",
       "Apply V = πr²h.",
@@ -916,7 +916,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m2",
       "Find the exact volume of a cylinder with radius 3 cm and height 10 cm. Express in terms of π.",
-      "V = \\pi \\times 3^2 \\times 10",
+      "",
       "90π",
       "V = π × 9 × 10 = 90π cm³.",
       "Square r first.",
@@ -938,7 +938,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m4",
       "A cylinder has radius 4 cm and volume $144\\pi$ cm³. Find its height.",
-      "\\pi \\times 4^2 \\times h = 144\\pi",
+      "",
       "9",
       "π × 16 × h = 144π. Divide both sides by 16π: h = 144π ÷ (16π) = 9 cm.",
       "Divide the volume by πr².",
@@ -947,7 +947,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m5",
       "Find the exact volume of a cylinder with radius 5 cm and height 6 cm. Express in terms of π.",
-      "V = \\pi \\times 5^2 \\times 6",
+      "",
       "150π",
       "V = π × 25 × 6 = 150π cm³.",
       "Apply V = πr²h.",
@@ -969,7 +969,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m7",
       "Find the exact volume of a cylinder with radius 4 cm and height 11 cm. Express in terms of π.",
-      "V = \\pi \\times 4^2 \\times 11",
+      "",
       "176π",
       "V = π × 16 × 11 = 176π cm³.",
       "Apply V = πr²h.",
@@ -978,7 +978,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m8",
       "A cylinder has height 2 cm and volume $50\\pi$ cm³. Find its radius.",
-      "\\pi \\times r^2 \\times 2 = 50\\pi",
+      "",
       "5",
       "2πr² = 50π. Divide both sides by 2π: r² = 25, so r = 5 cm.",
       "Rearrange to r² = V ÷ (πh), then take the square root.",
@@ -987,7 +987,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m9",
       "Cylinder A has radius 3 cm and height 16 cm. Cylinder B has radius 4 cm and height 8 cm. Find the difference in their exact volumes in terms of π.",
-      "V_A = \\pi \\times 9 \\times 16, \\quad V_B = \\pi \\times 16 \\times 8",
+      "",
       "16π",
       "V_A = 144π cm³. V_B = 128π cm³. Difference = 144π − 128π = 16π cm³.",
       "Calculate each volume separately, then subtract.",
@@ -996,7 +996,7 @@ const volumeOfCylinders: LessonContent = {
     answer(
       "y8-vsa-vc-m10",
       "A cylindrical pipe has outer radius 3 cm and inner radius 2 cm. It is 50 cm long. Find the exact volume of material in the pipe, in terms of π.",
-      "V = \\pi(3^2 - 2^2) \\times 50",
+      "",
       "250π",
       "V_outer = π × 9 × 50 = 450π. V_inner = π × 4 × 50 = 200π. Volume of material = 450π − 200π = 250π cm³.",
       "Subtract the inner cylinder volume from the outer cylinder volume.",
@@ -1047,10 +1047,10 @@ const volumeOfCylinders: LessonContent = {
       explanation:
         "(a) Base area = 3.14 × 7² = 3.14 × 49 = 153.86 ≈ 154 cm². (b) Volume = 153.86 × 20 = 3077.2 ≈ 3077 cm³. (c) Half full = 3077 ÷ 2 ≈ 1539 cm³. (d) A second identical tank doubles the total: 2 × 3077 = 6154 cm³.",
       parts: [
-        { key: "a", label: "(a)", prompt: "Find the area of the circular base in cm² (π = 3.14, nearest whole number).", latex: "A = 3.14 \\times 7^2", marks: 1, answer: "154", acceptedAnswers: ["153.86", "154 cm^2"], hint: "πr² = 3.14 × 49.", explanation: "A = 3.14 × 49 = 153.86 ≈ 154 cm²." },
-        { key: "b", label: "(b)", prompt: "Find the volume of the tank in cm³ (nearest whole number).", latex: "V = 153.86 \\times 20", marks: 1, answer: "3077", acceptedAnswers: ["3077.2", "3077 cm^3"], hint: "Multiply the base area by the height.", explanation: "V = 153.86 × 20 = 3077.2 ≈ 3077 cm³." },
-        { key: "c", label: "(c)", prompt: "Find the volume of water when the tank is half full, in cm³ (nearest whole number).", latex: "3077 \\div 2", marks: 1, answer: "1539", acceptedAnswers: ["1538.6", "1539 cm^3"], hint: "Halve the full volume.", explanation: "3077 ÷ 2 ≈ 1539 cm³." },
-        { key: "d", label: "(d)", prompt: "Find the combined volume (cm³) of two identical tanks.", latex: "2 \\times 3077", marks: 1, answer: "6154", acceptedAnswers: ["6154 cm^3"], hint: "Double the volume of one tank.", explanation: "2 × 3077 = 6154 cm³." },
+        { key: "a", label: "(a)", prompt: "Find the area of the circular base in cm² (π = 3.14, nearest whole number).", latex: "", marks: 1, answer: "154", acceptedAnswers: ["153.86", "154 cm^2"], hint: "πr² = 3.14 × 49.", explanation: "A = 3.14 × 49 = 153.86 ≈ 154 cm²." },
+        { key: "b", label: "(b)", prompt: "Find the volume of the tank in cm³ (nearest whole number).", latex: "", marks: 1, answer: "3077", acceptedAnswers: ["3077.2", "3077 cm^3"], hint: "Multiply the base area by the height.", explanation: "V = 153.86 × 20 = 3077.2 ≈ 3077 cm³." },
+        { key: "c", label: "(c)", prompt: "Find the volume of water when the tank is half full, in cm³ (nearest whole number).", latex: "", marks: 1, answer: "1539", acceptedAnswers: ["1538.6", "1539 cm^3"], hint: "Halve the full volume.", explanation: "3077 ÷ 2 ≈ 1539 cm³." },
+        { key: "d", label: "(d)", prompt: "Find the combined volume (cm³) of two identical tanks.", latex: "", marks: 1, answer: "6154", acceptedAnswers: ["6154 cm^3"], hint: "Double the volume of one tank.", explanation: "2 × 3077 = 6154 cm³." },
       ],
     },
   ],
@@ -1126,7 +1126,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-g2",
       "Find the exact surface area of a closed cylinder with radius 5 cm and height 8 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "130π",
       "Two circles: 2π × 25 = 50π. Curved surface: 2π × 5 × 8 = 80π. SA = 50π + 80π = 130π cm².",
       "Find the area of the two circular ends and the curved surface separately, then add.",
@@ -1135,7 +1135,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-g3",
       "Find the exact surface area of a closed cylinder with radius 3 cm and height 4 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "42π",
       "Two circles: 2π × 9 = 18π. Curved surface: 2π × 3 × 4 = 24π. SA = 18π + 24π = 42π cm².",
       "Apply SA = 2πr² + 2πrh with r = 3 and h = 4.",
@@ -1144,7 +1144,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-g4",
       "Find the exact surface area of a closed cylinder with radius 4 cm and height 6 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "80π",
       "Two circles: 2π × 16 = 32π. Curved surface: 2π × 4 × 6 = 48π. SA = 32π + 48π = 80π cm².",
       "Calculate 2πr² and 2πrh separately, then add.",
@@ -1155,7 +1155,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-i1",
       "Find the exact surface area of a closed cylinder with radius 6 cm and height 10 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "192π",
       "Two circles: 2π × 36 = 72π. Curved surface: 2π × 6 × 10 = 120π. SA = 72π + 120π = 192π cm².",
       "Apply SA = 2πr² + 2πrh.",
@@ -1164,7 +1164,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-i2",
       "Find the exact surface area of a closed cylinder with radius 2 cm and height 8 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "40π",
       "Two circles: 2π × 4 = 8π. Curved surface: 2π × 2 × 8 = 32π. SA = 8π + 32π = 40π cm².",
       "Find both the circular ends and the curved side.",
@@ -1186,7 +1186,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-i4",
       "A closed cylinder has radius 3 cm and surface area $60\\pi$ cm². Find its height.",
-      "2\\pi \\times 3 \\times (3 + h) = 60\\pi",
+      "",
       "7",
       "6π(3 + h) = 60π. Divide both sides by 6π: 3 + h = 10, so h = 7 cm.",
       "Use SA = 2πr(r + h), substitute r = 3, then solve for h.",
@@ -1195,7 +1195,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-i5",
       "Find the exact surface area of a closed cylinder with radius 4 cm and height 11 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "120π",
       "Two circles: 2π × 16 = 32π. Curved surface: 2π × 4 × 11 = 88π. SA = 32π + 88π = 120π cm².",
       "Apply SA = 2πr² + 2πrh with r = 4 and h = 11.",
@@ -1224,7 +1224,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m1",
       "Find the exact surface area of a closed cylinder with radius 7 cm and height 5 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "168π",
       "Two circles: 2π × 49 = 98π. Curved surface: 2π × 7 × 5 = 70π. SA = 98π + 70π = 168π cm².",
       "Apply SA = 2πr² + 2πrh.",
@@ -1233,7 +1233,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m2",
       "Find the exact surface area of a closed cylinder with radius 10 cm and height 4 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "280π",
       "Two circles: 2π × 100 = 200π. Curved surface: 2π × 10 × 4 = 80π. SA = 200π + 80π = 280π cm².",
       "Apply SA = 2πr² + 2πrh.",
@@ -1255,7 +1255,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m4",
       "A closed cylinder has radius 4 cm and surface area $80\\pi$ cm². Find its height.",
-      "2\\pi \\times 4 \\times (4 + h) = 80\\pi",
+      "",
       "6",
       "8π(4 + h) = 80π. Divide both sides by 8π: 4 + h = 10, so h = 6 cm.",
       "Use SA = 2πr(r + h), substitute r = 4, then solve for h.",
@@ -1264,7 +1264,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m5",
       "Find the exact surface area of a closed cylinder with radius 9 cm and height 5 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "252π",
       "Two circles: 2π × 81 = 162π. Curved surface: 2π × 9 × 5 = 90π. SA = 162π + 90π = 252π cm².",
       "Apply SA = 2πr² + 2πrh.",
@@ -1286,7 +1286,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m7",
       "An open-top cylindrical tank has radius 6 cm and height 8 cm. Find the exact outer surface area (base and curved side only). Express in terms of π.",
-      "SA = \\pi r^2 + 2\\pi r h",
+      "",
       "132π",
       "Base: π × 36 = 36π. Curved side: 2π × 6 × 8 = 96π. SA = 36π + 96π = 132π cm².",
       "An open-top cylinder has one circular base plus the curved side — omit the top face.",
@@ -1295,7 +1295,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m8",
       "A closed cylinder has radius 8 cm and surface area $272\\pi$ cm². Find its height.",
-      "2\\pi \\times 8 \\times (8 + h) = 272\\pi",
+      "",
       "9",
       "16π(8 + h) = 272π. Divide both sides by 16π: 8 + h = 17, so h = 9 cm.",
       "Use SA = 2πr(r + h), substitute r = 8, then solve for h.",
@@ -1304,7 +1304,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m9",
       "An open-top water tank has radius 3 m and height 5 m. Find the exact surface area of the inner surface (base and curved wall only). Express in terms of π.",
-      "SA = \\pi r^2 + 2\\pi r h",
+      "",
       "39π",
       "Base: π × 9 = 9π. Curved wall: 2π × 3 × 5 = 30π. SA = 9π + 30π = 39π m².",
       "An open-top tank has one circular base plus the curved inner wall.",
@@ -1313,7 +1313,7 @@ const surfaceAreaOfCylinders: LessonContent = {
     answer(
       "y8-vsa-sc-m10",
       "Find the exact surface area of a closed cylinder with radius 5 cm and height 12 cm. Express in terms of π.",
-      "SA = 2\\pi r^2 + 2\\pi r h",
+      "",
       "170π",
       "Two circles: 2π × 25 = 50π. Curved surface: 2π × 5 × 12 = 120π. SA = 50π + 120π = 170π cm².",
       "Apply SA = 2πr² + 2πrh.",
@@ -1364,10 +1364,10 @@ const surfaceAreaOfCylinders: LessonContent = {
       explanation:
         "(a) Two circular ends = 2π × 3² = 18π cm². (b) Curved surface = 2π × 3 × 11 = 66π cm². (c) Total SA = 18π + 66π = 84π cm². (d) Using π = 3.14, 84π ≈ 263.76 ≈ 263.8 cm².",
       parts: [
-        { key: "a", label: "(a)", prompt: "Find the combined area of the two circular ends, in terms of π.", latex: "2\\pi r^2", marks: 1, answer: "18π", acceptedAnswers: ["18pi", "18 pi"], hint: "2πr² = 2π × 9.", explanation: "2π × 9 = 18π cm²." },
-        { key: "b", label: "(b)", prompt: "Find the curved surface area, in terms of π.", latex: "2\\pi r h", marks: 1, answer: "66π", acceptedAnswers: ["66pi", "66 pi"], hint: "2πrh = 2π × 3 × 11.", explanation: "2π × 3 × 11 = 66π cm²." },
-        { key: "c", label: "(c)", prompt: "Find the total surface area, in terms of π.", latex: "18\\pi + 66\\pi", marks: 1, answer: "84π", acceptedAnswers: ["84pi", "84 pi"], hint: "Add the ends and the curved surface.", explanation: "18π + 66π = 84π cm²." },
-        { key: "d", label: "(d)", prompt: "Find the total surface area as a decimal using π = 3.14 (one decimal place).", latex: "84 \\times 3.14", marks: 1, answer: "263.8", acceptedAnswers: ["263.76", "263.8 cm^2"], hint: "Multiply 84 by 3.14.", explanation: "84 × 3.14 = 263.76 ≈ 263.8 cm²." },
+        { key: "a", label: "(a)", prompt: "Find the combined area of the two circular ends, in terms of π.", latex: "", marks: 1, answer: "18π", acceptedAnswers: ["18pi", "18 pi"], hint: "2πr² = 2π × 9.", explanation: "2π × 9 = 18π cm²." },
+        { key: "b", label: "(b)", prompt: "Find the curved surface area, in terms of π.", latex: "", marks: 1, answer: "66π", acceptedAnswers: ["66pi", "66 pi"], hint: "2πrh = 2π × 3 × 11.", explanation: "2π × 3 × 11 = 66π cm²." },
+        { key: "c", label: "(c)", prompt: "Find the total surface area, in terms of π.", latex: "", marks: 1, answer: "84π", acceptedAnswers: ["84pi", "84 pi"], hint: "Add the ends and the curved surface.", explanation: "18π + 66π = 84π cm²." },
+        { key: "d", label: "(d)", prompt: "Find the total surface area as a decimal using π = 3.14 (one decimal place).", latex: "", marks: 1, answer: "263.8", acceptedAnswers: ["263.76", "263.8 cm^2"], hint: "Multiply 84 by 3.14.", explanation: "84 × 3.14 = 263.76 ≈ 263.8 cm²." },
       ],
     },
   ],
@@ -1454,7 +1454,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-g2",
       "A composite solid has two rectangular prisms joined together. Prism A is 10 cm × 4 cm × 2 cm. Prism B is 6 cm × 4 cm × 3 cm. Find the total volume.",
-      "V = 10 \\times 4 \\times 2 + 6 \\times 4 \\times 3",
+      "",
       "152",
       "V_A = 80 cm³. V_B = 72 cm³. Total = 80 + 72 = 152 cm³.",
       "Calculate each prism volume separately then add.",
@@ -1463,7 +1463,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-g3",
       "A rectangular prism (8 cm × 6 cm × 4 cm) has a small rectangular block (3 cm × 2 cm × 4 cm) removed from it. Find the remaining volume.",
-      "V = 8 \\times 6 \\times 4 - 3 \\times 2 \\times 4",
+      "",
       "168",
       "Outer = 192 cm³. Removed = 24 cm³. Remaining = 192 − 24 = 168 cm³.",
       "Subtract the removed piece from the full outer shape.",
@@ -1472,7 +1472,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-g4",
       "A doorstop consists of a rectangular prism (10 cm × 4 cm × 3 cm) with a triangular prism on top. The triangle has base 4 cm and height 2 cm; the prism is 10 cm long. Find the total volume.",
-      "V = 10 \\times 4 \\times 3 + \\tfrac{1}{2} \\times 4 \\times 2 \\times 10",
+      "",
       "160",
       "Rectangular V = 120 cm³. Triangular V = ½ × 4 × 2 × 10 = 40 cm³. Total = 160 cm³.",
       "The triangular prism formula is ½ × base × height × length.",
@@ -1483,7 +1483,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-i1",
       "Two rectangular prisms are joined. Prism A is 12 cm × 6 cm × 3 cm. Prism B is 5 cm × 6 cm × 2 cm. Find the total volume.",
-      "V = 12 \\times 6 \\times 3 + 5 \\times 6 \\times 2",
+      "",
       "276",
       "V_A = 216 cm³. V_B = 60 cm³. Total = 276 cm³.",
       "Add both rectangular prism volumes.",
@@ -1492,7 +1492,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-i2",
       "An L-shaped solid consists of two rectangular prisms. Prism A is 15 cm × 5 cm × 4 cm and Prism B is 5 cm × 5 cm × 6 cm. Find the total volume.",
-      "V = 15 \\times 5 \\times 4 + 5 \\times 5 \\times 6",
+      "",
       "450",
       "V_A = 300 cm³. V_B = 150 cm³. Total = 450 cm³.",
       "Identify each rectangular prism and calculate both volumes separately.",
@@ -1514,7 +1514,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-i4",
       "A solid outer rectangular prism (10 cm × 8 cm × 5 cm) has a rectangular hole (4 cm × 2 cm × 5 cm) cut all the way through. Find the volume of the remaining solid.",
-      "V = 10 \\times 8 \\times 5 - 4 \\times 2 \\times 5",
+      "",
       "360",
       "Outer V = 400 cm³. Hole V = 40 cm³. Remaining = 400 − 40 = 360 cm³.",
       "Subtract the removed rectangular volume from the full outer prism.",
@@ -1523,7 +1523,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-i5",
       "Two triangular prisms are joined. Prism A has a right-triangle cross-section with base 6 cm and height 4 cm; it is 8 cm long. Prism B has base 3 cm and height 2 cm; also 8 cm long. Find the total volume.",
-      "V = \\tfrac{1}{2} \\times 6 \\times 4 \\times 8 + \\tfrac{1}{2} \\times 3 \\times 2 \\times 8",
+      "",
       "120",
       "V_A = ½ × 6 × 4 × 8 = 96 cm³. V_B = ½ × 3 × 2 × 8 = 24 cm³. Total = 120 cm³.",
       "Each triangular prism: V = ½ × base × height × length.",
@@ -1556,7 +1556,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m1",
       "Two rectangular prisms are joined. Prism A is 8 cm × 6 cm × 4 cm. Prism B is 4 cm × 6 cm × 3 cm. Find the total volume.",
-      "V = 8 \\times 6 \\times 4 + 4 \\times 6 \\times 3",
+      "",
       "264",
       "V_A = 192 cm³. V_B = 72 cm³. Total = 192 + 72 = 264 cm³.",
       "Add both rectangular prism volumes.",
@@ -1565,7 +1565,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m2",
       "A rectangular prism (12 cm × 8 cm × 5 cm) has a square hole (3 cm × 3 cm × 5 cm) removed from it. Find the remaining volume.",
-      "V = 12 \\times 8 \\times 5 - 3 \\times 3 \\times 5",
+      "",
       "435",
       "Outer = 480 cm³. Removed = 45 cm³. Remaining = 480 − 45 = 435 cm³.",
       "Subtract the removed prism volume from the full outer prism.",
@@ -1587,7 +1587,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m4",
       "A composite solid has a rectangular prism (10 cm × 6 cm × 4 cm) base with a triangular prism on top. The triangular cross-section has base 6 cm and height 3 cm; the prism is 10 cm long. Find the total volume.",
-      "V = 10 \\times 6 \\times 4 + \\tfrac{1}{2} \\times 6 \\times 3 \\times 10",
+      "",
       "330",
       "V_rect = 240 cm³. V_tri = ½ × 6 × 3 × 10 = 90 cm³. Total = 330 cm³.",
       "The triangular prism is on top — add its volume to the rectangular prism volume.",
@@ -1596,7 +1596,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m5",
       "A stepped solid has a lower rectangular prism (14 cm × 6 cm × 3 cm) and an upper rectangular prism (8 cm × 6 cm × 3 cm) placed on top of one end. Find the total volume.",
-      "V = 14 \\times 6 \\times 3 + 8 \\times 6 \\times 3",
+      "",
       "396",
       "Lower V = 252 cm³. Upper V = 144 cm³. Total = 252 + 144 = 396 cm³.",
       "Add both rectangular prism volumes — neither is removed.",
@@ -1613,7 +1613,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m7",
       "A composite solid consists of a lower rectangular prism (14 cm × 6 cm × 3 cm) and an upper rectangular prism (8 cm × 6 cm × 4 cm) placed on top of one end. Find the total volume.",
-      "V = 14 \\times 6 \\times 3 + 8 \\times 6 \\times 4",
+      "",
       "444",
       "Lower V = 252 cm³. Upper V = 192 cm³. Total = 252 + 192 = 444 cm³.",
       "Add both rectangular prism volumes, noting the different heights.",
@@ -1622,7 +1622,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m8",
       "A garden bed is L-shaped. One section is 4 m long and 2 m wide; the other is 3 m long and 1 m wide. Both sections are 0.5 m deep. Find the total volume of soil needed.",
-      "V = 4 \\times 2 \\times 0.5 + 3 \\times 1 \\times 0.5",
+      "",
       "5.5",
       "Section A: 4 × 2 × 0.5 = 4 m³. Section B: 3 × 1 × 0.5 = 1.5 m³. Total = 5.5 m³.",
       "Split the L-shape into two rectangles and find each section's volume.",
@@ -1631,7 +1631,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m9",
       "A cylindrical pipe has outer radius 5 cm and inner radius 3 cm. It is 20 cm long. Find the exact volume of material in the pipe. Express your answer in terms of π.",
-      "V = \\pi(5^2 - 3^2) \\times 20",
+      "",
       "320π",
       "V_outer = π × 25 × 20 = 500π. V_inner = π × 9 × 20 = 180π. Material = 500π − 180π = 320π cm³.",
       "Subtract the volume of the hollow inner cylinder from the full outer cylinder.",
@@ -1640,7 +1640,7 @@ const volumeOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cv-m10",
       "A doorstop is a rectangular prism (8 cm × 5 cm × 4 cm) with a triangular prism on top. The triangular cross-section has base 8 cm and height 3 cm; the prism is 5 cm long. Find the total volume.",
-      "V = 8 \\times 5 \\times 4 + \\tfrac{1}{2} \\times 8 \\times 3 \\times 5",
+      "",
       "220",
       "V_rect = 160 cm³. V_tri = ½ × 8 × 3 × 5 = 60 cm³. Total = 220 cm³.",
       "Identify the two component shapes and add their volumes.",
@@ -1691,10 +1691,10 @@ const volumeOfCompositeSolids: LessonContent = {
       explanation:
         "(a) Rectangular base volume = 12 × 6 × 5 = 360 cm³. (b) Triangular cross-section area = ½ × 12 × 4 = 24 cm². (c) Roof volume = 24 × 6 = 144 cm³. (d) Total volume = 360 + 144 = 504 cm³.",
       parts: [
-        { key: "a", label: "(a)", prompt: "Find the volume of the rectangular base in cm³.", latex: "V = 12 \\times 6 \\times 5", marks: 1, answer: "360", acceptedAnswers: ["360 cm^3"], hint: "Multiply length × width × height.", explanation: "12 × 6 × 5 = 360 cm³." },
-        { key: "b", label: "(b)", prompt: "Find the area of the triangular cross-section of the roof in cm².", latex: "A = \\tfrac{1}{2} \\times 12 \\times 4", marks: 1, answer: "24", acceptedAnswers: ["24 cm^2"], hint: "Area = ½ × base × height.", explanation: "½ × 12 × 4 = 24 cm²." },
-        { key: "c", label: "(c)", prompt: "Find the volume of the triangular prism roof in cm³.", latex: "V = 24 \\times 6", marks: 1, answer: "144", acceptedAnswers: ["144 cm^3"], hint: "Multiply the cross-sectional area by the roof length.", explanation: "24 × 6 = 144 cm³." },
-        { key: "d", label: "(d)", prompt: "Find the total volume of the house-shaped solid in cm³.", latex: "360 + 144", marks: 1, answer: "504", acceptedAnswers: ["504 cm^3"], hint: "Add the base and roof volumes.", explanation: "360 + 144 = 504 cm³." },
+        { key: "a", label: "(a)", prompt: "Find the volume of the rectangular base in cm³.", latex: "", marks: 1, answer: "360", acceptedAnswers: ["360 cm^3"], hint: "Multiply length × width × height.", explanation: "12 × 6 × 5 = 360 cm³." },
+        { key: "b", label: "(b)", prompt: "Find the area of the triangular cross-section of the roof in cm².", latex: "", marks: 1, answer: "24", acceptedAnswers: ["24 cm^2"], hint: "Area = ½ × base × height.", explanation: "½ × 12 × 4 = 24 cm²." },
+        { key: "c", label: "(c)", prompt: "Find the volume of the triangular prism roof in cm³.", latex: "", marks: 1, answer: "144", acceptedAnswers: ["144 cm^3"], hint: "Multiply the cross-sectional area by the roof length.", explanation: "24 × 6 = 144 cm³." },
+        { key: "d", label: "(d)", prompt: "Find the total volume of the house-shaped solid in cm³.", latex: "", marks: 1, answer: "504", acceptedAnswers: ["504 cm^3"], hint: "Add the base and roof volumes.", explanation: "360 + 144 = 504 cm³." },
       ],
     },
   ],
@@ -1798,7 +1798,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-g2",
       "A small rectangular prism (6 cm × 4 cm × 3 cm) sits on top of a large rectangular prism (10 cm × 6 cm × 4 cm). Their shared joint face is 6 cm × 4 cm. Find the total surface area.",
-      "SA = 248 + 108 - 2 \\times 24",
+      "",
       "308",
       "SA_large = 2(60+40+24) = 248. SA_small = 2(24+18+12) = 108. Joint = 24. SA = 248+108−48 = 308 cm².",
       "Use SA = SA₁ + SA₂ − 2 × joint area.",
@@ -1807,7 +1807,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-g3",
       "A small rectangular prism (3 cm × 6 cm × 2 cm) is placed on top of a large rectangular prism (12 cm × 6 cm × 4 cm). Their shared joint face is 3 cm × 6 cm. Find the total surface area.",
-      "SA = 288 + 72 - 2 \\times 18",
+      "",
       "324",
       "SA_large = 2(72+48+24) = 288. SA_small = 2(18+6+12) = 72. Joint = 18. SA = 288+72−36 = 324 cm².",
       "Calculate full SA of each prism, then subtract 2 × joint area.",
@@ -1816,7 +1816,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-g4",
       "A house shape has a rectangular base (8 cm × 5 cm × 4 cm) with a triangular prism roof. The triangle has base 8 cm, height 3 cm and slant sides 5 cm; the prism is 5 cm long. Find the total surface area.",
-      "SA = (40 + 64 + 40) + (24 + 50)",
+      "",
       "218",
       "Base exposed (no top): 8×5 + 2×8×4 + 2×5×4 = 40+64+40 = 144. Roof (no bottom): 2×(½×8×3) + 2×(5×5) = 24+50 = 74. Total = 144+74 = 218 cm².",
       "Exclude the top of the base and the bottom of the roof — both are at the join.",
@@ -1827,7 +1827,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-i1",
       "A small rectangular prism (6 cm × 4 cm × 5 cm) sits on top of a large rectangular prism (12 cm × 8 cm × 3 cm). Their joint face is 6 cm × 4 cm. Find the total surface area.",
-      "SA = 312 + 148 - 2 \\times 24",
+      "",
       "412",
       "SA_large = 2(96+36+24) = 312. SA_small = 2(24+30+20) = 148. Joint = 24. SA = 312+148−48 = 412 cm².",
       "Apply SA = SA₁ + SA₂ − 2 × joint area.",
@@ -1836,7 +1836,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-i2",
       "A small rectangular prism (6 cm × 3 cm × 4 cm) is placed on top of a large rectangular prism (14 cm × 5 cm × 3 cm). Their joint face is 6 cm × 3 cm. Find the total surface area.",
-      "SA = 254 + 108 - 2 \\times 18",
+      "",
       "326",
       "SA_large = 2(70+42+15) = 254. SA_small = 2(18+24+12) = 108. Joint = 18. SA = 254+108−36 = 326 cm².",
       "Identify the joint face dimensions and apply the composite SA formula.",
@@ -1853,7 +1853,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-i4",
       "A small rectangular prism (8 cm × 5 cm × 3 cm) sits on top of a large rectangular prism (12 cm × 8 cm × 4 cm). Their joint face is 8 cm × 5 cm. Find the total surface area.",
-      "SA = 352 + 158 - 2 \\times 40",
+      "",
       "430",
       "SA_large = 2(96+48+32) = 352. SA_small = 2(40+24+15) = 158. Joint = 40. SA = 352+158−80 = 430 cm².",
       "Carefully calculate each full SA, identify the joint, then subtract 2 × joint.",
@@ -1862,7 +1862,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-i5",
       "A house shape has a rectangular base (6 cm × 4 cm × 3 cm) with a triangular prism roof. The triangle has base 6 cm, height 4 cm and slant sides 5 cm; the prism is 4 cm long. Find the total surface area.",
-      "SA = (24 + 36 + 24) + (24 + 40)",
+      "",
       "148",
       "Base exposed (no top): 6×4 + 2×6×3 + 2×4×3 = 24+36+24 = 84. Roof (no bottom): 2×(½×6×4) + 2×(5×4) = 24+40 = 64. Total = 84+64 = 148 cm².",
       "For the roof, include only the triangular ends and the slant rectangles — not the base rectangle.",
@@ -1895,7 +1895,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m1",
       "A small rectangular prism (6 cm × 4 cm × 3 cm) sits on top of a large rectangular prism (10 cm × 8 cm × 4 cm). Their joint face is 6 cm × 4 cm. Find the total surface area.",
-      "SA = 304 + 108 - 2 \\times 24",
+      "",
       "364",
       "SA_large = 2(80+40+32) = 304. SA_small = 2(24+18+12) = 108. Joint = 24. SA = 304+108−48 = 364 cm².",
       "Apply SA = SA₁ + SA₂ − 2 × joint area.",
@@ -1904,7 +1904,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m2",
       "A small square prism (6 cm × 6 cm × 3 cm) sits centred on top of a large square prism (8 cm × 8 cm × 5 cm). Their joint face is 6 cm × 6 cm. Find the total surface area.",
-      "SA = 288 + 144 - 2 \\times 36",
+      "",
       "360",
       "SA_large = 2(64+40+40) = 288. SA_small = 2(36+18+18) = 144. Joint = 36. SA = 288+144−72 = 360 cm².",
       "Full SA of each prism, minus 2 × joint. The joint is where the small prism base meets the large prism top.",
@@ -1921,7 +1921,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m4",
       "A house shape has a rectangular base (12 cm × 6 cm × 4 cm) with a triangular prism roof. The triangle has base 12 cm, height 8 cm and slant sides 10 cm; the prism is 6 cm long. Find the total surface area.",
-      "SA = (72 + 96 + 48) + (96 + 120)",
+      "",
       "432",
       "Base exposed (no top): 72+96+48 = 216. Roof (no bottom): 2×(½×12×8)+2×(10×6) = 96+120 = 216. Total = 432 cm².",
       "Slant side check: half-base = 6, height = 8 → slant = √(36+64) = 10. ✓",
@@ -1930,7 +1930,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m5",
       "A stepped solid has a lower rectangular prism (14 cm × 6 cm × 3 cm) with an upper rectangular prism (8 cm × 6 cm × 3 cm) on top of one end. Their joint face is 8 cm × 6 cm. Find the total surface area.",
-      "SA = 288 + 180 - 2 \\times 48",
+      "",
       "372",
       "SA_lower = 2(84+42+18) = 288. SA_upper = 2(48+24+18) = 180. Joint = 48. SA = 288+180−96 = 372 cm².",
       "A stepped solid has the upper prism sitting on part of the lower prism's top — that shared face is the joint.",
@@ -1952,7 +1952,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m7",
       "A house shape has a rectangular base (8 cm × 4 cm × 5 cm) with a triangular prism roof. The triangle has base 8 cm, height 3 cm and slant sides 5 cm; the prism is 4 cm long. Find the total surface area.",
-      "SA = (32 + 80 + 40) + (24 + 40)",
+      "",
       "216",
       "Base exposed (no top): 8×4 + 2×8×5 + 2×4×5 = 32+80+40 = 152. Roof (no bottom): 2×(½×8×3)+2×(5×4) = 24+40 = 64. Total = 216 cm².",
       "Half-base = 4, height = 3 → slant = √(16+9) = 5. The two slant rectangles are 5×4 each.",
@@ -1961,7 +1961,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m8",
       "A staircase consists of three rectangular prisms. Step 1 (bottom) is 12 cm × 6 cm × 2 cm. Step 2 is 8 cm × 6 cm × 2 cm placed on top. Step 3 is 4 cm × 6 cm × 2 cm placed on top of Step 2. Find the total surface area.",
-      "SA = 216 + 152 + 88 - 2 \\times 48 - 2 \\times 24",
+      "",
       "312",
       "SA₁ = 2(72+24+12) = 216. SA₂ = 2(48+16+12) = 152. SA₃ = 2(24+8+12) = 88. Joint 1-2 = 48. Joint 2-3 = 24. SA = 456−96−48 = 312 cm².",
       "Apply the composite SA formula twice: once for each joint between adjacent steps.",
@@ -1970,7 +1970,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m9",
       "Two closed cylinders are stacked. The large cylinder has radius 6 cm and height 10 cm. The small cylinder has radius 3 cm and height 5 cm, placed on top. Their joint face is a circle with radius 3 cm. Find the total exact surface area in terms of π.",
-      "SA = 192\\pi + 48\\pi - 2 \\times 9\\pi",
+      "",
       "222π",
       "SA_large = 2π×36 + 2π×6×10 = 72π+120π = 192π. SA_small = 2π×9 + 2π×3×5 = 18π+30π = 48π. Joint = π×9 = 9π. SA = 192π+48π−18π = 222π cm².",
       "Joint area = π × r² of the smaller cylinder. Subtract it twice.",
@@ -1979,7 +1979,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
     answer(
       "y8-vsa-cs-m10",
       "Three rectangular prisms are stacked in tiers. P1 (bottom): 12 cm × 10 cm × 3 cm. P2 (middle): 8 cm × 6 cm × 4 cm. P3 (top): 4 cm × 3 cm × 5 cm. Joint P1–P2 area = 48 cm². Joint P2–P3 area = 12 cm². Find the total surface area.",
-      "SA = 372 + 208 + 94 - 2 \\times 48 - 2 \\times 12",
+      "",
       "554",
       "SA_P1 = 2(120+36+30) = 372. SA_P2 = 2(48+32+24) = 208. SA_P3 = 2(12+20+15) = 94. SA = 372+208+94−96−24 = 554 cm².",
       "Subtract 2 × joint area for each of the two joins.",
@@ -2030,10 +2030,10 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       explanation:
         "(a) Large SA = 2(80 + 50 + 40) = 340 cm². (b) Small SA = 2(24 + 18 + 12) = 108 cm². (c) Joint face = 6 × 4 = 24 cm². (d) Composite SA = 340 + 108 − 2×24 = 412 cm².",
       parts: [
-        { key: "a", label: "(a)", prompt: "Find the full surface area of the large prism in cm².", latex: "SA = 2(10\\times8 + 10\\times5 + 8\\times5)", marks: 1, answer: "340", acceptedAnswers: ["340 cm^2"], hint: "Use SA = 2(lw + lh + wh).", explanation: "2(80 + 50 + 40) = 340 cm²." },
-        { key: "b", label: "(b)", prompt: "Find the full surface area of the small prism in cm².", latex: "SA = 2(6\\times4 + 6\\times3 + 4\\times3)", marks: 1, answer: "108", acceptedAnswers: ["108 cm^2"], hint: "Use SA = 2(lw + lh + wh).", explanation: "2(24 + 18 + 12) = 108 cm²." },
-        { key: "c", label: "(c)", prompt: "Find the area of the joint face in cm².", latex: "A = 6 \\times 4", marks: 1, answer: "24", acceptedAnswers: ["24 cm^2"], hint: "The joint is the small prism's base.", explanation: "6 × 4 = 24 cm²." },
-        { key: "d", label: "(d)", prompt: "Find the total composite surface area in cm².", latex: "340 + 108 - 2 \\times 24", marks: 1, answer: "412", acceptedAnswers: ["412 cm^2"], hint: "Subtract twice the joint area from the sum of the two surface areas.", explanation: "340 + 108 − 48 = 412 cm²." },
+        { key: "a", label: "(a)", prompt: "Find the full surface area of the large prism in cm².", latex: "", marks: 1, answer: "340", acceptedAnswers: ["340 cm^2"], hint: "Use SA = 2(lw + lh + wh).", explanation: "2(80 + 50 + 40) = 340 cm²." },
+        { key: "b", label: "(b)", prompt: "Find the full surface area of the small prism in cm².", latex: "", marks: 1, answer: "108", acceptedAnswers: ["108 cm^2"], hint: "Use SA = 2(lw + lh + wh).", explanation: "2(24 + 18 + 12) = 108 cm²." },
+        { key: "c", label: "(c)", prompt: "Find the area of the joint face in cm².", latex: "", marks: 1, answer: "24", acceptedAnswers: ["24 cm^2"], hint: "The joint is the small prism's base.", explanation: "6 × 4 = 24 cm²." },
+        { key: "d", label: "(d)", prompt: "Find the total composite surface area in cm².", latex: "", marks: 1, answer: "412", acceptedAnswers: ["412 cm^2"], hint: "Subtract twice the joint area from the sum of the two surface areas.", explanation: "340 + 108 − 48 = 412 cm²." },
       ],
     },
   ],

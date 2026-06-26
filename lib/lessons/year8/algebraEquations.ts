@@ -1336,7 +1336,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-i1",
       "Five more than twice a number is 19. Find the number.",
-      "\\text{Write and solve the equation.}",
+      "",
       "7",
       "Let x be the number. 2x + 5 = 19. Subtract 5: 2x = 14. Divide by 2: x = 7.",
       "Translate the problem: 5 more than twice x is 2x + 5 = 19.",
@@ -1345,7 +1345,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-i2",
       "A rectangle has perimeter 40 cm and length 12 cm. Find the width.",
-      "\\text{Write an equation using the perimeter formula.}",
+      "",
       "8",
       "Let w be the width. 2(12 + w) = 40. Divide by 2: 12 + w = 20. Subtract 12: w = 8.",
       "Use the perimeter formula: 2(length + width) = perimeter.",
@@ -1362,7 +1362,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-i4",
       "A student buys 3 identical books and pays $6 change from $30. Find the cost of each book.",
-      "\\text{Write and solve the equation.}",
+      "",
       "8",
       "Total spent = 30 − 6 = 24. Let x be the cost of each book. 3x = 24. Divide by 3: x = 8.",
       "Find the total spent first, then divide equally among 3 books.",
@@ -1371,7 +1371,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-i5",
       "A number is halved and then 3 is added to give 9. Find the number.",
-      "\\text{Write and solve the equation.}",
+      "",
       "12",
       "Let x be the number. x/2 + 3 = 9. Subtract 3: x/2 = 6. Multiply by 2: x = 12.",
       "Translate: half of x plus 3 equals 9, giving x/2 + 3 = 9.",
@@ -1400,7 +1400,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m1",
       "A number increased by 15 equals 34. Find the number.",
-      "\\text{Write and solve the equation.}",
+      "",
       "19",
       "Let x be the number. x + 15 = 34. Subtract 15: x = 19. Check: 19 + 15 = 34. ✓",
       "Write x + 15 = 34 and solve.",
@@ -1409,7 +1409,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m2",
       "Twice a number minus 7 equals 13. Find the number.",
-      "\\text{Write and solve the equation.}",
+      "",
       "10",
       "Let x be the number. 2x − 7 = 13. Add 7: 2x = 20. Divide by 2: x = 10.",
       "Write 2x − 7 = 13 and solve.",
@@ -1427,7 +1427,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m4",
       "A rectangle's length is 3 cm more than its width. The perimeter is 30 cm. Find the width.",
-      "\\text{Write an equation for the perimeter.}",
+      "",
       "6",
       "Let w = width, length = w + 3. Perimeter: 2(w + w + 3) = 30 → 4w + 6 = 30 → 4w = 24 → w = 6.",
       "Write perimeter as 2(w + w + 3) = 30 and solve.",
@@ -1436,7 +1436,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m5",
       "Three consecutive integers sum to 42. Find the smallest integer.",
-      "\\text{Write and solve the equation.}",
+      "",
       "13",
       "Let n = smallest integer. n + (n+1) + (n+2) = 42 → 3n + 3 = 42 → 3n = 39 → n = 13.",
       "Write n + (n+1) + (n+2) = 42 and simplify.",
@@ -1458,7 +1458,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m7",
       "A school buys 5 identical calculators and pays $175 in total. Find the cost of each calculator.",
-      "\\text{Write and solve the equation.}",
+      "",
       "35",
       "Let x = cost of each calculator. 5x = 175. Divide by 5: x = 35.",
       "Write 5x = 175 and divide by 5.",
@@ -1467,7 +1467,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m8",
       "Tom is 4 years older than Sam. Their ages sum to 28. Find Sam's age.",
-      "\\text{Write and solve the equation.}",
+      "",
       "12",
       "Let s = Sam's age. Tom's age = s + 4. Sum: s + (s + 4) = 28 → 2s + 4 = 28 → 2s = 24 → s = 12.",
       "Write s + (s + 4) = 28 and simplify.",
@@ -1489,7 +1489,7 @@ const formingEquationsWordProblems: LessonContent = {
     answer(
       "y8-aeq-wrd-m10",
       "A ribbon is cut into two pieces. One piece is 15 cm longer than the other. The total length is 53 cm. Find the length of the shorter piece.",
-      "\\text{Write and solve the equation.}",
+      "",
       "19",
       "Let x = shorter piece. Longer piece = x + 15. Total: x + (x + 15) = 53 → 2x + 15 = 53 → 2x = 38 → x = 19.",
       "Write x + (x + 15) = 53 and solve.",
@@ -2172,7 +2172,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-g2",
       "Does x = 5 satisfy 3x − 2 > 10? Write YES or NO.",
-      "\\text{Substitute }x = 5\\text{ into }3x - 2 > 10.",
+      "",
       "YES",
       "3(5) − 2 = 13. Is 13 > 10? Yes.",
       "Replace x with 5 and evaluate the left side, then compare with 10.",
@@ -2190,7 +2190,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-g4",
       "Solve the compound inequality −2 < x + 3 ≤ 7.",
-      "-2 < x + 3 \\leq 7,\\quad \\text{find the range of }x.",
+      "",
       "-5 < x ≤ 4",
       "Subtract 3 from all parts: −2 − 3 < x ≤ 7 − 3, giving −5 < x ≤ 4.",
       "Subtract 3 from every part of the compound inequality.",
@@ -2201,7 +2201,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-i1",
       "Does x = −3 satisfy −2x ≤ 5? Write YES or NO.",
-      "\\text{Substitute }x = -3\\text{ into }-2x \\leq 5.",
+      "",
       "NO",
       "−2(−3) = 6. Since 6 ≤ 5 is false, x = −3 does not satisfy the inequality, so the answer is NO.",
       "Replace x with −3: −2 × (−3) = 6. Then check whether 6 ≤ 5.",
@@ -2219,7 +2219,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-i3",
       "Solve the compound inequality 0 ≤ 2x − 4 < 10.",
-      "0 \\leq 2x - 4 < 10,\\quad \\text{find the range of }x.",
+      "",
       "2 ≤ x < 7",
       "Add 4 to all parts: 4 ≤ 2x < 14. Divide by 2: 2 ≤ x < 7.",
       "Add 4 to all three parts first, then divide by 2.",
@@ -2293,7 +2293,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m3",
       "Does x = 6 satisfy 4x − 5 ≥ 19? Write YES or NO.",
-      "\\text{Substitute }x = 6\\text{ into }4x - 5 \\geq 19.",
+      "",
       "YES",
       "4(6) − 5 = 24 − 5 = 19. Is 19 ≥ 19? Yes.",
       "Replace x with 6 and evaluate the left side, then compare with 19.",
@@ -2311,7 +2311,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m5",
       "Solve the compound inequality 3 ≤ 2x − 1 < 9.",
-      "3 \\leq 2x - 1 < 9,\\quad \\text{find the range of }x.",
+      "",
       "2 ≤ x < 5",
       "Add 1 to all parts: 4 ≤ 2x < 10. Divide by 2: 2 ≤ x < 5.",
       "Add 1 to all three parts, then divide everything by 2.",
@@ -2329,7 +2329,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m7",
       "Does x = 0 satisfy −3x + 6 > 0? Write YES or NO.",
-      "\\text{Substitute }x = 0\\text{ into }-3x + 6 > 0.",
+      "",
       "YES",
       "−3(0) + 6 = 6. Is 6 > 0? Yes.",
       "Replace x with 0 and evaluate the left side.",
@@ -2347,7 +2347,7 @@ const inequalityProblemSolving: LessonContent = {
     answer(
       "y8-aeq-ips-m9",
       "Solve the compound inequality −6 < 3x + 6 ≤ 15.",
-      "-6 < 3x + 6 \\leq 15,\\quad \\text{find the range of }x.",
+      "",
       "-4 < x ≤ 3",
       "Subtract 6 from all parts: −12 < 3x ≤ 9. Divide by 3: −4 < x ≤ 3.",
       "Subtract 6 from all three parts, then divide by 3.",
@@ -2475,7 +2475,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-g4",
       "Using t = (v − u)/a, find t when v = 25, u = 5, and a = 4.",
-      "t = \\dfrac{v - u}{a},\\quad v = 25,\\ u = 5,\\ a = 4",
+      "",
       "5",
       "t = (25 − 5)/4 = 20/4 = 5.",
       "Substitute the values into the rearranged formula and evaluate step by step.",
@@ -2526,7 +2526,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-i5",
       "Using s = d/t rearranged to t = d/s, find the time to travel 240 km at a speed of 80 km/h.",
-      "t = \\dfrac{d}{s},\\quad d = 240,\\ s = 80",
+      "",
       "3",
       "t = 240/80 = 3 hours.",
       "Substitute d = 240 and s = 80 into t = d/s and evaluate.",
@@ -2624,7 +2624,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m8",
       "Using the formula r = I/(Pn), find the rate r when I = 360, P = 1500, n = 4.",
-      "r = \\dfrac{I}{Pn},\\quad I = 360,\\ P = 1500,\\ n = 4",
+      "",
       "0.06",
       "r = 360/(1500 × 4) = 360/6000 = 0.06.",
       "Multiply P and n first, then divide I by that product.",
@@ -2642,7 +2642,7 @@ const formulaRearrangement: LessonContent = {
     answer(
       "y8-aeq-frm-m10",
       "A rectangle has area A = lb. The area is 54 cm² and the length is 9 cm. Use the rearranged formula b = A/l to find the width.",
-      "b = \\dfrac{A}{l},\\quad A = 54,\\ l = 9",
+      "",
       "6",
       "b = 54/9 = 6 cm.",
       "Substitute A = 54 and l = 9 into b = A/l.",

@@ -136,7 +136,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-g2",
       "Find the circumference of a circle with diameter 8 cm. Use $\\pi \\approx 3.14$.",
-      "C = \\pi \\times 8 = \\;?",
+      "",
       "25.12",
       "$C = \\pi d = 3.14 \\times 8 = 25.12$ cm.",
       "Use $C = \\pi d$ and substitute $d = 8$ with $\\pi \\approx 3.14$.",
@@ -145,7 +145,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-g3",
       "Find the exact circumference of a circle with radius 9 m.",
-      "C = 2\\pi \\times 9 = \\;?",
+      "",
       "18π",
       "$C = 2\\pi r = 2 \\times \\pi \\times 9 = 18\\pi$ m.",
       "Use $C = 2\\pi r$ and leave $\\pi$ in your answer.",
@@ -154,7 +154,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-g4",
       "A circular pond has a radius of 3.5 m. Find its circumference using $\\pi \\approx 3.14$.",
-      "C = 2\\pi \\times 3.5 = \\;?",
+      "",
       "21.98",
       "$C = 2\\pi r = 2 \\times 3.14 \\times 3.5 = 6.28 \\times 3.5 = 21.98$ m.",
       "Use $C = 2\\pi r$, substitute $r = 3.5$ and $\\pi \\approx 3.14$.",
@@ -165,7 +165,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-i1",
       "Find the circumference of a circle with diameter 15 cm. Use $\\pi \\approx 3.14$.",
-      "C = \\pi \\times 15 = \\;?",
+      "",
       "47.1",
       "$C = \\pi d = 3.14 \\times 15 = 47.1$ cm.",
       "Use $C = \\pi d$ with $\\pi \\approx 3.14$.",
@@ -174,7 +174,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-i2",
       "Find the exact circumference of a circle with radius 11 cm.",
-      "C = 2\\pi \\times 11 = \\;?",
+      "",
       "22π",
       "$C = 2\\pi r = 2 \\times \\pi \\times 11 = 22\\pi$ cm.",
       "Multiply 2 by 11 and keep $\\pi$ in the answer.",
@@ -183,7 +183,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-i3",
       "A circular pizza has a diameter of 30 cm. What is its circumference? Use $\\pi \\approx 3.14$.",
-      "C = \\pi \\times 30 = \\;?",
+      "",
       "94.2",
       "$C = \\pi d = 3.14 \\times 30 = 94.2$ cm.",
       "Apply $C = \\pi d$ with the given diameter.",
@@ -205,7 +205,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-i5",
       "A pipe has a radius of 4.5 cm. Find its circumference to 2 decimal places. Use $\\pi \\approx 3.14$.",
-      "C = 2\\pi \\times 4.5 = \\;?",
+      "",
       "28.26",
       "$C = 2\\pi r = 2 \\times 3.14 \\times 4.5 = 6.28 \\times 4.5 = 28.26$ cm.",
       "Multiply $2 \\times 3.14$ first, then multiply by $r = 4.5$.",
@@ -230,7 +230,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m1",
       "Find the circumference of a circle with diameter 20 cm. Use $\\pi \\approx 3.14$.",
-      "C = \\pi \\times 20 = \\;?",
+      "",
       "62.8",
       "$C = \\pi d = 3.14 \\times 20 = 62.8$ cm.",
       "Use $C = \\pi d$.",
@@ -239,7 +239,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m2",
       "Find the exact circumference of a circle with radius 13 cm.",
-      "C = 2\\pi \\times 13 = \\;?",
+      "",
       "26π",
       "$C = 2\\pi r = 2 \\times 13 \\times \\pi = 26\\pi$ cm.",
       "Multiply and leave $\\pi$ in your answer.",
@@ -256,7 +256,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m4",
       "A wheel has a diameter of 50 cm. How far does it travel in 10 complete turns? Use $\\pi \\approx 3.14$.",
-      "10 \\times \\pi \\times 50 = \\;?",
+      "",
       "1570",
       "One turn: $C = \\pi d = 3.14 \\times 50 = 157$ cm. Ten turns: $157 \\times 10 = 1570$ cm.",
       "Find the circumference for one turn, then multiply by 10.",
@@ -265,7 +265,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m5",
       "Find the circumference of a circle with radius 6.5 cm. Use $\\pi \\approx 3.14$.",
-      "C = 2\\pi \\times 6.5 = \\;?",
+      "",
       "40.82",
       "$C = 2\\pi r = 2 \\times 3.14 \\times 6.5 = 6.28 \\times 6.5 = 40.82$ cm.",
       "Use $C = 2\\pi r$ with $\\pi \\approx 3.14$.",
@@ -274,7 +274,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m6",
       "A circular running track has a diameter of 100 m. Find the exact circumference.",
-      "C = \\pi \\times 100 = \\;?",
+      "",
       "100π",
       "$C = \\pi d = \\pi \\times 100 = 100\\pi$ m.",
       "Use $C = \\pi d$ and leave $\\pi$ in the answer.",
@@ -296,7 +296,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m8",
       "A circle has a circumference of 43.96 cm. Find its diameter. Use $\\pi \\approx 3.14$.",
-      "d = \\frac{43.96}{\\pi} = \\;?",
+      "",
       "14",
       "$d = C \\div \\pi = 43.96 \\div 3.14 = 14$ cm.",
       "Rearrange $C = \\pi d$ to get $d = C \\div \\pi$.",
@@ -305,7 +305,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m9",
       "Find the circumference of a circle with radius 2.5 m. Give an exact answer.",
-      "C = 2\\pi \\times 2.5 = \\;?",
+      "",
       "5π",
       "$C = 2\\pi r = 2 \\times \\pi \\times 2.5 = 5\\pi$ m.",
       "Multiply $2 \\times 2.5$ and keep $\\pi$.",
@@ -314,7 +314,7 @@ const circumferenceOfCircles: LessonContent = {
     answer(
       "y8-cal-coc-m10",
       "A circular garden has a radius of 3 m. Fencing costs $12 per metre. Find the total cost of fencing the garden. Use $\\pi \\approx 3.14$.",
-      "\\text{Cost} = 2\\pi \\times 3 \\times 12 = \\;?",
+      "",
       "226.08",
       "$C = 2\\pi r = 2 \\times 3.14 \\times 3 = 18.84$ m. Cost $= 18.84 \\times 12 = 226.08$.",
       "Find the circumference first, then multiply by the cost per metre.",
@@ -399,7 +399,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-g2",
       "Find the arc length of a sector with radius 10 cm and central angle 90°. Use $\\pi \\approx 3.14$.",
-      "l = \\frac{90}{360} \\times 2\\pi \\times 10 = \\;?",
+      "",
       "15.7",
       "$l = \\frac{90}{360} \\times 2 \\times 3.14 \\times 10 = \\frac{1}{4} \\times 62.8 = 15.7$ cm.",
       "The fraction $\\frac{90}{360} = \\frac{1}{4}$. Multiply by the full circumference $2\\pi r$.",
@@ -408,7 +408,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-g3",
       "Find the exact arc length of a sector with radius 9 cm and central angle 60°.",
-      "l = \\frac{60}{360} \\times 2\\pi \\times 9 = \\;?",
+      "",
       "3π",
       "$l = \\frac{60}{360} \\times 18\\pi = \\frac{1}{6} \\times 18\\pi = 3\\pi$ cm.",
       "$\\frac{60}{360} = \\frac{1}{6}$. Multiply by $2\\pi r = 18\\pi$.",
@@ -417,7 +417,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-g4",
       "A sector has radius 5 cm and central angle 144°. Find the arc length using $\\pi \\approx 3.14$.",
-      "l = \\frac{144}{360} \\times 2\\pi \\times 5 = \\;?",
+      "",
       "12.56",
       "$\\frac{144}{360} = \\frac{2}{5}$. $l = \\frac{2}{5} \\times 2 \\times 3.14 \\times 5 = \\frac{2}{5} \\times 31.4 = 12.56$ cm.",
       "Simplify $\\frac{144}{360}$ first, then multiply by $2\\pi r$.",
@@ -428,7 +428,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-i1",
       "Find the arc length of a sector with radius 12 cm and central angle 30°. Use $\\pi \\approx 3.14$.",
-      "l = \\frac{30}{360} \\times 2\\pi \\times 12 = \\;?",
+      "",
       "6.28",
       "$l = \\frac{30}{360} \\times 2 \\times 3.14 \\times 12 = \\frac{1}{12} \\times 75.36 = 6.28$ cm.",
       "$\\frac{30}{360} = \\frac{1}{12}$. Multiply by $2\\pi r$.",
@@ -437,7 +437,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-i2",
       "Find the exact arc length of a sector with radius 15 cm and central angle 120°.",
-      "l = \\frac{120}{360} \\times 2\\pi \\times 15 = \\;?",
+      "",
       "10π",
       "$l = \\frac{1}{3} \\times 30\\pi = 10\\pi$ cm.",
       "$\\frac{120}{360} = \\frac{1}{3}$. Multiply by $2\\pi \\times 15 = 30\\pi$.",
@@ -446,7 +446,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-i3",
       "A sector has diameter 16 cm and central angle 45°. Find the arc length using $\\pi \\approx 3.14$.",
-      "l = \\frac{45}{360} \\times 2\\pi \\times 8 = \\;?",
+      "",
       "6.28",
       "Radius $= 16 \\div 2 = 8$ cm. $l = \\frac{45}{360} \\times 2 \\times 3.14 \\times 8 = \\frac{1}{8} \\times 50.24 = 6.28$ cm.",
       "Halve the diameter to get the radius first, then apply $l = \\frac{\\theta}{360} \\times 2\\pi r$.",
@@ -455,7 +455,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-i4",
       "Find the exact arc length of a sector with radius 4 cm and central angle 270°.",
-      "l = \\frac{270}{360} \\times 2\\pi \\times 4 = \\;?",
+      "",
       "6π",
       "$l = \\frac{3}{4} \\times 8\\pi = 6\\pi$ cm.",
       "$\\frac{270}{360} = \\frac{3}{4}$. Multiply by $2\\pi \\times 4 = 8\\pi$.",
@@ -488,7 +488,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m1",
       "Find the arc length of a sector with radius 6 cm and central angle 60°. Use $\\pi \\approx 3.14$.",
-      "l = \\frac{60}{360} \\times 2\\pi \\times 6 = \\;?",
+      "",
       "6.28",
       "$l = \\frac{1}{6} \\times 2 \\times 3.14 \\times 6 = \\frac{1}{6} \\times 37.68 = 6.28$ cm.",
       "$\\frac{60}{360} = \\frac{1}{6}$.",
@@ -497,7 +497,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m2",
       "Find the exact arc length of a sector with radius 10 cm and central angle 72°.",
-      "l = \\frac{72}{360} \\times 2\\pi \\times 10 = \\;?",
+      "",
       "4π",
       "$l = \\frac{1}{5} \\times 20\\pi = 4\\pi$ cm.",
       "$\\frac{72}{360} = \\frac{1}{5}$.",
@@ -519,7 +519,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m4",
       "A sector has radius 8 cm and central angle 135°. Find the arc length using $\\pi \\approx 3.14$.",
-      "l = \\frac{135}{360} \\times 2\\pi \\times 8 = \\;?",
+      "",
       "18.84",
       "$\\frac{135}{360} = \\frac{3}{8}$. $l = \\frac{3}{8} \\times 50.24 = 18.84$ cm.",
       "Simplify $\\frac{135}{360}$ first.",
@@ -528,7 +528,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m5",
       "Find the exact arc length of a sector with radius 18 cm and central angle 40°.",
-      "l = \\frac{40}{360} \\times 2\\pi \\times 18 = \\;?",
+      "",
       "4π",
       "$l = \\frac{1}{9} \\times 36\\pi = 4\\pi$ cm.",
       "$\\frac{40}{360} = \\frac{1}{9}$, then multiply by $36\\pi$.",
@@ -537,7 +537,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m6",
       "A sector has diameter 20 cm and central angle 90°. Find the arc length using $\\pi \\approx 3.14$.",
-      "l = \\frac{90}{360} \\times 2\\pi \\times 10 = \\;?",
+      "",
       "15.7",
       "Radius $= 20 \\div 2 = 10$ cm. $l = \\frac{1}{4} \\times 62.8 = 15.7$ cm.",
       "Halve the diameter to find the radius first.",
@@ -554,7 +554,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m8",
       "Find the arc length of a sector with radius 7 cm and central angle 180°. Use $\\pi \\approx 3.14$.",
-      "l = \\frac{180}{360} \\times 2\\pi \\times 7 = \\;?",
+      "",
       "21.98",
       "$l = \\frac{1}{2} \\times 43.96 = 21.98$ cm. A 180° sector gives a semicircle arc.",
       "A 180° angle means the arc is half the circumference.",
@@ -563,7 +563,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m9",
       "A sector has central angle 240° and radius 3 cm. Find the exact arc length.",
-      "l = \\frac{240}{360} \\times 2\\pi \\times 3 = \\;?",
+      "",
       "4π",
       "$l = \\frac{2}{3} \\times 6\\pi = 4\\pi$ cm.",
       "$\\frac{240}{360} = \\frac{2}{3}$. Multiply by $2\\pi \\times 3 = 6\\pi$.",
@@ -572,7 +572,7 @@ const arcLength: LessonContent = {
     answer(
       "y8-cal-arc-m10",
       "The minute hand of a clock is 10 cm long. How far does its tip travel between 12:00 and 12:20? Use $\\pi \\approx 3.14$.",
-      "l = \\frac{120}{360} \\times 2\\pi \\times 10 = \\;?",
+      "",
       "20.93",
       "20 minutes is $\\frac{20}{60} = \\frac{1}{3}$ of an hour, so the hand sweeps $120°$. $l = \\frac{120}{360} \\times 62.8 = \\frac{1}{3} \\times 62.8 \\approx 20.93$ cm.",
       "Work out what angle 20 minutes represents (out of 60 minutes in 360°), then apply the arc length formula.",
@@ -654,7 +654,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-g2",
       "Find the perimeter of a semicircle with radius 5 cm. Use $\\pi \\approx 3.14$.",
-      "P = \\pi r + 2r = \\;?",
+      "",
       "25.7",
       "Arc $= \\pi r = 3.14 \\times 5 = 15.7$ cm. $P = 15.7 + 2 \\times 5 = 15.7 + 10 = 25.7$ cm.",
       "Arc length of a semicircle is $\\pi r$; add the diameter $2r$ for the straight edge.",
@@ -663,7 +663,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-g3",
       "Find the perimeter of a quarter circle with radius 6 cm. Use $\\pi \\approx 3.14$.",
-      "P = \\frac{\\pi \\times 6}{2} + 2 \\times 6 = \\;?",
+      "",
       "21.42",
       "Arc $= \\frac{1}{4} \\times 2 \\times 3.14 \\times 6 = 9.42$ cm. $P = 9.42 + 12 = 21.42$ cm.",
       "Arc of a quarter circle is $\\frac{1}{4} \\times 2\\pi r$; add the two radii.",
@@ -672,7 +672,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-g4",
       "A sector has radius 10 cm and central angle 120°. Find its perimeter using $\\pi \\approx 3.14$.",
-      "P = \\frac{120}{360} \\times 2\\pi \\times 10 + 2 \\times 10 = \\;?",
+      "",
       "40.93",
       "Arc $= \\frac{1}{3} \\times 62.8 \\approx 20.93$ cm. $P = 20.93 + 20 = 40.93$ cm.",
       "Find the arc length first using $l = \\frac{\\theta}{360} \\times 2\\pi r$, then add $2r$.",
@@ -683,7 +683,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-i1",
       "Find the perimeter of a semicircle with radius 9 cm. Use $\\pi \\approx 3.14$.",
-      "P = \\pi \\times 9 + 2 \\times 9 = \\;?",
+      "",
       "46.26",
       "Arc $= 3.14 \\times 9 = 28.26$ cm. $P = 28.26 + 18 = 46.26$ cm.",
       "Arc of a semicircle is $\\pi r$; straight side is $2r$.",
@@ -692,7 +692,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-i2",
       "Find the exact perimeter of a quarter circle with radius 8 cm.",
-      "P = \\frac{\\pi \\times 8}{2} + 2 \\times 8 = \\;?",
+      "",
       "4π + 16",
       "Arc $= \\frac{1}{4} \\times 16\\pi = 4\\pi$ cm. $P = 4\\pi + 16$ cm.",
       "Arc of a quarter circle is $\\frac{\\pi r}{2}$; add $2r = 16$.",
@@ -701,7 +701,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-i3",
       "A sector has radius 12 cm and central angle 90°. Find its perimeter using $\\pi \\approx 3.14$.",
-      "P = \\frac{90}{360} \\times 2\\pi \\times 12 + 2 \\times 12 = \\;?",
+      "",
       "42.84",
       "Arc $= \\frac{1}{4} \\times 75.36 = 18.84$ cm. $P = 18.84 + 24 = 42.84$ cm.",
       "Use $l = \\frac{\\theta}{360} \\times 2\\pi r$ for the arc, then add $2r$.",
@@ -723,7 +723,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-i5",
       "A sector has radius 15 cm and central angle 240°. Find its perimeter using $\\pi \\approx 3.14$.",
-      "P = \\frac{240}{360} \\times 2\\pi \\times 15 + 2 \\times 15 = \\;?",
+      "",
       "92.8",
       "Arc $= \\frac{2}{3} \\times 94.2 = 62.8$ cm. $P = 62.8 + 30 = 92.8$ cm.",
       "$\\frac{240}{360} = \\frac{2}{3}$. Find the arc, then add $2r = 30$.",
@@ -748,7 +748,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m1",
       "Find the perimeter of a semicircle with radius 4 cm. Use $\\pi \\approx 3.14$.",
-      "P = \\pi \\times 4 + 2 \\times 4 = \\;?",
+      "",
       "20.56",
       "Arc $= 3.14 \\times 4 = 12.56$ cm. $P = 12.56 + 8 = 20.56$ cm.",
       "Arc of a semicircle is $\\pi r$; add $2r$.",
@@ -757,7 +757,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m2",
       "Find the exact perimeter of a semicircle with radius 10 cm.",
-      "P = \\pi \\times 10 + 2 \\times 10 = \\;?",
+      "",
       "10π + 20",
       "$P = 10\\pi + 20$ cm.",
       "Arc is $\\pi r = 10\\pi$; add $2r = 20$.",
@@ -779,7 +779,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m4",
       "Find the perimeter of a sector with radius 8 cm and central angle 45°. Use $\\pi \\approx 3.14$.",
-      "P = \\frac{45}{360} \\times 2\\pi \\times 8 + 16 = \\;?",
+      "",
       "22.28",
       "Arc $= \\frac{1}{8} \\times 50.24 = 6.28$ cm. $P = 6.28 + 16 = 22.28$ cm.",
       "$\\frac{45}{360} = \\frac{1}{8}$; then add $2r = 16$.",
@@ -788,7 +788,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m5",
       "A window is shaped like a rectangle 60 cm wide and 40 cm tall, with a semicircle on top. Find the perimeter of the window. Use $\\pi \\approx 3.14$.",
-      "P = 2 \\times 40 + 60 + \\pi \\times 30 = \\;?",
+      "",
       "234.2",
       "Semicircle radius $= 30$ cm. Arc $= \\pi \\times 30 = 94.2$ cm. Perimeter $= 40 + 40 + 60 + 94.2 = 234.2$ cm.",
       "Include both vertical sides, the bottom, and the semicircle arc. The top of the rectangle is replaced by the arc.",
@@ -797,7 +797,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m6",
       "Find the exact perimeter of a quarter circle with radius 14 cm.",
-      "P = \\frac{\\pi \\times 14}{2} + 2 \\times 14 = \\;?",
+      "",
       "7π + 28",
       "Arc $= \\frac{1}{4} \\times 28\\pi = 7\\pi$ cm. $P = 7\\pi + 28$ cm.",
       "Arc of a quarter circle is $\\frac{\\pi r}{2}$; add $2r = 28$.",
@@ -806,7 +806,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m7",
       "A sector has radius 9 cm and central angle 160°. Find its perimeter using $\\pi \\approx 3.14$.",
-      "P = \\frac{160}{360} \\times 2\\pi \\times 9 + 18 = \\;?",
+      "",
       "43.13",
       "Arc $= \\frac{4}{9} \\times 56.52 \\approx 25.13$ cm. $P \\approx 25.13 + 18 = 43.13$ cm.",
       "$\\frac{160}{360} = \\frac{4}{9}$. Multiply by $2\\pi r = 56.52$, then add $2r$.",
@@ -823,7 +823,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m9",
       "A sector has a perimeter of 30 cm and radius 8 cm. Find the arc length.",
-      "l = 30 - 2 \\times 8 = \\;?",
+      "",
       "14",
       "$P = l + 2r$, so $l = P - 2r = 30 - 16 = 14$ cm.",
       "Rearrange $P = l + 2r$ to find $l = P - 2r$.",
@@ -832,7 +832,7 @@ const perimeterOfSectors: LessonContent = {
     answer(
       "y8-cal-sec-m10",
       "A logo consists of a square with side 12 cm and a quarter circle inside one corner (radius 12 cm). The perimeter of the logo is three sides of the square plus the quarter circle arc. Find this perimeter using $\\pi \\approx 3.14$.",
-      "P = 3 \\times 12 + \\frac{1}{4} \\times 2\\pi \\times 12 = \\;?",
+      "",
       "54.84",
       "Three sides $= 36$ cm. Arc $= \\frac{1}{4} \\times 75.36 = 18.84$ cm. $P = 36 + 18.84 = 54.84$ cm.",
       "Calculate the quarter circle arc length, then add the three straight sides.",
@@ -912,7 +912,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-g2",
       "A circle has circumference 47.1 cm. Find its diameter using $\\pi \\approx 3.14$.",
-      "d = \\frac{47.1}{\\pi} = \\;?",
+      "",
       "15",
       "$d = C \\div \\pi = 47.1 \\div 3.14 = 15$ cm.",
       "Rearrange $C = \\pi d$ to get $d = C \\div \\pi$.",
@@ -921,7 +921,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-g3",
       "A sector has radius 5 cm and arc length $\\pi$ cm. Find the central angle.",
-      "\\theta = \\frac{\\pi}{2\\pi \\times 5} \\times 360 = \\;?",
+      "",
       "36",
       "$\\theta = \\frac{l}{2\\pi r} \\times 360 = \\frac{\\pi}{10\\pi} \\times 360 = \\frac{1}{10} \\times 360 = 36°$.",
       "Use $\\theta = \\frac{l}{2\\pi r} \\times 360$ and substitute $l = \\pi$ and $r = 5$.",
@@ -930,7 +930,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-g4",
       "A wheel with radius 0.35 m completes 50 full rotations. How far does it travel? Use $\\pi \\approx 3.14$.",
-      "50 \\times 2\\pi \\times 0.35 = \\;?",
+      "",
       "109.9",
       "$C = 2\\pi r = 2 \\times 3.14 \\times 0.35 = 2.198$ m. Distance $= 50 \\times 2.198 = 109.9$ m.",
       "Find the circumference for one rotation, then multiply by 50.",
@@ -941,7 +941,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-i1",
       "A circle has circumference 94.2 cm. Find its radius using $\\pi \\approx 3.14$.",
-      "r = \\frac{94.2}{2\\pi} = \\;?",
+      "",
       "15",
       "$r = C \\div (2\\pi) = 94.2 \\div 6.28 = 15$ cm.",
       "Rearrange $C = 2\\pi r$ to get $r = C \\div (2\\pi)$.",
@@ -950,7 +950,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-i2",
       "A sector has radius 8 cm and arc length 12.56 cm. Find the central angle using $\\pi \\approx 3.14$.",
-      "\\theta = \\frac{12.56}{2\\pi \\times 8} \\times 360 = \\;?",
+      "",
       "90",
       "$\\theta = \\frac{12.56}{50.24} \\times 360 = 0.25 \\times 360 = 90°$.",
       "Use $\\theta = \\frac{l}{2\\pi r} \\times 360$ with $l = 12.56$ and $r = 8$.",
@@ -959,7 +959,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-i3",
       "An arc has length $6\\pi$ cm and central angle 60°. Find the radius of the circle.",
-      "r = \\frac{6\\pi \\times 360}{60 \\times 2\\pi} = \\;?",
+      "",
       "18",
       "$6\\pi = \\frac{60}{360} \\times 2\\pi r = \\frac{1}{6} \\times 2\\pi r$. So $2\\pi r = 36\\pi$, giving $r = 18$ cm.",
       "Substitute $l = 6\\pi$ and $\\theta = 60$ into the arc length formula and solve for $r$.",
@@ -976,7 +976,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-i5",
       "A sector has arc length 20 cm and central angle 90°. Find the radius using $\\pi \\approx 3.14$.",
-      "r = \\frac{20 \\times 360}{90 \\times 2\\pi} = \\;?",
+      "",
       "12.74",
       "$20 = \\frac{90}{360} \\times 2\\pi r = \\frac{1}{4} \\times 2\\pi r$. So $2\\pi r = 80$, $r = 80 \\div 6.28 \\approx 12.74$ cm.",
       "Substitute known values into $l = \\frac{\\theta}{360} \\times 2\\pi r$ and solve for $r$.",
@@ -1001,7 +1001,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m1",
       "A circle has circumference 31.4 cm. Find its diameter using $\\pi \\approx 3.14$.",
-      "d = \\frac{31.4}{\\pi} = \\;?",
+      "",
       "10",
       "$d = 31.4 \\div 3.14 = 10$ cm.",
       "Use $d = C \\div \\pi$.",
@@ -1010,7 +1010,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m2",
       "A circle has circumference $18\\pi$ cm. Find its radius.",
-      "r = \\frac{18\\pi}{2\\pi} = \\;?",
+      "",
       "9",
       "$C = 2\\pi r$, so $r = 18\\pi \\div 2\\pi = 9$ cm.",
       "Divide the exact circumference by $2\\pi$.",
@@ -1027,7 +1027,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m4",
       "A running track semicircle has arc length 62.8 m. Find the radius of the semicircle using $\\pi \\approx 3.14$.",
-      "r = \\frac{62.8}{\\pi} = \\;?",
+      "",
       "20",
       "Arc of a semicircle $= \\pi r$. So $r = 62.8 \\div 3.14 = 20$ m.",
       "For a semicircle, arc $= \\pi r$. Rearrange to $r = \\text{arc} \\div \\pi$.",
@@ -1036,7 +1036,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m5",
       "A wheel has circumference 1.57 m. How many complete rotations does it make to travel 200 m? Use $\\pi \\approx 3.14$.",
-      "\\text{Rotations} = \\frac{200}{1.57} = \\;?",
+      "",
       "127",
       "$200 \\div 1.57 \\approx 127.4$. So 127 complete rotations.",
       "Divide the total distance by the circumference per rotation, then round down.",
@@ -1045,7 +1045,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m6",
       "An arc has length 15.7 cm and central angle 90°. Find the radius using $\\pi \\approx 3.14$.",
-      "r = \\frac{15.7 \\times 360}{90 \\times 2\\pi} = \\;?",
+      "",
       "10",
       "$15.7 = \\frac{1}{4} \\times 2\\pi r$, so $2\\pi r = 62.8$ and $r = 62.8 \\div 6.28 = 10$ cm.",
       "Substitute $l = 15.7$ and $\\theta = 90$ into the arc length formula, then solve for $r$.",
@@ -1054,7 +1054,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m7",
       "A satellite dish has circumference 9.42 m. Find its radius using $\\pi \\approx 3.14$.",
-      "r = \\frac{9.42}{2\\pi} = \\;?",
+      "",
       "1.5",
       "$r = 9.42 \\div 6.28 = 1.5$ m.",
       "Use $r = C \\div (2\\pi)$.",
@@ -1071,7 +1071,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m9",
       "A clock's minute hand is 12 cm long. How far does its tip travel between 12:00 and 12:45? Use $\\pi \\approx 3.14$.",
-      "l = \\frac{270}{360} \\times 2\\pi \\times 12 = \\;?",
+      "",
       "56.52",
       "45 minutes $= \\frac{3}{4}$ of an hour $= 270°$. $l = \\frac{3}{4} \\times 75.36 = 56.52$ cm.",
       "45 minutes represents $\\frac{3}{4}$ of a full rotation, so the angle swept is 270°.",
@@ -1080,7 +1080,7 @@ const circumferenceApplications: LessonContent = {
     answer(
       "y8-cal-app-m10",
       "A circular irrigation system sweeps a sector with radius 50 m and arc length 78.5 m. Find the central angle of the sector and the perimeter of the sector. Use $\\pi \\approx 3.14$.",
-      "\\theta = \\frac{78.5}{2\\pi \\times 50} \\times 360 = \\;?\\text{ then } P = 78.5 + 100",
+      "",
       "90",
       "Step 1 — Find $\\theta$: $\\frac{78.5}{314} \\times 360 = 0.25 \\times 360 = 90°$. Step 2 — Perimeter: $78.5 + 2 \\times 50 = 178.5$ m. The central angle is 90° and the perimeter is 178.5 m.",
       "First find the central angle using $\\theta = \\frac{l}{2\\pi r} \\times 360$, then find the perimeter as arc + 2r.",
