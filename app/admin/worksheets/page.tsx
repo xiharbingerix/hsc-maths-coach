@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../lib/adminSession";
+import { newCoursePathways } from "../../../lib/newCourseCatalog";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import { getSiteUrl } from "../../../lib/stripe";
 import { CopyButton } from "./CopyButton";
@@ -8,6 +9,10 @@ import { CopyButton } from "./CopyButton";
 export const metadata: Metadata = {
   title: "Worksheets | Nova Maths Admin",
 };
+
+const courseLabelMap = new Map<string, string>(
+  newCoursePathways.map((pathway) => [pathway.slug, pathway.title])
+);
 
 type TopicConfig = {
   courseSlug?: string;
@@ -173,6 +178,7 @@ export default async function WorksheetsPage() {
                   const shareUrl = `${baseUrl}/worksheet/${w.share_token}`;
                   const courseSlug =
                     w.topic_config?.courseSlug ?? w.topic_config?.course_slug ?? "—";
+                  const courseLabel = courseLabelMap.get(courseSlug) ?? courseSlug;
                   return (
                     <tr key={w.id} className="hover:bg-slate-50">
                       <td className="px-5 py-3 font-medium">
@@ -196,7 +202,7 @@ export default async function WorksheetsPage() {
                         </div>
                       </td>
                       <td className="px-5 py-3 text-slate-600">
-                        {courseSlug} / Yr&nbsp;{w.year_level}
+                        {courseLabel} / Yr&nbsp;{w.year_level}
                       </td>
                       <td className="px-5 py-3 text-slate-600">
                         <p>{dueLabel}</p>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../../lib/adminSession";
+import { newCoursePathways } from "../../../../lib/newCourseCatalog";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import { WorksheetGeneratorForm } from "./WorksheetGeneratorForm";
 
@@ -10,13 +11,18 @@ export const metadata: Metadata = {
 
 type CourseTopicEntry = {
   courseSlug: string;
+  courseTitle: string;
   topicSlug: string;
+  topicTitle: string;
 };
 
 export type CourseTopicSubtopicEntry = {
   courseSlug: string;
+  courseTitle: string;
   topicSlug: string;
+  topicTitle: string;
   subtopicSlug: string;
+  subtopicTitle: string;
 };
 
 type QuestionMetaRow = {
@@ -29,6 +35,9 @@ async function loadCourseMeta(): Promise<{
   courseTopics: CourseTopicEntry[];
   courseTopicSubtopics: CourseTopicSubtopicEntry[];
 }> {
+  const courseMap = new Map<string, (typeof newCoursePathways)[number]>(
+    newCoursePathways.map((pathway) => [pathway.slug, pathway])
+  );
   const rows: QuestionMetaRow[] = [];
   const batchSize = 1000;
   let from = 0;
@@ -55,10 +64,18 @@ async function loadCourseMeta(): Promise<{
   const courseTopicSubtopics: CourseTopicSubtopicEntry[] = [];
 
   for (const row of rows) {
+    const course = courseMap.get(row.course_slug);
+    const topic = course?.units.find((unit) => unit.slug === row.topic_slug);
+    const subtopic = topic?.lessons.find((lesson) => lesson.slug === row.subtopic_slug);
     const topicKey = `${row.course_slug}::${row.topic_slug}`;
     if (!seenTopics.has(topicKey)) {
       seenTopics.add(topicKey);
-      courseTopics.push({ courseSlug: row.course_slug, topicSlug: row.topic_slug });
+      courseTopics.push({
+        courseSlug: row.course_slug,
+        courseTitle: course?.title ?? row.course_slug,
+        topicSlug: row.topic_slug,
+        topicTitle: topic?.title ?? row.topic_slug,
+      });
     }
     if (row.subtopic_slug) {
       const subtopicKey = `${row.course_slug}::${row.topic_slug}::${row.subtopic_slug}`;
@@ -66,8 +83,11 @@ async function loadCourseMeta(): Promise<{
         seenSubtopics.add(subtopicKey);
         courseTopicSubtopics.push({
           courseSlug: row.course_slug,
+          courseTitle: course?.title ?? row.course_slug,
           topicSlug: row.topic_slug,
+          topicTitle: topic?.title ?? row.topic_slug,
           subtopicSlug: row.subtopic_slug,
+          subtopicTitle: subtopic?.title ?? row.subtopic_slug,
         });
       }
     }

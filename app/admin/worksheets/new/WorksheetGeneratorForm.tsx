@@ -9,13 +9,18 @@ import type { Choice } from "../../../../lib/lessons/diagramRegistry";
 
 type CourseTopicEntry = {
   courseSlug: string;
+  courseTitle: string;
   topicSlug: string;
+  topicTitle: string;
 };
 
 type CourseTopicSubtopicEntry = {
   courseSlug: string;
+  courseTitle: string;
   topicSlug: string;
+  topicTitle: string;
   subtopicSlug: string;
+  subtopicTitle: string;
 };
 
 type GenerateResult = {
@@ -123,6 +128,93 @@ export function WorksheetGeneratorForm({
   initialTitle?: string;
 }) {
   const courses = [...new Set(courseTopics.map((ct) => ct.courseSlug))].sort();
+  const courseLabelMap = new Map(
+    courseTopics.map((entry) => [entry.courseSlug, entry.courseTitle])
+  );
+  const topicLabelMap = new Map(
+    courseTopics.map((entry) => [
+      `${entry.courseSlug}::${entry.topicSlug}`,
+      entry.topicTitle,
+    ])
+  );
+  const subtopicLabelMap = new Map(
+    courseTopicSubtopics.map((entry) => [
+      `${entry.courseSlug}::${entry.topicSlug}::${entry.subtopicSlug}`,
+      entry.subtopicTitle,
+    ])
+  );
+
+  function courseLabel(slug: string) {
+    return courseLabelMap.get(slug) ?? displaySlug(slug);
+  }
+
+  function topicLabel(topicSlug: string) {
+    return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? displaySlug(topicSlug);
+  }
+
+  function subtopicLabel(topicSlug: string, subtopicSlug: string) {
+    return (
+      subtopicLabelMap.get(`${courseSlug}::${topicSlug}::${subtopicSlug}`) ??
+      displaySlug(subtopicSlug)
+    );
+  }
+
+  function worksheetTitlePreview() {
+    const courseTitle = courseLabel(courseSlug || "course");
+    const subtopicTitles = selectedSubtopics
+      .map((subtopic) => {
+        const parentTopic = selectedTopics.find((topic) =>
+          courseTopicSubtopics.some(
+            (entry) =>
+              entry.courseSlug === courseSlug &&
+              entry.topicSlug === topic &&
+              entry.subtopicSlug === subtopic
+          )
+        );
+        return parentTopic ? subtopicLabel(parentTopic, subtopic) : null;
+      })
+      .filter((title): title is string => Boolean(title));
+    if (subtopicTitles.length > 0) {
+      return `${courseTitle}: ${subtopicTitles.join(", ")}`;
+    }
+
+    const topicTitles = selectedTopics.map((topic) => topicLabel(topic));
+    if (topicTitles.length > 0) {
+      return `${courseTitle}: ${topicTitles.join(", ")}`;
+    }
+
+    return courseTitle;
+  }
+
+  function worksheetScopePreview() {
+    if (selectedSubtopics.length > 0) {
+      const subtopicTitles = selectedSubtopics
+        .map((subtopic) => {
+          const parentTopic = selectedTopics.find((topic) =>
+            courseTopicSubtopics.some(
+              (entry) =>
+                entry.courseSlug === courseSlug &&
+                entry.topicSlug === topic &&
+                entry.subtopicSlug === subtopic
+            )
+          );
+          return parentTopic ? subtopicLabel(parentTopic, subtopic) : null;
+        })
+        .filter((title): title is string => Boolean(title));
+
+      if (subtopicTitles.length > 0) {
+        return `${courseLabel(courseSlug)} - ${subtopicTitles.join(", ")}`;
+      }
+    }
+
+    if (selectedTopics.length > 0) {
+      return `${courseLabel(courseSlug)} - ${selectedTopics
+        .map((topic) => topicLabel(topic))
+        .join(", ")}`;
+    }
+
+    return courseLabel(courseSlug);
+  }
 
   const resolvedInitialCourse =
     initialCourseSlug && courses.includes(initialCourseSlug)
@@ -354,7 +446,7 @@ export function WorksheetGeneratorForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: title.trim() || `${courseSlug} - ${preset}`,
+          title: title.trim() || worksheetTitlePreview(),
           courseSlug,
           topicSlugs: selectedTopics,
           preset,
@@ -475,7 +567,7 @@ export function WorksheetGeneratorForm({
             {previewQuestions.length !== 1 ? "s" : ""}
           </p>
           <p className="mt-1 text-sm text-slate-600">
-            {displaySlug(courseSlug)} - {selectedTopics.map(displaySlug).join(", ")}
+            {worksheetScopePreview()}
           </p>
           <p className="mt-1 text-xs text-slate-500">
             Nothing has been saved yet. Replace any question, then create the
@@ -493,7 +585,19 @@ export function WorksheetGeneratorForm({
         {prioritisedSubtopics.length > 0 && selectedSubtopics.length === 0 ? (
           <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
             Prioritised weak subtopics:{" "}
-            {prioritisedSubtopics.map(displaySlug).join(", ")}
+            {prioritisedSubtopics
+              .map((subtopic) => {
+                const parentTopic = courseTopicSubtopics.find(
+                  (entry) =>
+                    entry.courseSlug === courseSlug &&
+                    entry.subtopicSlug === subtopic &&
+                    selectedTopics.includes(entry.topicSlug)
+                )?.topicSlug;
+                return parentTopic
+                  ? subtopicLabel(parentTopic, subtopic)
+                  : displaySlug(subtopic);
+              })
+              .join(", ")}
           </div>
         ) : null}
 
@@ -509,8 +613,12 @@ export function WorksheetGeneratorForm({
                     Question {index + 1}
                   </p>
                   <p className="mt-1 text-sm text-slate-600">
-                    {displaySlug(question.topicSlug)} /{" "}
-                    {displaySlug(question.subtopicSlug)}
+                    {topicLabelMap.get(`${question.courseSlug}::${question.topicSlug}`) ??
+                      displaySlug(question.topicSlug)}{" "}
+                    /{" "}
+                    {subtopicLabelMap.get(
+                      `${question.courseSlug}::${question.topicSlug}::${question.subtopicSlug}`
+                    ) ?? displaySlug(question.subtopicSlug)}
                   </p>
                   <p className="mt-1 text-xs text-slate-500">
                     Difficulty {question.difficulty}
@@ -640,7 +748,7 @@ export function WorksheetGeneratorForm({
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder={`${courseSlug || "Course"} - ${preset}`}
+          placeholder={worksheetTitlePreview()}
           disabled={status === "previewing"}
           className="w-full rounded-xl border border-slate-300 px-3 py-2 text-sm disabled:opacity-50"
         />
@@ -703,7 +811,7 @@ export function WorksheetGeneratorForm({
         >
           {courses.map((course) => (
             <option key={course} value={course}>
-              {displaySlug(course)}
+              {courseLabel(course)}
             </option>
           ))}
         </select>
@@ -743,7 +851,7 @@ export function WorksheetGeneratorForm({
                   disabled={status === "previewing"}
                   className="rounded border-slate-300"
                 />
-                <span className="text-slate-700">{displaySlug(topic)}</span>
+                <span className="text-slate-700">{topicLabel(topic)}</span>
               </label>
             ))}
           </div>
@@ -785,7 +893,16 @@ export function WorksheetGeneratorForm({
                   disabled={status === "previewing"}
                   className="rounded border-slate-300"
                 />
-                <span className="text-slate-700">{displaySlug(subtopic)}</span>
+                <span className="text-slate-700">
+                  {subtopicLabel(
+                    courseTopicSubtopics.find(
+                      (entry) =>
+                        entry.courseSlug === courseSlug &&
+                        entry.subtopicSlug === subtopic
+                    )?.topicSlug ?? "",
+                    subtopic
+                  )}
+                </span>
               </label>
             ))}
           </div>

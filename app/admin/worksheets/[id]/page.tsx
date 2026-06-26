@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireAdmin } from "../../../../lib/adminSession";
+import { newCoursePathways } from "../../../../lib/newCourseCatalog";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import { getSiteUrl } from "../../../../lib/stripe";
 import { CopyButton } from "../CopyButton";
@@ -10,6 +11,10 @@ import { LiveAttemptMonitor } from "./LiveAttemptMonitor";
 export const metadata: Metadata = {
   title: "Worksheet Detail | Nova Maths Admin",
 };
+
+const courseLabelMap = new Map<string, string>(
+  newCoursePathways.map((pathway) => [pathway.slug, pathway.title])
+);
 
 type TopicConfig = {
   courseSlug?: string;
@@ -120,6 +125,7 @@ export default async function WorksheetDetailPage({
   const shareUrl = `${getSiteUrl()}/worksheet/${worksheet.share_token}`;
   const courseSlug =
     worksheet.topic_config?.courseSlug ?? worksheet.topic_config?.course_slug ?? "—";
+  const courseLabel = courseLabelMap.get(courseSlug) ?? courseSlug;
   const assignedName = worksheet.assigned_student_name?.trim() || "Unassigned";
   const assignedEmail = worksheet.assigned_student_email?.trim();
   const dueLabel = worksheet.due_at
@@ -143,7 +149,7 @@ export default async function WorksheetDetailPage({
             </p>
             <h1 className="mt-1 text-3xl font-bold tracking-tight">{worksheet.title}</h1>
             <p className="mt-1.5 text-sm text-slate-500">
-              {courseSlug} · Year {worksheet.year_level} · Created{" "}
+              {courseLabel} · Year {worksheet.year_level} · Created{" "}
               {new Date(worksheet.created_at).toLocaleDateString("en-AU", {
                 day: "numeric",
                 month: "short",
