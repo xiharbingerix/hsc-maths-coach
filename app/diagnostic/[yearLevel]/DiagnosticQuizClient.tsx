@@ -337,58 +337,6 @@ export function DiagnosticQuizClient({
               mark; it is to find the first topics that will make study feel
               clearer.
             </p>
-            <fieldset className="mt-6">
-              <legend className="text-lg font-bold text-slate-900">
-                Which topics have you already studied this year?{" "}
-                <span className="font-semibold text-slate-500">(optional)</span>
-              </legend>
-              <p className="mt-1 text-sm leading-6 text-slate-600">
-                Select every topic your class has covered to sharpen your
-                recommendations — or just start, and we&rsquo;ll check across all
-                topics.
-              </p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {diagnosticUnits.map((unit) => {
-                  const isSelected = studiedUnitSlugSet.has(unit.slug);
-                  return (
-                    <label
-                      key={unit.slug}
-                      className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition ${
-                        isSelected
-                          ? "border-slate-900 bg-slate-50"
-                          : "border-slate-200 bg-white hover:border-slate-400"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => toggleStudiedUnit(unit.slug)}
-                        className="mt-1 h-4 w-4 shrink-0 accent-slate-900"
-                      />
-                      <span className="text-sm font-semibold leading-6">
-                        {unit.title}
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStudiedUnitSlugs(
-                      diagnosticUnits.map((unit) => unit.slug)
-                    );
-                  }}
-                  className="font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-950"
-                >
-                  Select all
-                </button>
-                <span className="text-slate-500">
-                  {studiedUnitSlugs.length} of {diagnosticUnits.length} selected
-                </span>
-              </div>
-            </fieldset>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
@@ -401,9 +349,60 @@ export function DiagnosticQuizClient({
                 href="/diagnostic/select"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-900 hover:bg-slate-50"
               >
-                Choose another diagnostic
+                Choose another year
               </Link>
             </div>
+            <details className="mt-6 rounded-xl border border-slate-200">
+              <summary className="cursor-pointer select-none px-4 py-3 text-sm font-semibold text-slate-700 hover:text-slate-950">
+                Sharpen your recommendations (optional) — tick topics you&rsquo;ve already studied
+              </summary>
+              <div className="px-4 pb-4 pt-2">
+                <p className="text-sm leading-6 text-slate-600">
+                  Select every topic your class has covered. If you skip this, we&rsquo;ll check across all topics.
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {diagnosticUnits.map((unit) => {
+                    const isSelected = studiedUnitSlugSet.has(unit.slug);
+                    return (
+                      <label
+                        key={unit.slug}
+                        className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition ${
+                          isSelected
+                            ? "border-slate-900 bg-slate-50"
+                            : "border-slate-200 bg-white hover:border-slate-400"
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleStudiedUnit(unit.slug)}
+                          className="mt-1 h-4 w-4 shrink-0 accent-slate-900"
+                        />
+                        <span className="text-sm font-semibold leading-6">
+                          {unit.title}
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStudiedUnitSlugs(
+                        diagnosticUnits.map((unit) => unit.slug)
+                      );
+                    }}
+                    className="font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-950"
+                  >
+                    Select all
+                  </button>
+                  <span className="text-slate-500">
+                    {studiedUnitSlugs.length} of {diagnosticUnits.length} selected
+                  </span>
+                </div>
+              </div>
+            </details>
           </section>
         </div>
       </main>
