@@ -55,6 +55,36 @@ function truncate(s: string, n: number): string {
   return s.length > n ? s.slice(0, n) + "…" : s;
 }
 
+async function fetchQuestionRows(courseFilter?: string) {
+  const rows: QuestionRow[] = [];
+  const pageSize = 1000;
+
+  for (let from = 0; ; from += pageSize) {
+    let query = supabaseAdmin
+      .from("questions")
+      .select(
+        "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, prompt, syllabus_ref, is_active, created_at, updated_at"
+      )
+      .order("course_slug")
+      .order("source_id")
+      .range(from, from + pageSize - 1);
+
+    if (courseFilter) query = query.eq("course_slug", courseFilter);
+
+    const { data, error } = await query;
+    if (error) {
+      return { rows, error };
+    }
+
+    const page = (data as QuestionRow[] | null) ?? [];
+    rows.push(...page);
+
+    if (page.length < pageSize) {
+      return { rows, error: null };
+    }
+  }
+}
+
 const DIFF_COLOUR: Record<number, string> = {
   1: "bg-emerald-50 text-emerald-700",
   2: "bg-sky-50 text-sky-700",
@@ -94,20 +124,7 @@ export default async function AdminQuestionsPage({
 
   // ── Fetch questions ─────────────────────────────────────────────────────────
 
-  let dbQuery = supabaseAdmin
-    .from("questions")
-    .select(
-      "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, prompt, syllabus_ref, is_active, created_at, updated_at"
-    )
-    .order("course_slug")
-    .order("source_id")
-    .limit(2000);
-
-  if (courseFilter) dbQuery = dbQuery.eq("course_slug", courseFilter);
-
-  const { data, error } = await dbQuery;
-
-  const questions = (data as QuestionRow[] | null) ?? [];
+  const { rows: questions, error } = await fetchQuestionRows(courseFilter);
 
   // ── Build summary groups ────────────────────────────────────────────────────
 

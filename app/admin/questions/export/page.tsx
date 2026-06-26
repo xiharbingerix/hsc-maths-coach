@@ -24,6 +24,39 @@ function prettify(slug: string) {
   return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+async function fetchDistinctQuestionFieldValues(
+  filters: { course?: string; topic?: string; activeOnly?: boolean },
+  field: "topic_slug" | "subtopic_slug"
+) {
+  const values = new Set<string>();
+  const pageSize = 1000;
+
+  for (let from = 0; ; from += pageSize) {
+    let query = supabaseAdmin
+      .from("questions")
+      .select(field)
+      .order(field)
+      .range(from, from + pageSize - 1);
+
+    if (filters.activeOnly ?? true) query = query.eq("is_active", true);
+    if (filters.course) query = query.eq("course_slug", filters.course);
+    if (filters.topic) query = query.eq("topic_slug", filters.topic);
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    const rows = (data ?? []) as Array<Record<typeof field, string | null>>;
+    for (const row of rows) {
+      const value = row[field];
+      if (value) values.add(value);
+    }
+
+    if (rows.length < pageSize) break;
+  }
+
+  return [...values].sort();
+}
+
 export default async function AdminQuestionExportPage({
   searchParams,
 }: {
@@ -108,34 +141,20 @@ export default async function AdminQuestionExportPage({
 
   // ── Topic options (only relevant if course is selected) ────────────────────
 
-  const { data: topicData } = filterCourse
-    ? await supabaseAdmin
-        .from("questions")
-        .select("topic_slug")
-        .eq("course_slug", filterCourse)
-        .eq("is_active", true)
-        .order("topic_slug")
-    : { data: null };
+  const uniqueTopics = filterCourse
+    ? await fetchDistinctQuestionFieldValues(
+        { course: filterCourse, activeOnly: true },
+        "topic_slug"
+      )
+    : [];
 
-  const uniqueTopics = Array.from(
-    new Set((topicData ?? []).map((r: { topic_slug: string }) => r.topic_slug))
-  ).sort();
-
-  const { data: subtopicData } = filterTopic
-    ? await supabaseAdmin
-        .from("questions")
-        .select("subtopic_slug")
-        .eq("course_slug", filterCourse)
-        .eq("topic_slug", filterTopic)
-        .eq("is_active", true)
-        .order("subtopic_slug")
-    : { data: null };
-
-  const uniqueSubtopics = Array.from(
-    new Set(
-      (subtopicData ?? []).map((r: { subtopic_slug: string }) => r.subtopic_slug)
-    )
-  ).sort();
+  const uniqueSubtopics =
+    filterCourse && filterTopic
+      ? await fetchDistinctQuestionFieldValues(
+          { course: filterCourse, topic: filterTopic, activeOnly: true },
+          "subtopic_slug"
+        )
+      : [];
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
