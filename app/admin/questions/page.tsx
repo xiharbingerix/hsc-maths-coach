@@ -171,12 +171,20 @@ export default async function AdminQuestionsPage({
               <span className="font-mono text-xs">source_id: y12adv-*</span>
             </p>
           </div>
-          <Link
-            href="/admin"
-            className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-          >
-            ← Admin
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/admin/questions/export${subtopicFilter ? `?subtopic=${encodeURIComponent(subtopicFilter)}` : ""}${query ? `${subtopicFilter ? "&" : "?"}q=${encodeURIComponent(query)}` : ""}`}
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              Export / Print
+            </Link>
+            <Link
+              href="/admin"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              ← Admin
+            </Link>
+          </div>
         </header>
 
         {error && (
