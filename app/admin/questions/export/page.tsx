@@ -59,16 +59,8 @@ export default async function AdminQuestionExportPage({
 
   // ── Fetch filter option data ────────────────────────────────────────────────
 
-  const { data: courseData } = await supabaseAdmin
-    .from("questions")
-    .select("course_slug")
-    .eq("is_active", true)
-    .order("course_slug")
-    .limit(50000);
-
-  const uniqueCourses = Array.from(
-    new Set((courseData ?? []).map((r: { course_slug: string }) => r.course_slug))
-  ).sort();
+  const { data: courseData } = await supabaseAdmin.rpc("distinct_question_courses");
+  const uniqueCourses = ((courseData ?? []) as { course_slug: string }[]).map((r) => r.course_slug);
 
   // ── Fetch matching questions ────────────────────────────────────────────────
 

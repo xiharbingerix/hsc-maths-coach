@@ -88,17 +88,9 @@ export default async function AdminQuestionsPage({
   const subtopicFilter = params?.subtopic?.trim() ?? "";
   const courseFilter = params?.course?.trim() ?? "";
 
-  // ── Fetch distinct course slugs ────────────────────────────────────────────
-  // Use a high limit - only fetching one small column so this is cheap.
-  const { data: courseData } = await supabaseAdmin
-    .from("questions")
-    .select("course_slug")
-    .order("course_slug")
-    .limit(50000);
-
-  const allCourses = Array.from(
-    new Set((courseData ?? []).map((r: { course_slug: string }) => r.course_slug))
-  ).sort();
+  // ── Fetch distinct course slugs via DB function (bypasses PostgREST max_rows) ─
+  const { data: courseData } = await supabaseAdmin.rpc("distinct_question_courses");
+  const allCourses = ((courseData ?? []) as { course_slug: string }[]).map((r) => r.course_slug);
 
   // ── Fetch questions ─────────────────────────────────────────────────────────
 
