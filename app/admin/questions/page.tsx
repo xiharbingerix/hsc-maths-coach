@@ -79,21 +79,40 @@ function diffBadge(d: number) {
 export default async function AdminQuestionsPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ q?: string; subtopic?: string }>;
+  searchParams?: Promise<{ q?: string; subtopic?: string; course?: string }>;
 }) {
   await requireAdmin();
 
   const params = await searchParams;
   const query = params?.q?.trim().toLowerCase() ?? "";
   const subtopicFilter = params?.subtopic?.trim() ?? "";
+  const courseFilter = params?.course?.trim() ?? "";
 
-  const { data, error } = await supabaseAdmin
+  // ── Fetch course list for dropdown ─────────────────────────────────────────
+
+  const { data: courseData } = await supabaseAdmin
+    .from("questions")
+    .select("course_slug")
+    .order("course_slug");
+
+  const allCourses = Array.from(
+    new Set((courseData ?? []).map((r: { course_slug: string }) => r.course_slug))
+  ).sort();
+
+  // ── Fetch questions ─────────────────────────────────────────────────────────
+
+  let dbQuery = supabaseAdmin
     .from("questions")
     .select(
       "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, prompt, syllabus_ref, is_active, created_at, updated_at"
     )
-    .like("source_id", "y12adv-%")
-    .order("source_id");
+    .order("course_slug")
+    .order("source_id")
+    .limit(2000);
+
+  if (courseFilter) dbQuery = dbQuery.eq("course_slug", courseFilter);
+
+  const { data, error } = await dbQuery;
 
   const questions = (data as QuestionRow[] | null) ?? [];
 
@@ -151,7 +170,7 @@ export default async function AdminQuestionsPage({
   });
 
   const subtopics = [...new Set(questions.map((q) => q.subtopic_slug))].sort();
-  const hasFilter = !!(query || subtopicFilter);
+  const hasFilter = !!(query || subtopicFilter || courseFilter);
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
@@ -167,13 +186,12 @@ export default async function AdminQuestionsPage({
               Question Bank
             </h1>
             <p className="mt-1 text-sm text-slate-500">
-              Read-only view of imported questions{" "}
-              <span className="font-mono text-xs">source_id: y12adv-*</span>
+              Read-only view of all imported questions across every course.
             </p>
           </div>
           <div className="flex items-center gap-2">
             <Link
-              href={`/admin/questions/export${subtopicFilter ? `?subtopic=${encodeURIComponent(subtopicFilter)}` : ""}${query ? `${subtopicFilter ? "&" : "?"}q=${encodeURIComponent(query)}` : ""}`}
+              href={`/admin/questions/export${courseFilter ? `?course=${encodeURIComponent(courseFilter)}` : ""}${subtopicFilter ? `${courseFilter ? "&" : "?"}subtopic=${encodeURIComponent(subtopicFilter)}` : ""}${query ? `${courseFilter || subtopicFilter ? "&" : "?"}q=${encodeURIComponent(query)}` : ""}`}
               className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
             >
               Export / Print
@@ -203,8 +221,7 @@ export default async function AdminQuestionsPage({
 
           {groups.length === 0 ? (
             <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center text-slate-500">
-              No questions with{" "}
-              <span className="font-mono text-xs">y12adv-</span> prefix found.
+              No questions found{courseFilter ? ` for course "${courseFilter}"` : ""}.
               Run the importer with{" "}
               <span className="font-mono text-xs">--write --confirm-write</span>{" "}
               to seed the database.
@@ -319,8 +336,20 @@ export default async function AdminQuestionsPage({
           <form
             method="GET"
             action="/admin/questions"
-            className="mb-4 flex gap-2"
+            className="mb-4 flex flex-wrap gap-2"
           >
+            <select
+              name="course"
+              defaultValue={courseFilter}
+              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
+            >
+              <option value="">All courses</option>
+              {allCourses.map((c) => (
+                <option key={c} value={c}>
+                  {c.replace(/-/g, " ").replace(/\b\w/g, (ch) => ch.toUpperCase())}
+                </option>
+              ))}
+            </select>
             {subtopicFilter && (
               <input type="hidden" name="subtopic" value={subtopicFilter} />
             )}
@@ -329,7 +358,7 @@ export default async function AdminQuestionsPage({
               name="q"
               defaultValue={query}
               placeholder="Search source_id or prompt text…"
-              className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400"
+              className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400"
             />
             <button
               type="submit"
