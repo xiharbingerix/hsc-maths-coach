@@ -4,6 +4,7 @@ import type {
   WorkedExample,
 } from "./lessons/differentialCalculus";
 import { pickDiagramFields, type DiagramFields } from "./lessons/diagramRegistry";
+import { isGenericMcqInstructionLatex } from "./lessons/questionHelpers";
 
 export type LessonLength = 30 | 45 | 60;
 export type StudentLevel = "struggling" | "on-level" | "extension";
@@ -149,14 +150,12 @@ export function detectPlaceholderLesson(lesson: ExplicitLesson): string | null {
 
 // Generic MCQ placeholder formulas (several phrasings exist) carry no
 // information once the choices are shown — strip them from the display.
-const GENERIC_MCQ_LATEX_RE = /^\\text\{\s*Select\s+A,?\s*B,?\s*C,?\s*(or\s+)?D\.?\s*\}$/i;
-
 function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
   return {
     id: q.id,
     prompt: q.prompt,
     // Suppress the generic MCQ placeholder formula — it adds no information when choices are shown
-    displayLatex: GENERIC_MCQ_LATEX_RE.test(q.latex) ? "" : q.latex,
+    displayLatex: isGenericMcqInstructionLatex(q.latex) ? "" : q.latex,
     isMultipleChoice: !!q.choices,
     choices: q.choices,
     answer: q.answer,

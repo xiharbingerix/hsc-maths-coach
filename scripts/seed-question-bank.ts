@@ -25,6 +25,7 @@ import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 import { probabilityLessons } from "../lib/lessons/probability";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
+import { isGenericMcqInstructionLatex } from "../lib/lessons/questionHelpers";
 import { getChallengeQuestions } from "../lib/challenges";
 import { getAllExamPapers } from "../lib/exams";
 import { examQuestions } from "../lib/exams/types";
@@ -287,7 +288,7 @@ export function mapPracticeQuestionToQuestionRow(
     difficulty: inferDifficulty(question, section, position),
     question_type: question.choices?.length ? "conceptual" : "procedural",
     prompt: question.prompt,
-    latex: question.latex || null,
+    latex: isGenericMcqInstructionLatex(question.latex) ? null : question.latex || null,
     choices: normaliseChoices(question),
     question_parts: normaliseQuestionParts(question),
     answer: question.answer,

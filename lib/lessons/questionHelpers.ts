@@ -1,5 +1,12 @@
 import type { PracticeQuestion } from "./differentialCalculus";
 
+const GENERIC_MCQ_INSTRUCTION_RE =
+  /^\\text\{\s*Select\s+A,?\s*B,?\s*C,?\s*(?:or\s+)?D\.?\s*\}$/i;
+
+export function isGenericMcqInstructionLatex(latex: string | null | undefined) {
+  return Boolean(latex && GENERIC_MCQ_INSTRUCTION_RE.test(latex.trim()));
+}
+
 export function formatChoiceText(text: string) {
   if (text.includes("$")) {
     return text;
@@ -32,7 +39,7 @@ export function labelledChoice(
   return {
     id,
     prompt,
-    latex: "\\text{Select A, B, C, or D.}",
+    latex: "",
     choices: ["A", "B", "C", "D"].map((label, index) => ({
       label,
       text: formatChoiceText(choices[index]),
@@ -67,7 +74,7 @@ export function financeChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = ""
 ): PracticeQuestion {
   return {
     id,
@@ -89,7 +96,7 @@ export function practicalChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = ""
 ): PracticeQuestion {
   return {
     id,

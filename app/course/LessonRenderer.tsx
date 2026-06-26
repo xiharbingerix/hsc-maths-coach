@@ -16,6 +16,7 @@ import type {
   PracticeQuestion,
   PracticeQuestionPart,
 } from "../../lib/lessons/differentialCalculus";
+import { isGenericMcqInstructionLatex } from "../../lib/lessons/questionHelpers";
 import { VisualPayloadRenderer } from "../components/VisualPayloadRenderer";
 import { markTypedAnswer } from "../../lib/answerMarking";
 import { looksSymbolic } from "../../lib/cas/looksSymbolic";
@@ -221,6 +222,10 @@ function shouldHideLatex(latex: string | null | undefined, candidates: string[])
 }
 
 function safeQuestionLatex(question: PracticeQuestion) {
+  if (isGenericMcqInstructionLatex(question.latex)) {
+    return null;
+  }
+
   return shouldHideLatex(question.latex, [question.answer, ...(question.acceptedAnswers ?? [])])
     ? null
     : question.latex;
