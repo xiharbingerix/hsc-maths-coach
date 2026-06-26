@@ -454,12 +454,15 @@ function buildActivityTimeline({
 
 export default async function AdminStudentDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ course?: string; topic?: string }>;
 }) {
   await requireAdmin();
 
   const { id } = await params;
+  const { course: filterCourse, topic: filterTopicSearch } = await searchParams;
   const { data: userData, error: userError } =
     await supabaseAdmin.auth.admin.getUserById(id);
 
@@ -640,6 +643,18 @@ export default async function AdminStudentDetailPage({
       worksheet.status !== "archived" &&
       !completedWorksheetIds.has(worksheet.id)
   ).length;
+  const uniqueCourseSlugs = Array.from(new Set(masteryRows.map((r) => r.course_slug))).sort();
+
+  const filteredMasteryRows = masteryRows.filter((row) => {
+    if (filterCourse && row.course_slug !== filterCourse) return false;
+    if (filterTopicSearch) {
+      const label = topicLabelFor(row.course_slug, row.topic_slug).toLowerCase();
+      const search = filterTopicSearch.toLowerCase();
+      if (!label.includes(search) && !row.topic_slug.includes(search)) return false;
+    }
+    return true;
+  });
+
   const masteryAverage = average(masteryRows.map((row) => row.mastery_score));
   const weakestTopic = masteryRows[0] ?? null;
   const masteryTrends = buildMasteryTrends(masteryRows, masteryHistoryRows);
@@ -773,38 +788,89 @@ export default async function AdminStudentDetailPage({
 
         {masteryRows.length > 0 ? (
           <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex flex-col gap-1">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Mastery overview
-              </p>
-              <h2 className="mt-1 text-xl font-bold">Where they&apos;re at</h2>
-              <p className="mt-1 text-sm text-slate-600">
-                Click a topic to see lesson-level mastery, including lessons not
-                yet started.
-              </p>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div className="flex flex-col gap-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Mastery overview
+                </p>
+                <h2 className="mt-1 text-xl font-bold">Where they&apos;re at</h2>
+                <p className="mt-1 text-sm text-slate-600">
+                  Click a topic to see lesson-level mastery, including lessons not yet started.
+                </p>
+              </div>
+              <form method="GET" className="flex flex-wrap items-center gap-2">
+                <select
+                  name="course"
+                  defaultValue={filterCourse ?? ""}
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700 focus:border-slate-400 focus:outline-none"
+                >
+                  <option value="">All courses</option>
+                  {uniqueCourseSlugs.map((slug) => (
+                    <option key={slug} value={slug}>
+                      {slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="search"
+                  name="topic"
+                  defaultValue={filterTopicSearch ?? ""}
+                  placeholder="Filter topic…"
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700 placeholder-slate-400 focus:border-slate-400 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="rounded-xl bg-slate-900 px-4 py-1.5 text-sm font-semibold text-white hover:bg-slate-700"
+                >
+                  Filter
+                </button>
+                {(filterCourse || filterTopicSearch) && (
+                  <a
+                    href={`/admin/students/${id}`}
+                    className="rounded-xl border border-slate-200 bg-white px-4 py-1.5 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                  >
+                    Clear
+                  </a>
+                )}
+              </form>
             </div>
+            {(filterCourse || filterTopicSearch) && (
+              <p className="mt-3 text-xs text-slate-500">
+                Showing {filteredMasteryRows.length} of {masteryRows.length} topics
+                {filterCourse ? ` in ${filterCourse.replace(/-/g, " ")}` : ""}
+                {filterTopicSearch ? ` matching "${filterTopicSearch}"` : ""}
+              </p>
+            )}
             <div className="mt-5">
-              <TopicBreakdownCard
-                title={studentName(user, profile)}
-                subtitle="Topic breakdown"
-                overallLabel="Average mastery"
-                overallScore={masteryAverage ?? 0}
-                topics={masteryRows.map((row) => ({
-                  name: topicLabelFor(row.course_slug, row.topic_slug),
-                  score: row.mastery_score,
-                  lessons: lessonsForTopic(row, subtopicMasteryRows),
-                }))}
-                recommended={
-                  studyPlan.nextTopic
-                    ? {
-                        label: "Recommended next lesson",
-                        title: studyPlan.nextTopic.title,
-                        description: "Targets the weakest topic first.",
-                        href: studyPlan.nextTopic.href,
-                      }
-                    : null
-                }
-              />
+              {filteredMasteryRows.length > 0 ? (
+                <TopicBreakdownCard
+                  title={studentName(user, profile)}
+                  subtitle="Topic breakdown"
+                  overallLabel="Average mastery"
+                  overallScore={
+                    average(filteredMasteryRows.map((r) => r.mastery_score)) ?? 0
+                  }
+                  topics={filteredMasteryRows.map((row) => ({
+                    name: topicLabelFor(row.course_slug, row.topic_slug),
+                    score: row.mastery_score,
+                    lessons: lessonsForTopic(row, subtopicMasteryRows),
+                  }))}
+                  recommended={
+                    !filterCourse && !filterTopicSearch && studyPlan.nextTopic
+                      ? {
+                          label: "Recommended next lesson",
+                          title: studyPlan.nextTopic.title,
+                          description: "Targets the weakest topic first.",
+                          href: studyPlan.nextTopic.href,
+                        }
+                      : null
+                  }
+                />
+              ) : (
+                <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
+                  No topics match this filter.
+                </p>
+              )}
             </div>
           </section>
         ) : null}
