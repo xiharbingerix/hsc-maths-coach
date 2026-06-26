@@ -106,6 +106,8 @@ export function DiagnosticQuizClient({
   const [saveError, setSaveError] = useState<string | null>(null);
   const [submitWarning, setSubmitWarning] = useState<string | null>(null);
 
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
   const saveAttemptedRef = useRef(false);
   const completedTrackedRef = useRef(false);
   const answeredTrackedRef = useRef<Set<string>>(new Set());
@@ -289,27 +291,12 @@ export function DiagnosticQuizClient({
   }
 
   function handleSubmit() {
-    const firstUnansweredIndex = questions.findIndex((q) => !answers[q.id]);
-
     void clientTrackEvent("diagnostic_submit_clicked", {
       yearLevel,
       answeredQuestions: Object.keys(answers).length,
       totalQuestions,
-      complete: firstUnansweredIndex === -1,
+      complete: true,
     });
-
-    if (firstUnansweredIndex !== -1) {
-      const missingCount = questions.filter((q) => !answers[q.id]).length;
-      const firstUnanswered = questions[firstUnansweredIndex];
-      setSubmitWarning(
-        `${missingCount} question${missingCount === 1 ? "" : "s"} still unanswered. Answer every question before seeing results.`
-      );
-      questionRefs.current[firstUnanswered.id]?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-      return;
-    }
 
     setSubmitWarning(null);
     setPhase("results");
@@ -681,6 +668,7 @@ export function DiagnosticQuizClient({
                 setSaveError(null);
                 setIsLoggedIn(null);
                 setSubmitWarning(null);
+                setCurrentQuestionIndex(0);
                 completedTrackedRef.current = false;
                 answeredTrackedRef.current = new Set();
                 saveAttemptedRef.current = false;
@@ -697,135 +685,122 @@ export function DiagnosticQuizClient({
   }
 
   // ── Quiz phase ───────────────────────────────────────────────────────────────
-  const answeredCount = questions.filter((q) => answers[q.id]).length;
-  const progressPercent = (answeredCount / totalQuestions) * 100;
+  const question = questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
+  const currentAnswer = answers[question.id];
+  const progressPercent = ((currentQuestionIndex + (currentAnswer ? 1 : 0)) / totalQuestions) * 100;
+
+  function handleNext() {
+    if (!currentAnswer) {
+      setSubmitWarning("Select an answer to continue.");
+      return;
+    }
+    setSubmitWarning(null);
+    if (isLastQuestion) {
+      handleSubmit();
+    } else {
+      setCurrentQuestionIndex((i) => i + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function handlePrev() {
+    setSubmitWarning(null);
+    setCurrentQuestionIndex((i) => Math.max(0, i - 1));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 pb-28 pt-6 text-slate-900 sm:py-10">
-      <div className="mx-auto max-w-2xl space-y-6">
-        {/* Header */}
-        <div className="sticky top-0 z-20 rounded-b-2xl bg-white/95 p-5 shadow-sm backdrop-blur sm:rounded-2xl">
-          <div className="flex flex-col gap-1 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-            <span className="font-medium">{yearLevelTitle}</span>
-            <span>
-              {answeredCount} of {totalQuestions} answered
-            </span>
-          </div>
-          <p className="mt-1 text-xs text-slate-500">
-            About {estimatedDiagnosticMinutes(totalQuestions)} minutes &middot; {totalQuestions} multiple-choice questions
-          </p>
+    <main className="min-h-screen bg-slate-50 px-4 pb-10 pt-6 text-slate-900 sm:py-10">
+      <div className="mx-auto max-w-2xl space-y-5">
+        {/* Progress header */}
+        <div className="flex items-center justify-between text-sm text-slate-500">
+          <span className="font-medium text-slate-700">{yearLevelTitle}</span>
+          <span>{currentQuestionIndex + 1} of {totalQuestions}</span>
+        </div>
+        <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+          <div
+            className="h-full rounded-full bg-slate-900 transition-all duration-300"
+            style={{ width: `${progressPercent}%` }}
+          />
+        </div>
 
-          {submitWarning && (
-            <p
-              role="alert"
-              aria-live="assertive"
-              className="mt-2 rounded-xl bg-red-50 px-3 py-2 text-xs font-semibold text-red-800"
-            >
-              {submitWarning}
+        {/* Question card */}
+        <section
+          key={question.id}
+          ref={(node) => { questionRefs.current[question.id] = node; }}
+          className="space-y-5 overflow-hidden rounded-2xl bg-white p-5 shadow-sm sm:p-6"
+        >
+          <div className="flex flex-col gap-1">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+              Question {currentQuestionIndex + 1}
             </p>
+            <p className="overflow-x-auto text-lg font-semibold leading-relaxed">
+              <MathText text={question.prompt} />
+            </p>
+          </div>
+
+          {question.latex && (
+            <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+              <BlockMath math={question.latex} />
+            </div>
           )}
 
-          <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
-            <div
-              className="h-full rounded-full bg-slate-900 transition-all duration-300"
-              style={{ width: `${progressPercent}%` }}
-            />
+          <VisualPayloadRenderer {...question} />
+
+          <div className="space-y-3">
+            {question.choices.map((choice) => {
+              const isSelected = currentAnswer === choice.label;
+              return (
+                <button
+                  key={choice.label}
+                  type="button"
+                  onClick={() => {
+                    handleAnswer(question, choice.label, currentQuestionIndex);
+                    setSubmitWarning(null);
+                  }}
+                  className={`flex w-full min-w-0 items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
+                    isSelected
+                      ? "border-slate-900 bg-slate-900 text-white"
+                      : "border-slate-200 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
+                  }`}
+                  aria-pressed={isSelected}
+                >
+                  <span className="mt-0.5 shrink-0 font-semibold">{choice.label}.</span>
+                  <span className="min-w-0 overflow-x-auto">
+                    <MathText text={choice.text} />
+                  </span>
+                </button>
+              );
+            })}
           </div>
-        </div>
+        </section>
 
-        <div className="space-y-5">
-          {questions.map((question, questionIndex) => (
-            <section
-              key={question.id}
-              ref={(node) => {
-                questionRefs.current[question.id] = node;
-              }}
-              className={`space-y-5 overflow-hidden rounded-2xl bg-white p-5 shadow-sm sm:p-6 ${
-                submitWarning && !answers[question.id]
-                  ? "ring-2 ring-red-300"
-                  : ""
-              }`}
-            >
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-semibold text-slate-500">
-                  Question {questionIndex + 1} of {totalQuestions}
-                </p>
-                <p className="overflow-x-auto text-lg font-semibold leading-relaxed">
-                  <MathText text={question.prompt} />
-                </p>
-              </div>
-
-              {question.latex && (
-                <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
-                  <BlockMath math={question.latex} />
-                </div>
-              )}
-
-              <VisualPayloadRenderer {...question} />
-
-              <div className="space-y-3">
-                {question.choices.map((choice) => {
-                  const isSelected = answers[question.id] === choice.label;
-                  return (
-                    <button
-                      key={choice.label}
-                      type="button"
-                      onClick={() => handleAnswer(question, choice.label, questionIndex)}
-                      className={`flex w-full min-w-0 items-start gap-3 rounded-xl border px-4 py-3 text-left text-sm transition ${
-                        isSelected
-                          ? "border-slate-900 bg-slate-900 text-white"
-                          : "border-slate-200 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50"
-                      }`}
-                      aria-pressed={isSelected}
-                    >
-                      <span className="mt-0.5 shrink-0 font-semibold">{choice.label}.</span>
-                      <span className="min-w-0 overflow-x-auto">
-                        <MathText text={choice.text} />
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
-        </div>
-
-        <div className="rounded-2xl bg-white p-5 shadow-sm">
-          {submitWarning && (
-            <p
-              role="alert"
-              aria-live="assertive"
-              className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800"
-            >
-              {submitWarning}
-            </p>
-          )}
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="w-full rounded-xl bg-slate-900 px-6 py-4 font-semibold text-white hover:bg-slate-700"
-          >
-            See my results
-          </button>
-        </div>
-      </div>
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 px-4 py-3 shadow-lg backdrop-blur sm:hidden">
         {submitWarning && (
-          <p
-            role="alert"
-            aria-live="assertive"
-            className="mb-2 text-xs font-semibold text-red-700"
-          >
+          <p role="alert" aria-live="assertive" className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
             {submitWarning}
           </p>
         )}
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="w-full rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white"
-        >
-          See my results
-        </button>
+
+        {/* Navigation */}
+        <div className="flex gap-3">
+          {currentQuestionIndex > 0 && (
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              ← Back
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={handleNext}
+            className="flex-1 rounded-xl bg-slate-900 px-6 py-3 font-semibold text-white hover:bg-slate-700"
+          >
+            {isLastQuestion ? "See my results" : "Next →"}
+          </button>
+        </div>
       </div>
     </main>
   );
