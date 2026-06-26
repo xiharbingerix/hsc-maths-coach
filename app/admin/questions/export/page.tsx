@@ -63,7 +63,8 @@ export default async function AdminQuestionExportPage({
     .from("questions")
     .select("course_slug")
     .eq("is_active", true)
-    .order("course_slug");
+    .order("course_slug")
+    .limit(50000);
 
   const uniqueCourses = Array.from(
     new Set((courseData ?? []).map((r: { course_slug: string }) => r.course_slug))
