@@ -274,8 +274,7 @@ const solvingOneStepEquations: LessonContent = {
       "A",
       ["$x = 9$", "$x = 24$", "$x = 81$", "$x = 8$"],
       "Divide both sides by 3: x = 27 ÷ 3 = 9.",
-      "Divide both sides by 3.",
-      ""
+      "Divide both sides by 3."
     ),
     answer(
       "y8-aeq-1eq-m4",
@@ -332,8 +331,7 @@ const solvingOneStepEquations: LessonContent = {
       "A",
       ["$x = 45$", "$x = 14$", "$x = 4$", "$x = 1.8$"],
       "Multiply both sides by 9: x = 5 × 9 = 45.",
-      "The inverse of dividing by 9 is multiplying by 9.",
-      ""
+      "The inverse of dividing by 9 is multiplying by 9."
     ),
     answer(
       "y8-aeq-1eq-m10",
@@ -500,8 +498,7 @@ const solvingTwoStepEquations: LessonContent = {
       "C",
       ["$x = 1.5$", "$x = 3$", "$x = 5$", "$x = 20$"],
       "Add 7 to both sides: 4x = 20. Divide by 4: x = 5.",
-      "Undo the subtraction first, then undo the multiplication.",
-      ""
+      "Undo the subtraction first, then undo the multiplication."
     ),
     answer(
       "y8-aeq-2eq-i5",
@@ -556,8 +553,7 @@ const solvingTwoStepEquations: LessonContent = {
       "B",
       ["$x = 18$", "$x = 7$", "$x = 4$", "$x = 12$"],
       "Subtract 11: 2x = 14. Divide by 2: x = 7.",
-      "Subtract 11 first, then divide by 2.",
-      ""
+      "Subtract 11 first, then divide by 2."
     ),
     answer(
       "y8-aeq-2eq-m4",
@@ -790,8 +786,7 @@ const equationsWithBrackets: LessonContent = {
       "C",
       ["$x = 0$", "$x = 3$", "$x = 6$", "$x = 15$"],
       "Expand: 4x − 12 = 12. Add 12: 4x = 24. Divide by 4: x = 6.",
-      "Expand the bracket, then solve the resulting equation.",
-      ""
+      "Expand the bracket, then solve the resulting equation."
     ),
     answer(
       "y8-aeq-bkt-i5",
@@ -846,8 +841,7 @@ const equationsWithBrackets: LessonContent = {
       "B",
       ["$x = 8$", "$x = 4$", "$x = 16$", "$x = 12$"],
       "Expand: 3x + 18 = 30. Subtract 18: 3x = 12. Divide by 3: x = 4.",
-      "Expand the bracket first, then apply inverse operations.",
-      ""
+      "Expand the bracket first, then apply inverse operations."
     ),
     answer(
       "y8-aeq-bkt-m4",
@@ -904,8 +898,7 @@ const equationsWithBrackets: LessonContent = {
       "A",
       ["$x = 5$", "$x = 2.5$", "$x = 10$", "$x = 7.5$"],
       "Expand: 8x − 10 = 30. Add 10: 8x = 40. Divide by 8: x = 5.",
-      "Expand the bracket, then solve.",
-      ""
+      "Expand the bracket, then solve."
     ),
     answer(
       "y8-aeq-bkt-m10",
@@ -1076,8 +1069,7 @@ const equationsPronumeralsBothSides: LessonContent = {
       "B",
       ["$x = 2$", "$x = 3$", "$x = 4$", "$x = 6$"],
       "Subtract 3x: 10 = 4x − 2. Add 2: 12 = 4x. Divide by 4: x = 3.",
-      "Move all x terms to one side and all constants to the other.",
-      ""
+      "Move all x terms to one side and all constants to the other."
     ),
     answer(
       "y8-aeq-pvb-i5",
@@ -1132,8 +1124,7 @@ const equationsPronumeralsBothSides: LessonContent = {
       "B",
       ["$x = 3$", "$x = 4$", "$x = 6$", "$x = 8$"],
       "Subtract 2x: 4x − 2 = 14. Add 2: 4x = 16. Divide by 4: x = 4.",
-      "Collect variable terms on one side first.",
-      ""
+      "Collect variable terms on one side first."
     ),
     answer(
       "y8-aeq-pvb-m4",
@@ -1190,8 +1181,7 @@ const equationsPronumeralsBothSides: LessonContent = {
       "B",
       ["$x = 1$", "$x = 3$", "$x = 5$", "$x = 9$"],
       "Subtract x: 3x + 3 = 12. Subtract 3: 3x = 9. Divide by 3: x = 3.",
-      "Collect x terms on one side by subtracting x from both sides.",
-      ""
+      "Collect x terms on one side by subtracting x from both sides."
     ),
     answer(
       "y8-aeq-pvb-m10",
@@ -1421,8 +1411,7 @@ const formingEquationsWordProblems: LessonContent = {
       "B",
       ["$x = 31$", "$x = 5$", "$x = 6.2$", "$x = 25$"],
       "Subtract 3: 5x = 25. Divide by 5: x = 5.",
-      "Solve the equation using inverse operations.",
-      ""
+      "Solve the equation using inverse operations."
     ),
     answer(
       "y8-aeq-wrd-m4",
@@ -1745,8 +1734,7 @@ const checkingSolutionsErrorAnalysis: LessonContent = {
       "A",
       ["$x = 4$", "$x = 7$", "$x = 12$", "$x = 2$"],
       "Expand: 6x − 2 = 22. Add 2: 6x = 24. Divide by 6: x = 4.",
-      "Expand the bracket first, then solve.",
-      ""
+      "Expand the bracket first, then solve."
     ),
     answer(
       "y8-aeq-chk-m7",
@@ -1946,8 +1934,7 @@ const linearInequalities: LessonContent = {
         "$x > 4$",
       ],
       "Divide both sides by −3. Dividing by a negative reverses the sign: x > 12 ÷ (−3) = −4.",
-      "Dividing by a negative number reverses the inequality sign.",
-      ""
+      "Dividing by a negative number reverses the inequality sign."
     ),
     answer(
       "y8-aeq-ine-i5",
@@ -1998,8 +1985,7 @@ const linearInequalities: LessonContent = {
         "$x < 4$",
       ],
       "Multiply both sides by −1 (or divide by −1); the sign reverses: x < −4.",
-      "Multiplying or dividing by a negative number reverses the inequality sign.",
-      ""
+      "Multiplying or dividing by a negative number reverses the inequality sign."
     ),
     answer(
       "y8-aeq-ine-m3",
@@ -2287,8 +2273,7 @@ const inequalityProblemSolving: LessonContent = {
         "$x > 4$",
       ],
       "Divide both sides by −5 and reverse the sign: x < 20 ÷ (−5) = −4.",
-      "Dividing by a negative reverses the inequality sign.",
-      ""
+      "Dividing by a negative reverses the inequality sign."
     ),
     answer(
       "y8-aeq-ips-m3",
@@ -2559,8 +2544,7 @@ const formulaRearrangement: LessonContent = {
         "$a = 2s(v^2 - u^2)$",
       ],
       "Subtract u²: v² − u² = 2as. Divide by 2s: a = (v² − u²)/(2s).",
-      "Subtract u² from both sides first, then divide by 2s.",
-      ""
+      "Subtract u² from both sides first, then divide by 2s."
     ),
     choice(
       "y8-aeq-frm-m2",
@@ -2573,8 +2557,7 @@ const formulaRearrangement: LessonContent = {
         "$F = \\dfrac{9(C + 32)}{5}$",
       ],
       "Multiply both sides by 9/5: (9/5)C = F − 32. Add 32: F = 9C/5 + 32.",
-      "Multiply both sides by 9/5 to remove the fraction, then add 32.",
-      ""
+      "Multiply both sides by 9/5 to remove the fraction, then add 32."
     ),
     answer(
       "y8-aeq-frm-m3",

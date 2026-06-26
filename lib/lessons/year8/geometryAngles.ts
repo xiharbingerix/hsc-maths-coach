@@ -1061,8 +1061,7 @@ const propertiesOfPolygons: LessonContent = {
         "(n-2) \\times 180^\\circ",
         "(n+2) \\times 180^\\circ",
       ],
-      "Dividing a polygon into triangles from one vertex gives (n − 2) triangles, each contributing 180°.",
-      "\\text{Choose the correct formula.}"
+      "Dividing a polygon into triangles from one vertex gives (n − 2) triangles, each contributing 180°."
     ),
   ],
   commonMistakes: [

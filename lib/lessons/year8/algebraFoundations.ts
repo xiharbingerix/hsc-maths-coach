@@ -122,8 +122,7 @@ const simplifyingExpressions: LessonContent = {
       "What is the coefficient of 7m?",
       "A",
       ["7", "m", "7m", "1"],
-      "In 7m, the coefficient is the number 7.",
-      "\\text{Identify the coefficient of }7m."
+      "In 7m, the coefficient is the number 7."
     ),
     answer(
       "y8-alg-simp-g2",
@@ -160,8 +159,7 @@ const simplifyingExpressions: LessonContent = {
       "Which expression is already in simplified form?",
       "C",
       ["1x", "2 × x", "2x", "x × 2"],
-      "2x has the coefficient written directly before the variable with no extra symbols.",
-      "\\text{Choose the simplified form.}"
+      "2x has the coefficient written directly before the variable with no extra symbols."
     ),
     answer(
       "y8-alg-simp-i3",
@@ -182,8 +180,7 @@ const simplifyingExpressions: LessonContent = {
       "A student writes -1 × n as -1n. What is the correct simplified form?",
       "B",
       ["-1n", "-n", "1n", "n"],
-      "-1 × n is written as -n in algebra; the coefficient -1 is never shown explicitly.",
-      "\\text{Select the correct simplified form of }{-1 \\times n}."
+      "-1 × n is written as -n in algebra; the coefficient -1 is never shown explicitly."
     ),
   ],
   commonMistakes: [
@@ -210,8 +207,7 @@ const simplifyingExpressions: LessonContent = {
       "What is the coefficient of -5k?",
       "A",
       ["-5", "5", "k", "-5k"],
-      "The coefficient is the number including its sign: -5.",
-      "\\text{Identify the coefficient of }{-5k}."
+      "The coefficient is the number including its sign: -5."
     ),
     answer(
       "y8-alg-simp-m2",
@@ -225,8 +221,7 @@ const simplifyingExpressions: LessonContent = {
       "Which is the simplified form of -1 × z?",
       "C",
       ["1z", "-1z", "-z", "z"],
-      "-1 × z is written as -z. The coefficient -1 is not shown explicitly.",
-      "\\text{Simplify }{-1 \\times z}."
+      "-1 × z is written as -z. The coefficient -1 is not shown explicitly."
     ),
     answer(
       "y8-alg-simp-m4",
@@ -273,8 +268,7 @@ const simplifyingExpressions: LessonContent = {
       "What is the coefficient of x when no number is written in front of it?",
       "B",
       ["0", "1", "x", "There is no coefficient"],
-      "When no number is written in front of a variable, the coefficient is understood to be 1.",
-      "\\text{What is the coefficient of }x?"
+      "When no number is written in front of a variable, the coefficient is understood to be 1."
     ),
     answer(
       "y8-alg-simp-m10",
@@ -347,8 +341,7 @@ const collectingLikeTerms: LessonContent = {
       "Which pair are like terms?",
       "B",
       ["3x and 3", "4m and 7m", "2x and 2y", "ab and a"],
-      "4m and 7m both contain the variable m, so they are like terms.",
-      "\\text{Select the pair of like terms.}"
+      "4m and 7m both contain the variable m, so they are like terms."
     ),
     answer(
       "y8-alg-like-g2",
@@ -443,8 +436,7 @@ const collectingLikeTerms: LessonContent = {
       "Which pair are like terms?",
       "C",
       ["5a and 5b", "3x and 3", "6m and 2m", "4ab and 4a"],
-      "6m and 2m both contain only m.",
-      "\\text{Select the like terms.}"
+      "6m and 2m both contain only m."
     ),
     answer(
       "y8-alg-like-m2",
@@ -465,8 +457,7 @@ const collectingLikeTerms: LessonContent = {
       "Simplify 3p + 2q + 5p.",
       "B",
       ["10pq", "8p + 2q", "5p + 2q", "3p + 7pq"],
-      "3p + 5p = 8p. The term 2q has no like term and is unchanged.",
-      ""
+      "3p + 5p = 8p. The term 2q has no like term and is unchanged."
     ),
     answer(
       "y8-alg-like-m5",
@@ -506,8 +497,7 @@ const collectingLikeTerms: LessonContent = {
       "Which expression is fully simplified?",
       "A",
       ["3x + 2y", "3x + 5x", "4m - m + m", "2a + a - 3a + a"],
-      "3x + 2y has different variables in each term, so no further collection is possible.",
-      "\\text{Select the fully simplified expression.}"
+      "3x + 2y has different variables in each term, so no further collection is possible."
     ),
     answer(
       "y8-alg-like-m10",
@@ -689,8 +679,7 @@ const substitution: LessonContent = {
       "What is 2x + 7 when x = 3?",
       "B",
       ["9", "13", "17", "27"],
-      "2(3) + 7 = 6 + 7 = 13.",
-      ""
+      "2(3) + 7 = 6 + 7 = 13."
     ),
     answer(
       "y8-alg-sub-m4",
@@ -711,8 +700,7 @@ const substitution: LessonContent = {
       "What is a² + a when a = 4?",
       "A",
       ["20", "8", "16", "24"],
-      "4² + 4 = 16 + 4 = 20.",
-      ""
+      "4² + 4 = 16 + 4 = 20."
     ),
     answer(
       "y8-alg-sub-m7",
@@ -848,8 +836,7 @@ const expandingBrackets: LessonContent = {
       "Expand -4(x - 3).",
       "B",
       ["-4x - 12", "-4x + 12", "4x - 12", "4x + 12"],
-      "-4 × x = -4x and -4 × (-3) = +12. A negative times a negative gives a positive.",
-      ""
+      "-4 × x = -4x and -4 × (-3) = +12. A negative times a negative gives a positive."
     ),
     answer(
       "y8-alg-exp-i3",
@@ -916,8 +903,7 @@ const expandingBrackets: LessonContent = {
       "Expand -5(x + 1).",
       "A",
       ["-5x - 5", "-5x + 5", "5x + 5", "5x - 5"],
-      "-5 × x = -5x and -5 × 1 = -5.",
-      ""
+      "-5 × x = -5x and -5 × 1 = -5."
     ),
     answer(
       "y8-alg-exp-m4",
@@ -931,8 +917,7 @@ const expandingBrackets: LessonContent = {
       "Expand -2(3x - 4).",
       "B",
       ["-6x - 8", "-6x + 8", "6x - 8", "6x + 8"],
-      "-2 × 3x = -6x and -2 × (-4) = +8.",
-      ""
+      "-2 × 3x = -6x and -2 × (-4) = +8."
     ),
     answer(
       "y8-alg-exp-m6",
@@ -1084,8 +1069,7 @@ const solvingOneStep: LessonContent = {
       "Which equation has the solution x = 6?",
       "B",
       ["x + 6 = 6", "3x = 18", "x - 6 = 12", "x ÷ 6 = 12"],
-      "3 × 6 = 18, so x = 6 satisfies 3x = 18.",
-      "\\text{Check each equation with }x = 6."
+      "3 × 6 = 18, so x = 6 satisfies 3x = 18."
     ),
     answer(
       "y8-alg-1eq-i3",
@@ -1184,8 +1168,7 @@ const solvingOneStep: LessonContent = {
       "Solve x ÷ 5 = 7.",
       "C",
       ["5", "2", "35", "12"],
-      "Multiply both sides by 5: x = 7 × 5 = 35.",
-      ""
+      "Multiply both sides by 5: x = 7 × 5 = 35."
     ),
     answer(
       "y8-alg-1eq-m7",
@@ -1329,8 +1312,7 @@ const solvingTwoStep: LessonContent = {
       "Solve 5x - 10 = 15.",
       "C",
       ["x = 1", "x = 3", "x = 5", "x = 25"],
-      "5x = 25, then x = 5.",
-      ""
+      "5x = 25, then x = 5."
     ),
     answer(
       "y8-alg-2eq-i3",
@@ -1401,8 +1383,7 @@ const solvingTwoStep: LessonContent = {
       "Solve 4x + 3 = 23.",
       "B",
       ["x = 6.5", "x = 5", "x = 26", "x = 20"],
-      "4x = 20, then x = 5.",
-      ""
+      "4x = 20, then x = 5."
     ),
     answer(
       "y8-alg-2eq-m4",

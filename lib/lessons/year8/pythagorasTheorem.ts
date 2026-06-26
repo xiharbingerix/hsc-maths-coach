@@ -223,8 +223,7 @@ const introTheorem: LessonContent = {
         "The side opposite the right angle",
         "The side at the top of the diagram",
       ],
-      "The hypotenuse is always opposite the right angle.",
-      "\\text{Select the correct description.}"
+      "The hypotenuse is always opposite the right angle."
     ),
     answer(
       "y8-pyth-intro-g2",
@@ -238,8 +237,7 @@ const introTheorem: LessonContent = {
       "Which set of three lengths satisfies Pythagoras' theorem?",
       "B",
       ["3, 4, 6", "5, 12, 13", "6, 7, 9", "4, 5, 7"],
-      "5 squared plus 12 squared equals 25 plus 144 equals 169, which equals 13 squared.",
-      "\\text{Check } a^2+b^2=c^2."
+      "5 squared plus 12 squared equals 25 plus 144 equals 169, which equals 13 squared."
     ),
     answer(
       "y8-pyth-intro-g4",
@@ -256,8 +254,7 @@ const introTheorem: LessonContent = {
       "In a right-angled triangle, the right angle is at vertex C. Which side is the hypotenuse?",
       "A",
       ["AB", "AC", "BC", "All sides equally"],
-      "The side opposite the right angle at C is AB.",
-      "\\text{Triangle with right angle at }C."
+      "The side opposite the right angle at C is AB."
     ),
     answer(
       "y8-pyth-intro-i2",
@@ -276,8 +273,7 @@ const introTheorem: LessonContent = {
         "The triple must include 5",
         "The theorem uses squares, not sums",
       ],
-      "Pythagoras' theorem uses squared values, not plain sums.",
-      "\\text{Identify the error.}"
+      "Pythagoras' theorem uses squared values, not plain sums."
     ),
     answer(
       "y8-pyth-intro-i4",
@@ -321,7 +317,7 @@ const introTheorem: LessonContent = {
       "C",
       ["AB", "BC", "AC", "There is no hypotenuse"],
       "The hypotenuse is opposite the right angle at B, so it is AC.",
-      "\\text{Triangle with right angle at }B.",
+      undefined,
       tri("Right-angled triangle with right angle at B.", { AB: "AB", BC: "BC", AC: "AC" }, "B")
     ),
     answer(
@@ -550,7 +546,7 @@ const findingHypotenuse: LessonContent = {
   ],
   guidedPractice: [
     answer("y8-pyth-hyp-g1", "Find the hypotenuse in centimetres.", "", "10", "Square root of 36 plus 64 equals 10.", ["10 cm"], tri("Right triangle: shorter sides 6 cm and 8 cm, hypotenuse c.", { AC: "6 cm", BC: "8 cm", AB: "c" })),
-    choice("y8-pyth-hyp-g2", "Which calculation finds the hypotenuse when a = 9 and b = 12?", "B", ["$9 + 12$", "$\\sqrt{9^2+12^2}$", "$\\sqrt{9^2-12^2}$", "$9^2+12^2$"], "Add the squares then take the square root.", "\\text{Select the correct setup.}"),
+    choice("y8-pyth-hyp-g2", "Which calculation finds the hypotenuse when a = 9 and b = 12?", "B", ["$9 + 12$", "$\\sqrt{9^2+12^2}$", "$\\sqrt{9^2-12^2}$", "$9^2+12^2$"], "Add the squares then take the square root."),
     answer("y8-pyth-hyp-g3", "Find the hypotenuse in metres.", "", "17", "Square root of 64 plus 225 equals 17.", ["17 m"]),
     answer("y8-pyth-hyp-g4", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "", "7.6", "Square root of 58 is approximately 7.6.", ["7.6 cm"]),
   ],
@@ -570,7 +566,7 @@ const findingHypotenuse: LessonContent = {
   masteryQuiz: [
     answer("y8-pyth-hyp-m1", "Find the hypotenuse in centimetres.", "", "5", "Square root of 25 equals 5.", ["5 cm"]),
     answer("y8-pyth-hyp-m2", "Find the hypotenuse in metres.", "", "13", "Square root of 169 equals 13.", ["13 m"]),
-    choice("y8-pyth-hyp-m3", "Which side is the hypotenuse in the triangle below?", "A", ["AB", "AC", "BC", "Cannot tell"], "AB is opposite the right angle at C.", "\\text{Use the diagram.}", tri("Right-angled triangle ABC with right angle at C.", { AB: "AB", AC: "AC", BC: "BC" })),
+    choice("y8-pyth-hyp-m3", "Which side is the hypotenuse in the triangle below?", "A", ["AB", "AC", "BC", "Cannot tell"], "AB is opposite the right angle at C.", undefined, tri("Right-angled triangle ABC with right angle at C.", { AB: "AB", AC: "AC", BC: "BC" })),
     answer("y8-pyth-hyp-m4", "Find the hypotenuse in centimetres. Round to 1 decimal place.", "", "9.2", "Square root of 85 is approximately 9.2.", ["9.2 cm"]),
     answer("y8-pyth-hyp-m5", "Find the hypotenuse in kilometres.", "", "29", "Square root of 841 equals 29.", ["29 km"]),
     choice("y8-pyth-hyp-m6", "Which is the correct calculation for shorter sides 10 and 11?", "C", ["$\\sqrt{11^2-10^2}$", "$10+11$", "$\\sqrt{10^2+11^2}$", "$10^2+11^2$"], "A hypotenuse uses the square root of the sum of squares."),
@@ -746,7 +742,7 @@ const findingShorterSide: LessonContent = {
     choice("y8-pyth-short-m3", "Which operation is performed immediately before taking the square root when finding a shorter side?", "B", ["Add the squared lengths", "Subtract the squared lengths", "Divide the side lengths", "Round the hypotenuse"], "For an unknown shorter side, subtract the squares."),
     answer("y8-pyth-short-m4", "Find the unknown shorter side in centimetres. Round to 1 decimal place.", "", "10.7", "Square root of 115 is approximately 10.7.", ["10.7 cm"]),
     answer("y8-pyth-short-m5", "A 15 m ladder stands 9 m from a wall. Find the height reached in metres.", "", "12", "Square root of 225 minus 81 equals 12.", ["12 m"]),
-    choice("y8-pyth-short-m6", "The diagram shows a triangle with hypotenuse 17 and one shorter side 8. Which side is unknown?", "C", ["AB", "The hypotenuse", "The side labelled x", "The right angle"], "The unknown shorter side is labelled x.", "\\text{Use the diagram.}", tri("Right-angled triangle: hypotenuse 17, known shorter side 8, unknown shorter side x.", { AB: "17", AC: "8", BC: "x" })),
+    choice("y8-pyth-short-m6", "The diagram shows a triangle with hypotenuse 17 and one shorter side 8. Which side is unknown?", "C", ["AB", "The hypotenuse", "The side labelled x", "The right angle"], "The unknown shorter side is labelled x.", undefined, tri("Right-angled triangle: hypotenuse 17, known shorter side 8, unknown shorter side x.", { AB: "17", AC: "8", BC: "x" })),
     answer("y8-pyth-short-m7", "Find the unknown shorter side in metres. Round to 2 decimal places.", "", "14.25", "Square root of 203 is approximately 14.25.", ["14.25 m"]),
     choice("y8-pyth-short-m8", "A student writes square root of 6 squared minus 10 squared for shorter sides 6 and 10. What correction is needed?", "A", ["Use $\\sqrt{10^2-6^2}$", "Use $\\sqrt{10^2+6^2}$", "Use $10-6$", "Use $6^2+10^2$"], "The larger hypotenuse square must come first in the subtraction."),
     answer("y8-pyth-short-m9", "A rectangular park has diagonal 26 m and one side 10 m. Find the other side in metres.", "", "24", "Square root of 676 minus 100 equals 24.", ["24 m"]),
