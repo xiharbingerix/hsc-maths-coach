@@ -9,6 +9,7 @@ import type {
   WorkedExample,
 } from "../differentialCalculus";
 import type { CartesianGraph, TriangleDiagram } from "../types";
+import { pythagorasContextQuestionVisuals } from "./pythagorasContextVisuals";
 import { pythagorasQuestionVisuals } from "./pythagorasVisuals";
 
 type LessonContent = Pick<
@@ -1363,7 +1364,9 @@ const lessons: Record<string, LessonContent> = {
 };
 
 function addPythagorasVisual(question: PracticeQuestion): PracticeQuestion {
-  const visual = pythagorasQuestionVisuals[question.id];
+  const visual =
+    pythagorasQuestionVisuals[question.id] ??
+    pythagorasContextQuestionVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 
