@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { dataDisplayQuestionVisuals } from "./dataDisplayVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -5412,6 +5413,22 @@ const lessons: Record<string, LessonContent> = {
   "shape-of-distributions":           shapeOfDistributions,
 };
 
+function addDataDisplayVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = dataDisplayQuestionVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addDataDisplayVisuals(content: LessonContent): LessonContent {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice.map(addDataDisplayVisual),
+    independentPractice: content.independentPractice.map(addDataDisplayVisual),
+    masteryQuiz: content.masteryQuiz.map(addDataDisplayVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addDataDisplayVisual),
+    multiPartPractice: content.multiPartPractice?.map(addDataDisplayVisual),
+  };
+}
+
 export function year8StatisticsProbabilityLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -5422,10 +5439,12 @@ export function year8StatisticsProbabilityLessonOverride(
 
   const content = lessons[lesson.slug];
   if (!content) return null;
+  const scopedContent =
+    course.slug === "year-8-mathematics" ? addDataDisplayVisuals(content) : content;
 
   return {
     syllabusArea: "Statistics and Probability",
     masteryPassMark: 0.8,
-    ...content,
+    ...scopedContent,
   };
 }

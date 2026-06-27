@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { dataDisplayQuestionVisuals } from "./dataDisplayVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -1612,6 +1613,22 @@ const lessons: Record<string, LessonContent> = {
   "communicating-findings": communicatingFindings,
 };
 
+function addDataDisplayVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = dataDisplayQuestionVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addDataDisplayVisuals(content: LessonContent): LessonContent {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice.map(addDataDisplayVisual),
+    independentPractice: content.independentPractice.map(addDataDisplayVisual),
+    masteryQuiz: content.masteryQuiz.map(addDataDisplayVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addDataDisplayVisual),
+    multiPartPractice: content.multiPartPractice?.map(addDataDisplayVisual),
+  };
+}
+
 export function year8DataInvestigationLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -1621,9 +1638,10 @@ export function year8DataInvestigationLessonOverride(
   if (unit.slug !== "data-analysis-investigation") return null;
   const content = lessons[lesson.slug];
   if (!content) return null;
+  const scopedContent = addDataDisplayVisuals(content);
   return {
     syllabusArea: "Statistics and Probability",
     masteryPassMark: 0.8,
-    ...content,
+    ...scopedContent,
   };
 }
