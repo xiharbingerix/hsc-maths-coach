@@ -69,6 +69,8 @@ function calculateVolume(diagram: CompositeSolidDiagram): number {
       );
     case "hollowCylinder":
       return (diagram.outerRadius ** 2 - diagram.innerRadius ** 2) * diagram.length;
+    default:
+      throw new Error(`Unsupported volume pool diagram: ${diagram.kind}`);
   }
 }
 

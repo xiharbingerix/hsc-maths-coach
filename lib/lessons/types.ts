@@ -665,6 +665,24 @@ export type CompositeSolidDiagram = CompositeSolidBase &
         voidStyle: "cornerCutout" | "throughHole";
       }
     | {
+        kind: "lShapedPrism";
+        sections: [RectangularPrismDimensions, RectangularPrismDimensions];
+      }
+    | {
+        kind: "threeStepRectangularPrisms";
+        levels: [
+          RectangularPrismDimensions,
+          RectangularPrismDimensions,
+          RectangularPrismDimensions,
+        ];
+        jointAreas?: [number, number];
+      }
+    | {
+        kind: "stackedCylinders";
+        lower: { radius: number; height: number };
+        upper: { radius: number; height: number };
+      }
+    | {
         kind: "hollowCylinder";
         outerRadius: number;
         innerRadius: number;

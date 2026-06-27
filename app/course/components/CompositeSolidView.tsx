@@ -262,6 +262,139 @@ export function CompositeSolidView({
         );
       }
 
+      case "lShapedPrism": {
+        const [sectionA, sectionB] = diagram.sections;
+        const maxHeight = Math.max(sectionA.height, sectionB.height);
+        const heightA = 3.5 + (2.5 * sectionA.height) / maxHeight;
+        const heightB = 3.5 + (2.5 * sectionB.height) / maxHeight;
+        const project = (x: number, y: number, z: number): Point => ({
+          x: 38 + x * 12 + y * 5,
+          y: 202 - y * 4 - z * 9,
+        });
+
+        function cuboid(
+          x0: number,
+          x1: number,
+          y0: number,
+          y1: number,
+          z: number,
+          opacity: number
+        ) {
+          const b00 = project(x0, y0, 0);
+          const b10 = project(x1, y0, 0);
+          const b11 = project(x1, y1, 0);
+          const b01 = project(x0, y1, 0);
+          const t00 = project(x0, y0, z);
+          const t10 = project(x1, y0, z);
+          const t11 = project(x1, y1, z);
+          const t01 = project(x0, y1, z);
+          return (
+            <g>
+              <polygon points={points([t00, t10, t11, t01])} fill={stroke} fillOpacity={opacity} />
+              <polygon points={points([b00, b10, t10, t00])} fill={stroke} fillOpacity={opacity + 0.04} />
+              <polygon points={points([b10, b11, t11, t10])} fill={stroke} fillOpacity={opacity + 0.07} />
+              <path d={`M ${b01.x} ${b01.y} L ${b11.x} ${b11.y}`} {...hidden} />
+              <polygon points={points([t00, t10, t11, t01])} {...edge} />
+              <polygon points={points([b00, b10, t10, t00])} {...edge} />
+              <polygon points={points([b10, b11, t11, t10])} {...edge} />
+              <line x1={b00.x} y1={b00.y} x2={b01.x} y2={b01.y} {...hidden} />
+              <line x1={b01.x} y1={b01.y} x2={t01.x} y2={t01.y} {...hidden} />
+            </g>
+          );
+        }
+
+        return (
+          <>
+            {cuboid(0, 4, 4, 10, heightB, 0.11)}
+            {cuboid(0, 12, 0, 4, heightA, 0.15)}
+            {label(112, 220, `A: ${sectionA.length} x ${sectionA.width} x ${sectionA.height} ${unit}`)}
+            {label(205, 61, `B: ${sectionB.length} x ${sectionB.width} x ${sectionB.height} ${unit}`)}
+          </>
+        );
+      }
+
+      case "threeStepRectangularPrisms": {
+        const [level1, level2, level3] = diagram.levels;
+        const dx = 34;
+        const dy = -20;
+
+        function stepBlock(x: number, y: number, width: number, height: number, opacity: number) {
+          const a = { x, y };
+          const b = { x: x + width, y };
+          const c = { x: x + width, y: y + height };
+          const d = { x, y: y + height };
+          const a2 = shifted(a, dx, dy);
+          const b2 = shifted(b, dx, dy);
+          const c2 = shifted(c, dx, dy);
+          return (
+            <g>
+              <polygon points={points([a, b, c, d])} fill={stroke} fillOpacity={opacity} />
+              <polygon points={points([a, b, b2, a2])} fill={stroke} fillOpacity={opacity - 0.02} />
+              <polygon points={points([b, c, c2, b2])} fill={stroke} fillOpacity={opacity + 0.04} />
+              <polygon points={points([a, b, c, d])} {...edge} />
+              <path d={`M ${a.x} ${a.y} L ${a2.x} ${a2.y} L ${b2.x} ${b2.y} L ${b.x} ${b.y}`} {...edge} />
+              <path d={`M ${b2.x} ${b2.y} L ${c2.x} ${c2.y} L ${c.x} ${c.y}`} {...edge} />
+              <line x1={a2.x} y1={a2.y} x2={shifted(d, dx, dy).x} y2={shifted(d, dx, dy).y} {...hidden} />
+            </g>
+          );
+        }
+
+        return (
+          <>
+            {stepBlock(35, 154, 205, 48, 0.15)}
+            {stepBlock(35, 110, 145, 44, 0.18)}
+            {stepBlock(35, 72, 88, 38, 0.22)}
+            {label(137, 179, `P1: ${level1.length} x ${level1.width} x ${level1.height} ${unit}`)}
+            {label(108, 132, `P2: ${level2.length} x ${level2.width} x ${level2.height} ${unit}`)}
+            {label(79, 91, `P3: ${level3.length} x ${level3.width} x ${level3.height} ${unit}`)}
+            {diagram.jointAreas
+              ? label(250, 108, `J1 = ${diagram.jointAreas[0]} ${unit}²`, "start", true)
+              : null}
+            {diagram.jointAreas
+              ? label(160, 65, `J2 = ${diagram.jointAreas[1]} ${unit}²`, "start", true)
+              : null}
+          </>
+        );
+      }
+
+      case "stackedCylinders": {
+        const lowerCx = 150;
+        const lowerRx = 66;
+        const lowerRy = 17;
+        const lowerTop = 116;
+        const lowerBottom = 202;
+        const upperRx = 38;
+        const upperRy = 12;
+        const upperTop = 55;
+        const upperBottom = lowerTop;
+
+        return (
+          <>
+            <rect x={lowerCx - lowerRx} y={lowerTop} width={lowerRx * 2} height={lowerBottom - lowerTop} {...face} />
+            <ellipse cx={lowerCx} cy={lowerBottom} rx={lowerRx} ry={lowerRy} {...face} />
+            <line x1={lowerCx - lowerRx} y1={lowerTop} x2={lowerCx - lowerRx} y2={lowerBottom} {...edge} />
+            <line x1={lowerCx + lowerRx} y1={lowerTop} x2={lowerCx + lowerRx} y2={lowerBottom} {...edge} />
+            <path d={ellipseArc(lowerCx, lowerBottom, lowerRx, lowerRy, 0, 180)} {...edge} />
+            <path d={ellipseArc(lowerCx, lowerBottom, lowerRx, lowerRy, 180, 360)} {...hidden} />
+            <path d={ellipseArc(lowerCx, lowerTop, lowerRx, lowerRy, 0, 180)} {...edge} />
+            <path d={ellipseArc(lowerCx, lowerTop, lowerRx, lowerRy, 180, 360)} {...hidden} />
+
+            <rect x={lowerCx - upperRx} y={upperTop} width={upperRx * 2} height={upperBottom - upperTop} {...face} />
+            <ellipse cx={lowerCx} cy={upperTop} rx={upperRx} ry={upperRy} {...face} />
+            <line x1={lowerCx - upperRx} y1={upperTop} x2={lowerCx - upperRx} y2={upperBottom} {...edge} />
+            <line x1={lowerCx + upperRx} y1={upperTop} x2={lowerCx + upperRx} y2={upperBottom} {...edge} />
+            <ellipse cx={lowerCx} cy={upperTop} rx={upperRx} ry={upperRy} {...edge} />
+            <path d={ellipseArc(lowerCx, upperBottom, upperRx, upperRy, 0, 180)} {...edge} />
+            <path d={ellipseArc(lowerCx, upperBottom, upperRx, upperRy, 180, 360)} {...hidden} />
+
+            {label(239, 75, `r = ${dimension(diagram.upper.radius)}`, "start")}
+            {label(239, 95, `h = ${dimension(diagram.upper.height)}`, "start")}
+            {label(230, 152, `r = ${dimension(diagram.lower.radius)}`, "start")}
+            {label(230, 174, `h = ${dimension(diagram.lower.height)}`, "start")}
+          </>
+        );
+      }
+
       case "hollowCylinder": {
         const frontX = 66;
         const backX = 250;

@@ -11,6 +11,7 @@ import type {
 import { volumeSurfaceAreaQuestionVisuals } from "./volumeSurfaceAreaVisuals";
 import { compositeSolidQuestionVisuals } from "./compositeSolidVisuals";
 import { compositeSolidPoolVisuals } from "./compositeSolidPoolVisuals";
+import { advancedCompositeSolidVisuals } from "./advancedCompositeSolidVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -2057,7 +2058,8 @@ function addQuestionVisual(question: PracticeQuestion): PracticeQuestion {
   const visual =
     volumeSurfaceAreaQuestionVisuals[question.id] ??
     compositeSolidQuestionVisuals[question.id] ??
-    compositeSolidPoolVisuals[question.id];
+    compositeSolidPoolVisuals[question.id] ??
+    advancedCompositeSolidVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 
