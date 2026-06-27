@@ -9,6 +9,7 @@ import type {
   WorkedExample,
 } from "../differentialCalculus";
 import type { CartesianGraph } from "../types";
+import { linearGraphQuestionVisuals } from "./linearGraphVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -3352,6 +3353,22 @@ const lessons: Record<string, LessonContent> = {
   "interpreting-linear-graphs":     interpretingLinearGraphs,
 };
 
+function addLinearGraphVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = linearGraphQuestionVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addLinearGraphVisuals(content: LessonContent): LessonContent {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice.map(addLinearGraphVisual),
+    independentPractice: content.independentPractice.map(addLinearGraphVisual),
+    masteryQuiz: content.masteryQuiz.map(addLinearGraphVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addLinearGraphVisual),
+    multiPartPractice: content.multiPartPractice?.map(addLinearGraphVisual),
+  };
+}
+
 export function year8LinearRelationshipsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -3366,10 +3383,11 @@ export function year8LinearRelationshipsLessonOverride(
 
   const content = lessons[lesson.slug];
   if (!content) return null;
+  const scopedContent = addLinearGraphVisuals(content);
 
   return {
     syllabusArea: "Number and Algebra",
     masteryPassMark: 0.8,
-    ...content,
+    ...scopedContent,
   };
 }

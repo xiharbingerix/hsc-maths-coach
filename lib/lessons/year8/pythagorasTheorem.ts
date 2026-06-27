@@ -9,6 +9,7 @@ import type {
   WorkedExample,
 } from "../differentialCalculus";
 import type { CartesianGraph, TriangleDiagram } from "../types";
+import { pythagorasQuestionVisuals } from "./pythagorasVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -1361,6 +1362,22 @@ const lessons: Record<string, LessonContent> = {
   "distance-between-two-points":       distanceBetweenPoints,
 };
 
+function addPythagorasVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = pythagorasQuestionVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addPythagorasVisuals(content: LessonContent): LessonContent {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice.map(addPythagorasVisual),
+    independentPractice: content.independentPractice.map(addPythagorasVisual),
+    masteryQuiz: content.masteryQuiz.map(addPythagorasVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addPythagorasVisual),
+    multiPartPractice: content.multiPartPractice?.map(addPythagorasVisual),
+  };
+}
+
 export function year8PythagorasTheoremLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -1375,10 +1392,11 @@ export function year8PythagorasTheoremLessonOverride(
 
   const content = lessons[lesson.slug];
   if (!content) return null;
+  const scopedContent = addPythagorasVisuals(content);
 
   return {
     syllabusArea: "Measurement and Space",
     masteryPassMark: 0.8,
-    ...content,
+    ...scopedContent,
   };
 }
