@@ -395,6 +395,153 @@ export function CompositeSolidView({
         );
       }
 
+      case "rectangularPrismWithCylindricalHole": {
+        const a = { x: 40, y: 91 };
+        const b = { x: 229, y: 91 };
+        const c = { x: 229, y: 202 };
+        const d = { x: 40, y: 202 };
+        const dx = 42;
+        const dy = -25;
+        const a2 = shifted(a, dx, dy);
+        const b2 = shifted(b, dx, dy);
+        const c2 = shifted(c, dx, dy);
+        const holeCx = 143;
+        const holeCy = 78;
+        const holeRx = 29;
+        const holeRy = 9;
+
+        return (
+          <>
+            <polygon points={points([a, b, c, d])} {...face} />
+            <polygon points={points([a, b, b2, a2])} {...face} />
+            <polygon points={points([b, c, c2, b2])} {...face} />
+            <path d={`M ${a2.x} ${a2.y} L ${shifted(d, dx, dy).x} ${shifted(d, dx, dy).y} L ${c2.x} ${c2.y}`} {...hidden} />
+            <polygon points={points([a, b, c, d])} {...edge} />
+            <path d={`M ${a.x} ${a.y} L ${a2.x} ${a2.y} L ${b2.x} ${b2.y} L ${b.x} ${b.y}`} {...edge} />
+            <path d={`M ${b2.x} ${b2.y} L ${c2.x} ${c2.y} L ${c.x} ${c.y}`} {...edge} />
+            <ellipse cx={holeCx} cy={holeCy} rx={holeRx} ry={holeRy} fill="white" stroke={VOID} strokeWidth={2.2} />
+            <path d={`M ${holeCx - holeRx} ${holeCy} V 166 M ${holeCx + holeRx} ${holeCy} V 166`} fill="none" stroke={VOID} strokeWidth={1.6} strokeDasharray="5 4" />
+            <path d={ellipseArc(holeCx, 166, holeRx, holeRy, 0, 180)} fill="none" stroke={VOID} strokeWidth={1.6} strokeDasharray="5 4" />
+            {label(135, 224, `box ${diagram.outer.length} x ${diagram.outer.width} x ${diagram.outer.height} ${unit}`)}
+            {label(143, 53, `hole r = ${dimension(diagram.hole.radius)}`, "middle", true)}
+            {label(250, 139, `depth ${dimension(diagram.hole.depth)}`, "start", true)}
+          </>
+        );
+      }
+
+      case "cylinderOnRectangularPrism": {
+        const a = { x: 43, y: 157 };
+        const b = { x: 227, y: 157 };
+        const c = { x: 227, y: 205 };
+        const d = { x: 43, y: 205 };
+        const a2 = shifted(a, 40, -24);
+        const b2 = shifted(b, 40, -24);
+        const c2 = shifted(c, 40, -24);
+        const cylinderCx = 146;
+        const cylinderRx = 42;
+        const cylinderRy = 12;
+        const cylinderTop = 53;
+        const cylinderBottom = 143;
+
+        return (
+          <>
+            <polygon points={points([a, b, c, d])} {...face} />
+            <polygon points={points([a, b, b2, a2])} {...face} />
+            <polygon points={points([b, c, c2, b2])} {...face} />
+            <polygon points={points([a, b, c, d])} {...edge} />
+            <path d={`M ${a.x} ${a.y} L ${a2.x} ${a2.y} L ${b2.x} ${b2.y} L ${b.x} ${b.y}`} {...edge} />
+            <path d={`M ${b2.x} ${b2.y} L ${c2.x} ${c2.y} L ${c.x} ${c.y}`} {...edge} />
+            <path d={`M ${a2.x} ${a2.y} L ${shifted(d, 40, -24).x} ${shifted(d, 40, -24).y} L ${c2.x} ${c2.y}`} {...hidden} />
+
+            <rect x={cylinderCx - cylinderRx} y={cylinderTop} width={cylinderRx * 2} height={cylinderBottom - cylinderTop} {...face} />
+            <ellipse cx={cylinderCx} cy={cylinderTop} rx={cylinderRx} ry={cylinderRy} {...face} />
+            <line x1={cylinderCx - cylinderRx} y1={cylinderTop} x2={cylinderCx - cylinderRx} y2={cylinderBottom} {...edge} />
+            <line x1={cylinderCx + cylinderRx} y1={cylinderTop} x2={cylinderCx + cylinderRx} y2={cylinderBottom} {...edge} />
+            <ellipse cx={cylinderCx} cy={cylinderTop} rx={cylinderRx} ry={cylinderRy} {...edge} />
+            <path d={ellipseArc(cylinderCx, cylinderBottom, cylinderRx, cylinderRy, 0, 180)} {...edge} />
+            <path d={ellipseArc(cylinderCx, cylinderBottom, cylinderRx, cylinderRy, 180, 360)} {...hidden} />
+
+            {label(134, 225, `base ${diagram.base.length} x ${diagram.base.width} x ${diagram.base.height} ${unit}`)}
+            {label(202, 76, `r = ${dimension(diagram.cylinder.radius)}`, "start")}
+            {label(202, 99, `h = ${dimension(diagram.cylinder.height)}`, "start")}
+          </>
+        );
+      }
+
+      case "rectangularPrismWithTriangularNotch": {
+        const dx = 41;
+        const dy = -24;
+        const front = [
+          { x: 40, y: 82 },
+          { x: 106, y: 82 },
+          { x: 137, y: 132 },
+          { x: 168, y: 82 },
+          { x: 230, y: 82 },
+          { x: 230, y: 204 },
+          { x: 40, y: 204 },
+        ];
+        const back = front.map((point) => shifted(point, dx, dy));
+
+        return (
+          <>
+            <polygon points={points(front)} {...face} />
+            <polygon points={points([front[0], front[1], back[1], back[0]])} {...face} />
+            <polygon points={points([front[3], front[4], back[4], back[3]])} {...face} />
+            <polygon points={points([front[4], front[5], back[5], back[4]])} {...face} />
+            <path d={`M ${back[0].x} ${back[0].y} L ${back[6].x} ${back[6].y} L ${back[5].x} ${back[5].y}`} {...hidden} />
+            <polygon points={points(front)} {...edge} />
+            <path d={`M ${front[0].x} ${front[0].y} L ${back[0].x} ${back[0].y} L ${back[1].x} ${back[1].y} L ${front[1].x} ${front[1].y}`} {...edge} />
+            <path d={`M ${front[3].x} ${front[3].y} L ${back[3].x} ${back[3].y} L ${back[4].x} ${back[4].y} L ${front[4].x} ${front[4].y}`} {...edge} />
+            <path d={`M ${back[1].x} ${back[1].y} L ${back[2].x} ${back[2].y} L ${back[3].x} ${back[3].y}`} fill="none" stroke={VOID} strokeWidth={1.7} strokeDasharray="5 4" />
+            <path d={`M ${front[1].x} ${front[1].y} L ${front[2].x} ${front[2].y} L ${front[3].x} ${front[3].y}`} fill="none" stroke={VOID} strokeWidth={2.2} />
+            {label(135, 225, `prism ${diagram.outer.length} x ${diagram.outer.width} x ${diagram.outer.height} ${unit}`)}
+            {label(137, 147, `notch triangle ${diagram.notch.base} x ${diagram.notch.height} ${unit}`, "middle", true)}
+            {label(248, 112, `length ${dimension(diagram.notch.length)}`, "start", true)}
+          </>
+        );
+      }
+
+      case "steppedPool": {
+        const topY = 73;
+        const splitX = 143;
+        const rightX = 244;
+        const leftX = 42;
+        const shallowBottom = 145;
+        const deepBottom = 205;
+        const dx = 38;
+        const dy = -22;
+        const frontProfile = [
+          { x: leftX, y: topY },
+          { x: rightX, y: topY },
+          { x: rightX, y: deepBottom },
+          { x: splitX, y: deepBottom },
+          { x: splitX, y: shallowBottom },
+          { x: leftX, y: shallowBottom },
+        ];
+
+        return (
+          <>
+            <polygon points={points(frontProfile)} fill={stroke} fillOpacity={0.16} />
+            <polygon
+              points={points([
+                { x: leftX, y: topY },
+                { x: rightX, y: topY },
+                { x: rightX + dx, y: topY + dy },
+                { x: leftX + dx, y: topY + dy },
+              ])}
+              fill="#38bdf8"
+              fillOpacity={0.2}
+            />
+            <polygon points={points(frontProfile)} {...edge} />
+            <path d={`M ${leftX} ${topY} L ${leftX + dx} ${topY + dy} H ${rightX + dx} L ${rightX} ${topY}`} {...edge} />
+            <path d={`M ${rightX + dx} ${topY + dy} V ${deepBottom + dy} L ${rightX} ${deepBottom}`} {...edge} />
+            <line x1={splitX} y1={topY} x2={splitX} y2={deepBottom} stroke={HIDDEN} strokeWidth={1.5} strokeDasharray="5 4" />
+            {label(92, 110, `shallow ${diagram.shallow.length} x ${diagram.shallow.width} x ${diagram.shallow.height} ${unit}`)}
+            {label(197, 166, `deep ${diagram.deep.length} x ${diagram.deep.width} x ${diagram.deep.height} ${unit}`)}
+          </>
+        );
+      }
+
       case "hollowCylinder": {
         const frontX = 66;
         const backX = 250;

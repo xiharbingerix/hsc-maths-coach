@@ -683,6 +683,26 @@ export type CompositeSolidDiagram = CompositeSolidBase &
         upper: { radius: number; height: number };
       }
     | {
+        kind: "rectangularPrismWithCylindricalHole";
+        outer: RectangularPrismDimensions;
+        hole: { radius: number; depth: number };
+      }
+    | {
+        kind: "cylinderOnRectangularPrism";
+        base: RectangularPrismDimensions;
+        cylinder: { radius: number; height: number };
+      }
+    | {
+        kind: "rectangularPrismWithTriangularNotch";
+        outer: RectangularPrismDimensions;
+        notch: { base: number; height: number; length: number };
+      }
+    | {
+        kind: "steppedPool";
+        shallow: RectangularPrismDimensions;
+        deep: RectangularPrismDimensions;
+      }
+    | {
         kind: "hollowCylinder";
         outerRadius: number;
         innerRadius: number;
