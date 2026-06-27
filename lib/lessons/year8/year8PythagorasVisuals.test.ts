@@ -11,6 +11,7 @@ type HypotenuseCase = {
   a: number;
   b: number;
   precision: number;
+  expectedAnswer?: string;
 };
 
 type ShorterSideCase = {
@@ -18,6 +19,7 @@ type ShorterSideCase = {
   hypotenuse: number;
   knownSide: number;
   precision: number;
+  expectedAnswer?: string;
 };
 
 const cases: Record<string, HypotenuseCase | ShorterSideCase> = {
@@ -41,9 +43,49 @@ const cases: Record<string, HypotenuseCase | ShorterSideCase> = {
   "y8-pyth-short-m2": { kind: "shorter", hypotenuse: 25, knownSide: 20, precision: 0 },
   "y8-pyth-short-m4": { kind: "shorter", hypotenuse: 14, knownSide: 9, precision: 1 },
   "y8-pyth-short-m7": { kind: "shorter", hypotenuse: 18, knownSide: 11, precision: 2 },
+  "y8-pyth-hyp-p1": { kind: "hypotenuse", a: 6, b: 8, precision: 0 },
+  "y8-pyth-hyp-p2": { kind: "hypotenuse", a: 8, b: 15, precision: 0 },
+  "y8-pyth-hyp-p3": { kind: "hypotenuse", a: 9, b: 12, precision: 0 },
+  "y8-pyth-hyp-p4": { kind: "hypotenuse", a: 7, b: 24, precision: 0 },
+  "y8-pyth-hyp-p6": { kind: "hypotenuse", a: 20, b: 21, precision: 0 },
+  "y8-pyth-hyp-p7": { kind: "hypotenuse", a: 12, b: 16, precision: 0 },
+  "y8-pyth-hyp-p8": { kind: "hypotenuse", a: 4, b: 7, precision: 1 },
+  "y8-pyth-hyp-p9": { kind: "hypotenuse", a: 5, b: 8, precision: 1 },
+  "y8-pyth-hyp-p10": { kind: "hypotenuse", a: 10, b: 24, precision: 0 },
+  "y8-pyth-hyp-p12": { kind: "hypotenuse", a: 6, b: 9, precision: 1 },
+  "y8-pyth-hyp-p14": { kind: "hypotenuse", a: 7, b: 11, precision: 1 },
+  "y8-pyth-hyp-p15": { kind: "hypotenuse", a: 18, b: 24, precision: 0 },
+  "y8-pyth-hyp-p19": {
+    kind: "hypotenuse",
+    a: 4.5,
+    b: 6,
+    precision: 2,
+    expectedAnswer: "7.5",
+  },
+  "y8-pyth-hyp-p22": { kind: "hypotenuse", a: 13, b: 15, precision: 1 },
+  "y8-pyth-hyp-p25": {
+    kind: "hypotenuse",
+    a: 2.5,
+    b: 6,
+    precision: 2,
+    expectedAnswer: "6.5",
+  },
+  "y8-pyth-short-p1": { kind: "shorter", hypotenuse: 5, knownSide: 3, precision: 0 },
+  "y8-pyth-short-p2": { kind: "shorter", hypotenuse: 13, knownSide: 5, precision: 0 },
+  "y8-pyth-short-p3": { kind: "shorter", hypotenuse: 10, knownSide: 8, precision: 0 },
+  "y8-pyth-short-p4": { kind: "shorter", hypotenuse: 17, knownSide: 15, precision: 0 },
+  "y8-pyth-short-p6": { kind: "shorter", hypotenuse: 25, knownSide: 24, precision: 0 },
+  "y8-pyth-short-p7": { kind: "shorter", hypotenuse: 26, knownSide: 10, precision: 0 },
+  "y8-pyth-short-p8": { kind: "shorter", hypotenuse: 9, knownSide: 4, precision: 1 },
+  "y8-pyth-short-p9": { kind: "shorter", hypotenuse: 12, knownSide: 5, precision: 1 },
+  "y8-pyth-short-p14": { kind: "shorter", hypotenuse: 14, knownSide: 6, precision: 1 },
+  "y8-pyth-short-p16": { kind: "shorter", hypotenuse: 41, knownSide: 9, precision: 0 },
+  "y8-pyth-short-p19": { kind: "shorter", hypotenuse: 18, knownSide: 11, precision: 2 },
+  "y8-pyth-short-p24": { kind: "shorter", hypotenuse: 20, knownSide: 13, precision: 1 },
 };
 
 function calculatedAnswer(testCase: HypotenuseCase | ShorterSideCase) {
+  if (testCase.expectedAnswer) return testCase.expectedAnswer;
   const squared =
     testCase.kind === "hypotenuse"
       ? testCase.a ** 2 + testCase.b ** 2
@@ -54,8 +96,8 @@ function calculatedAnswer(testCase: HypotenuseCase | ShorterSideCase) {
 
 test("repaired Year 8 Pythagoras questions have complete labelled triangles", () => {
   const visuals = Object.entries(pythagorasQuestionVisuals);
-  assert.equal(visuals.length, 20);
-  assert.equal(Object.keys(cases).length, 20);
+  assert.equal(visuals.length, 47);
+  assert.equal(Object.keys(cases).length, 47);
 
   for (const [questionId, visual] of visuals) {
     const testCase = cases[questionId];
@@ -104,4 +146,19 @@ test("repaired Year 8 Pythagoras diagrams calculate to the seeded answers", () =
     assert.equal(row.answer, calculatedAnswer(testCase), `${questionId} dimensions do not match its answer`);
     assert.equal(row.diagram_data?.type, "triangleDiagram");
   }
+});
+
+test("generic Year 8 side-finding prompts never omit their dimensions", () => {
+  const { rows } = collectAllQuestions(["year-8-mathematics"]);
+  const genericSideQuestions = rows.filter(
+    (row) =>
+      row.topic_slug === "pythagoras-theorem" &&
+      /^Find the (?:hypotenuse|unknown shorter side) in /i.test(row.prompt)
+  );
+
+  assert.ok(genericSideQuestions.length > 0);
+  assert.deepEqual(
+    genericSideQuestions.filter((row) => !row.diagram_data).map((row) => row.source_id),
+    []
+  );
 });

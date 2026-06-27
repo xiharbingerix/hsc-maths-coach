@@ -23,7 +23,74 @@ function rightTriangle(
   };
 }
 
+function hypotenuseVisual(
+  a: number,
+  b: number,
+  unitLabel: string,
+  unitName: string,
+  rounding = ""
+): PythagorasQuestionVisual {
+  return {
+    prompt: `Use the labelled right triangle to find the hypotenuse c in ${unitName}.${rounding}`,
+    triangleDiagram: rightTriangle(
+      `Right triangle with perpendicular shorter sides ${a} ${unitLabel} and ${b} ${unitLabel} and unknown hypotenuse c.`,
+      `${a} ${unitLabel}`,
+      `${b} ${unitLabel}`,
+      "c"
+    ),
+  };
+}
+
+function shorterSideVisual(
+  hypotenuse: number,
+  knownSide: number,
+  unitLabel: string,
+  unitName: string,
+  rounding = ""
+): PythagorasQuestionVisual {
+  return {
+    prompt: `Use the labelled right triangle to find the unknown shorter side x in ${unitName}.${rounding}`,
+    triangleDiagram: rightTriangle(
+      `Right triangle with hypotenuse ${hypotenuse} ${unitLabel}, one shorter side ${knownSide} ${unitLabel} and unknown shorter side x.`,
+      `${knownSide} ${unitLabel}`,
+      "x",
+      `${hypotenuse} ${unitLabel}`
+    ),
+  };
+}
+
+const repairedPoolVisuals: Record<string, PythagorasQuestionVisual> = {
+  "y8-pyth-hyp-p1": hypotenuseVisual(6, 8, "cm", "centimetres"),
+  "y8-pyth-hyp-p2": hypotenuseVisual(8, 15, "m", "metres"),
+  "y8-pyth-hyp-p3": hypotenuseVisual(9, 12, "cm", "centimetres"),
+  "y8-pyth-hyp-p4": hypotenuseVisual(7, 24, "m", "metres"),
+  "y8-pyth-hyp-p6": hypotenuseVisual(20, 21, "m", "metres"),
+  "y8-pyth-hyp-p7": hypotenuseVisual(12, 16, "mm", "millimetres"),
+  "y8-pyth-hyp-p8": hypotenuseVisual(4, 7, "cm", "centimetres", " Round to 1 decimal place."),
+  "y8-pyth-hyp-p9": hypotenuseVisual(5, 8, "m", "metres", " Round to 1 decimal place."),
+  "y8-pyth-hyp-p10": hypotenuseVisual(10, 24, "cm", "centimetres"),
+  "y8-pyth-hyp-p12": hypotenuseVisual(6, 9, "cm", "centimetres", " Round to 1 decimal place."),
+  "y8-pyth-hyp-p14": hypotenuseVisual(7, 11, "m", "metres", " Round to 1 decimal place."),
+  "y8-pyth-hyp-p15": hypotenuseVisual(18, 24, "cm", "centimetres"),
+  "y8-pyth-hyp-p19": hypotenuseVisual(4.5, 6, "m", "metres", " Round to 2 decimal places."),
+  "y8-pyth-hyp-p22": hypotenuseVisual(13, 15, "m", "metres", " Round to 1 decimal place."),
+  "y8-pyth-hyp-p25": hypotenuseVisual(2.5, 6, "cm", "centimetres", " Round to 2 decimal places."),
+  "y8-pyth-short-p1": shorterSideVisual(5, 3, "cm", "centimetres"),
+  "y8-pyth-short-p2": shorterSideVisual(13, 5, "m", "metres"),
+  "y8-pyth-short-p3": shorterSideVisual(10, 8, "cm", "centimetres"),
+  "y8-pyth-short-p4": shorterSideVisual(17, 15, "m", "metres"),
+  "y8-pyth-short-p6": shorterSideVisual(25, 24, "mm", "millimetres"),
+  "y8-pyth-short-p7": shorterSideVisual(26, 10, "m", "metres"),
+  "y8-pyth-short-p8": shorterSideVisual(9, 4, "cm", "centimetres", " Round to 1 decimal place."),
+  "y8-pyth-short-p9": shorterSideVisual(12, 5, "m", "metres", " Round to 1 decimal place."),
+  "y8-pyth-short-p14": shorterSideVisual(14, 6, "cm", "centimetres", " Round to 1 decimal place."),
+  "y8-pyth-short-p16": shorterSideVisual(41, 9, "m", "metres"),
+  "y8-pyth-short-p19": shorterSideVisual(18, 11, "m", "metres", " Round to 2 decimal places."),
+  "y8-pyth-short-p24": shorterSideVisual(20, 13, "m", "metres", " Round to 1 decimal place."),
+};
+
 export const pythagorasQuestionVisuals: Record<string, PythagorasQuestionVisual> = {
+  ...repairedPoolVisuals,
   "y8-pyth-hyp-g3": {
     prompt: "Use the labelled right triangle to find the hypotenuse c in metres.",
     triangleDiagram: rightTriangle(
