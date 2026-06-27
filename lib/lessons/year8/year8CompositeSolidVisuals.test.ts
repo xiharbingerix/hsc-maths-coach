@@ -13,7 +13,6 @@ const expectedAnswers: Record<string, string> = {
   "y8-vsa-cv-g2": "152",
   "y8-vsa-cv-g3": "168",
   "y8-vsa-cv-g4": "160",
-  "y8-vsa-cv-i2": "450",
   "y8-vsa-cv-i4": "360",
   "y8-vsa-cv-m3": "B",
   "y8-vsa-cv-m7": "444",
@@ -40,7 +39,7 @@ function prismSurfaceArea(prism: RectangularPrismDimensions): number {
 test("Year 8 composite-solid payloads are complete and render", () => {
   const visuals = Object.entries(compositeSolidQuestionVisuals);
   const kindCounts = new Map<string, number>();
-  assert.equal(visuals.length, 13);
+  assert.equal(visuals.length, 12);
 
   for (const [questionId, visual] of visuals) {
     const diagram = visual.compositeSolidDiagram;
@@ -64,7 +63,7 @@ test("Year 8 composite-solid payloads are complete and render", () => {
   }
 
   assert.deepEqual(Object.fromEntries(kindCounts), {
-    stackedRectangularPrisms: 6,
+    stackedRectangularPrisms: 5,
     rectangularPrismWithVoid: 2,
     housePrism: 4,
     hollowCylinder: 1,
@@ -90,7 +89,7 @@ test("Year 8 composite-solid dimensions calculate to the seeded answers", () => 
   const rowsById = new Map(rows.map((row) => [row.source_id, row]));
 
   assert.equal(warnings.length, 0);
-  assert.equal(Object.keys(expectedAnswers).length, 13);
+  assert.equal(Object.keys(expectedAnswers).length, 12);
   for (const [questionId, expectedAnswer] of Object.entries(expectedAnswers)) {
     const row = rowsById.get(questionId);
     assert.ok(row, `${questionId} was dropped by question-bank mapping`);
@@ -102,7 +101,6 @@ test("Year 8 composite-solid dimensions calculate to the seeded answers", () => 
     "y8-vsa-cv-g2": 10 * 4 * 2 + 6 * 4 * 3,
     "y8-vsa-cv-g3": 8 * 6 * 4 - 3 * 2 * 4,
     "y8-vsa-cv-g4": 10 * 4 * 3 + 0.5 * 4 * 2 * 10,
-    "y8-vsa-cv-i2": 15 * 5 * 4 + 5 * 5 * 6,
     "y8-vsa-cv-i4": 10 * 8 * 5 - 4 * 2 * 5,
     "y8-vsa-cv-m7": 14 * 6 * 3 + 8 * 6 * 4,
     "y8-vsa-cv-mp1": 12 * 6 * 5 + 0.5 * 12 * 4 * 6,

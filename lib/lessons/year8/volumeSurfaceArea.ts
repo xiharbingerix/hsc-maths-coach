@@ -10,6 +10,7 @@ import type {
 } from "../differentialCalculus";
 import { volumeSurfaceAreaQuestionVisuals } from "./volumeSurfaceAreaVisuals";
 import { compositeSolidQuestionVisuals } from "./compositeSolidVisuals";
+import { compositeSolidPoolVisuals } from "./compositeSolidPoolVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -2054,7 +2055,9 @@ const lessons: Record<string, LessonContent> = {
 
 function addQuestionVisual(question: PracticeQuestion): PracticeQuestion {
   const visual =
-    volumeSurfaceAreaQuestionVisuals[question.id] ?? compositeSolidQuestionVisuals[question.id];
+    volumeSurfaceAreaQuestionVisuals[question.id] ??
+    compositeSolidQuestionVisuals[question.id] ??
+    compositeSolidPoolVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 

@@ -49,20 +49,6 @@ export const compositeSolidQuestionVisuals: Record<
       color: "teal",
     },
   },
-  "y8-vsa-cv-i2": {
-    prompt:
-      "The L-shaped solid shown consists of two rectangular prisms. Find its total volume.",
-    compositeSolidDiagram: {
-      description:
-        "L-shaped composite solid with a 15 cm by 5 cm by 4 cm lower rectangular prism and a 5 cm by 5 cm by 6 cm upper prism at one end.",
-      kind: "stackedRectangularPrisms",
-      unit: "cm",
-      lower: { length: 15, width: 5, height: 4 },
-      upper: { length: 5, width: 5, height: 6 },
-      placement: "end",
-      color: "violet",
-    },
-  },
   "y8-vsa-cv-i4": {
     prompt:
       "The rectangular hole shown is cut all the way through the outer prism. Find the remaining volume.",
