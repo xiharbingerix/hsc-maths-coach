@@ -4,6 +4,7 @@ import type {
   BearingsDiagram,
   BoxPlotDiagram,
   CartesianGraph,
+  CompositeSolidDiagram,
   CongruentTrianglesDiagram,
   DotPlotDiagram,
   HistogramDiagram,
@@ -73,6 +74,7 @@ export const DIAGRAM_SPECS = [
   { type: "sectorDiagram", field: "sectorDiagram" },
   { type: "pieChartDiagram", field: "pieChartDiagram" },
   { type: "solid3DDiagram", field: "solid3DDiagram" },
+  { type: "compositeSolidDiagram", field: "compositeSolidDiagram" },
   { type: "netDiagram", field: "netDiagram" },
   { type: "bearingsDiagram", field: "bearingsDiagram" },
   { type: "stepGraphDiagram", field: "stepGraphDiagram" },
@@ -116,6 +118,7 @@ export type DiagramFields = {
   sectorDiagram?: SectorDiagram;
   pieChartDiagram?: PieChartDiagram;
   solid3DDiagram?: Solid3DDiagram;
+  compositeSolidDiagram?: CompositeSolidDiagram;
   netDiagram?: NetDiagram;
   bearingsDiagram?: BearingsDiagram;
   stepGraphDiagram?: StepGraphDiagram;

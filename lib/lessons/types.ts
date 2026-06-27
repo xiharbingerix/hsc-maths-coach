@@ -628,6 +628,50 @@ export type Solid3DDiagram = {
   color?: StatChartColor;
 };
 
+export type RectangularPrismDimensions = {
+  length: number;
+  width: number;
+  height: number;
+};
+
+type CompositeSolidBase = {
+  description: string;
+  unit: "cm" | "m";
+  color?: StatChartColor;
+};
+
+export type CompositeSolidDiagram = CompositeSolidBase &
+  (
+    | {
+        kind: "stackedRectangularPrisms";
+        lower: RectangularPrismDimensions;
+        upper: RectangularPrismDimensions;
+        placement: "end" | "centred";
+      }
+    | {
+        kind: "housePrism";
+        base: RectangularPrismDimensions;
+        roof: {
+          crossSectionBase: number;
+          crossSectionHeight: number;
+          length: number;
+          slant?: number;
+        };
+      }
+    | {
+        kind: "rectangularPrismWithVoid";
+        outer: RectangularPrismDimensions;
+        void: RectangularPrismDimensions;
+        voidStyle: "cornerCutout" | "throughHole";
+      }
+    | {
+        kind: "hollowCylinder";
+        outerRadius: number;
+        innerRadius: number;
+        length: number;
+      }
+  );
+
 export type BearingRay = {
   /** Bearing in degrees, clockwise from North (0–360). */
   bearing: number;

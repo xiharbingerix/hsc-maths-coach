@@ -8,6 +8,7 @@ import type {
   BearingsDiagram,
   BoxPlotDiagram,
   CartesianGraph,
+  CompositeSolidDiagram,
   CongruentTrianglesDiagram,
   DotPlotDiagram,
   HistogramDiagram,
@@ -38,6 +39,7 @@ import { BoxPlotView } from "../course/components/BoxPlotView";
 import { BarChartView } from "../course/components/BarChartView";
 import { BearingsView } from "../course/components/BearingsView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
+import { CompositeSolidView } from "../course/components/CompositeSolidView";
 import { CongruentTrianglesView } from "../course/components/CongruentTrianglesView";
 import { DotPlotView } from "../course/components/DotPlotView";
 import { HistogramView } from "../course/components/HistogramView";
@@ -113,6 +115,9 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   sectorDiagram: (d) => <SectorView diagram={d as unknown as SectorDiagram} />,
   pieChartDiagram: (d) => <PieChartView diagram={d as unknown as PieChartDiagram} />,
   solid3DDiagram: (d) => <Solid3DView diagram={d as unknown as Solid3DDiagram} />,
+  compositeSolidDiagram: (d) => (
+    <CompositeSolidView diagram={d as unknown as CompositeSolidDiagram} />
+  ),
   netDiagram: (d) => <NetView diagram={d as unknown as NetDiagram} />,
   bearingsDiagram: (d) => <BearingsView diagram={d as unknown as BearingsDiagram} />,
   stepGraphDiagram: (d) => <StepGraphView diagram={d as unknown as StepGraphDiagram} />,

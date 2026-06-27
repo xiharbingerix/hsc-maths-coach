@@ -9,6 +9,7 @@ import type {
   WorkedExample,
 } from "../differentialCalculus";
 import { volumeSurfaceAreaQuestionVisuals } from "./volumeSurfaceAreaVisuals";
+import { compositeSolidQuestionVisuals } from "./compositeSolidVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -2026,15 +2027,15 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       prompt:
         "A composite solid is formed by placing a small rectangular prism (6 cm long, 4 cm wide, 3 cm high) centred on top of a large rectangular prism (10 cm long, 8 cm wide, 5 cm high). The small prism's base (6 cm × 4 cm) sits entirely on the large prism's top face.",
       latex: "\\text{Large } 10 \\times 8 \\times 5,\\ \\text{small } 6 \\times 4 \\times 3",
-      answer: "412",
+      answer: "400",
       hint: "Find each prism's full surface area, then subtract twice the joint face area.",
       explanation:
-        "(a) Large SA = 2(80 + 50 + 40) = 340 cm². (b) Small SA = 2(24 + 18 + 12) = 108 cm². (c) Joint face = 6 × 4 = 24 cm². (d) Composite SA = 340 + 108 − 2×24 = 412 cm².",
+        "(a) Large SA = 2(80 + 50 + 40) = 340 cm². (b) Small SA = 2(24 + 18 + 12) = 108 cm². (c) Joint face = 6 × 4 = 24 cm². (d) Composite SA = 340 + 108 − 2×24 = 400 cm².",
       parts: [
         { key: "a", label: "(a)", prompt: "Find the full surface area of the large prism in cm².", latex: "", marks: 1, answer: "340", acceptedAnswers: ["340 cm^2"], hint: "Use SA = 2(lw + lh + wh).", explanation: "2(80 + 50 + 40) = 340 cm²." },
         { key: "b", label: "(b)", prompt: "Find the full surface area of the small prism in cm².", latex: "", marks: 1, answer: "108", acceptedAnswers: ["108 cm^2"], hint: "Use SA = 2(lw + lh + wh).", explanation: "2(24 + 18 + 12) = 108 cm²." },
         { key: "c", label: "(c)", prompt: "Find the area of the joint face in cm².", latex: "", marks: 1, answer: "24", acceptedAnswers: ["24 cm^2"], hint: "The joint is the small prism's base.", explanation: "6 × 4 = 24 cm²." },
-        { key: "d", label: "(d)", prompt: "Find the total composite surface area in cm².", latex: "", marks: 1, answer: "412", acceptedAnswers: ["412 cm^2"], hint: "Subtract twice the joint area from the sum of the two surface areas.", explanation: "340 + 108 − 48 = 412 cm²." },
+        { key: "d", label: "(d)", prompt: "Find the total composite surface area in cm².", latex: "", marks: 1, answer: "400", acceptedAnswers: ["400 cm^2"], hint: "Subtract twice the joint area from the sum of the two surface areas.", explanation: "340 + 108 − 48 = 400 cm²." },
       ],
     },
   ],
@@ -2052,7 +2053,8 @@ const lessons: Record<string, LessonContent> = {
 };
 
 function addQuestionVisual(question: PracticeQuestion): PracticeQuestion {
-  const visual = volumeSurfaceAreaQuestionVisuals[question.id];
+  const visual =
+    volumeSurfaceAreaQuestionVisuals[question.id] ?? compositeSolidQuestionVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 
