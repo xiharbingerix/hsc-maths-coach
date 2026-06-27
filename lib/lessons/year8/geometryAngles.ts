@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { congruenceQuestionVisuals } from "./congruenceVisuals";
 import { geometryQuestionVisuals } from "./geometryVisuals";
 
 type LessonContent = Pick<
@@ -2683,7 +2684,8 @@ for (const content of Object.values(lessons)) {
   ];
 
   for (const question of questions) {
-    const visual = geometryQuestionVisuals[question.id];
+    const visual =
+      geometryQuestionVisuals[question.id] ?? congruenceQuestionVisuals[question.id];
     if (!visual) continue;
     Object.assign(question, visual);
   }

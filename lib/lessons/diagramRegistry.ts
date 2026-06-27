@@ -4,6 +4,7 @@ import type {
   BearingsDiagram,
   BoxPlotDiagram,
   CartesianGraph,
+  CongruentTrianglesDiagram,
   DotPlotDiagram,
   HistogramDiagram,
   NetDiagram,
@@ -52,6 +53,7 @@ export const DIAGRAM_SPECS = [
   { type: "argandDiagram", field: "argandDiagram" },
   { type: "vector3DDiagram", field: "vector3DDiagram" },
   { type: "triangleDiagram", field: "triangleDiagram" },
+  { type: "congruentTrianglesDiagram", field: "congruentTrianglesDiagram" },
   { type: "trapezoidalRuleDiagram", field: "trapezoidalRuleDiagram" },
   { type: "boxPlotDiagram", field: "boxPlotDiagram" },
   { type: "normalDistributionDiagram", field: "normalDistributionDiagram" },
@@ -95,6 +97,7 @@ export type DiagramFields = {
   argandDiagram?: ArgandDiagram;
   vector3DDiagram?: Vector3DDiagram;
   triangleDiagram?: TriangleDiagram;
+  congruentTrianglesDiagram?: CongruentTrianglesDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;

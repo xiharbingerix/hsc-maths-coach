@@ -24,12 +24,13 @@ export type NetworkDiagram = {
   highlightedVertices?: string[];
 };
 
-type TrianglePoint = {
+export type TrianglePoint = {
   x: number;
   y: number;
 };
 
-type TriangleSideKey = "AB" | "BC" | "AC";
+export type TriangleVertexKey = "A" | "B" | "C";
+export type TriangleSideKey = "AB" | "BC" | "AC";
 
 export type TriangleDiagram = {
   description: string;
@@ -41,9 +42,22 @@ export type TriangleDiagram = {
   vertexLabels?: Partial<Record<"A" | "B" | "C", string>>;
   sideLabels?: Partial<Record<TriangleSideKey, string>>;
   angleLabels?: Partial<Record<"A" | "B" | "C", string>>;
+  /** Matching side marks: 1, 2 or 3 short ticks across the side. */
+  sideTicks?: Partial<Record<TriangleSideKey, 1 | 2 | 3>>;
+  /** Matching angle marks: 1, 2 or 3 concentric arcs at the vertex. */
+  angleMarks?: Partial<Record<TriangleVertexKey, 1 | 2 | 3>>;
   rightAngleAt?: "A" | "B" | "C";
   highlightedSides?: TriangleSideKey[];
   viewBox?: string;
+};
+
+/** Two triangles displayed together with correspondence marks for congruence work. */
+export type CongruentTrianglesDiagram = {
+  description: string;
+  left: TriangleDiagram;
+  right: TriangleDiagram;
+  leftCaption?: string;
+  rightCaption?: string;
 };
 
 export type CartesianPoint = {

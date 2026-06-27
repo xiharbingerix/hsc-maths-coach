@@ -8,6 +8,7 @@ import type {
   BearingsDiagram,
   BoxPlotDiagram,
   CartesianGraph,
+  CongruentTrianglesDiagram,
   DotPlotDiagram,
   HistogramDiagram,
   NetworkDiagram,
@@ -37,6 +38,7 @@ import { BoxPlotView } from "../course/components/BoxPlotView";
 import { BarChartView } from "../course/components/BarChartView";
 import { BearingsView } from "../course/components/BearingsView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
+import { CongruentTrianglesView } from "../course/components/CongruentTrianglesView";
 import { DotPlotView } from "../course/components/DotPlotView";
 import { HistogramView } from "../course/components/HistogramView";
 import { NetView } from "../course/components/NetView";
@@ -79,6 +81,9 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   argandDiagram: (d) => <ArgandDiagramView diagram={d as unknown as ArgandDiagram} />,
   vector3DDiagram: (d) => <Vector3DDiagramView diagram={d as unknown as Vector3DDiagram} />,
   triangleDiagram: (d) => <TriangleDiagramView diagram={d as unknown as TriangleDiagram} />,
+  congruentTrianglesDiagram: (d) => (
+    <CongruentTrianglesView diagram={d as unknown as CongruentTrianglesDiagram} />
+  ),
   trapezoidalRuleDiagram: (d) => (
     <TrapezoidalRuleView diagram={d as unknown as TrapezoidalRuleDiagram} />
   ),

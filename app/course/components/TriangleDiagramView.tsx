@@ -1,10 +1,14 @@
 "use client";
 
 import * as React from "react";
-import type { TriangleDiagram } from "../../../lib/lessons/types";
+import type {
+  TriangleDiagram,
+  TriangleSideKey,
+  TriangleVertexKey,
+} from "../../../lib/lessons/types";
 
-type VertexKey = "A" | "B" | "C";
-type SideKey = "AB" | "BC" | "AC";
+type VertexKey = TriangleVertexKey;
+type SideKey = TriangleSideKey;
 
 const sides: { key: SideKey; from: VertexKey; to: VertexKey }[] = [
   { key: "AB", from: "A", to: "B" },
@@ -152,14 +156,14 @@ function angleLabelPosition(
 
 function angleArcPath(
   diagram: TriangleDiagram,
-  vertexKey: VertexKey
+  vertexKey: VertexKey,
+  radius = 24
 ): string | null {
   const vertices = diagram.vertices;
   const point = vertices[vertexKey];
   const [firstKey, secondKey] = adjacentVertices(vertexKey);
   const firstUnit = unitVector(point, vertices[firstKey]);
   const secondUnit = unitVector(point, vertices[secondKey]);
-  const radius = 24;
   const start = {
     x: point.x + firstUnit.x * radius,
     y: point.y + firstUnit.y * radius,
@@ -176,6 +180,39 @@ function angleArcPath(
   }
 
   return `M ${start.x} ${start.y} A ${radius} ${radius} 0 0 ${sweepFlag} ${end.x} ${end.y}`;
+}
+
+function sideTickPaths(
+  diagram: TriangleDiagram,
+  side: (typeof sides)[number],
+  count: 1 | 2 | 3
+) {
+  const from = diagram.vertices[side.from];
+  const to = diagram.vertices[side.to];
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const length = Math.hypot(dx, dy);
+  if (length === 0) return [];
+
+  const unitX = dx / length;
+  const unitY = dy / length;
+  const normalX = -unitY;
+  const normalY = unitX;
+  const midpoint = { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 };
+
+  return Array.from({ length: count }, (_, index) => {
+    const along = (index - (count - 1) / 2) * 11;
+    const centre = {
+      x: midpoint.x + unitX * along,
+      y: midpoint.y + unitY * along,
+    };
+    return {
+      x1: centre.x - normalX * 7,
+      y1: centre.y - normalY * 7,
+      x2: centre.x + normalX * 7,
+      y2: centre.y + normalY * 7,
+    };
+  });
 }
 
 export function TriangleDiagramView({
@@ -225,6 +262,20 @@ export function TriangleDiagramView({
           );
         })}
 
+        {sides.flatMap((side) => {
+          const count = diagram.sideTicks?.[side.key];
+          if (!count) return [];
+          return sideTickPaths(diagram, side, count).map((tick, index) => (
+            <line
+              key={`${side.key}-tick-${index}`}
+              {...tick}
+              stroke="#0f172a"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+            />
+          ));
+        })}
+
         {diagram.rightAngleAt &&
           (() => {
             const path = rightAnglePath(diagram, diagram.rightAngleAt);
@@ -270,23 +321,21 @@ export function TriangleDiagramView({
           );
         })}
 
-        {(Object.keys(vertices) as VertexKey[]).map((key) => {
-          if (!diagram.angleLabels?.[key]) {
-            return null;
-          }
-
-          const path = angleArcPath(diagram, key);
-
-          return path ? (
-            <path
-              key={`${key}-angle-arc`}
-              d={path}
-              fill="none"
-              stroke="#d97706"
-              strokeWidth={2.5}
-              strokeLinecap="round"
-            />
-          ) : null;
+        {(Object.keys(vertices) as VertexKey[]).flatMap((key) => {
+          const markCount = diagram.angleMarks?.[key] ?? (diagram.angleLabels?.[key] ? 1 : 0);
+          return Array.from({ length: markCount }, (_, index) => {
+            const path = angleArcPath(diagram, key, 21 + index * 7);
+            return path ? (
+              <path
+                key={`${key}-angle-arc-${index}`}
+                d={path}
+                fill="none"
+                stroke="#d97706"
+                strokeWidth={2.5}
+                strokeLinecap="round"
+              />
+            ) : null;
+          });
         })}
 
         {(Object.keys(vertices) as VertexKey[]).map((key) => {
