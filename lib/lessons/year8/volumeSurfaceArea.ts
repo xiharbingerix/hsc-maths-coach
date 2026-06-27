@@ -8,6 +8,7 @@ import type {
   PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
+import { volumeSurfaceAreaQuestionVisuals } from "./volumeSurfaceAreaVisuals";
 
 type LessonContent = Pick<
   ExplicitLesson,
@@ -2050,6 +2051,22 @@ const lessons: Record<string, LessonContent> = {
   "surface-area-of-composite-solids": surfaceAreaOfCompositeSolids,
 };
 
+function addQuestionVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = volumeSurfaceAreaQuestionVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addQuestionVisuals(content: LessonContent): LessonContent {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice.map(addQuestionVisual),
+    independentPractice: content.independentPractice.map(addQuestionVisual),
+    masteryQuiz: content.masteryQuiz.map(addQuestionVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addQuestionVisual),
+    multiPartPractice: content.multiPartPractice?.map(addQuestionVisual),
+  };
+}
+
 export function year8VolumeSurfaceAreaLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -2072,10 +2089,12 @@ export function year8VolumeSurfaceAreaLessonOverride(
 
   const content = lessons[lesson.slug];
   if (!content) return null;
+  const scopedContent =
+    course.slug === "year-8-mathematics" ? addQuestionVisuals(content) : content;
 
   return {
     syllabusArea: "Measurement and Space",
     masteryPassMark: 0.8,
-    ...content,
+    ...scopedContent,
   };
 }

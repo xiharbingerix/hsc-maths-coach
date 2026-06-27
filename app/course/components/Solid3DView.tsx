@@ -161,6 +161,7 @@ export function Solid3DView({
         const T1 = { x: 56, y: 156 };
         const T2 = { x: 148, y: 156 };
         const T3 = { x: 102, y: 80 };
+        const altitudeFoot = { x: T3.x, y: T1.y };
         const dx = 36, dy = -26;
         const t = (p: { x: number; y: number }) => ({ x: p.x + dx, y: p.y + dy });
         const T1b = t(T1), T2b = t(T2), T3b = t(T3);
@@ -176,8 +177,27 @@ export function Solid3DView({
             <polygon points={poly([T1, T2, T3])} {...solid} />
             <line x1={T2.x} y1={T2.y} x2={T2b.x} y2={T2b.y} {...solid} />
             <line x1={T3.x} y1={T3.y} x2={T3b.x} y2={T3b.y} {...solid} />
+            {labels.height ? (
+              <>
+                <line
+                  x1={T3.x}
+                  y1={T3.y}
+                  x2={altitudeFoot.x}
+                  y2={altitudeFoot.y}
+                  stroke="#64748b"
+                  strokeWidth={1.4}
+                  strokeDasharray="4 3"
+                />
+                <path
+                  d={`M ${altitudeFoot.x} ${altitudeFoot.y - 9} h 9 v 9`}
+                  fill="none"
+                  stroke="#64748b"
+                  strokeWidth={1.4}
+                />
+              </>
+            ) : null}
             {lbl((T1.x + T2.x) / 2, T1.y + 15, labels.base)}
-            {lbl(T3.x - 12, (T3.y + T1.y) / 2, labels.height, "end")}
+            {lbl(T3.x - 10, (T3.y + altitudeFoot.y) / 2, labels.height, "end")}
             {lbl((T2.x + T2b.x) / 2 + 8, (T2.y + T2b.y) / 2 - 6, labels.length, "start")}
           </>
         );

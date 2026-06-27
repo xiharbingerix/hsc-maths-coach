@@ -92,7 +92,17 @@ export function NetView({
             <circle cx={cxr} cy={y0 + r} r={r} {...faceProps} />
             {rect(x0, y0 + 2 * r, Wr, Hr, "body")}
             <circle cx={cxr} cy={y0 + 2 * r + Hr + r} r={r} {...faceProps} />
-            {lbl(cxr, y0 + r, labels.radius)}
+            {labels.radius ? (
+              <line
+                x1={cxr}
+                y1={y0 + r}
+                x2={cxr + r}
+                y2={y0 + r}
+                stroke="#64748b"
+                strokeWidth={1.4}
+              />
+            ) : null}
+            {lbl(cxr + r / 2, y0 + r - 9, labels.radius)}
             {lbl(x0 + Wr + 12, y0 + 2 * r + Hr / 2, labels.height, "start")}
             {lbl(cxr, y0 + 2 * r - 8, labels.length)}
           </>
