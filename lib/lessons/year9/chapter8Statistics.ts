@@ -4,6 +4,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { year9BoxPlotVisuals } from "../year9BoxPlotVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Order the data; recall mean = sum ÷ count, median = middle.", explanation };
@@ -451,6 +452,22 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "box-plots": boxPlots,
 };
 
+function addBoxPlotVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = year9BoxPlotVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addBoxPlotVisuals(content: Partial<ExplicitLesson>): Partial<ExplicitLesson> {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice?.map(addBoxPlotVisual),
+    independentPractice: content.independentPractice?.map(addBoxPlotVisual),
+    masteryQuiz: content.masteryQuiz?.map(addBoxPlotVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addBoxPlotVisual),
+    multiPartPractice: content.multiPartPractice?.map(addBoxPlotVisual),
+  };
+}
+
 export function year9Chapter8StatisticsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -459,5 +476,7 @@ export function year9Chapter8StatisticsLessonOverride(
   if (!["year-9-mathematics", "year-9-mathematics-core", "year-9-mathematics-advanced"].includes(course.slug) || unit.slug !== "probability-data-analysis") {
     return null;
   }
-  return SECTIONS[lesson.slug] ?? null;
+  const content = SECTIONS[lesson.slug];
+  if (!content) return null;
+  return lesson.slug === "box-plots" ? addBoxPlotVisuals(content) : content;
 }

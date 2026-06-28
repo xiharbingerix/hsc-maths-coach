@@ -4,6 +4,7 @@
 // extending [grouping-data-into-classes] → Advanced only).
 
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { year9BoxPlotVisuals } from "../lessons/year9BoxPlotVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several steps.", explanation };
@@ -201,6 +202,11 @@ export const boxPlotY9Challenge: PracticeQuestion[] = [
   q("y9c-bp-11", "A box plot has min 3 and max 28. Find the range.", "range", "25", "28 − 3 = 25.", []),
   q("y9c-bp-12", "A box plot has Q1 12 and Q3 40. Find the IQR.", "iqr", "28", "40 − 12 = 28.", []),
 ];
+
+for (const question of boxPlotY9Challenge) {
+  const visual = year9BoxPlotVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}
 
 // interpreting-data-from-tables-and-graphs (core) — Year 9 Core conformance, Cambridge 10G
 export const interpretingDataY9Challenge: PracticeQuestion[] = [
