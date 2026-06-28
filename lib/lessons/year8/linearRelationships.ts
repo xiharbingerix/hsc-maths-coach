@@ -2469,7 +2469,7 @@ const gradientAsRateOfChange: LessonContent = {
       "y8-lin-grd-m2",
       "A horizontal line has gradient…",
       "D",
-      ["1", "−1", "undefined", "0"],
+      ["1", "−1", "not defined", "0"],
       "A horizontal line has no rise, so gradient = 0 ÷ run = 0."
     ),
     answer(
@@ -2571,7 +2571,7 @@ const gradientAsRateOfChange: LessonContent = {
       "y8-lin-grd-p4",
       "A horizontal line has gradient…",
       "C",
-      ["1", "−1", "0", "undefined"],
+      ["1", "−1", "0", "not defined"],
       "No rise, so gradient = 0.",
       1
     ),

@@ -82,7 +82,7 @@ export const gradientRateOfChangeChallenge: PracticeQuestion[] = [
   { id: "chal-y8-grc-5", prompt: "A car uses 8 L per 100 km. How many litres for 250 km?", latex: "", answer: "20", acceptedAnswers: [], hint: "Rate × distance.", explanation: "0.08 × 250 = 20 L." },
   { id: "chal-y8-grc-6", prompt: "Find the gradient through (−2, 3) and (2, 11).", latex: "", answer: "2", acceptedAnswers: [], hint: "Rise over run.", explanation: "8 / 4 = 2." },
   { id: "chal-y8-grc-7", prompt: "A phone plan costs $0.10 per minute. Find the cost of 45 minutes ($).", latex: "", answer: "4.5", acceptedAnswers: [], hint: "Rate × minutes.", explanation: "$4.50." },
-  { id: "chal-y8-grc-8", prompt: "Find the gradient through (3, 7) and (3, 2).", latex: "", answer: "undefined", acceptedAnswers: ["no gradient"], hint: "What is the run?", explanation: "Run is 0 — gradient undefined." },
+  { id: "chal-y8-grc-8", prompt: "Find the gradient through (3, 7) and (3, 2).", latex: "", answer: "not defined", acceptedAnswers: ["undefined", "no gradient"], hint: "What is the run?", explanation: "Run is 0, so the gradient is not defined." },
   { id: "chal-y8-grc-9", prompt: "A line rises 15 over a run of 5. Find the gradient.", latex: "", answer: "3", acceptedAnswers: [], hint: "Rise over run.", explanation: "3." },
   { id: "chal-y8-grc-10", prompt: "Temperature rises 3°C per hour from 12°C. Find the temperature after 5 hours (°C).", latex: "", answer: "27", acceptedAnswers: [], hint: "Start + rate × time.", explanation: "12 + 15 = 27." },
   { id: "chal-y8-grc-11", prompt: "Find the gradient through (1, 9) and (5, 1).", latex: "", answer: "-2", acceptedAnswers: m("-2"), hint: "Rise over run.", explanation: "−8 / 4 = −2." },
