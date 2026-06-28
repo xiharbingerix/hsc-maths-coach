@@ -172,7 +172,7 @@ const linesOneIntercept: Partial<ExplicitLesson> = {
     ans("y9-loi-i1", "State the gradient of y = 4.", "y=4", "0", 2, "Horizontal → gradient 0.", []),
     ans("y9-loi-i2", "Is x = 7 horizontal or vertical?", "x=7", "vertical", 2, "Vertical.", []),
     ans("y9-loi-i3", "The line y = −3 crosses the y-axis at:", "y=-3", "-3", 2, "y = −3.", ["−3"]),
-    mcq("y9-loi-i4", "A vertical line has gradient:", "C", ["0", "1", "undefined", "−1"], 3, "Vertical lines have undefined gradient."),
+    mcq("y9-loi-i4", "A vertical line has gradient:", "C", ["0", "1", "not defined", "−1"], 3, "A vertical line's gradient is not defined."),
     ans("y9-loi-i5", "The x-axis is the line with equation:", "\\text{x-axis}", "y=0", 2, "y = 0.", ["y = 0"]),
   ],
   masteryQuiz: [
@@ -182,7 +182,7 @@ const linesOneIntercept: Partial<ExplicitLesson> = {
     mcq("y9-loi-m4", "Which equation is a horizontal line?", "A", ["y = 5", "x = 5", "y = x", "y = 2x"], 2, "y = 5 is horizontal."),
     ans("y9-loi-m5", "Write the equation of the horizontal line through (0, 5).", "(0,5)", "y=5", 3, "y = 5.", ["y = 5"]),
     ans("y9-loi-m6", "The y-axis has equation:", "\\text{y-axis}", "x=0", 2, "x = 0.", ["x = 0"]),
-    ans("y9-loi-m7", "State the gradient of a vertical line.", "\\text{vertical}", "undefined", 3, "Undefined.", []),
+    ans("y9-loi-m7", "State the gradient of a vertical line.", "\\text{vertical}", "not defined", 3, "A vertical line's gradient is not defined.", ["undefined", "no gradient"]),
     ans("y9-loi-m8", "The line y = 0 is the:", "y=0", "x-axis", 2, "x-axis.", ["x axis"]),
     ans("y9-loi-m9", "The line x = −5 crosses the x-axis at:", "x=-5", "-5", 2, "−5.", ["−5"]),
     mcq("y9-loi-m10", "Which equation is a vertical line?", "B", ["y = 3", "x = 3", "y = 3x", "y = x + 3"], 2, "x = 3 is vertical."),

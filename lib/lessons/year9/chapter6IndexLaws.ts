@@ -172,7 +172,7 @@ const zeroIndexPower: Partial<ExplicitLesson> = {
     ans("y9-zp-g1", "Evaluate 7⁰.", "7^0", "1", 2, "Any base to 0 is 1.", []),
     ans("y9-zp-g2", "Simplify (x²)³.", "(x^2)^3", "x^6", 2, "Multiply: x⁶.", px("x", 6)),
     ans("y9-zp-g3", "Evaluate (2²)² as a number.", "(2^2)^2", "16", 3, "2⁴ = 16.", []),
-    mcq("y9-zp-g4", "Any non-zero number to the power 0 equals:", "A", ["1", "0", "the base", "undefined"], 2, "a⁰ = 1."),
+    mcq("y9-zp-g4", "Any non-zero number to the power 0 equals:", "A", ["1", "0", "the base", "not defined"], 2, "a⁰ = 1."),
   ],
   independentPractice: [
     ans("y9-zp-i1", "Evaluate 100⁰.", "100^0", "1", 2, "1.", []),

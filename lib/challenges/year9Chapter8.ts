@@ -31,12 +31,12 @@ export const vennY9Challenge: PracticeQuestion[] = [
   q("y9c-vt-1", "30 students: 18 French, 12 German, 5 both. How many study neither?", "neither", "5", "Union 25; 30 − 25 = 5.", []),
   q("y9c-vt-2", "12 boys (8 play sport), 10 girls (6 play sport). How many play sport?", "8+6", "14", "14.", []),
   q("y9c-vt-3", "40 people: 25 cat, 18 dog, 10 both. How many own only a cat?", "25-10", "15", "15.", []),
-  q("y9c-vt-4", "From the previous, how many own at least one pet?", "25+18-10", "33", "33.", []),
+  q("y9c-vt-4", "Of 40 people, 25 own a cat, 18 own a dog and 10 own both. How many own at least one pet?", "n(C)=25,\\ n(D)=18,\\ n(C\\cap D)=10", "33", "25 + 18 − 10 = 33.", []),
   q("y9c-vt-5", "50: 30 soccer, 20 tennis, 8 both. Find P(soccer only).", "(30-8)/50", "11/25", "22/50 = 11/25.", fr(22, 50)),
   q("y9c-vt-6", "24: 14 tea, 10 coffee, 6 both. How many like neither?", "neither", "6", "Union 18; 24 − 18 = 6.", []),
   q("y9c-vt-7", "A two-way table total 60; a row total 35 with one cell 20. Find the other cell in that row.", "35-20", "15", "15.", []),
   q("y9c-vt-8", "100: 60 books, 45 films, 30 both. How many do at least one?", "60+45-30", "75", "75.", []),
-  q("y9c-vt-9", "From the previous (100 total), how many do neither?", "100-75", "25", "25.", []),
+  q("y9c-vt-9", "Of 100 people, 60 read books, 45 watch films and 30 do both. How many do neither?", "n(B)=60,\\ n(F)=45,\\ n(B\\cap F)=30", "25", "The union is 75, so 100 − 75 = 25.", []),
   q("y9c-vt-10", "20 students: 5 both clubs, 8 club A only, 4 club B only. How many in neither?", "20-17", "3", "20 − 17 = 3.", []),
   q("y9c-vt-11", "20 play soccer, 8 play both. How many play soccer only?", "20-8", "12", "12.", []),
   q("y9c-vt-12", "n(A) = 9, n(B) = 7, n(A ∩ B) = 4. Find n(A ∪ B).", "9+7-4", "12", "12.", []),
@@ -189,7 +189,7 @@ export const iqrY9Challenge: PracticeQuestion[] = [
 // box-plots (core)
 export const boxPlotY9Challenge: PracticeQuestion[] = [
   q("y9c-bp-1", "Box plot: min 4, Q1 9, median 14, Q3 21, max 30. Find the IQR.", "iqr", "12", "21 − 9 = 12.", []),
-  q("y9c-bp-2", "From the same plot, find the range.", "range", "26", "30 − 4 = 26.", []),
+  q("y9c-bp-2", "A box plot has minimum 4, Q1 9, median 14, Q3 21 and maximum 30. Find the range.", "4,9,14,21,30", "26", "30 − 4 = 26.", []),
   q("y9c-bp-3", "Five-number summary 2, 6, 9, 14, 20. Find the IQR.", "iqr", "8", "14 − 6 = 8.", []),
   q("y9c-bp-4", "From 2, 6, 9, 14, 20, find the range.", "range", "18", "20 − 2 = 18.", []),
   q("y9c-bp-5", "A box plot has IQR 15 and Q1 10. Find Q3.", "Q3", "25", "10 + 15 = 25.", []),

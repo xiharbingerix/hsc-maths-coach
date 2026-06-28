@@ -106,14 +106,14 @@ const gradient: Partial<ExplicitLesson> = {
   guidedPractice: [
     ans("y9-gr-g1", "Find the gradient from (0, 0) to (2, 6).", "(0,0)\\to(2,6)", "3", 2, "(6−0)/(2−0) = 3.", []),
     ans("y9-gr-g2", "Find the gradient from (1, 1) to (4, 7).", "(1,1)\\to(4,7)", "2", 2, "(7−1)/(4−1) = 6/3 = 2.", []),
-    mcq("y9-gr-g3", "A line going down from left to right has a gradient that is:", "B", ["positive", "negative", "zero", "undefined"], 2, "Falling left-to-right means a negative gradient."),
+    mcq("y9-gr-g3", "A line going down from left to right has a gradient that is:", "B", ["positive", "negative", "zero", "not defined"], 2, "Falling left-to-right means a negative gradient."),
     ans("y9-gr-g4", "Find the gradient from (2, 3) to (5, 3).", "(2,3)\\to(5,3)", "0", 2, "No rise, so gradient 0.", []),
   ],
   independentPractice: [
     ans("y9-gr-i1", "Find the gradient from (1, 2) to (3, 10).", "(1,2)\\to(3,10)", "4", 3, "(10−2)/(3−1) = 8/2 = 4.", []),
     ans("y9-gr-i2", "Find the gradient from (0, 4) to (2, 0).", "(0,4)\\to(2,0)", "-2", 3, "(0−4)/(2−0) = −2.", ["−2"]),
     ans("y9-gr-i3", "Find the gradient from (−1, −1) to (1, 3).", "(-1,-1)\\to(1,3)", "2", 3, "(3−(−1))/(1−(−1)) = 4/2 = 2.", []),
-    mcq("y9-gr-i4", "The gradient of a vertical line is:", "D", ["0", "1", "negative", "undefined"], 3, "The run is 0, so the gradient is undefined."),
+    mcq("y9-gr-i4", "The gradient of a vertical line is:", "D", ["0", "1", "negative", "not defined"], 3, "The run is 0, so the gradient is not defined."),
     ans("y9-gr-i5", "Find the gradient from (3, 5) to (6, 11).", "(3,5)\\to(6,11)", "2", 3, "(11−5)/(6−3) = 6/3 = 2.", []),
   ],
   masteryQuiz: [
@@ -138,7 +138,7 @@ const gradient: Partial<ExplicitLesson> = {
     ans("y9-gr-p7", "Points (2, a) and (6, 14) lie on a line of gradient 3. Find a.", "m=3", "2", 5, "14 − a = 3×(6−2) = 12, so a = 2.", []),
     ans("y9-gr-p8", "Find the gradient of the line 3x − y = 0.", "3x-y=0", "3", 5, "y = 3x, so m = 3.", []),
     ans("y9-gr-p9", "A line falls 5 units for every 2 units across. Its gradient is:", "\\text{fall }5/2", "-5/2", 5, "Falling → negative: −5/2 = −2.5.", ["-2.5", "−2.5", "−5/2"]),
-    ans("y9-gr-p10", "Find the gradient from (a, 3) to (a, 9) (same x = a).", "(a,3)\\to(a,9)", "undefined", 5, "The run is 0 (vertical line), so the gradient is undefined.", ["undefined", "no gradient"]),
+    ans("y9-gr-p10", "Find the gradient from (a, 3) to (a, 9) (same x = a).", "(a,3)\\to(a,9)", "not defined", 5, "The run is 0 (vertical line), so the gradient is not defined.", ["undefined", "no gradient"]),
   ],
   commonMistakes: [
     { mistake: "Computing run/rise instead of rise/run.", fix: "Gradient is rise ÷ run = (y₂−y₁)/(x₂−x₁)." },

@@ -299,7 +299,7 @@ const boxPlots: Partial<ExplicitLesson> = {
   ],
   independentPractice: [
     ans("y9-bp-i1", "Box plot: min 3, Q1 7, median 10, Q3 15, max 22. Find the IQR.", "iqr", "8", 3, "15 − 7 = 8.", []),
-    ans("y9-bp-i2", "From the same plot, find the range.", "range", "19", 3, "22 − 3 = 19.", []),
+    ans("y9-bp-i2", "A box plot has minimum 3, Q1 7, median 10, Q3 15 and maximum 22. Find the range.", "3,7,10,15,22", "19", 3, "22 − 3 = 19.", []),
     ans("y9-bp-i3", "Box plot: Q1 20, Q3 35. Find the IQR.", "Q1=20,Q3=35", "15", 2, "15.", []),
     mcq("y9-bp-i4", "The line inside the box marks the:", "B", ["mean", "median", "mode", "range"], 2, "Median."),
     ans("y9-bp-i5", "Box plot: min 10, max 50. Find the range.", "min10,max50", "40", 2, "40.", []),
@@ -310,7 +310,7 @@ const boxPlots: Partial<ExplicitLesson> = {
     ans("y9-bp-m3", "Box plot: min 5, max 45. Find the range.", "min5,max45", "40", 2, "40.", []),
     mcq("y9-bp-m4", "The whiskers of a box plot reach to the:", "C", ["quartiles", "median", "minimum and maximum", "mean"], 2, "Min and max."),
     ans("y9-bp-m5", "Box plot: min 1, Q1 4, median 6, Q3 10, max 15. Find the IQR.", "iqr", "6", 3, "10 − 4 = 6.", []),
-    ans("y9-bp-m6", "From the same plot, find the range.", "range", "14", 3, "15 − 1 = 14.", []),
+    ans("y9-bp-m6", "A box plot has minimum 1, Q1 4, median 6, Q3 10 and maximum 15. Find the range.", "1,4,6,10,15", "14", 3, "15 − 1 = 14.", []),
     ans("y9-bp-m7", "Box plot: Q1 12, Q3 30. Find the IQR.", "Q1=12,Q3=30", "18", 2, "18.", []),
     ans("y9-bp-m8", "Box plot: min 0, max 100. Find the range.", "min0,max100", "100", 2, "100.", []),
     mcq("y9-bp-m9", "The box of a box plot represents the:", "A", ["middle 50% (IQR)", "whole range", "the mean", "the mode"], 3, "Middle 50%."),
@@ -318,7 +318,7 @@ const boxPlots: Partial<ExplicitLesson> = {
   ],
   masteryQuizPool: [
     ans("y9-bp-p1", "Box plot: min 4, Q1 9, median 14, Q3 21, max 30. Find the IQR.", "iqr", "12", 5, "21 − 9 = 12.", []),
-    ans("y9-bp-p2", "From the same plot, find the range.", "range", "26", 5, "30 − 4 = 26.", []),
+    ans("y9-bp-p2", "A box plot has minimum 4, Q1 9, median 14, Q3 21 and maximum 30. Find the range.", "4,9,14,21,30", "26", 5, "30 − 4 = 26.", []),
     ans("y9-bp-p3", "Five-number summary 2, 6, 9, 14, 20. Find the IQR.", "iqr", "8", 5, "14 − 6 = 8.", []),
     ans("y9-bp-p4", "From 2, 6, 9, 14, 20, find the range.", "range", "18", 5, "20 − 2 = 18.", []),
     ans("y9-bp-p5", "A box plot has IQR 15 and Q1 10. Find Q3.", "Q3", "25", 5, "Q3 = Q1 + IQR = 25.", []),

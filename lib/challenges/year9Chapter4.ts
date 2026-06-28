@@ -49,7 +49,7 @@ export const linesOneInterceptY9Challenge: PracticeQuestion[] = [
   q("y9c-loi-3", "Find the gradient of the line through (2, 4) and (7, 4).", "(2,4),(7,4)", "0", "Same y → gradient 0.", []),
   q("y9c-loi-4", "Write the equation of the line through (3, 1) and (3, 9).", "(3,1),(3,9)", "x=3", "Same x = 3 → vertical line x = 3.", ["x = 3"]),
   q("y9c-loi-5", "Where do x = 4 and y = −3 intersect? Give the point.", "x=4,y=-3", "(4,-3)", "(4, −3).", pt("4,-3")),
-  q("y9c-loi-6", "State the gradient of the line x = 2.", "x=2", "undefined", "Vertical → undefined.", []),
+  q("y9c-loi-6", "State the gradient of the line x = 2.", "x=2", "not defined", "A vertical line's gradient is not defined.", ["undefined", "no gradient"]),
   q("y9c-loi-7", "Write the equation of the y-axis.", "\\text{y-axis}", "x=0", "x = 0.", ["x = 0"]),
   q("y9c-loi-8", "Write the equation of the horizontal line through (0, −5).", "(0,-5)", "y=-5", "y = −5.", ["y = −5"]),
   q("y9c-loi-9", "Is the line through (−1, 2) and (5, 2) horizontal? (yes/no)", "(-1,2),(5,2)", "yes", "Same y → horizontal.", []),
