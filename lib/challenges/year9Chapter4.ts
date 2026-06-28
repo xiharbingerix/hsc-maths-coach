@@ -3,6 +3,7 @@
 // (consolidating → Core; path → base + advanced; core → all 3). (gradient D6 lives in year9Wave1.ts.)
 
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { year9SimultaneousGraphVisuals } from "../lessons/year9SimultaneousGraphVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several steps.", explanation };
@@ -169,3 +170,8 @@ export const graphSimY9Challenge: PracticeQuestion[] = [
   q("y9c-gs-11", "Solve: y = 4x − 1 and y = 2x + 5. Find x.", "y=4x-1,y=2x+5", "3", "4x − 1 = 2x + 5 → 2x = 6 → x = 3.", xv("3")),
   q("y9c-gs-12", "Solve: y = x + 4 and y = 3x. Find x.", "y=x+4,y=3x", "2", "x + 4 = 3x → 2x = 4 → x = 2.", xv("2")),
 ];
+
+for (const question of graphSimY9Challenge) {
+  const visual = year9SimultaneousGraphVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}

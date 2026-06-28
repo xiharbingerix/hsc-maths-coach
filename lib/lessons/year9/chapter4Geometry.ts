@@ -4,6 +4,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { year9SimultaneousGraphVisuals } from "../year9SimultaneousGraphVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Use the midpoint (average) and distance (Pythagoras) ideas.", explanation };
@@ -214,6 +215,22 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "graphical-solutions-simultaneous": graphicalSimultaneous,
 };
 
+function addSimultaneousGraph(question: PracticeQuestion): PracticeQuestion {
+  const visual = year9SimultaneousGraphVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addSimultaneousGraphs(content: Partial<ExplicitLesson>): Partial<ExplicitLesson> {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice?.map(addSimultaneousGraph),
+    independentPractice: content.independentPractice?.map(addSimultaneousGraph),
+    masteryQuiz: content.masteryQuiz?.map(addSimultaneousGraph),
+    masteryQuizPool: content.masteryQuizPool?.map(addSimultaneousGraph),
+    multiPartPractice: content.multiPartPractice?.map(addSimultaneousGraph),
+  };
+}
+
 export function year9Chapter4GeometryLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -222,5 +239,9 @@ export function year9Chapter4GeometryLessonOverride(
   if (!["year-9-mathematics", "year-9-mathematics-core", "year-9-mathematics-advanced"].includes(course.slug) || unit.slug !== "linear-relationships") {
     return null;
   }
-  return SECTIONS[lesson.slug] ?? null;
+  const content = SECTIONS[lesson.slug];
+  if (!content) return null;
+  return lesson.slug === "graphical-solutions-simultaneous"
+    ? addSimultaneousGraphs(content)
+    : content;
 }
