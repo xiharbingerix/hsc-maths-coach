@@ -3,6 +3,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { year9TrigAngleVisuals } from "../year9TrigAngleVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Pick the ratio (or inverse) that links what you know to what you want.", explanation };
@@ -214,6 +215,22 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "bearings": bearings,
 };
 
+function addTrigAngleVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = year9TrigAngleVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addTrigAngleVisuals(content: Partial<ExplicitLesson>): Partial<ExplicitLesson> {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice?.map(addTrigAngleVisual),
+    independentPractice: content.independentPractice?.map(addTrigAngleVisual),
+    masteryQuiz: content.masteryQuiz?.map(addTrigAngleVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addTrigAngleVisual),
+    multiPartPractice: content.multiPartPractice?.map(addTrigAngleVisual),
+  };
+}
+
 export function year9Chapter3TrigApplicationsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -222,5 +239,9 @@ export function year9Chapter3TrigApplicationsLessonOverride(
   if (!["year-9-mathematics", "year-9-mathematics-core", "year-9-mathematics-advanced"].includes(course.slug) || unit.slug !== "pythagoras-trigonometry") {
     return null;
   }
-  return SECTIONS[lesson.slug] ?? null;
+  const content = SECTIONS[lesson.slug];
+  if (!content) return null;
+  return lesson.slug === "finding-unknown-angles"
+    ? addTrigAngleVisuals(content)
+    : content;
 }

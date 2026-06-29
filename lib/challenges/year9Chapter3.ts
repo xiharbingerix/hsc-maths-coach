@@ -4,6 +4,7 @@
 
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
 import { year9TrigSideVisuals } from "../lessons/year9TrigSideVisuals";
+import { year9TrigAngleVisuals } from "../lessons/year9TrigAngleVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several steps.", explanation };
@@ -149,6 +150,11 @@ export const findAnglesY9Challenge: PracticeQuestion[] = [
   q("y9c-fua-11", "tan θ = 0.5. Find θ (1 d.p.).", "\\tan^{-1}(0.5)", "26.6", "tan⁻¹(0.5) ≈ 26.6°.", deg("26.6")),
   q("y9c-fua-12", "Opposite 16, adjacent 30. Find θ (1 d.p.).", "\\tan^{-1}(16/30)", "28.1", "tan⁻¹(0.5333) ≈ 28.1°.", deg("28.1")),
 ];
+
+for (const question of findAnglesY9Challenge) {
+  const visual = year9TrigAngleVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}
 
 // trigonometry-applications (core)
 export const trigAppsY9Challenge: PracticeQuestion[] = [
