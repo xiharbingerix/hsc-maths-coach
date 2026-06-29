@@ -30,6 +30,13 @@ function dataAnalysisFeedback(prompt: string, latex: string, answer: string): st
     return `An outlier is not just the biggest or smallest value; it sits noticeably away from the main group. Compare it with the cluster of typical values to identify ${answer}.`;
   }
 
+  // Stratified-sampling questions ("How many boys should be in the sample?")
+  // are proportional, not a total count, so they must be caught before the
+  // loose "how many"/"total" branch below.
+  if (context.includes("stratified")) {
+    return `In stratified sampling each subgroup is represented in proportion to its size. Multiply the subgroup's fraction of the population by the total sample size to get ${answer}.`;
+  }
+
   if (context.includes("percentage") || context.includes("percent")) {
     return `A percentage compares the part with the whole out of 100. Divide the relevant count by the total, then multiply by 100 to get ${answer}.`;
   }

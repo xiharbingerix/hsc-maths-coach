@@ -26,6 +26,40 @@ function applicationsMeasurementFeedback(prompt: string, latex: string, answer: 
     }
     return `Use the conversion factor named in the question, then keep the requested unit with the number. That gives ${answer}.`;
   }
+  // Specific rate/ratio/scale topics must be tested BEFORE the generic area
+  // and volume checks, because their prompts routinely contain the words
+  // "area" or "volume" (e.g. "people living in an area", "volume ... find the
+  // density"). Checking the broad terms first produced the wrong explanation.
+  if (context.includes("scale") || context.includes("1:") || context.includes("model car") || context.includes("map") || context.includes("drawing length") || context.includes("real length")) {
+    if (context.includes("area") && (context.includes("real area") || context.includes("plan area") || context.includes("drawing area"))) {
+      return `Areas scale by the square of the scale factor. If scale is 1:n, then real area = drawing area × n². For this question that gives ${answer}.`;
+    }
+    if (context.includes("drawing") || context.includes("plan")) {
+      if (context.includes("real") || context.includes("actual") || context.includes("what is the real")) {
+        return `To find the real length, multiply the drawing length by the scale factor n (from scale 1:n). That gives ${answer}.`;
+      }
+      return `To find the drawing length, divide the real length by the scale factor n (from scale 1:n). That gives ${answer}.`;
+    }
+    return `Use the scale 1:n by multiplying drawing lengths by n to get real lengths, or dividing real lengths by n to get drawing lengths. The answer is ${answer}.`;
+  }
+  if (context.includes("population density") || context.includes("people per") || context.includes("people/km") || context.includes("people in")) {
+    return `Population density = number of people ÷ area in km². Divide and keep the unit "people/km²" to get ${answer}.`;
+  }
+  if (context.includes("concentration") || context.includes("g/l") || context.includes("mg/l") || context.includes("dissolved")) {
+    return `Concentration = mass ÷ volume. Convert the volume to litres first if needed, then divide mass (g or mg) by volume (L) to get ${answer}.`;
+  }
+  if (context.includes("density") || context.includes("d=m") || context.includes("d = m") || context.includes("g/cm") || context.includes("kg/m")) {
+    if (context.includes("find its volume") || context.includes("find the volume") || context.includes("v = m")) {
+      return `Rearrange D = M/V to find volume: V = M/D. Divide mass by density to get ${answer}.`;
+    }
+    if (context.includes("find the mass") || context.includes("find its mass") || context.includes("m = d")) {
+      return `Rearrange D = M/V to find mass: M = D × V. Multiply density by volume to get ${answer}.`;
+    }
+    return `Density is mass divided by volume: D = M/V. Divide mass by volume and keep the unit (g/cm³ or kg/m³) to get ${answer}.`;
+  }
+  if (context.includes("l/100") || context.includes("litres per 100") || context.includes("fuel")) {
+    return `Fuel consumption uses L per 100 km. Fuel used = (distance ÷ 100) × rate. For the rate: rate = (fuel ÷ distance) × 100. Here that gives ${answer}.`;
+  }
   if (context.includes("area")) {
     if (context.includes("surface area")) {
       return `Surface area is the outside covering of the object, so use square units and count the outside faces, not the space inside. This gives ${answer}.`;
@@ -41,41 +75,13 @@ function applicationsMeasurementFeedback(prompt: string, latex: string, answer: 
   if (context.includes("kj") || context.includes("energy")) {
     return `Energy labels are usually per serve or per item. Multiply the energy amount by the number of serves/items to get the total energy: ${answer}.`;
   }
-  if (context.includes("hectare") || context.includes(" ha") || context.includes("composite") || context.includes("l-shape") || context.includes("paddock") || context.includes("cut-out") || context.includes("irregular")) {
-    if (context.includes("hectare") || context.includes(" ha")) {
+  // Use a word-boundary test for "ha"/"hectare" so the bare substring " ha"
+  // can no longer match ordinary words such as "has".
+  if (/\bhectares?\b/.test(context) || /\bha\b/.test(context) || context.includes("composite") || context.includes("l-shape") || context.includes("paddock") || context.includes("cut-out") || context.includes("irregular")) {
+    if (/\bhectares?\b/.test(context) || /\bha\b/.test(context)) {
       return `Convert between m² and hectares using 1 ha = 10,000 m². To go from m² to ha, divide by 10,000; to go from ha to m², multiply by 10,000. The answer is ${answer}.`;
     }
     return `Split the composite shape into standard rectangles or triangles, find each area separately, then add or subtract as required. That gives ${answer}.`;
-  }
-  if (context.includes("density") || context.includes("d=m") || context.includes("d = m") || context.includes("g/cm") || context.includes("kg/m")) {
-    if (context.includes("find its volume") || context.includes("find the volume") || context.includes("v = m")) {
-      return `Rearrange D = M/V to find volume: V = M/D. Divide mass by density to get ${answer}.`;
-    }
-    if (context.includes("find the mass") || context.includes("find its mass") || context.includes("m = d")) {
-      return `Rearrange D = M/V to find mass: M = D × V. Multiply density by volume to get ${answer}.`;
-    }
-    return `Density is mass divided by volume: D = M/V. Divide mass by volume and keep the unit (g/cm³ or kg/m³) to get ${answer}.`;
-  }
-  if (context.includes("l/100") || context.includes("litres per 100") || context.includes("fuel")) {
-    return `Fuel consumption uses L per 100 km. Fuel used = (distance ÷ 100) × rate. For the rate: rate = (fuel ÷ distance) × 100. Here that gives ${answer}.`;
-  }
-  if (context.includes("population density") || context.includes("people per") || context.includes("people/km") || context.includes("people in")) {
-    return `Population density = number of people ÷ area in km². Divide and keep the unit "people/km²" to get ${answer}.`;
-  }
-  if (context.includes("concentration") || context.includes("g/l") || context.includes("mg/l") || context.includes("dissolved")) {
-    return `Concentration = mass ÷ volume. Convert the volume to litres first if needed, then divide mass (g or mg) by volume (L) to get ${answer}.`;
-  }
-  if (context.includes("scale") || context.includes("1:") || context.includes("plan") || context.includes("model car") || context.includes("map") || context.includes("drawing length") || context.includes("real length")) {
-    if (context.includes("area") && (context.includes("real area") || context.includes("plan area") || context.includes("drawing area"))) {
-      return `Areas scale by the square of the scale factor. If scale is 1:n, then real area = drawing area × n². For this question that gives ${answer}.`;
-    }
-    if (context.includes("drawing") || context.includes("plan")) {
-      if (context.includes("real") || context.includes("actual") || context.includes("what is the real")) {
-        return `To find the real length, multiply the drawing length by the scale factor n (from scale 1:n). That gives ${answer}.`;
-      }
-      return `To find the drawing length, divide the real length by the scale factor n (from scale 1:n). That gives ${answer}.`;
-    }
-    return `Use the scale 1:n by multiplying drawing lengths by n to get real lengths, or dividing real lengths by n to get drawing lengths. The answer is ${answer}.`;
   }
   if (context.includes("mass")) {
     return `Use the mass unit that fits the context, then apply the conversion factor if needed. The practical mass is ${answer}.`;
