@@ -62,7 +62,7 @@ const ftMastery: PracticeQuestion[] = [
   mc("y11adv-ge-ft-m2", "If (x − 3) and (x + 1) are both factors of P(x) = x³ + ax² + bx + 3, then:", "C",
     [{ label: "A", text: "$a = 1,\\, b = -3$" }, { label: "B", text: "$a = -1,\\, b = 3$" }, { label: "C", text: "$a = -1,\\, b = -9$" }, { label: "D", text: "$a = 3,\\, b = -1$" }],
     "P(3) = 0: 27 + 9a + 3b + 3 = 0 → 9a + 3b = −30 → 3a + b = −10. P(−1) = 0: −1 + a − b + 3 = 0 → a − b = −2. Solving: a = −3, b = −1 ... let me recompute. 3a+b=−10, a−b=−2 → add: 4a=−12 → a=−3, b=−1. So option is none. Let me recheck with a=−1: 3(−1)+b=−10 → b=−7. Then a−b = −1−(−7) = 6 ≠ −2. Correct answer should be checked more carefully — let's use B: a=−1, b=−9: 3(−1)+(−9)=−12 ≠ −10. Let's try option C: a=−1, b=−9: 3(−1)+(−9)=−12. Not right. Actually P(3)=27+9a+3b+3=0 → 9a+3b=−30 and P(−1)=−1+a−b+3=0 → a−b=−2. From second: a=b−2. Sub: 9(b−2)+3b=−30 → 12b=−12 → b=−1, a=−3.", "P(x)=x^3+ax^2+bx+3"),
-  fa("y11adv-ge-ft-m3", "Find all values of k such that (x − 2) is a factor of P(x) = x³ − kx² + 3kx − 4.", "P(2)=0", "k = 2", ["2"]),
+  fa("y11adv-ge-ft-m3", "Find all values of k such that (x − 2) is a factor of P(x) = x³ − kx² + 3kx − 4.", "", "k = 2", ["2"]),
   mc("y11adv-ge-ft-m4", "P(x) = (x − 2)(x + 1)Q(x) + 3. When P(x) is divided by (x − 2), the remainder is:", "A",
     [{ label: "A", text: "$3$" }, { label: "B", text: "$0$" }, { label: "C", text: "$Q(2)$" }, { label: "D", text: "$(x+1)Q(x)+3$" }],
     "The remainder theorem gives the remainder as P(2). P(2) = (2−2)(2+1)Q(2) + 3 = 0 + 3 = 3.", ""),
@@ -119,23 +119,23 @@ const spIndep: PracticeQuestion[] = [
   mc("y11adv-ge-sp-i4", "The equation x² + (k−1)x + 2k = 0 has equal roots when:", "C",
     [{ label: "A", text: "$k=0$" }, { label: "B", text: "$k=4$" }, { label: "C", text: "$k=1$ or $k=9$" }, { label: "D", text: "$k=-1$" }],
     "Equal roots ⟺ Δ = b² − 4ac = 0. Δ = (k−1)² − 8k = k²−2k+1−8k = k²−10k+1 = 0. k = (10±√96)/2 = 5±2√6. Hmm, let me recalculate. Δ = (k-1)²-4(1)(2k) = k²-2k+1-8k = k²-10k+1. k=(10±√(100-4))/2 = (10±√96)/2. Not integer. Let me reconsider: for the question to have clean answer, it should be: discriminant = (k-1)²-8k=0 → k²-10k+1=0... actually the closest MCQ answer with k=1: Δ=0-8=-8≠0. k=9: Δ=64-72=-8≠0. None match. I'll use a different setup.", ""),
-  fa("y11adv-ge-sp-i5", "One root of x² − 5x + k = 0 is 3 times the other. Find k.", "\\alpha=3\\beta,\\;\\alpha+\\beta=5,\\;\\alpha\\beta=k", "k = 75/16... no: α+β=3β+β=4β=5 → β=5/4, α=15/4, k=αβ=75/16.", ["75/16"]),
+  fa("y11adv-ge-sp-i5", "One root of x² − 5x + k = 0 is 3 times the other. Find k.", "", "k = 75/16... no: α+β=3β+β=4β=5 → β=5/4, α=15/4, k=αβ=75/16.", ["75/16"]),
 ];
 
 const spMastery: PracticeQuestion[] = [
-  fa("y11adv-ge-sp-m1", "α and β are roots of x² − 4x + 1 = 0. Find α² + β².", "\\alpha+\\beta=4,\\;\\alpha\\beta=1", "α²+β² = (α+β)²-2αβ = 16-2 = 14", ["14"]),
+  fa("y11adv-ge-sp-m1", "α and β are roots of x² − 4x + 1 = 0. Find α² + β².", "", "α²+β² = (α+β)²-2αβ = 16-2 = 14", ["14"]),
   mc("y11adv-ge-sp-m2", "The sum of the squares of the roots of x² + bx + c = 0 is:", "B",
     [{ label: "A", text: "$b^2-c^2$" }, { label: "B", text: "$b^2-2c$" }, { label: "C", text: "$b^2+2c$" }, { label: "D", text: "$(b+c)^2$" }],
     "α²+β² = (α+β)²−2αβ = (−b)²−2c = b²−2c.", "x^2+bx+c=0"),
-  fa("y11adv-ge-sp-m3", "α and β are roots of 2x² − 3x − 1 = 0. Find 1/α + 1/β.", "\\alpha+\\beta=3/2,\\;\\alpha\\beta=-1/2", "(α+β)/(αβ) = (3/2)/(-1/2) = -3", ["-3"]),
+  fa("y11adv-ge-sp-m3", "α and β are roots of 2x² − 3x − 1 = 0. Find 1/α + 1/β.", "", "(α+β)/(αβ) = (3/2)/(-1/2) = -3", ["-3"]),
   mc("y11adv-ge-sp-m4", "A quadratic has roots r and 3r. If the sum is 8, the product is:", "C",
     [{ label: "A", text: "$4$" }, { label: "B", text: "$6$" }, { label: "C", text: "$12$" }, { label: "D", text: "$24$" }],
     "r + 3r = 4r = 8 → r = 2. Roots: 2 and 6. Product = 12.", ""),
-  fa("y11adv-ge-sp-m4b", "For 3x² − kx + 12 = 0, one root is double the other. Find k.", "\\alpha=2\\beta:\\;3\\beta=k/3,\\;2\\beta^2=4", "k = 9√2", ["9√2"]),
+  fa("y11adv-ge-sp-m4b", "For 3x² − kx + 12 = 0, one root is double the other. Find k.", "", "k = 9√2", ["9√2"]),
   mc("y11adv-ge-sp-m5", "For x² + bx + c = 0, the sum of cubes α³ + β³ can be written as:", "B",
     [{ label: "A", text: "$(\\alpha+\\beta)^3$" }, { label: "B", text: "$(\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta)$" }, { label: "C", text: "$(\\alpha+\\beta)^3 + 3\\alpha\\beta$" }, { label: "D", text: "$(\\alpha\\beta)^3$" }],
     "α³+β³ = (α+β)³ − 3αβ(α+β). This is the algebraic identity for sum of cubes.", ""),
-  fa("y11adv-ge-sp-m6", "Roots α and β of x² − 5x + 6 = 0. Find α³ + β³.", "\\alpha+\\beta=5,\\;\\alpha\\beta=6", "(5)³-3(6)(5) = 125-90 = 35", ["35"]),
+  fa("y11adv-ge-sp-m6", "Roots α and β of x² − 5x + 6 = 0. Find α³ + β³.", "", "(5)³-3(6)(5) = 125-90 = 35", ["35"]),
   mc("y11adv-ge-sp-m8", "If both roots of ax² + bx + c = 0 are positive, which must be true?", "C",
     [{ label: "A", text: "$b > 0$ and $c > 0$" }, { label: "B", text: "$b < 0$ and $c < 0$" }, { label: "C", text: "$b/a < 0$ and $c/a > 0$" }, { label: "D", text: "$b/a > 0$ and $c/a < 0$" }],
     "Both roots positive → sum = −b/a > 0 → b/a < 0. Product = c/a > 0. So b/a < 0 and c/a > 0.", ""),
@@ -177,7 +177,7 @@ const gpGuided: PracticeQuestion[] = [
   mc("y11adv-ge-gp-g3", "The graph of P(x) = −(x+1)(x−3)² has end behaviour:", "C",
     [{ label: "A", text: "Rises left, rises right" }, { label: "B", text: "Rises left, falls right" }, { label: "C", text: "Rises left, falls right" }, { label: "D", text: "Falls left, falls right" }],
     "Leading term is −x³ (degree 3, negative). As x→+∞, P→−∞ (falls right); as x→−∞, P→+∞ (rises left).", ""),
-  fa("y11adv-ge-gp-g4", "P(x) = x³ − 2x² − x + 2 = (x−1)(x−2)(x+1). Find the y-intercept.", "P(0)=?", "y-intercept = 2", ["2"]),
+  fa("y11adv-ge-gp-g4", "P(x) = x³ − 2x² − x + 2 = (x−1)(x−2)(x+1). Find the y-intercept.", "", "y-intercept = 2", ["2"]),
 ];
 
 const gpIndep: PracticeQuestion[] = [
@@ -203,7 +203,7 @@ const gpMastery: PracticeQuestion[] = [
   mc("y11adv-ge-gp-m4", "P(x) has positive leading coefficient and roots at x = −2 (double) and x = 1 (single). In the interval −2 < x < 1, P(x) is:", "B",
     [{ label: "A", text: "Always negative" }, { label: "B", text: "Always positive" }, { label: "C", text: "Sometimes positive, sometimes negative" }, { label: "D", text: "Always zero" }],
     "At x = −2 (double root), the graph touches and stays on the same side. The value just to the right of x = −2: sign of (x−(−2))² is always ≥ 0; (x−1) is negative for x < 1. So P(x) ∝ (+)(−) = negative. Wait — test x = 0: (0+2)²(0−1) = 4(−1) = −4 < 0. So P is negative on (−2, 1). The correct answer is A.", ""),
-  fa("y11adv-ge-gp-m5", "Find the equation of the cubic P(x) with roots −3, 1, 4 and y-intercept 12.", "P(x)=a(x+3)(x-1)(x-4)", "P(x) = (x+3)(x-1)(x-4)", ["(x+3)(x-1)(x-4)"]),
+  fa("y11adv-ge-gp-m5", "Find the equation of the cubic P(x) with roots −3, 1, 4 and y-intercept 12.", "", "P(x) = (x+3)(x-1)(x-4)", ["(x+3)(x-1)(x-4)"]),
   mc("y11adv-ge-gp-m6", "P(x) = x⁴ − 1 = (x²−1)(x²+1). Its x-intercepts are:", "B",
     [{ label: "A", text: "$x=1$ only" }, { label: "B", text: "$x=\\pm 1$" }, { label: "C", text: "$x=\\pm 1$ and $x=\\pm i$ (4 roots total)" }, { label: "D", text: "None" }],
     "x²−1 = 0 gives x = ±1. x²+1 = 0 gives x = ±i (complex, not real x-intercepts). So only x = ±1 are real roots / x-intercepts.", ""),
@@ -239,42 +239,42 @@ const simWorked: WorkedExample[] = [
 ];
 
 const simGuided: PracticeQuestion[] = [
-  fa("y11adv-ge-sim-g1", "Solve y = x² and y = 2x + 3.", "x^2=2x+3", "x = -1 (y=1) and x = 3 (y=9)", ["(-1,1) and (3,9)"]),
+  fa("y11adv-ge-sim-g1", "Solve y = x² and y = 2x + 3.", "", "x = -1 (y=1) and x = 3 (y=9)", ["(-1,1) and (3,9)"]),
   mc("y11adv-ge-sim-g2", "To solve a linear-quadratic simultaneous system, the first step is:", "B",
     [{ label: "A", text: "Graph both curves" }, { label: "B", text: "Substitute the linear expression into the quadratic to get a single equation in one variable" }, { label: "C", text: "Add the two equations" }, { label: "D", text: "Set both left-hand sides equal to zero" }],
     "The linear equation gives y (or x) as an expression. Substituting this into the quadratic reduces the system to one equation in one unknown, which you then solve.", ""),
-  fa("y11adv-ge-sim-g3", "Find the x-coordinates where y = x² − 4 and y = 3x intersect.", "x^2-4=3x", "x = 4 and x = -1", ["4 and -1"]),
+  fa("y11adv-ge-sim-g3", "Find the x-coordinates where y = x² − 4 and y = 3x intersect.", "", "x = 4 and x = -1", ["4 and -1"]),
   mc("y11adv-ge-sim-g4", "The line y = mx + c is tangent to y = x² when:", "B",
     [{ label: "A", text: "They intersect in two distinct points" }, { label: "B", text: "The quadratic formed by substitution has discriminant Δ = 0" }, { label: "C", text: "The line has slope equal to the vertex x-coordinate" }, { label: "D", text: "c = 0" }],
     "Tangency means the line touches the parabola at exactly one point. Setting the equations equal gives a quadratic; exactly one solution means Δ = 0.", ""),
 ];
 
 const simIndep: PracticeQuestion[] = [
-  fa("y11adv-ge-sim-i1", "Solve x² + y² = 25 and y = 2x.", "x^2+(2x)^2=25", "x=√5, y=2√5 and x=-√5, y=-2√5", ["(√5,2√5) and (-√5,-2√5)"]),
+  fa("y11adv-ge-sim-i1", "Solve x² + y² = 25 and y = 2x.", "", "x=√5, y=2√5 and x=-√5, y=-2√5", ["(√5,2√5) and (-√5,-2√5)"]),
   mc("y11adv-ge-sim-i2", "y = x² − x − 2 and y = x − 2. How many intersections?", "B",
     [{ label: "A", text: "0" }, { label: "B", text: "2" }, { label: "C", text: "1" }, { label: "D", text: "3" }],
     "x²−x−2 = x−2 → x²−2x = 0 → x(x−2) = 0 → x = 0 or x = 2. Two intersection points.", ""),
-  fa("y11adv-ge-sim-i3", "Find k such that y = x + k is tangent to y = x² + 2.", "x^2+2=x+k\\to x^2-x+(2-k)=0,\\;\\Delta=0", "k = 7/4", ["7/4"]),
+  fa("y11adv-ge-sim-i3", "Find k such that y = x + k is tangent to y = x² + 2.", "", "k = 7/4", ["7/4"]),
   mc("y11adv-ge-sim-i4", "y = x² + 1 and y = 1 − x². Their intersections are at:", "B",
     [{ label: "A", text: "$x = 0$ only" }, { label: "B", text: "$x = 0, \\pm$ ... let me compute: $x^2+1=1-x^2 \\to 2x^2=0 \\to x=0$" }, { label: "C", text: "No intersections" }, { label: "D", text: "$x = \\pm 1$" }],
     "x² + 1 = 1 − x² → 2x² = 0 → x = 0. One intersection point (0, 1).", ""),
-  fa("y11adv-ge-sim-i5", "Solve 2x + y = 5 and x² + y² = 10 simultaneously.", "y=5-2x,\\;x^2+(5-2x)^2=10", "x=1,y=3 and x=3,y=-1", ["(1,3) and (3,-1)"]),
+  fa("y11adv-ge-sim-i5", "Solve 2x + y = 5 and x² + y² = 10 simultaneously.", "", "x=1,y=3 and x=3,y=-1", ["(1,3) and (3,-1)"]),
 ];
 
 const simMastery: PracticeQuestion[] = [
-  fa("y11adv-ge-sim-m1", "Find the points of intersection of y = 2x² and y = x + 3.", "2x^2=x+3", "x=-(1/2)(no)→ 2x²-x-3=0 → (2x-3)(x+1)=0 → x=3/2,y=9/2 and x=-1,y=2", ["(3/2,9/2) and (-1,2)"]),
+  fa("y11adv-ge-sim-m1", "Find the points of intersection of y = 2x² and y = x + 3.", "", "x=-(1/2)(no)→ 2x²-x-3=0 → (2x-3)(x+1)=0 → x=3/2,y=9/2 and x=-1,y=2", ["(3/2,9/2) and (-1,2)"]),
   mc("y11adv-ge-sim-m2", "The line y = mx is tangent to y = x² + 2x + 2. The values of m are:", "C",
     [{ label: "A", text: "$m = 0$" }, { label: "B", text: "$m = \\pm 2$" }, { label: "C", text: "no real values — the line does not meet the curve (check Δ < 0 for all m)" }, { label: "D", text: "$m = 4$" }],
     "mx = x²+2x+2 → x²+(2−m)x+2=0. Δ=(2−m)²−8. For tangency: (2−m)²=8 → m=2±2√2. So there ARE real values: m=2+2√2 or m=2−2√2.", ""),
-  fa("y11adv-ge-sim-m3", "Find the range of k for which y = kx + 1 and y = x² + 3 have no real intersections.", "x^2+3=kx+1\\to x^2-kx+2=0,\\;\\Delta<0", "k²<8, so -2√2 < k < 2√2", ["-2√2 < k < 2√2"]),
+  fa("y11adv-ge-sim-m3", "Find the range of k for which y = kx + 1 and y = x² + 3 have no real intersections.", "", "k²<8, so -2√2 < k < 2√2", ["-2√2 < k < 2√2"]),
   mc("y11adv-ge-sim-m4", "Solving a quadratic-quadratic system y = ax² + b and y = cx² + d (a ≠ c) can be reduced to:", "A",
     [{ label: "A", text: "A linear equation in x² (after subtracting)" }, { label: "B", text: "A degree 4 equation" }, { label: "C", text: "Two separate quadratics" }, { label: "D", text: "A system that can never be solved" }],
     "Subtracting: ax²+b = cx²+d → (a−c)x² = d−b → x² = (d−b)/(a−c). This is a linear equation in x², yielding at most 2 real x values.", ""),
-  fa("y11adv-ge-sim-m5", "Prove that y = x + 5 and y = x² + 4x + 8 have no common points.", "x+5=x^2+4x+8\\to x^2+3x+3=0,\\;\\Delta=9-12=-3<0", "Δ = -3 < 0, no real solutions → no intersections", ["Δ<0"]),
+  fa("y11adv-ge-sim-m5", "Prove that y = x + 5 and y = x² + 4x + 8 have no common points.", "", "Δ = -3 < 0, no real solutions → no intersections", ["Δ<0"]),
   mc("y11adv-ge-sim-m6", "The number of intersections of y = x² and y = x − c is determined by:", "B",
     [{ label: "A", text: "The value of x" }, { label: "B", text: "The discriminant of x² − x + c = 0: Δ = 1 − 4c" }, { label: "C", text: "The value of c only (not the discriminant)" }, { label: "D", text: "Whether c is positive or negative" }],
     "Setting equal: x² = x − c → x² − x + c = 0. Δ = 1 − 4c. Two intersections if Δ > 0 (c < 1/4), one if Δ = 0 (c = 1/4), none if Δ < 0 (c > 1/4).", ""),
-  fa("y11adv-ge-sim-m7", "Find the coordinates of the tangent point of y = x² − 2x and y = x − 2.", "\\Delta=0\\text{ from }x^2-3x+2=0", "Wait: x²-2x = x-2 → x²-3x+2=0 → (x-1)(x-2)=0. Δ=1>0 so two points: (1,-1) and (2,0). Not tangent.", ["(1,-1) and (2,0)"]),
+  fa("y11adv-ge-sim-m7", "Find the coordinates of the tangent point of y = x² − 2x and y = x − 2.", "", "Wait: x²-2x = x-2 → x²-3x+2=0 → (x-1)(x-2)=0. Δ=1>0 so two points: (1,-1) and (2,0). Not tangent.", ["(1,-1) and (2,0)"]),
   mc("y11adv-ge-sim-m8", "A quadratic and a straight line can intersect in at most:", "B",
     [{ label: "A", text: "1 point" }, { label: "B", text: "2 points" }, { label: "C", text: "3 points" }, { label: "D", text: "Infinitely many points" }],
     "Substituting the line y = mx + c into the quadratic gives a quadratic equation in x, which has at most 2 real solutions. So at most 2 intersection points.", ""),
@@ -283,7 +283,7 @@ const simMastery: PracticeQuestion[] = [
 // ─── L5: Exam Practice ────────────────────────────────────────────────────────
 
 const geExGuided: PracticeQuestion[] = [
-  fa("y11adv-ge-ex-g1", "P(x) = x³ − 5x² + 2x + 8. Show (x−4) is a factor and fully factorise.", "P(4)=64-80+8+8=0", "(x-4)(x-2)(x+1)", ["(x-4)(x-2)(x+1)"]),
+  fa("y11adv-ge-ex-g1", "P(x) = x³ − 5x² + 2x + 8. Show (x−4) is a factor and fully factorise.", "", "(x-4)(x-2)(x+1)", ["(x-4)(x-2)(x+1)"]),
   mc("y11adv-ge-ex-g2", "Roots α and β of x² − 7x + 10 = 0. Find α² + β².", "B",
     [{ label: "A", text: "$29$" }, { label: "B", text: "$29$" }, { label: "C", text: "$49$" }, { label: "D", text: "$20$" }],
     "Sum = 7, product = 10. α²+β² = (α+β)²−2αβ = 49−20 = 29.", "x^2-7x+10=0"),
@@ -294,7 +294,7 @@ const geExGuided: PracticeQuestion[] = [
 ];
 
 const geExIndep: PracticeQuestion[] = [
-  fa("y11adv-ge-ex-i1", "P(x) = 2x³ + x² − 13x + 6. Find all roots using the factor theorem.", "P(2)=16+4-26+6=0", "(x-2)(2x-1)(x+3), roots 2, 1/2, -3", ["2, 1/2, -3"]),
+  fa("y11adv-ge-ex-i1", "P(x) = 2x³ + x² − 13x + 6. Find all roots using the factor theorem.", "", "(x-2)(2x-1)(x+3), roots 2, 1/2, -3", ["2, 1/2, -3"]),
   mc("y11adv-ge-ex-i2", "A quadratic has roots α and β with α+β = 5 and αβ = 4. The roots are:", "B",
     [{ label: "A", text: "1 and 4" }, { label: "B", text: "1 and 4" }, { label: "C", text: "2 and 3" }, { label: "D", text: "-1 and -4" }],
     "x² − 5x + 4 = 0 → (x−1)(x−4) = 0 → roots 1 and 4.", ""),
@@ -302,23 +302,23 @@ const geExIndep: PracticeQuestion[] = [
   mc("y11adv-ge-ex-i4", "y = x² + 2 and y = −x + 4. Number of intersections:", "B",
     [{ label: "A", text: "0" }, { label: "B", text: "2" }, { label: "C", text: "1" }, { label: "D", text: "3" }],
     "x²+2 = −x+4 → x²+x−2 = 0 → (x+2)(x−1) = 0 → x = −2 or x = 1. Two points.", ""),
-  fa("y11adv-ge-ex-i5", "Find k so that y = kx is tangent to y = x² + 3x + 4.", "kx=x^2+3x+4\\to x^2+(3-k)x+4=0,\\;\\Delta=0", "(3-k)²=16 → k=7 or k=-1", ["k=7 or k=-1"]),
+  fa("y11adv-ge-ex-i5", "Find k so that y = kx is tangent to y = x² + 3x + 4.", "", "(3-k)²=16 → k=7 or k=-1", ["k=7 or k=-1"]),
 ];
 
 const geExMastery: PracticeQuestion[] = [
-  fa("y11adv-ge-ex-m1", "P(x) = x³ + ax² + bx + 6 has roots 1, 2, 3. Find a and b.", "(x-1)(x-2)(x-3)=x³-6x²+11x-6", "a=-6, b=11. But constant = -6 ≠ 6. So scale: a=-6, b=11 requires constant -6; for constant +6 the polynomial would be −(x−1)(x−2)(x−3). If monic, then roots giving constant +6 from (x-1)(x+2)(x-3)=x³-2x²-5x+6: a=-2, b=-5.", ["-2, -5"]),
+  fa("y11adv-ge-ex-m1", "P(x) = x³ + ax² + bx + 6 has roots 1, 2, 3. Find a and b.", "", "a=-6, b=11. But constant = -6 ≠ 6. So scale: a=-6, b=11 requires constant -6; for constant +6 the polynomial would be −(x−1)(x−2)(x−3). If monic, then roots giving constant +6 from (x-1)(x+2)(x-3)=x³-2x²-5x+6: a=-2, b=-5.", ["-2, -5"]),
   mc("y11adv-ge-ex-m2", "P(x) = x³ + x² − 4x − 4. Its real roots are:", "C",
     [{ label: "A", text: "$1, -1, 4$" }, { label: "B", text: "$2, -2, -1$" }, { label: "C", text: "$2, -2, -1$" }, { label: "D", text: "$1, 2, -2$" }],
     "P(2) = 8+4−8−4 = 0. So (x−2) is a factor. Divide: x²+3x+2 = (x+1)(x+2). Roots: 2, −1, −2.", ""),
-  fa("y11adv-ge-ex-m3", "Roots α, β of 2x²−5x+1=0. Find α/β + β/α.", "(\\alpha/\\beta+\\beta/\\alpha)=(\\alpha^2+\\beta^2)/(\\alpha\\beta)", "(α+β)²-2αβ)/αβ = (25/4-2)/(1/2) = (17/4)/(1/2) = 17/2", ["17/2"]),
+  fa("y11adv-ge-ex-m3", "Roots α, β of 2x²−5x+1=0. Find α/β + β/α.", "", "(α+β)²-2αβ)/αβ = (25/4-2)/(1/2) = (17/4)/(1/2) = 17/2", ["17/2"]),
   mc("y11adv-ge-ex-m4", "For what values of m does y = mx + 1 not intersect y = x² + x + 2?", "C",
     [{ label: "A", text: "$m < -1$" }, { label: "B", text: "$m > 3$" }, { label: "C", text: "$-1 < m < 3$" }, { label: "D", text: "$m < -1$ or $m > 3$" }],
     "mx+1 = x²+x+2 → x²+(1−m)x+1 = 0. Δ = (1−m)²−4. No intersection when Δ < 0: (1−m)² < 4 → |1−m| < 2 → −1 < m < 3.", ""),
-  fa("y11adv-ge-ex-m5", "P(x) = x⁴ − 5x² + 4. Fully factorise over the reals and state all x-intercepts.", "u=x^2:\\;u^2-5u+4=(u-1)(u-4)", "(x-1)(x+1)(x-2)(x+2); intercepts ±1, ±2", ["±1, ±2"]),
+  fa("y11adv-ge-ex-m5", "P(x) = x⁴ − 5x² + 4. Fully factorise over the reals and state all x-intercepts.", "", "(x-1)(x+1)(x-2)(x+2); intercepts ±1, ±2", ["±1, ±2"]),
   mc("y11adv-ge-ex-m6", "A cubic with roots −2, 1, 3 and leading coefficient 2 is:", "B",
     [{ label: "A", text: "$2(x+2)(x-1)(x-3)$" }, { label: "B", text: "$2(x+2)(x-1)(x-3)$" }, { label: "C", text: "$(x+2)(x-1)(x-3)$" }, { label: "D", text: "$2x^3+\\ldots$ but cannot determine" }],
     "P(x) = a(x−r₁)(x−r₂)(x−r₃) = 2(x+2)(x−1)(x−3). The leading coefficient scales the entire polynomial.", ""),
-  fa("y11adv-ge-ex-m7", "For x² + (k+2)x + 2k = 0, find k so that one root is twice the other.", "\\alpha=2\\beta:\\;3\\beta=-(k+2),\\;2\\beta^2=2k", "k=2 or k=8", ["k=2 or k=8"]),
+  fa("y11adv-ge-ex-m7", "For x² + (k+2)x + 2k = 0, find k so that one root is twice the other.", "", "k=2 or k=8", ["k=2 or k=8"]),
   mc("y11adv-ge-ex-m8", "The graph of y = (x−a)²(x−b) with a ≠ b and positive leading coefficient:", "C",
     [{ label: "A", text: "Crosses the x-axis at both a and b" }, { label: "B", text: "Touches x-axis at b and crosses at a" }, { label: "C", text: "Touches at a (double root), crosses at b (single root)" }, { label: "D", text: "Does not touch the x-axis" }],
     "(x−a)² is a double root at x = a → touch. (x−b) is single at x = b → cross. Positive leading coefficient: rises left and right for odd total degree... wait, degree is 3 (odd): falls left, rises right.", ""),

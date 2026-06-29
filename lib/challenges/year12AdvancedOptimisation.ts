@@ -7,7 +7,7 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     id: "chal-y12a-opt-1",
     prompt:
       "A closed cylinder has a volume of 1000 cm³. Find the radius, to 2 decimal places, that minimises its total surface area.",
-    latex: "V = 1000,\\quad S = 2\\pi r^2 + \\dfrac{2000}{r}",
+    latex: "V = 1000",
     answer: "5.42",
     acceptedAnswers: ["5.4", "5.42 cm", "(500/pi)^(1/3)"],
     hint: "Use V = πr²h = 1000 to write h in terms of r, substitute into the surface area, then set S'(r) = 0.",
@@ -29,7 +29,7 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     id: "chal-y12a-opt-3",
     prompt:
       "An open box is made from a 16 cm × 10 cm rectangular sheet by cutting a square of side x from each corner and folding up the sides. Find the maximum volume, in cm³.",
-    latex: "V = x(16 - 2x)(10 - 2x)",
+    latex: "",
     answer: "144",
     acceptedAnswers: ["144 cm^3", "144 cm³"],
     hint: "Expand V(x), differentiate, solve V'(x) = 0, and reject any x outside 0 < x < 5.",
@@ -41,7 +41,7 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     id: "chal-y12a-opt-4",
     prompt:
       "A closed box has a square base of side x cm and a volume of 128 cm³. The base and top cost 2 cents/cm²; the four sides cost 1 cent/cm². Find the value of x (cm) that minimises the total cost.",
-    latex: "V = x^2 h = 128",
+    latex: "V = 128",
     answer: "4",
     acceptedAnswers: ["4 cm", "x=4"],
     hint: "Use the volume to write h in terms of x, build the weighted cost C(x), then solve C'(x) = 0.",
@@ -54,7 +54,7 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     id: "chal-y12a-opt-5",
     prompt:
       "An open-top box has a square base of side x cm and a total surface area of 48 cm². Find the maximum possible volume of the box, in cm³.",
-    latex: "x^2 + 4xh = 48",
+    latex: "S = 48",
     answer: "32",
     acceptedAnswers: ["32 cm^3", "32 cm³"],
     hint: "Use the surface-area constraint to write h in terms of x, substitute into V = x²h, then maximise.",
@@ -66,7 +66,7 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     id: "chal-y12a-opt-6",
     prompt:
       "A right-angled triangle has its right angle at the origin, one vertex on the positive x-axis and one on the positive y-axis, and its hypotenuse passes through the point (2, 4). Find the minimum possible area of the triangle.",
-    latex: "\\frac{2}{a} + \\frac{4}{b} = 1",
+    latex: "",
     answer: "16",
     acceptedAnswers: ["16 units^2", "16 square units"],
     hint: "With intercepts a and b, the line is x/a + y/b = 1 through (2,4); write b in terms of a, then minimise the area ab/2.",
@@ -78,7 +78,7 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     id: "chal-y12a-opt-7",
     prompt:
       "A theatre sells 400 tickets at $20 each. Market research shows that for every $1 increase in the ticket price, 10 fewer tickets are sold. Find the ticket price that maximises revenue.",
-    latex: "R = (20 + x)(400 - 10x)",
+    latex: "",
     answer: "30",
     acceptedAnswers: ["$30", "30 dollars", "$30.00"],
     hint: "Let x be the number of $1 increases: price = 20 + x, tickets = 400 − 10x. Maximise R = (20 + x)(400 − 10x).",
