@@ -9215,6 +9215,121 @@ function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson 
   };
 }
 
+const shortExplanationCriteria: Record<
+  string,
+  { rubric: string[]; feedback: Array<{ key: string; text: string }> }
+> = {
+  "y12s1-quad-g4": {
+    rubric: ["Explains that h = 0 means the ball is at ground level."],
+    feedback: [
+      { key: "ground_level_missing", text: "Connect h = 0 to ground level." },
+    ],
+  },
+  "y12s1-quad-i4": {
+    rubric: ["Identifies the vertex as the maximum-profit point or sales level."],
+    feedback: [
+      { key: "maximum_missing", text: "Identify what is maximised at the vertex." },
+    ],
+  },
+  "y12s1-quad-m7": {
+    rubric: [
+      "Identifies the vertex as a minimum.",
+      "Places the vertex at x = 5, halfway between the intercepts.",
+    ],
+    feedback: [
+      { key: "minimum_missing", text: "Use the opening direction to classify the vertex." },
+      { key: "location_missing", text: "Locate the vertex halfway between the intercepts." },
+    ],
+  },
+  "y12s1-quad-m9": {
+    rubric: ["Explains that the negative quadratic coefficient makes the vertex a maximum."],
+    feedback: [
+      { key: "maximum_missing", text: "Connect the negative coefficient to a maximum vertex." },
+    ],
+  },
+  "y12s1-depr-i5": {
+    rubric: ["Identifies a genuine buy now pay later risk, such as late fees or overspending."],
+    feedback: [
+      { key: "risk_missing", text: "State a genuine financial risk of buy now pay later." },
+    ],
+  },
+  "y12s1-depr-m10": {
+    rubric: [
+      "Explains that the extra payment reduces the loan balance, total interest, or repayment time.",
+    ],
+    feedback: [
+      { key: "effect_missing", text: "Explain how the extra payment changes the loan." },
+    ],
+  },
+  "y12s1-biv-m5": {
+    rubric: [
+      "Explains that correlation does not establish causation or that a third variable such as hot weather affects both variables.",
+    ],
+    feedback: [
+      { key: "causation_missing", text: "Distinguish association from causation." },
+    ],
+  },
+  "y12s1-biv-m8": {
+    rubric: [
+      "Explains that a third variable may affect both observations or that the correlation does not prove causation.",
+    ],
+    feedback: [
+      { key: "third_variable_missing", text: "Consider a third variable affecting both observations." },
+    ],
+  },
+  "y12s1-lobf-m9": {
+    rubric: ["Interprets the gradient as an increase of $18 in pay for each additional hour worked."],
+    feedback: [
+      { key: "rate_missing", text: "Interpret the gradient as a rate with contextual units." },
+    ],
+  },
+  "y12s1-lobf-m10": {
+    rubric: [
+      "Explains that joining only the extreme endpoints may not represent the overall trend or middle of all the data.",
+    ],
+    feedback: [
+      { key: "overall_trend_missing", text: "Relate the line of best fit to all of the data." },
+    ],
+  },
+  "y12s1-algex-i5": {
+    rubric: ["Identifies the vertex x-coordinate as the number of items that maximises profit."],
+    feedback: [
+      { key: "input_missing", text: "Interpret the x-coordinate as the input that maximises profit." },
+    ],
+  },
+  "y12s1-linmod-i5": {
+    rubric: [
+      "Identifies the prediction as extrapolation.",
+      "Explains that it is less reliable because x = 50 is outside the observed range or the trend may not continue.",
+    ],
+    feedback: [
+      { key: "extrapolation_missing", text: "Name the type of prediction." },
+      { key: "reliability_missing", text: "Explain why the prediction is less reliable." },
+    ],
+  },
+  "y12s1-sim-m10": {
+    rubric: ["Explains that a negative number of attendees is not valid in the practical context."],
+    feedback: [
+      { key: "context_missing", text: "Check whether the solution is meaningful for a number of people." },
+    ],
+  },
+};
+
+function applyShortExplanationMarking(
+  question: PracticeQuestion
+): PracticeQuestion {
+  const criteria = shortExplanationCriteria[question.id];
+  if (!criteria) return question;
+
+  return {
+    ...question,
+    responseType: "short_explanation",
+    modelSolution: question.explanation ?? question.answer,
+    markingRubric: criteria.rubric,
+    markingFeedbackOptions: criteria.feedback,
+  };
+}
+
 export function normalizeYear12Standard1Lesson(lesson: ExplicitLesson): ExplicitLesson {
   let normalized: ExplicitLesson = {
     ...lesson,
@@ -9254,13 +9369,19 @@ export function normalizeYear12Standard1Lesson(lesson: ExplicitLesson): Explicit
     ...normalized,
     workedExamples: normalized.workedExamples.map(normalizeWorkedExample),
     guidedPractice: normalized.guidedPractice.slice(0, 4).map((question) =>
-      applyAuditFriendlyAnswers(normalizeQuestion(question))
+      applyShortExplanationMarking(
+        applyAuditFriendlyAnswers(normalizeQuestion(question))
+      )
     ),
     independentPractice: normalized.independentPractice.slice(0, 5).map((question) =>
-      applyAuditFriendlyAnswers(normalizeQuestion(question))
+      applyShortExplanationMarking(
+        applyAuditFriendlyAnswers(normalizeQuestion(question))
+      )
     ),
     masteryQuiz: normalized.masteryQuiz.slice(0, 10).map((question) =>
-      applyAuditFriendlyAnswers(normalizeQuestion(question))
+      applyShortExplanationMarking(
+        applyAuditFriendlyAnswers(normalizeQuestion(question))
+      )
     ),
   };
 }

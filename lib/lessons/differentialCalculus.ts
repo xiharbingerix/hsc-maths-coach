@@ -27,6 +27,11 @@ export type PracticeQuestion = {
   solutionDiagram?: NetworkDiagram;
   answer: string;
   acceptedAnswers?: string[];
+  /** Use semantic marking when equivalent prose cannot be covered fairly by strings. */
+  responseType?: "short_explanation";
+  modelSolution?: string;
+  markingRubric?: string[];
+  markingFeedbackOptions?: Array<{ key: string; text: string }>;
   choices?: Choice[];
   hint?: string;
   explanation?: string;

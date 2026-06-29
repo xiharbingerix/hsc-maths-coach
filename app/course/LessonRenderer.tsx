@@ -318,6 +318,78 @@ async function casCheckClient(
   }
 }
 
+type SemanticCheckResult = {
+  status: "correct" | "incorrect" | "unavailable";
+  feedbackKeys: string[];
+};
+
+function isShortExplanation(question: PracticeQuestion) {
+  return question.responseType === "short_explanation";
+}
+
+async function semanticCheckClient(
+  question: PracticeQuestion,
+  answer: string
+): Promise<SemanticCheckResult> {
+  if (
+    !isShortExplanation(question) ||
+    !question.modelSolution ||
+    !question.markingRubric?.length ||
+    !question.markingFeedbackOptions?.length
+  ) {
+    return { status: "unavailable", feedbackKeys: [] };
+  }
+
+  try {
+    const { data } = await supabase.auth.getSession();
+    const token = data.session?.access_token;
+    if (!token) return { status: "unavailable", feedbackKeys: [] };
+
+    const response = await fetch("/api/mark-proof", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: {
+          mode: "short_explanation",
+          prompt: question.prompt,
+          latex: question.latex,
+          modelSolution: question.modelSolution,
+          rubric: question.markingRubric,
+          feedbackOptions: question.markingFeedbackOptions,
+        },
+        answer,
+      }),
+    });
+    if (!response.ok) return { status: "unavailable", feedbackKeys: [] };
+
+    const verdict = (await response.json()) as {
+      correct?: unknown;
+      feedbackKeys?: unknown;
+    };
+    if (typeof verdict.correct !== "boolean") {
+      return { status: "unavailable", feedbackKeys: [] };
+    }
+
+    const allowedKeys = new Set(
+      question.markingFeedbackOptions.map((option) => option.key)
+    );
+    const feedbackKeys = Array.isArray(verdict.feedbackKeys)
+      ? verdict.feedbackKeys.filter(
+          (key): key is string => typeof key === "string" && allowedKeys.has(key)
+        )
+      : [];
+    return {
+      status: verdict.correct ? "correct" : "incorrect",
+      feedbackKeys,
+    };
+  } catch {
+    return { status: "unavailable", feedbackKeys: [] };
+  }
+}
+
 /**
  * Ask the CAS service which locally-rejected quiz answers are actually
  * equivalent forms. Returns a map of questionId -> true for upgrades.
@@ -328,17 +400,28 @@ async function casCheckClient(
  * either already correct or genuinely skipped. Any failure leaves the answer
  * as locally marked.
  */
-async function resolveQuizCasOverrides(
+async function resolveQuizMarkingOverrides(
   questions: PracticeQuestion[],
   answers: Record<string, string>
-): Promise<Record<string, boolean>> {
-  const overrides: Record<string, boolean> = {};
+): Promise<{
+  correctIds: Record<string, boolean>;
+  semanticUnavailable: boolean;
+}> {
+  const correctIds: Record<string, boolean> = {};
+  let semanticUnavailable = false;
 
   await Promise.all(
     questions.map(async (question) => {
       const value = (answers[question.id] ?? "").trim();
       if (!value) return;
       if (isCorrectAnswer(question, value)) return; // already correct locally
+
+      if (isShortExplanation(question)) {
+        const verdict = await semanticCheckClient(question, value);
+        if (verdict.status === "correct") correctIds[question.id] = true;
+        if (verdict.status === "unavailable") semanticUnavailable = true;
+        return;
+      }
 
       // Multi-part: correct only if every part passes (local or CAS).
       if (hasQuestionParts(question)) {
@@ -352,7 +435,7 @@ async function resolveQuizCasOverrides(
             return casCheckClient(pa, part.answer, partAcceptedAnswers(part));
           })
         );
-        if (checks.every(Boolean)) overrides[question.id] = true;
+        if (checks.every(Boolean)) correctIds[question.id] = true;
         return;
       }
 
@@ -361,12 +444,12 @@ async function resolveQuizCasOverrides(
 
       // Single typed answer.
       if (await casCheckClient(value, question.answer, question.acceptedAnswers ?? [])) {
-        overrides[question.id] = true;
+        correctIds[question.id] = true;
       }
     })
   );
 
-  return overrides;
+  return { correctIds, semanticUnavailable };
 }
 
 function choiceAnswerText(question: PracticeQuestion, answer: string) {
@@ -771,7 +854,10 @@ function PracticeCard({
   const questionLatex = safeQuestionLatex(question);
   // Single-step state
   const [answer, setAnswer] = useState("");
-  const [result, setResult] = useState<"correct" | "incorrect" | null>(null);
+  const [result, setResult] = useState<
+    "correct" | "incorrect" | "unavailable" | null
+  >(null);
+  const [semanticFeedbackKeys, setSemanticFeedbackKeys] = useState<string[]>([]);
   const [checking, setChecking] = useState(false);
 
   // Multi-step state (all hooks called unconditionally)
@@ -975,6 +1061,18 @@ function PracticeCard({
       setResult("correct");
       return;
     }
+    if (isShortExplanation(question)) {
+      if (!answer.trim()) {
+        setResult("incorrect");
+        return;
+      }
+      setChecking(true);
+      const verdict = await semanticCheckClient(question, answer);
+      setSemanticFeedbackKeys(verdict.feedbackKeys);
+      setResult(verdict.status);
+      setChecking(false);
+      return;
+    }
     // MCQ, empty, or plainly-numeric answers can't be rescued by symbolic CAS.
     if (
       question.choices ||
@@ -1032,19 +1130,34 @@ function PracticeCard({
           onChange={(value) => {
             setAnswer(value);
             setResult(null);
+            setSemanticFeedbackKeys([]);
           }}
         />
       ) : (
         <div className="space-y-1">
           <span className="text-sm font-medium">Your answer</span>
-          <MathAnswerInput
-            value={answer}
-            onChange={(v) => {
-              setAnswer(v);
-              setResult(null);
-            }}
-            ariaLabel="Your answer"
-          />
+          {isShortExplanation(question) ? (
+            <textarea
+              value={answer}
+              onChange={(event) => {
+                setAnswer(event.target.value);
+                setResult(null);
+                setSemanticFeedbackKeys([]);
+              }}
+              rows={3}
+              aria-label="Your answer"
+              className="w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+            />
+          ) : (
+            <MathAnswerInput
+              value={answer}
+              onChange={(v) => {
+                setAnswer(v);
+                setResult(null);
+              }}
+              ariaLabel="Your answer"
+            />
+          )}
         </div>
       )}
 
@@ -1067,7 +1180,18 @@ function PracticeCard({
 
       {result === "incorrect" && (
         <div className="rounded-xl bg-red-50 p-3 text-sm font-medium text-red-800">
-          Not quite. Check the key idea and try again.
+          {semanticFeedbackKeys.length > 0
+            ? question.markingFeedbackOptions
+                ?.filter((option) => semanticFeedbackKeys.includes(option.key))
+                .map((option) => option.text)
+                .join(" ")
+            : "Not quite. Check the key idea and try again."}
+        </div>
+      )}
+
+      {result === "unavailable" && (
+        <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
+          This answer could not be marked right now. Please try again.
         </div>
       )}
 
@@ -1318,11 +1442,21 @@ function QuizQuestion({
       ) : (
         <div className="space-y-1">
           <span className="text-sm font-medium">Your answer</span>
-          <MathAnswerInput
-            value={value}
-            onChange={onChange}
-            ariaLabel="Your answer"
-          />
+          {isShortExplanation(question) ? (
+            <textarea
+              value={value}
+              onChange={(event) => onChange(event.target.value)}
+              rows={3}
+              aria-label="Your answer"
+              className="w-full resize-y rounded-lg border border-slate-300 bg-white px-3 py-2 text-base text-slate-900 outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+            />
+          ) : (
+            <MathAnswerInput
+              value={value}
+              onChange={onChange}
+              ariaLabel="Your answer"
+            />
+          )}
         </div>
       )}
     </div>
@@ -1709,9 +1843,10 @@ export function LessonRenderer({
     Math.floor(Math.random() * 0x7fffffff)
   );
   // Question ids the CAS service upgraded to correct at submit time (equivalent
-  // forms the local marker rejected). Resets on retry.
+  // forms or semantic responses the local marker could not grade). Resets on retry.
   const [casCorrectIds, setCasCorrectIds] = useState<Record<string, boolean>>({});
   const [quizChecking, setQuizChecking] = useState(false);
+  const [quizMarkingError, setQuizMarkingError] = useState<string | null>(null);
   const [masteryState, setMasteryState] = useState<MasteryState>({
     passed: false,
     completedStages: [],
@@ -1891,6 +2026,7 @@ export function LessonRenderer({
     setVideoLoadFailed(false);
     setQuizAnswers({});
     setCasCorrectIds({});
+    setQuizMarkingError(null);
     setQuizSubmitted(false);
     setQuizAttemptSeed(Math.floor(Math.random() * 0x7fffffff));
     masteryStartedRef.current = null;
@@ -2046,18 +2182,36 @@ export function LessonRenderer({
   }
 
   async function submitQuiz() {
-    // Tier 1: ask CAS about locally-rejected typed answers before scoring, so
-    // equivalent forms count toward mastery. Falls back to local marks on any
-    // failure (and is a no-op when the CAS service is not configured).
+    // Resolve answers the local marker cannot judge: symbolic equivalents via
+    // CAS and authored short explanations via semantic marking.
     setQuizChecking(true);
+    setQuizMarkingError(null);
     let overrides: Record<string, boolean> = {};
+    let semanticUnavailable = false;
     try {
-      overrides = await resolveQuizCasOverrides(
+      const resolution = await resolveQuizMarkingOverrides(
         activeQuiz,
         quizAnswers
       );
+      overrides = resolution.correctIds;
+      semanticUnavailable = resolution.semanticUnavailable;
     } catch {
       overrides = {};
+      semanticUnavailable = activeQuiz.some(
+        (question) =>
+          isShortExplanation(question) &&
+          Boolean(quizAnswers[question.id]?.trim()) &&
+          !isCorrectAnswer(question, quizAnswers[question.id] ?? "")
+      );
+    }
+
+    if (semanticUnavailable) {
+      setQuizChecking(false);
+      setQuizSubmitted(false);
+      setQuizMarkingError(
+        "One or more written answers could not be marked right now. Please try submitting again."
+      );
+      return;
     }
     setCasCorrectIds(overrides);
     setQuizChecking(false);
@@ -2168,6 +2322,7 @@ export function LessonRenderer({
     masteryStartedRef.current = null; // allow mastery_quiz_started to re-fire
     setQuizAnswers({});
     setCasCorrectIds({});
+    setQuizMarkingError(null);
     setQuizSubmitted(false);
     setQuizAttemptSeed(Math.floor(Math.random() * 0x7fffffff));
     setActiveStage("mastery-quiz");
@@ -2494,6 +2649,7 @@ export function LessonRenderer({
                 [question.id]: value,
               }));
               setQuizSubmitted(false);
+              setQuizMarkingError(null);
             }}
           />
         ))}
@@ -2506,6 +2662,12 @@ export function LessonRenderer({
         >
           {quizChecking ? "Checking…" : "Submit quiz"}
         </button>
+
+        {quizMarkingError && (
+          <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
+            {quizMarkingError}
+          </div>
+        )}
 
         {quizSubmitted && (
           <MasteryResultPanel

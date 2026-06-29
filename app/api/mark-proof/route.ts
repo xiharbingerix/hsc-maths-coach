@@ -58,12 +58,44 @@ export async function POST(request: Request) {
   if (typeof body.answer !== "string") {
     return NextResponse.json({ error: "Missing answer." }, { status: 400 });
   }
+  if (
+    q.mode !== undefined &&
+    q.mode !== "proof" &&
+    q.mode !== "short_explanation"
+  ) {
+    return NextResponse.json({ error: "Invalid marking mode." }, { status: 400 });
+  }
+  const invalidRubric =
+    q.rubric !== undefined &&
+    (!Array.isArray(q.rubric) ||
+      q.rubric.some((item) => typeof item !== "string"));
+  const invalidFeedbackOptions =
+    q.feedbackOptions !== undefined &&
+    (!Array.isArray(q.feedbackOptions) ||
+      q.feedbackOptions.some(
+        (option) =>
+          typeof option !== "object" ||
+          option === null ||
+          typeof option.key !== "string" ||
+          typeof option.text !== "string"
+      ));
+  if (
+    invalidRubric ||
+    invalidFeedbackOptions ||
+    (q.mode === "short_explanation" &&
+      (!q.rubric?.length || !q.feedbackOptions?.length))
+  ) {
+    return NextResponse.json({ error: "Missing marking criteria." }, { status: 400 });
+  }
 
   const result = await markProofWithAi(
     {
+      mode: q.mode,
       prompt: q.prompt,
       modelSolution: q.modelSolution,
       latex: typeof q.latex === "string" ? q.latex : undefined,
+      rubric: q.rubric,
+      feedbackOptions: q.feedbackOptions,
     },
     body.answer
   );
@@ -76,6 +108,9 @@ export async function POST(request: Request) {
     );
   }
 
-  // Return ONLY the binary verdict. No model-generated text ever reaches the client.
-  return NextResponse.json({ correct: result.correct });
+  // Return ONLY the structured verdict. No model-generated text reaches the client.
+  return NextResponse.json({
+    correct: result.correct,
+    feedbackKeys: result.feedbackKeys,
+  });
 }
