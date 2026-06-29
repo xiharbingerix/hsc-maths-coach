@@ -242,7 +242,7 @@ export function year9Chapter3TrigRatiosLessonOverride(
   }
   const content = SECTIONS[lesson.slug];
   if (!content) return null;
-  return lesson.slug === "finding-unknown-side-lengths"
+  return ["finding-unknown-side-lengths", "solving-for-the-denominator"].includes(lesson.slug)
     ? addTrigSideVisuals(content)
     : content;
 }

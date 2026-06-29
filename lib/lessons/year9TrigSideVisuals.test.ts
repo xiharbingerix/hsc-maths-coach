@@ -14,7 +14,7 @@ function numericLabel(label: string | undefined): number | null {
 
 test("Year 9 trigonometry side diagrams render consistent right triangles", () => {
   const visuals = Object.entries(year9TrigSideVisuals);
-  assert.equal(visuals.length, 22);
+  assert.equal(visuals.length, 44);
 
   for (const [questionId, visual] of visuals) {
     const diagram = visual.triangleDiagram;
@@ -48,13 +48,20 @@ test("Year 9 trigonometry side metadata calculates to every seeded answer", () =
     const theta = Number.parseFloat(diagram.angleLabels!.A!);
     const radians = (theta * Math.PI) / 180;
     const adjacent = numericLabel(diagram.sideLabels?.AB);
+    const opposite = numericLabel(diagram.sideLabels?.BC);
     const hypotenuse = numericLabel(diagram.sideLabels?.AC);
     const unknownSide = diagram.highlightedSides![0];
     const calculated = unknownSide === "AB"
-      ? hypotenuse! * Math.cos(radians)
-      : hypotenuse !== null
-        ? hypotenuse * Math.sin(radians)
-        : adjacent! * Math.tan(radians);
+      ? hypotenuse !== null
+        ? hypotenuse * Math.cos(radians)
+        : opposite! / Math.tan(radians)
+      : unknownSide === "BC"
+        ? hypotenuse !== null
+          ? hypotenuse * Math.sin(radians)
+          : adjacent! * Math.tan(radians)
+        : opposite !== null
+          ? opposite / Math.sin(radians)
+          : adjacent! / Math.cos(radians);
 
     assert.ok(
       Math.abs(Number(row.answer) - calculated) <= 0.051,

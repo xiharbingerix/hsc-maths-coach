@@ -129,6 +129,11 @@ export const solveDenomY9Challenge: PracticeQuestion[] = [
   q("y9c-sfd-12", "Find the hypotenuse: opp = 30, θ = 60° (1 d.p.).", "30\\div\\sin60", "34.6", "30 ÷ 0.866 ≈ 34.6.", u("34.6")),
 ];
 
+for (const question of solveDenomY9Challenge) {
+  const visual = year9TrigSideVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}
+
 // finding-unknown-angles (core)
 export const findAnglesY9Challenge: PracticeQuestion[] = [
   q("y9c-fua-1", "Opposite 11, adjacent 60. Find θ (1 d.p.).", "\\tan^{-1}(11/60)", "10.4", "tan⁻¹(0.1833) ≈ 10.4°.", deg("10.4")),

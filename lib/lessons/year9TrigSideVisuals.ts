@@ -5,8 +5,8 @@ export type Year9TrigSideVisual = {
   triangleDiagram: TriangleDiagram;
 };
 
-type KnownSide = "adjacent" | "hypotenuse";
-type UnknownSide = "adjacent" | "opposite";
+type KnownSide = "adjacent" | "hypotenuse" | "opposite";
+type UnknownSide = "adjacent" | "hypotenuse" | "opposite";
 
 type VisualOptions = {
   theta: number;
@@ -14,7 +14,7 @@ type VisualOptions = {
   knownValue: number;
   unknownSide: UnknownSide;
   unit?: string;
-  context?: "ramp";
+  context?: "kite" | "ramp";
 };
 
 const sideKey: Record<KnownSide | UnknownSide, TriangleSideKey> = {
@@ -33,16 +33,23 @@ function visual(options: VisualOptions): Year9TrigSideVisual {
     [sideKey[knownSide]]: knownLabel,
     [sideKey[unknownSide]]: `x${suffix}`,
   };
-  const knownName = knownSide === "hypotenuse" ? "hypotenuse" : "adjacent side";
-  const unknownName = unknownSide === "opposite" ? "opposite side" : "adjacent side";
-  const contextText = context === "ramp" ? "The hypotenuse represents the ramp." : "";
+  const sideName: Record<KnownSide | UnknownSide, string> = {
+    adjacent: "adjacent side",
+    hypotenuse: "hypotenuse",
+    opposite: "opposite side",
+  };
+  const contextText = context === "ramp"
+    ? "The hypotenuse represents the ramp."
+    : context === "kite"
+      ? "The opposite side is the kite's height and the hypotenuse is the string."
+      : "";
 
   return {
     prompt: `Use the right-triangle diagram to find x${suffix}. Round as indicated if necessary.`,
     triangleDiagram: {
       description:
-        `Right triangle with angle theta equal to ${theta} degrees, ${knownName} ` +
-        `${knownLabel}, and unknown ${unknownName} x${suffix}. ${contextText}`.trim(),
+        `Right triangle with angle theta equal to ${theta} degrees, ${sideName[knownSide]} ` +
+        `${knownLabel}, and unknown ${sideName[unknownSide]} x${suffix}. ${contextText}`.trim(),
       vertices: {
         A: { x: 70, y: 250 },
         B: {
@@ -87,4 +94,26 @@ export const year9TrigSideVisuals: Record<string, Year9TrigSideVisual> = {
   "y9c-fus-10": visual({ theta: 30, knownSide: "hypotenuse", knownValue: 14, unknownSide: "opposite" }),
   "y9c-fus-11": visual({ theta: 30, knownSide: "adjacent", knownValue: 15, unknownSide: "opposite" }),
   "y9c-fus-12": visual({ theta: 60, knownSide: "hypotenuse", knownValue: 22, unknownSide: "adjacent" }),
+  "y9-sfd-p1": visual({ theta: 45, knownSide: "opposite", knownValue: 10, unknownSide: "hypotenuse" }),
+  "y9-sfd-p2": visual({ theta: 30, knownSide: "adjacent", knownValue: 10, unknownSide: "hypotenuse" }),
+  "y9-sfd-p3": visual({ theta: 30, knownSide: "opposite", knownValue: 7, unknownSide: "hypotenuse" }),
+  "y9-sfd-p4": visual({ theta: 60, knownSide: "opposite", knownValue: 12, unknownSide: "hypotenuse" }),
+  "y9-sfd-p5": visual({ theta: 45, knownSide: "adjacent", knownValue: 8, unknownSide: "hypotenuse" }),
+  "y9-sfd-p6": visual({ theta: 45, knownSide: "opposite", knownValue: 6, unknownSide: "adjacent" }),
+  "y9-sfd-p7": visual({ theta: 30, knownSide: "opposite", knownValue: 5, unknownSide: "adjacent" }),
+  "y9-sfd-p8": visual({ theta: 30, knownSide: "opposite", knownValue: 15, unknownSide: "hypotenuse" }),
+  "y9-sfd-p9": visual({ theta: 60, knownSide: "adjacent", knownValue: 20, unknownSide: "hypotenuse" }),
+  "y9-sfd-p10": visual({ theta: 30, knownSide: "opposite", knownValue: 6, unknownSide: "hypotenuse", unit: "m", context: "kite" }),
+  "y9c-sfd-1": visual({ theta: 60, knownSide: "opposite", knownValue: 10, unknownSide: "hypotenuse" }),
+  "y9c-sfd-2": visual({ theta: 30, knownSide: "adjacent", knownValue: 7, unknownSide: "hypotenuse" }),
+  "y9c-sfd-3": visual({ theta: 30, knownSide: "opposite", knownValue: 9, unknownSide: "hypotenuse" }),
+  "y9c-sfd-4": visual({ theta: 45, knownSide: "opposite", knownValue: 12, unknownSide: "hypotenuse" }),
+  "y9c-sfd-5": visual({ theta: 60, knownSide: "adjacent", knownValue: 20, unknownSide: "hypotenuse" }),
+  "y9c-sfd-6": visual({ theta: 60, knownSide: "opposite", knownValue: 5, unknownSide: "hypotenuse" }),
+  "y9c-sfd-7": visual({ theta: 30, knownSide: "adjacent", knownValue: 14, unknownSide: "hypotenuse" }),
+  "y9c-sfd-8": visual({ theta: 30, knownSide: "opposite", knownValue: 25, unknownSide: "hypotenuse" }),
+  "y9c-sfd-9": visual({ theta: 45, knownSide: "opposite", knownValue: 8, unknownSide: "hypotenuse" }),
+  "y9c-sfd-10": visual({ theta: 45, knownSide: "adjacent", knownValue: 6, unknownSide: "hypotenuse" }),
+  "y9c-sfd-11": visual({ theta: 30, knownSide: "opposite", knownValue: 3, unknownSide: "hypotenuse" }),
+  "y9c-sfd-12": visual({ theta: 60, knownSide: "opposite", knownValue: 30, unknownSide: "hypotenuse" }),
 };
