@@ -4,6 +4,7 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import { year9TrigAngleVisuals } from "../year9TrigAngleVisuals";
+import { year9TrigApplicationVisuals } from "../year9TrigApplicationVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Pick the ratio (or inverse) that links what you know to what you want.", explanation };
@@ -130,10 +131,10 @@ const trigApplications: Partial<ExplicitLesson> = {
     ans("y9-tap-p4", "A kite string is 50 m long at 40° to the ground. Find the kite's height (1 d.p., sin 40° ≈ 0.643).", "50\\sin40", "32.1", 5, "50 × 0.643 ≈ 32.1 m.", ["32.1", "32.1 m"]),
     ans("y9-tap-p5", "A 25 m ladder reaches 24 m up a wall. Find the angle with the ground (1 d.p.).", "\\sin^{-1}(24/25)", "73.7", 5, "sin⁻¹(0.96) ≈ 73.7°.", deg("73.7")),
     ans("y9-tap-p6", "From 100 m away, a tower's top has elevation 30°. Find its height (1 d.p.).", "100\\tan30", "57.7", 5, "100 × 0.577 ≈ 57.7 m.", ["57.7", "57.7 m"]),
-    ans("y9-tap-p7", "A road climbs at 5° over 2000 m of slope. Find the height gained (1 d.p., sin 5° ≈ 0.0872).", "2000\\sin5", "174.4", 5, "2000 × 0.0872 ≈ 174.4 m.", ["174.4", "174.4 m"]),
+    ans("y9-tap-p7", "A road climbs at 5° over 2000 m of slope. Find the height gained (1 d.p.).", "2000\\sin5", "174.3", 5, "2000 × sin 5° ≈ 174.3 m.", ["174.3 m", "174.4", "174.4 m"]),
     ans("y9-tap-p8", "A 12 m ladder's base is 5 m from a wall. Find the angle it makes with the ground (1 d.p.).", "\\cos^{-1}(5/12)", "65.4", 5, "cos⁻¹(0.4167) ≈ 65.4°.", deg("65.4")),
     ans("y9-tap-p9", "The angle of elevation to a 20 m tree is 35° (tan 35° ≈ 0.700). Find the horizontal distance (1 d.p.).", "20/\\tan35", "28.6", 5, "20 ÷ 0.700 ≈ 28.6 m.", ["28.6", "28.6 m"]),
-    ans("y9-tap-p10", "A plane descends at 3° over a 5000 m flight path. Find the height lost (1 d.p., sin 3° ≈ 0.0523).", "5000\\sin3", "261.5", 5, "5000 × 0.0523 ≈ 261.5 m.", ["261.5", "261.5 m"]),
+    ans("y9-tap-p10", "A plane descends at 3° over a 5000 m flight path. Find the height lost (1 d.p.).", "5000\\sin3", "261.7", 5, "5000 × sin 3° ≈ 261.7 m.", ["261.7 m", "261.5", "261.5 m"]),
   ],
   commonMistakes: [
     { mistake: "Confusing elevation and depression.", fix: "Elevation looks up; depression looks down." },
@@ -216,7 +217,7 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
 };
 
 function addTrigAngleVisual(question: PracticeQuestion): PracticeQuestion {
-  const visual = year9TrigAngleVisuals[question.id];
+  const visual = year9TrigAngleVisuals[question.id] ?? year9TrigApplicationVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 
@@ -241,7 +242,7 @@ export function year9Chapter3TrigApplicationsLessonOverride(
   }
   const content = SECTIONS[lesson.slug];
   if (!content) return null;
-  return lesson.slug === "finding-unknown-angles"
+  return ["finding-unknown-angles", "trigonometry-applications"].includes(lesson.slug)
     ? addTrigAngleVisuals(content)
     : content;
 }

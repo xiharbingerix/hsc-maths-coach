@@ -5,6 +5,7 @@
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
 import { year9TrigSideVisuals } from "../lessons/year9TrigSideVisuals";
 import { year9TrigAngleVisuals } from "../lessons/year9TrigAngleVisuals";
+import { year9TrigApplicationVisuals } from "../lessons/year9TrigApplicationVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several steps.", explanation };
@@ -171,6 +172,11 @@ export const trigAppsY9Challenge: PracticeQuestion[] = [
   q("y9c-tap-11", "A 45 m tower has an elevation of 30° from an observer (tan 30° ≈ 0.577). Find the distance (1 d.p.).", "45/\\tan30", "77.9", "45 ÷ 0.577 ≈ 77.9 m.", ["77.9", "77.9 m"]),
   q("y9c-tap-12", "A ramp rises 2 m over a 10 m slope. Find its angle (1 d.p.).", "\\sin^{-1}(0.2)", "11.5", "sin⁻¹(0.2) ≈ 11.5°.", deg("11.5")),
 ];
+
+for (const question of trigAppsY9Challenge) {
+  const visual = year9TrigApplicationVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}
 
 // bearings (core)
 export const bearingsY9Challenge: PracticeQuestion[] = [
