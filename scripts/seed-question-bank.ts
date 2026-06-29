@@ -272,27 +272,12 @@ export function inferDifficulty(
   return 3;
 }
 
-// Currency like "$960" in authored prose pairs with the next "$" in the MathText
-// renderer and collapses the words between them ("960.Adepositof160"). Escape
-// dollar signs that introduce a number so they render literally. Digit-anchored
-// (so it never touches inline maths such as "$x$") and idempotent (skips "\$").
-export function escapeCurrencyText(input: string): string {
-  return input.replace(/(?<!\\)\$(?=\d)/g, () => "\\$");
-}
-
 export function mapPracticeQuestionToQuestionRow(
   question: PracticeQuestion,
   context: QuestionMappingContext
 ): QuestionRow {
   const section = context.section ?? "guidedPractice";
   const position = context.position ?? 0;
-
-  // Challenge and exam prompts are authored as plain prose with "$" used only for
-  // currency (their maths lives in the latex field), so currency can be escaped
-  // safely. Lesson practice for other courses may use inline "$...$" maths, so it
-  // is left untouched here.
-  const escapeProse = section === "challenge";
-  const choices = normaliseChoices(question);
 
   return {
     source_id: question.id,
@@ -302,12 +287,9 @@ export function mapPracticeQuestionToQuestionRow(
     course_slug: context.courseSlug,
     difficulty: inferDifficulty(question, section, position),
     question_type: question.choices?.length ? "conceptual" : "procedural",
-    prompt: escapeProse ? escapeCurrencyText(question.prompt) : question.prompt,
+    prompt: question.prompt,
     latex: isGenericMcqInstructionLatex(question.latex) ? null : question.latex || null,
-    choices:
-      escapeProse && choices
-        ? choices.map((choice) => ({ ...choice, text: escapeCurrencyText(choice.text) }))
-        : choices,
+    choices: normaliseChoices(question),
     question_parts: normaliseQuestionParts(question),
     answer: question.answer,
     accepted_answers: question.acceptedAnswers ?? [],
@@ -529,21 +511,14 @@ export function collectExamQuestions() {
   for (const paper of getAllExamPapers()) {
     for (const question of examQuestions(paper)) {
       const hasParts = Array.isArray(question.parts) && question.parts.length > 0;
-      // Exam prompts/choices use "$" only for currency (maths is in latex); escape
-      // it so the renderer does not read paired dollars as inline maths. Explanations
-      // are left alone because they do embed authored inline "$...$" working.
-      const examChoices = question.choices as PracticeQuestion["choices"];
       const pseudo: PracticeQuestion = {
         id: question.id,
-        prompt: escapeCurrencyText(question.prompt),
+        prompt: question.prompt,
         latex: question.latex ?? "",
         difficulty: clampDifficulty(question.difficulty),
         answer: question.answer ?? (hasParts ? "See parts below." : ""),
         acceptedAnswers: question.acceptedAnswers,
-        choices: examChoices?.map((choice) => ({
-          ...choice,
-          text: escapeCurrencyText(choice.text),
-        })),
+        choices: question.choices as PracticeQuestion["choices"],
         parts: question.parts as PracticeQuestion["parts"],
         explanation: question.explanation,
       };

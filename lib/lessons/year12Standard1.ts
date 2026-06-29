@@ -7604,16 +7604,6 @@ function normalizeLatex(input: string | undefined) {
   return output;
 }
 
-// MathText renders $...$ as inline maths. Currency like "$960" in prose pairs
-// with the next "$" and collapses the words between them ("960.Adepositof160").
-// Escape currency dollar signs so they render literally. Fields that contain real
-// LaTeX markup (intentional inline maths, e.g. exam explanations) are left alone.
-function escapeCurrency(input: string | undefined) {
-  if (!input) return input ?? "";
-  if (/[\\^_{}]/.test(input)) return input;
-  return input.replace(/\$/g, () => "\\$");
-}
-
 function normalizeAnswerValue(input: string) {
   return normalizeText(input).trim();
 }
@@ -8235,19 +8225,18 @@ function normalizeQuestion(question: PracticeQuestion): PracticeQuestion {
 
   return {
     ...question,
-    prompt: escapeCurrency(prompt),
+    prompt,
     latex: stripLatexWorking(normalizeLatex(question.latex)),
     answer,
     acceptedAnswers,
-    hint: escapeCurrency(normalizeText(question.hint)),
-    explanation: escapeCurrency(
+    hint: normalizeText(question.hint),
+    explanation:
       explanation.trim().length >= 40 && !isMechanicalExplanation(explanation)
         ? explanation
-        : buildExplanation({ ...question, prompt, answer })
-    ),
+        : buildExplanation({ ...question, prompt, answer }),
     choices: question.choices?.map((choice) => ({
       ...choice,
-      text: escapeCurrency(normalizeText(choice.text)),
+      text: normalizeText(choice.text),
     })),
   };
 }

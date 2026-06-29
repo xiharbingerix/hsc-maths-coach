@@ -43,25 +43,14 @@ test("Year 12 Standard 1 questions have clean answers and correctly-fired explan
       );
     }
 
-    // Currency like "$960" in prose used to pair with the next "$" in the
-    // MathText renderer and collapse the words between them ("960.Adepositof160").
-    // No rendered prompt should contain an unescaped "$" directly before a digit.
+    // Currency in prose is kept as a plain "$" (e.g. "A TV costs $960"); the
+    // MathText renderer recognises "$" + digit as currency, so the content must
+    // NOT carry "\$" escapes (those rendered a literal backslash on the page).
     assert.doesNotMatch(
       row.prompt,
-      /(?<!\\)\$\d/,
-      `${row.source_id} prompt has unescaped currency that will jumble: "${row.prompt}"`
+      /\\\$/,
+      `${row.source_id} prompt has a stray "\\$" escape: "${row.prompt}"`
     );
-    for (const choice of row.choices ?? []) {
-      // Method-comparison MCQs keep intentional inline maths ($90 \times 2.5$);
-      // only plain-prose choices must have their currency escaped.
-      if (!/[\\^_{}]/.test(choice.text)) {
-        assert.doesNotMatch(
-          choice.text,
-          /(?<!\\)\$\d/,
-          `${row.source_id} choice has unescaped currency: "${choice.text}"`
-        );
-      }
-    }
 
     // "Giveaway" latex - a bare arithmetic expression that just evaluates to the
     // answer (\frac{960 - 160}{8}, 250 + 10 \times 75) - must be stripped. A real
@@ -117,12 +106,14 @@ test("Year 12 Standard 1 questions have clean answers and correctly-fired explan
   assert.ok(trigHeight);
   assert.equal(trigHeight.answer, "35 m");
 
-  // Currency in the prompt is escaped; the answer-revealing arithmetic latex is gone.
+  // Currency stays a plain "$" (renderer handles it); the answer-revealing
+  // arithmetic latex is stripped.
   const financePlan = rowsById.get("y12s1-fin-plan-g1");
   assert.ok(financePlan);
-  assert.match(financePlan.prompt, /\\\$960/);
-  assert.match(financePlan.prompt, /\\\$160/);
-  assert.ok(!financePlan.latex, `expected no giveaway latex, got "${financePlan.latex}"`);
+  assert.match(financePlan.prompt, /\$960/);
+  assert.match(financePlan.prompt, /\$160/);
+  assert.doesNotMatch(financePlan.prompt, /\\\$/);
+  assert.ok(!financePlan.latex, `expected no giveaway latex, got ${JSON.stringify(financePlan.latex)}`);
 
   // "A model car is 15 cm long…" used to get a "mode" explanation because
   // /mode/i matched "model". It should now get a scale explanation.
