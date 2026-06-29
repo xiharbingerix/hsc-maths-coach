@@ -170,9 +170,10 @@ A D6 question must **not**:
 * Be a D5 dressed up with bigger numbers, more notation, or exam tone — none of
   these raise difficulty.
 * Rest on a single clever idea, however hard (that is D5).
-* Depend on free-text proof or justification for marking (MVP constraint): carry
-  the multi-stage reasoning through auto-markable numeric/exact answers,
-  typically as multi-part (Section II–style) questions whose later parts build on
+* Depend on a short free-text explanation to create its sustained reasoning.
+  `short_explanation` is for bounded interpretation, not a way to turn a D4/D5
+  prompt into D6. Carry D6 reasoning through auto-markable numeric/exact answers,
+  typically as multi-part (Section II-style) questions whose later parts build on
   earlier results.
 
 **D5 vs D6 in one line:** D5 demands one novel idea; D6 demands several connected
@@ -422,7 +423,9 @@ level with a repeatable test:
 A question is publishable only if **every** condition holds:
 
 1. **Markability = 5** — exactly one unambiguous correct answer (or a labelled MCQ key),
-   auto-markable, with accepted-variant forms listed for typed answers. **Non-negotiable.**
+   auto-markable, with accepted-variant forms listed for deterministic typed answers.
+   A bounded `short_explanation` must instead have complete authored semantic-marking
+   metadata and pass the calibration gate below. **Non-negotiable.**
 2. **Not extraction** — requires ≥1 transformation, inference, comparison, decision, or
    interpretation.
 3. **Stated diagnostic intent** — author can name the target misconception in one line.
@@ -485,15 +488,17 @@ upgrade contains that risk by construction:
 
 * **Markability = 5 is condition 1 of the gate** and explicitly non-negotiable; depth
   never overrides it.
-* **D3+ depth is carried by auto-markable numeric/exact/MCQ answers** — and, for
-  sustained reasoning, by multi-part items whose parts are each individually markable —
-  **never by free-text justification.**
+* **D3+ depth is normally carried by auto-markable numeric/exact/MCQ answers** — and,
+  for sustained reasoning, by multi-part items whose parts are each individually
+  markable. The only lesson exception is a bounded, calibrated `short_explanation`.
 * **"Compare / determine whether / decide" items must resolve to a specific markable
   output** — a value, a yes/no *plus* the deciding value, or a labelled choice — not a
   written argument.
-* **Every typed item ships its `acceptedAnswers` variants**, so legitimate alternate
-  forms mark correct and automatic-marking compatibility does not regress.
-* **No open-ended items** unless the marking model explicitly supports them.
+* **Every deterministic typed item ships its `acceptedAnswers` variants**, so legitimate
+  alternate forms mark correct and automatic-marking compatibility does not regress.
+  Semantic items still include obvious variants as a fast deterministic path.
+* **No open-ended items.** `short_explanation` supports bounded semantic equivalence,
+  not opinions, essays, unconstrained examples, or teacher-judgement marking.
 
 ---
 
@@ -510,6 +515,8 @@ upgrade contains that risk by construction:
 - [ ] LaTeX spans starting with a digit use `\( ... \)` not `$...$`
 - [ ] MCQ: exactly 4 choices (A, B, C, D); `answer` is one of those labels
 - [ ] Typed: `accepted_answers` covers reasonable alternate forms
+- [ ] `short_explanation` (lesson TypeScript only): model solution, atomic rubric,
+      allowlisted feedback, calibration cases, and feature availability are verified
 - [ ] `question_type` matches `choices` presence
 - [ ] Source IDs are human-readable slugs, not UUIDs
 - [ ] High-difficulty questions earn their difficulty through transfer, interpretation, modelling, or synthesis - not just notation or exam-style wording
@@ -535,6 +542,10 @@ type PracticeQuestion = {
   latex:           string;    // KaTeX display formula (no $ delimiters)
   answer:          string;    // Canonical answer string
   acceptedAnswers: string[];  // Alternate accepted forms ([] is fine)
+  responseType?: "short_explanation"; // Bounded prose only; see semantic marking
+  modelSolution?: string;              // Authoritative semantic reference
+  markingRubric?: string[];            // Required meaning, written as atomic criteria
+  markingFeedbackOptions?: Array<{ key: string; text: string }>;
   hint:            string;    // One next-step hint
   explanation:     string;    // Step-by-step worked solution
   choices?: Choice[];         // MCQ only - a Choice may also carry a diagram (see Visual payloads)
@@ -602,7 +613,10 @@ The recommended part structure for all types except fluency chain:
 
 #### Authoring rules
 
-1. **No free-text parts (MVP constraint).** Do not ask "Explain why...", "Justify...", "Show that...", "Describe...", "Comment on..." until free-text/AI marking exists. These produce silent incorrect marking.
+1. **No free-text parts.** Semantic marking is currently wired only for a top-level
+   lesson `PracticeQuestion`, not `parts` / `question_parts`. Do not ask "Explain
+   why...", "Justify...", "Show that...", "Describe...", or "Comment on..." in a
+   part; these still produce incorrect marking.
 
 2. **No equation-as-answer unless one canonical form is unambiguous.** `y = 2x + 1`, `y - 1 = 2(x - 0)`, and `2x - y + 1 = 0` are the same line but will not match. Ask for a specific coefficient, y-intercept, or gradient value instead.
 
@@ -638,8 +652,8 @@ The recommended part structure for all types except fluency chain:
 | Inequality | `"x>2"` | Yes | Add spaced form; test direction |
 | Simple expression | `"3x^2-6x"` | **Risky** | Add all formatting variants; prefer asking for a numeric value |
 | Full equation | `"y=2x+1"` | **No** | Too many equivalent forms - ask for a component value |
-| "Explain why..." | Free text | **No** | Requires future free-text marking |
-| "Justify..." | Free text | **No** | Same |
+| "Explain why..." | Free text | **No in parts** | Top-level lesson only when it passes the `short_explanation` gate |
+| "Justify..." | Free text | **No in parts** | Use a specific output or a separately supported proof item |
 | Graph sketch | Drawing | **No** | Requires diagram-response infrastructure |
 
 #### Three blueprints
@@ -688,7 +702,7 @@ Multi-part worksheet questions are scored by part marks. Each part contributes i
 - `partial` when earned marks are greater than 0 but less than available marks
 - `incorrect` when earned marks are 0
 
-Part results are stored with the student answer, correct answer, explanation, and marks earned/available. AI/free-text marking is still not supported, so every part must have an exact, numeric, coordinate, or simple algebraic answer.
+Part results are stored with the student answer, correct answer, explanation, and marks earned/available. Semantic marking is not supported for parts, so every part must have an exact, numeric, coordinate, or simple algebraic answer.
 
 #### Future audit checks (recommended, not yet implemented)
 
@@ -733,7 +747,7 @@ type QuestionBatchRecord = {
 
 Use multi-part questions for HSC Section II-style items where parts (a), (b), (c) share a stem but must be answered and marked separately. Do not use them as a replacement for guided `steps`: `steps` are a scaffolded teaching flow; `parts` are assessable question parts.
 
-Each part must be auto-markable with exact, numeric, coordinate, or simple algebraic accepted answers. AI/free-text proof marking is not supported yet.
+Each part must be auto-markable with exact, numeric, coordinate, or simple algebraic accepted answers. Semantic/proof marking is not supported for `parts` or `question_parts`.
 
 ```typescript
 type PracticeQuestionPart = {
@@ -953,6 +967,150 @@ vocabulary (`\frac \sqrt \sin \pi ^{} \le`) into SymPy.
   Treat CAS as covering the long tail, not as a licence to skip obvious variants.
 - CAS never rescues a genuinely different value (`12.5` vs `13`) — those are real
   mismatches.
+
+---
+
+## Bounded short-explanation marking (AI)
+
+The semantic marker is production-ready for **top-level lesson TypeScript
+`PracticeQuestion`s only**. It exists for short answers whose correctness depends on
+meaning and cannot be represented fairly by a manageable string allowlist.
+
+It is a narrow marking tool, not permission to author open-ended questions.
+
+### Decision rule
+
+Use `responseType: "short_explanation"` only when **all** of these are true:
+
+1. The prompt asks for a bounded mathematical or contextual interpretation, reason,
+   criticism, or consequence.
+2. A correct response must communicate one small, explicitly authorable set of ideas.
+3. Many materially equivalent phrasings are likely, so exact strings would reject
+   reasonable student answers.
+4. A teacher can decide correctness from the authored rubric without personal
+   judgement or inference about what the student "probably meant".
+5. The target environment has `ANTHROPIC_API_KEY` and
+   `PROOF_MARKER_ENABLED=true`.
+
+Typical valid uses:
+
+* interpret a gradient, intercept, vertex, domain restriction, or model parameter in
+  context;
+* explain why an extrapolation is less reliable;
+* distinguish correlation from causation;
+* identify the practical effect of a financial action;
+* explain why a mathematical result is invalid in its stated context.
+
+Do **not** use it for:
+
+* numeric, symbolic, coordinate, inequality, classification, yes/no, or MCQ answers;
+* answers already covered fairly by `answer`, `acceptedAnswers`, or CAS;
+* opinions, essays, creative examples, broad comparisons, or prompts with several
+  defensible marking standards;
+* calculations where working or partial credit must be assessed;
+* proofs — use the separately supported `responseType: "proof"` contract on the
+  exam/topic-test surfaces that implement it;
+* `parts`, `question_parts`, external JSON batches, worksheets, diagnostics, or any
+  surface that does not carry the semantic metadata below;
+* manufacturing D4-D6 difficulty from an otherwise shallow question.
+
+When in doubt, prefer a specific deterministic output or a misconception-linked MCQ.
+
+### Required lesson schema
+
+Every semantic item MUST still include the normal `answer`, `acceptedAnswers`, `hint`,
+and `explanation`, plus all four fields below:
+
+```typescript
+{
+  id: "y12s1-depr-m10",
+  prompt:
+    "What is the main effect of making an extra lump-sum payment on a reducing balance loan?",
+  latex: "",
+  answer: "less total interest",
+  acceptedAnswers: [
+    "reduced total interest",
+    "balance falls faster",
+    "shorter loan term",
+  ],
+  responseType: "short_explanation",
+  modelSolution:
+    "The payment reduces the balance immediately, so future interest is charged on a smaller amount and the loan is usually repaid sooner.",
+  markingRubric: [
+    "Explains that the extra payment reduces the loan balance, total interest, or repayment time.",
+  ],
+  markingFeedbackOptions: [
+    {
+      key: "effect_missing",
+      text: "Explain how the extra payment changes the loan.",
+    },
+  ],
+  hint: "Consider what happens to the balance before future interest is calculated.",
+  explanation:
+    "An extra payment reduces the balance immediately. Future interest is then charged on a smaller amount, so total interest falls and the loan is usually repaid sooner.",
+}
+```
+
+`answer` and `acceptedAnswers` are not optional decoration. They provide the fast,
+deterministic path before AI is called and cover service-disabled deployments for the
+most obvious correct forms. Do not try to enumerate every sentence a student might
+write; the semantic marker covers the legitimate long tail.
+
+### Rubric rules
+
+The rubric is the marking contract. The model solution is a reference, but the student
+does **not** need to reproduce its wording or every detail.
+
+* Write each rubric entry as one atomic required idea.
+* Separate entries mean **all entries are required** for a correct response.
+* Put acceptable alternatives inside one entry using explicit `or` wording.
+* State meaning, not keywords. Never write a rubric such as "contains 'interest'".
+* Include contextual units or direction only when they are essential to correctness.
+* Do not award correctness for extra detail that the prompt did not request.
+* Reject contradictions even when the response also contains a correct keyword.
+* Keep the model solution authoritative, concise, and fully consistent with the rubric.
+
+Each likely missing idea gets a short, student-facing authored feedback option:
+
+* `key` is unique within the question, stable, lowercase `snake_case`, and describes
+  the gap (for example `reliability_missing`);
+* `text` tells the student what idea to revisit without revealing a full answer;
+* every key the model can return must appear in `markingFeedbackOptions`;
+* the model may select keys, but it can never generate student-facing feedback text.
+
+### Marking order and failure behaviour
+
+1. Local marking checks `answer` and `acceptedAnswers` first.
+2. Only a non-empty response rejected locally is sent to semantic marking.
+3. The marker accepts equivalent wording and minor spelling/grammar errors when the
+   required meaning is clear.
+4. It returns only `correct` plus keys from the authored feedback allowlist.
+5. If semantic marking is unavailable, practice shows a retry state and mastery does
+   **not** finalise or silently count the response as wrong.
+
+This availability behaviour is not a licence to ship semantic questions with the
+feature disabled. Verify the target deployment before publishing.
+
+### Calibration gate
+
+Before publishing, test the actual authored prompt, model solution, rubric, and feedback
+with at least:
+
+* three correct paraphrases that share meaning but not wording;
+* one very concise but complete correct answer;
+* one response missing each required rubric idea;
+* one plausible misconception;
+* one direct contradiction containing some correct vocabulary;
+* one off-topic or manipulative response.
+
+Expected results must be recorded in a focused test or content audit. Also add an
+integrity test confirming that every semantic question has a non-empty model solution,
+rubric, unique feedback keys, no `choices`, and the intended `responseType`. See
+`lib/lessons/year12Standard1SemanticMarking.test.ts` for the metadata pattern.
+
+Any false positive, false negative, or unstable result means the question fails
+Markability = 5. Tighten the prompt/rubric, convert it to MCQ, ask for a specific output,
+or reject it. Do not compensate with a longer list of guessed student sentences.
 
 ---
 
