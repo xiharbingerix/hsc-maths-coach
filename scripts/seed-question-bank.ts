@@ -279,6 +279,16 @@ export function mapPracticeQuestionToQuestionRow(
   const section = context.section ?? "guidedPractice";
   const position = context.position ?? 0;
 
+  // Year 12 Standard 1 prompts are self-contained, so the $$...$$ block under a
+  // question only ever shows the worked method, a substituted formula, an
+  // answer-revealing comparison, or an instruction - all giveaways. Drop it.
+  const latex =
+    context.courseSlug === "year-12-standard-1"
+      ? null
+      : isGenericMcqInstructionLatex(question.latex)
+        ? null
+        : question.latex || null;
+
   return {
     source_id: question.id,
     topic_slug: context.topicSlug,
@@ -288,7 +298,7 @@ export function mapPracticeQuestionToQuestionRow(
     difficulty: inferDifficulty(question, section, position),
     question_type: question.choices?.length ? "conceptual" : "procedural",
     prompt: question.prompt,
-    latex: isGenericMcqInstructionLatex(question.latex) ? null : question.latex || null,
+    latex,
     choices: normaliseChoices(question),
     question_parts: normaliseQuestionParts(question),
     answer: question.answer,

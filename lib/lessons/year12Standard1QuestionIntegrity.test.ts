@@ -52,20 +52,13 @@ test("Year 12 Standard 1 questions have clean answers and correctly-fired explan
       `${row.source_id} prompt has a stray "\\$" escape: "${row.prompt}"`
     );
 
-    // "Giveaway" latex - a bare arithmetic expression that just evaluates to the
-    // answer (\frac{960 - 160}{8}, 250 + 10 \times 75) - must be stripped. A real
-    // formula keeps a relation or variable; a value list has no operator.
-    if (row.latex) {
-      const withoutCommands = row.latex.replace(/\\[a-zA-Z]+/g, " ");
-      const hasRelationOrVariable = /[=A-Za-z]/.test(withoutCommands);
-      const hasOperator =
-        /[+\-*/×÷]/.test(row.latex) ||
-        /\\(?:frac|dfrac|tfrac|times|div|cdot|min|max)/.test(row.latex);
-      assert.ok(
-        !(!hasRelationOrVariable && hasOperator && /\d/.test(row.latex)),
-        `${row.source_id} shows answer-revealing arithmetic working ${JSON.stringify(row.latex)}`
-      );
-    }
+    // The $$...$$ block under a question only ever showed the worked method, a
+    // substituted formula, an answer-revealing comparison, or an instruction -
+    // all giveaways. The prompts are self-contained, so no row keeps any latex.
+    assert.ok(
+      !row.latex,
+      `${row.source_id} still carries a latex giveaway: ${JSON.stringify(row.latex)}`
+    );
 
     // A prose answer must never be flattened into a space-stripped accepted
     // variant such as "Yessurplus450leaves50..." or "numberofabsences".

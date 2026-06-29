@@ -8256,21 +8256,6 @@ function stripLatexWorking(latex: string) {
     const parts = output.split("=");
     if (parts.length > 2) output = `${parts[0]}=${parts[1]}`.trim();
   }
-
-  // Drop bare arithmetic "working" that just evaluates to the answer
-  // (\frac{960 - 160}{8}, 250 + 10 \times 75, 2200 - 1800, \min(120, 60+40)).
-  // A genuine formula keeps a relation or variable (an "=" or a letter once
-  // LaTeX commands are removed); a plain list of values has no operator. Neither
-  // is stripped, so only the answer-revealing computation is removed.
-  const withoutCommands = output.replace(/\\[a-zA-Z]+/g, " ");
-  const hasRelationOrVariable = /[=A-Za-z]/.test(withoutCommands);
-  const hasOperator =
-    /[+\-*/×÷]/.test(output) ||
-    /\\(?:frac|dfrac|tfrac|times|div|cdot|min|max)/.test(output);
-  if (!hasRelationOrVariable && hasOperator && /\d/.test(output)) {
-    return "";
-  }
-
   return output;
 }
 
