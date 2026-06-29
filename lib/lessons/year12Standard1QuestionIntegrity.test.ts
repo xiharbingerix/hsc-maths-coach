@@ -43,6 +43,54 @@ test("Year 12 Standard 1 questions have clean answers and correctly-fired explan
       );
     }
 
+    // Currency like "$960" in prose used to pair with the next "$" in the
+    // MathText renderer and collapse the words between them ("960.Adepositof160").
+    // No rendered prompt should contain an unescaped "$" directly before a digit.
+    assert.doesNotMatch(
+      row.prompt,
+      /(?<!\\)\$\d/,
+      `${row.source_id} prompt has unescaped currency that will jumble: "${row.prompt}"`
+    );
+    for (const choice of row.choices ?? []) {
+      // Method-comparison MCQs keep intentional inline maths ($90 \times 2.5$);
+      // only plain-prose choices must have their currency escaped.
+      if (!/[\\^_{}]/.test(choice.text)) {
+        assert.doesNotMatch(
+          choice.text,
+          /(?<!\\)\$\d/,
+          `${row.source_id} choice has unescaped currency: "${choice.text}"`
+        );
+      }
+    }
+
+    // "Giveaway" latex - a bare arithmetic expression that just evaluates to the
+    // answer (\frac{960 - 160}{8}, 250 + 10 \times 75) - must be stripped. A real
+    // formula keeps a relation or variable; a value list has no operator.
+    if (row.latex) {
+      const withoutCommands = row.latex.replace(/\\[a-zA-Z]+/g, " ");
+      const hasRelationOrVariable = /[=A-Za-z]/.test(withoutCommands);
+      const hasOperator =
+        /[+\-*/×÷]/.test(row.latex) ||
+        /\\(?:frac|dfrac|tfrac|times|div|cdot|min|max)/.test(row.latex);
+      assert.ok(
+        !(!hasRelationOrVariable && hasOperator && /\d/.test(row.latex)),
+        `${row.source_id} shows answer-revealing arithmetic working ${JSON.stringify(row.latex)}`
+      );
+    }
+
+    // A prose answer must never be flattened into a space-stripped accepted
+    // variant such as "Yessurplus450leaves50..." or "numberofabsences".
+    if ((row.answer.match(/[A-Za-z]{3,}/g) ?? []).length >= 2) {
+      const stripped = row.answer.replace(/\s+/g, "");
+      for (const accepted of row.accepted_answers ?? []) {
+        assert.notEqual(
+          accepted,
+          stripped,
+          `${row.source_id} kept a space-stripped prose answer: "${accepted}"`
+        );
+      }
+    }
+
     // Any "Mean = a / b = c" template must show arithmetic that matches the
     // answer (the old code printed e.g. "13 / 9 = 32").
     const meanMatch = row.explanation.match(
@@ -68,6 +116,13 @@ test("Year 12 Standard 1 questions have clean answers and correctly-fired explan
   const trigHeight = rowsById.get("y12s1-y12s1-trig-exam-i1");
   assert.ok(trigHeight);
   assert.equal(trigHeight.answer, "35 m");
+
+  // Currency in the prompt is escaped; the answer-revealing arithmetic latex is gone.
+  const financePlan = rowsById.get("y12s1-fin-plan-g1");
+  assert.ok(financePlan);
+  assert.match(financePlan.prompt, /\\\$960/);
+  assert.match(financePlan.prompt, /\\\$160/);
+  assert.ok(!financePlan.latex, `expected no giveaway latex, got "${financePlan.latex}"`);
 
   // "A model car is 15 cm long…" used to get a "mode" explanation because
   // /mode/i matched "model". It should now get a scale explanation.

@@ -7604,6 +7604,16 @@ function normalizeLatex(input: string | undefined) {
   return output;
 }
 
+// MathText renders $...$ as inline maths. Currency like "$960" in prose pairs
+// with the next "$" and collapses the words between them ("960.Adepositof160").
+// Escape currency dollar signs so they render literally. Fields that contain real
+// LaTeX markup (intentional inline maths, e.g. exam explanations) are left alone.
+function escapeCurrency(input: string | undefined) {
+  if (!input) return input ?? "";
+  if (/[\\^_{}]/.test(input)) return input;
+  return input.replace(/\$/g, () => "\\$");
+}
+
 function normalizeAnswerValue(input: string) {
   return normalizeText(input).trim();
 }
@@ -7693,7 +7703,15 @@ function buildAcceptedVariants(answer: string, prompt: string) {
 function buildSymbolicVariants(answer: string) {
   const variants = new Set<string>();
   const trimmed = answer.trim();
-  if (/[\\=^]/.test(trimmed) || trimmed.includes(" ")) {
+  // A prose answer must never be flattened into a space-stripped run such as
+  // "Yessurplus450leaves50aftertherepayment" or "numberofabsences". Only collapse
+  // spaces for symbolic expressions ("x = 5", "y = 2x + 1") and short value+unit
+  // answers ("35 m", "30 guests"). A sentence can contain "=", so an equals sign
+  // alone does not make it strippable - it must not read as prose.
+  const isProse = (trimmed.match(/[A-Za-z]{3,}/g) ?? []).length >= 2;
+  const isMathExpr = /[\\=^]/.test(trimmed);
+  const isValueWithUnit = /^-?\$?\d[\d.,]*\s+[A-Za-z°%²³/]{1,6}$/.test(trimmed);
+  if (!isProse && (isMathExpr || isValueWithUnit)) {
     variants.add(trimmed.replace(/\s+/g, ""));
     variants.add(
       trimmed
@@ -8217,18 +8235,19 @@ function normalizeQuestion(question: PracticeQuestion): PracticeQuestion {
 
   return {
     ...question,
-    prompt,
+    prompt: escapeCurrency(prompt),
     latex: stripLatexWorking(normalizeLatex(question.latex)),
     answer,
     acceptedAnswers,
-    hint: normalizeText(question.hint),
-    explanation:
+    hint: escapeCurrency(normalizeText(question.hint)),
+    explanation: escapeCurrency(
       explanation.trim().length >= 40 && !isMechanicalExplanation(explanation)
         ? explanation
-        : buildExplanation({ ...question, prompt, answer }),
+        : buildExplanation({ ...question, prompt, answer })
+    ),
     choices: question.choices?.map((choice) => ({
       ...choice,
-      text: normalizeText(choice.text),
+      text: escapeCurrency(normalizeText(choice.text)),
     })),
   };
 }
@@ -8248,6 +8267,21 @@ function stripLatexWorking(latex: string) {
     const parts = output.split("=");
     if (parts.length > 2) output = `${parts[0]}=${parts[1]}`.trim();
   }
+
+  // Drop bare arithmetic "working" that just evaluates to the answer
+  // (\frac{960 - 160}{8}, 250 + 10 \times 75, 2200 - 1800, \min(120, 60+40)).
+  // A genuine formula keeps a relation or variable (an "=" or a letter once
+  // LaTeX commands are removed); a plain list of values has no operator. Neither
+  // is stripped, so only the answer-revealing computation is removed.
+  const withoutCommands = output.replace(/\\[a-zA-Z]+/g, " ");
+  const hasRelationOrVariable = /[=A-Za-z]/.test(withoutCommands);
+  const hasOperator =
+    /[+\-*/×÷]/.test(output) ||
+    /\\(?:frac|dfrac|tfrac|times|div|cdot|min|max)/.test(output);
+  if (!hasRelationOrVariable && hasOperator && /\d/.test(output)) {
+    return "";
+  }
+
   return output;
 }
 
