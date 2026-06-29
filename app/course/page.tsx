@@ -93,7 +93,7 @@ export default function CoursePage() {
                   href="/checkout?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
                 >
-                  Start your 7-day free trial
+                  Upgrade — $19/month
                 </Link>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { toClientExam } from "../../../../lib/exams";
 import { buildTopicTest, getTopicTestPool } from "../../../../lib/topicTests";
+import { RequirePaid } from "../../../course/RequirePaid";
 import { ExamRunner } from "../../../exam/[examId]/ExamRunner";
 
 // Each load assembles a fresh paper (new seed → different draw); the seed is
@@ -19,10 +20,12 @@ export default async function TopicTestPage({
   if (paper.sections.length === 0) notFound();
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900">
-      <div className="mx-auto max-w-3xl">
-        <ExamRunner paper={toClientExam(paper)} />
-      </div>
-    </main>
+    <RequirePaid featureLabel="Topic tests">
+      <main className="min-h-screen bg-slate-50 px-4 py-8 text-slate-900">
+        <div className="mx-auto max-w-3xl">
+          <ExamRunner paper={toClientExam(paper)} />
+        </div>
+      </main>
+    </RequirePaid>
   );
 }

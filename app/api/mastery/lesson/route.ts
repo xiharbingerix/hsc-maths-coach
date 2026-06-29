@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import { recordMasteryEvents } from "../../../../lib/mastery/updateMastery";
 import type { MasteryEventInput } from "../../../../lib/mastery/updateMastery";
+import { hasActiveAccess } from "../../../../lib/requirePaidAccess";
 
 export const runtime = "nodejs";
 
@@ -39,6 +40,14 @@ export async function POST(request: Request) {
   const userId = await getUserIdFromRequest(request);
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
+  // Mastery tracking is a Premium feature — free accounts don't accrue mastery.
+  if (!(await hasActiveAccess(userId))) {
+    return NextResponse.json(
+      { error: "Upgrade to track mastery.", upgrade: true },
+      { status: 403 }
+    );
   }
 
   let body: LessonMasteryBody;

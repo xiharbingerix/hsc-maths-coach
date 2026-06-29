@@ -26,7 +26,7 @@ const offerLabels: Record<string, string> = {
 
 const offerHelperText: Record<string, string> = {
   "online-learning":
-    "Online learning is self-serve. Start the 7-day free trial when you are ready, or submit this form if you need help first.",
+    "Online learning is self-serve. Sign up free to start learning when you are ready, or submit this form if you need help first.",
   "diagnostic-report":
     "Request a parent-friendly PDF report after completing the diagnostic. Reports are manually reviewed before being sent.",
   "study-plan":
@@ -37,7 +37,7 @@ const offerHelperText: Record<string, string> = {
 
 const successFollowUpText: Record<string, string> = {
   "online-learning":
-    "If you are ready to begin, continue to checkout to start the 7-day free trial.",
+    "If you are ready to begin, sign up free and start learning.",
   "weekly-tutoring":
     "Joshua will only follow up if a tutoring spot becomes available or there is another suitable next step.",
 };
@@ -116,7 +116,7 @@ export function EnquireForm({ offers, initialOffer }: EnquireFormProps) {
           <h3 className="font-semibold text-slate-950">Next steps</h3>
           <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
             <li>Complete the diagnostic if you have not already.</li>
-            <li>Start the 7-day free trial if you want online learning access.</li>
+            <li>Sign up free if you want online learning access.</li>
             <li>
               {successFollowUpText[offerSelected] ??
                 "Joshua will follow up about report or support options."}

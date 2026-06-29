@@ -242,7 +242,7 @@ export function NewCourseOverviewPage({
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {hasActiveLessons ? (
                 <ButtonLink href="/checkout?offer=online-learning" variant="primary">
-                  Start your 7-day free trial
+                  Upgrade — $19/month
                 </ButtonLink>
               ) : (
                 <ButtonLink href="/online-learning" variant="primary">
@@ -410,7 +410,7 @@ export function NewCourseUnitPage({
                 Learn about online learning
               </ButtonLink>
               <ButtonLink href="/checkout?offer=online-learning" variant="primary">
-                Start your 7-day free trial
+                Upgrade — $19/month
               </ButtonLink>
               <ButtonLink href="/signup">Create account</ButtonLink>
               <ButtonLink href="/login">Log in</ButtonLink>

@@ -4,7 +4,7 @@ const nextSteps = [
   "Your diagnostic submission has been received.",
   "Reports are reviewed before being sent.",
   "If you requested a report or study plan, Joshua will follow up.",
-  "You can start the online learning trial or create an account when you are ready.",
+  "Create your free account to start learning straight away — no card required.",
 ];
 
 function PrimaryLink({
@@ -82,16 +82,13 @@ export default function ThanksPage() {
               </ul>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <PrimaryLink href="/checkout?offer=diagnostic-report">
+                <PrimaryLink href="/signup">Start learning free</PrimaryLink>
+                <SecondaryLink href="/checkout?offer=diagnostic-report">
                   Request report
-                </PrimaryLink>
+                </SecondaryLink>
                 <SecondaryLink href="/checkout?offer=study-plan">
                   Request study plan
                 </SecondaryLink>
-                <SecondaryLink href="/checkout?offer=online-learning">
-                  Start your 7-day free trial
-                </SecondaryLink>
-                <SecondaryLink href="/signup">Create account</SecondaryLink>
                 <SecondaryLink href="/course">
                   View course overview
                 </SecondaryLink>
@@ -117,16 +114,17 @@ export default function ThanksPage() {
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="text-2xl font-bold tracking-tight">
-                Online learning access
+                Start learning for free
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-                Nova Maths offers low-cost online learning for students who
-                want structured revision without weekly tutoring.
+                Create a free account to access all lessons and practice — no
+                card required. Upgrade later for exams, topic tests and the AI
+                tutor.
               </p>
             </div>
 
-            <PrimaryLink href="/checkout?offer=online-learning">
-              Start your 7-day free trial
+            <PrimaryLink href="/signup">
+              Create your free account
             </PrimaryLink>
           </div>
         </section>

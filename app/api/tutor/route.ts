@@ -7,6 +7,7 @@ import {
   type TutorQuestion,
 } from "../../../lib/tutor/generateTutorResponse";
 import { allowTutorRequest } from "../../../lib/tutor/rateLimit";
+import { hasActiveAccess } from "../../../lib/requirePaidAccess";
 
 export const runtime = "nodejs";
 
@@ -38,6 +39,14 @@ export async function POST(request: Request) {
   }
   if (!userId) {
     return NextResponse.json({ error: "Sign in to use this." }, { status: 401 });
+  }
+
+  // Premium feature: free accounts get lessons + practice, not the AI tutor.
+  if (!(await hasActiveAccess(userId))) {
+    return NextResponse.json(
+      { error: "Upgrade to use the AI tutor.", upgrade: true },
+      { status: 403 }
+    );
   }
 
   if (!allowTutorRequest(userId)) {

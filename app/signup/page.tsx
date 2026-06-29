@@ -4,71 +4,29 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
-import {
-  trackEvent,
-  trackSignupCompleted,
-  trackSignupCheckoutWallViewed,
-} from "../../lib/analytics";
+import { trackSignupCompleted } from "../../lib/analytics";
 import { clientTrackEvent, readMarketingParams } from "../../lib/analytics/clientTrackEvent";
 
+// Free signup never routes to Stripe — a stale `next=/checkout?offer=online-learning`
+// (from the old trial flow) is ignored and the user lands in the app.
 function safeInternalNext(value: string | null) {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
+    return "/dashboard";
+  }
+  if (value.startsWith("/checkout")) {
     return "/dashboard";
   }
 
   return value;
 }
 
-function isOnlineLearningCheckoutNext(value: string) {
-  const url = new URL(value, window.location.origin);
-  return (
-    url.pathname === "/checkout" &&
-    url.searchParams.get("offer") === "online-learning"
-  );
-}
-
 function isDuplicateEmailError(message: string): boolean {
   return /already registered|already been registered|user already|email.*already|already.*email/i.test(message);
-}
-
-async function createCheckoutSessionAfterSignup({
-  accessToken,
-  parentEmail,
-  studentFirstName,
-}: {
-  accessToken: string;
-  parentEmail: string;
-  studentFirstName: string;
-}) {
-  const response = await fetch("/api/stripe/create-checkout-session", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({
-      offer: "online-learning",
-      parentEmail,
-      studentFirstName,
-    }),
-  });
-
-  const payload = (await response.json().catch(() => ({}))) as {
-    url?: string;
-    error?: string;
-  };
-
-  if (!response.ok || !payload.url) {
-    throw new Error(payload.error ?? "Checkout could not be started.");
-  }
-
-  return payload.url;
 }
 
 export default function SignupPage() {
   const router = useRouter();
   const [nextPath, setNextPath] = useState("/dashboard");
-  const [isCheckoutFlow, setIsCheckoutFlow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [studentFirstName, setStudentFirstName] = useState("");
@@ -79,13 +37,7 @@ export default function SignupPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const next = safeInternalNext(params.get("next"));
-    setNextPath(next);
-
-    if (isOnlineLearningCheckoutNext(next)) {
-      setIsCheckoutFlow(true);
-      trackSignupCheckoutWallViewed();
-    }
+    setNextPath(safeInternalNext(params.get("next")));
   }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -138,36 +90,9 @@ export default function SignupPage() {
     trackSignupCompleted();
     clientTrackEvent("signup_completed", { source: "signup_page" });
 
-    if (!isCheckoutFlow && nextPath === "/dashboard") {
-      router.push("/onboarding");
-      return;
-    }
-
-    if (isCheckoutFlow) {
-      const accessToken = data.session?.access_token;
-
-      if (accessToken) {
-        try {
-          trackEvent("signup_checkout_direct_checkout_started", {
-            offer: "online-learning",
-          });
-          const checkoutUrl = await createCheckoutSessionAfterSignup({
-            accessToken,
-            parentEmail: parentEmail || email,
-            studentFirstName,
-          });
-          window.location.href = checkoutUrl;
-          return;
-        } catch (checkoutError) {
-          console.error("Could not start checkout after signup", checkoutError);
-          trackEvent("signup_checkout_direct_checkout_failed", {
-            offer: "online-learning",
-          });
-        }
-      }
-    }
-
-    router.push(nextPath);
+    // Free tier: land straight in the app. New accounts go through onboarding;
+    // an explicit safe internal next is honoured.
+    router.push(nextPath === "/dashboard" ? "/onboarding" : nextPath);
   }
 
   const loginHref =
@@ -182,21 +107,12 @@ export default function SignupPage() {
           Nova Maths
         </p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight">
-          {isCheckoutFlow
-            ? "Create your account to continue to checkout"
-            : "Create student account"}
+          Create student account
         </h1>
         <p className="mt-3 text-sm leading-6 text-slate-600">
-          {isCheckoutFlow
-            ? "Your subscription is linked to your Nova Maths account so progress and access are saved across devices."
-            : "Create an account to access the Nova Maths dashboard. Start your free trial after signing up to unlock lessons."}
+          Create a free account to access all lessons, practice and your
+          diagnostic — no card required.
         </p>
-
-        {isCheckoutFlow ? (
-          <p className="mt-3 text-xs text-slate-500">
-            $19/month &middot; Cancel any time &middot; Secure Stripe checkout
-          </p>
-        ) : null}
 
         {errorMessage ? (
           errorMessage === "__duplicate__" ? (
@@ -206,7 +122,7 @@ export default function SignupPage() {
                 href={loginHref}
                 className="mt-1 inline-block font-semibold underline"
               >
-                {isCheckoutFlow ? "Log in to continue checkout" : "Log in"}
+                Log in
               </Link>
             </div>
           ) : (
@@ -277,20 +193,14 @@ export default function SignupPage() {
             disabled={isSubmitting}
             className="w-full rounded-xl bg-slate-950 px-4 py-3 font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {isSubmitting
-              ? isCheckoutFlow
-                ? "Creating account and opening secure checkout..."
-                : "Creating account..."
-              : isCheckoutFlow
-                ? "Create account and continue to checkout"
-                : "Create account"}
+            {isSubmitting ? "Creating account..." : "Create free account"}
           </button>
         </form>
 
         <p className="mt-5 text-sm text-slate-600">
           Already have an account?{" "}
           <Link href={loginHref} className="font-semibold text-slate-950 underline">
-            {isCheckoutFlow ? "Log in to continue checkout" : "Log in"}
+            Log in
           </Link>
         </p>
       </section>

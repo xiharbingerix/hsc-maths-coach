@@ -542,35 +542,35 @@ export function DiagnosticQuizClient({
             </ol>
           </section>
 
-          {/* ── Free trial CTA ───────────────────────────────────────────── */}
+          {/* ── Free signup CTA ──────────────────────────────────────────── */}
           <section className="rounded-2xl bg-slate-950 p-6 text-white shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               Get started
             </p>
             <h2 className="mt-2 text-xl font-bold">
-              Start your trial to unlock the lessons recommended by your results.
+              Create a free account to start the lessons recommended by your results.
             </h2>
             <p className="mt-2 leading-7 text-slate-300">
-              Your trial unlocks full lessons, worked examples, guided
-              practice, independent practice, mastery quizzes, saved progress
-              and course pathways.
+              Your free account unlocks full lessons, worked examples, guided
+              practice, independent practice, saved progress and course
+              pathways — no card required.
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               <SubscribeCTA
-                href="/checkout?offer=online-learning"
+                href="/signup"
                 className="bg-white text-slate-950 hover:bg-slate-100"
               >
-                Start your 7-day free trial
+                Sign up free
               </SubscribeCTA>
               <Link
                 href={`/login?returnTo=/diagnostic/${yearLevel}`}
                 className="text-sm font-semibold text-slate-300 hover:text-white"
               >
-                Already have access? Log in →
+                Already have an account? Log in →
               </Link>
             </div>
             <p className="mt-3 text-sm text-slate-400">
-              No charge today &middot; Then $19/month &middot; Cancel anytime
+              Free to learn &middot; Upgrade for exams + AI &middot; $19/month
             </p>
           </section>
 

@@ -274,8 +274,8 @@ export default async function PaymentSuccessPage({
             </h1>
             <p className="mt-4 max-w-3xl leading-7 text-slate-600">
               If you completed checkout, please contact support or try signing
-              in. If you were just testing the page, no payment or trial has
-              been recorded.
+              in. If you were just testing the page, no payment has been
+              recorded.
             </p>
           </header>
 
@@ -316,18 +316,18 @@ export default async function PaymentSuccessPage({
       <section className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-            {isOnlineLearning ? "Trial active" : "Payment received"}
+            {isOnlineLearning ? "Premium active" : "Payment received"}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             {isOnlineLearning
-              ? "Your trial is active."
+              ? "Your Premium access is active."
               : "Thanks — your payment has been received."}
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
               ? needsPasswordSetup
-                ? "Your 7-day free trial is active. Set a password below to access your lessons and dashboard."
-                : "Your 7-day free trial is active and access is activated automatically. Log in to access your dashboard."
+                ? "Your Premium subscription is active. Set a password below to access exams, topic tests and the AI tutor."
+                : "Your Premium subscription is active and access is activated automatically. Log in to unlock exams, topic tests and the AI tutor."
               : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
           </p>
         </header>

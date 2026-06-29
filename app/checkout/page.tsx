@@ -33,13 +33,13 @@ export default async function CheckoutPage({
           {offer.slug === "online-learning" ? (
             <div className="mt-5 rounded-2xl border border-slate-100 bg-slate-50 p-5">
               <p className="font-semibold text-slate-900">
-                Nova Maths Online Learning &mdash; 7-day free trial
+                Nova Maths Premium &mdash; $19/month
               </p>
               <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-600">
-                <li>No charge today &middot; then $19/month</li>
+                <li>Full exam papers, topic tests &amp; AI tutor</li>
                 <li>Secure payment through Stripe</li>
                 <li>Cancel any time from your account</li>
-                <li>Access activates automatically when your trial starts</li>
+                <li>Access activates automatically after payment</li>
                 <li>Progress saved across devices</li>
               </ul>
             </div>
