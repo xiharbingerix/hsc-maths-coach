@@ -1873,6 +1873,12 @@ export default async function AdminPage() {
             >
               Lesson Maker
             </Link>
+            <Link
+              href="/admin/tutoring"
+              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+            >
+              Tutoring
+            </Link>
             <form action="/api/admin/logout" method="post">
               <button
                 type="submit"
