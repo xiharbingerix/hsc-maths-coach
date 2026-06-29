@@ -5,6 +5,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { year9TrigSideVisuals } from "../year9TrigSideVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Label opposite, adjacent and hypotenuse, then use SOH CAH TOA.", explanation };
@@ -215,6 +216,22 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "solving-for-the-denominator": solvingForDenominator,
 };
 
+function addTrigSideVisual(question: PracticeQuestion): PracticeQuestion {
+  const visual = year9TrigSideVisuals[question.id];
+  return visual ? { ...question, ...visual } : question;
+}
+
+function addTrigSideVisuals(content: Partial<ExplicitLesson>): Partial<ExplicitLesson> {
+  return {
+    ...content,
+    guidedPractice: content.guidedPractice?.map(addTrigSideVisual),
+    independentPractice: content.independentPractice?.map(addTrigSideVisual),
+    masteryQuiz: content.masteryQuiz?.map(addTrigSideVisual),
+    masteryQuizPool: content.masteryQuizPool?.map(addTrigSideVisual),
+    multiPartPractice: content.multiPartPractice?.map(addTrigSideVisual),
+  };
+}
+
 export function year9Chapter3TrigRatiosLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -223,5 +240,9 @@ export function year9Chapter3TrigRatiosLessonOverride(
   if (!["year-9-mathematics", "year-9-mathematics-core", "year-9-mathematics-advanced"].includes(course.slug) || unit.slug !== "pythagoras-trigonometry") {
     return null;
   }
-  return SECTIONS[lesson.slug] ?? null;
+  const content = SECTIONS[lesson.slug];
+  if (!content) return null;
+  return lesson.slug === "finding-unknown-side-lengths"
+    ? addTrigSideVisuals(content)
+    : content;
 }

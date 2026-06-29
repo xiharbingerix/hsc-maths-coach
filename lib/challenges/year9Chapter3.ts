@@ -3,6 +3,7 @@
 // lib/challenges/index.ts (consolidating → Core; core → all 3; path → base + advanced).
 
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { year9TrigSideVisuals } from "../lessons/year9TrigSideVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several steps.", explanation };
@@ -106,6 +107,11 @@ export const findSidesY9Challenge: PracticeQuestion[] = [
   q("y9c-fus-11", "Find the opposite: adj = 15, θ = 30° (1 d.p.).", "15\\tan30", "8.7", "15 × 0.577 ≈ 8.7.", u("8.7")),
   q("y9c-fus-12", "Find the adjacent: hyp = 22, θ = 60°.", "22\\cos60", "11", "22 × 0.5 = 11.", u("11")),
 ];
+
+for (const question of findSidesY9Challenge) {
+  const visual = year9TrigSideVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}
 
 // solving-for-the-denominator (core)
 export const solveDenomY9Challenge: PracticeQuestion[] = [
