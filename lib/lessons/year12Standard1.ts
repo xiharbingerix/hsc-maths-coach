@@ -611,7 +611,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       "Calculate probabilities for single and combined events in practical situations.",
     successCriteria: [
       "Identify the sample space and count equally likely outcomes.",
-      "Use the probability formula P(event)=\\frac{\\text{favourable outcomes}}{\\text{total outcomes}}.",
+      "Use the probability formula P(event) = favourable outcomes ÷ total outcomes.",
       "Multiply probabilities along independent paths and add probabilities for alternative paths.",
       "Use replacement and no-replacement reasoning in simple chance models.",
     ],
@@ -7714,6 +7714,16 @@ function numberText(value: number) {
   return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(4)));
 }
 
+// Guards a templated explanation: only use it when its computed value actually
+// equals the question's answer. Stops broad keyword matches (e.g. "mean"/"range"
+// appearing in a prompt) from rendering arithmetic that contradicts the answer.
+function numericAnswerMatches(value: number, answer: string) {
+  const cleaned = answer
+    .replace(/^(?:mean|median|mode|range|amount|result|value|angle|rate)\s+is\s+/i, "")
+    .replace(/[$,%\s]/g, "");
+  return numberText(value) === cleaned || Number(cleaned) === value;
+}
+
 function parsePromptNumbers(prompt: string) {
   return Array.from(prompt.matchAll(/-?\d+(?:\.\d+)?/g)).map((match) =>
     Number(match[0])
@@ -7967,7 +7977,12 @@ function buildPatternExplanation(prompt: string, answer: string) {
     )} / ${left + right} = ${numberText(part)}${unit ? ` ${unit}` : ""}. The two shares are ${answer}.`;
   }
 
-  if (/mean/i.test(prompt) && /sum/i.test(prompt) && nums.length >= 2) {
+  if (
+    /mean/i.test(prompt) &&
+    /sum/i.test(prompt) &&
+    nums.length >= 2 &&
+    numericAnswerMatches(nums[1] / nums[0], answer)
+  ) {
     return `Mean = total / number of values = ${numberText(nums[1])} / ${numberText(
       nums[0]
     )} = ${answer}.`;
@@ -7977,19 +7992,23 @@ function buildPatternExplanation(prompt: string, answer: string) {
   }
   if (/mean/i.test(prompt) && nums.length >= 2) {
     const sum = nums.reduce((total, value) => total + value, 0);
-    return `Mean = sum of values / number of values = ${numberText(sum)} / ${nums.length} = ${answer.replace(
-      /^mean is\s+/i,
-      ""
-    )}.`;
+    if (numericAnswerMatches(sum / nums.length, answer)) {
+      return `Mean = sum of values / number of values = ${numberText(sum)} / ${nums.length} = ${answer.replace(
+        /^mean is\s+/i,
+        ""
+      )}.`;
+    }
   }
   if (/range/i.test(prompt) && nums.length >= 2) {
     const min = Math.min(...nums);
     const max = Math.max(...nums);
-    return `Range = highest value - lowest value = ${numberText(max)} - ${numberText(
-      min
-    )} = ${answer.replace(/^range is\s+/i, "")}.`;
+    if (numericAnswerMatches(max - min, answer)) {
+      return `Range = highest value - lowest value = ${numberText(max)} - ${numberText(
+        min
+      )} = ${answer.replace(/^range is\s+/i, "")}.`;
+    }
   }
-  if (/mode/i.test(prompt) && nums.length >= 2) {
+  if (/\bmode\b/i.test(prompt) && nums.length >= 2) {
     return `The mode is the value that occurs most often. In this data set, ${answer.replace(
       /^mode is\s+/i,
       ""
@@ -8684,29 +8703,6 @@ function applyAuditFriendlyAnswers(question: PracticeQuestion): PracticeQuestion
   const editorialExplanation = editorialExplanations[question.id];
   if (editorialExplanation) {
     return normalizeQuestion({ ...question, explanation: editorialExplanation });
-  }
-  const numericAnswer = Number(question.answer.replace(/[$,\s]/g, ""));
-  if (
-    !question.choices?.length &&
-    Number.isFinite(numericAnswer) &&
-    Math.abs(numericAnswer) >= 10 &&
-    new RegExp(`(?<![\\d.])${String(Math.abs(numericAnswer)).replace(/\./g, "\\.")}(?![\\d])`, "g").test(question.prompt)
-  ) {
-    const contextualAnswer = /\$|dollar|cost|balance|paid|gain|interest|investment|shares|annuit|credit/i.test(question.prompt)
-      ? `amount is ${question.answer}`
-      : /degree|angle|bearing/i.test(question.prompt)
-        ? `angle is ${question.answer}`
-        : /day|critical|path|flow|capacity|network|route|weight/i.test(question.prompt)
-          ? `value is ${question.answer}`
-          : `result is ${question.answer}`;
-    return normalizeQuestion({
-      ...question,
-      answer: contextualAnswer,
-      acceptedAnswers: [
-        question.answer,
-        ...(question.acceptedAnswers ?? []),
-      ],
-    });
   }
   if (question.id.includes("linmod-m9")) {
     return normalizeQuestion({
