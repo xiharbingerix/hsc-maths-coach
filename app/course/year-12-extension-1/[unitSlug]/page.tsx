@@ -1,4 +1,14 @@
 import { NewCourseUnitPage } from "../../NewCoursePages";
+import { buildCourseUnitMetadata } from "../../../../lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ unitSlug: string }>;
+}) {
+  const { unitSlug } = await params;
+  return buildCourseUnitMetadata("year-12-extension-1", unitSlug);
+}
 import { notFound } from "next/navigation";
 import { getNewCourseUnit } from "../../../../lib/newCourseCatalog";
 

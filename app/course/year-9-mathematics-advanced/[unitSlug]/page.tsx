@@ -1,4 +1,14 @@
 import { NewCourseUnitPage } from "../../NewCoursePages";
+import { buildCourseUnitMetadata } from "../../../../lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ unitSlug: string }>;
+}) {
+  const { unitSlug } = await params;
+  return buildCourseUnitMetadata("year-9-mathematics-advanced", unitSlug);
+}
 import { notFound, permanentRedirect } from "next/navigation";
 import { getNewCourseUnit } from "../../../../lib/newCourseCatalog";
 import { year9LegacyUnitRedirect } from "../../../../lib/year9PathTags";

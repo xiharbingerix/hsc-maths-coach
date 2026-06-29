@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import katex from "katex";
 import React, { type ReactNode } from "react";
@@ -6,12 +5,14 @@ import { SubscribeCTA } from "../components/SubscribeCTA";
 import { PageViewTracker } from "../components/PageViewTracker";
 import { totalActiveLessonCount } from "../../lib/courseUnits";
 import { areaUnderCurveLesson } from "../../lib/lessons/integralCalculus";
+import { buildPageMetadata } from "../../lib/siteMetadata";
 
-export const metadata: Metadata = {
-  title: "Free HSC Maths Sample Lesson | Nova Maths",
+export const metadata = buildPageMetadata({
+  title: "Free HSC Maths Sample Lesson",
   description:
     "Preview a real HSC maths lesson — Area Under a Curve — from Nova Maths. See worked examples and practice questions. No signup required.",
-};
+  path: "/sample-hsc-lesson",
+});
 
 // Strips $...$ dollar-sign markers from prose strings so literal "$x=a$"
 // renders as "x=a" rather than showing raw LaTeX delimiters.

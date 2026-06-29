@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { courseCatalogue } from "../../lib/courseUnits";
@@ -15,12 +14,14 @@ import { PlatformDepth } from "../components/PlatformDepth";
 import { ValueUnlocks } from "../components/ValueUnlocks";
 import { LearningPathway } from "../components/LearningPathway";
 import { StudyReportPreview } from "../components/StudyReportPreview";
+import { buildPageMetadata } from "../../lib/siteMetadata";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "HSC Maths Diagnostic | NSW Year 12 Standard 2 & Advanced",
   description:
     "Free HSC Maths diagnostic for NSW Year 12 students. Find weak topics before Trials and follow a clear revision path for Standard 2 or Advanced.",
-};
+  path: "/hsc-maths",
+});
 
 const afterDiagnostic = [
   {
@@ -519,7 +520,7 @@ export default function HscMathsPage() {
             <p className="mt-2 text-sm text-slate-400">
               Or{" "}
               <Link
-                href="/courses"
+                href="/course"
                 className="underline underline-offset-2 hover:text-white"
               >
                 browse HSC courses first
@@ -534,7 +535,7 @@ export default function HscMathsPage() {
           <Link href="/" className="hover:text-slate-900">
             Homepage
           </Link>
-          <Link href="/courses" className="hover:text-slate-900">
+          <Link href="/course" className="hover:text-slate-900">
             Courses
           </Link>
           <Link href="/privacy" className="hover:text-slate-900">

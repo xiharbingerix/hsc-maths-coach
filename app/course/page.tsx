@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { courseCatalogue } from "../../lib/courseUnits";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
+import { buildPageMetadata } from "../../lib/siteMetadata";
+
+export const metadata = buildPageMetadata({
+  title: "NSW Online Maths Courses – Year 7 to HSC",
+  description:
+    "Explore structured NSW maths courses from Year 7 to HSC, with worked examples, guided practice, independent practice and mastery quizzes.",
+  path: "/course",
+});
 
 const statusCopy: Record<
   CoursePathwayStatus,

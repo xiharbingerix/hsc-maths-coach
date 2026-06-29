@@ -4,6 +4,14 @@ import { courseCatalogue, totalActiveLessonCount } from "../../lib/courseUnits";
 import type { CoursePathwayStatus } from "../../lib/courseTypes";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { OnlineLearningHeroActions } from "./OnlineLearningHeroActions";
+import { buildPageMetadata } from "../../lib/siteMetadata";
+
+export const metadata = buildPageMetadata({
+  title: "Online Maths Learning for NSW Students",
+  description:
+    "Structured online maths lessons for NSW students from Year 7 to HSC, with worked examples, guided practice, mastery quizzes and saved progress.",
+  path: "/online-learning",
+});
 
 const statusCopy: Record<
   CoursePathwayStatus,

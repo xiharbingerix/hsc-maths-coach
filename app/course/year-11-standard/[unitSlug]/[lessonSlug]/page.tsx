@@ -1,4 +1,14 @@
 import { NewCourseLessonPage } from "../../../NewCoursePages";
+import { buildCourseLessonMetadata } from "../../../../../lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ unitSlug: string; lessonSlug: string }>;
+}) {
+  const { unitSlug, lessonSlug } = await params;
+  return buildCourseLessonMetadata("year-11-standard", unitSlug, lessonSlug);
+}
 import { redirect } from "next/navigation";
 
 const oldLessonRedirects: Record<string, Record<string, string>> = {

@@ -1,4 +1,12 @@
 import Link from "next/link";
+import { buildPageMetadata } from "../../lib/siteMetadata";
+
+export const metadata = buildPageMetadata({
+  title: "Privacy Notice",
+  description:
+    "How Nova Maths collects, uses, stores and protects account, diagnostic and online learning information.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { courseUnits, year12AdvancedCourse } from "../../../lib/courseUnits";
 import { year12AdvancedNestedUnitHref } from "../../../lib/year12AdvancedRoutes";
+import { buildCourseMetadata } from "../../../lib/seo";
+
+export const metadata = buildCourseMetadata("year-12-advanced");
 
 const lessonSequence = [
   "Learn",

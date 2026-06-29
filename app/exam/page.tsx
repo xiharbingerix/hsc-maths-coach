@@ -1,14 +1,15 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import { listExamPapers } from "../../lib/exams";
 import { listTopicTests } from "../../lib/topicTests";
 import { RecentResults } from "./RecentResults";
+import { buildPageMetadata } from "../../lib/siteMetadata";
 
-export const metadata: Metadata = {
-  title: "Practice Exams | Nova Maths",
+export const metadata = buildPageMetadata({
+  title: "HSC Maths Practice Exams",
   description:
-    "Timed HSC-style practice exams with a predicted band and targeted revision.",
-};
+    "Timed HSC-style maths practice exams with predicted bands, worked results and targeted revision recommendations.",
+  path: "/exam",
+});
 
 export default function ExamListPage() {
   const papers = listExamPapers();

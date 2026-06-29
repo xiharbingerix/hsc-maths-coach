@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import "katex/dist/katex.min.css";
+import { SITE_ORIGIN } from "../lib/siteMetadata";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
     default: "Nova Maths",
     template: "%s | Nova Maths",

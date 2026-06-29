@@ -6,6 +6,20 @@ import {
   year12AdvancedNestedLessonHref,
   year12AdvancedNestedUnitHref,
 } from "../../../../../lib/year12AdvancedRoutes";
+import { buildCourseLessonMetadata } from "../../../../../lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ unitSlug: string; lessonSlug: string }>;
+}) {
+  const { unitSlug, lessonSlug } = await params;
+  return buildCourseLessonMetadata(
+    "year-12-advanced",
+    unitSlug,
+    lessonSlug
+  );
+}
 
 export default async function Year12AdvancedLessonPage({
   params,

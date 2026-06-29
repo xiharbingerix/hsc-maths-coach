@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -13,12 +12,14 @@ import { PlatformDepth } from "./components/PlatformDepth";
 import { ValueUnlocks } from "./components/ValueUnlocks";
 import { LearningPathway } from "./components/LearningPathway";
 import { StudyReportPreview } from "./components/StudyReportPreview";
+import { buildPageMetadata } from "../lib/siteMetadata";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
   description:
     "Take a free NSW maths diagnostic, find your weak topics, and follow structured lessons from Year 7 to HSC. 7-day free trial, then $19/month.",
-};
+  path: "/",
+});
 
 const trustBadges = [
   "NSW curriculum aligned",
@@ -319,7 +320,7 @@ export default function Home() {
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <DiagnosticCtaLink source="homepage" />
-            <SecondaryLink href="/courses">View HSC courses</SecondaryLink>
+            <SecondaryLink href="/course">View HSC courses</SecondaryLink>
           </div>
         </section>
 
@@ -397,7 +398,7 @@ export default function Home() {
             <Link href="/diagnostic/select" className="hover:text-slate-900">
               Diagnostic
             </Link>
-            <Link href="/courses" className="hover:text-slate-900">
+            <Link href="/course" className="hover:text-slate-900">
               Courses
             </Link>
             <Link href="/privacy" className="hover:text-slate-900">

@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import katex from "katex";
 import React, { type ReactNode } from "react";
 import { SubscribeCTA } from "../components/SubscribeCTA";
 import { PageViewTracker } from "../components/PageViewTracker";
 import { totalActiveLessonCount } from "../../lib/courseUnits";
+import { buildPageMetadata } from "../../lib/siteMetadata";
 
-export const metadata: Metadata = {
-  title: "Free Year 7 Algebra Lesson | Nova Maths",
+export const metadata = buildPageMetadata({
+  title: "Free Year 7 Algebra Lesson",
   description:
     "A free Nova Maths lesson for Year 7 algebra: solve equations using the inverse method and the balance method. No signup required.",
-};
+  path: "/free-year-7-algebra",
+});
 
 function SectionLabel({ children }: Readonly<{ children: ReactNode }>) {
   return (

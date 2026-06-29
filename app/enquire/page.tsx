@@ -1,5 +1,13 @@
 import Link from "next/link";
 import { EnquireForm } from "./EnquireForm";
+import { buildPageMetadata } from "../../lib/siteMetadata";
+
+export const metadata = buildPageMetadata({
+  title: "Enquire About Nova Maths",
+  description:
+    "Ask about Nova Maths online learning, diagnostic reports, study plans and maths support for NSW secondary students.",
+  path: "/enquire",
+});
 
 const offers = [
   {

@@ -5,6 +5,16 @@ import {
   year12AdvancedNestedLessonHref,
 } from "../../../../lib/year12AdvancedRoutes";
 import { getTopicTestPool } from "../../../../lib/topicTests";
+import { buildCourseUnitMetadata } from "../../../../lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ unitSlug: string }>;
+}) {
+  const { unitSlug } = await params;
+  return buildCourseUnitMetadata("year-12-advanced", unitSlug);
+}
 
 const lessonSequence = [
   "Learn",
