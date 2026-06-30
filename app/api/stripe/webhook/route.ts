@@ -1,6 +1,10 @@
 import Stripe from "stripe";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
 import { getStripe } from "../../../../lib/stripe";
+import {
+  TUTORING_OFFER_SLUG,
+  tutoringStatusFromStripe,
+} from "../../../../lib/tutoring";
 
 export const runtime = "nodejs";
 
@@ -293,6 +297,32 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     }
   }
 
+  // Weekly tutoring: link the Stripe ids onto the admin-created plan row and
+  // mark it active. Tutoring does not grant online-learning access.
+  if (offerSelected === TUTORING_OFFER_SLUG) {
+    const customerId =
+      typeof session.customer === "string"
+        ? session.customer
+        : session.customer?.id ?? null;
+
+    const { error: tutoringError } = await supabaseAdmin
+      .from("tutoring_subscriptions")
+      .update({
+        stripe_subscription_id: subscriptionId,
+        stripe_customer_id: customerId,
+        status: "active",
+        updated_at: new Date().toISOString(),
+      })
+      .eq("stripe_checkout_session_id", session.id);
+
+    if (tutoringError) {
+      console.error("[webhook] tutoring_subscriptions activate failed", {
+        session_id: session.id,
+        message: tutoringError.message,
+      });
+    }
+  }
+
   // Access activation — the critical operation. Uses resolvedUserId which is
   // updated above for the anonymous flow. Throws on DB error (causes Stripe retry).
   if (offerSelected === "online-learning") {
@@ -303,6 +333,24 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 async function handleSubscriptionChange(subscription: Stripe.Subscription) {
   const userId = metadataValue(subscription.metadata, "user_id");
   const offerSelected = metadataValue(subscription.metadata, "offer_selected");
+
+  // Weekly tutoring lives in its own table and never touches online-learning
+  // access. Sync its status (active / paused / canceled) and return early.
+  if (offerSelected === TUTORING_OFFER_SLUG) {
+    const { error: tutoringError } = await supabaseAdmin
+      .from("tutoring_subscriptions")
+      .update({
+        status: tutoringStatusFromStripe(subscription),
+        updated_at: new Date().toISOString(),
+      })
+      .eq("stripe_subscription_id", subscription.id);
+
+    if (tutoringError) {
+      throw new Error(tutoringError.message);
+    }
+    return;
+  }
+
   const activeStatuses = new Set(["active", "trialing"]);
   const revokedStatuses = new Set([
     "canceled",

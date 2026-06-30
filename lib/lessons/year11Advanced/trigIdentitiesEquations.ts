@@ -699,7 +699,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
         },
       ],
       guidedPractice: [
-        formulaAnswer("y11adv-trig-eq-g1", "Isolate the trigonometric function.", "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\Box", "1/2", ["0.5"]),
+        formulaAnswer("y11adv-trig-eq-g1", "Isolate the trigonometric function.", "2\\sin x-1=0", "1/2", ["0.5"]),
         formulaAnswer("y11adv-trig-eq-g2", "Find the reference angle.", "\\sin x=\\frac12", "pi/6", ["\\pi/6", "π/6"]),
         practicalChoice("y11adv-trig-eq-g3", "Choose the quadrants where cosine is negative.", "B", ["Quadrants I and IV", "Quadrants II and III", "Quadrants I and III", "Quadrants II and IV"], "Cosine is the x-coordinate, so it is negative on the left side of the unit circle.", "\\cos x<0"),
         practicalChoice("y11adv-trig-eq-g4", "Choose the solution pair.", "C", ["$x=\\frac{\\pi}{4},\\frac{3\\pi}{4}$", "$x=\\frac{3\\pi}{4},\\frac{7\\pi}{4}$", "$x=\\frac{\\pi}{4},\\frac{5\\pi}{4}$", "$x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$"], "Tangent is positive in quadrants I and III.", "\\tan x=1,\\quad 0\\le x\\le2\\pi"),
@@ -708,7 +708,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
         formulaAnswer("y11adv-trig-eq-i1", "Find the smaller solution.", "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi", "pi/6", ["\\pi/6", "π/6"]),
         formulaAnswer("y11adv-trig-eq-i2", "Find the larger solution.", "\\sin x=\\frac12,\\quad 0\\le x\\le2\\pi", "5pi/6", ["5\\pi/6", "5π/6"]),
         practicalChoice("y11adv-trig-eq-i3", "Choose the solution pair.", "B", ["$x=\\frac{\\pi}{3},\\frac{5\\pi}{3}$", "$x=\\frac{2\\pi}{3},\\frac{4\\pi}{3}$", "$x=\\frac{\\pi}{6},\\frac{5\\pi}{6}$", "$x=\\frac{3\\pi}{4},\\frac{5\\pi}{4}$"], "Cosine is negative in quadrants II and III.", "\\cos x=-\\frac12,\\quad 0\\le x\\le2\\pi"),
-        formulaAnswer("y11adv-trig-eq-i4", "Isolate the trigonometric function.", "3\\cos x+1=0\\quad \\Rightarrow\\quad \\cos x=\\Box", "-1/3"),
+        formulaAnswer("y11adv-trig-eq-i4", "Isolate the trigonometric function.", "3\\cos x+1=0", "-1/3"),
         practicalChoice("y11adv-trig-eq-i5", "Choose the correct period for tangent equations.", "A", ["$\\pi$", "$2\\pi$", "$\\frac{\\pi}{2}$", "$4\\pi$"], "The tangent pattern repeats every pi.", "\\tan x=k"),
       ],
       commonMistakes: [
@@ -718,7 +718,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
         { mistake: "Skipping the isolation step.", fix: "Solve algebraically for the trig function first, then use exact values and quadrants." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-trig-eq-m1", "Isolate the trigonometric function.", "2\\sin x+1=0\\quad \\Rightarrow\\quad \\sin x=\\Box", "-1/2", ["-0.5"]),
+        formulaAnswer("y11adv-trig-eq-m1", "Isolate the trigonometric function.", "2\\sin x+1=0", "-1/2", ["-0.5"]),
         formulaAnswer("y11adv-trig-eq-m2", "Find the reference angle.", "\\cos x=\\frac12", "pi/3", ["\\pi/3", "π/3"]),
         practicalChoice("y11adv-trig-eq-m3", "Choose the quadrants where sine is negative.", "C", ["Quadrants I and II", "Quadrants II and III", "Quadrants III and IV", "Quadrants I and IV"], "Sine is the y-coordinate, so it is negative below the x-axis.", "\\sin x<0"),
         formulaAnswer("y11adv-trig-eq-m4", "Find the smaller solution.", "\\cos x=\\frac12,\\quad 0\\le x\\le2\\pi", "pi/3", ["\\pi/3", "π/3"]),
@@ -896,7 +896,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
         },
       ],
       guidedPractice: [
-        formulaAnswer("y11adv-trig-mixed-g1", "Isolate the trigonometric function.", "2\\cos x+1=0\\quad \\Rightarrow\\quad \\cos x=\\Box", "-1/2", ["-0.5"]),
+        formulaAnswer("y11adv-trig-mixed-g1", "Isolate the trigonometric function.", "2\\cos x+1=0", "-1/2", ["-0.5"]),
         formulaAnswer("y11adv-trig-mixed-g2", "Find the reference angle.", "\\cos x=\\frac12", "pi/3", ["\\pi/3", "π/3"]),
         formulaAnswer("y11adv-trig-mixed-g3", "Complete the identity.", "\\sin^2x+\\cos^2x=\\Box", "1"),
         practicalChoice("y11adv-trig-mixed-g4", "Choose the best first step for the expression.", "B", ["Set it equal to zero", "Rewrite tangent in terms of sine and cosine", "Use the tangent period", "Use a reference angle"], "Use the quotient identity when tangent appears in an expression.", "\\tan x\\cos x"),
@@ -915,7 +915,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
         { mistake: "Ignoring restrictions in quotient identities.", fix: "When using tangent as sine over cosine, remember $\\cos x\\ne0$." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-trig-mixed-m1", "Isolate the trigonometric function.", "2\\sin x-1=0\\quad \\Rightarrow\\quad \\sin x=\\Box", "1/2", ["0.5"]),
+        formulaAnswer("y11adv-trig-mixed-m1", "Isolate the trigonometric function.", "2\\sin x-1=0", "1/2", ["0.5"]),
         formulaAnswer("y11adv-trig-mixed-m2", "Complete the identity.", "1-\\sin^2x=\\Box", "cos^2x", ["cos^2(x)", "\\cos^2x", "\\cos^2(x)"]),
         formulaAnswer("y11adv-trig-mixed-m3", "Rewrite tangent in terms of sine and cosine.", "\\tan x=\\Box", "sinx/cosx", ["sin(x)/cos(x)", "\\sin x/\\cos x", "\\frac{\\sin x}{\\cos x}"]),
         formulaAnswer("y11adv-trig-mixed-m4", "Find the smaller solution.", "\\sin x=-\\frac12,\\quad 0\\le x\\le2\\pi", "7pi/6", ["7\\pi/6", "7π/6"]),
@@ -1473,7 +1473,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
               key: "c",
               label: "(c)",
               prompt: "Substitute and simplify the full expression.",
-              latex: "\\cos x\\cdot\\cos x+\\sin x\\cdot\\sin x",
+              latex: "",
               marks: 2,
               answer: "1",
               hint: "Recognise cos²x + sin²x as the Pythagorean identity.",

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getOfferConfig } from "../../lib/offers";
 import { getStripe } from "../../lib/stripe";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
+import { formatAud, TUTORING_OFFER_SLUG } from "../../lib/tutoring";
+import { formatDate } from "../../lib/nswTermDates";
 import { TrackPaymentSuccess } from "./TrackPaymentSuccess";
 import { SetPasswordForm } from "./SetPasswordForm";
 
@@ -30,7 +32,10 @@ async function getSessionOffer(sessionId: string | undefined) {
       return null;
     }
 
-    return getOfferConfig(session.metadata?.offer_selected);
+    return {
+      offer: getOfferConfig(session.metadata?.offer_selected),
+      metadata: session.metadata ?? {},
+    };
   } catch {
     return null;
   }
@@ -253,13 +258,30 @@ export default async function PaymentSuccessPage({
   const params = await searchParams;
   const sessionId = params?.session_id;
 
-  const [offer, onlineLearningSetup] = await Promise.all([
+  const [sessionInfo, onlineLearningSetup] = await Promise.all([
     getSessionOffer(sessionId),
     ensureOnlineLearningAccessActivated(sessionId),
   ]);
 
+  const offer = sessionInfo?.offer ?? null;
+  const sessionMeta = sessionInfo?.metadata ?? {};
   const isOnlineLearning = offer?.slug === "online-learning";
+  const isTutoring = offer?.slug === TUTORING_OFFER_SLUG;
   const { customerEmail, needsPasswordSetup } = onlineLearningSetup;
+
+  // Tutoring confirmation details, pulled from the checkout session metadata.
+  const tutoringStudent =
+    typeof sessionMeta.student_name === "string"
+      ? sessionMeta.student_name.trim()
+      : null;
+  const tutoringAmount =
+    typeof sessionMeta.weekly_amount_cents === "string"
+      ? formatAud(Number(sessionMeta.weekly_amount_cents))
+      : null;
+  const tutoringFirstCharge =
+    typeof sessionMeta.billing_monday === "string"
+      ? formatDate(sessionMeta.billing_monday)
+      : null;
 
   if (!offer) {
     return (
@@ -316,19 +338,33 @@ export default async function PaymentSuccessPage({
       <section className="mx-auto max-w-4xl space-y-8">
         <header className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">
-            {isOnlineLearning ? "Premium active" : "Payment received"}
+            {isOnlineLearning
+              ? "Premium active"
+              : isTutoring
+                ? "Tutoring booked"
+                : "Payment received"}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight">
             {isOnlineLearning
               ? "Your Premium access is active."
-              : "Thanks — your payment has been received."}
+              : isTutoring
+                ? tutoringStudent
+                  ? `Weekly tutoring is booked for ${tutoringStudent}.`
+                  : "Weekly tutoring is booked."
+                : "Thanks — your payment has been received."}
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
               ? needsPasswordSetup
                 ? "Your Premium subscription is active. Set a password below to access exams, topic tests and the AI tutor."
                 : "Your Premium subscription is active and access is activated automatically. Log in to unlock exams, topic tests and the AI tutor."
-              : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
+              : isTutoring
+                ? `Your weekly tutoring spot is reserved. ${
+                    tutoringFirstCharge && tutoringAmount
+                      ? `Nothing is charged today — your first ${tutoringAmount} payment is on ${tutoringFirstCharge}, then ${tutoringAmount} automatically every Monday.`
+                      : "Nothing is charged today — weekly billing starts on the agreed Monday."
+                  } We'll be in touch about session times.`
+                : "Year 12 Mathematics Advanced report and study plan options are reviewed before follow-up."}
           </p>
         </header>
 
@@ -365,6 +401,27 @@ export default async function PaymentSuccessPage({
                   className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-slate-500 transition hover:text-slate-900"
                 >
                   Having trouble? Log in again
+                </Link>
+              </>
+            ) : isTutoring ? (
+              <>
+                <Link
+                  href="/tutoring-terms"
+                  className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+                >
+                  View tutoring terms
+                </Link>
+                <a
+                  href="mailto:joshua.a.taylor7@gmail.com"
+                  className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+                >
+                  Email us a question
+                </a>
+                <Link
+                  href="/hsc-maths"
+                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-slate-500 transition hover:text-slate-900"
+                >
+                  Back to HSC Maths
                 </Link>
               </>
             ) : (
