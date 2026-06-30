@@ -272,30 +272,30 @@ const circleChordAngleWorked: WorkedExample[] = [
 ];
 
 const circleChordAngleGuided: PracticeQuestion[] = [
-  geometryNumeric("y10-geometry-chord-g1", "A central angle and an angle at the circumference stand on the same arc. The central angle is 120 degrees. Find the angle at the circumference.", "120^\\circ=2x", "60", "The angle at the circumference is half the central angle."),
-  geometryNumeric("y10-geometry-chord-g2", "AB is a diameter and C is a point on the circle. Find angle ACB.", "AB\\text{ is a diameter}", "90", "An angle in a semicircle is 90 degrees."),
+  geometryNumeric("y10-geometry-chord-g1", "A central angle and an angle at the circumference stand on the same arc. The central angle is 120 degrees. Find the angle at the circumference.", "", "60", "The angle at the circumference is half the central angle."),
+  geometryNumeric("y10-geometry-chord-g2", "AB is a diameter and C is a point on the circle. Find angle ACB.", "", "90", "An angle in a semicircle is 90 degrees."),
   geometryChoice("y10-geometry-chord-g3", "Angles AXB and AYB lie at the circumference and stand on the same chord AB on the same side of the chord. Which fact connects them?", "B", ["They sum to 180 degrees", "They are equal", "One is twice the other", "They are both 90 degrees"], "Angles in the same segment are equal."),
-  geometryNumeric("y10-geometry-chord-g4", "ABCD is a cyclic quadrilateral. Angle ABC is 104 degrees. Find the opposite angle ADC.", "\\angle ABC+\\angle ADC=180^\\circ", "76", "Opposite angles in a cyclic quadrilateral sum to 180 degrees."),
+  geometryNumeric("y10-geometry-chord-g4", "ABCD is a cyclic quadrilateral. Angle ABC is 104 degrees. Find the opposite angle ADC.", "", "76", "Opposite angles in a cyclic quadrilateral sum to 180 degrees."),
 ];
 
 const circleChordAngleIndependent: PracticeQuestion[] = [
-  geometryNumeric("y10-geometry-chord-i1", "A central angle and a circumference angle stand on the same arc. The circumference angle is 37 degrees. Find the central angle.", "x=2(37^\\circ)", "74", "The central angle is twice the angle at the circumference."),
-  geometryNumeric("y10-geometry-chord-i2", "Angles APB and AQB stand on the same chord AB in the same segment. Angle APB is 58 degrees. Find angle AQB.", "\\angle APB=\\angle AQB", "58", "Angles in the same segment are equal."),
+  geometryNumeric("y10-geometry-chord-i1", "A central angle and a circumference angle stand on the same arc. The circumference angle is 37 degrees. Find the central angle.", "", "74", "The central angle is twice the angle at the circumference."),
+  geometryNumeric("y10-geometry-chord-i2", "Angles APB and AQB stand on the same chord AB in the same segment. Angle APB is 58 degrees. Find angle AQB.", "", "58", "Angles in the same segment are equal."),
   geometryChoice("y10-geometry-chord-i3", "A student sees an angle at the circumference standing on a diameter. Which theorem should they use?", "C", ["Equal chords subtend equal angles", "Opposite cyclic angles sum to 180 degrees", "An angle in a semicircle is 90 degrees", "The centre angle is half the circumference angle"], "An angle at the circumference standing on a diameter is an angle in a semicircle."),
-  geometryNumeric("y10-geometry-chord-i4", "PQRS is a cyclic quadrilateral. Angle PQR is 129 degrees. Find angle PSR.", "\\angle PQR+\\angle PSR=180^\\circ", "51", "The two stated angles are opposite angles in a cyclic quadrilateral."),
+  geometryNumeric("y10-geometry-chord-i4", "PQRS is a cyclic quadrilateral. Angle PQR is 129 degrees. Find angle PSR.", "", "51", "The two stated angles are opposite angles in a cyclic quadrilateral."),
   geometryChoice("y10-geometry-chord-i5", "Equal chords AB and CD subtend angles at the centre of the same circle. What can you conclude?", "A", ["The central angles are equal", "The central angles sum to 90 degrees", "One angle is twice the other", "Nothing can be concluded"], "Equal chords in the same circle subtend equal angles at the centre."),
 ];
 
 const circleChordAngleMastery: PracticeQuestion[] = [
-  geometryNumeric("y10-geometry-chord-m1", "A central angle is 100 degrees. Find the angle at the circumference standing on the same arc.", "100^\\circ=2x", "50", "The circumference angle is half the central angle."),
-  geometryNumeric("y10-geometry-chord-m2", "AB is a diameter and C is a point on the circle. Find angle ACB.", "AB\\text{ is a diameter}", "90", "An angle in a semicircle is a right angle."),
+  geometryNumeric("y10-geometry-chord-m1", "A central angle is 100 degrees. Find the angle at the circumference standing on the same arc.", "", "50", "The circumference angle is half the central angle."),
+  geometryNumeric("y10-geometry-chord-m2", "AB is a diameter and C is a point on the circle. Find angle ACB.", "", "90", "An angle in a semicircle is a right angle."),
   geometryChoice("y10-geometry-chord-m3", "Which statement is true for opposite angles in a cyclic quadrilateral?", "D", ["They are equal", "They are both acute", "They sum to 90 degrees", "They sum to 180 degrees"], "Opposite angles in a cyclic quadrilateral are supplementary."),
-  geometryNumeric("y10-geometry-chord-m4", "Angles AXB and AYB stand on chord AB in the same segment. Angle AXB is 63 degrees. Find angle AYB.", "\\angle AXB=\\angle AYB", "63", "Angles in the same segment are equal."),
-  geometryNumeric("y10-geometry-chord-m5", "ABCD is cyclic. Angle ABC is 87 degrees. Find angle ADC.", "\\angle ABC+\\angle ADC=180^\\circ", "93", "Subtract 87 degrees from 180 degrees."),
+  geometryNumeric("y10-geometry-chord-m4", "Angles AXB and AYB stand on chord AB in the same segment. Angle AXB is 63 degrees. Find angle AYB.", "", "63", "Angles in the same segment are equal."),
+  geometryNumeric("y10-geometry-chord-m5", "ABCD is cyclic. Angle ABC is 87 degrees. Find angle ADC.", "", "93", "Subtract 87 degrees from 180 degrees."),
   geometryChoice("y10-geometry-chord-m6", "Two equal chords in the same circle subtend angles at the centre. Which conclusion is justified?", "A", ["The angles are equal", "The angles are complementary", "Each angle is 90 degrees", "The chords are diameters"], "Equal chords subtend equal central angles."),
-  geometryNumeric("y10-geometry-chord-m7", "A circumference angle is 46 degrees. Find the central angle standing on the same arc.", "x=2(46^\\circ)", "92", "Double the circumference angle."),
+  geometryNumeric("y10-geometry-chord-m7", "A circumference angle is 46 degrees. Find the central angle standing on the same arc.", "", "92", "Double the circumference angle."),
   geometryChoice("y10-geometry-chord-m8", "A student says a 72-degree central angle gives a 144-degree circumference angle on the same arc. What is the best correction?", "B", ["The two angles are equal", "The circumference angle is half the central angle", "Both angles must be 90 degrees", "The angles sum to 180 degrees"], "The centre angle is twice, not half, the circumference angle."),
-  geometryNumeric("y10-geometry-chord-m9", "ABCD is cyclic. Angle ABC is three times angle ADC. Find angle ADC.", "3x+x=180^\\circ", "45", "Opposite angles sum to 180 degrees, so four equal parts total 180 degrees."),
+  geometryNumeric("y10-geometry-chord-m9", "ABCD is cyclic. Angle ABC is three times angle ADC. Find angle ADC.", "", "45", "Opposite angles sum to 180 degrees, so four equal parts total 180 degrees."),
   geometryChoice("y10-geometry-chord-m10", "Angles APB and AQB both stand on chord AB, but P and Q are on opposite sides of chord AB. Which statement is safest?", "C", ["The angles are equal by the same-segment theorem", "Both angles are 90 degrees", "The same-segment theorem cannot be applied as stated", "One angle is twice the other"], "The same-segment theorem requires the angles to lie in the same segment."),
 ];
 
@@ -324,30 +324,30 @@ const circleTangentsWorked: WorkedExample[] = [
 ];
 
 const circleTangentsGuided: PracticeQuestion[] = [
-  geometryNumeric("y10-geometry-tangent-g1", "A tangent touches a circle at T and OT is a radius. Find the angle between OT and the tangent.", "OT\\perp\\text{ tangent at T}", "90", "A radius is perpendicular to a tangent at the point of contact."),
-  geometryNumeric("y10-geometry-tangent-g2", "Tangents PA and PB are drawn from the same external point P. If PA = 9, find PB.", "PA=PB", "9", "Tangents from one external point are equal in length."),
+  geometryNumeric("y10-geometry-tangent-g1", "A tangent touches a circle at T and OT is a radius. Find the angle between OT and the tangent.", "", "90", "A radius is perpendicular to a tangent at the point of contact."),
+  geometryNumeric("y10-geometry-tangent-g2", "Tangents PA and PB are drawn from the same external point P. If PA = 9, find PB.", "", "9", "Tangents from one external point are equal in length."),
   geometryChoice("y10-geometry-tangent-g3", "A line touches a circle at exactly one point. What is the line called?", "C", ["Radius", "Chord", "Tangent", "Diameter"], "A tangent touches a circle at one point."),
   geometryChoice("y10-geometry-tangent-g4", "A tangent touches a circle at T. A chord through T forms a 48-degree angle with the tangent. Which angle is also 48 degrees?", "D", ["The central angle standing on the chord", "Every angle in the circle", "The angle between the radius and tangent", "The angle in the alternate segment standing on the chord"], "The alternate segment theorem matches the tangent-chord angle with the angle in the alternate segment."),
 ];
 
 const circleTangentsIndependent: PracticeQuestion[] = [
-  geometryNumeric("y10-geometry-tangent-i1", "Tangents QA and QB come from the same external point Q. If QA = 13, find QB.", "QA=QB", "13", "The tangent lengths are equal."),
+  geometryNumeric("y10-geometry-tangent-i1", "Tangents QA and QB come from the same external point Q. If QA = 13, find QB.", "", "13", "The tangent lengths are equal."),
   geometryChoice("y10-geometry-tangent-i2", "Which description identifies a radius?", "A", ["A segment from the centre to the circle", "A line touching the circle once", "A segment joining any two points on the circle", "A chord through the centre only"], "A radius joins the centre to a point on the circle."),
-  geometryNumeric("y10-geometry-tangent-i3", "PT is tangent at T, OT is a radius, OT = 5 and OP = 13. Find PT.", "5^2+PT^2=13^2", "12", "The tangent-radius angle is 90 degrees, so Pythagoras gives PT = 12."),
+  geometryNumeric("y10-geometry-tangent-i3", "PT is tangent at T, OT is a radius, OT = 5 and OP = 13. Find PT.", "", "12", "The tangent-radius angle is 90 degrees, so Pythagoras gives PT = 12."),
   geometryChoice("y10-geometry-tangent-i4", "Which theorem justifies that angle OTP is 90 degrees when PT is tangent at T and OT is a radius?", "B", ["Tangents from an external point are equal", "A radius is perpendicular to a tangent at contact", "Angles in the same segment are equal", "Opposite cyclic angles sum to 180 degrees"], "The radius-tangent theorem applies directly."),
   geometryChoice("y10-geometry-tangent-i5", "A chord and a tangent meet at T. Which theorem connects their angle with an angle at the circumference in the opposite segment?", "D", ["Centre-angle theorem", "Semicircle theorem", "Equal tangent theorem", "Alternate segment theorem"], "The alternate segment theorem makes this connection."),
 ];
 
 const circleTangentsMastery: PracticeQuestion[] = [
-  geometryNumeric("y10-geometry-tangent-m1", "A radius meets a tangent at the point of contact. Find the angle between them.", "\\text{radius}\\perp\\text{ tangent}", "90", "A radius and tangent are perpendicular at contact."),
-  geometryNumeric("y10-geometry-tangent-m2", "Tangents PA and PB come from external point P. If PA = 11, find PB.", "PA=PB", "11", "Tangents from the same external point are equal."),
+  geometryNumeric("y10-geometry-tangent-m1", "A radius meets a tangent at the point of contact. Find the angle between them.", "", "90", "A radius and tangent are perpendicular at contact."),
+  geometryNumeric("y10-geometry-tangent-m2", "Tangents PA and PB come from external point P. If PA = 11, find PB.", "", "11", "Tangents from the same external point are equal."),
   geometryChoice("y10-geometry-tangent-m3", "Which segment joins two points on a circle?", "B", ["Radius", "Chord", "Tangent", "Arc"], "A chord joins two points on a circle."),
   geometryChoice("y10-geometry-tangent-m4", "Which fact creates a right triangle when a radius is drawn to a tangent point?", "A", ["Radius perpendicular to tangent", "Angles in the same segment", "Equal chords subtend equal angles", "Opposite cyclic angles sum to 180 degrees"], "The tangent-radius angle is 90 degrees."),
-  geometryNumeric("y10-geometry-tangent-m5", "OT is a radius of length 8, PT is tangent at T and OP = 17. Find PT.", "8^2+PT^2=17^2", "15", "Use the right triangle formed by the radius and tangent."),
+  geometryNumeric("y10-geometry-tangent-m5", "OT is a radius of length 8, PT is tangent at T and OP = 17. Find PT.", "", "15", "Use the right triangle formed by the radius and tangent."),
   geometryChoice("y10-geometry-tangent-m6", "A tangent and chord meet at T. Their angle is 55 degrees. Which angle is 55 degrees?", "C", ["The angle between the radius and tangent", "The central angle standing on the chord", "The angle in the alternate segment standing on the chord", "Every circumference angle"], "Use the alternate segment theorem."),
-  geometryNumeric("y10-geometry-tangent-m7", "Tangents XA and XB come from X. If XA = 3y + 2 and XB = 20, find y.", "3y+2=20", "6", "Equal tangent lengths give 3y + 2 = 20."),
+  geometryNumeric("y10-geometry-tangent-m7", "Tangents XA and XB come from X. If XA = 3y + 2 and XB = 20, find y.", "", "6", "Equal tangent lengths give 3y + 2 = 20."),
   geometryChoice("y10-geometry-tangent-m8", "A student says a tangent can cross a circle at two points. What is the best correction?", "D", ["A tangent always passes through the centre", "A tangent is another name for a chord", "A tangent must have length zero", "A tangent touches the circle at one point"], "A line meeting a circle at two points is a secant, not a tangent."),
-  geometryNumeric("y10-geometry-tangent-m9", "PT is tangent at T, OT = 9 and OP = 15. Find PT.", "9^2+PT^2=15^2", "12", "The radius-tangent angle is 90 degrees, so use Pythagoras."),
+  geometryNumeric("y10-geometry-tangent-m9", "PT is tangent at T, OT = 9 and OP = 15. Find PT.", "", "12", "The radius-tangent angle is 90 degrees, so use Pythagoras."),
   geometryChoice("y10-geometry-tangent-m10", "From external point P, PA and PB are tangents. OA and OB are radii. Which pair of facts is enough to begin proving right triangles OAP and OBP congruent?", "B", ["OA and PA are parallel; OB and PB are parallel", "OA = OB; PA = PB; each radius is perpendicular to its tangent", "Angles OPA and OPB are both central angles", "AB is a diameter; OP is a tangent"], "Radii are equal, tangent lengths are equal, and both triangles are right-angled at contact."),
 ];
 
