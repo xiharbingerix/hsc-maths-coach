@@ -1425,14 +1425,14 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-g1",
           "A female weighing 60 kg consumes 3 standard drinks over 1 hour. Calculate her BAC. Use BAC_female = (10N − 7.5H)/(5.5M).",
-          "\\text{BAC}_\\text{female} = \\frac{10(3) - 7.5(1)}{5.5(60)}",
+          "",
           "0.068",
           ["0.0682", "0.07"]
         ),
         formulaAnswer(
           "y11s-bac-g2",
           "A person has a BAC of 0.045. How many hours must pass before their BAC reaches zero? Use Time = BAC/0.015.",
-          "\\text{Time} = \\frac{0.045}{0.015}",
+          "",
           "3",
           ["3.0", "3 hours", "3h"]
         ),
@@ -1451,7 +1451,7 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-g4",
           "The adult dose is 400 mg. Find the dose for an 8-year-old using Young's formula: D = A/(A+12) × Adult dose.",
-          "D = \\frac{8}{8+12} \\times 400 = \\frac{8}{20} \\times 400",
+          "",
           "160 mg",
           ["160", "160mg"]
         ),
@@ -1460,21 +1460,21 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-i1",
           "A male weighing 70 kg consumes 5 standard drinks over 3 hours. Calculate his BAC. Use BAC_male = (10N − 7.5H)/(6.8M).",
-          "\\text{BAC} = \\frac{10(5) - 7.5(3)}{6.8(70)} = \\frac{50 - 22.5}{476}",
+          "",
           "0.058",
           ["0.0578", "0.06"]
         ),
         formulaAnswer(
           "y11s-bac-i2",
           "A person has a BAC of 0.096. How many hours until their BAC reaches zero? Use Time = BAC/0.015.",
-          "\\text{Time} = \\frac{0.096}{0.015}",
+          "",
           "6.4",
           ["6.4 hours", "6.4h"]
         ),
         formulaAnswer(
           "y11s-bac-i3",
           "Adult dose is 600 mg. Find the dose for a child weighing 28 kg using Clark's formula: D = W/70 × Adult dose.",
-          "D = \\frac{28}{70} \\times 600",
+          "",
           "240 mg",
           ["240", "240mg"]
         ),
@@ -1488,7 +1488,7 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-i5",
           "A child is 18 months old. The adult dose is 150 mg. Use Fried's formula: D = Age(months)/150 × Adult dose.",
-          "D = \\frac{18}{150} \\times 150",
+          "",
           "18 mg",
           ["18", "18mg"]
         ),
@@ -1515,28 +1515,28 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-m1",
           "A male weighing 90 kg consumes 6 standard drinks over 2 hours. Find his BAC. Use BAC_male = (10N − 7.5H)/(6.8M).",
-          "\\text{BAC} = \\frac{10(6) - 7.5(2)}{6.8(90)} = \\frac{60-15}{612}",
+          "",
           "0.074",
           ["0.0735", "0.073", "0.07"]
         ),
         formulaAnswer(
           "y11s-bac-m2",
           "A female weighing 55 kg consumes 2 standard drinks over 1 hour. Find her BAC. Use BAC_female = (10N − 7.5H)/(5.5M).",
-          "\\text{BAC} = \\frac{10(2) - 7.5(1)}{5.5(55)} = \\frac{20-7.5}{302.5}",
+          "",
           "0.041",
           ["0.0413", "0.04"]
         ),
         formulaAnswer(
           "y11s-bac-m3",
           "A person has a BAC of 0.030. How many hours until their BAC reaches zero?",
-          "\\text{Time} = \\frac{0.030}{0.015}",
+          "",
           "2",
           ["2.0", "2 hours", "2h"]
         ),
         formulaAnswer(
           "y11s-bac-m4",
           "A person has a BAC of 0.108. How many hours until their BAC reaches zero?",
-          "\\text{Time} = \\frac{0.108}{0.015}",
+          "",
           "7.2",
           ["7.2 hours", "7.2h"]
         ),
@@ -1550,14 +1550,14 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-m6",
           "Adult dose is 800 mg. Find the dose for a 4-year-old using Young's formula: D = A/(A+12) × Adult dose.",
-          "D = \\frac{4}{4+12} \\times 800 = \\frac{4}{16} \\times 800",
+          "",
           "200 mg",
           ["200", "200mg"]
         ),
         formulaAnswer(
           "y11s-bac-m7",
           "Adult dose is 500 mg. Find the dose for a child weighing 35 kg using Clark's formula: D = W/70 × Adult dose.",
-          "D = \\frac{35}{70} \\times 500",
+          "",
           "250 mg",
           ["250", "250mg"]
         ),
@@ -1571,7 +1571,7 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-bac-m9",
           "A child is 24 months old. The adult dose is 200 mg. Use Fried's formula: D = Age(months)/150 × Adult dose.",
-          "D = \\frac{24}{150} \\times 200",
+          "",
           "32 mg",
           ["32", "32mg"]
         ),
@@ -1678,21 +1678,21 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-fer-g1",
           "Evaluate 3x + 7 when x = 4.",
-          "3(4) + 7",
+          "",
           "19",
           ["19.0"]
         ),
         formulaAnswer(
           "y11s-fer-g2",
           "Solve 2x + 6 = 18.",
-          "2x = 18 - 6 = 12,\\quad x = 6",
+          "",
           "6",
           ["6.0", "x=6"]
         ),
         formulaAnswer(
           "y11s-fer-g3",
           "Solve 4x − 3 = 17.",
-          "4x = 17 + 3 = 20,\\quad x = 5",
+          "",
           "5",
           ["5.0", "x=5"]
         ),
@@ -1708,28 +1708,28 @@ export function year11StandardFormulasEquationsLessonOverride(
         formulaAnswer(
           "y11s-fer-i1",
           "Evaluate 2x² + 5 when x = 3.",
-          "2(3)^2 + 5 = 2(9) + 5 = 18 + 5",
+          "",
           "23",
           ["23.0"]
         ),
         formulaAnswer(
           "y11s-fer-i2",
           "Solve 7x + 4 = 39.",
-          "7x = 35,\\quad x = 5",
+          "",
           "5",
           ["5.0", "x=5"]
         ),
         formulaAnswer(
           "y11s-fer-i3",
           "Solve 3x − 12 = 0.",
-          "3x = 12,\\quad x = 4",
+          "",
           "4",
           ["4.0", "x=4"]
         ),
         formulaAnswer(
           "y11s-fer-i4",
           "A taxi charges a $4 flag-fall plus $2.50 per km. The fare was $19. Find the distance.",
-          "4 + 2.5d = 19,\\quad 2.5d = 15,\\quad d = 6",
+          "",
           "6 km",
           ["6", "6km"]
         ),
@@ -1760,10 +1760,10 @@ export function year11StandardFormulasEquationsLessonOverride(
         },
       ],
       masteryQuiz: [
-        formulaAnswer("y11s-fer-m1", "Evaluate 5x − 4 when x = 3.", "5(3) - 4", "11", ["11.0"]),
-        formulaAnswer("y11s-fer-m2", "Solve 3x + 7 = 28.", "3x = 21,\\quad x = 7", "7", ["7.0", "x=7"]),
-        formulaAnswer("y11s-fer-m3", "Solve 6x − 9 = 27.", "6x = 36,\\quad x = 6", "6", ["6.0", "x=6"]),
-        formulaAnswer("y11s-fer-m4", "Evaluate x² + 3x when x = 5.", "(5)^2 + 3(5) = 25 + 15", "40", ["40.0"]),
+        formulaAnswer("y11s-fer-m1", "Evaluate 5x − 4 when x = 3.", "", "11", ["11.0"]),
+        formulaAnswer("y11s-fer-m2", "Solve 3x + 7 = 28.", "", "7", ["7.0", "x=7"]),
+        formulaAnswer("y11s-fer-m3", "Solve 6x − 9 = 27.", "", "6", ["6.0", "x=6"]),
+        formulaAnswer("y11s-fer-m4", "Evaluate x² + 3x when x = 5.", "", "40", ["40.0"]),
         financeChoice(
           "y11s-fer-m5",
           "To solve x + 9 = 20, you should:",
@@ -1771,11 +1771,11 @@ export function year11StandardFormulasEquationsLessonOverride(
           ["Subtract 9 from both sides", "Multiply both sides by 9", "Add 9 to both sides", "Divide both sides by 9"],
           "The +9 is undone by subtracting 9 from both sides."
         ),
-        formulaAnswer("y11s-fer-m6", "Solve x/4 = 7.", "x = 7 \\times 4", "28", ["28.0", "x=28"]),
+        formulaAnswer("y11s-fer-m6", "Solve x/4 = 7.", "", "28", ["28.0", "x=28"]),
         formulaAnswer(
           "y11s-fer-m7",
           "A mobile plan costs $30 per month plus $0.10 per SMS. The monthly bill was $37. Find the number of SMSs.",
-          "30 + 0.10n = 37,\\quad 0.10n = 7,\\quad n = 70",
+          "",
           "70",
           ["70 sms", "70 texts"]
         ),
@@ -1786,11 +1786,11 @@ export function year11StandardFormulasEquationsLessonOverride(
           ["Divide both sides by 2", "Subtract 5 from both sides", "Multiply by 5", "Add 13 to both sides"],
           "Undo the +5 first by subtracting 5 from both sides."
         ),
-        formulaAnswer("y11s-fer-m9", "Solve 9x = 63.", "x = 63 \\div 9", "7", ["7.0", "x=7"]),
+        formulaAnswer("y11s-fer-m9", "Solve 9x = 63.", "", "7", ["7.0", "x=7"]),
         formulaAnswer(
           "y11s-fer-m10",
           "Evaluate 3x² − 2x when x = 4.",
-          "3(4)^2 - 2(4) = 3(16) - 8 = 48 - 8",
+          "",
           "40",
           ["40.0"]
         ),

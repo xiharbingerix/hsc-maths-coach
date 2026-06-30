@@ -2672,7 +2672,7 @@ export function year11StandardDataAnalysisLessonOverride(
         dataAnswer(
           "y11s-dcs-i2",
           "A school has 480 boys and 320 girls. A stratified sample of 100 students is needed. How many boys should be in the sample?",
-          "\\frac{480}{800} \\times 100",
+          "",
           "60",
           ["60 boys", "60 students"]
         ),
@@ -2723,11 +2723,11 @@ export function year11StandardDataAnalysisLessonOverride(
       ],
       masteryQuiz: [
         financeChoice("y11s-dcs-m1", "A principal records the exact age of every one of the 850 students in the school. This method of data collection is a:", "C", ["Sample", "Stratified sample", "Census", "Random survey"], "Collecting from every member of the population (all 850 students) is a census, not a sample."),
-        dataAnswer("y11s-dcs-m2", "A company has 240 full-time and 160 part-time staff. A stratified sample of 50 is needed. How many part-time staff are selected?", "\\frac{160}{400} \\times 50", "20", ["20 part-time", "20 staff"]),
+        dataAnswer("y11s-dcs-m2", "A company has 240 full-time and 160 part-time staff. A stratified sample of 50 is needed. How many part-time staff are selected?", "", "20", ["20 part-time", "20 staff"]),
         financeChoice("y11s-dcs-m3", "Simple random sampling uses:", "B", ["Only volunteers", "Equal probability for every individual", "Subgroup proportions", "Every 5th person on a list"], "Every individual has an equal chance of selection."),
         financeChoice("y11s-dcs-m4", "A survey only emailed to club members and asking about club satisfaction is likely to have:", "A", ["Self-selection bias", "Stratified accuracy", "Random error only", "No bias at all"], "Only members who choose to respond reply, skewing results toward those with strong opinions."),
         financeChoice("y11s-dcs-m5", "Which question is least biased?", "D", ["Don't you love sport?", "How much of your day do you waste sitting?", "Isn't exercise clearly better than TV?", "How many hours per week do you exercise?"], "Option D is factual and neutral."),
-        dataAnswer("y11s-dcs-m6", "A school has 600 students: 200 Year 10, 200 Year 11, 200 Year 12. A stratified sample of 90 is needed. How many from each year?", "\\frac{200}{600} \\times 90 = 30 \\text{ per year}", "30", ["30 each", "30 per year"]),
+        dataAnswer("y11s-dcs-m6", "A school has 600 students: 200 Year 10, 200 Year 11, 200 Year 12. A stratified sample of 90 is needed. How many from each year?", "", "30", ["30 each", "30 per year"]),
         financeChoice("y11s-dcs-m7", "A company has 300 managers and 700 workers. To survey 50 staff while keeping the manager-to-worker ratio, which sampling method is being used?", "B", ["Simple random sample", "Stratified sample", "Census", "Self-selected sample"], "Splitting the population into subgroups (managers, workers) and sampling each in proportion is stratified sampling."),
         financeChoice("y11s-dcs-m8", "Increasing the sample size will NOT fix bias caused by:", "C", ["Random error", "Sampling variability", "Convenience sampling", "Rounding errors"], "Bias from convenience sampling means the method excluded parts of the population — more observations from the same biased method do not fix this."),
         financeChoice("y11s-dcs-m9", "A student uses last year's published Bureau of Statistics figures for her project instead of surveying anyone herself. This data is:", "C", ["Primary data", "Stratified data", "Secondary data", "Census data"], "Data collected by someone else and already published is secondary data; primary data is gathered first-hand for the current investigation."),
