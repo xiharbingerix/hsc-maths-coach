@@ -35,42 +35,42 @@ const ciWorked: WorkedExample[] = [
 ];
 
 const ciGuided: PracticeQuestion[] = [
-  fa("y11adv-sf-ci-g1", "Find the value of $2000 invested at 5% p.a. compounded annually for 3 years.", "A=P(1+r)^n", "$2315.25", ["2315.25"]),
+  fa("y11adv-sf-ci-g1", "Find the value of $2000 invested at 5% p.a. compounded annually for 3 years.", "", "$2315.25", ["2315.25"]),
   mc("y11adv-sf-ci-g2", "What does 'compounded quarterly' mean?", "B",
     [{ label: "A", text: "Interest is added once a year, then divided into quarters" }, { label: "B", text: "Interest is calculated and added 4 times per year" }, { label: "C", text: "The annual rate is multiplied by 4" }, { label: "D", text: "The investment lasts for one quarter of a year" }],
     "Compounded quarterly means interest is calculated 4 times per year. Each period uses the rate ÷ 4 and the total number of periods = years × 4.", ""),
-  fa("y11adv-sf-ci-g3", "$6000 at 3% p.a. compounded monthly for 2 years. Find A.", "A=6000(1+0.03/12)^{24}", "$6370.16", ["6370.16"]),
+  fa("y11adv-sf-ci-g3", "$6000 at 3% p.a. compounded monthly for 2 years. Find A.", "", "$6370.16", ["6370.16"]),
   mc("y11adv-sf-ci-g4", "Why does compound interest earn more than simple interest over time?", "C",
     [{ label: "A", text: "Because the rate is higher" }, { label: "B", text: "Because there are more periods" }, { label: "C", text: "Because interest is earned on previous interest (interest on interest)" }, { label: "D", text: "Because the principal increases automatically" }],
     "The key feature of compound interest is that each period's interest is added to the principal, so future interest is calculated on a larger amount. This 'interest on interest' effect accelerates growth.", ""),
 ];
 
 const ciIndep: PracticeQuestion[] = [
-  fa("y11adv-sf-ci-i1", "$10 000 at 8% p.a. compounded annually for 5 years. Find A.", "A=10000(1.08)^5", "$14 693.28", ["14693.28"]),
+  fa("y11adv-sf-ci-i1", "$10 000 at 8% p.a. compounded annually for 5 years. Find A.", "", "$14 693.28", ["14693.28"]),
   fa("y11adv-sf-ci-i2", "$4000 at 6% p.a. compounded semi-annually for 4 years. Find the interest earned.", "", "$1039.17", ["1039.17"]),
   mc("y11adv-sf-ci-i3", "Which gives the highest value after 2 years on $1000 at 6% p.a.?", "D",
     [{ label: "A", text: "Simple interest" }, { label: "B", text: "Compounded annually" }, { label: "C", text: "Compounded quarterly" }, { label: "D", text: "Compounded monthly" }],
     "More frequent compounding means interest is earned on interest more often. Monthly compounding gives the highest effective rate and hence the highest final value.", ""),
-  fa("y11adv-sf-ci-i4", "How many years until $5000 doubles at 7% p.a. compounded annually? (Use trial or logarithms.)", "A=5000(1.07)^n=10000", "≈10.2 years", ["10.2"]),
+  fa("y11adv-sf-ci-i4", "How many years until $5000 doubles at 7% p.a. compounded annually? (Use trial or logarithms.)", "", "≈10.2 years", ["10.2"]),
   mc("y11adv-sf-ci-i5", "The compound interest formula A = P(1 + r)ⁿ is a geometric sequence with:", "B",
     [{ label: "A", text: "First term A and common ratio P" }, { label: "B", text: "First term P and common ratio (1 + r)" }, { label: "C", text: "First term r and common ratio n" }, { label: "D", text: "First term (1 + r) and common ratio P" }],
     "Each year the investment is multiplied by (1 + r). So starting from P, the values P, P(1+r), P(1+r)², ... form a geometric sequence with a = P and ratio (1 + r).", ""),
 ];
 
 const ciMastery: PracticeQuestion[] = [
-  fa("y11adv-sf-ci-m1", "$3000 at 4% p.a. compounded annually for 10 years. Find A.", "A=3000(1.04)^{10}", "$4440.73", ["4440.73"]),
+  fa("y11adv-sf-ci-m1", "$3000 at 4% p.a. compounded annually for 10 years. Find A.", "", "$4440.73", ["4440.73"]),
   mc("y11adv-sf-ci-m2", "For $1000 at 12% p.a. compounded monthly, the effective annual rate is:", "C",
     [{ label: "A", text: "12%" }, { label: "B", text: "12.36%" }, { label: "C", text: "12.68%" }, { label: "D", text: "12.24%" }],
     "Monthly rate = 1%. A = 1000(1.01)^12 = 1126.83. Effective annual rate = (1126.83/1000 − 1) × 100 = 12.68%.", ""),
-  fa("y11adv-sf-ci-m3", "Find P if A = $10000 after 5 years at 6% p.a. compounded annually.", "10000=P(1.06)^5", "$7472.58", ["7472.58"]),
+  fa("y11adv-sf-ci-m3", "Find P if A = $10000 after 5 years at 6% p.a. compounded annually.", "", "$7472.58", ["7472.58"]),
   mc("y11adv-sf-ci-m4", "The number of compounding periods n for $2000 to reach $3000 at 5% p.a. annually satisfies:", "B",
     [{ label: "A", text: "$2000(1.05)^n = 2000$" }, { label: "B", text: "$2000(1.05)^n = 3000$" }, { label: "C", text: "$n(1.05) = 3000$" }, { label: "D", text: "$2000 + 0.05n = 3000$" }],
     "The compound interest formula gives the future value A = P(1+r)ⁿ. Here A = 3000, P = 2000, r = 0.05: 2000(1.05)ⁿ = 3000.", ""),
-  fa("y11adv-sf-ci-m5", "$7500 at 3.6% p.a. compounded monthly for 3 years. Find A.", "A=7500(1+0.036/12)^{36}", "$8348.45", ["8348.45"]),
+  fa("y11adv-sf-ci-m5", "$7500 at 3.6% p.a. compounded monthly for 3 years. Find A.", "", "$8348.45", ["8348.45"]),
   mc("y11adv-sf-ci-m6", "Compound interest with r = 0 means:", "A",
     [{ label: "A", text: "The investment doesn't grow" }, { label: "B", text: "The investment doubles each period" }, { label: "C", text: "A = P + n" }, { label: "D", text: "Simple and compound interest are different" }],
     "A = P(1+0)ⁿ = P(1)ⁿ = P. With zero interest rate, the investment remains unchanged at P.", ""),
-  fa("y11adv-sf-ci-m7", "What annual rate (compounded annually) doubles $1 in 10 years?", "(1+r)^{10}=2", "≈7.18%", ["7.18%", "0.0718"]),
+  fa("y11adv-sf-ci-m7", "What annual rate (compounded annually) doubles $1 in 10 years?", "", "≈7.18%", ["7.18%", "0.0718"]),
   mc("y11adv-sf-ci-m8", "The geometric connection: if P, A₁, A₂, A₃,... are yearly balances, then the sequence has:", "B",
     [{ label: "A", text: "Common difference r" }, { label: "B", text: "Common ratio (1 + r)" }, { label: "C", text: "Common difference P" }, { label: "D", text: "Common ratio P" }],
     "Each year's balance = previous year's balance × (1 + r). This is the definition of a geometric sequence with ratio (1 + r).", ""),
@@ -102,11 +102,11 @@ const rfWorked: WorkedExample[] = [
 ];
 
 const rfGuided: PracticeQuestion[] = [
-  fa("y11adv-sf-rf-g1", "An arithmetic sequence has T₁ = 3, d = 7. Write the recursive formula and find T₅.", "T_n=T_{n-1}+7,\\;T_1=3", "T₅ = 31", ["31"]),
+  fa("y11adv-sf-rf-g1", "An arithmetic sequence has T₁ = 3, d = 7. Write the recursive formula and find T₅.", "", "T₅ = 31", ["31"]),
   mc("y11adv-sf-rf-g2", "A geometric sequence has T₁ = 2, r = 3. Its recursive formula is:", "B",
     [{ label: "A", text: "$T_n = T_{n-1} + 3$" }, { label: "B", text: "$T_n = 3 \\cdot T_{n-1}$, $T_1=2$" }, { label: "C", text: "$T_n = 2 \\cdot T_{n-1}$, $T_1=3$" }, { label: "D", text: "$T_n = T_{n-1}^3$" }],
     "Each term is multiplied by 3. So Tₙ = 3·Tₙ₋₁ with T₁ = 2.", ""),
-  fa("y11adv-sf-rf-g3", "$10000 loan at 12% p.a. (1% monthly), $200/month repayment. Find balance after 1 month.", "A_1=10000(1.01)-200", "$9900", ["9900"]),
+  fa("y11adv-sf-rf-g3", "$10000 loan at 12% p.a. (1% monthly), $200/month repayment. Find balance after 1 month.", "", "$9900", ["9900"]),
   mc("y11adv-sf-rf-g4", "What does the recursive loan formula Aₙ = Aₙ₋₁ × (1 + r) − M model?", "C",
     [{ label: "A", text: "Simple interest with constant repayments" }, { label: "B", text: "Growing savings with regular deposits" }, { label: "C", text: "A loan balance: interest is added, then a repayment subtracts from the total" }, { label: "D", text: "Compound interest only (no repayments)" }],
     "Aₙ₋₁ × (1+r) is the old balance grown by one period's interest. Subtracting M removes the repayment. This exactly models a reducing-balance loan.", ""),
@@ -117,7 +117,7 @@ const rfIndep: PracticeQuestion[] = [
   mc("y11adv-sf-rf-i2", "A recursive formula for a geometric sequence with a = 5 and r = −2 is:", "C",
     [{ label: "A", text: "$T_n = T_{n-1} - 2$, $T_1=5$" }, { label: "B", text: "$T_n = -2 + T_{n-1}$, $T_1=5$" }, { label: "C", text: "$T_n = -2 \\cdot T_{n-1}$, $T_1=5$" }, { label: "D", text: "$T_n = 5 \\cdot T_{n-1}$, $T_1=-2$" }],
     "Geometric: Tₙ = r·Tₙ₋₁. With r = −2: Tₙ = −2·Tₙ₋₁, T₁ = 5.", ""),
-  fa("y11adv-sf-rf-i3", "$5000 investment, 2% per period added each period. Recursive formula and value after 2 periods.", "A_n=A_{n-1}\\times1.02", "$5202", ["5202"]),
+  fa("y11adv-sf-rf-i3", "$5000 investment, 2% per period added each period. Recursive formula and value after 2 periods.", "", "$5202", ["5202"]),
   mc("y11adv-sf-rf-i4", "The recursive formula Aₙ = 1.005·Aₙ₋₁ − 500 represents:", "B",
     [{ label: "A", text: "A savings account with $500 deposited monthly at 0.5% per month" }, { label: "B", text: "A loan at 0.5% per month with $500 monthly repayments" }, { label: "C", text: "A loan at 5% per month with $500 monthly repayments" }, { label: "D", text: "Simple interest of $500 per month" }],
     "Monthly interest rate 0.5% gives factor 1.005. Subtracting 500 is the monthly repayment. This is a reducing-balance loan structure.", ""),
@@ -129,7 +129,7 @@ const rfMastery: PracticeQuestion[] = [
   mc("y11adv-sf-rf-m2", "Which recursive formula generates 3, 6, 12, 24, ...?", "B",
     [{ label: "A", text: "$T_n = T_{n-1} + 3$, $T_1=3$" }, { label: "B", text: "$T_n = 2T_{n-1}$, $T_1=3$" }, { label: "C", text: "$T_n = 3T_{n-1}$, $T_1=2$" }, { label: "D", text: "$T_n = T_{n-1}^2$" }],
     "Each term doubles: 3→6→12→24. So Tₙ = 2·Tₙ₋₁ with T₁ = 3.", ""),
-  fa("y11adv-sf-rf-m3", "$15000 loan at 9% p.a. (0.75% monthly), $300/month repayment. Find A₁.", "A_1=15000(1.0075)-300", "$14 812.50", ["14812.50"]),
+  fa("y11adv-sf-rf-m3", "$15000 loan at 9% p.a. (0.75% monthly), $300/month repayment. Find A₁.", "", "$14 812.50", ["14812.50"]),
   mc("y11adv-sf-rf-m4", "A savings plan has Aₙ = 1.004·Aₙ₋₁ + 500 and A₀ = 0. This means:", "C",
     [{ label: "A", text: "A loan with 0.4% monthly interest and $500 repayments" }, { label: "B", text: "A flat $500 gain each period" }, { label: "C", text: "A savings account with 0.4% monthly interest and $500 regular deposits" }, { label: "D", text: "Compound interest at 4% per month on $500" }],
     "The +500 means money is being added (deposited), not removed. The factor 1.004 applies 0.4% interest before the deposit. This is a superannuation/savings model.", ""),
@@ -137,7 +137,7 @@ const rfMastery: PracticeQuestion[] = [
   mc("y11adv-sf-rf-m6", "The closed form of Tₙ = 2·Tₙ₋₁, T₁ = 3 is:", "B",
     [{ label: "A", text: "$T_n = 3n$" }, { label: "B", text: "$T_n = 3 \\cdot 2^{n-1}$" }, { label: "C", text: "$T_n = 2^n$" }, { label: "D", text: "$T_n = 3 + 2(n-1)$" }],
     "Recursive Tₙ = 2·Tₙ₋₁ with T₁ = 3 is a geometric sequence. Closed form: Tₙ = a·rⁿ⁻¹ = 3·2ⁿ⁻¹.", ""),
-  fa("y11adv-sf-rf-m7", "Find n such that Tₙ = 96 in the sequence T₁ = 3, Tₙ = 2·Tₙ₋₁.", "3\\cdot2^{n-1}=96", "n = 6", ["6"]),
+  fa("y11adv-sf-rf-m7", "Find n such that Tₙ = 96 in the sequence T₁ = 3, Tₙ = 2·Tₙ₋₁.", "", "n = 6", ["6"]),
   mc("y11adv-sf-rf-m8", "Recursive formulas are useful for loan/investment calculations because:", "C",
     [{ label: "A", text: "They always give a simpler answer than closed-form formulas" }, { label: "B", text: "They eliminate the need for compounding" }, { label: "C", text: "They model step-by-step processes (add interest, subtract payment) that a spreadsheet or calculator can iterate directly" }, { label: "D", text: "They are only useful for arithmetic sequences" }],
     "Recursive formulas compute each period from the last — exactly how loan amortisation works: each month you compute interest on the current balance, then subtract the repayment. Spreadsheets iterate this naturally.", ""),
@@ -171,42 +171,42 @@ const superWorked: WorkedExample[] = [
 ];
 
 const superGuided: PracticeQuestion[] = [
-  fa("y11adv-sf-sup-g1", "$200/month at 6% p.a. compounded monthly for 5 years. Find FV.", "FV=200\\cdot\\frac{(1.005)^{60}-1}{0.005}", "$13 954.01", ["13954.01"]),
+  fa("y11adv-sf-sup-g1", "$200/month at 6% p.a. compounded monthly for 5 years. Find FV.", "", "$13 954.01", ["13954.01"]),
   mc("y11adv-sf-sup-g2", "In the FV formula FV = M·[(1+r)ⁿ − 1]/r, what does M represent?", "B",
     [{ label: "A", text: "The total amount saved" }, { label: "B", text: "The regular deposit made each period" }, { label: "C", text: "The interest rate" }, { label: "D", text: "The number of periods" }],
     "M is the regular payment (contribution) made each compounding period. It could be a weekly, monthly, or annual amount, depending on the period chosen.", ""),
-  fa("y11adv-sf-sup-g3", "$1000/year at 5% p.a. compounded annually for 10 years. Find FV.", "FV=1000\\cdot\\frac{(1.05)^{10}-1}{0.05}", "$12 577.89", ["12577.89"]),
+  fa("y11adv-sf-sup-g3", "$1000/year at 5% p.a. compounded annually for 10 years. Find FV.", "", "$12 577.89", ["12577.89"]),
   mc("y11adv-sf-sup-g4", "Why does superannuation grow faster than a single lump sum at the same rate?", "B",
     [{ label: "A", text: "Superannuation funds pay higher interest rates" }, { label: "B", text: "Each deposit earns compound interest for a different number of periods, and later deposits still accumulate interest" }, { label: "C", text: "The government adds extra money" }, { label: "D", text: "Regular deposits reduce the interest rate charged" }],
     "The first deposit earns interest for all n periods, the second for n−1 periods, etc. Summing these geometric series terms gives the annuity formula. More deposits means more compounding opportunities.", ""),
 ];
 
 const superIndep: PracticeQuestion[] = [
-  fa("y11adv-sf-sup-i1", "$400 per quarter at 4% p.a. compounded quarterly for 8 years. Find FV.", "FV=400\\cdot\\frac{(1.01)^{32}-1}{0.01}", "$15 095.65", ["15095.65"]),
+  fa("y11adv-sf-sup-i1", "$400 per quarter at 4% p.a. compounded quarterly for 8 years. Find FV.", "", "$15 095.65", ["15095.65"]),
   mc("y11adv-sf-sup-i2", "A person deposits $500/month for 30 years at 6% p.a. monthly. The total deposited is:", "B",
     [{ label: "A", text: "$150 000" }, { label: "B", text: "$180 000" }, { label: "C", text: "$360 000" }, { label: "D", text: "$60 000" }],
     "Total deposited = 500 × 12 × 30 = 500 × 360 = $180 000. The FV will be much higher due to compound interest.", ""),
-  fa("y11adv-sf-sup-i3", "Find FV for $250/month at 4.8% p.a. compounded monthly for 15 years.", "r=0.004,\\;n=180", "$62 171.45", ["62171.45"]),
+  fa("y11adv-sf-sup-i3", "Find FV for $250/month at 4.8% p.a. compounded monthly for 15 years.", "", "$62 171.45", ["62171.45"]),
   mc("y11adv-sf-sup-i4", "Doubling M (the regular payment) while keeping n and r the same will:", "A",
     [{ label: "A", text: "Double the FV" }, { label: "B", text: "More than double the FV" }, { label: "C", text: "Less than double the FV" }, { label: "D", text: "Have no effect on FV if n is large" }],
     "FV = M·[(1+r)ⁿ−1]/r. Since M is a simple multiplier, doubling M exactly doubles FV. Compare with doubling n, which more-than-doubles FV due to the exponential term.", ""),
-  fa("y11adv-sf-sup-i5", "How much must be deposited each month at 5% p.a. compounded monthly to accumulate $50 000 in 10 years?", "50000=M\\cdot\\frac{(1+0.05/12)^{120}-1}{0.05/12}", "≈$321.98/month", ["321.98"]),
+  fa("y11adv-sf-sup-i5", "How much must be deposited each month at 5% p.a. compounded monthly to accumulate $50 000 in 10 years?", "", "≈$321.98/month", ["321.98"]),
 ];
 
 const superMastery: PracticeQuestion[] = [
-  fa("y11adv-sf-sup-m1", "$600/month at 6% p.a. compounded monthly for 20 years. Find FV.", "r=0.005,\\;n=240", "$277 145.49", ["277145.49"]),
+  fa("y11adv-sf-sup-m1", "$600/month at 6% p.a. compounded monthly for 20 years. Find FV.", "", "$277 145.49", ["277145.49"]),
   mc("y11adv-sf-sup-m2", "The FV annuity formula is derived from summing which type of series?", "B",
     [{ label: "A", text: "Arithmetic series" }, { label: "B", text: "Geometric series" }, { label: "C", text: "Telescoping series" }, { label: "D", text: "Harmonic series" }],
     "Each payment M grows by the factor (1+r) each period. The total is M + M(1+r) + M(1+r)² + ... + M(1+r)ⁿ⁻¹, which is a geometric series. Its sum gives the FV formula.", ""),
-  fa("y11adv-sf-sup-m3", "$800/month for 25 years at 7.2% p.a. compounded monthly. How much interest is earned?", "r=0.006,\\;n=300", "FV - 240000", ["$625 296.49 interest", "625296"]),
+  fa("y11adv-sf-sup-m3", "$800/month for 25 years at 7.2% p.a. compounded monthly. How much interest is earned?", "", "FV - 240000", ["$625 296.49 interest", "625296"]),
   mc("y11adv-sf-sup-m4", "Superannuation grows as a geometric series. If n = 0 (no periods), then FV =", "A",
     [{ label: "A", text: "$0$" }, { label: "B", text: "$M$" }, { label: "C", text: "$M \\cdot r$" }, { label: "D", text: "undefined" }],
     "If n = 0: FV = M·[(1+r)⁰−1]/r = M·0/r = 0. No periods → no growth → no future value.", ""),
-  fa("y11adv-sf-sup-m5", "Find M if FV = $100 000 in 15 years at 6% p.a. compounded monthly.", "r=0.005,\\;n=180", "≈$290.98/month", ["290.98"]),
+  fa("y11adv-sf-sup-m5", "Find M if FV = $100 000 in 15 years at 6% p.a. compounded monthly.", "", "≈$290.98/month", ["290.98"]),
   mc("y11adv-sf-sup-m6", "A superannuation account starts with $0. Comparing depositing $500/month vs $6000/year (same annual total) at 6% p.a. compounded monthly:", "B",
     [{ label: "A", text: "Both give the same FV" }, { label: "B", text: "Monthly deposits give a higher FV because each $500 earns interest sooner" }, { label: "C", text: "Annual deposits give a higher FV" }, { label: "D", text: "Cannot be compared without more information" }],
     "Monthly deposits enter the account earlier and earn interest for more periods. The sooner money enters a compound interest environment, the more it grows. Monthly > annual when rates and totals are equal.", ""),
-  fa("y11adv-sf-sup-m7", "A worker starts with $10 000 and deposits $300/month at 4% p.a. compounded monthly for 20 years. Find the total value.", "FV=10000(1+0.04/12)^{240}+300\\cdot\\frac{(1+0.04/12)^{240}-1}{0.04/12}", "≈$110 247.02", ["110247"]),
+  fa("y11adv-sf-sup-m7", "A worker starts with $10 000 and deposits $300/month at 4% p.a. compounded monthly for 20 years. Find the total value.", "", "≈$110 247.02", ["110247"]),
   mc("y11adv-sf-sup-m8", "The connection between the FV annuity formula and geometric series is that:", "C",
     [{ label: "A", text: "Each payment is an arithmetic term" }, { label: "B", text: "The sum of payments equals the future value" }, { label: "C", text: "Each payment grows at rate (1+r) per period; summing all grown payments gives the geometric series whose sum is the FV formula" }, { label: "D", text: "The geometric series formula only applies when all payments are equal" }],
     "Each payment M deposited k periods before the end grows to M(1+r)^k. Summing for k = 1 to n gives M·[(1+r)ⁿ−1]/r, the standard FV annuity formula.", ""),
@@ -240,42 +240,42 @@ const loanWorked: WorkedExample[] = [
 ];
 
 const loanGuided: PracticeQuestion[] = [
-  fa("y11adv-sf-ln-g1", "Find monthly repayment on $15 000 at 6% p.a. monthly over 4 years.", "M=15000\\cdot\\frac{0.005}{1-(1.005)^{-48}}", "$352.28", ["352.28"]),
+  fa("y11adv-sf-ln-g1", "Find monthly repayment on $15 000 at 6% p.a. monthly over 4 years.", "", "$352.28", ["352.28"]),
   mc("y11adv-sf-ln-g2", "What does the Present Value of an annuity formula calculate?", "C",
     [{ label: "A", text: "How much a single sum grows to" }, { label: "B", text: "The total interest paid over the loan" }, { label: "C", text: "The lump sum today that is equivalent to a stream of future equal repayments" }, { label: "D", text: "The number of payments needed to repay a loan" }],
     "PV of an annuity = the single amount today (the loan principal) that equates in value to making regular payments M over n periods at rate r per period.", ""),
-  fa("y11adv-sf-ln-g3", "Total interest on a $20 000 loan at 7.2% p.a. monthly over 5 years.", "M=20000\\cdot\\frac{0.006}{1-(1.006)^{-60}}", "$3930.00 (approx)", ["3930"]),
+  fa("y11adv-sf-ln-g3", "Total interest on a $20 000 loan at 7.2% p.a. monthly over 5 years.", "", "$3930.00 (approx)", ["3930"]),
   mc("y11adv-sf-ln-g4", "Increasing the loan term (n) while keeping PV and r fixed will:", "C",
     [{ label: "A", text: "Increase the monthly repayment" }, { label: "B", text: "Keep the monthly repayment the same" }, { label: "C", text: "Decrease the monthly repayment but increase total interest" }, { label: "D", text: "Decrease both the monthly repayment and total interest" }],
     "A longer term means more (but smaller) payments. Each payment is smaller, but the loan accrues interest for longer — so total interest increases even as M decreases.", ""),
 ];
 
 const loanIndep: PracticeQuestion[] = [
-  fa("y11adv-sf-ln-i1", "$25 000 loan at 8.4% p.a. monthly over 5 years. Find M.", "r=0.007,\\;n=60", "$511.62", ["511.62"]),
+  fa("y11adv-sf-ln-i1", "$25 000 loan at 8.4% p.a. monthly over 5 years. Find M.", "", "$511.62", ["511.62"]),
   mc("y11adv-sf-ln-i2", "For a $100 000 loan at 6% p.a. monthly over 20 years, total repaid is approximately:", "B",
     [{ label: "A", text: "$100 000" }, { label: "B", text: "$172 000" }, { label: "C", text: "$200 000" }, { label: "D", text: "$150 000" }],
     "Monthly repayment ≈ $716.43. Total = 716.43 × 240 ≈ $171 943. Approximately $172 000 (of which $100 000 is principal and $72 000 is interest).", ""),
-  fa("y11adv-sf-ln-i3", "$30 000 loan at 4.8% p.a. compounded monthly over 3 years. Find total interest.", "M=30000\\cdot\\frac{0.004}{1-(1.004)^{-36}}", "≈$2264", ["2264"]),
+  fa("y11adv-sf-ln-i3", "$30 000 loan at 4.8% p.a. compounded monthly over 3 years. Find total interest.", "", "≈$2264", ["2264"]),
   mc("y11adv-sf-ln-i4", "Early in a reducing-balance loan, most of each payment goes towards:", "B",
     [{ label: "A", text: "Reducing the principal" }, { label: "B", text: "Paying interest" }, { label: "C", text: "Fees" }, { label: "D", text: "Equally split between interest and principal" }],
     "Early payments: the balance is large, so interest = large balance × r is large. Most of the fixed repayment covers this interest; only a small portion reduces the principal. As the balance falls, the interest portion shrinks.", ""),
-  fa("y11adv-sf-ln-i5", "How much can I borrow at 5% p.a. monthly if I can afford $500/month for 20 years?", "PV=500\\cdot\\frac{1-(1+0.05/12)^{-240}}{0.05/12}", "≈$75 939", ["75939"]),
+  fa("y11adv-sf-ln-i5", "How much can I borrow at 5% p.a. monthly if I can afford $500/month for 20 years?", "", "≈$75 939", ["75939"]),
 ];
 
 const loanMastery: PracticeQuestion[] = [
-  fa("y11adv-sf-ln-m1", "$180 000 mortgage at 5.4% p.a. monthly over 30 years. Find M.", "r=0.0045,\\;n=360", "$1011.55", ["1011.55"]),
+  fa("y11adv-sf-ln-m1", "$180 000 mortgage at 5.4% p.a. monthly over 30 years. Find M.", "", "$1011.55", ["1011.55"]),
   mc("y11adv-sf-ln-m2", "The PV annuity formula PV = M·[1−(1+r)^(−n)]/r is derived from:", "B",
     [{ label: "A", text: "Summing an arithmetic series of payments" }, { label: "B", text: "Summing a geometric series of discounted future payments (present values)" }, { label: "C", text: "The compound interest formula alone" }, { label: "D", text: "The future value formula divided by (1+r)ⁿ" }],
     "Each payment M made k periods in the future has present value M(1+r)^(−k). Summing for k = 1 to n gives a geometric series; using the sum formula produces PV = M·[1−(1+r)^(−n)]/r.", ""),
-  fa("y11adv-sf-ln-m3", "$50 000 loan at 6% p.a. monthly over 10 years. Find total interest paid.", "M=50000\\cdot\\frac{0.005}{1-(1.005)^{-120}}", "≈$16 613", ["16613"]),
+  fa("y11adv-sf-ln-m3", "$50 000 loan at 6% p.a. monthly over 10 years. Find total interest paid.", "", "≈$16 613", ["16613"]),
   mc("y11adv-sf-ln-m4", "Two loans: same PV and n, but Loan A at 4% p.a. and Loan B at 8% p.a. Which has a higher monthly repayment?", "B",
     [{ label: "A", text: "Loan A" }, { label: "B", text: "Loan B" }, { label: "C", text: "They are equal" }, { label: "D", text: "Cannot tell without n" }],
     "Higher interest rate means the lender charges more per period. With the same principal and term, the higher-rate loan requires a larger monthly repayment to cover the additional interest.", ""),
-  fa("y11adv-sf-ln-m5", "$120 000 at 4.8% p.a. monthly for 20 years. Find M and total repaid.", "r=0.004,\\;n=240", "M=$779.69; total=$187 125.60", ["779.69"]),
+  fa("y11adv-sf-ln-m5", "$120 000 at 4.8% p.a. monthly for 20 years. Find M and total repaid.", "", "M=$779.69; total=$187 125.60", ["779.69"]),
   mc("y11adv-sf-ln-m6", "Halving the loan term (same PV and r) will:", "B",
     [{ label: "A", text: "Roughly halve the monthly repayment" }, { label: "B", text: "Increase the monthly repayment but reduce total interest" }, { label: "C", text: "Leave the monthly repayment unchanged" }, { label: "D", text: "Double the monthly repayment exactly" }],
     "Halving the term means fewer, larger repayments — so M increases. But the loan is active for fewer years, so less total interest accrues. A shorter term always reduces total interest at the cost of a higher repayment.", ""),
-  fa("y11adv-sf-ln-m7", "A $45 000 car loan at 7.2% p.a. monthly. If M = $600, find n (number of monthly repayments).", "45000=600\\cdot\\frac{1-(1.006)^{-n}}{0.006}", "≈94 months (7.8 years)", ["94"]),
+  fa("y11adv-sf-ln-m7", "A $45 000 car loan at 7.2% p.a. monthly. If M = $600, find n (number of monthly repayments).", "", "≈94 months (7.8 years)", ["94"]),
   mc("y11adv-sf-ln-m8", "The reducing balance in a loan after each payment is:", "C",
     [{ label: "A", text: "Previous balance × (1 + r)" }, { label: "B", text: "Previous balance − M" }, { label: "C", text: "Previous balance × (1 + r) − M" }, { label: "D", text: "Previous balance / (1 + r) + M" }],
     "Each period: (1) interest is added — multiply by (1 + r); (2) repayment is subtracted — subtract M. The recursive formula is Aₙ = Aₙ₋₁(1 + r) − M.", ""),
@@ -284,18 +284,18 @@ const loanMastery: PracticeQuestion[] = [
 // ─── L5: Exam Practice ────────────────────────────────────────────────────────
 
 const sfExGuided: PracticeQuestion[] = [
-  fa("y11adv-sf-ex-g1", "$6000 at 5% p.a. compounded annually for 6 years. Find A.", "A=6000(1.05)^6", "$8040.57", ["8040.57"]),
+  fa("y11adv-sf-ex-g1", "$6000 at 5% p.a. compounded annually for 6 years. Find A.", "", "$8040.57", ["8040.57"]),
   mc("y11adv-sf-ex-g2", "A savings plan deposits $150/month at 4.2% p.a. compounded monthly for 5 years. FV ≈", "B",
     [{ label: "A", text: "$9000" }, { label: "B", text: "$9981.71" }, { label: "C", text: "$10 800" }, { label: "D", text: "$9800" }],
     "r = 0.0035, n = 60. FV = 150·[(1.0035)^60−1]/0.0035 = 150×66.5447 ≈ $9981.71.", ""),
-  fa("y11adv-sf-ex-g3", "$18 000 loan at 6% p.a. monthly over 3 years. Find M and total interest.", "r=0.005,\\;n=36", "M=$547.58; interest≈$772.88", ["547.58"]),
+  fa("y11adv-sf-ex-g3", "$18 000 loan at 6% p.a. monthly over 3 years. Find M and total interest.", "", "M=$547.58; interest≈$772.88", ["547.58"]),
   mc("y11adv-sf-ex-g4", "The recursive formula for a loan of $10 000 at 0.6% monthly with $200 repayments is:", "C",
     [{ label: "A", text: "$A_n = A_{n-1} + 0.006 - 200$" }, { label: "B", text: "$A_n = A_{n-1} - 200$" }, { label: "C", text: "$A_n = 1.006A_{n-1} - 200$" }, { label: "D", text: "$A_n = A_{n-1}/1.006 - 200$" }],
     "Each period: multiply by 1.006 (add 0.6% interest), then subtract $200 repayment. Aₙ = 1.006·Aₙ₋₁ − 200.", ""),
 ];
 
 const sfExIndep: PracticeQuestion[] = [
-  fa("y11adv-sf-ex-i1", "How long (in years) will $4000 take to grow to $6000 at 5% p.a. compounded annually?", "4000(1.05)^n=6000", "≈8.31 years", ["8.31"]),
+  fa("y11adv-sf-ex-i1", "How long (in years) will $4000 take to grow to $6000 at 5% p.a. compounded annually?", "", "≈8.31 years", ["8.31"]),
   mc("y11adv-sf-ex-i2", "$500/month for 10 years at 6% p.a. monthly. Total interest earned is approximately:", "B",
     [{ label: "A", text: "$20 000" }, { label: "B", text: "$21 999" }, { label: "C", text: "$60 000" }, { label: "D", text: "$15 000" }],
     "FV = 500·[(1.005)^120−1]/0.005 ≈ $81 939. Total deposited = 500×120 = $60 000. Interest = $81 939 − $60 000 ≈ $21 939 ≈ $22 000.", ""),
@@ -303,7 +303,7 @@ const sfExIndep: PracticeQuestion[] = [
   mc("y11adv-sf-ex-i4", "A 20-year $250 000 mortgage at 6% p.a. monthly vs a 30-year mortgage at the same rate. The 20-year mortgage:", "C",
     [{ label: "A", text: "Has a lower monthly repayment and lower total interest" }, { label: "B", text: "Has a higher monthly repayment and higher total interest" }, { label: "C", text: "Has a higher monthly repayment but lower total interest" }, { label: "D", text: "Is always the better financial choice" }],
     "Shorter term → higher M (more money paid each month) but the loan is gone faster → less total interest. A 20-year term costs more per month but less overall.", ""),
-  fa("y11adv-sf-ex-i5", "A person needs $500 000 for retirement in 30 years. If they invest at 7.2% p.a. monthly, how much must they save per month?", "500000=M\\cdot\\frac{(1.006)^{360}-1}{0.006}", "≈$380.24/month", ["380.24"]),
+  fa("y11adv-sf-ex-i5", "A person needs $500 000 for retirement in 30 years. If they invest at 7.2% p.a. monthly, how much must they save per month?", "", "≈$380.24/month", ["380.24"]),
 ];
 
 const sfExMastery: PracticeQuestion[] = [
@@ -311,11 +311,11 @@ const sfExMastery: PracticeQuestion[] = [
   mc("y11adv-sf-ex-m2", "$5000 is invested at 4% p.a. compounded quarterly. After how many quarters does it exceed $7000?", "C",
     [{ label: "A", text: "$10$" }, { label: "B", text: "$25$" }, { label: "C", text: "$28$" }, { label: "D", text: "$34$" }],
     "5000(1.01)ⁿ > 7000 → (1.01)ⁿ > 1.4. n·ln(1.01) > ln(1.4) → n > 33.8. So n = 34... but wait: let me re-check. ln(1.4)/ln(1.01) = 0.3365/0.00995 = 33.8. So n = 34. Option C = 28 is wrong. Actually n = 34.", ""),
-  fa("y11adv-sf-ex-m3", "A loan of $P at rate r monthly has repayments of M. Show that the balance after n months is Aₙ = P(1+r)ⁿ − M·[(1+r)ⁿ−1]/r.", "A_n=P(1+r)^n-M\\cdot\\frac{(1+r)^n-1}{r}", "Recursive expansion gives this closed form.", ["closed form derivation"]),
+  fa("y11adv-sf-ex-m3", "A loan of $P at rate r monthly has repayments of M. Show that the balance after n months is Aₙ = P(1+r)ⁿ − M·[(1+r)ⁿ−1]/r.", "", "Recursive expansion gives this closed form.", ["closed form derivation"]),
   mc("y11adv-sf-ex-m4", "A $200 000 loan at 4.8% p.a. monthly is repaid in 25 years. The monthly repayment is approximately:", "B",
     [{ label: "A", text: "$1000" }, { label: "B", text: "$1139" }, { label: "C", text: "$1200" }, { label: "D", text: "$1500" }],
     "r = 0.004, n = 300. M = 200000·0.004/[1−(1.004)^(−300)]. (1.004)^300 ≈ 3.310; (1.004)^(−300) ≈ 0.302. M = 800/0.698 ≈ $1146. Closest: $1139.", ""),
-  fa("y11adv-sf-ex-m5", "A retiree needs $2000/month for 20 years. At 4.8% p.a. monthly, find the lump sum needed at retirement.", "PV=2000\\cdot\\frac{1-(1.004)^{-240}}{0.004}", "≈$310 036", ["310036"]),
+  fa("y11adv-sf-ex-m5", "A retiree needs $2000/month for 20 years. At 4.8% p.a. monthly, find the lump sum needed at retirement.", "", "≈$310 036", ["310036"]),
   mc("y11adv-sf-ex-m6", "The formula Aₙ = P(1+r)ⁿ − M·[(1+r)ⁿ−1]/r equals zero when:", "C",
     [{ label: "A", text: "$P = M$" }, { label: "B", text: "$n = 0$" }, { label: "C", text: "The loan is fully repaid — i.e. n is exactly the loan term and M was set correctly" }, { label: "D", text: "$(1+r)^n = 1$" }],
     "Aₙ = 0 means the balance has reached zero — the loan is paid off. If M was calculated using the PV formula with exactly n periods, then at period n the balance is exactly zero.", ""),

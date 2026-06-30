@@ -194,7 +194,7 @@ const ivWorked: WorkedExample[] = [
 ];
 
 const ivGuided: PracticeQuestion[] = [
-  fa("y11adv-intg-iv-g1", "Find C given f'(x) = 4x and f(0) = 5.", "f(x)=2x^2+C,\\quad f(0)=5", "5", ["C=5"]),
+  fa("y11adv-intg-iv-g1", "Find C given f'(x) = 4x and f(0) = 5.", "", "5", ["C=5"]),
   fa("y11adv-intg-iv-g2", "Find f(x) given f'(x) = 3x² and f(1) = 4.", "f'(x)=3x^2,\\quad f(1)=4", "x^3+3", ["f(x)=x^3+3"]),
   mc("y11adv-intg-iv-g3", "What does finding C from an initial condition do?", "B",
     [{ label: "A", text: "Removes the need for +C in all future integrals" }, { label: "B", text: "Selects one particular curve from the family of primitives" }, { label: "C", text: "Differentiates the primitive again" }, { label: "D", text: "Gives the area under the curve" }],
