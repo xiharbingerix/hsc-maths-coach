@@ -41,10 +41,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Sign in to use this." }, { status: 401 });
   }
 
-  // Premium feature: free accounts get lessons + practice, not the AI tutor.
+  // Premium feature: free accounts get lessons + practice, not step-by-step hints.
   if (!(await hasActiveAccess(userId))) {
     return NextResponse.json(
-      { error: "Upgrade to use the AI tutor.", upgrade: true },
+      { error: "Upgrade to use step-by-step hints.", upgrade: true },
       { status: 403 }
     );
   }

@@ -272,7 +272,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         </div>
         <p className="mt-4 text-sm text-slate-500">
           Lessons and practice are free — create an account first, then upgrade
-          for exams, topic tests and the AI tutor.
+          for exams, topic tests and step-by-step hints.
         </p>
       </section>
     );

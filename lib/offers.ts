@@ -48,7 +48,7 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
     label: "Nova Maths Premium",
     priceLabel: "$19/month",
     description:
-      "Unlock full timed exam papers, topic tests, the AI tutor and detailed predicted-band reports. Lessons and practice stay free.",
+      "Unlock full timed exam papers, topic tests, step-by-step hints and detailed predicted-band reports. Lessons and practice stay free.",
     checkoutEnabled: true,
     stripePriceEnvKey: "STRIPE_PRICE_ONLINE_LEARNING_MONTHLY",
     mode: "subscription",

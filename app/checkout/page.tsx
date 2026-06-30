@@ -36,7 +36,7 @@ export default async function CheckoutPage({
                 Nova Maths Premium &mdash; $19/month
               </p>
               <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-600">
-                <li>Full exam papers, topic tests &amp; AI tutor</li>
+                <li>Full exam papers, topic tests &amp; step-by-step hints</li>
                 <li>Secure payment through Stripe</li>
                 <li>Cancel any time from your account</li>
                 <li>Access activates automatically after payment</li>

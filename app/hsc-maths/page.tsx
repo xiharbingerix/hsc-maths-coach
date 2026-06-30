@@ -85,7 +85,7 @@ const FAQs = [
   {
     question: "When do I pay?",
     answer:
-      "Lessons, practice and the diagnostic are free with no card required. You only pay $19/month if you want Premium — full exam papers, topic tests and the AI tutor.",
+      "Lessons, practice and the diagnostic are free with no card required. You only pay $19/month if you want Premium — full exam papers, topic tests and step-by-step hints.",
   },
   {
     question: "Can I cancel?",
@@ -205,7 +205,7 @@ export default function HscMathsPage() {
             </div>
 
             <p className="mt-3 text-sm font-medium text-slate-600">
-              Free lessons &amp; practice &middot; Upgrade for exams + AI &middot;
+              Free lessons &amp; practice &middot; Upgrade for exams + hints &middot;
               $19/month &middot; Cancel anytime
             </p>
             <p className="mt-2 text-sm font-semibold text-slate-700">

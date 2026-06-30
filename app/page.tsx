@@ -191,7 +191,7 @@ export default function Home() {
             </div>
 
             <p className="mt-4 text-sm font-medium text-slate-600">
-              Free lessons & practice · Upgrade for exams + AI · $19/month ·
+              Free lessons & practice · Upgrade for exams + hints · $19/month ·
               Cancel anytime
             </p>
 
