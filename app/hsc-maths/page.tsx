@@ -85,7 +85,7 @@ const FAQs = [
   {
     question: "When do I pay?",
     answer:
-      "The diagnostic is free with no charge today. If you want the full lessons, you start a 7-day free trial first, then it is $19/month.",
+      "Lessons, practice and the diagnostic are free with no card required. You only pay $19/month if you want Premium — full exam papers, topic tests and the AI tutor.",
   },
   {
     question: "Can I cancel?",
@@ -205,8 +205,8 @@ export default function HscMathsPage() {
             </div>
 
             <p className="mt-3 text-sm font-medium text-slate-600">
-              No charge today &middot; 7-day free trial &middot; Then $19/month
-              &middot; Cancel anytime
+              Free lessons &amp; practice &middot; Upgrade for exams + AI &middot;
+              $19/month &middot; Cancel anytime
             </p>
             <p className="mt-2 text-sm font-semibold text-slate-700">
               Built for NSW Year 12 students preparing for Trials and the HSC.
@@ -484,7 +484,7 @@ export default function HscMathsPage() {
             <>
               <HscDiagnosticCTAButton />
               <HscTrialCTAButton className="border-2 border-slate-900 !bg-white !text-slate-950 hover:!bg-slate-100">
-                Start your 7-day free trial
+                Sign up free
               </HscTrialCTAButton>
             </>
           }
@@ -549,7 +549,7 @@ export default function HscMathsPage() {
         <div className="grid grid-cols-1 gap-2">
           <HscDiagnosticCTAButton className="inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800" />
           <HscTrialCTAButton className="w-full border border-slate-300 bg-white py-2.5 text-slate-950 hover:bg-slate-50">
-            Start your 7-day free trial
+            Sign up free
           </HscTrialCTAButton>
         </div>
       </div>

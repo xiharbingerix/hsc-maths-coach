@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { MathText } from "../../components/MathText";
 import { supabase } from "../../../lib/supabaseClient";
@@ -35,6 +36,7 @@ export function TutorPanel({ question, courseSlug, topicSlug, subtopicSlug }: Pr
   const [open, setOpen] = useState<Mode | null>(null);
   const [loading, setLoading] = useState<Mode | null>(null);
   const [unavailable, setUnavailable] = useState(false);
+  const [locked, setLocked] = useState(false);
 
   if (unavailable || !question.explanation) return null;
 
@@ -84,6 +86,11 @@ export function TutorPanel({ question, courseSlug, topicSlug, subtopicSlug }: Pr
         setUnavailable(true);
         return;
       }
+      // 403 = free account: keep the buttons but show an upgrade nudge.
+      if (res.status === 403) {
+        setLocked(true);
+        return;
+      }
       if (!res.ok) {
         return; // transient (429/502) — leave buttons, user can retry
       }
@@ -118,6 +125,21 @@ export function TutorPanel({ question, courseSlug, topicSlug, subtopicSlug }: Pr
           </button>
         ))}
       </div>
+
+      {locked && (
+        <div className="rounded-xl bg-slate-900 p-3 text-sm text-slate-100">
+          <p className="font-semibold">The AI tutor is part of Premium</p>
+          <p className="mt-1 text-slate-300">
+            Get instant hints and step-by-step approaches grounded in each lesson.
+          </p>
+          <Link
+            href="/checkout?offer=online-learning"
+            className="mt-2 inline-flex rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 hover:bg-slate-100"
+          >
+            Upgrade — $19/month
+          </Link>
+        </div>
+      )}
 
       {shown && (
         <div className="rounded-xl bg-indigo-50 p-3 text-sm text-indigo-950">

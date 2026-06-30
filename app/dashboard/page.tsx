@@ -1200,7 +1200,7 @@ export default function DashboardPage() {
                   href="/checkout?offer=online-learning"
                   className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
                 >
-                  Start your 7-day free trial
+                  Upgrade — $19/month
                 </Link>
                 <Link
                   href="/enquire?offer=online-learning"
@@ -1258,7 +1258,7 @@ export default function DashboardPage() {
                 Your Nova Maths setup checklist
               </h2>
               <p className="mt-2 max-w-2xl leading-7 text-slate-600">
-                Follow these five steps to turn your trial into a clear study routine.
+                Follow these five steps to turn your free account into a clear study routine.
               </p>
             </div>
             <span className="w-fit rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700">
@@ -1644,6 +1644,27 @@ export default function DashboardPage() {
           </p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight">Your mastery</h2>
 
+          {accessStatus !== "active" ? (
+            <div className="mt-5 rounded-2xl border border-slate-900 bg-slate-900 p-6 text-white">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+                Premium
+              </p>
+              <p className="mt-1 font-semibold">
+                Mastery tracking is part of Premium
+              </p>
+              <p className="mt-1 text-sm text-slate-300">
+                Mastery quizzes and your mastery map show exactly which topics
+                are exam-ready and which need work. Upgrade to unlock them.
+              </p>
+              <Link
+                href="/checkout?offer=online-learning"
+                className="mt-3 inline-flex rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-100"
+              >
+                Upgrade — $19/month
+              </Link>
+            </div>
+          ) : (
+          <>
           <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
@@ -1727,6 +1748,8 @@ export default function DashboardPage() {
                 />
               </div>
             </>
+          )}
+          </>
           )}
         </section>
 

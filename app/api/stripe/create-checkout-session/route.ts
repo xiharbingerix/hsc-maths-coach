@@ -66,6 +66,16 @@ export async function POST(request: Request) {
 
     const userId = await getUserIdFromRequest(request);
 
+    // Premium upgrade requires being signed in: free users already have an
+    // account, so the subscription always carries a user_id (clean webhook
+    // attribution, no orphaned anonymous subscriptions).
+    if (offer.slug === "online-learning" && !userId) {
+      return NextResponse.json(
+        { error: "Sign in to upgrade.", requiresLogin: true },
+        { status: 401 }
+      );
+    }
+
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
     const priceId = process.env[offer.stripePriceEnvKey];
@@ -152,8 +162,7 @@ export async function POST(request: Request) {
           ? {
               ...(offer.slug === "online-learning"
                 ? {
-                    trial_period_days: 7,
-                    description: "Nova Maths Online Learning",
+                    description: "Nova Maths Premium",
                   }
                 : {}),
               metadata: {

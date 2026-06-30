@@ -45,10 +45,10 @@ export const offerConfigs: Record<OfferSlug, OfferConfig> = {
   },
   "online-learning": {
     slug: "online-learning",
-    label: "Online Learning Access",
-    priceLabel: "7-day free trial, then $19/month",
+    label: "Nova Maths Premium",
+    priceLabel: "$19/month",
     description:
-      "Structured online lessons, guided practice, independent practice, and mastery quizzes across available course pathways.",
+      "Unlock full timed exam papers, topic tests, the AI tutor and detailed predicted-band reports. Lessons and practice stay free.",
     checkoutEnabled: true,
     stripePriceEnvKey: "STRIPE_PRICE_ONLINE_LEARNING_MONTHLY",
     mode: "subscription",
