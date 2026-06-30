@@ -144,13 +144,12 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A rate of change compares how one quantity changes compared to another quantity.",
-      "Average rate of change looks across an interval. It is the change in output divided by the change in input.",
-      "On a graph, average rate of change is the gradient of the secant line joining two points.",
-      "Instantaneous rate of change looks at one instant or one point. On a graph, it is the gradient of the tangent line.",
-      "The derivative gives the instantaneous rate of change. The notation used depends on the context, such as $f'(x)$, $\\frac{dy}{dx}$, or $\\frac{ds}{dt}$.",
-      "A positive derivative means the quantity is increasing, a negative derivative means it is decreasing, and a zero derivative means it is momentarily not changing.",
-      "Units matter. If displacement is measured in metres and time in seconds, then $\\frac{ds}{dt}$ is measured in metres per second.",
+      "A rate of change compares how fast one quantity changes against another. A car's speedometer is a rate of change: it answers how quickly distance is changing with time right now, not over the whole trip.",
+      "Average rate of change looks across a whole interval. It is the change in output divided by the change in input, which on a graph is the gradient of the secant line joining the two points. A trip's average speed is exactly this idea: total distance divided by total time.",
+      "Instantaneous rate of change looks at a single point. Picture the second point sliding closer and closer to the first: the secant joining them swings around and settles onto the tangent at that point, so the secant gradients approach one limiting value.",
+      "That limiting value is the derivative. Writing the second point a small step $h$ from the first, the average-rate fraction $\\frac{f(x+h)-f(x)}{h}$ approaches $f'(x)$ as $h$ shrinks to zero. This is why the derivative equals the gradient of the tangent.",
+      "The notation depends on the context: $f'(x)$, $\\frac{dy}{dx}$, and $\\frac{ds}{dt}$ all name the same instantaneous rate. The sign gives the direction, so a positive derivative means the quantity is increasing, a negative derivative means it is decreasing, and a zero derivative means it is momentarily not changing.",
+      "Units come straight from the fraction. If displacement is measured in metres and time in seconds, then $\\frac{ds}{dt}$ is measured in metres per second.",
     ],
     latexBlocks: [
       "\\text{average rate of change}=\\frac{\\text{change in output}}{\\text{change in input}}",
@@ -168,19 +167,24 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
         "f(1)=3, \\quad f(5)=15. \\quad \\text{Find the average rate of change from }x=1\\text{ to }x=5.",
       steps: [
         {
-          explanation: "Use change in output divided by change in input.",
+          explanation: "Average rate of change is the change in output divided by the change in input, so form that fraction across the interval.",
           latex: "\\frac{f(5)-f(1)}{5-1}",
         },
         {
-          explanation: "Substitute the function values.",
+          explanation: "Substitute the two function values; the denominator is the change in input from 1 to 5.",
           latex: "\\frac{15-3}{5-1}=\\frac{12}{4}",
         },
         {
-          explanation: "Simplify the rate.",
+          explanation: "Simplify to get the gradient of the secant joining the two points.",
           latex: "3",
         },
+        {
+          explanation: "Interpret the result: across this interval the output rises 3 units for every 1 unit increase in the input.",
+          latex: "\\text{average rate}=3",
+        },
       ],
-      finalAnswerLatex: "3",
+      finalAnswerLatex:
+        "3, \\quad \\text{the output rises on average 3 units for each 1 unit increase in }x.",
     },
     {
       title: "Worked example 2: Instantaneous rate from a derivative",
@@ -922,13 +926,15 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A polynomial term is a single algebraic term involving a coefficient, a variable, and a power.",
-      "The coefficient is the number multiplying the variable term. The power is the exponent on the variable.",
-      "To differentiate a polynomial term, multiply the coefficient by the power, then reduce the power by one.",
-      "A constant differentiates to zero because its value does not change as the variable changes.",
+      "Differentiating a term means finding the slope of its curve. Last lesson you saw that the instantaneous rate of change at a point is the gradient of the tangent line there. For a curve that gradient is different at every point, so the derivative is itself a new function: a slope formula that tells you the steepness of the curve at any value of x.",
+      "We could find that slope the slow way, using the limit definition from the previous lesson for every single function. The power rule is the shortcut that gives the same answer for any power of x without redoing the limit each time. To see where it comes from, take the concrete case y = x^2 and run the limit once.",
+      "When you carry out that limit (worked example 1), the bracket (x+h)^2 expands to x^2 + 2xh + h^2, the x^2 terms cancel, an h divides out, and as h shrinks to zero you are left with 2x. Look at what happened to the exponent: the 2 came down to multiply, and the power dropped by one. The same expansion on x^n always leaves n*x^(n-1), and a coefficient just rides along untouched, which gives the power rule a*n*x^(n-1).",
+      "This agrees with the straight lines you already know. The line y = ax has constant gradient a (rise over run), and the rule gives the same thing: d/dx(ax) = a*1*x^0 = a. A constant like y = 7 is a horizontal line with slope 0 everywhere, so its derivative is 0; its value never changes as x changes, so its rate of change is nothing.",
+      "In NSW exams this is why a question can ask for the gradient of a curve, or the rate of change at a moment, just by asking you to differentiate and then substitute the x-value: the derivative's value at a point IS the slope of the curve there.",
     ],
     latexBlocks: [
-      "ax^n",
+      "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+      "\\frac{d}{dx}\\left(x^2\\right)=\\lim_{h\\to 0}\\frac{(x+h)^2-x^2}{h}=\\lim_{h\\to 0}(2x+h)=2x",
       "\\frac{d}{dx}\\left(ax^n\\right)=anx^{n-1}",
       "\\frac{d}{dx}\\left(c\\right)=0",
     ],
@@ -936,54 +942,90 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
 
   workedExamples: [
     {
-      title: "Worked example 1: One polynomial term",
-      questionLatex: "\\frac{d}{dx}\\left(4x^5\\right)",
+      title: "Worked example 1: The slope of y = x^2 from first principles",
+      questionLatex:
+        "\\text{Use the limit definition to differentiate } y=x^2.",
       steps: [
         {
-          explanation: "Identify the coefficient and power.",
-          latex: "a=4, \\quad n=5",
+          explanation:
+            "Start from the limit definition of the derivative used in the previous lesson, with f(x)=x^2. This measures the gradient of the tangent at x.",
+          latex: "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^2-x^2}{h}",
         },
         {
-          explanation: "Multiply the coefficient by the power.",
+          explanation:
+            "Expand the squared bracket, since (x+h)(x+h)=x^2+2xh+h^2. We expand so the x^2 terms can be compared and cancelled.",
+          latex: "=\\lim_{h\\to 0}\\frac{x^2+2xh+h^2-x^2}{h}",
+        },
+        {
+          explanation:
+            "The x^2 terms cancel, and every remaining term on top has a factor of h, so the h divides out. We can cancel because h is not yet zero.",
+          latex: "=\\lim_{h\\to 0}\\frac{2xh+h^2}{h}=\\lim_{h\\to 0}(2x+h)",
+        },
+        {
+          explanation:
+            "Now let h shrink to zero. The leftover h vanishes, so the slope at any x is 2x. Notice the exponent 2 came down to multiply and the power dropped to one.",
+          latex: "=2x",
+        },
+      ],
+      finalAnswerLatex:
+        "\\frac{d}{dx}\\left(x^2\\right)=2x \\quad \\text{the slope of } y=x^2 \\text{ at any value of } x",
+    },
+    {
+      title: "Worked example 2: The power rule on one term",
+      questionLatex:
+        "\\text{Differentiate } y=4x^5 \\text{ and find the gradient at } x=1.",
+      steps: [
+        {
+          explanation:
+            "Use the shortcut the derivation gives: the power comes down to multiply the coefficient, so 5 multiplies 4.",
           latex: "4 \\times 5 = 20",
         },
         {
-          explanation: "Reduce the power by one.",
+          explanation:
+            "Reduce the power by one, because each differentiation drops the exponent by one.",
           latex: "x^{5-1}=x^4",
         },
-      ],
-      finalAnswerLatex: "20x^4",
-    },
-    {
-      title: "Worked example 2: A negative coefficient",
-      questionLatex: "\\frac{d}{dx}\\left(-3x^2\\right)",
-      steps: [
         {
-          explanation: "Identify the coefficient and power.",
-          latex: "a=-3, \\quad n=2",
+          explanation:
+            "Combine these to get the derivative, which is the slope of the curve at any value of x.",
+          latex: "\\frac{dy}{dx}=20x^4",
         },
         {
-          explanation: "Multiply the coefficient by the power.",
+          explanation:
+            "Substitute x=1 to read off the gradient of the curve at that point.",
+          latex: "20(1)^4=20",
+        },
+      ],
+      finalAnswerLatex:
+        "\\frac{dy}{dx}=20x^4, \\quad \\text{so the curve has gradient } 20 \\text{ when } x=1.",
+    },
+    {
+      title: "Worked example 3: A negative coefficient",
+      questionLatex:
+        "\\text{Differentiate } y=-3x^2 \\text{ and interpret the slope at } x=2.",
+      steps: [
+        {
+          explanation:
+            "Bring the power 2 down to multiply the coefficient, keeping the negative sign attached to the coefficient.",
           latex: "-3 \\times 2 = -6",
         },
         {
           explanation: "Reduce the power by one.",
           latex: "x^{2-1}=x",
         },
-      ],
-      finalAnswerLatex: "-6x",
-    },
-    {
-      title: "Worked example 3: Constant term",
-      questionLatex: "\\frac{d}{dx}\\left(7\\right)",
-      steps: [
         {
           explanation:
-            "A constant does not change as x changes, so its derivative is zero.",
-          latex: "\\frac{d}{dx}\\left(7\\right)=0",
+            "Combine these to get the slope function for the curve.",
+          latex: "\\frac{dy}{dx}=-6x",
+        },
+        {
+          explanation:
+            "At x=2 the gradient is negative, which means the curve is falling there as x increases.",
+          latex: "-6(2)=-12",
         },
       ],
-      finalAnswerLatex: "0",
+      finalAnswerLatex:
+        "\\frac{dy}{dx}=-6x, \\quad \\text{a gradient of } -12 \\text{ at } x=2 \\text{, so the curve is decreasing there.}",
     },
   ],
 
@@ -1073,19 +1115,19 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
   commonMistakes: [
     {
       mistake: "Forgetting to multiply by the power.",
-      fix: "For $4x^5$, the coefficient becomes $4 \\times 5 = 20$.",
+      fix: "Students stop after lowering the power because that change is the most visible part of the rule. But the derivation shows the power also comes down to multiply: for $4x^5$ the coefficient becomes $4 \\times 5 = 20$.",
     },
     {
       mistake: "Reducing the coefficient instead of the power.",
-      fix: "The power reduces by 1. The coefficient is multiplied by the original power.",
+      fix: "The coefficient and the exponent are both just numbers in the term, so under pressure it is easy to change the wrong one. Only the power reduces by 1; the coefficient is multiplied by the original power.",
     },
     {
       mistake: "Forgetting that constants differentiate to zero.",
-      fix: "A constant like -9 has derivative 0.",
+      fix: "Students expect every term to turn into something, so leaving a constant in feels safer than removing it. A constant is a horizontal line with zero slope, so a constant like $-9$ has derivative $0$.",
     },
     {
       mistake: "Dropping negative signs.",
-      fix: "Keep the sign attached to the term when differentiating.",
+      fix: "Students focus on the coefficient-and-power arithmetic and treat the sign as separate, so it gets left behind. Keep the negative sign attached to the coefficient throughout, as in $-3x^2 \\to -6x$.",
     },
   ],
 
@@ -1654,16 +1696,16 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A polynomial function is made up of polynomial terms added or subtracted together.",
-      "To differentiate a polynomial function, differentiate each term separately.",
-      "Keep the sign attached to each term before applying the power rule.",
-      "A linear term differentiates to its coefficient. A constant differentiates to zero.",
-      "After differentiating, simplify the derivative and use the correct notation.",
+      "A polynomial function is several power-of-x terms added or subtracted, like 4x^5 - 3x^2 + 7x - 9. Last lesson the power rule gave you the slope function of a single term. The key idea here is that the slope of the whole curve at any x is just the sum of the slopes each term contributes, so the derivative is again a slope function, only this time built one term at a time.",
+      "See it on a small case first. For f(x) = x^2 + 3, the x^2 part has slope 2x at every x (the result from the previous lesson), and the +3 is a flat horizontal piece with slope 0. Adding these, the curve's gradient is 2x + 0 = 2x. Graphically, sliding the whole parabola up by 3 does not tilt it anywhere, so its steepness is unchanged, which is exactly why the constant adds nothing to the slope.",
+      "Two rules make this term-by-term approach legitimate. The sum and difference rule says the derivative of a sum is the sum of the derivatives, because the rise of the whole curve over a tiny run is just the rises of its parts added together. The constant-multiple rule says a number multiplying a term scales its slope by that same number, since stretching a graph vertically by a factor stretches every gradient by that factor. With those two facts, you simply apply the single-term power rule from last lesson, anx^(n-1), to each term in turn.",
+      "The mistakes to guard against come from the simplest terms. A constant such as -9 differentiates to 0 because its graph is a horizontal line, and a horizontal line has zero slope: its value never changes as x changes, so its rate of change is nothing. A linear term like 7x differentiates to just 7, the constant gradient of that straight line. Keep each sign attached to its term before differentiating, or a -3x^2 quietly becomes +6x instead of -6x.",
+      "In NSW exams this is the gateway skill. Once you have f'(x), substituting an x-value gives the gradient of the curve, and therefore the slope of the tangent, at that point. A question asking for a rate of change, or for the gradient of a tangent, is really just asking you to differentiate and then substitute.",
     ],
     latexBlocks: [
-      "f(x)=4x^5-3x^2+7x-9",
-      "f'(x)=\\frac{d}{dx}\\left(4x^5\\right)-\\frac{d}{dx}\\left(3x^2\\right)+\\frac{d}{dx}\\left(7x\\right)-\\frac{d}{dx}\\left(9\\right)",
-      "f'(x)=20x^4-6x+7",
+      "\\frac{d}{dx}\\left(ax^n\\right)=anx^{n-1} \\qquad \\frac{d}{dx}\\left(c\\right)=0",
+      "\\frac{d}{dx}\\left(u(x)\\pm v(x)\\right)=\\frac{d}{dx}u(x)\\pm\\frac{d}{dx}v(x)",
+      "f(x)=4x^5-3x^2+7x-9 \\;\\Rightarrow\\; f'(x)=20x^4-6x+7",
     ],
   },
 
@@ -1673,55 +1715,67 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       questionLatex: "f(x)=4x^5-3x^2+7x-9",
       steps: [
         {
-          explanation: "Write the derivative notation.",
-          latex: "f'(x)=\\frac{d}{dx}\\left(4x^5-3x^2+7x-9\\right)",
+          explanation:
+            "By the sum and difference rule, the slope of the whole curve is the sum of the slopes of its terms, so differentiate each term separately and keep its + or - sign.",
+          latex:
+            "f'(x)=\\frac{d}{dx}\\left(4x^5\\right)-\\frac{d}{dx}\\left(3x^2\\right)+\\frac{d}{dx}\\left(7x\\right)-\\frac{d}{dx}\\left(9\\right)",
         },
         {
-          explanation: "Differentiate $4x^5$.",
-          latex: "\\frac{d}{dx}\\left(4x^5\\right)=20x^4",
+          explanation:
+            "Apply the power rule to 4x^5: the exponent 5 comes down to multiply the coefficient, and the power drops by one.",
+          latex: "\\frac{d}{dx}\\left(4x^5\\right)=4\\times 5\\,x^{4}=20x^4",
         },
         {
-          explanation: "Differentiate $-3x^2$.",
-          latex: "\\frac{d}{dx}\\left(-3x^2\\right)=-6x",
+          explanation:
+            "For -3x^2 the constant-multiple rule lets the -3 ride along and just scale the slope; the power rule brings the 2 down and drops the power.",
+          latex: "\\frac{d}{dx}\\left(-3x^2\\right)=-3\\times 2\\,x=-6x",
         },
         {
-          explanation: "Differentiate $7x$.",
-          latex: "\\frac{d}{dx}\\left(7x\\right)=7",
+          explanation:
+            "The linear term 7x is a straight line of constant gradient 7, so it differentiates to 7; the constant -9 is a flat line with zero slope, so it contributes 0.",
+          latex:
+            "\\frac{d}{dx}\\left(7x\\right)=7, \\qquad \\frac{d}{dx}\\left(-9\\right)=0",
         },
         {
-          explanation: "Differentiate $-9$.",
-          latex: "\\frac{d}{dx}\\left(-9\\right)=0",
+          explanation:
+            "Add the four pieces. The result is the slope function: substitute any x into f'(x) to get the gradient of the curve there.",
+          latex: "f'(x)=20x^4-6x+7",
         },
       ],
-      finalAnswerLatex: "f'(x)=20x^4-6x+7",
+      finalAnswerLatex:
+        "f'(x)=20x^4-6x+7 \\quad \\text{the gradient of the curve at any value of } x",
     },
     {
-      title: "Worked example 2: Use $\\frac{dy}{dx}$ notation",
-      questionLatex: "y=2x^4-5x^3+x-11",
+      title: "Worked example 2: Reading a gradient with dy/dx notation",
+      questionLatex:
+        "\\text{Differentiate } y=2x^4-5x^3+x-11 \\text{ and find the gradient at } x=1.",
       steps: [
         {
           explanation:
-            "Use $\\frac{dy}{dx}$ because the function is written as $y$.",
-          latex: "\\frac{dy}{dx}=\\frac{d}{dx}\\left(2x^4-5x^3+x-11\\right)",
+            "The function is written as y, so its slope function is written dy/dx. The sum and difference rule splits it into one derivative per term.",
+          latex:
+            "\\frac{dy}{dx}=\\frac{d}{dx}\\left(2x^4\\right)-\\frac{d}{dx}\\left(5x^3\\right)+\\frac{d}{dx}\\left(x\\right)-\\frac{d}{dx}\\left(11\\right)",
         },
         {
-          explanation: "Differentiate $2x^4$.",
-          latex: "\\frac{d}{dx}\\left(2x^4\\right)=8x^3",
+          explanation:
+            "Apply the power rule to the two higher-power terms: bring each exponent down to multiply, then reduce the power by one.",
+          latex:
+            "\\frac{d}{dx}\\left(2x^4\\right)=8x^3, \\qquad \\frac{d}{dx}\\left(5x^3\\right)=15x^2",
         },
         {
-          explanation: "Differentiate $-5x^3$.",
-          latex: "\\frac{d}{dx}\\left(-5x^3\\right)=-15x^2",
+          explanation:
+            "The term x is a line of gradient 1, so it differentiates to 1; the constant -11 is flat, so its slope is 0.",
+          latex:
+            "\\frac{d}{dx}\\left(x\\right)=1, \\qquad \\frac{d}{dx}\\left(11\\right)=0",
         },
         {
-          explanation: "Differentiate $x$.",
-          latex: "\\frac{d}{dx}\\left(x\\right)=1",
-        },
-        {
-          explanation: "Differentiate $-11$.",
-          latex: "\\frac{d}{dx}\\left(-11\\right)=0",
+          explanation:
+            "Combine the pieces to get the slope function, then substitute x=1 to read off the gradient there. The negative value means the curve is falling at that point.",
+          latex: "\\frac{dy}{dx}=8x^3-15x^2+1, \\quad \\text{at } x=1:\\;8-15+1=-6",
         },
       ],
-      finalAnswerLatex: "\\frac{dy}{dx}=8x^3-15x^2+1",
+      finalAnswerLatex:
+        "\\frac{dy}{dx}=8x^3-15x^2+1, \\quad \\text{gradient } -6 \\text{ at } x=1 \\text{ (curve falling)}",
     },
   ],
 
@@ -1821,11 +1875,11 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     },
     {
       mistake: "Forgetting that constants differentiate to zero.",
-      fix: "Terms without $x$, such as $5$ or $-12$, disappear in the derivative.",
+      fix: "A constant such as $5$ or $-12$ graphs as a horizontal line, and a horizontal line has zero slope, so its rate of change is $0$ and the term disappears in the derivative.",
     },
     {
       mistake: "Losing negative signs.",
-      fix: "Keep the sign attached to the term before applying the power rule.",
+      fix: "Keep the sign attached to the term before applying the power rule, otherwise $-3x^2$ becomes $+6x$ instead of $-6x$.",
     },
     {
       mistake: "Using the wrong notation.",
@@ -2464,18 +2518,17 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "The derivative gives the gradient of the tangent to a curve at a point.",
-      "To find a tangent gradient, differentiate the function and substitute the given $x$-coordinate into the derivative.",
-      "The tangent and the normal both pass through the point on the curve, so find the $y$-coordinate using the original function.",
-      "Use point-gradient form with the point and gradient to write the tangent equation.",
-      "The normal is perpendicular to the tangent. If the tangent gradient is $m_t$, then the normal gradient is $m_n=-\\frac{1}{m_t}$, as long as $m_t \\ne 0$.",
-      "Use point-gradient form again with the same point and the normal gradient to write the normal equation.",
+      "Picture a car driving along a curved road. At any instant it points in one direction, and the straight line in that direction is the tangent: the line that just touches the curve at the point and matches the curve's instantaneous direction there. The normal is the line at right angles to the tangent through the same point, like the kerb running straight across the road. As the road bends the tangent direction keeps changing, which is exactly why we use the derivative to pin it down at a chosen point.",
+      "From the previous lessons, the derivative is the slope function of the curve: substitute one $x$-value and it returns the gradient of the curve at that point. That gradient is the steepness of the tangent, because the tangent is the line travelling in the curve's instantaneous direction there. So to get the tangent's gradient at $x=a$ you do not re-derive anything: differentiate once, then substitute $x=a$.",
+      "Take the curve $y=x^2+3x$ at the point where $x=2$. Differentiating gives $\\frac{dy}{dx}=2x+3$, and substituting $x=2$ gives gradient $7$, so the tangent there rises $7$ units for every $1$ across. The point itself comes from the original curve: $y=2^2+3(2)=10$, so $P=(2,10)$. Both the tangent and the normal pass through this same $P$, so we find it once.",
+      "Why is the normal's gradient the negative reciprocal of the tangent's? Take any line whose gradient is $m_t=\\frac{\\text{rise}}{\\text{run}}$, so its direction is the step (run, rise). Rotating that direction by 90 degrees turns the across-step into an up-step and the up-step into a backward across-step: (run, rise) becomes (-rise, run). The rotated line therefore goes 'run' up for every 'rise' it moves backward, a gradient of $\\frac{\\text{run}}{-\\text{rise}}=-\\frac{1}{m_t}$. Equivalently the two gradients multiply to $m_t\\,m_n=\\frac{\\text{rise}}{\\text{run}}\\times\\frac{-\\text{run}}{\\text{rise}}=-1$, which is the perpendicular-gradients rule from coordinate geometry.",
+      "The method is just this geometry in order. Differentiate and substitute $x=a$ for the tangent gradient $m_t$; substitute $x=a$ into the original function for the point $P=(a,f(a))$; then write each line with the point-gradient form $y-y_1=m(x-x_1)$ from coordinate geometry, using $m_t$ for the tangent and $m_n=-\\frac{1}{m_t}$ for the normal (provided $m_t\\ne 0$). If you forget a step, rebuild it from the picture rather than memorising the list.",
     ],
     latexBlocks: [
-      "m_t=\\left.\\frac{dy}{dx}\\right|_{x=a}",
-      "P=(a, f(a))",
+      "m_t=\\left.\\frac{dy}{dx}\\right|_{x=a}, \\qquad P=(a,\\,f(a))",
+      "(\\text{run},\\,\\text{rise})\\;\\to\\;(-\\text{rise},\\,\\text{run})\\quad\\Rightarrow\\quad m_n=\\frac{\\text{run}}{-\\text{rise}}=-\\frac{1}{m_t}",
+      "m_t\\cdot m_n=-1\\quad(m_t\\ne 0)",
       "y-y_1=m(x-x_1)",
-      "m_n=-\\frac{1}{m_t}, \\quad m_t \\ne 0",
     ],
   },
 
@@ -2486,61 +2539,86 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
         "y=x^2+3x \\quad \\text{at} \\quad x=2, \\quad \\text{find the equation of the tangent.}",
       steps: [
         {
-          explanation: "Differentiate to find the gradient function.",
+          explanation:
+            "The tangent's steepness is the curve's gradient at the point, and the derivative is the gradient function, so differentiate first.",
           latex: "\\frac{dy}{dx}=2x+3",
         },
         {
-          explanation: "Substitute $x=2$ to find the tangent gradient.",
+          explanation:
+            "Substitute $x=2$ because we want the gradient at that one point, not everywhere; this number is the tangent's slope.",
           latex: "m_t=2(2)+3=7",
         },
         {
-          explanation: "Find the point on the curve.",
+          explanation:
+            "The tangent touches the curve at the point, so find the point's height from the original function (the derivative gives slope, not position).",
           latex: "y=2^2+3(2)=10 \\quad \\Rightarrow \\quad P=(2,10)",
         },
         {
-          explanation: "Use point-gradient form.",
+          explanation:
+            "Use the point-gradient form from coordinate geometry to build the straight line through $P$ with slope $7$.",
           latex: "y-10=7(x-2)",
         },
         {
-          explanation: "Expand and simplify.",
+          explanation:
+            "Expand to slope-intercept form. This line just touches $y=x^2+3x$ at $(2,10)$ and runs in the curve's direction there.",
           latex: "y=7x-4",
         },
       ],
-      finalAnswerLatex: "y=7x-4",
+      finalAnswerLatex:
+        "y=7x-4 \\quad \\text{(tangent touching the curve at } (2,10) \\text{)}",
     },
     {
       title: "Worked example 2: Tangent and normal",
       questionLatex:
         "y=x^2-4x+1 \\quad \\text{at} \\quad x=3, \\quad \\text{find the equations of the tangent and normal.}",
+      cartesianGraph: {
+        description:
+          "y = x^2 - 4x + 1 is a parabola with vertex (2, -3). Its tangent y = 2x - 8 and its normal y = -1/2 x - 1/2 are both drawn through P(3, -2). The tangent just touches the curve and runs in its direction; the normal crosses it at right angles through the same point.",
+        xMin: -0.5,
+        xMax: 5.5,
+        yMin: -5,
+        yMax: 7,
+        xStep: 1,
+        yStep: 1,
+        parabolas: [
+          { kind: "quadratic", a: 1, b: -4, c: 1, label: "y = x² - 4x + 1" },
+        ],
+        lines: [
+          { kind: "linear", m: 2, b: -8, xMin: 1.5, xMax: 5, label: "tangent: y = 2x - 8" },
+          { kind: "linear", m: -0.5, b: -0.5, xMin: 0.5, xMax: 5.5, label: "normal: y = -½x - ½" },
+        ],
+        points: [{ x: 3, y: -2, label: "P(3, -2)" }],
+      },
       steps: [
         {
-          explanation: "Differentiate to find the gradient function.",
+          explanation:
+            "Differentiate to get the gradient function; this gives the curve's slope at any $x$.",
           latex: "\\frac{dy}{dx}=2x-4",
         },
         {
-          explanation: "Substitute $x=3$ to find the tangent gradient.",
+          explanation:
+            "Substitute $x=3$ to read off the gradient at that point, which is the tangent's slope.",
           latex: "m_t=2(3)-4=2",
         },
         {
-          explanation: "Find the point on the curve.",
+          explanation:
+            "Find where the tangent and normal touch the curve by substituting $x=3$ into the original function.",
           latex: "y=3^2-4(3)+1=-2 \\quad \\Rightarrow \\quad P=(3,-2)",
         },
         {
-          explanation: "Use point-gradient form for the tangent.",
+          explanation:
+            "Use point-gradient form with $P$ and $m_t$ to write the tangent, the line touching the curve at $(3,-2)$.",
           latex: "y+2=2(x-3) \\quad \\Rightarrow \\quad y=2x-8",
         },
         {
-          explanation: "Find the normal gradient.",
-          latex: "m_n=-\\frac{1}{2}",
-        },
-        {
-          explanation: "Use point-gradient form for the normal.",
+          explanation:
+            "The normal is perpendicular at $P$, so its gradient is the negative reciprocal $m_n=-\\frac{1}{2}$; put that through the same point $P$ to get the line crossing the curve at right angles.",
           latex:
             "y+2=-\\frac{1}{2}(x-3) \\quad \\Rightarrow \\quad y=-\\frac{1}{2}x-\\frac{1}{2}",
         },
       ],
       finalAnswerLatex:
-        "\\text{Tangent: } y=2x-8, \\quad \\text{Normal: } y=-\\frac{1}{2}x-\\frac{1}{2}",
+        "\\text{Tangent: } y=2x-8, \\quad \\text{Normal: } y=-\\frac{1}{2}x-\\frac{1}{2} \\quad \\text{(meeting at right angles at } (3,-2) \\text{)}",
     },
   ],
 
@@ -2640,7 +2718,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       mistake: "Using the tangent gradient for the normal.",
-      fix: "The normal gradient is the negative reciprocal: $m_n=-\\frac{1}{m_t}$.",
+      fix: "Both lines pass through the same point, so it is tempting to reuse the same slope, but they meet at right angles. Rotating the tangent 90 degrees swaps and negates rise and run, so the normal gradient is the negative reciprocal $m_n=-\\frac{1}{m_t}$.",
     },
     {
       mistake: "Forgetting that the tangent and normal pass through the same point.",
@@ -2648,7 +2726,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     },
     {
       mistake: "Making sign errors with negative reciprocals.",
-      fix: "If $m_t=-2$, then $m_n=\\frac{1}{2}$.",
+      fix: "The negative reciprocal does two things: flip the fraction and flip the sign. Since $m_t=-2=\\frac{-2}{1}$ is negative, its reciprocal is $-\\frac{1}{2}$, and negating that gives $m_n=\\frac{1}{2}$.",
     },
   ],
 
@@ -3299,18 +3377,17 @@ export const stationaryPointsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A stationary point occurs where the tangent to the curve is horizontal.",
-      "A horizontal tangent has gradient $0$, so stationary points occur where the derivative is equal to $0$.",
-      "To find stationary points, first differentiate the function.",
-      "Next, set the derivative equal to $0$ and solve for $x$.",
-      "Then substitute each $x$-value into the original function, not the derivative, to find the matching $y$-value.",
-      "This lesson focuses only on finding stationary points. Classifying them as maximum or minimum points comes later.",
+      "Picture walking along a curve as if it were a range of hills. As you climb toward a peak the ground rises beneath you; just past the top it starts to fall. Right at the very top, for a single instant, the ground is flat: you are neither climbing nor descending. A stationary point is exactly that spot on the curve, the momentarily flat instant where the graph changes between rising and falling. The bottom of a valley is the same idea turned upside down.",
+      "We can pin down that flat instant using the derivative. From the rate-of-change lesson, $f'(x)$ is the curve's gradient, its instantaneous rate of change: where $f'(x)>0$ the $y$-value is rising, where $f'(x)<0$ it is falling, and where $f'(x)=0$ the $y$-value is momentarily not changing. The word stationary means not moving, so a stationary point must be a place where the rate of change is zero. That is why we hunt for where $f'(x)=0$: we are not memorising a rule, we are translating 'the curve is momentarily flat' into 'the gradient is zero'.",
+      "Take a specific curve, the parabola $y=x^2-6x+5$. To the left of its lowest point the curve falls, so the gradient is negative; to the right it rises, so the gradient is positive. In between there is one instant where the gradient passes through zero, and that is the bottom of the parabola at $x=3$. If you laid a ruler against the curve there it would sit perfectly horizontal. Every stationary point works this way, whatever the function: a sign change in the gradient with a flat instant of zero gradient in the middle.",
+      "To find that instant for any function, differentiate to get the gradient function $f'(x)$, then solve $f'(x)=0$ for the $x$-values where the gradient vanishes. But each such $x$ is only half a coordinate. The derivative reports the slope of the curve, not its height, so substituting $x$ back into $f'(x)$ would just return the gradient (zero again), not a $y$-value. The height of the point lives on the original curve, so the matching $y$ comes from $f(x)$, giving the full coordinate $(x, f(x))$.",
+      "This is exactly why the most common slip, reading the $y$-value off the derivative, fails: $f'(x)$ outputs a gradient and never a height, so the $y$-coordinate must always come from the original function. In NSW exam questions, finding $f'(x)=0$ is the first move in almost every curve-sketching or optimisation problem. For now the goal is only to locate the stationary points; deciding whether each one is a maximum, a minimum, or something else comes in a later lesson.",
     ],
     latexBlocks: [
-      "\\text{Stationary point} \\quad \\Rightarrow \\quad \\text{horizontal tangent}",
-      "m=0",
-      "f'(x)=0",
-      "P=(x, f(x))",
+      "f'(x)=\\text{gradient of the curve}=\\text{instantaneous rate of change}",
+      "f'(x)=0 \\quad \\Leftrightarrow \\quad \\text{curve momentarily flat (stationary)}",
+      "\\text{solve } f'(x)=0 \\text{ for } x, \\quad \\text{then height } y=f(x)",
+      "P=(x,\\; f(x)) \\quad \\text{height from } f(x), \\text{ not } f'(x)",
     ],
   },
 
@@ -3319,29 +3396,52 @@ export const stationaryPointsLesson: ExplicitLesson = {
       title: "Worked example 1: One stationary point",
       questionLatex:
         "f(x)=x^2-6x+5 \\quad \\text{find the stationary point.}",
+      cartesianGraph: {
+        description:
+          "y = x^2 - 6x + 5 is a parabola with its lowest point at (3, -4). A horizontal tangent y = -4 touches the curve there. To the left of x = 3 the curve falls (negative gradient), to the right it rises (positive gradient); at x = 3 the gradient is zero and the tangent lies flat.",
+        xMin: 0,
+        xMax: 6,
+        yMin: -5,
+        yMax: 6,
+        xStep: 1,
+        yStep: 1,
+        parabolas: [
+          { kind: "quadratic", a: 1, b: -6, c: 5, label: "y = x² - 6x + 5" },
+        ],
+        lines: [
+          { kind: "linear", m: 0, b: -4, xMin: 1, xMax: 5, label: "horizontal tangent: y = -4" },
+        ],
+        points: [{ x: 3, y: -4, label: "(3, -4)" }],
+      },
       steps: [
         {
-          explanation: "Differentiate the function.",
+          explanation:
+            "A stationary point is where the gradient is zero, and the gradient is given by the derivative, so first find the gradient function.",
           latex: "f'(x)=2x-6",
         },
         {
-          explanation: "Set the derivative equal to $0$.",
+          explanation:
+            "The curve is momentarily flat exactly when its gradient is zero, so set the gradient function equal to $0$.",
           latex: "2x-6=0",
         },
         {
-          explanation: "Solve for $x$.",
+          explanation:
+            "Solve for $x$ to locate where along the curve that flat instant sits.",
           latex: "2x=6 \\quad \\Rightarrow \\quad x=3",
         },
         {
-          explanation: "Substitute $x=3$ into the original function.",
+          explanation:
+            "So far $x=3$ is only the horizontal position. The derivative gives slope, not height, so substitute $x=3$ into the original $f(x)$ to find the $y$-value.",
           latex: "f(3)=3^2-6(3)+5=-4",
         },
         {
-          explanation: "Write the stationary point as a coordinate.",
+          explanation:
+            "Pairing the two values gives the coordinate where the curve turns. As the graph shows, this is the lowest point of the parabola, where the tangent lies flat.",
           latex: "(3,-4)",
         },
       ],
-      finalAnswerLatex: "(3,-4)",
+      finalAnswerLatex:
+        "(3,-4) \\quad \\text{(the curve's turning location)}",
     },
     {
       title: "Worked example 2: Two stationary points",
@@ -3349,29 +3449,30 @@ export const stationaryPointsLesson: ExplicitLesson = {
         "y=x^3-3x^2-9x+2 \\quad \\text{find the stationary points.}",
       steps: [
         {
-          explanation: "Differentiate the function.",
+          explanation:
+            "Differentiate to get the gradient function; stationary points are wherever this equals zero.",
           latex: "\\frac{dy}{dx}=3x^2-6x-9",
         },
         {
-          explanation: "Set the derivative equal to $0$.",
+          explanation:
+            "Set the gradient to zero. This is a quadratic, so unlike the parabola it can flatten in more than one place.",
           latex: "3x^2-6x-9=0",
         },
         {
-          explanation: "Factorise and solve for $x$.",
+          explanation:
+            "Factorise to find every $x$ where the gradient vanishes.",
           latex:
-            "3(x^2-2x-3)=0 \\quad \\Rightarrow \\quad 3(x-3)(x+1)=0",
+            "3(x^2-2x-3)=0 \\quad \\Rightarrow \\quad 3(x-3)(x+1)=0 \\quad \\Rightarrow \\quad x=3 \\text{ or } x=-1",
         },
         {
-          explanation: "List the $x$-values.",
-          latex: "x=3 \\quad \\text{or} \\quad x=-1",
-        },
-        {
-          explanation: "Substitute each value into the original function.",
+          explanation:
+            "Each $x$ is only a horizontal location. Substitute each back into the original function, not the derivative, to find its height.",
           latex:
-            "y(3)=3^3-3(3)^2-9(3)+2=-25, \\quad y(-1)=(-1)^3-3(-1)^2-9(-1)+2=7",
+            "y(-1)=(-1)^3-3(-1)^2-9(-1)+2=7, \\quad y(3)=3^3-3(3)^2-9(3)+2=-25",
         },
         {
-          explanation: "Write the stationary points as coordinates.",
+          explanation:
+            "Write each as a coordinate: these are the two points where the curve momentarily turns from rising to falling and back.",
           latex: "(-1,7) \\quad \\text{and} \\quad (3,-25)",
         },
       ],
@@ -3471,7 +3572,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
   commonMistakes: [
     {
       mistake: "Substituting into the derivative to find the y-value.",
-      fix: "Use the derivative to find $x$, then use the original function to find $y$.",
+      fix: "The derivative outputs a gradient, not a height, so it can never give a $y$-coordinate. Use the derivative to find $x$, then read the height off the original function $f(x)$.",
     },
     {
       mistake: "Forgetting to set the derivative equal to zero.",
@@ -4091,17 +4192,16 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "The derivative tells us the gradient of the tangent to a curve.",
-      "If $f'(x)>0$ on an interval, the tangent gradients are positive and the function is increasing on that interval.",
-      "If $f'(x)<0$ on an interval, the tangent gradients are negative and the function is decreasing on that interval.",
-      "To determine intervals of increase and decrease, differentiate the function, solve $f'(x)=0$, then test the sign of the derivative in each interval.",
-      "This lesson focuses on intervals of increase and decrease. Classifying stationary points belongs in the next lesson.",
+      "Picture walking along a curve from left to right, the way you read a graph. On some stretches you head uphill and on others you head downhill. A function is increasing wherever its graph climbs as you move right, and decreasing wherever its graph falls. That single picture, uphill or downhill, is the whole idea of this lesson.",
+      "You already measure steepness with gradient = rise over run. The line $y=2x$ climbs two units for every one step right, so its gradient is $+2$ and it is always increasing. The line $y=-3x$ drops three units for every step right, gradient $-3$, always decreasing. Notice it is the sign of the gradient, not its size, that tells you the direction: positive means climbing, negative means falling.",
+      "A curve bends, so its steepness changes from point to point. The derivative $f'(x)$, which we built earlier as the gradient of the tangent, measures that steepness at each instant. The tangent points in the direction the curve is travelling, so the sign of $f'(x)$ reads straight off as direction of travel: where $f'(x)>0$ the tangent slopes up and the output rises as $x$ rises, and where $f'(x)<0$ the tangent slopes down and the output falls. That is why a positive derivative means increasing. It is the same uphill picture, now measured instant by instant.",
+      "To turn a single instant into a whole interval, notice the gradient can only switch between climbing and falling by passing through flat. So the sign of $f'(x)$ can change only where $f'(x)=0$, the flat instants we called stationary points last lesson. Between two neighbouring stationary points the derivative keeps one sign the whole way, so the curve stays uphill the whole way or downhill the whole way. That is exactly why testing one point in each interval settles the direction for the entire interval.",
+      "The most common slip is to test the sign of $f(x)$ instead of $f'(x)$. The height of the curve does not tell you which way it is heading: a curve can sit far above the axis while plunging downhill. Always read direction from the derivative's sign, never from the function's value. This lesson stops at stating where a function rises or falls; deciding whether a flat point is a peak or a trough is the next lesson.",
     ],
     latexBlocks: [
-      "f'(x)>0 \\quad \\Rightarrow \\quad \\text{increasing}",
-      "f'(x)<0 \\quad \\Rightarrow \\quad \\text{decreasing}",
-      "f'(x)=0 \\quad \\Rightarrow \\quad \\text{critical value}",
-      "\\text{test points} \\quad \\Rightarrow \\quad \\text{sign table} \\quad \\Rightarrow \\quad \\text{intervals}",
+      "f'(x)>0 \\;\\Rightarrow\\; \\text{tangent slopes up} \\;\\Rightarrow\\; \\text{increasing (curve climbs)}",
+      "f'(x)<0 \\;\\Rightarrow\\; \\text{tangent slopes down} \\;\\Rightarrow\\; \\text{decreasing (curve falls)}",
+      "f'(x)=0 \\;\\Rightarrow\\; \\text{flat instant: the only place the sign can flip}",
     ],
   },
 
@@ -4110,22 +4210,47 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
       title: "Worked example 1: A quadratic",
       questionLatex:
         "f(x)=x^2-4x+1 \\quad \\text{determine where the function is increasing and decreasing.}",
+      cartesianGraph: {
+        description:
+          "The parabola y = x^2 - 4x + 1 has its lowest point (a flat instant) at the vertex (2, -3). A short tangent is drawn on the falling left side at (0, 1), where it slopes downhill (gradient -4), and another on the rising right side at (4, 1), where it slopes uphill (gradient 4). The tangent direction matches the direction the curve is travelling on each side.",
+        xMin: -1,
+        xMax: 5,
+        yMin: -4,
+        yMax: 7,
+        xStep: 1,
+        yStep: 1,
+        parabolas: [
+          { kind: "quadratic", a: 1, b: -4, c: 1, label: "y = x² - 4x + 1" },
+        ],
+        lines: [
+          { kind: "linear", m: -4, b: 1, xMin: -0.7, xMax: 1, label: "tangent slopes down (falling)" },
+          { kind: "linear", m: 4, b: -15, xMin: 3, xMax: 4.7, label: "tangent slopes up (rising)" },
+        ],
+        points: [
+          { x: 0, y: 1, label: "falling here" },
+          { x: 2, y: -3, label: "flat (x = 2)" },
+          { x: 4, y: 1, label: "rising here" },
+        ],
+      },
       steps: [
         {
-          explanation: "Differentiate the function.",
+          explanation:
+            "Direction depends on the sign of the slope, not on how high the curve sits, so first build the gradient function by differentiating.",
           latex: "f'(x)=2x-4",
         },
         {
-          explanation: "Find where $f'(x)=0$.",
+          explanation:
+            "The direction can only switch at a flat instant, so find where the tangent is horizontal by solving $f'(x)=0$. This one value is the only possible boundary, so it splits the line into $(-\\infty,2)$ and $(2,\\infty)$.",
           latex: "2x-4=0 \\quad \\Rightarrow \\quad x=2",
         },
         {
-          explanation: "Test one value on each side of $x=2$.",
-          latex:
-            "f'(0)=-4<0, \\quad f'(3)=2>0",
+          explanation:
+            "Inside each piece the sign of $f'(x)$ cannot change, so a single convenient test point speaks for the whole interval. Pick one value on each side of $x=2$.",
+          latex: "f'(0)=-4<0, \\quad f'(3)=2>0",
         },
         {
-          explanation: "Use the signs to state the intervals.",
+          explanation:
+            "Read the signs as direction of travel: a negative slope on the left means the curve is heading downhill, and a positive slope on the right means it is heading uphill.",
           latex:
             "\\text{decreasing on }(-\\infty,2), \\quad \\text{increasing on }(2,\\infty)",
         },
@@ -4139,27 +4264,61 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
         "f(x)=x^3-3x^2 \\quad \\text{determine intervals of increase and decrease.}",
       steps: [
         {
-          explanation: "Differentiate the function.",
+          explanation:
+            "Same idea, but a cubic can turn more than once, so start from the gradient function that gives the slope at every $x$.",
           latex: "f'(x)=3x^2-6x",
         },
         {
-          explanation: "Factorise and solve $f'(x)=0$.",
+          explanation:
+            "Find the flat instants where the direction can flip by solving $f'(x)=0$; factorising makes the two boundaries visible. These cut the number line into three intervals.",
           latex:
             "3x^2-6x=0 \\quad \\Rightarrow \\quad 3x(x-2)=0 \\quad \\Rightarrow \\quad x=0,2",
         },
         {
-          explanation: "Test intervals around the critical values.",
-          latex:
-            "f'(-1)=9>0, \\quad f'(1)=-3<0, \\quad f'(3)=9>0",
+          explanation:
+            "Three intervals means one test point in each, since the sign found there holds across that whole interval between flat instants.",
+          latex: "f'(-1)=9>0, \\quad f'(1)=-3<0, \\quad f'(3)=9>0",
         },
         {
-          explanation: "State the increasing and decreasing intervals.",
+          explanation:
+            "Translate the sign pattern into direction: uphill, then downhill, then uphill again.",
           latex:
             "\\text{increasing on }(-\\infty,0)\\cup(2,\\infty), \\quad \\text{decreasing on }(0,2)",
         },
       ],
       finalAnswerLatex:
         "\\text{Increasing on }(-\\infty,0)\\cup(2,\\infty), \\quad \\text{decreasing on }(0,2)",
+    },
+    {
+      title: "Worked example 3: Reading a real model",
+      questionLatex:
+        "h(t)=t^3-6t^2+9t, \\;\\; 0\\le t\\le 4 \\quad \\text{(drone height in metres after $t$ seconds). When is it rising and when is it falling?}",
+      steps: [
+        {
+          explanation:
+            "Rising and falling are increasing and decreasing in disguise, so differentiate to get the rate the height is changing at each instant.",
+          latex: "h'(t)=3t^2-12t+9",
+        },
+        {
+          explanation:
+            "The drone can only change between climbing and descending at a flat instant, so solve $h'(t)=0$; factorising exposes the turning times.",
+          latex:
+            "3t^2-12t+9=3(t-1)(t-3)=0 \\quad \\Rightarrow \\quad t=1,3",
+        },
+        {
+          explanation:
+            "Test one time in each interval of the domain; the sign there fixes the direction for the whole interval.",
+          latex: "h'(0.5)>0, \\quad h'(2)=-3<0, \\quad h'(3.5)>0",
+        },
+        {
+          explanation:
+            "Interpret in context: a positive rate means height is growing, a negative rate means it is dropping.",
+          latex:
+            "\\text{rising on }(0,1)\\text{ and }(3,4), \\quad \\text{falling on }(1,3)",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Rising on }(0,1)\\text{ and }(3,4), \\quad \\text{falling on }(1,3)",
     },
   ],
 
@@ -4276,7 +4435,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
   commonMistakes: [
     {
       mistake: "Using the original function to test signs.",
-      fix: "Test signs using the derivative $f'(x)$, not $f(x)$.",
+      fix: "The value of $f(x)$ is the curve's height, not its direction, and a curve can be high above the axis while still falling. Direction comes from steepness, so test the sign of $f'(x)$, not $f(x)$.",
     },
     {
       mistake: "Forgetting to split the number line at every critical value.",
@@ -4284,7 +4443,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
     },
     {
       mistake: "Reversing the meaning of positive and negative derivative signs.",
-      fix: "$f'(x)>0$ means increasing and $f'(x)<0$ means decreasing.",
+      fix: "Anchor it to the uphill picture: a positive slope tilts up, so the output rises as $x$ rises. $f'(x)>0$ means increasing and $f'(x)<0$ means decreasing.",
     },
     {
       mistake: "Classifying stationary points in this lesson.",
