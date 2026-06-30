@@ -82,7 +82,7 @@ const PRESETS = [
   },
 ] as const;
 
-const QUESTION_COUNTS = [5, 8, 10, 12, 15, 20];
+const QUESTION_COUNTS = [5, 8, 10, 12, 15, 20, 25, 30, 40, 50];
 
 function displaySlug(slug: string) {
   return slug
