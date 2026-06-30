@@ -105,49 +105,117 @@ export const standardDerivativesLesson = lesson(
   ],
   {
     paragraphs: [
-      "Year 12 Advanced differentiation extends the polynomial rules by adding standard derivatives for trigonometric, exponential and logarithmic functions.",
-      "The derivative of sin x is cos x, while the derivative of cos x is negative sin x. The negative sign is a common source of errors.",
-      "The derivative of tan x is sec squared x. The derivative of e^x is itself, and the derivative of ln x is 1 over x.",
-      "Constants multiply through derivatives. Sums and differences can be differentiated term by term.",
-      "For numeric derivative values, differentiate first, then substitute the input.",
+      "A derivative is still what it was in MA-C1: the slope of the curve, the instantaneous rate at which the output changes as x moves. Each 'standard derivative' below is just the answer to one question for a particular curve - how steep is it at every point. So the goal is not to memorise a table but to know the shape of each slope; the formulas are then consequences you can reconstruct.",
+      "Walk along y = sin x from x = 0. The curve climbs at its steepest as it leaves the origin, is momentarily flat at the peak (x = pi/2), then falls. If you record that slope at every point, you trace out a new wave: it starts high, drops to 0 at the peak, then goes negative - and that wave is exactly cos x. We can pin the steepest slope down: the gradient of sin x at 0 is the limit of (sin h - 0)/h as h tends to 0, and on the unit circle a tiny angle and its sine are almost equal, so (sin h)/h tends to 1. The slope at x = 0 is therefore 1, which is cos 0. Hence d/dx(sin x) = cos x, and slope-tracing the cosine wave once more gives d/dx(cos x) = -sin x. The derivative of tan x is sec^2 x, which is always positive - tan keeps increasing between its asymptotes.",
+      "Exponentials grow at a rate proportional to how big they already are: the more there is, the faster it climbs. Among all the curves y = a^x there is exactly one base for which the slope equals the height itself at every point, and we name that base e (about 2.718). So e^x is the special function that is its own derivative: d/dx(e^x) = e^x. Any other exponential can be rewritten as a^x = e^{x ln a}, which climbs ln a times as fast, giving d/dx(a^x) = a^x ln a. Sense-check the base: when a = e, ln e = 1, so the formula returns e^x as it must.",
+      "The natural logarithm undoes e^x, so y = ln x is the reflection of y = e^x in the line y = x. Reflecting swaps rise and run, which turns a steep slope into a shallow one, so where e^x climbs fast ln x climbs slowly. The result is d/dx(ln x) = 1/x: large for small x and shrinking as x grows, exactly the mirror of the steepening e^x.",
+      "Two slips are worth naming. Dropping the minus sign on d/dx(cos x) treats cosine as if it rose like sine, but at x = 0 the cosine curve sits at a peak, so its slope must start at 0 and turn negative - which is what -sin x does. The other slip is using the power rule on e^x to get x e^{x-1}; the power rule only applies when the variable is the base and the exponent is a constant, whereas in e^x the variable is the exponent, so a different rule governs it. In NSW exams these derivatives sit inside tangents, rates and optimisation, where a value such as f'(a) is read as the gradient of the curve at x = a.",
     ],
     latexBlocks: [
-      "\\frac{d}{dx}(\\sin x)=\\cos x",
-      "\\frac{d}{dx}(\\cos x)=-\\sin x",
-      "\\frac{d}{dx}(\\tan x)=\\sec^2 x",
-      "\\frac{d}{dx}(e^x)=e^x",
-      "\\frac{d}{dx}(\\ln x)=\\frac{1}{x}",
-      "\\frac{d}{dx}(a^x)=a^x\\ln a",
+      "\\frac{d}{dx}(\\sin x)=\\cos x \\qquad \\text{because } \\lim_{h\\to 0}\\frac{\\sin h}{h}=1",
+      "\\frac{d}{dx}(\\cos x)=-\\sin x \\qquad \\frac{d}{dx}(\\tan x)=\\sec^2 x",
+      "\\frac{d}{dx}(e^x)=e^x \\qquad \\frac{d}{dx}(\\ln x)=\\frac{1}{x}",
+      "\\frac{d}{dx}(a^x)=\\frac{d}{dx}\\,e^{x\\ln a}=a^x\\ln a",
     ],
   },
   [
     {
-      title: "Differentiate a trigonometric function",
-      questionLatex: "f(x)=3\\sin x-2\\cos x",
+      title: "Worked example 1: The slope of sine is cosine",
+      questionLatex:
+        "y=\\sin x.\\quad \\text{Describe the gradient, then find it at } x=0 \\text{ and } x=\\tfrac{\\pi}{2}.",
+      cartesianGraph: {
+        description:
+          "Two waves on the same axes over x = 0 to 2pi. The solid curve is y = sin x; the dashed curve is y = cos x. At every point the height of the cosine curve equals the slope of the sine curve: cos x is 1 where sin x climbs fastest (x = 0), 0 where sin x peaks and is momentarily flat (x = pi/2), and negative where sin x is falling.",
+        xMin: 0,
+        xMax: 6.5,
+        yMin: -1.5,
+        yMax: 1.5,
+        xStep: 1,
+        yStep: 1,
+        sinusoidals: [
+          { kind: "sin", a: 1, b: 1, c: 0, d: 0, label: "y = sin x" },
+          { kind: "cos", a: 1, b: 1, c: 0, d: 0, label: "y = cos x (the slope of sin x)" },
+        ],
+        points: [
+          { x: 0, y: 0, label: "sin climbs fastest: slope 1" },
+          { x: 1.5708, y: 1, label: "peak: slope 0" },
+        ],
+      },
       steps: [
-        { explanation: "Differentiate each term separately.", latex: "\\frac{d}{dx}(3\\sin x)=3\\cos x" },
-        { explanation: "The derivative of cos x is negative sin x.", latex: "\\frac{d}{dx}(-2\\cos x)=2\\sin x" },
-        { explanation: "Combine the derivatives.", latex: "f'(x)=3\\cos x+2\\sin x" },
+        {
+          explanation:
+            "Read the slope straight off the curve. Sine climbs fastest leaving the origin, so the gradient is largest there; at the peak the curve is momentarily flat, so the gradient is 0.",
+        },
+        {
+          explanation:
+            "Tracking that gradient at every point traces a second wave that starts at its maximum, falls to 0 at the peak, then goes negative. That wave is cosine, so the gradient function is cos x.",
+          latex: "\\frac{dy}{dx}=\\cos x",
+        },
+        {
+          explanation:
+            "At x = 0 the gradient is cos 0 = 1: the tangent rises one unit for each unit across, the steepest climb on the whole curve.",
+          latex: "\\left.\\frac{dy}{dx}\\right|_{x=0}=\\cos 0=1",
+        },
+        {
+          explanation:
+            "At x = pi/2 the gradient is cos(pi/2) = 0: the tangent is horizontal, matching the flat top we read off the graph at the peak.",
+          latex: "\\left.\\frac{dy}{dx}\\right|_{x=\\pi/2}=\\cos\\tfrac{\\pi}{2}=0",
+        },
       ],
-      finalAnswerLatex: "3\\cos x+2\\sin x",
+      finalAnswerLatex:
+        "\\frac{dy}{dx}=\\cos x,\\quad \\text{gradient}=1\\text{ at }x=0,\\ \\ 0\\text{ at }x=\\tfrac{\\pi}{2}",
     },
     {
-      title: "Differentiate exponential and logarithmic terms",
-      questionLatex: "y=4e^x+5\\ln x",
+      title: "Worked example 2: A combination, and the cosine sign",
+      questionLatex: "f(x)=3\\sin x-2\\cos x.\\quad \\text{Find } f'(x) \\text{ and } f'(0).",
       steps: [
-        { explanation: "The derivative of e^x is e^x.", latex: "\\frac{d}{dx}(4e^x)=4e^x" },
-        { explanation: "The derivative of ln x is 1/x.", latex: "\\frac{d}{dx}(5\\ln x)=\\frac{5}{x}" },
+        {
+          explanation:
+            "Differentiate each term on its own, because the derivative of a sum is the sum of the derivatives. The slope of sin x is cos x, so the 3 sin x term contributes 3 cos x.",
+          latex: "\\frac{d}{dx}(3\\sin x)=3\\cos x",
+        },
+        {
+          explanation:
+            "For -2 cos x, the slope of cosine is -sin x, so the two minus signs combine to give +2 sin x. This is exactly where the cosine sign rule earns its keep.",
+          latex: "\\frac{d}{dx}(-2\\cos x)=-2(-\\sin x)=2\\sin x",
+        },
+        {
+          explanation: "Add the pieces to get the gradient function.",
+          latex: "f'(x)=3\\cos x+2\\sin x",
+        },
+        {
+          explanation:
+            "At x = 0, cos 0 = 1 and sin 0 = 0, so the gradient is 3: the curve is rising steeply as it crosses x = 0.",
+          latex: "f'(0)=3\\cos 0+2\\sin 0=3",
+        },
       ],
-      finalAnswerLatex: "4e^x+\\frac{5}{x}",
+      finalAnswerLatex: "f'(x)=3\\cos x+2\\sin x,\\quad f'(0)=3",
     },
     {
-      title: "Evaluate a derivative",
-      questionLatex: "f(x)=\\sin x+e^x.\\quad \\text{Find }f'(0).",
+      title: "Worked example 3: e^x is its own slope",
+      questionLatex: "f(x)=e^x+\\ln x.\\quad \\text{Find } f'(1).",
       steps: [
-        { explanation: "Differentiate first.", latex: "f'(x)=\\cos x+e^x" },
-        { explanation: "Substitute x = 0.", latex: "f'(0)=\\cos 0+e^0=1+1" },
+        {
+          explanation:
+            "Differentiate e^x. Because e is the base whose curve has slope equal to its own height, differentiating leaves e^x unchanged.",
+          latex: "\\frac{d}{dx}(e^x)=e^x",
+        },
+        {
+          explanation:
+            "Differentiate ln x. As the mirror image of e^x, its slope is 1/x - steep for small x and flattening as x grows.",
+          latex: "\\frac{d}{dx}(\\ln x)=\\frac{1}{x}",
+        },
+        {
+          explanation: "Substitute x = 1 into the gradient function f'(x) = e^x + 1/x.",
+          latex: "f'(1)=e^1+\\frac{1}{1}=e+1",
+        },
+        {
+          explanation:
+            "So the gradient at x = 1 is e + 1, about 3.72: the curve is climbing steeply through that point.",
+          latex: "f'(1)=e+1\\approx 3.72",
+        },
       ],
-      finalAnswerLatex: "2",
+      finalAnswerLatex: "f'(1)=e+1\\approx 3.72",
     },
   ],
   [
@@ -164,10 +232,10 @@ export const standardDerivativesLesson = lesson(
     numeric("diff-tech-std-i5", "Find f'(0).", "f(x)=2\\cos x+3e^x", "3"),
   ],
   [
-    { mistake: "Differentiating cos x as sin x.", fix: "The derivative of cos x is negative sin x." },
-    { mistake: "Differentiating ln x as 1/ln x.", fix: "The derivative of ln x is 1/x." },
-    { mistake: "Changing e^x into x e^{x-1}.", fix: "The derivative of e^x is e^x." },
-    { mistake: "Substituting before differentiating.", fix: "Differentiate the function first, then substitute the input." },
+    { mistake: "Differentiating cos x as +sin x, dropping the minus sign.", fix: "At x = 0 the cosine curve sits at a peak, so its slope must start at 0 and turn negative. Sine does the opposite, so d/dx(cos x) = -sin x, not sin x." },
+    { mistake: "Differentiating ln x as 1/ln x.", fix: "This confuses 'reciprocal of the function' with 'derivative'. The slope of ln x is 1/x, which follows from ln x being the mirror image of e^x in y = x." },
+    { mistake: "Changing e^x into x e^{x-1} with the power rule.", fix: "The power rule only applies when the variable is the base and the exponent is a constant. In e^x the variable is the exponent, so the rule does not apply; e^x is its own derivative." },
+    { mistake: "Substituting the value before differentiating.", fix: "f(a) is a fixed number, whose derivative would be 0. Differentiate first to get the gradient function f'(x), then substitute x = a." },
   ],
   [
     choice("diff-tech-std-m1", "Choose the derivative.", "y=4\\sin x", "A", ["$4\\cos x$", "$-4\\sin x$", "$4\\sec^2 x$", "$\\cos 4x$"], "The derivative of sin x is cos x, with the coefficient unchanged."),
@@ -204,18 +272,17 @@ export const chainRuleLesson = lesson(
   ],
   {
     paragraphs: [
-      "The chain rule is used when one function is inside another function.",
-      "Differentiate the outer function while leaving the inner expression in place, then multiply by the derivative of the inner expression.",
-      "For powers such as $(3x - 1)^5$, the outer function is the fifth power and the inner function is $3x - 1$.",
-      "The same idea works for trigonometric, exponential and logarithmic composite functions.",
-      "Many chain-rule errors come from forgetting to multiply by the derivative of the inner function.",
+      "A composite function is one process feeding into another: an outer function acts on the result of an inner function. Think of two meshed gears. Turn the input shaft and suppose the middle gear spins 3 times as fast; suppose the output gear then spins 4 times as fast as the middle gear. For every 1 turn of the input the middle gear makes 3 turns, and each of those drives the output 4 turns, so the output makes 3 times 4 = 12 turns. The two rates multiply. The chain rule is exactly this idea for curves: if the inside changes at one rate and the outside responds at another, the overall rate is the product of the two.",
+      "Take y = (2x + 3)^5. To differentiate it we split the chain into two simple links: let u = 2x + 3 be the inner step, so the job becomes y = u^5. The mapping reads x -> u = 2x + 3 -> y = u^5. Each link is something we already know how to handle: the inner link 2x + 3 has slope 2, so it changes twice as fast as x, and the outer link u^5 has slope 5u^4 by the power rule. Composition is the only new layer; the individual derivatives are the standard ones from earlier lessons.",
+      "Why do the two rates multiply rather than add? Over a small step a derivative is a ratio of changes, so dy/dx is close to the ratio of a small change in y to a small change in x, written Delta y / Delta x. We route that change through u by inserting Delta u on top and bottom: Delta y / Delta x = (Delta y / Delta u) times (Delta u / Delta x). The two Delta u factors cancel, so the identity holds exactly for any nonzero Delta u. Now let the step shrink: Delta y / Delta u tends to dy/du and Delta u / Delta x tends to du/dx, which gives dy/dx = (dy/du)(du/dx). The cancelling Delta u is the reason the rates multiply.",
+      "In function notation, if y = f(g(x)) then the outer derivative f'(g(x)) plays the role of dy/du and the inner derivative g'(x) plays the role of du/dx, so dy/dx = f'(g(x)) g'(x). Every special case below is this one rule with a particular outer function: a power gives n(ax + b)^{n-1} times the inner derivative, sine gives cos(g(x)) times g'(x), e^{g(x)} reproduces itself times g'(x), and ln(g(x)) gives g'(x)/g(x). There is one idea to carry, not five formulas to memorise.",
+      "The most common error is to differentiate the outer function and stop, forgetting the inner derivative; the gears picture guards against it, since leaving out a rate is like ignoring one of the meshed gears. A second error is mutating the inner expression while differentiating the outside, for example turning (2x + 3)^5 straight into (2)^5; the inside is carried along unchanged until the final multiplication. In NSW exams the chain rule sits inside tangents, rates of change and optimisation, where f'(a) is read as the gradient of the composite curve at x = a.",
     ],
     latexBlocks: [
-      "\\frac{d}{dx}f(g(x))=f'(g(x))g'(x)",
-      "\\frac{d}{dx}(ax+b)^n=n(ax+b)^{n-1}\\cdot a",
-      "\\frac{d}{dx}\\sin(g(x))=\\cos(g(x))g'(x)",
-      "\\frac{d}{dx}e^{g(x)}=e^{g(x)}g'(x)",
-      "\\frac{d}{dx}\\ln(g(x))=\\frac{g'(x)}{g(x)}",
+      "\\frac{dy}{dx}\\approx\\frac{\\Delta y}{\\Delta x}=\\frac{\\Delta y}{\\Delta u}\\cdot\\frac{\\Delta u}{\\Delta x}\\;\\longrightarrow\\;\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}",
+      "\\frac{d}{dx}f(g(x))=f'(g(x))\\,g'(x)",
+      "\\frac{d}{dx}(ax+b)^n=n(ax+b)^{n-1}\\cdot a\\qquad \\frac{d}{dx}\\sin(g(x))=\\cos(g(x))\\,g'(x)",
+      "\\frac{d}{dx}e^{g(x)}=e^{g(x)}g'(x)\\qquad \\frac{d}{dx}\\ln(g(x))=\\frac{g'(x)}{g(x)}",
     ],
   },
   [
@@ -223,29 +290,94 @@ export const chainRuleLesson = lesson(
       title: "Power of a linear expression",
       questionLatex: "y=(2x+3)^5",
       steps: [
-        { explanation: "The outer function is a fifth power and the inner function is 2x + 3.", latex: "g(x)=2x+3" },
-        { explanation: "Differentiate the outer function, leaving the inner expression in place.", latex: "5(2x+3)^4" },
-        { explanation: "Multiply by the derivative of the inner expression.", latex: "5(2x+3)^4\\cdot2" },
+        {
+          explanation:
+            "Name the links. The inner function is the expression sitting inside the bracket, u = 2x + 3, and the outer function is the fifth power, y = u^5. The mapping is x -> u = 2x + 3 -> y = u^5.",
+          latex: "u=2x+3,\\quad y=u^5",
+        },
+        {
+          explanation:
+            "Differentiate the outer link with the power rule, treating u as a single variable. Bringing down the 5 gives dy/du = 5u^4.",
+          latex: "\\frac{dy}{du}=5u^4",
+        },
+        {
+          explanation:
+            "Differentiate the inner link on its own. The line 2x + 3 rises 2 units for every 1 unit of x, so du/dx = 2.",
+          latex: "\\frac{du}{dx}=2",
+        },
+        {
+          explanation:
+            "Assemble the product dy/dx = (dy/du)(du/dx), then put u = 2x + 3 back so the answer is in terms of x.",
+          latex: "\\frac{dy}{dx}=5u^4\\cdot 2=10(2x+3)^4",
+        },
+        {
+          explanation:
+            "Read the result as a gradient function: the composite climbs at 10(2x + 3)^4 at each x, always positive and steepest where 2x + 3 is large.",
+        },
       ],
-      finalAnswerLatex: "10(2x+3)^4",
+      finalAnswerLatex: "\\frac{dy}{dx}=10(2x+3)^4",
     },
     {
-      title: "Trigonometric composite",
-      questionLatex: "y=\\sin(3x-1)",
+      title: "Exponential with a nonlinear inside",
+      questionLatex: "y=e^{x^2}",
       steps: [
-        { explanation: "The derivative of sin is cos.", latex: "\\cos(3x-1)" },
-        { explanation: "Multiply by the derivative of 3x - 1.", latex: "\\frac{d}{dx}(3x-1)=3" },
+        {
+          explanation:
+            "Name the links. The inner function is what the exponential acts on, u = x^2, and the outer function is y = e^u. Here the inner derivative will not be a constant.",
+          latex: "u=x^2,\\quad y=e^u",
+        },
+        {
+          explanation:
+            "Differentiate the outer link. The exponential is its own derivative, so dy/du = e^u.",
+          latex: "\\frac{dy}{du}=e^u",
+        },
+        {
+          explanation:
+            "Differentiate the inner link with the power rule: du/dx = 2x.",
+          latex: "\\frac{du}{dx}=2x",
+        },
+        {
+          explanation:
+            "Assemble the product and restore u = x^2. The inner derivative 2x is the factor that is easy to forget when the inside is not linear.",
+          latex: "\\frac{dy}{dx}=e^u\\cdot 2x=2x\\,e^{x^2}",
+        },
+        {
+          explanation:
+            "The factor 2x makes the gradient 0 at x = 0 and steeply positive for large x, matching the way e^{x^2} is flat at its base and then rises sharply.",
+        },
       ],
-      finalAnswerLatex: "3\\cos(3x-1)",
+      finalAnswerLatex: "\\frac{dy}{dx}=2x\\,e^{x^2}",
     },
     {
       title: "Logarithmic composite",
       questionLatex: "y=\\ln(5x+2)",
       steps: [
-        { explanation: "For ln(g(x)), the derivative is g'(x)/g(x).", latex: "g(x)=5x+2" },
-        { explanation: "The inner derivative is 5.", latex: "g'(x)=5" },
+        {
+          explanation:
+            "Name the links. The inner function is the argument of the log, u = 5x + 2, and the outer function is y = ln u.",
+          latex: "u=5x+2,\\quad y=\\ln u",
+        },
+        {
+          explanation:
+            "Differentiate the outer link. The slope of ln u is 1/u.",
+          latex: "\\frac{dy}{du}=\\frac{1}{u}",
+        },
+        {
+          explanation:
+            "Differentiate the inner link: du/dx = 5.",
+          latex: "\\frac{du}{dx}=5",
+        },
+        {
+          explanation:
+            "Assemble the product explicitly and restore u = 5x + 2. This is the multiplication step that is easy to skip, which would leave the answer as 1/(5x + 2) and lose the factor of 5.",
+          latex: "\\frac{dy}{dx}=\\frac{1}{u}\\cdot 5=\\frac{5}{5x+2}",
+        },
+        {
+          explanation:
+            "The gradient 5/(5x + 2) is positive and shrinks as x grows, so the curve always rises but flattens out, just as ln does.",
+        },
       ],
-      finalAnswerLatex: "\\frac{5}{5x+2}",
+      finalAnswerLatex: "\\frac{dy}{dx}=\\frac{5}{5x+2}",
     },
   ],
   [
@@ -262,10 +394,10 @@ export const chainRuleLesson = lesson(
     choice("diff-tech-chain-i5", "Which option identifies the inner function?", "y=\\sin(3x+2)", "B", ["$\\sin u$", "$3x+2$", "$\\cos(3x+2)$", "$3$"], "In sin(3x + 2), the inner function is 3x + 2."),
   ],
   [
-    { mistake: "Forgetting the inner derivative.", fix: "After differentiating the outer function, multiply by the derivative of the inside." },
-    { mistake: "Changing the inner expression while differentiating the outer function.", fix: "Leave the inner expression in place until the multiplication step." },
-    { mistake: "Missing the negative sign when differentiating cos of an expression.", fix: "The derivative of cos(g(x)) is -sin(g(x))g'(x)." },
-    { mistake: "Using the product rule for every expression with brackets.", fix: "A function inside another function needs the chain rule." },
+    { mistake: "Forgetting the inner derivative.", fix: "The chain rule is two rates multiplied, so leaving out g'(x) drops one of the meshed gears and the rate comes out wrong. After differentiating the outer function, multiply by the derivative of the inside." },
+    { mistake: "Changing the inner expression while differentiating the outer function.", fix: "The inside is carried along unchanged, like a label, and is only differentiated in its own separate link. Leave (2x + 3) in place until the final multiplication rather than turning it into a number." },
+    { mistake: "Missing the negative sign when differentiating cos of an expression.", fix: "The minus comes from the outer derivative: the slope of cos is -sin, so the chain rule gives -sin(g(x))g'(x), not sin(g(x))g'(x)." },
+    { mistake: "Using the product rule for every expression with brackets.", fix: "A product rule is for two functions multiplied; a function inside another function is a composition and needs the chain rule. Check whether the brackets hold a separate factor or an argument fed into an outer function." },
   ],
   [
     choice("diff-tech-chain-m1", "Choose the derivative.", "y=(5x-2)^3", "B", ["$3(5x-2)^2$", "$15(5x-2)^2$", "$15(5x-2)^3$", "$5(5x-2)^2$"], "The outer derivative is $3(5x - 2)^2$ and the inner derivative is 5."),
@@ -299,16 +431,16 @@ export const productQuotientRulesLesson = lesson(
   ],
   {
     paragraphs: [
-      "The product rule is used when two variable expressions are multiplied.",
-      "The quotient rule is used when one variable expression is divided by another.",
-      "Do not differentiate a product by multiplying the two derivatives. The product rule has two terms.",
-      "For the quotient rule, keep the numerator order as f'g - fg'. Reversing the order changes the sign.",
-      "In HSC questions, it is often enough to show a correct derivative before heavy simplification.",
+      "When two functions are multiplied, the tempting shortcut is to multiply their derivatives, and it is wrong. Sense-check it on something we already know: x times x^2 is x^3, whose derivative is 3x^2. But multiplying the separate derivatives gives 1 times 2x = 2x, which is not 3x^2. Multiplying functions does not multiply their rates of change, so a product needs its own rule.",
+      "Here is a picture that survives forgetting the formula. Think of the product uv as the area of a rectangle with width u and height v. As x increases a little, the width grows by a small amount Delta u and the height grows by Delta v. The area gains a thin vertical strip down one side (height v, width Delta u) and a thin horizontal strip along the other (width u, height Delta v), plus a tiny corner square of size Delta u by Delta v. Each side that grows adds one strip, which is why two terms appear: the rate of change of a product collects one contribution from each factor changing while the other is held fixed.",
+      "Turning the picture into algebra gives the derivation. The change in area is Delta(uv) = u Delta v + v Delta u + Delta u Delta v. Divide every term by Delta x, then let the step shrink to zero. The corner term Delta u Delta v / Delta x carries an extra shrinking factor and vanishes, while Delta v / Delta x tends to v' and Delta u / Delta x tends to u'. What is left is (uv)' = u'v + uv', the product rule: differentiate one factor at a time and keep the other unchanged.",
+      "The quotient rule is not a new mystery; it is the product rule wearing a disguise. Write the quotient f/g as the product f times g^{-1}. The product rule gives (f g^{-1})' = f' g^{-1} + f (g^{-1})', and the chain rule from the previous lesson differentiates g^{-1} as -g^{-2} g'. Substituting and putting everything over the common denominator g^2 gives (f/g)' = (f'g - fg')/g^2. The numerator order f'g - fg' is fixed by this derivation, so it is not arbitrary to remember.",
+      "Two mistakes follow from skipping the reasoning. Writing the product rule as f'g' drops a whole strip from the rectangle, so the rate comes out too small; the cure is to remember that each growing side adds a term. Reversing the quotient numerator to fg' - f'g flips every sign, because the derivation fixed which factor is differentiated first. In NSW exams these rules sit inside tangents, rates and stationary points, where a correctly assembled derivative usually earns the marks before any simplification.",
     ],
     latexBlocks: [
-      "\\frac{d}{dx}(fg)=f'g+fg'",
-      "\\frac{d}{dx}\\left(\\frac{f}{g}\\right)=\\frac{f'g-fg'}{g^2}",
-      "\\text{product: multiply functions}\\quad \\text{quotient: divide functions}",
+      "\\frac{d}{dx}(x\\cdot x^2)=\\frac{d}{dx}x^3=3x^2\\neq 1\\cdot 2x",
+      "\\Delta(uv)=u\\,\\Delta v+v\\,\\Delta u+\\Delta u\\,\\Delta v\\;\\longrightarrow\\;(uv)'=u'v+uv'",
+      "\\frac{d}{dx}\\left(\\frac{f}{g}\\right)=\\frac{d}{dx}\\left(f\\,g^{-1}\\right)=\\frac{f'g-fg'}{g^2}",
     ],
   },
   [
@@ -316,8 +448,21 @@ export const productQuotientRulesLesson = lesson(
       title: "Use the product rule",
       questionLatex: "y=x\\sin x",
       steps: [
-        { explanation: "Let f = x and g = sin x.", latex: "f'=1,\\quad g'=\\cos x" },
-        { explanation: "Apply f'g + fg'.", latex: "y'=1\\cdot\\sin x+x\\cos x" },
+        {
+          explanation:
+            "Both x and sin x change as x moves, so this is a product of two varying functions, not a single standard derivative. Name the factors f = x and g = sin x; the labels can be swapped, provided each factor keeps its own derivative.",
+          latex: "f=x,\\quad g=\\sin x",
+        },
+        {
+          explanation:
+            "Differentiate each factor on its own. The line x has slope 1, and the derivative of sin x is cos x.",
+          latex: "f'=1,\\quad g'=\\cos x",
+        },
+        {
+          explanation:
+            "Assemble f'g + fg'. The first term is the strip from x growing (rate 1 times the current height sin x); the second is the strip from sin x growing (current width x times rate cos x).",
+          latex: "y'=1\\cdot\\sin x+x\\cos x",
+        },
       ],
       finalAnswerLatex: "\\sin x+x\\cos x",
     },
@@ -325,17 +470,51 @@ export const productQuotientRulesLesson = lesson(
       title: "Use the quotient rule",
       questionLatex: "y=\\frac{e^x}{x}",
       steps: [
-        { explanation: "Let f = e^x and g = x.", latex: "f'=e^x,\\quad g'=1" },
-        { explanation: "Apply the quotient rule.", latex: "y'=\\frac{e^x\\cdot x-e^x\\cdot 1}{x^2}" },
+        {
+          explanation:
+            "A function divided by a function calls for the quotient rule. Take f as the top, e^x, and g as the bottom, x; the rule differentiates the top first, so getting these the right way round matters.",
+          latex: "f=e^x,\\quad g=x",
+        },
+        {
+          explanation:
+            "Differentiate top and bottom separately. The exponential is its own derivative, and x has slope 1.",
+          latex: "f'=e^x,\\quad g'=1",
+        },
+        {
+          explanation:
+            "Apply (f'g - fg')/g^2: derivative of the top times the bottom, minus the top times the derivative of the bottom, all over the bottom squared.",
+          latex: "y'=\\frac{e^x\\cdot x-e^x\\cdot 1}{x^2}=\\frac{e^x(x-1)}{x^2}",
+        },
+        {
+          explanation:
+            "Read the result as a gradient function. The numerator e^x(x - 1) is zero at x = 1, so the curve is momentarily flat there, which marks a stationary point of e^x / x.",
+        },
       ],
-      finalAnswerLatex: "\\frac{xe^x-e^x}{x^2}",
+      finalAnswerLatex: "\\frac{e^x(x-1)}{x^2}",
     },
     {
-      title: "Evaluate a product-rule derivative",
-      questionLatex: "y=x e^x.\\quad \\text{Find }y'\\text{ at }x=0.",
+      title: "Evaluate and interpret a product-rule derivative",
+      questionLatex: "y=x e^x.\\quad \\text{Find the gradient at }x=0.",
       steps: [
-        { explanation: "Use the product rule.", latex: "y'=1\\cdot e^x+x e^x" },
-        { explanation: "Substitute x = 0.", latex: "y'(0)=1" },
+        {
+          explanation:
+            "This is a product of f = x and g = e^x, both varying, so use the product rule.",
+          latex: "f=x,\\quad g=e^x",
+        },
+        {
+          explanation:
+            "Assemble f'g + fg' with f' = 1 and g' = e^x, then factor the common e^x.",
+          latex: "y'=1\\cdot e^x+x e^x=e^x(1+x)",
+        },
+        {
+          explanation:
+            "Substitute x = 0, using e^0 = 1.",
+          latex: "y'(0)=e^0(1+0)=1",
+        },
+        {
+          explanation:
+            "Interpret the value. The curve passes through the origin, and a gradient of 1 there means it leaves the origin along the line y = x, climbing at 45 degrees.",
+        },
       ],
       finalAnswerLatex: "1",
     },
@@ -354,10 +533,10 @@ export const productQuotientRulesLesson = lesson(
     choice("diff-tech-pq-i5", "Choose the derivative.", "y=\\frac{x}{e^x}", "C", ["$\\frac{e^x}{e^{2x}}$", "$\\frac{x e^x-e^x}{e^{2x}}$", "$\\frac{e^x-xe^x}{e^{2x}}$", "$\\frac{1}{e^x}$"], "Use f = x, g = e^x, so f'g - fg' = e^x - xe^x."),
   ],
   [
-    { mistake: "Writing the product rule as f'g'.", fix: "Use f'g + fg', which has two terms." },
-    { mistake: "Reversing the quotient-rule numerator.", fix: "For f/g, use f'g - fg', all over g squared." },
-    { mistake: "Using the quotient rule when a simpler product rewrite is obvious but then losing signs.", fix: "Choose a rule deliberately and keep the structure clear." },
-    { mistake: "Over-simplifying and making algebra errors.", fix: "A correct unsimplified derivative is often safer than a flawed simplification." },
+    { mistake: "Writing the product rule as f'g'.", fix: "This copies the shortcut that works for sums, but a product of rates is not the rate of a product: x times x^2 has derivative 3x^2, not 1 times 2x. In the rectangle picture, f'g' is a single corner, not the two strips. Use f'g + fg', one term for each factor that grows." },
+    { mistake: "Reversing the quotient-rule numerator to fg' - f'g.", fix: "The order is not a free choice; the derivation from f times g^{-1} fixes the derivative of the top to come first. Swapping the terms flips every sign, so keep f'g - fg', all over g squared." },
+    { mistake: "Using the quotient rule when a simpler product rewrite is obvious but then losing signs.", fix: "A quotient can be rewritten as a product with a negative power, which has only plus signs and fewer chances to drop a sign. Choose the rule deliberately and keep the structure visible." },
+    { mistake: "Over-simplifying and making algebra errors.", fix: "Marks are awarded for a correct derivative, and forced simplification is where signs and factors get lost. A correct unsimplified derivative is often safer than a flawed tidy one." },
   ],
   [
     choice("diff-tech-pq-m1", "Which rule is most direct?", "y=(x^2+1)e^x", "A", ["Product rule", "Quotient rule", "Limiting sum", "First derivative test"], "The expression is a product of two variable functions."),
@@ -388,47 +567,88 @@ export const applicationsExtendedDifferentiationLesson = lesson(
   ],
   {
     paragraphs: [
-      "Applications still begin by finding the derivative, but the derivative may now require chain, product or quotient rules.",
-      "For tangents, the derivative value gives the tangent gradient at the point.",
-      "For normals, use the negative reciprocal of the tangent gradient when the tangent gradient is non-zero.",
-      "For rates of change, the derivative value should be interpreted with units and context.",
-      "Stationary points occur where the derivative is zero, provided the derivative exists.",
+      "Every question in this lesson is really one of four familiar questions from MA-C1, just asked about harder functions. How steep is the curve here? What line cuts across it at right angles? How fast is something changing? Where does the curve go momentarily flat? The mathematics of the application has not changed at all. What changes is the one step in the middle, finding the gradient function: because the curve is now built from a chain, a product or a quotient, you reach for the chain, product or quotient rule to differentiate, and then carry on exactly as you did before.",
+      "Start with tangents and normals. The tangent gradient is just the curve's instantaneous steepness at a point, so you differentiate to get the gradient function and substitute the x-value to read off the slope there. The normal is the line through the same point at right angles to the tangent, like a kerb running straight across a bending road. From MA-C1, perpendicular gradients multiply to -1, so once you know the tangent gradient $m_T$ (and it is not zero) the normal gradient is its negative reciprocal $m_N=-\\frac{1}{m_T}$. If a chain-rule derivative gives $m_T=2$ at the point, the normal gradient is $-\\tfrac{1}{2}$: a line falling one unit for every two across, crossing the tangent at a right angle. You are not memorising a new rule here, you are recalling the perpendicular-gradients fact and feeding it a gradient that happened to come from a chain or product rule.",
+      "A rate of change is the same derivative wearing a different hat. When $y$ depends on time, $\\frac{dy}{dt}$ measures how fast $y$ is changing at an instant, and its sign gives the direction: positive means growing, negative means shrinking. The number means nothing without its units and context. For a tank holding $V(t)$ litres after $t$ minutes, $\\frac{dV}{dt}=-10$ does not say '$-10$', it says the water is draining at 10 litres per minute right now. These models are often exponential or trigonometric, so the chain rule does the differentiating, but the interpretation step, attaching the units and reading the sign, is what the marks are for.",
+      "A stationary point is the spot where the curve is momentarily flat, neither rising nor falling, like the top of a hill or the bottom of a valley. Flat means zero gradient, so we find these points by solving $f'(x)=0$, again recalling MA-C1 rather than learning something new. The twist now is that $f'(x)$ often comes out as a product, such as $e^x(x+1)$. To solve a product equal to zero you set each factor to zero, but check each factor first: $e^x$ is positive for every $x$ and can never be zero, so it is discarded and only $x+1=0$ matters, giving $x=-1$. That reasoning about the factors, not just 'solve the equation', is where these harder functions earn their place.",
+      "Three slips cause most lost marks, and each one confuses two related quantities. Reading the $y$-value off as the gradient confuses height with steepness: the tangent gradient is $f'(a)$, never $f(a)$, because the derivative reports slope and not position. Forgetting the negative reciprocal confuses the tangent with the normal: the perpendicular line has gradient $-\\frac{1}{m_T}$, not $m_T$. Solving $f(x)=0$ instead of $f'(x)=0$ confuses the curve being zero with the gradient being zero; only zero gradient makes the curve flat. In NSW exams these appear as 'find the equation of the tangent or normal', 'find the rate of change at this instant', and 'find the stationary points', almost always on a composite, product or quotient so that a derivative rule from this module is needed first.",
     ],
     latexBlocks: [
-      "m_{\\text{tangent}}=f'(a)",
-      "m_{\\text{normal}}=-\\frac{1}{m_{\\text{tangent}}}",
-      "f'(a)=0\\Rightarrow \\text{stationary point candidate}",
-      "\\text{rate of change}=\\frac{dy}{dx}\\text{ or }\\frac{ds}{dt}\\text{ in context}",
+      "m_{\\text{tangent}}=f'(a)\\quad\\text{(differentiate, then substitute }x=a)",
+      "m_{\\text{normal}}=-\\frac{1}{m_{\\text{tangent}}}\\;(m_{\\text{tangent}}\\ne 0)\\quad\\text{since}\\;m_T\\,m_N=-1",
+      "\\frac{dy}{dt}>0\\;\\text{growing},\\quad \\frac{dy}{dt}<0\\;\\text{shrinking},\\quad \\frac{dy}{dt}=0\\;\\text{momentarily steady}",
+      "f'(x)=0\\Rightarrow\\text{curve momentarily flat};\\quad e^x(x+1)=0\\Rightarrow x=-1\\;(e^x\\ne 0)",
     ],
   },
   [
     {
-      title: "Tangent gradient from a chain-rule derivative",
-      questionLatex: "y=(2x+1)^3.\\quad \\text{Find the tangent gradient at }x=1.",
+      title: "Tangent and normal using a chain-rule derivative",
+      questionLatex: "y=(2x-1)^4.\\quad \\text{Find the tangent and normal gradients at }x=1.",
       steps: [
-        { explanation: "Differentiate using the chain rule.", latex: "y'=6(2x+1)^2" },
-        { explanation: "Substitute x = 1.", latex: "y'=6(3)^2=54" },
+        {
+          explanation:
+            "The tangent gradient is the curve's steepness, which is the gradient function evaluated at the point. The curve is a power of an inner expression $2x-1$, a composite, so the chain rule is the right tool: differentiate the outer power and multiply by the derivative of the inside.",
+          latex: "y'=4(2x-1)^3\\cdot 2=8(2x-1)^3",
+        },
+        {
+          explanation:
+            "Substitute $x=1$ because we want the gradient at that one point, not everywhere. This number is the tangent's slope.",
+          latex: "m_T=8(2\\cdot 1-1)^3=8",
+        },
+        {
+          explanation:
+            "The normal is perpendicular to the tangent, and perpendicular gradients multiply to $-1$, so the normal gradient is the negative reciprocal of $m_T$.",
+          latex: "m_N=-\\frac{1}{m_T}=-\\frac{1}{8}",
+        },
       ],
-      finalAnswerLatex: "54",
+      finalAnswerLatex:
+        "m_T=8\\;\\text{(steep, rising)},\\quad m_N=-\\tfrac{1}{8}\\;\\text{(gentle, crossing at a right angle)}",
     },
     {
-      title: "Normal gradient",
-      questionLatex: "f'(2)=4.\\quad \\text{Find the normal gradient at }x=2.",
+      title: "Rate of change in context",
+      questionLatex:
+        "\\text{A cup of tea cools so that }T(t)=20+70e^{-0.1t}\\text{ degrees after }t\\text{ minutes.}\\\\\\text{Find the rate of change of temperature at }t=0.",
       steps: [
-        { explanation: "The tangent gradient is 4.", latex: "m_T=4" },
-        { explanation: "The normal gradient is the negative reciprocal.", latex: "m_N=-\\frac{1}{4}" },
+        {
+          explanation:
+            "A rate of change is a derivative, so differentiate $T$ with respect to time. The constant $20$ differentiates to $0$, and $70e^{-0.1t}$ is composite, so the chain rule brings down the inner derivative $-0.1$.",
+          latex: "T'(t)=70\\cdot(-0.1)e^{-0.1t}=-7e^{-0.1t}",
+        },
+        {
+          explanation:
+            "Substitute $t=0$ to get the instantaneous rate at the start, since the question asks for the rate at that one moment.",
+          latex: "T'(0)=-7e^{0}=-7",
+        },
+        {
+          explanation:
+            "Interpret the number with units and sign. The value is a temperature change per minute, and the negative sign means the temperature is falling: the tea is cooling at 7 degrees per minute at that instant.",
+          latex: "T'(0)=-7\\;^{\\circ}\\text{C per minute}",
+        },
       ],
-      finalAnswerLatex: "-\\frac{1}{4}",
+      finalAnswerLatex:
+        "-7\\;^{\\circ}\\text{C per minute (cooling at }t=0)",
     },
     {
-      title: "Stationary point from an exponential model",
-      questionLatex: "f'(x)=e^x(x+1).\\quad \\text{Find the stationary x-value.}",
+      title: "Stationary point of a product model",
+      questionLatex: "f(x)=x e^x.\\quad \\text{Find the }x\\text{-value of the stationary point.}",
       steps: [
-        { explanation: "Stationary points occur where f'(x) = 0.", latex: "e^x(x+1)=0" },
-        { explanation: "The exponential factor is never zero.", latex: "e^x\\ne0" },
-        { explanation: "Set the remaining factor to zero.", latex: "x+1=0" },
+        {
+          explanation:
+            "A stationary point is where the curve is momentarily flat, so its gradient is zero and we need $f'(x)=0$. First differentiate: $f$ is a product of $x$ and $e^x$, so use the product rule.",
+          latex: "f'(x)=1\\cdot e^x+x\\cdot e^x=e^x(1+x)",
+        },
+        {
+          explanation:
+            "Set the gradient to zero. The factor $e^x$ is positive for every $x$, so it can never be zero and is discarded; only the other factor can make the product zero.",
+          latex: "e^x(1+x)=0\\quad\\Rightarrow\\quad 1+x=0",
+        },
+        {
+          explanation:
+            "Solve for $x$. This is the single value where the curve $y=xe^x$ has a horizontal tangent, its one flat instant.",
+          latex: "x=-1",
+        },
       ],
-      finalAnswerLatex: "x=-1",
+      finalAnswerLatex: "x=-1\\;\\text{(horizontal tangent, the curve is momentarily flat here)}",
     },
   ],
   [
@@ -445,10 +665,10 @@ export const applicationsExtendedDifferentiationLesson = lesson(
     choice("diff-tech-app-i5", "For y = ln(2x + 1), which value is the tangent gradient at x = 0?", "\\text{Select A, B, C, or D.}", "C", ["1", "1/2", "2", "0"], "The derivative is 2/(2x + 1), so the gradient at x = 0 is 2."),
   ],
   [
-    { mistake: "Using the function value as the tangent gradient.", fix: "The tangent gradient is the derivative value, not the y-value." },
-    { mistake: "Forgetting to use the negative reciprocal for a normal.", fix: "Normals are perpendicular to tangents." },
-    { mistake: "Solving f(x) = 0 instead of f'(x) = 0 for stationary points.", fix: "Stationary points are about zero gradient." },
-    { mistake: "Giving a rate without units or context.", fix: "Interpret the derivative value according to the quantities in the question." },
+    { mistake: "Using the function value as the tangent gradient.", fix: "The derivative reports steepness, not height, so the tangent gradient is f'(a); the y-value f(a) only locates the point." },
+    { mistake: "Forgetting to use the negative reciprocal for a normal.", fix: "A normal is perpendicular to the tangent, and perpendicular gradients multiply to -1, so its gradient is -1/m_T, not m_T." },
+    { mistake: "Solving f(x) = 0 instead of f'(x) = 0 for stationary points.", fix: "f(x)=0 finds where the curve meets the x-axis; only f'(x)=0 finds where the gradient vanishes and the curve is flat." },
+    { mistake: "Giving a rate without units or context.", fix: "A bare number is meaningless: attach the units and read the sign, e.g. -10 means draining at 10 litres per minute." },
   ],
   [
     numeric("diff-tech-app-m1", "Find the tangent gradient at x = 1.", "y=(3x-1)^2", "12", [], "The tangent gradient is the derivative at that x-value. By the chain rule, y'=2(3x-1)\\cdot3=6(3x-1), so at x=1 the gradient is 12."),
