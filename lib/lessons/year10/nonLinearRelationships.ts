@@ -131,7 +131,7 @@ const parabolaGuided: PracticeQuestion[] = [
   { ...choice("y10-nonlinear-intro-g1", "Which direction does the displayed parabola open?", "A", ["Upward", "Downward", "Left", "Right"], "The arms rise on both sides of the vertex."), cartesianGraph: parabolaGraph("Coordinate graph of y equals two x squared.", [{ kind: "quadratic", a: 2, b: 0, c: 0 }]) },
   answer("y10-nonlinear-intro-g2", "State the y-intercept.", "y=x^2+4", "4", "At x = 0, the graph has y-value 4.", ["(0,4)", "0,4", "(0, 4)"]),
   choice("y10-nonlinear-intro-g3", "Which equation has a parabola opening downward?", "C", ["$y=x^2$", "$y=2x^2+1$", "$y=-x^2+3$", "$y=x+3$"], "A negative coefficient of x squared gives a downward-opening parabola."),
-  { ...answer("y10-nonlinear-intro-g4", "State the vertex of the displayed parabola.", "\\text{Read the turning point from the graph.}", "(0,2)", "The turning point is at zero comma two.", ["0,2", "(0, 2)", "0, 2"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared plus two.", [{ kind: "quadratic", a: 1, b: 0, c: 2 }], [{ x: 0, y: 2 }]) },
+  { ...answer("y10-nonlinear-intro-g4", "State the vertex of the displayed parabola.", "", "(0,2)", "The turning point is at zero comma two.", ["0,2", "(0, 2)", "0, 2"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared plus two.", [{ kind: "quadratic", a: 1, b: 0, c: 2 }], [{ x: 0, y: 2 }]) },
 ];
 
 const parabolaIndependent: PracticeQuestion[] = [
@@ -185,7 +185,7 @@ const sketchWorked: WorkedExample[] = [
 const sketchGuided: PracticeQuestion[] = [
   answer("y10-nonlinear-sketch-g1", "Find the y-intercept.", "y=x^2-4", "-4", "Set x to zero.", ["(0,-4)", "0,-4", "(0, -4)"]),
   choice("y10-nonlinear-sketch-g2", "Which pair gives the x-intercepts?", "A", ["$(-3,0)$ and $(3,0)$", "$(0,-3)$ and $(0,3)$", "$(-9,0)$ and $(9,0)$", "There are no x-intercepts"], "Factor x squared minus nine as a difference of squares.", "y=x^2-9"),
-  { ...answer("y10-nonlinear-sketch-g3", "State the vertex of the displayed parabola.", "\\text{Read the turning point.}", "(2,0)", "The graph turns at two comma zero.", ["2,0", "(2, 0)", "2, 0"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals open bracket x minus two close bracket squared.", [{ kind: "quadratic", a: 1, b: -4, c: 4 }], [{ x: 2, y: 0 }], { xMin: -1, xMax: 5, yMin: -1, yMax: 6 }) },
+  { ...answer("y10-nonlinear-sketch-g3", "State the vertex of the displayed parabola.", "", "(2,0)", "The graph turns at two comma zero.", ["2,0", "(2, 0)", "2, 0"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals open bracket x minus two close bracket squared.", [{ kind: "quadratic", a: 1, b: -4, c: 4 }], [{ x: 2, y: 0 }], { xMin: -1, xMax: 5, yMin: -1, yMax: 6 }) },
   answer("y10-nonlinear-sketch-g4", "Find the x-intercepts.", "y=(x-1)(x+4)", "x=1,-4", "Each factor can equal zero.", ["1,-4", "-4,1", "x=-4,1", "x=-4,x=1"]),
 ];
 
@@ -237,7 +237,7 @@ const circleWorked: WorkedExample[] = [
 const circleGuided: PracticeQuestion[] = [
   answer("y10-nonlinear-circle-g1", "Find the radius.", "x^2+y^2=25", "5", "The radius is the square root of 25."),
   choice("y10-nonlinear-circle-g2", "Which point lies on the circle?", "B", ["$(2,2)$", "$(0,4)$", "$(4,4)$", "$(5,0)$"], "Zero squared plus four squared equals sixteen.", "x^2+y^2=16"),
-  { ...answer("y10-nonlinear-circle-g3", "State the radius of the displayed circle.", "\\text{Read the distance from the origin to the edge.}", "3", "The circle reaches three units from the origin."), cartesianGraph: circleGraph("Coordinate graph of a circle centred at the origin with radius three.", [{ h: 0, k: 0, r: 3 }]) },
+  { ...answer("y10-nonlinear-circle-g3", "State the radius of the displayed circle.", "", "3", "The circle reaches three units from the origin."), cartesianGraph: circleGraph("Coordinate graph of a circle centred at the origin with radius three.", [{ h: 0, k: 0, r: 3 }]) },
   answer("y10-nonlinear-circle-g4", "State the centre.", "(x-2)^2+(y+1)^2=9", "(2,-1)", "Reverse the signs inside the brackets.", ["2,-1", "(2, -1)", "2, -1"]),
 ];
 
