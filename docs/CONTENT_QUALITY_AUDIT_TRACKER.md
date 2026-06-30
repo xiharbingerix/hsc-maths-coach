@@ -3,7 +3,7 @@
 > Objective: track content-quality audits year by year and unit by unit, with concrete fix lists that can be marked complete as we finish them.
 > Scope: question quality, unnecessary or answer-revealing LaTeX, diagram/visual needs, and any notable structural content issues discovered during audit.
 > Workflow: pick one year, add its units, audit one unit at a time, complete the fixes, then mark the unit complete before moving on.
-> Last updated: 2026-06-19
+> Last updated: 2026-06-30
 
 ---
 
@@ -33,7 +33,7 @@
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
-| Year 12 Advanced | No | pending | |
+| Year 12 Advanced | Yes | in_progress | **Teaching-quality** AI-judge pass complete 2026-06-30 (report only, no edits): 90 lessons, B:2 C:18 D:26 F:44 — 78% D/F. See `docs/audits/year-12-advanced-teaching-quality-audit.md` and the Unit Audit Board entry below. Fix work (P1 calculus core) not yet started. NB this is a *teaching* audit, distinct from the question audits tracked elsewhere. |
 | Year 12 Extension 1 | Yes | in_progress | Units added from current `year-12-extension-1` course state on 2026-06-19; begin with Proof by Mathematical Induction. |
 | Year 12 Extension 2 | Yes | complete | All five tracked units complete, including Vectors in 3D on 2026-06-19. |
 
@@ -56,6 +56,32 @@ Source folder: `lib/lessons/year12Extension1/`
 ---
 
 ## Unit Audit Board
+
+### Year 12 Advanced - Teaching Quality (whole-course AI-judge pass)
+
+Status: `in_progress` (audit complete 2026-06-30, report only — no teaching content edited)
+
+Source: all 90 active lessons via `year12AdvancedRouteUnits` (`lib/year12AdvancedRoutes.ts`). Standard applied: `docs/FEYNMAN_TEACHING_STANDARD.md` (Advanced tier). Full report: `docs/audits/year-12-advanced-teaching-quality-audit.md`.
+
+Audit focus (distinct from the question audits in this tracker):
+- teaching prose, latexBlocks, and worked examples vs the Feynman teaching standard
+- mental model, intuition-before-notation, the "why"/derivation, principle-first worked steps, misconception framework
+
+#### Findings summary
+
+- Grade distribution (verify-adjusted): **B 2 / C 18 / D 26 / F 44** — **70/90 (78%) D or F, 0 A**.
+- One repeated failure pattern, not 90 distinct ones. Post-verify core-fail frequency: **C3 missing "why"/derivation 63**, **C5 worked steps restate not reason 53**, **C6 formula-drop 43**, **C1 no mental model 41**, **C2 formula-before-intuition 21**. Secondary near-universal: C7 79, C11 68, C10 64.
+- Worst unit cluster: **calculus core C1–C3 = 17 F-grade lessons** (highest exam weight).
+- Method robustness: adversarial verify upheld 66 of 78 flagged grades (12 softened); source spot-checks confirmed verdicts grounded.
+- Data bug surfaced: two lessons in `ma-c3-applications-of-differentiation` share id+slug `optimisation` (one shadows the other) — fix independently.
+
+#### Fix backlog (not started)
+
+- [ ] P1 — Rework calculus core (C1/C2/C3) 17 F lessons: add mental model + expected derivation + reasoning in worked steps.
+- [ ] P2 — Remaining 27 F lessons (Functions/Graphing, Trig, Integral, Exp/Log, Stats, Financial).
+- [ ] P3 — 26 D lessons (usually a single missing-"why").
+- [ ] P4 — Course-wide secondary lift: concrete-before-abstract (C7) + wire existing diagram renderers into visual lessons (C11).
+- [ ] Fix duplicate `optimisation` id/slug.
 
 ### Year 11 Standard - Data Analysis
 
