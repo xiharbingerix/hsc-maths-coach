@@ -115,7 +115,7 @@ export function RequirePaid({ children, featureLabel }: RequirePaidProps) {
 
   const feature = featureLabel ? `${featureLabel} are` : "This is";
   const title = featureLabel ? `Unlock ${featureLabel}` : "Upgrade to unlock this";
-  const text = `${feature} part of Nova Maths Premium. Lessons and practice are free — upgrade for full exam papers, topic tests, the AI tutor and detailed band reports.`;
+  const text = `${feature} part of Nova Maths Premium. Lessons and practice are free — upgrade for full exam papers, topic tests, step-by-step hints and detailed band reports.`;
 
   const currentPath =
     typeof window !== "undefined"

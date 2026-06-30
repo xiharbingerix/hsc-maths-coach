@@ -356,8 +356,8 @@ export default async function PaymentSuccessPage({
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
             {isOnlineLearning
               ? needsPasswordSetup
-                ? "Your Premium subscription is active. Set a password below to access exams, topic tests and the AI tutor."
-                : "Your Premium subscription is active and access is activated automatically. Log in to unlock exams, topic tests and the AI tutor."
+                ? "Your Premium subscription is active. Set a password below to access exams, topic tests and step-by-step hints."
+                : "Your Premium subscription is active and access is activated automatically. Log in to unlock exams, topic tests and step-by-step hints."
               : isTutoring
                 ? `Your weekly tutoring spot is reserved. ${
                     tutoringFirstCharge && tutoringAmount

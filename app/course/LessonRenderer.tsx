@@ -1768,7 +1768,7 @@ function MasteryResultPanel({
             </li>
             <li>
               Use the{" "}
-              <span className="font-medium">AI tutor button</span> on any
+              <span className="font-medium">hint button</span> on any
               practice question you&apos;re unsure about before retrying the quiz.
             </li>
             <li>
@@ -2644,8 +2644,7 @@ export function LessonRenderer({
           <p className="text-slate-300">
             The mastery quiz scores how exam-ready you are on this lesson and
             updates your mastery map. Lessons and practice stay free — upgrade to
-            unlock mastery quizzes, full exam papers, topic tests and the AI
-            tutor.
+            unlock mastery quizzes, full exam papers, topic tests and step-by-step hints.
           </p>
           <Link
             href="/checkout?offer=online-learning"

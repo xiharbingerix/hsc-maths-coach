@@ -570,7 +570,7 @@ export function DiagnosticQuizClient({
               </Link>
             </div>
             <p className="mt-3 text-sm text-slate-400">
-              Free to learn &middot; Upgrade for exams + AI &middot; $19/month
+              Free to learn &middot; Upgrade for exams + hints &middot; $19/month
             </p>
           </section>
 

@@ -34,7 +34,7 @@ export default function ExamListPage() {
             Premium
           </p>
           <p className="mt-1 text-sm text-slate-100">
-            Lessons and practice are free. Exam papers, topic tests, the AI tutor
+            Lessons and practice are free. Exam papers, topic tests, step-by-step hints
             and detailed band reports are part of Premium.
           </p>
           <Link

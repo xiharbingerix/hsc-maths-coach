@@ -118,8 +118,7 @@ export default function ThanksPage() {
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-slate-600">
                 Create a free account to access all lessons and practice — no
-                card required. Upgrade later for exams, topic tests and the AI
-                tutor.
+                card required. Upgrade later for exams, topic tests and step-by-step hints.
               </p>
             </div>
 

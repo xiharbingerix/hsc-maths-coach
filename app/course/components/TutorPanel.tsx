@@ -128,7 +128,7 @@ export function TutorPanel({ question, courseSlug, topicSlug, subtopicSlug }: Pr
 
       {locked && (
         <div className="rounded-xl bg-slate-900 p-3 text-sm text-slate-100">
-          <p className="font-semibold">The AI tutor is part of Premium</p>
+          <p className="font-semibold">Step-by-step hints are part of Premium</p>
           <p className="mt-1 text-slate-300">
             Get instant hints and step-by-step approaches grounded in each lesson.
           </p>
@@ -157,7 +157,7 @@ export function TutorPanel({ question, courseSlug, topicSlug, subtopicSlug }: Pr
             </ol>
           )}
           <p className="mt-2 text-xs text-indigo-700/70">
-            AI hint, grounded in this lesson — it won&rsquo;t give you the answer.
+            Grounded in this lesson — it won&rsquo;t give you the answer.
           </p>
         </div>
       )}
