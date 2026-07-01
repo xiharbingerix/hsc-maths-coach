@@ -36,17 +36,17 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Antidifferentiation is the reverse process of differentiation.",
-      "A primitive, or antiderivative, is a function that differentiates to give the expression you started with.",
-      "If differentiating a function gives a derivative, antidifferentiating works backwards from the derivative to a possible original function.",
-      "For a power of x, the reverse power rule says to increase the power by one, then divide by the new power.",
-      "You can check an antiderivative by differentiating it. If you get the original expression, your antiderivative is correct.",
-      "This first lesson avoids the special case of $x^{-1}$. That case belongs with logarithmic integration later.",
+      "Differentiation takes a function and tells you its gradient. Antidifferentiation runs that machine in reverse: you are handed the gradient function and asked which original function it came from. That original function is called a primitive, or antiderivative. Every idea in integration is built on this single move of undoing a derivative.",
+      "Start with something you already know rather than a new rule. Since $\\frac{d}{dx}(x^4)=4x^3$, you can read that fact backwards: a function whose derivative is $4x^3$ is $x^4$. Antidifferentiating $4x^3$ is just asking what you would have had to differentiate to produce it, so the differentiation power rule read in reverse is all you need.",
+      "Now build the rule in general. Differentiation multiplies by the power and then drops the power by one, so to reverse it you should raise the power by one and then divide. Test that guess by differentiating $\\frac{x^{n+1}}{n+1}$: the power rule brings the $n+1$ down to the front, where it cancels the $n+1$ underneath, leaving exactly $x^n$. That cancellation is the whole reason you divide by the new power, and it also shows why $n=-1$ is forbidden, because dividing by $n+1$ would be dividing by zero.",
+      "There is one subtlety worth pinning down now. Because the derivative of any constant is zero, adding a constant to a primitive does not change its derivative, so $x^4$, $x^4+7$ and $x^4-3$ all differentiate to $4x^3$. Every expression therefore has not one antiderivative but a whole family of them, differing only by a constant. Geometrically these are parallel curves stacked vertically, each a shifted copy of the others, and we record the whole family at once by writing $+C$: thus $\\int 4x^3\\,dx=x^4+C$.",
+      "Two mistakes dominate this topic. Students reduce the power instead of raising it, or they multiply by the new power instead of dividing, because they are half-remembering the differentiation rule. Guard against both by always checking: differentiate your answer, and if you get back the expression you started with, the antiderivative is correct. That check is why the reverse power rule can be trusted rather than merely memorised.",
     ],
     latexBlocks: [
-      "\\frac{d}{dx}\\left(x^4\\right)=4x^3 \\quad \\Rightarrow \\quad \\int 4x^3\\,dx=x^4",
-      "\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}, \\quad n\\ne -1",
-      "\\int ax^n\\,dx=\\frac{a}{n+1}x^{n+1}, \\quad n\\ne -1",
+      "\\frac{d}{dx}\\left(x^4\\right)=4x^3 \\quad \\Rightarrow \\quad \\int 4x^3\\,dx=x^4+C",
+      "\\frac{d}{dx}\\left(\\frac{x^{n+1}}{n+1}\\right)=\\frac{(n+1)x^n}{n+1}=x^n",
+      "\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}+C, \\quad n\\ne -1",
+      "\\int ax^n\\,dx=\\frac{a}{n+1}x^{n+1}+C, \\quad n\\ne -1",
     ],
   },
 
@@ -56,57 +56,73 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
       questionLatex: "\\int 6x^2\\,dx",
       steps: [
         {
-          explanation: "Identify the power of x.",
+          explanation: "Identify the power of x, since the reverse power rule acts on one power at a time.",
           latex: "n=2",
         },
         {
-          explanation: "Increase the power by one.",
+          explanation: "Differentiation lowers the power by one, so reversing it raises the power by one.",
           latex: "x^{2+1}=x^3",
         },
         {
-          explanation: "Divide the coefficient by the new power.",
+          explanation: "Differentiation multiplies by the power, so reversing it divides the coefficient by the new power.",
           latex: "\\frac{6}{3}x^3=2x^3",
         },
         {
-          explanation: "Check by differentiating.",
-          latex: "\\frac{d}{dx}\\left(2x^3\\right)=6x^2",
+          explanation: "Add + C, because any constant term would have differentiated to zero and left no trace.",
+          latex: "2x^3+C",
+        },
+        {
+          explanation: "Check by differentiating: the result returns the original integrand.",
+          latex: "\\frac{d}{dx}\\left(2x^3+C\\right)=6x^2",
         },
       ],
-      finalAnswerLatex: "2x^3",
+      finalAnswerLatex: "2x^3+C",
     },
     {
-      title: "Worked example 2: Fraction coefficient",
+      title: "Worked example 2: Coefficient that cancels",
       questionLatex: "\\int 5x^4\\,dx",
       steps: [
         {
-          explanation: "Increase the power from 4 to 5.",
+          explanation: "Raise the power by one to undo the drop that differentiation causes.",
           latex: "x^4 \\rightarrow x^5",
         },
         {
-          explanation: "Divide by the new power.",
+          explanation: "Divide the coefficient by the new power 5 to undo the multiplication.",
           latex: "\\frac{5}{5}x^5=x^5",
         },
+        {
+          explanation: "Add + C to record the whole family of primitives, not just one of them.",
+          latex: "x^5+C",
+        },
+        {
+          explanation: "Check by differentiating: the power rule returns the integrand.",
+          latex: "\\frac{d}{dx}\\left(x^5+C\\right)=5x^4",
+        },
       ],
-      finalAnswerLatex: "x^5",
+      finalAnswerLatex: "x^5+C",
     },
     {
       title: "Worked example 3: Negative coefficient",
       questionLatex: "\\int -8x^3\\,dx",
       steps: [
         {
-          explanation: "Keep the negative sign attached to the coefficient.",
+          explanation: "Keep the negative sign with the coefficient, since reversing differentiation never changes signs.",
           latex: "-8x^3",
         },
         {
-          explanation: "Increase the power and divide by the new power.",
+          explanation: "Raise the power to 4 and divide -8 by the new power 4, reversing both differentiation steps.",
           latex: "\\frac{-8}{4}x^4=-2x^4",
         },
         {
-          explanation: "Check by differentiating.",
-          latex: "\\frac{d}{dx}\\left(-2x^4\\right)=-8x^3",
+          explanation: "Add + C for the constant that differentiation would have hidden.",
+          latex: "-2x^4+C",
+        },
+        {
+          explanation: "Check by differentiating: the result returns the original integrand.",
+          latex: "\\frac{d}{dx}\\left(-2x^4+C\\right)=-8x^3",
         },
       ],
-      finalAnswerLatex: "-2x^4",
+      finalAnswerLatex: "-2x^4+C",
     },
   ],
 
@@ -222,6 +238,10 @@ export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
     {
       mistake: "Using the reverse power rule when the power is -1.",
       fix: "The integral of $x^{-1}$ is handled using logarithms later, not by dividing by zero.",
+    },
+    {
+      mistake: "Forgetting the constant of integration.",
+      fix: "Every indefinite antiderivative needs $+C$, because differentiating a constant gives zero and there is a whole family of primitives.",
     },
   ],
 
@@ -387,14 +407,15 @@ export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "An indefinite integral gives a family of antiderivatives rather than one single function.",
-      "This happens because constants differentiate to zero. For example, $x^2$, $x^2+5$, and $x^2-8$ all have derivative $2x$.",
-      "The symbol $+C$ represents any constant that could have been present before differentiating.",
-      "For polynomial expressions, integrate each term separately and then add $+C$.",
-      "Initial conditions can later be used to find a particular value of $C$, but this lesson focuses mainly on writing the family of antiderivatives.",
+      "Integration is simply differentiation run backwards. You already know how to take a function and find its gradient; the indefinite integral asks the opposite question, which function had this as its derivative? The notation $\\int f(x)\\,dx$ means exactly that: name a function whose derivative is $f(x)$. Because you are undoing a process you already understand, everything here is built on differentiation you have already met.",
+      "Take one concrete case before any general rule. What has derivative $2x$? You know $\\frac{d}{dx}(x^2)=2x$, so read that fact backwards and $x^2$ is an answer. But it is not the only answer: $x^2+5$ and $x^2-8$ both differentiate to $2x$ as well, because the derivative of any constant is zero and so the constant leaves no trace. So the honest answer to 'what had derivative $2x$' is not one function but a whole family of them, all identical except for a constant.",
+      "Picture that family as a graph. Every member is the curve $y=x^2$ shifted straight up or down by a different amount, so they stack vertically like a ladder of parallel copies. At any chosen value of $x$ they all have exactly the same slope, which is why they all differentiate to the same $2x$. Shifting a curve up or down never tilts it, so it cannot change the gradient. We record this entire infinite stack in one stroke by writing $+C$, where $C$ stands for any constant at all: $\\int 2x\\,dx=x^2+C$.",
+      "For a polynomial you integrate one term at a time, and each term is undone with the reverse power rule from the previous lesson: raise the power by one and divide by that new power. That single rule works on every term, including a bare constant like $3$, which you can read as $3x^0$ so it integrates to $3x$. Add just one $+C$ at the very end, not one per term, because the separate constants would only combine into a single unknown constant anyway.",
+      "The two mistakes to watch for are losing the $+C$ and treating a constant term as if it vanishes. Both come from half-remembering differentiation, where constants really do disappear; in integration they reappear, and the $+C$ is precisely what records them. Guard against every slip the same way you did with the power rule: differentiate your answer, and if it returns the original integrand the family is correct. In NSW exams the $+C$ carries a mark of its own, and a later initial condition is often used to pin $C$ to one particular value.",
     ],
     latexBlocks: [
       "\\int 2x\\,dx=x^2+C",
+      "\\frac{d}{dx}\\left(x^2+C\\right)=2x \\quad \\text{for every constant } C",
       "\\int \\left(6x^2-4x+3\\right)\\,dx=2x^3-2x^2+3x+C",
       "F'(x)=f(x) \\quad \\Rightarrow \\quad \\int f(x)\\,dx=F(x)+C",
     ],
@@ -402,44 +423,56 @@ export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
 
   workedExamples: [
     {
-      title: "Worked example 1: Add the constant of integration",
+      title: "Worked example 1: Integrate term-by-term and add +C",
       questionLatex: "\\int \\left(6x^2-4x+3\\right)\\,dx",
       steps: [
         {
-          explanation: "Integrate $6x^2$.",
-          latex: "\\int 6x^2\\,dx=2x^3",
+          explanation: "Undo the first term with the reverse power rule: raise the power to 3, then divide the coefficient by that new power.",
+          latex: "\\int 6x^2\\,dx=\\frac{6}{3}x^3=2x^3",
         },
         {
-          explanation: "Integrate $-4x$.",
-          latex: "\\int -4x\\,dx=-2x^2",
+          explanation: "Do the same to $-4x$, whose power is 1: raise it to 2 and divide $-4$ by 2.",
+          latex: "\\int -4x\\,dx=\\frac{-4}{2}x^2=-2x^2",
         },
         {
-          explanation: "Integrate the constant term.",
+          explanation: "Read the constant $3$ as $3x^0$, so the reverse power rule raises it to $3x^1$.",
           latex: "\\int 3\\,dx=3x",
         },
         {
-          explanation: "Add the constant of integration.",
+          explanation: "Combine the terms and add a single $+C$: it stands for the whole vertical family of curves that all share this derivative, so one constant captures them all.",
           latex: "2x^3-2x^2+3x+C",
+        },
+        {
+          explanation: "Confirm the answer by differentiating it. Recovering the original integrand proves the antiderivative is right.",
+          latex: "\\frac{d}{dx}\\left(2x^3-2x^2+3x+C\\right)=6x^2-4x+3",
         },
       ],
       finalAnswerLatex: "2x^3-2x^2+3x+C",
     },
     {
-      title: "Worked example 2: Integrate term-by-term",
+      title: "Worked example 2: A polynomial with a constant term",
       questionLatex:
         "\\int \\left(4x^3+2x-5\\right)\\,dx",
       steps: [
         {
-          explanation: "Integrate $4x^3$.",
-          latex: "\\int 4x^3\\,dx=x^4",
+          explanation: "Reverse the power rule on $4x^3$: raise the power to 4, then divide 4 by the new power 4.",
+          latex: "\\int 4x^3\\,dx=\\frac{4}{4}x^4=x^4",
         },
         {
-          explanation: "Integrate $2x$.",
-          latex: "\\int 2x\\,dx=x^2",
+          explanation: "Undo $2x$ the same way: raise the power to 2 and divide 2 by 2.",
+          latex: "\\int 2x\\,dx=\\frac{2}{2}x^2=x^2",
         },
         {
-          explanation: "Integrate the constant term and add $+C$.",
-          latex: "\\int -5\\,dx=-5x, \\quad \\text{so add }+C",
+          explanation: "The constant $-5$ does not vanish; it is $-5x^0$, so it integrates to a linear term.",
+          latex: "\\int -5\\,dx=-5x",
+        },
+        {
+          explanation: "Add one $+C$ for the family. Any constant that had been present would have differentiated away, so $C$ records every possibility at once.",
+          latex: "x^4+x^2-5x+C",
+        },
+        {
+          explanation: "Check by differentiating: each term returns to the integrand, so the answer is correct.",
+          latex: "\\frac{d}{dx}\\left(x^4+x^2-5x+C\\right)=4x^3+2x-5",
         },
       ],
       finalAnswerLatex: "x^4+x^2-5x+C",
@@ -577,6 +610,10 @@ export const indefiniteIntegralsConstantOfIntegrationLesson: ExplicitLesson = {
     {
       mistake: "Only integrating the first term.",
       fix: "Integrate every term in the polynomial expression.",
+    },
+    {
+      mistake: "Thinking an indefinite integral has one single answer.",
+      fix: "It names a whole family of vertically-shifted parallel curves; the $+C$ is what stands for every member of that family at once.",
     },
   ],
 
@@ -752,64 +789,64 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "An indefinite integral gives a family of primitives because different constants can have the same derivative.",
-      "A particular primitive is found when extra information is given, such as $f(2)=7$ or a point on the curve.",
-      "The process is: integrate to find the general primitive, substitute the given x-value and function value, solve for $C$, then write the final function.",
-      "The initial condition must be substituted into the primitive, not into the derivative.",
-      "Use notation carefully. If the question gives $f'(x)$, write $f(x)$. If it gives $\\frac{dy}{dx}$, write $y=...$.",
+      "Integrating a derivative does not give one primitive; it gives a whole family, all the same shape and differing only by the constant $C$. From the previous lesson, picture that family as a stack of parallel curves, identical copies of one shape slid straight up or down. Usually we do not want the whole stack. We want the one particular member, and an initial condition, a single known point the curve passes through, is exactly the extra information that picks it out.",
+      "Think of $C$ as a height knob. Turning the knob slides the same curve up or down without ever changing its shape or its slope, so every member of the stack has identical gradient at each $x$. One known point is enough to set that knob: only one curve in the stack passes through a given point, so fixing the point fixes $C$, and fixing $C$ fixes the whole curve.",
+      "Here is why one point is enough, with numbers first. Suppose $f'(x)=2x$, so $f(x)=x^2+C$, and we are told the curve passes through $(1,5)$. Because that point lies on the curve, its coordinates must satisfy the equation, so putting $x=1$ and $f(x)=5$ gives $5=1+C$, hence $C=4$. The point does not fit every curve in the stack; it fits exactly the one at height $C=4$. That single equation in $C$ is what the initial condition buys us.",
+      "The general recipe follows the same logic. Integrate the derivative to get the family $f(x)=F(x)+C$ and keep the $+C$, because it is the knob you are about to set. Substitute the given point, since it must satisfy the equation, and solve the resulting equation for the one value of $C$. The answer is then not 'a' primitive but 'the' primitive: the unique curve of that shape passing through the given point.",
+      "Two traps to guard against. If you drop the $+C$ before substituting, there is no knob left to turn and nothing to solve. And if you substitute the point into the derivative $f'(x)$ instead of the primitive $f(x)$, you are asking the point to match a slope when it actually describes a height on the curve, so it belongs in the primitive. Keep the notation honest: given $f'(x)$ write $f(x)$, and given $\\frac{dy}{dx}$ write $y=\\dots$. In NSW exams this is the standard 'find the equation of the curve, given its gradient function and a point on it' question.",
     ],
     latexBlocks: [
-      "f'(x)=g(x) \\quad \\Rightarrow \\quad f(x)=\\int g(x)\\,dx",
-      "f(x)=F(x)+C",
-      "f(a)=b \\quad \\Rightarrow \\quad b=F(a)+C",
-      "\\text{particular primitive}=F(x)+\\text{specific }C",
+      "f'(x)=2x \\;\\Rightarrow\\; f(x)=x^2+C \\quad \\text{(the whole family)}",
+      "f(1)=5:\\quad 5=1^2+C \\;\\Rightarrow\\; C=4 \\;\\Rightarrow\\; f(x)=x^2+4",
+      "f'(x)=g(x) \\;\\Rightarrow\\; f(x)=\\int g(x)\\,dx=F(x)+C",
+      "f(a)=b:\\quad b=F(a)+C \\quad \\text{(one equation, one unknown } C\\text{)}",
     ],
   },
 
   workedExamples: [
     {
-      title: "Worked example 1: Find f(x)",
+      title: "Worked example 1: One point pins down the curve",
       questionLatex:
         "f'(x)=6x+4, \\quad f(1)=9. \\quad \\text{Find }f(x).",
       steps: [
         {
-          explanation: "Integrate to find the general primitive.",
+          explanation: "Integrate the gradient function to get the whole family of curves with this slope. Keep the $+C$: it is the height knob still to be set.",
           latex: "f(x)=\\int (6x+4)\\,dx=3x^2+4x+C",
         },
         {
-          explanation: "Substitute the initial condition.",
+          explanation: "The curve passes through $(1,9)$, so that point must satisfy the equation. Substitute $x=1$ and $f(x)=9$ into the primitive, not into the derivative, because the point gives a height and not a slope.",
           latex: "9=3(1)^2+4(1)+C",
         },
         {
-          explanation: "Solve for C.",
-          latex: "9=7+C \\Rightarrow C=2",
+          explanation: "Simplify and solve the single equation for $C$. Only one height makes the point lie on the curve.",
+          latex: "9=7+C \\;\\Rightarrow\\; C=2",
         },
         {
-          explanation: "Write the particular primitive.",
+          explanation: "Set the knob to $C=2$ and write the function. This is the unique curve of shape $3x^2+4x$ that passes through $(1,9)$.",
           latex: "f(x)=3x^2+4x+2",
         },
       ],
       finalAnswerLatex: "f(x)=3x^2+4x+2",
     },
     {
-      title: "Worked example 2: Use dy/dx notation",
+      title: "Worked example 2: The same idea in dy/dx notation",
       questionLatex:
         "\\frac{dy}{dx}=3x^2-4x, \\quad y(2)=5. \\quad \\text{Find }y.",
       steps: [
         {
-          explanation: "Integrate the derivative.",
+          explanation: "Integrate to get the family. Because the question uses $\\frac{dy}{dx}$, name the primitive $y$, and keep the $+C$ as the height not yet fixed.",
           latex: "y=\\int (3x^2-4x)\\,dx=x^3-2x^2+C",
         },
         {
-          explanation: "Substitute $x=2$ and $y=5$.",
+          explanation: "The curve passes through $(2,5)$, so those coordinates must satisfy the equation. Substitute $x=2$ and $y=5$ into the primitive.",
           latex: "5=2^3-2(2)^2+C",
         },
         {
-          explanation: "Solve for C.",
-          latex: "5=8-8+C \\Rightarrow C=5",
+          explanation: "Simplify the numbers and solve for the one value of $C$ that places the point on the curve.",
+          latex: "5=8-8+C \\;\\Rightarrow\\; C=5",
         },
         {
-          explanation: "Write the final function.",
+          explanation: "Write the particular curve. Of all the vertically stacked copies of $x^3-2x^2$, this is the single one through $(2,5)$.",
           latex: "y=x^3-2x^2+5",
         },
       ],
@@ -912,7 +949,7 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     },
     {
       mistake: "Substituting into the derivative instead of the primitive.",
-      fix: "Use the condition in $f(x)$ or $y$, not in $f'(x)$ or $\\frac{dy}{dx}$.",
+      fix: "The condition gives a height on the curve, not a slope, so use it in $f(x)$ or $y$, never in $f'(x)$ or $\\frac{dy}{dx}$.",
     },
     {
       mistake: "Using the x-value as C.",
@@ -921,6 +958,10 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
     {
       mistake: "Writing only C when asked for the primitive.",
       fix: "After finding $C$, write the full function as the final answer.",
+    },
+    {
+      mistake: "Thinking a single point cannot possibly fix the whole curve.",
+      fix: "Every member of the family has the same shape, so one point it passes through selects exactly one height $C$, and that fixes the entire curve.",
     },
   ],
 
@@ -1083,17 +1124,16 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A definite integral has a lower bound and an upper bound. These bounds define the interval being accumulated over.",
-      "To evaluate a definite integral, first find an antiderivative of the integrand.",
-      "The Fundamental Theorem of Calculus connects antiderivatives with definite integrals.",
-      "If $F'(x)=f(x)$, then $\\int_a^b f(x)\\,dx=F(b)-F(a)$.",
-      "A definite integral gives a number. Do not include $+C$ in the final value.",
-      "Definite integrals can be positive, negative, or zero because they represent signed area.",
+      "Picture the region trapped between the graph of a function and the x-axis, from $x=a$ across to $x=b$. A definite integral measures that region, but it measures it as signed area: wherever the curve sits above the axis the area counts as positive, and wherever it dips below the axis the area counts as negative. Think of sweeping a vertical line rightward from $a$ to $b$ and totting up area as you go, adding it above the axis and subtracting it below. The definite integral is the net total you end up with, so unlike an indefinite integral it is a single number, not a family of functions.",
+      "Why should an antiderivative have anything to do with that area? Build the answer from the sweeping picture. Let $A(x)$ be the signed area accumulated so far, from $a$ up to the moving line at position $x$. Push the line a tiny bit further, by a width $h$: the sliver you add is almost a thin rectangle of height $f(x)$ and width $h$, so the extra area is about $f(x)\\times h$. That says the rate at which accumulated area grows is $f(x)$ itself, so $A'(x)=f(x)$. The running-area function is therefore an antiderivative of $f$ - that single fact is the hinge of the whole theorem.",
+      "Now the theorem falls out. The area we actually want, from $a$ to $b$, is $A(b)-A(a)$: the total accumulated by $b$ minus whatever had already been accumulated by $a$. But $A$ is only one antiderivative of $f$, and any two antiderivatives differ only by a constant. When you subtract, that constant cancels, so you may use any antiderivative $F$ you like and still get $F(b)-F(a)$. This is why finding a primitive lets you compute an area, and why you never need the specific accumulation function or a $+C$ in the answer.",
+      "Because the integral counts signed area, its value can be positive, negative, or zero, which surprises students who expect area to always be positive. That expectation comes from everyday area, where a shape simply has size. Here the sign records position relative to the axis: a region entirely below the axis produces a negative value, and a region that is equally above and below the axis integrates to zero even though it plainly encloses space. The number is a net accumulation, not a total amount of shading.",
+      "In NSW exams this appears both as direct evaluation, where you write the antiderivative in square brackets and compute $F(b)-F(a)$, and as interpretation, where you must read a positive, negative, or zero value as signed area. Two slips cost marks: writing $F(a)-F(b)$ instead of $F(b)-F(a)$, and carrying a $+C$ into a definite answer even though it cancels.",
     ],
     latexBlocks: [
-      "\\int_a^b f(x)\\,dx",
-      "F'(x)=f(x)",
-      "\\int_a^b f(x)\\,dx=F(b)-F(a)",
+      "A(x)=\\int_a^x f(t)\\,dt \\quad \\text{(signed area accumulated from } a \\text{ to } x\\text{)}",
+      "A'(x)=\\lim_{h\\to 0}\\frac{A(x+h)-A(x)}{h}=f(x)",
+      "\\int_a^b f(x)\\,dx=F(b)-F(a), \\quad \\text{where } F'(x)=f(x)",
       "\\left[F(x)\\right]_a^b=F(b)-F(a)",
     ],
   },
@@ -1104,19 +1144,27 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
       questionLatex: "\\int_0^2 (3x^2+1)\\,dx",
       steps: [
         {
-          explanation: "Find an antiderivative.",
+          explanation:
+            "Find an antiderivative first, because the running-area function is an antiderivative of the integrand, so a primitive is exactly what the theorem needs.",
           latex: "\\int (3x^2+1)\\,dx=x^3+x",
         },
         {
-          explanation: "Substitute the upper and lower bounds.",
+          explanation:
+            "Write the primitive in square brackets with the bounds attached; $F(x)=x^3+x$ now stands for the signed area accumulated up to any point $x$.",
           latex: "\\left[x^3+x\\right]_0^2",
         },
         {
-          explanation: "Subtract $F(0)$ from $F(2)$.",
-          latex: "(2^3+2)-(0^3+0)=10",
+          explanation:
+            "Subtract the total accumulated at the lower bound from the total at the upper bound; that difference is the net area swept out from $0$ to $2$.",
+          latex: "(2^3+2)-(0^3+0)",
+        },
+        {
+          explanation: "Simplify to a single number.",
+          latex: "=10-0=10",
         },
       ],
-      finalAnswerLatex: "10",
+      finalAnswerLatex:
+        "10. \\quad \\text{The net signed area from } x=0 \\text{ to } x=2 \\text{ is } 10.",
     },
     {
       title: "Worked example 2: A zero definite integral",
@@ -1124,22 +1172,56 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
         "\\int_1^3 (2x-4)\\,dx \\quad \\text{and interpret why the result is zero.}",
       steps: [
         {
-          explanation: "Find an antiderivative.",
+          explanation:
+            "Find an antiderivative, since evaluating it at the two bounds returns the accumulated signed area.",
           latex: "\\int (2x-4)\\,dx=x^2-4x",
         },
         {
-          explanation: "Evaluate using $F(3)-F(1)$.",
+          explanation:
+            "Compute $F(3)-F(1)$: the accumulated total at the upper bound minus the total at the lower bound.",
           latex:
-            "\\left[x^2-4x\\right]_1^3=(9-12)-(1-4)=-3-(-3)=0",
+            "\\left[x^2-4x\\right]_1^3=(9-12)-(1-4)",
+        },
+        {
+          explanation: "Simplify.",
+          latex: "=-3-(-3)=0",
         },
         {
           explanation:
-            "The signed area below the x-axis cancels the signed area above the x-axis.",
+            "The result is zero because on this interval the region below the x-axis has the same size as the region above it, so the negative signed area exactly cancels the positive signed area.",
           latex: "\\int_1^3 (2x-4)\\,dx=0",
         },
       ],
       finalAnswerLatex:
         "0. \\quad \\text{The positive and negative signed areas cancel.}",
+    },
+    {
+      title: "Worked example 3: Check the theorem against a known area",
+      questionLatex:
+        "\\int_0^3 2x\\,dx \\quad \\text{and check the answer against the area of the region.}",
+      steps: [
+        {
+          explanation:
+            "An antiderivative of $2x$ is $x^2$, so the running-area function here is $F(x)=x^2$.",
+          latex: "\\int 2x\\,dx=x^2",
+        },
+        {
+          explanation:
+            "Apply the theorem: subtract the area accumulated at $0$ from the area accumulated at $3$.",
+          latex: "\\left[x^2\\right]_0^3=3^2-0^2=9",
+        },
+        {
+          explanation:
+            "Check geometrically. The line $y=2x$, the x-axis and the line $x=3$ enclose a triangle of base $3$ and height $6$ (since $y=6$ when $x=3$), whose area is half the base times the height.",
+          latex: "\\tfrac{1}{2}\\times 3\\times 6=9",
+        },
+        {
+          explanation:
+            "Both methods give $9$, which is exactly what the Fundamental Theorem promises: $F(b)-F(a)$ really does compute the accumulated area.",
+        },
+      ],
+      finalAnswerLatex:
+        "9. \\quad \\text{The antiderivative method and the triangle area agree.}",
     },
   ],
 
@@ -1243,6 +1325,14 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
     {
       mistake: "Assuming definite integrals are always positive.",
       fix: "Definite integrals give signed area, so they can be positive, negative, or zero.",
+    },
+    {
+      mistake: "Reading the value as the total shaded area even when part of the curve is below the axis.",
+      fix: "The integral is net signed area; area below the axis is subtracted, so it can be smaller than the total shading or even zero.",
+    },
+    {
+      mistake: "Worrying about which antiderivative to use, or trying to fix a value of $C$ first.",
+      fix: "Any antiderivative works, because the constant cancels in $F(b)-F(a)$; pick the simplest primitive.",
     },
   ],
 
@@ -1390,17 +1480,17 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A definite integral gives signed area. Area above the x-axis contributes positively, and area below the x-axis contributes negatively.",
-      "Total geometric area is always non-negative. It measures physical area, so below-axis pieces must be counted as positive.",
-      "If a curve crosses the x-axis inside the interval, split the integral at the x-intercept before finding total area.",
-      "To find total area, calculate each signed piece separately, then add the absolute values.",
-      "This distinction is a major HSC mark leak because the signed area and the total area can be different numbers.",
+      "Picture a definite integral as a running total built from thin vertical strips. Each strip has width $dx$ and height $f(x)$, so the signed area of one strip is the product $f(x)\\,dx$, and the integral adds every strip across the interval. This is the same accumulation idea from the previous lesson: the integral collects signed strips as $x$ sweeps from $a$ to $b$. The mental model to hold onto is a stack of these signed strips being summed.",
+      "Take a concrete case first. The line $y=x-1$ from $x=0$ to $x=3$ crosses the x-axis at $x=1$. To the left of $x=1$ the line sits below the axis, so those strips have negative height; to the right it sits above the axis, so those strips have positive height. The left strips and the right strips therefore pull the running total in opposite directions before we ever compute anything.",
+      "Here is why the raw integral gives signed area rather than physical area. Where $f(x)$ is negative the height is negative, so each product $f(x)\\,dx$ is negative and those strips subtract from the total. The below-axis contribution is genuinely taken away, so the integral reports the area above the axis minus the area below it. That net figure is the signed area, and it can be smaller than the true area, or even zero or negative.",
+      "Total geometric area is a different quantity because physical area is never negative. To find it you flip every below-axis strip upright before adding, which is exactly what taking an absolute value does. In practice you locate each x-axis crossing, split the interval there, integrate each piece on its own, and add the magnitudes. The split matters because inside one uninterrupted integral a negative piece would silently cancel part of a positive piece, hiding real area.",
+      "The most common HSC mark leak is treating the raw integral as if it were the total area. When a curve crosses the axis inside the interval the two answers genuinely differ, so read the wording: 'evaluate the integral' asks for signed area, while 'find the area' asks for total area with the split and absolute values.",
     ],
     latexBlocks: [
-      "\\int_a^b f(x)\\,dx=\\text{signed area}",
-      "\\text{area above the }x\\text{-axis}>0, \\quad \\text{area below the }x\\text{-axis}<0",
+      "f(x)\\,dx=(\\text{height})\\times(\\text{width})=\\text{signed area of one strip}",
+      "\\int_a^b f(x)\\,dx=(\\text{area above the }x\\text{-axis})-(\\text{area below the }x\\text{-axis})",
       "\\text{total area}=\\left|\\int_a^c f(x)\\,dx\\right|+\\left|\\int_c^b f(x)\\,dx\\right|",
-      "f(c)=0 \\quad \\Rightarrow \\quad \\text{split at }x=c",
+      "f(c)=0 \\quad \\Rightarrow \\quad \\text{split at }x=c\\text{, then add magnitudes}",
     ],
   },
 
@@ -1411,22 +1501,29 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
         "\\int_0^3 (x-1)\\,dx \\quad \\text{and explain why it is a signed area.}",
       steps: [
         {
-          explanation: "Find an antiderivative.",
-          latex: "\\int (x-1)\\,dx=\\frac{x^2}{2}-x",
-        },
-        {
-          explanation: "Evaluate between 0 and 3.",
-          latex:
-            "\\left[\\frac{x^2}{2}-x\\right]_0^3=\\left(\\frac{9}{2}-3\\right)-0=\\frac{3}{2}",
+          explanation:
+            "Find the x-axis crossing first, because that is where the strip heights switch sign and the below-axis and above-axis behaviour separates.",
+          latex: "x-1=0 \\Rightarrow x=1",
         },
         {
           explanation:
-            "The graph is below the x-axis on part of the interval and above it on another part, so the integral adds signed contributions.",
-          latex: "x-1=0 \\Rightarrow x=1",
+            "Find an antiderivative so the Fundamental Theorem can turn the sum of strips into a single subtraction.",
+          latex: "\\int (x-1)\\,dx=\\frac{x^2}{2}-x",
+        },
+        {
+          explanation:
+            "Evaluate the below-axis piece and the above-axis piece separately so their signs are visible.",
+          latex:
+            "\\int_0^1 (x-1)\\,dx=-\\frac{1}{2}, \\quad \\int_1^3 (x-1)\\,dx=2",
+        },
+        {
+          explanation:
+            "The below-axis piece is negative, so it is subtracted from the above-axis piece and partially cancels it. Adding the signed values gives the net signed area, not the sum of their sizes.",
+          latex: "2+\\left(-\\frac{1}{2}\\right)=\\frac{3}{2}",
         },
       ],
       finalAnswerLatex:
-        "\\frac{3}{2}. \\quad \\text{This is signed area because below-axis area counts negatively.}",
+        "\\frac{3}{2}. \\quad \\text{Signed area: the below-axis }-\\tfrac{1}{2}\\text{ cancels part of the above-axis }2.",
       cartesianGraph: {
         description: "The line y equals x minus 1 crosses the x-axis at x equals 1. The below-axis and above-axis pieces are shaded separately to show how signed area combines negative and positive contributions.",
         xMin: -0.5, xMax: 3.5, yMin: -2, yMax: 3, xStep: 0.5, yStep: 1,
@@ -1459,21 +1556,25 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
         "\\text{Find the total area between }y=x-1\\text{ and the }x\\text{-axis from }x=0\\text{ to }x=3.",
       steps: [
         {
-          explanation: "Find where the graph crosses the x-axis.",
+          explanation:
+            "Same line and same crossing at x = 1, but now we want physical area, which can never be negative.",
           latex: "x-1=0 \\Rightarrow x=1",
         },
         {
-          explanation: "Split the interval at the x-intercept.",
+          explanation:
+            "Split at the crossing and integrate each piece on its own, so the below-axis piece keeps its own value instead of being absorbed into the total.",
           latex:
             "\\int_0^1 (x-1)\\,dx=-\\frac{1}{2}, \\quad \\int_1^3 (x-1)\\,dx=2",
         },
         {
-          explanation: "Add absolute values to get total area.",
+          explanation:
+            "Flip the below-axis piece upright by taking its absolute value, then add the magnitudes. Nothing cancels this time, so the total exceeds the signed area.",
           latex:
             "\\left|-\\frac{1}{2}\\right|+|2|=\\frac{1}{2}+2=\\frac{5}{2}",
         },
       ],
-      finalAnswerLatex: "\\frac{5}{2}\\text{ square units}",
+      finalAnswerLatex:
+        "\\frac{5}{2}\\text{ square units. The magnitudes add instead of cancelling, so total area }\\tfrac{5}{2}\\text{ exceeds the signed area }\\tfrac{3}{2}.",
       cartesianGraph: {
         description: "The line y equals x minus 1 crosses the x-axis at x equals 1. Both bounded pieces from x equals 0 to x equals 3 are shaded to show total geometric area.",
         xMin: -0.5, xMax: 3.5, yMin: -2, yMax: 3, xStep: 0.5, yStep: 1,
@@ -1614,6 +1715,10 @@ export const signedAreaTotalAreaLesson: ExplicitLesson = {
     {
       mistake: "Adding signed pieces when total area was required.",
       fix: "For total area, add $|\\text{piece 1}|+|\\text{piece 2}|+\\cdots$.",
+    },
+    {
+      mistake: "Reading 'find the area' as 'evaluate the integral'.",
+      fix: "The wording decides the target: an integral reports signed area, but 'area' means split at each crossing and add absolute values.",
     },
   ],
 
@@ -1763,17 +1868,17 @@ export const areaUnderCurveLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Area under a curve can be found using a definite integral when the curve is above the x-axis on the interval.",
-      "The bounds define the interval of the area. For example, from $x=a$ to $x=b$ means the integral has lower bound $a$ and upper bound $b$.",
-      "If the curve is below the x-axis, the definite integral is negative but the geometric area is positive.",
-      "Before giving an area answer, check whether the curve is above or below the x-axis. If the curve crosses the x-axis, split the interval as in the signed area lesson.",
-      "Area is measured in square units.",
+      "Picture the region under a curve sliced into many thin vertical strips, each one almost a rectangle. A strip sitting at position $x$ has height $f(x)$ (the value of the curve there) and a tiny width, so its area is roughly height times width. The area under the whole curve is the accumulated total of all these strips. Hold onto that picture: area under a curve is a sum of thin rectangular strips, and even if you forget every formula you can rebuild the idea from it.",
+      "Try it with numbers before any integral. To estimate the area under $y=x^2+1$ from $x=0$ to $x=2$, cover the region with two rectangles of width $1$. Using the left edge of each strip the heights are $f(0)=1$ and $f(1)=2$, giving an estimate of $1+2=3$ square units; using the right edge the heights are $f(1)=2$ and $f(2)=5$, giving $2+5=7$. The true area lies between these, and the two estimates disagree only because the rectangles are too wide.",
+      "Now make the strips thinner. Each strip has area $f(x)\\,dx$, where $dx$ is its width, and the total area is the sum of all these $f(x)\\,dx$ pieces across the interval. As the strips get thinner the staircase of rectangles hugs the curve more closely, and in the limit the sum becomes exact. That limiting sum is precisely what the definite integral $\\int_a^b f(x)\\,dx$ means: the accumulated area of infinitely many infinitely thin strips, and it uses the same height-times-width idea as the area of a single rectangle.",
+      "We do not add the strips one at a time. Because $f(x)$ is the rate at which area builds up as $x$ increases, an antiderivative $F$ (a function whose rate is $f$) tracks the running total of area. Evaluating $F(b)-F(a)$ then gives the area accumulated from $x=a$ to $x=b$: the running total at the end minus the running total at the start. This is why finding an antiderivative and substituting the bounds computes the area, and it is differentiation run in reverse.",
+      "One warning about sign. Where the curve dips below the x-axis the strips there have negative height $f(x)$, so their $f(x)\\,dx$ contributions are negative and that part of the integral subtracts instead of adds. The raw integral therefore reports signed area, which can be smaller than the true geometric area or even negative. Geometric area is never negative, so for a below-axis region take the absolute value, and if the curve crosses the axis inside the interval, split at the crossing as in the signed area lesson before adding the pieces.",
     ],
     latexBlocks: [
-      "\\text{Area}=\\int_a^b f(x)\\,dx \\quad \\text{if } f(x)\\ge 0 \\text{ on }[a,b]",
-      "\\text{Area}=\\left|\\int_a^b f(x)\\,dx\\right| \\quad \\text{if } f(x)\\le 0 \\text{ on }[a,b]",
+      "\\text{area of one strip}\\approx f(x)\\times dx=\\text{height}\\times\\text{width}",
+      "\\text{Area}=\\lim_{dx\\to 0}\\sum f(x)\\,dx=\\int_a^b f(x)\\,dx \\quad \\text{if } f(x)\\ge 0 \\text{ on }[a,b]",
       "\\int_a^b f(x)\\,dx=\\left[F(x)\\right]_a^b=F(b)-F(a)",
-      "\\text{area units}=\\text{square units}",
+      "\\text{Area}=\\left|\\int_a^b f(x)\\,dx\\right| \\text{ if } f(x)\\le 0 \\text{ on }[a,b] \\quad (\\text{square units})",
     ],
   },
 
@@ -1784,20 +1889,24 @@ export const areaUnderCurveLesson: ExplicitLesson = {
         "\\text{Find the area under }y=x^2+1\\text{ from }x=0\\text{ to }x=2.",
       steps: [
         {
-          explanation: "The curve is above the x-axis, so use the definite integral directly.",
+          explanation: "Check the sign first. Since $x^2+1$ is at least $1$ everywhere, the curve stays above the x-axis, so every strip has positive height and the integral gives the area directly.",
+          latex: "x^2+1\\ge 1>0",
+        },
+        {
+          explanation: "Set up the integral as the accumulated area of strips of height $x^2+1$ swept from $x=0$ to $x=2$.",
           latex: "\\text{Area}=\\int_0^2 (x^2+1)\\,dx",
         },
         {
-          explanation: "Find an antiderivative.",
+          explanation: "Find an antiderivative, because a function whose rate is $x^2+1$ tracks the running total of area.",
           latex: "\\int (x^2+1)\\,dx=\\frac{x^3}{3}+x",
         },
         {
-          explanation: "Evaluate between 0 and 2.",
+          explanation: "Evaluate $F(2)-F(0)$: the area accumulated by $x=2$ minus the zero area at the start.",
           latex:
-            "\\left[\\frac{x^3}{3}+x\\right]_0^2=\\frac{8}{3}+2=\\frac{14}{3}",
+            "\\left[\\frac{x^3}{3}+x\\right]_0^2=\\left(\\frac{8}{3}+2\\right)-0=\\frac{14}{3}",
         },
       ],
-      finalAnswerLatex: "\\frac{14}{3}\\text{ square units}",
+      finalAnswerLatex: "\\frac{14}{3}\\text{ square units, about }4.67\\text{, which sits between the earlier rectangle estimates of }3\\text{ and }7.",
       cartesianGraph: {
         description: "The parabola y equals x squared plus 1 stays above the x-axis. The region under the curve is shaded from x equals 0 to x equals 2.",
         xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 6, xStep: 0.5, yStep: 1,
@@ -1818,17 +1927,21 @@ export const areaUnderCurveLesson: ExplicitLesson = {
         "\\text{Find the area between }y=4-x^2\\text{ and the }x\\text{-axis from }x=0\\text{ to }x=2.",
       steps: [
         {
-          explanation: "The curve is non-negative on $0\\le x\\le2$.",
-          latex: "4-x^2\\ge 0",
+          explanation: "Check the sign on the interval. On $0\\le x\\le 2$ the largest $x^2$ can be is $4$, so $4-x^2\\ge 0$ and the whole region sits above the axis with positive-height strips.",
+          latex: "4-x^2\\ge 0 \\text{ on } [0,2]",
         },
         {
-          explanation: "Set up the definite integral.",
+          explanation: "Set up the integral as the sum of strips of height $4-x^2$ across the interval.",
           latex: "\\text{Area}=\\int_0^2 (4-x^2)\\,dx",
         },
         {
-          explanation: "Evaluate the integral.",
+          explanation: "Find an antiderivative so the running total of area can be read off at each bound.",
+          latex: "\\int (4-x^2)\\,dx=4x-\\frac{x^3}{3}",
+        },
+        {
+          explanation: "Evaluate $F(2)-F(0)$ to get the area accumulated over the interval.",
           latex:
-            "\\left[4x-\\frac{x^3}{3}\\right]_0^2=8-\\frac{8}{3}=\\frac{16}{3}",
+            "\\left[4x-\\frac{x^3}{3}\\right]_0^2=\\left(8-\\frac{8}{3}\\right)-0=\\frac{16}{3}",
         },
       ],
       finalAnswerLatex: "\\frac{16}{3}\\text{ square units}",
@@ -1845,6 +1958,30 @@ export const areaUnderCurveLesson: ExplicitLesson = {
           description: "Shaded area under y equals 4 minus x squared and above the x-axis from x equals 0 to x equals 2.",
         }],
       },
+    },
+    {
+      title: "Worked example 3: A region below the x-axis",
+      questionLatex:
+        "\\text{Find the area between }y=-x^2\\text{ and the }x\\text{-axis from }x=0\\text{ to }x=3.",
+      steps: [
+        {
+          explanation: "Check the sign. For $x>0$ the value $-x^2$ is negative, so the whole region lies below the x-axis and its strips have negative height.",
+          latex: "-x^2<0 \\text{ for } 0<x\\le 3",
+        },
+        {
+          explanation: "Set up the integral, expecting a negative value because negative-height strips subtract from the total.",
+          latex: "\\int_0^3 (-x^2)\\,dx",
+        },
+        {
+          explanation: "Find an antiderivative and evaluate $F(3)-F(0)$.",
+          latex: "\\left[-\\frac{x^3}{3}\\right]_0^3=-9-0=-9",
+        },
+        {
+          explanation: "The integral is $-9$, which is the signed area. Geometric area cannot be negative, so take the absolute value to get the physical area.",
+          latex: "\\text{Area}=\\left|-9\\right|=9",
+        },
+      ],
+      finalAnswerLatex: "9\\text{ square units}",
     },
   ],
 
@@ -1956,7 +2093,11 @@ export const areaUnderCurveLesson: ExplicitLesson = {
     },
     {
       mistake: "Giving a negative value for area.",
-      fix: "If the integral is negative, the geometric area is its absolute value.",
+      fix: "Below-axis strips have negative height, so the integral can be negative. Geometric area is its absolute value.",
+    },
+    {
+      mistake: "Treating the raw integral as the area even when the curve crosses the x-axis.",
+      fix: "Across a crossing, negative-height strips silently cancel positive ones, so the integral gives signed area. Split at each crossing and add the absolute values of the pieces.",
     },
     {
       mistake: "Forgetting square units.",
@@ -2107,40 +2248,77 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "The Trapezoidal rule approximates area under a curve by replacing curved sections with straight-sided trapezia.",
-      "It is useful when exact integration is difficult or when the information is given in a table.",
-      "For $n$ equal subintervals from $x=a$ to $x=b$, the width is $h=\\frac{b-a}{n}$.",
-      "The first and last y-values are counted once. The middle y-values are counted twice.",
-      "The result is an approximation, not necessarily the exact area. Use square units when approximating area.",
+      "The Trapezoidal rule approximates the area under a curve by slicing the region into vertical strips of equal width and replacing the curved top of each strip with a straight line. Over a small width a smooth curve is almost straight, so each strip becomes an ordinary trapezium and the whole area becomes a row of trapezia sitting under the curve.",
+      "Start with a single strip. Its two vertical sides are the heights of the curve at the left and right edges, call them $y_i$ and $y_{i+1}$, and its width is $h$. The area of a trapezium is the average of its two parallel sides times the width, so one strip contributes $\\frac{1}{2}(y_i+y_{i+1})h$. This one calculation is the whole idea; everything after it is just adding these strips together.",
+      "Now add the strips. When you write the sum out, each interior ordinate appears in two neighbouring trapezia, because it is the right edge of one strip and the left edge of the next, so it gets added twice. The first and last ordinates each belong to only one strip, so they are added once. Collecting those repeats is exactly where the factor of 2 on the middle terms comes from; it is not a rule to memorise, it falls out of the sum.",
+      "For $n$ equal subintervals from $x=a$ to $x=b$ the width is $h=\\frac{b-a}{n}$. Notice that $n$ subintervals need $n+1$ ordinates $y_0,y_1,\\ldots,y_n$, so five readings give four strips, not five.",
+      "The result is an estimate, and its direction is predictable. If the curve is concave up (convex) over the interval, the straight tops of the trapezia lie above the curve, so the rule overestimates the true area; if the curve is concave down, the tops fall below the curve and it underestimates. Report area answers in square units.",
     ],
     latexBlocks: [
-      "h=\\frac{b-a}{n}",
-      "T=\\frac{h}{2}\\left[y_0+2(y_1+y_2+\\cdots+y_{n-1})+y_n\\right]",
-      "\\text{end values: }y_0,y_n \\quad \\text{middle values: }y_1,\\ldots,y_{n-1}",
-      "T\\approx \\int_a^b f(x)\\,dx",
+      "\\text{one strip: } A_i = \\frac{1}{2}(y_i + y_{i+1})\\,h",
+      "T = \\frac{h}{2}(y_0+y_1) + \\frac{h}{2}(y_1+y_2) + \\cdots + \\frac{h}{2}(y_{n-1}+y_n)",
+      "T = \\frac{h}{2}\\left[y_0 + y_n + 2(y_1 + y_2 + \\cdots + y_{n-1})\\right]",
+      "h = \\frac{b-a}{n}",
     ],
   },
 
   workedExamples: [
     {
-      title: "Worked example 1: Table values",
+      title: "Worked example 1: One trapezium by hand",
+      questionLatex:
+        "\\text{The curve has height }3\\text{ at the left edge and }7\\text{ at the right edge of a strip of width }2.\\text{ Find the strip's trapezium area.}",
+      steps: [
+        {
+          explanation:
+            "A single strip is a trapezium standing on its side: the two parallel sides are the ordinates at the edges, and the distance between them is the strip width.",
+          latex: "y_0=3, \\quad y_1=7, \\quad h=2",
+        },
+        {
+          explanation:
+            "Use the trapezium area you already know: average of the two parallel sides times the width. Nothing new is happening here.",
+          latex: "A = \\frac{1}{2}(y_0 + y_1)\\,h",
+        },
+        {
+          explanation: "Substitute the two heights and the width.",
+          latex: "A = \\frac{1}{2}(3 + 7)(2)",
+        },
+        {
+          explanation:
+            "This single trapezium is the building block. The full rule is nothing more than a chain of these areas added together.",
+          latex: "A = 10",
+        },
+      ],
+      finalAnswerLatex: "10\\text{ square units}",
+    },
+    {
+      title: "Worked example 2: Table values",
       questionLatex:
         "\\text{Use the Trapezoidal rule with }h=1\\text{ and }y\\text{-values }2,5,10,17\\text{ to approximate the area.}",
       steps: [
         {
-          explanation: "Identify the first, middle, and last y-values.",
+          explanation:
+            "Read the ordinates off in order. The two ends are $y_0$ and $y_3$; the two interior readings are $y_1$ and $y_2$.",
           latex: "y_0=2, \\quad y_1=5, \\quad y_2=10, \\quad y_3=17",
         },
         {
-          explanation: "Substitute into the Trapezoidal rule.",
-          latex: "T=\\frac{1}{2}\\left[2+2(5+10)+17\\right]",
+          explanation:
+            "Each interior ordinate is shared by two adjacent strips, so it is doubled; the two endpoints belong to a single strip each, so they are counted once.",
+          latex: "T=\\frac{h}{2}\\left[y_0 + y_3 + 2(y_1 + y_2)\\right]",
         },
         {
-          explanation: "Calculate the approximation.",
+          explanation: "Substitute the ordinates with $h=1$.",
+          latex: "T=\\frac{1}{2}\\left[2 + 17 + 2(5 + 10)\\right]",
+        },
+        {
+          explanation: "Evaluate the bracket, then halve it.",
           latex: "T=\\frac{49}{2}=24.5",
         },
+        {
+          explanation:
+            "The gaps between readings ($3, 5, 7$) keep growing, so the data bends upward. The straight tops of the trapezia sit above that upward-curving shape, so $24.5$ is an overestimate of the true area.",
+        },
       ],
-      finalAnswerLatex: "24.5\\text{ square units}",
+      finalAnswerLatex: "24.5\\text{ square units (an overestimate)}",
       trapezoidalRuleDiagram: {
         description: "Four ordinates at x equals 0, 1, 2 and 3 have heights 2, 5, 10 and 17. Straight top edges join adjacent points, creating three lightly shaded trapezia. The two middle ordinates are shared by neighbouring trapezia.",
         xValues: [0, 1, 2, 3],
@@ -2150,28 +2328,35 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
       },
     },
     {
-      title: "Worked example 2: Function values",
+      title: "Worked example 3: Function values",
       questionLatex:
         "\\text{Approximate the area under }y=x^2+1\\text{ from }x=0\\text{ to }x=4\\text{ using }4\\text{ equal subintervals.}",
       steps: [
         {
-          explanation: "Find the width.",
+          explanation:
+            "Four subintervals split the width of $4$ into four equal pieces, so the strip width is one.",
           latex: "h=\\frac{4-0}{4}=1",
         },
         {
-          explanation: "Find the y-values at $x=0,1,2,3,4$.",
+          explanation:
+            "Evaluate the function at the five ordinate positions $x=0,1,2,3,4$ to get the five heights.",
           latex: "1,\\;2,\\;5,\\;10,\\;17",
         },
         {
-          explanation: "Substitute into the formula.",
-          latex: "T=\\frac{1}{2}\\left[1+2(2+5+10)+17\\right]",
+          explanation:
+            "Apply the rule: end ordinates $1$ and $17$ once, interior ordinates $2, 5, 10$ doubled.",
+          latex: "T=\\frac{1}{2}\\left[1 + 17 + 2(2 + 5 + 10)\\right]",
         },
         {
-          explanation: "Calculate the approximation.",
+          explanation: "Evaluate the bracket, then halve it.",
           latex: "T=26",
         },
+        {
+          explanation:
+            "$y=x^2+1$ is concave up, so every trapezium top lies above the curve and the estimate must be too large. The exact area is $\\int_0^4 (x^2+1)\\,dx = \\frac{76}{3} \\approx 25.33$, and $26 > 25.33$ confirms the overestimate.",
+        },
       ],
-      finalAnswerLatex: "26\\text{ square units}",
+      finalAnswerLatex: "26\\text{ square units (an overestimate of }\\tfrac{76}{3})",
       trapezoidalRuleDiagram: {
         description: "Five ordinates for y equals x squared plus 1 are drawn at x equals 0, 1, 2, 3 and 4. Straight top edges form four lightly shaded trapezia. The three middle ordinates belong to two adjacent trapezia.",
         xValues: [0, 1, 2, 3, 4],
@@ -2297,7 +2482,7 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
   commonMistakes: [
     {
       mistake: "Doubling the first and last values.",
-      fix: "Only the middle y-values are doubled.",
+      fix: "Only the interior ordinates are shared by two strips, so only they are doubled. The first and last ordinates each belong to a single trapezium, so they are counted once.",
     },
     {
       mistake: "Forgetting to multiply by $\\frac{h}{2}$.",
@@ -2440,17 +2625,17 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Area between two curves is found by integrating the vertical distance between them.",
-      "The vertical distance is top function minus bottom function.",
-      "From $x=a$ to $x=b$, the area between $y=f(x)$ and $y=g(x)$ is $\\int_a^b(\\text{top}-\\text{bottom})\\,dx$.",
-      "You must identify which curve is above on the interval. If the curves cross, the top and bottom functions may swap, so splitting may be needed.",
-      "Area should be non-negative and is measured in square units.",
+      "In the area-under-a-curve lesson you sliced a region into thin vertical strips and added them up, each strip a rectangle of height $f(x)$ and width $dx$. A region trapped between two curves is the same picture, only now each strip is fenced in above and below. Its top edge sits on the higher curve and its bottom edge on the lower curve, so the strip is the piece of the taller region left after you remove the shorter region underneath it. Hold onto that image: the area between two curves is the area under the top curve with the area under the bottom curve carved away, done strip by strip.",
+      "Try one strip with numbers before any integral. Take $y=x+4$ and $y=x^2$ and look at the single strip standing at $x=1$. The line is at $x+4=5$ and the parabola is at $x^2=1$, so this strip reaches from height $1$ up to height $5$: its height is $5-1=4$. A strip of width $dx$ there covers about $4\\,dx$ square units. Notice the height is just top value minus bottom value at that $x$, and it changes as you slide the strip along, which is exactly why we cannot use one rectangle and must add many.",
+      "A representative strip at position $x$ therefore has height (top curve minus bottom curve) and width $dx$, giving area $(\\text{top}-\\text{bottom})\\,dx$. Adding every strip from $x=a$ to $x=b$ and letting the width shrink to zero turns the sum into a definite integral, so the area is $\\int_a^b(\\text{top}-\\text{bottom})\\,dx$. This is the same limit-of-a-sum idea as before, and it equals the integral of the top curve minus the integral of the bottom curve, which matches the picture of one region carved out of another.",
+      "The order of the subtraction is the one thing you must get right, and it is where most marks are lost. Height is a distance, so it must come out positive, which means the higher curve has to be written first. Test a single point on the interval to decide: at $x=1$ the value $x+4=5$ beats $x^2=1$, so $x+4$ is the top function there. If you subtract the wrong way round the strip heights come out negative and the integral returns a negative number. A negative answer is not a new kind of area, it is a signal that you reversed top and bottom, so swap them and the magnitude is already correct.",
+      "Two practical points finish the method. The bottom curve can be the x-axis itself, $y=0$, in which case top minus bottom is just the top function and this collapses back to ordinary area under a curve. And if the curves cross inside the interval the top and bottom swap at the crossing, so solve $f(x)=g(x)$ to find where that happens and split the integral there, handling each piece with its own correct top curve before adding. In NSW exams the bounds are often the intersection points, found by setting the two curves equal.",
     ],
     latexBlocks: [
-      "\\text{Area}=\\int_a^b \\left(\\text{top}-\\text{bottom}\\right)\\,dx",
-      "\\text{Area}=\\int_a^b \\left(f(x)-g(x)\\right)\\,dx \\quad \\text{if } f(x)\\ge g(x)",
-      "f(x)=g(x) \\quad \\Rightarrow \\quad \\text{intersection bounds}",
-      "\\text{area units}=\\text{square units}",
+      "\\text{one strip: area}\\approx(\\text{top}-\\text{bottom})\\times dx",
+      "\\text{Area}=\\lim_{dx\\to 0}\\sum(\\text{top}-\\text{bottom})\\,dx=\\int_a^b\\left(\\text{top}-\\text{bottom}\\right)\\,dx",
+      "\\text{Area}=\\int_a^b \\left(f(x)-g(x)\\right)\\,dx \\quad \\text{if } f(x)\\ge g(x) \\text{ on }[a,b]",
+      "f(x)=g(x)\\ \\Rightarrow\\ \\text{intersection bounds; split here if the curves cross}",
     ],
   },
 
@@ -2461,20 +2646,24 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
         "\\text{Find the area between }y=x+4\\text{ and }y=x^2\\text{ from }x=0\\text{ to }x=2.",
       steps: [
         {
-          explanation: "Identify the top and bottom curves on the interval.",
-          latex: "x+4 \\ge x^2 \\quad \\text{for }0\\le x\\le2",
+          explanation: "Decide which curve is on top by testing a point inside the interval. At $x=1$ the line gives $5$ and the parabola gives $1$, so the line is above; checking $x=0$ and $x=2$ the line stays above, so top $=x+4$ and bottom $=x^2$.",
+          latex: "\\text{at }x=1:\\ (x+4)=5,\\ x^2=1 \\ \\Rightarrow\\ x+4 \\text{ is on top}",
         },
         {
-          explanation: "Set up top minus bottom.",
+          explanation: "A representative strip has height (top minus bottom) and width $dx$; summing the strips across the interval is the integral.",
           latex: "\\text{Area}=\\int_0^2 \\left[(x+4)-x^2\\right]\\,dx",
         },
         {
-          explanation: "Evaluate the integral.",
+          explanation: "Find an antiderivative of the strip height, term by term.",
+          latex: "\\int\\left[(x+4)-x^2\\right]\\,dx=\\frac{x^2}{2}+4x-\\frac{x^3}{3}",
+        },
+        {
+          explanation: "Evaluate at the bounds and subtract, giving the accumulated area of all the strips.",
           latex:
             "\\left[\\frac{x^2}{2}+4x-\\frac{x^3}{3}\\right]_0^2=2+8-\\frac{8}{3}=\\frac{22}{3}",
         },
       ],
-      finalAnswerLatex: "\\frac{22}{3}\\text{ square units}",
+      finalAnswerLatex: "\\frac{22}{3}\\text{ square units (positive, as an area must be)}",
       cartesianGraph: {
         description: "The line y equals x plus 4 sits above the parabola y equals x squared from x equals 0 to x equals 2. The region between the curves is shaded.",
         xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 7, xStep: 0.5, yStep: 1,
@@ -2496,15 +2685,19 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
         "\\text{Find the area enclosed by }y=4-x^2\\text{ and }y=0\\text{ from }x=-2\\text{ to }x=2.",
       steps: [
         {
-          explanation: "Here the top curve is $4-x^2$ and the bottom curve is $0$.",
-          latex: "4-x^2 \\ge 0 \\quad \\text{on }[-2,2]",
+          explanation: "The x-axis is the line $y=0$, so it plays the role of the bottom curve here. On $[-2,2]$ the largest $x^2$ reaches is $4$, so $4-x^2\\ge 0$ and the parabola stays on top; each strip runs from the axis up to the parabola.",
+          latex: "\\text{top}=4-x^2,\\quad \\text{bottom}=0 \\quad\\text{on }[-2,2]",
         },
         {
-          explanation: "Set up the area integral.",
+          explanation: "Top minus bottom is $(4-x^2)-0=4-x^2$, so this reduces to plain area under the curve. Sum the strips across the interval.",
           latex: "\\text{Area}=\\int_{-2}^{2}\\left[(4-x^2)-0\\right]\\,dx",
         },
         {
-          explanation: "Evaluate the integral.",
+          explanation: "Find an antiderivative of the strip height.",
+          latex: "\\int(4-x^2)\\,dx=4x-\\frac{x^3}{3}",
+        },
+        {
+          explanation: "Evaluate at the bounds; the symmetry about the y-axis means each half contributes $\\frac{16}{3}$.",
           latex:
             "\\left[4x-\\frac{x^3}{3}\\right]_{-2}^{2}=\\frac{16}{3}-\\left(-\\frac{16}{3}\\right)=\\frac{32}{3}",
         },
@@ -2638,7 +2831,11 @@ export const areaBetweenTwoCurvesLesson: ExplicitLesson = {
     },
     {
       mistake: "Giving a negative area.",
-      fix: "Area should be non-negative. A negative result usually means the subtraction order is reversed.",
+      fix: "Area should be non-negative. A negative result usually means the subtraction order is reversed. It is not a different kind of area: it signals you wrote the lower curve on top, so swap the two and the magnitude is already correct.",
+    },
+    {
+      mistake: "Guessing which curve is on top instead of checking.",
+      fix: "Test a point inside the interval. At that point, whichever function gives the larger value is the top curve there.",
     },
     {
       mistake: "Not splitting when curves cross.",
@@ -2796,60 +2993,104 @@ export const applicationsTotalChangeMotionLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A definite integral can represent total change. If a rate of change is given, integrating that rate over an interval gives the net change in the original quantity.",
-      "In motion, integrating velocity gives displacement. Displacement can be positive, negative, or zero.",
-      "Total distance is not always the same as displacement. If velocity changes sign, total distance requires splitting the interval and adding absolute values.",
-      "Units matter. If velocity is measured in metres per second and time is measured in seconds, displacement is measured in metres.",
-      "In contextual questions, finish with a sentence that answers the question with units.",
+      "Start with a steady rate. A tap adds water at 2 litres per minute for 3 minutes, so it adds 2 times 3 equals 6 litres. On a graph of the rate against time that flat line makes a rectangle, and the 6 litres is exactly its area. When the rate keeps changing you cannot just multiply, but you can chop the time into tiny slices of width dt. Across one slice the rate barely changes, so rate times dt is the small amount added in that slice. Add up every sliver and you get the total change, which is the area under the rate curve. That summing of slivers is precisely what the definite integral does.",
+      "Why does that area equal the total change? Because the antiderivative is the running total itself. If F is a quantity and R is its rate, then F'(t)=R(t), and the Fundamental Theorem of Calculus says the accumulated area from a to b is F(b)-F(a), the net change in F. So you never need to know F's starting value or its +C: integrating a rate hands you the net change directly.",
+      "In motion the rate is velocity, and velocity is the derivative of position, v(t)=s'(t). So integrating v over an interval gives the net change in position, called the displacement. Velocity is signed, so displacement is signed too. A displacement of 0 does not mean the object never moved; it means it came back to exactly where it started.",
+      "Displacement is the signed area under the velocity curve. When an object reverses, its velocity drops below the axis and that area counts as negative, cancelling earlier forward motion. But total distance should count every metre travelled, forward or back. So we flip the below-axis pieces up and integrate the absolute value: distance is the integral of |v(t)|. Picture the velocity-time graph as two regions, one above the axis for forward travel and one below for backward travel. Displacement combines their signed areas; total distance adds their sizes.",
+      "This is where students slip: they read a small or zero displacement as 'barely moved' and stop. The fix is to find where v=0, split the interval there, and only then decide. In NSW exam questions a rate is usually given (velocity, a flow rate, a cost rate, a population growth rate) and you integrate to recover the accumulated amount, always carrying the units through to the final sentence.",
     ],
     latexBlocks: [
-      "\\text{net change}=\\int_a^b \\text{rate}\\,dt",
+      "\\int_a^b R(t)\\,dt=F(b)-F(a)\\quad\\text{where } F'(t)=R(t)",
       "\\text{displacement}=\\int_a^b v(t)\\,dt",
-      "\\text{distance}=\\int_a^b |v(t)|\\,dt",
+      "\\text{total distance}=\\int_a^b |v(t)|\\,dt",
       "\\text{rate units}\\times\\text{input units}=\\text{quantity units}",
     ],
   },
 
   workedExamples: [
     {
-      title: "Worked example 1: Displacement from velocity",
+      title: "Worked example 1: Total amount accumulated from a rate",
       questionLatex:
-        "v(t)=3t^2-4t\\text{ m/s}. \\quad \\text{Find the displacement from }t=0\\text{ to }t=2.",
+        "R(t)=2t+5\\text{ litres per minute}. \\quad \\text{Find the total water added from }t=0\\text{ to }t=4.",
       steps: [
         {
-          explanation: "Displacement is the integral of velocity.",
-          latex: "\\int_0^2 (3t^2-4t)\\,dt",
-        },
-        {
-          explanation: "Find an antiderivative.",
-          latex: "\\int (3t^2-4t)\\,dt=t^3-2t^2",
-        },
-        {
-          explanation: "Evaluate between 0 and 2.",
-          latex: "\\left[t^3-2t^2\\right]_0^2=(8-8)-0=0",
-        },
-      ],
-      finalAnswerLatex: "0\\text{ metres}",
-    },
-    {
-      title: "Worked example 2: Total amount from a rate",
-      questionLatex:
-        "R(t)=2t+5\\text{ litres per minute}. \\quad \\text{Find the total amount of water added from }t=0\\text{ to }t=4.",
-      steps: [
-        {
-          explanation: "Integrate the flow rate over the time interval.",
+          explanation:
+            "The rate keeps rising, so we cannot just multiply rate by time. Sum the litres added instant by instant by integrating the rate over the interval.",
           latex: "\\int_0^4 (2t+5)\\,dt",
         },
         {
-          explanation: "Find an antiderivative and evaluate.",
-          latex: "\\left[t^2+5t\\right]_0^4=16+20=36",
+          explanation:
+            "Find an antiderivative. This function is the running total of water, since its derivative is the rate.",
+          latex: "\\int (2t+5)\\,dt=t^2+5t",
         },
         {
-          explanation: "Use quantity units.",
-          latex: "36\\text{ litres}",
+          explanation:
+            "Evaluate F(4)-F(0). The result is the area under the rate graph, which is the total water added.",
+          latex: "\\left[t^2+5t\\right]_0^4=(16+20)-0=36",
         },
       ],
       finalAnswerLatex: "36\\text{ litres}",
+    },
+    {
+      title: "Worked example 2: A negative net change",
+      questionLatex:
+        "R(t)=-3t\\text{ litres per minute (water draining)}. \\quad \\text{Find the net change from }t=0\\text{ to }t=4.",
+      steps: [
+        {
+          explanation:
+            "Water is leaving, so the rate is negative. The net change is still the integral of the rate over the interval.",
+          latex: "\\int_0^4 (-3t)\\,dt",
+        },
+        {
+          explanation:
+            "Find an antiderivative and evaluate between the bounds.",
+          latex: "\\left[-\\tfrac{3t^2}{2}\\right]_0^4=-24-0=-24",
+        },
+        {
+          explanation:
+            "The negative sign is the answer talking: the quantity decreased. The tank lost 24 litres overall.",
+          latex: "\\text{net change}=-24\\text{ litres}",
+        },
+      ],
+      finalAnswerLatex: "-24\\text{ litres (the tank lost 24 L)}",
+    },
+    {
+      title: "Worked example 3: Displacement versus total distance",
+      questionLatex:
+        "v(t)=3t^2-4t\\text{ m/s on }0\\le t\\le2. \\quad \\text{Find the displacement and the total distance travelled.}",
+      steps: [
+        {
+          explanation:
+            "Displacement is the signed integral of velocity. Compute it first.",
+          latex:
+            "\\int_0^2 (3t^2-4t)\\,dt=\\left[t^3-2t^2\\right]_0^2=(8-8)-0=0",
+        },
+        {
+          explanation:
+            "A displacement of 0 does not mean the particle stayed still, so we cannot stop here. Find where velocity is zero to locate the change of direction.",
+          latex: "3t^2-4t=t(3t-4)=0\\Rightarrow t=0,\\ t=\\tfrac{4}{3}",
+        },
+        {
+          explanation:
+            "On the first piece velocity is negative (at t=1, v=-1), so the particle moves backward. Integrate to get that signed piece.",
+          latex:
+            "\\int_0^{4/3}(3t^2-4t)\\,dt=\\left[t^3-2t^2\\right]_0^{4/3}=-\\tfrac{32}{27}",
+        },
+        {
+          explanation:
+            "On the second piece velocity is positive (at t=2, v=4), so the particle moves forward. Integrate that piece.",
+          latex:
+            "\\int_{4/3}^{2}(3t^2-4t)\\,dt=\\left[t^3-2t^2\\right]_{4/3}^{2}=\\tfrac{32}{27}",
+        },
+        {
+          explanation:
+            "Total distance flips the backward piece positive and adds the sizes, so the two 32/27 pieces add instead of cancelling.",
+          latex:
+            "\\left|-\\tfrac{32}{27}\\right|+\\left|\\tfrac{32}{27}\\right|=\\tfrac{64}{27}\\approx2.37",
+        },
+      ],
+      finalAnswerLatex:
+        "\\text{Displacement}=0\\text{ m (returned to start); total distance}=\\tfrac{64}{27}\\approx2.37\\text{ m}",
     },
   ],
 
@@ -2962,6 +3203,10 @@ export const applicationsTotalChangeMotionLesson: ExplicitLesson = {
     {
       mistake: "Not splitting when velocity changes sign and total distance is required.",
       fix: "Split at zeros of velocity, then add absolute values of each displacement piece.",
+    },
+    {
+      mistake: "Reading a displacement of zero as 'the object never moved'.",
+      fix: "Zero displacement means it returned to its start. Check for a sign change in velocity and compute total distance to see how far it actually travelled.",
     },
   ],
 
