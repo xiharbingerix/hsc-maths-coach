@@ -410,7 +410,7 @@ export function year11StandardManagingMoneyLessonOverride(
         moneyAnswer("manage-budget-m3", "Income is 360 dollars and weekly expenses are 385 dollars. What is the deficit?", "\\text{income}=\\$360,\\quad \\text{expenses}=\\$385", "25"),
         moneyAnswer("manage-budget-m4", "A student budgets 95 dollars each week for food. Estimate the 4-week monthly food cost.", "\\text{weekly food}=\\$95,\\quad \\text{weeks}=4", "380"),
         financeChoice("manage-budget-m5", "Cash flow is about:", "B", ["Only yearly tax", "Money coming in and going out", "Only discounts", "Only interest rates"], "Cash flow tracks income and expenses."),
-        moneyAnswer("manage-budget-m6", "A budget table lists income 520 dollars, transport 75 dollars, food 130 dollars, savings 100 dollars and subscriptions 20 dollars. What is the surplus?", "\\text{income}=\\$520,\\quad \\text{expenses}=\\$75+\\$130+\\$100+\\$20", "195"),
+        moneyAnswer("manage-budget-m6", "A budget table lists income 520 dollars, transport 75 dollars, food 130 dollars, savings 100 dollars and subscriptions 20 dollars. What is the surplus?", "", "195"),
         financeChoice("manage-budget-m7", "Which item is most likely a variable expense?", "D", ["Fixed rent contribution", "Weekly phone plan", "Set insurance fee", "Entertainment spending"], "Entertainment spending can vary."),
         moneyAnswer("manage-budget-m8", "A learner driver pays 40 dollars per week for petrol. Estimate the 4-week monthly amount.", "\\text{weekly petrol}=\\$40,\\quad \\text{weeks}=4", "160"),
         financeChoice("manage-budget-m9", "If a budget has a deficit, the student should first look for:", "C", ["A larger deficit", "A way to increase expenses", "Income increases or expense reductions", "Only the smallest number"], "Deficits can be addressed by increasing income or reducing expenses."),
@@ -524,7 +524,7 @@ export function year11StandardManagingMoneyLessonOverride(
       ],
       masteryQuiz: [
         moneyAnswer("manage-interest-m1", "A 1000 dollar deposit earns 5 percent p.a. simple interest for 2 years. Find the interest.", "P=\\$1000,\\quad r=5\\%,\\quad t=2\\text{ yr}", "100"),
-        financeShortAnswer("manage-interest-m2", "Write 3.5 percent as a decimal for a simple interest calculation.", "3.5\\%=0.035", "0.035", [".035"]),
+        financeShortAnswer("manage-interest-m2", "Write 3.5 percent as a decimal for a simple interest calculation.", "", "0.035", [".035"]),
         moneyAnswer("manage-interest-m3", "A 600 dollar account earns 48 dollars interest. What is the total amount?", "\\text{principal}=\\$600,\\quad \\text{interest}=\\$48", "648"),
         financeChoice("manage-interest-m4", "In I = Prt, r represents:", "C", ["Principal", "Time", "Interest rate as a decimal", "Total amount"], "r is the rate written as a decimal."),
         moneyAnswer("manage-interest-m5", "A 2500 dollar deposit earns simple interest at 2 percent p.a. for 4 years. Find the interest.", "P=\\$2500,\\quad r=2\\%,\\quad t=4\\text{ yr}", "200"),
@@ -836,7 +836,7 @@ export function year11StandardManagingMoneyLessonOverride(
       { mistake: "Getting a net pay that is larger than gross pay, or a discounted price higher than the original.", fix: "Net pay is always less than gross pay when deductions apply; a discount must reduce the price." },
     ],
     masteryQuiz: [
-      moneyAnswer("manage-exam-m1", "A student earns 480 dollars and budgets 95 dollars for food, 60 dollars for transport, 80 dollars for savings and 20 dollars for subscriptions. What is the surplus?", "\\text{income}=\\$480,\\quad \\text{expenses}=\\$95+\\$60+\\$80+\\$20", "225"),
+      moneyAnswer("manage-exam-m1", "A student earns 480 dollars and budgets 95 dollars for food, 60 dollars for transport, 80 dollars for savings and 20 dollars for subscriptions. What is the surplus?", "", "225"),
       financeShortAnswer("manage-exam-m2", "A student needs 500 dollars, already has 140 dollars, and saves 45 dollars each week. How many weeks are needed?", "\\text{goal}=\\$500,\\quad \\text{savings}=\\$140,\\quad \\text{weekly deposit}=\\$45", "8", ["8 weeks", "8weeks"]),
       moneyAnswer("manage-exam-m3", "A 1200 dollar account earns 3 percent p.a. simple interest for 2 years. Find the interest.", "P=\\$1200,\\quad r=3\\%,\\quad t=2\\text{ yr}", "72"),
       moneyAnswer("manage-exam-m4", "A 90 dollar jacket has 20 percent off. What is the sale price?", "\\text{price}=\\$90,\\quad \\text{discount}=20\\%", "72"),
