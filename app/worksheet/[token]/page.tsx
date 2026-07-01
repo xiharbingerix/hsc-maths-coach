@@ -28,90 +28,12 @@ export type WorksheetQuestionPart = {
   marks: number;
 };
 
-function normaliseForLeakCheck(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\\left|\\right/g, "")
-    .replace(/\\,/g, "")
-    .replace(/\s+/g, "")
-    .trim();
-}
-
-function expandLatexFractions(value: string) {
-  let prev = "";
-  let current = value;
-
-  while (current !== prev) {
-    prev = current;
-    // Braced form: \frac{a}{b} or \dfrac{a}{b} → (a)/(b)
-    current = current.replace(
-      /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g,
-      "($1)/($2)"
-    );
-    // Shorthand single-digit form: \frac16 → (1)/(6), \frac38 → (3)/(8)
-    // LaTeX allows \frac followed by two single-character tokens as shorthand.
-    // We only expand digit pairs to avoid munging unrelated macro calls.
-    current = current.replace(
-      /\\(?:d?frac)\s*([0-9])\s*([0-9])/g,
-      "($1)/($2)"
-    );
-  }
-
-  return current;
-}
-
-function leakCheckForms(value: string) {
-  const base = normaliseForLeakCheck(value);
-  const expanded = normaliseForLeakCheck(expandLatexFractions(value));
-  const withoutCommands = expanded
-    .replace(/\\[a-z]+/g, "")
-    .replace(/[{}]/g, "");
-  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
-
-  return [...new Set([base, expanded, withoutCommands, compact])].filter(Boolean);
-}
-
-function shouldStripLatex(latex: string | null, candidates: string[]) {
-  if (!latex) return false;
-
-  // Explicit answer/solution cue words.
-  if (/(answer|solution|therefore|hence)/i.test(latex)) {
-    return true;
-  }
-
-  // Only match against command-stripped forms. Checking the raw base form causes false
-  // positives: e.g. \ln in \int x\ln(x)\,dx would match a candidate of "ln(x)" because
-  // the LaTeX command name "ln" appears as a substring of the raw string. The purely-numeric
-  // RHS check (e.g. n = 10, p = 0.4) was also removed — it incorrectly stripped question
-  // setup parameters; the candidate-matching below already catches genuine answer leaks.
-  const expanded = normaliseForLeakCheck(expandLatexFractions(latex));
-  const withoutCommands = expanded.replace(/\\[a-z]+/g, "").replace(/[{}]/g, "");
-  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
-  const latexForms = [...new Set([withoutCommands, compact])].filter(Boolean);
-
-  if (latexForms.length === 0) return false;
-
-  for (const candidate of candidates) {
-    const trimmed = candidate.trim();
-    if (!trimmed) continue;
-
-    const candidateForms = leakCheckForms(trimmed);
-    for (const form of candidateForms) {
-      const compactLength = form.replace(/[^a-z0-9]/g, "").length;
-      const fractionLike = form.includes("/") || /\\(?:d?frac)/.test(trimmed);
-
-      // Very short values (e.g. "1") produce too many false positives.
-      if (!fractionLike && form.length < 3) continue;
-      if (fractionLike && compactLength < 2) continue;
-
-      if (latexForms.some((latexForm) => latexForm.includes(form))) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
+// NOTE: A runtime answer-leak check used to null out any question latex whose
+// compacted digits happened to contain the answer string. It caused false
+// positives that deleted essential question setup (e.g. a rate function
+// "C'(x)=4x+10, 0≤x≤5" was stripped because "+10" abutting the "0" bound reads
+// as the answer "100"). Giveaways are now removed at the source content layer,
+// so the worksheet passes latex through as authored.
 
 function safeChoices(value: unknown): Choice[] | null {
   if (!Array.isArray(value) || value.length === 0) return null;
@@ -133,20 +55,12 @@ function safeParts(value: unknown): WorksheetQuestionPart[] | null {
       const key = String(obj?.key ?? "").trim();
       const prompt = String(obj?.prompt ?? "").trim();
       if (!key || !prompt) return null;
-      const answer = typeof obj?.answer === "string" ? obj.answer : "";
-      const acceptedAnswers = Array.isArray(obj?.acceptedAnswers)
-        ? obj.acceptedAnswers
-        : Array.isArray(obj?.accepted_answers)
-        ? obj.accepted_answers
-        : [];
       const rawLatex = typeof obj?.latex === "string" ? obj.latex : null;
       return {
         key,
         label: String(obj?.label ?? `(${key})`),
         prompt,
-        latex: shouldStripLatex(rawLatex, [answer, ...acceptedAnswers.map(String)])
-          ? null
-          : rawLatex,
+        latex: rawLatex,
         marks: typeof obj?.marks === "number" ? obj.marks : 1,
       };
     })
@@ -224,7 +138,7 @@ export default async function WorksheetPage({
   const { data: qRows, error: qError } = await supabaseAdmin
     .from("questions")
     .select(
-      "id, prompt, latex, choices, question_parts, answer, accepted_answers, diagram_data"
+      "id, prompt, latex, choices, question_parts, diagram_data"
     )
     .in("id", questionIds);
 
@@ -241,8 +155,6 @@ export default async function WorksheetPage({
     latex: string | null;
     choices: unknown;
     question_parts: unknown;
-    answer: string;
-    accepted_answers: string[];
     diagram_data: Record<string, unknown> | null;
   };
 
@@ -260,9 +172,7 @@ export default async function WorksheetPage({
         id: q.id,
         position: wq.position,
         prompt: q.prompt,
-        latex: shouldStripLatex(q.latex, [q.answer, ...(q.accepted_answers ?? [])])
-          ? null
-          : q.latex,
+        latex: q.latex,
         choices: safeChoices(q.choices),
         parts: safeParts(q.question_parts),
         diagramData: q.diagram_data ?? null,
