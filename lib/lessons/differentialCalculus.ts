@@ -5882,18 +5882,17 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "The second derivative is the derivative of the first derivative.",
-      "The second derivative can be used to test concavity at a stationary point.",
-      "Students must still find the stationary point first by solving $f'(x)=0$.",
-      "If $f''(x)>0$ at a stationary point, the graph is concave up there and the point is a local minimum.",
-      "If $f''(x)<0$ at a stationary point, the graph is concave down there and the point is a local maximum.",
-      "If $f''(x)=0$, the second derivative test is inconclusive, so another method is needed.",
+      "From the last two lessons, solving $f'(x)=0$ finds the flat instants on a curve, the stationary points. But a flat spot can be the bottom of a valley or the top of a hill, and finding it does not tell you which. This lesson answers that question by looking at the shape of the curve right around the flat point. If the curve is cupped there, bending upward like the inside of a bowl, the flat point sits at the bottom and is a local minimum. If the curve is capped, bending downward like an arch, the flat point sits at the top and is a local maximum. That bending has a name: concavity, concave up for a cup and concave down for a cap.",
+      "Look at one specific curve, the parabola $y=x^2-6x+5$, which we already know is flat at $x=3$. The whole parabola curves upward on both sides like a bowl, so the flat point at the very bottom can only be a minimum. You can see it is a minimum from the cup shape alone, before doing any second-derivative algebra. Turn the bowl over, as in $y=-x^2+6x-5$, and the same flat point becomes the peak of an arch, a maximum. Cup holds a minimum, cap holds a maximum: that picture is the whole test.",
+      "To measure cup versus cap with calculus, differentiate a second time. The second derivative $f''(x)$ is the derivative of $f'(x)$, so it measures how the slope itself is changing as you move right. Here is the reasoning that drives the test. At a stationary point the slope is zero. If $f''>0$ there, the slope is increasing, so it passes from negative (curve falling) up through zero to positive (curve rising); falling then rising is a trough, a minimum. If $f''<0$ there, the slope is decreasing, so it passes from positive to negative; rising then falling is a crest, a maximum. The sign test is not a rule to memorise, it is just a reading of which way the slope is turning.",
+      "So the method is: solve $f'(x)=0$ to find the flat points, then evaluate $f''(x)$ at each one. A positive value means the slope is increasing into the point, the curve is concave up, and the point is a local minimum; a negative value means concave down and a local maximum. This is the same concavity you met when $f''$ was introduced, now aimed at a single flat point instead of a whole interval.",
+      "The usual slip is to swap the two signs, pairing positive $f''$ with a maximum because positive sounds like a high point. Resist that by anchoring to the cup: a cup opens upward, it is concave up, $f''>0$, and the lowest part of a cup is a minimum. The other trap is the case $f''(a)=0$. This does not mean the point is flat-and-finished; it means the slope is not bending at that instant, so the cup-or-cap test simply gives no verdict. When that happens, fall back to the first-derivative test and check the sign of $f'$ just either side of the point. In NSW exam questions the second derivative test is the standard quick way to classify a stationary point once $f'(x)=0$ has been solved.",
     ],
     latexBlocks: [
-      "f''(x)=\\frac{d}{dx}\\left(f'(x)\\right)",
-      "f''(a)>0 \\quad \\Rightarrow \\quad \\text{local minimum at }x=a",
-      "f''(a)<0 \\quad \\Rightarrow \\quad \\text{local maximum at }x=a",
-      "f''(a)=0 \\quad \\Rightarrow \\quad \\text{inconclusive}",
+      "f''(x)=\\frac{d}{dx}\\left(f'(x)\\right)=\\text{how fast the slope is changing}",
+      "f''(a)>0 \\;\\Rightarrow\\; \\text{slope increasing} \\;\\Rightarrow\\; \\text{concave up (cup)} \\;\\Rightarrow\\; \\text{local minimum at }x=a",
+      "f''(a)<0 \\;\\Rightarrow\\; \\text{slope decreasing} \\;\\Rightarrow\\; \\text{concave down (cap)} \\;\\Rightarrow\\; \\text{local maximum at }x=a",
+      "f''(a)=0 \\;\\Rightarrow\\; \\text{not bending: test inconclusive, check the sign of }f'\\text{ either side}",
     ],
   },
 
@@ -5902,25 +5901,47 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
       title: "Worked example 1: One stationary point",
       questionLatex:
         "f(x)=x^2-6x+5 \\quad \\text{use the second derivative test to classify the stationary point.}",
+      cartesianGraph: {
+        description:
+          "y = x^2 - 6x + 5 is a parabola that opens upward like a cup, with its lowest point at (3, -4) where a horizontal tangent y = -4 touches it. Because the curve is cupped (concave up) on both sides of x = 3, the flat point at the bottom is a local minimum.",
+        xMin: 0,
+        xMax: 6,
+        yMin: -5,
+        yMax: 6,
+        xStep: 1,
+        yStep: 1,
+        parabolas: [
+          { kind: "quadratic", a: 1, b: -6, c: 5, label: "y = x² - 6x + 5 (a cup)" },
+        ],
+        lines: [
+          { kind: "linear", m: 0, b: -4, xMin: 1, xMax: 5, label: "horizontal tangent: y = -4" },
+        ],
+        points: [{ x: 3, y: -4, label: "(3, -4) minimum" }],
+      },
       steps: [
         {
-          explanation: "Find the first derivative.",
+          explanation:
+            "Classifying a flat point needs the flat point first, and that is where the slope is zero, so start from the slope function.",
           latex: "f'(x)=2x-6",
         },
         {
-          explanation: "Solve $f'(x)=0$.",
+          explanation:
+            "Set the slope to zero to locate the stationary point.",
           latex: "2x-6=0 \\quad \\Rightarrow \\quad x=3",
         },
         {
-          explanation: "Find the second derivative.",
+          explanation:
+            "To test cup versus cap, differentiate again; this measures how the slope is changing.",
           latex: "f''(x)=2",
         },
         {
-          explanation: "Evaluate $f''(x)$ at the stationary $x$-value.",
-          latex: "f''(3)=2>0",
+          explanation:
+            "Here $f''(3)=2>0$, so the slope is increasing through the flat point: it passes from negative to positive, which makes the curve concave up (a cup). A cup holds its lowest point, so this is a minimum.",
+          latex: "f''(3)=2>0 \\quad \\Rightarrow \\quad \\text{concave up, minimum}",
         },
         {
-          explanation: "Find the coordinate and classify.",
+          explanation:
+            "The slope function gives no height, so read the $y$-value off the original curve to complete the coordinate. The graph confirms a cup with its base here.",
           latex: "f(3)=-4 \\quad \\Rightarrow \\quad \\text{local minimum at }(3,-4)",
         },
       ],
@@ -5932,30 +5953,63 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
         "f(x)=x^3-3x^2-9x+2 \\quad \\text{use the second derivative test to classify the stationary points.}",
       steps: [
         {
-          explanation: "Find the first derivative.",
+          explanation:
+            "Find the slope function so the flat points can be located.",
           latex: "f'(x)=3x^2-6x-9",
         },
         {
-          explanation: "Solve $f'(x)=0$.",
+          explanation:
+            "Set the slope to zero and factorise to find both stationary $x$-values.",
           latex:
             "3x^2-6x-9=0 \\quad \\Rightarrow \\quad 3(x-3)(x+1)=0 \\quad \\Rightarrow \\quad x=-1,3",
         },
         {
-          explanation: "Find the second derivative.",
+          explanation:
+            "Differentiate again to measure how the slope is turning at each flat point.",
           latex: "f''(x)=6x-6",
         },
         {
-          explanation: "Evaluate $f''(x)$ at each stationary $x$-value.",
-          latex: "f''(-1)=-12<0, \\quad f''(3)=12>0",
+          explanation:
+            "At $x=-1$ the slope is decreasing ($f''<0$): rising then falling, a concave-down cap, so a maximum. At $x=3$ the slope is increasing ($f''>0$): falling then rising, a concave-up cup, so a minimum.",
+          latex: "f''(-1)=-12<0 \\;(\\text{cap, max}), \\quad f''(3)=12>0 \\;(\\text{cup, min})",
         },
         {
-          explanation: "Find the coordinates and classify.",
+          explanation:
+            "Read each height off the original curve to write the full coordinates.",
           latex:
             "f(-1)=7, \\quad f(3)=-25 \\quad \\Rightarrow \\quad \\text{local maximum at }(-1,7), \\quad \\text{local minimum at }(3,-25)",
         },
       ],
       finalAnswerLatex:
         "\\text{Local maximum at }(-1,7), \\quad \\text{local minimum at }(3,-25)",
+    },
+    {
+      title: "Worked example 3: When the test is inconclusive",
+      questionLatex:
+        "f(x)=x^4 \\quad \\text{use the second derivative test to classify the stationary point.}",
+      steps: [
+        {
+          explanation:
+            "Find the slope function and set it to zero to locate the flat point.",
+          latex: "f'(x)=4x^3 \\quad \\Rightarrow \\quad 4x^3=0 \\quad \\Rightarrow \\quad x=0",
+        },
+        {
+          explanation:
+            "Differentiate again to test the concavity at the flat point.",
+          latex: "f''(x)=12x^2",
+        },
+        {
+          explanation:
+            "Here $f''(0)=0$. The slope is not bending at that instant, so the cup-or-cap test gives no verdict: it is inconclusive, not a sign that the point is neither a max nor a min.",
+          latex: "f''(0)=12(0)^2=0 \\quad \\Rightarrow \\quad \\text{inconclusive}",
+        },
+        {
+          explanation:
+            "Fall back to the first-derivative test and check the slope just either side. The slope is negative on the left and positive on the right, so the curve falls then rises: a trough, a minimum.",
+          latex: "f'(-1)=-4<0, \\quad f'(1)=4>0 \\quad \\Rightarrow \\quad \\text{falls then rises}",
+        },
+      ],
+      finalAnswerLatex: "\\text{Local minimum at }(0,0)",
     },
   ],
 
@@ -6086,11 +6140,11 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     },
     {
       mistake: "Reversing the second derivative classifications.",
-      fix: "$f''(x)>0$ gives a local minimum, while $f''(x)<0$ gives a local maximum.",
+      fix: "It is tempting to pair positive $f''$ with a maximum because positive sounds like a high point, but $f''>0$ means concave up, a cup, and a cup holds its lowest point: a minimum. So $f''(x)>0$ gives a local minimum and $f''(x)<0$ gives a local maximum.",
     },
     {
       mistake: "Treating $f''(x)=0$ as a maximum or minimum.",
-      fix: "When $f''(x)=0$, the second derivative test is inconclusive.",
+      fix: "When $f''(x)=0$ the slope is not bending at that instant, so the test gives no verdict; it is inconclusive. Fall back to checking the sign of $f'$ just either side of the point.",
     },
     {
       mistake: "Forgetting coordinates.",
@@ -6685,85 +6739,119 @@ export const curveSketchingLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Curve sketching combines information about intercepts, stationary points, increasing and decreasing intervals, and concavity.",
-      "Derivatives help identify the key features and shape of the graph.",
-      "To sketch a curve using derivatives, find intercepts where appropriate, then find $f'(x)$.",
-      "Solve $f'(x)=0$ to find stationary $x$-values, then substitute into the original function to find stationary point coordinates.",
-      "Use first derivative signs or the second derivative to understand whether the graph turns up or down at key points.",
-      "This lesson focuses on polynomial functions suitable for Year 12 Mathematics Advanced, without requiring highly complex graphing.",
+      "The big idea of this lesson is that the derivatives are shape-readers. Recall that $f'(x)$ is the slope of the curve at each point: where $f'(x)$ is positive the curve heads uphill, where it is negative the curve heads downhill, and where $f'(x)=0$ the curve flattens for an instant and turns. The second derivative $f''(x)$ then says how the curve bends, cupped upward or capped downward. Read together with the few points where the curve crosses the axes, the derivatives tell you the whole shape, so you can sketch a curve without plotting dozens of points.",
+      "See it on a real curve, $f(x)=x^2-4x+3$. Its slope function is $f'(x)=2x-4$. Try one instance: at $x=1$, $f'(1)=-2$, negative, so the curve is heading downhill there; at $x=3$, $f'(3)=2$, positive, so it is climbing. Somewhere between, at $x=2$, the slope passes through zero and the curve flattens and turns: that is the bottom of the valley. Solving $f(x)=0$ gives the two places it cuts the $x$-axis, $(1,0)$ and $(3,0)$. Pin those few points and the shape draws itself.",
+      "Each derivative test feeds the sketch for a reason worth recalling. We solve $f'(x)=0$ to find turning points because a turning point is exactly where the slope is momentarily zero. To decide whether such a point is a peak or a trough, look at $f''$: if $f''>0$ the slope is increasing, so it runs from negative (falling) up through zero to positive (rising), and falling-then-rising is a valley, a minimum. If $f''<0$ the slope is decreasing, rising-then-falling, a crest, a maximum. This is the cup-holds-a-minimum, cap-holds-a-maximum picture from the second derivative lesson, not a rule to memorise.",
+      "The most common slip is to confuse $f(x)=0$ with $f'(x)=0$. Students mix them because both are 'solve something equals zero', but the two zeros do different jobs. $f(x)=0$ asks where the height is zero, so it locates where the curve crosses the $x$-axis. $f'(x)=0$ asks where the slope is zero, so it locates where the curve turns. A curve can cross the axis while still climbing steeply, and it can turn far above or below the axis, so these are genuinely different points: use $f(x)=0$ for intercepts and $f'(x)=0$ for turning points.",
+      "So the routine is: find the intercepts, use $f'(x)$ for the turning points and for where the curve rises or falls, then use $f''(x)$ to classify each turn as a peak or trough, and finally describe the shape in words, rising, turning, falling, and bending, before drawing it. In NSW exam questions, 'sketch showing all key features' expects exactly this assembled picture rather than a plotted table of values.",
     ],
     latexBlocks: [
-      "x\\text{-intercepts: } f(x)=0",
-      "y\\text{-intercept: } f(0)",
-      "f'(x)=0 \\quad \\Rightarrow \\quad \\text{stationary points}",
-      "\\text{key features} \\quad \\Rightarrow \\quad \\text{sketch the general shape}",
+      "f(x)=0 \\;\\Rightarrow\\; x\\text{-intercepts (curve crosses the axis)} \\qquad f(0) \\;\\Rightarrow\\; y\\text{-intercept}",
+      "f'(x)=0 \\;\\Rightarrow\\; \\text{turning points}; \\quad f'>0 \\text{ rising}, \\quad f'<0 \\text{ falling}",
+      "f''>0 \\;\\Rightarrow\\; \\text{concave up (cup): minimum} \\qquad f''<0 \\;\\Rightarrow\\; \\text{concave down (cap): maximum}",
     ],
   },
 
   workedExamples: [
     {
-      title: "Worked example 1: Sketch key features of a quadratic",
+      title: "Worked example 1: Sketch a quadratic",
       questionLatex:
-        "f(x)=x^2-4x+3 \\quad \\text{sketch the key features using derivatives.}",
+        "f(x)=x^2-4x+3 \\quad \\text{sketch the curve showing all key features.}",
+      cartesianGraph: {
+        description:
+          "y = x^2 - 4x + 3 is an upward-opening parabola. It crosses the x-axis at (1, 0) and (3, 0), crosses the y-axis at (0, 3), and turns at its lowest point, the minimum (2, -1). The curve falls to the left of x = 2 and rises to the right.",
+        xMin: 0,
+        xMax: 4,
+        yMin: -2,
+        yMax: 4,
+        xStep: 1,
+        yStep: 1,
+        parabolas: [
+          { kind: "quadratic", a: 1, b: -4, c: 3, label: "y = x² - 4x + 3" },
+        ],
+        points: [
+          { x: 1, y: 0, label: "(1, 0)" },
+          { x: 3, y: 0, label: "(3, 0)" },
+          { x: 0, y: 3, label: "(0, 3)" },
+          { x: 2, y: -1, label: "(2, -1) minimum" },
+        ],
+      },
       steps: [
         {
-          explanation: "Find the intercepts.",
+          explanation:
+            "Intercepts pin where the curve meets the axes, so start there. The x-intercepts are where the height is zero, $f(x)=0$, and the y-intercept is the height at $x=0$.",
           latex:
-            "x^2-4x+3=0 \\Rightarrow (x-1)(x-3)=0 \\Rightarrow x=1,3; \\quad f(0)=3",
+            "(x-1)(x-3)=0 \\Rightarrow x=1,3; \\qquad f(0)=3",
         },
         {
-          explanation: "Find the derivative and stationary point.",
-          latex: "f'(x)=2x-4, \\quad 2x-4=0 \\Rightarrow x=2",
+          explanation:
+            "The curve turns where its slope is zero, so build the slope function and set it to zero. The height of that turning point comes from the original $f$, not from $f'$.",
+          latex: "f'(x)=2x-4=0 \\Rightarrow x=2, \\qquad f(2)=-1",
         },
         {
-          explanation: "Find the stationary point coordinate.",
-          latex: "f(2)=2^2-4(2)+3=-1 \\quad \\Rightarrow \\quad (2,-1)",
+          explanation:
+            "Classify the turn by how the curve bends. Here $f''(2)=2>0$, so the slope is increasing through the flat point (it runs from negative up to positive): the curve is concave up, a cup, so $(2,-1)$ is a minimum.",
+          latex: "f''(x)=2>0 \\Rightarrow \\text{concave up, minimum}",
         },
         {
-          explanation: "Use the second derivative to describe shape.",
-          latex: "f''(x)=2>0 \\quad \\Rightarrow \\quad \\text{concave up, local minimum}",
-        },
-        {
-          explanation: "List the key features for the sketch.",
+          explanation:
+            "Now describe the shape before drawing: an upward parabola that falls for $x<2$, flattens and turns at the minimum $(2,-1)$, then rises for $x>2$, passing through the intercepts $(1,0)$, $(3,0)$ and $(0,3)$.",
           latex:
-            "x\\text{-intercepts }(1,0),(3,0), \\quad y\\text{-intercept }(0,3), \\quad \\text{minimum }(2,-1)",
+            "(1,0),(3,0),\\;(0,3),\\;\\text{min }(2,-1),\\;\\text{opens up}",
         },
       ],
       finalAnswerLatex:
-        "(1,0),(3,0), \\quad (0,3), \\quad \\text{minimum at }(2,-1), \\quad \\text{opens upward}",
+        "x\\text{-intercepts }(1,0),(3,0); \\quad y\\text{-intercept }(0,3); \\quad \\text{minimum }(2,-1); \\quad \\text{opens upward}",
     },
     {
-      title: "Worked example 2: Sketch key features of a cubic",
+      title: "Worked example 2: Sketch a cubic",
       questionLatex:
-        "f(x)=x^3-3x^2 \\quad \\text{sketch the key features using derivatives.}",
+        "f(x)=x^3-3x^2 \\quad \\text{sketch the curve showing all key features.}",
+      cartesianGraph: {
+        description:
+          "y = x^3 - 3x^2 rises to a local maximum at (0, 0), falls to a local minimum at (2, -4), then rises again, crossing the x-axis at (3, 0). It touches the x-axis at the origin (a repeated root) and cuts it at x = 3.",
+        xMin: -1,
+        xMax: 3.5,
+        yMin: -6,
+        yMax: 5,
+        xStep: 1,
+        yStep: 1,
+        curves: [
+          { kind: "cubic", a: 1, b: -3, c: 0, d: 0, xMin: -1, xMax: 3.4, color: "blue", label: "y = x³ - 3x²" },
+        ],
+        points: [
+          { x: 0, y: 0, label: "(0, 0) maximum" },
+          { x: 2, y: -4, label: "(2, -4) minimum" },
+          { x: 3, y: 0, label: "(3, 0)" },
+        ],
+      },
       steps: [
         {
-          explanation: "Find the intercepts.",
-          latex:
-            "x^3-3x^2=x^2(x-3) \\Rightarrow x=0,3; \\quad f(0)=0",
+          explanation:
+            "Find the intercepts first. Factorising gives $x^2(x-3)$, so $f(x)=0$ at $x=0$ and $x=3$; the y-intercept is $f(0)=0$.",
+          latex: "x^3-3x^2=x^2(x-3) \\Rightarrow x=0,3",
         },
         {
-          explanation: "Find the derivative and stationary values.",
+          explanation:
+            "The curve turns where the slope is zero, so set $f'(x)=0$. The heights of these turning points come from the original $f$.",
           latex:
-            "f'(x)=3x^2-6x=3x(x-2) \\Rightarrow x=0,2",
+            "f'(x)=3x(x-2)=0 \\Rightarrow x=0,2; \\quad f(0)=0,\\; f(2)=-4",
         },
         {
-          explanation: "Find stationary point coordinates.",
-          latex: "f(0)=0, \\quad f(2)=8-12=-4",
+          explanation:
+            "Classify each turn with $f''(x)=6x-6$. At $x=0$, $f''(0)=-6<0$: the slope is decreasing, the curve is concave down (a cap), so $(0,0)$ is a maximum. At $x=2$, $f''(2)=6>0$: the slope is increasing, concave up (a cup), so $(2,-4)$ is a minimum.",
+          latex:
+            "f''(0)=-6<0 \\Rightarrow \\text{max}, \\qquad f''(2)=6>0 \\Rightarrow \\text{min}",
         },
         {
-          explanation: "Classify or describe shape.",
+          explanation:
+            "Describe the shape: the curve rises to the local maximum $(0,0)$, falls to the local minimum $(2,-4)$, then rises again, cutting the $x$-axis at $(3,0)$.",
           latex:
-            "f''(x)=6x-6, \\quad f''(0)<0, \\quad f''(2)>0",
-        },
-        {
-          explanation: "List the key features for the sketch.",
-          latex:
-            "\\text{local maximum }(0,0), \\quad \\text{local minimum }(2,-4), \\quad x\\text{-intercepts }(0,0),(3,0)",
+            "\\text{max }(0,0),\\; \\text{min }(2,-4),\\; x\\text{-intercepts }(0,0),(3,0)",
         },
       ],
       finalAnswerLatex:
-        "\\text{local maximum }(0,0), \\quad \\text{local minimum }(2,-4), \\quad x\\text{-intercepts }(0,0),(3,0)",
+        "\\text{local maximum }(0,0); \\quad \\text{local minimum }(2,-4); \\quad x\\text{-intercepts }(0,0),(3,0)",
     },
   ],
 
@@ -6881,7 +6969,7 @@ export const curveSketchingLesson: ExplicitLesson = {
     },
     {
       mistake: "Using $f'(x)=0$ to find intercepts.",
-      fix: "Use $f(x)=0$ for $x$-intercepts and $f'(x)=0$ for stationary points.",
+      fix: "These two zeros do different jobs: $f(x)=0$ finds where the height is zero, so the curve crosses the $x$-axis, while $f'(x)=0$ finds where the slope is zero, so the curve turns. Use $f(x)=0$ for $x$-intercepts and $f'(x)=0$ for stationary points.",
     },
     {
       mistake: "Forgetting the y-intercept.",
@@ -6889,7 +6977,7 @@ export const curveSketchingLesson: ExplicitLesson = {
     },
     {
       mistake: "Drawing a graph that does not match the derivative information.",
-      fix: "The sketch should match increasing and decreasing intervals, stationary points, and concavity.",
+      fix: "The derivatives describe the actual shape, so the sketch must obey them: the curve rises where $f'>0$, falls where $f'<0$, flattens at each stationary point, and bends as a cup where $f''>0$ and a cap where $f''<0$.",
     },
   ],
 
@@ -7432,75 +7520,88 @@ export const optimisationLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "Optimisation means finding a maximum or minimum value.",
-      "Many optimisation problems require building a function before differentiating.",
-      "Start by defining variables and writing the quantity to maximise or minimise.",
-      "Use any constraint to write the quantity as a function of one variable, and state the domain if it matters.",
-      "Differentiate, solve $f'(x)=0$, then check whether the value gives a maximum or minimum.",
-      "Finish by answering the question in context, including units where relevant.",
+      "Suppose you have $40$ cm of string and want to bend it into the rectangle with the largest possible area. A long thin rectangle encloses almost nothing; a short fat one is not much better; somewhere in between the area is as big as it can get. Optimisation is this everyday hunt for the best value: the largest area, the cheapest cost, the shortest distance. The key picture is that as you slide the shape from one extreme to the other, the quantity you care about climbs to a peak and then falls away, and the best value sits right at that peak.",
+      "That peak is the same flat instant from the stationary-points lesson. Imagine graphing the area against the length: the graph rises to a high point and then comes back down, and right at the top it momentarily levels off. A curve that has levelled off has a horizontal tangent, and a horizontal tangent has gradient zero, so at the best value $f'(x)=0$. This is why every optimisation reduces to solving $f'(x)=0$: we are not following a ritual, we are locating the exact spot where the quantity stops rising and is about to fall, the flat top of the hill (or, for a smallest value, the flat bottom of the valley).",
+      "Before we can differentiate we need one function of one variable, but real problems usually hand us two. For the string the area is $A=xy$, which has two unknowns, yet the fixed perimeter is a constraint that ties them together: $2x+2y=40$, so $y=20-x$. Substituting removes $y$ and leaves the area as a function of the single variable $x$, namely $A=x(20-x)=20x-x^2$. This substitution is the heart of modelling: use what is fixed to express the thing you want in terms of the one thing you can vary.",
+      "Solving $A'(x)=20-2x=0$ gives $x=10$, but a solution of $f'(x)=0$ only tells you the curve is flat there, and flat can mean a peak, a trough, or neither. Not every stationary point is a maximum, so you must classify it. The quickest check is the second derivative: $A''(x)=-2$, which is negative, so the slope is decreasing through zero, passing from positive to negative. A slope that turns from rising to falling makes a crest, so this flat point is genuinely a maximum. Skipping this check is the classic error, and a minimum problem solved as though it were a maximum gives a confidently wrong answer.",
+      "Two things finish the job. First respect the domain: here $x$ is a length, so $x>0$, and since $y=20-x$ must also be positive, the sensible range is $0<x<20$; a stationary point outside that range is not a valid answer. Second, return to the original context, because the question asked for dimensions, so report $10$ cm by $10$ cm rather than just $x=10$. In NSW exam questions optimisation is where modelling, differentiation and classification meet, and marks are lost far more often for skipping the classification or forgetting units than for the calculus itself.",
     ],
     latexBlocks: [
-      "\\text{define variables} \\quad \\Rightarrow \\quad \\text{write objective function}",
-      "\\text{constraint} \\quad \\Rightarrow \\quad Q=Q(x)",
-      "Q'(x)=0",
-      "\\text{check maximum or minimum} \\quad \\Rightarrow \\quad \\text{answer in context}",
+      "A=xy \\quad \\text{with constraint} \\quad 2x+2y=40 \\;\\Rightarrow\\; y=20-x",
+      "A(x)=x(20-x)=20x-x^2",
+      "A'(x)=20-2x=0 \\quad \\Rightarrow \\quad x=10",
+      "A''(x)=-2<0 \\quad \\Rightarrow \\quad \\text{concave down, so } x=10 \\text{ gives a maximum}",
     ],
   },
 
   workedExamples: [
     {
-      title: "Worked example 1: Rectangle area",
+      title: "Worked example 1: Largest rectangle from a fixed perimeter",
       questionLatex:
         "\\text{A rectangle has perimeter }40\\text{ cm. Find the dimensions that maximise its area.}",
       steps: [
         {
-          explanation: "Define variables and write the constraint.",
-          latex: "2x+2y=40 \\quad \\Rightarrow \\quad x+y=20",
+          explanation:
+            "The area depends on two sides, but the fixed perimeter links them. Write the constraint so one side can be expressed through the other.",
+          latex: "2x+2y=40 \\quad \\Rightarrow \\quad y=20-x",
         },
         {
-          explanation: "Write one variable in terms of the other.",
-          latex: "y=20-x",
+          explanation:
+            "Substitute so the area becomes a function of the single variable $x$, since we can only differentiate with respect to one variable at a time.",
+          latex: "A=xy=x(20-x)=20x-x^2",
         },
         {
-          explanation: "Write the area as a function of one variable.",
-          latex: "A=x y=x(20-x)=20x-x^2",
+          explanation:
+            "The greatest area is the flat top of this curve, where the gradient is zero, so differentiate and solve $A'(x)=0$.",
+          latex: "A'(x)=20-2x=0 \\quad \\Rightarrow \\quad x=10",
         },
         {
-          explanation: "Differentiate and solve $A'(x)=0$.",
-          latex: "A'(x)=20-2x, \\quad 20-2x=0 \\Rightarrow x=10",
+          explanation:
+            "A zero gradient alone does not prove a maximum, so classify the point. $A''(x)=-2<0$ means the curve is concave down, a crest, confirming a maximum.",
+          latex: "A''(x)=-2<0",
         },
         {
-          explanation: "Find the other dimension and check the maximum.",
-          latex: "y=20-10=10, \\quad A''(x)=-2<0",
+          explanation:
+            "Return to the context: find the other side. Both sides are positive, so $x=10$ lies inside the valid domain $0<x<20$.",
+          latex: "y=20-10=10",
         },
       ],
       finalAnswerLatex:
-        "\\text{The maximum area occurs when the rectangle is }10\\text{ cm by }10\\text{ cm.}",
+        "\\text{The area is greatest when the rectangle is }10\\text{ cm by }10\\text{ cm (a square), giving }100\\text{ cm}^2.",
     },
     {
-      title: "Worked example 2: Maximum profit",
+      title: "Worked example 2: Least fencing for a fixed area",
       questionLatex:
-        "P(x)=-2x^2+80x-300 \\quad \\text{find the value of }x\\text{ that maximises profit and the maximum profit.}",
+        "\\text{A rectangular garden must have an area of }100\\text{ m}^2. \\text{ Find the dimensions that use the least fencing.}",
       steps: [
         {
-          explanation: "Differentiate the profit function.",
-          latex: "P'(x)=-4x+80",
+          explanation:
+            "Let $x$ be the length in metres, so $x>0$. The fixed area fixes the width, giving the constraint that ties the two sides together.",
+          latex: "xy=100 \\quad \\Rightarrow \\quad y=\\frac{100}{x}",
         },
         {
-          explanation: "Solve $P'(x)=0$.",
-          latex: "-4x+80=0 \\quad \\Rightarrow \\quad x=20",
+          explanation:
+            "The fencing is the perimeter. Substitute the width so it becomes a function of the single variable $x$.",
+          latex: "P=2x+2y=2x+\\frac{200}{x}",
         },
         {
-          explanation: "Check that this gives a maximum.",
-          latex: "P''(x)=-4<0",
+          explanation:
+            "The least fencing is the flat bottom of this curve, where the gradient is zero, so differentiate and solve $P'(x)=0$. Since $x$ is a length, we keep the positive root only.",
+          latex: "P'(x)=2-\\frac{200}{x^2}=0 \\quad \\Rightarrow \\quad x^2=100 \\quad \\Rightarrow \\quad x=10",
         },
         {
-          explanation: "Find the maximum profit.",
-          latex: "P(20)=-2(20)^2+80(20)-300=500",
+          explanation:
+            "Classify the stationary point. $P''(x)=\\dfrac{400}{x^3}$ is positive for $x>0$, so the curve is concave up, a trough, confirming a minimum.",
+          latex: "P''(10)=\\frac{400}{1000}>0",
+        },
+        {
+          explanation:
+            "Interpret in context: find the width and state the dimensions with units.",
+          latex: "y=\\frac{100}{10}=10",
         },
       ],
       finalAnswerLatex:
-        "\\text{Profit is maximised when }x=20, \\quad \\text{with maximum profit }500.",
+        "\\text{The fencing is least when the garden is }10\\text{ m by }10\\text{ m, using }40\\text{ m of fencing.}",
     },
   ],
 
@@ -7592,7 +7693,7 @@ export const optimisationLesson: ExplicitLesson = {
   commonMistakes: [
     {
       mistake: "Differentiating before forming a function of one variable.",
-      fix: "Use constraints first so the objective is written as $Q(x)$.",
+      fix: "You can only differentiate with respect to one variable, so use the constraint first to write the objective as $Q(x)$.",
     },
     {
       mistake: "Forgetting to answer in context.",
@@ -7600,7 +7701,7 @@ export const optimisationLesson: ExplicitLesson = {
     },
     {
       mistake: "Assuming every stationary value is a maximum.",
-      fix: "Check with the second derivative, first derivative signs, or the context.",
+      fix: "A zero gradient only means the curve is flat, which could be a peak, a trough, or neither, so classify it with the second derivative, the sign of $f'$ either side, or the context.",
     },
     {
       mistake: "Dropping restrictions from the problem.",
@@ -8104,17 +8205,16 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "The derivative represents an instantaneous rate of change.",
-      "If a quantity is written as a function of time, its derivative gives the rate at which it is changing.",
-      "A positive rate means the quantity is increasing, while a negative rate means it is decreasing.",
-      "A zero rate means the quantity is momentarily not changing.",
-      "To solve a rate of change problem, identify the function, differentiate, substitute the given value, and interpret the result with units.",
+      "Watch a tank fill with water. The level climbs quickly at first, then eases off as the tank nears full. At any single moment you can ask: how fast is the volume rising right now? That 'right now' rate is what a car's speedometer reports about distance. It does not tell you the average speed for the whole trip, it tells you the steepness of the quantity at this instant. A rate of change is the steepness of the quantity-versus-time graph at the moment you are looking at.",
+      "Put numbers on it. Say the volume after $t$ minutes is $V(t)=40t-4t^2$ litres. Between $t=1$ and $t=3$ the level climbs from $36$ to $84$ litres, an average of $\\frac{84-36}{3-1}=24$ litres per minute. But that single figure blurs two whole minutes together, and the tank is not filling at a steady $24$ L/min throughout. To pin down the rate at one instant, say $t=1$, we have to look closer.",
+      "Shrink the interval around $t=1$. From $t=1$ to $t=1.5$ the average is $30$ L/min; from $t=1$ to $t=1.1$ it is $31.6$ L/min. As the second instant slides toward $t=1$ these averages close in on a single value, $32$ L/min. This is the limiting argument from The Derivative as Rate of Change: the secant gradients over shrinking intervals approach the tangent gradient. The number they approach, $V'(1)=32$, is the instantaneous rate. The derivative captures the rate at the instant, not the average over an interval, and that is precisely why it equals the steepness of the graph at that point.",
+      "Generalise. Write any changing quantity as $Q(t)$. Its derivative $Q'(t)$ is the instantaneous rate of change, so to find the rate at a particular moment you differentiate $Q(t)$ and then substitute that value of $t$. The sign reads off the direction: $Q'(t)>0$ means the quantity is increasing, $Q'(t)<0$ means it is decreasing, and $Q'(t)=0$ means it is momentarily not changing, which on the graph is where the curve levels off and turns.",
+      "The most common slip is to use $Q(t)$ itself instead of $Q'(t)$. The amount present and how fast it is changing are different questions: a tank can hold a lot of water while its level is barely moving. A negative rate also does not mean a negative quantity, only that the quantity is falling at that instant. Units come straight from the fraction, so litres divided by minutes gives litres per minute. In exams these rates appear as velocity from displacement, growth from a population model, or cost from a revenue model, and full marks need the sign read correctly and the units attached.",
     ],
     latexBlocks: [
-      "\\text{rate of change}=\\frac{d}{dt}\\left(\\text{quantity}\\right)",
-      "Q'(t)>0 \\quad \\Rightarrow \\quad \\text{increasing}",
-      "Q'(t)<0 \\quad \\Rightarrow \\quad \\text{decreasing}",
-      "Q'(t)=0 \\quad \\Rightarrow \\quad \\text{momentarily not changing}",
+      "\\text{instantaneous rate}=Q'(t)=\\lim_{h\\to 0}\\frac{Q(t+h)-Q(t)}{h}",
+      "v(t)=h'(t) \\quad \\text{(velocity is the rate of change of height)}",
+      "Q'(t)>0 \\Rightarrow \\text{increasing}, \\quad Q'(t)<0 \\Rightarrow \\text{decreasing}, \\quad Q'(t)=0 \\Rightarrow \\text{momentarily not changing}",
     ],
   },
 
@@ -8122,26 +8222,26 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     {
       title: "Worked example 1: Velocity from height",
       questionLatex:
-        "h(t)=-5t^2+20t+1 \\quad \\text{find the velocity at }t=2.",
+        "h(t)=-5t^2+20t+1 \\quad \\text{find and interpret the velocity at }t=2.",
       steps: [
         {
-          explanation: "Recognise that velocity is the rate of change of height.",
+          explanation: "Velocity asks how fast the height is changing, and the rate of change of a quantity is its derivative, so velocity is the derivative of height.",
           latex: "v(t)=h'(t)",
         },
         {
-          explanation: "Differentiate the height function.",
+          explanation: "Differentiate the height function term by term to get the rate function.",
           latex: "h'(t)=-10t+20",
         },
         {
-          explanation: "Substitute $t=2$.",
+          explanation: "Substitute $t=2$ to evaluate the rate at that instant, not over an interval.",
           latex: "h'(2)=-10(2)+20=0",
         },
         {
-          explanation: "Interpret the result with units.",
-          latex: "v=0\\text{ m/s}",
+          explanation: "A velocity of $0$ m/s means the ball is momentarily at rest. It has stopped rising and is about to fall, so $t=2$ is the top of its flight, the apex, where the height-time graph momentarily flattens.",
+          latex: "v=0\\text{ m/s (momentarily at rest at the apex)}",
         },
       ],
-      finalAnswerLatex: "\\text{The velocity at }t=2\\text{ is }0\\text{ m/s.}",
+      finalAnswerLatex: "\\text{At }t=2\\text{ the velocity is }0\\text{ m/s: the ball is momentarily at rest at its highest point.}",
     },
     {
       title: "Worked example 2: Interpreting a population rate",
@@ -8149,24 +8249,20 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
         "P(t)=t^3-6t^2+20t+100 \\quad \\text{find and interpret }P'(3).",
       steps: [
         {
-          explanation: "Differentiate the population model.",
+          explanation: "The rate at which the population is changing is its derivative, so differentiate the population model.",
           latex: "P'(t)=3t^2-12t+20",
         },
         {
-          explanation: "Substitute $t=3$.",
+          explanation: "Substitute $t=3$ to evaluate the rate at that instant.",
           latex: "P'(3)=3(3)^2-12(3)+20=11",
         },
         {
-          explanation: "Interpret the positive rate.",
+          explanation: "The rate is positive, so the population is increasing at $t=3$, and the value $11$ is measured in people per year because population is divided by time.",
           latex: "P'(3)=11>0",
-        },
-        {
-          explanation: "Write the answer in context.",
-          latex: "\\text{The population is increasing at }11\\text{ units per time unit when }t=3.",
         },
       ],
       finalAnswerLatex:
-        "P'(3)=11, \\quad \\text{so the population is increasing at }11\\text{ units per time unit.}",
+        "P'(3)=11, \\quad \\text{so at }t=3\\text{ the population is rising at }11\\text{ people per year.}",
     },
   ],
 
@@ -8272,11 +8368,11 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     },
     {
       mistake: "Interpreting a negative rate as a negative quantity.",
-      fix: "A negative rate means the quantity is decreasing at that instant.",
+      fix: "A negative rate describes direction, not amount: it means the quantity is decreasing at that instant, even when the quantity itself is still large and positive.",
     },
     {
       mistake: "Using the original function value as the rate.",
-      fix: "Use the derivative value, not the original function value, for the instantaneous rate.",
+      fix: "The amount present and how fast it is changing are different questions. Q(t) is the amount; Q'(t) is the instantaneous rate, so differentiate first and use the derivative value.",
     },
   ],
 

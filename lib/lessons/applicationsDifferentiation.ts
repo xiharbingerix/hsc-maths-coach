@@ -103,37 +103,59 @@ export const secondDerivativeConcavityLesson = applicationLesson(
   ],
   {
     paragraphs: [
-      "The second derivative is the derivative of the first derivative. It describes how the gradient is changing.",
-      "If f''(x) is positive on an interval, the graph is concave up on that interval.",
-      "If f''(x) is negative on an interval, the graph is concave down on that interval.",
-      "A possible point of inflection occurs where f''(x) is zero or undefined, but this must be checked.",
-      "A point of inflection requires a change in concavity. The condition f''(x) = 0 by itself is not enough.",
+      "You already know the gradient tells you which way a curve is heading: a positive gradient climbs, a negative gradient falls. Now ask a sharper question - is that gradient itself steady, speeding up, or slowing down? Take the parabola y = x^2 and walk along it from left to right. On the left its slope is steeply negative, then less steep, then flat at the bottom, then gently positive, then steeply positive. The slope is increasing the whole way across, and the curve answers by bending upward into the shape of a cup. That bending is what concavity measures: not which way the curve heads, but which way it curves.",
+      "The tool that measures this bending is the second derivative, f''(x), which is just the derivative of f'(x). Since f'(x) is the gradient, its derivative f''(x) reports how fast the gradient is changing as you move right. This is why the sign of f'' fixes the shape. If f''(x) > 0 on an interval, the gradient is increasing there, and a slope that keeps rising has to swing the curve upward, so the curve is concave up - a valley or cup that would hold water, a smile. If f''(x) < 0, the gradient is decreasing, and a falling slope bends the curve the other way, so it is concave down - a dome or cap that water would run off, a frown. You never memorise which sign is which: positive f'' means the slope is on the way up, and an upward-trending slope cups the curve into a smile.",
+      "A point of inflection is where the curve switches from one bend to the other, from cup to cap or cap to cup. For that switch to happen, f''(x) must change sign - exactly the way a turning point in the curve needs f'(x) to change sign. It is the same idea one level up: a sign change in f' marks where the curve stops climbing and starts to fall, and a sign change in f'' marks where the curve stops cupping upward and starts to cap over. Because a sign can only flip by passing through zero (or a break in the curve), you hunt for points where f''(x) = 0 or is undefined. But those are only candidates. f''(x) = 0 on its own proves nothing; you must confirm that the sign actually changes across the point.",
+      "The trap to avoid is reading concave up as the same thing as increasing. They feel alike because both sound like 'going up,' but they answer different questions. Increasing is about the height of the curve and is read from the sign of f'; concave up is about the bend of the curve and is read from the sign of f''. A curve can be concave up while falling - look at the left half of y = x^2, dropping toward the origin yet still cupped like a smile - so the gradient there is negative while f'' stays positive. Decide direction from f', shape from f'', and never let one stand in for the other.",
+      "In NSW exam questions the second derivative is the standard test for concavity and the routine way to locate and justify points of inflection, where writing f'' = 0 is never enough on its own - a change of sign must be shown.",
     ],
     latexBlocks: [
-      "f''(x)>0\\Rightarrow \\text{concave up}",
-      "f''(x)<0\\Rightarrow \\text{concave down}",
-      "f''(x)=0\\Rightarrow \\text{possible point of inflection}",
-      "\\text{point of inflection}\\Rightarrow \\text{concavity changes}",
+      "f''(x)=\\frac{d}{dx}\\big(f'(x)\\big) \\;\\Rightarrow\\; \\text{rate of change of the gradient}",
+      "f''(x)>0 \\;\\Rightarrow\\; \\text{slope increasing} \\;\\Rightarrow\\; \\text{concave up (cup, smile)}",
+      "f''(x)<0 \\;\\Rightarrow\\; \\text{slope decreasing} \\;\\Rightarrow\\; \\text{concave down (cap, frown)}",
+      "f''(x)=0\\text{ or undefined} \\;\\Rightarrow\\; \\text{candidate only; inflection needs }f''\\text{ to change sign}",
     ],
   },
   [
     {
       title: "Concavity from a second derivative",
-      questionLatex: "f''(x)=6x-12",
+      questionLatex: "f''(x)=6x-12 \\quad \\text{find any point of inflection.}",
       steps: [
-        { explanation: "Set the second derivative equal to zero to find the possible change point.", latex: "6x-12=0\\Rightarrow x=2" },
-        { explanation: "Test either side of x = 2.", latex: "f''(1)<0,\\quad f''(3)>0" },
-        { explanation: "The concavity changes from down to up.", latex: "\\text{inflection at }x=2" },
+        {
+          explanation:
+            "The bend can only switch where f'' could change sign, so first find where f'' is zero - that is the only candidate.",
+          latex: "6x-12=0 \\quad \\Rightarrow \\quad x=2",
+        },
+        {
+          explanation:
+            "A candidate is not a verdict. Test the sign of f'' just left and just right of x = 2 to see whether the bend really changes.",
+          latex: "f''(1)=-6<0,\\quad f''(3)=6>0",
+        },
+        {
+          explanation:
+            "The sign of f'' flips from negative to positive, so the slope changes from decreasing to increasing and the curve turns from concave down (cap) to concave up (cup). A genuine change of concavity confirms the inflection.",
+          latex: "\\text{cap}\\to\\text{cup at }x=2",
+        },
       ],
-      finalAnswerLatex: "x=2",
+      finalAnswerLatex: "\\text{Point of inflection at }x=2",
     },
     {
       title: "No inflection despite f''(x) = 0",
-      questionLatex: "f(x)=x^4",
+      questionLatex: "f(x)=x^4 \\quad \\text{is there a point of inflection at }x=0\\text{?}",
       steps: [
-        { explanation: "Differentiate twice.", latex: "f''(x)=12x^2" },
-        { explanation: "The second derivative is zero at x = 0.", latex: "12x^2=0" },
-        { explanation: "But f''(x) is positive on both sides of 0, so concavity does not change." },
+        {
+          explanation: "Differentiate twice to get the concavity tool for this curve.",
+          latex: "f'(x)=4x^3 \\quad \\Rightarrow \\quad f''(x)=12x^2",
+        },
+        {
+          explanation: "Find the candidate by setting f'' to zero. It vanishes only at x = 0.",
+          latex: "12x^2=0 \\quad \\Rightarrow \\quad x=0",
+        },
+        {
+          explanation:
+            "Now test the sign either side. The square makes 12x^2 positive for every x except 0, so f'' is positive on both sides. The slope is increasing before and after, so the curve stays concave up the whole way through - the bend never switches, so the candidate fails.",
+          latex: "f''(-1)=12>0,\\quad f''(1)=12>0",
+        },
       ],
       finalAnswerLatex: "\\text{No point of inflection at }x=0",
     },
@@ -142,9 +164,21 @@ export const secondDerivativeConcavityLesson = applicationLesson(
       questionLatex:
         "\\begin{array}{c|ccc}x&(-\\infty,1)&1&(1,\\infty)\\\\\\hline f''(x)&+&0&-\\end{array}",
       steps: [
-        { explanation: "A positive second derivative means concave up." },
-        { explanation: "A negative second derivative means concave down." },
-        { explanation: "The sign changes at x = 1, so there is a point of inflection." },
+        {
+          explanation:
+            "Read the chart as the shape of the curve. On (-infinity, 1) the second derivative is positive, so the slope is increasing and the curve is concave up, a cup.",
+          latex: "f''>0 \\;\\Rightarrow\\; \\text{cup (smile)}",
+        },
+        {
+          explanation:
+            "On (1, infinity) the second derivative is negative, so the slope is decreasing and the curve is concave down, a cap.",
+          latex: "f''<0 \\;\\Rightarrow\\; \\text{cap (frown)}",
+        },
+        {
+          explanation:
+            "At x = 1 the sign of f'' changes from + to -, so the bend switches from cup to cap. Picture a smile on the left joined onto a frown on the right; the join, where the concavity flips, is the point of inflection.",
+          latex: "+\\,\\to\\,- \\;\\Rightarrow\\; \\text{inflection at }x=1",
+        },
       ],
       finalAnswerLatex: "\\text{Concave up then concave down; inflection at }x=1",
     },
@@ -164,7 +198,7 @@ export const secondDerivativeConcavityLesson = applicationLesson(
   ],
   [
     { mistake: "Assuming f''(x)=0 automatically means an inflection point.", fix: "Check that f'' changes sign or that concavity changes." },
-    { mistake: "Confusing concave up with increasing.", fix: "Concavity describes how the gradient changes, not whether the function rises." },
+    { mistake: "Confusing concave up with increasing, because both sound like 'going up'.", fix: "Increasing is the curve's direction (sign of f'); concave up is its bend (sign of f''). A curve can be concave up while falling, as on the left of y = x^2." },
     { mistake: "Using f'(x) signs to decide concavity.", fix: "Use f''(x) signs for concavity." },
     { mistake: "Ignoring points where f'' is undefined.", fix: "Possible inflection points can also occur where f'' is undefined." },
   ],
@@ -197,49 +231,98 @@ export const stationaryPointClassificationLesson = applicationLesson(
   ],
   {
     paragraphs: [
-      "Stationary points occur where the derivative is zero, provided the derivative exists.",
-      "The second derivative test is quick when f'' is non-zero at the stationary point.",
-      "If f'' is positive at the stationary point, the graph is concave up there and the point is a local minimum.",
-      "If f'' is negative at the stationary point, the graph is concave down there and the point is a local maximum.",
-      "If f'' is zero, the second derivative test is inconclusive. Use a first derivative sign test or another method.",
+      "Solving f'(x)=0 finds the spots where a curve momentarily flattens, the stationary points. Classification answers the next question: is this flat spot the bottom of a valley, the top of a hill, or just a pause where the curve levels off and keeps going the same way? The picture to hold is the shape of the curve right around the flat point. A smile, a curve bending upward like the inside of a cup, cradles its lowest point, so that flat spot is a local minimum. A frown, a curve bending downward like an arch, holds its highest point, so that flat spot is a local maximum. Concave up is a smile and holds a minimum; concave down is a frown and holds a maximum.",
+      "The second derivative measures cup versus cap, because f''(x) is the derivative of f'(x) and so reports how the slope itself is changing as you move right. Here is why its sign classifies the point. At a stationary point the slope is zero. If f''>0 there, the slope is increasing, so it passes from negative (curve falling) up through zero to positive (curve rising); falling then rising traces a valley, a minimum. If f''<0 there, the slope is decreasing, passing from positive to negative; rising then falling traces a hill, a maximum. The sign of f'' is not a rule to memorise, it is a reading of which way the curve is bending at the flat point.",
+      "When f''(a)=0 the second derivative test gives no verdict, because zero is neither positive nor negative: the curve is not bending one definite way at that instant. This does not mean there is no stationary point. Fall back to the first-derivative sign table and read the sign of f' just to the left and just to the right of the point. If f' runs from positive to negative the curve rose then fell, a local maximum; from negative to positive it fell then rose, a local minimum; and if f' keeps the same sign on both sides the curve never turned, it only paused, which is a stationary point of inflection.",
+      "Two slips are common. The first is swapping the signs, pairing positive f'' with a maximum because positive sounds like a high point; anchor instead to the smile, which opens upward, is concave up, has f''>0, and holds its lowest point, a minimum. The second is reading f''(a)=0 as no stationary point at all, when the point is still stationary and merely needs the sign table to classify. Keep maximum and minimum as descriptions of a single point, while increasing and decreasing describe whole intervals on either side of it.",
+      "In NSW exam questions the second derivative test is the standard quick classification once f'(x)=0 is solved, and the first-derivative sign table is the expected fallback whenever f''=0 or f'' is awkward to evaluate.",
     ],
     latexBlocks: [
-      "f'(a)=0\\Rightarrow \\text{stationary point candidate}",
-      "f''(a)>0\\Rightarrow \\text{local minimum}",
-      "f''(a)<0\\Rightarrow \\text{local maximum}",
-      "f''(a)=0\\Rightarrow \\text{test inconclusive}",
+      "f'(a)=0 \\;\\Rightarrow\\; \\text{flat point at }x=a;\\ \\text{now classify it}",
+      "f''(a)>0 \\;\\Rightarrow\\; \\text{slope increasing} \\;\\Rightarrow\\; \\text{concave up (smile)} \\;\\Rightarrow\\; \\text{local minimum}",
+      "f''(a)<0 \\;\\Rightarrow\\; \\text{slope decreasing} \\;\\Rightarrow\\; \\text{concave down (frown)} \\;\\Rightarrow\\; \\text{local maximum}",
+      "f''(a)=0 \\;\\Rightarrow\\; \\text{inconclusive: read }f'\\text{ either side} \\;(+\\!\\to\\!-\\ \\text{max},\\ -\\!\\to\\!+\\ \\text{min},\\ \\text{no change = stationary inflection})",
     ],
   },
   [
     {
-      title: "Classify using the second derivative",
-      questionLatex: "f'(2)=0,\\quad f''(2)=5",
-      steps: [
-        { explanation: "The first derivative is zero, so x = 2 is stationary." },
-        { explanation: "The second derivative is positive.", latex: "f''(2)>0" },
-        { explanation: "A positive second derivative indicates a local minimum." },
-      ],
-      finalAnswerLatex: "\\text{Local minimum}",
-    },
-    {
-      title: "Second derivative test is inconclusive",
-      questionLatex: "f'(0)=0,\\quad f''(0)=0",
-      steps: [
-        { explanation: "The point is stationary because f'(0)=0." },
-        { explanation: "The second derivative test cannot classify it because f''(0)=0." },
-        { explanation: "Use a first derivative sign test or inspect higher information." },
-      ],
-      finalAnswerLatex: "\\text{Inconclusive from the second derivative test}",
-    },
-    {
-      title: "Classify from first derivative signs",
+      title: "Classify both stationary points by the second derivative",
       questionLatex:
-        "\\begin{array}{c|ccc}x&x<1&1&x>1\\\\\\hline f'(x)&+&0&-\\end{array}",
+        "f(x)=x^3-3x^2+4 \\quad \\text{classify the stationary points.}",
       steps: [
-        { explanation: "The derivative changes from positive to negative." },
-        { explanation: "The graph increases then decreases." },
+        {
+          explanation:
+            "Classifying flat points needs the flat points first, so start from the slope function and set it to zero.",
+          latex: "f'(x)=3x^2-6x=3x(x-2)=0 \\quad \\Rightarrow \\quad x=0,\\ 2",
+        },
+        {
+          explanation:
+            "Differentiate again to measure how the slope is turning at each flat point.",
+          latex: "f''(x)=6x-6",
+        },
+        {
+          explanation:
+            "At x=0 the slope is decreasing, so it runs from positive to negative: the curve rises then falls, a concave-down frown that holds a peak. So x=0 is a maximum.",
+          latex: "f''(0)=-6<0 \\quad \\Rightarrow \\quad \\text{frown, local maximum}",
+        },
+        {
+          explanation:
+            "At x=2 the slope is increasing, running from negative to positive: the curve falls then rises, a concave-up smile that holds a trough. So x=2 is a minimum.",
+          latex: "f''(2)=6>0 \\quad \\Rightarrow \\quad \\text{smile, local minimum}",
+        },
+        {
+          explanation:
+            "The slope function gives no height, so read the y-values off the original curve to finish the coordinates.",
+          latex: "f(0)=4,\\quad f(2)=0",
+        },
       ],
-      finalAnswerLatex: "\\text{Local maximum at }x=1",
+      finalAnswerLatex:
+        "\\text{Local maximum at }(0,4),\\ \\text{local minimum at }(2,0)",
+    },
+    {
+      title: "When f'' = 0: fall back to the sign table",
+      questionLatex:
+        "f(x)=x^4 \\quad \\text{classify the stationary point.}",
+      steps: [
+        {
+          explanation:
+            "Set the slope to zero to find the flat point.",
+          latex: "f'(x)=4x^3=0 \\quad \\Rightarrow \\quad x=0",
+        },
+        {
+          explanation:
+            "Try the second derivative test first. It comes out zero, so the curve is not bending one definite way here and the test gives no verdict. This does not mean the point disappears.",
+          latex: "f''(x)=12x^2,\\quad f''(0)=0 \\quad \\Rightarrow \\quad \\text{inconclusive}",
+        },
+        {
+          explanation:
+            "Fall back to the sign of f' just either side of x=0. It runs from negative to positive, so the curve falls then rises: a valley.",
+          latex: "f'(-1)=-4<0,\\quad f'(1)=4>0 \\quad (-\\to+)",
+        },
+      ],
+      finalAnswerLatex: "\\text{Local minimum at }(0,0)",
+    },
+    {
+      title: "A stationary point that is only a pause",
+      questionLatex:
+        "f(x)=x^3 \\quad \\text{classify the stationary point.}",
+      steps: [
+        {
+          explanation:
+            "Locate the flat point, then notice the second derivative test is again inconclusive there.",
+          latex: "f'(x)=3x^2=0 \\Rightarrow x=0;\\quad f''(0)=6(0)=0",
+        },
+        {
+          explanation:
+            "Read f' on both sides. It is positive on the left and positive on the right, so the slope never changes sign: the curve is rising before the flat point and still rising after it.",
+          latex: "f'(-1)=3>0,\\quad f'(1)=3>0 \\quad (\\text{no sign change})",
+        },
+        {
+          explanation:
+            "Same sign on both sides means the curve only paused, it did not turn into a peak or a trough. That is a stationary point of inflection.",
+        },
+      ],
+      finalAnswerLatex: "\\text{Stationary point of inflection at }(0,0)",
     },
   ],
   [
@@ -256,10 +339,11 @@ export const stationaryPointClassificationLesson = applicationLesson(
     appNumber("appdiff-stat-i5", "Find f''(2).", "f''(x)=6x-18", "-6", [], "Substitute x=2: f''(2)=6(2)-18=12-18=-6."),
   ],
   [
-    { mistake: "Assuming f''(a)=0 means no stationary point.", fix: "The point may still be stationary; the second derivative test is just inconclusive." },
-    { mistake: "Confusing maximum/minimum with increasing/decreasing.", fix: "Maximum/minimum describes a point; increasing/decreasing describes intervals." },
-    { mistake: "Classifying a point before checking f'(a)=0.", fix: "Confirm the point is stationary first." },
-    { mistake: "Ignoring the first derivative sign test.", fix: "Use f' signs when the second derivative test is inconclusive." },
+    { mistake: "Assuming f''(a)=0 means no stationary point.", fix: "f''(a)=0 only says the bending test gives no verdict, because zero is neither positive nor negative. The point is still stationary; read the sign of f' either side to classify it." },
+    { mistake: "Pairing positive f'' with a maximum because positive sounds high.", fix: "Anchor to the smile: concave up opens upward, has f''>0, and cradles its lowest point, so positive f'' is a minimum." },
+    { mistake: "Confusing maximum/minimum with increasing/decreasing.", fix: "Maximum and minimum describe a single point where the curve turns; increasing and decreasing describe the whole intervals on either side of it." },
+    { mistake: "Classifying a point before checking f'(a)=0.", fix: "Concavity only classifies a point once it is flat, so confirm f'(a)=0 first; otherwise the second derivative is just measuring bending on a sloped piece of curve." },
+    { mistake: "Ignoring the first derivative sign table.", fix: "When f''=0 or is awkward, the sign of f' just left and right still classifies the point: +to- is a maximum, -to+ a minimum, no change a stationary point of inflection." },
   ],
   [
     appChoice("appdiff-stat-m1", "Find and classify the stationary point.", "f(x)=x^2-8x+3", "B", ["Local maximum at $x=4$", "Local minimum at $x=4$", "Stationary point of inflection at $x=4$", "No stationary point"], "f'(x)=2x-8=0 gives x=4. Since f''(x)=2>0, the stationary point is a local minimum."),
@@ -290,17 +374,17 @@ export const curveSketchingCalculusLesson = applicationLesson(
   ],
   {
     paragraphs: [
-      "Curve sketching with calculus combines several features, not just one calculation.",
-      "Intercepts locate where a graph meets the axes. Stationary points describe where the gradient is zero.",
-      "First derivative signs describe increasing and decreasing intervals.",
-      "Second derivative signs describe concavity and possible points of inflection.",
-      "In this renderer, curve-sketch questions use descriptions and multiple-choice graph features rather than drawn sketches.",
+      "Picture the graph of a function as a landscape you walk across from left to right: a run of hills and valleys with rises, dips, and bends. Calculus hands you two instruments for reading that landscape without seeing the whole picture at once. The first derivative f'(x) is the slope you would feel underfoot, telling you uphill, downhill, or flat, and the second derivative f''(x) tells you whether that slope is steepening or easing off. A sign chart is simply a map of those two readings across the intervals between the special x-values, and from the map alone you can say where the curve rises, where it falls, and where it bends.",
+      "See it on a real curve, y = x^2 - 4x + 3. Its slope function is f'(x) = 2x - 4. At x = 1 the slope is f'(1) = -2, negative, so you are walking downhill; at x = 3 it is f'(3) = 2, positive, so you are climbing; and between them, at x = 2, the slope passes through zero and the curve flattens. The bend never changes here because f''(x) = 2 is positive everywhere, so the slope is steepening the whole way and the curve cups upward. Written as a chart, f' reads minus, then zero, then plus, while f'' stays plus, and that one sign change in f' at x = 2 is the bottom of the valley.",
+      "Why do the signs carry this much information? Because each derivative is a rate of change. f'(x) is the rate at which the height changes, so a positive f' means the height is going up and the curve rises, and a negative f' means it is falling. f''(x) is the rate at which the slope itself changes, so a positive f'' means the slope is growing and the curve bends upward into a cup, while a negative f'' means the slope is shrinking and the curve bends downward into a cap. None of this needs memorising: positive means 'on the way up' both times, once for height and once for slope.",
+      "Reading a sign chart is reading these changes. Where f' keeps one sign across a whole interval, the curve simply rises or falls the entire way, with nothing to classify. The interesting points are where a sign flips. When f' goes from + to - the curve stops rising and starts falling, which is exactly a peak, a local maximum; when f' goes from - to + it stops falling and starts rising, a valley floor, a local minimum. One level up, when f'' flips sign the curve stops cupping one way and starts cupping the other, and that switch of bend is a point of inflection. The chart does not just list signs; each sign change is the curve doing something you can name.",
+      "The trap to watch is reading concave down as the same thing as decreasing. They get confused because both sound like 'heading down', but they answer different questions. Decreasing is about the curve's direction and is read from the sign of f', while concave down is about its bend and is read from the sign of f''. A curve can fall while still curving upward like a cup: the left half of y = x^2 does exactly this, dropping toward the origin yet still smiling, so f' is negative there while f'' stays positive. Keep f'' > 0 tied to a cup or smile and f'' < 0 to a cap or frown, decide direction from f' and shape from f'', and never let one stand in for the other. In NSW exam questions a curve-sketch answer must agree with every row of the chart at once, so a description matching the stationary points but contradicting the concavity is wrong.",
     ],
     latexBlocks: [
-      "f'(x)>0\\Rightarrow \\text{increasing}",
-      "f'(x)<0\\Rightarrow \\text{decreasing}",
-      "f''(x)>0\\Rightarrow \\text{concave up}",
-      "f''(x)<0\\Rightarrow \\text{concave down}",
+      "f'(x)>0 \\;\\Rightarrow\\; \\text{rising} \\qquad f'(x)<0 \\;\\Rightarrow\\; \\text{falling}",
+      "f''(x)>0 \\;\\Rightarrow\\; \\text{slope growing} \\;\\Rightarrow\\; \\text{concave up (cup, smile)}",
+      "f''(x)<0 \\;\\Rightarrow\\; \\text{slope shrinking} \\;\\Rightarrow\\; \\text{concave down (cap, frown)}",
+      "f'\\!:\\;+\\!\\to\\!-\\ \\text{local max},\\ \\ -\\!\\to\\!+\\ \\text{local min}; \\qquad f''\\text{ changes sign} \\;\\Rightarrow\\; \\text{inflection}",
     ],
   },
   [
@@ -309,31 +393,83 @@ export const curveSketchingCalculusLesson = applicationLesson(
       questionLatex:
         "\\begin{array}{c|ccc}x&x<1&1&x>1\\\\\\hline f'(x)&+&0&-\\end{array}",
       steps: [
-        { explanation: "The graph increases before x = 1." },
-        { explanation: "The graph decreases after x = 1." },
-        { explanation: "This indicates a local maximum at x = 1." },
+        {
+          explanation:
+            "On x < 1 the first derivative is positive. A positive slope means the height is going up, so the curve is rising on this whole interval.",
+          latex: "f'>0 \\;\\Rightarrow\\; \\text{rising on }x<1",
+        },
+        {
+          explanation:
+            "On x > 1 the first derivative is negative. A negative slope means the height is going down, so the curve is falling on this whole interval.",
+          latex: "f'<0 \\;\\Rightarrow\\; \\text{falling on }x>1",
+        },
+        {
+          explanation:
+            "The slope goes from + to - across x = 1, so the curve stops rising and starts falling. Rising then falling traces a peak, which is exactly a local maximum, not just an isolated zero of f'.",
+          latex: "+\\to- \\;\\Rightarrow\\; \\text{peak (local maximum) at }x=1",
+        },
       ],
       finalAnswerLatex: "\\text{Local maximum at }x=1",
     },
     {
-      title: "Match concavity and stationary information",
-      questionLatex: "f'(2)=0,\\quad f''(2)>0",
+      title: "Read both rows of a sign chart",
+      questionLatex:
+        "\\begin{array}{c|ccc}x&x<2&2&x>2\\\\\\hline f'(x)&-&0&+\\\\f''(x)&+&+&+\\end{array}",
       steps: [
-        { explanation: "The derivative is zero, so x = 2 is stationary." },
-        { explanation: "The second derivative is positive, so the graph is concave up there." },
+        {
+          explanation:
+            "Take the f' row first. The slope runs from - to + across x = 2, so the curve falls then rises. Falling then rising is a valley floor, a local minimum.",
+          latex: "f'\\!:\\;-\\to+ \\;\\Rightarrow\\; \\text{local minimum at }x=2",
+        },
+        {
+          explanation:
+            "Now the f'' row. It is positive on every interval, so the slope is growing throughout and the curve is concave up the whole way, a cup.",
+          latex: "f''>0 \\;\\Rightarrow\\; \\text{concave up (cup) throughout}",
+        },
+        {
+          explanation:
+            "Check the two rows agree before answering. A cup naturally cradles its lowest point, so a concave-up curve having its minimum at x = 2 is consistent: the picture is a smile bottoming out at x = 2.",
+          latex: "\\text{cup holds its minimum} \\;\\Rightarrow\\; \\text{consistent}",
+        },
       ],
-      finalAnswerLatex: "\\text{Local minimum at }x=2",
+      finalAnswerLatex:
+        "\\text{Local minimum at }x=2,\\ \\text{concave up throughout (a cup)}",
     },
     {
-      title: "Combine features",
+      title: "Assemble the whole shape from sign charts",
       questionLatex:
-        "\\text{A graph has x-intercepts }-1\\text{ and }3,\\text{ a local maximum at }x=0,\\text{ and is concave down near }x=0.",
+        "f(x)=x^3-3x \\quad \\text{describe the shape from its sign charts.}",
       steps: [
-        { explanation: "The graph crosses or touches the x-axis at the listed intercepts." },
-        { explanation: "The local maximum means the graph rises then falls near x = 0." },
-        { explanation: "Concave down near the maximum is consistent with a cap shape." },
+        {
+          explanation:
+            "The curve turns where its slope is zero, so build f' and solve. The factored form shows two flat points.",
+          latex: "f'(x)=3x^2-3=3(x-1)(x+1)=0 \\;\\Rightarrow\\; x=-1,\\,1",
+        },
+        {
+          explanation:
+            "Sign-chart f'. At x = -1 the slope flips + to -, so the curve rises then falls: a peak, a local maximum. At x = 1 it flips - to +, so the curve falls then rises: a valley, a local minimum.",
+          latex:
+            "\\begin{array}{c|ccccc}x&x<-1&-1&(-1,1)&1&x>1\\\\\\hline f'(x)&+&0&-&0&+\\end{array}",
+        },
+        {
+          explanation:
+            "Now the bend. f''(x) = 6x is negative for x < 0, so the curve is concave down (a cap) on the left, and positive for x > 0, so concave up (a cup) on the right. The sign of f'' flips at x = 0, so the bend switches there: a point of inflection.",
+          latex: "f''(x)=6x \\;\\Rightarrow\\; \\text{cap for }x<0,\\ \\text{cup for }x>0,\\ \\text{inflection at }x=0",
+        },
+        {
+          explanation:
+            "The slope function gives no height, so read the y-values off the original f. Notice the readings agree: the cap region holds the maximum and the cup region holds the minimum.",
+          latex: "f(-1)=2,\\quad f(0)=0,\\quad f(1)=-2",
+        },
+        {
+          explanation:
+            "Assemble it in order: the curve rises to a maximum at (-1, 2) while capped over, bends through the inflection at (0, 0), then drops to a minimum at (1, -2) while cupping upward, and rises again afterwards.",
+          latex:
+            "\\text{max }(-1,2)\\ \\to\\ \\text{inflection }(0,0)\\ \\to\\ \\text{min }(1,-2)",
+        },
       ],
-      finalAnswerLatex: "\\text{Choose the description matching all features.}",
+      finalAnswerLatex:
+        "\\text{Local maximum }(-1,2),\\ \\text{inflection }(0,0),\\ \\text{local minimum }(1,-2);\\ \\text{concave down then up}",
     },
   ],
   [
@@ -351,7 +487,7 @@ export const curveSketchingCalculusLesson = applicationLesson(
   ],
   [
     { mistake: "Using only stationary points to choose a graph.", fix: "Also check intercepts, concavity and increasing/decreasing intervals." },
-    { mistake: "Confusing concave down with decreasing.", fix: "Concavity describes gradient change, while decreasing describes gradient sign." },
+    { mistake: "Confusing concave down with decreasing, because both sound like 'heading down'.", fix: "Decreasing is the curve's direction (sign of f'); concave down is its bend (sign of f''). A curve can fall while still cupping upward, like the left half of y = x^2, so read direction from f' and shape from f''." },
     { mistake: "Ignoring y-values at stationary points.", fix: "A curve sketch needs both x-location and y-location when coordinates are available." },
     { mistake: "Drawing a sketch that contradicts the sign chart.", fix: "Every part of the sketch must match the derivative signs." },
   ],
@@ -478,47 +614,103 @@ export const kinematicsRatesChangeLesson = applicationLesson(
   ],
   {
     paragraphs: [
-      "In kinematics, displacement s(t) gives position relative to an origin.",
-      "Velocity is the derivative of displacement. Acceleration is the derivative of velocity, or the second derivative of displacement.",
-      "A particle is momentarily at rest when its velocity is zero.",
-      "Velocity has direction because it can be positive or negative. Speed is the magnitude of velocity and is never negative.",
-      "Displacement is net change in position. Total distance counts the length travelled, including changes of direction.",
+      "Picture a particle sliding along a marked line, like a bead on a wire, with an origin scratched at zero. Its displacement s(t) is just where it sits relative to that origin at time t: positive means to one side, negative means the other, zero means back at the origin. Velocity is the everyday question of how fast that position is changing and which way it is heading. If the bead moves 3 units to the right each second it has velocity +3; if it drifts back toward the origin it has a negative velocity. So before any formula, velocity is speed plus a direction sign.",
+      "Why is that velocity the derivative of s(t)? Take a short stretch of time h and measure the change in position, s(t+h) minus s(t), over that stretch. Dividing by h gives the average velocity across the interval, exactly the (change in position)/(change in time) idea from rates of change. Now shrink h toward zero: the interval closes onto the single instant t, and the average velocities settle on one limiting value. That limit is the instantaneous rate of change of position, and by definition it is the derivative s'(t). This is the whole reason v = s'(t): velocity is what average velocity becomes when the time interval collapses to a point.",
+      "The graph makes this concrete. Draw the position-time graph, s against t. The velocity at any instant is the slope of that graph, because slope is rise over run and here that is change in position over change in time. A steep upward part of the graph means the particle is moving fast in the positive direction; a downward slope means it is heading back the negative way; a flat spot, where the slope is zero, means it is momentarily at rest. Acceleration asks the next question: how is that slope itself changing? It is the rate of change of velocity, so a = v'(t) = s''(t), and it measures how the position graph bends as the velocity speeds up or eases off.",
+      "Two confusions are worth heading off. First, velocity carries a sign but speed does not: speed is the magnitude |v(t)|, so a velocity of -5 and a velocity of +5 are both a speed of 5, just in opposite directions. Second, s(t) = 0 does not mean the particle is at rest; it means the particle is at the origin, which it may be racing through at full speed. At rest is a statement about velocity, v(t) = 0, not about position. Keep direction and being-still tied to v, and position tied to s.",
+      "In NSW exam questions you are routinely asked to find when a particle is at rest, which direction it is moving, when it changes direction, and to separate total distance travelled from net displacement, all of which come from reading the signs of v = s'(t) and a = s''(t).",
     ],
     latexBlocks: [
-      "v(t)=s'(t)",
+      "v(t)=\\lim_{h\\to 0}\\frac{s(t+h)-s(t)}{h}=s'(t)",
       "a(t)=v'(t)=s''(t)",
-      "\\text{at rest}\\Rightarrow v(t)=0",
-      "\\text{speed}=|v(t)|",
-      "\\text{displacement}=s(b)-s(a)",
+      "v(t)=0 \\;\\Rightarrow\\; \\text{momentarily at rest (slope of }s\\text{-}t\\text{ graph is zero)}",
+      "\\text{speed}=|v(t)|,\\qquad \\text{displacement}=s(b)-s(a)",
     ],
   },
   [
     {
-      title: "Find velocity and acceleration",
-      questionLatex: "s(t)=t^3-6t^2+9t",
+      title: "Velocity, acceleration and when the particle reverses",
+      questionLatex: "s(t)=t^3-6t^2+9t,\\quad t\\ge 0",
       steps: [
-        { explanation: "Velocity is the derivative of displacement.", latex: "v(t)=3t^2-12t+9" },
-        { explanation: "Acceleration is the derivative of velocity.", latex: "a(t)=6t-12" },
+        {
+          explanation:
+            "Velocity is the slope of the position-time graph, which is the derivative of s(t). Differentiate and factorise so the zeros are visible.",
+          latex: "v(t)=s'(t)=3t^2-12t+9=3(t-1)(t-3)",
+        },
+        {
+          explanation:
+            "The particle is momentarily at rest where the slope is zero, so set v(t)=0. Two rest times drop out.",
+          latex: "3(t-1)(t-3)=0 \\;\\Rightarrow\\; t=1 \\text{ or } t=3",
+        },
+        {
+          explanation:
+            "Read the sign of v to get direction. At t=0, v=9>0 so it starts moving in the positive direction; just after t=1, v is negative, so at t=1 the particle stops and reverses back toward the origin.",
+          latex: "v(0)=9>0,\\quad v(2)=3(1)(-1)=-3<0",
+        },
+        {
+          explanation:
+            "Acceleration is the rate of change of velocity, the second derivative. Its sign tells you whether the velocity is rising or falling at an instant.",
+          latex: "a(t)=v'(t)=s''(t)=6t-12",
+        },
       ],
-      finalAnswerLatex: "v(t)=3t^2-12t+9,\\quad a(t)=6t-12",
+      finalAnswerLatex:
+        "v(t)=3(t-1)(t-3),\\; a(t)=6t-12;\\; \\text{at rest and reversing at }t=1\\text{ and }t=3",
     },
     {
-      title: "Momentarily at rest",
-      questionLatex: "v(t)=2t-8",
+      title: "Interpreting the signs of velocity and acceleration",
+      questionLatex: "v(t)=2t-8,\\quad \\text{describe the motion.}",
       steps: [
-        { explanation: "At rest means velocity is zero.", latex: "2t-8=0" },
-        { explanation: "Solve for time.", latex: "t=4" },
+        {
+          explanation:
+            "Find where the velocity is zero, since that is the instant the particle is momentarily at rest.",
+          latex: "2t-8=0 \\;\\Rightarrow\\; t=4",
+        },
+        {
+          explanation:
+            "Before t=4 the velocity is negative, so the particle is moving in the negative direction; after t=4 it is positive. So at t=4 the particle stops and reverses direction.",
+          latex: "v(3)=-2<0,\\qquad v(5)=2>0",
+        },
+        {
+          explanation:
+            "At t=3 the velocity is -2, so its speed is the magnitude |-2|=2: it is moving at 2 units/s in the negative direction. The sign is direction, the magnitude is speed.",
+          latex: "\\text{speed at }t=3=|v(3)|=2",
+        },
+        {
+          explanation:
+            "Acceleration is the derivative of velocity. It is a constant +2, meaning the velocity keeps increasing at 2 units/s each second, which is why the particle slows, stops, then speeds up the other way.",
+          latex: "a(t)=v'(t)=2>0",
+        },
       ],
-      finalAnswerLatex: "t=4",
+      finalAnswerLatex:
+        "\\text{At rest and reversing at }t=4;\\; a(t)=2>0\\text{ throughout}",
     },
     {
-      title: "Speed from velocity",
-      questionLatex: "v(3)=-5\\text{ m/s}",
+      title: "Total distance travelled versus displacement",
+      questionLatex: "s(t)=t^2-4t,\\quad \\text{find displacement and distance for }0\\le t\\le 3.",
       steps: [
-        { explanation: "Speed is the magnitude of velocity." },
-        { explanation: "Take the absolute value.", latex: "|-5|=5" },
+        {
+          explanation:
+            "Displacement is the net change in position, end minus start, so evaluate s at the two ends of the interval.",
+          latex: "s(0)=0,\\quad s(3)=9-12=-3 \\;\\Rightarrow\\; \\text{displacement}=-3",
+        },
+        {
+          explanation:
+            "Distance can differ from displacement only if the particle turns around, so check for a rest point inside the interval by setting v(t)=0.",
+          latex: "v(t)=2t-4=0 \\;\\Rightarrow\\; t=2 \\;(\\text{inside }0\\le t\\le 3)",
+        },
+        {
+          explanation:
+            "The particle reverses at t=2, so split the journey there and find the position at the turning point.",
+          latex: "s(2)=4-8=-4",
+        },
+        {
+          explanation:
+            "Add the lengths of each leg as positive distances: from 0 to -4 is 4 units, from -4 to -3 is 1 unit. Total distance counts both, while displacement was only the net -3.",
+          latex: "\\text{distance}=|-4-0|+|-3-(-4)|=4+1=5",
+        },
       ],
-      finalAnswerLatex: "5\\text{ m/s}",
+      finalAnswerLatex:
+        "\\text{displacement}=-3\\text{ units},\\quad \\text{total distance}=5\\text{ units}",
     },
   ],
   [
@@ -535,10 +727,10 @@ export const kinematicsRatesChangeLesson = applicationLesson(
     appChoice("appdiff-kin-i5", "Which condition means the particle is momentarily at rest?", "\\text{Select A, B, C, or D.}", "A", ["$v(t)=0$", "$s(t)=0$", "$a(t)=0$", "$t=0$"], "At rest means zero velocity."),
   ],
   [
-    { mistake: "Confusing velocity and speed.", fix: "Velocity can be negative; speed is the magnitude." },
-    { mistake: "Using displacement when total distance is required.", fix: "Split the interval at changes of direction and add distances." },
-    { mistake: "Finding acceleration from displacement without differentiating twice.", fix: "Acceleration is s''(t)." },
-    { mistake: "Thinking s(t)=0 means the particle is at rest.", fix: "At rest means v(t)=0." },
+    { mistake: "Confusing velocity and speed.", fix: "Velocity carries a direction sign; speed is the magnitude |v(t)|, so v=-5 and v=+5 are both a speed of 5." },
+    { mistake: "Using displacement when total distance is required.", fix: "Displacement is the net change s(b)-s(a); for distance, split the interval wherever v(t)=0 and add the leg lengths as positive amounts." },
+    { mistake: "Finding acceleration from displacement without differentiating twice.", fix: "Acceleration is the rate of change of velocity, so differentiate twice: a(t)=v'(t)=s''(t)." },
+    { mistake: "Thinking s(t)=0 means the particle is at rest.", fix: "s(t)=0 only means the particle is at the origin, possibly passing through at speed; at rest is a statement about velocity, v(t)=0." },
   ],
   [
     appNumber("appdiff-kin-m1", "Find the first time the particle comes to rest.", "v(t)=t^2-5t+4", "1", [], "Set v(t)=0: (t-1)(t-4)=0 gives t=1 and t=4. The first rest time is t=1."),
@@ -649,7 +841,10 @@ export const applicationsDifferentiationLessons = [
   secondDerivativeConcavityLesson,
   stationaryPointClassificationLesson,
   curveSketchingCalculusLesson,
-  optimisationLesson,
+  // "Optimisation" (optimisationLesson in this file) is intentionally omitted: it shared
+  // id/slug "optimisation" with optimisationLesson in differentialCalculus.ts
+  // ("Optimisation Problems"), which routing resolves first, so this copy was unreachable
+  // dead content. The live optimisation lesson is the one in differentialCalculus.ts.
   kinematicsRatesChangeLesson,
   applicationsDifferentiationExamPracticeLesson,
 ];
