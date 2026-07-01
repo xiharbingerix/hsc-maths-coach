@@ -62,7 +62,7 @@ const introducingLinear: Partial<ExplicitLesson> = {
     ans("y9-ilr-p2", "x: 0,1,2 → y: 5,8,11. Find the rate of change.", "\\text{rate}", "3", 5, "Constant difference = 3.", []),
     ans("y9-ilr-p3", "For y = 3x − 4, find x when y = 11.", "y=3x-4,\\ y=11", "5", 5, "3x − 4 = 11 → x = 5.", []),
     ans("y9-ilr-p4", "For y = 10 − 2x, find x when y = 0.", "y=10-2x,\\ y=0", "5", 5, "10 − 2x = 0 → x = 5.", []),
-    ans("y9-ilr-p5", "A line passes through (0, 4) and rises 3 for each step in x. Find y when x = 5.", "y=3x+4", "19", 5, "y = 3(5) + 4 = 19.", []),
+    ans("y9-ilr-p5", "A line passes through (0, 4) and rises 3 for each step in x. Find y when x = 5.", "", "19", 5, "y = 3(5) + 4 = 19.", []),
     ans("y9-ilr-p6", "For y = 4x − 1, find x when y = 19.", "y=4x-1,\\ y=19", "5", 5, "4x − 1 = 19 → x = 5.", []),
     ans("y9-ilr-p7", "x: 1,2,3 → y: 4,7,10. Find y when x = 5.", "\\text{extend}", "16", 5, "Rule y = 3x + 1 → 16.", []),
     ans("y9-ilr-p8", "For y = 0.5x + 2, find y when x = 10.", "y=0.5x+2", "7", 5, "5 + 2 = 7.", []),
