@@ -331,7 +331,7 @@ export default function FreeYear7AlgebraPage() {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {quickChecks.map((item, index) => (
               <div
-                key={item.question}
+                key={index}
                 className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
               >
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
