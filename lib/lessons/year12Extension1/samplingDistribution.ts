@@ -32,7 +32,7 @@ function sdTyped(
   return {
     id,
     prompt,
-    latex: answer,
+    latex: "",
     answer,
     acceptedAnswers,
     hint: "Use Var(x̄) = σ²/n and SE = σ/√n.",
@@ -290,7 +290,7 @@ const samplingDistributionMean: Partial<ExplicitLesson> = {
     {
       id: "y12e1-sampling-mean-pool-d5-1",
       prompt: "A population has variance 50. Samples of size 10 are taken. Find the variance of the sample mean x̄.",
-      latex: "\\mathrm{Var}(\\bar{x}) = \\sigma^2/n",
+      latex: "",
       answer: "5",
       acceptedAnswers: [],
       hint: "Var(x̄) = σ²/n.",
@@ -558,7 +558,7 @@ const centralLimitTheorem: Partial<ExplicitLesson> = {
     {
       id: "y12e1-clt-pool-d5-1",
       prompt: "The sample mean x̄ has mean μ = 50 and standard deviation 2. Find the z-score for x̄ = 52.",
-      latex: "z = \\frac{\\bar{x} - \\mu}{\\sigma_{\\bar{x}}}",
+      latex: "",
       answer: "1",
       acceptedAnswers: [],
       hint: "z = (x̄ − μ) / (standard deviation of x̄).",

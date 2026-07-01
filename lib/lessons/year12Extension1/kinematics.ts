@@ -199,7 +199,7 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-va-i5",
       "A particle has displacement $x(t) = t^3 - 6t^2 + 9t + 2$. Find the smallest positive time at which the particle is at rest.",
-      "v(t) = 3t^2 - 12t + 9 = 0",
+      "",
       "1",
       [],
       "v(t) = 3t^2 - 12t + 9 = 3(t - 1)(t - 3). Setting v = 0 gives t = 1 or t = 3. The smallest positive value is t = 1."
@@ -282,7 +282,7 @@ const kinematicsVelocityAcceleration: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-va-m7",
       "Find the time when acceleration is zero for a particle with displacement $x(t) = t^3 - 3t^2 + 2$.",
-      "a(t) = 6t - 6 = 0",
+      "",
       "1",
       ["t = 1", "1 s"],
       "v(t) = 3t^2 - 6t, so a(t) = 6t - 6. Setting a(t) = 0 gives t = 1."
@@ -436,7 +436,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-g2",
       "A particle has velocity $v(t) = 4t - 2$ m/s and starts at the origin when $t = 0$. Find $x(2)$.",
-      "x(t) = \\int (4t - 2)\\,dt = 2t^2 - 2t + C,\\quad x(0) = 0",
+      "",
       "4",
       ["4 m"],
       "x(t) = 2tÂ² âˆ’ 2t + C. x(0) = 0 gives C = 0. x(2) = 2(4) âˆ’ 2(2) = 8 âˆ’ 4 = 4 m.",
@@ -445,7 +445,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-g3",
       "A particle has acceleration $a(t) = 10$ m/sÂ² and initial velocity $v(0) = 5$ m/s. Find $v(3)$.",
-      "v(t) = 10t + C,\\quad v(0) = 5",
+      "",
       "35",
       ["35 m/s"],
       "v(t) = 10t + C. v(0) = 5 gives C = 5. v(3) = 30 + 5 = 35 m/s."
@@ -467,7 +467,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-i1",
       "A particle has velocity $v(t) = 6t^2 - 4$ m/s and starts at $x = 1$ when $t = 0$. Find $x(2)$.",
-      "x(t) = 2t^3 - 4t + C,\\quad x(0) = 1",
+      "",
       "9",
       ["9 m"],
       "x(t) = 2tÂ³ âˆ’ 4t + C. x(0) = 1 gives C = 1. x(2) = 2(8) âˆ’ 4(2) + 1 = 16 âˆ’ 8 + 1 = 9 m."
@@ -475,7 +475,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-i2",
       "A particle has acceleration $a(t) = 4 - 6t$ m/sÂ² and $v(0) = 0$. Find $v(2)$.",
-      "v(t) = 4t - 3t^2 + C,\\quad v(0) = 0",
+      "",
       "-4",
       ["âˆ’4", "-4 m/s"],
       "v(t) = 4t âˆ’ 3tÂ² + C. v(0) = 0 gives C = 0. v(2) = 8 âˆ’ 12 = -4 m/s."
@@ -483,7 +483,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-i3",
       "Find the net displacement of a particle from $t = 0$ to $t = 2$ if its velocity is $v(t) = 3t^2 - 6$.",
-      "\\int_0^2 (3t^2 - 6)\\,dt = \\left[t^3 - 6t\\right]_0^2",
+      "",
       "-4",
       ["âˆ’4", "-4 m"],
       "âˆ«â‚€Â² (3tÂ² âˆ’ 6) dt = [tÂ³ âˆ’ 6t]â‚€Â² = (8 âˆ’ 12) âˆ’ (0) = -4 m. Net displacement is -4 m."
@@ -498,7 +498,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-i5",
       "A particle has velocity $v(t) = 8 - 2t$ m/s. Find the net displacement from $t = 0$ to $t = 6$.",
-      "\\int_0^6 (8 - 2t)\\,dt = \\left[8t - t^2\\right]_0^6",
+      "",
       "12",
       ["12 m"],
       "âˆ«â‚€â¶ (8 âˆ’ 2t) dt = [8t âˆ’ tÂ²]â‚€â¶ = (48 âˆ’ 36) âˆ’ 0 = 12 m."
@@ -526,7 +526,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-m1",
       "A particle has velocity $v(t) = 2t + 3$ m/s and starts at the origin. Find $x(4)$.",
-      "x(t) = t^2 + 3t + C,\\quad x(0) = 0",
+      "",
       "28",
       ["28 m"],
       "x(t) = tÂ² + 3t. x(4) = 16 + 12 = 28 m."
@@ -534,7 +534,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-m2",
       "A particle has acceleration $a(t) = 6t$ m/sÂ² and $v(0) = -4$ m/s. Find $v(2)$.",
-      "v(t) = 3t^2 + C,\\quad v(0) = -4",
+      "",
       "8",
       ["8 m/s"],
       "v(t) = 3tÂ² + C. v(0) = -4 gives C = -4. v(2) = 3(4) âˆ’ 4 = 12 âˆ’ 4 = 8 m/s."
@@ -542,7 +542,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-m3",
       "Find the net displacement from $t = 1$ to $t = 3$ for a particle with velocity $v(t) = 2t$.",
-      "\\int_1^3 2t\\,dt = \\left[t^2\\right]_1^3",
+      "",
       "8",
       ["8 m"],
       "âˆ«â‚Â³ 2t dt = [tÂ²]â‚Â³ = 9 âˆ’ 1 = 8 m."
@@ -557,7 +557,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-m5",
       "A particle has velocity $v(t) = 12 - 4t$ m/s. Find the net displacement from $t = 0$ to $t = 4$.",
-      "\\int_0^4 (12 - 4t)\\,dt = \\left[12t - 2t^2\\right]_0^4",
+      "",
       "16",
       ["16 m"],
       "âˆ«â‚€â´ (12 âˆ’ 4t) dt = [12t âˆ’ 2tÂ²]â‚€â´ = (48 âˆ’ 32) âˆ’ 0 = 16 m."
@@ -577,7 +577,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-m7",
       "A particle has acceleration $a(t) = -10$ m/sÂ² (constant) and $v(0) = 30$ m/s. Find the time when the particle is at rest.",
-      "v(t) = 30 - 10t = 0",
+      "",
       "3",
       ["3 s", "t = 3"],
       "v(t) = -10t + 30. Setting v = 0: 30 âˆ’ 10t = 0, so t = 3 s."
@@ -592,7 +592,7 @@ const kinematicsDisplacementFromVelocity: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-int-m9",
       "A particle has velocity $v(t) = t^2 - 4$ m/s and starts at $x = 0$ when $t = 0$. Find $x(3)$.",
-      "x(t) = \\frac{t^3}{3} - 4t + C,\\quad x(0) = 0",
+      "",
       "-3",
       ["âˆ’3", "-3 m"],
       "x(t) = tÂ³/3 âˆ’ 4t. x(3) = 27/3 âˆ’ 12 = 9 âˆ’ 12 = -3 m."
@@ -727,7 +727,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-g3",
       "A particle has $x(t) = t^2 - 4t$ on $[0, 5]$. The velocity is zero at $t = 2$. Find the total distance.",
-      "x(0) = 0,\\quad x(2) = 4-8 = -4,\\quad x(5) = 25-20 = 5",
+      "",
       "13",
       ["13 m"],
       "Distance on [0,2] = |−4 − 0| = 4. Distance on [2,5] = |5 − (−4)| = 9. Total = 4 + 9 = 13 m."
@@ -735,7 +735,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-g4",
       "For the same particle above ($x(t) = t^2 - 4t$), find the net displacement from $t=0$ to $t=5$.",
-      "x(5) - x(0)",
+      "",
       "5",
       ["5 m"],
       "Net displacement = x(5) − x(0) = 5 − 0 = 5 m."
@@ -752,7 +752,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-i2",
       "A particle has $x(t) = t^2 - 8t + 12$ on $[0, 6]$. Find the total distance. (Hint: $v = 0$ at $t = 4$.)",
-      "x(0) = 12,\\quad x(4) = 16-32+12 = -4,\\quad x(6) = 36-48+12 = 0",
+      "",
       "20",
       ["20 m"],
       "Distance [0,4] = |−4 − 12| = 16. Distance [4,6] = |0 − (−4)| = 4. Total = 20 m."
@@ -760,7 +760,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-i3",
       "For the particle above ($x(t) = t^2 - 8t + 12$ on $[0,6]$), find the net displacement.",
-      "x(6) - x(0) = 0 - 12",
+      "",
       "-12",
       ["−12 m", "-12 m"],
       "Net displacement = x(6) − x(0) = 0 − 12 = −12 m."
@@ -780,7 +780,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-i5",
       "A particle has $x(t) = t^3 - 3t^2$ on $[0, 3]$. The velocity is zero at $t = 0$ and $t = 2$. Find the total distance.",
-      "x(0) = 0,\\quad x(2) = 8-12 = -4,\\quad x(3) = 27-27 = 0",
+      "",
       "8",
       ["8 m"],
       "Distance [0,2] = |−4 − 0| = 4. Distance [2,3] = |0 − (−4)| = 4. Total = 8 m."
@@ -815,7 +815,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-m2",
       "A particle has $x(t) = t^2 - 2t$ on $[0, 3]$. The velocity is zero at $t = 1$. Find the total distance.",
-      "x(0)=0,\\quad x(1)=-1,\\quad x(3)=3",
+      "",
       "5",
       ["5 m"],
       "Distance [0,1] = |−1 − 0| = 1. Distance [1,3] = |3 − (−1)| = 4. Total = 5 m."
@@ -823,7 +823,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-m3",
       "For the particle above ($x(t) = t^2 - 2t$ on $[0,3]$), find the net displacement.",
-      "x(3) - x(0) = 3 - 0",
+      "",
       "3",
       ["3 m"],
       "Net displacement = x(3) − x(0) = 3 − 0 = 3 m."
@@ -838,7 +838,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-m5",
       "A particle has $x(t) = t^3 - 6t^2 + 9t$ on $[0, 4]$. Velocity is zero at $t = 1$ and $t = 3$. Find $x$ at those times and $t = 4$.",
-      "x(1) = 1-6+9 = 4,\\quad x(3) = 27-54+27 = 0,\\quad x(4) = 64-96+36 = 4",
+      "",
       "4",
       ["x(4) = 4 m"],
       "x(1) = 4, x(3) = 0, x(4) = 4."
@@ -846,7 +846,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-m6",
       "Using $x(0) = 0$, $x(1) = 4$, $x(3) = 0$, $x(4) = 4$ from the particle above, find the total distance on $[0,4]$.",
-      "|4-0| + |0-4| + |4-0|",
+      "",
       "12",
       ["12 m"],
       "Distance [0,1] = 4, [1,3] = 4, [3,4] = 4. Total = 12 m."
@@ -861,7 +861,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-m8",
       "A particle has $v(t) = 3t^2 - 12t$ on $[0, 5]$. Velocity is zero at $t = 0$ and $t = 4$. Given $x(0)=10$, $x(4)=-22$, $x(5)=-17$, find the total distance.",
-      "|{-22}-10| + |{-17}-({-22})|",
+      "",
       "37",
       ["37 m"],
       "Distance [0,4] = |−22 − 10| = 32. Distance [4,5] = |−17 − (−22)| = 5. Total = 37 m."
@@ -881,7 +881,7 @@ const kinematicsMotionAnalysis: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ma-m10",
       "A particle has $x(t) = t^2 - 6t$ on $[0, 8]$. Given $v = 0$ at $t = 3$ and $x(0) = 0$, $x(3) = -9$, $x(8) = 16$, find the total distance.",
-      "|{-9} - 0| + |16 - ({-9})|",
+      "",
       "34",
       ["34 m"],
       "Distance [0,3] = 9. Distance [3,8] = 25. Total = 34 m."
@@ -975,7 +975,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-g1",
       "A particle has $x(t) = 2t^3 - 9t^2 + 12t$. Find $v(t)$.",
-      "v(t) = \\frac{d}{dt}(2t^3 - 9t^2 + 12t)",
+      "",
       "6t^2 - 18t + 12",
       ["6t² - 18t + 12"],
       "v(t) = 6t² − 18t + 12 = 6(t−1)(t−2).",
@@ -984,7 +984,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-g2",
       "Using $v(t) = 6t^2 - 18t + 12 = 6(t-1)(t-2)$, at what times is the particle at rest?",
-      "6(t-1)(t-2) = 0",
+      "",
       "t = 1 and t = 2",
       ["t=1 and t=2", "1 and 2", "t = 1, t = 2"],
       "v = 0 when t = 1 or t = 2."
@@ -999,7 +999,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-g4",
       "A particle has $a(t) = 4$ m/s² and $v(0) = -6$ m/s. Find $v(t)$.",
-      "v(t) = 4t + C,\\quad v(0) = -6",
+      "",
       "4t - 6",
       ["4t − 6", "4t - 6"],
       "v(t) = ∫4 dt = 4t + C. v(0) = −6 gives C = −6, so v(t) = 4t − 6."
@@ -1009,7 +1009,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-i1",
       "A particle has $v(t) = 3t^2 - 12$ m/s and $x(0) = 5$ m. Find $x(t)$.",
-      "x(t) = t^3 - 12t + C,\\quad x(0) = 5",
+      "",
       "t^3 - 12t + 5",
       ["t³ − 12t + 5"],
       "x(t) = ∫(3t² − 12) dt = t³ − 12t + C. x(0) = 5 gives C = 5."
@@ -1017,7 +1017,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-i2",
       "A particle has $x(t) = t^2 - 6t + 8$ on $[0,5]$. Velocity is zero at $t = 3$. Find the total distance.",
-      "x(0)=8,\\; x(3)=-1,\\; x(5)=3",
+      "",
       "13",
       ["13 m"],
       "Distance [0,3] = |−1 − 8| = 9. Distance [3,5] = |3 − (−1)| = 4. Total = 13 m."
@@ -1037,7 +1037,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-i4",
       "A particle has $x(t) = t^3 - 3t^2$ on $[0,4]$. Velocity is zero at $t = 0$ and $t = 2$. Given $x(0) = 0$, $x(2) = -4$, $x(4) = 16$. Find the total distance.",
-      "|{-4}-0| + |16-({-4})|",
+      "",
       "24",
       ["24 m"],
       "Distance [0,2] = 4. Distance [2,4] = 20. Total = 24 m."
@@ -1045,7 +1045,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-i5",
       "A particle has $v(t) = 6 - 2t$ m/s and $x(0) = 0$ m. Find when the particle returns to the origin ($x = 0$, $t > 0$).",
-      "x(t) = 6t - t^2 + C,\\quad C = 0.\\quad 6t - t^2 = 0 \\Rightarrow t(6-t) = 0",
+      "",
       "6",
       ["t = 6", "6 s"],
       "x(t) = 6t − t². x = 0 when t(6 − t) = 0, so t = 0 or t = 6. Returns at t = 6 s."
@@ -1073,7 +1073,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m1",
       "A particle has $x(t) = t^3 - 3t$. Find the velocity at $t = 2$.",
-      "v(t) = 3t^2 - 3;\\quad v(2) = 12 - 3",
+      "",
       "9",
       ["9 m/s"],
       "v(t) = 3t² − 3. v(2) = 12 − 3 = 9 m/s."
@@ -1081,7 +1081,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m2",
       "A particle has $v(t) = 4t - 8$ and $x(0) = 3$ m. Find $x(t)$.",
-      "x(t) = 2t^2 - 8t + C,\\quad x(0)=3 \\Rightarrow C=3",
+      "",
       "2t^2 - 8t + 3",
       ["2t² − 8t + 3"],
       "x(t) = ∫(4t−8) dt = 2t²−8t+C. x(0) = 3 gives C = 3."
@@ -1101,7 +1101,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m4",
       "A particle has $a(t) = 6t$ m/s² with $v(0) = -9$ m/s and $x(0) = 0$. Find $x(t)$.",
-      "v(t) = 3t^2 - 9;\\quad x(t) = t^3 - 9t + C,\\quad C=0",
+      "",
       "t^3 - 9t",
       ["t³ − 9t"],
       "v(t) = 3t²+C₁; v(0) = −9 gives C₁ = −9. x(t) = t³−9t+C₂; x(0) = 0 gives C₂ = 0."
@@ -1109,7 +1109,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m5",
       "Using $x(t) = t^3 - 9t$ from above, at what positive time is the particle at rest?",
-      "v(t) = 3t^2 - 9 = 0 \\Rightarrow t^2 = 3 \\Rightarrow t = \\sqrt{3}",
+      "",
       "√3",
       ["√3 s", "sqrt(3)"],
       "v = 3t²−9 = 0 gives t² = 3, so t = √3 s."
@@ -1117,7 +1117,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m6",
       "A particle has $x(t) = t^2 - 4t + 3$ on $[0,5]$. Velocity is zero at $t = 2$. Find the total distance.",
-      "x(0)=3,\\; x(2)=-1,\\; x(5)=8",
+      "",
       "13",
       ["13 m"],
       "Distance [0,2] = |−1−3| = 4. Distance [2,5] = |8−(−1)| = 9. Total = 13 m."
@@ -1132,7 +1132,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m8",
       "A particle has $v(t) = 6t^2 - 6$ m/s and $x(0) = 4$. Find $x(1)$.",
-      "x(t) = 2t^3 - 6t + C,\\quad C=4;\\quad x(1) = 2-6+4",
+      "",
       "0",
       ["0 m"],
       "x(t) = 2t³−6t+4. x(1) = 2−6+4 = 0 m."
@@ -1152,7 +1152,7 @@ const kinematicsExamPractice: Partial<ExplicitLesson> = {
     kinTyped(
       "y12e1-kin-ep-m10",
       "A particle starts at $x = 0$ and has $v(t) = t - 4$ m/s. How far from the origin is the particle when $t = 8$?",
-      "x(t) = \\frac{t^2}{2} - 4t + C,\\quad C=0;\\quad x(8) = 32 - 32",
+      "",
       "0",
       ["0 m"],
       "x(t) = t²/2 − 4t. x(8) = 32 − 32 = 0 m. The particle returns to the origin at t = 8."

@@ -143,7 +143,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-g4",
       "r(t) = (2t+1, t²−3). Find |v(2)|.",
-      "\\mathbf{v}(t)=\\begin{pmatrix}2\\\\2t\\end{pmatrix},\\quad\\mathbf{v}(2)=\\begin{pmatrix}2\\\\4\\end{pmatrix}",
+      "",
       "2sqrt(5)",
       ["2\\sqrt{5}", "√20", "\\sqrt{20}"],
       "|v(2)| = √(4 + 16) = √20 = 2√5."
@@ -153,7 +153,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-i1",
       "r(t) = (3t, t²). Find r(2).",
-      "\\mathbf{r}(2)=\\begin{pmatrix}3(2)\\\\(2)^2\\end{pmatrix}",
+      "",
       "(6,4)",
       ["(6, 4)", "6,4"],
       "Substitute t = 2: (6, 4)."
@@ -214,7 +214,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-m3",
       "r(t) = (t², 4t). Find v(1).",
-      "\\mathbf{v}(t)=\\begin{pmatrix}2t\\\\4\\end{pmatrix}",
+      "",
       "(2,4)",
       ["(2, 4)", "2,4"],
       "v(t) = (2t, 4). At t = 1: v(1) = (2, 4)."
@@ -230,7 +230,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-m5",
       "r(t) = (3t, 4t). Find the speed (constant for all t).",
-      "|\\mathbf{v}|=\\sqrt{3^2+4^2}",
+      "",
       "5",
       ["5 m/s"],
       "v(t) = (3, 4). Speed = √(9+16) = √25 = 5 (constant since neither component depends on t)."
@@ -238,7 +238,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-m6",
       "v(t) = (2, 3) and r(0) = (1, 0). Find r(t).",
-      "\\mathbf{r}(t)=\\mathbf{r}(0)+\\int_0^t\\mathbf{v}\\,d\\tau",
+      "",
       "(1+2t,3t)",
       ["(2t+1, 3t)", "2t+1,3t"],
       "Integrate: r(t) = (1 + 2t, 0 + 3t) = (1+2t, 3t)."
@@ -246,7 +246,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-m7",
       "r(t) = (t³, t²). Find a(t).",
-      "\\mathbf{v}(t)=\\begin{pmatrix}3t^2\\\\2t\\end{pmatrix},\\quad\\mathbf{a}(t)=\\mathbf{v}'(t)",
+      "",
       "(6t,2)",
       ["(6t, 2)", "6t,2"],
       "v(t) = (3t², 2t). a(t) = (6t, 2)."
@@ -254,7 +254,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-m8",
       "r(t) = (t²+1, 2t). Find r(1).",
-      "\\mathbf{r}(1)=\\begin{pmatrix}1+1\\\\2\\end{pmatrix}",
+      "",
       "(2,2)",
       ["(2, 2)", "2,2"],
       "r(1) = (1+1, 2) = (2, 2)."
@@ -262,7 +262,7 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
     vmTyped(
       "y12e1-vm-m9",
       "v(t) = (−sin t, cos t). Find v(0).",
-      "\\mathbf{v}(0)=(-\\sin 0,\\cos 0)",
+      "",
       "(0,1)",
       ["(0, 1)", "0,1"],
       "sin 0 = 0, cos 0 = 1. So v(0) = (0, 1)."
@@ -451,7 +451,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-g2",
       "r(t) = (10√3·t, 10t − 5t²). Find r(1).",
-      "\\mathbf{r}(1)=\\begin{pmatrix}10\\sqrt{3}\\\\10-5\\end{pmatrix}",
+      "",
       "(10sqrt(3),5)",
       ["(10√3, 5)", "(17.3, 5)"],
       "r(1) = (10√3, 5). This is the highest point of the trajectory."
@@ -459,7 +459,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-g3",
       "v(t) = (10√3, 10 − 10t). At what time is the vertical component of v zero?",
-      "10-10t=0",
+      "",
       "1",
       ["t=1", "1 s"],
       "10 − 10t = 0 → t = 1. This is the time of maximum height."
@@ -467,7 +467,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-g4",
       "y(t) = 10t − 5t². Solve y(t) = 0 for t > 0 (the landing time).",
-      "t(10-5t)=0",
+      "",
       "2",
       ["t=2", "2 s"],
       "t(10 − 5t) = 0 → t = 0 (launch) or t = 2 (landing)."
@@ -477,7 +477,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-i1",
       "r(t) = (10√3·t, 10t − 5t²). Find the range (x when t = 2).",
-      "x(2)=10\\sqrt{3}\\cdot 2",
+      "",
       "20sqrt(3)",
       ["20√3", "20\\sqrt{3}"],
       "x(2) = 20√3 m."
@@ -485,7 +485,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-i2",
       "v(t) = (10√3, 10 − 10t). Find v(2).",
-      "\\mathbf{v}(2)=\\begin{pmatrix}10\\sqrt{3}\\\\10-20\\end{pmatrix}",
+      "",
       "(10sqrt(3),-10)",
       ["(10√3, -10)", "(10\\sqrt{3},-10)"],
       "v(2) = (10√3, −10). The vertical component is negative — the projectile is moving downward."
@@ -493,7 +493,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-i3",
       "Find the speed at impact: |v(2)| where v(2) = (10√3, −10).",
-      "|\\mathbf{v}(2)|=\\sqrt{(10\\sqrt{3})^2+(-10)^2}=\\sqrt{300+100}",
+      "",
       "20",
       ["20 m/s"],
       "√400 = 20 m/s — same as the launch speed."
@@ -508,7 +508,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-i5",
       "sin2θ = 1/2 with θ ∈ [0°, 90°]. Find both possible values of θ.",
-      "2\\theta=30°\\text{ or }150°",
+      "",
       "15° and 75°",
       ["15 and 75", "θ = 15° or 75°"],
       "2θ = 30° → θ = 15°, or 2θ = 150° → θ = 75°. Complementary angles give the same range."
@@ -530,7 +530,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m2",
       "r(t) = (8t, 6t − 5t²). Find r(1).",
-      "\\mathbf{r}(1)=\\begin{pmatrix}8\\\\6-5\\end{pmatrix}",
+      "",
       "(8,1)",
       ["(8, 1)", "8,1"],
       "r(1) = (8, 1)."
@@ -538,7 +538,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m3",
       "r(t) = (8t, 6t − 5t²). Find the time of maximum height.",
-      "v_y=6-10t=0",
+      "",
       "0.6",
       ["t=0.6", "3/5", "0.6 s"],
       "v_y = 6 − 10t = 0 → t = 0.6 s."
@@ -546,7 +546,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m4",
       "r(t) = (8t, 6t − 5t²). Find the maximum height.",
-      "y(0.6)=6(0.6)-5(0.6)^2",
+      "",
       "1.8",
       ["1.8 m", "9/5"],
       "y(0.6) = 3.6 − 1.8 = 1.8 m."
@@ -554,7 +554,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m5",
       "r(t) = (8t, 6t − 5t²). Find the time of flight.",
-      "6t-5t^2=0\\;\\Rightarrow\\;t(6-5t)=0",
+      "",
       "1.2",
       ["t=1.2", "6/5", "1.2 s"],
       "t = 6/5 = 1.2 s."
@@ -562,7 +562,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m6",
       "r(t) = (8t, 6t − 5t²). Find the range.",
-      "x(1.2)=8(1.2)",
+      "",
       "9.6",
       ["9.6 m"],
       "Range = 8 × 1.2 = 9.6 m."
@@ -570,7 +570,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m7",
       "r(t) = (8t, 6t − 5t²). Find v(1.2).",
-      "\\mathbf{v}(t)=\\begin{pmatrix}8\\\\6-10t\\end{pmatrix},\\quad t=1.2",
+      "",
       "(8,-6)",
       ["(8, -6)", "8,-6"],
       "v(1.2) = (8, 6 − 12) = (8, −6)."
@@ -578,7 +578,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m8",
       "Find the impact speed |v(1.2)| where v(1.2) = (8, −6).",
-      "\\sqrt{8^2+6^2}",
+      "",
       "10",
       ["10 m/s"],
       "√(64 + 36) = √100 = 10 m/s."
@@ -598,7 +598,7 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
     ppTyped(
       "y12e1-pp-m10",
       "V = 10 m/s, g = 10 m/s², θ = 30°. Find the range.",
-      "R=\\frac{V^2\\sin 2\\theta}{g}=\\frac{100\\sin 60°}{10}",
+      "",
       "5sqrt(3)",
       ["5\\sqrt{3}", "5√3"],
       "R = 10·(√3/2) = 5√3 m."

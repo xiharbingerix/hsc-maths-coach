@@ -144,7 +144,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-g2",
       "A projectile is launched at $V = 25$ m/s at angle $\\theta$ where $\\cos\\theta = \\frac{4}{5}$. Find the horizontal velocity component.",
-      "\\dot{x} = V\\cos\\theta = 25 \\cdot \\frac{4}{5}",
+      "",
       "20",
       ["20 m/s"],
       "Horizontal velocity = VÂ·cosÎ¸ = 25 Ã— 4/5 = 20 m/s. This stays constant throughout the flight."
@@ -152,7 +152,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-g3",
       "A projectile has equations $x(t) = 20t$ and $y(t) = 15t - 5t^2$. Find the $y$-coordinate at $t = 2$ s.",
-      "y(2) = 15(2) - 5(2)^2",
+      "",
       "10",
       ["10 m"],
       "y(2) = 15(2) - 5(4) = 30 - 20 = 10 m."
@@ -174,7 +174,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-i1",
       "A projectile is launched at $V = 50$ m/s at angle $\\theta$ where $\\cos\\theta = \\frac{3}{5}$. Find the $x$-coordinate at $t = 3$ s.",
-      "x(t) = 50 \\cdot \\frac{3}{5} \\cdot t = 30t",
+      "",
       "90",
       ["90 m"],
       "Horizontal velocity = 50 Ã— 3/5 = 30 m/s. x(3) = 30 Ã— 3 = 90 m."
@@ -182,7 +182,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-i2",
       "A projectile is launched at $V = 50$ m/s at angle $\\theta$ where $\\sin\\theta = \\frac{4}{5}$. Find the $y$-coordinate at $t = 2$ s. Use $g = 10$.",
-      "y(t) = 50 \\cdot \\frac{4}{5} \\cdot t - 5t^2 = 40t - 5t^2",
+      "",
       "60",
       ["60 m"],
       "y(t) = 40t - 5tÂ². At t = 2: y(2) = 80 - 20 = 60 m."
@@ -214,7 +214,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-i5",
       "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the vertical velocity at $t = 1$ s. Use $g = 10$.",
-      "\\dot{y}(t) = V\\sin\\theta - gt = 15 - 10t",
+      "",
       "5",
       ["5 m/s"],
       "áº(t) = 25 Ã— (3/5) âˆ’ 10t = 15 âˆ’ 10t. At t = 1: áº(1) = 15 âˆ’ 10 = 5 m/s."
@@ -242,7 +242,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-m1",
       "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{3}{5}$. Find the $x$-coordinate at $t = 4$ s.",
-      "x(t) = 30t",
+      "",
       "120",
       ["120 m"],
       "Horizontal velocity = 50 Ã— 3/5 = 30 m/s. x(4) = 30 Ã— 4 = 120 m."
@@ -250,7 +250,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-m2",
       "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{4}{5}$. Find the $y$-coordinate at $t = 3$ s. Use $g = 10$.",
-      "y(t) = 40t - 5t^2,\\quad t = 3",
+      "",
       "75",
       ["75 m"],
       "y(t) = 40t âˆ’ 5tÂ². At t = 3: y(3) = 120 âˆ’ 45 = 75 m."
@@ -277,7 +277,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-m5",
       "A projectile has equations $x(t) = 20t$ and $y(t) = 15t - 5t^2$. Find the $x$-coordinate at $t = 5$ s.",
-      "x(t) = 20t,\\quad t = 5",
+      "",
       "100",
       ["100 m"],
       "x(5) = 20 Ã— 5 = 100 m."
@@ -297,7 +297,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-m7",
       "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{4}{5}$. Find the vertical velocity at $t = 2$ s. Use $g = 10$.",
-      "\\dot{y}(t) = 40 - 10t,\\quad t = 2",
+      "",
       "20",
       ["20 m/s"],
       "áº(t) = 50 Ã— (4/5) âˆ’ 10t = 40 âˆ’ 10t. At t = 2: áº(2) = 40 âˆ’ 20 = 20 m/s."
@@ -312,7 +312,7 @@ const projectileEquationsSetup: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-setup-m9",
       "A projectile has equations $x(t) = 20t$ and $y(t) = 15t - 5t^2$. Find the $y$-coordinate at $t = 1$ s.",
-      "y(1) = 15(1) - 5(1)^2",
+      "",
       "10",
       ["10 m"],
       "y(1) = 15 âˆ’ 5 = 10 m."
@@ -425,7 +425,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-g2",
       "A projectile has vertical velocity $\\dot{y}(t) = 20 - 10t$ m/s. Find the time of maximum height.",
-      "\\dot{y}(t) = 20 - 10t = 0",
+      "",
       "2",
       ["2 s", "t = 2"],
       "Set 20 âˆ’ 10t = 0: t = 2 s.",
@@ -434,7 +434,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-g3",
       "A projectile has $y(t) = 20t - 5t^2$. Find the maximum height.",
-      "\\dot{y}(t) = 20 - 10t = 0 \\Rightarrow t = 2",
+      "",
       "20",
       ["20 m"],
       "áº(t) = 20 âˆ’ 10t = 0 gives t = 2. y(2) = 20(2) âˆ’ 5(4) = 40 âˆ’ 20 = 20 m.",
@@ -443,7 +443,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-g4",
       "Use the formula $H = \\dfrac{(V\\sin\\theta)^2}{2g}$ to find the maximum height when $V\\sin\\theta = 30$ m/s and $g = 10$.",
-      "H = \\frac{30^2}{2 \\times 10}",
+      "",
       "45",
       ["45 m"],
       "H = 900 / 20 = 45 m."
@@ -453,7 +453,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-i1",
       "A projectile has $y(t) = 30t - 5t^2$. Find the time of maximum height.",
-      "\\dot{y}(t) = 30 - 10t = 0",
+      "",
       "3",
       ["3 s"],
       "áº(t) = 30 âˆ’ 10t = 0 gives t = 3 s."
@@ -461,7 +461,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-i2",
       "A projectile has $y(t) = 30t - 5t^2$. Find the maximum height.",
-      "y(3) = 30(3) - 5(3)^2",
+      "",
       "45",
       ["45 m"],
       "y(3) = 90 âˆ’ 5(9) = 90 âˆ’ 45 = 45 m."
@@ -476,7 +476,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-i4",
       "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the maximum height using $H = \\dfrac{(V\\sin\\theta)^2}{2g}$, with $g = 10$.",
-      "V\\sin\\theta = 30,\\quad H = \\frac{30^2}{20}",
+      "",
       "45",
       ["45 m"],
       "VÂ·sinÎ¸ = 50 Ã— 3/5 = 30. H = 900/20 = 45 m."
@@ -484,7 +484,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-i5",
       "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{4}{5}$ and $g = 10$. Find the time of maximum height.",
-      "\\dot{y}(t) = 40 - 10t = 0",
+      "",
       "4",
       ["4 s"],
       "VÂ·sinÎ¸ = 50 Ã— 4/5 = 40. áº(t) = 40 âˆ’ 10t = 0 gives t = 4 s."
@@ -512,7 +512,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m1",
       "A projectile has $y(t) = 40t - 5t^2$. Find the time of maximum height.",
-      "\\dot{y}(t) = 40 - 10t = 0",
+      "",
       "4",
       ["4 s"],
       "áº(t) = 40 âˆ’ 10t = 0 gives t = 4 s."
@@ -520,7 +520,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m2",
       "A projectile has $y(t) = 40t - 5t^2$. Find the maximum height.",
-      "y(4) = 40(4) - 5(4)^2",
+      "",
       "80",
       ["80 m"],
       "y(4) = 160 âˆ’ 5(16) = 160 âˆ’ 80 = 80 m."
@@ -528,7 +528,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m3",
       "Use $H = \\dfrac{(V\\sin\\theta)^2}{2g}$ to find the maximum height when $V = 25$ m/s, $\\sin\\theta = \\dfrac{3}{5}$, $g = 10$.",
-      "H = \\frac{(25 \\cdot 3/5)^2}{20} = \\frac{15^2}{20}",
+      "",
       "11.25",
       ["11.25 m", "45/4"],
       "VÂ·sinÎ¸ = 15. H = 225/20 = 11.25 m."
@@ -548,7 +548,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m5",
       "A projectile is launched with vertical velocity component $V\\sin\\theta = 20$ m/s. Find the time of maximum height. Use $g = 10$.",
-      "\\dot{y}(t) = 20 - 10t = 0",
+      "",
       "2",
       ["2 s"],
       "t_max = 20/10 = 2 s."
@@ -556,7 +556,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m6",
       "A projectile is launched with $V = 50$ m/s and $\\sin\\theta = \\frac{4}{5}$. Find the maximum height using $H = \\dfrac{(V\\sin\\theta)^2}{2g}$.",
-      "H = \\frac{40^2}{20}",
+      "",
       "80",
       ["80 m"],
       "VÂ·sinÎ¸ = 40. H = 1600/20 = 80 m."
@@ -571,7 +571,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m8",
       "A projectile has $y(t) = 15t - 5t^2$. Find the maximum height.",
-      "y(1.5) = 15(1.5) - 5(1.5)^2",
+      "",
       "11.25",
       ["11.25 m", "45/4"],
       "y(1.5) = 22.5 âˆ’ 5(2.25) = 22.5 âˆ’ 11.25 = 11.25 m."
@@ -591,7 +591,7 @@ const projectileMaxHeight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-max-m10",
       "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{4}{5}$. Find the time of maximum height.",
-      "\\dot{y}(t) = 25 \\cdot \\frac{4}{5} - 10t = 20 - 10t = 0",
+      "",
       "2",
       ["2 s"],
       "VÂ·sinÎ¸ = 20. t_max = 20/10 = 2 s."
@@ -688,7 +688,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-g2",
       "A projectile has $y(t) = 20t - 5t^2$. Find the time of flight.",
-      "5t(4 - t) = 0 \\Rightarrow t = 0 \\text{ or } t = 4",
+      "",
       "4",
       ["4 s"],
       "y(t) = 5t(4 − t) = 0 gives t = 0 (launch) or t = 4 (landing). Time of flight = 4 s.",
@@ -697,7 +697,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-g3",
       "A projectile has $x(t) = 30t$ and lands at $T = 4$ s. Find the range.",
-      "R = x(4) = 30 \\times 4",
+      "",
       "120",
       ["120 m"],
       "R = 30 × 4 = 120 m."
@@ -719,7 +719,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-i1",
       "A projectile has $y(t) = 30t - 5t^2$. Find the time of flight.",
-      "5t(6 - t) = 0",
+      "",
       "6",
       ["6 s"],
       "y(t) = 5t(6 − t) = 0 gives t = 0 or t = 6. Time of flight = 6 s."
@@ -727,7 +727,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-i2",
       "A projectile has $x(t) = 20t$ and $y(t) = 15t - 5t^2$. Find the horizontal range.",
-      "y(t) = 5t(3-t) = 0 \\Rightarrow T = 3;\\quad R = 20(3)",
+      "",
       "60",
       ["60 m"],
       "T = 3 s (from y = 0). R = x(3) = 20 × 3 = 60 m."
@@ -735,7 +735,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-i3",
       "A projectile has $y(t) = 40t - 5t^2$. If $x(t) = 30t$, find the range.",
-      "y(t) = 5t(8-t) = 0 \\Rightarrow T = 8;\\quad R = 30(8)",
+      "",
       "240",
       ["240 m"],
       "T = 8 s (from 40t − 5t² = 0). R = 30 × 8 = 240 m."
@@ -750,7 +750,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-i5",
       "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{3}{5}$ and $\\cos\\theta = \\frac{4}{5}$. Find the time of flight. Use $g = 10$.",
-      "T = \\frac{2V\\sin\\theta}{g} = \\frac{2 \\times 15}{10}",
+      "",
       "3",
       ["3 s"],
       "T = 2V·sinθ/g = 2 × 25 × (3/5) / 10 = 30/10 = 3 s."
@@ -778,7 +778,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m1",
       "A projectile has $y(t) = 25t - 5t^2$. Find the time of flight.",
-      "5t(5-t) = 0",
+      "",
       "5",
       ["5 s"],
       "y = 5t(5 − t) = 0 gives t = 5 s."
@@ -786,7 +786,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m2",
       "A projectile has $x(t) = 20t$ and lands at $T = 5$ s. Find the range.",
-      "R = 20 \\times 5",
+      "",
       "100",
       ["100 m"],
       "R = 20 × 5 = 100 m."
@@ -794,7 +794,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m3",
       "A projectile has $y(t) = 40t - 5t^2$ and $x(t) = 30t$. Find the horizontal range.",
-      "5t(8-t)=0 \\Rightarrow T=8;\\quad R=30(8)",
+      "",
       "240",
       ["240 m"],
       "T = 8 s. R = 30 × 8 = 240 m."
@@ -809,7 +809,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m5",
       "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the time of flight. Use $g = 10$.",
-      "T = \\frac{2 \\times 50 \\times 3/5}{10} = \\frac{60}{10}",
+      "",
       "6",
       ["6 s"],
       "T = 2 × 30/10 = 6 s."
@@ -817,7 +817,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m6",
       "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{4}{5}$ and $T = 6$ s. Find the range.",
-      "R = V\\cos\\theta \\cdot T = 40 \\times 6",
+      "",
       "240",
       ["240 m"],
       "Horizontal velocity = 50 × 4/5 = 40 m/s. R = 40 × 6 = 240 m."
@@ -832,7 +832,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m8",
       "A projectile has $y(t) = 15t - 5t^2$ and $x(t) = 20t$. Find the range.",
-      "5t(3-t)=0 \\Rightarrow T=3;\\quad R=20(3)",
+      "",
       "60",
       ["60 m"],
       "T = 3 s. R = 20 × 3 = 60 m."
@@ -852,7 +852,7 @@ const projectileRangeFlight: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-rf-m10",
       "A projectile is launched with vertical component $V\\sin\\theta = 20$ m/s and horizontal component $V\\cos\\theta = 15$ m/s. Find the range. Use $g = 10$.",
-      "T = \\frac{2 \\times 20}{10} = 4;\\quad R = 15 \\times 4",
+      "",
       "60",
       ["60 m"],
       "T = 2 × 20/10 = 4 s. R = 15 × 4 = 60 m."
@@ -933,7 +933,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-g1",
       "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{4}{5}$ and $\\sin\\theta = \\frac{3}{5}$. Write $x(t)$ and state the horizontal component of velocity.",
-      "\\dot{x} = V\\cos\\theta = 50 \\times \\frac{4}{5}",
+      "",
       "40",
       ["40 m/s", "x(t) = 40t"],
       "V·cosθ = 50 × 4/5 = 40 m/s. x(t) = 40t."
@@ -941,7 +941,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-g2",
       "A projectile has $y(t) = 30t - 5t^2$. Find the time of maximum height.",
-      "\\dot{y} = 30 - 10t = 0",
+      "",
       "3",
       ["3 s"],
       "y-dot = 30 − 10t = 0 gives t = 3 s."
@@ -949,7 +949,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-g3",
       "Using $y(t) = 30t - 5t^2$ and $t_{\\max} = 3$ s, find the maximum height.",
-      "H = y(3) = 30(3) - 5(9)",
+      "",
       "45",
       ["45 m"],
       "H = 90 − 45 = 45 m."
@@ -966,7 +966,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-i1",
       "A projectile has $y(t) = 40t - 5t^2$. Find the time of flight.",
-      "5t(8-t) = 0",
+      "",
       "8",
       ["8 s"],
       "y = 5t(8−t) = 0 gives T = 8 s."
@@ -974,7 +974,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-i2",
       "A projectile is launched at $V = 25$ m/s with $\\sin\\theta = \\frac{4}{5}$ and $\\cos\\theta = \\frac{3}{5}$. Find the maximum height. Use $g = 10$.",
-      "t_{\\max} = \\frac{25 \\times 4/5}{10} = 2;\\quad H = 20(2) - 5(4)",
+      "",
       "20",
       ["20 m"],
       "V·sinθ = 20 m/s. t_max = 2 s. H = 20(2) − 5(4) = 40 − 20 = 20 m."
@@ -982,7 +982,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-i3",
       "For the projectile in i2, find the range. ($T = 4$ s, horizontal velocity $= 15$ m/s.)",
-      "R = 15 \\times 4",
+      "",
       "60",
       ["60 m"],
       "R = 15 × 4 = 60 m."
@@ -997,7 +997,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-i5",
       "A projectile is launched at $V = 50$ m/s with $\\sin\\theta = \\frac{3}{5}$. Find the time of flight. Use $g = 10$.",
-      "T = \\frac{2 \\times 30}{10}",
+      "",
       "6",
       ["6 s"],
       "V·sinθ = 30 m/s. T = 2 × 30/10 = 6 s."
@@ -1025,7 +1025,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m1",
       "A projectile has $y(t) = 20t - 5t^2$. Find the maximum height.",
-      "t_{\\max} = 2;\\quad H = 20(2) - 5(4)",
+      "",
       "20",
       ["20 m"],
       "t_max = 2 s. H = 40 − 20 = 20 m."
@@ -1033,7 +1033,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m2",
       "A projectile has $x(t) = 15t$ and $y(t) = 20t - 5t^2$. Find the range.",
-      "y = 5t(4-t) = 0 \\Rightarrow T = 4;\\quad R = 15(4)",
+      "",
       "60",
       ["60 m"],
       "T = 4 s. R = 15 × 4 = 60 m."
@@ -1048,7 +1048,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m4",
       "A projectile has $\\dot{y}(t) = 30 - 10t$ m/s. At what time does the projectile reach maximum height?",
-      "30 - 10t = 0",
+      "",
       "3",
       ["3 s", "t = 3"],
       "y-dot = 0: 30 − 10t = 0 gives t = 3 s."
@@ -1056,7 +1056,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m5",
       "A projectile has $y(t) = 30t - 5t^2$ and $x(t) = 40t$. Find the range.",
-      "5t(6-t) = 0 \\Rightarrow T = 6;\\quad R = 40(6)",
+      "",
       "240",
       ["240 m"],
       "T = 6 s. R = 40 × 6 = 240 m."
@@ -1071,7 +1071,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m7",
       "A projectile reaches maximum height at $t = 3$ s. What is the time of flight (landing at same height)?",
-      "T = 2 \\times t_{\\max} = 2 \\times 3",
+      "",
       "6",
       ["6 s"],
       "T = 2 × 3 = 6 s."
@@ -1079,7 +1079,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m8",
       "A projectile is launched at $V = 50$ m/s with $\\cos\\theta = \\frac{3}{5}$ and $\\sin\\theta = \\frac{4}{5}$. Find the maximum height. Use $g = 10$.",
-      "V\\sin\\theta = 40;\\quad t_{\\max} = 4;\\quad H = 40(4) - 5(16)",
+      "",
       "80",
       ["80 m"],
       "V·sinθ = 40 m/s. t_max = 4 s. H = 160 − 80 = 80 m."
@@ -1099,7 +1099,7 @@ const projectileExamPractice: Partial<ExplicitLesson> = {
     projTyped(
       "y12e1-proj-ep-m10",
       "A projectile is launched with vertical component $V\\sin\\theta = 30$ m/s and horizontal component $V\\cos\\theta = 40$ m/s. Find the range. Use $g = 10$.",
-      "T = \\frac{2 \\times 30}{10} = 6;\\quad R = 40 \\times 6",
+      "",
       "240",
       ["240 m"],
       "T = 6 s. R = 40 × 6 = 240 m."

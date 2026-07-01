@@ -116,7 +116,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-g2",
       "Find |v| for v = (5, 12).",
-      "|\\mathbf{v}|=\\sqrt{5^2+12^2}",
+      "",
       "13",
       "|v| = √(25 + 144) = √169 = 13. This is the 5-12-13 Pythagorean triple.",
       ["13"],
@@ -126,7 +126,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-g3",
       "Find the distance between A = (1, 2) and B = (4, 6).",
-      "|AB|=\\sqrt{(4-1)^2+(6-2)^2}",
+      "",
       "5",
       "|AB| = √(9 + 16) = √25 = 5. The differences are (3, 4), which is a 3-4-5 triple.",
       ["5"],
@@ -136,7 +136,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-g4",
       "A vector has magnitude 10 and bearing 030°. Find its northward component. Give an exact value.",
-      "\\text{North component}=|\\mathbf{v}|\\cos 30°",
+      "",
       "5sqrt(3)",
       "North = 10 × cos(30°) = 10 × (√3/2) = 5√3.",
       ["5sqrt(3)", "5√3"],
@@ -148,7 +148,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-i1",
       "Find |v| for v = (8, 15).",
-      "|\\mathbf{v}|=\\sqrt{8^2+15^2}",
+      "",
       "17",
       "|v| = √(64 + 225) = √289 = 17. This is the 8-15-17 Pythagorean triple.",
       ["17"],
@@ -158,7 +158,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-i2",
       "Find the distance between A = (−1, 3) and B = (5, −5).",
-      "|AB|=\\sqrt{(5-(-1))^2+(-5-3)^2}",
+      "",
       "10",
       "|AB| = √(6² + 8²) = √(36 + 64) = √100 = 10. The differences are (6, 8), a 6-8-10 triple.",
       ["10"],
@@ -168,7 +168,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-i3",
       "A vector has magnitude 20 and bearing 090° (due east). Find its northward component.",
-      "\\text{North component}=|\\mathbf{v}|\\cos 90°",
+      "",
       "0",
       "North = 20 × cos(90°) = 20 × 0 = 0. A due-east vector has no northward component.",
       ["0"],
@@ -188,7 +188,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-i5",
       "Find |v| for v = (−6, 8).",
-      "|\\mathbf{v}|=\\sqrt{(-6)^2+8^2}",
+      "",
       "10",
       "|v| = √(36 + 64) = √100 = 10. Note: squaring removes the negative sign.",
       ["10"]
@@ -199,7 +199,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m1",
       "Find the distance between A = (2, −3) and B = (−1, 1).",
-      "|AB|=\\sqrt{(-1-2)^2+(1-(-3))^2}",
+      "",
       "5",
       "|AB| = √(9 + 16) = √25 = 5. The differences are (−3, 4), a 3-4-5 triple.",
       ["5"]
@@ -216,7 +216,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m3",
       "A vector v has magnitude 13 and eastward component 5. Find its northward component.",
-      "13^2=5^2+\\text{north}^2",
+      "",
       "12",
       "By Pythagoras: north² = 13² − 5² = 169 − 25 = 144, so north = 12. This is the 5-12-13 triple.",
       ["12"]
@@ -225,7 +225,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m4",
       "Find the distance between P = (0, 0) and Q = (7, 24).",
-      "|PQ|=\\sqrt{7^2+24^2}",
+      "",
       "25",
       "|PQ| = √(49 + 576) = √625 = 25. This is the 7-24-25 Pythagorean triple.",
       ["25"]
@@ -234,7 +234,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m5",
       "A ship travels at 25 km/h on a bearing of 090° (due east). Find its eastward component.",
-      "\\text{East component}=|\\mathbf{v}|\\sin 90°",
+      "",
       "25",
       "East = 25 × sin(90°) = 25 × 1 = 25. A due-east vector has all its magnitude in the eastward direction.",
       ["25"]
@@ -251,7 +251,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m7",
       "Find |v| for v = (−3, −4).",
-      "|\\mathbf{v}|=\\sqrt{(-3)^2+(-4)^2}",
+      "",
       "5",
       "|v| = √(9 + 16) = √25 = 5. Both signs are removed by squaring.",
       ["5"]
@@ -260,7 +260,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m8",
       "A ship travels at 40 km/h on bearing 030°. Find its northward component. Give an exact value.",
-      "\\text{North}=40\\cos 30°",
+      "",
       "20sqrt(3)",
       "North = 40 × cos(30°) = 40 × (√3/2) = 20√3 km/h.",
       ["20sqrt(3)", "20√3"]
@@ -269,7 +269,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m9",
       "Find the distance between A = (3, 4) and B = (6, 8).",
-      "|AB|=\\sqrt{(6-3)^2+(8-4)^2}",
+      "",
       "5",
       "|AB| = √(9 + 16) = √25 = 5. The differences (3, 4) form a 3-4-5 triple.",
       ["5"]
@@ -278,7 +278,7 @@ const vectorsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-vr-m10",
       "A vector v = (a, 24) has magnitude 26. Find the positive value of a.",
-      "a^2+24^2=26^2",
+      "",
       "10",
       "a² = 26² − 24² = 676 − 576 = 100, so a = 10. This is the 10-24-26 triple (2 × 5-12-13).",
       ["10"]

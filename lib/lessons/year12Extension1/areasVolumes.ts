@@ -151,7 +151,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-g2",
       "Find the volume when y = 3 is rotated about the x-axis from x = 0 to x = 4.",
-      "V = \\pi\\int_0^4 9\\,dx = 9\\pi[x]_0^4",
+      "",
       "36pi",
       ["36π", "36\\pi"],
       "V = π(9)(4) = 36π cubic units."
@@ -159,7 +159,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-g3",
       "Find the area enclosed between y = 4 and y = x² from x = −2 to x = 2.",
-      "A = \\int_{-2}^{2}(4-x^2)\\,dx = \\left[4x-\\tfrac{x^3}{3}\\right]_{-2}^{2}",
+      "",
       "32/3",
       ["32/3", "10.67", "10.666"],
       "(8 − 8/3) − (−8 + 8/3) = 16 − 16/3 = 32/3 square units."
@@ -176,7 +176,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-i1",
       "Find the volume when y = 2x is rotated about the x-axis from x = 0 to x = 3.",
-      "V = \\pi\\int_0^3 4x^2\\,dx = \\pi\\left[\\tfrac{4x^3}{3}\\right]_0^3",
+      "",
       "36pi",
       ["36π", "36\\pi"],
       "V = π · 4·27/3 = π · 36 = 36π cubic units."
@@ -184,7 +184,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-i2",
       "Find the area enclosed between y = x and y = x² from x = 0 to x = 1.",
-      "A = \\int_0^1 (x-x^2)\\,dx = \\left[\\tfrac{x^2}{2}-\\tfrac{x^3}{3}\\right]_0^1",
+      "",
       "1/6",
       ["1/6", "0.1667", "0.167"],
       "1/2 − 1/3 = 3/6 − 2/6 = 1/6 square units."
@@ -199,7 +199,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-i4",
       "Find the volume of the solid formed when the region between y = 2 (outer) and y = x (inner) is rotated about the x-axis from x = 0 to x = 2.",
-      "V = \\pi\\int_0^2(4-x^2)\\,dx = \\pi\\left[4x-\\tfrac{x^3}{3}\\right]_0^2",
+      "",
       "16pi/3",
       ["16π/3", "16\\pi/3"],
       "V = π(8 − 8/3) = π · 16/3 = 16π/3 cubic units."
@@ -233,7 +233,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-m2",
       "Find the volume when y = √x is rotated about the x-axis from x = 0 to x = 4.",
-      "V = \\pi\\int_0^4 x\\,dx = \\pi\\left[\\tfrac{x^2}{2}\\right]_0^4",
+      "",
       "8pi",
       ["8π", "8\\pi"],
       "V = π · 16/2 = 8π cubic units."
@@ -241,7 +241,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-m3",
       "Find the area enclosed between y = 3x and y = x².",
-      "\\text{Intersections: }3x=x^2\\Rightarrow x=0,3.\\quad A=\\int_0^3(3x-x^2)\\,dx",
+      "",
       "9/2",
       ["4.5", "9/2"],
       "A = [3x²/2 − x³/3]₀³ = 27/2 − 9 = 9/2 square units."
@@ -261,7 +261,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-m5",
       "Find the volume when y = x is rotated about the x-axis from x = 0 to x = 3.",
-      "V = \\pi\\int_0^3 x^2\\,dx = \\pi\\left[\\tfrac{x^3}{3}\\right]_0^3",
+      "",
       "9pi",
       ["9π", "9\\pi"],
       "V = π · 27/3 = 9π cubic units."
@@ -281,7 +281,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-m7",
       "Find the volume when y = √x is rotated about the x-axis from x = 1 to x = 4.",
-      "V = \\pi\\int_1^4 x\\,dx = \\pi\\left[\\tfrac{x^2}{2}\\right]_1^4",
+      "",
       "15pi/2",
       ["15π/2", "15\\pi/2", "7.5pi", "7.5π"],
       "V = π(16/2 − 1/2) = π · 15/2 = 15π/2 cubic units."
@@ -296,7 +296,7 @@ const areasAndVolumes: Partial<ExplicitLesson> = {
     volTyped(
       "y12e1-vol-m9",
       "Find the volume when the region between y = 3 (outer) and y = x (inner) is rotated about the x-axis from x = 0 to x = 3.",
-      "V = \\pi\\int_0^3(9-x^2)\\,dx = \\pi\\left[9x-\\tfrac{x^3}{3}\\right]_0^3",
+      "",
       "18pi",
       ["18π", "18\\pi"],
       "V = π(27 − 9) = 18π cubic units."

@@ -251,7 +251,7 @@ const relatedRates: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-rates-m2",
       "A sphere's radius increases at 3 cm/s. Find dV/dt when r = 2 cm.",
-      "dV/dt = 4\\pi r^2\\,dr/dt,\\quad r=2,\\quad dr/dt=3",
+      "",
       "48\\pi",
       ["48\\pi \\text{ cm}^3/\\text{s}"],
       "dV/dt = 4\\pi(4)(3) = 48\\pi\\text{ cm}^3/\\text{s}."
@@ -267,7 +267,7 @@ const relatedRates: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-rates-m4",
       "On x² + y² = 100, when x = 6, y = 8 and dx/dt = 5, find dy/dt.",
-      "2x\\,dx/dt + 2y\\,dy/dt = 0,\\quad x=6,\\;y=8,\\;dx/dt=5",
+      "",
       "-15/4",
       ["-3.75", "-\\tfrac{15}{4}"],
       "2(6)(5) + 2(8)(dy/dt) = 0 \\Rightarrow 60 + 16(dy/dt) = 0 \\Rightarrow dy/dt = -15/4."
@@ -384,7 +384,7 @@ const relatedRates: Partial<ExplicitLesson> = {
       id: "y12e1-relrates-pool-d5-1",
       prompt:
         "Given dy/dx = 3 and dx/dt = 2, use the chain rule to find dy/dt.",
-      latex: "\\frac{dy}{dt}=\\frac{dy}{dx}\\cdot\\frac{dx}{dt}",
+      latex: "",
       answer: "6",
       acceptedAnswers: ["6 units/s"],
       hint: "Multiply the two rates.",
@@ -490,7 +490,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-g2",
       "500 bacteria double every 3 hours. Find the count after 9 hours.",
-      "N = 500 \\cdot 2^{t/3},\\quad t=9",
+      "",
       "4000",
       ["4000 \\text{ bacteria}"],
       "N(9) = 500 \\times 2^{9/3} = 500 \\times 2^3 = 500 \\times 8 = 4000."
@@ -498,7 +498,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-g3",
       "100 g decays to 25 g in 10 years. Find the half-life in years.",
-      "25 = 100\\,e^{10k} \\;\\Rightarrow\\; e^{10k} = \\tfrac{1}{4}",
+      "",
       "5",
       ["5 \\text{ years}"],
       "e^{10k} = 1/4 \\Rightarrow k = -\\ln 2/5. Half-life = \\ln 2 / (\\ln 2/5) = 5\\text{ years}."
@@ -520,7 +520,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-i1",
       "200 bacteria triple every 4 hours. Find the count after 12 hours.",
-      "N = 200 \\cdot 3^{t/4},\\quad t=12",
+      "",
       "5400",
       ["5400 \\text{ bacteria}"],
       "N(12) = 200 \\times 3^{12/4} = 200 \\times 3^3 = 200 \\times 27 = 5400."
@@ -528,7 +528,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-i2",
       "80 g decays to 10 g in 6 years. Find the half-life in years.",
-      "10 = 80\\,e^{6k} \\;\\Rightarrow\\; e^{6k} = \\tfrac{1}{8}",
+      "",
       "2",
       ["2 \\text{ years}"],
       "e^{6k} = 1/8 \\Rightarrow k = -\\ln 2/2. Half-life = \\ln 2/(\\ln 2/2) = 2\\text{ years}."
@@ -543,7 +543,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-i4",
       "An object at 70°C cools in a room at 10°C. After 3 min its temperature is 40°C. Find the temperature after 6 min.",
-      "T(t)=10+60\\,e^{kt},\\quad T(3)=40",
+      "",
       "25",
       ["25^\\circ\\text{C}"],
       "40 = 10 + 60 e^{3k} \\Rightarrow e^{3k} = 1/2. T(6) = 10 + 60(e^{3k})^2 = 10 + 60/4 = 25^\\circ\\text{C}."
@@ -595,7 +595,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-m2",
       "1000 bacteria triple every 2 hours. Find the count after 4 hours.",
-      "N = 1000 \\cdot 3^{t/2},\\quad t=4",
+      "",
       "9000",
       ["9000 \\text{ bacteria}"],
       "N(4) = 1000 \\times 3^{4/2} = 1000 \\times 9 = 9000."
@@ -603,7 +603,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-m3",
       "160 g decays to 20 g in 12 years. Find the half-life in years.",
-      "20 = 160\\,e^{12k} \\;\\Rightarrow\\; e^{12k} = \\tfrac{1}{8}",
+      "",
       "4",
       ["4 \\text{ years}"],
       "e^{12k} = 1/8 \\Rightarrow k = -\\ln 2/4. Half-life = \\ln 2/(\\ln 2/4) = 4\\text{ years}."
@@ -618,7 +618,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-m5",
       "An object at 90°C cools in a room at 30°C. After 4 min its temperature is 60°C. Find the temperature after 8 min.",
-      "T(t)=30+60\\,e^{kt},\\quad T(4)=60",
+      "",
       "45",
       ["45^\\circ\\text{C}"],
       "60 = 30 + 60e^{4k} \\Rightarrow e^{4k} = 1/2. T(8) = 30 + 60(1/2)^2 = 30 + 15 = 45^\\circ\\text{C}."
@@ -658,7 +658,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-m9",
       "Find t when N = 1600 given N = 200 \\cdot 2^t.",
-      "200 \\cdot 2^t = 1600 \\;\\Rightarrow\\; 2^t = 8",
+      "",
       "3",
       ["t=3"],
       "2^t = 8 \\Rightarrow t = 3\\text{ hours}."
@@ -666,7 +666,7 @@ const exponentialGrowthDecay: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-expgd-m10",
       "A population doubles from 250 to 500 in 5 years. Find the growth rate k.",
-      "500 = 250\\,e^{5k} \\;\\Rightarrow\\; e^{5k}=2",
+      "",
       "\\frac{\\ln 2}{5}",
       ["\\ln(2)/5", "\\tfrac{\\ln 2}{5}"],
       "k = (1/5)\\ln 2 = \\ln 2/5."
@@ -812,7 +812,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-g2",
       "For x = 3 sin(2t + π/3), find the period.",
-      "T = \\frac{2\\pi}{n},\\quad n=2",
+      "",
       "\\pi",
       ["\\pi \\text{ s}"],
       "Period = 2\\pi/2 = \\pi\\text{ s}."
@@ -820,7 +820,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-g3",
       "For x = 4 cos(3t), find the maximum speed.",
-      "v = -12\\sin(3t),\\quad |v|_{\\max}=an",
+      "",
       "12",
       ["12 \\text{ m/s}"],
       "|v|_{max} = an = 4 \\times 3 = 12\\text{ m/s}."
@@ -842,7 +842,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-i1",
       "For $x = 6\\sin(\\pi t/2)$, find the period.",
-      "T = \\frac{2\\pi}{n},\\quad n=\\pi/2",
+      "",
       "4",
       ["4 \\text{ s}"],
       "Period = 2\\pi/(\\pi/2) = 4\\text{ s}."
@@ -850,7 +850,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-i2",
       "For x = 5 sin(3t), find the maximum speed.",
-      "|v|_{\\max} = an,\\quad a=5,\\;n=3",
+      "",
       "15",
       ["15 \\text{ m/s}"],
       "|v|_{max} = 5 \\times 3 = 15\\text{ m/s}."
@@ -882,7 +882,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-i5",
       "For x = 3 sin(2t), find the acceleration when t = π/4.",
-      "\\ddot x = -12\\sin(2t),\\quad t=\\pi/4",
+      "",
       "-12",
       ["-12 \\text{ m/s}^2"],
       "\\ddot x = -12\\sin(2 \\times \\pi/4) = -12\\sin(\\pi/2) = -12\\text{ m/s}^2."
@@ -917,7 +917,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-m2",
       "For x = 3 sin(4t), find the maximum velocity.",
-      "|v|_{\\max} = an,\\quad a=3,\\;n=4",
+      "",
       "12",
       ["12 \\text{ m/s}"],
       "|v|_{max} = 3 \\times 4 = 12\\text{ m/s}."
@@ -925,7 +925,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-m3",
       "For $x = 2\\cos(\\pi t)$, find the period.",
-      "T = 2\\pi/n,\\quad n=\\pi",
+      "",
       "2",
       ["2 \\text{ s}"],
       "Period = 2\\pi/\\pi = 2\\text{ s}."
@@ -965,7 +965,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-m7",
       "For x = 5 sin(2t), find the acceleration when x = 3.",
-      "\\ddot x = -n^2 x = -4x,\\quad x=3",
+      "",
       "-12",
       ["-12 \\text{ m/s}^2"],
       "\\ddot x = -n^2 x = -4 \\times 3 = -12\\text{ m/s}^2."
@@ -992,7 +992,7 @@ const simpleHarmonicMotion: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-shm-m10",
       "For $x = 8\\sin(\\pi t/4)$, find the maximum speed.",
-      "|v|_{\\max} = an,\\quad a=8,\\;n=\\pi/4",
+      "",
       "2\\pi",
       ["2\\pi \\text{ m/s}"],
       "|v|_{max} = 8 \\times \\pi/4 = 2\\pi\\text{ m/s}."
@@ -1110,7 +1110,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-g2",
       "A particle in SHM has ẍ = -9x and maximum speed 6 m/s. Find the amplitude.",
-      "n^2=9,\\; |v|_{\\max}=an=6,\\; n=3",
+      "",
       "2",
       ["2 \\text{ m}"],
       "n = 3, so an = 6 \\Rightarrow a = 6/3 = 2\\text{ m}."
@@ -1130,7 +1130,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-g4",
       "A population grows as $N = 600 e^{0.1t}$. Find $dN/dt$ when $t = 0$.",
-      "\\frac{dN}{dt} = 0.1 \\times 600\\,e^{0.1t},\\quad t=0",
+      "",
       "60",
       ["60 \\text{ per unit time}"],
       "dN/dt = 60 e^{0} = 60."
@@ -1140,7 +1140,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-i1",
       "Water fills a tank with V = (1/3)\\pi h³ m³ at dV/dt = 9\\pi m³/s. Find dh/dt when h = 3 m.",
-      "\\frac{dV}{dt} = \\pi h^2\\,\\frac{dh}{dt},\\quad h=3,\\;dV/dt=9\\pi",
+      "",
       "1",
       ["1 \\text{ m/s}"],
       "9\\pi = \\pi(9)(dh/dt) \\Rightarrow dh/dt = 1\\text{ m/s}."
@@ -1148,7 +1148,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-i2",
       "N = 1000 e^{kt} with N(5) = 2000. Find N(10).",
-      "N(10) = 1000\\,(e^{5k})^2,\\quad e^{5k}=2",
+      "",
       "4000",
       ["4000"],
       "N(10) = 1000 \\times 4 = 4000."
@@ -1214,7 +1214,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-m2",
       "N = 300 e^{-0.2t}. Find N when t = 5.",
-      "N(5) = 300\\,e^{-1}",
+      "",
       "300/e",
       ["300\\,e^{-1}", "300/e"],
       "N(5) = 300 e^{-0.2 \\times 5} = 300 e^{-1} = 300/e."
@@ -1222,7 +1222,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-m3",
       "For x = 6 sin(3t), find the maximum acceleration.",
-      "|\\ddot x|_{\\max} = n^2 a,\\quad n=3,\\;a=6",
+      "",
       "54",
       ["54 \\text{ m/s}^2"],
       "|\\ddot x|_{max} = 9 \\times 6 = 54\\text{ m/s}^2."
@@ -1242,7 +1242,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-m5",
       "On x² + y² = 169, when x = 5, y = 12 and dx/dt = 3, find dy/dt.",
-      "2(5)(3)+2(12)(dy/dt)=0",
+      "",
       "-5/4",
       ["-1.25", "-\\tfrac{5}{4}"],
       "30 + 24(dy/dt) = 0 \\Rightarrow dy/dt = -30/24 = -5/4."
@@ -1257,7 +1257,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-m7",
       "100 mg decays to 50 mg in 3 years. Find k.",
-      "50 = 100\\,e^{3k} \\;\\Rightarrow\\; e^{3k}=0.5",
+      "",
       "-\\frac{\\ln 2}{3}",
       ["-\\ln(2)/3", "-\\tfrac{\\ln 2}{3}"],
       "k = \\ln(0.5)/3 = -\\ln 2/3."
@@ -1277,7 +1277,7 @@ const calcAppsExamPractice: Partial<ExplicitLesson> = {
     calcappTyped(
       "y12e1-calcapp-exam-m9",
       "For x = 2 sin(6t), find the period.",
-      "T = 2\\pi/n,\\quad n=6",
+      "",
       "\\pi/3",
       ["\\tfrac{\\pi}{3} \\text{ s}"],
       "Period = 2\\pi/6 = \\pi/3\\text{ s}."
