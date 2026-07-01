@@ -467,7 +467,7 @@ const differentiatingInverseTrig: Partial<ExplicitLesson> = {
     {
       id: "y12e1-diff-inv-pool-d5-1",
       prompt: "Find the value of the derivative of arcsin(x) at x = 0.",
-      latex: "\\frac{d}{dx}\\arcsin x = \\frac{1}{\\sqrt{1-x^2}}",
+      latex: "",
       answer: "1",
       acceptedAnswers: [],
       hint: "The derivative is 1/√(1−x²); substitute x = 0.",

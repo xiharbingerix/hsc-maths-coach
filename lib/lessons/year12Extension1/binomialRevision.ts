@@ -136,7 +136,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-g2",
       "P(A) = 0.4. Find P(A').",
-      "P(A')=1-P(A)",
+      "",
       "0.6",
       "P(A') = 1 − 0.4 = 0.6.",
       ["0.6"],
@@ -146,7 +146,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-g3",
       "Compute C(6, 2).",
-      "\\binom{6}{2}=\\frac{6!}{2!\\,4!}",
+      "",
       "15",
       "C(6,2) = (6 × 5)/(2 × 1) = 30/2 = 15.",
       ["15"],
@@ -156,7 +156,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-g4",
       "X has P(X=0) = 0.5, P(X=1) = 0.3, P(X=2) = 0.2. Find E(X).",
-      "E(X)=0\\times0.5+1\\times0.3+2\\times0.2",
+      "",
       "0.7",
       "E(X) = 0(0.5) + 1(0.3) + 2(0.2) = 0 + 0.3 + 0.4 = 0.7.",
       ["0.7"],
@@ -168,7 +168,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-i1",
       "P(A) = 0.6, P(B) = 0.3. Events A and B are independent. Find P(A ∩ B).",
-      "P(A\\cap B)=P(A)\\times P(B)\\quad(\\text{independent})",
+      "",
       "0.18",
       "For independent events: P(A ∩ B) = P(A) × P(B) = 0.6 × 0.3 = 0.18.",
       ["0.18"],
@@ -178,7 +178,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-i2",
       "Compute C(8, 2).",
-      "\\binom{8}{2}=\\frac{8\\times7}{2!}",
+      "",
       "28",
       "C(8,2) = (8 × 7)/(2 × 1) = 56/2 = 28.",
       ["28"],
@@ -188,7 +188,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-i3",
       "P(A) = 0.4, P(B) = 0.5, P(A ∩ B) = 0.2. Find P(A ∪ B).",
-      "P(A\\cup B)=P(A)+P(B)-P(A\\cap B)",
+      "",
       "0.7",
       "P(A ∪ B) = 0.4 + 0.5 − 0.2 = 0.7.",
       ["0.7"],
@@ -208,7 +208,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-i5",
       "A fair coin is flipped twice. Find P(at least one head).",
-      "P(\\text{at least one H})=1-P(\\text{no heads})",
+      "",
       "3/4",
       "P(no heads) = P(TT) = (1/2)² = 1/4. So P(at least one head) = 1 − 1/4 = 3/4.",
       ["3/4", "0.75"],
@@ -220,7 +220,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m1",
       "Compute C(10, 3).",
-      "\\binom{10}{3}=\\frac{10\\times9\\times8}{3!}",
+      "",
       "120",
       "C(10,3) = (10 × 9 × 8)/(3 × 2 × 1) = 720/6 = 120.",
       ["120"]
@@ -237,7 +237,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m3",
       "X takes values 1, 2, 3 each with probability 1/3. Find E(X).",
-      "E(X)=1\\cdot\\tfrac{1}{3}+2\\cdot\\tfrac{1}{3}+3\\cdot\\tfrac{1}{3}",
+      "",
       "2",
       "E(X) = 1(1/3) + 2(1/3) + 3(1/3) = (1+2+3)/3 = 6/3 = 2.",
       ["2", "2.0"]
@@ -246,7 +246,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m4",
       "P(A) = 0.5 and P(B|A) = 0.4. Find P(A ∩ B).",
-      "P(A\\cap B)=P(A)\\times P(B\\mid A)",
+      "",
       "0.2",
       "P(A ∩ B) = P(A) × P(B|A) = 0.5 × 0.4 = 0.2.",
       ["0.2"]
@@ -255,7 +255,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m5",
       "A bag has 4 red and 6 blue balls. Two balls drawn without replacement. Find P(both blue). Give an exact fraction.",
-      "P(\\text{both blue})=\\frac{6}{10}\\times\\frac{5}{9}",
+      "",
       "1/3",
       "P(1st blue) = 6/10. After removing one blue, 5 blue and 9 total remain. P(both blue) = (6/10)(5/9) = 30/90 = 1/3.",
       ["1/3"]
@@ -264,7 +264,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m6",
       "Compute C(7, 4).",
-      "\\binom{7}{4}=\\binom{7}{3}=\\frac{7\\times6\\times5}{3!}",
+      "",
       "35",
       "C(7,4) = C(7,3) by symmetry = (7 × 6 × 5)/(3 × 2 × 1) = 210/6 = 35.",
       ["35"]
@@ -286,7 +286,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m8",
       "P(A) = 0.3, P(B) = 0.6. A and B are mutually exclusive. Find P(A ∪ B).",
-      "P(A\\cup B)=P(A)+P(B)\\quad(\\text{mutually exclusive: }P(A\\cap B)=0)",
+      "",
       "0.9",
       "For mutually exclusive events, P(A ∩ B) = 0, so P(A ∪ B) = 0.3 + 0.6 = 0.9.",
       ["0.9"]
@@ -295,7 +295,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m9",
       "X has P(X=0) = 1/4, P(X=1) = 1/2, P(X=2) = 1/4. Find E(X).",
-      "E(X)=0\\cdot\\tfrac{1}{4}+1\\cdot\\tfrac{1}{2}+2\\cdot\\tfrac{1}{4}",
+      "",
       "1",
       "E(X) = 0(1/4) + 1(1/2) + 2(1/4) = 0 + 1/2 + 1/2 = 1.",
       ["1", "1.0"]
@@ -304,7 +304,7 @@ const binomialRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-br-m10",
       "Compute C(12, 10).",
-      "\\binom{12}{10}=\\binom{12}{2}=\\frac{12\\times11}{2}",
+      "",
       "66",
       "C(12,10) = C(12,2) by symmetry (n−r = 2). C(12,2) = (12 × 11)/(2 × 1) = 132/2 = 66.",
       ["66"]

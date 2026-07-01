@@ -128,7 +128,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-g2",
       "Evaluate ∑_{k=1}^{6} k.",
-      "\\sum_{k=1}^{6}k=\\frac{6\\times7}{2}",
+      "",
       "21",
       "Using n(n+1)/2 with n = 6: 6 × 7 ÷ 2 = 21.",
       ["21"],
@@ -138,7 +138,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-g3",
       "Compute C(5, 2).",
-      "\\binom{5}{2}=\\frac{5!}{2!\\,3!}",
+      "",
       "10",
       "C(5,2) = (5 × 4)/(2 × 1) = 20/2 = 10.",
       ["10"],
@@ -148,7 +148,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-g4",
       "Factor $3^{k+1} + 3^k$ and write the result as $A × 3^k$. Find $A$.",
-      "3^{k+1}+3^k=3\\cdot3^k+3^k",
+      "",
       "4",
       "3^(k+1) + 3^k = 3·3^k + 3^k = (3+1)·3^k = 4·3^k. So A = 4.",
       ["4"],
@@ -160,7 +160,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-i1",
       "Evaluate ∑_{k=1}^{10} k.",
-      "\\sum_{k=1}^{10}k=\\frac{10\\times11}{2}",
+      "",
       "55",
       "n(n+1)/2 with n = 10: 10 × 11 ÷ 2 = 55.",
       ["55"],
@@ -170,7 +170,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-i2",
       "Compute C(7, 3).",
-      "\\binom{7}{3}=\\frac{7!}{3!\\,4!}",
+      "",
       "35",
       "C(7,3) = (7 × 6 × 5)/(3 × 2 × 1) = 210/6 = 35.",
       ["35"],
@@ -180,7 +180,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-i3",
       "Factor $5^{k+2} − 5^k$ and write the result as $A × 5^k$. Find $A$.",
-      "5^{k+2}-5^k=5^2\\cdot5^k-5^k",
+      "",
       "24",
       "5^(k+2) − 5^k = 25·5^k − 5^k = (25−1)·5^k = 24·5^k. So A = 24.",
       ["24"],
@@ -212,7 +212,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m1",
       "Evaluate ∑_{k=1}^{8} k.",
-      "\\sum_{k=1}^{8}k=\\frac{8\\times9}{2}",
+      "",
       "36",
       "n(n+1)/2 with n = 8: 8 × 9 ÷ 2 = 36.",
       ["36"]
@@ -229,7 +229,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m3",
       "Compute C(9, 2).",
-      "\\binom{9}{2}=\\frac{9\\times8}{2}",
+      "",
       "36",
       "C(9,2) = (9 × 8)/(2 × 1) = 72/2 = 36.",
       ["36"]
@@ -238,7 +238,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m4",
       "Factor $7^{k+1} − 7^k$. Write the result as $A × 7^k$. Find $A$.",
-      "7^{k+1}-7^k=7\\cdot7^k-7^k",
+      "",
       "6",
       "7^(k+1) − 7^k = 7·7^k − 7^k = (7−1)·7^k = 6·7^k. So A = 6.",
       ["6"]
@@ -247,7 +247,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m5",
       "Evaluate ∑_{k=1}^{4} k².",
-      "\\sum_{k=1}^{4}k^2=\\frac{4\\times5\\times9}{6}",
+      "",
       "30",
       "n(n+1)(2n+1)/6 with n = 4: 4 × 5 × 9 ÷ 6 = 180 ÷ 6 = 30.",
       ["30"]
@@ -256,7 +256,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m6",
       "Factor $4^{k+2} − 4^k$. Write the result as $A × 4^k$. Find $A$.",
-      "4^{k+2}-4^k=4^2\\cdot4^k-4^k",
+      "",
       "15",
       "4^(k+2) − 4^k = 16·4^k − 4^k = (16−1)·4^k = 15·4^k. So A = 15.",
       ["15"]
@@ -273,7 +273,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m8",
       "Compute C(10, 4).",
-      "\\binom{10}{4}=\\frac{10\\times9\\times8\\times7}{4!}",
+      "",
       "210",
       "C(10,4) = (10 × 9 × 8 × 7)/(4 × 3 × 2 × 1) = 5040/24 = 210.",
       ["210"]
@@ -282,7 +282,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m9",
       "Evaluate ∑_{k=1}^{6} k².",
-      "\\sum_{k=1}^{6}k^2=\\frac{6\\times7\\times13}{6}",
+      "",
       "91",
       "n(n+1)(2n+1)/6 with n = 6: 6 × 7 × 13 ÷ 6 = 91.",
       ["91"]
@@ -291,7 +291,7 @@ const proofInductionRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-pir-m10",
       "Simplify (k+2)! ÷ k!.",
-      "\\frac{(k+2)!}{k!}=(k+2)(k+1)\\cdot\\frac{k!}{k!}",
+      "",
       "(k+2)(k+1)",
       "(k+2)! = (k+2)(k+1)·k!, so (k+2)!/k! = (k+2)(k+1). For example with k=3: 5!/3! = 5 × 4 = 20.",
       ["(k+2)(k+1)", "(k+1)(k+2)"]

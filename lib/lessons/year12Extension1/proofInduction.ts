@@ -184,7 +184,7 @@ const introToMathematicalInduction: Partial<ExplicitLesson> = {
     inductionTyped(
       "y12e1-induction-intro-g4",
       "Complete the factor after simplifying the square-sum step.",
-      "\\frac{k(k+1)(2k+1)}{6}+(k+1)^2=\\frac{(k+1)(k+2)(\\,?\\,)}{6}",
+      "",
       "2k+3",
       ["2k + 3"],
       "The k + 1 formula needs 2(k + 1) + 1, which simplifies to 2k + 3."
@@ -218,7 +218,7 @@ const introToMathematicalInduction: Partial<ExplicitLesson> = {
     inductionTyped(
       "y12e1-induction-intro-i3",
       "For the triangular-number proof, what expression is added in the k + 1 step?",
-      "1+2+\\cdots+k+(\\,?\\,)",
+      "",
       "k+1",
       ["k + 1"],
       "The next term after k is k + 1."
@@ -269,7 +269,7 @@ const introToMathematicalInduction: Partial<ExplicitLesson> = {
   masteryQuiz: [
     inductionChoice("y12e1-induction-intro-m1", "Which two parts are essential in a basic induction proof?", "A", ["Base case and inductive step", "Graph and table", "Derivative and integral", "Mean and standard deviation"], "Induction needs a starting point and a rule that moves from one integer to the next."),
     inductionChoice("y12e1-induction-intro-m2", "For $1+2+\\cdots+n=\\frac{n(n+1)}{2}$, what is the inductive hypothesis?", "B", ["$1+2+\\cdots+k=\\frac{k(k-1)}{2}$", "$1+2+\\cdots+k=\\frac{k(k+1)}{2}$", "$1+2+\\cdots+(k+1)=\\frac{k(k+1)}{2}$", "$1+2+\\cdots+n=k$"], "Replace n by k in the statement you are allowed to assume."),
-    inductionTyped("y12e1-induction-intro-m3", "What term is added when proving the triangular-number formula from k to k + 1?", "1+2+\\cdots+k+(\\,?\\,)", "k+1", ["k + 1"], "The next integer after k is k + 1."),
+    inductionTyped("y12e1-induction-intro-m3", "What term is added when proving the triangular-number formula from k to k + 1?", "", "k+1", ["k + 1"], "The next integer after k is k + 1."),
     inductionChoice("y12e1-induction-intro-m4", "For the square-sum formula, the k + 1 step should add:", "C", ["k+1", "k^2", "(k+1)^2", "2k+1"], "The formula sums squares, so the new term is the square of k + 1."),
     inductionChoice("y12e1-induction-intro-m5", "Which option is a valid induction conclusion?", "D", ["Therefore the result is true for n = k only.", "Therefore the result is true for some examples.", "Therefore the result is true for all real x.", "Therefore the result is true for all integers n in the stated range."], "Induction works along integer values starting from the base case."),
     inductionChoice("y12e1-induction-intro-m6", "What is wrong with starting an induction proof by saying 'Assume true for n = k + 1'?", "A", ["That is the statement to prove, not the hypothesis.", "The variable k is not allowed.", "Base cases cannot use numbers.", "The formula must be differentiated."], "The allowed assumption is P(k)."),
@@ -385,13 +385,13 @@ const inductionDivisibility: Partial<ExplicitLesson> = {
   ],
   guidedPractice: [
     inductionChoice("y12e1-induction-div-g1", "If $a^k-1$ is divisible by 4, which notation expresses the inductive hypothesis?", "B", ["$a^k-1=4+k$", "$a^k-1=4m$", "$a^{k+1}-1=4m$", "$a^k=4$"], "Divisible by 4 means equal to 4 times some integer."),
-    inductionTyped("y12e1-induction-div-g2", "Complete the useful rewrite.", "5^{k+1}-1=5(5^k-1)+?", "4", ["+4"], "Expanding 5(5^k - 1) + 4 gives 5^{k+1} - 5 + 4 = 5^{k+1} - 1."),
+    inductionTyped("y12e1-induction-div-g2", "Complete the useful rewrite.", "", "4", ["+4"], "Expanding 5(5^k - 1) + 4 gives 5^{k+1} - 5 + 4 = 5^{k+1} - 1."),
     inductionChoice("y12e1-induction-div-g3", "Why is $4(3m)+3$ divisible by 3?", "A", ["It equals $3(4m+1)$.", "It is close to a multiple of 3.", "It contains the number 4.", "It works for k = 1 only."], "Factoring out 3 shows the whole expression is a multiple of 3."),
     inductionChoice("y12e1-induction-div-g4", "Which is the circular-reasoning error?", "D", ["Checking the base case.", "Writing the hypothesis as a multiple.", "Factoring out the divisor.", "Saying the k + 1 case is divisible without proving it."], "The k + 1 case is the destination, not an allowed assumption."),
   ],
   independentPractice: [
     inductionChoice("y12e1-induction-div-i1", "To prove $2^n$ is divisible by 2 for $n\\ge1$, what is the base case value?", "A", ["$2^1=2$", "$2^0=1$", "$2^k=2$", "$2^{k+1}=2$"], "The statement begins at n = 1."),
-    inductionTyped("y12e1-induction-div-i2", "If $7^k-1=6m$, complete the factorised conclusion for $7^{k+1}-1=7(7^k-1)+6$.", "7(6m)+6=6(?)", "7m+1", ["7m + 1"], "Both terms have a factor of 6: 42m + 6 = 6(7m + 1)."),
+    inductionTyped("y12e1-induction-div-i2", "If $7^k-1=6m$, complete the factorised conclusion for $7^{k+1}-1=7(7^k-1)+6$.", "", "7m+1", ["7m + 1"], "Both terms have a factor of 6: 42m + 6 = 6(7m + 1)."),
     inductionChoice("y12e1-induction-div-i3", "Which divisor matches the claim $6^n-1$ is divisible by 5?", "C", ["2", "3", "5", "6"], "The divisor is the number the expression must be a multiple of."),
     inductionChoice("y12e1-induction-div-i4", "What should appear inside the k + 1 algebra for a divisibility proof?", "B", ["Only the answer from the base case", "The expression from the inductive hypothesis", "A decimal approximation", "A graph"], "The hypothesis is useful only if the k + 1 expression is rewritten to contain it."),
     inductionChoice("y12e1-induction-div-i5", "If two terms are each divisible by 4, what can you conclude about their sum?", "A", ["The sum is divisible by 4.", "The sum is always 4.", "The sum is not divisible by 4.", "The sum must be prime."], "Multiples of the same divisor add to another multiple of that divisor."),
@@ -531,7 +531,7 @@ const inductionInequalities: Partial<ExplicitLesson> = {
     inductionChoice("y12e1-induction-ineq-g1", "For $2^n>n$, what is the base case at n = 1?", "A", ["$2>1$", "$1>2$", "$2^k>k$", "$2^{k+1}>k+1$"], "The base case substitutes n = 1 into the original statement."),
     inductionChoice("y12e1-induction-ineq-g2", "If $2^k>k$, what can we say about $2^{k+1}$?", "B", ["$2^{k+1}=2^k+1$", "$2^{k+1}=2\\cdot2^k>2k$", "$2^{k+1}<k$", "$2^{k+1}=k+1$"], "Doubling $2^k$ also doubles the lower bound k."),
     inductionChoice("y12e1-induction-ineq-g3", "Why does $n!>2^n$ start at n = 4?", "C", ["Because 4 is always used in induction.", "Because factorials cannot use n = 1.", "Because the inequality is false for some smaller n.", "Because powers of 2 stop at 4."], "The base case must be a value where the statement is true."),
-    inductionTyped("y12e1-induction-ineq-g4", "Complete the key factorial step.", "(k+1)!=(? )k!", "k+1", ["(k+1)", "k + 1"], "The factorial (k + 1)! is (k + 1) times k!."),
+    inductionTyped("y12e1-induction-ineq-g4", "Complete the key factorial step.", "", "k+1", ["(k+1)", "k + 1"], "The factorial (k + 1)! is (k + 1) times k!."),
   ],
   independentPractice: [
     inductionChoice("y12e1-induction-ineq-i1", "Which inequality is needed to finish $2^{k+1}>k+1$ after showing $2^{k+1}>2k$?", "A", ["$2k\\ge k+1$ for k >= 1", "$2k<k+1$ for k >= 1", "$k=0$", "$2^k=k$"], "If $2^{k+1}$ is bigger than 2k, and 2k is at least k+1, then it is bigger than k+1."),

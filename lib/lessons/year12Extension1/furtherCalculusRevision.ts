@@ -125,7 +125,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-g2",
       "Differentiate y = (3x + 2)⁴ and evaluate dy/dx at x = 0.",
-      "\\frac{dy}{dx}=4(3x+2)^3\\cdot 3=12(3x+2)^3",
+      "",
       "96",
       "dy/dx = 12(3x+2)³. At x = 0: 12(2)³ = 12 × 8 = 96.",
       ["96"],
@@ -135,7 +135,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-g3",
       "Using the product rule, differentiate y = x · eˣ and evaluate dy/dx at x = 0.",
-      "\\frac{dy}{dx}=e^x+x\\,e^x=(1+x)e^x",
+      "",
       "1",
       "dy/dx = eˣ + x·eˣ = (1+x)eˣ. At x = 0: (1+0)e⁰ = 1.",
       ["1"],
@@ -145,7 +145,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-g4",
       "Express cos²(x) in terms of cos(2x) using the power-reduction identity.",
-      "\\cos^2 x=\\frac{1+\\cos 2x}{2}",
+      "",
       "(1+cos(2x))/2",
       "cos²x = (1 + cos 2x)/2. This comes from rearranging cos 2x = 2cos²x − 1.",
       ["(1+cos(2x))/2", "(1+cos2x)/2"],
@@ -157,7 +157,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-i1",
       "Differentiate y = cos(5x). Write dy/dx.",
-      "\\frac{dy}{dx}=-5\\sin(5x)",
+      "",
       "-5sin(5x)",
       "Chain rule: outer = cos, inner = 5x. dy/dx = −sin(5x) × 5 = −5sin(5x).",
       ["-5sin(5x)", "-5sin5x"],
@@ -167,7 +167,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-i2",
       "If ∫cos²(x) dx = x/2 + A · sin(2x)/4 + C, find A using the power-reduction identity.",
-      "\\cos^2 x=\\frac{1+\\cos 2x}{2}\\implies\\int\\cos^2 x\\,dx=\\frac{x}{2}+\\frac{\\sin 2x}{4}+C",
+      "",
       "1",
       "∫cos²x dx = ∫(1+cos2x)/2 dx = x/2 + sin(2x)/4 + C. The coefficient A = 1.",
       ["1"],
@@ -177,7 +177,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-i3",
       "Using the quotient rule, differentiate y = x / cos(x) and evaluate dy/dx at x = 0.",
-      "\\frac{dy}{dx}=\\frac{\\cos x+x\\sin x}{\\cos^2 x}",
+      "",
       "1",
       "Quotient rule: u = x, v = cos x, u' = 1, v' = −sin x. dy/dx = (cos x + x·sin x)/cos²x. At x = 0: (1 + 0)/1 = 1.",
       ["1"],
@@ -197,7 +197,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-i5",
       "If ∫2cos(2x) dx = A · sin(2x) + C, find A using substitution u = 2x.",
-      "\\int 2\\cos(2x)\\,dx=\\int\\cos(u)\\,du=\\sin(u)+C=\\sin(2x)+C",
+      "",
       "1",
       "Let u = 2x, du = 2dx. ∫2cos(2x) dx = ∫cos(u) du = sin(u) + C = sin(2x) + C. So A = 1.",
       ["1"],
@@ -209,7 +209,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m1",
       "Differentiate y = e^(3x). Write dy/dx.",
-      "\\frac{dy}{dx}=3e^{3x}",
+      "",
       "3e^(3x)",
       "Chain rule: outer = eᵘ (self-derivative), inner = 3x (derivative = 3). So dy/dx = 3e^(3x).",
       ["3e^(3x)", "3e^{3x}"]
@@ -231,7 +231,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m3",
       "Differentiate y = (x² + 1)³ using the chain rule. Evaluate dy/dx at x = 1.",
-      "\\frac{dy}{dx}=3(x^2+1)^2\\cdot 2x=6x(x^2+1)^2",
+      "",
       "24",
       "dy/dx = 6x(x²+1)². At x = 1: 6(1)(2)² = 6 × 4 = 24.",
       ["24"]
@@ -240,7 +240,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m4",
       "If ∫sin(3x) dx = A · cos(3x) + C, find A using substitution.",
-      "\\int\\sin(3x)\\,dx=-\\frac{1}{3}\\cos(3x)+C",
+      "",
       "-1/3",
       "Let u = 3x, du = 3dx. ∫sin(3x) dx = (1/3)∫sin(u) du = −(1/3)cos(u) + C = −(1/3)cos(3x) + C. So A = −1/3.",
       ["-1/3"]
@@ -262,7 +262,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m6",
       "Using the product rule, differentiate y = x² · eˣ and evaluate dy/dx at x = 0.",
-      "\\frac{dy}{dx}=2xe^x+x^2e^x=x(2+x)e^x",
+      "",
       "0",
       "dy/dx = 2x·eˣ + x²·eˣ = x(2+x)eˣ. At x = 0: 0(2)(1) = 0.",
       ["0"]
@@ -271,7 +271,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m7",
       "If ∫sin²(x) dx = x/2 − A · sin(2x)/4 + C, find A using the power-reduction identity.",
-      "\\int\\sin^2 x\\,dx=\\int\\frac{1-\\cos 2x}{2}\\,dx=\\frac{x}{2}-\\frac{\\sin 2x}{4}+C",
+      "",
       "1",
       "∫sin²x dx = ∫(1−cos2x)/2 dx = x/2 − sin(2x)/4 + C. So A = 1.",
       ["1"]
@@ -280,7 +280,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m8",
       "Differentiate y = ln(x² + 4) using the chain rule. Evaluate dy/dx at x = 0.",
-      "\\frac{dy}{dx}=\\frac{2x}{x^2+4}",
+      "",
       "0",
       "Chain rule: outer = ln(u), inner = x²+4. dy/dx = (1/(x²+4)) × 2x = 2x/(x²+4). At x = 0: 0/4 = 0.",
       ["0"]
@@ -289,7 +289,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m9",
       "Differentiate y = tan(x) = sin(x)/cos(x) using the quotient rule. Evaluate dy/dx at x = 0.",
-      "\\frac{dy}{dx}=\\frac{\\cos^2 x+\\sin^2 x}{\\cos^2 x}=\\frac{1}{\\cos^2 x}=\\sec^2 x",
+      "",
       "1",
       "Quotient rule: u = sin x, v = cos x. dy/dx = (cos²x + sin²x)/cos²x = 1/cos²x. At x = 0: 1/1 = 1.",
       ["1"]
@@ -298,7 +298,7 @@ const furtherCalculusRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-fcr-m10",
       "Using substitution u = x² + 1, find ∫2x(x² + 1)⁴ dx. The result is A(x² + 1)⁵ + C. Find A.",
-      "\\int 2x(x^2+1)^4\\,dx=\\int u^4\\,du=\\frac{u^5}{5}+C=\\frac{(x^2+1)^5}{5}+C",
+      "",
       "1/5",
       "Let u = x²+1, du = 2x dx. ∫u⁴ du = u⁵/5 + C = (x²+1)⁵/5 + C. So A = 1/5.",
       ["1/5"]
