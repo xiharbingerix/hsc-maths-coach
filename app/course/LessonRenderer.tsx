@@ -153,89 +153,23 @@ function partMarks(part: PracticeQuestionPart) {
   return Number.isFinite(part.marks) && part.marks > 0 ? part.marks : 1;
 }
 
-function normaliseForLatexLeak(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\\left|\\right/g, "")
-    .replace(/\\,/g, "")
-    .replace(/\s+/g, "")
-    .trim();
-}
-
-function expandLatexFractions(value: string) {
-  let current = value;
-  const fractionPattern = /\\(?:d?frac)\s*\{([^{}]+)\}\s*\{([^{}]+)\}/g;
-
-  let next = current.replace(fractionPattern, "($1)/($2)");
-  while (next !== current) {
-    current = next;
-    next = current.replace(fractionPattern, "($1)/($2)");
-  }
-
-  return current;
-}
-
-function latexLeakForms(value: string) {
-  const base = normaliseForLatexLeak(value);
-  const expanded = normaliseForLatexLeak(expandLatexFractions(value));
-  const withoutCommands = expanded
-    .replace(/\\[a-z]+/g, "")
-    .replace(/[{}]/g, "");
-  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
-
-  return [...new Set([base, expanded, withoutCommands, compact])].filter(Boolean);
-}
-
-function shouldHideLatex(latex: string | null | undefined, candidates: string[]) {
-  if (!latex) return false;
-
-  if (/(answer|solution|therefore|hence)/i.test(latex)) return true;
-
-  // Only match against command-stripped forms. Checking the raw base form causes false
-  // positives: e.g. \ln in \int x\ln(x)\,dx would match a candidate of "ln(x)" because
-  // the LaTeX command name "ln" appears as a substring of the raw string.
-  const expanded = normaliseForLatexLeak(expandLatexFractions(latex));
-  const withoutCommands = expanded.replace(/\\[a-z]+/g, "").replace(/[{}]/g, "");
-  const compact = withoutCommands.replace(/[^a-z0-9]/g, "");
-  const latexForms = [...new Set([withoutCommands, compact])].filter(Boolean);
-
-  if (latexForms.length === 0) return false;
-
-  for (const candidate of candidates) {
-    const trimmed = candidate.trim();
-    if (!trimmed) continue;
-
-    const candidateForms = latexLeakForms(trimmed);
-    for (const form of candidateForms) {
-      const compactLength = form.replace(/[^a-z0-9]/g, "").length;
-      const fractionLike = form.includes("/") || /\\(?:d?frac)/.test(trimmed);
-
-      if (!fractionLike && form.length < 3) continue;
-      if (fractionLike && compactLength < 2) continue;
-
-      if (latexForms.some((latexForm) => latexForm.includes(form))) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
+// A runtime answer-leak check used to hide any latex whose compacted digits
+// happened to contain the answer string. It false-positived and deleted
+// essential question setup (e.g. the rate function "C'(x)=4x+10, 0≤x≤5" was
+// hidden because "+10" abutting the "0" bound reads as the answer "100").
+// Giveaways are now removed at the source content layer, so latex is shown as
+// authored. Only genuine placeholder MCQ-instruction latex is still hidden.
 
 function safeQuestionLatex(question: PracticeQuestion) {
   if (isGenericMcqInstructionLatex(question.latex)) {
     return null;
   }
 
-  return shouldHideLatex(question.latex, [question.answer, ...(question.acceptedAnswers ?? [])])
-    ? null
-    : question.latex;
+  return question.latex;
 }
 
 function safePartLatex(part: PracticeQuestionPart) {
-  return shouldHideLatex(part.latex, [part.answer, ...(part.acceptedAnswers ?? [])])
-    ? null
-    : part.latex;
+  return part.latex;
 }
 
 function serialisePartAnswers(answers: Record<string, string>) {
@@ -972,11 +906,11 @@ function PracticeCard({
           <p className="font-medium">
             <MathText text={step.prompt} />
           </p>
-          {shouldHideLatex(step.latex, [step.answer, ...(step.acceptedAnswers ?? [])]) ? null : (
+          {step.latex ? (
             <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
               <BlockMath math={step.latex} />
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="space-y-1">
@@ -1335,11 +1269,11 @@ function QuizQuestion({
           <p className="font-medium">
             <MathText text={step.prompt} />
           </p>
-          {shouldHideLatex(step.latex, [step.answer, ...(step.acceptedAnswers ?? [])]) ? null : (
+          {step.latex ? (
             <div className="mt-3 overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
               <BlockMath math={step.latex} />
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="space-y-1">
