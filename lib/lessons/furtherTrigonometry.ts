@@ -176,7 +176,7 @@ export const compoundAngleFormulasLesson = furtherTrigLesson(
     trigChoice("ftrig-comp-m7", "A student expands $\\sin(A-B)$ using a plus sign. What is the error?", "\\sin(A-B)", "B", ["They used a cosine formula", "The sine difference formula uses a minus sign", "The tangent denominator is missing", "The expression cannot be expanded"], "For sine, the sign matches the sign in the angle expression."),
     trigChoice("ftrig-comp-m8", "Which denominator belongs with the tangent sum formula?", "\\tan(A+B)", "A", ["$1-\\tan A\\tan B$", "$1+\\tan A\\tan B$", "$\\tan A+\\tan B$", "$\\cos A\\cos B$"], "The tangent sum formula has denominator $1-\\tan A\\tan B$."),
     trigChoice("ftrig-comp-m9", "Which identity is most useful for rewriting this expression?", "\\sin x\\cos y+\\cos x\\sin y", "D", ["$\\cos(x+y)$", "$\\cos(x-y)$", "$\\tan(x+y)$", "$\\sin(x+y)$"], "The expression matches the sine sum identity."),
-    trigChoice("ftrig-comp-m10", "Which statement is correct about $\\tan(A+B)$?", "\\tan(A+B)=\\frac{\\tan A+\\tan B}{1-\\tan A\\tan B}", "C", ["It is always defined", "It equals $\\tan A+\\tan B$", "It is undefined when the denominator is zero", "It uses cosine products only"], "The formula is a fraction, so the denominator must not be zero."),
+    trigChoice("ftrig-comp-m10", "Which statement is correct about $\\tan(A+B)$?", "", "C", ["It is always defined", "It equals $\\tan A+\\tan B$", "It is undefined when the denominator is zero", "It uses cosine products only"], "The formula is a fraction, so the denominator must not be zero."),
   ]
 );
 
@@ -342,7 +342,7 @@ export const doubleAngleFormulasLesson = furtherTrigLesson(
     trigChoice("ftrig-double-i1", "Which form is best when $\\sin A$ is known?", "\\cos2A", "C", ["$2\\cos^2A-1$", "$\\cos^2A-\\sin^2A$", "$1-2\\sin^2A$", "$\\frac{2\\tan A}{1-\\tan^2A}$"], "The form $1-2\\sin^2A$ uses sine only."),
     trigChoice("ftrig-double-i2", "Simplify the expression.", "1-2\\sin^2x", "B", ["$\\sin2x$", "$\\cos2x$", "$\\tan2x$", "$1$"], "This is a cosine double-angle form."),
     trigChoice("ftrig-double-i3", "Simplify the expression.", "2\\cos^2x-1", "B", ["$\\sin2x$", "$\\cos2x$", "$\\tan2x$", "$\\cos x$"], "This is another form of $\\cos2x$."),
-    trigChoice("ftrig-double-i4", "What restriction applies to the tangent double-angle formula?", "\\tan2A=\\frac{2\\tan A}{1-\\tan^2A}", "A", ["$1-\\tan^2A\\ne0$", "$\\sin A\\ne0$", "$\\cos2A=0$", "$A\\ne0$ only"], "The denominator cannot be zero."),
+    trigChoice("ftrig-double-i4", "What restriction applies to the tangent double-angle formula?", "", "A", ["$1-\\tan^2A\\ne0$", "$\\sin A\\ne0$", "$\\cos2A=0$", "$A\\ne0$ only"], "The denominator cannot be zero."),
     trigChoice("ftrig-double-i5", "Choose the correct simplification.", "\\cos^2x-\\sin^2x", "D", ["$1$", "$\\sin2x$", "$\\tan2x$", "$\\cos2x$"], "This is the primary cosine double-angle identity."),
   ],
   [
@@ -450,7 +450,7 @@ export const furtherTrigEquationsIdentitiesLesson = furtherTrigLesson(
     trigChoice("ftrig-id-m7", "Which identity matches the expression?", "\\frac{2\\tan x}{1-\\tan^2x}", "D", ["$\\sin2x$", "$\\cos2x$", "$\\tan(x-y)$", "$\\tan2x$"], "This is the tangent double-angle formula."),
     trigChoice("ftrig-id-m8", "A student simplifies $\\cos x\\cos y+\\sin x\\sin y$ to $\\cos(x+y)$. What is the error?", "\\cos x\\cos y+\\sin x\\sin y", "B", ["The expression is not a compound angle pattern", "The plus sign matches $\\cos(x-y)$, not $\\cos(x+y)$", "It should equal $\\sin(x+y)$", "It should equal $\\tan(x-y)$"], "Cosine difference has the plus sign between products."),
     trigChoice("ftrig-id-m9", "Which first step is most efficient?", "1-2\\sin^2x=\\frac12", "A", ["Rewrite the left side as $\\cos2x$", "Differentiate both sides", "Use $\\cos(A+B)$", "Divide by $\\sin x$"], "Recognising $\\cos2x$ makes the equation simpler."),
-    trigChoice("ftrig-id-m10", "Choose the safest conclusion.", "\\tan2x=\\frac{2\\tan x}{1-\\tan^2x}", "D", ["It can be used for every x-value", "It has no denominator restriction", "It proves tangent is always positive", "It requires $1-\\tan^2x\\ne0$"], "The denominator restriction must be checked."),
+    trigChoice("ftrig-id-m10", "Choose the safest conclusion.", "", "D", ["It can be used for every x-value", "It has no denominator restriction", "It proves tangent is always positive", "It requires $1-\\tan^2x\\ne0$"], "The denominator restriction must be checked."),
   ],
   [
     {

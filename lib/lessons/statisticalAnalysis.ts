@@ -527,7 +527,7 @@ export const standardDeviationZScoresStandardisedValuesLesson: ExplicitLesson = 
     {
       id: "sd-pool-d5-1",
       prompt: "A value of $85$ comes from a distribution with mean $70$ and standard deviation $5$. Find its $z$-score.",
-      latex: "z = \\frac{x - \\bar{x}}{s}",
+      latex: "",
       difficulty: 5,
       answer: "3",
       hint: "Subtract the mean, then divide by the standard deviation.",
@@ -1995,7 +1995,7 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
     {
       id: "mixed-pool-d5-1",
       prompt: "$X$ follows a binomial distribution with $n=3$ and $p=0.5$. Find $P(X=2)$.",
-      latex: "P(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}",
+      latex: "",
       difficulty: 5,
       answer: "0.375",
       acceptedAnswers: ["3/8"],
@@ -2005,7 +2005,7 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
     {
       id: "mixed-pool-d5-2",
       prompt: "A random variable has $E[X]=4$. Find $E[3X-2]$.",
-      latex: "E[aX+b]=aE[X]+b",
+      latex: "",
       difficulty: 5,
       answer: "10",
       hint: "Use linearity of expectation: $E[aX+b]=aE[X]+b$.",
@@ -2162,7 +2162,7 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     {
       id: "rv-ind-3",
       prompt: "Find the expected payout.",
-      latex: "\\$0(0.6)+\\$4(0.25)+\\$8(0.15)",
+      latex: "",
       answer: "2.2",
       acceptedAnswers: ["2.20", "$2.20", "\\$2.20", "$2.2"],
       hint: "Calculate the weighted average.",
@@ -2366,7 +2366,7 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     {
       id: "rv-pool-d5-1",
       prompt: "A discrete random variable has $P(X=1)=0.2$, $P(X=2)=0.5$, $P(X=3)=k$. Find $k$.",
-      latex: "\\sum P(X=x)=1",
+      latex: "",
       difficulty: 5,
       answer: "0.3",
       hint: "The probabilities of a valid distribution sum to $1$.",
@@ -2375,7 +2375,7 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     {
       id: "rv-pool-d5-2",
       prompt: "A random variable has $P(X=1)=0.5$, $P(X=2)=0.3$, $P(X=3)=0.2$. Find $E[X]$.",
-      latex: "E[X]=\\sum x\\,P(X=x)",
+      latex: "",
       difficulty: 5,
       answer: "1.7",
       hint: "Multiply each value by its probability and add.",
@@ -2384,7 +2384,7 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     {
       id: "rv-pool-d5-3",
       prompt: "A random variable takes the value $0$ with probability $0.5$ and the value $2$ with probability $0.5$. Find $\\text{Var}(X)$.",
-      latex: "\\text{Var}(X)=E[X^2]-(E[X])^2",
+      latex: "",
       difficulty: 5,
       answer: "1",
       hint: "Find $E[X]$ and $E[X^2]$ first.",
