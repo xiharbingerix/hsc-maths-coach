@@ -122,46 +122,88 @@ export const standardIntegralsLesson = furtherIntegralLesson(
   ],
   {
     paragraphs: [
-      "Further integration extends the reverse power rule to standard functions.",
-      "The integral of cosine is sine, but the integral of sine is negative cosine. The sign is a common trap.",
-      "The exponential function e^x integrates to itself.",
-      "The reciprocal function 1/x integrates to a logarithmic form. In general work, this is written as ln absolute x plus C.",
-      "For indefinite integrals, include the constant of integration. For definite integrals, evaluate the antiderivative at the upper and lower limits.",
+      "Integration is differentiation run backwards. An integral asks one question: what function has THIS as its derivative? So there is nothing new to memorise here. Every standard integral below is just a standard derivative from MA-C2 read the other way. If you know the slope of a curve, you can recover the curve, and that recovered curve is the integral. This is why we never need a separate table of facts to forget - each result is recoverable by asking 'what differentiates to give the integrand?'",
+      "Start with a concrete one: what differentiates to give cos x? From MA-C2 the slope of sin x is cos x, so sin x must be an antiderivative of cos x, and the integral of cos x is sin x. Now the sign trap: what differentiates to give sin x? It is NOT cos x, because the slope of cos x is -sin x, one sign out. To land on +sin x we need to differentiate -cos x, since the slope of -cos x is -(-sin x) = sin x. That extra minus is the whole reason the integral of sin x is -cos x, not cos x. You never have to recall the sign - just differentiate your candidate and see if it comes back to the integrand.",
+      "The exponential is the easiest to reverse. From MA-C2, e^x is the one curve whose slope equals its own height, so d/dx(e^x) = e^x. Running that backwards, e^x is its own antiderivative too: the integral of e^x is e^x. Differentiate the answer and you land straight back on e^x, which is the check.",
+      "The reciprocal 1/x is the interesting case. From MA-C2 the slope of ln x is 1/x, so ln x is an antiderivative of 1/x. But 1/x is defined for negative x as well (say x = -2), while ln x is not, so ln x alone cannot be the whole story. For x < 0 the antiderivative is ln(-x), and both branches are captured at once by ln|x|. Differentiating ln|x| gives 1/x on either side of zero, so the integral of 1/x is ln|x| + C - the absolute value is there precisely because the domain of 1/x includes negative numbers.",
+      "Two housekeeping rules complete the toolkit. Because differentiating any constant gives 0, adding a constant to an antiderivative changes nothing when you differentiate back - so an indefinite integral always carries a +C to stand for every possible constant. A definite integral instead measures the signed area under the curve between two limits: you evaluate the antiderivative at the top limit minus the bottom limit, the constants cancel, and no +C survives. In NSW exams these four forms are the building blocks for areas, motion and reverse-chain problems, so recovering them by reverse-differentiation is faster and safer than trusting memory.",
     ],
     latexBlocks: [
-      "\\int \\sin x\\,dx=-\\cos x+C",
-      "\\int \\cos x\\,dx=\\sin x+C",
-      "\\int e^x\\,dx=e^x+C",
-      "\\int \\frac{1}{x}\\,dx=\\ln|x|+C",
+      "\\int f'(x)\\,dx = f(x)+C \\qquad \\text{(integration reverses differentiation)}",
+      "\\int \\cos x\\,dx=\\sin x+C \\qquad \\int \\sin x\\,dx=-\\cos x+C",
+      "\\int e^x\\,dx=e^x+C \\qquad \\int \\frac{1}{x}\\,dx=\\ln|x|+C",
+      "\\frac{d}{dx}\\ln|x|=\\frac{1}{x}\\ \\text{ for } x\\neq 0 \\quad\\Rightarrow\\quad \\text{absolute value covers } x<0",
     ],
   },
   [
     {
-      title: "Integrate sine and cosine",
+      title: "Worked example 1: sine and cosine, and the sign",
       questionLatex: "\\int (\\sin x+2\\cos x)\\,dx",
       steps: [
-        { explanation: "Integrate sine as negative cosine.", latex: "\\int \\sin x\\,dx=-\\cos x" },
-        { explanation: "Integrate cosine as sine and keep the constant multiple.", latex: "\\int 2\\cos x\\,dx=2\\sin x" },
-        { explanation: "Add the constant of integration.", latex: "-\\cos x+2\\sin x+C" },
+        {
+          explanation:
+            "Ask what differentiates to sin x. The slope of -cos x is -(-sin x) = sin x, so -cos x is the antiderivative of sin x. Choosing +cos x here would differentiate to -sin x, the wrong sign.",
+          latex: "\\int \\sin x\\,dx=-\\cos x",
+        },
+        {
+          explanation:
+            "Ask what differentiates to cos x. The slope of sin x is cos x, so sin x is the antiderivative; the constant 2 rides along unchanged because it just scales the slope.",
+          latex: "\\int 2\\cos x\\,dx=2\\sin x",
+        },
+        {
+          explanation:
+            "Add +C, since any constant differentiates to 0 and so is invisible to differentiation.",
+          latex: "-\\cos x+2\\sin x+C",
+        },
+        {
+          explanation:
+            "Verify by differentiating back: d/dx(-cos x) = sin x and d/dx(2 sin x) = 2 cos x, which rebuilds the integrand exactly.",
+          latex: "\\frac{d}{dx}(-\\cos x+2\\sin x)=\\sin x+2\\cos x",
+        },
       ],
       finalAnswerLatex: "-\\cos x+2\\sin x+C",
     },
     {
-      title: "Integrate exponential and reciprocal terms",
+      title: "Worked example 2: exponential and reciprocal terms",
       questionLatex: "\\int \\left(3e^x+\\frac{2}{x}\\right)\\,dx",
       steps: [
-        { explanation: "The integral of e^x is e^x.", latex: "3e^x" },
-        { explanation: "The integral of 1/x is logarithmic.", latex: "2\\ln|x|" },
-        { explanation: "Include +C.", latex: "3e^x+2\\ln|x|+C" },
+        {
+          explanation:
+            "Ask what differentiates to e^x. Because e^x is its own slope, it is its own antiderivative; the factor 3 stays out front.",
+          latex: "\\int 3e^x\\,dx=3e^x",
+        },
+        {
+          explanation:
+            "Ask what differentiates to 1/x. The slope of ln|x| is 1/x on both sides of zero, so use ln|x|; the absolute value keeps the answer valid where x is negative.",
+          latex: "\\int \\frac{2}{x}\\,dx=2\\ln|x|",
+        },
+        {
+          explanation:
+            "Combine and add +C for the indefinite integral. Check by differentiating: d/dx(3e^x) = 3e^x and d/dx(2 ln|x|) = 2/x, which is the integrand.",
+          latex: "3e^x+2\\ln|x|+C",
+        },
       ],
       finalAnswerLatex: "3e^x+2\\ln|x|+C",
     },
     {
-      title: "Simple definite integral",
+      title: "Worked example 3: a definite integral as area",
       questionLatex: "\\int_0^{\\pi/2}\\cos x\\,dx",
       steps: [
-        { explanation: "Use sine as the antiderivative.", latex: "\\int \\cos x\\,dx=\\sin x" },
-        { explanation: "Evaluate at the limits.", latex: "\\sin\\frac{\\pi}{2}-\\sin0=1-0" },
+        {
+          explanation:
+            "Find the antiderivative first: sin x differentiates to cos x, so sin x is the antiderivative of cos x. No +C is needed because it will cancel at the limits.",
+          latex: "\\int \\cos x\\,dx=\\sin x",
+        },
+        {
+          explanation:
+            "Evaluate the antiderivative at the upper limit minus the lower limit. This subtraction is why the constant disappears from a definite integral.",
+          latex: "\\Big[\\sin x\\Big]_0^{\\pi/2}=\\sin\\frac{\\pi}{2}-\\sin 0=1-0",
+        },
+        {
+          explanation:
+            "Interpret the number: the cosine curve stays above the x-axis from 0 to pi/2, so the answer 1 is the area of that region in square units.",
+          latex: "\\text{area under } \\cos x \\text{ on } [0,\\tfrac{\\pi}{2}] = 1",
+        },
       ],
       finalAnswerLatex: "1",
     },
@@ -180,10 +222,12 @@ export const standardIntegralsLesson = furtherIntegralLesson(
     intNumber("fint-std-i5", "Evaluate the definite integral.", "\\int_1^e \\frac{1}{x}\\,dx", "1"),
   ],
   [
-    { mistake: "Integrating sin x as cos x.", fix: "The integral of sin x is $-\\cos x+C$." },
-    { mistake: "Adding +C to a definite integral answer.", fix: "Use +C for indefinite integrals only." },
-    { mistake: "Using the power rule on $x^{-1}$.", fix: "$\\int \\frac1x\\,dx=\\ln|x|+C$, not $x^0/0$." },
-    { mistake: "Forgetting constant multiples.", fix: "Constants multiply the antiderivative." },
+    { mistake: "Integrating sin x as cos x.", fix: "The integral of sin x is $-\\cos x+C$. Differentiating $\\cos x$ gives $-\\sin x$, the wrong sign, so the antiderivative must be $-\\cos x$." },
+    { mistake: "Adding +C to a definite integral answer.", fix: "Use +C for indefinite integrals only. In a definite integral the constant cancels when you subtract the two limits." },
+    { mistake: "Using the power rule on $x^{-1}$.", fix: "$\\int \\frac1x\\,dx=\\ln|x|+C$, not $x^0/0$. The power rule breaks at exponent $-1$; instead reverse $\\frac{d}{dx}\\ln|x|=\\frac1x$." },
+    { mistake: "Forgetting constant multiples.", fix: "Constants multiply the antiderivative, because a constant factor just scales the slope." },
+    { mistake: "Dropping the absolute value and writing $\\ln x$ for $\\int \\frac1x\\,dx$.", fix: "Use $\\ln|x|$: the integrand $\\frac1x$ is defined for negative $x$ too, and $\\ln|x|$ covers that domain while $\\ln x$ does not." },
+    { mistake: "Not checking the answer.", fix: "Differentiate your antiderivative; if it does not return the integrand, the integral is wrong." },
   ],
   [
     intChoice("fint-std-m1", "Choose the correct antiderivative.", "\\int \\sin x\\,dx", "A", ["$-\\cos x+C$", "$\\cos x+C$", "$-\\sin x+C$", "$\\sin x+C$"], "Differentiate $-\\cos x$ to get $\\sin x$."),
@@ -214,44 +258,50 @@ export const reverseChainRuleLesson = furtherIntegralLesson(
   ],
   {
     paragraphs: [
-      "The reverse chain rule reverses differentiation of a composite function.",
-      "When the inside function is linear, the antiderivative often needs a scale factor of one over the inner derivative.",
-      "For $e^{ax+b}$, the antiderivative has a factor of $1/a$.",
-      "For $1/(ax+b)$, the antiderivative has a factor of $1/a$ in front of the logarithm.",
-      "For trigonometric composites, the sign and inner derivative both matter.",
+      "Integrating a composite like $e^{3x+1}$ or $\\sin(4x)$ looks like a new skill, but it is just the chain rule from MA-C2 run backward. The method is always the same three moves: write down the obvious antiderivative you would expect, differentiate it to check, then divide out whatever extra constant the chain rule dragged out in front. Because the inside of every integral here is linear, that extra constant is always a single fixed number, and cancelling it is the whole technique.",
+      "Try a specific one before any general rule: integrate $e^{3x}$. The obvious guess is $e^{3x}$ itself, since the exponential is its own antiderivative. But differentiate the guess to test it, and the chain rule brings the inner derivative of $3x$ down the front, giving $3e^{3x}$, which is three times too big. That extra 3 is the whole problem, so divide the guess by 3. The antiderivative is $\\tfrac13 e^{3x}$, and differentiating $\\tfrac13 e^{3x}$ now returns exactly $e^{3x}$.",
+      "The same reasoning gives the general rule and shows where the $1/a$ comes from. Differentiating $e^{ax+b}$ by the chain rule gives $a\\,e^{ax+b}$, because the inner derivative of $ax+b$ is $a$. So the raw guess $e^{ax+b}$ always overshoots by a factor of $a$, and dividing by $a$ repairs it: the integral of $e^{ax+b}$ is $\\tfrac1a e^{ax+b}+C$. The $1/a$ is never a fact to memorise on its own; it is precisely the inner derivative you have to undo.",
+      "Every linear composite behaves this way. Differentiating $\\sin(ax+b)$ gives $a\\cos(ax+b)$, so integrating $\\cos(ax+b)$ needs the $1/a$, giving $\\tfrac1a\\sin(ax+b)$; integrating $\\sin(ax+b)$ carries the same $1/a$ plus the minus sign from $\\tfrac{d}{dx}\\cos = -\\sin$, giving $-\\tfrac1a\\cos(ax+b)$. The reciprocal is the same story: $\\tfrac{d}{dx}\\ln|ax+b| = \\tfrac{a}{ax+b}$ by the chain rule, so the integral of $\\tfrac{1}{ax+b}$ is $\\tfrac1a\\ln|ax+b|+C$, with the absolute value kept for the same reason as $\\int\\tfrac1x\\,dx$: $ax+b$ can be negative.",
+      "The one error that costs marks is writing the guess and forgetting to divide by $a$, for example giving $e^{2x}$ as the integral of $e^{2x}$. It always fails the check: differentiating $e^{2x}$ returns $2e^{2x}$, not $e^{2x}$, so the missing $\\tfrac12$ is exposed at once. Make differentiating your answer back a habit. In NSW exams these forms sit inside definite integrals, areas and motion problems, where a dropped $1/a$ quietly ruins the final number.",
     ],
     latexBlocks: [
-      "\\int e^{ax+b}\\,dx=\\frac{1}{a}e^{ax+b}+C",
-      "\\int \\frac{1}{ax+b}\\,dx=\\frac{1}{a}\\ln|ax+b|+C",
-      "\\int \\cos(ax+b)\\,dx=\\frac{1}{a}\\sin(ax+b)+C",
-      "\\int \\sin(ax+b)\\,dx=-\\frac{1}{a}\\cos(ax+b)+C",
+      "\\frac{d}{dx}e^{ax+b}=a\\,e^{ax+b}\\quad\\Rightarrow\\quad \\int e^{ax+b}\\,dx=\\frac{1}{a}e^{ax+b}+C",
+      "\\int \\cos(ax+b)\\,dx=\\frac{1}{a}\\sin(ax+b)+C \\qquad \\int \\sin(ax+b)\\,dx=-\\frac{1}{a}\\cos(ax+b)+C",
+      "\\frac{d}{dx}\\ln|ax+b|=\\frac{a}{ax+b}\\quad\\Rightarrow\\quad \\int \\frac{1}{ax+b}\\,dx=\\frac{1}{a}\\ln|ax+b|+C",
+      "\\int (ax+b)^n\\,dx=\\frac{1}{a}\\cdot\\frac{(ax+b)^{n+1}}{n+1}+C\\qquad(n\\neq-1)",
     ],
   },
   [
     {
-      title: "Exponential reverse chain",
+      title: "Exponential: guess, check, divide out",
       questionLatex: "\\int e^{3x+1}\\,dx",
       steps: [
-        { explanation: "The inner derivative of 3x+1 is 3.", latex: "\\frac{d}{dx}(3x+1)=3" },
-        { explanation: "Divide by the inner derivative.", latex: "\\frac{1}{3}e^{3x+1}+C" },
+        { explanation: "Write down the obvious guess. The exponential is its own antiderivative, so start with e^{3x+1} and expect to adjust the constant.", latex: "\\text{guess: } e^{3x+1}" },
+        { explanation: "Differentiate the guess to test it. The chain rule brings the inner derivative of 3x+1, which is 3, down the front.", latex: "\\frac{d}{dx}e^{3x+1}=3e^{3x+1}" },
+        { explanation: "The check overshoots by a factor of 3, so divide the guess by 3 to cancel it, and add +C for the indefinite integral.", latex: "\\frac{1}{3}e^{3x+1}+C" },
+        { explanation: "Verify by differentiating the answer: the 1/3 and the inner derivative 3 cancel, rebuilding the integrand exactly.", latex: "\\frac{d}{dx}\\left(\\frac13 e^{3x+1}\\right)=\\frac13\\cdot 3\\,e^{3x+1}=e^{3x+1}" },
       ],
       finalAnswerLatex: "\\frac13e^{3x+1}+C",
     },
     {
-      title: "Logarithmic reverse chain",
+      title: "Logarithmic: where the 1/a comes from",
       questionLatex: "\\int \\frac{1}{2x-5}\\,dx",
       steps: [
-        { explanation: "The inner derivative of 2x - 5 is 2." },
-        { explanation: "Use the reciprocal-log form with a factor of one half.", latex: "\\frac12\\ln|2x-5|+C" },
+        { explanation: "A reciprocal integrand points to a logarithm, so guess ln|2x-5|. The absolute value keeps it valid when 2x-5 is negative.", latex: "\\text{guess: } \\ln|2x-5|" },
+        { explanation: "Differentiate the guess. By the chain rule the inner derivative of 2x-5 is 2, so a factor of 2 lands on top.", latex: "\\frac{d}{dx}\\ln|2x-5|=\\frac{2}{2x-5}" },
+        { explanation: "The check is twice too big, so divide the guess by 2 and add +C.", latex: "\\frac{1}{2}\\ln|2x-5|+C" },
+        { explanation: "Verify: the 1/2 cancels the inner derivative 2, returning the original integrand.", latex: "\\frac{d}{dx}\\left(\\frac12\\ln|2x-5|\\right)=\\frac12\\cdot\\frac{2}{2x-5}=\\frac{1}{2x-5}" },
       ],
       finalAnswerLatex: "\\frac12\\ln|2x-5|+C",
     },
     {
-      title: "Trigonometric reverse chain",
+      title: "Trigonometric: the same divide-by-a fix",
       questionLatex: "\\int \\cos(4x)\\,dx",
       steps: [
-        { explanation: "The inner derivative of 4x is 4." },
-        { explanation: "Integrating cosine gives sine, then divide by 4.", latex: "\\frac14\\sin(4x)+C" },
+        { explanation: "Guess the antiderivative of cosine, which is sine, so start with sin(4x).", latex: "\\text{guess: } \\sin(4x)" },
+        { explanation: "Differentiate to check. The slope of sine is cosine, and the chain rule brings the inner derivative 4 down the front.", latex: "\\frac{d}{dx}\\sin(4x)=4\\cos(4x)" },
+        { explanation: "The extra 4 must be divided out, giving the antiderivative plus C.", latex: "\\frac{1}{4}\\sin(4x)+C" },
+        { explanation: "Verify: the 1/4 cancels the inner derivative 4, returning cos(4x).", latex: "\\frac{d}{dx}\\left(\\frac14\\sin(4x)\\right)=\\frac14\\cdot 4\\cos(4x)=\\cos(4x)" },
       ],
       finalAnswerLatex: "\\frac14\\sin(4x)+C",
     },
@@ -270,10 +320,10 @@ export const reverseChainRuleLesson = furtherIntegralLesson(
     intChoice("fint-chain-i5", "Choose the correct antiderivative.", "\\int 6x e^{3x^2}\\,dx", "A", ["$e^{3x^2}+C$", "$6e^{3x^2}+C$", "$18x e^{3x^2}+C$", "$\\frac16e^{3x^2}+C$"], "The integrand is exactly the inner derivative times $e^{3x^2}$."),
   ],
   [
-    { mistake: "Forgetting to divide by the inner derivative.", fix: "Check by differentiating the proposed antiderivative." },
-    { mistake: "Using the same sign for sine and cosine integrals.", fix: "Integrating sine gives negative cosine." },
-    { mistake: "Writing $\\ln(ax+b)$ without a scale factor.", fix: "Include $\\frac1a$ for $\\int \\frac1{ax+b}\\,dx$." },
-    { mistake: "Assuming every composite integral needs a new method.", fix: "Many syllabus examples are simple reverse-chain patterns." },
+    { mistake: "Forgetting to divide by the inner derivative.", fix: "Differentiating the antiderivative multiplies by the inner derivative $a$, so reversing it must divide by $a$. Differentiate your answer: if it comes back $a$ times too big, you dropped the $\\frac1a$." },
+    { mistake: "Using the same sign for sine and cosine integrals.", fix: "Integrating sine gives negative cosine, because $\\frac{d}{dx}\\cos = -\\sin$. Differentiate your candidate and confirm the sign matches the integrand." },
+    { mistake: "Writing $\\ln(ax+b)$ without a scale factor.", fix: "By the chain rule $\\frac{d}{dx}\\ln|ax+b|=\\frac{a}{ax+b}$, so $\\int \\frac1{ax+b}\\,dx$ needs the $\\frac1a$ to cancel that $a$." },
+    { mistake: "Assuming every composite integral needs a new method.", fix: "Any linear inside $ax+b$ is handled by the same guess-check-divide routine; there is no separate rule to learn." },
   ],
   [
     intChoice("fint-chain-m1", "Choose the correct antiderivative.", "\\int e^{5x}\\,dx", "C", ["$e^{5x}+C$", "$5e^{5x}+C$", "$\\frac15e^{5x}+C$", "$e^x+C$"], "Divide by the inner derivative 5."),
@@ -304,44 +354,101 @@ export const definiteIntegralsStandardFormsLesson = furtherIntegralLesson(
   ],
   {
     paragraphs: [
-      "A definite integral gives a signed accumulation over an interval.",
-      "For standard forms, first choose the antiderivative, then substitute the upper and lower limits.",
-      "Trigonometric limits such as 0, pi over 2 and pi are chosen because their exact values are known.",
-      "For reciprocal integrals, logarithms appear after antidifferentiation.",
-      "If a graph is below the x-axis, the definite integral is negative even though geometric area is positive.",
+      "A definite integral of a standard form measures the net signed area the curve sweeps out between two x-values, the lower limit a and the upper limit b. Picture the region between the curve and the x-axis from a to b: pieces above the axis count as positive area and pieces below the axis count as negative area, and the definite integral is their running balance. That signed-area picture is the mental model to keep. Even if you forget the mechanics, a definite integral is just accumulated signed area over an interval.",
+      "Why does subtracting two antiderivative values give that accumulated area? Because an antiderivative F is the running total of the area. As x moves right, area builds up at the rate f(x), and F is precisely the function whose rate of change is f, so F(x) is the amount of signed area collected up to x. The area gathered between a and b is then the running total at the end minus the running total at the start, F(b) - F(a). This is the Fundamental Theorem of Calculus recalled: the change in the running total over the interval is the net accumulation across it. Any +C sits in both F(b) and F(a) and cancels in the subtraction, which is why a definite integral never carries a +C.",
+      "Try one by hand before the general rule. For the integral of cos x from 0 to pi/2, first ask what differentiates to cos x: the slope of sin x is cos x, so the running total is F(x) = sin x. The area collected by x = pi/2 is F(pi/2) = sin(pi/2) = 1, and the area collected by the start x = 0 is F(0) = sin 0 = 0. Subtracting, the net accumulation is 1 - 0 = 1. The whole calculation is just three moves: find the running total, read it at both limits, subtract.",
+      "The same three moves work for every standard form. Choose the antiderivative first (sin x for cos x, -cos x for sin x, e^x for e^x, ln|x| for 1/x), then substitute the upper limit and the lower limit and subtract. Trigonometric limits such as 0, pi/2 and pi are chosen because their sine and cosine values are exact, and reciprocal integrals turn into differences of logarithms, so answers like e - 1 or ln 2 should be left exact rather than rounded on a calculator.",
+      "The sign of the result carries meaning, and this is where students slip. Sketch y = -sin x from 0 to pi: because sin x is positive across that interval, -sin x is negative, so the curve dips entirely below the x-axis. Its definite integral comes out negative, and that minus sign is not an error. It records that the region lies below the axis, so the signed area is negative while the geometric area, the actual size of the region, is positive. Read a negative definite integral as 'below the axis on balance', not as 'no area'.",
     ],
     latexBlocks: [
-      "\\int_a^b f(x)\\,dx=F(b)-F(a)",
-      "\\int_0^{\\pi/2}\\sin x\\,dx=1",
-      "\\int_0^1 e^x\\,dx=e-1",
-      "\\int_1^e \\frac1x\\,dx=1",
+      "\\int_a^b f(x)\\,dx=\\Big[F(x)\\Big]_a^b=F(b)-F(a) \\qquad \\text{(running total at } b \\text{ minus running total at } a\\text{)}",
+      "\\int \\cos x\\,dx=\\sin x,\\quad \\int \\sin x\\,dx=-\\cos x,\\quad \\int e^x\\,dx=e^x,\\quad \\int \\frac1x\\,dx=\\ln|x|",
+      "\\int_0^{\\pi}(-\\sin x)\\,dx=\\big[\\cos x\\big]_0^{\\pi}=\\cos\\pi-\\cos 0=-1-1=-2 \\quad(\\text{signed area }-2,\\ \\text{geometric area }2)",
     ],
   },
   [
     {
-      title: "Evaluate a sine integral",
+      title: "Worked example 1: a sine integral, shown in full",
       questionLatex: "\\int_0^{\\pi/2}\\sin x\\,dx",
       steps: [
-        { explanation: "Use negative cosine as an antiderivative.", latex: "F(x)=-\\cos x" },
-        { explanation: "Substitute the upper and lower limits.", latex: "F\\left(\\frac\\pi2\\right)-F(0)=0-(-1)" },
+        {
+          explanation:
+            "Choose the running total first. Ask what differentiates to sin x: the slope of -cos x is -(-sin x) = sin x, so F(x) = -cos x. No +C is written, because on a definite integral the constant cancels when we subtract.",
+          latex: "F(x)=-\\cos x",
+        },
+        {
+          explanation:
+            "Read the running total at the upper limit x = pi/2. This is the signed area collected by the top of the interval.",
+          latex: "F\\left(\\tfrac{\\pi}{2}\\right)=-\\cos\\tfrac{\\pi}{2}=-0=0",
+        },
+        {
+          explanation:
+            "Read the running total at the lower limit x = 0. This is the signed area collected at the start.",
+          latex: "F(0)=-\\cos 0=-1",
+        },
+        {
+          explanation:
+            "Subtract start from end: the net accumulation is F(pi/2) - F(0). The result is positive because sin x sits above the axis on this interval, so area builds up.",
+          latex: "F\\left(\\tfrac{\\pi}{2}\\right)-F(0)=0-(-1)=1",
+        },
       ],
       finalAnswerLatex: "1",
     },
     {
-      title: "Evaluate an exponential integral",
-      questionLatex: "\\int_0^1 e^x\\,dx",
+      title: "Worked example 2: a reciprocal integral, kept exact",
+      questionLatex: "\\int_1^e \\frac1x\\,dx",
       steps: [
-        { explanation: "The antiderivative of e^x is e^x.", latex: "F(x)=e^x" },
-        { explanation: "Evaluate at the limits.", latex: "e^1-e^0=e-1" },
+        {
+          explanation:
+            "The antiderivative of 1/x is ln|x|. On the interval from 1 to e every x is positive, so the absolute value is unnecessary and the running total is F(x) = ln x.",
+          latex: "F(x)=\\ln x",
+        },
+        {
+          explanation:
+            "Read the running total at the upper limit x = e, using ln e = 1.",
+          latex: "F(e)=\\ln e=1",
+        },
+        {
+          explanation:
+            "Read the running total at the lower limit x = 1, using ln 1 = 0.",
+          latex: "F(1)=\\ln 1=0",
+        },
+        {
+          explanation:
+            "Subtract to get the net accumulation. The exact value is 1; leave it exact rather than as a rounded decimal.",
+          latex: "F(e)-F(1)=1-0=1",
+        },
       ],
-      finalAnswerLatex: "e-1",
+      finalAnswerLatex: "1",
     },
     {
-      title: "Signed area below the axis",
+      title: "Worked example 3: signed area below the axis",
       questionLatex: "\\int_0^\\pi -\\sin x\\,dx",
       steps: [
-        { explanation: "The function is below the x-axis on the interval." },
-        { explanation: "The integral is the negative of the area under sine from 0 to pi.", latex: "-2" },
+        {
+          explanation:
+            "Sketch y = -sin x from 0 to pi. Since sin x is positive across this interval, -sin x is negative, so the curve lies entirely below the x-axis. Predict the signed value will be negative.",
+        },
+        {
+          explanation:
+            "Choose the running total. Ask what differentiates to -sin x: the slope of cos x is -sin x, so F(x) = cos x.",
+          latex: "F(x)=\\cos x",
+        },
+        {
+          explanation:
+            "Read the running total at the upper limit x = pi.",
+          latex: "F(\\pi)=\\cos\\pi=-1",
+        },
+        {
+          explanation:
+            "Read the running total at the lower limit x = 0.",
+          latex: "F(0)=\\cos 0=1",
+        },
+        {
+          explanation:
+            "Subtract: the net accumulation is -2. The minus sign records that the region lies below the axis, so the signed area is -2 while the geometric area of the region is 2.",
+          latex: "F(\\pi)-F(0)=-1-1=-2",
+        },
       ],
       finalAnswerLatex: "-2",
     },
@@ -360,8 +467,9 @@ export const definiteIntegralsStandardFormsLesson = furtherIntegralLesson(
     intChoice("fint-def-i5", "What does a negative definite integral indicate?", "\\int_a^b f(x)\\,dx<0", "B", ["No area exists", "Signed area is negative over the interval", "The interval is invalid", "The antiderivative is impossible"], "A definite integral is signed accumulation."),
   ],
   [
-    { mistake: "Adding +C after evaluating a definite integral.", fix: "Use +C only for indefinite integrals." },
-    { mistake: "Substituting the lower limit first.", fix: "Compute upper value minus lower value." },
+    { mistake: "Adding +C after evaluating a definite integral.", fix: "Use +C only for indefinite integrals; on a definite integral the constant sits in both F(b) and F(a) and cancels when you subtract." },
+    { mistake: "Substituting the lower limit first.", fix: "Compute upper value minus lower value: F(b) - F(a) is the running total at the end minus the running total at the start." },
+    { mistake: "Using cos x as the antiderivative of sin x.", fix: "Since d/dx(-cos x) = sin x, the antiderivative of sin x is -cos x; a lost minus sign flips the sign of the whole answer." },
     { mistake: "Treating signed area as geometric area.", fix: "A negative integral may correspond to positive geometric area below the axis." },
     { mistake: "Using decimal approximations when exact values are expected.", fix: "Keep values such as $e-1$ and logarithms exact." },
   ],
@@ -394,17 +502,17 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
   ],
   {
     paragraphs: [
-      "Area between curves is found by integrating the vertical distance between the curves.",
-      "On an interval where one curve stays above the other, use top minus bottom.",
-      "If the curves cross inside the interval, a single top-minus-bottom expression may become negative on part of the interval.",
-      "When curves cross, split the interval at the intersection and add positive area pieces.",
-      "Multiple-choice setups are used here because equivalent symbolic setup forms can be fragile to mark as typed answers.",
+      "Picture the region between two curves cut into a stack of thin vertical strips, exactly as you sliced the area under a single curve. Each strip is a tall rectangle whose top edge rests on the higher curve and whose bottom edge rests on the lower curve. Its height is therefore the vertical distance between the curves at that $x$, and its width is a tiny $dx$. That mental picture is the whole lesson: the area is just the sum of all these strips.",
+      "Try one strip with numbers before any integral. Take the lines $y=4$ and $y=x$ and stand a strip at $x=1$. The top edge is at $4$ and the bottom edge is at $1$, so this strip has height $4-1=3$ and covers about $3\\,dx$ square units. Slide the strip to $x=2$ and its height becomes $4-2=2$: the height keeps changing, which is exactly why we cannot use one rectangle and must add infinitely many thin ones.",
+      "A representative strip at position $x$ has height (top curve minus bottom curve) and width $dx$, so its area is $(\\text{top}-\\text{bottom})\\,dx$. Adding every strip from $x=a$ to $x=b$ and letting the width shrink to zero turns the sum into the definite integral $\\int_a^b(\\text{top}-\\text{bottom})\\,dx$. When you are not told where the region begins and ends, the bounds are the points where the curves meet, so set $f(x)=g(x)$ and solve to find them.",
+      "The order of the subtraction is where signed area and geometric area part ways. Height is a distance, so top minus bottom must come out positive; if the curves swap which one is on top partway along, then a single $(f-g)$ written for the whole interval goes negative on the part where the roles are reversed. Those negative strip contributions cancel the positive ones, so the plain integral gives signed area, which can be zero even when the region clearly covers space. Geometric area is the true amount of space, and it is never negative. To get it, split the interval at each crossing and write top minus bottom correctly on each piece so every strip height is positive, then add the pieces.",
+      "In NSW exam questions the bounds are usually the intersection points found by setting the curves equal, and a common trap is a curve that crosses the x-axis inside the interval. If a question asks for total area, split at the crossing and add positive pieces; if it asks for the value of a definite integral, leave the signs alone.",
     ],
     latexBlocks: [
-      "\\text{Area}=\\int_a^b (\\text{top}-\\text{bottom})\\,dx",
-      "f(x)=g(x)\\Rightarrow \\text{intersection points}",
-      "\\text{if curves cross, split the interval}",
-      "\\text{geometric area is non-negative}",
+      "\\text{one strip: area}\\approx(\\text{top}-\\text{bottom})\\times dx",
+      "\\text{Area}=\\lim_{dx\\to0}\\sum(\\text{top}-\\text{bottom})\\,dx=\\int_a^b(\\text{top}-\\text{bottom})\\,dx",
+      "f(x)=g(x)\\ \\Rightarrow\\ \\text{intersection bounds; split here if the curves cross}",
+      "\\text{signed area can be }0\\text{ while geometric area}>0",
     ],
   },
   [
@@ -412,11 +520,12 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
       title: "Top minus bottom",
       questionLatex: "y=4,\\quad y=x,\\quad 0\\le x\\le2",
       steps: [
-        { explanation: "The top curve is y = 4 and the bottom curve is y = x on the interval." },
-        { explanation: "Set up top minus bottom.", latex: "\\int_0^2(4-x)\\,dx" },
-        { explanation: "Evaluate the area.", latex: "[4x-\\frac{x^2}{2}]_0^2=6" },
+        { explanation: "Test a point inside the interval to see which curve is higher. At $x=1$ the line $y=4$ sits at $4$ and $y=x$ sits at $1$, and since $4$ stays above $x$ for every $x$ in $[0,2]$, the top is $y=4$ and the bottom is $y=x$.", latex: "\\text{at }x=1:\\ 4>1\\ \\Rightarrow\\ y=4\\text{ on top}" },
+        { explanation: "A strip at position $x$ has height top minus bottom and width $dx$; summing the strips across the interval is the integral.", latex: "\\text{Area}=\\int_0^2(4-x)\\,dx" },
+        { explanation: "Antidifferentiate the strip height term by term.", latex: "\\int(4-x)\\,dx=4x-\\frac{x^2}{2}" },
+        { explanation: "Evaluate at the bounds and subtract to get the accumulated area of all strips.", latex: "\\left[4x-\\frac{x^2}{2}\\right]_0^2=(8-2)-0=6" },
       ],
-      finalAnswerLatex: "6",
+      finalAnswerLatex: "6\\text{ square units}",
       cartesianGraph: {
         description: "The horizontal line y equals 4 stays above the line y equals x from x equals 0 to x equals 2. The vertical gap between the lines is shaded.",
         xMin: -0.5, xMax: 2.5, yMin: -1, yMax: 5, xStep: 0.5, yStep: 1,
@@ -438,11 +547,13 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
       title: "Find intersections first",
       questionLatex: "y=x,\\quad y=x^2",
       steps: [
-        { explanation: "Set the equations equal.", latex: "x=x^2" },
-        { explanation: "Solve for intersections.", latex: "x=0,1" },
-        { explanation: "On 0 to 1, x is above x squared.", latex: "\\int_0^1(x-x^2)\\,dx" },
+        { explanation: "No interval is given, so the region is the piece enclosed between the curves. Its edges are where the curves meet, found by setting them equal.", latex: "x=x^2\\ \\Rightarrow\\ x-x^2=0\\ \\Rightarrow\\ x(1-x)=0" },
+        { explanation: "The two solutions are the bounds of the region.", latex: "x=0\\quad\\text{and}\\quad x=1" },
+        { explanation: "Decide the top by testing a point between the bounds. At $x=\\tfrac12$ the line gives $0.5$ and the parabola gives $0.25$, so $y=x$ is above and each strip runs from $x^2$ up to $x$.", latex: "\\text{at }x=\\tfrac12:\\ x=0.5>x^2=0.25" },
+        { explanation: "Set up top minus bottom and antidifferentiate.", latex: "\\int_0^1(x-x^2)\\,dx=\\left[\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_0^1" },
+        { explanation: "Evaluate at the bounds.", latex: "\\left(\\frac12-\\frac13\\right)-0=\\frac16" },
       ],
-      finalAnswerLatex: "\\frac16",
+      finalAnswerLatex: "\\frac16\\text{ square units}",
       cartesianGraph: {
         description: "The line y equals x and the parabola y equals x squared meet at x equals 0 and x equals 1. The gap between the curves is shaded on that interval.",
         xMin: -0.5, xMax: 1.5, yMin: -0.5, yMax: 2, xStep: 0.5, yStep: 0.5,
@@ -459,14 +570,16 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
       },
     },
     {
-      title: "Split when curves cross",
+      title: "Signed area versus geometric area",
       questionLatex: "y=x,\\quad y=0,\\quad -1\\le x\\le1",
       steps: [
-        { explanation: "The graph crosses the x-axis at x = 0." },
-        { explanation: "Use absolute area by splitting.", latex: "\\int_{-1}^0(0-x)\\,dx+\\int_0^1(x-0)\\,dx" },
-        { explanation: "Each triangular part has area one half." },
+        { explanation: "The bottom boundary is the x-axis, $y=0$. The line $y=x$ is below the axis on $(-1,0)$ and above it on $(0,1)$, so the two curves swap which is on top at the crossing $x=0$.", latex: "y=x=0\\ \\Rightarrow\\ \\text{crossing at }x=0" },
+        { explanation: "First take one signed integral across the whole interval without splitting. The strips left of $0$ have negative height and cancel the positive strips on the right.", latex: "\\int_{-1}^1(x-0)\\,dx=\\left[\\frac{x^2}{2}\\right]_{-1}^1=\\frac12-\\frac12=0" },
+        { explanation: "So the signed area is $0$, yet the region plainly covers two triangles of space. That zero is the cancellation warning, not the true area. To get geometric area, split at the crossing and write top minus bottom so each strip height is positive.", latex: "\\text{Area}=\\int_{-1}^0(0-x)\\,dx+\\int_0^1(x-0)\\,dx" },
+        { explanation: "Left piece: below the axis the top is $y=0$ and the bottom is $y=x$.", latex: "\\int_{-1}^0(-x)\\,dx=\\left[-\\frac{x^2}{2}\\right]_{-1}^0=0-\\left(-\\frac12\\right)=\\frac12" },
+        { explanation: "Right piece: above the axis the top is $y=x$. Add the two positive pieces.", latex: "\\int_0^1 x\\,dx=\\frac12,\\quad \\text{Area}=\\frac12+\\frac12=1" },
       ],
-      finalAnswerLatex: "1",
+      finalAnswerLatex: "\\text{geometric area}=1\\text{ (signed integral}=0)",
       cartesianGraph: {
         description: "The line y equals x crosses the x-axis at x equals 0. The two triangular regions are shaded separately so their positive geometric areas can be added.",
         xMin: -1.5, xMax: 1.5, yMin: -1.5, yMax: 1.5, xStep: 0.5, yStep: 0.5,
@@ -512,6 +625,7 @@ export const areaBetweenCurvesExtendedLesson = furtherIntegralLesson(
     { mistake: "Forgetting to find intersections.", fix: "Intersections often become the limits of integration." },
     { mistake: "Failing to split when curves cross.", fix: "Split at crossing points for geometric area." },
     { mistake: "Reporting a negative geometric area.", fix: "Geometric area is non-negative; signed integrals can be negative." },
+    { mistake: "Reading a signed integral of zero as no area.", fix: "A crossing makes positive and negative strips cancel; split at the crossing to recover the true geometric area." },
   ],
   [
     intChoice("fint-area-m1", "Choose the correct setup.", "y=4,\\quad y=x,\\quad 0\\le x\\le2", "A", ["$\\int_0^2(4-x)\\,dx$", "$\\int_0^2(x-4)\\,dx$", "$\\int_0^4(2-x)\\,dx$", "$\\int_0^2(4+x)\\,dx$"], "Use top minus bottom."),
