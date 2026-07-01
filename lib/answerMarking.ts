@@ -43,6 +43,13 @@ function normaliseText(value: string) {
     .replace(/\\right\s*\)/g, ")")
     .replace(/\\left\s*\[/g, "[")
     .replace(/\\right\s*\]/g, "]")
+    // Brace-less \frac shorthand \u2192 braced form so the rules below can convert it.
+    // LaTeX lets each \frac argument be a single bare token: \frac12 means \frac{1}{2},
+    // \frac1{2x} means \frac{1}{2x}. MathLive always emits braces, so this only affects
+    // hand-authored stored answers \u2014 without it, a stored "\frac12" never matches the
+    // student's "\frac{1}{2}". Wrap the first bare argument, then the second.
+    .replace(/\\(d?frac)([0-9a-zA-Z])/g, "\\$1{$2}")
+    .replace(/(\\d?frac\{(?:[^{}]|\{[^{}]*\})*\})([0-9a-zA-Z])/g, "$1{$2}")
     // Simple fractions: \frac{a}{b} \u2192 a/b when numerator+denominator are tokens
     // (no operators); complex fractions fall through to (a)/(b).
     .replace(

@@ -25,6 +25,11 @@ test("\\pi matches pi", () => assert.equal(mark("\\pi", "pi"), true));
 test("\\theta matches theta", () => assert.equal(mark("\\theta", "theta"), true));
 test("\\infty matches infinity", () => assert.equal(mark("\\infty", "infinity"), true));
 test("\\left(x+1\\right) matches (x+1)", () => assert.equal(mark("\\left(x+1\\right)", "(x+1)"), true));
+// Brace-less \frac shorthand in stored answers must match MathLive's braced student output.
+test("student \\frac{1}{2} matches stored \\frac12", () => assert.equal(mark("\\frac{1}{2}", "\\frac12"), true));
+test("\\frac1{2x} shorthand matches braced", () => assert.equal(mark("\\frac{1}{2x}", "\\frac1{2x}"), true));
+test("integral: student answer matches stored \\frac12 ln", () =>
+  assert.equal(mark("\\frac{1}{2}\\ln\\left|2x-1\\right|+C", "\\frac12\\ln|2x-1|+C"), true));
 
 // inequality/symbol normalisation
 test("not-equal matches !=", () => assert.equal(mark("x≠0", "x!=0"), true));
