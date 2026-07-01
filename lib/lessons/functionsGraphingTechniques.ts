@@ -125,7 +125,7 @@ export const domainRangeFunctionNotationLesson: ExplicitLesson = {
     {
       id: "domain-guided-2",
       prompt: "Complete the substitution:",
-      latex: "f(x)=x^2+1, \\quad f(x+1)=(x+1)^2+\\Box",
+      latex: "",
       answer: "1",
       hint: "Replace $x$ with $x+1$, then keep the constant term.",
       explanation: "$f(x+1)=(x+1)^2+1$.",
@@ -2559,7 +2559,7 @@ export const modellingWithFunctionsLesson: ExplicitLesson = {
     {
       id: "model-composite-m1",
       prompt: "If $f(x)=x^2$ and $g(x)=x+3$, find $f(g(1))$.",
-      latex: "f(g(1))=f(1+3)=f(4)",
+      latex: "",
       answer: "16",
       acceptedAnswers: [],
       hint: "First find $g(1)$, then apply $f$ to that result.",
@@ -2569,7 +2569,7 @@ export const modellingWithFunctionsLesson: ExplicitLesson = {
     {
       id: "model-composite-m2",
       prompt: "If $f(x)=2x-1$ and $g(x)=x^2$, find $f(g(3))$.",
-      latex: "g(3)=3^2=9",
+      latex: "",
       answer: "17",
       acceptedAnswers: [],
       hint: "Evaluate $g(3)$ first, then substitute into $f$.",
@@ -2579,7 +2579,7 @@ export const modellingWithFunctionsLesson: ExplicitLesson = {
     {
       id: "model-composite-m3",
       prompt: "Choose the expression for $f(g(x))$ when $f(x)=x^2$ and $g(x)=3x+1$.",
-      latex: "f(g(x))=f(3x+1)",
+      latex: "",
       answer: "B",
       choices: [
         { label: "A", text: "$3x^2+1$" },

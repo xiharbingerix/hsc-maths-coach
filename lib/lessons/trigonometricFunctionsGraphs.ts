@@ -364,7 +364,7 @@ export const radiansExactValuesUnitCircleLesson: ExplicitLesson = {
       id: "rauc-pool-d5-3",
       prompt:
         "A circle has radius 5. Find the length of the arc subtending an angle of 1.2 radians at the centre.",
-      latex: "\\ell = r\\theta,\\ r=5,\\ \\theta=1.2",
+      latex: "",
       answer: "6",
       acceptedAnswers: ["6 units"],
       hint: "Arc length ℓ = rθ (θ in radians).",
@@ -374,7 +374,7 @@ export const radiansExactValuesUnitCircleLesson: ExplicitLesson = {
     {
       id: "rauc-pool-d5-4",
       prompt: "Find the exact area of a sector with radius 4 and angle π/2.",
-      latex: "A = \\tfrac12 r^2\\theta,\\ r=4,\\ \\theta=\\tfrac{\\pi}{2}",
+      latex: "",
       answer: "4π",
       acceptedAnswers: ["4pi", "4\\pi"],
       hint: "Area = ½ r²θ.",

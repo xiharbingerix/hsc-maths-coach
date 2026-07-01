@@ -153,7 +153,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-ind-1",
       prompt: "Find the amount after 2 years.",
-      latex: "A=P(1+r)^n,\\quad P=\\$1000,\\quad r=6\\%,\\quad n=2",
+      latex: "",
       answer: "1123.60",
       acceptedAnswers: ["$1123.60", "$1,123.60", "1,123.60", "1123.6"],
       hint: "Evaluate the power first, then multiply by 1000.",
@@ -162,7 +162,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-ind-2",
       prompt: "Find the value after 3 years.",
-      latex: "V=P(1-r)^n,\\quad P=\\$5000,\\quad r=10\\%,\\quad n=3",
+      latex: "",
       answer: "3645",
       acceptedAnswers: ["3645.00", "$3645", "$3645.00", "$3,645.00", "3,645"],
       hint: "This is a repeated 10% decrease.",
@@ -197,7 +197,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-ind-5",
       prompt: "Find the final amount to the nearest cent.",
-      latex: "A=P(1+r)^n,\\quad P=\\$3000,\\quad r=2.5\\%,\\quad n=4",
+      latex: "",
       answer: "3311.44",
       acceptedAnswers: ["$3311.44", "$3,311.44", "3,311.44"],
       hint: "Evaluate the expression and round at the end.",
@@ -275,7 +275,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-mastery-6",
       prompt: "A value is multiplied by $1.08$ each year. What is the annual percentage increase?",
-      latex: "1.08=1+r",
+      latex: "",
       answer: "8%",
       acceptedAnswers: ["8", "8 percent", "8%"],
       hint: "Find $1.08-1$.",
@@ -310,7 +310,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-mastery-9",
       prompt: "Find the final amount to the nearest cent.",
-      latex: "A=750(1.03)^5",
+      latex: "",
       answer: "869.46",
       acceptedAnswers: ["$869.46", "869.46"],
       hint: "Do not round until the end.",
@@ -319,7 +319,7 @@ export const growthFactorsCompoundInterestDepreciationLesson: ExplicitLesson = {
     {
       id: "growth-mastery-10",
       prompt: "A savings balance uses $A=P(1.025)^n$. What rate is being applied each period?",
-      latex: "1.025=1+r",
+      latex: "",
       answer: "2.5%",
       acceptedAnswers: ["2.5", "2.5%", "2.5 percent"],
       hint: "Subtract 1 from the growth factor.",
@@ -752,7 +752,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-guided-4",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right),\\quad M=\\$100,\\quad r=0.01,\\quad n=3",
+      latex: "",
       answer: "303.01",
       acceptedAnswers: ["$303.01"],
       hint: "Evaluate the bracket first.",
@@ -764,7 +764,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-ind-1",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right),\\quad M=\\$50,\\quad r=0.02,\\quad n=5",
+      latex: "",
       answer: "260.20",
       acceptedAnswers: ["$260.20", "260.2"],
       hint: "Use the formula directly.",
@@ -802,7 +802,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-ind-5",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=M\\left(\\frac{(1+r)^n-1}{r}\\right),\\quad M=\\$120,\\quad r=0.005,\\quad n=8",
+      latex: "",
       answer: "976.97",
       acceptedAnswers: ["$976.97"],
       hint: "Evaluate and round at the end.",
@@ -862,7 +862,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-mastery-4",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=100\\left(\\frac{(1.01)^4-1}{0.01}\\right)",
+      latex: "",
       answer: "406.04",
       acceptedAnswers: ["$406.04"],
       hint: "Substitute directly.",
@@ -871,7 +871,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-mastery-5",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=250\\left(\\frac{(1.02)^3-1}{0.02}\\right)",
+      latex: "",
       answer: "765.10",
       acceptedAnswers: ["$765.10", "765.1"],
       hint: "Evaluate the bracket first.",
@@ -893,7 +893,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-mastery-7",
       prompt: "A student deposits $75 monthly for 10 months. The future value is $760.20. How much interest was earned?",
-      latex: "FV=760.20,\\quad \\text{deposits}=10\\times75",
+      latex: "",
       answer: "10.20",
       acceptedAnswers: ["$10.20", "10.2"],
       hint: "Compare the future value with the total amount deposited.",
@@ -910,7 +910,7 @@ export const futureValueAnnuitiesLesson: ExplicitLesson = {
     {
       id: "annuity-mastery-9",
       prompt: "Find the future value to the nearest cent.",
-      latex: "FV=80\\left(\\frac{(1.005)^6-1}{0.005}\\right)",
+      latex: "",
       answer: "486.03",
       acceptedAnswers: ["$486.03"],
       hint: "Round the final answer to cents.",
@@ -1024,7 +1024,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
     {
       id: "loan-guided-3",
       prompt: "Find the present value to the nearest cent.",
-      latex: "PV=\\frac{FV}{(1+r)^n},\\quad FV=\\$1000,\\quad r=5\\%,\\quad n=1",
+      latex: "",
       answer: "952.38",
       acceptedAnswers: ["$952.38"],
       hint: "Divide by 1.05.",
@@ -1063,7 +1063,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
     {
       id: "loan-ind-3",
       prompt: "Find the present value to the nearest cent.",
-      latex: "PV=\\frac{FV}{(1+r)^n},\\quad FV=\\$2000,\\quad r=4\\%,\\quad n=2",
+      latex: "",
       answer: "1849.11",
       acceptedAnswers: ["$1849.11", "$1,849.11"],
       hint: "Evaluate the denominator first.",
@@ -1147,7 +1147,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
     {
       id: "loan-mastery-4",
       prompt: "Find the present value to the nearest cent.",
-      latex: "PV=\\frac{1500}{1.03}",
+      latex: "",
       answer: "1456.31",
       acceptedAnswers: ["$1456.31", "$1,456.31"],
       hint: "Divide by 1.03.",
@@ -1182,7 +1182,7 @@ export const presentValueLoanRepaymentsLesson: ExplicitLesson = {
     {
       id: "loan-mastery-7",
       prompt: "Find the present value to the nearest cent.",
-      latex: "PV=\\frac{5000}{(1.05)^2}",
+      latex: "",
       answer: "4535.15",
       acceptedAnswers: ["$4535.15", "$4,535.15"],
       hint: "Use the present value formula.",
@@ -1310,7 +1310,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-guided-2",
       prompt: "Calculate Option A.",
-      latex: "A=P(1+r)^n,\\quad P=\\$1000,\\quad r=5\\%,\\quad n=2",
+      latex: "",
       answer: "1102.50",
       acceptedAnswers: ["$1102.50", "$1,102.50", "1102.5"],
       hint: "Evaluate the compound interest expression.",
@@ -1419,7 +1419,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-mastery-1",
       prompt: "Option A grows $3000 at 5% for 2 years. Option B grows $3000 at 4% for 2 years and adds a $70 bonus. Which investment has the larger final value?",
-      latex: "A=3000(1.05)^2,\\quad B=3000(1.04)^2+70",
+      latex: "",
       answer: "B",
       choices: [
         { label: "A", text: "Option A" },
@@ -1432,7 +1432,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-mastery-2",
       prompt: "A borrower compares two one-month loan options. Option A uses $L_1=1.01(5000)-400$. Option B uses $L_1=1.015(5000)-450$. Which leaves the lower balance?",
-      latex: "A=1.01(5000)-400,\\quad B=1.015(5000)-450",
+      latex: "",
       answer: "B",
       choices: [
         { label: "A", text: "Option A" },
@@ -1458,7 +1458,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-mastery-4",
       prompt: "Calculate the final value.",
-      latex: "A=3000(1.05)^4",
+      latex: "",
       answer: "3646.52",
       acceptedAnswers: ["$3646.52", "$3,646.52"],
       hint: "Evaluate and round to cents.",
@@ -1467,7 +1467,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-mastery-5",
       prompt: "Calculate the final value including the bonus.",
-      latex: "B=3000(1.048)^4+50",
+      latex: "",
       answer: "3668.82",
       acceptedAnswers: ["$3668.82", "$3,668.82"],
       hint: "Add the bonus after the compound value.",
@@ -1526,7 +1526,7 @@ export const comparingFinancialOptionsLesson: ExplicitLesson = {
     {
       id: "compare-mastery-10",
       prompt: "Calculate the difference.",
-      latex: "3668.82-3646.52",
+      latex: "",
       answer: "22.30",
       acceptedAnswers: ["$22.30"],
       hint: "Subtract the smaller final value from the larger.",
