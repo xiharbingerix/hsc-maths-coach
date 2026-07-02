@@ -241,28 +241,28 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ilr-g1",
           "Find 15% of $3200.",
-          "0.15 \\times 3200",
+          "",
           "$480",
           ["480"]
         ),
         financeShortAnswer(
           "y12s2-ilr-g2",
           "A laptop costs $1500. It is discounted by 20%. What is the new price?",
-          "1500 \\times 0.80",
+          "",
           "$1200",
           ["1200"]
         ),
         financeShortAnswer(
           "y12s2-ilr-g3",
           "Express $45 as a percentage of $180.",
-          "\\frac{45}{180} \\times 100",
+          "",
           "25%",
           ["25"]
         ),
         moneyAnswer(
           "y12s2-ilr-g4",
           "Find the simple interest on $5000 at 3% p.a. for 4 years.",
-          "I = 5000 \\times 0.03 \\times 4",
+          "",
           "$600",
           ["600"]
         ),
@@ -271,28 +271,28 @@ export function year12Standard2FinanceLessonOverride(
         financeShortAnswer(
           "y12s2-ilr-i1",
           "Find 7.5% of $4800.",
-          "0.075 \\times 4800",
+          "",
           "$360",
           ["360"]
         ),
         moneyAnswer(
           "y12s2-ilr-i2",
           "A rent of $520/week increases by 5%. What is the new weekly rent?",
-          "520 \\times 1.05",
+          "",
           "$546",
           ["546"]
         ),
         financeShortAnswer(
           "y12s2-ilr-i3",
           "Express $90 as a percentage of $360.",
-          "\\frac{90}{360} \\times 100",
+          "",
           "25%",
           ["25"]
         ),
         moneyAnswer(
           "y12s2-ilr-i4",
           "Find the final balance after $7000 earns simple interest at 5% p.a. for 2 years.",
-          "I = 7000 \\times 0.05 \\times 2 = 700;\\quad A = 7000 + 700",
+          "",
           "$7700",
           ["7700"]
         ),
@@ -326,42 +326,42 @@ export function year12Standard2FinanceLessonOverride(
         financeShortAnswer(
           "y12s2-ilr-m1",
           "Find 12% of $6500.",
-          "0.12 \\times 6500",
+          "",
           "$780",
           ["780"]
         ),
         moneyAnswer(
           "y12s2-ilr-m2",
           "A price of $250 increases by 6%. Find the new price.",
-          "250 \\times 1.06",
+          "",
           "$265",
           ["265"]
         ),
         financeShortAnswer(
           "y12s2-ilr-m3",
           "Express $36 as a percentage of $150.",
-          "\\frac{36}{150} \\times 100",
+          "",
           "24%",
           ["24"]
         ),
         moneyAnswer(
           "y12s2-ilr-m4",
           "Find the simple interest on $12 000 at 4% p.a. for 5 years.",
-          "I = 12000 \\times 0.04 \\times 5",
+          "",
           "$2400",
           ["2400"]
         ),
         financeShortAnswer(
           "y12s2-ilr-m5",
           "A car worth $24 000 falls in value by 18%. Find its new value.",
-          "24000 \\times 0.82",
+          "",
           "$19 680",
           ["19680", "$19,680"]
         ),
         moneyAnswer(
           "y12s2-ilr-m6",
           "Find the final balance when $10 000 earns 3.5% p.a. simple interest for 4 years.",
-          "I = 10000 \\times 0.035 \\times 4 = 1400;\\quad A = 10000 + 1400",
+          "",
           "$11 400",
           ["11400", "$11,400"]
         ),
@@ -375,14 +375,14 @@ export function year12Standard2FinanceLessonOverride(
         financeShortAnswer(
           "y12s2-ilr-m8",
           "Express $120 as a percentage of $800.",
-          "\\frac{120}{800} \\times 100",
+          "",
           "15%",
           ["15"]
         ),
         moneyAnswer(
           "y12s2-ilr-m9",
           "An investment of $4000 earns $480 simple interest over 3 years. What annual rate was used?",
-          "480 = 4000 \\times r \\times 3 \\implies r = \\frac{480}{12000}",
+          "",
           "4%",
           ["4", "0.04"]
         ),
@@ -476,13 +476,13 @@ export function year12Standard2FinanceLessonOverride(
         },
       ],
       guidedPractice: [
-        moneyAnswer("y12s2-invest-g1", "An investment of 2000 dollars earns 5% p.a. compounded annually for 2 years. What is the final balance?", "A=P(1+r)^n,\\quad P=\\$2000,\\quad r=5\\%,\\quad n=2", "2205"),
+        moneyAnswer("y12s2-invest-g1", "An investment of 2000 dollars earns 5% p.a. compounded annually for 2 years. What is the final balance?", "", "2205"),
         financeShortAnswer("y12s2-invest-g2", "A bank rate is 4.2% p.a. Write the annual growth factor.", "\\text{annual rate}=4.2\\%", "1.042"),
         moneyAnswer("y12s2-invest-g3", "A savings account grows from 1800 dollars to 1968 dollars. How much interest was earned?", "\\text{final balance}=\\$1968,\\quad \\text{principal}=\\$1800", "168"),
         financeChoice("y12s2-invest-g4", "An investment option has a higher rate but a 60 dollar yearly fee. What should be compared?", "B", ["Only the advertised rate", "The final balance after fees", "Only the first deposit", "The loan repayment amount"], "A fair comparison uses net balance after fees."),
       ],
       independentPractice: [
-        moneyAnswer("y12s2-invest-i1", "A term deposit of 1500 dollars earns 3% p.a. compounded annually for 3 years. Find the balance to the nearest cent.", "A=P(1+r)^n,\\quad P=\\$1500,\\quad r=3\\%,\\quad n=3", "1639.09"),
+        moneyAnswer("y12s2-invest-i1", "A term deposit of 1500 dollars earns 3% p.a. compounded annually for 3 years. Find the balance to the nearest cent.", "", "1639.09"),
         moneyAnswer("y12s2-invest-i2", "A 4200 dollar investment has a final balance of 4594.80 dollars. Find the interest earned.", "\\text{final balance}=\\$4594.80,\\quad \\text{principal}=\\$4200", "394.80", ["394.8", "$394.8"]),
         financeShortAnswer("y12s2-invest-i3", "A growth factor is 1.065. What annual percentage rate does this represent?", "\\text{growth factor}=1.065", "6.5%", ["6.5", "0.065"]),
         financeChoice("y12s2-invest-i4", "Which calculation correctly models 2800 dollars at 4% p.a. compounded annually for 5 years?", "A", ["2800(1.04)^5", "2800(4)^5", "2800+0.04+5", "2800(0.04)^5"], "The growth factor is 1.04 and the exponent is the number of years."),
@@ -496,11 +496,11 @@ export function year12Standard2FinanceLessonOverride(
       ],
       masteryQuiz: [
         financeShortAnswer("y12s2-invest-m1", "A savings rate is 3.8% p.a. Write the annual growth factor.", "r=3.8\\%\\text{ p.a.}", "1.038"),
-        moneyAnswer("y12s2-invest-m2", "A 1000 dollar account earns 6% p.a. compounded annually for 2 years. Find the balance.", "A=P(1+r)^n", "1123.60", ["1123.6", "$1123.6"]),
-        moneyAnswer("y12s2-invest-m3", "A 2500 dollar investment earns 4% p.a. compounded annually for 3 years. Find the balance to the nearest cent.", "A=P(1+r)^n", "2812.16"),
+        moneyAnswer("y12s2-invest-m2", "A 1000 dollar account earns 6% p.a. compounded annually for 2 years. Find the balance.", "", "1123.60", ["1123.6", "$1123.6"]),
+        moneyAnswer("y12s2-invest-m3", "A 2500 dollar investment earns 4% p.a. compounded annually for 3 years. Find the balance to the nearest cent.", "", "2812.16"),
         moneyAnswer("y12s2-invest-m4", "An account grows from 5000 dollars to 5460 dollars. Find the interest earned.", "\\text{initial}=\\$5000,\\quad \\text{final}=\\$5460", "460"),
         financeChoice("y12s2-invest-m5", "Which expression models 3500 dollars at 2.5% p.a. compounded annually for 4 years?", "C", ["3500(2.5)^4", "3500(0.025)^4", "3500(1.025)^4", "3500+1.025+4"], "The growth factor is 1.025."),
-        moneyAnswer("y12s2-invest-m6", "A 6000 dollar investment at 3% p.a. compounded annually is worth what after 1 year?", "A=P(1+r)^n", "6180"),
+        moneyAnswer("y12s2-invest-m6", "A 6000 dollar investment at 3% p.a. compounded annually is worth what after 1 year?", "", "6180"),
         financeShortAnswer("y12s2-invest-m7", "A growth factor of 1.09 represents what percentage growth?", "\\text{growth factor}=1.09", "9%", ["9", "0.09"]),
         financeChoice("y12s2-invest-m8", "Option A returns 4320 dollars. Option B returns 4390 dollars but has a 90 dollar fee. Which option gives the higher net balance?", "A", ["Option A", "Option B", "They are equal", "The fee should be ignored"], "Option B's fee reduces its net balance, so Option A is higher."),
         financeChoice("y12s2-invest-m9", "Which setup is valid for 2500 dollars invested at 4.2% p.a. compounded annually for 3 years?", "B", ["A=2500(0.042)^3", "A=2500(1.042)^3", "A=2500+4.2+3", "A=2500(4.2)^3"], "Compound growth uses 1 plus the decimal rate as the growth factor."),
@@ -590,12 +590,12 @@ export function year12Standard2FinanceLessonOverride(
       ],
       guidedPractice: [
         financeShortAnswer("y12s2-loan-g1", "A laptop depreciates by 20% per year. What is the decay factor?", "\\text{depreciation rate}=20\\%", "0.8", ["0.80"]),
-        moneyAnswer("y12s2-loan-g2", "A phone worth 1200 dollars depreciates by 15% in one year. What is its value after one year?", "V=P(1-r)^n,\\quad P=\\$1200,\\quad r=15\\%,\\quad n=1", "1020"),
+        moneyAnswer("y12s2-loan-g2", "A phone worth 1200 dollars depreciates by 15% in one year. What is its value after one year?", "", "1020"),
         moneyAnswer("y12s2-loan-g3", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.01B_n-300,\\quad B_0=5000", "4750"),
         financeChoice("y12s2-loan-g4", "A monthly loan adds 90 dollars interest and the repayment is 75 dollars. What happens to the balance?", "C", ["It decreases by 75 dollars", "It becomes zero", "It increases by 15 dollars", "It must be a depreciation model"], "The interest added is larger than the repayment."),
       ],
       independentPractice: [
-        moneyAnswer("y12s2-loan-i1", "A ute worth 24000 dollars depreciates by 10% p.a. for 2 years. Find its value.", "V=P(1-r)^n,\\quad P=\\$24000,\\quad r=10\\%,\\quad n=2", "19440"),
+        moneyAnswer("y12s2-loan-i1", "A ute worth 24000 dollars depreciates by 10% p.a. for 2 years. Find its value.", "", "19440"),
         financeShortAnswer("y12s2-loan-i2", "A device depreciates by 8% p.a. What decay factor should be used?", "\\text{depreciation rate}=8\\%", "0.92"),
         moneyAnswer("y12s2-loan-i3", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.005B_n-400,\\quad B_0=18000", "17690"),
         moneyAnswer("y12s2-loan-i4", "Use the loan recurrence and current balance shown to find the next balance to the nearest cent.", "B_{n+1}=1.006B_n-450,\\quad B_1=27718", "27434.31"),
@@ -609,11 +609,11 @@ export function year12Standard2FinanceLessonOverride(
       ],
       masteryQuiz: [
         financeShortAnswer("y12s2-loan-m1", "A car depreciates by 12% p.a. What is the decay factor?", "\\text{depreciation rate}=12\\%\\text{ p.a.}", "0.88"),
-        moneyAnswer("y12s2-loan-m2", "A bike worth 900 dollars depreciates by 10% in one year. Find its value after one year.", "V=P(1-r)^n", "810"),
-        moneyAnswer("y12s2-loan-m3", "A car worth 18000 dollars depreciates by 12% p.a. for 2 years. Find its value.", "V=P(1-r)^n", "13939.20", ["13939.2", "$13939.2"]),
+        moneyAnswer("y12s2-loan-m2", "A bike worth 900 dollars depreciates by 10% in one year. Find its value after one year.", "", "810"),
+        moneyAnswer("y12s2-loan-m3", "A car worth 18000 dollars depreciates by 12% p.a. for 2 years. Find its value.", "", "13939.20", ["13939.2", "$13939.2"]),
         moneyAnswer("y12s2-loan-m4", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.006B_n-450,\\quad B_0=28000", "27718"),
         financeChoice("y12s2-loan-m5", "In the displayed loan recurrence, what does the subtracted amount represent?", "B", ["Interest", "A repayment", "Depreciation", "A fee added"], "The subtraction represents a repayment.", "B_{n+1}=1.01B_n-500"),
-        moneyAnswer("y12s2-loan-m6", "A camera worth 1500 dollars depreciates by 25% in one year. Find its value.", "V=P(1-r)^n", "1125"),
+        moneyAnswer("y12s2-loan-m6", "A camera worth 1500 dollars depreciates by 25% in one year. Find its value.", "", "1125"),
         financeChoice("y12s2-loan-m7", "A repayment is 300 dollars and monthly interest added is 260 dollars. The balance:", "A", ["Decreases by 40 dollars", "Increases by 40 dollars", "Does not change", "Depreciates by 300%"], "Repayment exceeds interest by 40 dollars."),
         moneyAnswer("y12s2-loan-m8", "A loan follows the recurrence shown and the next balance is 11798 dollars. Find the starting balance.", "B_{n+1}=1.004B_n-250", "12000", ["$12000", "12,000", "$12,000"]),
         financeChoice("y12s2-loan-m9", "Which recurrence models a 16000 dollar asset depreciating by 7% each year?", "D", ["V_{n+1}=1.07V_n,\\ V_0=16000", "V_{n+1}=7V_n,\\ V_0=16000", "V_{n+1}=0.07V_n,\\ V_0=16000", "V_{n+1}=0.93V_n,\\ V_0=16000"], "Depreciation by 7% leaves 93% of the value each year."),
@@ -721,7 +721,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sld-g2",
           "A laptop costing $2000 depreciates by $400 per year using straight-line. Find its value after 4 years.",
-          "S = V_0 - Dn = 2000 - 400 \\times 4",
+          "",
           "600"
         ),
         financeChoice(
@@ -734,7 +734,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sld-g4",
           "An asset worth $6000 depreciates at 10% p.a. using declining balance. Find its value after 2 years.",
-          "S = 6000 \\times (0.90)^2 = 6000 \\times 0.81",
+          "",
           "4860"
         ),
       ],
@@ -742,13 +742,13 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sld-i1",
           "An asset costing $5000 depreciates by $800 per year (straight-line). Find its value after 3 years.",
-          "S = 5000 - 800 \\times 3",
+          "",
           "2600"
         ),
         moneyAnswer(
           "y12s2-sld-i2",
           "A machine costing $8000 depreciates at 12% p.a. (declining balance). Find its value after 2 years.",
-          "S = 8000 \\times (0.88)^2 = 8000 \\times 0.7744",
+          "",
           "6195.20",
           ["$6195.20", "6195.2"]
         ),
@@ -762,7 +762,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sld-i4",
           "A car costing $15000 depreciates at 20% p.a. (declining balance). Find its value after 3 years.",
-          "S = 15000 \\times (0.80)^3 = 15000 \\times 0.512",
+          "",
           "7680"
         ),
         financeChoice(
@@ -807,7 +807,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sld-m2",
           "An asset costing $4000 depreciates by $500 per year (straight-line). Value after 3 years?",
-          "S = 4000 - 500 \\times 3",
+          "",
           "2500"
         ),
         financeChoice(
@@ -820,7 +820,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sld-m4",
           "An asset costing $3000 depreciates by $400 per year (straight-line). Value after 5 years?",
-          "S = 3000 - 400 \\times 5",
+          "",
           "1000"
         ),
         financeChoice(
@@ -833,20 +833,20 @@ export function year12Standard2FinanceLessonOverride(
         financeShortAnswer(
           "y12s2-sld-m6",
           "What is the decay factor for a 30% declining balance depreciation rate?",
-          "1 - 0.30",
+          "",
           "0.7",
           ["0.70"]
         ),
         moneyAnswer(
           "y12s2-sld-m7",
           "A $6000 machine depreciates by $750 per year (straight-line). Value after 6 years?",
-          "S = 6000 - 750 \\times 6",
+          "",
           "1500"
         ),
         moneyAnswer(
           "y12s2-sld-m8",
           "A laptop costing $12000 depreciates at 20% p.a. (declining balance). Value after 2 years?",
-          "S = 12000 \\times (0.80)^2 = 12000 \\times 0.64",
+          "",
           "7680"
         ),
         financeChoice(
@@ -955,28 +955,28 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-anr-g1",
           "Find the final balance when $4000 is invested at 3.6% p.a. compounded monthly for 1 year (to the nearest cent).",
-          "A = 4000 \\times (1 + 0.003)^{12}",
+          "",
           "$4146.28",
           ["4146.28", "4146.27"]
         ),
         financeShortAnswer(
           "y12s2-anr-g2",
           "For an investment at 4.8% p.a. compounded quarterly, what is the per-period rate (as a decimal)?",
-          "r = \\frac{0.048}{4}",
+          "",
           "0.012",
           ["1.2%", "0.0120"]
         ),
         moneyAnswer(
           "y12s2-anr-g3",
           "Savings recurrence: S₀ = $0, r = 0.005, d = $300. Find S₁ and S₂.",
-          "S_1 = 0 \\times 1.005 + 300 = 300;\\quad S_2 = 300 \\times 1.005 + 300",
+          "",
           "$601.50",
           ["601.5", "601.50"]
         ),
         moneyAnswer(
           "y12s2-anr-g4",
           "Loan recurrence: B₀ = $3000, r = 0.01, M = $200. Find B₁.",
-          "B_1 = 3000 \\times 1.01 - 200",
+          "",
           "$2830",
           ["2830", "2830.00"]
         ),
@@ -985,28 +985,28 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-anr-i1",
           "Find the final balance when $9000 is invested at 6% p.a. compounded monthly for 3 years.",
-          "A = 9000 \\times (1.005)^{36}",
+          "",
           "$10 773.55",
           ["10773.55", "$10,773.55", "10773.5"]
         ),
         financeShortAnswer(
           "y12s2-anr-i2",
           "A loan charges 9.6% p.a. compounded monthly. What is the monthly interest rate as a decimal?",
-          "r = \\frac{0.096}{12}",
+          "",
           "0.008",
           ["0.8%"]
         ),
         moneyAnswer(
           "y12s2-anr-i3",
           "Savings: S₀ = $500, monthly rate = 0.003, deposit = $150. Find S₂.",
-          "S_1 = 500 \\times 1.003 + 150 = 651.50;\\quad S_2 = 651.50 \\times 1.003 + 150",
+          "",
           "$803.45",
           ["803.45", "803.44"]
         ),
         moneyAnswer(
           "y12s2-anr-i4",
           "Loan: B₀ = $10 000, monthly rate = 0.005, repayment = $450. Find B₁.",
-          "B_1 = 10000 \\times 1.005 - 450",
+          "",
           "$9600",
           ["9600", "9600.00"]
         ),
@@ -1040,28 +1040,28 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-anr-m1",
           "Find the final balance when $3000 is invested at 4.8% p.a. compounded monthly for 2 years.",
-          "A = 3000 \\times (1.004)^{24}",
+          "",
           "$3300.06",
           ["3300.06", "3300.05"]
         ),
         financeShortAnswer(
           "y12s2-anr-m2",
           "An investment earns 7.2% p.a. compounded quarterly. What is the quarterly rate (decimal)?",
-          "r = \\frac{0.072}{4}",
+          "",
           "0.018",
           ["1.8%"]
         ),
         moneyAnswer(
           "y12s2-anr-m3",
           "Savings: S₀ = $0, r = 0.005, d = $500. Find S₃.",
-          "S_1=500,\\;S_2=502.50+500=1002.50,\\;S_3=1002.50\\times1.005+500",
+          "",
           "$1507.51",
           ["1507.51", "1507.5"]
         ),
         moneyAnswer(
           "y12s2-anr-m4",
           "Loan: B₀ = $8000, monthly rate = 0.008, repayment = $350. Find B₂.",
-          "B_1=8000\\times1.008-350=7714;\\;B_2=7714\\times1.008-350",
+          "",
           "$7426.71",
           ["7426.71", "7426.7"]
         ),
@@ -1075,14 +1075,14 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-anr-m6",
           "Find the interest earned when $7500 compounds at 3.6% p.a. monthly for 18 months.",
-          "A = 7500 \\times (1.003)^{18} \\approx 7914.28;\\quad I = A - P",
+          "",
           "$414.28",
           ["414.28", "414.27"]
         ),
         financeShortAnswer(
           "y12s2-anr-m7",
           "Savings recurrence: S₀ = $200, r = 0.004, d = $250. Find S₁.",
-          "S_1 = 200 \\times 1.004 + 250",
+          "",
           "$450.80",
           ["450.80", "450.8"]
         ),
@@ -1096,7 +1096,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-anr-m9",
           "Loan: B₀ = $15 000, monthly rate = 0.006, repayment = $600. Find B₁.",
-          "B_1 = 15000 \\times 1.006 - 600",
+          "",
           "$14 490",
           ["14490", "14490.00"]
         ),
@@ -1213,10 +1213,10 @@ export function year12Standard2FinanceLessonOverride(
         financeChoice("y12s2-ann-m1", "A plan with equal monthly deposits is best described as:", "A", ["An annuity", "Depreciation only", "A circuit", "A box plot"], "Regular deposits are an annuity-style situation."),
         moneyAnswer("y12s2-ann-m2", "A savings recurrence is shown. Use the starting balance to find the next balance.", "S_{n+1}=1.005S_n+200,\\quad S_0=1000", "1205"),
         moneyAnswer("y12s2-ann-m3", "Use the savings recurrence and current balance shown to find the next balance to the nearest cent.", "S_{n+1}=1.005S_n+200,\\quad S_1=1205", "1411.03"),
-        moneyAnswer("y12s2-ann-m4", "A saver deposits 400 dollars at the end of each year. After the first deposit earns 5%, a second deposit is made. Find the balance after the second deposit.", "S_{n+1}=(1+r)S_n+d", "820"),
+        moneyAnswer("y12s2-ann-m4", "A saver deposits 400 dollars at the end of each year. After the first deposit earns 5%, a second deposit is made. Find the balance after the second deposit.", "","820"),
         financeChoice("y12s2-ann-m5", "In the displayed loan recurrence, what does the subtracted amount represent?", "B", ["A regular deposit", "A regular repayment", "A growth factor", "A fee charged twice"], "It is subtracted, so it represents a repayment.", "B_{n+1}=1.006B_n-450"),
         financeChoice("y12s2-ann-m6", "A repayment table shows balances 12000, 11850, 11702. The loan is:", "C", ["Increasing quickly", "Unchanged", "Decreasing", "Compounding as an investment"], "The listed balance decreases each period."),
-        moneyAnswer("y12s2-ann-m7", "A savings account has 900 dollars. It earns 1% interest then receives a 100 dollar deposit. Find the new balance.", "S_{n+1}=(1+r)S_n+d", "1009"),
+        moneyAnswer("y12s2-ann-m7", "A savings account has 900 dollars. It earns 1% interest then receives a 100 dollar deposit. Find the new balance.", "","1009"),
         financeChoice("y12s2-ann-m8", "Which recurrence matches a savings account that earns 0.5% interest each month and then receives a 200 dollar deposit?", "B", ["S_{n+1}=0.995S_n+200", "S_{n+1}=1.005S_n+200", "S_{n+1}=1.005S_n-200", "S_{n+1}=200S_n+1.005"], "Interest increases the balance first, and the deposit is added."),
         moneyAnswer("y12s2-ann-m9", "A savings recurrence is shown. If the next balance is 1411.03 dollars, find the previous balance to the nearest cent.", "S_{n+1}=1.005S_n+200", "1205.00", ["1205", "$1205", "$1205.00", "1,205.00", "$1,205.00", "1205.01", "$1205.01"]),
         financeChoice("y12s2-ann-m10", "Plan A deposits 100 dollars monthly. Plan B deposits 120 dollars monthly but charges a 15 dollar monthly fee. What should be compared?", "D", ["Only the larger deposit", "Only the first month", "Only the interest symbol", "Final balances after deposits, interest, and fees"], "A fair comparison includes the regular deposits, interest, fees, and term."),
@@ -1329,14 +1329,14 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ift-g3",
           "PV factor for 0.5%/month, 12 months is 11.619. Find the monthly repayment on an $8000 loan.",
-          "M = 8000 \\div 11.619",
+          "",
           "688.52",
           ["$688.52", "688.5", "$688.5"]
         ),
         moneyAnswer(
           "y12s2-ift-g4",
           "Find the monthly contribution needed to reach $5000 when the FV factor is 25.432.",
-          "M = 5000 \\div 25.432",
+          "",
           "196.60",
           ["$196.60", "196.6", "$196.6"]
         ),
@@ -1345,7 +1345,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ift-i1",
           "Zara deposits $150/month for 24 months at 0.5%/month. FV factor = 25.432. Find the future value.",
-          "\\text{FV}=150\\times25.432",
+          "",
           "3814.80",
           ["$3814.80", "3814.8", "$3814.8"]
         ),
@@ -1359,14 +1359,14 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ift-i3",
           "Monthly deposit to accumulate $10,000 in 12 months at 1%/month. FV factor = 12.683. Find M.",
-          "M = 10000 \\div 12.683",
+          "",
           "788.48",
           ["$788.48", "788.5", "$788.5"]
         ),
         moneyAnswer(
           "y12s2-ift-i4",
           "PV factor for 0.5%/month, 24 months is 22.563. Find the monthly repayment on a $12,000 loan.",
-          "M = 12000 \\div 22.563",
+          "",
           "531.83",
           ["$531.83", "531.8", "$531.8"]
         ),
@@ -1407,28 +1407,28 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ift-m2",
           "Monthly deposit to accumulate $6000 in 12 months at 0.5%/month. FV factor = 12.336. Find M.",
-          "M = 6000 \\div 12.336",
+          "",
           "486.38",
           ["$486.38", "486.4", "$486.4"]
         ),
         moneyAnswer(
           "y12s2-ift-m3",
           "Monthly deposit to reach $15,000 in 24 months at 0.5%/month. FV factor = 25.432. Find M.",
-          "M = 15000 \\div 25.432",
+          "",
           "589.81",
           ["$589.81", "589.8", "$589.8"]
         ),
         moneyAnswer(
           "y12s2-ift-m4",
           "Loan $6000 at 0.5%/month for 12 months. PV factor = 11.619. Monthly repayment?",
-          "M = 6000 \\div 11.619",
+          "",
           "516.40",
           ["$516.40", "516.4", "$516.4"]
         ),
         moneyAnswer(
           "y12s2-ift-m5",
           "$15,000 loan at 1%/month over 12 months. PV factor = 11.255. Find the monthly repayment.",
-          "M = 15000 \\div 11.255",
+          "",
           "1332.74",
           ["$1332.74", "1332.7", "$1332.7"]
         ),
@@ -1442,14 +1442,14 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ift-m7",
           "FV factor (1%/month, 24 months) = 26.973. Monthly deposit to accumulate $20,000?",
-          "M = 20000 \\div 26.973",
+          "",
           "741.48",
           ["$741.48", "741.5", "$741.5"]
         ),
         moneyAnswer(
           "y12s2-ift-m8",
           "Monthly withdrawals of $500 for 24 months at 0.5%/month. PV factor = 22.563. Find the lump sum needed today.",
-          "PV = 500 \\times 22.563",
+          "",
           "11281.50",
           ["$11,281.50", "$11281.50", "11281.5"]
         ),
@@ -1468,7 +1468,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-ift-m10",
           "A retiree needs $2000/month for 12 months from a lump sum at 1%/month. PV factor = 11.255. Lump sum required?",
-          "\\text{PV}=2000\\times11.255",
+          "",
           "22510",
           ["$22,510", "22510.00", "$22510"]
         ),
@@ -1552,7 +1552,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-g1",
           "Maya contributes $500/month for 24 months at 0.5%/month. FV factor = 25.432. Find the lump sum.",
-          "\\text{FV}=500\\times25.432",
+          "",
           "12716.00",
           ["$12 716.00", "$12716.00", "12716", "$12,716.00"]
         ),
@@ -1571,7 +1571,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-g3",
           "A retiree has $150 000. PV factor (0.5%/month, 12 months) = 11.619. Find the monthly income they can draw for 12 months.",
-          "M = \\dfrac{150\\,000}{11.619}",
+          "",
           "12910.75",
           ["$12 910.75", "12910.75", "$12910.75"]
         ),
@@ -1587,21 +1587,21 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-i1",
           "Sam contributes $300/month for 12 months at 1%/month. FV factor (1%, 12) = 12.683. Find the accumulated FV.",
-          "\\text{FV} = 300 \\times 12.683",
+          "",
           "3804.90",
           ["$3 804.90", "3804.9", "$3804.90"]
         ),
         moneyAnswer(
           "y12s2-rap-i2",
           "A retirement target is $50 000 in 24 months at 0.5%/month. FV factor = 25.432. Find the monthly contribution needed.",
-          "M = 50000 \\div 25.432",
+          "",
           "1966.85",
           ["$1 966.85", "$1966.85", "1966.9", "$1,966.85"]
         ),
         moneyAnswer(
           "y12s2-rap-i3",
           "A retiree has $200 000. PV factor (1%/month, 12 months) = 11.255. Find the monthly income for 12 months.",
-          "M = \\dfrac{200\\,000}{11.255}",
+          "",
           "17769.43",
           ["$17 769.43", "17769.43"]
         ),
@@ -1620,7 +1620,7 @@ export function year12Standard2FinanceLessonOverride(
         financeShortAnswer(
           "y12s2-rap-i5",
           "Two workers each retire with $250 000. Worker A draws income for 12 months (PV factor 11.255 at 1%/month); Worker B for 24 months (PV factor 21.243 at 1%/month). Which worker gets the larger monthly income?",
-          "250000\\div11.255\\text{ vs }250000\\div21.243",
+          "",
           "Worker A",
           ["A", "worker a", "Worker A ($22 214/month)"]
         ),
@@ -1647,21 +1647,21 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-m1",
           "Monthly contributions of $400 for 12 months at 1%/month. FV factor = 12.683. Find FV.",
-          "\\text{FV} = 400 \\times 12.683",
+          "",
           "5073.20",
           ["$5 073.20", "5073.20", "$5073.20"]
         ),
         moneyAnswer(
           "y12s2-rap-m2",
           "A target retirement balance of $30 000 is needed in 12 months at 1%/month. FV factor = 12.683. Find the monthly contribution.",
-          "M = 30000 \\div 12.683",
+          "",
           "2365.80",
           ["$2 365.80", "$2365.80", "2365.8", "$2,365.80"]
         ),
         moneyAnswer(
           "y12s2-rap-m3",
           "A retiree has $180 000. PV factor (0.5%/month, 24 months) = 22.563. Monthly income for 24 months?",
-          "M = \\dfrac{180\\,000}{22.563}",
+          "",
           "7977.54",
           ["$7 977.54", "7977.54", "$7977.54"]
         ),
@@ -1680,7 +1680,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-m5",
           "$250 000 lump sum, PV factor (1%/month, 24 months) = 21.243. Monthly income?",
-          "M = \\dfrac{250\\,000}{21.243}",
+          "",
           "11769.37",
           ["$11 769.37", "11769.37", "11769"]
         ),
@@ -1699,14 +1699,14 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-m7",
           "Monthly contributions of $600 for 24 months at 0.5%/month. FV factor (0.5%, 24) = 25.432. FV = ?",
-          "\\text{FV} = 600 \\times 25.432",
+          "",
           "15259.20",
           ["$15 259.20", "15259.20", "$15259.20"]
         ),
         moneyAnswer(
           "y12s2-rap-m8",
           "A retiree needs $3000/month income. PV factor (0.5%/month, 12 months) = 11.619. Find the required lump sum.",
-          "\\text{PV}=3000\\times11.619",
+          "",
           "34857",
           ["$34 857", "$34857", "34857.00", "$34,857"]
         ),
@@ -1720,7 +1720,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-rap-m10",
           "A retired teacher has $400 000. They draw income monthly for 24 months at 0.5%/month. PV factor = 22.563. Find the monthly income.",
-          "M = 400000 \\div 22.563",
+          "",
           "17728.58",
           ["$17 728.58", "$17728.58", "17728.6", "$17,728.58"]
         ),
@@ -1793,17 +1793,17 @@ export function year12Standard2FinanceLessonOverride(
         },
       ],
       guidedPractice: [
-        moneyAnswer("y12s2-inv-g1", "An investment of 4000 dollars earns 5% p.a. compounded annually for 2 years. Find the balance.", "A=4000(1.05)^2", "4410"),
-        moneyAnswer("y12s2-inv-g2", "A second option earns 6% for 2 years but charges a 90 dollar fee. Find the net balance starting from 4000 dollars.", "A=4000(1.06)^2-90", "4404.40", ["4404.4", "$4404.40"]),
+        moneyAnswer("y12s2-inv-g1", "An investment of 4000 dollars earns 5% p.a. compounded annually for 2 years. Find the balance.", "", "4410"),
+        moneyAnswer("y12s2-inv-g2", "A second option earns 6% for 2 years but charges a 90 dollar fee. Find the net balance starting from 4000 dollars.", "", "4404.40", ["4404.4", "$4404.40"]),
         financeChoice("y12s2-inv-g3", "Which option above is better?", "A", ["Option 1 at 5% (balance $4410)", "Option 2 at 6% after fee (balance $4404.40)", "They are equal", "The higher rate is always better"], "After subtracting the fee, Option 1 gives a higher net balance."),
         financeChoice("y12s2-inv-g4", "Inflation of 4% and a savings rate of 2% gives a real return of:", "C", ["6%", "2%", "−2%", "4%"], "Real return ≈ 2% − 4% = −2%. The savings lose purchasing power."),
       ],
       independentPractice: [
-        moneyAnswer("y12s2-inv-i1", "Find the balance when 6000 dollars is invested at 4.5% p.a. compounded annually for 3 years.", "A=6000(1.045)^3", "6847.00", ["6847", "6847.0", "$6847.00"]),
-        moneyAnswer("y12s2-inv-i2", "A competing option pays 5% for 3 years but charges a 150 dollar fee. Find the net balance from 6000 dollars.", "A=6000(1.05)^3-150", "6795.75", ["6795.8", "$6795.75"]),
+        moneyAnswer("y12s2-inv-i1", "Find the balance when 6000 dollars is invested at 4.5% p.a. compounded annually for 3 years.", "", "6847.00", ["6847", "6847.0", "$6847.00"]),
+        moneyAnswer("y12s2-inv-i2", "A competing option pays 5% for 3 years but charges a 150 dollar fee. Find the net balance from 6000 dollars.", "", "6795.75", ["6795.8", "$6795.75"]),
         financeChoice("y12s2-inv-i3", "Which option from i1 and i2 is better?", "A", ["4.5% with no fee (higher net balance)", "5% minus fee (higher rate wins)", "They are equal", "Always choose the higher rate"], "4.5% with no fee gives a higher net balance here."),
         financeChoice("y12s2-inv-i4", "If inflation rises from 2% to 4% and your savings rate stays at 3%, your real return:", "C", ["Increases to 7%", "Stays at 3%", "Falls and becomes negative at −1%", "Falls to 1%"], "Real return = 3% − 4% = −1%."),
-        moneyAnswer("y12s2-inv-i5", "An account of 10000 dollars earns 2% compounded annually for 1 year. If inflation is 3%, what is the real value of the account after one year in today's dollars?", "\\text{Balance}=10200;\\;\\text{real value}=\\frac{10200}{1.03}", "9903", ["$9903", "9903.00"]),
+        moneyAnswer("y12s2-inv-i5", "An account of 10000 dollars earns 2% compounded annually for 1 year. If inflation is 3%, what is the real value of the account after one year in today's dollars?", "", "9903", ["$9903", "9903.00"]),
       ],
       commonMistakes: [
         { mistake: "Comparing investments by advertised rate only.", fix: "Always compute net balance after fees over the same term." },
@@ -1812,15 +1812,15 @@ export function year12Standard2FinanceLessonOverride(
         { mistake: "Forgetting to subtract the fee when finding net return.", fix: "Net return = A − P − fees. Fees reduce the benefit of a higher rate." },
       ],
       masteryQuiz: [
-        moneyAnswer("y12s2-inv-m1", "Find A for 8000 dollars at 3% p.a. compounded annually for 2 years.", "A=8000(1.03)^2", "8487.20", ["8487.2", "$8487.20"]),
-        moneyAnswer("y12s2-inv-m2", "Option B gives 8000 dollars at 4% for 2 years with a 110 dollar fee. Find the net balance.", "A=8000(1.04)^2-110", "8542.80", ["8542.8", "$8542.80"]),
+        moneyAnswer("y12s2-inv-m1", "Find A for 8000 dollars at 3% p.a. compounded annually for 2 years.", "", "8487.20", ["8487.2", "$8487.20"]),
+        moneyAnswer("y12s2-inv-m2", "Option B gives 8000 dollars at 4% for 2 years with a 110 dollar fee. Find the net balance.", "", "8542.80", ["8542.8", "$8542.80"]),
         financeChoice("y12s2-inv-m3", "Comparing Option A ($8487.20) and Option B ($8542.80), which is better?", "B", ["Option A", "Option B", "Equal", "Need more information"], "Option B's net balance is higher."),
         financeChoice("y12s2-inv-m4", "A real return of −1% means:", "C", ["You earn 1% more than inflation", "You earn exactly 1%", "Your purchasing power decreases by approximately 1%", "You lose 1% in dollar terms"], "Negative real return means less purchasing power, not less actual dollars."),
-        moneyAnswer("y12s2-inv-m5", "Net return for a 5000 dollar investment growing to 5400 dollars with a 50 dollar fee.", "\\text{Net return}=5400-5000-50", "350", ["$350"]),
+        moneyAnswer("y12s2-inv-m5", "Net return for a 5000 dollar investment growing to 5400 dollars with a 50 dollar fee.", "", "350", ["$350"]),
         financeChoice("y12s2-inv-m6", "Two accounts both have no fees. Account A earns 4% compounded annually; Account B earns 4% compounded monthly. Which is better?", "B", ["Account A", "Account B", "They are identical", "Cannot compare"], "Monthly compounding gives a slightly higher effective annual rate."),
-        moneyAnswer("y12s2-inv-m7", "6000 dollars invested at 5% p.a. for 1 year compounded annually. Find the interest earned.", "\\text{interest}=6000\\times0.05", "300", ["$300"]),
+        moneyAnswer("y12s2-inv-m7", "6000 dollars invested at 5% p.a. for 1 year compounded annually. Find the interest earned.", "", "300", ["$300"]),
         financeChoice("y12s2-inv-m8", "Savings earn 4% but inflation is 4%. The real return is:", "D", ["4%", "8%", "−4%", "0%"], "Real return ≈ 4% − 4% = 0%. No real gain."),
-        moneyAnswer("y12s2-inv-m9", "An investment of 2000 dollars at 6% for 3 years compounded annually. Find the balance to the nearest cent.", "A=2000(1.06)^3", "2382.03", ["$2382.03", "2382.0"]),
+        moneyAnswer("y12s2-inv-m9", "An investment of 2000 dollars at 6% for 3 years compounded annually. Find the balance to the nearest cent.", "", "2382.03", ["$2382.03", "2382.0"]),
         financeChoice("y12s2-inv-m10", "The best comparison of two investment options always involves:", "D", ["Only the advertised rate", "Only the fee", "Only the first month", "Final balance after the same term and after all fees"], "A complete comparison uses net balance over the same period."),
       ],
     };
@@ -1891,17 +1891,17 @@ export function year12Standard2FinanceLessonOverride(
         },
       ],
       guidedPractice: [
-        moneyAnswer("y12s2-credit-g1", "A credit card balance of 600 dollars has an annual interest rate of 18%. Find the monthly interest charge.", "I=600\\times(0.18/12)", "9", ["$9", "9.00"]),
-        moneyAnswer("y12s2-credit-g2", "A BNPL purchase of 320 dollars is split into 4 equal fortnightly payments. Find each payment.", "\\text{instalment}=320/4", "80", ["$80", "80.00"]),
+        moneyAnswer("y12s2-credit-g1", "A credit card balance of 600 dollars has an annual interest rate of 18%. Find the monthly interest charge.", "", "9", ["$9", "9.00"]),
+        moneyAnswer("y12s2-credit-g2", "A BNPL purchase of 320 dollars is split into 4 equal fortnightly payments. Find each payment.", "", "80", ["$80", "80.00"]),
         financeChoice("y12s2-credit-g3", "A credit card with a 55-day interest-free period means:", "B", ["Interest always applies", "No interest if the full balance is paid within 55 days", "The rate is 55%", "You must wait 55 days to use it"], "Paying the full balance in the interest-free period avoids interest charges."),
         financeChoice("y12s2-credit-g4", "Total repayment on a credit card is always:", "B", ["Equal to the purchase price", "Greater than or equal to the purchase price", "Less than the purchase price", "Fixed regardless of interest rate"], "Interest adds to the total, so total repayment ≥ purchase price."),
       ],
       independentPractice: [
-        moneyAnswer("y12s2-credit-i1", "A card balance of 1200 dollars has an annual rate of 21%. Find the monthly interest.", "I=1200\\times(0.21/12)", "21", ["$21", "21.00"]),
-        moneyAnswer("y12s2-credit-i2", "After paying a 200 dollar repayment, the new card balance is 1021 dollars before this month's interest. How did we get there?", "\\text{balance}=1200+21-200", "1021", ["$1021"]),
-        moneyAnswer("y12s2-credit-i3", "A BNPL service charges $0 interest but a $10 late fee per missed payment. If 2 payments are missed on a $400 purchase, find the total cost.", "\\text{total}=400+2\\times10", "420", ["$420"]),
+        moneyAnswer("y12s2-credit-i1", "A card balance of 1200 dollars has an annual rate of 21%. Find the monthly interest.", "", "21", ["$21", "21.00"]),
+        moneyAnswer("y12s2-credit-i2", "After paying a 200 dollar repayment, the new card balance is 1021 dollars before this month's interest. How did we get there?", "", "1021", ["$1021"]),
+        moneyAnswer("y12s2-credit-i3", "A BNPL service charges $0 interest but a $10 late fee per missed payment. If 2 payments are missed on a $400 purchase, find the total cost.", "", "420", ["$420"]),
         financeChoice("y12s2-credit-i4", "Carrying a credit card balance for 12 months at 18% p.a. means you pay approximately:", "B", ["No extra cost", "18% extra on the outstanding balance", "1% extra over 12 months", "12% extra on the original price"], "Monthly charges of 1.5% compound over 12 months, approximately 18% annually."),
-        moneyAnswer("y12s2-credit-i5", "A 1000 dollar purchase on a card at 20% p.a. is repaid in full after 1 month. Find the total cost.", "I=1000\\times(0.20/12)", "1016.67", ["$1016.67", "1016.7"]),
+        moneyAnswer("y12s2-credit-i5", "A 1000 dollar purchase on a card at 20% p.a. is repaid in full after 1 month. Find the total cost.", "", "1016.67", ["$1016.67", "1016.7"]),
       ],
       commonMistakes: [
         { mistake: "Using the annual rate directly instead of monthly rate.", fix: "Divide annual rate by 12 for monthly interest: I = P × (r/12)." },
@@ -1910,16 +1910,16 @@ export function year12Standard2FinanceLessonOverride(
         { mistake: "Forgetting that a credit balance compounds.", fix: "Each month, interest is added to the balance before the next month's interest is calculated." },
       ],
       masteryQuiz: [
-        moneyAnswer("y12s2-credit-m1", "Find monthly interest on a 900 dollar balance at 18% p.a.", "I=900\\times(0.18/12)", "13.50", ["$13.50", "13.5"]),
+        moneyAnswer("y12s2-credit-m1", "Find monthly interest on a 900 dollar balance at 18% p.a.", "", "13.50", ["$13.50", "13.5"]),
         financeChoice("y12s2-credit-m2", "Monthly interest rate for a card at 24% p.a. is:", "A", ["2%", "24%", "12%", "0.24%"], "Monthly rate = 24/12 = 2%."),
-        moneyAnswer("y12s2-credit-m3", "A 500 dollar BNPL purchase is split into 4 fortnightly payments. Find each payment.", "500/4", "125", ["$125"]),
-        moneyAnswer("y12s2-credit-m4", "A credit card balance of 2000 dollars has a 20% annual rate. Find the monthly interest.", "I=2000\\times(0.20/12)", "33.33", ["$33.33"]),
-        moneyAnswer("y12s2-credit-m5", "New balance after starting at 2000 dollars, adding monthly interest (rate 20% p.a.), and paying 150 dollars.", "\\text{balance}=2000+33.33-150", "1883.33", ["$1883.33", "1883.3"]),
-        moneyAnswer("y12s2-credit-m6", "Find the total cost of a 600 dollar purchase repaid monthly over 3 months with $5 interest per month.", "600+3\\times5", "615", ["$615"]),
+        moneyAnswer("y12s2-credit-m3", "A 500 dollar BNPL purchase is split into 4 fortnightly payments. Find each payment.", "", "125", ["$125"]),
+        moneyAnswer("y12s2-credit-m4", "A credit card balance of 2000 dollars has a 20% annual rate. Find the monthly interest.", "", "33.33", ["$33.33"]),
+        moneyAnswer("y12s2-credit-m5", "New balance after starting at 2000 dollars, adding monthly interest (rate 20% p.a.), and paying 150 dollars.", "", "1883.33", ["$1883.33", "1883.3"]),
+        moneyAnswer("y12s2-credit-m6", "Find the total cost of a 600 dollar purchase repaid monthly over 3 months with $5 interest per month.", "", "615", ["$615"]),
         financeChoice("y12s2-credit-m7", "An interest-free period of 55 days means:", "A", ["No interest if full balance paid within 55 days", "No interest ever", "55% annual rate", "Interest starts after 55 months"], "Pay in full within 55 days to avoid interest."),
-        moneyAnswer("y12s2-credit-m8", "A 240 dollar purchase on BNPL: 4 instalments of 60 dollars. What is the total paid?", "4\\times60", "240", ["$240"]),
+        moneyAnswer("y12s2-credit-m8", "A 240 dollar purchase on BNPL: 4 instalments of 60 dollars. What is the total paid?", "", "240", ["$240"]),
         financeChoice("y12s2-credit-m9", "Comparing credit card and BNPL for the same purchase, the key advantage of BNPL (when paid on time) is:", "B", ["Higher interest", "No interest charged", "Longer interest-free period", "Lower purchase price"], "BNPL typically charges no interest if payments are made on time."),
-        moneyAnswer("y12s2-credit-m10", "If saving first avoids one month of credit-card interest on an 800 dollar purchase at 18% p.a., find the interest avoided.", "I=800\\times(0.18/12)", "12", ["$12", "12.00"]),
+        moneyAnswer("y12s2-credit-m10", "If saving first avoids one month of credit-card interest on an 800 dollar purchase at 18% p.a., find the interest avoided.", "", "12", ["$12", "12.00"]),
       ],
     };
   }
@@ -2060,7 +2060,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sdb-i2",
           "A share is priced at $6.00 and pays an annual dividend of $0.18 per share. Find the dividend yield as a percentage.",
-          "\\text{Yield} = \\dfrac{0.18}{6.00} \\times 100\\%",
+          "",
           "3%",
           ["3", "3.0", "3.00"]
         ),
@@ -2074,7 +2074,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sdb-i4",
           "You buy 400 shares at $3.00 each. Brokerage is 0.5%. Find the total purchase cost.",
-          "\\text{Value}=400\\times3.00=\\$1200,\\quad\\text{brokerage}=1200\\times0.005=\\$6",
+          "",
           "1206",
           ["$1206", "1206.00", "$1206.00"]
         ),
@@ -2115,7 +2115,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sdb-m2",
           "Share price $8.00, annual dividend $0.32 per share. Find the dividend yield.",
-          "\\text{Yield} = \\dfrac{0.32}{8.00} \\times 100\\%",
+          "",
           "4%",
           ["4", "4.0", "4.00"]
         ),
@@ -2134,21 +2134,21 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sdb-m4",
           "Buy 500 shares at $3.20 each, brokerage 0.5%. Find the total purchase cost.",
-          "\\text{Value}=500\\times3.20=\\$1600,\\quad\\text{brokerage}=1600\\times0.005=\\$8",
+          "",
           "1608",
           ["$1608", "1608.00", "$1608.00"]
         ),
         moneyAnswer(
           "y12s2-sdb-m5",
           "Sell 500 shares at $3.80 each, brokerage 0.5%. Find the net proceeds.",
-          "\\text{Gross}=500\\times3.80=\\$1900,\\quad\\text{brokerage}=1900\\times0.005=\\$9.50",
+          "",
           "1890.50",
           ["$1890.50", "1890.5", "$1890.5"]
         ),
         moneyAnswer(
           "y12s2-sdb-m6",
           "Using the purchase cost of $1608 and net proceeds of $1890.50, find the capital gain.",
-          "\\text{Capital gain}=1890.50-1608",
+          "",
           "282.50",
           ["$282.50", "282.5", "$282.5"]
         ),
@@ -2167,7 +2167,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-sdb-m8",
           "500 shares are held for 2 years. Dividend is $0.16 per share per year. Total dividends received over 2 years?",
-          "\\text{Total dividends}=500\\times0.16\\times2",
+          "",
           "160",
           ["$160", "160.00", "$160.00"]
         ),
@@ -2305,14 +2305,14 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-pv-g2",
           "A $12,000 loan at 6% p.a. compounded monthly is repaid over 24 months. Find the monthly repayment.",
-          "M = \\dfrac{12000\\times0.005}{1-(1.005)^{-24}}",
+          "",
           "531.85",
           ["$531.85", "531.85", "531.9", "$531.9"]
         ),
         moneyAnswer(
           "y12s2-pv-g3",
           "Using the repayment from the previous question ($531.85 per month for 24 months on a $12,000 loan), find the total interest paid.",
-          "\\text{Total interest} = 531.85\\times24 - 12000",
+          "",
           "764.40",
           ["$764.40", "764.40", "764.4", "$764.4"]
         ),
@@ -2333,28 +2333,28 @@ export function year12Standard2FinanceLessonOverride(
         financeShortAnswer(
           "y12s2-pv-i1",
           "For a 6% p.a. loan compounded monthly, find the periodic rate r used in the loan repayment formula.",
-          "r=0.06\\div12",
+          "",
           "0.005",
           ["0.5%"]
         ),
         moneyAnswer(
           "y12s2-pv-i2",
           "A $15,000 loan at 6% p.a. compounded monthly is repaid over 36 months. Find the monthly repayment.",
-          "M = \\dfrac{15000\\times0.005}{1-(1.005)^{-36}}",
+          "",
           "456.33",
           ["$456.33", "456.33", "456.3", "$456.3"]
         ),
         moneyAnswer(
           "y12s2-pv-i3",
           "Using the repayment from the previous question ($456.33 per month for 36 months on a $15,000 loan), find the total interest paid.",
-          "\\text{Total interest} = 456.33\\times36 - 15000",
+          "",
           "1427.88",
           ["$1427.88", "1427.88", "1427.9", "$1,427.88"]
         ),
         moneyAnswer(
           "y12s2-pv-i4",
           "A $10,000 loan at 6% p.a. monthly over 24 months has repayments of $443.21. Find the total amount repaid.",
-          "\\text{Total amount repaid}=443.21\\times24",
+          "",
           "10637.04",
           ["$10,637.04", "10637.0", "$10637.04"]
         ),
@@ -2417,42 +2417,42 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-pv-m3",
           "Find the monthly repayment on a $10,000 loan at 6% p.a. compounded monthly over 24 months.",
-          "M = \\dfrac{10000\\times0.005}{1-(1.005)^{-24}}",
+          "",
           "443.21",
           ["$443.21", "443.21", "443.2", "$443.2"]
         ),
         moneyAnswer(
           "y12s2-pv-m4",
           "Using the repayment from the previous question ($443.21 per month for 24 months on a $10,000 loan), find the total interest paid.",
-          "\\text{Total interest} = 443.21\\times24 - 10000",
+          "",
           "637.04",
           ["$637.04", "637.04", "637.0", "$637.0"]
         ),
         moneyAnswer(
           "y12s2-pv-m5",
           "Find the monthly repayment on a $10,000 loan at 6% p.a. compounded monthly over 36 months.",
-          "M = \\dfrac{10000\\times0.005}{1-(1.005)^{-36}}",
+          "",
           "304.22",
           ["$304.22", "304.22", "304.2", "$304.2"]
         ),
         moneyAnswer(
           "y12s2-pv-m6",
           "Using the repayment from the previous question ($304.22 per month for 36 months on a $10,000 loan), find the total interest paid.",
-          "\\text{Total interest} = 304.22\\times36 - 10000",
+          "",
           "951.92",
           ["$951.92", "951.92", "951.9", "$951.9"]
         ),
         moneyAnswer(
           "y12s2-pv-m7",
           "A $10,000 loan at 6% p.a. monthly has M = $304.22 over 36 months. Find the total amount repaid.",
-          "\\text{Total amount repaid}=304.22\\times36",
+          "",
           "10951.92",
           ["$10,951.92", "$10951.92", "10951.9"]
         ),
         financeShortAnswer(
           "y12s2-pv-m8",
           "Compared to the 24-month loan, which option has the higher total interest: the 24-month loan or the 36-month loan?",
-          "637.04\\text{ vs }951.92",
+          "",
           "36-month loan",
           ["36 month loan", "36 months", "36-month", "36 month"]
         ),
@@ -2471,7 +2471,7 @@ export function year12Standard2FinanceLessonOverride(
         moneyAnswer(
           "y12s2-pv-m10",
           "A loan has monthly repayments of $350 over 30 months. Find the total amount paid.",
-          "350\\times30",
+          "",
           "10500",
           ["$10,500", "$10500", "10500.00"]
         ),
@@ -2556,14 +2556,14 @@ export function year12Standard2FinanceLessonOverride(
       },
     ],
     guidedPractice: [
-      moneyAnswer("y12s2-fin-exam-g1", "An investment of 3000 dollars earns 4% p.a. compounded annually for 2 years. Find the balance.", "A=P(1+r)^n,\\quad P=\\$3000,\\quad r=4\\%,\\quad n=2", "3244.80", ["3244.8", "$3244.8"]),
-      moneyAnswer("y12s2-fin-exam-g2", "A car worth 20000 dollars depreciates by 10% p.a. for 2 years. Find its value.", "V=P(1-r)^n,\\quad P=\\$20000,\\quad r=10\\%,\\quad n=2", "16200"),
+      moneyAnswer("y12s2-fin-exam-g1", "An investment of 3000 dollars earns 4% p.a. compounded annually for 2 years. Find the balance.", "", "3244.80", ["3244.8", "$3244.8"]),
+      moneyAnswer("y12s2-fin-exam-g2", "A car worth 20000 dollars depreciates by 10% p.a. for 2 years. Find its value.", "", "16200"),
       moneyAnswer("y12s2-fin-exam-g3", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.005B_n-350,\\quad B_0=10000", "9700"),
       financeChoice("y12s2-fin-exam-g4", "An investment has a higher rate but a large fee. Which comparison is fairest?", "C", ["Highest rate only", "Lowest fee only", "Net balance over the same term", "The first year only"], "Financial products should be compared over the same term after fees."),
     ],
     independentPractice: [
-      moneyAnswer("y12s2-fin-exam-i1", "A 4500 dollar account earns 3.5% p.a. compounded annually for 2 years. Find the balance to the nearest cent.", "A=P(1+r)^n,\\quad P=\\$4500,\\quad r=3.5\\%,\\quad n=2", "4820.51"),
-      moneyAnswer("y12s2-fin-exam-i2", "Equipment worth 8000 dollars depreciates by 15% in one year. Find its value after one year.", "V=P(1-r)^n,\\quad P=\\$8000,\\quad r=15\\%,\\quad n=1", "6800"),
+      moneyAnswer("y12s2-fin-exam-i1", "A 4500 dollar account earns 3.5% p.a. compounded annually for 2 years. Find the balance to the nearest cent.", "", "4820.51"),
+      moneyAnswer("y12s2-fin-exam-i2", "Equipment worth 8000 dollars depreciates by 15% in one year. Find its value after one year.", "", "6800"),
       moneyAnswer("y12s2-fin-exam-i3", "A savings recurrence is shown. Use the starting balance to find the next balance.", "S_{n+1}=1.004S_n+250,\\quad S_0=1500", "1756"),
       moneyAnswer("y12s2-fin-exam-i4", "Option A returns 6120 dollars. Option B returns 6200 dollars but charges an 85 dollar fee. What is Option B's net balance?", "\\text{Option B return}=\\$6200,\\quad \\text{fee}=\\$85", "6115"),
       financeChoice("y12s2-fin-exam-i5", "A loan balance table shows 25000, 24920, 24835 after repayments. Which conclusion is best?", "A", ["The balance is decreasing slowly", "The balance is increasing", "The loan is fully repaid", "The interest rate is definitely zero"], "The listed balances decrease, but only slowly."),
@@ -2577,8 +2577,8 @@ export function year12Standard2FinanceLessonOverride(
     masteryQuiz: [
       financeChoice("y12s2-fin-exam-m1", "A bank balance grows by compound interest. Which factor is used for 5% growth?", "B", ["0.05", "1.05", "5", "0.95"], "Compound growth uses 1 + 0.05."),
       financeChoice("y12s2-fin-exam-m2", "A car depreciates by 8% p.a. Which factor is used?", "D", ["1.08", "8", "0.08", "0.92"], "Depreciation uses 1 - 0.08."),
-      moneyAnswer("y12s2-fin-exam-m3", "An investment of 2500 dollars earns 4% p.a. compounded annually for 2 years. Find the balance.", "A=P(1+r)^n", "2704"),
-      moneyAnswer("y12s2-fin-exam-m4", "A device worth 1600 dollars depreciates by 20% in one year. Find its value.", "V=P(1-r)^n", "1280"),
+      moneyAnswer("y12s2-fin-exam-m3", "An investment of 2500 dollars earns 4% p.a. compounded annually for 2 years. Find the balance.", "", "2704"),
+      moneyAnswer("y12s2-fin-exam-m4", "A device worth 1600 dollars depreciates by 20% in one year. Find its value.", "", "1280"),
       moneyAnswer("y12s2-fin-exam-m5", "A loan follows the recurrence shown. Use the starting balance to find the next balance.", "B_{n+1}=1.006B_n-450,\\quad B_0=28000", "27718"),
       moneyAnswer("y12s2-fin-exam-m6", "A savings plan follows the recurrence shown. Use the starting balance to find the next balance.", "S_{n+1}=1.005S_n+200,\\quad S_0=1000", "1205"),
       moneyAnswer("y12s2-fin-exam-m7", "A 5000 dollar investment grows to 5360 dollars. Find the interest earned.", "\\text{initial}=\\$5000,\\quad \\text{final}=\\$5360", "360"),
