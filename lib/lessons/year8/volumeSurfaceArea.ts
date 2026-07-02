@@ -422,7 +422,7 @@ const volumeOfPrisms: LessonContent = {
       id: "y8-vsa-vp-mp1",
       prompt:
         "A rectangular fish tank has length 60 cm, width 30 cm and height 40 cm. It is filled with water to a depth of 25 cm.",
-      latex: "\\text{Rectangular tank: } 60 \\times 30 \\times 40 \\text{ cm}",
+      latex: "",
       answer: "72000",
       hint: "Volume = length × width × depth of water. Use the full height only for the tank's capacity.",
       explanation:
@@ -732,7 +732,7 @@ const surfaceAreaOfPrisms: LessonContent = {
       id: "y8-vsa-sp-mp1",
       prompt:
         "A closed wooden box is a rectangular prism with length 20 cm, width 15 cm and height 10 cm. It will be painted on all outer faces.",
-      latex: "\\text{Box: } 20 \\times 15 \\times 10 \\text{ cm}",
+      latex: "",
       answer: "1300",
       hint: "Surface area = 2(lw + lh + wh). The lid removes one lw face.",
       explanation:
@@ -1690,7 +1690,7 @@ const volumeOfCompositeSolids: LessonContent = {
       id: "y8-vsa-cv-mp1",
       prompt:
         "A house-shaped solid has a rectangular prism base measuring 12 cm long, 6 cm wide and 5 cm high, topped by a triangular prism roof. The triangular cross-section has base 12 cm and height 4 cm, and the roof is 6 cm long (the same as the base width).",
-      latex: "\\text{Base } 12 \\times 6 \\times 5,\\ \\text{roof triangle base } 12,\\ \\text{height } 4,\\ \\text{length } 6",
+      latex: "",
       answer: "504",
       hint: "Find each prism's volume separately, then add them.",
       explanation:
@@ -2029,7 +2029,7 @@ const surfaceAreaOfCompositeSolids: LessonContent = {
       id: "y8-vsa-cs-mp1",
       prompt:
         "A composite solid is formed by placing a small rectangular prism (6 cm long, 4 cm wide, 3 cm high) centred on top of a large rectangular prism (10 cm long, 8 cm wide, 5 cm high). The small prism's base (6 cm × 4 cm) sits entirely on the large prism's top face.",
-      latex: "\\text{Large } 10 \\times 8 \\times 5,\\ \\text{small } 6 \\times 4 \\times 3",
+      latex: "",
       answer: "400",
       hint: "Find each prism's full surface area, then subtract twice the joint face area.",
       explanation:
