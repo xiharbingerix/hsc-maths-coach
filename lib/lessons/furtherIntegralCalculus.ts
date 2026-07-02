@@ -206,6 +206,15 @@ export const standardIntegralsLesson = furtherIntegralLesson(
         },
       ],
       finalAnswerLatex: "1",
+      cartesianGraph: {
+        description: "The curve y equals cos x descends from (0, 1) to (pi/2, 0), staying above the x-axis across the interval. The definite integral is the area of the region between this curve and the x-axis from x equals 0 to x equals pi/2, which evaluates to 1 square unit. (A trig curve's region cannot be shaded by the renderer, so the boundary curve is drawn and the region is described.)",
+        xMin: -0.2, xMax: 1.9, yMin: -0.2, yMax: 1.3, xStep: 0.5, yStep: 0.5,
+        sinusoidals: [{ kind: "cos", a: 1, b: 1, c: 0, d: 0, xMin: 0, xMax: Math.PI / 2, label: "y = cos x" }],
+        points: [
+          { x: 0, y: 1, label: "(0, 1)" },
+          { x: Math.PI / 2, y: 0, label: "(pi/2, 0)" },
+        ],
+      },
     },
   ],
   [
@@ -451,6 +460,16 @@ export const definiteIntegralsStandardFormsLesson = furtherIntegralLesson(
         },
       ],
       finalAnswerLatex: "-2",
+      cartesianGraph: {
+        description: "The curve y equals negative sin x lies entirely below the x-axis from x equals 0 to x equals pi, dipping to its lowest point (pi/2, -1). The region between the curve and the axis has geometric area 2, but because it sits below the axis the signed integral is negative 2. (A trig curve's region cannot be shaded by the renderer, so the boundary curve is drawn and the negative signed area is described.)",
+        xMin: -0.2, xMax: 3.5, yMin: -1.3, yMax: 0.3, xStep: 0.5, yStep: 0.5,
+        sinusoidals: [{ kind: "sin", a: -1, b: 1, c: 0, d: 0, xMin: 0, xMax: Math.PI, label: "y = -sin x" }],
+        points: [
+          { x: 0, y: 0, label: "(0, 0)" },
+          { x: Math.PI / 2, y: -1, label: "(pi/2, -1)" },
+          { x: Math.PI, y: 0, label: "(pi, 0)" },
+        ],
+      },
     },
   ],
   [

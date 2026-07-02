@@ -158,6 +158,18 @@ export const secondDerivativeConcavityLesson = applicationLesson(
         },
       ],
       finalAnswerLatex: "\\text{No point of inflection at }x=0",
+      cartesianGraph: {
+        description:
+          "The second derivative f''(x) = 12x^2 is an upward-opening parabola that touches the x-axis at the origin and is positive everywhere else. Because f'' stays positive (never dips below zero) on both sides of x = 0, the concavity is cup-shaped throughout and never switches, so x = 0 is not a point of inflection.",
+        xMin: -2,
+        xMax: 2,
+        yMin: -4,
+        yMax: 50,
+        xStep: 0.5,
+        yStep: 10,
+        parabolas: [{ kind: "quadratic", a: 12, b: 0, c: 0, label: "f''(x) = 12x²" }],
+        points: [{ x: 0, y: 0, label: "candidate x = 0" }],
+      },
     },
     {
       title: "Concavity from a sign chart",
@@ -278,6 +290,24 @@ export const stationaryPointClassificationLesson = applicationLesson(
       ],
       finalAnswerLatex:
         "\\text{Local maximum at }(0,4),\\ \\text{local minimum at }(2,0)",
+      cartesianGraph: {
+        description:
+          "The cubic f(x) = x^3 - 3x^2 + 4 has two flat points, each marked with a horizontal tangent. At the local maximum (0, 4) the tangent caps a frown, matching f''(0) = -6 < 0. At the local minimum (2, 0) the tangent cradles a smile, matching f''(2) = 6 > 0.",
+        xMin: -1.5,
+        xMax: 3.5,
+        yMin: -1,
+        yMax: 6,
+        xStep: 1,
+        yStep: 1,
+        lineSegments: [
+          { from: { x: -0.8, y: 4 }, to: { x: 0.8, y: 4 }, label: "flat tangent at max, f'' < 0" },
+          { from: { x: 1.2, y: 0 }, to: { x: 2.8, y: 0 }, label: "flat tangent at min, f'' > 0" },
+        ],
+        points: [
+          { x: 0, y: 4, label: "max (0, 4)" },
+          { x: 2, y: 0, label: "min (2, 0)" },
+        ],
+      },
     },
     {
       title: "When f'' = 0: fall back to the sign table",
@@ -470,6 +500,27 @@ export const curveSketchingCalculusLesson = applicationLesson(
       ],
       finalAnswerLatex:
         "\\text{Local maximum }(-1,2),\\ \\text{inflection }(0,0),\\ \\text{local minimum }(1,-2);\\ \\text{concave down then up}",
+      cartesianGraph: {
+        description:
+          "The cubic f(x) = x^3 - 3x is pinned by the features found from its sign charts: a local maximum at (-1, 2) with a horizontal tangent, a point of inflection at the origin (0, 0), and a local minimum at (1, -2) with a horizontal tangent. The curve crosses the x-axis at x = -√3, 0 and √3.",
+        xMin: -2.2,
+        xMax: 2.2,
+        yMin: -3,
+        yMax: 3,
+        xStep: 1,
+        yStep: 1,
+        lineSegments: [
+          { from: { x: -1.5, y: 2 }, to: { x: -0.5, y: 2 }, label: "flat tangent at max" },
+          { from: { x: 0.5, y: -2 }, to: { x: 1.5, y: -2 }, label: "flat tangent at min" },
+        ],
+        points: [
+          { x: -1, y: 2, label: "max (-1, 2)" },
+          { x: 0, y: 0, label: "inflection (0, 0)" },
+          { x: 1, y: -2, label: "min (1, -2)" },
+          { x: -1.732, y: 0, label: "x-int -√3" },
+          { x: 1.732, y: 0, label: "x-int √3" },
+        ],
+      },
     },
   ],
   [
@@ -711,6 +762,25 @@ export const kinematicsRatesChangeLesson = applicationLesson(
       ],
       finalAnswerLatex:
         "\\text{displacement}=-3\\text{ units},\\quad \\text{total distance}=5\\text{ units}",
+      cartesianGraph: {
+        description:
+          "The position-time graph s(t) = t^2 - 4t is an upward-opening parabola. The particle starts at the origin (0, 0), slides to its lowest point (2, -4) where a horizontal tangent shows the velocity is momentarily zero and the particle reverses, then returns to (3, -3). The slope of the curve at any instant is the velocity v(t).",
+        xMin: -0.5,
+        xMax: 4,
+        yMin: -5,
+        yMax: 2,
+        xStep: 1,
+        yStep: 1,
+        parabolas: [{ kind: "quadratic", a: 1, b: -4, c: 0, label: "s(t) = t² - 4t" }],
+        lines: [
+          { kind: "linear", m: 0, b: -4, xMin: 1, xMax: 3, label: "tangent at t = 2, velocity 0" },
+        ],
+        points: [
+          { x: 0, y: 0, label: "start (0, 0)" },
+          { x: 2, y: -4, label: "turn (2, -4)" },
+          { x: 3, y: -3, label: "end (3, -3)" },
+        ],
+      },
     },
   ],
   [

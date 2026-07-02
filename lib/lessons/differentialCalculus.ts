@@ -1026,6 +1026,21 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\frac{dy}{dx}=-6x, \\quad \\text{a gradient of } -12 \\text{ at } x=2 \\text{, so the curve is decreasing there.}",
+      cartesianGraph: {
+        description:
+          "y = -3x^2 is a downward-opening parabola with its highest point at the origin (0, 0). A tangent line y = -12x + 12 touches the curve at P(2, -12) and slopes steeply downhill, matching the negative gradient -12 found there.",
+        xMin: -1,
+        xMax: 4,
+        yMin: -24,
+        yMax: 6,
+        xStep: 1,
+        yStep: 4,
+        parabolas: [{ kind: "quadratic", a: -3, b: 0, c: 0, label: "y = -3x²" }],
+        lines: [
+          { kind: "linear", m: -12, b: 12, xMin: 1, xMax: 3, label: "tangent at x = 2, gradient -12" },
+        ],
+        points: [{ x: 2, y: -12, label: "P(2, -12)" }],
+      },
     },
   ],
 
@@ -1776,6 +1791,20 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\frac{dy}{dx}=8x^3-15x^2+1, \\quad \\text{gradient } -6 \\text{ at } x=1 \\text{ (curve falling)}",
+      cartesianGraph: {
+        description:
+          "The point P(1, -13) sits on the quartic y = 2x^4 - 5x^3 + x - 11. The tangent line y = -6x - 7 is drawn through P as a short segment; its downhill slope -6 is exactly the gradient dy/dx at x = 1, so the tangent shows the direction the curve is travelling there.",
+        xMin: -0.5,
+        xMax: 2.5,
+        yMin: -22,
+        yMax: -4,
+        xStep: 0.5,
+        yStep: 2,
+        lineSegments: [
+          { from: { x: 0, y: -7 }, to: { x: 2, y: -19 }, label: "tangent at x = 1, gradient -6" },
+        ],
+        points: [{ x: 1, y: -13, label: "P(1, -13)" }],
+      },
     },
   ],
 
@@ -7568,6 +7597,21 @@ export const optimisationLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{The area is greatest when the rectangle is }10\\text{ cm by }10\\text{ cm (a square), giving }100\\text{ cm}^2.",
+      cartesianGraph: {
+        description:
+          "The area function A = x(20 - x) = 20x - x^2 is a downward-opening parabola crossing the x-axis at x = 0 and x = 20. It rises to a flat maximum turning point at (10, 100), where a horizontal tangent y = 100 touches it and the gradient A'(x) is zero, marking the largest possible area.",
+        xMin: -1,
+        xMax: 21,
+        yMin: -10,
+        yMax: 120,
+        xStep: 2,
+        yStep: 20,
+        parabolas: [{ kind: "quadratic", a: -1, b: 20, c: 0, label: "A = 20x - x²" }],
+        lines: [
+          { kind: "linear", m: 0, b: 100, xMin: 4, xMax: 16, label: "horizontal tangent, gradient 0" },
+        ],
+        points: [{ x: 10, y: 100, label: "max (10, 100)" }],
+      },
     },
     {
       title: "Worked example 2: Least fencing for a fixed area",
@@ -8242,6 +8286,21 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "\\text{At }t=2\\text{ the velocity is }0\\text{ m/s: the ball is momentarily at rest at its highest point.}",
+      cartesianGraph: {
+        description:
+          "The height-time graph h(t) = -5t^2 + 20t + 1 is a downward-opening parabola that rises to its apex at (2, 21). A horizontal tangent y = 21 touches the curve there; its zero slope is the instantaneous velocity h'(2) = 0, so the ball is momentarily at rest at the top of its flight.",
+        xMin: -0.5,
+        xMax: 4.5,
+        yMin: -2,
+        yMax: 24,
+        xStep: 1,
+        yStep: 4,
+        parabolas: [{ kind: "quadratic", a: -5, b: 20, c: 1, label: "h(t) = -5t² + 20t + 1" }],
+        lines: [
+          { kind: "linear", m: 0, b: 21, xMin: 0.5, xMax: 3.5, label: "tangent at t = 2, velocity 0" },
+        ],
+        points: [{ x: 2, y: 21, label: "apex (2, 21)" }],
+      },
     },
     {
       title: "Worked example 2: Interpreting a population rate",
