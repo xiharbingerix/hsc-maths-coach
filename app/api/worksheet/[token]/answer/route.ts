@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 import { markAnswerWithCas } from "../../../../../lib/cas/markAnswerWithCas";
+import {
+  markProofWithAi,
+  proofMarkerEnabled,
+} from "../../../../../lib/proofMarker/markProofWithAi";
+import { allowProofMarkRequest } from "../../../../../lib/proofMarker/rateLimit";
+import { isWordedConceptualAnswer } from "../../../../../lib/proofMarker/conceptualAnswer";
 
 export const runtime = "nodejs";
 
@@ -151,7 +157,7 @@ export async function POST(
   // 3. Load the question answer data (kept server-side only)
   const { data: question, error: qError } = await supabaseAdmin
     .from("questions")
-    .select("answer, accepted_answers, choices, explanation, question_parts")
+    .select("prompt, latex, answer, accepted_answers, choices, explanation, question_parts")
     .eq("id", questionId)
     .maybeSingle();
 
@@ -267,14 +273,58 @@ export async function POST(
     scoreState = isCorrect ? "correct" : "incorrect";
   } else if (parts.length === 0) {
     // Typed: local fast-path, then CAS equivalence (symbolic) if needed.
+    const correctAnswer = String(question.answer ?? "");
+    const acceptedAnswers = Array.isArray(question.accepted_answers)
+      ? (question.accepted_answers as string[])
+      : [];
     const result = await markAnswerWithCas({
       userAnswer: trimmedAnswer,
-      correctAnswer: String(question.answer ?? ""),
-      acceptedAnswers: Array.isArray(question.accepted_answers)
-        ? (question.accepted_answers as string[])
-        : [],
+      correctAnswer,
+      acceptedAnswers,
     });
     isCorrect = result.correct;
+
+    // AI fallback for conceptual / worded answers. String and CAS matching
+    // cannot judge a paraphrase of a phrase-or-sentence answer (e.g. a student
+    // writing "the initial amount" for a stored "the principal"), so when the
+    // stored answer is worded and the local match failed, defer to the AI
+    // short-explanation marker. This is gated by proofMarkerEnabled() (off
+    // unless PROOF_MARKER_ENABLED=true and ANTHROPIC_API_KEY is set) and rate
+    // limited; a disabled marker or any error returns null, leaving the local
+    // (incorrect) result untouched — so behaviour is unchanged until enabled.
+    if (
+      !isCorrect &&
+      isWordedConceptualAnswer(correctAnswer) &&
+      proofMarkerEnabled() &&
+      allowProofMarkRequest(`worksheet:${attemptId}`)
+    ) {
+      const rubric = [correctAnswer, ...acceptedAnswers]
+        .map((entry) => entry.trim())
+        .filter(Boolean);
+      const aiVerdict = await markProofWithAi(
+        {
+          mode: "short_explanation",
+          prompt: String(question.prompt ?? ""),
+          latex: question.latex ? String(question.latex) : undefined,
+          modelSolution:
+            acceptedAnswers.length > 0
+              ? `${correctAnswer}. Also acceptable: ${acceptedAnswers.join("; ")}`
+              : correctAnswer,
+          rubric,
+          feedbackOptions: [
+            {
+              key: "missing_key_idea",
+              text: "The response does not convey the required idea.",
+            },
+          ],
+        },
+        trimmedAnswer
+      );
+      if (aiVerdict?.correct) {
+        isCorrect = true;
+      }
+    }
+
     marksEarned = isCorrect ? 1 : 0;
     percentage = marksEarned;
     scoreState = isCorrect ? "correct" : "incorrect";
