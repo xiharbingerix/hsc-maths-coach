@@ -315,7 +315,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-trv-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "36.1 m", ["36.1", "36.1m"]),
+          ...measurementAnswer("y12s2-trv-g3", "A triangular field has sides 30 m and 40 m with included angle 60 degrees. Use the cosine rule to find the third side to 1 decimal place.", "", "36.1 m", ["36.1", "36.1m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 30 metres and BC 40 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -408,7 +408,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       masteryQuiz: [
         trigAnswer("y12s2-trv-m1", "A triangle has sides 48 m and 62 m with included angle 37 degrees. Which rule finds the third side?", "a, b, C \\text{ known}", "cosine rule", "Two sides and the included angle match the cosine rule for finding the third side.", ["the cosine rule"]),
-        trigAnswer("y12s2-trv-m2", "A known side is paired with its opposite angle, and another side is required. Which rule should be used?", "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}", "sine rule", "A matching side-angle pair is the key signal for using the sine rule.", ["the sine rule"]),
+        trigAnswer("y12s2-trv-m2", "A known side is paired with its opposite angle, and another side is required. Which rule should be used?", "", "sine rule", "A matching side-angle pair is the key signal for using the sine rule.", ["the sine rule"]),
         {
           ...measurementAnswer("y12s2-trv-m3", "A triangular park has sides 20 m and 25 m with included angle 60 degrees. Find the third side to 1 decimal place.", "a=20\\text{ m},\\quad b=25\\text{ m},\\quad C=60°", "22.9 m", ["22.9", "22.9m"]),
           triangleDiagram: {
@@ -450,7 +450,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         practicalChoice("y12s2-trv-m5", "A triangle has angles 50, 60 and 70 degrees. Right-angled trigonometry is:", "C", ["Appropriate because there are angles", "Always exact", "Not appropriate because there is no 90-degree angle", "The same as ratio sharing"], "There is no right angle."),
-        trigAnswer("y12s2-trv-m6", "A cosine-rule side question needs what information?", "c^2=a^2+b^2-2ab\\cos C", "two sides and the included angle", "For a cosine-rule side calculation, the required setup is two known sides and the angle between them.", ["2 sides and the included angle", "two known sides and the included angle"]),
+        trigAnswer("y12s2-trv-m6", "A cosine-rule side question needs what information?", "", "two sides and the included angle", "For a cosine-rule side calculation, the required setup is two known sides and the angle between them.", ["2 sides and the included angle", "two known sides and the included angle"]),
         {
           ...measurementAnswer("y12s2-trv-m7", "A drone triangle has 100 m opposite 30 degrees. Find the side opposite 45 degrees to 1 decimal place.", "a=100\\text{ m},\\quad A=30°,\\quad B=45°", "141.4 m", ["141.4", "141.4m"]),
           triangleDiagram: {
@@ -601,7 +601,7 @@ export function year12Standard2TrigRatesLessonOverride(
         trigAnswer(
           "y12s2-eld-g2",
           "From 30 m away, the angle of elevation to the top of a tree is 35°. Write the equation that finds the height h.",
-          "\\tan(35^\\circ)=\\dfrac{h}{30}",
+          "",
           "h = 30 × tan(35°)",
           "Use tan because the height is opposite the angle and the 30 m distance is adjacent. Rearranging tan(35°) = h/30 gives h = 30 × tan(35°).",
           ["h=30*tan(35)", "h=30tan35", "30 × tan(35°)"]
@@ -616,7 +616,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eld-g4",
           "A person stands 25 m from a tree. The angle of elevation to the top is 38°. Find the height of the tree to 2 decimal places.",
-          "h = 25 \\times \\tan(38°)",
+          "",
           "19.53 m",
           ["19.53", "19.53 m"]
         ),
@@ -625,28 +625,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eld-i1",
           "From 45 m away, the angle of elevation to a tower top is 40°. Find the height to 1 decimal place.",
-          "h = 45 \\times \\tan(40^\\circ)",
+          "",
           "37.8 m",
           ["37.8", "37.8m"]
         ),
         measurementAnswer(
           "y12s2-eld-i2",
           "From the top of an 80 m cliff, the angle of depression to a boat is 22°. Find the horizontal distance to 1 decimal place.",
-          "d = \\dfrac{80}{\\tan(22°)}",
+          "",
           "198.0 m",
           ["198.0", "198", "198.0 m"]
         ),
         measurementAnswer(
           "y12s2-eld-i3",
           "The angle of depression from a 40 m tower to a point 55 m away horizontally is approximately what angle?",
-          "\\theta = \\tan^{-1}\\left(\\dfrac{40}{55}\\right)",
+          "",
           "36.0°",
           ["36.0", "36°"]
         ),
         measurementAnswer(
           "y12s2-eld-i4",
           "A drone is observed from 100 m away at an elevation angle of 35°. Find the height of the drone to 2 decimal places.",
-          "h = 100 \\times \\tan(35°)",
+          "",
           "70.02 m",
           ["70.02", "70.02 m", "70.0 m"]
         ),
@@ -685,14 +685,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eld-m1",
           "From 30 m away, the angle of elevation to a tree top is 45°. Find the height.",
-          "h = 30 \\times \\tan(45^\\circ)",
+          "",
           "30.0 m",
           ["30", "30.0", "30 m"]
         ),
         measurementAnswer(
           "y12s2-eld-m2",
           "From 50 m away, angle of elevation 28°. Height of tower to 2 decimal places?",
-          "h = 50 \\times \\tan(28°)",
+          "",
           "26.59 m",
           ["26.59", "26.59 m", "26.6 m"]
         ),
@@ -706,21 +706,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eld-m4",
           "From 100 m away, angle of elevation 62°. Height to 2 decimal places?",
-          "h = 100 \\times \\tan(62°)",
+          "",
           "188.07 m",
           ["188.07", "188.07 m"]
         ),
         measurementAnswer(
           "y12s2-eld-m5",
           "From the top of a 45 m cliff, the angle of depression to a car is 20°. Find the horizontal distance to 1 decimal place.",
-          "d = \\dfrac{45}{\\tan(20^\\circ)}",
+          "",
           "123.6 m",
           ["123.6", "123.6m"]
         ),
         measurementAnswer(
           "y12s2-eld-m6",
           "From 120 m away, angle of elevation 31° to a tower. Height to 2 decimal places?",
-          "h = 120 \\times \\tan(31°)",
+          "",
           "72.10 m",
           ["72.10", "72.10 m"]
         ),
@@ -734,14 +734,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eld-m8",
           "From the top of an 85 m cliff, the angle of depression to a marker is 32°. Find the horizontal distance to 2 decimal places.",
-          "d = \\dfrac{85}{\\tan(32°)}",
+          "",
           "136.03 m",
           ["136.03", "136.03 m"]
         ),
         measurementAnswer(
           "y12s2-eld-m9",
           "From 25 m away, the angle of elevation to a flagpole is 55°. Find the height to 1 decimal place.",
-          "h = 25 \\times \\tan(55^\\circ)",
+          "",
           "35.7 m",
           ["35.7", "35.7m"]
         ),
@@ -889,7 +889,7 @@ export function year12Standard2TrigRatesLessonOverride(
       ],
       guidedPractice: [
         {
-          ...measurementAnswer("y12s2-sca-g1", "A navigation triangle has side 60 m opposite 32 degrees. Find the side opposite 48 degrees to 1 decimal place.", "\\frac{a}{\\sin A}=\\frac{b}{\\sin B}", "84.1 m", ["84.1", "84.1m"]),
+          ...measurementAnswer("y12s2-sca-g1", "A navigation triangle has side 60 m opposite 32 degrees. Find the side opposite 48 degrees to 1 decimal place.", "", "84.1 m", ["84.1", "84.1m"]),
           triangleDiagram: {
             description:
               "Triangle with side BC 60 metres opposite angle A 32 degrees, and side AC labelled x opposite angle B 48 degrees.",
@@ -909,7 +909,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "A=\\frac{1}{2}ab\\sin C", "896 m^2", ["896", "896m^2", "896 m2"]),
+          ...measurementAnswer("y12s2-sca-g2", "A triangular park has sides 48 m and 62 m with included angle 37 degrees. Find its area to the nearest square metre.", "", "896 m^2", ["896", "896m^2", "896 m2"]),
           triangleDiagram: {
             description:
               "Triangle with sides AB 48 metres and AC 62 metres and included angle A 37 degrees for an area calculation.",
@@ -948,7 +948,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
         {
-          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "c^2=a^2+b^2-2ab\\cos C", "44.4 m", ["44.4", "44.4m"]),
+          ...measurementAnswer("y12s2-sca-g4", "A field has sides 35 m and 50 m with included angle 60 degrees. Find the third side to 1 decimal place.", "", "44.4 m", ["44.4", "44.4m"]),
           triangleDiagram: {
             description:
               "Triangle with sides AC 35 metres and BC 50 metres, included angle C 60 degrees, and third side AB labelled x.",
@@ -1028,7 +1028,7 @@ export function year12Standard2TrigRatesLessonOverride(
             },
           },
         },
-        trigAnswer("y12s2-sca-i4", "A triangular garden has sides 8 m and 11 m with an included angle of 35 degrees. Find its area to 1 decimal place.", "A=\\frac{1}{2}(8)(11)\\sin(35^\\circ)", "25.2 m^2", "Use the two given sides and their included angle: A = 1/2(8)(11)sin(35 degrees) = 25.2 square metres to 1 decimal place.", ["25.2", "25.2m^2", "25.2 m2", "25.2 m²"]),
+        trigAnswer("y12s2-sca-i4", "A triangular garden has sides 8 m and 11 m with an included angle of 35 degrees. Find its area to 1 decimal place.", "", "25.2 m^2", "Use the two given sides and their included angle: A = 1/2(8)(11)sin(35 degrees) = 25.2 square metres to 1 decimal place.", ["25.2", "25.2m^2", "25.2 m2", "25.2 m²"]),
         practicalChoice("y12s2-sca-i5", "A student rounds every trig value to 1 decimal place before finishing. What is the risk?", "D", ["No risk", "The answer becomes exact", "Only the units are affected", "The final answer may be less accurate"], "Rounding the trig values too early lets small errors build up, so the final answer may be less accurate — round only at the end. It is not harmless ('no risk'), rounding never makes a value exact, and it changes the computed value, not just the units."),
       ],
       commonMistakes: [
@@ -1200,21 +1200,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rrv-g2",
           "Share $360 in the ratio 1:3.",
-          "\\text{one part} = 360 \\div 4 = 90",
+          "",
           "$90 and $270",
           ["90 and 270", "$90 and $270"]
         ),
         measurementAnswer(
           "y12s2-rrv-g3",
           "Convert 4.2 km to metres.",
-          "4.2 \\times 1000",
+          "",
           "4200 m",
           ["4200", "4,200 m"]
         ),
         measurementAnswer(
           "y12s2-rrv-g4",
           "A train travels 300 km in 2.5 hours. Find its average speed.",
-          "v = 300 \\div 2.5",
+          "",
           "120 km/h",
           ["120", "120km/h"]
         ),
@@ -1223,28 +1223,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rrv-i1",
           "A recipe uses flour and sugar in the ratio 4:1. If 500 g is made, how much flour is used?",
-          "\\text{one part} = 500 \\div 5 = 100",
+          "",
           "400 g",
           ["400", "400g"]
         ),
         measurementAnswer(
           "y12s2-rrv-i2",
           "Convert 750 mL to litres.",
-          "750 \\div 1000",
+          "",
           "0.75 L",
           ["0.75", "0.750 L"]
         ),
         measurementAnswer(
           "y12s2-rrv-i3",
           "A cyclist covers 45 km in 1.5 hours. Find the average speed.",
-          "v = 45 \\div 1.5",
+          "",
           "30 km/h",
           ["30", "30km/h"]
         ),
         measurementAnswer(
           "y12s2-rrv-i4",
           "Share $500 in the ratio 3:2.",
-          "\\text{one part} = 500 \\div 5 = 100",
+          "",
           "$300 and $200",
           ["300 and 200", "300 and 200"]
         ),
@@ -1285,21 +1285,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rrv-m2",
           "Share $700 in the ratio 3:4.",
-          "\\text{one part} = 700 \\div 7 = 100",
+          "",
           "$300 and $400",
           ["300 and 400"]
         ),
         measurementAnswer(
           "y12s2-rrv-m3",
           "Convert 2500 m to kilometres.",
-          "2500 \\div 1000",
+          "",
           "2.5 km",
           ["2.5"]
         ),
         measurementAnswer(
           "y12s2-rrv-m4",
           "A car travels 180 km in 2 h 30 min. Find its average speed.",
-          "t = 2.5\\text{ h};\\quad v = 180 \\div 2.5",
+          "",
           "72 km/h",
           ["72", "72km/h"]
         ),
@@ -1313,14 +1313,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rrv-m6",
           "Convert 3.2 kg to grams.",
-          "3.2 \\times 1000",
+          "",
           "3200 g",
           ["3200"]
         ),
         measurementAnswer(
           "y12s2-rrv-m7",
           "A cyclist rides 54 km in 1 h 30 min. Find the average speed.",
-          "t = 1.5\\text{ h};\\quad v = 54 \\div 1.5",
+          "",
           "36 km/h",
           ["36", "36km/h"]
         ),
@@ -1334,14 +1334,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rrv-m9",
           "Convert 8500 mL to litres.",
-          "8500 \\div 1000",
+          "",
           "8.5 L",
           ["8.5"]
         ),
         measurementAnswer(
           "y12s2-rrv-m10",
           "6 apples cost $4.20. Find the rate in dollars per apple.",
-          "4.20 \\div 6",
+          "",
           "$0.70",
           ["0.70", "$0.7", "0.7 dollars per apple"]
         ),
@@ -1424,14 +1424,14 @@ export function year12Standard2TrigRatesLessonOverride(
       guidedPractice: [
         measurementAnswer("y12s2-rate-g1", "A prize of 240 dollars is shared in the ratio 3:5. What is the larger share?", "\\text{Given: total }=240,\\quad \\text{ratio}=3{:}5", "$150", ["150", "150.00", "$150.00"]),
         measurementAnswer("y12s2-rate-g2", "A car travels 168 km in 2 h 20 min. Find the average speed in km/h.", "\\text{Given: }d=168\\text{ km},\\quad t=2\\text{ h }20\\text{ min}", "72 km/h", ["72", "72km/h", "72 kmh"]),
-        measurementAnswer("y12s2-rate-g3", "A pump fills 450 L in 15 min. Find the flow rate in L/min.", "\\text{flow rate}=\\frac{\\text{volume}}{\\text{time}}", "30 L/min", ["30", "30L/min", "30 L per min"]),
+        measurementAnswer("y12s2-rate-g3", "A pump fills 450 L in 15 min. Find the flow rate in L/min.", "", "30 L/min", ["30", "30L/min", "30 L per min"]),
         practicalChoice("y12s2-rate-g4", "A map scale is 1:25000. A map distance of 4 cm represents:", "B", ["100 m", "1 km", "10 km", "25 km"], "4 cm times 25000 is 100000 cm, which is 1 km."),
       ],
       independentPractice: [
         measurementAnswer("y12s2-rate-i1", "A drink mix uses cordial and water in the ratio 1:4. If 750 mL is made, how much water is used?", "\\text{Given: total }=750\\text{ mL},\\quad \\text{ratio}=1{:}4", "600 mL", ["600", "600mL", "600 ml"]),
         measurementAnswer("y12s2-rate-i2", "A bus travels 90 km in 1 h 30 min. Find its average speed in km/h.", "\\text{Given: }d=90\\text{ km},\\quad t=1\\text{ h }30\\text{ min}", "60 km/h", ["60", "60km/h", "60 kmh"]),
         measurementAnswer("y12s2-rate-i3", "A car uses 36 L of fuel for 480 km. Find the fuel consumption in L/100 km.", "\\text{Given: }36\\text{ L over }480\\text{ km}", "7.5 L/100 km", ["7.5", "7.50", "7.5L/100km"]),
-        measurementAnswer("y12s2-rate-i4", "A tap fills 2.4 kL in 40 min. Convert 2.4 kL to litres.", "1\\text{ kL}=1000\\text{ L}", "2400 L", ["2400", "2,400", "2400L", "2400 litres"]),
+        measurementAnswer("y12s2-rate-i4", "A tap fills 2.4 kL in 40 min. Convert 2.4 kL to litres.", "", "2400 L", ["2400", "2,400", "2400L", "2400 litres"]),
         trigAnswer("y12s2-rate-i5", "Which of these is a rate rather than a ratio?", "\\text{rate} = \\dfrac{\\text{different units}}{\\text{different units}}", "72 km/h", "A rate compares different kinds of units. Kilometres per hour compares distance with time, so it is a rate.", ["km/h", "72 kilometres per hour"]),
       ],
       commonMistakes: [
@@ -1550,7 +1550,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eco-g2",
           "A 3 kW air conditioner runs for 4 hours. How many kWh of energy does it use?",
-          "E = 3 \\times 4",
+          "",
           "12 kWh",
           ["12", "12kWh"]
         ),
@@ -1564,7 +1564,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eco-g4",
           "A 1500 W heater runs for 2 hours. How many kWh does it use?",
-          "1500\\text{ W}=1.5\\text{ kW};\\quad E = 1.5 \\times 2",
+          "",
           "3 kWh",
           ["3", "3kWh"]
         ),
@@ -1573,28 +1573,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eco-i1",
           "Convert 750 W to kilowatts.",
-          "750 \\div 1000",
+          "",
           "0.75 kW",
           ["0.75", "0.75kW"]
         ),
         measurementAnswer(
           "y12s2-eco-i2",
           "A 1800 W iron is used for 1.5 hours. Find the energy consumed in kWh.",
-          "1800\\text{ W} = 1.8\\text{ kW}\\quad E = 1.8 \\times 1.5",
+          "",
           "2.7 kWh",
           ["2.7", "2.7 kWh"]
         ),
         measurementAnswer(
           "y12s2-eco-i3",
           "An appliance uses 10 kWh. Electricity costs $0.28/kWh. Find the cost.",
-          "10 \\times 0.28",
+          "",
           "$2.80",
           ["2.80", "$2.8", "2.8 dollars"]
         ),
         measurementAnswer(
           "y12s2-eco-i4",
           "A 2 kW appliance runs for 3 hours. The tariff is $0.30/kWh. Find the total cost.",
-          "\\text{Cost} = 2 \\times 3 \\times 0.30",
+          "",
           "$1.80",
           ["1.80", "$1.80", "1.8"]
         ),
@@ -1628,28 +1628,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eco-m1",
           "Convert 3000 W to kilowatts.",
-          "3000 \\div 1000",
+          "",
           "3 kW",
           ["3", "3kW"]
         ),
         measurementAnswer(
           "y12s2-eco-m2",
           "A 2.5 kW appliance runs for 4 hours. Find the energy consumed in kWh.",
-          "E = 2.5 \\times 4",
+          "",
           "10 kWh",
           ["10", "10 kWh"]
         ),
         measurementAnswer(
           "y12s2-eco-m3",
           "An appliance uses 8 kWh. The tariff is $0.25/kWh. Find the cost.",
-          "8 \\times 0.25",
+          "",
           "$2.00",
           ["2.00", "$2", "2 dollars"]
         ),
         measurementAnswer(
           "y12s2-eco-m4",
           "A 800 W heater runs for 2.5 hours. Find the kWh consumed.",
-          "0.8\\text{ kW} \\times 2.5\\text{ h}",
+          "",
           "2 kWh",
           ["2", "2 kWh", "2.0"]
         ),
@@ -1663,7 +1663,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eco-m6",
           "A 500 W lamp runs 3 hours/day for 30 days. Tariff is $0.28/kWh. Find the monthly cost.",
-          "0.5 \\times 3 \\times 30 = 45\\text{ kWh};\\quad 45 \\times 0.28",
+          "",
           "$12.60",
           ["12.60", "$12.60", "12.6"]
         ),
@@ -1677,7 +1677,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-eco-m8",
           "A 600 W fridge runs 18 hours per day. How many kWh does it consume in one day?",
-          "0.6\\text{ kW} \\times 18\\text{ h}",
+          "",
           "10.8 kWh",
           ["10.8", "10.8 kWh"]
         ),
@@ -1802,7 +1802,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-g2",
           "A wall measures 4.5 cm on a 1:100 plan. What is the actual length of the wall in metres?",
-          "\\text{Actual} = 4.5 \\times 100 = 450\\text{ cm}",
+          "",
           "4.5 m",
           ["4.5", "4.5 m", "4.50 m"]
         ),
@@ -1816,7 +1816,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-g4",
           "A rectangular room on a 1:100 plan measures 3.8 cm × 5.2 cm. Find the actual area of the room in m².",
-          "\\text{Actual: }3.8\\text{ m} \\times 5.2\\text{ m}",
+          "",
           "19.76 m²",
           ["19.76", "19.76 m²", "19.76 m2"]
         ),
@@ -1825,7 +1825,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-i1",
           "A corridor measures 7.5 cm on a 1:100 plan. Find the actual length in metres.",
-          "\\text{Actual} = 7.5 \\times 100 = 750\\text{ cm}",
+          "",
           "7.5 m",
           ["7.5", "7.5 m"]
         ),
@@ -1839,21 +1839,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-i3",
           "On a 1:200 plan, a garden measures 3 cm × 4.5 cm. Find the actual area in m².",
-          "\\text{Actual: }6\\text{ m} \\times 9\\text{ m}",
+          "",
           "54 m²",
           ["54", "54 m²", "54 m2"]
         ),
         measurementAnswer(
           "y12s2-sdp-i4",
           "A house wall is 8.4 m long. On a 1:100 plan, how many centimetres does this appear as?",
-          "840\\text{ cm} \\div 100",
+          "",
           "8.4 cm",
           ["8.4", "8.4cm"]
         ),
         measurementAnswer(
           "y12s2-sdp-i5",
           "A 1:50 plan shows a room that is 6 cm × 4 cm. Find the actual floor area in m².",
-          "\\text{Actual: }3\\text{ m} \\times 2\\text{ m}",
+          "",
           "6 m²",
           ["6", "6 m²", "6.0"]
         ),
@@ -1880,28 +1880,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-m1",
           "A scale of 1:200 means 1 cm on the plan equals how many metres in reality?",
-          "1\\text{ cm} \\times 200 = 200\\text{ cm}",
+          "",
           "2 m",
           ["2", "2m"]
         ),
         measurementAnswer(
           "y12s2-sdp-m2",
           "A wall measures 6.5 cm on a 1:200 plan. Actual length in metres?",
-          "6.5 \\times 200 = 1300\\text{ cm}",
+          "",
           "13 m",
           ["13", "13 m", "13.0 m"]
         ),
         measurementAnswer(
           "y12s2-sdp-m3",
           "A room is 6 m × 4.5 m. On a 1:50 plan, what are the plan dimensions?",
-          "600\\text{ cm} \\div 50,\\quad 450\\text{ cm} \\div 50",
+          "",
           "12 cm × 9 cm",
           ["12cm x 9cm", "12 cm by 9 cm", "12 x 9 cm"]
         ),
         measurementAnswer(
           "y12s2-sdp-m4",
           "A rectangular land parcel on a 1:500 plan is 3.2 cm × 5 cm. Find the actual perimeter in metres.",
-          "\\text{Actual: }16\\text{ m} \\times 25\\text{ m}\\quad P=2(16+25)",
+          "",
           "82 m",
           ["82", "82 m"]
         ),
@@ -1915,7 +1915,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-m6",
           "A bedroom is 3.6 m wide. On a 1:100 plan, how many centimetres wide does it appear?",
-          "360\\text{ cm} \\div 100",
+          "",
           "3.6 cm",
           ["3.6", "3.6 cm"]
         ),
@@ -1929,7 +1929,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-m8",
           "On a 1:200 plan, two rooms measure 4 cm × 3 cm and 3.5 cm × 2.5 cm. Find the total actual floor area in m².",
-          "\\text{Room 1: }8\\times6=48\\text{ m}^2\\quad\\text{Room 2: }7\\times5=35\\text{ m}^2",
+          "",
           "83 m²",
           ["83", "83 m²"]
         ),
@@ -1943,7 +1943,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-sdp-m10",
           "A backyard on a 1:100 plan is 12 cm long. A fence runs along the entire length on one side. Find the actual fence length.",
-          "12\\text{ cm} \\times 100 = 1200\\text{ cm}",
+          "",
           "12 m",
           ["12", "12m"]
         ),
@@ -2045,7 +2045,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-g2",
           "Convert 45 mm of rainfall to metres.",
-          "45 \\div 1000",
+          "",
           "0.045 m",
           ["0.045", "0.045 m"]
         ),
@@ -2059,7 +2059,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-g4",
           "A roof of area 150 m² receives 30 mm of rainfall. Find the volume in litres.",
-          "V = 150 \\times 0.030 = 4.5\\text{ m}^3",
+          "",
           "4500 L",
           ["4500", "4500 L", "4500 litres"]
         ),
@@ -2068,7 +2068,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-i1",
           "A catchment area of 200 m² receives 18 mm of rain. Find the volume collected in litres.",
-          "V = 200 \\times 0.018",
+          "",
           "3600 L",
           ["3600", "3600 L"]
         ),
@@ -2082,7 +2082,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-i3",
           "A roof of 90 m² collects water from 50 mm of rainfall. Find the volume in kL.",
-          "V = 90 \\times 0.050 = 4.5\\text{ m}^3",
+          "",
           "4.5 kL",
           ["4.5", "4.5 kL"]
         ),
@@ -2096,7 +2096,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-i5",
           "Rainfall is 12 mm over a 600 m² catchment. How many kL of water is collected?",
-          "V = 600 \\times 0.012 = 7.2\\text{ m}^3",
+          "",
           "7.2 kL",
           ["7.2", "7.2 kL"]
         ),
@@ -2130,7 +2130,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-m2",
           "A 100 m² roof collects water from 40 mm of rain. Volume in litres?",
-          "V = 100 \\times 0.040 = 4\\text{ m}^3",
+          "",
           "4000 L",
           ["4000", "4000 L"]
         ),
@@ -2144,7 +2144,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-m4",
           "A farm dam has a catchment area of 1500 m². Rainfall is 22 mm. Volume collected in kL?",
-          "V = 1500 \\times 0.022",
+          "",
           "33 kL",
           ["33", "33 kL"]
         ),
@@ -2158,7 +2158,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-m6",
           "A roof of 180 m² catches 55 mm of rain. The tank capacity is 8 kL. How much water overflows?",
-          "V = 180 \\times 0.055 = 9.9\\text{ kL}\\quad\\text{Overflow} = 9.9 - 8",
+          "",
           "1.9 kL",
           ["1.9", "1.9 kL"]
         ),
@@ -2172,7 +2172,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rvc-m8",
           "A carpark of 3000 m² receives 15 mm of rain. Volume of runoff in m³?",
-          "V = 3000 \\times 0.015",
+          "",
           "45 m³",
           ["45", "45 m³"]
         ),
@@ -2300,21 +2300,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-bear-g2",
           "A ship sails from port on a bearing of 035°. Find the back bearing from the destination back to port.",
-          "\\text{back bearing} = 035° + 180°",
+          "",
           "215",
           ["215°", "215 degrees"]
         ),
         measurementAnswer(
           "y12s2-bear-g3",
           "Two ships leave port. Ship A sails on bearing 040° and Ship B sails on bearing 100°. What is the angle between their courses at the port?",
-          "\\text{included angle} = 100° - 040°",
+          "",
           "60",
           ["60°", "60 degrees"]
         ),
         measurementAnswer(
           "y12s2-bear-g4",
           "Two ships leave port. Ship A sails bearing 040° for 150 km and Ship B sails bearing 100° for 120 km. Find the distance between them to 1 decimal place.",
-          "d^2 = 150^2 + 120^2 - 2(150)(120)\\cos60°",
+          "",
           "137.5",
           ["137.5 km", "137.5km"]
         ),
@@ -2330,14 +2330,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-bear-i2",
           "From town A, a road on bearing 070° runs for 50 km to B. From B, a road on bearing 160° runs for 40 km to C. Find the interior angle at B.",
-          "\\text{back bearing to A} = 070° + 180° = 250°,\\quad \\text{angle at B} = 250° - 160°",
+          "",
           "90",
           ["90°", "90 degrees"]
         ),
         measurementAnswer(
           "y12s2-bear-i3",
           "Using the same triangle (AB = 50 km, BC = 40 km, angle at B = 90°), find AC to 1 decimal place.",
-          "AC^2 = 50^2 + 40^2",
+          "",
           "64.0",
           ["64", "64.0 km", "64.0km"]
         ),
@@ -2351,7 +2351,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-bear-i5",
           "Two ships leave port. Ship P sails bearing 020° for 60 km. Ship Q sails bearing 080° for 80 km. Find the distance PQ to 1 decimal place.",
-          "d^2 = 60^2 + 80^2 - 2(60)(80)\\cos60°",
+          "",
           "72.1",
           ["72.1 km", "72.1km"]
         ),
@@ -2380,7 +2380,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-bear-m3",
           "A vessel sails on bearing 150° to an island. Find the back bearing from the island to the departure point.",
-          "\\text{back bearing} = 150° + 180°",
+          "",
           "330",
           ["330°", "330 degrees"]
         ),
@@ -2394,28 +2394,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-bear-m5",
           "Two ships leave port. Ship A sails bearing 050° for 120 km. Ship B sails bearing 080° for 90 km. What is the included angle at the port between their paths?",
-          "\\text{angle} = 080° - 050°",
+          "",
           "30",
           ["30°", "30 degrees"]
         ),
         measurementAnswer(
           "y12s2-bear-m6",
           "Using the ship setup (120 km on bearing 050°, 90 km on bearing 080°, included angle 30°), find the distance between the ships to 1 decimal place.",
-          "d^2 = 120^2 + 90^2 - 2(120)(90)\\cos30°",
+          "",
           "61.6",
           ["61.6 km", "61.6km"]
         ),
         measurementAnswer(
           "y12s2-bear-m7",
           "From A, travel bearing 060° for 80 km to B. From B, travel bearing 120° for 100 km to C. Find the interior angle at B.",
-          "\\text{back bearing to A} = 060° + 180° = 240°,\\quad \\text{angle at B} = 240° - 120°",
+          "",
           "120",
           ["120°", "120 degrees"]
         ),
         measurementAnswer(
           "y12s2-bear-m8",
           "Using the triangle (AB = 80 km, BC = 100 km, angle at B = 120°), find AC to 1 decimal place.",
-          "AC^2 = 80^2 + 100^2 - 2(80)(100)\\cos120°",
+          "",
           "156.2",
           ["156.2 km", "156.2km"]
         ),
@@ -2429,7 +2429,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-bear-m10",
           "From A, travel bearing 150° for 200 km to B. From B, travel bearing 240° for 150 km to C. Find AC.",
-          "\\text{back bearing to A} = 150° + 180° = 330°,\\quad \\text{angle at B} = 330° - 240° = 90°,\\quad AC^2 = 200^2 + 150^2",
+          "",
           "250",
           ["250 km", "250km"]
         ),
@@ -2530,7 +2530,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-g2",
           "It is 6:00 am in London (UTC+0). What time is it in Sydney (AEST, UTC+10)? Write the answer in the form H:MM am/pm.",
-          "6{:}00\\text{ am} + 10\\text{ h}",
+          "",
           "4:00 pm",
           ["4pm", "4:00pm", "16:00"]
         ),
@@ -2553,7 +2553,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-i1",
           "What UTC time corresponds to 3:00 pm in Sydney (AEST, UTC+10)? Write the answer in the form H:MM am.",
-          "3{:}00\\text{ pm} - 10\\text{ h}",
+          "",
           "5:00 am",
           ["5am", "5:00am", "05:00"]
         ),
@@ -2567,14 +2567,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-i3",
           "How many hours ahead is Sydney (UTC+10) compared to Perth (AWST, UTC+8)?",
-          "10 - 8",
+          "",
           "2",
           ["2 hours"]
         ),
         measurementAnswer(
           "y12s2-tz-i4",
           "It is 4:00 pm in Perth (UTC+8). What time is it in Sydney (UTC+10)? Write the answer in the form H:MM pm.",
-          "4{:}00\\text{ pm} + 2\\text{ h}",
+          "",
           "6:00 pm",
           ["6pm", "6:00pm", "18:00"]
         ),
@@ -2603,14 +2603,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-m2",
           "It is 9:00 am in London (UTC+0). What time is it in Sydney (AEST, UTC+10)? Write the answer in the form H:MM pm.",
-          "9{:}00\\text{ am} + 10\\text{ h}",
+          "",
           "7:00 pm",
           ["7pm", "7:00pm", "19:00"]
         ),
         measurementAnswer(
           "y12s2-tz-m3",
           "How many hours ahead is Sydney (UTC+10) compared to New York (UTC−5)?",
-          "10 - (-5)",
+          "",
           "15",
           ["15 hours"]
         ),
@@ -2624,7 +2624,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-m5",
           "It is 10:00 am in London (UTC+0). What time is it in Brisbane (AEST, UTC+10)? Write the answer in the form H:MM pm.",
-          "10{:}00\\text{ am} + 10\\text{ h}",
+          "",
           "8:00 pm",
           ["8pm", "8:00pm", "20:00"]
         ),
@@ -2645,7 +2645,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-m8",
           "It is 3:00 pm in Tokyo (UTC+9). What time is it in Sydney (AEST, UTC+10)? Write the answer in the form H:MM pm.",
-          "3{:}00\\text{ pm} + 1\\text{ h}",
+          "",
           "4:00 pm",
           ["4pm", "4:00pm", "16:00"]
         ),
@@ -2659,7 +2659,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-tz-m10",
           "It is 3:00 pm in London (UTC+0). What time is it in New York (UTC−5)? Write the answer in the form H:MM am.",
-          "3{:}00\\text{ pm} - 5\\text{ h}",
+          "",
           "10:00 am",
           ["10am", "10:00am"]
         ),
@@ -2786,21 +2786,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rtv-g2",
           "A right triangle has hypotenuse 10 m and angle 30°. Find the opposite side (to 2 d.p.).",
-          "\\text{opp} = 10 \\times \\sin 30^\\circ",
+          "",
           "5.00 m",
           ["5", "5.0", "5.00"]
         ),
         measurementAnswer(
           "y12s2-rtv-g3",
           "A right triangle has adjacent 8 cm and hypotenuse 10 cm. Find angle θ (to 1 d.p.).",
-          "\\theta = \\cos^{-1}\\!\\left(\\frac{8}{10}\\right)",
+          "",
           "36.9°",
           ["36.87°", "36.87", "36.9"]
         ),
         measurementAnswer(
           "y12s2-rtv-g4",
           "A right triangle has legs 5 m and 12 m. Find the hypotenuse.",
-          "c = \\sqrt{5^2 + 12^2} = \\sqrt{169}",
+          "",
           "13 m",
           ["13"]
         ),
@@ -2816,21 +2816,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rtv-i2",
           "Right triangle: angle = 55°, hypotenuse = 20 m. Find the opposite side (to 2 d.p.).",
-          "\\text{opp} = 20 \\times \\sin 55^\\circ",
+          "",
           "16.38 m",
           ["16.38", "16.4 m", "16.4"]
         ),
         measurementAnswer(
           "y12s2-rtv-i3",
           "Right triangle: opposite = 7 m, adjacent = 7 m. Find angle θ (to 1 d.p.).",
-          "\\theta = \\tan^{-1}\\!\\left(\\frac{7}{7}\\right) = \\tan^{-1}(1)",
+          "",
           "45.0°",
           ["45°", "45"]
         ),
         measurementAnswer(
           "y12s2-rtv-i4",
           "A right triangle has hypotenuse 13 cm and one leg 5 cm. Find the other leg.",
-          "b = \\sqrt{13^2 - 5^2} = \\sqrt{144}",
+          "",
           "12 cm",
           ["12"]
         ),
@@ -2871,28 +2871,28 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rtv-m2",
           "Right triangle: hypotenuse = 25 m, angle = 37°. Find the adjacent side (to 2 d.p.).",
-          "\\text{adj} = 25 \\times \\cos 37^\\circ",
+          "",
           "19.97 m",
           ["19.97", "19.98 m", "19.98"]
         ),
         measurementAnswer(
           "y12s2-rtv-m3",
           "Right triangle: adjacent = 9 m, angle = 40°. Find the opposite side (to 2 d.p.).",
-          "\\text{opp} = 9 \\times \\tan 40^\\circ",
+          "",
           "7.55 m",
           ["7.55", "7.6 m"]
         ),
         measurementAnswer(
           "y12s2-rtv-m4",
           "Right triangle: opposite = 5 m, hypotenuse = 13 m. Find angle θ (to 1 d.p.).",
-          "\\theta = \\sin^{-1}\\!\\left(\\frac{5}{13}\\right)",
+          "",
           "22.6°",
           ["22.62°", "22.62"]
         ),
         measurementAnswer(
           "y12s2-rtv-m5",
           "A right triangle has legs 9 cm and 40 cm. Find the hypotenuse.",
-          "c = \\sqrt{9^2 + 40^2} = \\sqrt{81 + 1600} = \\sqrt{1681}",
+          "",
           "41 cm",
           ["41"]
         ),
@@ -2906,7 +2906,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rtv-m7",
           "Right triangle: angle = 60°, adjacent = 5 m. Find the opposite side (to 2 d.p.).",
-          "\\text{opp} = 5 \\times \\tan 60^\\circ",
+          "",
           "8.66 m",
           ["8.66"]
         ),
@@ -2920,7 +2920,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rtv-m9",
           "Right triangle: opposite = 12 m, adjacent = 5 m. Find angle θ (to 1 d.p.).",
-          "\\theta = \\tan^{-1}\\!\\left(\\frac{12}{5}\\right)",
+          "",
           "67.4°",
           ["67.38°", "67.4"]
         ),
@@ -3072,7 +3072,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rad-i2",
           "In a right-angled triangle, angle θ = 0.8 rad and the adjacent side is 5 m. Find the opposite side to 2 decimal places.",
-          "\\tan(0.8) = \\dfrac{\\text{opp}}{5}\\quad(\\text{RAD mode})",
+          "",
           "5.15 m",
           ["5.15", "5.15m", "5.15 m"]
         ),
@@ -3086,7 +3086,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rad-i4",
           "Convert 135° to radians (to 2 decimal places).",
-          "135 \\times \\dfrac{\\pi}{180}",
+          "",
           "2.36 rad",
           ["2.36", "2.36 rad", "2.36 radians"]
         ),
@@ -3127,7 +3127,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rad-m2",
           "Convert 30° to radians (to 4 decimal places).",
-          "30 \\times \\dfrac{\\pi}{180} = \\dfrac{\\pi}{6}",
+          "",
           "0.5236 rad",
           ["0.5236", "0.5236 rad", "0.524"]
         ),
@@ -3141,7 +3141,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rad-m4",
           "A ramp makes an angle of 0.3 rad with the horizontal over a horizontal distance of 8 m. Find the height to 2 decimal places.",
-          "h = 8 \\times \\tan(0.3)\\quad(\\text{RAD mode})",
+          "",
           "2.47 m",
           ["2.47", "2.47 m", "2.47m"]
         ),
@@ -3155,7 +3155,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rad-m6",
           "Convert 2.5 radians to degrees (to 1 decimal place).",
-          "2.5 \\times \\dfrac{180}{\\pi}",
+          "",
           "143.2°",
           ["143.2", "143.2 degrees", "143.2°"]
         ),
@@ -3169,7 +3169,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-rad-m8",
           "In a right-angled triangle, the opposite side is 7.5 m and angle θ = 1.0 rad. Find the hypotenuse to 2 decimal places.",
-          "\\sin(1.0) = \\dfrac{7.5}{h} \\implies h = \\dfrac{7.5}{\\sin(1.0)}",
+          "",
           "8.91 m",
           ["8.91", "8.91 m", "8.91m"]
         ),
@@ -3353,7 +3353,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-amb-i2",
           "For a = 10, b = 8, A = 35°, sin B = 0.4589. Find B1 to 1 decimal place.",
-          "B_1 = \\arcsin(0.4589)",
+          "",
           "27.3°",
           ["27.3", "27.3 degrees"]
         ),
@@ -3372,7 +3372,7 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-amb-i4",
           "For a = 5, b = 9, A = 25°, find B1 to 1 decimal place. (sin B = 0.7607)",
-          "B_1 = \\arcsin(0.7607)",
+          "",
           "49.5°",
           ["49.5", "49.5 degrees"]
         ),
@@ -3435,21 +3435,21 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-amb-m3",
           "For a triangle with a = 7, b = 9, A = 45°, calculate sin B to 4 decimal places.",
-          "\\sin B = \\dfrac{9\\sin 45°}{7}",
+          "",
           "0.9091",
           ["0.909", "0.9090", "0.90909"]
         ),
         measurementAnswer(
           "y12s2-amb-m4",
           "Using sin B = 0.9091, find B1 to 1 decimal place.",
-          "B_1 = \\arcsin(0.9091)",
+          "",
           "65.4°",
           ["65.4", "65.4 degrees"]
         ),
         measurementAnswer(
           "y12s2-amb-m5",
           "Given B1 = 65.4°, find B2.",
-          "B_2 = 180° - B_1",
+          "",
           "114.6°",
           ["114.6", "114.6 degrees"]
         ),
@@ -3468,14 +3468,14 @@ export function year12Standard2TrigRatesLessonOverride(
         measurementAnswer(
           "y12s2-amb-m7",
           "For a triangle with a = 12, b = 7, A = 65°, calculate sin B to 4 decimal places.",
-          "\\sin B = \\dfrac{7\\sin 65°}{12}",
+          "",
           "0.5287",
           ["0.529", "0.5286", "0.5288"]
         ),
         measurementAnswer(
           "y12s2-amb-m8",
           "Using sin B = 0.5287, find B1 to 1 decimal place.",
-          "B_1 = \\arcsin(0.5287)",
+          "",
           "31.9°",
           ["31.9", "31.9 degrees"]
         ),
@@ -3618,7 +3618,7 @@ export function year12Standard2TrigRatesLessonOverride(
         },
       },
       {
-        ...measurementAnswer("y12s2-rate-exam-g2", "A field has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "A=\\frac{1}{2}ab\\sin C", "634 m^2", ["634", "634m^2", "634 m2"]),
+        ...measurementAnswer("y12s2-rate-exam-g2", "A field has sides 30 m and 45 m with included angle 70 degrees. Find the area to the nearest square metre.", "", "634 m^2", ["634", "634m^2", "634 m2"]),
         triangleDiagram: {
           description:
             "Triangle with sides AB 30 metres and AC 45 metres and included angle A 70 degrees for an area calculation.",
@@ -3636,7 +3636,7 @@ export function year12Standard2TrigRatesLessonOverride(
           },
         },
       },
-      measurementAnswer("y12s2-rate-exam-g3", "A car travels 120 km in 1 h 30 min. Find average speed.", "\\text{speed}=\\frac{\\text{distance}}{\\text{time}}", "80 km/h", ["80", "80km/h", "80 kmh"]),
+      measurementAnswer("y12s2-rate-exam-g3", "A car travels 120 km in 1 h 30 min. Find average speed.", "", "80 km/h", ["80", "80km/h", "80 kmh"]),
       measurementAnswer("y12s2-rate-exam-g4", "A 300 dollar cost is shared in the ratio 2:3. Find the smaller share.", "\\text{Given: total }=300,\\quad \\text{ratio}=2{:}3", "$120", ["120", "120.00", "$120.00"]),
     ],
     independentPractice: [

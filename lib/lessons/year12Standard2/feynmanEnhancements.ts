@@ -66,7 +66,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "\\$140",
     multiStem:
       "A community hall charges a fixed fee plus a constant amount per attendee. A booking for 20 attendees costs $520 and a booking for 35 attendees costs $820.",
-    multiLatex: "C=mn+b",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the cost per attendee.",
@@ -190,7 +190,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "10\\text{ min}",
     multiStem:
       "A heater rated at 1.8 kW runs for 2.5 hours. Electricity costs 32 cents per kWh.",
-    multiLatex: "E=Pt",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the energy used in kWh.",
@@ -252,7 +252,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "\\$12266",
     multiStem:
       "Mia invests $6000 at 5% p.a. compounded annually for 4 years. A competing account charges a $40 setup fee but pays 5.4% p.a. compounded annually.",
-    multiLatex: "A=P(1+r)^n",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the value of the first investment after 4 years to the nearest dollar.",
@@ -316,7 +316,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "z=1.5",
     multiStem:
       "For a set of exam marks, the mean is 68 and the standard deviation is 6. A student scores 77.",
-    multiLatex: "z=\\frac{x-\\mu}{\\sigma}",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the student's z-score.",
@@ -377,7 +377,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "11\\text{ days}",
     multiStem:
       "A project has three dependent paths with total durations 9 days, 14 days, and 12 days. One non-critical activity on the 9-day path can be delayed.",
-    multiLatex: "\\text{project duration}=\\max(\\text{path totals})",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the project completion time.",

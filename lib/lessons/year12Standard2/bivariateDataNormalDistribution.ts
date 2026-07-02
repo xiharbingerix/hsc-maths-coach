@@ -169,14 +169,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-g1",
           "Data: 2, 5, 3, 7, 3. Find the mean.",
-          "\\bar{x} = (2+5+3+7+3) \\div 5",
+          "",
           "4",
           ["4.0"]
         ),
         financeShortAnswer(
           "y12s2-bdr-g2",
           "Data (ordered): 4, 6, 7, 9, 11. Find the median.",
-          "\\text{Middle value of 5 values}",
+          "",
           "7",
           ["7.0"]
         ),
@@ -190,7 +190,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-g4",
           "Data: 12, 15, 8, 20, 10. Find the range.",
-          "\\max - \\min = 20 - 8",
+          "",
           "12",
           ["12.0"]
         ),
@@ -199,14 +199,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-i1",
           "Data: 6, 8, 4, 10, 2. Find the mean.",
-          "(6+8+4+10+2) \\div 5",
+          "",
           "6",
           ["6.0"]
         ),
         financeShortAnswer(
           "y12s2-bdr-i2",
           "Data (ordered): 3, 5, 8, 10. Find the median.",
-          "\\frac{5+8}{2}",
+          "",
           "6.5",
           ["6.50"]
         ),
@@ -227,7 +227,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-i5",
           "Score | Frequency: 1:2, 2:3, 3:1. Find the mean score (to 1 d.p.).",
-          "\\frac{1(2)+2(3)+3(1)}{6} = \\frac{11}{6}",
+          "",
           "1.8",
           ["1.83", "1.83...", "11/6"]
         ),
@@ -254,21 +254,21 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-m1",
           "Data: 9, 3, 6, 12, 5, 7. Find the mean.",
-          "(9+3+6+12+5+7) \\div 6",
+          "",
           "7",
           ["7.0"]
         ),
         financeShortAnswer(
           "y12s2-bdr-m2",
           "Data (ordered): 4, 7, 9, 12, 15. Find the median.",
-          "\\text{Middle of 5 values}",
+          "",
           "9",
           ["9.0"]
         ),
         financeShortAnswer(
           "y12s2-bdr-m3",
           "Data: 5, 8, 3, 11, 3. Find the range.",
-          "11 - 3",
+          "",
           "8",
           ["8.0"]
         ),
@@ -282,7 +282,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-m5",
           "Data (ordered): 1, 3, 5, 7. Find the median.",
-          "\\frac{3+5}{2}",
+          "",
           "4",
           ["4.0"]
         ),
@@ -296,7 +296,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-m7",
           "Score | Freq: 2:4, 3:3, 4:2, 5:1. Find the mean (to 2 d.p.).",
-          "\\frac{2(4)+3(3)+4(2)+5(1)}{10} = \\frac{28}{10}",
+          "",
           "2.80",
           ["2.8", "2.80"]
         ),
@@ -310,7 +310,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-bdr-m9",
           "Data: 10, 20, 30, 40, 50. Find the mean.",
-          "(10+20+30+40+50) \\div 5",
+          "",
           "30",
           ["30.0"]
         ),
@@ -816,14 +816,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-g1",
           "A normal distribution has mean 50 and SD 5. Find the upper boundary for the 1 SD interval.",
-          "50 + 5",
+          "",
           "55",
           ["55.0"]
         ),
         financeShortAnswer(
           "y12s2-ndr-g2",
           "Normal distribution: mean = 100, SD = 15. Find the value 2 SDs below the mean.",
-          "100 - 2(15)",
+          "",
           "70",
           ["70.0"]
         ),
@@ -837,7 +837,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-g4",
           "Normal distribution: mean = 30, SD = 4. Find the lower bound of the 1 SD interval.",
-          "30 - 4",
+          "",
           "26",
           ["26.0"]
         ),
@@ -853,14 +853,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-i2",
           "Exam scores: mean = 72, SD = 6. Find the interval covering approximately 68% of scores.",
-          "72 \\pm 6",
+          "",
           "66 to 78",
           ["66-78", "66 to 78"]
         ),
         financeShortAnswer(
           "y12s2-ndr-i3",
           "Heights: mean = 165 cm, SD = 7 cm. Find the value 3 SDs above the mean.",
-          "165 + 3(7)",
+          "",
           "186 cm",
           ["186", "186cm"]
         ),
@@ -874,7 +874,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-i5",
           "Normal distribution: mean = 50, SD = 8. Find the range covering approximately 95% of data.",
-          "50 \\pm 2(8) = 50 \\pm 16",
+          "",
           "34 to 66",
           ["34-66", "34 to 66"]
         ),
@@ -901,7 +901,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-m1",
           "Normal distribution: mean = 60, SD = 5. Find the value 1 SD above the mean.",
-          "60 + 5",
+          "",
           "65",
           ["65.0"]
         ),
@@ -915,14 +915,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-m3",
           "Normal distribution: mean = 200, SD = 20. Find the upper value for the 2 SD interval.",
-          "200 + 2(20)",
+          "",
           "240",
           ["240.0"]
         ),
         financeShortAnswer(
           "y12s2-ndr-m4",
           "Normal distribution: mean = 100, SD = 10. Find the range covering 99.7% of data.",
-          "100 \\pm 3(10) = 100 \\pm 30",
+          "",
           "70 to 130",
           ["70-130", "70 to 130"]
         ),
@@ -936,7 +936,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-m6",
           "Heights: mean = 175 cm, SD = 5 cm. Approximately 68% of heights lie between:",
-          "175 \\pm 5",
+          "",
           "170 cm and 180 cm",
           ["170 to 180", "170 and 180", "170-180"]
         ),
@@ -950,7 +950,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-m8",
           "Normal distribution: mean = 40, SD = 3. Find the lower bound of the 95% interval.",
-          "40 - 2(3)",
+          "",
           "34",
           ["34.0"]
         ),
@@ -964,7 +964,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-ndr-m10",
           "Normal distribution: mean = 55, SD = 4. Find the interval for approximately 95% of data.",
-          "55 \\pm 2(4) = 55 \\pm 8",
+          "",
           "47 to 63",
           ["47-63", "47 to 63"]
         ),
@@ -1079,17 +1079,17 @@ export function year12Standard2StatisticsLessonOverride(
         },
       ],
       guidedPractice: [
-        financeShortAnswer("y12s2-normal-g1", "Exam scores are normal with mean 68 and standard deviation 8. Find the z-score for 76.", "(76-68)/8", "1", ["1.0"]),
-        financeShortAnswer("y12s2-normal-g2", "Waiting times have mean 20 min and standard deviation 5 min. Find the z-score for 10 min.", "(10-20)/5", "-2", ["-2.0"]),
+        financeShortAnswer("y12s2-normal-g1", "Exam scores are normal with mean 68 and standard deviation 8. Find the z-score for 76.", "", "1", ["1.0"]),
+        financeShortAnswer("y12s2-normal-g2", "Waiting times have mean 20 min and standard deviation 5 min. Find the z-score for 10 min.", "", "-2", ["-2.0"]),
         financeChoice("y12s2-normal-g3", "A z-score of 1.5 means the value is:", "A", ["1.5 standard deviations above the mean", "1.5 below zero", "Equal to the mean", "A correlation coefficient"], "Positive z-scores are above the mean."),
         financeChoice("y12s2-normal-g4", "Approximately what percentage of normal data is within 1 standard deviation of the mean?", "B", ["95%", "68%", "99.7%", "50%"], "The empirical rule gives about 68%."),
       ],
       independentPractice: [
-        financeShortAnswer("y12s2-normal-i1", "Product weights have mean 500 g and standard deviation 20 g. Find the z-score for 540 g.", "(540-500)/20", "2", ["2.0"]),
-        financeShortAnswer("y12s2-normal-i2", "Test scores have mean 70 and standard deviation 6. What raw score has z = -1?", "70-1(6)", "64"),
+        financeShortAnswer("y12s2-normal-i1", "Product weights have mean 500 g and standard deviation 20 g. Find the z-score for 540 g.", "", "2", ["2.0"]),
+        financeShortAnswer("y12s2-normal-i2", "Test scores have mean 70 and standard deviation 6. What raw score has z = -1?", "", "64"),
         financeChoice("y12s2-normal-i3", "A z-score of -0.5 means the value is:", "C", ["Above the mean", "Exactly the mean", "0.5 standard deviations below the mean", "The standard deviation"], "Negative means below the mean."),
         financeChoice("y12s2-normal-i4", "Approximately what percentage is within 2 standard deviations in a normal distribution?", "A", ["95%", "68%", "99.7%", "5%"], "The empirical rule gives about 95%."),
-        financeShortAnswer("y12s2-normal-i5", "Scores are normal with mean 70 and standard deviation 6. Find the upper value 2 standard deviations above the mean.", "70+2(6)", "82"),
+        financeShortAnswer("y12s2-normal-i5", "Scores are normal with mean 70 and standard deviation 6. Find the upper value 2 standard deviations above the mean.", "", "82"),
       ],
       commonMistakes: [
         { mistake: "Using the mean instead of the standard deviation in the denominator.", fix: "Use z = (x - mean) divided by standard deviation." },
@@ -1192,7 +1192,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-g2",
           "P(A) = 0.35. Find P(A').",
-          "P(A') = 1 - 0.35",
+          "",
           "0.65",
           ["0.650", "65%"]
         ),
@@ -1206,7 +1206,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-g4",
           "P(winning) = 3/8. Express as a percentage.",
-          "\\frac{3}{8} \\times 100",
+          "",
           "37.5%",
           ["37.5", "37.50%"]
         ),
@@ -1222,14 +1222,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-i2",
           "P(not raining) = 0.72. Find P(raining).",
-          "P(\\text{rain}) = 1 - 0.72",
+          "",
           "0.28",
           ["0.280", "28%"]
         ),
         financeShortAnswer(
           "y12s2-prv-i3",
           "A box has 4 white, 6 black, 2 yellow balls. Find P(black) as a decimal.",
-          "\\frac{6}{12}",
+          "",
           "0.5",
           ["0.50", "1/2", "50%"]
         ),
@@ -1243,7 +1243,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-i5",
           "A die is rolled. Find P(number > 4).",
-          "\\text{Outcomes > 4: 5, 6}",
+          "",
           "1/3",
           ["2/6", "0.333", "0.33"]
         ),
@@ -1270,14 +1270,14 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-m1",
           "A fair die is rolled. Find P(even number).",
-          "\\text{Even: 2, 4, 6 → 3 out of 6}",
+          "",
           "1/2",
           ["3/6", "0.5", "50%"]
         ),
         financeShortAnswer(
           "y12s2-prv-m2",
           "P(passing) = 0.85. Find P(not passing).",
-          "1 - 0.85",
+          "",
           "0.15",
           ["0.150", "15%"]
         ),
@@ -1291,7 +1291,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-m4",
           "P(winning a prize) = 1/8. Express as a percentage.",
-          "\\frac{1}{8} \\times 100",
+          "",
           "12.5%",
           ["12.5", "12.50%"]
         ),
@@ -1305,7 +1305,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-m6",
           "Two dice are rolled. How many total outcomes are in the sample space?",
-          "6 \\times 6",
+          "",
           "36",
           ["36.0"]
         ),
@@ -1319,7 +1319,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-m8",
           "Letters in MATHS are written on cards. Find P(selecting a vowel).",
-          "\\text{Vowels: A → 1 out of 5}",
+          "",
           "1/5",
           ["0.2", "20%"]
         ),
@@ -1333,7 +1333,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-prv-m10",
           "P(A) = 2/5. Find P(A') as a decimal.",
-          "1 - \\frac{2}{5} = \\frac{3}{5}",
+          "",
           "0.6",
           ["3/5", "0.60", "60%"]
         ),
@@ -1400,16 +1400,16 @@ export function year12Standard2StatisticsLessonOverride(
         },
       ],
       guidedPractice: [
-        financeShortAnswer("y12s2-relfreq-g1", "A spinner lands on red 24 times in 100 spins. Estimate P(red).", "\\frac{24}{100}", "0.24", ["24%", "6/25"]),
-        financeShortAnswer("y12s2-relfreq-g2", "A quality check finds 7 faulty items in 200. Estimate the probability an item is faulty.", "\\frac{7}{200}", "0.035", ["3.5%"]),
+        financeShortAnswer("y12s2-relfreq-g1", "A spinner lands on red 24 times in 100 spins. Estimate P(red).", "", "0.24", ["24%", "6/25"]),
+        financeShortAnswer("y12s2-relfreq-g2", "A quality check finds 7 faulty items in 200. Estimate the probability an item is faulty.", "", "0.035", ["3.5%"]),
         financeChoice("y12s2-relfreq-g3", "What usually happens to relative frequency as the number of trials becomes large?", "B", ["It must become zero", "It often becomes more stable", "It must become one", "It stops being data"], "More trials usually reduce random fluctuation."),
-        financeShortAnswer("y12s2-relfreq-g4", "An event occurs 18 times in 60 trials. Find its relative frequency.", "\\frac{18}{60}", "0.30", ["0.3", "30%", "3/10"]),
+        financeShortAnswer("y12s2-relfreq-g4", "An event occurs 18 times in 60 trials. Find its relative frequency.", "", "0.30", ["0.3", "30%", "3/10"]),
       ],
       independentPractice: [
-        financeShortAnswer("y12s2-relfreq-i1", "A bus is late 15 times in 60 observed trips. Estimate the probability it is late.", "\\frac{15}{60}", "0.25", ["25%", "1/4"]),
-        financeShortAnswer("y12s2-relfreq-i2", "A simulation records 312 successes in 800 trials. Estimate the probability of success.", "\\frac{312}{800}", "0.39", ["39%"]),
-        financeShortAnswer("y12s2-relfreq-i3", "In a sample of 250 customers, 90 chose online delivery. Estimate the probability a customer chooses online delivery.", "\\frac{90}{250}", "0.36", ["36%", "9/25"]),
-        financeShortAnswer("y12s2-relfreq-i4", "A two-way table has 14 students who walk out of 35 students. Find P(walk | student).", "\\frac{14}{35}", "0.4", ["40%", "2/5"]),
+        financeShortAnswer("y12s2-relfreq-i1", "A bus is late 15 times in 60 observed trips. Estimate the probability it is late.", "", "0.25", ["25%", "1/4"]),
+        financeShortAnswer("y12s2-relfreq-i2", "A simulation records 312 successes in 800 trials. Estimate the probability of success.", "", "0.39", ["39%"]),
+        financeShortAnswer("y12s2-relfreq-i3", "In a sample of 250 customers, 90 chose online delivery. Estimate the probability a customer chooses online delivery.", "", "0.36", ["36%", "9/25"]),
+        financeShortAnswer("y12s2-relfreq-i4", "A two-way table has 14 students who walk out of 35 students. Find P(walk | student).", "", "0.4", ["40%", "2/5"]),
         financeChoice("y12s2-relfreq-i5", "A relative-frequency estimate from 20 trials is very different from one from 2000 trials. Which is usually more reliable?", "D", ["The 20-trial estimate always", "Neither estimate can be used", "The smaller sample always", "The 2000-trial estimate usually"], "A larger number of trials usually gives a more stable estimate."),
       ],
       commonMistakes: [
@@ -1419,15 +1419,15 @@ export function year12Standard2StatisticsLessonOverride(
         { mistake: "Assuming small samples are always reliable.", fix: "Mention that larger samples usually give more stable estimates." },
       ],
       masteryQuiz: [
-        financeShortAnswer("y12s2-relfreq-m1", "A die simulation gives 83 sixes in 500 rolls. Estimate P(six).", "\\frac{83}{500}", "0.166", ["16.6%"]),
-        financeShortAnswer("y12s2-relfreq-m2", "A website has 48 purchases from 1200 visits. Estimate the purchase probability.", "\\frac{48}{1200}", "0.04", ["4%", "1/25"]),
-        financeShortAnswer("y12s2-relfreq-m3", "A survey finds 96 out of 240 people prefer train travel. Estimate the probability.", "\\frac{96}{240}", "0.4", ["40%", "2/5"]),
-        financeShortAnswer("y12s2-relfreq-m4", "In 75 rainy days, a road floods 9 times. Estimate P(flood | rainy day).", "\\frac{9}{75}", "0.12", ["12%", "3/25"]),
-        financeShortAnswer("y12s2-relfreq-m5", "A two-way table has 21 adults who use card out of 60 adults. Find P(card | adult).", "\\frac{21}{60}", "0.35", ["35%", "7/20"]),
+        financeShortAnswer("y12s2-relfreq-m1", "A die simulation gives 83 sixes in 500 rolls. Estimate P(six).", "", "0.166", ["16.6%"]),
+        financeShortAnswer("y12s2-relfreq-m2", "A website has 48 purchases from 1200 visits. Estimate the purchase probability.", "", "0.04", ["4%", "1/25"]),
+        financeShortAnswer("y12s2-relfreq-m3", "A survey finds 96 out of 240 people prefer train travel. Estimate the probability.", "", "0.4", ["40%", "2/5"]),
+        financeShortAnswer("y12s2-relfreq-m4", "In 75 rainy days, a road floods 9 times. Estimate P(flood | rainy day).", "", "0.12", ["12%", "3/25"]),
+        financeShortAnswer("y12s2-relfreq-m5", "A two-way table has 21 adults who use card out of 60 adults. Find P(card | adult).", "", "0.35", ["35%", "7/20"]),
         financeChoice("y12s2-relfreq-m6", "A simulation is repeated with more trials. The main reason is to:", "C", ["force the answer to 0.5", "avoid division", "improve the stability of the estimate", "change the event"], "More trials usually reduce random variation."),
         financeChoice("y12s2-relfreq-m7", "Which is the best wording for a probability from observed data?", "A", ["estimated probability", "guaranteed probability", "impossible outcome", "residual"], "Observed relative frequency gives an estimate."),
         financeChoice("y12s2-relfreq-m8", "In P(A | B), which total should be used in the denominator?", "D", ["all outcomes always", "only group A", "the largest cell", "the total in group B"], "Given B restricts the sample space to group B."),
-        financeShortAnswer("y12s2-relfreq-m9", "A factory tests 400 bulbs and 10 fail. Estimate the failure probability.", "\\frac{10}{400}", "0.025", ["2.5%", "1/40"]),
+        financeShortAnswer("y12s2-relfreq-m9", "A factory tests 400 bulbs and 10 fail. Estimate the failure probability.", "", "0.025", ["2.5%", "1/40"]),
         financeChoice("y12s2-relfreq-m10", "If relative frequency is 0.72, what percentage is this?", "B", ["7.2%", "72%", "0.72%", "720%"], "Multiply the decimal by 100 to convert to a percentage."),
       ],
     };
@@ -1567,7 +1567,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-eft-i2",
           "P(defect) = 0.04. A factory produces 2500 items. Expected number of defects?",
-          "E = 2500 \\times 0.04",
+          "",
           "100",
           ["100 defects"]
         ),
@@ -1588,7 +1588,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-eft-i5",
           "From the Pass/Fail survey (grand total 140): P(Year 12 and Pass) as a decimal to 2 decimal places.",
-          "P = 40 \\div 140",
+          "",
           "0.29",
           ["0.286", "0.2857"]
         ),
@@ -1622,7 +1622,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-eft-m2",
           "P(A) = 0.35. Experiment repeated 200 times. Expected frequency of A?",
-          "E = 200 \\times 0.35",
+          "",
           "70",
           ["70 times"]
         ),
@@ -1636,7 +1636,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-eft-m4",
           "From the Pass/Fail survey (grand total 140): P(Year 11 and Fail) as a decimal to 2 decimal places.",
-          "P = 18 \\div 140",
+          "",
           "0.13",
           ["0.129", "0.1286"]
         ),
@@ -1664,7 +1664,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-eft-m8",
           "From the Pass/Fail survey (grand total 140): P(Pass) as a decimal.",
-          "P = 112 \\div 140",
+          "",
           "0.8",
           ["0.80"]
         ),
@@ -1842,7 +1842,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-msi-i2",
           "A bag has 5 red and 5 blue balls. A ball is drawn and replaced, then another is drawn. Find P(red then blue) as a decimal.",
-          "P(R)\\times P(B)=\\dfrac{5}{10}\\times\\dfrac{5}{10}",
+          "",
           "0.25",
           ["0.25"]
         ),
@@ -1856,7 +1856,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-msi-i4",
           "P(A) = 0.6, P(B) = 0.7. A and B are independent. Find P(A and B).",
-          "P(A)\\times P(B)=0.6\\times0.7",
+          "",
           "0.42",
           ["0.42"]
         ),
@@ -1897,7 +1897,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-msi-m2",
           "P(A) = 0.3, P(B) = 0.5. A and B are independent. Find P(A and B).",
-          "P(A)\\times P(B)=0.3\\times0.5",
+          "",
           "0.15",
           ["0.15"]
         ),
@@ -1911,7 +1911,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-msi-m4",
           "A fair die is rolled twice. Find P(odd then even) as a decimal.",
-          "P(\\text{odd})\\times P(\\text{even})=\\tfrac{1}{2}\\times\\tfrac{1}{2}",
+          "",
           "0.25",
           ["0.25"]
         ),
@@ -1937,7 +1937,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-msi-m7",
           "P(A) = 0.8, P(B) = 0.25. A and B are independent. Find P(A and B).",
-          "0.8\\times0.25",
+          "",
           "0.2",
           ["0.20", "0.2"]
         ),
@@ -1958,7 +1958,7 @@ export function year12Standard2StatisticsLessonOverride(
         financeShortAnswer(
           "y12s2-msi-m10",
           "P(A) = 0.45, P(B) = 0.6. A and B are independent. Find P(A and B) to 2 decimal places.",
-          "0.45\\times0.6",
+          "",
           "0.27",
           ["0.27"]
         ),
@@ -2045,14 +2045,14 @@ export function year12Standard2StatisticsLessonOverride(
     guidedPractice: [
       financeChoice("y12s2-stat-exam-g1", "A scatterplot of training time and performance score has an upward trend. Which conclusion is best?", "A", ["Positive association", "Negative association", "No association", "Causation proven"], "An upward trend is positive association."),
       financeShortAnswer("y12s2-stat-exam-g2", "Use the regression equation shown to predict the response value.", "y=20+5x,\\quad x=6", "50"),
-      financeShortAnswer("y12s2-stat-exam-g3", "Predicted delivery time is 31 min and actual delivery time is 36 min. Find the residual.", "36-31", "5", ["5 min", "5 minutes"]),
-      financeShortAnswer("y12s2-stat-exam-g4", "Scores have mean 68 and standard deviation 8. Find the z-score for 84.", "(84-68)/8", "2", ["2.0"]),
+      financeShortAnswer("y12s2-stat-exam-g3", "Predicted delivery time is 31 min and actual delivery time is 36 min. Find the residual.", "", "5", ["5 min", "5 minutes"]),
+      financeShortAnswer("y12s2-stat-exam-g4", "Scores have mean 68 and standard deviation 8. Find the z-score for 84.", "", "2", ["2.0"]),
     ],
     independentPractice: [
       financeChoice("y12s2-stat-exam-i1", "A correlation r = -0.72 for temperature and heater use is best described as:", "B", ["Strong positive", "Strong negative", "No linear association", "Causation proven"], "The value is negative and reasonably close to -1."),
       financeShortAnswer("y12s2-stat-exam-i2", "Use the regression equation shown to predict the response value.", "y=12.5+4.2x,\\quad x=6", "37.7"),
       financeChoice("y12s2-stat-exam-i3", "A prediction is made for x = 30 when the data range was x = 2 to x = 10. This is:", "D", ["Interpolation", "A residual", "A z-score", "Extrapolation"], "30 is outside the data range."),
-      financeShortAnswer("y12s2-stat-exam-i4", "A normal distribution has mean 70 and standard deviation 6. Find the z-score for 58.", "(58-70)/6", "-2", ["-2.0"]),
+      financeShortAnswer("y12s2-stat-exam-i4", "A normal distribution has mean 70 and standard deviation 6. Find the z-score for 58.", "", "-2", ["-2.0"]),
       financeChoice("y12s2-stat-exam-i5", "Approximately what percentage of normal data is within 2 standard deviations of the mean?", "A", ["95%", "68%", "99.7%", "2%"], "The empirical rule gives about 95%."),
     ],
     commonMistakes: [

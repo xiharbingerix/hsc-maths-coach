@@ -532,7 +532,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-i3",
           "Weighted network: A-B (6), B-C (4), B-D (7), A-D (10). Find the total weight of path A→B→D.",
-          "6 + 7",
+          "",
           "13",
           ["13.0"]
         ),
@@ -594,7 +594,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-m4",
           "Weighted network: A-B (3), B-C (5), A-C (6), C-D (4). Find path total A→B→C→D.",
-          "3 + 5 + 4",
+          "",
           "12",
           ["12.0"]
         ),
@@ -608,7 +608,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-m6",
           "A network has 7 edges. What is the sum of all vertex degrees?",
-          "\\text{Sum} = 2 \\times 7",
+          "",
           "14",
           ["14.0"]
         ),
@@ -622,7 +622,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-nfr-m8",
           "Network edges: P-Q (8), Q-R (5), P-R (11), R-S (3). Find path total P→Q→R→S.",
-          "8 + 5 + 3",
+          "",
           "16",
           ["16.0"]
         ),
@@ -943,7 +943,7 @@ export function year12Standard2NetworksLessonOverride(
           ...shortAnswer(
             "y12s2-net-term-m1",
             "An undirected network has 7 edges. Four of its vertices have degrees 4, 3, 3 and 2. What is the degree of the fifth vertex?",
-            "2e=2\\times 7=14",
+            "",
             "2"
           ),
           hint:
@@ -1180,16 +1180,16 @@ export function year12Standard2NetworksLessonOverride(
         },
       ],
       guidedPractice: [
-        shortAnswer("y12s2-spmst-g1", "Delivery route A-B-D has weights 5 and 7. What is the total route weight?", "5+7", "12", ["12 units"]),
-        shortAnswer("y12s2-spmst-g2", "Paths A-B-D and A-C-D have total weights 11 and 9. What is the shortest-path weight?", "\\min(11,9)", "9", ["9 units"]),
+        shortAnswer("y12s2-spmst-g1", "Delivery route A-B-D has weights 5 and 7. What is the total route weight?", "", "12", ["12 units"]),
+        shortAnswer("y12s2-spmst-g2", "Paths A-B-D and A-C-D have total weights 11 and 9. What is the shortest-path weight?", "", "9", ["9 units"]),
         labelledChoice("y12s2-spmst-g3", "A town wants to connect every suburb with the least total fibre cable. Which method is appropriate?", "B", ["Shortest path", "Minimum spanning tree", "Circuit only", "Degree count only"], "Connecting every location with least total length is an MST problem."),
-        shortAnswer("y12s2-spmst-g4", "Kruskal's method selects MST edges with weights 2, 4 and 5. What is the total weight?", "2+4+5", "11"),
+        shortAnswer("y12s2-spmst-g4", "Kruskal's method selects MST edges with weights 2, 4 and 5. What is the total weight?", "", "11"),
       ],
       independentPractice: [
-        shortAnswer("y12s2-spmst-i1", "Road weights are AB=3 and BD=8. Find the route weight for A-B-D.", "3+8", "11", ["11 units"]),
+        shortAnswer("y12s2-spmst-i1", "Road weights are AB=3 and BD=8. Find the route weight for A-B-D.", "", "11", ["11 units"]),
         shortAnswer("y12s2-spmst-i2", "Routes A-C-D=10 and A-B-D=12. Give the shortest path label.", "\\text{shortest path}", "A-C-D", ["A,C,D", "ACD", "A C D"]),
         labelledChoice("y12s2-spmst-i3", "Which mistake would break an MST solution?", "C", ["Adding selected edge weights", "Connecting a new vertex", "Including an edge that creates a cycle", "Stopping when all vertices are connected"], "A tree cannot include a cycle."),
-        shortAnswer("y12s2-spmst-i4", "MST edge weights for connecting buildings are 6, 7, 9 and 10 metres. Find the total cable length.", "6+7+9+10", "32 m", ["32", "32m", "32 metres", "32 meters"]),
+        shortAnswer("y12s2-spmst-i4", "MST edge weights for connecting buildings are 6, 7, 9 and 10 metres. Find the total cable length.", "", "32 m", ["32", "32m", "32 metres", "32 meters"]),
         labelledChoice("y12s2-spmst-i5", "A courier needs the quickest route from Depot A to Stop F. Which problem type is this?", "A", ["Shortest path", "Minimum spanning tree", "Tree count", "Tax calculation"], "A route from one point to another is a shortest-path problem."),
       ],
       commonMistakes: [
@@ -1342,7 +1342,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-g2",
           "Activity durations: A=4, B=6, C=3. Path A→C has total:",
-          "4 + 3",
+          "",
           "7",
           ["7.0"]
         ),
@@ -1356,7 +1356,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-g4",
           "Activity A has no predecessors, duration 5. Activity B depends on A, duration 3. Earliest B can finish =",
-          "5 + 3",
+          "",
           "8",
           ["8.0"]
         ),
@@ -1372,7 +1372,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-i2",
           "Path durations: A=3, C=7, E=2. Path total A→C→E =",
-          "3 + 7 + 2",
+          "",
           "12",
           ["12.0"]
         ),
@@ -1386,7 +1386,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-i4",
           "Paths: P1=8, P2=11, P3=7 days. Float for P1 =",
-          "11 - 8",
+          "",
           "3",
           ["3.0", "3 days"]
         ),
@@ -1427,7 +1427,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-m2",
           "Durations: A=5, B=3, D=4. Path total A→D =",
-          "5 + 4",
+          "",
           "9",
           ["9.0"]
         ),
@@ -1441,7 +1441,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-m4",
           "Critical path = 15 days. Path P3 = 11 days. Float for P3 =",
-          "15 - 11",
+          "",
           "4",
           ["4.0", "4 days"]
         ),
@@ -1455,7 +1455,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-m6",
           "Path P1: A(3)+C(5)+E(2) = ?",
-          "3 + 5 + 2",
+          "",
           "10",
           ["10.0"]
         ),
@@ -1469,7 +1469,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-cpr-m8",
           "Project has 4 activities with durations 5, 3, 4, 6. Path total for all 4 in sequence =",
-          "5 + 3 + 4 + 6",
+          "",
           "18",
           ["18.0"]
         ),
@@ -1578,17 +1578,17 @@ export function year12Standard2NetworksLessonOverride(
         },
       ],
       guidedPractice: [
-        shortAnswer("y12s2-cpa-g1", "Activity A takes 4 days and starts at day 0. What is its earliest finish time?", "0+4", "4 days", ["4", "4d"]),
-        shortAnswer("y12s2-cpa-g2", "Activity B takes 5 days and can start after A finishes at day 4. What is B's earliest finish time?", "4+5", "9 days", ["9", "9d"]),
+        shortAnswer("y12s2-cpa-g1", "Activity A takes 4 days and starts at day 0. What is its earliest finish time?", "", "4 days", ["4", "4d"]),
+        shortAnswer("y12s2-cpa-g2", "Activity B takes 5 days and can start after A finishes at day 4. What is B's earliest finish time?", "", "9 days", ["9", "9d"]),
         labelledChoice("y12s2-cpa-g3", "A project path with the longest total duration is called the:", "C", ["Shortest path", "Minimum spanning tree", "Critical path", "Degree of a vertex"], "The critical path controls the project completion time."),
         labelledChoice("y12s2-cpa-g4", "Activity E has 3 days float and is delayed by 2 days. What happens to the project completion time?", "A", ["It does not change", "It must increase by 2 days", "It becomes a circuit", "It becomes an MST"], "A delay within float does not delay the whole project."),
       ],
       independentPractice: [
-        shortAnswer("y12s2-cpa-i1", "Activity C can start after A and B finish at days 5 and 8. What is C's earliest start?", "\\max(5,8)", "8 days", ["8", "8d"]),
-        shortAnswer("y12s2-cpa-i2", "A path A-C-F has durations 3, 6 and 2 days. Find the path total.", "3+6+2", "11 days", ["11", "11d"]),
-        shortAnswer("y12s2-cpa-i3", "Path totals are A-B-D=12 and A-C-D=15. What is the project completion time?", "\\max(12,15)", "15 days", ["15", "15d"]),
+        shortAnswer("y12s2-cpa-i1", "Activity C can start after A and B finish at days 5 and 8. What is C's earliest start?", "", "8 days", ["8", "8d"]),
+        shortAnswer("y12s2-cpa-i2", "A path A-C-F has durations 3, 6 and 2 days. Find the path total.", "", "11 days", ["11", "11d"]),
+        shortAnswer("y12s2-cpa-i3", "Path totals are A-B-D=12 and A-C-D=15. What is the project completion time?", "", "15 days", ["15", "15d"]),
         labelledChoice("y12s2-cpa-i4", "A critical activity is delayed by 3 days. What is the likely effect?", "B", ["No effect ever", "Project completion is delayed by 3 days", "It creates a cycle", "It reduces the completion time"], "A delay on the critical path delays the project by the same amount, unless the plan changes."),
-        shortAnswer("y12s2-cpa-i5", "If latest start is day 10 and earliest start is day 7, find the float.", "10-7", "3 days", ["3", "3d"]),
+        shortAnswer("y12s2-cpa-i5", "If latest start is day 10 and earliest start is day 7, find the float.", "", "3 days", ["3", "3d"]),
       ],
       commonMistakes: [
         { mistake: "Adding all activity durations in the table.", fix: "Follow dependent paths and use the longest path, not the sum of every activity." },
@@ -1677,14 +1677,14 @@ export function year12Standard2NetworksLessonOverride(
       guidedPractice: [
         labelledChoice("y12s2-flow-g1", "In a flow network, what is the source?", "A", ["Where flow begins", "Where flow leaves", "Any edge weight", "A cycle"], "The source is the starting point of the flow."),
         labelledChoice("y12s2-flow-g2", "An arc has capacity 10 and proposed flow 7. Is the arc feasible?", "B", ["No", "Yes", "Only if it is undirected", "Only if capacity is ignored"], "The flow is not greater than the capacity."),
-        shortAnswer("y12s2-flow-g3", "A cut has forward capacities 4, 6 and 5. Find the cut capacity.", "4+6+5", "15"),
-        shortAnswer("y12s2-flow-g4", "Two final arcs into a sink have capacities 8 and 3. Find the most that can enter through those arcs.", "8+3", "11"),
+        shortAnswer("y12s2-flow-g3", "A cut has forward capacities 4, 6 and 5. Find the cut capacity.", "", "15"),
+        shortAnswer("y12s2-flow-g4", "Two final arcs into a sink have capacities 8 and 3. Find the most that can enter through those arcs.", "", "11"),
       ],
       independentPractice: [
-        shortAnswer("y12s2-flow-i1", "A pipe has capacity 18 L/s and carries 12 L/s. How much spare capacity remains?", "18-12", "6", ["6 L/s"]),
+        shortAnswer("y12s2-flow-i1", "A pipe has capacity 18 L/s and carries 12 L/s. How much spare capacity remains?", "", "6", ["6 L/s"]),
         labelledChoice("y12s2-flow-i2", "An arc has capacity 9 and proposed flow 11. What is the issue?", "C", ["It has no source", "It is always optimal", "It exceeds capacity", "It is a cut"], "A feasible flow cannot exceed capacity."),
-        shortAnswer("y12s2-flow-i3", "Forward arcs crossing a cut have capacities 7 and 13. Find the cut capacity.", "7+13", "20"),
-        shortAnswer("y12s2-flow-i4", "A source can send along two outgoing arcs with capacities 10 and 14. Find the outgoing capacity total.", "10+14", "24"),
+        shortAnswer("y12s2-flow-i3", "Forward arcs crossing a cut have capacities 7 and 13. Find the cut capacity.", "", "20"),
+        shortAnswer("y12s2-flow-i4", "A source can send along two outgoing arcs with capacities 10 and 14. Find the outgoing capacity total.", "", "24"),
         labelledChoice("y12s2-flow-i5", "What does a cut capacity provide for the total flow?", "D", ["A lower limit only", "A vertex degree", "A residual", "An upper limit"], "A cut limits how much flow can cross from source side to sink side."),
       ],
       commonMistakes: [
@@ -1695,13 +1695,13 @@ export function year12Standard2NetworksLessonOverride(
       ],
       masteryQuiz: [
         labelledChoice("y12s2-flow-m1", "In a flow network, what is the sink?", "B", ["Where flow begins", "Where flow leaves", "The largest capacity", "A repeated edge"], "The sink is the endpoint that receives the flow."),
-        shortAnswer("y12s2-flow-m2", "A proposed flow sends 16 on an arc with capacity 20. Find the spare capacity.", "20-16", "4"),
+        shortAnswer("y12s2-flow-m2", "A proposed flow sends 16 on an arc with capacity 20. Find the spare capacity.", "", "4"),
         labelledChoice("y12s2-flow-m3", "A proposed flow sends 15 on an arc with capacity 12. The flow is:", "A", ["Not feasible", "Always maximum", "A cut", "A source"], "The proposed flow is greater than the capacity."),
-        shortAnswer("y12s2-flow-m4", "A cut has forward capacities 6, 9 and 10. Find the cut capacity.", "6+9+10", "25"),
-        shortAnswer("y12s2-flow-m5", "Final arcs into a sink have capacities 5, 7 and 8. Find their combined capacity.", "5+7+8", "20"),
+        shortAnswer("y12s2-flow-m4", "A cut has forward capacities 6, 9 and 10. Find the cut capacity.", "", "25"),
+        shortAnswer("y12s2-flow-m5", "Final arcs into a sink have capacities 5, 7 and 8. Find their combined capacity.", "", "20"),
         labelledChoice("y12s2-flow-m6", "Which practical context is naturally modelled by network flow?", "C", ["A box plot", "A residual", "Water through pipes with capacity limits", "A normal z-score"], "Pipes with capacity limits are a flow-network context."),
         labelledChoice("y12s2-flow-m7", "A bottleneck in a flow network is:", "D", ["The first vertex alphabetically", "Any triangle", "A shortest path", "A low-capacity part that restricts total flow"], "A bottleneck restricts the total amount that can pass through."),
-        shortAnswer("y12s2-flow-m8", "An arc has capacity 30 and flow 22. Find the unused capacity.", "30-22", "8"),
+        shortAnswer("y12s2-flow-m8", "An arc has capacity 30 and flow 22. Find the unused capacity.", "", "8"),
         labelledChoice("y12s2-flow-m9", "When calculating a cut capacity, which arcs are added?", "A", ["Forward arcs crossing from source side to sink side", "All arcs in the network", "Only loops", "Only the shortest path"], "A cut capacity adds the forward crossing arcs."),
         shortAnswer("y12s2-flow-m10", "A cut capacity is 18. What is the largest possible total flow across that cut?", "\\text{cut capacity}=18", "18"),
       ],
@@ -1858,7 +1858,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-g2",
           "Project Alpha: A(2), B(4), C(3 after A), D(2 after B), E(5 after C and D), F(1 after E). Find the minimum project completion time in days.",
-          "\\text{Critical path: }B\\to D\\to E\\to F=4+2+5+1",
+          "",
           "12",
           ["12 days"]
         ),
@@ -1877,7 +1877,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-g4",
           "Project Alpha: find the float for Activity C (EST=2, LST=3).",
-          "\\text{Float}=\\text{LST}-\\text{EST}=3-2",
+          "",
           "1",
           ["1 day"]
         ),
@@ -1898,7 +1898,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-i2",
           "Project Alpha: find EFT for Activity E (EST=6, duration=5 days).",
-          "\\text{EFT}=6+5",
+          "",
           "11",
           ["11 days"]
         ),
@@ -1919,7 +1919,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-i5",
           "Project Alpha: find LST for Activity A (LFT=3, duration=2 days).",
-          "\\text{LST}=\\text{LFT}-\\text{duration}=3-2",
+          "",
           "1",
           ["1 day", "Day 1"]
         ),
@@ -1958,7 +1958,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-m2",
           "Project Alpha: find LFT for Activity D (LST of F=11, LST of E=6, D feeds E).",
-          "\\text{LFT(D)}=\\text{LST(E)}=6",
+          "",
           "6",
           ["6 days", "Day 6"]
         ),
@@ -1984,7 +1984,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-m5",
           "Project Alpha: find EST for Activity E (EFT of C=5, EFT of D=6).",
-          "\\text{EST(E)}=\\max(5,6)=6",
+          "",
           "6",
           ["6 days", "Day 6"]
         ),
@@ -2010,7 +2010,7 @@ export function year12Standard2NetworksLessonOverride(
         shortAnswer(
           "y12s2-gcd-m8",
           "Project Alpha: if Activity E is reduced to 3 days (was 5), find the new minimum completion time.",
-          "B\\to D\\to E\\to F=4+2+3+1",
+          "",
           "10",
           ["10 days"]
         ),
@@ -2117,15 +2117,15 @@ export function year12Standard2NetworksLessonOverride(
     ],
     guidedPractice: [
       labelledChoice("y12s2-net-exam-g1", "A question asks for the quickest road route from Town A to Town F. Which method is best?", "A", ["Shortest path", "Minimum spanning tree", "Tax calculation", "Box plot"], "One route from a start to an end is a shortest-path problem."),
-      shortAnswer("y12s2-net-exam-g2", "A route uses edge weights 6, 5 and 4 minutes. Find the total route time.", "6+5+4", "15 minutes", ["15", "15 min", "15 mins"]),
+      shortAnswer("y12s2-net-exam-g2", "A route uses edge weights 6, 5 and 4 minutes. Find the total route time.", "", "15 minutes", ["15", "15 min", "15 mins"]),
       labelledChoice("y12s2-net-exam-g3", "A project activity has float of 4 days and is delayed by 2 days. What happens to completion time?", "B", ["It increases by 2 days", "It does not change", "It becomes an MST", "It must restart"], "The delay is within the available float."),
-      shortAnswer("y12s2-net-exam-g4", "MST connector lengths are 8, 10, 12 and 15 metres. Find the total length.", "8+10+12+15", "45 m", ["45", "45m", "45 metres", "45 meters"]),
+      shortAnswer("y12s2-net-exam-g4", "MST connector lengths are 8, 10, 12 and 15 metres. Find the total length.", "", "45 m", ["45", "45m", "45 metres", "45 meters"]),
     ],
     independentPractice: [
       shortAnswer("y12s2-net-exam-i1", "A table lists roads AB, BC, CD, DA and AC. How many edges are listed?", "AB,BC,CD,DA,AC", "5"),
       shortAnswer("y12s2-net-exam-i2", "Routes A-B-E and A-C-E have total times 22 and 19 minutes. Give the shortest path label.", "\\text{shortest path}", "A-C-E", ["A,C,E", "ACE", "A C E"]),
       labelledChoice("y12s2-net-exam-i3", "A school is connecting every classroom block using the least total fibre length. Which method should be used?", "C", ["Critical path", "Shortest path", "Minimum spanning tree", "Circuit count"], "Connecting all required locations at minimum total length is an MST problem."),
-      shortAnswer("y12s2-net-exam-i4", "A project has path totals 9, 13 and 11 days. Find the completion time.", "\\max(9,13,11)", "13 days", ["13", "13d"]),
+      shortAnswer("y12s2-net-exam-i4", "A project has path totals 9, 13 and 11 days. Find the completion time.", "", "13 days", ["13", "13d"]),
       labelledChoice("y12s2-net-exam-i5", "A 14-minute walking route is longer than a 12-minute route but avoids an unsafe crossing. Which conclusion is best?", "D", ["The 12-minute route must always be chosen", "The 14-minute route is impossible", "The network has no weights", "The longer route may be better in practice"], "Practical decisions can include safety, not just shortest time."),
     ],
     commonMistakes: [
