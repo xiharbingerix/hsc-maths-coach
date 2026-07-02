@@ -99,6 +99,22 @@ export interface TutorHomeworkSection {
   suggestion: string;
 }
 
+// Socratic tutor↔student script for one-on-one (Zoom) delivery. "tutor" lines
+// are said/asked by the tutor; "student" lines are the expected student
+// response — a checkpoint the tutor listens for before moving on.
+export interface TutorDialogueExchange {
+  speaker: "tutor" | "student";
+  text: string;
+}
+
+export interface TutorDialogueSection {
+  kind: "dialogue";
+  id: string;
+  heading: string;
+  minutes: number;
+  exchanges: TutorDialogueExchange[];
+}
+
 export type TutorSection =
   | TutorTextSection
   | TutorFormulasSection
@@ -107,7 +123,8 @@ export type TutorSection =
   | TutorWorkedExampleSection
   | TutorMisconceptionsSection
   | TutorPromptsSection
-  | TutorHomeworkSection;
+  | TutorHomeworkSection
+  | TutorDialogueSection;
 
 export interface TutorLessonPlan {
   title: string;
@@ -120,6 +137,9 @@ export interface TutorLessonPlan {
   learningGoal: string;
   successCriteria: string[];
   sections: TutorSection[];
+  // How the plan was produced. Older saved plans predate these fields.
+  generator?: "ai" | "built-in";
+  model?: string;
 }
 
 // ── Placeholder detection ─────────────────────────────────────────────────────
@@ -150,7 +170,9 @@ export function detectPlaceholderLesson(lesson: ExplicitLesson): string | null {
 
 // Generic MCQ placeholder formulas (several phrasings exist) carry no
 // information once the choices are shown — strip them from the display.
-function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
+// Exported for the AI lesson planner, which resolves bank-question references
+// back into full TutorQuestions (preserving diagrams, choices, hints).
+export function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
   return {
     id: q.id,
     prompt: q.prompt,
@@ -165,7 +187,7 @@ function toTutorQuestion(q: PracticeQuestion): TutorQuestion {
   };
 }
 
-function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
+export function toTutorWorkedExample(ex: WorkedExample): TutorWorkedExample {
   return {
     title: ex.title,
     questionLatex: ex.questionLatex,
@@ -425,5 +447,6 @@ export function generateTutorPlan(
     learningGoal: lesson.learningIntention,
     successCriteria: lesson.successCriteria,
     sections,
+    generator: "built-in",
   };
 }

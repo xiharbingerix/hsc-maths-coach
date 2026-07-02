@@ -51,8 +51,9 @@ export default async function LessonMakerPage() {
               Lesson Maker
             </h1>
             <p className="mt-1.5 text-sm text-slate-600">
-              Build a tutor-facing teaching plan from existing course content.
-              No AI — fully deterministic from your lesson data.
+              AI-authored one-on-one Zoom teaching plans built from your course
+              content. The first generation per topic is written by Claude and
+              saved as that topic&apos;s default — later requests are free.
             </p>
           </div>
           <Link
