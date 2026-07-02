@@ -441,7 +441,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-g2",
         "A line of best fit is y = 2x + 5. Predict y when x = 10.",
-        "y = 2(10) + 5",
+        "",
         "25",
         2,
         "Substitute x = 10 into the line.",
@@ -452,7 +452,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-g3",
         "Predicting a value OUTSIDE the range of the data is called:",
-        "\\text{outside the data}",
+        "",
         "extrapolation",
         2,
         "Outside the observed range.",
@@ -462,7 +462,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-g4",
         "Data covers x from 5 to 20. Is a prediction at x = 12 interpolation or extrapolation?",
-        "5 \\le 12 \\le 20",
+        "",
         "interpolation",
         2,
         "Is 12 inside the range 5 to 20?",
@@ -474,7 +474,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-i1",
         "A line of best fit is y = 0.5x + 3. Predict y when x = 8.",
-        "y = 0.5(8) + 3",
+        "",
         "7",
         2,
         "Substitute x = 8.",
@@ -492,7 +492,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-i3",
         "Data ranges from x = 2 to x = 15. A prediction at x = 20 extrapolates beyond the data. Is the prediction reliable? Answer yes or no.",
-        "20 > 15",
+        "",
         "no",
         3,
         "Predictions outside the data range are extrapolations.",
@@ -502,7 +502,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-i4",
         "A line of best fit y = 3x + 2 was found from data with x between 0 and 10. Predict y at x = 6.",
-        "y = 3(6) + 2",
+        "",
         "20",
         3,
         "Substitute x = 6 (note it is inside the data range).",
@@ -511,7 +511,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-i5",
         "Data covers x from 5 to 20. Classify a prediction at x = 25 as interpolation or extrapolation.",
-        "25 > 20",
+        "",
         "extrapolation",
         3,
         "Compare 25 with the largest data value.",
@@ -522,7 +522,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m1",
         "A line of best fit is y = 4x + 1. Predict y when x = 5.",
-        "y = 4(5) + 1",
+        "",
         "21",
         2,
         "Substitute x = 5.",
@@ -545,7 +545,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m3",
         "Data covers x from 0 to 30. Classify a prediction at x = 15 as interpolation or extrapolation.",
-        "0 \\le 15 \\le 30",
+        "",
         "interpolation",
         3,
         "Is 15 inside the range?",
@@ -555,7 +555,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m4",
         "A line of best fit is y = −2x + 50. Predict y when x = 12.",
-        "y = -2(12) + 50",
+        "",
         "26",
         3,
         "Substitute x = 12, watching the negative gradient.",
@@ -573,7 +573,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m6",
         "A line of best fit passes through (0, 20) and (10, 70). Use it to predict y at x = 4.",
-        "m = \\frac{70 - 20}{10 - 0}",
+        "",
         "40",
         4,
         "Find the gradient and y-intercept first, then substitute x = 4.",
@@ -582,7 +582,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m7",
         "Data ranges from x = 8 to x = 40. Classify a prediction at x = 6 as interpolation or extrapolation.",
-        "6 < 8",
+        "",
         "extrapolation",
         3,
         "x = 6 is below the smallest data value.",
@@ -605,7 +605,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m9",
         "A line of best fit y = −2x + 30 came from data with x from 1 to 12. Predict y at x = 10.",
-        "y = -2(10) + 30",
+        "",
         "10",
         4,
         "Substitute x = 10 (inside the data range, so reliable interpolation).",
@@ -614,7 +614,7 @@ export function year12Standard1InterpolationExtrapolationLessonOverride(
       ans(
         "inex-m10",
         "A line of best fit is y = 1.5x + 4, found from data with x from 0 to 15. Predict y at x = 40.",
-        "y = 1.5(40) + 4",
+        "",
         "64",
         4,
         "Substitute x = 40, then note it is far outside the data range.",
