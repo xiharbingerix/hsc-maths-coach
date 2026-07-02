@@ -827,6 +827,17 @@ export const initialConditionsParticularPrimitiveLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "f(x)=3x^2+4x+2",
+      cartesianGraph: {
+        description: "The family f(x) = 3x^2 + 4x + C is a stack of identically-shaped parabolas shifted vertically, shown here for C = -2, 0, 2 and 4. Only the member with C = 2, namely f(x) = 3x^2 + 4x + 2, passes through the initial-condition point (1, 9), which is marked. One point selects one curve from the family.",
+        xMin: -2.2, xMax: 1.5, yMin: -3, yMax: 15, xStep: 0.5, yStep: 3,
+        parabolas: [
+          { kind: "quadratic", a: 3, b: 4, c: -2, label: "C = -2" },
+          { kind: "quadratic", a: 3, b: 4, c: 0, label: "C = 0" },
+          { kind: "quadratic", a: 3, b: 4, c: 2, label: "particular: C = 2" },
+          { kind: "quadratic", a: 3, b: 4, c: 4, label: "C = 4" },
+        ],
+        points: [{ x: 1, y: 9, label: "(1, 9)" }],
+      },
     },
     {
       title: "Worked example 2: The same idea in dy/dx notation",
@@ -1194,6 +1205,31 @@ export const definiteIntegralsFundamentalTheoremLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "0. \\quad \\text{The positive and negative signed areas cancel.}",
+      cartesianGraph: {
+        description: "The line y equals 2x minus 4 crosses the x-axis at x equals 2. From x equals 1 to x equals 2 it lies below the axis (negative signed area, shaded red); from x equals 2 to x equals 3 it lies above the axis (positive signed area, shaded green). The two regions are equal in size, so the definite integral from 1 to 3 is zero.",
+        xMin: 0.5, xMax: 3.5, yMin: -3, yMax: 3, xStep: 0.5, yStep: 1,
+        lines: [{ kind: "linear", m: 2, b: -4, label: "y = 2x - 4" }],
+        shadedRegions: [
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 2, b: -4 },
+            xMin: 1,
+            xMax: 2,
+            color: "red",
+            description: "Below-axis region from x equals 1 to x equals 2, contributing negative signed area.",
+          },
+          {
+            kind: "under-function",
+            functionType: "line",
+            line: { m: 2, b: -4 },
+            xMin: 2,
+            xMax: 3,
+            color: "green",
+            description: "Above-axis region from x equals 2 to x equals 3, contributing equal positive signed area that cancels the negative piece.",
+          },
+        ],
+      },
     },
     {
       title: "Worked example 3: Check the theorem against a known area",
@@ -3091,6 +3127,31 @@ export const applicationsTotalChangeMotionLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{Displacement}=0\\text{ m (returned to start); total distance}=\\tfrac{64}{27}\\approx2.37\\text{ m}",
+      cartesianGraph: {
+        description: "The velocity-time graph v equals 3t squared minus 4t is an upward parabola crossing the t-axis at t equals 0 and t equals four-thirds. From t equals 0 to four-thirds the velocity is negative (backward motion, shaded red below the axis, signed area minus 32/27); from four-thirds to 2 it is positive (forward motion, shaded green above the axis, signed area plus 32/27). The two areas are equal, so displacement is 0 but total distance is 64/27.",
+        xMin: -0.3, xMax: 2.3, yMin: -2, yMax: 5, xStep: 0.5, yStep: 1,
+        parabolas: [{ kind: "quadratic", a: 3, b: -4, c: 0, label: "v = 3t² - 4t" }],
+        shadedRegions: [
+          {
+            kind: "under-function",
+            functionType: "quadratic",
+            quadratic: { a: 3, b: -4, c: 0 },
+            xMin: 0,
+            xMax: 4 / 3,
+            color: "red",
+            description: "Below-axis region from t equals 0 to four-thirds: backward motion contributing negative signed area minus 32/27.",
+          },
+          {
+            kind: "under-function",
+            functionType: "quadratic",
+            quadratic: { a: 3, b: -4, c: 0 },
+            xMin: 4 / 3,
+            xMax: 2,
+            color: "green",
+            description: "Above-axis region from four-thirds to t equals 2: forward motion contributing positive signed area plus 32/27.",
+          },
+        ],
+      },
     },
   ],
 
