@@ -2,6 +2,7 @@
 
 import { requireAdmin } from "../../../lib/adminSession";
 import { getNewCourseLesson } from "../../../lib/newCourseCatalog";
+import { getYear12AdvancedRouteLesson } from "../../../lib/year12AdvancedRoutes";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import {
   generateTutorPlan,
@@ -38,7 +39,12 @@ export async function generateLessonPlanAction(
 ): Promise<GenerateResult> {
   await requireAdmin();
 
-  const lesson = getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
+  // Year 12 Advanced has its own hand-authored registry; everything else
+  // comes from the newCoursePathways catalog.
+  const lesson =
+    courseSlug === "year-12-advanced"
+      ? (getYear12AdvancedRouteLesson(unitSlug, lessonSlug) ?? null)
+      : getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
   if (!lesson) {
     return {
       error: `Lesson not found: ${courseSlug} / ${unitSlug} / ${lessonSlug}`,
