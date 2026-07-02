@@ -724,7 +724,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-g2",
         "A coin is tossed and a die is rolled. Find the probability of tails and an odd number.",
-        "P(\\text{tails})=\\frac{1}{2},\\quad P(\\text{odd})=\\frac{1}{2}",
+        "",
         "1/4",
         ["0.25"],
         "Multiply the two independent probabilities because both events happen together."
@@ -739,7 +739,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-g4",
         "A deck of 52 cards contains 13 hearts. What is the probability of drawing a heart at random?",
-        "\\frac{13}{52}",
+        "",
         "1/4",
         ["0.25", "25%"],
         "13 favourable hearts out of 52 total cards gives 13/52 = 1/4."
@@ -765,7 +765,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-i3",
         "A bag has 2 red, 3 green and 5 yellow counters. What is the probability of NOT selecting a red counter?",
-        "\\frac{8}{10}",
+        "",
         "4/5",
         ["0.8", "80%"],
         "8 non-red counters out of 10 total gives 8/10 = 4/5."
@@ -773,7 +773,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-i4",
         "Two fair dice are rolled. Find the probability that both show a 6.",
-        "\\frac{1}{6}\\times\\frac{1}{6}",
+        "",
         "1/36",
         ["0.0278"],
         "The events are independent so multiply: 1/6 × 1/6 = 1/36."
@@ -819,7 +819,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m3",
         "Two fair coins are tossed. Find the probability of at least one head.",
-        "\\text{total outcomes}=4,\\quad \\text{no heads}=1",
+        "",
         "3/4",
         ["0.75"],
         "Exactly one or two heads occur in three of the four equally likely outcomes."
@@ -827,7 +827,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m4",
         "A bag has 5 red and 3 blue counters. Two counters are drawn without replacement. Find P(red then red).",
-        "\\frac{5}{8}\\times\\frac{4}{7}",
+        "",
         "5/14",
         ["0.3571"],
         "5/8 × 4/7 = 20/56 = 5/14."
@@ -842,7 +842,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m6",
         "In a class of 20 students, 12 play sport and 8 do not. A student is chosen at random. What is the probability the student does NOT play sport?",
-        "\\frac{8}{20}",
+        "",
         "2/5",
         ["0.4", "40%"],
         "8 non-sport students out of 20 gives 8/20 = 2/5."
@@ -850,7 +850,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m7",
         "A jar contains 3 red, 4 blue and 2 green lollies. What is the probability of selecting a red or blue lolly?",
-        "\\frac{3+4}{9}",
+        "",
         "7/9",
         ["0.778"],
         "Red or blue = 7 favourable outcomes out of 9 total."
@@ -865,7 +865,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m9",
         "A fair die is rolled twice. Find the probability of rolling a 3 on the first roll and an even number on the second.",
-        "\\frac{1}{6}\\times\\frac{3}{6}",
+        "",
         "1/12",
         ["0.0833"],
         "P(3) = 1/6 and P(even) = 3/6 = 1/2. Multiply: 1/6 × 1/2 = 1/12."
@@ -873,7 +873,7 @@ export function year12Standard1ProbabilityAndChanceLessonOverride(
       probAnswer(
         "prob-m10",
         "A bag has 6 counters of which 2 are red. One counter is removed and not replaced, and it is not red. What is now the probability of drawing a red counter?",
-        "\\frac{2}{5}",
+        "",
         "2/5",
         ["0.4"],
         "After removing one non-red counter there are 5 left, still 2 of which are red: P = 2/5."
@@ -976,13 +976,13 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-g3",
         "A set of values is 4, 8, 6, 10, 12. Find the mean.",
-        "\\frac{4+8+6+10+12}{5}",
+        "",
         "8"
       ),
       probAnswer(
         "stats-exam-g4",
         "A fair spinner has 6 equal sections labelled 1 to 6. What is the probability of landing on a number greater than 4?",
-        "\\frac{2}{6}",
+        "",
         "1/3",
         ["0.333", "33.3%"],
         "Numbers greater than 4 are 5 and 6 — 2 favourable out of 6 total."
@@ -992,7 +992,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-i1",
         "A table shows 7, 8, 8, 9, 10 customers. Find the mean number of customers.",
-        "\\frac{7+8+8+9+10}{5}",
+        "",
         "8.4",
         ["8.40"]
       ),
@@ -1006,13 +1006,13 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-i3",
         "The temperatures for 6 days were 15, 18, 22, 20, 17, 19. Find the median temperature.",
-        "\\text{ordered: }15,17,18,19,20,22",
+        "",
         "18.5"
       ),
       probAnswer(
         "stats-exam-i4",
         "A box has 5 red and 7 white balls. One is drawn at random. Find P(white).",
-        "\\frac{7}{12}",
+        "",
         "7/12",
         ["0.583"],
         "7 white balls out of 12 total."
@@ -1043,7 +1043,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-m1",
         "A data set is 11, 12, 14, 16, 17. Find the range.",
-        "17-11",
+        "",
         "6"
       ),
       probAnswer(
@@ -1057,14 +1057,14 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-m3",
         "A shop sold 2, 4, 5, 6, 8 items on five days. What is the mean number sold?",
-        "\\frac{2+4+5+6+8}{5}",
+        "",
         "5",
         ["5.0"]
       ),
       probAnswer(
         "stats-exam-m4",
         "A die is rolled. Find the probability of rolling a multiple of 3.",
-        "\\frac{2}{6}",
+        "",
         "1/3",
         ["0.333"],
         "Multiples of 3 on a die are 3 and 6 — 2 favourable out of 6 total."
@@ -1072,13 +1072,13 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-m5",
         "A data set is 12, 15, 11, 18, 14. Find the range.",
-        "18-11",
+        "",
         "7"
       ),
       probAnswer(
         "stats-exam-m6",
         "A jar has 4 red and 1 green marble. A marble is drawn, replaced, then another is drawn. Find P(green then red).",
-        "\\frac{1}{5}\\times\\frac{4}{5}",
+        "",
         "4/25",
         ["0.16"],
         "With replacement the probabilities don't change: 1/5 × 4/5 = 4/25."
@@ -1086,7 +1086,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-m7",
         "Five values have a mean of 9. One of the values is 13. Find the sum of the other four values.",
-        "9\\times5-13",
+        "",
         "32"
       ),
       practicalChoice(
@@ -1104,7 +1104,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       probAnswer(
         "stats-exam-m9",
         "A card is drawn from a standard deck of 52 cards. Find the probability that it is a king or an ace.",
-        "\\frac{4+4}{52}",
+        "",
         "2/13",
         ["0.1538"],
         "4 kings + 4 aces = 8 favourable cards. P = 8/52 = 2/13."
@@ -1112,7 +1112,7 @@ export function year12Standard1StatisticsExamPracticeLessonOverride(
       dataAnswer(
         "stats-exam-m10",
         "A student scored 60, 72, 68, 75, 80 on five tests. What must the student score on the sixth test to achieve a mean of exactly 72?",
-        "72\\times6-(60+72+68+75+80)",
+        "",
         "77"
       ),
     ],
@@ -1198,21 +1198,21 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-g1",
         "A triangle has base 6 m and height 4 m. Find its area.",
-        "\\frac{1}{2}\\times6\\times4",
+        "",
         "12",
         ["12 m^2", "12 m²"]
       ),
       measurementAnswer(
         "area-vol-g2",
         "A rectangular prism has length 7 cm, width 3 cm and height 2 cm. Find its volume.",
-        "7\\times3\\times2",
+        "",
         "42",
         ["42 cm^3", "42 cm³"]
       ),
       measurementAnswer(
         "area-vol-g3",
         "A triangle has base 10 m and perpendicular height 6 m. Find its area.",
-        "\\frac{1}{2}\\times10\\times6",
+        "",
         "30",
         ["30 m^2", "30 m²"]
       ),
@@ -1228,21 +1228,21 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-i1",
         "A circle has radius 5 cm. Find its area using \\(\\pi r^2\\) and leave the answer in terms of \\(\\pi\\).",
-        "\\pi\\times5^2",
+        "",
         "25\\pi",
         ["25 \\pi"]
       ),
       measurementAnswer(
         "area-vol-i2",
         "A rectangular pool is 8 m long, 3 m wide and 1.5 m deep. Find its volume in cubic metres.",
-        "8\\times3\\times1.5",
+        "",
         "36",
         ["36 m^3"]
       ),
       measurementAnswer(
         "area-vol-i3",
         "A cylinder has radius 4 cm and height 10 cm. Find its volume to one decimal place. (Use V = πr²h.)",
-        "\\pi\\times4^2\\times10",
+        "",
         "502.7",
         ["502.65", "502.7 cm^3"]
       ),
@@ -1261,7 +1261,7 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-i5",
         "A triangular prism has a triangular cross-section with base 6 cm and height 4 cm, and the prism is 10 cm long. Find its volume.",
-        "\\frac{1}{2}\\times6\\times4\\times10",
+        "",
         "120",
         ["120 cm^3", "120 cm³"]
       ),
@@ -1284,21 +1284,21 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-m1",
         "A rectangle has an area of 36 cm² and a width of 4 cm. Find its length.",
-        "\\frac{36}{4}",
+        "",
         "9",
         ["9 cm"]
       ),
       measurementAnswer(
         "area-vol-m2",
         "A triangular garden has base 10 m and height 3 m. Find its area.",
-        "\\frac{1}{2}\\times10\\times3",
+        "",
         "15",
         ["15 m^2"]
       ),
       measurementAnswer(
         "area-vol-m3",
         "A box has base area 14 cm² and height 4 cm. Find its volume.",
-        "14\\times4",
+        "",
         "56",
         ["56 cm^3"]
       ),
@@ -1324,14 +1324,14 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-m6",
         "A semicircle has diameter 10 cm. Find its area to one decimal place. (A = ½πr².)",
-        "\\frac{1}{2}\\times\\pi\\times5^2",
+        "",
         "39.3",
         ["39.27", "39.3 cm^2"]
       ),
       measurementAnswer(
         "area-vol-m7",
         "A rectangular paddock is 45 m long and 30 m wide. Find the perimeter and area.",
-        "P=2(45+30);\\; A=45\\times30",
+        "",
         "P=150 m, A=1350 m²",
         ["150 m perimeter, 1350 m² area"]
       ),
@@ -1345,14 +1345,14 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       measurementAnswer(
         "area-vol-m9",
         "A rectangular shed is 6 m long, 4 m wide and 3 m high. Find the total surface area of all six faces.",
-        "2(6\\times4+6\\times3+4\\times3)",
+        "",
         "108",
         ["108 m^2", "108 m²"]
       ),
       measurementAnswer(
         "area-vol-m10",
         "A composite shape is made of a rectangle (8 cm × 5 cm) with a triangle (base 8 cm, height 3 cm) on top. Find the total area.",
-        "8\\times5+\\frac{1}{2}\\times8\\times3",
+        "",
         "52",
         ["52 cm^2", "52 cm²"]
       ),
@@ -1438,14 +1438,14 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-g1",
         "A scale model uses scale 1:250. A training airplane model is 24 cm long. What is the real airplane length in metres?",
-        "24\\times250\\text{ cm}",
+        "",
         "60",
         ["60 m"]
       ),
       measurementAnswer(
         "scale-g2",
         "A room is 600 cm long in reality. On a plan with scale 1:100, what is the room length on the drawing in centimetres?",
-        "\\frac{600}{100}",
+        "",
         "6",
         ["6 cm"]
       ),
@@ -1464,7 +1464,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-g4",
         "A plan with scale 1:20 shows a bookshelf as 9 cm long. Find the real length of the bookshelf in metres.",
-        "9\\times20\\text{ cm}=180\\text{ cm}",
+        "",
         "1.8",
         ["1.8 m", "180 cm"]
       ),
@@ -1473,21 +1473,21 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-i1",
         "A drawing length is 7 cm at scale 1:200. Find the real length in metres.",
-        "7\\times200\\text{ cm}",
+        "",
         "14",
         ["14 m"]
       ),
       measurementAnswer(
         "scale-i2",
         "A model car is 15 cm long and the real car is 4.5 m long. What is the scale ratio in the form 1:n?",
-        "\\frac{450}{15}",
+        "",
         "30",
         ["1:30"]
       ),
       measurementAnswer(
         "scale-i3",
         "A map uses scale 1:10 000. Two towns are 8 cm apart on the map. Find their real distance in kilometres.",
-        "8\\times10000\\text{ cm}",
+        "",
         "0.8",
         ["0.8 km", "800 m"]
       ),
@@ -1506,7 +1506,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-i5",
         "A real window is 1.2 m wide. On a plan with scale 1:40, how wide is the window on the plan in centimetres?",
-        "\\frac{120}{40}",
+        "",
         "3",
         ["3 cm"]
       ),
@@ -1529,28 +1529,28 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-m1",
         "A map uses scale 1:25000. A river is drawn 4 cm long on the map. Find the real river length in kilometres.",
-        "4\\times25000\\text{ cm}",
+        "",
         "1",
         ["1 km"]
       ),
       measurementAnswer(
         "scale-m2",
         "A plan uses scale 1:50. A table is 120 cm long in reality. What length does it have on the plan?",
-        "\\frac{120}{50}",
+        "",
         "2.4",
         ["2.4 cm"]
       ),
       measurementAnswer(
         "scale-m3",
         "A model house is built at scale 1:100. A wall is 2.8 m long in reality. What is the wall length on the model in centimetres?",
-        "\\frac{280}{100}",
+        "",
         "2.8",
         ["2.8 cm"]
       ),
       measurementAnswer(
         "scale-m4",
         "A map uses scale 1:250 000. Two cities are 12 cm apart on the map. What is the real distance in kilometres?",
-        "12\\times250000\\text{ cm}",
+        "",
         "30",
         ["30 km"]
       ),
@@ -1569,14 +1569,14 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-m6",
         "A model train has scale 1:87 (HO scale). The real locomotive is 17.4 m long. How long is the model in centimetres?",
-        "\\frac{1740}{87}",
+        "",
         "20",
         ["20 cm"]
       ),
       measurementAnswer(
         "scale-m7",
         "A blueprint shows a corridor 4.5 cm wide at scale 1:40. Find the real corridor width in metres.",
-        "4.5\\times40\\text{ cm}",
+        "",
         "1.8",
         ["1.8 m", "180 cm"]
       ),
@@ -1595,7 +1595,7 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       measurementAnswer(
         "scale-m9",
         "A map at scale 1:20 000 shows a lake that is 3.5 cm × 2 cm. Find the real area of the lake in hectares. (1 ha = 10 000 m²)",
-        "3.5\\times20000\\times2\\times20000\\text{ cm}^2",
+        "",
         "28",
         ["28 ha"]
       ),
@@ -1755,7 +1755,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-g2",
         "A model is C = 6h + 20. Find the value of C when h = 4.",
-        "C = 6 \\times 4 + 20",
+        "",
         "44",
         [],
         "C = 24 + 20 = 44."
@@ -1763,7 +1763,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-g3",
         "A table shows x: 0, 1, 2, 3 and y: 7, 12, 17, 22. What is the gradient?",
-        "12-7=5,\\quad 17-12=5,\\quad 22-17=5",
+        "",
         "5",
         [],
         "The y-values increase by 5 for each step of 1 in x, so the gradient is 5."
@@ -1785,7 +1785,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-i1",
         "A water tank model is V = 1500 − 30t, where t is time in minutes. Find V when t = 20.",
-        "V = 1500 - 30 \\times 20",
+        "",
         "900",
         ["900 L", "900 litres"],
         "V = 1500 − 600 = 900 litres."
@@ -1793,7 +1793,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-i2",
         "A linear model passes through (0, 8) and (2, 16). Write the equation in the form y = mx + b.",
-        "m = \\frac{16-8}{2-0} = 4",
+        "",
         "y=4x+8",
         ["y = 4x + 8"],
         "Gradient = (16 − 8) ÷ (2 − 0) = 4. The y-intercept is 8 (the value at x = 0). Equation: y = 4x + 8."
@@ -1801,7 +1801,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-i3",
         "A phone plan costs $30 per month plus $0.10 per text message. How much does the plan cost in a month with 80 messages?",
-        "C = 30 + 0.10 \\times 80",
+        "",
         "38",
         ["$38", "$38.00"],
         "C = 30 + 8 = $38."
@@ -1843,7 +1843,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-m3",
         "Use C = 4.5d + 12 to find C when d = 6.",
-        "C = 4.5 \\times 6 + 12",
+        "",
         "39",
         [],
         "C = 27 + 12 = 39."
@@ -1851,7 +1851,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-m4",
         "A tank model is V = 2000 − 50t litres, where t is minutes. After how many minutes does the tank hold 750 litres?",
-        "750 = 2000 - 50t",
+        "",
         "25",
         ["25 minutes", "t = 25"],
         "2000 − 750 = 1250. t = 1250 ÷ 50 = 25 minutes."
@@ -1859,7 +1859,7 @@ export function year12Standard1LinearAndDirectVariationLessonOverride(
       linAnswer(
         "lin-var-m5",
         "A table shows x: 0, 3, 6, 9 and y: 4, 16, 28, 40. Write the equation of the linear model.",
-        "m = \\frac{16-4}{3-0} = 4",
+        "",
         "y=4x+4",
         ["y = 4x + 4"],
         "Gradient = 12 ÷ 3 = 4. y-intercept = 4 (value at x = 0). Equation: y = 4x + 4."
@@ -2080,7 +2080,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-g1",
         "A TV costs $960. A deposit of $160 is paid and the balance is split into 8 equal monthly payments. Find each payment amount.",
-        "\\frac{960 - 160}{8}",
+        "",
         "100",
         ["$100"],
         "Balance = $960 − $160 = $800. Each payment = $800 ÷ 8 = $100."
@@ -2088,7 +2088,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-g2",
         "A payment plan has a $250 deposit and 10 monthly repayments of $75. Find the total amount paid.",
-        "250 + 10 \\times 75",
+        "",
         "1000",
         ["$1000"],
         "Total repayments = 10 × $75 = $750. Total paid = $250 + $750 = $1000."
@@ -2108,7 +2108,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-g4",
         "Monthly income is $2200 and monthly expenses total $1800. What is the monthly surplus?",
-        "2200 - 1800",
+        "",
         "400",
         ["$400"],
         "Surplus = $2200 − $1800 = $400."
@@ -2118,7 +2118,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-i1",
         "A camera costs $1050. A deposit of $150 is paid and the remaining balance is split into 9 equal monthly payments. Find each payment.",
-        "\\frac{1050 - 150}{9}",
+        "",
         "100",
         ["$100"],
         "Balance = $900. Each payment = $900 ÷ 9 = $100."
@@ -2126,7 +2126,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-i2",
         "A payment plan for a $2500 item has a $500 deposit and 24 monthly repayments of $90. Find the total cost of the plan.",
-        "500 + 24 \\times 90",
+        "",
         "2660",
         ["$2660"],
         "Total repayments = 24 × $90 = $2160. Total paid = $500 + $2160 = $2660."
@@ -2160,7 +2160,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-m1",
         "A laptop costs $1800. A deposit of $300 is paid. The balance is split into 10 equal monthly repayments. Find each repayment.",
-        "\\frac{1800 - 300}{10}",
+        "",
         "150",
         ["$150"],
         "Balance = $1500. Each repayment = $1500 ÷ 10 = $150."
@@ -2168,7 +2168,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-m2",
         "A plan has a $600 deposit and 18 repayments of $95. The cash price is $2100. Find the extra cost of choosing the plan.",
-        "600 + 18 \\times 95 - 2100",
+        "",
         "210",
         ["$210"],
         "Plan total = $600 + $1710 = $2310. Extra cost = $2310 − $2100 = $210."
@@ -2200,7 +2200,7 @@ export function year12Standard1FinancialPlanningRepaymentLessonOverride(
       finPlanAnswer(
         "fin-plan-m5",
         "A $3000 car is bought on a plan with a $600 deposit and 24 monthly repayments. What repayment amount makes the total plan cost equal the cash price?",
-        "\\frac{3000 - 600}{24}",
+        "",
         "100",
         ["$100"],
         "Balance = $2400. Repayment = $2400 ÷ 24 = $100. Total paid = $600 + $2400 = $3000, equal to the cash price."
@@ -2414,7 +2414,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
         ...trigAnswer(
           "y12s1-trig-app-g2",
           "An observer stands 25 m from a building. The angle of elevation to the top is 38°. Find the height of the building to 1 decimal place.",
-          "h = 25 \\times \\tan 38^\\circ",
+          "",
           "19.5",
           ["19.5 m"],
           "Height is opposite 38° and horizontal 25 m is adjacent. Set up tan(38°) = h/25 then solve.",
@@ -2441,7 +2441,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-g4",
         "A right triangle has opposite side 9 m and adjacent side 12 m. Find the acute angle θ to the nearest degree.",
-        "\\theta = \\tan^{-1}(9/12)",
+        "",
         "37",
         ["37°", "37 degrees"],
         "Use inverse tangent: θ = arctan(opposite/adjacent) = arctan(9/12).",
@@ -2453,7 +2453,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
         ...trigAnswer(
           "y12s1-trig-app-i1",
           "A ramp rises at 24° to the horizontal and runs 15 m along the ground. Find the vertical rise to 1 decimal place.",
-          "\\text{rise} = 15 \\times \\tan 24^\\circ",
+          "",
           "6.7",
           ["6.7 m"],
           "Rise is opposite 24° and run 15 m is adjacent. Use tan(24°) = rise/15.",
@@ -2471,7 +2471,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-i2",
         "A right triangle has an acute angle of 50° and the adjacent side is 7 m. Find the hypotenuse to 1 decimal place.",
-        "\\cos 50^\\circ = 7/\\text{hyp}",
+        "",
         "10.9",
         ["10.9 m"],
         "cos(50°) = adjacent/hypotenuse, so hyp = adjacent/cos(50°) = 7/cos(50°).",
@@ -2493,7 +2493,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-i4",
         "From a lighthouse 42 m above sea level, the angle of depression to a boat is 16°. Find the horizontal distance from the base of the lighthouse to the boat to 1 decimal place.",
-        "d = 42/\\tan 16^\\circ",
+        "",
         "146.5",
         ["146.5 m"],
         "The elevation angle from the boat is 16°; height 42 m is opposite and d is adjacent. Use tan(16°) = 42/d.",
@@ -2502,7 +2502,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-i5",
         "A right triangle has adjacent side 6 m and hypotenuse 10 m. Find the acute angle θ to the nearest degree.",
-        "\\theta = \\cos^{-1}(6/10)",
+        "",
         "53",
         ["53°", "53 degrees"],
         "Use inverse cosine: θ = arccos(adjacent/hypotenuse) = arccos(6/10).",
@@ -2540,7 +2540,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m2",
         "A person stands 18 m from a tree and looks up at an angle of elevation of 52°. Find the height of the tree to 1 decimal place.",
-        "h = 18 \\times \\tan 52^\\circ",
+        "",
         "23.0",
         ["23", "23.0 m"],
         "Height is opposite 52° and horizontal 18 m is adjacent. Use tan(52°) = h/18.",
@@ -2549,7 +2549,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m3",
         "From a window 12 m above the ground, the angle of depression to a parked car is 28°. Find the horizontal distance from the base of the building to the car to 1 decimal place.",
-        "d = 12/\\tan 28^\\circ",
+        "",
         "22.6",
         ["22.6 m"],
         "The elevation angle from the car is 28°; height 12 m is opposite and d is adjacent. Use tan(28°) = 12/d.",
@@ -2571,7 +2571,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m5",
         "A right triangle has adjacent side 8 m and hypotenuse 17 m. Find the acute angle θ to the nearest degree.",
-        "\\theta = \\cos^{-1}(8/17)",
+        "",
         "62",
         ["62°", "62 degrees"],
         "Use inverse cosine: θ = arccos(adjacent/hypotenuse) = arccos(8/17).",
@@ -2580,7 +2580,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m6",
         "A ladder 9 m long makes an angle of 70° with the ground. How far up the wall does the ladder reach to 1 decimal place?",
-        "h = 9 \\times \\sin 70^\\circ",
+        "",
         "8.5",
         ["8.5 m"],
         "The ladder is the hypotenuse and the wall height is opposite 70°. Use sin(70°) = height/9.",
@@ -2602,7 +2602,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m8",
         "A ramp rises 3 m over a horizontal run of 11 m. Find the angle of inclination of the ramp to the nearest degree.",
-        "\\theta = \\tan^{-1}(3/11)",
+        "",
         "15",
         ["15°", "15 degrees"],
         "Rise is opposite and run is adjacent. Use θ = arctan(rise/run) = arctan(3/11).",
@@ -2611,7 +2611,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m9",
         "From the top of a 32 m tower, the angle of depression to a bus is 24°. Find the horizontal distance from the tower base to the bus to 1 decimal place.",
-        "d = 32/\\tan 24^\\circ",
+        "",
         "71.9",
         ["71.9 m"],
         "The elevation angle from the bus is 24°; tower height 32 m is opposite and d is adjacent. Use tan(24°) = 32/d.",
@@ -2620,7 +2620,7 @@ export function year12Standard1RightAngleTrigApplicationsLessonOverride(
       trigAnswer(
         "y12s1-trig-app-m10",
         "A wire runs from the top of a 20 m pole and is anchored 15 m from the base of the pole. Find the angle the wire makes with the ground to the nearest degree.",
-        "\\theta = \\tan^{-1}(20/15)",
+        "",
         "53",
         ["53°", "53 degrees"],
         "Pole height (20 m) is opposite θ and ground distance (15 m) is adjacent. Use inverse tangent.",
@@ -2774,7 +2774,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-g2",
         "A train travels 180 km at 60 km/h. Find the travel time in hours.",
-        "\\text{time} = 180 \\div 60",
+        "",
         "3",
         ["3 h", "3 hours"],
         "Use time = distance/speed = 180 ÷ 60.",
@@ -2783,7 +2783,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-g3",
         "A pipe fills a 480 L tank at 16 L/min. How many minutes does it take to fill the tank?",
-        "\\text{time} = 480 \\div 16",
+        "",
         "30",
         ["30 min", "30 minutes"],
         "Use time = volume/rate = 480 ÷ 16.",
@@ -2802,7 +2802,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-i1",
         "A bus travels 420 km at 70 km/h. Find the travel time in hours.",
-        "\\text{time} = 420 \\div 70",
+        "",
         "6",
         ["6 h", "6 hours"],
         "Use time = distance/speed = 420 ÷ 70.",
@@ -2811,7 +2811,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-i2",
         "A pump empties a 900 L tank at 15 L/min. How many minutes does it take to empty the tank?",
-        "\\text{time} = 900 \\div 15",
+        "",
         "60",
         ["60 min", "60 minutes"],
         "Use time = volume/rate = 900 ÷ 15.",
@@ -2833,7 +2833,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-i4",
         "A worker earns $22.50 per hour. How much do they earn for a 6-hour shift?",
-        "22.50 \\times 6",
+        "",
         "135",
         ["$135", "135.00", "$135.00"],
         "earnings = rate × time = 22.50 × 6.",
@@ -2842,7 +2842,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-i5",
         "A truck uses 14 L per 100 km. Find the fuel cost for a 250 km journey when fuel costs $2.10 per litre.",
-        "(14/100) \\times 250 = 35\\text{ L}",
+        "",
         "73.50",
         ["$73.50", "73.5", "$73.5"],
         "First find the fuel used, then multiply by the price per litre.",
@@ -2875,7 +2875,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m2",
         "A cyclist rides 120 km at 24 km/h, then rests for 20 minutes. Find the total trip time in minutes.",
-        "120/24 \\times 60 + 20",
+        "",
         "320",
         ["320 min", "320 minutes"],
         "Find riding time in hours, convert to minutes, then add the 20-minute rest.",
@@ -2884,7 +2884,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m3",
         "A tap fills a 360 L bath at 12 L/min. How many minutes to fill the bath to 75%?",
-        "0.75 \\times 360 \\div 12",
+        "",
         "22.5",
         ["22.5 min", "22.5 minutes"],
         "Find 75% of 360 L, then use time = volume/rate.",
@@ -2906,7 +2906,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m5",
         "A car uses 11 L per 100 km. Find the total fuel used for a 400 km trip.",
-        "(11/100) \\times 400",
+        "",
         "44",
         ["44 L", "44 litres"],
         "Fuel = (rate ÷ 100) × distance = (11/100) × 400.",
@@ -2915,7 +2915,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m6",
         "A worker earns $18.40 per hour for regular hours and $27.60 per hour for overtime. They work 7 regular hours and 3 overtime hours. Find the total earnings.",
-        "7 \\times 18.40 + 3 \\times 27.60",
+        "",
         "211.60",
         ["$211.60", "211.6", "$211.6"],
         "Calculate regular earnings and overtime earnings separately, then add.",
@@ -2924,7 +2924,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m7",
         "A pump empties a 2000 L tank at 40 L/min. How many minutes to empty 75% of the tank?",
-        "0.75 \\times 2000 \\div 40",
+        "",
         "37.5",
         ["37.5 min", "37.5 minutes"],
         "Find 75% of 2000 L, then use time = volume/rate.",
@@ -2933,7 +2933,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m8",
         "A truck uses 18 L per 100 km. Find the fuel cost for a 500 km trip when fuel costs $1.95 per litre.",
-        "(18/100) \\times 500 \\times 1.95",
+        "",
         "175.50",
         ["$175.50", "175.5", "$175.5"],
         "First find the fuel used, then multiply by the price per litre.",
@@ -2955,7 +2955,7 @@ export function year12Standard1RatesPracticalProblemsLessonOverride(
       rateAnswer(
         "y12s1-rates-pp-m10",
         "A cyclist travels 180 km at 45 km/h. Find the travel time in hours.",
-        "180 \\div 45",
+        "",
         "4",
         ["4 h", "4 hours"],
         "Use time = distance/speed = 180 ÷ 45.",
@@ -3141,7 +3141,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
         ...examAnswer(
           "y12s1-trig-exam-g2",
           "From the top of a 30 m cliff, the angle of depression to a buoy is 20°. Find the horizontal distance from the base of the cliff to the buoy to 1 decimal place.",
-          "d = 30/\\tan 20^\\circ",
+          "",
           "82.4",
           ["82.4 m"],
           "The elevation angle from the buoy is 20°; cliff height 30 m is opposite and d is adjacent. Use tan(20°) = 30/d.",
@@ -3152,7 +3152,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-g3",
         "A car uses 11 L per 100 km. Find the fuel cost for a 300 km journey when fuel costs $1.80 per litre.",
-        "(11/100) \\times 300 \\times 1.80",
+        "",
         "59.40",
         ["$59.40", "59.4", "$59.4"],
         "First find the fuel used, then multiply by the price per litre.",
@@ -3176,7 +3176,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-i1",
         "A person stands 35 m from a building and looks up at an angle of elevation of 45°. Find the height of the building.",
-        "h = 35 \\times \\tan 45^\\circ",
+        "",
         "35",
         ["35 m"],
         "Height is opposite 45° and horizontal 35 m is adjacent. Note tan(45°) = 1.",
@@ -3185,7 +3185,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-i2",
         "A car travels 150 km at 50 km/h, stops for 45 minutes for lunch, then travels 200 km at 100 km/h. Find the total journey time in minutes.",
-        "(150/50)\\times60 + 45 + (200/100)\\times60",
+        "",
         "345",
         ["345 min", "345 minutes"],
         "Find each phase in hours, convert to minutes, then add the rest stop.",
@@ -3208,7 +3208,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
         ...examAnswer(
           "y12s1-trig-exam-i4",
           "A cable attached to the top of a boat mast makes an angle of 68° with the deck. If the cable is 12 m long, find the height of the mast attachment point above the deck to 1 decimal place.",
-          "h = 12 \\times \\sin 68^\\circ",
+          "",
           "11.1",
           ["11.1 m"],
           "The cable is the hypotenuse and the height is opposite 68°. Use sin(68°) = height/12.",
@@ -3226,7 +3226,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-i5",
         "A bricklayer lays 200 bricks per hour and earns $32 per hour. Bricks cost $0.85 each. Find the total cost (labour and materials) for a wall requiring 1400 bricks.",
-        "(1400/200)\\times32 + 1400\\times0.85",
+        "",
         "1414",
         ["$1414"],
         "Find labour hours, calculate labour cost and material cost separately, then add.",
@@ -3264,7 +3264,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m2",
         "From 40 m away, the angle of elevation to a flagpole top is 33°. Find the height of the flagpole to 1 decimal place.",
-        "h = 40 \\times \\tan 33^\\circ",
+        "",
         "26.0",
         ["26", "26.0 m"],
         "Height is opposite 33° and horizontal 40 m is adjacent. Use tan(33°) = h/40.",
@@ -3273,7 +3273,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m3",
         "A printer prints 24 pages per minute. How many minutes to print a 360-page document?",
-        "360 \\div 24",
+        "",
         "15",
         ["15 min", "15 minutes"],
         "Use time = total pages ÷ rate = 360 ÷ 24.",
@@ -3295,7 +3295,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m5",
         "A road rises 3 m for every 12 m of horizontal run. Find the angle of inclination to the nearest degree.",
-        "\\theta = \\tan^{-1}(3/12)",
+        "",
         "14",
         ["14°", "14 degrees"],
         "Rise is opposite and run is adjacent. Use θ = arctan(rise/run) = arctan(3/12).",
@@ -3304,7 +3304,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m6",
         "A shop sells 80 items per hour. Each item sells for $3.50. Find the total revenue from a 3-hour trading session.",
-        "80 \\times 3 \\times 3.50",
+        "",
         "840",
         ["$840"],
         "Items sold = rate × time. Revenue = items × price per item.",
@@ -3326,7 +3326,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m8",
         "A boat travels 8 km north then 6 km east. Find the bearing angle from start to finish to the nearest degree, measured from north.",
-        "\\theta = \\tan^{-1}(6/8)",
+        "",
         "37",
         ["37°", "37 degrees"],
         "East distance (6 km) is opposite the bearing angle; north distance (8 km) is adjacent. Use inverse tangent.",
@@ -3335,7 +3335,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m9",
         "A factory produces 150 items per hour and operates 8 hours per day. Each item sells for $12.50. Find the total daily revenue.",
-        "150 \\times 8 \\times 12.50",
+        "",
         "15000",
         ["$15000", "15,000", "$15,000"],
         "Items per day = rate × hours. Revenue = items × price per item.",
@@ -3344,7 +3344,7 @@ export function year12Standard1TrigRatesExamPracticeLessonOverride(
       examAnswer(
         "y12s1-trig-exam-m10",
         "A viewing platform is 25 m above the ground. A ranger spots an animal at an angle of depression of 12°. Find the horizontal distance from directly below the platform to the animal to 1 decimal place.",
-        "d = 25/\\tan 12^\\circ",
+        "",
         "117.6",
         ["117.6 m"],
         "The elevation angle from the animal is 12°; height 25 m is opposite and d is adjacent. Use tan(12°) = 25/d.",
@@ -3899,7 +3899,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-g1",
         "A line of best fit passes through the points (1, 5) and (5, 13). Find the gradient.",
-        "m = \\frac{13 - 5}{5 - 1}",
+        "",
         "2",
         ["2.0"],
         "Use m = (y₂ − y₁) / (x₂ − x₁).",
@@ -3908,7 +3908,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-g2",
         "A line of best fit has equation ŷ = 2x + 3. Predict the y-value when x = 6.",
-        "\\hat{y} = 2(6) + 3",
+        "",
         "15",
         ["15.0"],
         "Substitute x = 6 into the equation.",
@@ -3940,7 +3940,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-i1",
         "A line of best fit passes through (0, 6) and (4, 18). Find the gradient.",
-        "m = \\frac{18 - 6}{4 - 0}",
+        "",
         "3",
         ["3.0"],
         "m = (y₂ − y₁) / (x₂ − x₁).",
@@ -3949,7 +3949,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-i2",
         "A line of best fit has equation ŷ = 4x − 2. The data was collected for x values between 3 and 12. Predict y when x = 7.",
-        "\\hat{y} = 4(7) - 2",
+        "",
         "26",
         ["26.0"],
         "Substitute x = 7 into the equation. Check whether x = 7 is in the data range first.",
@@ -3984,7 +3984,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-i5",
         "A line of best fit has equation ŷ = 1.5x + 5. The data range is x = 0 to x = 10. Predict y when x = 8.",
-        "\\hat{y} = 1.5(8) + 5",
+        "",
         "17",
         ["17.0"],
         "Substitute x = 8 into the equation.",
@@ -4009,7 +4009,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-m1",
         "A line of best fit passes through (1, 3) and (7, 15). Find the gradient.",
-        "m = \\frac{15 - 3}{7 - 1}",
+        "",
         "2",
         ["2.0"],
         "m = (y₂ − y₁) / (x₂ − x₁).",
@@ -4018,7 +4018,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-m2",
         "A line of best fit has equation ŷ = 3x + 1. Predict y when x = 5.",
-        "\\hat{y} = 3(5) + 1",
+        "",
         "16",
         ["16.0"],
         "Substitute x = 5 into ŷ = 3x + 1.",
@@ -4053,7 +4053,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-m5",
         "A line of best fit passes through (0, 2) and (5, 12). What is the gradient?",
-        "m = \\frac{12 - 2}{5 - 0}",
+        "",
         "2",
         ["2.0"],
         "m = (y₂ − y₁) / (x₂ − x₁).",
@@ -4062,7 +4062,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-m6",
         "A line of best fit has equation ŷ = 0.5x + 10. Predict y when x = 20.",
-        "\\hat{y} = 0.5(20) + 10",
+        "",
         "20",
         ["20.0"],
         "Substitute x = 20 into ŷ = 0.5x + 10.",
@@ -4084,7 +4084,7 @@ export function year12Standard1LineOfBestFitPredictionsLessonOverride(
       lobfAnswer(
         "y12s1-lobf-m8",
         "A line of best fit passes through (3, 11) and (9, 23). What is the y-intercept?",
-        "m = \\frac{23-11}{9-3} = 2,\\quad b = 11 - 2(3)",
+        "",
         "5",
         ["5.0", "b = 5"],
         "Find the gradient first, then substitute one point into y = mx + b and solve for b.",
@@ -4251,7 +4251,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-g2",
         "Convert the compass bearing N40°E to a true bearing.",
-        "\\text{N}40°\\text{E} \\to 040°\\text{T}",
+        "",
         "040",
         ["040°", "040°T", "40", "40°", "40°T"],
         "N40°E means 40° from north towards east. North is 000°.",
@@ -4260,7 +4260,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-g3",
         "A plane travels on a bearing of 130°T. Find the back bearing for the return trip.",
-        "130° + 180°",
+        "",
         "310",
         ["310°", "310°T"],
         "The original bearing is less than 180°, so add 180°.",
@@ -4279,7 +4279,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-i1",
         "Convert the compass bearing N55°W to a true bearing.",
-        "360° - 55°",
+        "",
         "305",
         ["305°", "305°T"],
         "N55°W is 55° west of north. North is 000°/360°. Going anticlockwise from north (west direction) means subtracting from 360°.",
@@ -4296,7 +4296,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-i3",
         "A boat travels due north for 12 km then due east for 9 km. Find the straight-line distance from start to finish to 1 decimal place.",
-        "d = \\sqrt{12^2 + 9^2}",
+        "",
         "15",
         ["15 km", "15.0", "15.0 km"],
         "The path forms a right triangle. Use Pythagoras: d² = 12² + 9².",
@@ -4313,7 +4313,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-i5",
         "From point A, point B is on a bearing of 070°T and 8 km away. Find how far east of A the point B is, to 1 decimal place.",
-        "\\text{east} = 8 \\times \\sin 70°",
+        "",
         "7.5",
         ["7.5 km"],
         "The angle from north is 70°. The eastward component = d × sin(bearing).",
@@ -4338,7 +4338,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m1",
         "State the true bearing of due south.",
-        "\\text{Due south is halfway clockwise from north}",
+        "",
         "180",
         ["180°", "180°T"],
         "Due south is directly opposite north — half a full rotation clockwise.",
@@ -4347,7 +4347,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m2",
         "Convert the compass bearing S75°E to a true bearing.",
-        "180° - 75°",
+        "",
         "105",
         ["105°", "105°T"],
         "S75°E means 75° towards east from south. South is 180°. Moving towards east from south means going anticlockwise (subtracting).",
@@ -4356,7 +4356,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m3",
         "A pilot flies on a bearing of 315°T. What is the back bearing?",
-        "315° - 180°",
+        "",
         "135",
         ["135°", "135°T"],
         "The original bearing (315°) is ≥ 180°, so subtract 180°.",
@@ -4373,7 +4373,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m5",
         "A hiker starts at P, walks on a bearing of 035°T for 6 km to reach Q. Find the northward distance PQ to 1 decimal place.",
-        "\\text{north} = 6 \\times \\cos 35°",
+        "",
         "4.9",
         ["4.9 km"],
         "The northward component = d × cos(bearing). The bearing 35° is measured from north.",
@@ -4382,7 +4382,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m6",
         "Convert the true bearing 225°T to a compass bearing.",
-        "225° - 180° = 45°\\text{ past south towards west}",
+        "",
         "S45°W",
         ["south 45 degrees west", "s45w"],
         "225° is between south (180°) and west (270°). Find how far past south: 225° − 180° = 45°.",
@@ -4391,7 +4391,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m7",
         "A boat sails on a bearing of 280°T for 10 km. Find how far north of its starting position it has moved, to 1 decimal place.",
-        "\\text{north} = 10 \\times \\cos(360° - 280°) = 10 \\cos 80°",
+        "",
         "1.7",
         ["1.7 km"],
         "280°T is 80° west of north (360° − 280° = 80°). The northward component = d × cos(80°).",
@@ -4408,7 +4408,7 @@ export function year12Standard1BearingsAndCompassLessonOverride(
       bearAnswer(
         "y12s1-bear-m9",
         "A boat sails due east (090°T) for 8 km, then turns and sails due north (000°T) for 6 km. Find the straight-line distance from start to finish.",
-        "d = \\sqrt{8^2 + 6^2}",
+        "",
         "10",
         ["10 km", "10.0", "10.0 km"],
         "The two legs of the journey are perpendicular (east then north). Use Pythagoras.",
@@ -4558,7 +4558,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-g1",
         "The probability of rolling a 6 on a fair die is 1/6. Find the probability of not rolling a 6.",
-        "P(\\text{not 6}) = 1 - \\frac{1}{6}",
+        "",
         "5/6",
         ["0.8333", "0.833", "5 out of 6"],
         "Use P(not A) = 1 − P(A).",
@@ -4567,7 +4567,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-g2",
         "A bag of 20 marbles contains 4 red marbles. Find the relative frequency of selecting a red marble.",
-        "\\text{relative frequency} = \\frac{4}{20}",
+        "",
         "0.2",
         ["1/5", "20%", "4/20"],
         "Relative frequency = frequency / total observations.",
@@ -4576,7 +4576,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-g3",
         "A spinner lands on green with probability 0.3. In 200 spins, what is the expected frequency of landing on green?",
-        "200 \\times 0.3",
+        "",
         "60",
         ["60 times"],
         "Expected frequency = n × p.",
@@ -4600,7 +4600,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-i1",
         "The probability of it raining tomorrow is 0.45. Find the probability that it does not rain.",
-        "P(\\text{no rain}) = 1 - 0.45",
+        "",
         "0.55",
         ["55%", "55/100"],
         "P(not A) = 1 − P(A).",
@@ -4609,7 +4609,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-i2",
         "A factory produces 500 items. 25 are defective. Find the relative frequency of a defective item.",
-        "\\text{relative frequency} = \\frac{25}{500}",
+        "",
         "0.05",
         ["1/20", "5%", "25/500"],
         "Relative frequency = frequency / total.",
@@ -4618,7 +4618,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-i3",
         "The probability that a bus is on time is 0.8. In 150 bus trips, what is the expected number of on-time buses?",
-        "150 \\times 0.8",
+        "",
         "120",
         ["120 buses", "120 trips"],
         "Expected frequency = n × p.",
@@ -4640,7 +4640,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-i5",
         "A survey of 80 students found that 32 prefer sport to art. Find the probability that a randomly selected student prefers sport, using relative frequency as an estimate.",
-        "\\frac{32}{80}",
+        "",
         "0.4",
         ["2/5", "40%", "32/80"],
         "Estimate probability using relative frequency = frequency / total.",
@@ -4665,7 +4665,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m1",
         "The probability of drawing a heart from a standard deck is 1/4. Find the probability of not drawing a heart.",
-        "P(\\text{not heart}) = 1 - \\frac{1}{4}",
+        "",
         "3/4",
         ["0.75", "75%"],
         "P(not A) = 1 − P(A).",
@@ -4674,7 +4674,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m2",
         "A bag has 3 blue, 5 red and 2 green counters. Find the relative frequency of a green counter being selected.",
-        "\\text{relative frequency} = \\frac{2}{10}",
+        "",
         "0.2",
         ["1/5", "20%", "2/10"],
         "Relative frequency = frequency / total. Total = 3 + 5 + 2 = 10.",
@@ -4683,7 +4683,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m3",
         "A biased die shows a 4 with probability 0.15. In 400 rolls, find the expected frequency of rolling a 4.",
-        "400 \\times 0.15",
+        "",
         "60",
         ["60 times"],
         "Expected frequency = n × p.",
@@ -4700,7 +4700,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m5",
         "A survey of 250 shoppers found that 75 bought a coffee. Use relative frequency to estimate the probability that the next shopper buys a coffee.",
-        "\\frac{75}{250}",
+        "",
         "0.3",
         ["3/10", "30%"],
         "P ≈ relative frequency = 75/250.",
@@ -4709,7 +4709,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m6",
         "A game gives a prize with probability 0.04. Mia plays the game 300 times. How many prizes should she expect to win?",
-        "300 \\times 0.04",
+        "",
         "12",
         ["12 prizes", "12 times"],
         "Expected frequency = n × p.",
@@ -4726,7 +4726,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m8",
         "P(event B) = 0.35. Find P(not B).",
-        "P(\\text{not }B) = 1 - 0.35",
+        "",
         "0.65",
         ["65%", "65/100"],
         "P(not B) = 1 − P(B).",
@@ -4735,7 +4735,7 @@ export function year12Standard1RelativeFrequencyExpectedValueLessonOverride(
       freqAnswer(
         "y12s1-rfreq-m9",
         "A spinner has P(red) = 0.25 and P(blue) = 0.35. Find P(not red and not blue).",
-        "P(\\text{not red and not blue}) = 1 - (0.25 + 0.35)",
+        "",
         "0.4",
         ["40%", "2/5"],
         "The probability of red or blue is 0.25 + 0.35 = 0.60. The complement of (red or blue) is neither.",
@@ -4867,7 +4867,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-g1",
         "A linear model is C = 5n + 80. Find C when n = 12.",
-        "C = 5(12) + 80",
+        "",
         "140",
         ["$140", "140.0"],
         "Substitute n = 12 into C = 5n + 80.",
@@ -4889,7 +4889,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-g3",
         "Solve the simultaneous equations y = 3x − 1 and y = x + 7.",
-        "3x - 1 = x + 7",
+        "",
         "x = 4, y = 11",
         ["(4, 11)", "x=4 y=11"],
         "Set 3x − 1 = x + 7 and solve.",
@@ -4898,7 +4898,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-g4",
         "A line passes through (0, 5) and (4, 13). Find its equation.",
-        "m = \\frac{13-5}{4-0} = 2,\\quad b = 5",
+        "",
         "y = 2x + 5",
         ["y=2x+5", "2x+5"],
         "Find gradient first, then read y-intercept from (0, 5).",
@@ -4909,7 +4909,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-i1",
         "A parking station charges $3 entry plus $2 per hour. Write a linear model for cost C after h hours and find the cost for 4.5 hours.",
-        "C = 2(4.5) + 3",
+        "",
         "12",
         ["$12", "12.00"],
         "C = 2h + 3. Substitute h = 4.5.",
@@ -4931,7 +4931,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-i3",
         "Plan A: C = $0.25 per text + $15/month. Plan B: C = $0.10 per text + $30/month. At how many texts per month are the plans equal?",
-        "0.25n + 15 = 0.10n + 30",
+        "",
         "100",
         ["n = 100", "100 texts"],
         "Set C_A = C_B and solve for n.",
@@ -4940,7 +4940,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-i4",
         "Find the gradient of the line through (2, 9) and (6, 21).",
-        "m = \\frac{21-9}{6-2}",
+        "",
         "3",
         ["m = 3", "3.0"],
         "m = (y₂ − y₁) / (x₂ − x₁).",
@@ -4974,7 +4974,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-m1",
         "A linear model is T = 6h + 25. Find h when T = 73.",
-        "6h + 25 = 73 \\Rightarrow 6h = 48",
+        "",
         "8",
         ["h = 8", "8 hours"],
         "Set T = 73 and solve for h.",
@@ -4996,7 +4996,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-m3",
         "Solve y = 5x + 4 and y = 2x + 16.",
-        "5x + 4 = 2x + 16",
+        "",
         "x = 4, y = 24",
         ["(4, 24)", "x=4 y=24"],
         "Set equal and solve.",
@@ -5005,7 +5005,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-m4",
         "A line has gradient −3 and passes through (2, 7). Find its equation.",
-        "7 = -3(2) + b \\Rightarrow b = 13",
+        "",
         "y = -3x + 13",
         ["y=−3x+13", "−3x+13"],
         "Substitute m = −3 and (2, 7) into y = mx + b.",
@@ -5027,7 +5027,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-m6",
         "Revenue R = 80n and Cost C = 50n + 450. Find the break-even quantity n.",
-        "80n = 50n + 450",
+        "",
         "15",
         ["n = 15", "15 units"],
         "Set R = C and solve.",
@@ -5049,7 +5049,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-m8",
         "A parabola has x-intercepts at x = −1 and x = 9. What is the equation of the axis of symmetry?",
-        "x = \\frac{-1 + 9}{2}",
+        "",
         "x = 4",
         ["4", "x=4"],
         "Axis = midpoint of x-intercepts.",
@@ -5071,7 +5071,7 @@ export function year12Standard1AlgebraicRelationshipsExamPracticeLessonOverride(
       algExAnswer(
         "y12s1-algex-m10",
         "The height of a projectile is h = −4t² + 16t + 5. Find the height at t = 0 and state what this represents.",
-        "h = -4(0)^2 + 16(0) + 5",
+        "",
         "5",
         ["5 metres", "h = 5", "5 m"],
         "Substitute t = 0.",
@@ -5211,7 +5211,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-g1",
         "Find the gradient of the line passing through (1, 4) and (5, 16).",
-        "m = \\frac{16 - 4}{5 - 1}",
+        "",
         "3",
         ["m = 3", "3.0"],
         "m = (y₂ − y₁) / (x₂ − x₁).",
@@ -5220,7 +5220,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-g2",
         "A line has gradient 4 and passes through (3, 10). Find the y-intercept.",
-        "10 = 4(3) + b",
+        "",
         "-2",
         ["b = -2", "−2"],
         "Substitute m = 4 and (3, 10) into y = mx + b. Solve for b.",
@@ -5229,7 +5229,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-g3",
         "A plumber charges a $60 call-out fee plus $80 per hour. Write a linear model C = mh + b, then find the cost for 3 hours.",
-        "C = 80(3) + 60",
+        "",
         "300",
         ["$300", "300.00"],
         "m = 80 (hourly rate), b = 60 (fixed fee). Substitute h = 3.",
@@ -5253,7 +5253,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-i1",
         "Find the equation of the line passing through (2, 5) and (8, 17).",
-        "m = \\frac{17-5}{8-2} = 2,\\quad b = 5 - 2(2)",
+        "",
         "y = 2x + 1",
         ["y=2x+1", "2x+1"],
         "Find m first, then use one point to find b.",
@@ -5262,7 +5262,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-i2",
         "A gym membership costs $50 to join and $30 per month. Write a model for total cost C after m months, then find the cost after 8 months.",
-        "C = 30(8) + 50",
+        "",
         "290",
         ["$290", "290.00"],
         "C = 30m + 50. Substitute m = 8.",
@@ -5271,7 +5271,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-i3",
         "A line passes through (0, −3) and (4, 9). Find the gradient and write the equation.",
-        "m = \\frac{9-(-3)}{4-0} = 3,\\quad b = -3",
+        "",
         "y = 3x - 3",
         ["y=3x-3", "3x−3"],
         "The y-intercept is the y-value when x = 0. Find m from the two points.",
@@ -5322,7 +5322,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m1",
         "Find the gradient of the line through (3, 1) and (7, 13).",
-        "m = \\frac{13-1}{7-3}",
+        "",
         "3",
         ["m = 3"],
         "m = (y₂ − y₁) / (x₂ − x₁).",
@@ -5331,7 +5331,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m2",
         "A line has gradient −2 and passes through (4, 6). Find its equation.",
-        "6 = -2(4) + b \\Rightarrow b = 14",
+        "",
         "y = -2x + 14",
         ["y=−2x+14", "−2x+14"],
         "Substitute m = −2 and (4, 6) into y = mx + b.",
@@ -5340,7 +5340,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m3",
         "A car rental company charges $45 per day plus a $25 insurance fee. Write a model for total cost T after d days, then find the cost for 7 days.",
-        "T = 45(7) + 25",
+        "",
         "340",
         ["$340", "340.00"],
         "T = 45d + 25. Substitute d = 7.",
@@ -5349,7 +5349,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m4",
         "A straight-line graph passes through (0, 8) and (5, 23). Find the equation.",
-        "m = \\frac{23-8}{5-0} = 3,\\quad b = 8",
+        "",
         "y = 3x + 8",
         ["y=3x+8", "3x+8"],
         "The y-intercept is 8 (from (0, 8)). Find m from the two points.",
@@ -5371,7 +5371,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m6",
         "A savings model shows Sarah has $200 saved and adds $50 each week. Write the model and find when her savings first exceed $800.",
-        "200 + 50w > 800 \\Rightarrow w > 12",
+        "",
         "13",
         ["13 weeks", "week 13"],
         "S = 50w + 200. Solve 50w + 200 > 800.",
@@ -5380,7 +5380,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m7",
         "Two points on a graph are (1, 5) and (4, 14). Find the value of y when x = 10.",
-        "y = 3(10) + 2",
+        "",
         "32",
         ["y = 32", "32.0"],
         "Find the equation first: m = (14−5)/(4−1) = 3, then b.",
@@ -5402,7 +5402,7 @@ export function year12Standard1LinearRelationshipsModellingLessonOverride(
       linModAnswer(
         "y12s1-linmod-m9",
         "The cost of hiring a hall is modelled by C = 30n + 150, where n is the number of hours. Find the gradient and explain its meaning.",
-        "m = 30",
+        "",
         "30",
         ["$30", "30 per hour", "m = 30"],
         "Identify the coefficient of n in C = 30n + 150.",
@@ -5559,7 +5559,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-g2",
         "Find the y-intercept of the quadratic model y = 2x² − 5x + 4.",
-        "y = 2(0)^2 - 5(0) + 4",
+        "",
         "4",
         ["(0, 4)", "y = 4"],
         "Substitute x = 0 into the equation.",
@@ -5568,7 +5568,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-g3",
         "A parabola has x-intercepts at x = −1 and x = 5. Find the axis of symmetry.",
-        "x = \\frac{-1 + 5}{2}",
+        "",
         "x = 2",
         ["2", "x=2"],
         "Axis of symmetry = midpoint of the two x-intercepts.",
@@ -5605,7 +5605,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-i2",
         "Find the y-intercept of the quadratic y = −3x² + 7x − 5.",
-        "y = -3(0)^2 + 7(0) - 5",
+        "",
         "-5",
         ["(0, -5)", "y = -5", "−5"],
         "Substitute x = 0.",
@@ -5614,7 +5614,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-i3",
         "A parabola crosses the x-axis at x = 2 and x = 8. Find the x-coordinate of the vertex.",
-        "x = \\frac{2 + 8}{2}",
+        "",
         "5",
         ["x = 5"],
         "Axis of symmetry = midpoint of the two x-intercepts. Vertex is on this axis.",
@@ -5678,7 +5678,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-m2",
         "A quadratic model has x-intercepts at x = −2 and x = 6. Find the equation of the axis of symmetry.",
-        "x = \\frac{-2 + 6}{2}",
+        "",
         "x = 2",
         ["2", "x=2"],
         "Axis = midpoint of x-intercepts.",
@@ -5687,7 +5687,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-m3",
         "Find the y-intercept of y = 4x² − 3x + 9.",
-        "y = 4(0)^2 - 3(0) + 9",
+        "",
         "9",
         ["(0, 9)", "y = 9"],
         "Substitute x = 0.",
@@ -5709,7 +5709,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-m5",
         "A parabola has vertex at x = 5 and one x-intercept at x = 2. Find the other x-intercept.",
-        "\\text{Other intercept} = 2 \\times 5 - 2",
+        "",
         "8",
         ["x = 8"],
         "The vertex is the midpoint of the two x-intercepts. If midpoint = 5 and one intercept = 2, the other = 2 × 5 − 2.",
@@ -5744,7 +5744,7 @@ export function year12Standard1QuadraticModelsLessonOverride(
       quadAnswer(
         "y12s1-quad-m8",
         "A quadratic model is y = x² − 4x + 3. Find the y-intercept and the two x-intercepts (given they are at x = 1 and x = 3).",
-        "\\text{y-int: } y(0) = 3,\\quad \\text{x-ints: } x = 1 \\text{ and } x = 3",
+        "",
         "y-intercept = 3",
         ["3", "(0,3)", "y = 3"],
         "y-intercept: substitute x = 0. x-intercepts are given as x = 1 and x = 3.",
@@ -5914,7 +5914,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-g1",
         "Solve the simultaneous equations y = x + 4 and y = 3x − 2.",
-        "x + 4 = 3x - 2 \\Rightarrow 6 = 2x",
+        "",
         "x = 3, y = 7",
         ["(3, 7)", "x=3 y=7"],
         "Set the two expressions for y equal to each other and solve.",
@@ -5923,7 +5923,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-g2",
         "Two car hire companies charge: Company A: C = 0.50k + 40 and Company B: C = 0.30k + 60, where k is kilometres. At what distance are the costs equal?",
-        "0.50k + 40 = 0.30k + 60",
+        "",
         "k = 100",
         ["100 km", "100 kilometres"],
         "Set the two cost equations equal and solve for k.",
@@ -5945,7 +5945,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-g4",
         "Solve y = 4x − 1 and y = 2x + 7.",
-        "4x - 1 = 2x + 7",
+        "",
         "x = 4, y = 15",
         ["(4, 15)", "x=4 y=15"],
         "Set equal: 4x − 1 = 2x + 7. Solve for x, then find y.",
@@ -5956,7 +5956,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-i1",
         "Solve the simultaneous equations y = 3x + 1 and y = x + 9.",
-        "3x + 1 = x + 9",
+        "",
         "x = 4, y = 13",
         ["(4, 13)", "x=4 y=13"],
         "Set both expressions for y equal and solve.",
@@ -5965,7 +5965,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-i2",
         "A catering business has revenue R = 30n and costs C = 15n + 450, where n is guests. Find the break-even number of guests.",
-        "30n = 15n + 450",
+        "",
         "30",
         ["n = 30", "30 guests"],
         "Set R = C and solve for n.",
@@ -5987,7 +5987,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-i4",
         "Solve y = 5x − 3 and y = 2x + 9.",
-        "5x - 3 = 2x + 9",
+        "",
         "x = 4, y = 17",
         ["(4, 17)", "x=4 y=17"],
         "Set 5x − 3 = 2x + 9 and solve.",
@@ -6025,7 +6025,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-m1",
         "Solve y = 6x − 4 and y = 2x + 8.",
-        "6x - 4 = 2x + 8",
+        "",
         "x = 3, y = 14",
         ["(3, 14)", "x=3 y=14"],
         "Set the two expressions equal and solve.",
@@ -6034,7 +6034,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-m2",
         "Revenue R = 50n and cost C = 20n + 300 (n = items produced). Find the break-even quantity.",
-        "50n = 20n + 300",
+        "",
         "10",
         ["n = 10", "10 items"],
         "Set R = C and solve.",
@@ -6043,7 +6043,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-m3",
         "The lines y = x + 7 and y = 4x − 5 intersect at point (a, b). Find a and b.",
-        "x + 7 = 4x - 5",
+        "",
         "a = 4, b = 11",
         ["(4, 11)", "a=4 b=11"],
         "Set x + 7 = 4x − 5 and solve.",
@@ -6065,7 +6065,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-m5",
         "Solve y = 7x + 2 and y = 3x + 18.",
-        "7x + 2 = 3x + 18",
+        "",
         "x = 4, y = 30",
         ["(4, 30)", "x=4 y=30"],
         "Set equal and solve.",
@@ -6087,7 +6087,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-m7",
         "Solve the simultaneous equations y = 2x + 11 and y = 8x − 7.",
-        "2x + 11 = 8x - 7",
+        "",
         "x = 3, y = 17",
         ["(3, 17)", "x=3 y=17"],
         "Set 2x + 11 = 8x − 7.",
@@ -6109,7 +6109,7 @@ export function year12Standard1SimultaneousEquationsContextLessonOverride(
       simAnswer(
         "y12s1-sim-m9",
         "A catering company breaks even when R = C. If R = 80n and C = 50n + 600, find the break-even n and state the revenue at that point.",
-        "80n = 50n + 600",
+        "",
         "n = 20, revenue = $1600",
         ["20 guests", "n=20 R=1600", "20 and 1600"],
         "Set R = C and solve for n. Then find R = 80n.",
@@ -6258,7 +6258,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-g1",
         "Simplify the ratio 18 : 24.",
-        "\\gcd(18, 24) = 6,\\quad 18 \\div 6 : 24 \\div 6",
+        "",
         "3 : 4",
         ["3:4"],
         "Divide both parts by the HCF of 18 and 24.",
@@ -6267,7 +6267,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-g2",
         "Share $300 between two people in the ratio 2 : 3.",
-        "\\text{One part} = \\frac{300}{5} = 60",
+        "",
         "$120 and $180",
         ["120 and 180", "120:180", "$120 : $180"],
         "Total parts = 2 + 3 = 5. One part = 300 ÷ 5 = 60.",
@@ -6276,7 +6276,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-g3",
         "Convert 4.2 km to metres.",
-        "4.2 \\times 1000",
+        "",
         "4200",
         ["4200 m", "4200 metres"],
         "1 km = 1000 m. To convert km to m, multiply by 1000.",
@@ -6285,7 +6285,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-g4",
         "Convert 3500 mL to litres.",
-        "3500 \\div 1000",
+        "",
         "3.5",
         ["3.5 L", "3.5 litres"],
         "1 L = 1000 mL. To convert mL to L, divide by 1000.",
@@ -6296,7 +6296,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-i1",
         "Simplify the ratio 45 : 30.",
-        "\\gcd(45,30) = 15",
+        "",
         "3 : 2",
         ["3:2"],
         "Find the HCF of 45 and 30, then divide both parts.",
@@ -6305,7 +6305,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-i2",
         "Three friends share $480 in the ratio 1 : 2 : 3. How much does each person receive?",
-        "\\text{One part} = \\frac{480}{6} = 80",
+        "",
         "$80, $160, $240",
         ["80 160 240", "80:160:240"],
         "Total parts = 1 + 2 + 3 = 6. One part = 480 ÷ 6 = 80.",
@@ -6314,7 +6314,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-i3",
         "Convert 2.75 hours to minutes.",
-        "2.75 \\times 60",
+        "",
         "165",
         ["165 minutes", "165 min"],
         "1 hour = 60 minutes. Multiply by 60.",
@@ -6336,7 +6336,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-i5",
         "Concrete is mixed using cement : sand : gravel in the ratio 1 : 2 : 4. How much sand is needed to make 280 kg of concrete mixture?",
-        "\\text{One part} = \\frac{280}{7} = 40",
+        "",
         "80",
         ["80 kg", "80 kilograms"],
         "Total parts = 1 + 2 + 4 = 7. Sand = 2 parts.",
@@ -6361,7 +6361,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m1",
         "Simplify the ratio 36 : 48.",
-        "\\gcd(36, 48) = 12",
+        "",
         "3 : 4",
         ["3:4"],
         "HCF(36, 48) = 12.",
@@ -6370,7 +6370,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m2",
         "Divide 600 g in the ratio 1 : 4.",
-        "\\text{One part} = \\frac{600}{5} = 120",
+        "",
         "120 g and 480 g",
         ["120 and 480", "120g and 480g"],
         "Total parts = 5. One part = 600 ÷ 5.",
@@ -6379,7 +6379,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m3",
         "Convert 8500 m to kilometres.",
-        "8500 \\div 1000",
+        "",
         "8.5",
         ["8.5 km", "8.5 kilometres"],
         "1 km = 1000 m. Divide by 1000.",
@@ -6388,7 +6388,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m4",
         "Convert 4.3 kg to grams.",
-        "4.3 \\times 1000",
+        "",
         "4300",
         ["4300 g", "4300 grams"],
         "1 kg = 1000 g. Multiply by 1000.",
@@ -6410,7 +6410,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m6",
         "Convert 108 km/h to m/s.",
-        "\\frac{108 \\times 1000}{3600}",
+        "",
         "30",
         ["30 m/s"],
         "108 km = 108 000 m. 1 hr = 3600 s.",
@@ -6419,7 +6419,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m7",
         "Three siblings divide an inheritance in the ratio 2 : 3 : 5. If the total is $120 000, find the largest share.",
-        "\\text{One part} = \\frac{120\\,000}{10} = 12\\,000",
+        "",
         "60000",
         ["$60000", "$60 000", "60 000 dollars"],
         "Total parts = 2 + 3 + 5 = 10. Largest share = 5 parts.",
@@ -6428,7 +6428,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m8",
         "Convert 2 days 5 hours to hours.",
-        "2 \\times 24 + 5",
+        "",
         "53",
         ["53 hours", "53 hrs"],
         "1 day = 24 hours.",
@@ -6450,7 +6450,7 @@ export function year12Standard1RatiosRatesUnitConversionsLessonOverride(
       ratAnswer(
         "y12s1-rat-m10",
         "A solution contains acid and water in the ratio 1 : 9. How much acid is in 5 litres of solution?",
-        "\\text{One part} = \\frac{5}{10} = 0.5",
+        "",
         "0.5",
         ["0.5 L", "500 mL", "0.5 litres"],
         "Total parts = 1 + 9 = 10. Acid = 1 part.",
@@ -6586,7 +6586,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-g1",
         "Calculate the simple interest earned on $6000 invested at 5% p.a. for 4 years.",
-        "I = 6000 \\times 0.05 \\times 4",
+        "",
         "1200",
         ["$1200", "1200.00"],
         "Use I = Prn. Convert 5% to 0.05.",
@@ -6595,7 +6595,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-g2",
         "Find the future value of $10 000 invested at 3% p.a. compounded annually for 5 years.",
-        "FV = 10\\,000 \\times (1.03)^5",
+        "",
         "11592.74",
         ["$11592.74", "11592.74 dollars", "11592.74"],
         "Use FV = PV(1+r)ⁿ with PV = 10 000, r = 0.03, n = 5.",
@@ -6604,7 +6604,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-g3",
         "A house purchased for $400 000 appreciates at 4% p.a. compound. Find its value after 3 years.",
-        "FV = 400\\,000 \\times (1.04)^3",
+        "",
         "449945.60",
         ["$449945.60", "449945.60 dollars", "449 945.60"],
         "Appreciation uses the compound interest formula: FV = PV(1+r)ⁿ.",
@@ -6628,7 +6628,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-i1",
         "A term deposit of $12 000 earns simple interest at 3.5% p.a. for 2 years. Find the total amount at the end of the term.",
-        "A = 12\\,000 + 12\\,000 \\times 0.035 \\times 2",
+        "",
         "12840",
         ["$12840", "12840.00"],
         "A = P + I = P + Prn.",
@@ -6637,7 +6637,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-i2",
         "Find the interest earned on $7500 invested at 5% p.a. compounded annually for 3 years.",
-        "FV = 7500 \\times (1.05)^3,\\quad I = FV - 7500",
+        "",
         "1182.19",
         ["$1182.19", "1182.19 dollars"],
         "Find FV first, then subtract the original investment.",
@@ -6646,7 +6646,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-i3",
         "Inflation is running at 3% p.a. A loaf of bread costs $4.50 today. What will it cost in 5 years? (Round to 2 decimal places.)",
-        "FV = 4.50 \\times (1.03)^5",
+        "",
         "5.22",
         ["$5.22", "5.22 dollars"],
         "Use FV = PV(1+r)ⁿ with PV = 4.50, r = 0.03, n = 5.",
@@ -6697,7 +6697,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m1",
         "Calculate the simple interest on $15 000 at 4% p.a. for 3 years.",
-        "I = 15\\,000 \\times 0.04 \\times 3",
+        "",
         "1800",
         ["$1800", "1800.00"],
         "I = Prn.",
@@ -6706,7 +6706,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m2",
         "Find the future value of $3000 invested at 7% p.a. compounded annually for 4 years. (Round to 2 d.p.)",
-        "FV = 3000 \\times (1.07)^4",
+        "",
         "3932.39",
         ["$3932.39", "3932.39 dollars"],
         "FV = PV(1+r)ⁿ.",
@@ -6715,7 +6715,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m3",
         "A principal of $20 000 earns simple interest. After 5 years the total amount is $26 000. Find the annual interest rate.",
-        "I = 6000,\\quad r = \\frac{I}{Pn} = \\frac{6000}{20000 \\times 5}",
+        "",
         "0.06",
         ["6%", "6 percent", "0.06"],
         "I = A − P = 26 000 − 20 000 = 6000. Then use r = I / (Pn).",
@@ -6724,7 +6724,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m4",
         "A collectible car worth $25 000 appreciates at 8% p.a. compound. Find its value after 6 years. (Round to the nearest dollar.)",
-        "FV = 25\\,000 \\times (1.08)^6",
+        "",
         "39672",
         ["$39672", "39672 dollars", "39671", "$39671"],
         "Use appreciation formula FV = PV(1+r)ⁿ with r = 0.08, n = 6.",
@@ -6746,7 +6746,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m6",
         "Compare these two investments over 3 years on $10 000: Option A: 5% p.a. compound interest. Option B: 5% p.a. simple interest. How much more interest does Option A earn? (To 2 d.p.)",
-        "FV_A = 10000 \\times (1.05)^3,\\quad I_B = 10000 \\times 0.05 \\times 3",
+        "",
         "76.25",
         ["$76.25", "76.25 dollars"],
         "A: Interest = FV − 10 000. B: I = Prn. Subtract B from A.",
@@ -6768,7 +6768,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m8",
         "Person A invests $8000 in a savings account at 4% p.a. compounded annually for 5 years. Person B puts $8000 in a term deposit at 4% p.a. simple interest for 5 years. How much more does Person A earn in interest? (To 2 d.p.)",
-        "FV_A = 8000 \\times (1.04)^5,\\quad I_B = 8000 \\times 0.04 \\times 5",
+        "",
         "133.22",
         ["$133.22", "133.22 dollars"],
         "Find interest for each: A: Interest = FV − 8000; B: I = Prn. Subtract.",
@@ -6790,7 +6790,7 @@ export function year12Standard1InvestmentCompoundInterestLessonOverride(
       invAnswer(
         "y12s1-inv-m10",
         "How many years does it take for $5000 invested at 6% p.a. simple interest to reach a total of $7400?",
-        "7400 = 5000 + 5000 \\times 0.06 \\times n",
+        "",
         "8",
         ["8 years", "n = 8"],
         "Set up A = P + Prn and solve for n. I = 7400 − 5000 = 2400.",
@@ -6954,7 +6954,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-g1",
         "A machine costs $8000 and depreciates by $800 per year. Use S = V₀ − Dn to find its salvage value after 6 years.",
-        "S = 8000 - 800 \\times 6",
+        "",
         "3200",
         ["$3200", "3200.00"],
         "S = V₀ − Dn. Substitute V₀ = 8000, D = 800, n = 6.",
@@ -6963,7 +6963,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-g2",
         "A car worth $20 000 depreciates at 15% per year (declining balance). Find its value after 2 years.",
-        "S = 20\\,000 \\times (0.85)^2",
+        "",
         "14450",
         ["$14450", "14450.00"],
         "S = V₀(1−r)ⁿ. Substitute V₀ = 20 000, r = 0.15, n = 2.",
@@ -6972,7 +6972,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-g3",
         "A reducing balance loan starts at $5000. The monthly interest rate is 2% and the monthly repayment is $300. Find the balance after month 1.",
-        "\\text{Balance}_1 = 5000 \\times 1.02 - 300",
+        "",
         "4800",
         ["$4800", "4800.00"],
         "New balance = old balance × (1 + rate) − repayment.",
@@ -6996,7 +6996,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-i1",
         "A factory tool costs $15 000 and depreciates by $1200 per year (straight-line). Find its salvage value after 8 years.",
-        "S = 15\\,000 - 1200 \\times 8",
+        "",
         "5400",
         ["$5400", "5400.00"],
         "S = V₀ − Dn.",
@@ -7005,7 +7005,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-i2",
         "Equipment worth $10 000 depreciates at 25% per year (declining balance). Find its value after 3 years.",
-        "S = 10\\,000 \\times (0.75)^3",
+        "",
         "4218.75",
         ["$4218.75", "$4218.75 dollars"],
         "S = V₀(1−r)ⁿ. Substitute r = 0.25, n = 3.",
@@ -7014,7 +7014,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-i3",
         "A loan of $6000 has a monthly interest rate of 1.5% and monthly repayment of $400. The balance after month 1 is $5690. Find the balance after month 2.",
-        "\\text{Balance}_2 = 5690 \\times 1.015 - 400",
+        "",
         "5375.35",
         ["$5375.35"],
         "Apply: new balance = old balance × 1.015 − 400.",
@@ -7068,7 +7068,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-m1",
         "A vehicle costs $25 000 and depreciates straight-line by $3000 per year. Find its salvage value after 4 years.",
-        "S = 25\\,000 - 3000 \\times 4",
+        "",
         "13000",
         ["$13000", "13000.00"],
         "S = V₀ − Dn.",
@@ -7077,7 +7077,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-m2",
         "A drone costs $2500 and depreciates at 30% per year (declining balance). Find its value after 2 years.",
-        "S = 2500 \\times (0.70)^2",
+        "",
         "1225",
         ["$1225", "1225.00"],
         "S = V₀(1−r)ⁿ with r = 0.30, n = 2.",
@@ -7086,7 +7086,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-m3",
         "A loan of $4000 has monthly interest rate 2% and monthly repayment $250. Find the balance after month 1.",
-        "4000 \\times 1.02 - 250",
+        "",
         "3830",
         ["$3830", "3830.00"],
         "New balance = 4000 × 1.02 − 250.",
@@ -7095,7 +7095,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-m4",
         "Using the loan from the previous question, find the balance after month 2. (Month 1 balance = $3830.)",
-        "3830 \\times 1.02 - 250",
+        "",
         "3656.60",
         ["$3656.60", "3656.6"],
         "Apply the same rule to month 2 using Balance₁ = 3830.",
@@ -7117,7 +7117,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-m6",
         "A computer costs $5000 and depreciates straight-line by $900 per year. After how many complete years does its salvage value first fall below $1000?",
-        "5000 - 900n < 1000 \\Rightarrow n > \\frac{4000}{900} \\approx 4.44",
+        "",
         "5",
         ["5 years", "year 5"],
         "Solve 5000 − 900n < 1000 for n, then round up to the next whole year.",
@@ -7139,7 +7139,7 @@ export function year12Standard1DepreciationAndLoansLessonOverride(
       deprAnswer(
         "y12s1-depr-m8",
         "A loan of $8000 has monthly interest rate 1% and monthly repayment $600. Balances: month 1 = $7480, month 2 = $6954.80. Find the balance after month 3.",
-        "6954.80 \\times 1.01 - 600",
+        "",
         "6424.35",
         ["$6424.35", "6424.35 dollars"],
         "New balance = 6954.80 × 1.01 − 600.",
@@ -7315,7 +7315,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-g1",
         "A credit card has an annual interest rate of 21% p.a. A purchase of $500 is not paid for 30 days. Calculate the interest charged. (Give your answer to 2 decimal places.)",
-        "A = 500 \\times \\left(1 + \\frac{0.21}{365}\\right)^{30}",
+        "",
         "8.70",
         ["$8.70", "8.70 dollars"],
         "r_d = 0.21/365 ≈ 0.000575. A = 500 × (1.000575)³⁰. Interest = A − 500.",
@@ -7337,7 +7337,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-g3",
         "A credit card statement shows a closing balance of $1200. The minimum payment is 3% of the closing balance. Find the minimum payment.",
-        "0.03 \\times 1200",
+        "",
         "36",
         ["$36", "36.00"],
         "Minimum payment = 3% × closing balance.",
@@ -7361,7 +7361,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-i1",
         "An outstanding credit card balance of $1500 accrues interest at 18% p.a. for 15 days. Calculate the interest charged to 2 decimal places.",
-        "A = 1500 \\times \\left(1 + \\frac{0.18}{365}\\right)^{15}",
+        "",
         "11.13",
         ["$11.13", "11.13 dollars"],
         "r_d = 0.18/365 ≈ 0.000493. A = 1500 × (1.000493)¹⁵. Interest = A − 1500.",
@@ -7383,7 +7383,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-i3",
         "A credit card charges a daily interest rate of 0.05%. Calculate the interest charged on a $3000 outstanding balance for 25 days. (To 2 decimal places.)",
-        "A = 3000 \\times (1.0005)^{25}",
+        "",
         "37.73",
         ["$37.73", "37.73 dollars"],
         "A = 3000 × (1.0005)²⁵. Interest = A − 3000.",
@@ -7437,7 +7437,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-m1",
         "A credit card balance of $2500 accrues interest at 20% p.a. for 20 days. Calculate the interest charged to 2 decimal places.",
-        "A = 2500 \\times \\left(1 + \\frac{0.20}{365}\\right)^{20}",
+        "",
         "27.54",
         ["$27.54", "27.54 dollars"],
         "r_d = 0.20/365 ≈ 0.000548. A = 2500 × (1.000548)²⁰. Interest = A − 2500.",
@@ -7459,7 +7459,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-m3",
         "A credit card statement shows a closing balance of $4200. The minimum payment is 2% of the closing balance. Find the balance carried forward after only the minimum is paid.",
-        "4200 - 0.02 \\times 4200",
+        "",
         "4116",
         ["$4116", "4116.00"],
         "Carried balance = closing balance − minimum payment.",
@@ -7481,7 +7481,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-m5",
         "A credit card charges a daily rate of 0.06%. Find the interest charged on a balance of $800 over 10 days. (To 2 decimal places.)",
-        "A = 800 \\times (1.0006)^{10}",
+        "",
         "4.81",
         ["$4.81", "4.81 dollars"],
         "A = 800 × (1.0006)¹⁰. Interest = A − 800.",
@@ -7503,7 +7503,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-m7",
         "Danielle's credit card statement shows: opening balance $0, purchases $3200, payments $3200. What interest is charged for this period?",
-        "\\text{Full balance repaid} \\Rightarrow \\text{interest charged} = 0",
+        "",
         "0",
         ["$0", "zero", "no interest", "nil"],
         "When is interest charged on a credit card?",
@@ -7512,7 +7512,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-m8",
         "A foreign transaction fee of 3% is charged on a $500 overseas purchase. What additional cost does this fee add?",
-        "0.03 \\times 500",
+        "",
         "15",
         ["$15", "15.00"],
         "Fee = 3% × purchase amount.",
@@ -7521,7 +7521,7 @@ export function year12Standard1CreditCardsAndLoansLessonOverride(
       ccAnswer(
         "y12s1-cc-m9",
         "An outstanding balance of $1000 accrues interest at 19% p.a. for 365 days. Use A = P(1 + r/365)³⁶⁵ to find the total amount owed. (To 2 decimal places.)",
-        "A = 1000 \\times \\left(1 + \\frac{0.19}{365}\\right)^{365}",
+        "",
         "1209.19",
         ["$1209.19", "1209.19 dollars"],
         "Substitute P = 1000, r = 0.19, n = 365 into A = P(1 + r/365)ⁿ.",
@@ -8414,7 +8414,7 @@ function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
         generatedQuestion(
           "annuity-i5-fill",
           "A savings plan deposits $200 each month for 12 months with no interest. Find the total deposited.",
-          "12\\times200",
+          "",
           "2400",
           "Twelve equal deposits of $200 give 12 x 200 = 2400, so the total deposited is $2400.",
           ["$2400", "2400.00"]
@@ -8425,7 +8425,7 @@ function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
         generatedQuestion(
           "annuity-m6-fill",
           "A borrower repays $350 each month for 18 months. Find the total repaid.",
-          "18\\times350",
+          "",
           "6300",
           "Multiply the regular monthly repayment by the number of months: 18 x 350 = 6300.",
           ["$6300", "6300.00"]
@@ -8433,7 +8433,7 @@ function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
         generatedQuestion(
           "annuity-m7-fill",
           "A savings plan has 10 deposits of $120. Find the total amount deposited before interest.",
-          "10\\times120",
+          "",
           "1200",
           "Ten equal deposits of $120 give 10 x 120 = 1200 before any interest is added.",
           ["$1200", "1200.00"]
@@ -8441,7 +8441,7 @@ function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
         generatedQuestion(
           "annuity-m8-fill",
           "A repayment plan lasts 4 years with monthly payments. How many payments are made in total?",
-          "4\\times12",
+          "",
           "48",
           "Monthly payments mean 12 payments each year. Over 4 years that is 4 x 12 = 48 payments.",
           ["48.0"]
@@ -8449,7 +8449,7 @@ function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
         generatedQuestion(
           "annuity-m9-fill",
           "A savings plan reaches $8400 after regular deposits. If $6000 was deposited, how much growth came from interest?",
-          "8400-6000",
+          "",
           "2400",
           "Interest growth is the final balance minus the total amount deposited, so 8400 - 6000 = 2400.",
           ["$2400", "2400.00"]
@@ -8457,7 +8457,7 @@ function addMissingQuestions(lesson: ExplicitLesson): ExplicitLesson {
         generatedQuestion(
           "annuity-m10-fill",
           "A deposit plan has a final balance of $5100 after 15 equal monthly deposits. Find the average amount added per month if interest is ignored.",
-          "5100\\div15",
+          "",
           "340",
           "Ignoring interest, divide the total balance by the 15 equal deposits: 5100 div 15 = 340.",
           ["$340", "340.00"]
@@ -8870,7 +8870,7 @@ function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson 
           ...question,
           prompt:
             "A ship travels 18 km on a bearing of 070°, then 12 km due south. Find the true bearing of the ship from its starting point, to the nearest degree.",
-          latex: "E=18\\sin 70^\\circ,\\quad N=18\\cos 70^\\circ-12",
+          latex: "",
           choices: undefined,
           answer: "109°",
           acceptedAnswers: ["109", "109 degrees"],
@@ -8884,7 +8884,7 @@ function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson 
           ...question,
           prompt:
             "An investment of $10,000 earns 5% compound interest annually. Find the first year in which the interest credited during that year exceeds $600.",
-          latex: "I_n=500(1.05)^{n-1}",
+          latex: "",
           choices: undefined,
           answer: "5 years",
           acceptedAnswers: ["5", "year 5", "fifth year"],
@@ -9017,7 +9017,7 @@ function editorialRewritePriorityLesson(lesson: ExplicitLesson): ExplicitLesson 
           ...question,
           prompt:
             "A credit card balance is $1200. An annual fee of $99 and a late-payment fee of $30 are added before interest. Find the new balance.",
-          latex: "1200+99+30",
+          latex: "",
           answer: "$1329",
           acceptedAnswers: ["1329", "$1,329", "1329 dollars"],
           hint: "Add the annual and late-payment fees to the existing balance.",
