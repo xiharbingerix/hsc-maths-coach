@@ -6,6 +6,7 @@ import { BlockMath } from "react-katex";
 import { MathText } from "../../components/MathText";
 import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 import { MathAnswerInput } from "../../components/MathAnswerInput";
+import { ProofAnswerInput } from "../../components/ProofAnswerInput";
 import { supabase } from "../../../lib/supabaseClient";
 import type { ClientExamPaper, ClientExamQuestion } from "../../../lib/exams";
 
@@ -27,6 +28,7 @@ type QuestionResult = {
   studentAnswer?: string;
   correctAnswer?: string;
   explanation: string;
+  selectedFeedback?: string[];
   parts?: PartResult[];
 };
 type TopicBreakdown = {
@@ -213,13 +215,11 @@ function QuestionCard({
       <VisualPayloadRenderer {...question} />
 
       {question.responseType === "proof" ? (
-        <textarea
+        <ProofAnswerInput
           value={answers[question.id] ?? ""}
-          onChange={(e) => setAnswer(question.id, e.target.value)}
+          onChange={(value) => setAnswer(question.id, value)}
           aria-label="Your proof"
           placeholder="Write your full proof here, setting out each step clearly (base case, assumption, inductive step, conclusion)."
-          rows={10}
-          className="w-full rounded-xl border border-slate-300 p-3 font-mono text-sm leading-relaxed text-slate-900 focus:border-slate-900 focus:outline-none"
         />
       ) : question.parts && question.parts.length > 0 ? (
         <div className="space-y-4">
@@ -398,6 +398,16 @@ function ReviewCard({
           <p className="mt-1 whitespace-pre-wrap text-slate-700">
             {result.studentAnswer || "—"}
           </p>
+          {result.selectedFeedback && result.selectedFeedback.length > 0 ? (
+            <div className="mt-3">
+              <p className="font-medium text-slate-700">Feedback</p>
+              <ul className="mt-1 list-disc space-y-1 pl-5 text-slate-700">
+                {result.selectedFeedback.map((item: string) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
           <p className="mt-3 font-medium text-slate-700">Model solution</p>
           <p className="mt-1 text-slate-600">
             <MathText text={result.explanation} />

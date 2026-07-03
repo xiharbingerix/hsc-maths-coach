@@ -159,15 +159,6 @@ export function resolveProofRubric(question: ProofQuestion): string[] {
 export function buildVerdictSchema(
   allowedFeedbackKeys: string[]
 ): Record<string, unknown> {
-  if (allowedFeedbackKeys.length === 0) {
-    return {
-      type: "object",
-      properties: { correct: { type: "boolean" } },
-      required: ["correct"],
-      additionalProperties: false,
-    };
-  }
-
   return {
     type: "object",
     properties: {
@@ -208,9 +199,6 @@ export function parseVerdict(
     const correct = (parsed as { correct?: unknown }).correct;
     const feedbackKeys = (parsed as { feedbackKeys?: unknown }).feedbackKeys;
     if (typeof correct !== "boolean") return null;
-    if (feedbackKeys === undefined && allowedFeedbackKeys.length === 0) {
-      return { correct, feedbackKeys: [] };
-    }
     if (!Array.isArray(feedbackKeys)) return null;
     const cleanKeys = feedbackKeys.filter(
       (key): key is string =>
@@ -230,14 +218,9 @@ export async function markProofWithAi(
   if (!proofMarkerEnabled()) return null;
   // Need both a problem and our reference solution to grade safely.
   if (!question.prompt?.trim() || !question.modelSolution?.trim()) return null;
+  if (!question.rubric?.length || !question.feedbackOptions?.length) return null;
 
   const mode = question.mode ?? "proof";
-  if (
-    mode === "short_explanation" &&
-    (!question.rubric?.length || !question.feedbackOptions?.length)
-  ) {
-    return null;
-  }
   const answer = (studentAnswer ?? "").trim();
   const screen = screenProofSubmission(answer, mode);
   // Empty, manipulative, inappropriate, or clearly non-mathematical submissions
@@ -251,33 +234,23 @@ export async function markProofWithAi(
 
   try {
     const client = new Anthropic();
-    const markingInstructions = feedbackOptions.length
-      ? [
-          "REQUIRED OUTPUT SCHEMA:",
-          "- correct: boolean",
-          "- feedbackKeys: string[] chosen only from the authored keys below",
-          "",
-          "AUTHORED FEEDBACK OPTIONS (return only keys from this list):",
-          ...feedbackOptions.map((option) => `- ${option.key}: ${option.text}`),
-          "",
-          "RUBRIC TO GRADE AGAINST:",
-          ...rubric.map((item) => `- ${item}`),
-          "",
-          "If the response is fully correct, feedbackKeys may be empty.",
-        ]
-      : [
-          "REQUIRED OUTPUT SCHEMA:",
-          "- correct: boolean",
-          "",
-          "Grade against the model solution and the proof rules above.",
-        ];
     const content = [
       buildUserContent(question, answer),
       "",
       "MARKING MODE:",
       mode,
       "",
-      ...markingInstructions,
+      "REQUIRED OUTPUT SCHEMA:",
+      "- correct: boolean",
+      "- feedbackKeys: string[] chosen only from the authored keys below",
+      "",
+      "AUTHORED FEEDBACK OPTIONS (return only keys from this list):",
+      ...feedbackOptions.map((option) => `- ${option.key}: ${option.text}`),
+      "",
+      "RUBRIC TO GRADE AGAINST:",
+      ...rubric.map((item) => `- ${item}`),
+      "",
+      "If the response is fully correct, feedbackKeys may be empty.",
     ].join("\n");
     const message = await client.messages.create({
       model: MODEL,

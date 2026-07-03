@@ -27,6 +27,18 @@ const proofQ: ExamQuestion = {
   explanation: "Base case, hypothesis, inductive step, conclusion.",
   responseType: "proof",
   modelSolution: "Base case n=1. Assume n=k. Show n=k+1. Conclude.",
+  proofRubric: [
+    "Checks the stated base case explicitly.",
+    "States the inductive hypothesis clearly at n = k.",
+    "Uses the hypothesis in the k+1 step.",
+    "States a valid induction conclusion.",
+  ],
+  proofFeedbackOptions: [
+    { key: "base_case_missing", text: "Check the base case explicitly." },
+    { key: "hypothesis_missing", text: "State the inductive hypothesis clearly." },
+    { key: "hypothesis_not_used", text: "Use the hypothesis in the k+1 step." },
+    { key: "conclusion_missing", text: "State the final induction conclusion." },
+  ],
 };
 
 // With PROOF_MARKER_ENABLED unset (the default), the marker is unavailable and a

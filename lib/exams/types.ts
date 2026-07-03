@@ -13,6 +13,7 @@ import type { DiagramFields } from "../lessons/diagramRegistry";
 export type Difficulty = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type ExamChoice = { label: string; text: string };
+export type ProofFeedbackOption = { key: string; text: string };
 
 export type ExamQuestionPart = {
   key: string;
@@ -71,6 +72,10 @@ export type ExamQuestion = {
   responseType?: "proof";
   /** Authoritative solution/rubric the AI marker grades against (server-only). */
   modelSolution?: string;
+  /** Checklist the AI marker should use when grading the proof (server-only). */
+  proofRubric?: string[];
+  /** Allowlisted feedback items the AI marker may select from (server-only). */
+  proofFeedbackOptions?: ProofFeedbackOption[];
 } & DiagramFields;
 
 export type ExamSection = {

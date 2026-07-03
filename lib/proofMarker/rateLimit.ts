@@ -6,8 +6,17 @@
  * the feature flag it is adequate for the MVP. For a strict cap, back this with
  * Supabase or a KV store.
  */
-const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
-const MAX_REQUESTS = 40; // per user per window
+function readPositiveInt(name: string, fallback: number): number {
+  const raw = process.env[name]?.trim();
+  if (!raw) return fallback;
+  const parsed = Number.parseInt(raw, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+const WINDOW_MS =
+  readPositiveInt("PROOF_MARKER_WINDOW_MS", 10 * 60 * 1000);
+const MAX_REQUESTS =
+  readPositiveInt("PROOF_MARKER_MAX_REQUESTS", 40);
 
 const hits = new Map<string, number[]>();
 
@@ -21,4 +30,8 @@ export function allowProofMarkRequest(userId: string): boolean {
   recent.push(now);
   hits.set(userId, recent);
   return true;
+}
+
+export function resetProofMarkRateLimitForTests() {
+  hits.clear();
 }
