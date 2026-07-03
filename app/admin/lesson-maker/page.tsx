@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../lib/adminSession";
 import { newCoursePathways } from "../../../lib/newCourseCatalog";
+import { year12AdvancedRouteUnits } from "../../../lib/year12AdvancedRoutes";
+import { year12AdvancedCourse } from "../../../lib/courseUnits";
 import { listSavedPlansAction, type SavedPlanSummary } from "./actions";
 import { LessonMakerClient } from "./LessonMakerClient";
 
@@ -24,16 +26,31 @@ export type CatalogCourse = {
 export default async function LessonMakerPage() {
   await requireAdmin();
 
-  // Strip lesson content — only slugs + titles needed for selectors
-  const catalog: CatalogCourse[] = newCoursePathways.map((c) => ({
-    slug: c.slug,
-    title: c.title,
-    units: c.units.map((u) => ({
-      slug: u.slug,
-      title: u.title,
-      lessons: u.lessons.map((l) => ({ slug: l.slug, title: l.title })),
+  // Strip lesson content — only slugs + titles needed for selectors.
+  // Year 12 Advanced lives in its own hand-authored registry (not
+  // newCoursePathways), so it is added explicitly.
+  const catalog: CatalogCourse[] = [
+    {
+      slug: year12AdvancedCourse.courseSlug,
+      title: year12AdvancedCourse.courseTitle,
+      units: year12AdvancedRouteUnits.map((u) => ({
+        slug: u.slug,
+        title: u.title,
+        lessons: u.lessons
+          .filter((l) => l.status === "active")
+          .map((l) => ({ slug: l.slug, title: l.title })),
+      })),
+    },
+    ...newCoursePathways.map((c) => ({
+      slug: c.slug,
+      title: c.title,
+      units: c.units.map((u) => ({
+        slug: u.slug,
+        title: u.title,
+        lessons: u.lessons.map((l) => ({ slug: l.slug, title: l.title })),
+      })),
     })),
-  }));
+  ];
 
   const savedResult = await listSavedPlansAction();
   const initialSavedPlans: SavedPlanSummary[] =
@@ -51,8 +68,9 @@ export default async function LessonMakerPage() {
               Lesson Maker
             </h1>
             <p className="mt-1.5 text-sm text-slate-600">
-              Build a tutor-facing teaching plan from existing course content.
-              No AI — fully deterministic from your lesson data.
+              AI-authored one-on-one Zoom teaching plans built from your course
+              content. The first generation per topic is written by Claude and
+              saved as that topic&apos;s default — later requests are free.
             </p>
           </div>
           <Link

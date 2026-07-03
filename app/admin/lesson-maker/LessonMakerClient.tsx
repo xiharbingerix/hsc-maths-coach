@@ -50,7 +50,7 @@ function planToText(plan: TutorLessonPlan): string {
   lines.push(`Course: ${plan.course}`);
   lines.push(`Unit: ${plan.unit}`);
   lines.push(
-    `Duration: ${plan.length} min | Level: ${plan.level} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
+    `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Level: ${plan.level} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
   );
   lines.push(`Learning goal: ${plan.learningGoal}`);
   lines.push(`Success criteria:`);
@@ -108,6 +108,15 @@ function planToText(plan: TutorLessonPlan): string {
         break;
       case "homework":
         lines.push(s.suggestion);
+        break;
+      case "dialogue":
+        s.exchanges.forEach((e) => {
+          lines.push(
+            e.speaker === "tutor"
+              ? `  TUTOR: ${e.text}`
+              : `  STUDENT (listen for): ${e.text}`
+          );
+        });
         break;
     }
     lines.push("");
@@ -459,6 +468,36 @@ function SectionCard({
             {section.suggestion}
           </p>
         )}
+
+        {section.kind === "dialogue" && (
+          <div className="space-y-2">
+            {section.exchanges.map((e, i) =>
+              e.speaker === "tutor" ? (
+                <div key={i} className="flex justify-start">
+                  <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-indigo-50 px-4 py-2.5">
+                    <p className="text-[10px] font-bold uppercase tracking-wide text-indigo-400">
+                      Tutor
+                    </p>
+                    <p className="text-sm leading-relaxed text-indigo-900">
+                      <MathText text={e.text} />
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div key={i} className="flex justify-end">
+                  <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-dashed border-slate-300 bg-slate-50 px-4 py-2.5">
+                    <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                      Listen for (student)
+                    </p>
+                    <p className="text-sm leading-relaxed text-slate-700">
+                      <MathText text={e.text} />
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -489,7 +528,7 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
           {plan.unit}
         </span>
         <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
-          {plan.length} min
+          {plan.length === 10 ? "10 min catch-up recap" : `${plan.length} min`}
         </span>
         <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
           {levelLabels[plan.level]}
@@ -511,6 +550,9 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
   const [length, setLength] = useState<LessonLength>(45);
   const [level, setLevel] = useState<StudentLevel>("on-level");
   const [plan, setPlan] = useState<TutorLessonPlan | null>(null);
+  const [planSource, setPlanSource] = useState<
+    "cache" | "ai" | "built-in" | "saved" | null
+  >(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -531,6 +573,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
     setUnitSlug("");
     setLessonSlug("");
     setPlan(null);
+    setPlanSource(null);
     setError(null);
   }
 
@@ -538,10 +581,11 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
     setUnitSlug(slug);
     setLessonSlug("");
     setPlan(null);
+    setPlanSource(null);
     setError(null);
   }
 
-  function handleGenerate() {
+  function handleGenerate(forceRegenerate = false) {
     if (!courseSlug || !unitSlug || !lessonSlug) return;
     setError(null);
 
@@ -552,11 +596,13 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
         lessonSlug,
         length,
         level,
+        { forceRegenerate },
       );
       if ("error" in result) {
         setError(result.error);
       } else {
         setPlan(result.plan);
+        setPlanSource(result.source);
         setSaveState("idle");
         setActiveSavedId(null);
         // Scroll to plan
@@ -621,6 +667,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
     setLength(record.lessonLength as LessonLength);
     setLevel(record.studentLevel as StudentLevel);
     setPlan(record.plan);
+    setPlanSource("saved");
     setActiveSavedId(record.id);
     setSaveState("saved");
     setError(null);
@@ -707,6 +754,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
               onChange={(e) => {
                 setLessonSlug(e.target.value);
                 setPlan(null);
+                setPlanSource(null);
                 setError(null);
               }}
               disabled={!selectedUnit}
@@ -726,18 +774,23 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
               Lesson length
             </label>
             <div className="flex gap-2">
-              {([30, 45, 60] as LessonLength[]).map((l) => (
+              {([10, 30, 45, 60] as LessonLength[]).map((l) => (
                 <button
                   key={l}
                   type="button"
                   onClick={() => setLength(l)}
+                  title={
+                    l === 10
+                      ? "Quick catch-up recap of a previously taught topic"
+                      : undefined
+                  }
                   className={`flex-1 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
                     length === l
                       ? "border-indigo-500 bg-indigo-500 text-white"
                       : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
                   }`}
                 >
-                  {l} min
+                  {l === 10 ? "10 min recap" : `${l} min`}
                 </button>
               ))}
             </div>
@@ -779,11 +832,17 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
           </p>
         )}
 
-        <div className="mt-6 flex justify-end">
+        <div className="mt-6 flex items-center justify-end gap-3">
+          {isPending && (
+            <p className="text-xs text-slate-500">
+              First generation for a topic is written by Claude and can take a
+              minute or two. It&apos;s saved as the default afterwards.
+            </p>
+          )}
           <button
             type="button"
             disabled={!canGenerate || isPending}
-            onClick={handleGenerate}
+            onClick={() => handleGenerate()}
             className="rounded-xl bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isPending ? "Generating…" : "Generate lesson plan →"}
@@ -845,11 +904,47 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
         <div id="lesson-plan-output" className="space-y-4">
           {/* Toolbar */}
           <div className="flex items-center justify-between print:hidden">
-            <p className="text-sm text-slate-500">
-              {plan.sections.length} sections •{" "}
-              {plan.sections.reduce((t, s) => t + s.minutes, 0)} min total
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-slate-500">
+                {plan.sections.length} sections •{" "}
+                {plan.sections.reduce((t, s) => t + s.minutes, 0)} min total
+              </p>
+              {planSource === "ai" && (
+                <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700">
+                  ✦ Freshly generated{plan.model ? ` (${plan.model})` : ""} —
+                  saved as topic default
+                </span>
+              )}
+              {planSource === "cache" && (
+                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
+                  ⚡ Topic default (cached — no tokens used)
+                </span>
+              )}
+              {planSource === "built-in" && (
+                <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700">
+                  Built-in template (no ANTHROPIC_API_KEY set)
+                </span>
+              )}
+            </div>
             <div className="flex flex-wrap gap-2">
+              {(planSource === "cache" || planSource === "ai") && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Regenerate with Claude? This spends tokens and overwrites the cached default for this topic.",
+                      )
+                    ) {
+                      handleGenerate(true);
+                    }
+                  }}
+                  disabled={isPending}
+                  className="rounded-xl border border-violet-300 bg-violet-50 px-4 py-2 text-sm font-semibold text-violet-700 hover:bg-violet-100 disabled:opacity-50"
+                >
+                  {isPending ? "Regenerating…" : "↻ Regenerate (uses tokens)"}
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => void handleSave()}

@@ -2,6 +2,7 @@
 
 import { requireAdmin } from "../../../lib/adminSession";
 import { getNewCourseLesson } from "../../../lib/newCourseCatalog";
+import { getYear12AdvancedRouteLesson } from "../../../lib/year12AdvancedRoutes";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import {
   generateTutorPlan,
@@ -10,8 +11,23 @@ import {
   type StudentLevel,
   type TutorLessonPlan,
 } from "../../../lib/lessonMaker";
+import {
+  aiLessonPlannerEnabled,
+  generateAiLessonPlan,
+} from "../../../lib/aiLessonPlanner";
 
 // ── Lesson plan generation ────────────────────────────────────────────────────
+//
+// AI-first with a per-topic cache: the first generation for a
+// (course, unit, lesson, length, level) key calls Claude and stores the result
+// in ai_lesson_plans as that topic's default. Subsequent generations serve the
+// cached plan (no tokens spent) unless forceRegenerate is set, which overwrites
+// the cached default. With no ANTHROPIC_API_KEY the built-in deterministic
+// generator is used instead (never cached).
+
+export type GenerateResult =
+  | { plan: TutorLessonPlan; source: "cache" | "ai" | "built-in" }
+  | { error: string };
 
 export async function generateLessonPlanAction(
   courseSlug: string,
@@ -19,10 +35,16 @@ export async function generateLessonPlanAction(
   lessonSlug: string,
   length: LessonLength,
   level: StudentLevel,
-): Promise<{ plan: TutorLessonPlan } | { error: string }> {
+  opts?: { forceRegenerate?: boolean },
+): Promise<GenerateResult> {
   await requireAdmin();
 
-  const lesson = getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
+  // Year 12 Advanced has its own hand-authored registry; everything else
+  // comes from the newCoursePathways catalog.
+  const lesson =
+    courseSlug === "year-12-advanced"
+      ? (getYear12AdvancedRouteLesson(unitSlug, lessonSlug) ?? null)
+      : getNewCourseLesson(courseSlug, unitSlug, lessonSlug);
   if (!lesson) {
     return {
       error: `Lesson not found: ${courseSlug} / ${unitSlug} / ${lessonSlug}`,
@@ -36,8 +58,55 @@ export async function generateLessonPlanAction(
     };
   }
 
-  const plan = generateTutorPlan(lesson, { length, level });
-  return { plan };
+  const cacheKey = {
+    course_slug: courseSlug,
+    unit_slug: unitSlug,
+    lesson_slug: lessonSlug,
+    lesson_length: length,
+    student_level: level,
+  };
+
+  // 1. Cached default for this topic — free.
+  if (!opts?.forceRegenerate) {
+    const { data } = await supabaseAdmin
+      .from("ai_lesson_plans")
+      .select("plan")
+      .match(cacheKey)
+      .maybeSingle();
+    const cached = (data as { plan?: TutorLessonPlan } | null)?.plan;
+    if (cached) return { plan: cached, source: "cache" };
+  }
+
+  // 2. No API key → deterministic built-in generator (not cached).
+  if (!aiLessonPlannerEnabled()) {
+    return { plan: generateTutorPlan(lesson, { length, level }), source: "built-in" };
+  }
+
+  // 3. Generate with Claude and save as this topic's default.
+  try {
+    const { plan, model } = await generateAiLessonPlan(lesson, { length, level });
+
+    const { error: upsertError } = await supabaseAdmin
+      .from("ai_lesson_plans")
+      .upsert(
+        {
+          ...cacheKey,
+          model,
+          plan: plan as unknown as Record<string, unknown>,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "course_slug,unit_slug,lesson_slug,lesson_length,student_level" },
+      );
+    if (upsertError) {
+      // Plan still usable — surface the caching failure without losing it.
+      console.error("ai_lesson_plans upsert failed:", upsertError.message);
+    }
+
+    return { plan, source: "ai" };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return { error: `AI lesson generation failed: ${message}` };
+  }
 }
 
 // ── Saved plans ───────────────────────────────────────────────────────────────
