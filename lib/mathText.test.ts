@@ -56,6 +56,37 @@ test("auto-wraps bare subscript/superscript notation", () => {
   assert.match(maths[0].value, /T_2/);
 });
 
+test("over-wrapped currency ($25$) does not swallow later maths spans", () => {
+  // AI-authored prose sometimes wraps currency in maths delimiters. The old
+  // behaviour sentinel-ised the opener but left the closer dangling, which
+  // then paired with the NEXT maths opener and rendered half the sentence as
+  // one garbled maths span.
+  const input =
+    "$25$ is the SQUARE of the side, not the side. Always finish with $c = \\sqrt{a^2+b^2}$.";
+  const maths = mathSegments(input);
+  assert.equal(maths.length, 1);
+  assert.equal(maths[0].value, "c = \\sqrt{a^2+b^2}");
+  assert.ok(renderedText(input).startsWith("$25 is the SQUARE"));
+});
+
+test("over-wrapped decimal currency stays literal", () => {
+  const input = "Ignoring the rounding instruction — writing $8.0622$ instead.";
+  assert.deepEqual(mathSegments(input), []);
+  assert.equal(
+    renderedText(input),
+    "Ignoring the rounding instruction — writing $8.0622 instead.",
+  );
+});
+
+test("two over-wrapped currency amounts in one sentence", () => {
+  const input = "A deposit of $160$ on a TV costing $960$ leaves the rest owing.";
+  assert.deepEqual(mathSegments(input), []);
+  assert.equal(
+    renderedText(input),
+    "A deposit of $160 on a TV costing $960 leaves the rest owing.",
+  );
+});
+
 test("rendered text contains no leftover sentinel or backslash-dollar", () => {
   const input = "A phone costs $780; a plan is $250 deposit plus $65 each.";
   const text = renderedText(input);
