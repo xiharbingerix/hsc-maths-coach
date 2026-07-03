@@ -597,7 +597,7 @@ const optMastery: PracticeQuestion[] = [
 
 const exWorked: WorkedExample[] = [
   {
-    title: "Full curve sketch: y = x³ − 3x + 2 (HSC style)",
+    title: "Full curve sketch: y = x³ − 3x + 2",
     questionLatex: "\\text{Sketch }y = x^3 - 3x + 2,\\text{ showing all key features.}",
     steps: [
       { explanation: "Intercepts: y-int (0,2); x-ints: (x−1)²(x+2)=0 → x=1 (touch), x=−2 (cross).", latex: "" },
