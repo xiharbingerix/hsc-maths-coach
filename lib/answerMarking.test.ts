@@ -44,3 +44,16 @@ test("normalised numeric match", () => assert.equal(mark("0.5 ", "0.5"), true));
 test("coordinate match", () => assert.equal(mark("(3, -1)", "(3, -1)"), true));
 test("solution set — order independent", () => assert.equal(mark("x = -4 or x = 1", "x = 1 or x = -4"), true));
 test("pi normalisation", () => assert.equal(mark("π", "pi"), true));
+
+// numeric equivalence through LaTeX and decimal fractions
+// (stored answer \frac{2}{2.5}: every correct student form must pass)
+test("0.8 matches stored \\frac{2}{2.5}", () => assert.equal(mark("0.8", "\\frac{2}{2.5}"), true));
+test("4/5 matches stored \\frac{2}{2.5}", () => assert.equal(mark("4/5", "\\frac{2}{2.5}"), true));
+test("\\frac{4}{5} matches stored \\frac{2}{2.5}", () => assert.equal(mark("\\frac{4}{5}", "\\frac{2}{2.5}"), true));
+test("\\frac{4}{5} matches stored 0.8", () => assert.equal(mark("\\frac{4}{5}", "0.8"), true));
+test("\\frac{1}{2} matches stored 0.5", () => assert.equal(mark("\\frac{1}{2}", "0.5"), true));
+test("2/2.5 decimal fraction matches 0.8", () => assert.equal(mark("2/2.5", "0.8"), true));
+test("80% matches stored \\frac{2}{2.5}", () => assert.equal(mark("80%", "\\frac{2}{2.5}"), true));
+test("negative \\frac{-4}{5} matches -0.8", () => assert.equal(mark("\\frac{-4}{5}", "-0.8"), true));
+test("wrong value \\frac{2}{5} does not match 0.8", () => assert.equal(mark("\\frac{2}{5}", "0.8"), false));
+test("wrong decimal fraction 2/2.5 does not match 0.75", () => assert.equal(mark("2/2.5", "0.75"), false));

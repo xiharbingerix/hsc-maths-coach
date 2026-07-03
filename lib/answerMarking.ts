@@ -157,11 +157,24 @@ function parseDecimal(value: string): Rational | null {
 }
 
 function parseNumericValue(value: string): Rational | null {
-  const trimmed = value.trim();
-  const fractionMatch = trimmed.match(/^([+-]?\d+)\s*\/\s*([+-]?\d+)$/);
+  // Unwrap parenthesised fraction operands — normaliseText rewrites complex
+  // \frac forms (e.g. \frac{-4}{5}) to (-4)/(5).
+  const trimmed = value
+    .trim()
+    .replace(/\(\s*([+-]?\d+(?:\.\d+)?)\s*\)/g, "$1");
+  const fractionMatch = trimmed.match(
+    /^([+-]?\d+(?:\.\d+)?)\s*\/\s*([+-]?\d+(?:\.\d+)?)$/
+  );
 
   if (fractionMatch) {
-    return rational(BigInt(fractionMatch[1]), BigInt(fractionMatch[2]));
+    const numerator = parseDecimal(fractionMatch[1]);
+    const denominator = parseDecimal(fractionMatch[2]);
+    if (!numerator || !denominator) return null;
+    // (a/b) / (c/d) = ad / bc — lets decimal fractions like 2/2.5 reduce to 4/5.
+    return rational(
+      numerator.numerator * denominator.denominator,
+      numerator.denominator * denominator.numerator
+    );
   }
 
   return parseDecimal(trimmed);
@@ -451,7 +464,11 @@ export function markTypedAnswer({
   const normalisedMatch = answerOptions.some(
     (acceptedAnswer) =>
       normalisedUserAnswer === normaliseText(acceptedAnswer) ||
-      semanticMatch(userAnswer, acceptedAnswer)
+      semanticMatch(userAnswer, acceptedAnswer) ||
+      // Semantic comparison again on the normalised forms, so LaTeX answers on
+      // either side (\frac{2}{2.5} vs 0.8, \frac{4}{5} vs 0.8) still get
+      // numeric-equivalence treatment after being reduced to a/b.
+      semanticMatch(normalisedUserAnswer, normaliseText(acceptedAnswer))
   );
 
   return {
