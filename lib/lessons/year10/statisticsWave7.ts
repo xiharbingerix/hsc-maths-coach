@@ -8,12 +8,42 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import type { TwoWayTableDiagram } from "../types";
 
-function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
-  return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Interpret what the data means first, then calculate.", explanation };
+function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = [], extra: Partial<PracticeQuestion> = {}): PracticeQuestion {
+  return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Interpret what the data means first, then calculate.", explanation, ...extra };
 }
-function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], difficulty: number, explanation: string): PracticeQuestion {
-  return { id, prompt, latex: "\\text{Select A, B, C, or D.}", choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })), answer, difficulty, hint: "Think about what the statistic or display actually tells you.", explanation };
+function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], difficulty: number, explanation: string, extra: Partial<PracticeQuestion> = {}): PracticeQuestion {
+  return { id, prompt, latex: "\\text{Select A, B, C, or D.}", choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })), answer, difficulty, hint: "Think about what the statistic or display actually tells you.", explanation, ...extra };
+}
+
+// Survey table used throughout 9C (see teaching): sport & pet 40, sport & no pet 20,
+// no sport & pet 10, no sport & no pet 30. Cells-only variant hides the totals so
+// total/relative-frequency questions cannot be answered by reading a displayed total.
+const twtCells = {
+  twoWayTableDiagram: {
+    description:
+      "Two-way table of 100 surveyed students. Rows: play sport, no sport. Columns: own a pet, no pet. Counts: sport and pet 40, sport and no pet 20, no sport and pet 10, no sport and no pet 30. Totals are not shown.",
+    rowLabels: ["Play sport", "No sport"],
+    columnLabels: ["Own a pet", "No pet"],
+    values: [[40, 20], [10, 30]] as (number | string)[][],
+  },
+};
+function twtMissing(row: 0 | 1, col: 0 | 1): { twoWayTableDiagram: TwoWayTableDiagram } {
+  const values: (number | string)[][] = [[40, 20], [10, 30]];
+  values[row][col] = "?";
+  return {
+    twoWayTableDiagram: {
+      description:
+        `Two-way table of surveyed students with row and column totals. Rows: play sport (total 60), no sport (total 40). Columns: own a pet (total 50), no pet (total 50). Grand total 100. The ${row === 0 ? "play sport" : "no sport"} / ${col === 0 ? "own a pet" : "no pet"} cell is hidden and shown as ?.`,
+      rowLabels: ["Play sport", "No sport"],
+      columnLabels: ["Own a pet", "No pet"],
+      values,
+      rowTotals: [60, 40],
+      columnTotals: [50, 50],
+      grandTotal: 100,
+    },
+  };
 }
 
 // ── 9A Collecting and Misusing Data (path) ─────────────────────────────────────────────
@@ -99,7 +129,15 @@ const dataDisplays: Partial<ExplicitLesson> = {
     mcq("y10-rdd-i2", "A histogram's bars touch because the data is:", "B", ["categorical", "continuous", "ranked", "random"], 3, "Continuous data has no gaps between intervals, so bars touch."),
     mcq("y10-rdd-i3", "Comparing two groups' distributions is easiest with a:", "C", ["pie chart", "single dot", "back-to-back stem-and-leaf plot", "table of means"], 3, "A back-to-back stem-and-leaf shows both distributions together."),
     mcq("y10-rdd-i4", "A misleading graph often has a:", "A", ["non-zero / broken axis", "clear title", "consistent scale", "labelled axes"], 3, "Breaking the axis exaggerates differences."),
-    mcq("y10-rdd-i5", "A column graph's tallest bar shows the:", "B", ["smallest category", "most frequent category", "median", "outlier"], 2, "Height represents frequency, so the tallest bar is the most frequent."),
+    mcq("y10-rdd-i5", "The column graph shows how students travel to school. Which travel method is the mode?", "B", ["Walk", "Bus", "Car", "Bike"], 2, "The tallest column is Bus with frequency 12, so bus travel is the most frequent category — the mode.", {
+      barChartDiagram: {
+        description: "Column graph of travel methods to school. Walk 8, Bus 12, Car 9, Bike 5.",
+        bars: [{ label: "Walk", value: 8 }, { label: "Bus", value: 12 }, { label: "Car", value: 9 }, { label: "Bike", value: 5 }],
+        valueAxisLabel: "Frequency",
+        categoryAxisLabel: "Travel method",
+      },
+      hint: "The mode is the category with the tallest column.",
+    }),
   ],
   masteryQuiz: [
     mcq("y10-rdd-m1", "Favourite colours (categories) suit a:", "A", ["bar graph", "histogram", "scatter plot", "time series"], 2, "Categorical data → bar graph."),
@@ -147,29 +185,29 @@ const twoWayTables: Partial<ExplicitLesson> = {
     { title: "Column total", questionLatex: "\\text{How many own a pet? (40 play sport, 10 do not)}", steps: [{ explanation: "Add the pet column.", latex: "40 + 10 = 50" }], finalAnswerLatex: "50" },
   ],
   guidedPractice: [
-    ans("y10-twt-g1", "From the survey, how many students play sport? (40 own a pet, 20 do not)", "40+20", "60", 2, "Sport row: 40 + 20 = 60.", []),
-    ans("y10-twt-g2", "How many students own a pet? (40 play sport, 10 do not)", "40+10", "50", 2, "Pet column: 40 + 10 = 50.", []),
-    ans("y10-twt-g3", "How many do neither play sport nor own a pet?", "\\text{no sport, no pet}", "30", 2, "That cell is given as 30.", []),
+    ans("y10-twt-g1", "Using the two-way table shown, how many students play sport?", "", "60", 2, "Add the sport row: 40 + 20 = 60.", [], { ...twtCells, hint: "Add across the 'Play sport' row." }),
+    ans("y10-twt-g2", "Using the two-way table shown, how many students own a pet?", "", "50", 2, "Add the pet column: 40 + 10 = 50.", [], { ...twtCells, hint: "Add down the 'Own a pet' column." }),
+    ans("y10-twt-g3", "Find the missing value (?) in the two-way table shown.", "", "30", 3, "The no-sport row totals 40 and already shows 10 pet owners, so the missing cell is 40 − 10 = 30. (Check: the no-pet column gives 50 − 20 = 30.)", [], { ...twtMissing(1, 1), hint: "Use a row or column total: the row must add up to its marginal total." }),
     mcq("y10-twt-g4", "Row and column totals in a two-way table are called:", "B", ["cell counts", "marginal totals", "relative frequencies", "conditionals"], 2, "The totals around the edges are the marginal totals."),
   ],
   independentPractice: [
-    ans("y10-twt-i1", "How many play sport but own no pet?", "\\text{sport, no pet}", "20", 2, "That cell is 20.", []),
-    ans("y10-twt-i2", "Find the relative frequency of owning a pet (50 of 100).", "50/100", "0.5", 2, "50 ÷ 100 = 0.5.", ["50%", "1/2"]),
-    ans("y10-twt-i3", "How many students do NOT play sport? (10 with a pet, 30 without)", "10+30", "40", 2, "No-sport row: 10 + 30 = 40.", []),
-    ans("y10-twt-i4", "Of the 60 who play sport, how many own a pet?", "\\text{within sport row}", "40", 3, "Within the sport row, 40 own a pet (a conditional count).", []),
+    ans("y10-twt-i1", "Find the missing value (?) in the two-way table shown.", "", "20", 3, "The sport row totals 60 and already shows 40 pet owners, so the missing cell is 60 − 40 = 20.", [], { ...twtMissing(0, 1), hint: "The 'Play sport' row must add to its row total." }),
+    ans("y10-twt-i2", "Using the two-way table shown, find the relative frequency of owning a pet.", "", "0.5", 3, "Pet owners: 40 + 10 = 50 of the 100 students, so 50 ÷ 100 = 0.5.", ["50%", "1/2"], { ...twtCells, hint: "Total the pet column, then divide by the number of students surveyed." }),
+    ans("y10-twt-i3", "Using the two-way table shown, how many students do NOT play sport?", "", "40", 2, "Add the no-sport row: 10 + 30 = 40.", [], { ...twtCells, hint: "Add across the 'No sport' row." }),
+    ans("y10-twt-i4", "Using the two-way table shown, what fraction of the students who play sport own a pet? Give your answer as a simplified fraction.", "", "2/3", 4, "60 students play sport and 40 of them own a pet, so the conditional proportion is 40/60 = 2/3.", ["40/60", "0.67", "0.667"], { ...twtCells, hint: "Stay inside the sport row: pet owners in that row ÷ the row total." }),
     mcq("y10-twt-i5", "A two-way table displays:", "C", ["one numerical variable", "a time series", "two categorical variables", "a single proportion"], 2, "It cross-tabulates two categorical variables."),
   ],
   masteryQuiz: [
-    ans("y10-twt-m1", "What is the total number of students surveyed?", "\\text{grand total}", "100", 1, "The grand total is 100.", []),
-    ans("y10-twt-m2", "How many students own a pet and play sport?", "\\text{sport and pet}", "40", 1, "That cell is 40.", []),
-    ans("y10-twt-m3", "Find the relative frequency of doing neither (30 of 100).", "30/100", "0.3", 2, "30 ÷ 100 = 0.3.", ["30%"]),
-    ans("y10-twt-m4", "How many students own no pet? (20 play sport, 30 do not)", "20+30", "50", 2, "No-pet column: 20 + 30 = 50.", []),
+    ans("y10-twt-m1", "Using the two-way table shown, how many students were surveyed in total?", "", "100", 2, "Add all four cells: 40 + 20 + 10 + 30 = 100.", [], { ...twtCells, hint: "Add every cell in the table." }),
+    ans("y10-twt-m2", "Find the missing value (?) in the two-way table shown.", "", "40", 3, "The sport row totals 60 and already shows 20 without a pet, so the missing cell is 60 − 20 = 40.", [], { ...twtMissing(0, 0), hint: "The 'Play sport' row must add to its row total." }),
+    ans("y10-twt-m3", "Using the two-way table shown, find the relative frequency of doing neither (no sport and no pet).", "", "0.3", 3, "The neither cell is 30 of 100 students: 30 ÷ 100 = 0.3.", ["30%"], { ...twtCells, hint: "Find the no sport / no pet cell, then divide by the total surveyed." }),
+    ans("y10-twt-m4", "Using the two-way table shown, how many students own no pet?", "", "50", 2, "Add the no-pet column: 20 + 30 = 50.", [], { ...twtCells, hint: "Add down the 'No pet' column." }),
     mcq("y10-twt-m5", "Dividing a cell by the grand total gives a:", "B", ["marginal total", "relative frequency", "conditional count", "mean"], 2, "Count ÷ grand total = relative frequency."),
-    ans("y10-twt-m6", "Of the 50 pet owners, how many play sport?", "\\text{within pet column}", "40", 3, "Within the pet column, 40 play sport.", []),
-    ans("y10-twt-m7", "How many do not play sport but own a pet?", "\\text{no sport, pet}", "10", 2, "That cell is 10.", []),
+    ans("y10-twt-m6", "Using the two-way table shown, what fraction of pet owners play sport? Give your answer as a decimal.", "", "0.8", 4, "50 students own a pet and 40 of them play sport, so 40/50 = 0.8.", ["4/5", "80%", "40/50"], { ...twtCells, hint: "Stay inside the pet column: sport players in that column ÷ the column total." }),
+    ans("y10-twt-m7", "Find the missing value (?) in the two-way table shown.", "", "10", 3, "The no-sport row totals 40 and already shows 30 without a pet, so the missing cell is 40 − 30 = 10.", [], { ...twtMissing(1, 0), hint: "The 'No sport' row must add to its row total." }),
     mcq("y10-twt-m8", "Two-way tables help identify:", "C", ["a single mean", "the range", "association between two variables", "a time trend"], 3, "Comparing proportions reveals association between the variables."),
-    ans("y10-twt-m9", "What percentage of students play sport? (60 of 100)", "60/100", "60", 2, "60 ÷ 100 = 60%.", ["60%"]),
-    ans("y10-twt-m10", "Find the relative frequency of 'sport and no pet' (20 of 100).", "20/100", "0.2", 2, "20 ÷ 100 = 0.2.", ["20%"]),
+    ans("y10-twt-m9", "Using the two-way table shown, what percentage of students play sport?", "", "60", 3, "Sport row: 40 + 20 = 60 of 100 students, so 60%.", ["60%"], { ...twtCells, hint: "Total the sport row, then express it as a percentage of all students." }),
+    ans("y10-twt-m10", "Using the two-way table shown, find the relative frequency of playing sport without owning a pet.", "", "0.2", 3, "The sport / no pet cell is 20 of 100 students: 20 ÷ 100 = 0.2.", ["20%"], { ...twtCells, hint: "Find the sport / no pet cell, then divide by the total surveyed." }),
   ],
   commonMistakes: [
     { mistake: "Confusing a cell count with a marginal total.", fix: "Cells are inside; marginal totals are the row/column sums." },
