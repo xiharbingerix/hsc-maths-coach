@@ -115,7 +115,7 @@ export const directInverseVariationChallenge: PracticeQuestion[] = [
     answer: "16",
     hint: "Use the first case to connect cost with perimeter, then solve for the new width.",
     explanation:
-      "When w = 8, the length is 96/8 = 12, so the perimeter is 2(8 + 12) = 40. Since C = 80, the cost is 2 dollars per perimeter unit. If C = 104, the perimeter is 52, so 2\\left(w + \\frac{96}{w}\\right) = 52. Hence w + \\frac{96}{w} = 26, giving w^2 - 26w + 96 = 0. This factorises to (w - 6)(w - 16) = 0, so the larger possible width is 16.",
+      "When $w = 8$, the length is $96/8 = 12$, so the perimeter is $2(8 + 12) = 40$. Since $C = 80$, the cost is 2 dollars per perimeter unit. If $C = 104$, the perimeter is 52, so $2\\left(w + \\frac{96}{w}\\right) = 52$. Hence $w + \\frac{96}{w} = 26$, giving $w^2 - 26w + 96 = 0$. This factorises to $(w - 6)(w - 16) = 0$, so the larger possible width is 16.",
   },
   {
     id: "chal-y11a-var-2",
@@ -127,6 +127,6 @@ export const directInverseVariationChallenge: PracticeQuestion[] = [
     acceptedAnswers: ["2 sqrt(3)", "2\\sqrt{3}", "2√3"],
     hint: "First determine a and b from the two conditions, then solve ax = b/x.",
     explanation:
-      "When x = 4, 4a + \\frac{b}{4} = 14, so 16a + b = 56. When x = 6, 6a - \\frac{b}{6} = 8, so 36a - b = 48. Adding gives 52a = 104, so a = 2. Then b = 24. Equality of outputs means 2x = \\frac{24}{x}, so x^2 = 12. The positive solution is x = 2\\sqrt{3}.",
+      "When $x = 4$, $4a + \\frac{b}{4} = 14$, so $16a + b = 56$. When $x = 6$, $6a - \\frac{b}{6} = 8$, so $36a - b = 48$. Adding gives $52a = 104$, so $a = 2$. Then $b = 24$. Equality of outputs means $2x = \\frac{24}{x}$, so $x^2 = 12$. The positive solution is $x = 2\\sqrt{3}$.",
   },
 ];
