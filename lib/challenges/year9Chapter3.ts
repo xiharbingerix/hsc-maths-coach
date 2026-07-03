@@ -6,6 +6,8 @@ import type { PracticeQuestion } from "../lessons/differentialCalculus";
 import { year9TrigSideVisuals } from "../lessons/year9TrigSideVisuals";
 import { year9TrigAngleVisuals } from "../lessons/year9TrigAngleVisuals";
 import { year9TrigApplicationVisuals } from "../lessons/year9TrigApplicationVisuals";
+import { year9TrigRatioVisuals } from "../lessons/year9TrigRatioVisuals";
+import { year9BearingsVisuals } from "../lessons/year9BearingsVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several steps.", explanation };
@@ -93,6 +95,11 @@ export const trigRatiosY9Challenge: PracticeQuestion[] = [
   q("y9c-trr-11", "In a 5-12-13 triangle, sin θ = 12/13 (opp = 12). Find tan θ.", "\\tan\\theta", "2.4", "opp/adj = 12/5 = 2.4.", []),
   q("y9c-trr-12", "Find cos 45° (2 d.p.).", "\\cos45", "0.71", "cos 45° ≈ 0.707 → 0.71.", []),
 ];
+
+for (const question of trigRatiosY9Challenge) {
+  const visual = year9TrigRatioVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}
 
 // finding-unknown-side-lengths (core)
 export const findSidesY9Challenge: PracticeQuestion[] = [
@@ -193,3 +200,8 @@ export const bearingsY9Challenge: PracticeQuestion[] = [
   q("y9c-brg-11", "Write the bearing of the direction halfway between south (180°) and west (270°).", "\\text{SW}", "225", "SW = 225°.", brg("225")),
   q("y9c-brg-12", "Find the back bearing of 123°.", "\\text{back }123", "303", "123 + 180 = 303°.", brg("303")),
 ];
+
+for (const question of bearingsY9Challenge) {
+  const visual = year9BearingsVisuals[question.id];
+  if (visual) Object.assign(question, visual);
+}

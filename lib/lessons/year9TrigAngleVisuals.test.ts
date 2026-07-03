@@ -14,7 +14,7 @@ function numberFrom(label: string | undefined): number | null {
 
 test("Year 9 unknown-angle diagrams render exact labelled side pairs", () => {
   const visuals = Object.entries(year9TrigAngleVisuals);
-  assert.equal(visuals.length, 22);
+  assert.equal(visuals.length, 26);
 
   for (const [questionId, visual] of visuals) {
     const diagram = visual.triangleDiagram;

@@ -14,7 +14,7 @@ function numericLabel(label: string | undefined): number | null {
 
 test("Year 9 trigonometry side diagrams render consistent right triangles", () => {
   const visuals = Object.entries(year9TrigSideVisuals);
-  assert.equal(visuals.length, 44);
+  assert.equal(visuals.length, 75);
 
   for (const [questionId, visual] of visuals) {
     const diagram = visual.triangleDiagram;
