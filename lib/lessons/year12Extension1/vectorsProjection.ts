@@ -175,7 +175,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-g2",
       "Find λ = (a·b)/|b|² for a = (7, 1), b = (2, 1).",
-      "\\mathbf{a}\\cdot\\mathbf{b}=15,\\quad|\\mathbf{b}|^2=5",
+      "",
       "3",
       [],
       "λ = 15/5 = 3."
@@ -183,7 +183,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-g3",
       "Using λ = 3 and b = (2, 1), write a⊥ = a − λb for a = (7, 1).",
-      "\\mathbf{a}^\\perp = \\begin{pmatrix}7\\\\1\\end{pmatrix}-3\\begin{pmatrix}2\\\\1\\end{pmatrix}",
+      "",
       "(1,-2)",
       ["(1, -2)", "1,-2"],
       "(7, 1) − (6, 3) = (1, −2)."
@@ -205,7 +205,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-i1",
       "a = (4, 3), b = (1, 0). Find proj_b(a).",
-      "\\lambda=\\frac{\\mathbf{a}\\cdot\\mathbf{b}}{|\\mathbf{b}|^2}=\\frac{4}{1}=4",
+      "",
       "(4,0)",
       ["(4, 0)", "4,0"],
       "λ = 4/1 = 4. proj_b(a) = 4(1, 0) = (4, 0) — the horizontal component."
@@ -213,7 +213,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-i2",
       "Using your answer from i1, find a⊥ = a − proj_b(a).",
-      "\\mathbf{a}^\\perp=\\begin{pmatrix}4\\\\3\\end{pmatrix}-\\begin{pmatrix}4\\\\0\\end{pmatrix}",
+      "",
       "(0,3)",
       ["(0, 3)", "0,3"],
       "(4, 3) − (4, 0) = (0, 3) — the vertical component. Check: (0, 3)·(1, 0) = 0 ✓"
@@ -221,7 +221,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-i3",
       "a = (5, 2), b = (2, 1). Find λ = (a·b)/|b|².",
-      "\\mathbf{a}\\cdot\\mathbf{b}=12,\\quad|\\mathbf{b}|^2=5",
+      "",
       "12/5",
       ["2.4"],
       "a·b = 10 + 2 = 12. |b|² = 4 + 1 = 5. λ = 12/5."
@@ -236,7 +236,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-i5",
       "a = (5, 0), b = (3, 4). Find |a⊥|.",
-      "\\mathbf{a}^\\perp=\\left(\\tfrac{16}{5},-\\tfrac{12}{5}\\right)",
+      "",
       "4",
       [],
       "|a⊥| = (1/5)√(256 + 144) = (1/5)√400 = (1/5)·20 = 4."
@@ -258,7 +258,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m2",
       "a = (7, 1), b = (2, 1). Find a·b.",
-      "7(2)+1(1)",
+      "",
       "15",
       [],
       "7·2 + 1·1 = 14 + 1 = 15."
@@ -266,7 +266,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m3",
       "a = (7, 1), b = (2, 1). Find |b|².",
-      "2^2+1^2",
+      "",
       "5",
       [],
       "4 + 1 = 5."
@@ -274,7 +274,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m4",
       "a = (7, 1), b = (2, 1). Find proj_b(a).",
-      "\\lambda=\\frac{15}{5}=3,\\quad\\operatorname{proj}=3\\begin{pmatrix}2\\\\1\\end{pmatrix}",
+      "",
       "(6,3)",
       ["(6, 3)", "6,3"],
       "λ = 3. proj_b(a) = 3(2, 1) = (6, 3)."
@@ -282,7 +282,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m5",
       "a = (7, 1), b = (2, 1). Find a⊥ = a − proj_b(a).",
-      "\\begin{pmatrix}7\\\\1\\end{pmatrix}-\\begin{pmatrix}6\\\\3\\end{pmatrix}",
+      "",
       "(1,-2)",
       ["(1, -2)", "1,-2"],
       "(7 − 6, 1 − 3) = (1, −2)."
@@ -290,7 +290,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m6",
       "Verify a⊥ ⊥ b: compute (1, −2)·(2, 1).",
-      "(1)(2)+(-2)(1)",
+      "",
       "0",
       [],
       "2 − 2 = 0 ✓ Perpendicularity confirmed."
@@ -310,7 +310,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m8",
       "a = (4, 3), b = (4, 0). Find proj_b(a).",
-      "\\mathbf{a}\\cdot\\mathbf{b}=16,\\;|\\mathbf{b}|^2=16,\\;\\lambda=1",
+      "",
       "(4,0)",
       ["(4, 0)", "4,0"],
       "λ = 16/16 = 1. proj_b(a) = 1·(4, 0) = (4, 0)."
@@ -318,7 +318,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
     vpTyped(
       "y12e1-vp-m9",
       "a = (4, 3), b = (4, 0). Find a⊥.",
-      "\\begin{pmatrix}4\\\\3\\end{pmatrix}-\\begin{pmatrix}4\\\\0\\end{pmatrix}",
+      "",
       "(0,3)",
       ["(0, 3)", "0,3"],
       "(4 − 4, 3 − 0) = (0, 3). Check: (0, 3)·(4, 0) = 0 ✓"

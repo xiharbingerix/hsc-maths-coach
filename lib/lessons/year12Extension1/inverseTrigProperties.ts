@@ -207,7 +207,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-g3",
       "Given sin⁻¹(x) = π/6, use the complementary identity to find the exact value of cos⁻¹(x).",
-      "\\sin^{-1}(x)+\\cos^{-1}(x)=\\frac{\\pi}{2}",
+      "",
       "pi/3",
       "From the identity: cos⁻¹(x) = π/2 − π/6 = 3π/6 − π/6 = 2π/6 = π/3.",
       ["pi/3", "π/3"],
@@ -217,7 +217,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-g4",
       "Evaluate sin(cos⁻¹(4/5)). Let θ = cos⁻¹(4/5) and use sin²θ + cos²θ = 1.",
-      "\\text{Let }\\theta=\\cos^{-1}\\!\\left(\\tfrac45\\right),\\quad\\cos\\theta=\\tfrac45",
+      "",
       "3/5",
       "Let θ = cos⁻¹(4/5). Then cos θ = 4/5 and since θ ∈ [0, π], sin θ ≥ 0. By Pythagoras: sin θ = √(1 − 16/25) = √(9/25) = 3/5.",
       ["3/5", "0.6"],
@@ -239,7 +239,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-i2",
       "Evaluate cos(sin⁻¹(3/5)).",
-      "\\text{Let }\\theta=\\sin^{-1}\\!\\left(\\tfrac35\\right)",
+      "",
       "4/5",
       "Let θ = sin⁻¹(3/5). Then sin θ = 3/5 and θ ∈ [−π/2, π/2], so cos θ ≥ 0. By Pythagoras: cos θ = √(1 − 9/25) = √(16/25) = 4/5.",
       ["4/5", "0.8"],
@@ -249,7 +249,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-i3",
       "Given cos⁻¹(x) = π/5, find the exact value of sin⁻¹(x).",
-      "\\sin^{-1}(x)+\\cos^{-1}(x)=\\frac{\\pi}{2}",
+      "",
       "3pi/10",
       "From the identity: sin⁻¹(x) = π/2 − π/5 = 5π/10 − 2π/10 = 3π/10.",
       ["3pi/10", "3π/10"],
@@ -269,7 +269,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-i5",
       "Evaluate sin(cos⁻¹(−4/5)). Take care with the quadrant of cos⁻¹(−4/5).",
-      "\\text{Let }\\theta=\\cos^{-1}\\!\\left(-\\tfrac45\\right),\\quad\\theta\\in\\left(\\tfrac{\\pi}{2},\\pi\\right)",
+      "",
       "3/5",
       "Let θ = cos⁻¹(−4/5). Since cos θ = −4/5 < 0 and θ ∈ [0, π], the angle θ is in Q2. In Q2 sin θ > 0. By Pythagoras: sin θ = √(1 − 16/25) = √(9/25) = 3/5.",
       ["3/5", "0.6"],
@@ -281,7 +281,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m1",
       "Evaluate sin(cos⁻¹(5/13)).",
-      "\\text{Let }\\theta=\\cos^{-1}\\!\\left(\\tfrac{5}{13}\\right)",
+      "",
       "12/13",
       "Let θ = cos⁻¹(5/13). Then cos θ = 5/13 and sin θ = √(1 − 25/169) = √(144/169) = 12/13. This is the (5, 12, 13) Pythagorean triple.",
       ["12/13"]
@@ -304,7 +304,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m3",
       "Evaluate cos(sin⁻¹(12/13)).",
-      "\\text{Let }\\theta=\\sin^{-1}\\!\\left(\\tfrac{12}{13}\\right)",
+      "",
       "5/13",
       "Let θ = sin⁻¹(12/13). Then sin θ = 12/13 and θ ∈ [−π/2, π/2], so cos θ ≥ 0. By Pythagoras: cos θ = √(1 − 144/169) = √(25/169) = 5/13.",
       ["5/13"]
@@ -313,7 +313,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m4",
       "Given sin⁻¹(x) = 2π/7, find the exact value of cos⁻¹(x).",
-      "\\sin^{-1}(x)+\\cos^{-1}(x)=\\frac{\\pi}{2}",
+      "",
       "3pi/14",
       "cos⁻¹(x) = π/2 − 2π/7 = 7π/14 − 4π/14 = 3π/14.",
       ["3pi/14", "3π/14"]
@@ -331,7 +331,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m6",
       "Evaluate tan(sin⁻¹(3/5)).",
-      "\\text{Let }\\theta=\\sin^{-1}\\!\\left(\\tfrac35\\right)",
+      "",
       "3/4",
       "Let θ = sin⁻¹(3/5). Then sin θ = 3/5 and cos θ = 4/5 (positive since θ ∈ [−π/2, π/2]). So tan θ = sin θ ÷ cos θ = (3/5) ÷ (4/5) = 3/4.",
       ["3/4", "0.75"]
@@ -349,7 +349,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m8",
       "Evaluate sin(cos⁻¹(−3/5)).",
-      "\\text{Let }\\theta=\\cos^{-1}\\!\\left(-\\tfrac35\\right),\\quad\\theta\\in\\left(\\tfrac{\\pi}{2},\\pi\\right)",
+      "",
       "4/5",
       "Let θ = cos⁻¹(−3/5). Since cos θ = −3/5 < 0, θ lies in (π/2, π). In that range sin θ > 0. By Pythagoras: sin θ = √(1 − 9/25) = √(16/25) = 4/5.",
       ["4/5", "0.8"]
@@ -358,7 +358,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m9",
       "Given sin⁻¹(x) = π/7, find the exact value of cos⁻¹(x).",
-      "\\sin^{-1}(x)+\\cos^{-1}(x)=\\frac{\\pi}{2}",
+      "",
       "5pi/14",
       "cos⁻¹(x) = π/2 − π/7 = 7π/14 − 2π/14 = 5π/14.",
       ["5pi/14", "5π/14"]
@@ -367,7 +367,7 @@ const inverseTrigProperties: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itp-m10",
       "For x ∈ [−1, 1], express cos(sin⁻¹(x)) as a function of x.",
-      "\\text{Let }\\theta=\\sin^{-1}(x),\\quad\\sin\\theta=x,\\quad\\theta\\in\\left[-\\tfrac{\\pi}{2},\\tfrac{\\pi}{2}\\right]",
+      "",
       "sqrt(1-x^2)",
       "Let θ = sin⁻¹(x). Then sin θ = x and θ ∈ [−π/2, π/2], so cos θ ≥ 0. By Pythagoras: cos θ = √(1 − sin²θ) = √(1 − x²). Therefore cos(sin⁻¹(x)) = √(1 − x²).",
       ["sqrt(1-x^2)", "√(1-x²)", "\\sqrt{1-x^2}"]

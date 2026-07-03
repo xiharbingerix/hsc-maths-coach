@@ -136,7 +136,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-g2",
       "Evaluate ∫₀¹ 2x dx.",
-      "\\int_0^1 2x\\,dx=\\bigl[x^2\\bigr]_0^1",
+      "",
       "1",
       "Antiderivative of 2x is x². [x²]₀¹ = 1² − 0² = 1.",
       ["1"],
@@ -146,7 +146,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-g3",
       "Evaluate ∫₁² (1/x) dx. Leave your answer in exact form.",
-      "\\int_1^2\\frac{1}{x}\\,dx=\\bigl[\\ln|x|\\bigr]_1^2",
+      "",
       "ln(2)",
       "∫(1/x)dx = ln|x|. [ln|x|]₁² = ln 2 − ln 1 = ln 2 − 0 = ln 2.",
       ["ln(2)", "ln 2"],
@@ -156,7 +156,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-g4",
       "For the DE $dy/dx = 3y$, the general solution is $y = Ce^{kx}$. Find $k$.",
-      "\\frac{dy}{dx}=3y\\implies y=Ce^{3x}",
+      "",
       "3",
       "Separating variables: (1/y) dy = 3 dx → ln|y| = 3x + C₁ → y = Ce^(3x). So k = 3.",
       ["3"],
@@ -168,7 +168,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-i1",
       "Evaluate ∫₀^π sin(x) dx.",
-      "\\int_0^\\pi\\sin x\\,dx=\\bigl[-\\cos x\\bigr]_0^\\pi",
+      "",
       "2",
       "[−cos x]₀^π = −cos(π) − (−cos 0) = −(−1) + 1 = 1 + 1 = 2.",
       ["2"],
@@ -178,7 +178,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-i2",
       "Evaluate ∫₀¹ eˣ dx. Leave your answer in exact form.",
-      "\\int_0^1 e^x\\,dx=\\bigl[e^x\\bigr]_0^1",
+      "",
       "e-1",
       "[eˣ]₀¹ = e¹ − e⁰ = e − 1.",
       ["e-1", "e - 1"],
@@ -188,7 +188,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-i3",
       "Evaluate ∫₀² (3x² + 1) dx.",
-      "\\int_0^2(3x^2+1)\\,dx=\\bigl[x^3+x\\bigr]_0^2",
+      "",
       "10",
       "[x³ + x]₀² = (8 + 2) − (0 + 0) = 10.",
       ["10"],
@@ -213,7 +213,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-i5",
       "Solve dy/dx = −2y with initial condition y(0) = 5. Find y(1). Leave in exact form.",
-      "y=5e^{-2x}\\implies y(1)=5e^{-2}",
+      "",
       "5e^(-2)",
       "Separation gives y = Ce^(−2x). At x = 0: C = 5. So y(1) = 5e^(−2).",
       ["5e^(-2)", "5e^{-2}", "5/e^2"]
@@ -224,7 +224,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m1",
       "Evaluate ∫₁⁴ √x dx. Give an exact value.",
-      "\\int_1^4 x^{1/2}\\,dx=\\left[\\frac{2x^{3/2}}{3}\\right]_1^4",
+      "",
       "14/3",
       "[2x^(3/2)/3]₁⁴ = 2(4^(3/2))/3 − 2(1)/3 = 2(8)/3 − 2/3 = 16/3 − 2/3 = 14/3.",
       ["14/3"]
@@ -241,7 +241,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m3",
       "Evaluate ∫₀² (x² − x) dx.",
-      "\\int_0^2(x^2-x)\\,dx=\\left[\\frac{x^3}{3}-\\frac{x^2}{2}\\right]_0^2",
+      "",
       "2/3",
       "[x³/3 − x²/2]₀² = (8/3 − 4/2) − 0 = 8/3 − 2 = 8/3 − 6/3 = 2/3.",
       ["2/3"]
@@ -250,7 +250,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m4",
       "Solve dy/dx = 4x with y(0) = 1. Find y(2).",
-      "y=2x^2+1\\implies y(2)=2(4)+1=9",
+      "",
       "9",
       "Separate: dy = 4x dx → y = 2x² + C. At x = 0: C = 1. So y = 2x² + 1. At x = 2: y = 8 + 1 = 9.",
       ["9"]
@@ -259,7 +259,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m5",
       "Evaluate ∫₀^(π/2) cos(x) dx.",
-      "\\int_0^{\\pi/2}\\cos x\\,dx=\\bigl[\\sin x\\bigr]_0^{\\pi/2}",
+      "",
       "1",
       "[sin x]₀^(π/2) = sin(π/2) − sin(0) = 1 − 0 = 1.",
       ["1"]
@@ -276,7 +276,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m7",
       "Solve dy/dx = x/y with y(0) = 2. Find y(4). Give an exact value.",
-      "y\\,dy=x\\,dx\\implies\\frac{y^2}{2}=\\frac{x^2}{2}+C\\implies y^2=x^2+4",
+      "",
       "2sqrt(5)",
       "Separate: y dy = x dx → y²/2 = x²/2 + C. At (0,2): 2 = 0 + C, so C = 2. Then y² = x² + 4. At x = 4: y² = 20, y = 2√5.",
       ["2sqrt(5)", "2√5"]
@@ -285,7 +285,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m8",
       "Evaluate ∫₁^e (2/x) dx.",
-      "\\int_1^e\\frac{2}{x}\\,dx=\\bigl[2\\ln|x|\\bigr]_1^e",
+      "",
       "2",
       "[2ln|x|]₁^e = 2ln(e) − 2ln(1) = 2(1) − 2(0) = 2.",
       ["2"]
@@ -294,7 +294,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m9",
       "A population satisfies dy/dt = ky with y(0) = 10 and y(1) = 10e². Find k.",
-      "y(t)=10e^{kt}\\implies y(1)=10e^k=10e^2\\implies k=2",
+      "",
       "2",
       "General solution: y = 10e^(kt). At t = 1: 10e^k = 10e², so k = 2.",
       ["2"]
@@ -303,7 +303,7 @@ const calculusApplicationsRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-car-m10",
       "Evaluate ∫₀¹ $3e^{3x}$ dx. Leave in exact form.",
-      "\\int_0^1 3e^{3x}\\,dx=\\bigl[e^{3x}\\bigr]_0^1",
+      "",
       "e^3-1",
       "Antiderivative of 3e^(3x) is e^(3x). [e^(3x)]₀¹ = e³ − e⁰ = e³ − 1.",
       ["e^3-1", "e³-1", "e^{3}-1"]

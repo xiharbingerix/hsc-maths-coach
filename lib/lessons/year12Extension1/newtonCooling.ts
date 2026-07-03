@@ -164,7 +164,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-g2",
       "T(t) = 10 + 60e^(kt) with k = −(ln 2)/3. Find T(3).",
-      "T(3) = 10 + 60\\,e^{-\\ln 2} = 10 + 60\\cdot\\tfrac{1}{2}",
+      "",
       "40",
       ["40°C", "40^\\circ C"],
       "e^(−ln2) = 1/2, so T(3) = 10 + 60·(1/2) = 10 + 30 = 40°C."
@@ -172,7 +172,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-g3",
       "$T(t) = 20 + 60e^{kt}$ and $T(5) = 50$. Find the value of $e^{5k}$.",
-      "50 = 20 + 60\\,e^{5k}",
+      "",
       "1/2",
       ["0.5"],
       "60·e^(5k) = 30 → e^(5k) = 1/2."
@@ -189,7 +189,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-i1",
       "T(t) = 10 + 80e^(kt) with k = −(ln 2)/4. Find T(4).",
-      "T(4) = 10 + 80\\,e^{-\\ln 2}",
+      "",
       "50",
       ["50°C", "50^\\circ C"],
       "e^(−ln2) = 1/2, so T(4) = 10 + 80·(1/2) = 10 + 40 = 50°C."
@@ -204,7 +204,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-i3",
       "T(t) = 20 + 80e^(kt) and T(5) = 60. Find T(10).",
-      "T(5)=60\\Rightarrow 80e^{5k}=40\\Rightarrow e^{5k}=\\tfrac{1}{2}",
+      "",
       "40",
       ["40°C", "40^\\circ C"],
       "e^(10k) = (e^(5k))² = 1/4. T(10) = 20 + 80·(1/4) = 20 + 20 = 40°C."
@@ -224,7 +224,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-i5",
       "$P(t) = 800 − 600e^{kt}$ and $P(6) = 500$. Find the value of $e^{6k}$.",
-      "500 = 800 - 600\\,e^{6k}",
+      "",
       "1/2",
       ["0.5"],
       "600·e^(6k) = 300 → e^(6k) = 1/2."
@@ -246,7 +246,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-m2",
       "T(t) = 20 + 80e^(kt) and T(4) = 60. Find T(8).",
-      "T(4)=60\\Rightarrow e^{4k}=\\tfrac{1}{2}\\Rightarrow T(8)=20+80\\cdot\\tfrac{1}{4}",
+      "",
       "40",
       ["40°C", "40^\\circ C"],
       "e^(8k) = (1/2)² = 1/4. T(8) = 20 + 80·(1/4) = 40°C."
@@ -261,7 +261,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-m4",
       "Q(t) = 3 + 5e^(kt). If k = −ln 2, find Q(1).",
-      "Q(1) = 3 + 5e^{-\\ln 2} = 3 + 5\\cdot\\tfrac{1}{2}",
+      "",
       "5.5",
       ["11/2"],
       "e^(−ln2) = 1/2. Q(1) = 3 + 5·(1/2) = 3 + 2.5 = 5.5."
@@ -281,7 +281,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-m6",
       "T(t) = 60e^(kt) with k = −(ln 2)/2. Find T(4).",
-      "T(4) = 60\\,e^{-2\\ln 2} = 60\\cdot\\tfrac{1}{4}",
+      "",
       "15",
       ["15°C", "15^\\circ C"],
       "k·4 = −(ln2/2)·4 = −2ln2. e^(−2ln2) = 1/4. T(4) = 60/4 = 15°C."
@@ -301,7 +301,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-m8",
       "Q(t) = 50 + Ce^(kt). If Q(0) = 80, find C.",
-      "Q(0) = 50 + C\\,e^0 = 50 + C = 80",
+      "",
       "30",
       [],
       "C = Q₀ − A = 80 − 50 = 30."
@@ -321,7 +321,7 @@ const newtonCooling: Partial<ExplicitLesson> = {
     ncTyped(
       "y12e1-nc-m10",
       "T(t) = 20 + 80e^(kt). Object at 100°C, room 20°C. After 10 min, T = 60°C. Find e^(10k).",
-      "60 = 20 + 80\\,e^{10k}",
+      "",
       "1/2",
       ["0.5"],
       "80·e^(10k) = 40 → e^(10k) = 1/2."

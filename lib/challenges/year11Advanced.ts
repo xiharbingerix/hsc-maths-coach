@@ -104,3 +104,29 @@ export const surdsIndicesChallenge: PracticeQuestion[] = [
     explanation: "$16^{3/4} = (16^{1/4})^3 = 2^3 = 8$.",
   },
 ];
+
+export const directInverseVariationChallenge: PracticeQuestion[] = [
+  {
+    id: "chal-y11a-var-1",
+    prompt:
+      "For a fixed area of 96 cm², the length L of a rectangle varies inversely with its width w. The cost C of a border varies directly with the perimeter. If C = 80 when w = 8, find the larger possible value of w when C = 104.",
+    latex:
+      "A = 96,\\quad L = \\frac{96}{w},\\quad C \\propto P",
+    answer: "16",
+    hint: "Use the first case to connect cost with perimeter, then solve for the new width.",
+    explanation:
+      "When w = 8, the length is 96/8 = 12, so the perimeter is 2(8 + 12) = 40. Since C = 80, the cost is 2 dollars per perimeter unit. If C = 104, the perimeter is 52, so 2\\left(w + \\frac{96}{w}\\right) = 52. Hence w + \\frac{96}{w} = 26, giving w^2 - 26w + 96 = 0. This factorises to (w - 6)(w - 16) = 0, so the larger possible width is 16.",
+  },
+  {
+    id: "chal-y11a-var-2",
+    prompt:
+      "A direct variation model y = ax and an inverse variation model y = b/x satisfy these conditions: when x = 4, their outputs add to 14; when x = 6, the direct output exceeds the inverse output by 8. Find the positive value of x for which the two models have equal output.",
+    latex:
+      "y = ax,\\quad y = \\frac{b}{x}",
+    answer: "2sqrt(3)",
+    acceptedAnswers: ["2 sqrt(3)", "2\\sqrt{3}", "2√3"],
+    hint: "First determine a and b from the two conditions, then solve ax = b/x.",
+    explanation:
+      "When x = 4, 4a + \\frac{b}{4} = 14, so 16a + b = 56. When x = 6, 6a - \\frac{b}{6} = 8, so 36a - b = 48. Adding gives 52a = 104, so a = 2. Then b = 24. Equality of outputs means 2x = \\frac{24}{x}, so x^2 = 12. The positive solution is x = 2\\sqrt{3}.",
+  },
+];

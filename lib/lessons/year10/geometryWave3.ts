@@ -39,20 +39,20 @@ const reviewOfGeometry: Partial<ExplicitLesson> = {
   guidedPractice: [
     mcq("y10-rg-g1", "Angles on a straight line add up to:", "B", ["90°", "180°", "360°", "270°"], 1, "Angles on a straight line are supplementary — they sum to 180°."),
     ans("y10-rg-g2", "Two angles of a triangle are 50° and 60°. Find the third angle.", "50^\\circ, 60^\\circ", "70", 2, "Angles in a triangle sum to 180°: 180 − 50 − 60 = 70°.", deg("70")),
-    ans("y10-rg-g3", "Find the angle vertically opposite a 75° angle.", "\\text{vertically opposite } 75^\\circ", "75", 1, "Vertically opposite angles are equal, so it is 75°.", deg("75")),
-    ans("y10-rg-g4", "Three angles meet at a point: 120°, 150° and x. Find x.", "120^\\circ + 150^\\circ + x = 360^\\circ", "90", 2, "Angles at a point sum to 360°: 360 − 120 − 150 = 90°.", deg("90")),
+    ans("y10-rg-g3", "Find the angle vertically opposite a 75° angle.", "", "75", 1, "Vertically opposite angles are equal, so it is 75°.", deg("75")),
+    ans("y10-rg-g4", "Three angles meet at a point: 120°, 150° and x. Find x.", "", "90", 2, "Angles at a point sum to 360°: 360 − 120 − 150 = 90°.", deg("90")),
   ],
   independentPractice: [
     mcq("y10-rg-i1", "On parallel lines cut by a transversal, alternate angles are:", "A", ["equal", "supplementary", "complementary", "always 90°"], 2, "Alternate angles on parallel lines are equal."),
     ans("y10-rg-i2", "A triangle has two angles of 40°. Find the third angle.", "40^\\circ, 40^\\circ", "100", 2, "180 − 40 − 40 = 100°.", deg("100")),
     ans("y10-rg-i3", "One angle on a straight line is 130°. Find the other.", "130^\\circ \\text{ on a line}", "50", 1, "Angles on a line sum to 180°: 180 − 130 = 50°.", deg("50")),
     ans("y10-rg-i4", "A quadrilateral has angles 90°, 90°, 100° and x. Find x.", "90^\\circ,90^\\circ,100^\\circ", "80", 3, "Angles in a quadrilateral sum to 360°: 360 − 90 − 90 − 100 = 80°.", deg("80")),
-    ans("y10-rg-i5", "Co-interior angles on parallel lines are 70° and x. Find x.", "\\text{co-interior } 70^\\circ", "110", 3, "Co-interior angles are supplementary: 180 − 70 = 110°.", deg("110")),
+    ans("y10-rg-i5", "Co-interior angles on parallel lines are 70° and x. Find x.", "", "110", 3, "Co-interior angles are supplementary: 180 − 70 = 110°.", deg("110")),
   ],
   masteryQuiz: [
     ans("y10-rg-m1", "A right-angled triangle has another angle of 35°. Find the third angle.", "90^\\circ, 35^\\circ", "55", 2, "180 − 90 − 35 = 55°.", deg("55")),
     mcq("y10-rg-m2", "Angles at a point add up to:", "C", ["90°", "180°", "360°", "540°"], 1, "A full turn at a point is 360°."),
-    ans("y10-rg-m3", "Find the angle vertically opposite a 110° angle.", "\\text{vertically opposite } 110^\\circ", "110", 1, "Vertically opposite angles are equal: 110°.", deg("110")),
+    ans("y10-rg-m3", "Find the angle vertically opposite a 110° angle.", "", "110", 1, "Vertically opposite angles are equal: 110°.", deg("110")),
     ans("y10-rg-m4", "An exterior angle of a triangle equals the sum of the two opposite interior angles. If those are 60° and 70°, find the exterior angle.", "60^\\circ + 70^\\circ", "130", 3, "Exterior angle = 60 + 70 = 130°.", deg("130")),
     mcq("y10-rg-m5", "Co-interior angles on parallel lines are:", "B", ["equal", "supplementary", "complementary", "vertically opposite"], 2, "Co-interior (allied) angles are supplementary — they sum to 180°."),
     ans("y10-rg-m6", "One angle on a straight line is 45°. Find the other.", "45^\\circ \\text{ on a line}", "135", 1, "180 − 45 = 135°.", deg("135")),
@@ -251,7 +251,7 @@ const intersectingChords: Partial<ExplicitLesson> = {
   guidedPractice: [
     mcq("y10-ic-g1", "Two tangents drawn from the same external point are:", "A", ["equal in length", "perpendicular", "parallel", "always 5 cm"], 2, "Tangents from a common external point are equal in length."),
     ans("y10-ic-g2", "Intersecting chords: 2 × 8 = 4 × x. Find x.", "2 \\times 8 = 4 \\times x", "4", 3, "16 = 4x, so x = 4.", []),
-    ans("y10-ic-g3", "Find the angle between a tangent and the radius at the point of contact.", "\\text{tangent} \\perp \\text{radius}", "90", 2, "A tangent is perpendicular to the radius: 90°.", deg("90")),
+    ans("y10-ic-g3", "Find the angle between a tangent and the radius at the point of contact.", "", "90", 2, "A tangent is perpendicular to the radius: 90°.", deg("90")),
     ans("y10-ic-g4", "Intersecting chords: 3 × 4 = 6 × x. Find x.", "3 \\times 4 = 6 \\times x", "2", 3, "12 = 6x, so x = 2.", []),
   ],
   independentPractice: [

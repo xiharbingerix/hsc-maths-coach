@@ -89,7 +89,7 @@ const isomorphicPlanar: Partial<ExplicitLesson> = {
   guidedPractice: [
     mcq("y10-ipg-g1", "Isomorphic graphs have the same:", "A", ["structure (connections)", "drawing only", "colours", "vertex positions"], 3, "Isomorphic graphs share structure, regardless of how they're drawn."),
     mcq("y10-ipg-g2", "A planar graph can be drawn with:", "B", ["all edges crossing", "no edges crossing", "no vertices", "only loops"], 2, "Planar means it can be drawn with no edge crossings."),
-    ans("y10-ipg-g3", "Complete Euler's formula: V − E + F = ?", "V-E+F", "2", 2, "For a connected planar graph, V − E + F = 2.", []),
+    ans("y10-ipg-g3", "Complete Euler's formula: V − E + F = ?", "", "2", 2, "For a connected planar graph, V − E + F = 2.", []),
     ans("y10-ipg-g4", "A connected planar graph has V = 5, E = 8. Find F.", "V=5,E=8", "5", 3, "F = 2 − 5 + 8 = 5.", []),
   ],
   independentPractice: [

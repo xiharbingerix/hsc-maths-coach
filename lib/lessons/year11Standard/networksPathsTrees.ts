@@ -1043,7 +1043,7 @@ export function year11StandardNetworksLessonOverride(
           ...labelledChoice("net-path-g1", "In the displayed network, a route A-B-C-A starts and ends at A. What is it?", "C", ["Vertex", "Edge", "Circuit", "Weight"], "A circuit returns to its starting vertex."),
           diagram: circuitDiagram,
         },
-        shortAnswer("net-path-g2", "A walking route uses edge weights 3, 4, and 5. What is the total weight?", "3+4+5", "12"),
+        shortAnswer("net-path-g2", "A walking route uses edge weights 3, 4, and 5. What is the total weight?", "", "12"),
         labelledChoice("net-path-g3", "What does connected mean?", "A", ["Every vertex can be reached from every other vertex", "Every edge has weight 1", "The network has arrows", "The network has no paths"], "Connected means all vertices are reachable."),
         labelledChoice("net-path-g4", "Why might the shortest route not be the best route?", "D", ["It always is best", "It has no vertices", "It must be a tree", "It may be slower, unsafe, or more costly in context"], "Practical constraints can matter more than distance."),
       ],
@@ -1052,10 +1052,10 @@ export function year11StandardNetworksLessonOverride(
           ...labelledChoice("net-path-i1", "In the displayed network, route A-B-C does not repeat an edge. What is this route called?", "B", ["Degree", "Trail", "Weight", "Vertex"], "A trail does not repeat edges."),
           diagram: pathLineDiagram,
         },
-        shortAnswer("net-path-i2", "Route A-B-C has weights AB=6 and BC=7. Find the total weight.", "6+7", "13"),
-        shortAnswer("net-path-i3", "Compare paths A-B-D=9 and A-C-D=8. What is the shortest-path weight?", "\\min(9,8)", "8"),
+        shortAnswer("net-path-i2", "Route A-B-C has weights AB=6 and BC=7. Find the total weight.", "", "13"),
+        shortAnswer("net-path-i3", "Compare paths A-B-D=9 and A-C-D=8. What is the shortest-path weight?", "", "8"),
         labelledChoice("net-path-i4", "A network has an isolated vertex. Is it connected?", "B", ["Yes", "No", "Only if weighted", "Only if directed"], "An isolated vertex cannot be reached."),
-        shortAnswer("net-path-i5", "From P to Q, route P–R–Q has edge weights 7 and 5, and route P–S–Q has edge weights 6 and 9. Find the weight of the shortest path from P to Q.", "\\min(7+5,\\ 6+9)", "12", ["12 units"]),
+        shortAnswer("net-path-i5", "From P to Q, route P–R–Q has edge weights 7 and 5, and route P–S–Q has edge weights 6 and 9. Find the weight of the shortest path from P to Q.", "", "12", ["12 units"]),
       ],
       commonMistakes: [
         { mistake: "Calling route A-B-C a circuit because it visits three vertices.", fix: "A circuit must return to its starting vertex: A-B-C is a path, but A-B-C-A is a circuit." },
@@ -1065,7 +1065,7 @@ export function year11StandardNetworksLessonOverride(
       ],
       masteryQuiz: [
         labelledChoice("net-path-m1", "In a network, the route A–B–C–A returns to its starting vertex without repeating an edge. This route is a:", "B", ["Path", "Circuit", "Bridge", "Tree"], "A route that returns to its starting vertex (A–B–C–A) is a circuit; a path does not return to where it began."),
-        shortAnswer("net-path-m2", "Add path weights 4, 6, and 1.", "4+6+1", "11"),
+        shortAnswer("net-path-m2", "Add path weights 4, 6, and 1.", "", "11"),
         labelledChoice("net-path-m3", "A trail cannot repeat:", "B", ["Vertices", "Edges", "Weights", "Labels"], "A trail does not repeat edges."),
         labelledChoice("net-path-m4", "A connected network means:", "A", ["All vertices are reachable", "All weights are equal", "There are no edges", "It must be directed"], "Connected means every vertex can be reached."),
         {
@@ -1080,7 +1080,7 @@ export function year11StandardNetworksLessonOverride(
           ...labelledChoice("net-path-m8", "Use the displayed network to classify route A-B-C.", "A", ["Path", "Degree", "Weight only", "Disconnected network"], "It is a route through connected vertices."),
           diagram: pathLineDiagram,
         },
-        shortAnswer("net-path-m9", "Route weights are 5 and 9. Add them.", "5+9", "14"),
+        shortAnswer("net-path-m9", "Route weights are 5 and 9. Add them.", "", "14"),
         labelledChoice("net-path-m10", "A safer 12-minute route may be chosen over a 10-minute route because:", "B", ["It is mathematically shorter", "Practical safety can matter", "It has no vertices", "It must be an MST"], "A route decision can include safety, not just time."),
       ],
     };
@@ -1118,17 +1118,17 @@ export function year11StandardNetworksLessonOverride(
           ...labelledChoice("net-tree-g1", "Which description matches the displayed network?", "A", ["Connected with no cycles", "Disconnected with arrows", "Only one vertex", "A route with repeated edges"], "A tree is connected and has no cycles."),
           diagram: treeLineDiagram,
         },
-        shortAnswer("net-tree-g2", "A tree has 7 vertices. How many edges does it have?", "7-1", "6"),
+        shortAnswer("net-tree-g2", "A tree has 7 vertices. How many edges does it have?", "", "6"),
         labelledChoice("net-tree-g3", "Using Kruskal's method on a sorted edge list, what should you choose first?", "B", ["The largest edge", "The smallest edge that is allowed", "Any edge that creates a cycle", "Only directed edges"], "Kruskal's method starts with the smallest available edge and avoids cycles."),
-        shortAnswer("net-tree-g4", "Selected MST edges have weights 2, 5, and 6. Find the total.", "2+5+6", "13"),
+        shortAnswer("net-tree-g4", "Selected MST edges have weights 2, 5, and 6. Find the total.", "", "13"),
       ],
       independentPractice: [
-        shortAnswer("net-tree-i1", "A tree has 5 vertices. How many edges?", "5-1", "4"),
+        shortAnswer("net-tree-i1", "A tree has 5 vertices. How many edges?", "", "4"),
         {
           ...labelledChoice("net-tree-i2", "The displayed network is a spanning tree for vertices A, B, C and D because it includes:", "A", ["All vertices", "All edges", "Only directed edges", "No weights"], "A spanning tree spans all vertices."),
           diagram: treeLineDiagram,
         },
-        shortAnswer("net-tree-i3", "Add MST connector weights 4, 4, 7, and 8.", "4+4+7+8", "23"),
+        shortAnswer("net-tree-i3", "Add MST connector weights 4, 4, 7, and 8.", "", "23"),
         labelledChoice("net-tree-i4", "Which edge should be avoided when building an MST?", "D", ["A low weight edge", "An edge connecting a new vertex", "The first edge chosen", "An edge that creates a cycle"], "MST methods avoid cycles."),
         labelledChoice("net-tree-i5", "A school wants to connect all buildings with least total cable. Use:", "B", ["Shortest path", "Minimum spanning tree", "Circuit", "Degree only"], "This is a minimal connector problem."),
       ],
@@ -1345,11 +1345,11 @@ export function year11StandardNetworksLessonOverride(
       ],
       independentPractice: [
         {
-          ...shortAnswer("net-wsp-i1", "Delivery network: route P-A-Q has weights P-A=5 and A-Q=3. Find the total.", "5+3", "8"),
+          ...shortAnswer("net-wsp-i1", "Delivery network: route P-A-Q has weights P-A=5 and A-Q=3. Find the total.", "", "8"),
           diagram: weightedDeliveryDiagram,
         },
         {
-          ...shortAnswer("net-wsp-i2", "Route P-B-Q has weights P-B=8 and B-Q=4. Find the total.", "8+4", "12"),
+          ...shortAnswer("net-wsp-i2", "Route P-B-Q has weights P-B=8 and B-Q=4. Find the total.", "", "12"),
           diagram: weightedDeliveryDiagram,
         },
         {
@@ -1369,7 +1369,7 @@ export function year11StandardNetworksLessonOverride(
           ["Build a minimum spanning tree", "Find the shortest path from S to H", "Count the degree of each vertex", "Find an Euler circuit"],
           "A point-to-point minimum route is a shortest path problem.",
         ),
-        shortAnswer("net-wsp-i5", "A route uses edge weights 4, 2, and 6. Find the total route weight.", "4+2+6", "12"),
+        shortAnswer("net-wsp-i5", "A route uses edge weights 4, 2, and 6. Find the total route weight.", "", "12"),
       ],
       commonMistakes: [
         { mistake: "Choosing the route with the fewest edges instead of the one with the smallest total weight.", fix: "A longer route (more edges) can still be shorter in total weight if the individual edges are small." },
@@ -1385,8 +1385,8 @@ export function year11StandardNetworksLessonOverride(
           ["The route with the fewest edges", "The route with the minimum total edge weight", "The route that visits every vertex", "The route that uses every edge"],
           "Shortest path minimises total weight, not edge count.",
         ),
-        shortAnswer("net-wsp-m2", "A route uses weights 5, 3, and 7. Find the total.", "5+3+7", "15"),
-        shortAnswer("net-wsp-m3", "Two routes: A-B-D total 8, A-C-D total 11. What is the shortest-path weight?", "\\min(8,11)", "8"),
+        shortAnswer("net-wsp-m2", "A route uses weights 5, 3, and 7. Find the total.", "", "15"),
+        shortAnswer("net-wsp-m3", "Two routes: A-B-D total 8, A-C-D total 11. What is the shortest-path weight?", "", "8"),
         labelledChoice(
           "net-wsp-m4",
           "When comparing routes in a weighted network, you need to:",
@@ -1395,7 +1395,7 @@ export function year11StandardNetworksLessonOverride(
           "Total weight = sum of edge weights on that route.",
         ),
         {
-          ...shortAnswer("net-wsp-m5", "Route A-B-D: A-B=3, B-D=5. Find the total.", "3+5", "8"),
+          ...shortAnswer("net-wsp-m5", "Route A-B-D: A-B=3, B-D=5. Find the total.", "", "8"),
           diagram: weightedFiveEdgeDiagram,
         },
         labelledChoice(
@@ -1406,7 +1406,7 @@ export function year11StandardNetworksLessonOverride(
           "The minimum of 10, 7, 13 is 7.",
         ),
         {
-          ...shortAnswer("net-wsp-m7", "Route A-B-C-D: A-B=3, B-C=2, C-D=4. Find the total.", "3+2+4", "9"),
+          ...shortAnswer("net-wsp-m7", "Route A-B-C-D: A-B=3, B-C=2, C-D=4. Find the total.", "", "9"),
           diagram: weightedFiveEdgeDiagram,
         },
         labelledChoice(
@@ -1482,13 +1482,13 @@ export function year11StandardNetworksLessonOverride(
           "A degree-1 vertex has only one edge — remove it and that vertex has no other path.",
         ),
         {
-          ...shortAnswer("net-flow-g4", "Triangle A-B-C-A has edges A-B, B-C, C-A. If edge A-B is removed, can A still reach B? (yes/no)", "\\text{A-C-B still exists}", "yes", ["Yes", "YES"]),
+          ...shortAnswer("net-flow-g4", "Triangle A-B-C-A has edges A-B, B-C, C-A. If edge A-B is removed, can A still reach B? (yes/no)", "", "yes", ["Yes", "YES"]),
           diagram: circuitDiagram,
         },
       ],
       independentPractice: [
         {
-          ...shortAnswer("net-flow-i1", "Triangle-plus-pendant: edges A-B, B-C, C-A, C-D. How many bridges are there?", "\\text{only C-D is a bridge}", "1"),
+          ...shortAnswer("net-flow-i1", "Triangle-plus-pendant: edges A-B, B-C, C-A, C-D. How many bridges are there?", "", "1"),
           diagram: trianglePendantDiagram,
         },
         {
@@ -1502,7 +1502,7 @@ export function year11StandardNetworksLessonOverride(
           diagram: chainBridgeDiagram,
         },
         {
-          ...shortAnswer("net-flow-i3", "Cycle-plus-pendant: edges A-B, B-C, C-D, D-E, E-B. Vertex A is pendant (degree 1). How many bridges does this network have?", "\\text{only A-B is a bridge}", "1"),
+          ...shortAnswer("net-flow-i3", "Cycle-plus-pendant: edges A-B, B-C, C-D, D-E, E-B. Vertex A is pendant (degree 1). How many bridges does this network have?", "", "1"),
           diagram: cyclePendantDiagram,
         },
         labelledChoice(
@@ -1512,7 +1512,7 @@ export function year11StandardNetworksLessonOverride(
           ["More vulnerable to disconnection if any edge fails", "More reliable because every pair of vertices has at least two independent paths", "Impossible to construct", "Always a tree"],
           "No bridges means alternative paths exist everywhere — the network is robust.",
         ),
-        shortAnswer("net-flow-i5", "A network has edges A-B, B-C, C-A (triangle), then C-D and D-E (tail). Bridges are C-D and D-E. How many bridges does this network have?", "C-D\\text{ and }D-E", "2"),
+        shortAnswer("net-flow-i5", "A network has edges A-B, B-C, C-A (triangle), then C-D and D-E (tail). Bridges are C-D and D-E. How many bridges does this network have?", "", "2"),
       ],
       commonMistakes: [
         { mistake: "Saying all edges in a triangle are bridges because the triangle looks like it might be critical.", fix: "Triangle edges are NOT bridges — removing any one still leaves two edges connecting the same three vertices via the other path." },
@@ -1528,7 +1528,7 @@ export function year11StandardNetworksLessonOverride(
           ["The longest path between any two vertices", "An edge whose removal disconnects the network", "A vertex with the highest degree", "An edge that is part of a cycle"],
           "A bridge is a critical edge — removing it splits the network.",
         ),
-        shortAnswer("net-flow-m2", "A chain of 5 vertices A-B-C-D-E has 4 edges. How many bridges does it have?", "\\text{no alternative paths in chain}", "4"),
+        shortAnswer("net-flow-m2", "A chain of 5 vertices A-B-C-D-E has 4 edges. How many bridges does it have?", "", "4"),
         labelledChoice(
           "net-flow-m3",
           "Why does a triangle A-B-C-A have no bridges?",
@@ -1544,7 +1544,7 @@ export function year11StandardNetworksLessonOverride(
           "C-D is the only bridge — removing it leaves D disconnected.",
         ),
         {
-          ...shortAnswer("net-flow-m5", "In the displayed cycle B-C-D-E-B (no pendant), how many bridges are there?", "\\text{every edge lies on the cycle}", "0"),
+          ...shortAnswer("net-flow-m5", "In the displayed cycle B-C-D-E-B (no pendant), how many bridges are there?", "", "0"),
           diagram: {
             description:
               "Undirected cycle network with vertices B, C, D, E. Edges: B-C, C-D, D-E, E-B. Every edge lies on the cycle, so there are no bridges.",
@@ -1570,7 +1570,7 @@ export function year11StandardNetworksLessonOverride(
           "One edge in, one edge out — remove it and the pendant is cut off.",
         ),
         {
-          ...shortAnswer("net-flow-m7", "Cycle-plus-pendant: A-B, B-C, C-D, D-E, E-B. How many bridges?", "\\text{only A-B is a bridge}", "1"),
+          ...shortAnswer("net-flow-m7", "Cycle-plus-pendant: A-B, B-C, C-D, D-E, E-B. How many bridges?", "", "1"),
           diagram: cyclePendantDiagram,
         },
         labelledChoice(
@@ -1580,7 +1580,7 @@ export function year11StandardNetworksLessonOverride(
           ["Always creates a bridge", "Can remove bridge status from all edges in the new cycle", "Has no effect on connectivity", "Always creates a tree"],
           "A new cycle means alternative paths exist, removing bridge status from each edge in the cycle.",
         ),
-        shortAnswer("net-flow-m9", "Network: A-B, B-C, C-A (triangle) plus C-D and D-E (tail). How many bridges?", "C-D\\text{ and }D-E\\text{ are bridges}", "2"),
+        shortAnswer("net-flow-m9", "Network: A-B, B-C, C-A (triangle) plus C-D and D-E (tail). How many bridges?", "", "2"),
         labelledChoice(
           "net-flow-m10",
           "A reliable network is best described as one that:",
@@ -1621,7 +1621,7 @@ export function year11StandardNetworksLessonOverride(
     },
     guidedPractice: [
       labelledChoice("net-app-g1", "A table gives one-way task dependencies. What kind of network is needed?", "B", ["Undirected", "Directed", "Box plot", "Tree only"], "One-way dependencies need directed edges."),
-      shortAnswer("net-app-g2", "A shortest route uses weights 4, 3, and 6. Find total.", "4+3+6", "13"),
+      shortAnswer("net-app-g2", "A shortest route uses weights 4, 3, and 6. Find total.", "", "13"),
       labelledChoice("net-app-g3", "A school wants minimum cable to connect all buildings. Best method?", "C", ["Circuit", "Degree", "Minimum spanning tree", "Mean"], "This is a minimal connector problem."),
       {
         ...labelledChoice("net-app-g4", "Use the displayed network to choose the correct description.", "A", ["Three weighted edges connect A, B, and C", "Only one vertex is shown", "The edges must be directed", "There are no weights"], "The table shows three weighted edges."),
@@ -1646,9 +1646,9 @@ export function year11StandardNetworksLessonOverride(
         ...labelledChoice("net-app-i1", "A map with distances between suburbs should use:", "A", ["Weighted edges", "Only isolated vertices", "A box plot", "A frequency table"], "Distances are weights."),
         diagram: appShortestDiagram,
       },
-      shortAnswer("net-app-i2", "Add route weights 7 and 8.", "7+8", "15"),
+      shortAnswer("net-app-i2", "Add route weights 7 and 8.", "", "15"),
       labelledChoice("net-app-i3", "Shortest path is not always best because:", "D", ["It uses vertices", "It is always free", "It must connect all vertices", "Traffic, safety, or cost may matter"], "Practical constraints can override distance."),
-      shortAnswer("net-app-i4", "MST selected weights are 3, 5, and 5. Find total.", "3+5+5", "13"),
+      shortAnswer("net-app-i4", "MST selected weights are 3, 5, and 5. Find total.", "", "13"),
       {
         ...labelledChoice("net-app-i5", "The displayed delivery network is being used to find the quickest path from Depot to Shop. Which method is most relevant?", "B", ["Minimum spanning tree", "Shortest path", "Counting degree only", "Finding a circuit only"], "A route between two vertices is a shortest-path problem."),
         diagram: appShortestDiagram,
@@ -1665,7 +1665,7 @@ export function year11StandardNetworksLessonOverride(
         ...labelledChoice("net-app-m1", "In the displayed road network, the numbers on the edges show:", "A", ["Distances or costs", "Vertex names", "Circuits only", "Degrees only"], "Weights show quantities such as distance or cost."),
         diagram: appShortestDiagram,
       },
-      shortAnswer("net-app-m2", "Route weights are 6, 6, and 2. Find total.", "6+6+2", "14"),
+      shortAnswer("net-app-m2", "Route weights are 6, 6, and 2. Find total.", "", "14"),
       {
         ...labelledChoice("net-app-m3", "To connect all displayed parks with minimum path length, use:", "C", ["Shortest path only", "Circuit", "Minimum spanning tree", "Degree"], "Connecting all with minimum total length is MST."),
         diagram: appMstDiagram,
@@ -1771,7 +1771,7 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer(
           "y11s-netr-g2",
           "In a network with edges AB, AC, AD, BC, what is the degree of vertex A?",
-          "\\text{A is in: AB, AC, AD} \\Rightarrow \\deg(A)=3",
+          "",
           "3",
           ["degree 3", "deg(A)=3"]
         ),
@@ -1785,7 +1785,7 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer(
           "y11s-netr-g4",
           "A path A→B→C→D→B visits B twice. Is this a valid path (yes or no)?",
-          "\\text{B is repeated — not a valid path}",
+          "",
           "No",
           ["no", "not a path", "invalid"]
         ),
@@ -1794,14 +1794,14 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer(
           "y11s-netr-i1",
           "A network has 5 edges. What is the sum of all vertex degrees?",
-          "\\sum\\text{degrees} = 2 \\times 5",
+          "",
           "10",
           ["10 total", "sum=10"]
         ),
         shortAnswer(
           "y11s-netr-i2",
           "Edges: AB (4), BC (7), AC (6). Find the total weight of path A→B→C.",
-          "4 + 7",
+          "",
           "11",
           ["11 total", "weight 11"]
         ),
@@ -1815,7 +1815,7 @@ export function year11StandardNetworksLessonOverride(
         shortAnswer(
           "y11s-netr-i4",
           "A network has vertices A, B, C, D. Edges: AB, BC, CD, DA. What is the degree of vertex B?",
-          "B\\text{ is in: AB, BC} \\Rightarrow \\deg(B)=2",
+          "",
           "2",
           ["degree 2", "deg=2"]
         ),
@@ -1847,13 +1847,13 @@ export function year11StandardNetworksLessonOverride(
       ],
       masteryQuiz: [
         shortAnswer("y11s-netr-m1", "A network has edges AB, AC, BC, CD. How many edges?", "AB,\\,AC,\\,BC,\\,CD", "4", ["4 edges"]),
-        shortAnswer("y11s-netr-m2", "Edges: AB, AC, AD. What is deg(A)?", "AB, AC, AD \\Rightarrow 3", "3", ["degree 3"]),
+        shortAnswer("y11s-netr-m2", "Edges: AB, AC, AD. What is deg(A)?", "", "3", ["degree 3"]),
         labelledChoice("y11s-netr-m3", "A network with no path between two vertices is:", "B", ["Connected", "Disconnected", "Weighted", "Directed"], "If some vertices cannot reach others, the network is disconnected."),
-        shortAnswer("y11s-netr-m4", "A network has 6 edges. What is the sum of all degrees?", "2 \\times 6", "12", ["12 total"]),
+        shortAnswer("y11s-netr-m4", "A network has 6 edges. What is the sum of all degrees?", "", "12", ["12 total"]),
         labelledChoice("y11s-netr-m5", "A path differs from a cycle in that a path:", "A", ["Does not return to the start", "Must visit every vertex", "Has no weights", "Requires directed edges"], "A path ends at a different vertex; a cycle returns to the start."),
-        shortAnswer("y11s-netr-m6", "Edges: PQ(5), QR(3), PR(9). Total weight of path P→Q→R?", "5 + 3", "8", ["8 total", "weight=8"]),
+        shortAnswer("y11s-netr-m6", "Edges: PQ(5), QR(3), PR(9). Total weight of path P→Q→R?", "", "8", ["8 total", "weight=8"]),
         labelledChoice("y11s-netr-m7", "In a weighted network, the weight of an edge represents:", "D", ["The degree of a vertex", "The number of paths", "Whether the network is connected", "A quantity such as distance, cost or time"], "Weights attach a numerical value such as distance or cost to an edge."),
-        shortAnswer("y11s-netr-m8", "Edges: AB, BC, CA. Vertex A has degree:", "AB\\text{ and }CA \\Rightarrow \\deg(A)=2", "2", ["degree 2"]),
+        shortAnswer("y11s-netr-m8", "Edges: AB, BC, CA. Vertex A has degree:", "", "2", ["degree 2"]),
         labelledChoice("y11s-netr-m9", "A→B→C→D→A is a:", "B", ["Path only", "Cycle", "Disconnected graph", "Tree"], "It returns to A — it is a closed path (cycle)."),
         labelledChoice("y11s-netr-m10", "The sum of all degrees in a graph with 7 edges is:", "C", ["7", "14", "14", "21"], "Sum of degrees = 2 × number of edges = 2 × 7 = 14."),
       ],

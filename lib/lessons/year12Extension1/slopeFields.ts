@@ -294,7 +294,7 @@ const slopeFields: Partial<ExplicitLesson> = {
     sfTyped(
       "y12e1-sf-m6",
       "dy/dx = −2(y − 3). What is the slope at (0, 5)?",
-      "-2(5-3)",
+      "",
       "-4",
       ["slope=-4"],
       "−2(5 − 3) = −2(2) = −4. The curve is above the equilibrium y = 3 and sloping downward toward it."

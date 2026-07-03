@@ -153,7 +153,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-g3",
       "Find the exact value of sin(3π/4).",
-      "\\text{Reference angle of }\\tfrac{3\\pi}{4}\\text{ is }\\tfrac{\\pi}{4}",
+      "",
       "sqrt(2)/2",
       "3π/4 is in Q2 (ref angle π/4). In Q2, sin is positive. sin(3π/4) = +sin(π/4) = √2/2.",
       ["sqrt(2)/2", "√2/2"],
@@ -163,7 +163,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-g4",
       "Given sin θ = 4/5 and θ ∈ [0, π/2], find sin(2θ).",
-      "\\sin 2\\theta=2\\sin\\theta\\cos\\theta,\\quad\\cos\\theta=\\sqrt{1-\\sin^2\\theta}",
+      "",
       "24/25",
       "cos θ = √(1 − 16/25) = 3/5. Then sin(2θ) = 2(4/5)(3/5) = 24/25.",
       ["24/25"],
@@ -185,7 +185,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-i2",
       "Find the exact value of cos(2π/3).",
-      "\\text{Reference angle of }\\tfrac{2\\pi}{3}\\text{ is }\\tfrac{\\pi}{3}",
+      "",
       "-1/2",
       "2π/3 is in Q2 (ref angle π/3). In Q2, cos is negative. cos(2π/3) = −cos(π/3) = −1/2.",
       ["-1/2", "-0.5"],
@@ -210,7 +210,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-i4",
       "Given cos θ = 3/5 and θ ∈ [0, π/2], find cos(2θ).",
-      "\\cos 2\\theta=2\\cos^2\\theta-1",
+      "",
       "-7/25",
       "cos(2θ) = 2cos²θ − 1 = 2(9/25) − 1 = 18/25 − 25/25 = −7/25.",
       ["-7/25"],
@@ -220,7 +220,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-i5",
       "Find the exact value of sin(11π/6).",
-      "\\text{Reference angle of }\\tfrac{11\\pi}{6}\\text{ is }\\tfrac{\\pi}{6}",
+      "",
       "-1/2",
       "11π/6 is in Q4 (between 3π/2 and 2π). Reference angle = 2π − 11π/6 = π/6. In Q4, sin is negative: sin(11π/6) = −1/2.",
       ["-1/2", "-0.5"],
@@ -232,7 +232,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m1",
       "Find the exact value of cos(5π/6).",
-      "\\text{Reference angle of }\\tfrac{5\\pi}{6}\\text{ is }\\tfrac{\\pi}{6}",
+      "",
       "-sqrt(3)/2",
       "5π/6 is in Q2 (ref angle π/6). In Q2, cos is negative: cos(5π/6) = −cos(π/6) = −√3/2.",
       ["-sqrt(3)/2", "-√3/2"]
@@ -249,7 +249,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m3",
       "Find the exact value of tan(π/3).",
-      "\\tan\\frac{\\pi}{3}=\\frac{\\sin(\\pi/3)}{\\cos(\\pi/3)}",
+      "",
       "sqrt(3)",
       "tan(π/3) = sin(π/3)/cos(π/3) = (√3/2)/(1/2) = √3.",
       ["sqrt(3)", "√3"]
@@ -258,7 +258,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m4",
       "Given sin θ = 5/13 and θ ∈ [0, π/2], find cos(2θ).",
-      "\\cos 2\\theta=1-2\\sin^2\\theta",
+      "",
       "119/169",
       "cos(2θ) = 1 − 2sin²θ = 1 − 2(25/169) = 1 − 50/169 = 119/169.",
       ["119/169"]
@@ -275,7 +275,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m6",
       "Given sin θ = 3/5 and cos θ = −4/5 (θ in Q2), find sin(2θ).",
-      "\\sin 2\\theta=2\\sin\\theta\\cos\\theta",
+      "",
       "-24/25",
       "sin(2θ) = 2 × (3/5) × (−4/5) = −24/25. The result is negative because 2θ is outside Q1.",
       ["-24/25"]
@@ -284,7 +284,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m7",
       "Find the exact value of sin(7π/6).",
-      "\\text{Reference angle of }\\tfrac{7\\pi}{6}\\text{ is }\\tfrac{\\pi}{6}",
+      "",
       "-1/2",
       "7π/6 is in Q3 (ref angle π/6). In Q3, sin is negative: sin(7π/6) = −sin(π/6) = −1/2.",
       ["-1/2", "-0.5"]
@@ -301,7 +301,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m9",
       "Find the exact value of cos(5π/4).",
-      "\\text{Reference angle of }\\tfrac{5\\pi}{4}\\text{ is }\\tfrac{\\pi}{4}",
+      "",
       "-sqrt(2)/2",
       "5π/4 is in Q3 (ref angle π/4). In Q3, cos is negative: cos(5π/4) = −cos(π/4) = −√2/2.",
       ["-sqrt(2)/2", "-√2/2"]
@@ -310,7 +310,7 @@ const inverseTrigRevision: Partial<ExplicitLesson> = {
     answer(
       "y12e1-itr-m10",
       "Given cos(2θ) = −1/2 and θ ∈ [0, π/2], find sin θ.",
-      "\\cos 2\\theta=1-2\\sin^2\\theta=-\\tfrac{1}{2}",
+      "",
       "sqrt(3)/2",
       "1 − 2sin²θ = −1/2 → 2sin²θ = 3/2 → sin²θ = 3/4 → sin θ = √3/2 (positive since θ ∈ [0, π/2]).",
       ["sqrt(3)/2", "√3/2"]

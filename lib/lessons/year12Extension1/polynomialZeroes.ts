@@ -168,7 +168,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzTyped(
       "y12e1-pz-g3",
       "P(x) = (x − 3)²(x + 1). Write down the multiplicity of x = 3 as a zero of P′(x).",
-      "\\text{Zero of }P'\\text{ at }x=3\\text{ has mult }= k-1",
+      "",
       "1",
       [],
       "x = 3 has multiplicity 2 in P, so it has multiplicity 2 − 1 = 1 in P′."
@@ -220,7 +220,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzTyped(
       "y12e1-pz-i2",
       "P(x) = (x − 1)⁴(x + 2). State the multiplicity of x = 1 as a zero of P′(x).",
-      "\\text{mult of }x=1\\text{ in }P' = k-1",
+      "",
       "3",
       [],
       "x = 1 has multiplicity 4 in P, so multiplicity 4 − 1 = 3 in P′."
@@ -240,7 +240,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzTyped(
       "y12e1-pz-i4",
       "P(x) = x(x − 2)². How many stationary points does P(x) have? (Use the multiplicity theorem on P′.)",
-      "P'(x) = (x-2)(3x-2)",
+      "",
       "2",
       [],
       "x = 0 is simple (P′(0) ≠ 0) and x = 2 is a double zero of P, so x = 2 is a simple zero of P′. P′ = x(x−2)·3 + x²·... Factor P′ to find 2 roots."
@@ -276,7 +276,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzTyped(
       "y12e1-pz-m3",
       "P(x) = (x + 1)³(x − 4)². What is the degree of P(x)?",
-      "\\deg P = 3+2",
+      "",
       "5",
       [],
       "Sum the multiplicities: 3 + 2 = 5."
@@ -291,7 +291,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzTyped(
       "y12e1-pz-m5",
       "P(x) = (x − 2)³(x + 1)². Find P(0).",
-      "P(0) = (-2)^3(1)^2",
+      "",
       "-8",
       [],
       "P(0) = (−2)³ · (1)² = −8 · 1 = −8."
@@ -323,7 +323,7 @@ const polynomialZeroes: Partial<ExplicitLesson> = {
     pzTyped(
       "y12e1-pz-m8",
       "Write the degree of the derivative of P(x) = (x − 1)²(x + 3)³.",
-      "\\deg P = 5,\\quad \\deg P' = 5-1",
+      "",
       "4",
       [],
       "P has degree 5, so P′ has degree 4."

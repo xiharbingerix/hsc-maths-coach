@@ -127,7 +127,7 @@ const gradientWorked: WorkedExample[] = [
 ];
 
 const gradientGuided: PracticeQuestion[] = [
-  { ...linearAnswer("y10-linear-grad-g1", "Find the gradient of the displayed line.", "\\text{Use rise over run.}", "2", "The line rises 2 units for every 1 unit across.", ["m=2"]), cartesianGraph: lineGraph("Coordinate graph of an increasing line through zero comma one and one comma three.", [{ kind: "linear", m: 2, b: 1 }], [{ x: 0, y: 1 }, { x: 1, y: 3 }]) },
+  { ...linearAnswer("y10-linear-grad-g1", "Find the gradient of the displayed line.", "", "2", "The line rises 2 units for every 1 unit across.", ["m=2"]), cartesianGraph: lineGraph("Coordinate graph of an increasing line through zero comma one and one comma three.", [{ kind: "linear", m: 2, b: 1 }], [{ x: 0, y: 1 }, { x: 1, y: 3 }]) },
   linearAnswer("y10-linear-grad-g2", "State the y-intercept of the line.", "y=3x-4", "-4", "The constant term is the y-intercept.", ["b=-4"]),
   linearChoice("y10-linear-grad-g3", "Which description matches a line with negative gradient?", "B", ["It rises from left to right", "It falls from left to right", "It is always vertical", "It must cross the origin"], "A negative-gradient line falls as x increases."),
   { ...linearAnswer("y10-linear-grad-g4", "Find the gradient of the displayed horizontal line.", "\\text{horizontal line}", "0", "A horizontal line has gradient zero.", ["m=0"]), cartesianGraph: lineGraph("Coordinate graph of the horizontal line y equals 3.", [{ kind: "linear", m: 0, b: 3 }]) },
@@ -136,7 +136,7 @@ const gradientGuided: PracticeQuestion[] = [
 const gradientIndependent: PracticeQuestion[] = [
   linearAnswer("y10-linear-grad-i1", "State the gradient of the line.", "y=-3x+5", "-3", "The coefficient of x is the gradient.", ["m=-3"]),
   linearAnswer("y10-linear-grad-i2", "State the y-intercept of the line.", "y=4x+2", "2", "The constant term is the y-intercept.", ["b=2"]),
-  { ...linearAnswer("y10-linear-grad-i3", "Find the gradient of the displayed line.", "\\text{Use the two marked points.}", "-1", "The line falls 1 unit for every 1 unit across.", ["m=-1"]), cartesianGraph: lineGraph("Coordinate graph of a decreasing line through zero comma two and two comma zero.", [{ kind: "linear", m: -1, b: 2 }], [{ x: 0, y: 2 }, { x: 2, y: 0 }]) },
+  { ...linearAnswer("y10-linear-grad-i3", "Find the gradient of the displayed line.", "", "-1", "The line falls 1 unit for every 1 unit across.", ["m=-1"]), cartesianGraph: lineGraph("Coordinate graph of a decreasing line through zero comma two and two comma zero.", [{ kind: "linear", m: -1, b: 2 }], [{ x: 0, y: 2 }, { x: 2, y: 0 }]) },
   linearChoice("y10-linear-grad-i4", "Which equation represents a horizontal line crossing the y-axis at 6?", "C", ["$x=6$", "$y=6x$", "$y=6$", "$y=x+6$"], "A horizontal line has a constant y-value."),
   linearAnswer("y10-linear-grad-i5", "A line passes through (1, 4) and (3, 10). Find its gradient.", "(1,4),\\quad (3,10)", "3", "The rise is 6 and the run is 2.", ["m=3"]),
 ];
@@ -147,8 +147,8 @@ const gradientMastery: PracticeQuestion[] = [
   linearChoice("y10-linear-grad-m3", "A horizontal line has which gradient?", "A", ["0", "1", "-1", "Undefined"], "A horizontal line has zero rise."),
   linearAnswer("y10-linear-grad-m4", "Find the gradient through the two points.", "(2,3),\\quad (5,12)", "3", "The rise is 9 and the run is 3.", ["m=3"]),
   linearChoice("y10-linear-grad-m5", "Which equation has gradient -4 and y-intercept 1?", "D", ["$y=x-4$", "$y=4x+1$", "$y=-x+4$", "$y=-4x+1$"], "Use the form y = mx + b."),
-  { ...linearAnswer("y10-linear-grad-m6", "State the y-intercept of the displayed line.", "\\text{Read where the line crosses the y-axis.}", "-2", "The line crosses the y-axis at -2.", ["b=-2"]), cartesianGraph: lineGraph("Coordinate graph of the line y equals x minus 2.", [{ kind: "linear", m: 1, b: -2 }]) },
-  linearAnswer("y10-linear-grad-m7", "A line rises 8 units while moving 4 units to the right. Find its gradient.", "\\text{rise}=8,\\quad \\text{run}=4", "2", "Gradient is rise divided by run.", ["m=2"]),
+  { ...linearAnswer("y10-linear-grad-m6", "State the y-intercept of the displayed line.", "", "-2", "The line crosses the y-axis at -2.", ["b=-2"]), cartesianGraph: lineGraph("Coordinate graph of the line y equals x minus 2.", [{ kind: "linear", m: 1, b: -2 }]) },
+  linearAnswer("y10-linear-grad-m7", "A line rises 8 units while moving 4 units to the right. Find its gradient.", "", "2", "Gradient is rise divided by run.", ["m=2"]),
   linearChoice("y10-linear-grad-m8", "A line passes through (-1, 5) and (3, -3). Which equation matches the line?", "B", ["$y=2x+3$", "$y=-2x+3$", "$y=-2x+5$", "$y=3x-2$"], "The gradient is -2. Substituting either point gives y-intercept 3."),
   linearAnswer("y10-linear-grad-m9", "A line has gradient 3 and passes through (2, 11). Find its y-intercept.", "m=3,\\quad (2,11)", "5", "Substitute into y = mx + b to find b = 5.", ["b=5"]),
   linearChoice("y10-linear-grad-m10", "A line crosses the y-axis below zero and rises from left to right. Which equation could represent it?", "C", ["$y=-2x+3$", "$y=-x-4$", "$y=2x-4$", "$y=4$"], "The line needs a positive gradient and a negative y-intercept."),
@@ -232,7 +232,7 @@ const midpointWorked: WorkedExample[] = [
 ];
 
 const midpointGuided: PracticeQuestion[] = [
-  { ...linearAnswer("y10-linear-mid-g1", "Find the midpoint of the displayed segment.", "\\text{Use the marked endpoints.}", "(3,4)", "Average the coordinates.", ["3,4", "(3, 4)", "3, 4"]), cartesianGraph: segmentGraph("Coordinate graph showing segment AB from one comma two to five comma six.", { x: 1, y: 2, label: "A" }, { x: 5, y: 6, label: "B" }) },
+  { ...linearAnswer("y10-linear-mid-g1", "Find the midpoint of the displayed segment.", "", "(3,4)", "Average the coordinates.", ["3,4", "(3, 4)", "3, 4"]), cartesianGraph: segmentGraph("Coordinate graph showing segment AB from one comma two to five comma six.", { x: 1, y: 2, label: "A" }, { x: 5, y: 6, label: "B" }) },
   linearAnswer("y10-linear-mid-g2", "Find the midpoint of A(2, 1) and B(6, 5).", "A(2,1),\\quad B(6,5)", "(4,3)", "Average the x-coordinates and y-coordinates.", ["4,3", "(4, 3)", "4, 3"]),
   linearAnswer("y10-linear-mid-g3", "Find the distance between P(1, 1) and Q(4, 5).", "P(1,1),\\quad Q(4,5)", "5", "The coordinate changes are 3 and 4."),
   linearChoice("y10-linear-mid-g4", "Which idea explains the distance formula?", "C", ["Parallel gradients", "Simple interest", "Pythagoras' theorem", "A five-number summary"], "Horizontal and vertical changes form a right triangle."),
@@ -241,7 +241,7 @@ const midpointGuided: PracticeQuestion[] = [
 const midpointIndependent: PracticeQuestion[] = [
   linearAnswer("y10-linear-mid-i1", "Find the midpoint of A(-2, 4) and B(4, 8).", "A(-2,4),\\quad B(4,8)", "(1,6)", "Average each coordinate.", ["1,6", "(1, 6)", "1, 6"]),
   linearAnswer("y10-linear-mid-i2", "Find the distance between P(2, 3) and Q(8, 3).", "P(2,3),\\quad Q(8,3)", "6", "The segment is horizontal with length 6."),
-  { ...linearAnswer("y10-linear-mid-i3", "Find the distance between the displayed points.", "\\text{Use the marked endpoints.}", "10", "The changes are 6 and 8, giving distance 10."), cartesianGraph: segmentGraph("Coordinate graph showing segment PQ from zero comma zero to six comma eight.", { x: 0, y: 0, label: "P" }, { x: 6, y: 8, label: "Q" }, [], { xMin: -1, xMax: 7, yMin: -1, yMax: 9 }) },
+  { ...linearAnswer("y10-linear-mid-i3", "Find the distance between the displayed points.", "", "10", "The changes are 6 and 8, giving distance 10."), cartesianGraph: segmentGraph("Coordinate graph showing segment PQ from zero comma zero to six comma eight.", { x: 0, y: 0, label: "P" }, { x: 6, y: 8, label: "Q" }, [], { xMin: -1, xMax: 7, yMin: -1, yMax: 9 }) },
   linearAnswer("y10-linear-mid-i4", "The midpoint of A(1, 5) and B(x, 9) is (4, 7). Find x.", "A(1,5),\\quad B(x,9),\\quad M(4,7)", "7", "Solve the x-coordinate midpoint equation."),
   linearChoice("y10-linear-mid-i5", "Which midpoint lies halfway between (-3, 2) and (5, 6)?", "B", ["$(2,4)$", "$(1,4)$", "$(1,8)$", "$(-1,4)$"], "Average the coordinates to get (1, 4)."),
 ];
