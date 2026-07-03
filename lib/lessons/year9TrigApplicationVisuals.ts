@@ -124,6 +124,24 @@ function angleVisual(options: AngleQuestion): Year9TrigApplicationVisual {
 }
 
 export const year9TrigApplicationVisuals: Record<string, Year9TrigApplicationVisual> = {
+  // trigonometry-applications — guided practice keeps its worded scenario and
+  // ADDS the diagram as a scaffold ("we do" stage). Independent practice and
+  // the mastery quiz stay deliberately worded: translating the words into a
+  // labelled right triangle is the skill there (the lesson's own common
+  // mistake is "Not drawing the diagram").
+  "y9-tap-g1": {
+    ...sideVisual({ angle: 30, context: "ramp", knownSide: "hypotenuse", knownValue: 20, unknownSide: "opposite" }),
+    prompt: "A 20 m ramp rises at 30°, as shown in the diagram. Find its height x in metres.",
+  },
+  "y9-tap-g2": {
+    ...sideVisual({ angle: 45, context: "tree", knownSide: "adjacent", knownValue: 12, unknownSide: "opposite" }),
+    prompt: "The angle of elevation to a tree top is 45° from 12 m away, as shown in the diagram. Find the height x in metres.",
+  },
+  "y9-tap-g3": {
+    ...sideVisual({ angle: 60, context: "ladder", knownSide: "hypotenuse", knownValue: 10, unknownSide: "opposite" }),
+    prompt: "A 10 m ladder leans at 60° to the ground, as shown in the diagram. Find the height x it reaches (1 d.p.).",
+  },
+  // mastery pool
   "y9-tap-p1": angleVisual({ context: "building", firstSide: "opposite", firstValue: 30, secondSide: "adjacent", secondValue: 40 }),
   "y9-tap-p2": sideVisual({ angle: 60, context: "wire", knownSide: "hypotenuse", knownValue: 15, unknownSide: "opposite" }),
   "y9-tap-p3": sideVisual({ angle: 30, context: "cliff", knownSide: "opposite", knownValue: 50, unknownSide: "adjacent" }),

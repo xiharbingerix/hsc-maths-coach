@@ -3,6 +3,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { year9BearingsVisuals } from "../year9BearingsVisuals";
 import { year9TrigAngleVisuals } from "../year9TrigAngleVisuals";
 import { year9TrigApplicationVisuals } from "../year9TrigApplicationVisuals";
 
@@ -217,7 +218,10 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
 };
 
 function addTrigAngleVisual(question: PracticeQuestion): PracticeQuestion {
-  const visual = year9TrigAngleVisuals[question.id] ?? year9TrigApplicationVisuals[question.id];
+  const visual =
+    year9TrigAngleVisuals[question.id] ??
+    year9TrigApplicationVisuals[question.id] ??
+    year9BearingsVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 
@@ -242,7 +246,5 @@ export function year9Chapter3TrigApplicationsLessonOverride(
   }
   const content = SECTIONS[lesson.slug];
   if (!content) return null;
-  return ["finding-unknown-angles", "trigonometry-applications"].includes(lesson.slug)
-    ? addTrigAngleVisuals(content)
-    : content;
+  return addTrigAngleVisuals(content);
 }

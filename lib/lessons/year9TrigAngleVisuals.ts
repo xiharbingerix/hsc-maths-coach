@@ -24,7 +24,11 @@ function angleFromSides(sides: Sides): number {
   throw new Error("Two compatible side lengths are required.");
 }
 
-function visual(sides: Sides, context?: "ramp"): Year9TrigAngleVisual {
+function visual(
+  sides: Sides,
+  opts: { context?: "ramp"; exact?: boolean } = {}
+): Year9TrigAngleVisual {
+  const { context, exact } = opts;
   const angle = angleFromSides(sides);
   const hypotenusePixels = 240;
   const sideLabels: TriangleDiagram["sideLabels"] = {};
@@ -41,7 +45,9 @@ function visual(sides: Sides, context?: "ramp"): Year9TrigAngleVisual {
     : "";
 
   return {
-    prompt: "Use the right-triangle diagram to find θ, rounded to 1 decimal place.",
+    prompt: exact
+      ? "Use the right-triangle diagram to find θ in degrees."
+      : "Use the right-triangle diagram to find θ, rounded to 1 decimal place.",
     triangleDiagram: {
       description:
         `Right triangle with unknown angle theta, ${labelledSides}. ` + contextText,
@@ -67,6 +73,14 @@ function visual(sides: Sides, context?: "ramp"): Year9TrigAngleVisual {
 }
 
 export const year9TrigAngleVisuals: Record<string, Year9TrigAngleVisual> = {
+  // finding-unknown-angles — main sections (two given sides; ratio-given
+  // questions like "sin θ = 0.5" stay worded because building the triangle
+  // from a ratio is the skill there)
+  "y9-fua-i4": visual({ opposite: 3, adjacent: 4 }),
+  "y9-fua-m5": visual({ opposite: 5, hypotenuse: 10 }, { exact: true }),
+  "y9-fua-m6": visual({ adjacent: 5, hypotenuse: 10 }, { exact: true }),
+  "y9-fua-m7": visual({ opposite: 4, adjacent: 4 }, { exact: true }),
+  // mastery pool
   "y9-fua-p1": visual({ opposite: 5, adjacent: 12 }),
   "y9-fua-p2": visual({ opposite: 6, hypotenuse: 10 }),
   "y9-fua-p3": visual({ adjacent: 8, hypotenuse: 10 }),
@@ -76,7 +90,7 @@ export const year9TrigAngleVisuals: Record<string, Year9TrigAngleVisual> = {
   "y9-fua-p7": visual({ opposite: 10, adjacent: 5 }),
   "y9-fua-p8": visual({ opposite: 9, adjacent: 12 }),
   "y9-fua-p9": visual({ opposite: 1, hypotenuse: 4 }),
-  "y9-fua-p10": visual({ opposite: 3, hypotenuse: 5 }, "ramp"),
+  "y9-fua-p10": visual({ opposite: 3, hypotenuse: 5 }, { context: "ramp" }),
   "y9c-fua-1": visual({ opposite: 11, adjacent: 60 }),
   "y9c-fua-2": visual({ opposite: 7, adjacent: 24 }),
   "y9c-fua-3": visual({ opposite: 20, hypotenuse: 29 }),

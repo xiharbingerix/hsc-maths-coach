@@ -5,6 +5,8 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import type { TriangleDiagram } from "../types";
+import { year9TrigRatioVisuals } from "../year9TrigRatioVisuals";
 import { year9TrigSideVisuals } from "../year9TrigSideVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
@@ -14,6 +16,33 @@ function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices:
   return { id, prompt, latex: "\\text{Select A, B, C, or D.}", choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })), answer, difficulty, hint: "Recall SOH CAH TOA.", explanation };
 }
 const u = (a: string) => [a, `${a} cm`, `${a}cm`];
+
+// The canonical 3-4-5 teaching triangle used by the intro worked examples, so
+// students see WHERE opposite/adjacent/hypotenuse sit relative to θ while the
+// ratio is formed. All three sides are labelled — this is teaching support,
+// not an assessment item.
+function teachingTriangle345(): TriangleDiagram {
+  const angle = Math.atan(3 / 4);
+  const hypotenusePixels = 240;
+  return {
+    description:
+      "Right triangle with the angle theta marked at the left vertex, opposite side 3, adjacent side 4 and hypotenuse 5 — the 3-4-5 triangle used to form sin, cos and tan.",
+    vertices: {
+      A: { x: 70, y: 250 },
+      B: { x: 70 + hypotenusePixels * Math.cos(angle), y: 250 },
+      C: {
+        x: 70 + hypotenusePixels * Math.cos(angle),
+        y: 250 - hypotenusePixels * Math.sin(angle),
+      },
+    },
+    vertexLabels: { A: "", B: "", C: "" },
+    sideLabels: { AB: "4", BC: "3", AC: "5" },
+    angleLabels: { A: "θ" },
+    angleMarks: { A: 1 },
+    rightAngleAt: "B",
+    viewBox: "0 0 390 300",
+  };
+}
 
 // ── introducing-trigonometric-ratios (core) ───────────────────────────────────────────
 const introducingTrigRatios: Partial<ExplicitLesson> = {
@@ -30,9 +59,9 @@ const introducingTrigRatios: Partial<ExplicitLesson> = {
     latexBlocks: ["\\sin\\theta = \\tfrac{\\text{opp}}{\\text{hyp}},\\ \\cos\\theta = \\tfrac{\\text{adj}}{\\text{hyp}},\\ \\tan\\theta = \\tfrac{\\text{opp}}{\\text{adj}}", "\\sin\\theta = \\tfrac35 = 0.6"],
   },
   workedExamples: [
-    { title: "Sine", questionLatex: "\\text{opp}=3, \\text{hyp}=5. \\text{ Find } \\sin\\theta.", steps: [{ explanation: "opp/hyp.", latex: "0.6" }], finalAnswerLatex: "0.6" },
-    { title: "Cosine", questionLatex: "\\text{adj}=4, \\text{hyp}=5. \\text{ Find } \\cos\\theta.", steps: [{ explanation: "adj/hyp.", latex: "0.8" }], finalAnswerLatex: "0.8" },
-    { title: "Tangent", questionLatex: "\\text{opp}=3, \\text{adj}=4. \\text{ Find } \\tan\\theta.", steps: [{ explanation: "opp/adj.", latex: "0.75" }], finalAnswerLatex: "0.75" },
+    { title: "Sine", questionLatex: "\\text{From the diagram, find } \\sin\\theta.", steps: [{ explanation: "The side across from θ (opposite) is 3; the side opposite the right angle (hypotenuse) is 5. sin θ = opp/hyp = 3/5.", latex: "0.6" }], finalAnswerLatex: "0.6", triangleDiagram: teachingTriangle345() },
+    { title: "Cosine", questionLatex: "\\text{From the diagram, find } \\cos\\theta.", steps: [{ explanation: "The side next to θ that is not the hypotenuse (adjacent) is 4; the hypotenuse is 5. cos θ = adj/hyp = 4/5.", latex: "0.8" }], finalAnswerLatex: "0.8", triangleDiagram: teachingTriangle345() },
+    { title: "Tangent", questionLatex: "\\text{From the diagram, find } \\tan\\theta.", steps: [{ explanation: "Opposite is 3 and adjacent is 4 — the hypotenuse is not used. tan θ = opp/adj = 3/4.", latex: "0.75" }], finalAnswerLatex: "0.75", triangleDiagram: teachingTriangle345() },
   ],
   guidedPractice: [
     ans("y9-trr-g1", "Opposite 6, hypotenuse 10. Find sin θ.", "\\sin\\theta", "0.6", 2, "6/10 = 0.6.", []),
@@ -217,7 +246,7 @@ const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
 };
 
 function addTrigSideVisual(question: PracticeQuestion): PracticeQuestion {
-  const visual = year9TrigSideVisuals[question.id];
+  const visual = year9TrigSideVisuals[question.id] ?? year9TrigRatioVisuals[question.id];
   return visual ? { ...question, ...visual } : question;
 }
 
@@ -242,7 +271,5 @@ export function year9Chapter3TrigRatiosLessonOverride(
   }
   const content = SECTIONS[lesson.slug];
   if (!content) return null;
-  return ["finding-unknown-side-lengths", "solving-for-the-denominator"].includes(lesson.slug)
-    ? addTrigSideVisuals(content)
-    : content;
+  return addTrigSideVisuals(content);
 }

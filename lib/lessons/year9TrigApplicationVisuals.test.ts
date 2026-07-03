@@ -14,7 +14,7 @@ function numberFrom(label: string | undefined): number | null {
 
 test("Year 9 applied-trigonometry diagrams render specific labelled contexts", () => {
   const visuals = Object.entries(year9TrigApplicationVisuals);
-  assert.equal(visuals.length, 22);
+  assert.equal(visuals.length, 25);
 
   for (const [questionId, visual] of visuals) {
     const diagram = visual.triangleDiagram;
