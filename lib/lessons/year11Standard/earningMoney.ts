@@ -605,7 +605,7 @@ export function year11StandardEarningMoneyLessonOverride(
         ],
       },
       guidedPractice: [
-        moneyAnswer("earn-leave-g1", "An employee earns $800 per week. Calculate their annual leave pay for 4 weeks.", "4 \\times 800", "3200", ["$3200", "3,200", "$3,200"]),
+        moneyAnswer("earn-leave-g1", "An employee earns $800 per week. Calculate their annual leave pay for 4 weeks.", "", "3200", ["$3200", "3,200", "$3,200"]),
         financeChoice(
           "earn-leave-g2",
           "Leave loading of 17.5% is calculated on:",
@@ -613,14 +613,14 @@ export function year11StandardEarningMoneyLessonOverride(
           ["Annual salary", "Annual leave pay", "Net pay", "Tax withheld"],
           "Leave loading is 17.5% of the annual leave pay, not the full annual salary.",
         ),
-        moneyAnswer("earn-leave-g3", "Calculate leave loading of 17.5% on annual leave pay of $3200.", "0.175 \\times 3200", "560", ["$560", "560.00", "$560.00"]),
-        moneyAnswer("earn-leave-g4", "Find total annual leave pay including 17.5% loading: leave pay $3200 plus loading $560.", "3200 + 560", "3760", ["$3760", "3,760", "$3,760"]),
+        moneyAnswer("earn-leave-g3", "Calculate leave loading of 17.5% on annual leave pay of $3200.", "", "560", ["$560", "560.00", "$560.00"]),
+        moneyAnswer("earn-leave-g4", "Find total annual leave pay including 17.5% loading: leave pay $3200 plus loading $560.", "", "3760", ["$3760", "3,760", "$3,760"]),
       ],
       independentPractice: [
-        moneyAnswer("earn-leave-i1", "An employee earns $1200 per week. Calculate their annual leave pay for 4 weeks.", "4 \\times 1200", "4800", ["$4800", "4,800", "$4,800"]),
-        moneyAnswer("earn-leave-i2", "Calculate leave loading of 17.5% on annual leave pay of $4800.", "0.175 \\times 4800", "840", ["$840", "840.00", "$840.00"]),
-        moneyAnswer("earn-leave-i3", "Find total annual leave pay including 17.5% loading for an employee earning $1200 per week (4 weeks leave).", "4800 + 840", "5640", ["$5640", "5,640", "$5,640"]),
-        moneyAnswer("earn-leave-i4", "An employee's annual salary is $52,000. Calculate the employer's superannuation contribution at 11%.", "0.11 \\times 52000", "5720", ["$5720", "5,720", "$5,720"]),
+        moneyAnswer("earn-leave-i1", "An employee earns $1200 per week. Calculate their annual leave pay for 4 weeks.", "", "4800", ["$4800", "4,800", "$4,800"]),
+        moneyAnswer("earn-leave-i2", "Calculate leave loading of 17.5% on annual leave pay of $4800.", "", "840", ["$840", "840.00", "$840.00"]),
+        moneyAnswer("earn-leave-i3", "Find total annual leave pay including 17.5% loading for an employee earning $1200 per week (4 weeks leave).", "", "5640", ["$5640", "5,640", "$5,640"]),
+        moneyAnswer("earn-leave-i4", "An employee's annual salary is $52,000. Calculate the employer's superannuation contribution at 11%.", "", "5720", ["$5720", "5,720", "$5,720"]),
         financeChoice(
           "earn-leave-i5",
           "Superannuation is paid by:",
@@ -636,9 +636,9 @@ export function year11StandardEarningMoneyLessonOverride(
         { mistake: "Calculating annual super on weekly pay without first finding the annual earnings.", fix: "Multiply annual earnings by 0.11. If only weekly pay is given, multiply weekly pay × 52 first, then apply 11%." },
       ],
       masteryQuiz: [
-        moneyAnswer("earn-leave-m1", "An employee earns $950 per week. Calculate their annual leave pay for 4 weeks.", "4 \\times 950", "3800", ["$3800", "3,800", "$3,800"]),
-        moneyAnswer("earn-leave-m2", "Calculate leave loading of 17.5% on annual leave pay of $3800.", "0.175 \\times 3800", "665", ["$665", "665.00", "$665.00"]),
-        moneyAnswer("earn-leave-m3", "Find total annual leave pay including loading: leave pay $3800 plus loading $665.", "3800 + 665", "4465", ["$4465", "4,465", "$4,465"]),
+        moneyAnswer("earn-leave-m1", "An employee earns $950 per week. Calculate their annual leave pay for 4 weeks.", "", "3800", ["$3800", "3,800", "$3,800"]),
+        moneyAnswer("earn-leave-m2", "Calculate leave loading of 17.5% on annual leave pay of $3800.", "", "665", ["$665", "665.00", "$665.00"]),
+        moneyAnswer("earn-leave-m3", "Find total annual leave pay including loading: leave pay $3800 plus loading $665.", "", "4465", ["$4465", "4,465", "$4,465"]),
         financeChoice(
           "earn-leave-m4",
           "The superannuation guarantee rate is approximately:",
@@ -646,7 +646,7 @@ export function year11StandardEarningMoneyLessonOverride(
           ["5%", "17.5%", "11%", "25%"],
           "The super guarantee rate is approximately 11% of ordinary earnings.",
         ),
-        moneyAnswer("earn-leave-m5", "An employee earns $640 per week. Calculate the weekly employer super contribution at 11%.", "0.11 \\times 640", "70.4", ["$70.40", "70.40", "$70.4"]),
+        moneyAnswer("earn-leave-m5", "An employee earns $640 per week. Calculate the weekly employer super contribution at 11%.", "", "70.4", ["$70.40", "70.40", "$70.4"]),
         financeChoice(
           "earn-leave-m6",
           "Leave loading of 17.5% exists because:",
@@ -654,10 +654,10 @@ export function year11StandardEarningMoneyLessonOverride(
           ["It is optional for employees", "It compensates for overtime and penalty rates not earned during leave", "It reduces the employee's tax bill", "It is the same as superannuation"],
           "Leave loading compensates workers for missing out on overtime and penalty rates while on annual leave.",
         ),
-        moneyAnswer("earn-leave-m7", "An employee's gross annual income is $65,000. Calculate the annual super contribution at 11%.", "0.11 \\times 65000", "7150", ["$7150", "7,150", "$7,150"]),
-        moneyAnswer("earn-leave-m8", "An employee earns $750 per week. What is their annual leave pay for 4 weeks?", "4 \\times 750", "3000", ["$3000", "3,000", "$3,000"]),
-        moneyAnswer("earn-leave-m9", "Calculate leave loading of 17.5% on annual leave pay of $3000.", "0.175 \\times 3000", "525", ["$525", "525.00", "$525.00"]),
-        moneyAnswer("earn-leave-m10", "Find total annual leave pay including 17.5% loading: leave pay $3000 plus loading $525.", "3000 + 525", "3525", ["$3525", "3,525", "$3,525"]),
+        moneyAnswer("earn-leave-m7", "An employee's gross annual income is $65,000. Calculate the annual super contribution at 11%.", "", "7150", ["$7150", "7,150", "$7,150"]),
+        moneyAnswer("earn-leave-m8", "An employee earns $750 per week. What is their annual leave pay for 4 weeks?", "", "3000", ["$3000", "3,000", "$3,000"]),
+        moneyAnswer("earn-leave-m9", "Calculate leave loading of 17.5% on annual leave pay of $3000.", "", "525", ["$525", "525.00", "$525.00"]),
+        moneyAnswer("earn-leave-m10", "Find total annual leave pay including 17.5% loading: leave pay $3000 plus loading $525.", "", "3525", ["$3525", "3,525", "$3,525"]),
       ],
     };
   }
@@ -703,7 +703,7 @@ export function year11StandardEarningMoneyLessonOverride(
           ["Yes — income is below the threshold so no reduction applies", "No — income is above the threshold", "Only half the payment applies", "Cannot be determined without the base rate"],
           "$400 < $620, so all income is within the income-free area and the full base rate is paid.",
         ),
-        moneyAnswer("earn-govt-g3", "A student receives Youth Allowance of $630 per fortnight and earns $400 per fortnight from part-time work. Find their total fortnightly income.", "630 + 400", "1030", ["$1030", "1,030", "$1,030"]),
+        moneyAnswer("earn-govt-g3", "A student receives Youth Allowance of $630 per fortnight and earns $400 per fortnight from part-time work. Find their total fortnightly income.", "", "1030", ["$1030", "1,030", "$1,030"]),
         financeChoice(
           "earn-govt-g4",
           "Means testing means:",
@@ -713,10 +713,10 @@ export function year11StandardEarningMoneyLessonOverride(
         ),
       ],
       independentPractice: [
-        moneyAnswer("earn-govt-i1", "Youth Allowance base rate is $630 per fortnight. Income-free area is $620. A student earns $800 per fortnight. Find the amount of income above the threshold.", "800 - 620", "180", ["$180", "180"]),
-        moneyAnswer("earn-govt-i2", "Using the income $180 above threshold, calculate the payment reduction at 50 cents per dollar.", "0.50 \\times 180", "90", ["$90", "90.00"]),
-        moneyAnswer("earn-govt-i3", "Calculate the reduced Youth Allowance: base rate $630 minus reduction $90.", "630 - 90", "540", ["$540", "540.00", "$540.00"]),
-        moneyAnswer("earn-govt-i4", "Find total fortnightly income: earned income $800 plus reduced Youth Allowance $540.", "800 + 540", "1340", ["$1340", "1,340", "$1,340"]),
+        moneyAnswer("earn-govt-i1", "Youth Allowance base rate is $630 per fortnight. Income-free area is $620. A student earns $800 per fortnight. Find the amount of income above the threshold.", "", "180", ["$180", "180"]),
+        moneyAnswer("earn-govt-i2", "Using the income $180 above threshold, calculate the payment reduction at 50 cents per dollar.", "", "90", ["$90", "90.00"]),
+        moneyAnswer("earn-govt-i3", "Calculate the reduced Youth Allowance: base rate $630 minus reduction $90.", "", "540", ["$540", "540.00", "$540.00"]),
+        moneyAnswer("earn-govt-i4", "Find total fortnightly income: earned income $800 plus reduced Youth Allowance $540.", "", "1340", ["$1340", "1,340", "$1,340"]),
         financeChoice(
           "earn-govt-i5",
           "Family Tax Benefit is designed to help:",
@@ -739,10 +739,10 @@ export function year11StandardEarningMoneyLessonOverride(
           ["Family Tax Benefit", "Youth Allowance", "Age Pension", "Employer superannuation"],
           "Youth Allowance supports eligible young people aged 16–24 in education, training or job seeking.",
         ),
-        moneyAnswer("earn-govt-m2", "Youth Allowance base rate is $648 per fortnight. Income-free area is $620. A student earns $900 per fortnight. Find the income above the threshold.", "900 - 620", "280", ["$280", "280"]),
-        moneyAnswer("earn-govt-m3", "Calculate the payment reduction: $280 above threshold at 50 cents per dollar.", "0.50 \\times 280", "140", ["$140", "140.00", "$140.00"]),
-        moneyAnswer("earn-govt-m4", "Calculate the reduced Youth Allowance: base rate $648 minus reduction $140.", "648 - 140", "508", ["$508", "508.00", "$508.00"]),
-        moneyAnswer("earn-govt-m5", "Find total fortnightly income: earned income $900 plus reduced Youth Allowance $508.", "900 + 508", "1408", ["$1408", "1,408", "$1,408"]),
+        moneyAnswer("earn-govt-m2", "Youth Allowance base rate is $648 per fortnight. Income-free area is $620. A student earns $900 per fortnight. Find the income above the threshold.", "", "280", ["$280", "280"]),
+        moneyAnswer("earn-govt-m3", "Calculate the payment reduction: $280 above threshold at 50 cents per dollar.", "", "140", ["$140", "140.00", "$140.00"]),
+        moneyAnswer("earn-govt-m4", "Calculate the reduced Youth Allowance: base rate $648 minus reduction $140.", "", "508", ["$508", "508.00", "$508.00"]),
+        moneyAnswer("earn-govt-m5", "Find total fortnightly income: earned income $900 plus reduced Youth Allowance $508.", "", "1408", ["$1408", "1,408", "$1,408"]),
         financeChoice(
           "earn-govt-m6",
           "An income-free area means:",
@@ -750,7 +750,7 @@ export function year11StandardEarningMoneyLessonOverride(
           ["All income in Australia is tax-free up to this amount", "The payment stops completely at this income level", "The payment is not reduced until earned income exceeds this amount", "No government payments are available if income is below this level"],
           "The income-free area is the threshold below which earned income does not reduce the payment.",
         ),
-        moneyAnswer("earn-govt-m7", "A family receives $150 per fortnight in Family Tax Benefit. How much is this per year (26 fortnights)?", "150 \\times 26", "3900", ["$3900", "3,900", "$3,900"]),
+        moneyAnswer("earn-govt-m7", "A family receives $150 per fortnight in Family Tax Benefit. How much is this per year (26 fortnights)?", "", "3900", ["$3900", "3,900", "$3,900"]),
         financeChoice(
           "earn-govt-m8",
           "Which person is most likely eligible for Youth Allowance?",
@@ -758,7 +758,7 @@ export function year11StandardEarningMoneyLessonOverride(
           ["A 45-year-old full-time executive", "A 19-year-old studying full-time at TAFE", "A business owner earning $200,000 per year", "A 65-year-old retiree"],
           "Youth Allowance targets eligible young people aged 16–24 in study, training or job seeking.",
         ),
-        moneyAnswer("earn-govt-m9", "A student receives $600 per fortnight in benefits and earns $380 from part-time work. What is their total fortnightly income?", "600 + 380", "980", ["$980", "980.00", "$980.00"]),
+        moneyAnswer("earn-govt-m9", "A student receives $600 per fortnight in benefits and earns $380 from part-time work. What is their total fortnightly income?", "", "980", ["$980", "980.00", "$980.00"]),
         financeChoice(
           "earn-govt-m10",
           "Means testing ensures government payments are targeted at:",
@@ -910,14 +910,14 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-mel-g1",
           "Calculate the Medicare levy on a taxable income of $45,000. Use rate = 2%.",
-          "0.02 \\times 45\\,000",
+          "",
           "900",
           ["$900", "900.00", "$900.00"]
         ),
         moneyAnswer(
           "y11s-mel-g2",
           "A PAYG table shows $178 is withheld weekly. What is the total annual tax withheld over 52 weeks?",
-          "178 \\times 52",
+          "",
           "9256",
           ["$9256", "9256.00", "$9,256"]
         ),
@@ -931,7 +931,7 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-mel-g4",
           "A worker's tax payable is $11,500 and tax withheld was $12,100. Find the tax refund.",
-          "12\\,100 - 11\\,500",
+          "",
           "600",
           ["$600", "600.00", "$600.00"]
         ),
@@ -940,21 +940,21 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-mel-i1",
           "Calculate the Medicare levy on a taxable income of $72,000.",
-          "0.02 \\times 72\\,000",
+          "",
           "1440",
           ["$1440", "1440.00", "$1,440", "$1440.00"]
         ),
         moneyAnswer(
           "y11s-mel-i2",
           "A fortnightly PAYG table shows $395 withheld. How much is withheld over 26 fortnights?",
-          "395 \\times 26",
+          "",
           "10270",
           ["$10270", "10270.00", "$10,270"]
         ),
         moneyAnswer(
           "y11s-mel-i3",
           "Total tax payable is $14,200 (income tax $12,760 + Medicare levy $1,440). Tax withheld was $13,500. Find the payment owing.",
-          "14\\,200 - 13\\,500",
+          "",
           "700",
           ["$700", "700.00", "$700.00"]
         ),
@@ -968,7 +968,7 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-mel-i5",
           "Alex earns $850 per week gross. The PAYG table shows $132 to withhold. Calculate total tax withheld over the full year (52 weeks).",
-          "132 \\times 52",
+          "",
           "6864",
           ["$6864", "6864.00", "$6,864"]
         ),
@@ -992,9 +992,9 @@ export function year11StandardEarningMoneyLessonOverride(
         },
       ],
       masteryQuiz: [
-        moneyAnswer("y11s-mel-m1", "Calculate the Medicare levy on a taxable income of $55,000.", "0.02 \\times 55\\,000", "1100", ["$1100", "1100.00", "$1,100"]),
-        moneyAnswer("y11s-mel-m2", "Calculate the Medicare levy on a taxable income of $82,000.", "0.02 \\times 82\\,000", "1640", ["$1640", "1640.00", "$1,640"]),
-        moneyAnswer("y11s-mel-m3", "A PAYG table shows $262 withheld weekly. Calculate total tax withheld over 52 weeks.", "262 \\times 52", "13624", ["$13624", "$13,624"]),
+        moneyAnswer("y11s-mel-m1", "Calculate the Medicare levy on a taxable income of $55,000.", "", "1100", ["$1100", "1100.00", "$1,100"]),
+        moneyAnswer("y11s-mel-m2", "Calculate the Medicare levy on a taxable income of $82,000.", "", "1640", ["$1640", "1640.00", "$1,640"]),
+        moneyAnswer("y11s-mel-m3", "A PAYG table shows $262 withheld weekly. Calculate total tax withheld over 52 weeks.", "", "13624", ["$13624", "$13,624"]),
         financeChoice(
           "y11s-mel-m4",
           "A worker had $9,800 withheld and their total tax payable is $9,200. The tax return outcome is:",
@@ -1002,7 +1002,7 @@ export function year11StandardEarningMoneyLessonOverride(
           ["Refund of $600", "Payment of $600 owing", "Refund of $9,200", "No change needed"],
           "Tax withheld ($9,800) > tax payable ($9,200) → refund of $600."
         ),
-        moneyAnswer("y11s-mel-m5", "Tax payable is $12,600 and tax withheld was $11,950. Find the payment owing.", "12\\,600 - 11\\,950", "650", ["$650", "650.00", "$650.00"]),
+        moneyAnswer("y11s-mel-m5", "Tax payable is $12,600 and tax withheld was $11,950. Find the payment owing.", "", "650", ["$650", "650.00", "$650.00"]),
         financeChoice(
           "y11s-mel-m6",
           "PAYG withholding tables are used to find:",
@@ -1010,11 +1010,11 @@ export function year11StandardEarningMoneyLessonOverride(
           ["Superannuation contributions", "Annual leave pay", "Tax deducted from each pay period", "Commission rates"],
           "PAYG tables show how much tax an employer should deduct from each regular pay."
         ),
-        moneyAnswer("y11s-mel-m7", "A fortnightly PAYG table shows $480 withheld. Calculate total annual tax withheld.", "480 \\times 26", "12480", ["$12480", "$12,480"]),
+        moneyAnswer("y11s-mel-m7", "A fortnightly PAYG table shows $480 withheld. Calculate total annual tax withheld.", "", "12480", ["$12480", "$12,480"]),
         moneyAnswer(
           "y11s-mel-m8",
           "Income tax on $58,000 is $10,342. Medicare levy is 2%. Find total tax payable.",
-          "10\\,342 + 0.02 \\times 58\\,000 = 10\\,342 + 1\\,160",
+          "",
           "11502",
           ["$11502", "$11,502", "11502.00"]
         ),
@@ -1028,7 +1028,7 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-mel-m10",
           "Tax withheld is $8,750 and tax payable is $9,380. Find the payment owing.",
-          "9\\,380 - 8\\,750",
+          "",
           "630",
           ["$630", "630.00", "$630.00"]
         ),
@@ -1117,14 +1117,14 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-emr-g1",
           "Find 5% of $2,800 (commission on sales).",
-          "0.05 \\times 2\\,800",
+          "",
           "140",
           ["$140", "140.00", "$140.00"]
         ),
         moneyAnswer(
           "y11s-emr-g2",
           "A weekly wage is $950. Find the annual wage (52 weeks).",
-          "950 \\times 52",
+          "",
           "49400",
           ["$49400", "$49,400", "49400.00"]
         ),
@@ -1138,7 +1138,7 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-emr-g4",
           "A fortnightly salary is $2,200. Find the annual salary (26 fortnights).",
-          "2\\,200 \\times 26",
+          "",
           "57200",
           ["$57200", "$57,200"]
         ),
@@ -1147,21 +1147,21 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-emr-i1",
           "Find 11% of $1,400 (superannuation contribution).",
-          "0.11 \\times 1\\,400",
+          "",
           "154",
           ["$154", "154.00", "$154.00"]
         ),
         moneyAnswer(
           "y11s-emr-i2",
           "A monthly salary is $5,500. Find the annual salary (12 months).",
-          "5\\,500 \\times 12",
+          "",
           "66000",
           ["$66000", "$66,000"]
         ),
         moneyAnswer(
           "y11s-emr-i3",
           "Find 17.5% of $2,400 (leave loading on 3 weeks' pay at $800 per week).",
-          "0.175 \\times 2\\,400",
+          "",
           "420",
           ["$420", "420.00", "$420.00"]
         ),
@@ -1175,7 +1175,7 @@ export function year11StandardEarningMoneyLessonOverride(
         moneyAnswer(
           "y11s-emr-i5",
           "Find 6.5% of $4,500 (commission on sales).",
-          "0.065 \\times 4\\,500",
+          "",
           "292.50",
           ["$292.50", "292.5", "$292.5"]
         ),
@@ -1199,12 +1199,12 @@ export function year11StandardEarningMoneyLessonOverride(
         },
       ],
       masteryQuiz: [
-        moneyAnswer("y11s-emr-m1", "Find 6% of $3,500 (commission).", "0.06 \\times 3\\,500", "210", ["$210", "210.00"]),
-        moneyAnswer("y11s-emr-m2", "A weekly wage is $1,150. Find the annual wage.", "1\\,150 \\times 52", "59800", ["$59800", "$59,800"]),
-        moneyAnswer("y11s-emr-m3", "Find 11% of $2,000 (weekly superannuation on $2,000 earnings).", "0.11 \\times 2\\,000", "220", ["$220", "220.00"]),
+        moneyAnswer("y11s-emr-m1", "Find 6% of $3,500 (commission).", "", "210", ["$210", "210.00"]),
+        moneyAnswer("y11s-emr-m2", "A weekly wage is $1,150. Find the annual wage.", "", "59800", ["$59800", "$59,800"]),
+        moneyAnswer("y11s-emr-m3", "Find 11% of $2,000 (weekly superannuation on $2,000 earnings).", "", "220", ["$220", "220.00"]),
         financeChoice("y11s-emr-m4", "11% as a decimal is:", "C", ["11.0", "1.1", "0.11", "0.011"], "Divide by 100: 11 ÷ 100 = 0.11."),
-        moneyAnswer("y11s-emr-m5", "A fortnightly wage is $1,900. Find the annual wage.", "1\\,900 \\times 26", "49400", ["$49400", "$49,400"]),
-        moneyAnswer("y11s-emr-m6", "Find 17.5% of $1,680 (leave loading).", "0.175 \\times 1\\,680", "294", ["$294", "294.00"]),
+        moneyAnswer("y11s-emr-m5", "A fortnightly wage is $1,900. Find the annual wage.", "", "49400", ["$49400", "$49,400"]),
+        moneyAnswer("y11s-emr-m6", "Find 17.5% of $1,680 (leave loading).", "", "294", ["$294", "294.00"]),
         financeChoice(
           "y11s-emr-m7",
           "How many months are in one year?",
@@ -1212,8 +1212,8 @@ export function year11StandardEarningMoneyLessonOverride(
           ["10", "12", "26", "52"],
           "There are 12 months in one year."
         ),
-        moneyAnswer("y11s-emr-m8", "An annual salary is $96,000. Find the monthly salary.", "96\\,000 \\div 12", "8000", ["$8000", "$8,000"]),
-        moneyAnswer("y11s-emr-m9", "Find 4.5% of $6,000 (commission rate).", "0.045 \\times 6\\,000", "270", ["$270", "270.00"]),
+        moneyAnswer("y11s-emr-m8", "An annual salary is $96,000. Find the monthly salary.", "", "8000", ["$8000", "$8,000"]),
+        moneyAnswer("y11s-emr-m9", "Find 4.5% of $6,000 (commission rate).", "", "270", ["$270", "270.00"]),
         financeChoice(
           "y11s-emr-m10",
           "To convert a percentage to a decimal, you should:",

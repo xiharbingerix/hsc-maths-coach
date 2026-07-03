@@ -6,7 +6,9 @@ import type {
 import { pickDiagramFields, type DiagramFields } from "./lessons/diagramRegistry";
 import { isGenericMcqInstructionLatex } from "./lessons/questionHelpers";
 
-export type LessonLength = 30 | 45 | 60;
+// 10 = quick catch-up recap of a previously taught topic (tutoring recaps);
+// 30/45/60 = full first-teach lessons.
+export type LessonLength = 10 | 30 | 45 | 60;
 export type StudentLevel = "struggling" | "on-level" | "extension";
 
 // ── Serialisable output types (returned from server action) ──────────────────
@@ -240,6 +242,120 @@ function buildHomeworkSuggestion(lesson: ExplicitLesson): string {
   );
 }
 
+// ── 10-minute catch-up recap ─────────────────────────────────────────────────
+// Assumes the topic was already taught in a previous session: re-activate the
+// core idea, refresh the key formulas, run a couple of quick checks, and flag
+// whether a full re-teach is needed.
+
+function generateCatchUpPlan(
+  lesson: ExplicitLesson,
+  level: StudentLevel
+): TutorLessonPlan {
+  const sections: TutorSection[] = [];
+
+  const guided = lesson.guidedPractice.map(toTutorQuestion);
+  const independent = lesson.independentPractice.map(toTutorQuestion);
+  const mastery = lesson.masteryQuiz.map(toTutorQuestion);
+  const examples = lesson.workedExamples.map(toTutorWorkedExample);
+
+  // ── 1. Recall opener ────────────────────────────────────────────────────
+  sections.push({
+    kind: "text",
+    id: "recap-opener",
+    heading: "Recall Opener",
+    minutes: 2,
+    paragraphs: [
+      `This is a catch-up recap — the student has already been taught "${lesson.title}". The goal is to re-activate it, not re-teach it.`,
+      `Ask from memory, before showing anything on screen:`,
+      ...criteriaToTeacherQuestions(lesson.successCriteria.slice(0, 2)).map(
+        (q) => `• ${q}`
+      ),
+      ...(level === "struggling"
+        ? [
+            `Note (struggling): If neither question lands, stop the recap here and book a full lesson on this topic instead — 10 minutes is not enough to re-teach it.`,
+          ]
+        : []),
+    ],
+  });
+
+  // ── 2. Key formulas refresher ───────────────────────────────────────────
+  if (lesson.teaching.latexBlocks.length > 0) {
+    sections.push({
+      kind: "formulas",
+      id: "recap-formulas",
+      heading: "Key Formulas Refresher",
+      minutes: 1,
+      blocks: lesson.teaching.latexBlocks.slice(0, 3),
+      note: "Show each formula and ask the student to say in one sentence what it does and when to use it.",
+    });
+  }
+
+  // ── 3. One worked example, student narrates ────────────────────────────
+  if (examples.length > 0) {
+    sections.push({
+      kind: "worked-example",
+      id: "recap-example",
+      heading: "Worked Example — Student Talks You Through It",
+      minutes: 3,
+      example: examples[0],
+    });
+  }
+
+  // ── 4. Quick checks ─────────────────────────────────────────────────────
+  const quickPool = level === "extension" ? independent : guided;
+  const quickQs = quickPool.slice(0, 2);
+  if (quickQs.length > 0) {
+    sections.push({
+      kind: "questions",
+      id: "recap-quick-checks",
+      heading: "Quick Checks",
+      minutes: 3,
+      questions: quickQs,
+    });
+  }
+
+  // ── 5. Exit check ───────────────────────────────────────────────────────
+  const exitQ =
+    (level === "extension" ? mastery[0] : independent[0]) ??
+    mastery[0] ??
+    guided[quickQs.length];
+  if (exitQ && !quickQs.some((q) => q.id === exitQ.id)) {
+    sections.push({
+      kind: "questions",
+      id: "recap-exit-check",
+      heading: "Exit Check",
+      minutes: 1,
+      questions: [exitQ],
+    });
+  }
+
+  // ── 6. Follow-up ────────────────────────────────────────────────────────
+  sections.push({
+    kind: "homework",
+    id: "recap-follow-up",
+    heading: "Follow-Up",
+    minutes: 0,
+    suggestion:
+      `If the recap was shaky, schedule a full lesson on "${lesson.title}" and assign 2–3 questions from the practice pool as holding homework. ` +
+      `If it was solid, no homework needed — move the next session on to new content. ` +
+      `Students can self-practise at /course/${lesson.moduleSlug}/${lesson.slug}.`,
+  });
+
+  return {
+    title: lesson.title,
+    course: lesson.courseTitle,
+    unit: lesson.moduleTitle,
+    syllabusArea: lesson.syllabusArea,
+    length: 10,
+    level,
+    generatedAt: new Date().toISOString(),
+    learningGoal: `Recap and re-activate: ${lesson.learningIntention}`,
+    successCriteria: lesson.successCriteria,
+    sections,
+    generator: "built-in",
+  };
+}
+
 // ── Main generation function ─────────────────────────────────────────────────
 
 export function generateTutorPlan(
@@ -247,6 +363,7 @@ export function generateTutorPlan(
   opts: { length: LessonLength; level: StudentLevel }
 ): TutorLessonPlan {
   const { length, level } = opts;
+  if (length === 10) return generateCatchUpPlan(lesson, level);
   const sections: TutorSection[] = [];
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);

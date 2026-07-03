@@ -50,7 +50,7 @@ function planToText(plan: TutorLessonPlan): string {
   lines.push(`Course: ${plan.course}`);
   lines.push(`Unit: ${plan.unit}`);
   lines.push(
-    `Duration: ${plan.length} min | Level: ${plan.level} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
+    `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Level: ${plan.level} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
   );
   lines.push(`Learning goal: ${plan.learningGoal}`);
   lines.push(`Success criteria:`);
@@ -528,7 +528,7 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
           {plan.unit}
         </span>
         <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
-          {plan.length} min
+          {plan.length === 10 ? "10 min catch-up recap" : `${plan.length} min`}
         </span>
         <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
           {levelLabels[plan.level]}
@@ -774,18 +774,23 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
               Lesson length
             </label>
             <div className="flex gap-2">
-              {([30, 45, 60] as LessonLength[]).map((l) => (
+              {([10, 30, 45, 60] as LessonLength[]).map((l) => (
                 <button
                   key={l}
                   type="button"
                   onClick={() => setLength(l)}
+                  title={
+                    l === 10
+                      ? "Quick catch-up recap of a previously taught topic"
+                      : undefined
+                  }
                   className={`flex-1 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
                     length === l
                       ? "border-indigo-500 bg-indigo-500 text-white"
                       : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
                   }`}
                 >
-                  {l} min
+                  {l === 10 ? "10 min recap" : `${l} min`}
                 </button>
               ))}
             </div>

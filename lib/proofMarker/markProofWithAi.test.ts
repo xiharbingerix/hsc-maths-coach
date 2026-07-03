@@ -72,10 +72,6 @@ test("proofMarkerEnabled requires both key and flag", () => {
 });
 
 test("parseVerdict accepts only a clean boolean verdict", () => {
-  assert.deepEqual(parseVerdict('{"correct":true}', []), {
-    correct: true,
-    feedbackKeys: [],
-  });
   assert.deepEqual(parseVerdict('{"correct":true,"feedbackKeys":[]}', []), {
     correct: true,
     feedbackKeys: [],
@@ -103,12 +99,6 @@ test("verdict schema uses Anthropic-supported array constraints", () => {
 
   assert.match(encoded, /"enum":\["missing_idea"\]/);
   assert.doesNotMatch(encoded, /maxItems|uniqueItems/);
-  assert.deepEqual(buildVerdictSchema([]), {
-    type: "object",
-    properties: { correct: { type: "boolean" } },
-    required: ["correct"],
-    additionalProperties: false,
-  });
 });
 
 test("buildUserContent wraps the student text as untrusted data", () => {
@@ -259,14 +249,13 @@ test("missing grounding returns null even when enabled", async () => {
   );
 });
 
-test("short explanations require authored rubric and feedback", async () => {
+test("missing authored rubric or feedback returns null even when enabled", async () => {
   await withEnv(
     { ANTHROPIC_API_KEY: "test-key", PROOF_MARKER_ENABLED: "true" },
     async () => {
       assert.equal(
         await markProofWithAi(
           {
-            mode: "short_explanation",
             prompt: Q.prompt,
             modelSolution: Q.modelSolution,
             feedbackOptions: Q.feedbackOptions,
@@ -278,7 +267,6 @@ test("short explanations require authored rubric and feedback", async () => {
       assert.equal(
         await markProofWithAi(
           {
-            mode: "short_explanation",
             prompt: Q.prompt,
             modelSolution: Q.modelSolution,
             rubric: Q.rubric,
@@ -290,7 +278,6 @@ test("short explanations require authored rubric and feedback", async () => {
       assert.equal(
         await markProofWithAi(
           {
-            mode: "short_explanation",
             prompt: Q.prompt,
             modelSolution: Q.modelSolution,
           },

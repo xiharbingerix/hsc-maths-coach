@@ -8,7 +8,10 @@
  * Server-only: pulls in the CAS marker. The browser reaches it via /api/exam.
  */
 import { markAnswerWithCas } from "../cas/markAnswerWithCas";
-import { markProofWithAi } from "../proofMarker/markProofWithAi";
+import {
+  markProofWithAi,
+  resolveProofFeedbackOptions,
+} from "../proofMarker/markProofWithAi";
 import {
   predictExamBand,
   questionMarks,
@@ -35,6 +38,7 @@ export type QuestionResult = {
   studentAnswer?: string;
   correctAnswer?: string;
   explanation: string;
+  selectedFeedback?: string[];
   parts?: PartResult[];
 };
 
@@ -82,10 +86,21 @@ async function scoreQuestion(
         prompt: q.prompt,
         modelSolution: q.modelSolution ?? q.explanation,
         latex: q.latex,
+        rubric: q.proofRubric,
+        feedbackOptions: q.proofFeedbackOptions,
       },
       studentAnswer
     );
     const correct = verdict?.correct === true;
+    const feedbackByKey = new Map(
+      resolveProofFeedbackOptions({
+        prompt: q.prompt,
+        modelSolution: q.modelSolution ?? q.explanation,
+        latex: q.latex,
+        rubric: q.proofRubric,
+        feedbackOptions: q.proofFeedbackOptions,
+      }).map((option) => [option.key, option.text])
+    );
     return {
       id: q.id,
       marksEarned: correct ? available : 0,
@@ -94,6 +109,10 @@ async function scoreQuestion(
       studentAnswer,
       correctAnswer: "", // a proof has no single canonical answer string
       explanation: q.explanation,
+      selectedFeedback:
+        verdict?.feedbackKeys
+          ?.map((key) => feedbackByKey.get(key))
+          .filter((text): text is string => Boolean(text)) ?? [],
     };
   }
 

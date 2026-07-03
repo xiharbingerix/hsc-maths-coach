@@ -58,32 +58,20 @@ export async function POST(request: Request) {
   if (typeof body.answer !== "string") {
     return NextResponse.json({ error: "Missing answer." }, { status: 400 });
   }
-  if (
-    q.mode !== undefined &&
-    q.mode !== "proof" &&
-    q.mode !== "short_explanation"
-  ) {
+  if (q.mode !== undefined && q.mode !== "proof" && q.mode !== "short_explanation") {
     return NextResponse.json({ error: "Invalid marking mode." }, { status: 400 });
   }
-  const invalidRubric =
-    q.rubric !== undefined &&
-    (!Array.isArray(q.rubric) ||
-      q.rubric.some((item) => typeof item !== "string"));
-  const invalidFeedbackOptions =
-    q.feedbackOptions !== undefined &&
-    (!Array.isArray(q.feedbackOptions) ||
-      q.feedbackOptions.some(
-        (option) =>
-          typeof option !== "object" ||
-          option === null ||
-          typeof option.key !== "string" ||
-          typeof option.text !== "string"
-      ));
   if (
-    invalidRubric ||
-    invalidFeedbackOptions ||
-    (q.mode === "short_explanation" &&
-      (!q.rubric?.length || !q.feedbackOptions?.length))
+    !Array.isArray(q.rubric) ||
+    q.rubric.some((item) => typeof item !== "string") ||
+    !Array.isArray(q.feedbackOptions) ||
+    q.feedbackOptions.some(
+      (option) =>
+        typeof option !== "object" ||
+        option === null ||
+        typeof option.key !== "string" ||
+        typeof option.text !== "string"
+    )
   ) {
     return NextResponse.json({ error: "Missing marking criteria." }, { status: 400 });
   }

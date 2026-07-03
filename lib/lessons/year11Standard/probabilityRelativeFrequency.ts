@@ -690,9 +690,9 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["Elements in A but not B", "Elements in both A and B", "Elements in A or B or both", "Elements outside both circles"],
           "The intersection A ∩ B is the overlapping region — elements belonging to both sets.",
         ),
-        probabilityAnswer("prob-venn-g2", "A Venn diagram shows 18 soccer players and 15 basketball players with 7 playing both. How many play only soccer?", "n(A)-n(A\\cap B)=18-7", "11", ["11 students"]),
-        probabilityAnswer("prob-venn-g3", "From the same diagram with 30 students total, 11 play only soccer, 7 play both, and 8 play only basketball. How many play neither?", "30-11-7-8", "4", ["4 students"]),
-        probabilityAnswer("prob-venn-g4", "Find P(both soccer and basketball) using the Venn diagram (7 play both, 30 students total).", "\\frac{7}{30}", "7/30", ["0.23", "23%"]),
+        probabilityAnswer("prob-venn-g2", "A Venn diagram shows 18 soccer players and 15 basketball players with 7 playing both. How many play only soccer?", "", "11", ["11 students"]),
+        probabilityAnswer("prob-venn-g3", "From the same diagram with 30 students total, 11 play only soccer, 7 play both, and 8 play only basketball. How many play neither?", "", "4", ["4 students"]),
+        probabilityAnswer("prob-venn-g4", "Find P(both soccer and basketball) using the Venn diagram (7 play both, 30 students total).", "", "7/30", ["0.23", "23%"]),
       ],
       independentPractice: [
         probabilityChoice(
@@ -702,7 +702,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["Elements in A or B or both", "Elements in both A and B only", "Elements not in A", "Elements outside both circles"],
           "The union A ∪ B includes every element in at least one of the two sets.",
         ),
-        probabilityAnswer("prob-venn-i2", "15 students play basketball, 7 play both soccer and basketball. How many play only basketball?", "15-7", "8", ["8 students"]),
+        probabilityAnswer("prob-venn-i2", "15 students play basketball, 7 play both soccer and basketball. How many play only basketball?", "", "8", ["8 students"]),
         probabilityChoice(
           "prob-venn-i3",
           "A' (the complement of A) means:",
@@ -710,8 +710,8 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["Elements in both A and B", "Elements not in A", "Elements in A and not in B", "Elements in the union of A and B"],
           "The complement A' is everything outside set A.",
         ),
-        probabilityAnswer("prob-venn-i4", "26 of 30 students play soccer or basketball. Find P(soccer or basketball).", "\\frac{26}{30}", "13/15", ["26/30"]),
-        probabilityAnswer("prob-venn-i5", "4 of 30 students play neither soccer nor basketball. Find P(neither).", "\\frac{4}{30}", "2/15", ["4/30"]),
+        probabilityAnswer("prob-venn-i4", "26 of 30 students play soccer or basketball. Find P(soccer or basketball).", "", "13/15", ["26/30"]),
+        probabilityAnswer("prob-venn-i5", "4 of 30 students play neither soccer nor basketball. Find P(neither).", "", "2/15", ["4/30"]),
       ],
       commonMistakes: [
         { mistake: "Adding n(A) + n(B) without subtracting the intersection when finding the union count.", fix: "n(A ∪ B) = n(A) + n(B) − n(A ∩ B). The intersection is counted in both n(A) and n(B), so subtract it once to avoid double-counting." },
@@ -727,11 +727,11 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["Because n(A ∩ B) is always zero", "Because elements in both A and B are counted twice when adding n(A) and n(B)", "Because the intersection is in neither set", "Because n(A ∪ B) is always smaller than n(A ∩ B)"],
           "Adding n(A) + n(B) counts the overlap twice — subtracting once gives the correct union total.",
         ),
-        probabilityAnswer("prob-venn-m2", "Venn diagram: 20 like music (A), 25 like sport (B), 12 like both, 40 total. Find n(only music).", "20-12", "8", ["8 students"]),
-        probabilityAnswer("prob-venn-m3", "Find n(only sport) for the same diagram.", "25-12", "13", ["13 students"]),
-        probabilityAnswer("prob-venn-m4", "Find n(neither music nor sport) for 40 students total, with only music=8, both=12, only sport=13.", "40-8-12-13", "7", ["7 students"]),
-        probabilityAnswer("prob-venn-m5", "Find P(music or sport) from the same diagram (33 students in the union, 40 total).", "\\frac{33}{40}", "33/40", ["0.825", "82.5%"]),
-        probabilityAnswer("prob-venn-m6", "Find P(neither music nor sport) from the same diagram.", "\\frac{7}{40}", "7/40", ["0.175", "17.5%"]),
+        probabilityAnswer("prob-venn-m2", "Venn diagram: 20 like music (A), 25 like sport (B), 12 like both, 40 total. Find n(only music).", "", "8", ["8 students"]),
+        probabilityAnswer("prob-venn-m3", "Find n(only sport) for the same diagram.", "", "13", ["13 students"]),
+        probabilityAnswer("prob-venn-m4", "Find n(neither music nor sport) for 40 students total, with only music=8, both=12, only sport=13.", "", "7", ["7 students"]),
+        probabilityAnswer("prob-venn-m5", "Find P(music or sport) from the same diagram (33 students in the union, 40 total).", "", "33/40", ["0.825", "82.5%"]),
+        probabilityAnswer("prob-venn-m6", "Find P(neither music nor sport) from the same diagram.", "", "7/40", ["0.175", "17.5%"]),
         probabilityChoice(
           "prob-venn-m7",
           "In a Venn diagram, the region outside both circles represents:",
@@ -739,7 +739,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["A ∩ B", "A ∪ B", "Elements in neither A nor B", "The complement of A ∩ B only"],
           "The outside region contains elements that belong to neither set.",
         ),
-        probabilityAnswer("prob-venn-m8", "P(A ∩ B) when n(A ∩ B) = 12 and total = 40.", "\\frac{12}{40}", "3/10", ["12/40", "0.3", "30%"]),
+        probabilityAnswer("prob-venn-m8", "P(A ∩ B) when n(A ∩ B) = 12 and total = 40.", "", "3/10", ["12/40", "0.3", "30%"]),
         probabilityChoice(
           "prob-venn-m9",
           "A Venn diagram has 50 students: 20 in A, 15 in B, 8 in both. How many are in neither?",
@@ -831,7 +831,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer(
           "prob-cond-i3",
           "From the same table, bus total = 22 (Year 11: 12, Year 12: 10). Find P(Year 11 | bus).",
-          "\\text{restrict to 22 bus students; 12 are Year 11}",
+          "",
           "6/11",
           ["12/22"],
         ),
@@ -845,7 +845,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer(
           "prob-cond-i5",
           "Events A and B are independent. P(A) = 0.4. What is P(A|B)?",
-          "\\text{independent: }P(A\\mid B)=P(A)",
+          "",
           "0.4",
           ["40%", "40 percent", "2/5"],
         ),
@@ -888,7 +888,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer(
           "prob-cond-m5",
           "Soccer total = 35 (15 from Year 11). Find P(Year 11 | soccer).",
-          "\\text{restrict to 35 soccer players; 15 are Year 11}",
+          "",
           "3/7",
           ["15/35", "0.43"],
         ),
@@ -902,7 +902,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer(
           "prob-cond-m7",
           "A and B are independent. P(A) = 3/5. What is P(A|B)?",
-          "\\text{independent} \\Rightarrow P(A\\mid B)=P(A)",
+          "",
           "3/5",
           ["0.6", "60%"],
         ),
@@ -916,7 +916,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         probabilityAnswer(
           "prob-cond-m9",
           "Table of 100: 60 female (40 choc, 20 van), 40 male (30 choc, 10 van). Find P(chocolate | female).",
-          "\\text{restrict to 60 female customers; 40 chose chocolate}",
+          "",
           "2/3",
           ["40/60", "0.67", "67%"],
         ),
@@ -964,8 +964,8 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["Add the probabilities on each branch of that path", "Multiply the probabilities on each branch of that path", "Add the probabilities across all paths", "Use the complement rule only"],
           "Multiply along a single branch to combine the sequential probabilities.",
         ),
-        probabilityAnswer("prob-tree-g2", "A fair coin is tossed twice. P(H) = 1/2 each toss. Find P(HH) by multiplying along the HH branch.", "\\frac{1}{2}\\times\\frac{1}{2}", "1/4", quarters),
-        probabilityAnswer("prob-tree-g3", "Find P(HT) for the same two-coin tree.", "\\frac{1}{2}\\times\\frac{1}{2}", "1/4", quarters),
+        probabilityAnswer("prob-tree-g2", "A fair coin is tossed twice. P(H) = 1/2 each toss. Find P(HH) by multiplying along the HH branch.", "", "1/4", quarters),
+        probabilityAnswer("prob-tree-g3", "Find P(HT) for the same two-coin tree.", "", "1/4", quarters),
         probabilityChoice(
           "prob-tree-g4",
           "P(exactly one head) = P(HT) + P(TH). This uses addition because:",
@@ -975,8 +975,8 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
         ),
       ],
       independentPractice: [
-        probabilityAnswer("prob-tree-i1", "Two fair coin tosses: find P(exactly one head) = P(HT) + P(TH).", "\\frac{1}{4}+\\frac{1}{4}", "1/2", halves),
-        probabilityAnswer("prob-tree-i2", "Two fair coin tosses: find P(at least one head) = P(HH) + P(HT) + P(TH).", "\\frac{1}{4}+\\frac{1}{4}+\\frac{1}{4}", "3/4", threeQuarters),
+        probabilityAnswer("prob-tree-i1", "Two fair coin tosses: find P(exactly one head) = P(HT) + P(TH).", "", "1/2", halves),
+        probabilityAnswer("prob-tree-i2", "Two fair coin tosses: find P(at least one head) = P(HH) + P(HT) + P(TH).", "", "3/4", threeQuarters),
         probabilityChoice(
           "prob-tree-i3",
           "Bag: 2 red, 3 blue (5 total). Two drawn without replacement. After drawing a red first, the bag contains:",
@@ -984,8 +984,8 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["2 red and 3 blue (5 total)", "1 red and 3 blue (4 total)", "2 red and 2 blue (4 total)", "1 red and 2 blue (3 total)"],
           "Remove 1 red from the bag: 5 − 1 = 4 remaining, with 1 red and 3 blue.",
         ),
-        probabilityAnswer("prob-tree-i4", "Bag: 2 red, 3 blue. Without replacement: P(R₁ then R₂) = 2/5 × 1/4.", "\\frac{2}{5}\\times\\frac{1}{4}", "1/10", ["2/20", "0.1", "10%"]),
-        probabilityAnswer("prob-tree-i5", "P(R₁ then B₂) = 2/5 × 3/4.", "\\frac{2}{5}\\times\\frac{3}{4}", "3/10", ["6/20", "0.3", "30%"]),
+        probabilityAnswer("prob-tree-i4", "Bag: 2 red, 3 blue. Without replacement: P(R₁ then R₂) = 2/5 × 1/4.", "", "1/10", ["2/20", "0.1", "10%"]),
+        probabilityAnswer("prob-tree-i5", "P(R₁ then B₂) = 2/5 × 3/4.", "", "3/10", ["6/20", "0.3", "30%"]),
       ],
       commonMistakes: [
         { mistake: "Adding branch probabilities along a single path instead of multiplying.", fix: "Multiply along one branch: P(RR) = P(R₁) × P(R₂|R₁) = 2/5 × 1/4 = 1/10, not 2/5 + 1/4." },
@@ -1001,8 +1001,8 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["The sum of all possible outcomes", "The probability of that specific sequence of events", "The complement of the event", "The total number of branches"],
           "Each branch represents one sequence; multiplying along it gives its probability.",
         ),
-        probabilityAnswer("prob-tree-m2", "Bag: 2 red, 3 blue (5 total), draw 2 without replacement. P(BB) = 3/5 × 2/4.", "\\frac{3}{5}\\times\\frac{2}{4}", "3/10", ["6/20", "0.3", "30%"]),
-        probabilityAnswer("prob-tree-m3", "P(BR) = 3/5 × 2/4 for the same bag.", "\\frac{3}{5}\\times\\frac{2}{4}", "3/10", ["6/20", "0.3", "30%"]),
+        probabilityAnswer("prob-tree-m2", "Bag: 2 red, 3 blue (5 total), draw 2 without replacement. P(BB) = 3/5 × 2/4.", "", "3/10", ["6/20", "0.3", "30%"]),
+        probabilityAnswer("prob-tree-m3", "P(BR) = 3/5 × 2/4 for the same bag.", "", "3/10", ["6/20", "0.3", "30%"]),
         probabilityChoice(
           "prob-tree-m4",
           "P(at least one red) = 1 − P(BB) = 1 − 3/10. What is this?",
@@ -1010,7 +1010,7 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["3/10", "1/10", "7/10", "1/2"],
           "1 − 3/10 = 7/10.",
         ),
-        probabilityAnswer("prob-tree-m5", "P(exactly one red) = P(RB) + P(BR) = 3/10 + 3/10.", "\\frac{3}{10}+\\frac{3}{10}", "3/5", ["6/10", "0.6", "60%"]),
+        probabilityAnswer("prob-tree-m5", "P(exactly one red) = P(RB) + P(BR) = 3/10 + 3/10.", "", "3/5", ["6/10", "0.6", "60%"]),
         probabilityChoice(
           "prob-tree-m6",
           "What changes when drawing WITHOUT replacement compared to WITH replacement?",
@@ -1018,8 +1018,8 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
           ["The first-draw probabilities change", "The second-branch probabilities change because the bag has one fewer item", "Nothing changes — both give the same result", "The number of branches doubles"],
           "After one draw, the bag is smaller — the denominator on later branches decreases.",
         ),
-        probabilityAnswer("prob-tree-m7", "Bag: 3 red, 2 blue (5 total), draw 2 WITH replacement. P(RR) = 3/5 × 3/5.", "\\frac{3}{5}\\times\\frac{3}{5}", "9/25", ["0.36", "36%"]),
-        probabilityAnswer("prob-tree-m8", "Same bag with replacement: P(RB) = 3/5 × 2/5.", "\\frac{3}{5}\\times\\frac{2}{5}", "6/25", ["0.24", "24%"]),
+        probabilityAnswer("prob-tree-m7", "Bag: 3 red, 2 blue (5 total), draw 2 WITH replacement. P(RR) = 3/5 × 3/5.", "", "9/25", ["0.36", "36%"]),
+        probabilityAnswer("prob-tree-m8", "Same bag with replacement: P(RB) = 3/5 × 2/5.", "", "6/25", ["0.24", "24%"]),
         probabilityChoice(
           "prob-tree-m9",
           "For bag 2R, 3B without replacement: P(both same colour) = P(RR) + P(BB) = 1/10 + 3/10. This equals:",

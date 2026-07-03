@@ -25,6 +25,7 @@ import {
   discriminantChallenge,
   completingSquareChallenge,
   surdsIndicesChallenge,
+  directInverseVariationChallenge,
 } from "./year11Advanced";
 import {
   simpleInterestChallenge,
@@ -509,6 +510,7 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   // Year 11 Advanced
   "quadratic-equations-discriminant": discriminantChallenge,
   "completing-the-square": completingSquareChallenge,
+  "year-11-advanced/direct-inverse-variation": directInverseVariationChallenge,
   // Y10 restructure: algebraic-techniques unit dissolved; surds/indices challenge now keyed
   // to the live surds lesson it best matches (simplify/combine surds + fractional indices).
   "adding-subtracting-surds": surdsIndicesChallenge,

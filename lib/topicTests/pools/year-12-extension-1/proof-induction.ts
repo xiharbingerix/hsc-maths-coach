@@ -15,6 +15,64 @@ import type { TopicTestPool, TopicTestQuestion } from "../../types";
 const href = (lesson: string) =>
   `/course/year-12-extension-1/proof-induction/${lesson}`;
 
+function introInductionProofMeta() {
+  return {
+    proofRubric: [
+      "Checks the stated base case explicitly.",
+      "States the inductive hypothesis clearly at n = k.",
+      "Adds the correct next term for the k+1 case.",
+      "Simplifies the resulting expression to the exact target formula for k+1.",
+      "States a final conclusion by mathematical induction.",
+    ],
+    proofFeedbackOptions: [
+      { key: "base_case_missing", text: "Check the base case explicitly before starting the general step." },
+      { key: "hypothesis_missing", text: "State the inductive hypothesis clearly at n = k." },
+      { key: "next_term_missing", text: "The k+1 step must add the correct next term to the k-case expression." },
+      { key: "target_form_not_reached", text: "Simplify the k+1 working until it matches the exact target formula." },
+      { key: "conclusion_missing", text: "Finish by stating that the result follows for all integers in the domain." },
+    ],
+  };
+}
+
+function divisibilityProofMeta() {
+  return {
+    proofRubric: [
+      "Checks the stated base case explicitly.",
+      "States the inductive hypothesis in multiple form, such as expression = dm.",
+      "Substitutes the hypothesis into the k+1 expression correctly.",
+      "Factors or rearranges the result to show it is still a multiple of the divisor.",
+      "States a final conclusion by mathematical induction.",
+    ],
+    proofFeedbackOptions: [
+      { key: "base_case_missing", text: "Check the base case explicitly before starting the general step." },
+      { key: "multiple_form_missing", text: "Write the inductive hypothesis in a multiple form like expression = dm." },
+      { key: "hypothesis_not_substituted", text: "Use the inductive hypothesis inside the k+1 expression, not beside it." },
+      { key: "factor_not_extracted", text: "Rearrange the k+1 result until the divisor is clearly factored out." },
+      { key: "conclusion_missing", text: "Finish by stating that the divisibility result holds for all integers in the domain." },
+    ],
+  };
+}
+
+function inequalityProofMeta() {
+  return {
+    proofRubric: [
+      "Checks the stated base case explicitly.",
+      "States the inductive hypothesis clearly at n = k.",
+      "Uses the hypothesis to begin the k+1 inequality.",
+      "Justifies the comparison that converts the derived bound into the exact k+1 target.",
+      "States a final conclusion by mathematical induction.",
+    ],
+    proofFeedbackOptions: [
+      { key: "base_case_missing", text: "Check the stated base case explicitly before attempting the general step." },
+      { key: "hypothesis_missing", text: "State the inductive hypothesis clearly at n = k." },
+      { key: "hypothesis_not_used", text: "Use the inductive hypothesis to start the k+1 inequality, not a fresh unrelated estimate." },
+      { key: "comparison_not_justified", text: "Justify the comparison that turns your bound into the exact k+1 target." },
+      { key: "domain_condition_missing", text: "Use the condition on k or x explicitly where the inequality comparison depends on it." },
+      { key: "conclusion_missing", text: "Finish by stating that the inequality holds for all integers in the stated domain." },
+    ],
+  };
+}
+
 // ── Subtopic 1: Introduction to Mathematical Induction (series/sum formulas) ──
 const introD4: TopicTestQuestion[] = [
   {
@@ -214,6 +272,7 @@ const introD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...introInductionProofMeta(),
     explanation:
       "Base case n = 1: LHS = 1, RHS = 1(2)/2 = 1. Assume true for n = k: 1 + … + k = k(k+1)/2. Then 1 + … + k + (k+1) = k(k+1)/2 + (k+1) = (k+1)(k+2)/2, which is the formula at n = k+1. By induction it holds for all n ≥ 1.",
     modelSolution:
@@ -226,6 +285,7 @@ const introD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...introInductionProofMeta(),
     explanation:
       "Base case n = 1: LHS = 1, RHS = 1² = 1. Assume 1 + … + (2k−1) = k². Then adding the next odd term (2k+1): k² + (2k+1) = (k+1)². So it holds for k+1, and by induction for all n ≥ 1.",
     modelSolution:
@@ -238,6 +298,7 @@ const introD6: TopicTestQuestion[] = [
     marks: 4,
     difficulty: 6,
     responseType: "proof",
+    ...introInductionProofMeta(),
     explanation:
       "Base n = 1: LHS = 1, RHS = 1(2)(3)/6 = 1. Assume Σ_{r=1}^{k} r² = k(k+1)(2k+1)/6. Add (k+1)²: k(k+1)(2k+1)/6 + (k+1)² = (k+1)[k(2k+1) + 6(k+1)]/6 = (k+1)(2k² + 7k + 6)/6 = (k+1)(k+2)(2k+3)/6, the formula at k+1. By induction it holds for all n ≥ 1.",
     modelSolution:
@@ -250,6 +311,7 @@ const introD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...introInductionProofMeta(),
     explanation:
       "Base n = 1: LHS = 1, RHS = 2¹ − 1 = 1. Assume sum to k terms = 2ᵏ − 1. Add 2ᵏ: (2ᵏ − 1) + 2ᵏ = 2·2ᵏ − 1 = 2ᵏ⁺¹ − 1. So it holds for k+1, and by induction for all n ≥ 1.",
     modelSolution:
@@ -401,6 +463,7 @@ const divD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...divisibilityProofMeta(),
     explanation:
       "Base n = 1: 7 − 1 = 6, divisible by 6. Assume 7ᵏ − 1 = 6m. Then 7ᵏ⁺¹ − 1 = 7·7ᵏ − 1 = 7(6m + 1) − 1 = 42m + 6 = 6(7m + 1), divisible by 6. By induction it holds for all n ≥ 1.",
     modelSolution:
@@ -413,6 +476,7 @@ const divD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...divisibilityProofMeta(),
     explanation:
       "Base n = 1: 5 − 1 = 4. Assume 5ᵏ − 1 = 4m. Then 5ᵏ⁺¹ − 1 = 5(4m + 1) − 1 = 20m + 4 = 4(5m + 1). By induction divisible by 4 for all n ≥ 1.",
     modelSolution:
@@ -425,6 +489,7 @@ const divD6: TopicTestQuestion[] = [
     marks: 4,
     difficulty: 6,
     responseType: "proof",
+    ...divisibilityProofMeta(),
     explanation:
       "Base n = 1: 1 − 1 = 0 = 6×0. Assume k³ − k = 6m. Then (k+1)³ − (k+1) = k³ + 3k² + 3k + 1 − k − 1 = (k³ − k) + 3k² + 3k = 6m + 3k(k+1). Since k(k+1) is even, 3k(k+1) is divisible by 6, so the total is divisible by 6. By induction true for all n ≥ 1.",
     modelSolution:
@@ -437,6 +502,7 @@ const divD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...divisibilityProofMeta(),
     explanation:
       "Base n = 1: 9 − 1 = 8. Assume 9ᵏ − 1 = 8m. Then 9ᵏ⁺¹ − 1 = 9(8m + 1) − 1 = 72m + 8 = 8(9m + 1). By induction divisible by 8 for all n ≥ 1.",
     modelSolution:
@@ -551,6 +617,7 @@ const ineqD6: TopicTestQuestion[] = [
     marks: 4,
     difficulty: 6,
     responseType: "proof",
+    ...inequalityProofMeta(),
     explanation:
       "Base n = 5: 32 > 25. Assume 2ᵏ > k² for some k ≥ 5. Then 2ᵏ⁺¹ = 2·2ᵏ > 2k². It suffices that 2k² ≥ (k+1)², i.e. k² − 2k − 1 ≥ 0, true for k ≥ 3 (so certainly k ≥ 5). Hence 2ᵏ⁺¹ > (k+1)². By induction true for all n ≥ 5.",
     modelSolution:
@@ -563,6 +630,7 @@ const ineqD6: TopicTestQuestion[] = [
     marks: 4,
     difficulty: 6,
     responseType: "proof",
+    ...inequalityProofMeta(),
     explanation:
       "Base n = 4: 24 > 16. Assume k! > 2ᵏ for k ≥ 4. Then (k+1)! = (k+1)·k! > (k+1)·2ᵏ > 2·2ᵏ = 2ᵏ⁺¹ since k+1 > 2. By induction true for all n ≥ 4.",
     modelSolution:
@@ -576,6 +644,7 @@ const ineqD6: TopicTestQuestion[] = [
     marks: 4,
     difficulty: 6,
     responseType: "proof",
+    ...inequalityProofMeta(),
     explanation:
       "Base n = 1: (1+x)¹ = 1 + x ≥ 1 + x. Assume (1+x)ᵏ ≥ 1 + kx. Multiply both sides by (1+x) > 0: (1+x)ᵏ⁺¹ ≥ (1 + kx)(1 + x) = 1 + (k+1)x + kx² ≥ 1 + (k+1)x since kx² ≥ 0. By induction true for all n ≥ 1.",
     modelSolution:
@@ -588,6 +657,7 @@ const ineqD6: TopicTestQuestion[] = [
     marks: 3,
     difficulty: 6,
     responseType: "proof",
+    ...inequalityProofMeta(),
     explanation:
       "Base n = 1: 2 ≥ 2. Assume 2ᵏ ≥ k + 1. Then 2ᵏ⁺¹ = 2·2ᵏ ≥ 2(k+1) = 2k + 2 ≥ k + 2 = (k+1) + 1 since k ≥ 0. By induction true for all n ≥ 1.",
     modelSolution:

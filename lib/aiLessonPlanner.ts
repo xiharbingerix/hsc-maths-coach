@@ -193,7 +193,7 @@ QUESTIONS — CRITICAL RULES:
 - Each section must include ONLY the payload fields for its kind: text→paragraphs; formulas→blocks,note; dialogue→exchanges; worked-example→bankExampleIndex + example* fields; questions→questionIds,newQuestions; misconceptions→items; prompts→prompts; homework→suggestion.
 
 LATEX / FORMATTING RULES:
-- Prose fields (paragraphs, dialogue text, prompts, question prompt/answer/hint/explanation, mistake/fix): plain English with inline maths wrapped in $...$ (e.g. "so $f'(x)=2x$ at every point"). Never leave maths unwrapped. Write currency as $ followed by digits with no LaTeX around it (e.g. $500) — the renderer treats that as a currency sign.
+- Prose fields (paragraphs, dialogue text, prompts, question prompt/answer/hint/explanation, mistake/fix): plain English with inline maths wrapped in $...$ (e.g. "so $f'(x)=2x$ at every point"). Never leave maths unwrapped. Write currency as $ followed by digits with no LaTeX around it (e.g. $500) — the renderer treats that as a currency sign. NEVER wrap a currency amount or a bare number in maths delimiters: write $500 or 25, never $500$, $25$, or \\$500 — a stray $...$ around a number breaks the renderer for the whole sentence.
 - Pure LaTeX fields (formulas blocks, questionLatex, step latex, finalAnswerLatex, displayLatex): raw LaTeX only, NO surrounding $ delimiters.
 - Australian English, NSW syllabus terminology.
 
@@ -224,6 +224,18 @@ function describeBankQuestion(q: PracticeQuestion): string {
 function hasDiagram(q: PracticeQuestion): boolean {
   return Object.values(pickDiagramFields(q)).some((v) => v !== undefined);
 }
+
+// 10-minute plans are catch-up recaps of a previously taught topic, not a
+// compressed first-teach — this block overrides the full lesson arc.
+const RECAP_MODE = `MODE: 10-MINUTE CATCH-UP RECAP (tutoring recap session).
+The student was ALREADY TAUGHT this topic in a previous session. Do NOT re-teach from scratch and do NOT follow the full lesson arc. Structure instead:
+1. Recall opener (dialogue, ~2 min): ask the student to state the core idea and key formula FROM MEMORY before anything is shown on screen. Student lines are the recall you are listening for.
+2. Key formulas refresher (formulas, ~1 min): only the essential blocks; the note should ask the student to explain each in their own words.
+3. ONE quick worked example (~3 min), framed so the STUDENT narrates the steps while the tutor drives the screen — reuse an authored example via bankExampleIndex where possible.
+4. Quick checks (questions, ~3 min): 2 bank questions the student can each finish in about a minute. Favour D1–D3 (D3–D4 for extension students). No multi-part questions.
+5. Exit check (questions, ~1 min): one question that proves the skill is still there.
+6. Homework (0 min): what to do if the recap was shaky (book a full re-teach lesson) vs solid (move on to new content).
+Keep every section tight, introduce NO new material, and keep total section minutes at 10 (±1).`;
 
 function buildUserContent(
   lesson: ExplicitLesson,
@@ -265,6 +277,7 @@ function buildUserContent(
     `SUCCESS CRITERIA:\n${lesson.successCriteria.map((c) => `- ${c}`).join("\n")}`,
     ``,
     `LESSON LENGTH: ${length} minutes (section minutes must sum to this)`,
+    ...(length === 10 ? [RECAP_MODE] : []),
     `STUDENT PROFILE: ${LEVEL_GUIDANCE[level]}`,
     ``,
     `AUTHORED TEACHING NOTES (source material — rework into your own explicit-teaching script, do not just copy):`,
@@ -283,7 +296,9 @@ function buildUserContent(
     `QUESTION BANK (reference by id; [diagram] questions render a visual for the student):`,
     bankLines || "(no bank questions)",
     ``,
-    `TASK: Author the complete ${length}-minute one-on-one Zoom lesson plan for this student now.`,
+    length === 10
+      ? `TASK: Author the complete 10-minute one-on-one Zoom CATCH-UP RECAP plan for this student now.`
+      : `TASK: Author the complete ${length}-minute one-on-one Zoom lesson plan for this student now.`,
   ]
     .filter((l) => l !== ``)
     .join("\n");

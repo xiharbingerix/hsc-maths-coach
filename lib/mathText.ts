@@ -68,6 +68,16 @@ export function preprocessMathText(input: string): string {
       if (i + 1 < input.length && /\d/.test(input[i + 1])) {
         let k = i + 1;
         while (k < input.length && /[\d.,]/.test(input[k])) k++;
+        // "$25$" / "$8.0622$" — a bare number wrapped in $...$ is an
+        // over-wrapped currency amount (AI-authored prose does this despite
+        // instructions). Consume BOTH delimiters as one currency token;
+        // leaving the closer behind lets it pair with the next real maths
+        // opener and swallow half the sentence into a bogus maths span.
+        if (input[k] === "$") {
+          out.push(CURRENCY_SENTINEL + input.slice(i + 1, k));
+          i = k + 1;
+          continue;
+        }
         const isMathCoefficient = /[A-Za-z^_(){}+\-*/<>=\\|]/.test(input[k] ?? "");
         if (!isMathCoefficient) {
           out.push(CURRENCY_SENTINEL);

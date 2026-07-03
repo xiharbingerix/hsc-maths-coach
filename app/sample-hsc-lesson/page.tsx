@@ -110,12 +110,12 @@ export default function SampleHscLessonPage() {
             >
               Start the free sample
             </a>
-            <SubscribeCTA href="/checkout?offer=online-learning">
-              Start your 7-day free trial
+            <SubscribeCTA href="/signup">
+              Sign up free
             </SubscribeCTA>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            No signup needed to preview &middot; No charge today &middot; Then $19/month &middot; Cancel anytime
+            No signup needed to preview &middot; Free lessons &amp; practice &middot; Upgrade for exams + AI &middot; $19/month &middot; Cancel anytime
           </p>
         </section>
 
@@ -232,9 +232,8 @@ export default function SampleHscLessonPage() {
             Try these questions
           </h2>
           <p className="mt-3 leading-7 text-slate-600">
-            These questions are from the guided practice section. Start your
-            free trial to attempt them, check your answers and save your
-            progress.
+            These questions are from the guided practice section. Sign up free
+            to attempt them, check your answers and save your progress.
           </p>
 
           <div className="mt-6 space-y-4">
@@ -281,14 +280,14 @@ export default function SampleHscLessonPage() {
 
           <div className="mt-6 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-center">
             <p className="font-semibold text-slate-900">
-              Start your trial to attempt these questions and check your answers
+              Sign up free to attempt these questions and check your answers
             </p>
             <p className="mt-2 text-sm text-slate-600">
-              Your answers and progress are saved to your dashboard when subscribed.
+              Your answers and progress are saved to your dashboard once you sign up.
             </p>
             <div className="mt-4 flex justify-center">
-              <SubscribeCTA href="/checkout?offer=online-learning">
-                Start your 7-day free trial
+              <SubscribeCTA href="/signup">
+                Sign up free
               </SubscribeCTA>
             </div>
           </div>
@@ -325,8 +324,8 @@ export default function SampleHscLessonPage() {
               needs more work. Your score and progress are saved to your dashboard.
             </p>
             <div className="mt-5 flex justify-center">
-              <SubscribeCTA href="/checkout?offer=online-learning">
-                Start your 7-day free trial
+              <SubscribeCTA href="/signup">
+                Sign up free
               </SubscribeCTA>
             </div>
           </div>
@@ -339,9 +338,9 @@ export default function SampleHscLessonPage() {
             This is one lesson out of {totalActiveLessonCount} active lessons.
           </h2>
           <p className="mt-4 leading-7 text-slate-600">
-            Your trial unlocks every available NSW maths lesson from Year 8 to
+            Your free account unlocks every available NSW maths lesson from Year 8 to
             HSC - worked examples, guided practice, independent practice and
-            mastery quizzes - with saved progress across all devices.
+            mastery quizzes - with saved progress across all devices. No card required.
           </p>
           <ul className="mt-5 space-y-2">
             {[
@@ -373,13 +372,13 @@ export default function SampleHscLessonPage() {
             the quiz.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <SubscribeCTA href="/checkout?offer=online-learning">
-              Start your 7-day free trial
+            <SubscribeCTA href="/signup">
+              Sign up free
             </SubscribeCTA>
             <SecondaryLink href="/hsc-maths">View HSC maths page</SecondaryLink>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            No charge today &middot; Then $19/month &middot; Cancel anytime
+            Free lessons &amp; practice &middot; Upgrade for exams + AI &middot; $19/month &middot; Cancel anytime
           </p>
         </section>
 

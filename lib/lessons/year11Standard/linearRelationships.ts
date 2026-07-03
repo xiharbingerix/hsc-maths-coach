@@ -381,14 +381,14 @@ export function year11StandardLinearRelationshipsLessonOverride(
       guidedPractice: [
         financeChoice("linear-graph-g1", "A taxi fare is modelled by C = 4 + 2.20d. What does the 4 represent?", "B", ["Cost per kilometre", "Fixed starting fare", "Total distance", "Maximum fare"], "The constant term is the cost when d = 0."),
         moneyAnswer("linear-graph-g2", "A hire company charges C = 35 + 12h. What is the cost for 3 hours?", "C=35+12h,\\quad h=3", "71"),
-        linearAnswer("linear-graph-g3", "A table shows hire costs: 0 h costs 35 dollars, 1 h costs 47 dollars, 2 h costs 59 dollars. What is the hourly rate?", "47-35", "12", ["$12", "12 dollars", "12 dollars per hour", "$12/h"]),
+        linearAnswer("linear-graph-g3", "A table shows hire costs: 0 h costs 35 dollars, 1 h costs 47 dollars, 2 h costs 59 dollars. What is the hourly rate?", "", "12", ["$12", "12 dollars", "12 dollars per hour", "$12/h"]),
         financeChoice("linear-graph-g4", "A water tank model V = 120 - 8t has a graph that:", "C", ["Starts at 8 and increases", "Starts at 0 and increases", "Starts at 120 and decreases", "Has no starting value"], "The intercept is 120 and the gradient is negative."),
       ],
       independentPractice: [
         financeChoice("linear-graph-i1", "A phone plan is C = 20 + 5g, where g is gigabytes used. What does 5 represent?", "A", ["Cost per gigabyte", "Fixed monthly fee", "Total cost", "Number of months"], "The coefficient of g is the rate per gigabyte."),
-        moneyAnswer("linear-graph-i2", "A bike hire costs 18 dollars plus 9 dollars per hour. What is the total cost for 4 hours?", "C=18+9h,\\quad h=4", "54"),
-        linearAnswer("linear-graph-i3", "A savings balance is S = 60 + 25w. What is the starting balance?", "S=60\\text{ when }w=0", "60", ["$60", "60 dollars"]),
-        linearAnswer("linear-graph-i4", "A tank starts at 200 L and drains at 10 L/min. Write a rule for volume V after t minutes.", "V=200-10t", "V = 200 - 10t", ["V=200-10t", "v=200-10t", "V=-10t+200", "v=-10t+200"]),
+        moneyAnswer("linear-graph-i2", "A bike hire costs 18 dollars plus 9 dollars per hour. What is the total cost for 4 hours?", "", "54"),
+        linearAnswer("linear-graph-i3", "A savings balance is S = 60 + 25w. What is the starting balance?", "", "60", ["$60", "60 dollars"]),
+        linearAnswer("linear-graph-i4", "A tank starts at 200 L and drains at 10 L/min. Write a rule for volume V after t minutes.", "", "V = 200 - 10t", ["V=200-10t", "v=200-10t", "V=-10t+200", "v=-10t+200"]),
         financeChoice("linear-graph-i5", "A graph of cost against hours crosses the vertical axis at 35. In context, this is the:", "D", ["Hourly rate", "Travel time", "Gradient only", "Fixed starting cost"], "The vertical intercept is the starting cost."),
       ],
       commonMistakes: [
@@ -404,8 +404,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
         linearAnswer("linear-graph-m4", "A table has costs 35, 47, 59, 71 for 0, 1, 2, 3 hours. What is the gradient?", "\\text{costs: }35,47,59,71\\text{ for }h=0,1,2,3", "12", ["$12", "12 dollars per hour", "$12/h"]),
         linearAnswer("linear-graph-m5", "A water tank starts with 120 L and drains at 8 L/min. Write the rule for volume V after t minutes.", "V_0=120\\text{ L},\\quad \\text{rate}=8\\text{ L/min}", "V = 120 - 8t", ["V=120-8t", "v=120-8t", "V=-8t+120", "v=-8t+120"]),
         financeChoice("linear-graph-m6", "A decreasing straight-line graph in a tank context most likely represents:", "B", ["A tank filling", "A tank draining", "A fixed fee", "A bar chart"], "A decreasing volume suggests draining."),
-        moneyAnswer("linear-graph-m7", "A phone plan costs 25 dollars plus 4 dollars per extra GB. Find the cost for 6 extra GB.", "C=25+4g,\\quad g=6", "49"),
-        linearAnswer("linear-graph-m8", "A savings model is S = 100 + 30w. What is the weekly increase?", "30", "30", ["$30", "30 dollars", "30 dollars per week", "$30/week"]),
+        moneyAnswer("linear-graph-m7", "A phone plan costs 25 dollars plus 4 dollars per extra GB. Find the cost for 6 extra GB.", "", "49"),
+        linearAnswer("linear-graph-m8", "A savings model is S = 100 + 30w. What is the weekly increase?", "", "30", ["$30", "30 dollars", "30 dollars per week", "$30/week"]),
         financeChoice("linear-graph-m9", "A graph crossing the vertical axis at 0 means the starting value is:", "D", ["The gradient", "The maximum", "Unknown always", "Zero"], "The vertical intercept is the starting value."),
         financeChoice("linear-graph-m10", "A practical linear model should usually be used:", "A", ["Within the context and sensible input range", "For all possible values forever", "Only at negative times", "Without checking units"], "Practical models have context limits."),
       ],
@@ -438,16 +438,16 @@ export function year11StandardLinearRelationshipsLessonOverride(
         ],
       },
       guidedPractice: [
-        linearAnswer("linear-direct-g1", "Fuel costs 1.80 dollars per litre. Write a direct variation rule for cost C in dollars for L litres.", "C=1.80L", "C = 1.80L", ["C=1.80L", "c=1.80L", "C=1.8L", "c=1.8L"]),
-        moneyAnswer("linear-direct-g2", "Using C = 1.80L, find the cost of 20 L of fuel.", "1.80\\times 20", "36"),
+        linearAnswer("linear-direct-g1", "Fuel costs 1.80 dollars per litre. Write a direct variation rule for cost C in dollars for L litres.", "", "C = 1.80L", ["C=1.80L", "c=1.80L", "C=1.8L", "c=1.8L"]),
+        moneyAnswer("linear-direct-g2", "Using C = 1.80L, find the cost of 20 L of fuel.", "", "36"),
         financeChoice("linear-direct-g3", "Which model is direct variation?", "B", ["C = 10 + 4h", "C = 4h", "C = 4h + 10", "C = 10"], "Direct variation has the form y = kx and passes through the origin."),
         financeChoice("linear-direct-g4", "A scooter hire has a 10 dollar unlock fee plus 4 dollars per hour. This is not direct variation because:", "C", ["It has hours", "It is linear", "It has a fixed fee", "It has a rate"], "The fixed fee means the graph does not pass through the origin."),
       ],
       independentPractice: [
-        linearAnswer("linear-direct-i1", "A currency conversion uses 1 AUD = 0.65 USD. Write a rule for U USD from A Australian dollars.", "U=0.65A", "U = 0.65A", ["U=0.65A", "u=0.65a", "U=.65A", "u=.65a"]),
-        linearAnswer("linear-direct-i2", "A recipe uses 250 g of pasta per person. Write a rule for grams G for p people.", "G=250p", "G = 250p", ["G=250p", "g=250p"]),
+        linearAnswer("linear-direct-i1", "A currency conversion uses 1 AUD = 0.65 USD. Write a rule for U USD from A Australian dollars.", "", "U = 0.65A", ["U=0.65A", "u=0.65a", "U=.65A", "u=.65a"]),
+        linearAnswer("linear-direct-i2", "A recipe uses 250 g of pasta per person. Write a rule for grams G for p people.", "", "G = 250p", ["G=250p", "g=250p"]),
         financeChoice("linear-direct-i3", "A plan C = 20 + 5g is:", "D", ["Direct variation", "A graph through the origin", "A model with no fixed cost", "Linear but not direct variation"], "The fixed 20 means it is not direct variation."),
-        moneyAnswer("linear-direct-i4", "A stall sells apples at 3 dollars per kg. What is the cost of 4 kg?", "3\\times 4", "12"),
+        moneyAnswer("linear-direct-i4", "A stall sells apples at 3 dollars per kg. What is the cost of 4 kg?", "", "12"),
         financeChoice("linear-direct-i5", "For the displayed direct variation rule, the value shown as k is the:", "A", ["Constant of variation", "Fixed fee", "x-intercept always", "Maximum value"], "k is the constant multiplier.", "y=kx"),
       ],
       commonMistakes: [
@@ -458,10 +458,10 @@ export function year11StandardLinearRelationshipsLessonOverride(
       ],
       masteryQuiz: [
         financeChoice("linear-direct-m1", "A graph of direct variation must pass through:", "A", ["The origin", "The point (0, 5)", "The highest point", "The x-axis at 10 only"], "Direct variation has y = 0 when x = 0."),
-        linearAnswer("linear-direct-m2", "Printing costs 12 cents per page. Write a direct variation rule for cost C in cents for p pages.", "C=12p", "C = 12p", ["C=12p", "c=12p"]),
+        linearAnswer("linear-direct-m2", "Printing costs 12 cents per page. Write a direct variation rule for cost C in cents for p pages.", "", "C = 12p", ["C=12p", "c=12p"]),
         moneyAnswer("linear-direct-m3", "A drink costs 2.50 dollars per bottle. What is the cost of 8 bottles?", "\\text{price}=2.50\\text{ per bottle},\\quad n=8", "20"),
         financeChoice("linear-direct-m4", "Which relationship is not direct variation?", "C", ["C = 3n", "D = 80t", "C = 15 + 2n", "M = 100b"], "C = 15 + 2n has a fixed cost."),
-        linearAnswer("linear-direct-m5", "A conversion uses 1 km = 0.621 miles. Write a rule for miles M from kilometres k.", "M=0.621k", "M = 0.621k", ["M=0.621k", "m=0.621k"]),
+        linearAnswer("linear-direct-m5", "A conversion uses 1 km = 0.621 miles. Write a rule for miles M from kilometres k.", "", "M = 0.621k", ["M=0.621k", "m=0.621k"]),
         financeChoice("linear-direct-m6", "A taxi fare with a flagfall fee is usually:", "D", ["Direct variation", "A graph through the origin", "No fixed cost", "Linear with an intercept"], "A flagfall is a fixed starting cost."),
         moneyAnswer("linear-direct-m7", "A car uses fuel at 9 L per 100 km. In a simplified direct model, how many litres for 300 km?", "\\text{rate}=9\\text{ L per }100\\text{ km},\\quad d=300\\text{ km}", "27"),
         linearAnswer("linear-direct-m8", "A direct variation relationship is shown. Find the constant of variation.", "y=kx,\\quad y=24\\text{ when }x=6", "4", ["k=4"]),
@@ -505,15 +505,15 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["80", "60", "140", "20"],
           "The gradient is the rate per hour: $60/h. The $80 is the fixed starting cost.",
         ),
-        linearAnswer("linear-constr-g2", "A tradesman charges a $80 callout fee plus $60 per hour. Write a rule for cost C after h hours.", "C = 80 + 60h", "C = 80 + 60h", ["C=80+60h", "c=80+60h", "C=60h+80", "c=60h+80"]),
-        linearAnswer("linear-constr-g3", "Two points on a linear graph are (0, 40) and (5, 90). Find the gradient.", "m = \\frac{90-40}{5-0}", "10", ["m=10", "gradient = 10", "10 per unit"]),
+        linearAnswer("linear-constr-g2", "A tradesman charges a $80 callout fee plus $60 per hour. Write a rule for cost C after h hours.", "", "C = 80 + 60h", ["C=80+60h", "c=80+60h", "C=60h+80", "c=60h+80"]),
+        linearAnswer("linear-constr-g3", "Two points on a linear graph are (0, 40) and (5, 90). Find the gradient.", "", "10", ["m=10", "gradient = 10", "10 per unit"]),
         linearAnswer("linear-constr-g4", "Using gradient 10 and y-intercept 40, write the linear rule for C in terms of x.", "m=10,\\quad b=40", "C = 40 + 10x", ["C=40+10x", "C=10x+40", "c=40+10x", "c=10x+40"]),
       ],
       independentPractice: [
-        linearAnswer("linear-constr-i1", "A table shows x = 0, 1, 2, 3 with y = 15, 23, 31, 39. What is the gradient?", "23-15", "8", ["m=8", "gradient = 8", "8 per unit", "$8"]),
+        linearAnswer("linear-constr-i1", "A table shows x = 0, 1, 2, 3 with y = 15, 23, 31, 39. What is the gradient?", "", "8", ["m=8", "gradient = 8", "8 per unit", "$8"]),
         linearAnswer("linear-constr-i2", "Using that table (starting at 15, gradient 8), write the rule for y in terms of x.", "b=15,\\quad m=8", "y = 15 + 8x", ["y=15+8x", "y=8x+15", "C=15+8x", "C=8x+15"]),
-        linearAnswer("linear-constr-i3", "Two points are (2, 30) and (5, 51). Find the gradient.", "m = \\frac{51-30}{5-2}", "7", ["m=7", "gradient = 7", "7 per unit"]),
-        moneyAnswer("linear-constr-i4", "A gym membership costs a $25 joining fee plus $12 per month. Find the total cost after 6 months.", "C=25+12\\times 6", "97"),
+        linearAnswer("linear-constr-i3", "Two points are (2, 30) and (5, 51). Find the gradient.", "", "7", ["m=7", "gradient = 7", "7 per unit"]),
+        moneyAnswer("linear-constr-i4", "A gym membership costs a $25 joining fee plus $12 per month. Find the total cost after 6 months.", "", "97"),
         financeChoice(
           "linear-constr-i5",
           "Which pair of points gives a gradient of 3?",
@@ -529,7 +529,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
         { mistake: "Not verifying the rule by substituting a second known point.", fix: "After finding the rule, substitute a second point from the table or problem to confirm the rule is correct." },
       ],
       masteryQuiz: [
-        moneyAnswer("linear-constr-m1", "A taxi charges $4 plus $2.50 per km. Find the total cost for 6 km.", "4+2.50\\times 6", "19"),
+        moneyAnswer("linear-constr-m1", "A taxi charges $4 plus $2.50 per km. Find the total cost for 6 km.", "", "19"),
         financeChoice(
           "linear-constr-m2",
           "Two points (0, 20) and (3, 35) give gradient:",
@@ -538,9 +538,9 @@ export function year11StandardLinearRelationshipsLessonOverride(
           "(35 − 20) ÷ (3 − 0) = 15 ÷ 3 = 5.",
         ),
         linearAnswer("linear-constr-m3", "Using gradient 5 and intercept 20, write the rule for C in terms of n.", "m=5,\\quad b=20", "C = 20 + 5n", ["C=20+5n", "C=5n+20", "c=20+5n"]),
-        linearAnswer("linear-constr-m4", "A table has x = 0, 2, 4, 6 with y = 10, 18, 26, 34. Find the gradient.", "m = \\frac{18-10}{2-0}", "4", ["m=4", "gradient = 4", "4 per 2 units → 4/unit → 4"]),
+        linearAnswer("linear-constr-m4", "A table has x = 0, 2, 4, 6 with y = 10, 18, 26, 34. Find the gradient.", "", "4", ["m=4", "gradient = 4", "4 per 2 units → 4/unit → 4"]),
         linearAnswer("linear-constr-m5", "Using gradient 4 and intercept 10, write the rule for y in terms of x.", "m=4,\\quad b=10", "y = 10 + 4x", ["y=10+4x", "y=4x+10", "C=10+4x"]),
-        moneyAnswer("linear-constr-m6", "Use y = 10 + 4x to find y when x = 7.", "y=10+4\\times 7", "38"),
+        moneyAnswer("linear-constr-m6", "Use y = 10 + 4x to find y when x = 7.", "", "38"),
         financeChoice(
           "linear-constr-m7",
           "A tradesman charges a $60 callout fee and $75 per hour. The y-intercept in the cost rule is:",
@@ -548,9 +548,9 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["75", "60", "135", "0"],
           "The y-intercept is the fixed cost at zero hours: $60.",
         ),
-        moneyAnswer("linear-constr-m8", "Tickets cost $15 each with a $5 booking fee. Find the total cost for 8 tickets.", "5+15\\times 8", "125"),
-        linearAnswer("linear-constr-m9", "A pool starts empty and fills at 40 L/min. After how many minutes does it hold 2000 L?", "40t = 2000", "50", ["t=50", "50 minutes", "50 min"]),
-        linearAnswer("linear-constr-m10", "A hire cost line passes through (1, 45) and (4, 87). Find the hourly rate (gradient).", "m = \\frac{87-45}{4-1}", "14", ["m=14", "gradient = 14", "$14 per hour", "14 per hour"]),
+        moneyAnswer("linear-constr-m8", "Tickets cost $15 each with a $5 booking fee. Find the total cost for 8 tickets.", "", "125"),
+        linearAnswer("linear-constr-m9", "A pool starts empty and fills at 40 L/min. After how many minutes does it hold 2000 L?", "", "50", ["t=50", "50 minutes", "50 min"]),
+        linearAnswer("linear-constr-m10", "A hire cost line passes through (1, 45) and (4, 87). Find the hourly rate (gradient).", "", "14", ["m=14", "gradient = 14", "$14 per hour", "14 per hour"]),
       ],
     };
   }
@@ -588,8 +588,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["$0.20/kWh", "$0.30/kWh", "Both rates equally", "$0.25/kWh (average)"],
           "150 ≤ 200, so the first-tier rate of $0.20/kWh applies to all 150 kWh.",
         ),
-        moneyAnswer("linear-piece-g2", "Using $0.20/kWh for the first 200 kWh, find the electricity cost for 150 kWh.", "0.20 \\times 150", "30"),
-        moneyAnswer("linear-piece-g3", "A customer uses 280 kWh. The first 200 kWh cost $0.20 each; the remaining 80 kWh cost $0.30 each. Find the total cost.", "200 \\times 0.20 + 80 \\times 0.30", "64"),
+        moneyAnswer("linear-piece-g2", "Using $0.20/kWh for the first 200 kWh, find the electricity cost for 150 kWh.", "", "30"),
+        moneyAnswer("linear-piece-g3", "A customer uses 280 kWh. The first 200 kWh cost $0.20 each; the remaining 80 kWh cost $0.30 each. Find the total cost.", "", "64"),
         financeChoice(
           "linear-piece-g4",
           "Which of these best describes a step function?",
@@ -599,10 +599,10 @@ export function year11StandardLinearRelationshipsLessonOverride(
         ),
       ],
       independentPractice: [
-        moneyAnswer("linear-piece-i1", "A parking fee is $0 for the first 2 hours, then $4 per hour after. Find the fee for 5 hours.", "3 \\times 4", "12"),
-        moneyAnswer("linear-piece-i2", "Postage: up to 100 g costs $2.00, and 101–250 g costs $4.00. Find the postage for a 180 g parcel.", "\\text{180 g} \\in [101,250]", "4"),
-        moneyAnswer("linear-piece-i3", "An electricity tariff: first 300 kWh at $0.18/kWh, remainder at $0.28/kWh. Find the cost for 450 kWh.", "300 \\times 0.18 + 150 \\times 0.28", "96"),
-        moneyAnswer("linear-piece-i4", "A phone tariff: first 100 min at $0.05/min, then 101–500 min at $0.03/min. Find the cost for 350 min.", "100 \\times 0.05 + 250 \\times 0.03", "12.5", ["12.50", "$12.50", "$12.5"]),
+        moneyAnswer("linear-piece-i1", "A parking fee is $0 for the first 2 hours, then $4 per hour after. Find the fee for 5 hours.", "", "12"),
+        moneyAnswer("linear-piece-i2", "Postage: up to 100 g costs $2.00, and 101–250 g costs $4.00. Find the postage for a 180 g parcel.", "", "4"),
+        moneyAnswer("linear-piece-i3", "An electricity tariff: first 300 kWh at $0.18/kWh, remainder at $0.28/kWh. Find the cost for 450 kWh.", "", "96"),
+        moneyAnswer("linear-piece-i4", "A phone tariff: first 100 min at $0.05/min, then 101–500 min at $0.03/min. Find the cost for 350 min.", "", "12.5", ["12.50", "$12.50", "$12.5"]),
         financeChoice(
           "linear-piece-i5",
           "A piecewise model uses one rule for x ≤ 10 and another for x > 10. For x = 10, which rule applies?",
@@ -625,9 +625,9 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["300 × 0.22", "300 × 0.32", "250 × 0.22 + 50 × 0.32", "50 × 0.22 + 250 × 0.32"],
           "Split at 250: 250 kWh at $0.22 plus 50 kWh at $0.32.",
         ),
-        moneyAnswer("linear-piece-m2", "Using the tariff from the previous question, find the cost for 300 kWh.", "250 \\times 0.22 + 50 \\times 0.32", "71"),
-        moneyAnswer("linear-piece-m3", "A gym: $5 per visit for the first 10 visits, $3 per visit after. Find the cost for 15 visits.", "10 \\times 5 + 5 \\times 3", "65"),
-        moneyAnswer("linear-piece-m4", "Postage: up to 250 g = $3.50, 251–500 g = $6.00. Find the cost for a 400 g parcel.", "\\text{400 g} \\in [251,500]", "6"),
+        moneyAnswer("linear-piece-m2", "Using the tariff from the previous question, find the cost for 300 kWh.", "", "71"),
+        moneyAnswer("linear-piece-m3", "A gym: $5 per visit for the first 10 visits, $3 per visit after. Find the cost for 15 visits.", "", "65"),
+        moneyAnswer("linear-piece-m4", "Postage: up to 250 g = $3.50, 251–500 g = $6.00. Find the cost for a 400 g parcel.", "", "6"),
         financeChoice(
           "linear-piece-m5",
           "Parking is free for the first 2 hours, then $4 per hour. The cost for exactly 2 hours is:",
@@ -635,9 +635,9 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["$4", "$8", "$0", "$2"],
           "2 hours falls within the free period — no charge.",
         ),
-        moneyAnswer("linear-piece-m6", "Using the same parking fee (free for first 2 hours, $4 per hour after), find the fee for 7 hours.", "(7-2) \\times 4", "20"),
-        moneyAnswer("linear-piece-m7", "Electricity tariff: first 200 kWh at $0.15/kWh, rest at $0.25/kWh. Find cost for 350 kWh.", "200 \\times 0.15 + 150 \\times 0.25", "67.5", ["67.50", "$67.50", "$67.5"]),
-        moneyAnswer("linear-piece-m8", "Water rate: first 200 kL per quarter at $1.20/kL, remainder at $2.40/kL. A household uses 280 kL. Find the bill.", "200 \\times 1.20 + 80 \\times 2.40", "432"),
+        moneyAnswer("linear-piece-m6", "Using the same parking fee (free for first 2 hours, $4 per hour after), find the fee for 7 hours.", "", "20"),
+        moneyAnswer("linear-piece-m7", "Electricity tariff: first 200 kWh at $0.15/kWh, rest at $0.25/kWh. Find cost for 350 kWh.", "", "67.5", ["67.50", "$67.50", "$67.5"]),
+        moneyAnswer("linear-piece-m8", "Water rate: first 200 kL per quarter at $1.20/kL, remainder at $2.40/kL. A household uses 280 kL. Find the bill.", "", "432"),
         financeChoice(
           "linear-piece-m9",
           "A piecewise model differs from a single linear model because:",
@@ -645,7 +645,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["It always passes through the origin", "It has one constant gradient everywhere", "It uses different rules for different input ranges", "It can only apply to electricity"],
           "A piecewise model applies different rules across different portions of the domain.",
         ),
-        moneyAnswer("linear-piece-m10", "A data tariff: first 10 GB included free, then $2 per GB extra. Find the cost for 14 GB.", "(14-10) \\times 2", "8"),
+        moneyAnswer("linear-piece-m10", "A data tariff: first 10 GB included free, then $2 per GB extra. Find the cost for 14 GB.", "", "8"),
       ],
     };
   }
@@ -684,15 +684,15 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["60 + 2n", "5n", "5 + n", "2n"],
           "Revenue = selling price × quantity = 5n.",
         ),
-        linearAnswer("linear-beven-g2", "A stall has fixed costs of $60 and variable cost $2 per item. Write the cost rule for n items.", "C = 60 + 2n", "C = 60 + 2n", ["C=60+2n", "c=60+2n", "C=2n+60"]),
+        linearAnswer("linear-beven-g2", "A stall has fixed costs of $60 and variable cost $2 per item. Write the cost rule for n items.", "", "C = 60 + 2n", ["C=60+2n", "c=60+2n", "C=2n+60"]),
         linearAnswer("linear-beven-g3", "Set 5n = 60 + 2n and solve for the break-even quantity n.", "5n = 60 + 2n", "20", ["n=20", "20 items"]),
-        moneyAnswer("linear-beven-g4", "Find the break-even revenue by substituting n = 20 into R = 5n.", "R=5\\times 20", "100"),
+        moneyAnswer("linear-beven-g4", "Find the break-even revenue by substituting n = 20 into R = 5n.", "", "100"),
       ],
       independentPractice: [
-        linearAnswer("linear-beven-i1", "A product sells for $8 each. Fixed costs are $90, variable cost $3 per item. Write the cost rule.", "C = 90 + 3n", "C = 90 + 3n", ["C=90+3n", "c=90+3n"]),
+        linearAnswer("linear-beven-i1", "A product sells for $8 each. Fixed costs are $90, variable cost $3 per item. Write the cost rule.", "", "C = 90 + 3n", ["C=90+3n", "c=90+3n"]),
         linearAnswer("linear-beven-i2", "Set 8n = 90 + 3n and solve for the break-even quantity n.", "8n = 90 + 3n", "18", ["n=18", "18 items"]),
-        moneyAnswer("linear-beven-i3", "Find the break-even revenue using R = 8n and n = 18.", "R=8\\times 18", "144"),
-        linearAnswer("linear-beven-i4", "A market stall sells at $10 per item. Fixed cost $120, variable cost $4 per item. Find the break-even quantity.", "10n = 120 + 4n", "20", ["n=20", "20 items"]),
+        moneyAnswer("linear-beven-i3", "Find the break-even revenue using R = 8n and n = 18.", "", "144"),
+        linearAnswer("linear-beven-i4", "A market stall sells at $10 per item. Fixed cost $120, variable cost $4 per item. Find the break-even quantity.", "", "20", ["n=20", "20 items"]),
         financeChoice(
           "linear-beven-i5",
           "At the break-even point, profit is:",
@@ -708,8 +708,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
         { mistake: "Confusing profit with revenue — reporting revenue as profit.", fix: "Profit = Revenue − Cost. If selling 25 items at $5 gives revenue $125 but cost is $110, profit is $15, not $125." },
       ],
       masteryQuiz: [
-        linearAnswer("linear-beven-m1", "A food truck earns $12 per meal. Fixed costs $160, variable cost $4 per meal. Write the cost rule.", "C = 160 + 4n", "C = 160 + 4n", ["C=160+4n", "c=160+4n"]),
-        linearAnswer("linear-beven-m2", "Write the revenue rule for the food truck (selling at $12 per meal).", "R = 12n", "R = 12n", ["R=12n", "r=12n"]),
+        linearAnswer("linear-beven-m1", "A food truck earns $12 per meal. Fixed costs $160, variable cost $4 per meal. Write the cost rule.", "", "C = 160 + 4n", ["C=160+4n", "c=160+4n"]),
+        linearAnswer("linear-beven-m2", "Write the revenue rule for the food truck (selling at $12 per meal).", "", "R = 12n", ["R=12n", "r=12n"]),
         financeChoice(
           "linear-beven-m3",
           "To find the break-even quantity, you should:",
@@ -717,8 +717,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["Set Cost = 0", "Set Revenue = 0", "Set Revenue = Cost", "Subtract Revenue from Cost"],
           "Break-even is the point where Revenue = Cost.",
         ),
-        linearAnswer("linear-beven-m4", "Solve 12n = 160 + 4n to find the break-even quantity.", "12n = 160 + 4n \\Rightarrow 8n = 160", "20", ["n=20", "20 meals"]),
-        moneyAnswer("linear-beven-m5", "Find the break-even revenue for the food truck using R = 12n and n = 20.", "R=12\\times 20", "240"),
+        linearAnswer("linear-beven-m4", "Solve 12n = 160 + 4n to find the break-even quantity.", "", "20", ["n=20", "20 meals"]),
+        moneyAnswer("linear-beven-m5", "Find the break-even revenue for the food truck using R = 12n and n = 20.", "", "240"),
         financeChoice(
           "linear-beven-m6",
           "A stall sells 30 items. Revenue = $150 and Cost = $120. The profit is:",
@@ -726,9 +726,9 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["$150", "$120", "$30", "-$30"],
           "Profit = Revenue − Cost = $150 − $120 = $30.",
         ),
-        linearAnswer("linear-beven-m7", "A popcorn stall charges $6 per bag. Fixed cost $90, variable cost $1 per bag. Find the break-even quantity.", "6n = 90 + n \\Rightarrow 5n = 90", "18", ["n=18", "18 bags"]),
-        moneyAnswer("linear-beven-m8", "Find the break-even revenue for the popcorn stall (n = 18, R = 6n).", "R=6\\times 18", "108"),
-        linearAnswer("linear-beven-m9", "A craft stall sells items at $15 each. Fixed cost $180, variable cost $6 per item. Find the quantity needed to make a $90 profit.", "9n - 180 = 90 \\Rightarrow 9n = 270", "30", ["n=30", "30 items"]),
+        linearAnswer("linear-beven-m7", "A popcorn stall charges $6 per bag. Fixed cost $90, variable cost $1 per bag. Find the break-even quantity.", "", "18", ["n=18", "18 bags"]),
+        moneyAnswer("linear-beven-m8", "Find the break-even revenue for the popcorn stall (n = 18, R = 6n).", "", "108"),
+        linearAnswer("linear-beven-m9", "A craft stall sells items at $15 each. Fixed cost $180, variable cost $6 per item. Find the quantity needed to make a $90 profit.", "", "30", ["n=30", "30 items"]),
         financeChoice(
           "linear-beven-m10",
           "A stall with fixed costs $100 sells items at $8 each, variable cost $3. At n = 15 items, the stall has:",
@@ -791,7 +791,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
         ),
       ],
       independentPractice: [
-        moneyAnswer("linear-limit-i1", "A car hire costs C = 80 + 0.25d. Find the maximum cost if the car can travel at most 1000 km.", "80 + 0.25 \\times 1000", "330"),
+        moneyAnswer("linear-limit-i1", "A car hire costs C = 80 + 0.25d. Find the maximum cost if the car can travel at most 1000 km.", "", "330"),
         linearAnswer("linear-limit-i2", "A savings model is S = 50 + 30w. After how many weeks does the model predict a balance of $500?", "50 + 30w = 500", "15", ["w=15", "15 weeks"]),
         financeChoice(
           "linear-limit-i3",
@@ -800,8 +800,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["Monthly growth is impossible", "Resources or demand may limit growth over a long period", "Linear models are always accurate for factories", "5 years is the same as 5 months"],
           "A constant growth rate over 5 years is unlikely — resources, staffing, or demand will change.",
         ),
-        linearAnswer("linear-limit-i4", "A water model V = 120 − 8t is used for 0 ≤ t ≤ 15 minutes. What is the model's output at t = 15 (the boundary)?", "V = 120 - 8\\times 15", "0", ["V=0", "0 L", "zero"]),
-        linearAnswer("linear-limit-i5", "A population model P = 1200 + 50t is extrapolated to t = 100 years. What value does the model predict?", "P = 1200 + 50\\times 100", "6200", ["P=6200", "6200 people"]),
+        linearAnswer("linear-limit-i4", "A water model V = 120 − 8t is used for 0 ≤ t ≤ 15 minutes. What is the model's output at t = 15 (the boundary)?", "", "0", ["V=0", "0 L", "zero"]),
+        linearAnswer("linear-limit-i5", "A population model P = 1200 + 50t is extrapolated to t = 100 years. What value does the model predict?", "", "6200", ["P=6200", "6200 people"]),
       ],
       commonMistakes: [
         { mistake: "Applying a model for inputs that make the output negative or physically impossible.", fix: "Find the domain first: set the output to its minimum meaningful value (often 0) and solve to find the upper limit of valid input." },
@@ -818,7 +818,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
           "A model is only meaningful within the context and range for which it was built.",
         ),
         linearAnswer("linear-limit-m2", "A battery model is B = 100 − 2h for h hours of use. After how many hours does B = 0?", "100 - 2h = 0", "50", ["h=50", "50 hours", "50 h"]),
-        linearAnswer("linear-limit-m3", "For the battery model B = 100 − 2h, state the upper limit of the valid domain (the value of h where B = 0).", "100 - 2h = 0 \\Rightarrow h = 50", "50", ["h=50", "50 hours", "50"]),
+        linearAnswer("linear-limit-m3", "For the battery model B = 100 − 2h, state the upper limit of the valid domain (the value of h where B = 0).", "", "50", ["h=50", "50 hours", "50"]),
         financeChoice(
           "linear-limit-m4",
           "A hire car cost model uses data from 0 to 500 km. Using it to predict costs at 800 km is:",
@@ -827,7 +827,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
           "800 km is beyond the 500 km data range — this is extrapolation and may be unreliable.",
         ),
         linearAnswer("linear-limit-m5", "A tank model V = 400 − 20t is valid while V ≥ 0. Find the time t when V = 0.", "400 - 20t = 0", "20", ["t=20", "20 minutes", "20 min"]),
-        linearAnswer("linear-limit-m6", "A savings model S = 200 + 40w was built from 8 weeks of data. What does the model predict for week 52?", "S = 200 + 40\\times 52", "2280", ["S=2280", "$2280", "2280 dollars"]),
+        linearAnswer("linear-limit-m6", "A savings model S = 200 + 40w was built from 8 weeks of data. What does the model predict for week 52?", "", "2280", ["S=2280", "$2280", "2280 dollars"]),
         financeChoice(
           "linear-limit-m7",
           "The prediction for week 52 may be unreliable because:",
@@ -835,8 +835,8 @@ export function year11StandardLinearRelationshipsLessonOverride(
           ["52 weeks is fewer than 8 weeks", "The model is extrapolated far beyond the 8-week data range", "Savings always stop growing", "The gradient is always wrong beyond 8 weeks"],
           "Using an 8-week model to predict 52 weeks ahead is a large extrapolation — the savings rate may have changed.",
         ),
-        moneyAnswer("linear-limit-m8", "A hire model is C = 60 + 12h, valid for 0 ≤ h ≤ 8 hours. Find the maximum cost within the valid domain.", "60 + 12\\times 8", "156"),
-        moneyAnswer("linear-limit-m9", "A fuel model C = 1.75L is valid for 0 ≤ L ≤ 60 litres. Find the maximum predicted cost within this domain.", "1.75\\times 60", "105"),
+        moneyAnswer("linear-limit-m8", "A hire model is C = 60 + 12h, valid for 0 ≤ h ≤ 8 hours. Find the maximum cost within the valid domain.", "", "156"),
+        moneyAnswer("linear-limit-m9", "A fuel model C = 1.75L is valid for 0 ≤ L ≤ 60 litres. Find the maximum predicted cost within this domain.", "", "105"),
         financeChoice(
           "linear-limit-m10",
           "Which statement best describes a practical limitation of a linear model?",
@@ -874,14 +874,14 @@ export function year11StandardLinearRelationshipsLessonOverride(
       ],
     },
     guidedPractice: [
-      linearAnswer("linear-exam-g1", "A hire table shows 0 hours costs 35 dollars, 1 hour costs 47 dollars, and 2 hours costs 59 dollars. What is the hourly increase?", "47-35", "12", ["$12", "12 dollars", "$12/h", "12 dollars per hour"]),
-      linearAnswer("linear-exam-g2", "Using the hire table with starting cost 35 dollars and hourly increase 12 dollars, write a rule for cost C after h hours.", "C=35+12h", "C = 35 + 12h", ["C=35+12h", "c=35+12h", "C=12h+35", "c=12h+35"]),
+      linearAnswer("linear-exam-g1", "A hire table shows 0 hours costs 35 dollars, 1 hour costs 47 dollars, and 2 hours costs 59 dollars. What is the hourly increase?", "", "12", ["$12", "12 dollars", "$12/h", "12 dollars per hour"]),
+      linearAnswer("linear-exam-g2", "Using the hire table with starting cost 35 dollars and hourly increase 12 dollars, write a rule for cost C after h hours.", "", "C = 35 + 12h", ["C=35+12h", "c=35+12h", "C=12h+35", "c=12h+35"]),
       financeChoice("linear-exam-g3", "In C = 35 + 12h, the 35 represents:", "A", ["Fixed starting cost", "Hourly rate", "Number of hours", "Maximum cost"], "The intercept is the fixed cost."),
       financeChoice("linear-exam-g4", "A cost model C = 5n is direct variation because:", "B", ["It has a fixed fee", "It passes through the origin", "It has no rate", "It is not linear"], "C = 5n has no fixed starting amount."),
     ],
     independentPractice: [
-      moneyAnswer("linear-exam-i1", "A taxi charges 6 dollars plus 2 dollars per kilometre. What is the fare for 9 km?", "6+2\\times 9", "24"),
-      linearAnswer("linear-exam-i2", "A water tank starts at 150 L and drains at 5 L/min. Write a rule for volume V after t minutes.", "V=150-5t", "V = 150 - 5t", ["V=150-5t", "v=150-5t", "V=-5t+150", "v=-5t+150"]),
+      moneyAnswer("linear-exam-i1", "A taxi charges 6 dollars plus 2 dollars per kilometre. What is the fare for 9 km?", "", "24"),
+      linearAnswer("linear-exam-i2", "A water tank starts at 150 L and drains at 5 L/min. Write a rule for volume V after t minutes.", "", "V = 150 - 5t", ["V=150-5t", "v=150-5t", "V=-5t+150", "v=-5t+150"]),
       financeChoice("linear-exam-i3", "In V = 150 - 5t, the gradient -5 means:", "C", ["The tank starts with 5 L", "The tank fills by 150 L/min", "The tank drains by 5 L/min", "The cost is 5 dollars"], "A negative gradient means volume decreases by 5 L each minute."),
       financeChoice("linear-exam-i4", "Which model is direct variation?", "D", ["C = 20 + 4x", "V = 100 - 2t", "C = 50", "C = 1.5L"], "C = 1.5L has the form y = kx."),
       financeChoice("linear-exam-i5", "A practical model should not be extrapolated too far because:", "A", ["The context may stop being realistic", "The rule is always wrong", "Units do not matter", "Graphs cannot be interpreted"], "Models have sensible domains in context."),
@@ -987,7 +987,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
         linearAnswer(
           "y11s-lrr-g1",
           "Find the gradient of the line through (1, 3) and (5, 11).",
-          "m = \\frac{11-3}{5-1} = \\frac{8}{4}",
+          "",
           "2",
           ["2.0", "m=2"]
         ),
@@ -1001,7 +1001,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
         linearAnswer(
           "y11s-lrr-g3",
           "State the gradient of y = -5x + 2.",
-          "y = mx + b\\text{, compare: }m = -5",
+          "",
           "-5",
           ["m=-5", "−5"]
         ),
@@ -1017,7 +1017,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
         linearAnswer(
           "y11s-lrr-i1",
           "Find the gradient of the line through (0, 2) and (4, 10).",
-          "m = \\frac{10-2}{4-0} = \\frac{8}{4}",
+          "",
           "2",
           ["2.0", "m=2"]
         ),
@@ -1031,7 +1031,7 @@ export function year11StandardLinearRelationshipsLessonOverride(
         linearAnswer(
           "y11s-lrr-i3",
           "Find the gradient between (-2, 1) and (4, 13).",
-          "m = \\frac{13-1}{4-(-2)} = \\frac{12}{6}",
+          "",
           "2",
           ["2.0", "m=2"]
         ),
@@ -1069,13 +1069,13 @@ export function year11StandardLinearRelationshipsLessonOverride(
         },
       ],
       masteryQuiz: [
-        linearAnswer("y11s-lrr-m1", "Find the gradient of the line through (3, 5) and (7, 13).", "m = \\frac{13-5}{7-3}", "2", ["2.0", "m=2"]),
+        linearAnswer("y11s-lrr-m1", "Find the gradient of the line through (3, 5) and (7, 13).", "", "2", ["2.0", "m=2"]),
         financeChoice("y11s-lrr-m2", "The gradient of y = -2x + 9 is:", "A", ["-2", "9", "2", "-9"], "The coefficient of x is −2."),
         linearAnswer("y11s-lrr-m3", "A line is written as 2y = 8x − 10. Find its y-intercept.", "2y = 8x - 10", "-5", ["b=-5", "−5"]),
         financeChoice("y11s-lrr-m4", "Which pair gives gradient = 4?", "C", ["(0,4) and (4,0)", "(1,4) and (5,4)", "(0,2) and (1,6)", "(2,8) and (0,0)"], "m = (6−2)/(1−0) = 4."),
         linearAnswer("y11s-lrr-m5", "A line has gradient −1 and y-intercept 7. Write the equation.", "y = mx + b,\\quad m=-1,\\quad b=7", "y = -x + 7", ["y=-x+7", "y = -1x + 7"]),
         financeChoice("y11s-lrr-m6", "A table shows x: 0,1,2 and y: 10,8,6. The gradient is:", "B", ["10", "-2", "2", "-10"], "y decreases by 2 for each 1-unit increase in x."),
-        linearAnswer("y11s-lrr-m7", "Find the gradient of the line through (−1, 4) and (3, 12).", "m = \\frac{12-4}{3-(-1)} = \\frac{8}{4}", "2", ["2.0"]),
+        linearAnswer("y11s-lrr-m7", "Find the gradient of the line through (−1, 4) and (3, 12).", "", "2", ["2.0"]),
         financeChoice("y11s-lrr-m8", "A line with gradient 0 is:", "D", ["Vertical", "Steep", "Falling right to left", "Horizontal"], "Zero gradient means the y value does not change — a horizontal line."),
         linearAnswer("y11s-lrr-m9", "A line passes through (0, 6) with gradient 2. State the equation.", "m=2,\\quad b=6", "y = 2x + 6", ["y=2x+6"]),
         financeChoice("y11s-lrr-m10", "The y-intercept is the y-value when:", "A", ["x = 0", "y = 0", "gradient = 0", "x = 1"], "The y-intercept occurs at x = 0."),
