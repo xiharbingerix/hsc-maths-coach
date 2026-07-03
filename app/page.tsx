@@ -17,7 +17,7 @@ import { buildPageMetadata } from "../lib/siteMetadata";
 export const metadata = buildPageMetadata({
   title: "Nova Maths | NSW Maths Diagnostic & Online Lessons",
   description:
-    "Take a free NSW maths diagnostic, find your weak topics, and follow structured lessons from Year 7 to HSC. 7-day free trial, then $19/month.",
+    "Take a free NSW maths diagnostic, find your weak topics, and follow structured lessons from Year 7 to HSC. Free lessons and practice, upgrade for exams and AI for $19/month.",
   path: "/",
 });
 
@@ -191,8 +191,8 @@ export default function Home() {
             </div>
 
             <p className="mt-4 text-sm font-medium text-slate-600">
-              Free diagnostic · 7-day free trial · Then $19/month · Cancel
-              anytime
+              Free lessons & practice · Upgrade for exams + hints · $19/month ·
+              Cancel anytime
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -368,8 +368,8 @@ export default function Home() {
           cta={
             <>
               <DiagnosticCtaLink source="homepage" />
-              <SubscribeCTA href="/checkout?offer=online-learning">
-                Start your 7-day free trial
+              <SubscribeCTA href="/signup">
+                Sign up free
               </SubscribeCTA>
             </>
           }

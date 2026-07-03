@@ -29,6 +29,22 @@ export default function ExamListPage() {
           </p>
         </header>
 
+        <div className="rounded-2xl border border-slate-900 bg-slate-900 p-5 text-white">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+            Premium
+          </p>
+          <p className="mt-1 text-sm text-slate-100">
+            Lessons and practice are free. Exam papers, topic tests, step-by-step hints
+            and detailed band reports are part of Premium.
+          </p>
+          <Link
+            href="/checkout?offer=online-learning"
+            className="mt-3 inline-flex rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-100"
+          >
+            Upgrade — $19/month
+          </Link>
+        </div>
+
         <RecentResults />
 
         {papers.length === 0 ? (

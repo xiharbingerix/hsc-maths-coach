@@ -30,6 +30,7 @@ import {
   upsertLessonProgress,
 } from "../../lib/lessonProgress";
 import { supabase } from "../../lib/supabaseClient";
+import { usePaidAccess } from "../../lib/usePaidAccess";
 import { clientTrackEvent, readMarketingParams } from "../../lib/analytics/clientTrackEvent";
 
 type LessonStage =
@@ -1701,7 +1702,7 @@ function MasteryResultPanel({
             </li>
             <li>
               Use the{" "}
-              <span className="font-medium">AI tutor button</span> on any
+              <span className="font-medium">hint button</span> on any
               practice question you&apos;re unsure about before retrying the quiz.
             </li>
             <li>
@@ -1785,6 +1786,9 @@ export function LessonRenderer({
     passed: false,
     completedStages: [],
   });
+  // Mastery quizzes are a Premium feature: free users see an upgrade panel in
+  // place of the quiz. null while the access check is still resolving.
+  const hasPaidAccess = usePaidAccess();
 
   const lesson = useMemo(
     () => lessons.find((item) => item.slug === lessonSlug),
@@ -2557,6 +2561,31 @@ export function LessonRenderer({
           >
             Continue to Mastery Quiz
           </button>
+        </section>
+      );
+    }
+
+    // Mastery quizzes are Premium. Free users get the teaching + guided and
+    // independent practice for free, but the mastery quiz is locked behind a
+    // paid subscription. (hasPaidAccess === null = still resolving.)
+    if (hasPaidAccess === false) {
+      return (
+        <section className="space-y-4 rounded-2xl bg-slate-900 p-6 text-white shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
+            Premium
+          </p>
+          <h2 className="text-2xl font-bold">Mastery Quiz is part of Premium</h2>
+          <p className="text-slate-300">
+            The mastery quiz scores how exam-ready you are on this lesson and
+            updates your mastery map. Lessons and practice stay free — upgrade to
+            unlock mastery quizzes, full exam papers, topic tests and step-by-step hints.
+          </p>
+          <Link
+            href="/checkout?offer=online-learning"
+            className="inline-flex w-fit rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100"
+          >
+            Upgrade — $19/month
+          </Link>
         </section>
       );
     }

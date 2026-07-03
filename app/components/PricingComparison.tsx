@@ -86,7 +86,7 @@ export function PricingComparison({ cta }: Readonly<{ cta: ReactNode }>) {
         {cta}
       </div>
       <p className="mt-3 text-sm text-slate-500">
-        7-day free trial &middot; Then $19/month &middot; Cancel anytime
+        Free lessons &amp; practice &middot; Upgrade for exams + hints &middot; $19/month &middot; Cancel anytime
       </p>
     </section>
   );

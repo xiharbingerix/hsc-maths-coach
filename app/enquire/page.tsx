@@ -15,7 +15,7 @@ const offers = [
     title: "Online Learning Access",
     subtitle: "$19/month",
     description:
-      "Self-serve access is available through the 7-day free trial checkout. Use this form only if you need help before starting.",
+      "Lessons and practice are free with no card. Sign up to start, then upgrade to Premium for exams and AI. Use this form only if you need help before starting.",
   },
   {
     id: "diagnostic-report",
@@ -59,8 +59,8 @@ export default async function EnquirePage({
             Enquiries and report requests
           </h1>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            For Nova Maths online learning, the fastest path is the 7-day free
-            trial checkout. Use this form for diagnostic reports, study plans,
+            For Nova Maths online learning, the fastest path is to sign up free
+            and start learning. Use this form for diagnostic reports, study plans,
             or questions that need a manual reply. Joshua's tutoring spots are
             currently full.
           </p>

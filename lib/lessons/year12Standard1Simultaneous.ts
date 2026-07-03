@@ -133,7 +133,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-g2",
         "For y = 3x + 2, find y when x = 5.",
-        "y = 3(5) + 2",
+        "",
         "17",
         2,
         "Substitute x = 5 into the function.",
@@ -162,7 +162,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-i1",
         "Find the gradient of the line through (2, 5) and (4, 11).",
-        "m = \\frac{11 - 5}{4 - 2}",
+        "",
         "3",
         3,
         "Rise over run: change in y ÷ change in x.",
@@ -171,7 +171,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-i2",
         "Find the x-intercept of the line y = 3x − 12.",
-        "0 = 3x - 12",
+        "",
         "4",
         3,
         "Set y = 0 and solve for x.",
@@ -189,7 +189,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-i4",
         "A line has gradient −2 and passes through (0, 7). Find y when x = 3.",
-        "y = -2x + 7",
+        "",
         "1",
         3,
         "The point (0, 7) gives the y-intercept; build the equation then substitute.",
@@ -198,7 +198,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-i5",
         "Find the gradient of the line through (1, 4) and (3, 4).",
-        "m = \\frac{4 - 4}{3 - 1}",
+        "",
         "0",
         3,
         "What is the change in y between the points?",
@@ -228,7 +228,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-m3",
         "Find the gradient of the line through (−1, 2) and (2, 8).",
-        "m = \\frac{8 - 2}{2 - (-1)}",
+        "",
         "2",
         3,
         "Rise over run; mind the negative coordinate.",
@@ -237,7 +237,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-m4",
         "Find the x-intercept of the line y = −4x + 12.",
-        "0 = -4x + 12",
+        "",
         "3",
         3,
         "Set y = 0 and solve for x.",
@@ -260,7 +260,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-m6",
         "For y = 0.5x + 4, find y when x = 10.",
-        "y = 0.5(10) + 4",
+        "",
         "9",
         2,
         "Substitute x = 10.",
@@ -269,7 +269,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-m7",
         "A line passes through (2, 7) and (5, 16). Find its y-intercept.",
-        "m = \\frac{16 - 7}{5 - 2}",
+        "",
         "1",
         4,
         "Find the gradient first, then work back to where x = 0.",
@@ -288,7 +288,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-m9",
         "A line passes through (0, 20) and (4, 60). Find its gradient.",
-        "m = \\frac{60 - 20}{4 - 0}",
+        "",
         "10",
         4,
         "Rise over run; this gradient is the constant rate of change.",
@@ -297,7 +297,7 @@ export function year12Standard1LinearFunctionsLessonOverride(
       ans(
         "lf-m10",
         "A line falls 6 units over a run of 3 units. Find its gradient.",
-        "m = \\frac{-6}{3}",
+        "",
         "-2",
         4,
         "A fall makes the rise negative.",
@@ -452,7 +452,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-g4",
         "Does the point (2, 3) satisfy the equation y = x + 1? Answer yes or no.",
-        "3 = 2 + 1",
+        "",
         "yes",
         2,
         "Substitute x = 2 and check whether y equals 3.",
@@ -494,7 +494,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-i4",
         "Verify whether (1, 5) is the solution of y = 2x + 3 and y = −x + 6. Answer yes or no.",
-        "5 = 2(1)+3,\\ 5 = -1+6",
+        "",
         "yes",
         3,
         "Substitute into BOTH equations; it must satisfy both.",
@@ -504,7 +504,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-i5",
         "The lines y = x and y = 6 − x cross at one point. Find the x-value of that point.",
-        "x = 6 - x",
+        "",
         "3",
         3,
         "At the intersection both expressions for y are equal.",
@@ -535,7 +535,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-m3",
         "Solve simultaneously: y = 2x and y = x + 4. Give the x-value.",
-        "2x = x + 4",
+        "",
         "4",
         3,
         "Set the two expressions for y equal.",
@@ -588,7 +588,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-m8",
         "Solve simultaneously: y = 3x − 1 and y = x + 5. Give the x-value.",
-        "3x - 1 = x + 5",
+        "",
         "3",
         4,
         "Set the expressions for y equal and solve.",
@@ -597,7 +597,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-m9",
         "Solve simultaneously: y = −2x + 10 and y = x + 1. Give the x-value.",
-        "-2x + 10 = x + 1",
+        "",
         "3",
         4,
         "Set the two expressions for y equal.",
@@ -606,7 +606,7 @@ export function year12Standard1SimultaneousGraphicalLessonOverride(
       ans(
         "simg-m10",
         "The lines y = x + 2 and y = −x + 8 cross at one point. Write the solution as coordinates.",
-        "x + 2 = -x + 8",
+        "",
         "(3,5)",
         4,
         "Set the expressions equal to find x, then find y.",
@@ -712,7 +712,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-g2",
         "Cost is C = 100 + 4x and revenue is R = 9x. Find the break-even number of units.",
-        "9x = 100 + 4x",
+        "",
         "20",
         2,
         "Set R = C and solve for x.",
@@ -721,7 +721,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-g3",
         "For R = 9x, find the revenue at the break-even quantity of 20 units.",
-        "R = 9(20)",
+        "",
         "180",
         2,
         "Substitute x = 20 into the revenue.",
@@ -731,7 +731,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-g4",
         "A business has cost C = 50 + 2x. Find the total cost of producing 10 units.",
-        "C = 50 + 2(10)",
+        "",
         "70",
         2,
         "Substitute x = 10 into the cost.",
@@ -743,7 +743,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-i1",
         "Cost is C = 300 + 8x and revenue is R = 20x. Find the break-even number of units.",
-        "20x = 300 + 8x",
+        "",
         "25",
         3,
         "Set R = C and solve.",
@@ -761,7 +761,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-i3",
         "Cost is C = 500 + 10x and revenue is R = 30x. Find the profit when x = 40 units.",
-        "30(40) - (500 + 10(40))",
+        "",
         "300",
         3,
         "Profit = revenue − cost at x = 40.",
@@ -782,7 +782,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-i5",
         "A market stall has fixed costs of $80. Each item sells for $6 and costs $2 to make. Find the break-even number of items.",
-        "\\frac{80}{6 - 2}",
+        "",
         "20",
         3,
         "Each item earns price minus making cost toward the fixed cost.",
@@ -793,7 +793,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-m1",
         "Cost is C = 150 + 5x and revenue is R = 20x. Find the break-even number of units.",
-        "20x = 150 + 5x",
+        "",
         "10",
         2,
         "Set R = C and solve.",
@@ -811,7 +811,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-m3",
         "For the business in m1 (R = 20x), find the revenue at the break-even quantity of 10 units.",
-        "R = 20(10)",
+        "",
         "200",
         3,
         "Substitute the break-even quantity into the revenue.",
@@ -821,7 +821,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-m4",
         "A product has fixed costs of $240. It sells for $11 and costs $5 to make. Find the break-even number of units.",
-        "\\frac{240}{11 - 5}",
+        "",
         "40",
         3,
         "Each unit contributes price minus making cost.",
@@ -839,7 +839,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-m6",
         "Cost is C = 400 + 6x and revenue is R = 14x. How many units are needed to make a profit of $200?",
-        "14x - (400 + 6x) = 200",
+        "",
         "75",
         4,
         "Set revenue − cost equal to the target profit, then solve.",
@@ -849,7 +849,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-m7",
         "A business has C = 200 + 5x and R = 15x (break-even at 20 units). Find the size of the loss, in dollars, when only 10 units are sold.",
-        "(200 + 5(10)) - 15(10)",
+        "",
         "100",
         4,
         "Find cost and revenue at x = 10; the loss is cost − revenue.",
@@ -868,7 +868,7 @@ export function year12Standard1BreakEvenAnalysisLessonOverride(
       ans(
         "bev-m9",
         "A company reduces its fixed cost from $500 to $300. Each unit sells for $25 and costs $5 to make. Find the new break-even number of units.",
-        "\\frac{300}{25 - 5}",
+        "",
         "15",
         4,
         "Use the NEW fixed cost ÷ contribution per unit.",

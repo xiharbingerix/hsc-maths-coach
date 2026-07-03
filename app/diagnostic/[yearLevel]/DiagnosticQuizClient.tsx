@@ -7,6 +7,8 @@ import { MathText } from "../../components/MathText";
 import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 import { supabase } from "../../../lib/supabaseClient";
 import { SubscribeCTA } from "../../components/SubscribeCTA";
+import { AnimatedScoreRing } from "../../components/AnimatedScoreRing";
+import { AnimatedBar } from "../../components/AnimatedBar";
 import { generateStudyPlan } from "../../../lib/studyPlans/generateStudyPlan";
 import type { DiagnosticQuestion, DiagnosticUnit } from "../../../lib/diagnostics/types";
 import {
@@ -51,6 +53,30 @@ function priorityBadgeClass(correct: number, total: number): string {
   if (level === "secure-sample")
     return "border-green-200 bg-green-50 text-green-800";
   return "border-amber-200 bg-amber-50 text-amber-800";
+}
+
+// A one-line, plain-English read on the results so the report opens with a
+// human sentence, not a table. `results` is sorted weakest-first.
+function buildResultSummary(results: UnitResult[]): string {
+  if (results.length === 0) return "";
+  const strong = results.filter((u) => u.total > 0 && u.correct === u.total);
+  const weak = results.filter((u) => u.total > 0 && u.correct / u.total <= 0.5);
+
+  if (weak.length === 0) {
+    return "You are solid right across the board. Keep these topics fresh while you stretch into harder material.";
+  }
+
+  const weakNames = weak.slice(0, 2).map((u) => u.title);
+  const weakPart =
+    weakNames.length === 1 ? weakNames[0] : `${weakNames[0]} and ${weakNames[1]}`;
+  const verb = weakNames.length === 1 ? "is" : "are";
+
+  if (strong.length > 0) {
+    // Strongest unit sits last in the weakest-first ordering.
+    const strongName = strong[strong.length - 1].title;
+    return `You are strongest in ${strongName}, but ${weakPart} ${verb} where the biggest gains are right now.`;
+  }
+  return `The fastest wins are in ${weakPart}. Start there and the rest gets easier.`;
 }
 
 function computeUnitResults(
@@ -419,6 +445,7 @@ export function DiagnosticQuizClient({
     const focusFirstCount = studiedUnitResults.filter(
       (unit) => priorityLevel(unit.correct, unit.total) === "focus"
     ).length;
+    const resultSummary = buildResultSummary(studiedUnitResults);
     const studyPlan = generateStudyPlan({
       yearLevel,
       diagnosticResults: studiedUnitResults.map((unit) => ({
@@ -440,23 +467,34 @@ export function DiagnosticQuizClient({
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               {yearLevelTitle} · Diagnostic complete
             </p>
-            <h1 className="mt-2 text-3xl font-bold">
-              Here is your personalised study plan.
-            </h1>
-            <p className="mt-3 text-2xl font-semibold tabular-nums">
-              {totalCorrect} / {totalQuestions} correct &mdash; {scorePct}%
-            </p>
-            {focusFirstCount > 0 ? (
-              <p className="mt-1 text-slate-600">
-                {focusFirstCount === 1
-                  ? "1 unit needs your attention first."
-                  : `${focusFirstCount} units need attention — start with these.`}
-              </p>
-            ) : (
-              <p className="mt-1 text-slate-600">
-                {studyPlan.summary}
-              </p>
-            )}
+            <div className="mt-4 flex flex-col items-center gap-5 sm:flex-row sm:gap-6">
+              <AnimatedScoreRing
+                percent={scorePct}
+                correct={totalCorrect}
+                total={totalQuestions}
+              />
+              <div className="flex-1 text-center sm:text-left">
+                <h1 className="text-2xl font-bold sm:text-3xl">
+                  Here is your personalised study plan.
+                </h1>
+                {resultSummary ? (
+                  <p className="mt-2 leading-7 text-slate-600">
+                    {resultSummary}
+                  </p>
+                ) : (
+                  <p className="mt-2 leading-7 text-slate-600">
+                    {studyPlan.summary}
+                  </p>
+                )}
+                {focusFirstCount > 0 && (
+                  <p className="mt-2 text-sm font-semibold text-slate-500">
+                    {focusFirstCount === 1
+                      ? "1 unit needs your attention first."
+                      : `${focusFirstCount} units need attention. Start with these.`}
+                  </p>
+                )}
+              </div>
+            </div>
             {saved && (
               <p className="mt-4 rounded-xl bg-green-50 p-3 text-sm font-semibold text-green-800">
                 Results saved to your account.
@@ -516,20 +554,18 @@ export function DiagnosticQuizClient({
                     <p className="mt-0.5 text-sm text-slate-500">
                       {unit.correct} of {unit.total} correct
                     </p>
-                    <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-100">
-                      <div
-                        className={`h-full rounded-full ${
-                          unit.correct === unit.total
-                            ? "bg-emerald-500"
-                            : priorityLevel(unit.correct, unit.total) === "focus"
-                            ? "bg-red-400"
-                            : "bg-amber-400"
-                        }`}
-                        style={{
-                          width: `${Math.round((unit.correct / unit.total) * 100)}%`,
-                        }}
-                      />
-                    </div>
+                    <AnimatedBar
+                      className="mt-2"
+                      percent={(unit.correct / unit.total) * 100}
+                      delayMs={idx * 120}
+                      colorClass={
+                        unit.correct === unit.total
+                          ? "bg-emerald-500"
+                          : priorityLevel(unit.correct, unit.total) === "focus"
+                          ? "bg-red-400"
+                          : "bg-amber-400"
+                      }
+                    />
                     <Link
                       href={unit.startHref}
                       className="mt-2 inline-flex text-sm font-semibold text-slate-900 underline underline-offset-2 hover:text-slate-600"
@@ -542,35 +578,35 @@ export function DiagnosticQuizClient({
             </ol>
           </section>
 
-          {/* ── Free trial CTA ───────────────────────────────────────────── */}
+          {/* ── Free signup CTA ──────────────────────────────────────────── */}
           <section className="rounded-2xl bg-slate-950 p-6 text-white shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
               Get started
             </p>
             <h2 className="mt-2 text-xl font-bold">
-              Start your trial to unlock the lessons recommended by your results.
+              Create a free account to start the lessons recommended by your results.
             </h2>
             <p className="mt-2 leading-7 text-slate-300">
-              Your trial unlocks full lessons, worked examples, guided
-              practice, independent practice, mastery quizzes, saved progress
-              and course pathways.
+              Your free account unlocks full lessons, worked examples, guided
+              practice, independent practice, saved progress and course
+              pathways — no card required.
             </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               <SubscribeCTA
-                href="/checkout?offer=online-learning"
-                className="bg-white text-slate-950 hover:bg-slate-100"
+                href="/signup"
+                className="!bg-white !text-slate-950 hover:!bg-slate-100"
               >
-                Start your 7-day free trial
+                Sign up free
               </SubscribeCTA>
               <Link
                 href={`/login?returnTo=/diagnostic/${yearLevel}`}
                 className="text-sm font-semibold text-slate-300 hover:text-white"
               >
-                Already have access? Log in →
+                Already have an account? Log in →
               </Link>
             </div>
             <p className="mt-3 text-sm text-slate-400">
-              No charge today &middot; Then $19/month &middot; Cancel anytime
+              Free to learn &middot; Upgrade for exams + hints &middot; $19/month
             </p>
           </section>
 

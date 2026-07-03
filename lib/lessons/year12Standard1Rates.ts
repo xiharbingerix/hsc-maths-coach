@@ -136,7 +136,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-g2",
         "4 identical apples cost $3.00. Find the cost of one apple.",
-        "\\frac{3.00}{4}",
+        "",
         "0.75",
         1,
         "Divide the total cost by the number of apples.",
@@ -146,7 +146,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-g3",
         "One apple costs $0.75. Find the cost of 7 apples.",
-        "0.75 \\times 7",
+        "",
         "5.25",
         2,
         "Multiply the unit cost by the number of apples.",
@@ -156,7 +156,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-g4",
         "A 250 g block of cheese costs $4.00. Find the cost per 100 g.",
-        "\\frac{4.00}{250} \\times 100",
+        "",
         "1.60",
         2,
         "Find the cost of 1 g first, then multiply by 100.",
@@ -168,7 +168,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-i1",
         "6 litres of paint cover 84 m². How many m² does 1 litre cover?",
-        "\\frac{84}{6}",
+        "",
         "14",
         2,
         "Divide the area by the number of litres.",
@@ -178,7 +178,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-i2",
         "A typist types 180 words in 4 minutes at a steady rate. How many words in 10 minutes?",
-        "\\frac{180}{4} \\times 10",
+        "",
         "450",
         2,
         "Find words per minute, then scale to 10 minutes.",
@@ -201,7 +201,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-i4",
         "15 litres of fuel cost $52.50. At the same price, find the cost of 40 litres.",
-        "\\frac{52.50}{15} \\times 40",
+        "",
         "140",
         3,
         "Find the price per litre first.",
@@ -211,7 +211,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-i5",
         "A recipe for 4 serves uses 600 g of flour. How much flour is needed for 7 serves?",
-        "\\frac{600}{4} \\times 7",
+        "",
         "1050",
         3,
         "Find the flour per serve, then scale to 7 serves.",
@@ -223,7 +223,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m1",
         "9 identical tiles cover 1.44 m². Find the area covered by 1 tile, in m².",
-        "\\frac{1.44}{9}",
+        "",
         "0.16",
         2,
         "Divide the area by the number of tiles.",
@@ -233,7 +233,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m2",
         "A car uses 35 litres of fuel to travel 420 km. How many km per litre?",
-        "\\frac{420}{35}",
+        "",
         "12",
         2,
         "Divide distance by litres.",
@@ -251,7 +251,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m4",
         "8 metres of rope cost $14.00. Find the cost of 5 metres.",
-        "\\frac{14.00}{8} \\times 5",
+        "",
         "8.75",
         2,
         "Cost per metre first, then ×5.",
@@ -261,7 +261,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m5",
         "Brand X: 1.5 kg for $7.50. Brand Y: 2 kg for $9.60. How much cheaper per kg is the better brand, in dollars?",
-        "\\frac{7.50}{1.5} - \\frac{9.60}{2}",
+        "",
         "0.20",
         4,
         "Find each cost per kg, then subtract the smaller from the larger.",
@@ -280,7 +280,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m7",
         "A printer prints 12 pages in 30 seconds. How many pages does it print in 5 minutes?",
-        "\\frac{12}{30} \\times 300",
+        "",
         "120",
         3,
         "Convert 5 minutes to seconds, find pages per second, then scale.",
@@ -303,7 +303,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m9",
         "Three pumps together deliver 1800 L of water in 40 minutes. Find the litres delivered by all three pumps in 1 minute.",
-        "\\frac{1800}{40}",
+        "",
         "45",
         3,
         "Divide the total litres by the total minutes.",
@@ -312,7 +312,7 @@ export function year12Standard1RatesUnitaryMethodLessonOverride(
       ans(
         "rum-m10",
         "Eggs cost $5.40 per dozen. A café budgets $36 for eggs. How many whole dozens can it buy?",
-        "\\frac{36}{5.40}",
+        "",
         "6",
         4,
         "Divide the budget by the cost of one dozen, then round DOWN to whole dozens.",
@@ -397,7 +397,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-g2",
         "A car travels 150 km in 2 hours. Find the average speed in km/h.",
-        "\\frac{150}{2}",
+        "",
         "75",
         2,
         "Divide distance by time.",
@@ -406,7 +406,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-g3",
         "A train travels at 80 km/h for 3 hours. How far does it travel, in km?",
-        "80 \\times 3",
+        "",
         "240",
         2,
         "distance = speed × time.",
@@ -415,7 +415,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-g4",
         "Convert 36 km/h to m/s.",
-        "\\frac{36}{3.6}",
+        "",
         "10",
         2,
         "Divide by 3.6 to go from km/h to m/s.",
@@ -426,7 +426,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-i1",
         "A runner covers 12 km in 50 minutes. Find the time to run 18 km at the same pace, in minutes.",
-        "\\frac{50}{12} \\times 18",
+        "",
         "75",
         3,
         "Find minutes per km, then scale to 18 km.",
@@ -435,7 +435,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-i2",
         "A plane flies 1800 km at 600 km/h. Find the flight time in hours.",
-        "\\frac{1800}{600}",
+        "",
         "3",
         2,
         "time = distance ÷ speed.",
@@ -444,7 +444,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-i3",
         "Convert 25 m/s to km/h.",
-        "25 \\times 3.6",
+        "",
         "90",
         2,
         "Multiply by 3.6 to go from m/s to km/h.",
@@ -462,7 +462,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-i5",
         "A bus leaves at 9:00 am and arrives at 11:30 am having travelled 175 km. Find its average speed in km/h.",
-        "\\frac{175}{2.5}",
+        "",
         "70",
         3,
         "Find the travel time in hours first.",
@@ -473,7 +473,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m1",
         "A walker covers 6 km in 1.5 hours. Find the average speed in km/h.",
-        "\\frac{6}{1.5}",
+        "",
         "4",
         2,
         "distance ÷ time.",
@@ -482,7 +482,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m2",
         "A motorbike travels at 90 km/h. How far does it go in 40 minutes, in km?",
-        "90 \\times \\frac{40}{60}",
+        "",
         "60",
         3,
         "Convert 40 minutes to hours first.",
@@ -491,7 +491,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m3",
         "Convert 54 km/h to m/s.",
-        "\\frac{54}{3.6}",
+        "",
         "15",
         2,
         "Divide by 3.6.",
@@ -509,7 +509,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m5",
         "A car covers 240 km. The first 120 km takes 1.5 h and the next 120 km takes 2 h. Find the average speed for the whole trip, in km/h (to 2 decimal places).",
-        "\\frac{240}{3.5}",
+        "",
         "68.57",
         4,
         "Total distance ÷ total time for the whole journey.",
@@ -519,7 +519,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m6",
         "A train must cover 300 km in 4 hours. What constant speed is required, in km/h?",
-        "\\frac{300}{4}",
+        "",
         "75",
         2,
         "speed = distance ÷ time.",
@@ -542,7 +542,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m8",
         "A cyclist rides for 20 minutes at 24 km/h. How far do they travel, in km?",
-        "24 \\times \\frac{20}{60}",
+        "",
         "8",
         3,
         "Convert 20 minutes to hours, then distance = speed × time.",
@@ -551,7 +551,7 @@ export function year12Standard1RatesSpeedLessonOverride(
       ans(
         "spd-m9",
         "A car leaves at 1:45 pm and arrives at 3:15 pm, covering 105 km. Find the average speed in km/h.",
-        "\\frac{105}{1.5}",
+        "",
         "70",
         3,
         "Find the travel time in hours first.",
@@ -673,7 +673,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-g2",
         "Using the graph, what is the traveller's speed during the flat (horizontal) section, in km/h?",
-        "\\text{flat} \\Rightarrow \\text{speed} = 0",
+        "",
         "0",
         1,
         "Flat means distance is not changing.",
@@ -684,7 +684,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-g3",
         "Using the graph, find the speed during the first hour (0 to 60 km in 1 h), in km/h.",
-        "\\frac{60}{1}",
+        "",
         "60",
         2,
         "Gradient = change in distance ÷ change in time.",
@@ -695,7 +695,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-g4",
         "Using the graph, for how long is the traveller at rest, in hours?",
-        "1.5 - 1",
+        "",
         "0.5",
         2,
         "Find the length of the flat section on the time axis.",
@@ -708,7 +708,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-i1",
         "Using the graph, find the speed on the return journey (60 km back to 0 over 1.5 h), in km/h.",
-        "\\frac{60}{1.5}",
+        "",
         "40",
         3,
         "Gradient of the returning section = distance ÷ time.",
@@ -719,7 +719,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-i2",
         "Using the graph, find the speed of the fastest section of the journey, in km/h.",
-        "\\frac{60}{1}",
+        "",
         "60",
         3,
         "Compare the steepness of the moving sections; the steepest is fastest.",
@@ -730,7 +730,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-i3",
         "Using the graph, find the total distance travelled over the whole journey, in km.",
-        "60 + 60",
+        "",
         "120",
         3,
         "Add the distance out and the distance back.",
@@ -741,7 +741,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-i4",
         "Using the graph, find the average speed for the whole 3-hour journey, in km/h.",
-        "\\frac{120}{3}",
+        "",
         "40",
         3,
         "Average speed = total distance travelled ÷ total time.",
@@ -763,7 +763,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m1",
         "A distance–time graph rises from 0 to 30 km in 0.5 h. Find the speed in km/h.",
-        "\\frac{30}{0.5}",
+        "",
         "60",
         2,
         "Gradient = distance ÷ time.",
@@ -781,7 +781,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m3",
         "Using the graph, find the speed of the first section (0 to 60 km in 1 h), in km/h.",
-        "\\frac{60}{1}",
+        "",
         "60",
         2,
         "Gradient of the first section.",
@@ -792,7 +792,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m4",
         "Using the graph, how far from home is the traveller at time 1.25 h, in km?",
-        "60",
+        "",
         "60",
         3,
         "At 1.25 h the traveller is in the flat (rest) section.",
@@ -818,7 +818,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m6",
         "A journey covers 40 km out in 0.5 h, rests 1 h, then returns 40 km in 1 h. Find the average speed for the whole trip, in km/h.",
-        "\\frac{80}{2.5}",
+        "",
         "32",
         4,
         "Total distance travelled ÷ total time, including the rest.",
@@ -836,7 +836,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m8",
         "A graph shows 0 to 50 km in 1 h, then flat from 1 h to 2 h. Find the average speed over the first 2 hours, in km/h.",
-        "\\frac{50}{2}",
+        "",
         "25",
         3,
         "Total distance ÷ total time over the 2 hours.",
@@ -845,7 +845,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m9",
         "A student claims the average speed of the out-and-back trip is (60 + 40) ÷ 2 = 50 km/h. Using total distance ÷ total time, find the correct average speed, in km/h.",
-        "\\frac{120}{3}",
+        "",
         "40",
         4,
         "Average speed = total distance ÷ total time, not the mean of the two section speeds.",
@@ -856,7 +856,7 @@ export function year12Standard1RatesDistanceTimeGraphsLessonOverride(
       ans(
         "dtg-m10",
         "On a distance–time graph, section P rises 80 km in 2 h and section Q rises 80 km in 1 h. How many times faster is Q than P?",
-        "\\frac{80/1}{80/2}",
+        "",
         "2",
         3,
         "Find each speed, then divide.",
@@ -943,7 +943,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-g2",
         "A car uses 10 L/100 km. How much fuel does it use for 100 km, in litres?",
-        "10",
+        "",
         "10",
         1,
         "The rate already tells you the fuel per 100 km.",
@@ -952,7 +952,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-g3",
         "A car uses 8 L/100 km. How much fuel for 300 km, in litres?",
-        "\\frac{8}{100} \\times 300",
+        "",
         "24",
         2,
         "fuel = (rate ÷ 100) × distance.",
@@ -961,7 +961,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-g4",
         "20 litres of fuel cost how much at $1.90 per litre, in dollars?",
-        "20 \\times 1.90",
+        "",
         "38",
         2,
         "cost = litres × price per litre.",
@@ -973,7 +973,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-i1",
         "A car uses 7 L/100 km. Find the fuel used on a 450 km trip, in litres.",
-        "\\frac{7}{100} \\times 450",
+        "",
         "31.5",
         2,
         "fuel = (rate ÷ 100) × distance.",
@@ -982,7 +982,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-i2",
         "A car uses 9 L/100 km. Find the cost of a 600 km trip when fuel is $2.10/L, in dollars.",
-        "\\frac{9}{100} \\times 600 \\times 2.10",
+        "",
         "113.40",
         3,
         "Find litres first, then multiply by the price.",
@@ -992,7 +992,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-i3",
         "A car uses 60 L over 750 km. Find its consumption rate in L/100 km.",
-        "\\frac{60}{750} \\times 100",
+        "",
         "8",
         3,
         "rate = fuel ÷ distance × 100.",
@@ -1015,7 +1015,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-i5",
         "A 60 L tank is full and the car uses 10 L/100 km. How far can it travel on a full tank, in km?",
-        "\\frac{60}{10} \\times 100",
+        "",
         "600",
         3,
         "How many lots of 100 km does the tank cover?",
@@ -1035,7 +1035,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m2",
         "Fuel costs $2.05/L. Find the cost of 40 litres, in dollars.",
-        "40 \\times 2.05",
+        "",
         "82",
         2,
         "cost = litres × price.",
@@ -1045,7 +1045,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m3",
         "A car uses 11 L/100 km. Find the fuel for a 250 km trip, in litres.",
-        "\\frac{11}{100} \\times 250",
+        "",
         "27.5",
         2,
         "fuel = (rate ÷ 100) × distance.",
@@ -1054,7 +1054,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m4",
         "A car uses 7.5 L/100 km. Find the cost of a 400 km trip at $1.80/L, in dollars.",
-        "\\frac{7.5}{100} \\times 400 \\times 1.80",
+        "",
         "54",
         3,
         "Litres first, then × price.",
@@ -1064,7 +1064,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m5",
         "A car uses 54 L over 600 km. Find its consumption rate in L/100 km.",
-        "\\frac{54}{600} \\times 100",
+        "",
         "9",
         3,
         "rate = fuel ÷ distance × 100.",
@@ -1082,7 +1082,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m7",
         "A 50 L tank is full and the car uses 8 L/100 km. Find the range on a full tank, in km.",
-        "\\frac{50}{8} \\times 100",
+        "",
         "625",
         3,
         "Range = (tank ÷ rate) × 100.",
@@ -1105,7 +1105,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m9",
         "A trip of 480 km uses 36 L. At $1.95/L, find the fuel cost, in dollars.",
-        "36 \\times 1.95",
+        "",
         "70.20",
         2,
         "cost = litres × price.",
@@ -1115,7 +1115,7 @@ export function year12Standard1RatesFuelConsumptionLessonOverride(
       ans(
         "fcr-m10",
         "A car uses 9 L/100 km and the tank holds 54 L. Starting full, after driving 400 km, how many litres remain in the tank?",
-        "54 - \\frac{9}{100} \\times 400",
+        "",
         "18",
         4,
         "Find the fuel used over 400 km, then subtract from the tank.",
@@ -1201,7 +1201,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-g2",
         "A person's heart beats 20 times in 15 seconds. Find the heart rate in bpm.",
-        "20 \\times 4",
+        "",
         "80",
         2,
         "Multiply the 15-second count by 4.",
@@ -1210,7 +1210,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-g3",
         "A heart beats at 72 bpm. How many beats occur in 5 minutes?",
-        "72 \\times 5",
+        "",
         "360",
         2,
         "beats = bpm × minutes.",
@@ -1219,7 +1219,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-g4",
         "Estimate the maximum heart rate of a 30-year-old, in bpm.",
-        "220 - 30",
+        "",
         "190",
         1,
         "Max HR ≈ 220 − age.",
@@ -1230,7 +1230,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-i1",
         "A person's heart beats 12 times in 10 seconds. Find the heart rate in bpm.",
-        "12 \\times 6",
+        "",
         "72",
         2,
         "10 seconds is one sixth of a minute, so multiply by 6.",
@@ -1239,7 +1239,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-i2",
         "An athlete's heart rate is 150 bpm during a 12-minute run. How many beats in total during the run?",
-        "150 \\times 12",
+        "",
         "1800",
         2,
         "beats = bpm × minutes.",
@@ -1248,7 +1248,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-i3",
         "For a 50-year-old, find 60% of the estimated maximum heart rate, in bpm.",
-        "0.60 \\times (220 - 50)",
+        "",
         "102",
         3,
         "Find the maximum (220 − age) first, then take 60%.",
@@ -1271,7 +1271,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-i5",
         "A resting heart rate is 64 bpm. Over an 8-hour sleep, how many beats occur? (Give your answer in beats.)",
-        "64 \\times 8 \\times 60",
+        "",
         "30720",
         3,
         "Convert 8 hours to minutes, then beats = bpm × minutes.",
@@ -1292,7 +1292,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m2",
         "A heart rate is 68 bpm. How many beats in 15 minutes?",
-        "68 \\times 15",
+        "",
         "1020",
         2,
         "beats = bpm × minutes.",
@@ -1301,7 +1301,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m3",
         "Estimate the maximum heart rate of a 45-year-old, in bpm.",
-        "220 - 45",
+        "",
         "175",
         1,
         "Max HR ≈ 220 − age.",
@@ -1310,7 +1310,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m4",
         "A person counts 33 beats in 30 seconds. Find the heart rate in bpm.",
-        "33 \\times 2",
+        "",
         "66",
         2,
         "30 seconds is half a minute, so multiply by 2.",
@@ -1319,7 +1319,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m5",
         "For a 35-year-old, find 80% of the estimated maximum heart rate, in bpm.",
-        "0.80 \\times (220 - 35)",
+        "",
         "148",
         3,
         "Find the maximum first, then take 80%.",
@@ -1337,7 +1337,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m7",
         "An athlete's heart beats 25 times in 10 seconds during a sprint. Find the rate in bpm.",
-        "25 \\times 6",
+        "",
         "150",
         2,
         "10 seconds → multiply by 6.",
@@ -1346,7 +1346,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m8",
         "A heart rate is 80 bpm. Over a 90-minute match, how many beats occur?",
-        "80 \\times 90",
+        "",
         "7200",
         2,
         "beats = bpm × minutes.",
@@ -1364,7 +1364,7 @@ export function year12Standard1RatesHeartRateLessonOverride(
       ans(
         "hrt-m10",
         "For a 60-year-old, the recommended upper training limit is 85% of maximum heart rate. Find this limit, in bpm.",
-        "0.85 \\times (220 - 60)",
+        "",
         "136",
         3,
         "Max HR = 220 − 60, then take 85%.",
@@ -1450,7 +1450,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-g2",
         "Find the pulse pressure of a 120/80 mmHg reading, in mmHg.",
-        "120 - 80",
+        "",
         "40",
         2,
         "Pulse pressure = systolic − diastolic.",
@@ -1459,7 +1459,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-g3",
         "In a blood pressure reading, which value is always the larger — the systolic or the diastolic?",
-        "\\text{systolic} > \\text{diastolic}",
+        "",
         "systolic",
         1,
         "Pressure is highest when the heart beats.",
@@ -1469,7 +1469,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-g4",
         "A reading is 150/90 mmHg. Find the pulse pressure, in mmHg.",
-        "150 - 90",
+        "",
         "60",
         2,
         "systolic − diastolic.",
@@ -1480,7 +1480,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-i1",
         "Normal blood pressure is below 120/80 mmHg. Is a reading of 118/76 mmHg normal? Answer yes or no.",
-        "118 < 120,\\ 76 < 80",
+        "",
         "yes",
         2,
         "Check both numbers against their thresholds.",
@@ -1490,7 +1490,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-i2",
         "Normal is below 120/80 mmHg. Classify 135/78 mmHg as normal or elevated.",
-        "135 > 120",
+        "",
         "elevated",
         3,
         "A reading is elevated if EITHER number crosses the threshold.",
@@ -1500,7 +1500,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-i3",
         "A patient's reading falls from 150/95 to 132/85 mmHg. By how much did the systolic pressure fall, in mmHg?",
-        "150 - 132",
+        "",
         "18",
         2,
         "Compare systolic with systolic.",
@@ -1509,7 +1509,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-i4",
         "Two readings are 140/90 and 125/82 mmHg. Find the difference in their pulse pressures, in mmHg.",
-        "(140-90) - (125-82)",
+        "",
         "7",
         3,
         "Find each pulse pressure, then subtract.",
@@ -1534,7 +1534,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m1",
         "Find the pulse pressure of a 128/84 mmHg reading, in mmHg.",
-        "128 - 84",
+        "",
         "44",
         2,
         "systolic − diastolic.",
@@ -1543,7 +1543,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m2",
         "In a blood pressure reading of 110/70 mmHg, what is the diastolic pressure, in mmHg?",
-        "\\text{bottom number}",
+        "",
         "70",
         1,
         "The diastolic is the bottom (resting) number.",
@@ -1553,7 +1553,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m3",
         "Normal is below 120/80 mmHg. Classify 116/82 mmHg as normal or elevated.",
-        "82 > 80",
+        "",
         "elevated",
         3,
         "Check both numbers.",
@@ -1563,7 +1563,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m4",
         "A reading is 162/96 mmHg. Find the pulse pressure, in mmHg.",
-        "162 - 96",
+        "",
         "66",
         2,
         "systolic − diastolic.",
@@ -1572,7 +1572,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m5",
         "A patient's systolic falls from 158 to 134 mmHg after treatment. Find the fall, in mmHg.",
-        "158 - 134",
+        "",
         "24",
         2,
         "Compare systolic with systolic.",
@@ -1590,7 +1590,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m7",
         "A reading changes from 140/88 to 126/80 mmHg. Find the fall in diastolic pressure, in mmHg.",
-        "88 - 80",
+        "",
         "8",
         2,
         "Compare diastolic with diastolic.",
@@ -1608,7 +1608,7 @@ export function year12Standard1RatesBloodPressureLessonOverride(
       ans(
         "bp-m9",
         "Two readings are 144/92 and 120/76 mmHg. Find the difference in their pulse pressures, in mmHg.",
-        "(144-92) - (120-76)",
+        "",
         "8",
         3,
         "Find each pulse pressure, then subtract.",

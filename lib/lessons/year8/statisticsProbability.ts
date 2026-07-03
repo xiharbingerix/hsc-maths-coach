@@ -2241,7 +2241,7 @@ const twoStepChanceExperiments: LessonContent = {
       id: "y8-pro-two-mp1",
       prompt:
         "A fair coin is flipped and a fair die (faces 1–6) is rolled. The combined sample space has 12 equally likely outcomes.",
-      latex: "\\text{Coin (2)} \\times \\text{Die (6)} = 12",
+      latex: "",
       answer: "12",
       hint: "Total = 2 × 6. Then count favourable outcomes for each event.",
       explanation:

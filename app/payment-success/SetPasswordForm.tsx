@@ -72,7 +72,7 @@ export function SetPasswordForm({ email }: { email: string }) {
         Create your Nova Maths password
       </h2>
       <p className="mt-3 leading-7 text-slate-600">
-        Your trial is active. Set a password for{" "}
+        Your Premium access is active. Set a password for{" "}
         <strong className="font-semibold">{email}</strong> so you can log in
         and access your lessons and dashboard.
       </p>

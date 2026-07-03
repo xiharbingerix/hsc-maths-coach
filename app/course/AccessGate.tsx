@@ -3,60 +3,20 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
-import {
-  normaliseUserAccessStatus,
-  type UserAccessStatus,
-} from "../../lib/userAccess";
 
-type GateState = "checking" | "logged-out" | UserAccessStatus;
+type GateState = "checking" | "logged-out" | "logged-in";
 
 type AccessGateProps = {
   children: React.ReactNode;
 };
 
-const gateContent: Record<
-  Exclude<GateState, "checking" | "active">,
-  {
-    title: string;
-    text: string;
-    primaryHref: string;
-    primaryLabel: string;
-    secondaryHref: string;
-    secondaryLabel: string;
-  }
-> = {
-  "logged-out": {
-    title: "Start your 7-day free trial",
-    text: "Start your trial to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
-    primaryHref: "/checkout?offer=online-learning",
-    primaryLabel: "Start your 7-day free trial",
-    secondaryHref: "/login?next=%2Fcheckout%3Foffer%3Donline-learning",
-    secondaryLabel: "Log in",
-  },
-  pending: {
-    title: "Start your 7-day free trial",
-    text: "Your account is ready. Start your free trial to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
-    primaryHref: "/checkout?offer=online-learning",
-    primaryLabel: "Start your 7-day free trial",
-    secondaryHref: "/dashboard",
-    secondaryLabel: "Go to dashboard",
-  },
-  revoked: {
-    title: "Online learning access is not currently active",
-    text: "This account does not currently have active online learning access. Resubscribe to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
-    primaryHref: "/checkout?offer=online-learning",
-    primaryLabel: "Resubscribe — $19/month",
-    secondaryHref: "/dashboard",
-    secondaryLabel: "Go to dashboard",
-  },
-  none: {
-    title: "Online learning access is not set up yet",
-    text: "Your account exists. Start your free trial to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways.",
-    primaryHref: "/checkout?offer=online-learning",
-    primaryLabel: "Start your 7-day free trial",
-    secondaryHref: "/signup",
-    secondaryLabel: "Create account first",
-  },
+const loggedOutContent = {
+  title: "Sign up free to start learning",
+  text: "Create a free account to unlock full lessons, worked examples, guided practice, independent practice, mastery quizzes, saved progress and course pathways — no card required.",
+  primaryHref: "/signup",
+  primaryLabel: "Sign up free",
+  secondaryHref: "/login",
+  secondaryLabel: "Log in",
 };
 
 function AccessButton({
@@ -97,30 +57,7 @@ export function AccessGate({ children }: AccessGateProps) {
         return;
       }
 
-      if (!user) {
-        setGateState("logged-out");
-        return;
-      }
-
-      const { data: accessData, error } = await supabase
-        .from("user_access")
-        .select("status")
-        .eq("user_id", user.id)
-        .eq("access_type", "online_learning_beta")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
-      if (!isMounted) {
-        return;
-      }
-
-      if (error) {
-        setGateState("none");
-        return;
-      }
-
-      setGateState(normaliseUserAccessStatus(accessData?.status));
+      setGateState(user ? "logged-in" : "logged-out");
     }
 
     checkAccess();
@@ -152,11 +89,11 @@ export function AccessGate({ children }: AccessGateProps) {
     );
   }
 
-  if (gateState === "active") {
+  if (gateState === "logged-in") {
     return <>{children}</>;
   }
 
-  const content = gateContent[gateState];
+  const content = loggedOutContent;
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">

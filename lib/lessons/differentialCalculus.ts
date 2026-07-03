@@ -287,7 +287,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
     {
       id: "roc-ind-2",
       prompt: "Find the instantaneous rate at $t=3$.",
-      latex: "v(t)=s'(t)=5t-2",
+      latex: "",
       answer: "13",
       hint: "Substitute $t=3$.",
       explanation: "$s'(3)=5(3)-2=13$.",
@@ -410,7 +410,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
     {
       id: "roc-mastery-5",
       prompt: "Evaluate the instantaneous rate at $t=2$.",
-      latex: "s'(t)=4t+1",
+      latex: "",
       answer: "9",
       hint: "Substitute $t=2$.",
       explanation: "$s'(2)=4(2)+1=9$.",
@@ -498,7 +498,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
     {
       id: "roc-mastery-fp2",
       prompt: "Using first principles, find $f'(3)$ for $f(x)=x^2$.",
-      latex: "f'(3)=\\lim_{h\\to 0}\\frac{(3+h)^2-9}{h}",
+      latex: "",
       answer: "C",
       choices: [
         { label: "A", text: "$3$" },
@@ -858,7 +858,7 @@ export const derivativeAsRateOfChangeLesson: ExplicitLesson = {
           key: "a",
           label: "(a)",
           prompt: "Find the velocity of the particle at $t = 2$ seconds.",
-          latex: "v(t) = s'(t)",
+          latex: "",
           marks: 1,
           answer: "-3",
           acceptedAnswers: ["−3"],
@@ -1048,7 +1048,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     {
       id: "guided-1",
       prompt: "Complete the missing value:",
-      latex: "\\frac{d}{dx}\\left(6x^4\\right)=6 \\times \\Box \\times x^{4-1}",
+      latex: "",
       answer: "4",
       hint: "The missing value is the original power.",
       explanation:
@@ -1057,7 +1057,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     {
       id: "guided-2",
       prompt: "Complete the missing exponent:",
-      latex: "\\frac{d}{dx}\\left(5x^3\\right)=15x^{\\Box}",
+      latex: "",
       answer: "2",
       hint: "Reduce the original power by one.",
       explanation: "The original power is 3, so the new power is 2.",
@@ -1074,7 +1074,7 @@ export const differentiatingPolynomialTermsLesson: ExplicitLesson = {
     {
       id: "guided-4",
       prompt: "Complete the missing exponent:",
-      latex: "\\frac{d}{dx}\\left(6x^7\\right)=42x^{\\Box}",
+      latex: "",
       answer: "6",
       hint: "The new power is one less than the original power.",
       explanation:
@@ -1812,7 +1812,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     {
       id: "poly-fn-guided-1",
       prompt: "Complete the derivative:",
-      latex: "f(x)=3x^4-2x^2+5 \\quad \\Rightarrow \\quad f'(x)=\\Box x^3-4x",
+      latex: "",
       answer: "12",
       hint: "Differentiate $3x^4$.",
       explanation:
@@ -1821,7 +1821,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     {
       id: "poly-fn-guided-2",
       prompt: "Complete the derivative:",
-      latex: "y=6x^5+x^2-8x+4 \\quad \\Rightarrow \\quad \\frac{dy}{dx}=30x^4+2x+\\Box",
+      latex: "",
       answer: "-8",
       hint: "The derivative of $-8x$ is $-8$.",
       explanation: "$\\frac{dy}{dx}=30x^4+2x-8$.",
@@ -1829,7 +1829,7 @@ export const differentiatingPolynomialFunctionsLesson: ExplicitLesson = {
     {
       id: "poly-fn-guided-3",
       prompt: "Complete the missing term:",
-      latex: "f(x)=x^4+3x^2-7 \\quad \\Rightarrow \\quad f'(x)=4x^3+\\Box",
+      latex: "",
       answer: "6x",
       hint: "Differentiate $3x^2$.",
       explanation:
@@ -2671,7 +2671,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     {
       id: "tan-norm-guided-3",
       prompt: "Complete the normal gradient:",
-      latex: "m_t=4 \\quad \\Rightarrow \\quad m_n=\\Box",
+      latex: "",
       answer: "-1/4",
       acceptedAnswers: ["-0.25"],
       hint: "Use $m_n=-\\frac{1}{m_t}$.",
@@ -2680,7 +2680,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     {
       id: "tan-norm-guided-4",
       prompt: "Complete the point-gradient equation for the tangent:",
-      latex: "P=(2,9), \\quad m_t=7 \\quad \\Rightarrow \\quad y-\\Box=7(x-2)",
+      latex: "",
       answer: "9",
       hint: "Use the y-coordinate of the point.",
       explanation:
@@ -2972,7 +2972,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     {
       id: "tan-norm-pool-13",
       prompt: "A tangent has gradient 2. Find the gradient of the normal.",
-      latex: "m_n = -\\frac{1}{m_t}",
+      latex: "",
       difficulty: 3,
       answer: "-1/2",
       acceptedAnswers: ["-0.5"],
@@ -2982,7 +2982,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     {
       id: "tan-norm-pool-14",
       prompt: "A tangent has gradient 4. Find the gradient of the normal.",
-      latex: "m_n = -\\frac{1}{m_t}",
+      latex: "",
       difficulty: 3,
       answer: "-1/4",
       acceptedAnswers: ["-0.25"],
@@ -2992,7 +2992,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     {
       id: "tan-norm-pool-15",
       prompt: "A tangent has gradient $-3$. Find the gradient of the normal.",
-      latex: "m_n = -\\frac{1}{m_t}",
+      latex: "",
       difficulty: 3,
       answer: "1/3",
       hint: "The negative reciprocal of $-3$ is positive.",
@@ -3021,7 +3021,7 @@ export const tangentsAndNormalsLesson: ExplicitLesson = {
     {
       id: "tan-norm-pool-18",
       prompt: "A tangent has gradient 5. Find the gradient of the normal.",
-      latex: "m_n = -\\frac{1}{m_t}",
+      latex: "",
       difficulty: 3,
       answer: "-1/5",
       acceptedAnswers: ["-0.2"],
@@ -3538,7 +3538,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
     {
       id: "stationary-guided-4",
       prompt: "Complete the y-value for the stationary point:",
-      latex: "f(x)=x^2-6x+5, \\quad x=3, \\quad f(3)=\\Box",
+      latex: "",
       answer: "-4",
       hint: "Substitute into the original function, not the derivative.",
       explanation:
@@ -4154,7 +4154,7 @@ export const stationaryPointsLesson: ExplicitLesson = {
           key: "a",
           label: "(a)",
           prompt: "Find the value of $a$.",
-          latex: "y'(1) = 0",
+          latex: "",
           marks: 2,
           answer: "-3",
           acceptedAnswers: ["−3"],
@@ -4384,7 +4384,7 @@ export const increasingDecreasingFunctionsLesson: ExplicitLesson = {
     {
       id: "inc-dec-guided-4",
       prompt: "Fill in the missing sign in the sign table:",
-      latex: "f'(x)=(x-1)(x-3), \\quad \\text{on }(1,3), \\quad f'(2)=\\Box",
+      latex: "",
       answer: "-",
       hint: "Substitute $x=2$ into the derivative.",
       explanation:
@@ -6076,7 +6076,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     {
       id: "sdt-guided-4",
       prompt: "Complete the second derivative:",
-      latex: "f'(x)=3x^2-12x+9 \\quad \\Rightarrow \\quad f''(x)=\\Box",
+      latex: "",
       answer: "6x-12",
       hint: "Differentiate the first derivative.",
       explanation:
@@ -6221,7 +6221,7 @@ export const secondDerivativeTestLesson: ExplicitLesson = {
     {
       id: "sdt-mastery-4",
       prompt: "Evaluate the second derivative at $x=2$:",
-      latex: "f''(x)=12x-6",
+      latex: "",
       answer: "18",
       hint: "Substitute each $x$-value into $f''(x)$.",
       explanation: "$f''(-1)=-18<0$ and $f''(2)=18>0$.",
@@ -7661,7 +7661,7 @@ export const optimisationLesson: ExplicitLesson = {
     {
       id: "optimisation-guided-2",
       prompt: "Complete the area function coefficient:",
-      latex: "A=x(20-x)=\\Box x-x^2",
+      latex: "",
       answer: "20",
       hint: "Substitute $y=20-x$ into $A=xy$.",
       explanation: "$A=x(20-x)=20x-x^2$.",
@@ -8346,7 +8346,7 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     {
       id: "rates-guided-3",
       prompt: "Find the rate value at $t=2$:",
-      latex: "s'(t)=6t+2",
+      latex: "",
       answer: "14",
       hint: "Substitute $t=2$ and interpret the positive sign.",
       explanation: "$s'(2)=14$, so the quantity is increasing at $14$ units per time unit.",
@@ -8447,7 +8447,7 @@ export const ratesOfChangeApplicationsLesson: ExplicitLesson = {
     {
       id: "rates-mastery-2",
       prompt: "Find the rate at $t=2$:",
-      latex: "h'(t)=-8t+24",
+      latex: "",
       answer: "8",
       hint: "Substitute $t=2$.",
       explanation: "$h'(2)=8$.",

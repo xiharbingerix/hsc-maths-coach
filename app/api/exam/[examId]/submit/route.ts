@@ -10,6 +10,7 @@ import {
   recordMasteryEvents,
   type MasteryEventInput,
 } from "../../../../../lib/mastery/updateMastery";
+import { hasActiveAccess } from "../../../../../lib/requirePaidAccess";
 
 export const runtime = "nodejs";
 
@@ -38,6 +39,14 @@ export async function POST(
   }
   if (!userId) {
     return NextResponse.json({ error: "Sign in to submit." }, { status: 401 });
+  }
+
+  // Premium feature: exams and topic tests are part of the paid tier.
+  if (!(await hasActiveAccess(userId))) {
+    return NextResponse.json(
+      { error: "Upgrade to sit exams and topic tests.", upgrade: true },
+      { status: 403 }
+    );
   }
 
   // Topic tests have a dynamic, deterministic id (topic-test:course:topic:seed);

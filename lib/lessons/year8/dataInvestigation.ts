@@ -525,7 +525,7 @@ const statisticalQuestions: LessonContent = {
       id: "y8-dai-sq-mp1",
       prompt:
         "A teacher plans an investigation: 'How many hours of sleep do Year 8 students get on a school night?' There are 200 Year 8 students, and 40 are surveyed.",
-      latex: "\\text{Population } 200,\\ \\text{sample } 40",
+      latex: "",
       answer: "40",
       hint: "Identify the sample size, the population size, and classify the variable.",
       explanation:

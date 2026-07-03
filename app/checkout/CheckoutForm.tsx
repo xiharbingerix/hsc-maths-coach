@@ -25,8 +25,9 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
 
-  // True when online-learning and no logged-in user — use the new direct-to-Stripe flow.
-  const isAnonymousOnlineLearning = offer.slug === "online-learning" && !user;
+  // Online-learning upgrade requires an account (free users already have one),
+  // so an anonymous visitor is shown a login wall rather than a checkout form.
+  const needsLoginToUpgrade = offer.slug === "online-learning" && !user;
 
   useEffect(() => {
     clientTrackEvent("subscription_page_viewed", { offer: offerSlug });
@@ -118,20 +119,14 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     clientTrackEvent("checkout_form_submitted", { offer: offerSlug });
 
     try {
-      let accessToken: string | undefined;
+      const { data } = await supabase.auth.getSession();
+      const accessToken = data.session?.access_token;
 
-      if (!isAnonymousOnlineLearning) {
-        const { data } = await supabase.auth.getSession();
-        accessToken = data.session?.access_token;
-      }
-
-      const requestBody = isAnonymousOnlineLearning
-        ? { offer: offer.slug }
-        : {
-            offer: offer.slug,
-            parentEmail: parentEmail.trim(),
-            studentFirstName: studentFirstName.trim(),
-          };
+      const requestBody = {
+        offer: offer.slug,
+        parentEmail: parentEmail.trim(),
+        studentFirstName: studentFirstName.trim(),
+      };
 
       const response = await fetch("/api/stripe/create-checkout-session", {
         method: "POST",
@@ -212,8 +207,7 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
         </h2>
         {offer.slug === "online-learning" ? (
           <p className="mt-2 text-sm text-slate-500">
-            Nova Maths Online Learning &middot; 7-day free trial &middot; then
-            $19/month &middot; cancel any time
+            Nova Maths Premium &middot; $19/month &middot; cancel any time
           </p>
         ) : null}
       </section>
@@ -244,73 +238,42 @@ export function CheckoutForm({ offerSlug }: CheckoutFormProps) {
     );
   }
 
-  // ── Anonymous online-learning: direct-to-Stripe launch ───────────────────
-  if (isAnonymousOnlineLearning) {
+  // ── Online-learning upgrade requires an account: login wall ──────────────
+  if (needsLoginToUpgrade) {
     return (
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              Selected offer
-            </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight">
-              {offer.label}
-            </h2>
-            <p className="mt-2 text-sm font-semibold text-slate-500">
-              {offer.priceLabel}
-            </p>
-            <p className="mt-4 leading-7 text-slate-600">{offer.description}</p>
-            <div className="mt-5 rounded-xl bg-white p-4 text-sm leading-6 text-slate-700">
-              <p className="font-semibold text-slate-950">What happens next</p>
-              <p className="mt-2">
-                Stripe collects your email and payment details securely. After
-                checkout, create your Nova Maths password to access your
-                dashboard.
-              </p>
-            </div>
-          </div>
+        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          Nova Maths Premium
+        </p>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight">
+          Sign in to upgrade
+        </h1>
+        <p className="mt-3 leading-7 text-slate-600">
+          {offer.description}
+        </p>
+        <p className="mt-3 text-sm font-medium text-slate-500">
+          {offer.priceLabel} &middot; cancel any time &middot; secure payment
+          through Stripe
+        </p>
 
-          <form onSubmit={handleSubmit}>
-            <h1 className="text-3xl font-bold tracking-tight">
-              Start your 7-day free trial
-            </h1>
-            <p className="mt-3 leading-7 text-slate-600">
-              No account needed before checkout. Stripe collects your email and
-              payment details. After your trial starts, you will create a
-              password to access your lessons and dashboard.
-            </p>
-            <p className="mt-3 text-sm font-medium text-slate-500">
-              No charge today &middot; then $19/month &middot; cancel any time
-              &middot; secure payment through Stripe
-            </p>
-
-            {errorMessage ? (
-              <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                <p>{errorMessage}</p>
-              </div>
-            ) : null}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
-            >
-              {isSubmitting
-                ? "Opening secure checkout..."
-                : "Continue to secure checkout"}
-            </button>
-
-            <p className="mt-4 text-sm text-slate-600">
-              Already have an account?{" "}
-              <Link
-                href="/login?next=%2Fcheckout%3Foffer%3Donline-learning"
-                className="font-semibold text-slate-950 underline"
-              >
-                Log in to continue checkout
-              </Link>
-            </p>
-          </form>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <Link
+            href="/login?next=%2Fcheckout%3Foffer%3Donline-learning"
+            className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
+          >
+            Log in to upgrade
+          </Link>
+          <Link
+            href="/signup"
+            className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+          >
+            Sign up free
+          </Link>
         </div>
+        <p className="mt-4 text-sm text-slate-500">
+          Lessons and practice are free — create an account first, then upgrade
+          for exams, topic tests and step-by-step hints.
+        </p>
       </section>
     );
   }

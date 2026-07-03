@@ -149,8 +149,8 @@ export default function FreeYear7AlgebraPage() {
               >
                 Start the free lesson
               </a>
-              <SubscribeCTA href="/checkout?offer=online-learning">
-                Start your 7-day free trial
+              <SubscribeCTA href="/signup">
+                Sign up free
               </SubscribeCTA>
             </div>
             <p className="mt-3 text-sm text-slate-500">
@@ -331,7 +331,7 @@ export default function FreeYear7AlgebraPage() {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {quickChecks.map((item, index) => (
               <div
-                key={item.question}
+                key={index}
                 className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
               >
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
@@ -387,21 +387,21 @@ export default function FreeYear7AlgebraPage() {
             This is the Nova Maths lesson style.
           </h2>
           <p className="mt-4 max-w-3xl leading-7 text-slate-600">
-            Your trial gives you a structured pathway through NSW maths from
+            Your free account gives you a structured pathway through NSW maths from
             Year 8 to HSC: {totalActiveLessonCount} active lessons with clear
             explanations, worked examples, guided practice, independent
             practice, mastery quizzes and saved progress. Year 7 is currently a
             free preview lesson only.
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <SubscribeCTA href="/checkout?offer=online-learning">
-              Start your 7-day free trial
+            <SubscribeCTA href="/signup">
+              Sign up free
             </SubscribeCTA>
             <SecondaryLink href="/course">View courses</SecondaryLink>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            Create an account before checkout so progress is saved across
-            devices.
+            Create a free account so progress is saved across devices. No card
+            required.
           </p>
         </section>
 

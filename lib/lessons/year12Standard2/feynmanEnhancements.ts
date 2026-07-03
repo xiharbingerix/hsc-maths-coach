@@ -1,6 +1,5 @@
 import type {
   ExplicitLesson,
-  PracticeQuestion,
   WorkedExample,
 } from "../differentialCalculus";
 
@@ -66,7 +65,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "\\$140",
     multiStem:
       "A community hall charges a fixed fee plus a constant amount per attendee. A booking for 20 attendees costs $520 and a booking for 35 attendees costs $820.",
-    multiLatex: "C=mn+b",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the cost per attendee.",
@@ -190,7 +189,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "10\\text{ min}",
     multiStem:
       "A heater rated at 1.8 kW runs for 2.5 hours. Electricity costs 32 cents per kWh.",
-    multiLatex: "E=Pt",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the energy used in kWh.",
@@ -252,7 +251,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "\\$12266",
     multiStem:
       "Mia invests $6000 at 5% p.a. compounded annually for 4 years. A competing account charges a $40 setup fee but pays 5.4% p.a. compounded annually.",
-    multiLatex: "A=P(1+r)^n",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the value of the first investment after 4 years to the nearest dollar.",
@@ -316,7 +315,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "z=1.5",
     multiStem:
       "For a set of exam marks, the mean is 68 and the standard deviation is 6. A student scores 77.",
-    multiLatex: "z=\\frac{x-\\mu}{\\sigma}",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the student's z-score.",
@@ -377,7 +376,7 @@ const BLUEPRINTS: Record<string, Standard2Blueprint> = {
     transferAnswer: "11\\text{ days}",
     multiStem:
       "A project has three dependent paths with total durations 9 days, 14 days, and 12 days. One non-critical activity on the 9-day path can be delayed.",
-    multiLatex: "\\text{project duration}=\\max(\\text{path totals})",
+    multiLatex: "",
     multiParts: [
       {
         prompt: "Find the project completion time.",
@@ -472,100 +471,6 @@ function feynmanAdditions(lesson: ExplicitLesson, blueprint: Standard2Blueprint)
   ];
 }
 
-function choicePoolItem(
-  lesson: ExplicitLesson,
-  index: number,
-  difficulty: number,
-  prompt: string,
-  correct: string,
-  distractors: string[],
-  explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
-): PracticeQuestion {
-  const choices = [correct, ...distractors]
-    .filter((choice, choiceIndex, choicesArray) => choicesArray.indexOf(choice) === choiceIndex)
-    .slice(0, 4)
-    .map((text, choiceIndex) => ({
-      label: ["A", "B", "C", "D"][choiceIndex],
-      text,
-    }));
-
-  while (choices.length < 4) {
-    choices.push({
-      label: ["A", "B", "C", "D"][choices.length],
-      text: "Calculate first and decide what the question meant afterwards.",
-    });
-  }
-
-  return {
-    id: `${lesson.slug}-std2-pool-${index}`,
-    prompt,
-    latex,
-    answer: "A",
-    difficulty,
-    choices,
-    acceptedAnswers: [],
-    hint: "Choose the option that preserves the structure and units of the problem.",
-    explanation,
-  };
-}
-
-function buildPool(lesson: ExplicitLesson, blueprint: Standard2Blueprint): PracticeQuestion[] {
-  const templates = [
-    {
-      prompt: `For ${lesson.title}, what should be identified before calculation begins?`,
-      correct: blueprint.object,
-      explanation: `The first decision is to identify ${blueprint.object}; otherwise the working can use the wrong model.`,
-    },
-    {
-      prompt: `Which first move best fits ${blueprint.topic}?`,
-      correct: blueprint.validMove,
-      explanation: `The reliable first move is: ${blueprint.validMove}`,
-    },
-    {
-      prompt: `A student makes this error in ${lesson.title}: ${blueprint.trap1}. What is the problem?`,
-      correct: blueprint.trap1,
-      explanation: `This error matters because the answer must be checked so that ${blueprint.check}.`,
-    },
-    {
-      prompt: `Which representation most helps with ${lesson.title}?`,
-      correct: blueprint.representation,
-      explanation: `${blueprint.representation} makes the hidden structure visible before calculation.`,
-    },
-    {
-      prompt: `After solving a ${blueprint.topic} problem, what check is most important?`,
-      correct: blueprint.check,
-      explanation: `Checking that ${blueprint.check} catches many Standard 2 exam errors.`,
-    },
-    {
-      prompt: `In a Band-6 unfamiliar context involving ${blueprint.d5Context}, what prevents pattern matching?`,
-      correct: "Choosing the method from the structure rather than from keywords.",
-      explanation: `The transfer step is to identify ${blueprint.object} and then apply the appropriate model.`,
-    },
-  ];
-
-  const traps = [blueprint.trap1, blueprint.trap2, blueprint.trap3];
-
-  return Array.from({ length: 30 }, (_, index) => {
-    const difficulty = index < 4 ? 1 : index < 10 ? 2 : index < 18 ? 3 : index < 24 ? 4 : 5;
-    const template = templates[index % templates.length];
-    return choicePoolItem(
-      lesson,
-      index + 1,
-      difficulty,
-      template.prompt,
-      template.correct,
-      [
-        traps[index % traps.length],
-        traps[(index + 1) % traps.length],
-        "Use the largest number in the question as the final answer.",
-      ].filter((choice) => choice !== template.correct),
-      template.explanation,
-      `\\text{${blueprint.topic}}`
-    );
-  });
-}
-
 function transferWorkedExample(
   lesson: ExplicitLesson,
   blueprint: Standard2Blueprint
@@ -586,38 +491,6 @@ function enrichWorkedExamples(
   const stepCount = worked.reduce((total, example) => total + (example.steps?.length ?? 0), 0);
   if (worked.length >= 3 && stepCount >= 6) return worked;
   return [...worked, transferWorkedExample(lesson, blueprint)];
-}
-
-function buildMultiPart(
-  lesson: ExplicitLesson,
-  blueprint: Standard2Blueprint
-): PracticeQuestion[] {
-  if (lesson.multiPartPractice?.length) return lesson.multiPartPractice;
-
-  return [
-    {
-      id: `${lesson.slug}-std2-mp-1`,
-      prompt: `${lesson.title}: Standard 2 HSC-style multi-part practice.`,
-      latex: blueprint.multiLatex,
-      answer: blueprint.multiParts[0].answer,
-      acceptedAnswers: blueprint.multiParts[0].acceptedAnswers ?? [],
-      hint: "Work through the parts in order and keep units consistent.",
-      explanation:
-        "This item links setup, calculation, and a changed-condition check, which is the main exam-depth layer for this lesson.",
-      parts: blueprint.multiParts.map((part, index) => ({
-        key: ["a", "b", "c"][index],
-        label: `(${["a", "b", "c"][index]})`,
-        prompt: part.prompt,
-        latex: part.latex,
-        marks: part.marks,
-        answer: part.answer,
-        acceptedAnswers: part.acceptedAnswers ?? [],
-        hint: part.hint,
-        explanation: part.explanation,
-        working: part.working,
-      })),
-    },
-  ];
 }
 
 export function enrichYear12Standard2Depth(lesson: ExplicitLesson): ExplicitLesson {
