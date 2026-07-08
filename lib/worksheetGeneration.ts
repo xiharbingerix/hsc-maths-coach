@@ -6,7 +6,8 @@ export type DifficultyPreset =
   | "catch-up"
   | "standard"
   | "push-forward"
-  | "harder";
+  | "harder"
+  | "challenge";
 type DifficultyDist = Record<DifficultyLevel, number>;
 
 export type WorksheetQuestionPreview = {
@@ -52,7 +53,15 @@ export const WORKSHEET_PRESETS: Record<DifficultyPreset, DifficultyDist> = {
   // Skips Levels 1 & 2; weighted upward so 4 < 5 < 6 (most questions are the
   // hardest D6 challenge / multi-part / exam tier), with a little Level 3.
   harder: { 1: 0, 2: 0, 3: 1, 4: 2, 5: 3, 6: 4 },
+  // Levels 4-6 only, split evenly; selection also spreads questions across
+  // every selected subtopic (see orderForSubtopicCoverage) instead of the
+  // usual random draw, so each subtopic is represented.
+  challenge: { 1: 0, 2: 0, 3: 0, 4: 1, 5: 1, 6: 1 },
 };
+
+// Presets whose selection should round-robin across subtopics so every
+// selected subtopic contributes questions.
+const COVERAGE_PRESETS: ReadonlySet<DifficultyPreset> = new Set(["challenge"]);
 
 function hasQuestionParts(row: Pick<RawQuestionRow, "question_parts">) {
   return Array.isArray(row.question_parts) && row.question_parts.length > 0;
@@ -129,6 +138,51 @@ function shuffle<T>(items: T[]) {
   return [...items].sort(() => Math.random() - 0.5);
 }
 
+// Orders candidate rows so subtopics with the fewest questions already
+// selected (across the whole worksheet) come first, round-robin. Rows are
+// shuffled within each subtopic so repeated generations still vary.
+function orderForSubtopicCoverage(
+  rows: RawQuestionRow[],
+  selectedPerSubtopic: Map<string, number>
+) {
+  const groups = new Map<string, RawQuestionRow[]>();
+  for (const row of shuffle(rows)) {
+    const group = groups.get(row.subtopic_slug);
+    if (group) {
+      group.push(row);
+    } else {
+      groups.set(row.subtopic_slug, [row]);
+    }
+  }
+
+  const virtualCounts = new Map(selectedPerSubtopic);
+  const cursors = [...groups.entries()].map(([slug, list]) => ({
+    slug,
+    list,
+    index: 0,
+  }));
+  const ordered: RawQuestionRow[] = [];
+
+  while (ordered.length < rows.length) {
+    let best: (typeof cursors)[number] | null = null;
+    for (const cursor of cursors) {
+      if (cursor.index >= cursor.list.length) continue;
+      if (
+        !best ||
+        (virtualCounts.get(cursor.slug) ?? 0) < (virtualCounts.get(best.slug) ?? 0)
+      ) {
+        best = cursor;
+      }
+    }
+    if (!best) break;
+    ordered.push(best.list[best.index]);
+    best.index += 1;
+    virtualCounts.set(best.slug, (virtualCounts.get(best.slug) ?? 0) + 1);
+  }
+
+  return ordered;
+}
+
 const QUESTION_SELECT =
   "id, source_id, course_slug, topic_slug, subtopic_slug, difficulty, prompt, latex, choices, question_parts, answer, diagram_data";
 
@@ -191,6 +245,15 @@ export async function selectWorksheetQuestionsWithMetadata({
   const prioritySubtopics = isManual ? selectedSubtopicSlugs : weakSubtopicSlugs;
   const priorityFraction = isManual ? 1.0 : 0.65;
 
+  // Coverage presets spread questions across every subtopic in scope instead
+  // of drawing at random.
+  const spreadAcrossSubtopics = COVERAGE_PRESETS.has(preset);
+  const selectedPerSubtopic = new Map<string, number>();
+  const orderRows = (rows: RawQuestionRow[]) =>
+    spreadAcrossSubtopics
+      ? orderForSubtopicCoverage(rows, selectedPerSubtopic)
+      : shuffle(rows);
+
   for (const [level, needed] of distribution) {
     if (needed === 0) continue;
     let levelCount = 0;
@@ -218,11 +281,15 @@ export async function selectWorksheetQuestionsWithMetadata({
         ? priorityRows
         : priorityRows.filter((row) => !hasQuestionParts(row));
 
-      for (const row of shuffle(eligiblePriorityRows)) {
+      for (const row of orderRows(eligiblePriorityRows)) {
         if (levelCount >= priorityTarget || selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
         selectedIds.add(row.id);
+        selectedPerSubtopic.set(
+          row.subtopic_slug,
+          (selectedPerSubtopic.get(row.subtopic_slug) ?? 0) + 1
+        );
         levelCount++;
       }
     }
@@ -251,11 +318,15 @@ export async function selectWorksheetQuestionsWithMetadata({
         ? rows
         : rows.filter((row) => !hasQuestionParts(row));
 
-      for (const row of shuffle(eligibleRows)) {
+      for (const row of orderRows(eligibleRows)) {
         if (selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
         selectedIds.add(row.id);
+        selectedPerSubtopic.set(
+          row.subtopic_slug,
+          (selectedPerSubtopic.get(row.subtopic_slug) ?? 0) + 1
+        );
         levelCount++;
         if (levelCount >= needed) break;
       }
