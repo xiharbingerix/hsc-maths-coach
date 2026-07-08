@@ -37,7 +37,8 @@ function statAnswer(
   latex: string,
   answer: string,
   explanation: string,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  extra: Partial<PracticeQuestion> = {}
 ): PracticeQuestion {
   return {
     id,
@@ -47,6 +48,7 @@ function statAnswer(
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers, ...safeStatAnswerVariants(prompt, answer)])),
     hint: "Use the displayed data and identify the statistic being requested.",
     explanation,
+    ...extra,
   };
 }
 
@@ -56,7 +58,8 @@ function statChoice(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   explanation: string,
-  latex = "\\text{Select A, B, C, or D.}"
+  latex = "\\text{Select A, B, C, or D.}",
+  extra: Partial<PracticeQuestion> = {}
 ): PracticeQuestion {
   return {
     id,
@@ -66,7 +69,15 @@ function statChoice(
     answer,
     hint: "Match the data description to the statistical idea being tested.",
     explanation,
+    ...extra,
   };
+}
+
+function boxPlot(
+  description: string,
+  plots: { label: string; min: number; q1: number; median: number; q3: number; max: number }[]
+) {
+  return { boxPlotDiagram: { description, plots, showValueLabels: true } };
 }
 
 const dataA = "2,\\ 4,\\ 6,\\ 8,\\ 10,\\ 12,\\ 14";
@@ -180,30 +191,63 @@ const boxWorked: WorkedExample[] = [
 ];
 
 const boxGuided: PracticeQuestion[] = [
-  statAnswer("y10-stat-box-g1", "A box plot has the displayed five-number summary. Find the median.", "(5,\\ 8,\\ 12,\\ 17,\\ 23)", "12", "The third number is the median."),
-  statAnswer("y10-stat-box-g2", "A box plot has the displayed five-number summary. Find the interquartile range.", "(5,\\ 8,\\ 12,\\ 17,\\ 23)", "9", "Subtract 8 from 17."),
+  statAnswer("y10-stat-box-g1", "From the box plot shown, find the median.", "", "12", "The line inside the box marks the median: 12.", [],
+    boxPlot("Box plot with whiskers from 5 to 23, a box from 8 to 17 and a median line at 12.", [{ label: "Dataset", min: 5, q1: 8, median: 12, q3: 17, max: 23 }])),
+  statAnswer("y10-stat-box-g2", "From the box plot shown, find the interquartile range.", "", "9", "The box runs from the lower quartile 8 to the upper quartile 17, so IQR = 17 − 8 = 9.", [],
+    boxPlot("Box plot with whiskers from 5 to 23, a box from 8 to 17 and a median line at 12.", [{ label: "Dataset", min: 5, q1: 8, median: 12, q3: 17, max: 23 }])),
   statChoice("y10-stat-box-g3", "Which part of a box plot runs from the lower quartile to the upper quartile?", "B", ["The left whisker only", "The box", "The median line only", "The maximum only"], "The box spans the middle half of the data."),
-  statChoice("y10-stat-box-g4", "Dataset A has summary (2, 6, 10, 15, 19). Dataset B has summary (1, 4, 12, 18, 24). Which dataset has the higher median?", "B", ["Dataset A", "Dataset B", "They have the same median", "The medians cannot be compared"], "Dataset B has median 12, compared with 10 for Dataset A."),
+  statChoice("y10-stat-box-g4", "From the box plots shown, which dataset has the higher median?", "B", ["Dataset A", "Dataset B", "They have the same median", "The medians cannot be compared"], "Dataset B's median line is at 12, above Dataset A's at 10.", "\\text{Select A, B, C, or D.}",
+    boxPlot("Two box plots. Dataset A: whiskers 2 to 19, box 6 to 15, median 10. Dataset B: whiskers 1 to 24, box 4 to 18, median 12.", [
+      { label: "A", min: 2, q1: 6, median: 10, q3: 15, max: 19 },
+      { label: "B", min: 1, q1: 4, median: 12, q3: 18, max: 24 },
+    ])),
 ];
 
 const boxIndependent: PracticeQuestion[] = [
-  statAnswer("y10-stat-box-i1", "A box plot has the displayed five-number summary. Find the range.", "(3,\\ 7,\\ 11,\\ 15,\\ 20)", "17", "Subtract the minimum from the maximum."),
-  statAnswer("y10-stat-box-i2", "A box plot has the displayed five-number summary. Find the interquartile range.", "(3,\\ 7,\\ 11,\\ 15,\\ 20)", "8", "Subtract 7 from 15."),
-  statChoice("y10-stat-box-i3", "A box plot has summary (4, 9, 13, 18, 27). Which interval contains the middle 50% of the data?", "C", ["4 to 27", "4 to 13", "9 to 18", "13 to 27"], "The middle 50% lies between the quartiles."),
+  statAnswer("y10-stat-box-i1", "From the box plot shown, find the range.", "", "17", "The whiskers reach the minimum 3 and maximum 20, so the range is 20 − 3 = 17.", [],
+    boxPlot("Box plot with whiskers from 3 to 20, a box from 7 to 15 and a median line at 11.", [{ label: "Dataset", min: 3, q1: 7, median: 11, q3: 15, max: 20 }])),
+  statAnswer("y10-stat-box-i2", "From the box plot shown, find the interquartile range.", "", "8", "The box runs from 7 to 15, so IQR = 15 − 7 = 8.", [],
+    boxPlot("Box plot with whiskers from 3 to 20, a box from 7 to 15 and a median line at 11.", [{ label: "Dataset", min: 3, q1: 7, median: 11, q3: 15, max: 20 }])),
+  statChoice("y10-stat-box-i3", "From the box plot shown, which interval contains the middle 50% of the data?", "C", ["4 to 27", "4 to 13", "9 to 18", "13 to 27"], "The middle 50% lies inside the box, between the quartiles 9 and 18.", "\\text{Select A, B, C, or D.}",
+    boxPlot("Box plot with whiskers from 4 to 27, a box from 9 to 18 and a median line at 13.", [{ label: "Dataset", min: 4, q1: 9, median: 13, q3: 18, max: 27 }])),
   statChoice("y10-stat-box-i4", "Dataset A has IQR 6 and Dataset B has IQR 15. Which box plot would have the wider box?", "D", ["Dataset A", "Both boxes must have width 21", "The medians decide the width", "Dataset B"], "A wider IQR produces a wider box."),
   statChoice("y10-stat-box-i5", "Which five-number summary is written in the correct order?", "A", ["Minimum, lower quartile, median, upper quartile, maximum", "Minimum, median, lower quartile, maximum, upper quartile", "Median, minimum, maximum, lower quartile, upper quartile", "Lower quartile, minimum, median, maximum, upper quartile"], "The five-number summary is ordered from minimum to maximum."),
 ];
 
 const boxMastery: PracticeQuestion[] = [
-  statAnswer("y10-stat-box-m1", "A box plot has the displayed five-number summary. Find the median.", "(6,\\ 10,\\ 14,\\ 19,\\ 26)", "14", "The third number is the median."),
-  statAnswer("y10-stat-box-m2", "A box plot has the displayed five-number summary. Find the range.", "(6,\\ 10,\\ 14,\\ 19,\\ 26)", "20", "Subtract the minimum from the maximum."),
-  statAnswer("y10-stat-box-m3", "A box plot has the displayed five-number summary. Find the interquartile range.", "(3,\\ 8,\\ 15,\\ 22,\\ 31)", "14", "Subtract the lower quartile from the upper quartile: 22 − 8 = 14."),
-  statChoice("y10-stat-box-m4", "Student A has five-number summary (40, 55, 70, 80, 95) and Student B has (50, 60, 70, 75, 85). Which student has more consistent scores in the middle half?", "B", ["Student A", "Student B", "Both are equally consistent", "The medians must differ first"], "Student A has IQR 80 − 55 = 25 and Student B has IQR 75 − 60 = 15. The smaller IQR shows Student B is more consistent.", "(40,\\ 55,\\ 70,\\ 80,\\ 95)\\text{ and }(50,\\ 60,\\ 70,\\ 75,\\ 85)"),
-  statChoice("y10-stat-box-m5", "Dataset A has summary (2, 7, 11, 16, 20). Dataset B has summary (3, 8, 13, 15, 23). Which has the higher median?", "B", ["Dataset A", "Dataset B", "They are equal", "The IQR is needed first"], "Dataset B has median 13 compared with 11."),
-  statChoice("y10-stat-box-m6", "Which dataset has the larger IQR?", "A", ["Summary (1, 4, 9, 17, 22)", "Summary (2, 7, 10, 15, 24)", "They have the same IQR", "Only the ranges can be compared"], "The first summary has IQR 13; the second has IQR 8."),
-  statAnswer("y10-stat-box-m7", "A box plot has lower quartile 9 and upper quartile 24. Find the width of its box.", "Q_1=9,\\quad Q_3=24", "15", "The box width represents the IQR."),
-  statChoice("y10-stat-box-m8", "Dataset A has summary (4, 8, 12, 16, 20). Dataset B has summary (4, 6, 12, 18, 20). Which statement is correct?", "D", ["Dataset A has the higher median", "Dataset B has the larger range", "Dataset A has the larger IQR", "The medians and ranges match, but Dataset B has the larger IQR"], "Both medians are 12 and both ranges are 16. Dataset B has IQR 12 compared with 8."),
-  statAnswer("y10-stat-box-m9", "Dataset A has five-number summary (3, 8, 14, 20, 29). Dataset B has five-number summary (5, 11, 15, 18, 25). How much larger is Dataset A's IQR?", "\\text{Dataset A: }(3,\\ 8,\\ 14,\\ 20,\\ 29);\\quad \\text{Dataset B: }(5,\\ 11,\\ 15,\\ 18,\\ 25)", "5", "Dataset A has IQR 12 and Dataset B has IQR 7."),
+  statAnswer("y10-stat-box-m1", "From the box plot shown, find the median.", "", "14", "The line inside the box marks the median: 14.", [],
+    boxPlot("Box plot with whiskers from 6 to 26, a box from 10 to 19 and a median line at 14.", [{ label: "Dataset", min: 6, q1: 10, median: 14, q3: 19, max: 26 }])),
+  statAnswer("y10-stat-box-m2", "From the box plot shown, find the range.", "", "20", "The whiskers reach 6 and 26, so the range is 26 − 6 = 20.", [],
+    boxPlot("Box plot with whiskers from 6 to 26, a box from 10 to 19 and a median line at 14.", [{ label: "Dataset", min: 6, q1: 10, median: 14, q3: 19, max: 26 }])),
+  statAnswer("y10-stat-box-m3", "From the box plot shown, find the interquartile range.", "", "14", "The box runs from the lower quartile 8 to the upper quartile 22, so IQR = 22 − 8 = 14.", [],
+    boxPlot("Box plot with whiskers from 3 to 31, a box from 8 to 22 and a median line at 15.", [{ label: "Dataset", min: 3, q1: 8, median: 15, q3: 22, max: 31 }])),
+  statChoice("y10-stat-box-m4", "The box plots show two students' quiz scores. Which student has more consistent scores in the middle half?", "B", ["Student A", "Student B", "Both are equally consistent", "The medians must differ first"], "Student A's box spans 55 to 80 (IQR 25); Student B's spans 60 to 75 (IQR 15). The narrower box shows Student B is more consistent.", "\\text{Select A, B, C, or D.}",
+    boxPlot("Two box plots of quiz scores. Student A: whiskers 40 to 95, box 55 to 80, median 70. Student B: whiskers 50 to 85, box 60 to 75, median 70.", [
+      { label: "A", min: 40, q1: 55, median: 70, q3: 80, max: 95 },
+      { label: "B", min: 50, q1: 60, median: 70, q3: 75, max: 85 },
+    ])),
+  statChoice("y10-stat-box-m5", "From the box plots shown, which dataset has the higher median?", "B", ["Dataset A", "Dataset B", "They are equal", "The IQR is needed first"], "Dataset B's median line is at 13, above Dataset A's at 11.", "\\text{Select A, B, C, or D.}",
+    boxPlot("Two box plots. Dataset A: whiskers 2 to 20, box 7 to 16, median 11. Dataset B: whiskers 3 to 23, box 8 to 15, median 13.", [
+      { label: "A", min: 2, q1: 7, median: 11, q3: 16, max: 20 },
+      { label: "B", min: 3, q1: 8, median: 13, q3: 15, max: 23 },
+    ])),
+  statChoice("y10-stat-box-m6", "From the box plots shown, which dataset has the larger IQR?", "A", ["Dataset A", "Dataset B", "They have the same IQR", "Only the ranges can be compared"], "Dataset A's box spans 4 to 17 (IQR 13); Dataset B's spans 7 to 15 (IQR 8).", "\\text{Select A, B, C, or D.}",
+    boxPlot("Two box plots. Dataset A: whiskers 1 to 22, box 4 to 17, median 9. Dataset B: whiskers 2 to 24, box 7 to 15, median 10.", [
+      { label: "A", min: 1, q1: 4, median: 9, q3: 17, max: 22 },
+      { label: "B", min: 2, q1: 7, median: 10, q3: 15, max: 24 },
+    ])),
+  statAnswer("y10-stat-box-m7", "From the box plot shown, find the width of its box.", "", "15", "The box runs from the lower quartile 9 to the upper quartile 24, so its width is 24 − 9 = 15 — the IQR.", [],
+    boxPlot("Box plot with whiskers from 5 to 30, a box from 9 to 24 and a median line at 16.", [{ label: "Dataset", min: 5, q1: 9, median: 16, q3: 24, max: 30 }])),
+  statChoice("y10-stat-box-m8", "From the box plots shown, which statement is correct?", "D", ["Dataset A has the higher median", "Dataset B has the larger range", "Dataset A has the larger IQR", "The medians and ranges match, but Dataset B has the larger IQR"], "Both medians are 12 and both ranges are 20 − 4 = 16. Dataset A's box spans 8 to 16 (IQR 8); Dataset B's spans 6 to 18 (IQR 12).", "\\text{Select A, B, C, or D.}",
+    boxPlot("Two box plots. Dataset A: whiskers 4 to 20, box 8 to 16, median 12. Dataset B: whiskers 4 to 20, box 6 to 18, median 12.", [
+      { label: "A", min: 4, q1: 8, median: 12, q3: 16, max: 20 },
+      { label: "B", min: 4, q1: 6, median: 12, q3: 18, max: 20 },
+    ])),
+  statAnswer("y10-stat-box-m9", "From the box plots shown, how much larger is Dataset A's IQR than Dataset B's?", "", "5", "Dataset A's box spans 8 to 20 (IQR 12); Dataset B's spans 11 to 18 (IQR 7). The difference is 12 − 7 = 5.", [],
+    boxPlot("Two box plots. Dataset A: whiskers 3 to 29, box 8 to 20, median 14. Dataset B: whiskers 5 to 25, box 11 to 18, median 15.", [
+      { label: "A", min: 3, q1: 8, median: 14, q3: 20, max: 29 },
+      { label: "B", min: 5, q1: 11, median: 15, q3: 18, max: 25 },
+    ])),
   statChoice("y10-stat-box-m10", "Two box plots have the same median. One has a much wider box. What is the safest conclusion?", "A", ["Its middle half is more spread out", "Its mean must be larger", "Its maximum must be smaller", "Every value is an outlier"], "A wider box means a larger IQR and more spread in the middle half."),
 ];
 
@@ -318,30 +362,59 @@ const scatterWorked: WorkedExample[] = [
 ];
 
 const scatterGuided: PracticeQuestion[] = [
-  statChoice("y10-stat-scatter-g1", "A coordinate pattern rises from left to right. Which description fits?", "A", ["Positive correlation", "Negative correlation", "No correlation", "A five-number summary"], "A rising pattern indicates positive correlation."),
-  statChoice("y10-stat-scatter-g2", "A coordinate pattern falls from left to right. Which description fits?", "B", ["Positive correlation", "Negative correlation", "No correlation", "A box plot"], "A falling pattern indicates negative correlation."),
-  statChoice("y10-stat-scatter-g3", "Points are spread randomly with no clear upward or downward pattern. Which description fits?", "C", ["Strong positive correlation", "Strong negative correlation", "No clear correlation", "Perfect correlation"], "A random pattern does not show a clear relationship."),
+  statChoice("y10-stat-scatter-g1", "Which description fits the scatter plot shown?", "A", ["Positive correlation", "Negative correlation", "No correlation", "A five-number summary"], "The points rise from left to right, indicating positive correlation.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points rising steadily from left to right: (1, 2), (2, 4), (3, 5), (4, 7), (5, 8).", points: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 5 }, { x: 4, y: 7 }, { x: 5, y: 8 }] },
+  }),
+  statChoice("y10-stat-scatter-g2", "Which description fits the scatter plot shown?", "B", ["Positive correlation", "Negative correlation", "No correlation", "A box plot"], "The points fall from left to right, indicating negative correlation.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points falling steadily from left to right: (1, 9), (2, 8), (3, 6), (4, 4), (5, 3).", points: [{ x: 1, y: 9 }, { x: 2, y: 8 }, { x: 3, y: 6 }, { x: 4, y: 4 }, { x: 5, y: 3 }] },
+  }),
+  statChoice("y10-stat-scatter-g3", "Which description fits the scatter plot shown?", "C", ["Strong positive correlation", "Strong negative correlation", "No clear correlation", "Perfect correlation"], "The points are spread with no upward or downward pattern, so there is no clear correlation.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points spread randomly with no clear pattern: (1, 5), (2, 2), (3, 7), (4, 3), (5, 6).", points: [{ x: 1, y: 5 }, { x: 2, y: 2 }, { x: 3, y: 7 }, { x: 4, y: 3 }, { x: 5, y: 6 }] },
+  }),
   statChoice("y10-stat-scatter-g4", "What does an outlier look like in a scatter plot?", "D", ["A point exactly on every other point", "The horizontal axis", "A row total", "A point noticeably away from the main pattern"], "An outlier sits away from the main cluster or trend."),
 ];
 
 const scatterIndependent: PracticeQuestion[] = [
-  statChoice("y10-stat-scatter-i1", "Which description best matches the coordinate pattern shown?", "A", ["Strong positive correlation", "Strong negative correlation", "No correlation", "A decreasing median"], "The coordinates rise steadily.", "(1,3),(2,5),(3,7),(4,9)"),
-  statChoice("y10-stat-scatter-i2", "Which description best matches the coordinate pattern shown?", "B", ["Positive correlation", "Negative correlation", "No correlation", "A five-number summary"], "The coordinates decrease as the first variable increases.", "(1,12),(2,9),(3,7),(4,4)"),
+  statChoice("y10-stat-scatter-i1", "Which description best matches the scatter plot shown?", "A", ["Strong positive correlation", "Strong negative correlation", "No correlation", "A decreasing median"], "The points rise steadily and lie close to a line, showing strong positive correlation.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points rising steadily in a near-perfect line: (1, 3), (2, 5), (3, 7), (4, 9).", points: [{ x: 1, y: 3 }, { x: 2, y: 5 }, { x: 3, y: 7 }, { x: 4, y: 9 }] },
+  }),
+  statChoice("y10-stat-scatter-i2", "Which description best matches the scatter plot shown?", "B", ["Positive correlation", "Negative correlation", "No correlation", "A five-number summary"], "The points fall as x increases, showing negative correlation.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points falling from left to right: (1, 12), (2, 9), (3, 7), (4, 4).", points: [{ x: 1, y: 12 }, { x: 2, y: 9 }, { x: 3, y: 7 }, { x: 4, y: 4 }] },
+  }),
   statChoice("y10-stat-scatter-i3", "A scatter pattern is tightly clustered around a rising trend. Which description is best?", "C", ["Weak negative correlation", "No correlation", "Strong positive correlation", "Strong negative correlation"], "A tight rising pattern indicates strong positive correlation."),
   statChoice("y10-stat-scatter-i4", "A study finds a correlation between screen time and tiredness. Which conclusion is safest?", "D", ["Screen time definitely causes tiredness", "Tiredness definitely causes screen time", "No relationship can exist", "The data shows association but does not prove causation"], "Correlation alone does not establish causation."),
-  statChoice("y10-stat-scatter-i5", "Most points follow a rising trend, but one point lies far below the rest. How should that point be described?", "A", ["An outlier", "A median", "A marginal frequency", "A quartile"], "The point lies away from the main pattern."),
+  statChoice("y10-stat-scatter-i5", "In the scatter plot shown, how should the point at (4, 1) be described?", "A", ["An outlier", "A median", "A marginal frequency", "A quartile"], "Every other point follows the rising trend; (4, 1) lies far below the pattern, so it is an outlier.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points rising from (1, 3) to (5, 9), plus one point at (4, 1) far below the trend.", points: [{ x: 1, y: 3 }, { x: 2, y: 5 }, { x: 3, y: 6 }, { x: 4, y: 8 }, { x: 5, y: 9 }, { x: 4, y: 1, label: "?" }] },
+  }),
 ];
 
 const scatterMastery: PracticeQuestion[] = [
   statChoice("y10-stat-scatter-m1", "As one variable increases, the other usually increases. What type of correlation is this?", "A", ["Positive", "Negative", "No correlation", "Conditional"], "Both variables tend to increase together."),
   statChoice("y10-stat-scatter-m2", "As one variable increases, the other usually decreases. What type of correlation is this?", "B", ["Positive", "Negative", "No correlation", "Interquartile"], "The variables move in opposite directions."),
   statChoice("y10-stat-scatter-m3", "Which description suggests no clear correlation?", "D", ["A tight rising pattern", "A tight falling pattern", "A gentle rising pattern", "A random cloud of points"], "A random cloud has no clear direction."),
-  statChoice("y10-stat-scatter-m4", "Which coordinate pattern shows the strongest positive correlation?", "C", ["$(1,8),(2,3),(3,9),(4,4)$", "$(1,9),(2,7),(3,5),(4,3)$", "$(1,2),(2,4),(3,6),(4,8)$", "$(1,4),(2,4),(3,4),(4,4)$"], "The third pattern rises consistently."),
+  {
+    id: "y10-stat-scatter-m4",
+    prompt: "Which scatter plot shows the strongest positive correlation?",
+    latex: "\\text{Select A, B, C, or D.}",
+    choices: [
+      { label: "A", text: "", scatterPlotDiagram: { description: "Scatter plot with points jumping up and down with no pattern: (1, 8), (2, 3), (3, 9), (4, 4).", points: [{ x: 1, y: 8 }, { x: 2, y: 3 }, { x: 3, y: 9 }, { x: 4, y: 4 }] } },
+      { label: "B", text: "", scatterPlotDiagram: { description: "Scatter plot with points falling steadily: (1, 9), (2, 7), (3, 5), (4, 3).", points: [{ x: 1, y: 9 }, { x: 2, y: 7 }, { x: 3, y: 5 }, { x: 4, y: 3 }] } },
+      { label: "C", text: "", scatterPlotDiagram: { description: "Scatter plot with points rising steadily in a straight line: (1, 2), (2, 4), (3, 6), (4, 8).", points: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 6 }, { x: 4, y: 8 }] } },
+      { label: "D", text: "", scatterPlotDiagram: { description: "Scatter plot with points in a flat horizontal line: (1, 4), (2, 4), (3, 4), (4, 4).", points: [{ x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 }, { x: 4, y: 4 }] } },
+    ],
+    answer: "C",
+    hint: "Look for the plot whose points rise together most consistently.",
+    explanation: "Plot C rises consistently with all points on a straight upward line — the strongest positive correlation. Plot B is negative, plot A has no pattern and plot D is flat.",
+  },
   statChoice("y10-stat-scatter-m5", "A point lies far from the main scatter trend. What is it called?", "B", ["A quartile", "An outlier", "A whisker", "A row total"], "A point away from the main pattern is an outlier."),
   statChoice("y10-stat-scatter-m6", "What can a scatter plot show?", "A", ["Association between two numerical variables", "Proof that one variable causes another", "Only a dataset median", "Only category totals"], "Scatter plots display relationships between two numerical variables."),
-  statChoice("y10-stat-scatter-m7", "A pattern is widely scattered but still tends to rise. Which description is best?", "D", ["Strong negative correlation", "No possible relationship", "Strong positive correlation", "Weak positive correlation"], "The direction is positive, but the wide scatter makes it weak."),
+  statChoice("y10-stat-scatter-m7", "Which description best matches the scatter plot shown?", "D", ["Strong negative correlation", "No possible relationship", "Strong positive correlation", "Weak positive correlation"], "The points drift upward overall, but they sit far from any single line — a positive direction with wide scatter is weak positive correlation.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with widely scattered points that still drift upward: (1, 3), (2, 7), (3, 4), (4, 9), (5, 6), (6, 10).", points: [{ x: 1, y: 3 }, { x: 2, y: 7 }, { x: 3, y: 4 }, { x: 4, y: 9 }, { x: 5, y: 6 }, { x: 6, y: 10 }] },
+  }),
   statChoice("y10-stat-scatter-m8", "A study finds that students carrying umbrellas are more likely to wear raincoats. Which conclusion is safest?", "C", ["Umbrellas cause raincoats", "Raincoats cause umbrellas", "A third factor such as rain may influence both", "The variables must have no correlation"], "Correlation can be explained by another variable."),
-  statChoice("y10-stat-scatter-m9", "A dataset has a strong positive trend except for one extreme outlier. What is the best next step?", "A", ["Investigate the outlier before drawing a conclusion", "Delete every point", "Claim causation immediately", "Replace the data with a box plot total"], "An outlier should be checked because it may affect interpretation."),
+  statChoice("y10-stat-scatter-m9", "The scatter plot shows a strong positive trend except for the point at (2, 14). What is the best next step?", "A", ["Investigate the outlier before drawing a conclusion", "Delete every point", "Claim causation immediately", "Replace the data with a box plot total"], "The point at (2, 14) sits far above the trend. An outlier should be investigated — it may be an error or a genuine unusual case — before any conclusion is drawn.", "\\text{Select A, B, C, or D.}", {
+    scatterPlotDiagram: { description: "Scatter plot with points rising steadily from (1, 2) to (5, 8), plus one extreme point at (2, 14) far above the trend.", points: [{ x: 1, y: 2 }, { x: 2, y: 4 }, { x: 3, y: 5 }, { x: 4, y: 7 }, { x: 5, y: 8 }, { x: 2, y: 14, label: "outlier?" }] },
+  }),
   statChoice("y10-stat-scatter-m10", "Which statement distinguishes correlation from causation?", "B", ["Correlation proves the mechanism", "Correlation describes association; causation requires stronger evidence", "Causation is another word for median", "Correlation requires identical coordinates"], "A scatter relationship alone does not prove cause and effect."),
 ];
 

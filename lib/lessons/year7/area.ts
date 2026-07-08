@@ -7,7 +7,8 @@ function answer(
   latex: string,
   ans: string,
   explanation: string,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  extra: Partial<PracticeQuestion> = {}
 ): PracticeQuestion {
   const autoVariants: string[] = [];
 
@@ -32,6 +33,7 @@ function answer(
     acceptedAnswers: Array.from(new Set([ans, ...acceptedAnswers, ...autoVariants])),
     hint: "Use the area formula for this shape and substitute the given measurements.",
     explanation,
+    ...extra,
   };
 }
 
@@ -717,10 +719,23 @@ const areaCompositeShapes: LessonContent = {
   independentPractice: [
     answer(
       "y7-are-com-i1",
-      "An L-shaped figure is made from a rectangle 10 cm × 7 cm with a 3 cm × 4 cm rectangle removed from one corner. Find the area in cm².",
-      "A = 10 \\times 7 - 3 \\times 4",
+      "Find the area of the L-shaped figure shown, in cm².",
+      "",
       "58",
-      "Full area = 10 × 7 = 70 cm². Cut-out = 3 × 4 = 12 cm². Remaining = 70 − 12 = 58 cm²."
+      "The figure is a 10 cm × 7 cm rectangle with a 3 cm × 4 cm corner removed. Full area = 10 × 7 = 70 cm². Cut-out = 3 × 4 = 12 cm². Remaining = 70 − 12 = 58 cm².",
+      [],
+      {
+        planeShapeDiagram: {
+          description: "L-shaped figure: a 10 cm by 7 cm rectangle with a 3 cm wide by 4 cm high rectangle removed from the top-right corner. Labelled sides: bottom 10 cm, left 7 cm, cut width 3 cm, cut depth 4 cm.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true }, { x: 10, y: 0, rightAngle: true },
+            { x: 10, y: 3, rightAngle: true }, { x: 7, y: 3 },
+            { x: 7, y: 7, rightAngle: true }, { x: 0, y: 7, rightAngle: true },
+          ],
+          edges: [{ label: "10 cm" }, {}, { label: "3 cm" }, { label: "4 cm" }, {}, { label: "7 cm" }],
+        },
+        hint: "Work out the full rectangle's area, then subtract the cut-out corner.",
+      }
     ),
     answer(
       "y7-are-com-i2",
@@ -731,10 +746,24 @@ const areaCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-are-com-i3",
-      "A T-shaped figure has a top rectangle 14 cm × 3 cm and a stem rectangle 5 cm × 7 cm hanging from the middle of the top. Find the total area in cm².",
-      "A = (14 \\times 3) + (5 \\times 7)",
+      "Find the total area of the T-shaped figure shown, in cm².",
+      "",
       "77",
-      "Top: 14 × 3 = 42 cm². Stem: 5 × 7 = 35 cm². Total = 42 + 35 = 77 cm²."
+      "Split the T into its top bar and stem. Top: 14 × 3 = 42 cm². Stem: 5 × 7 = 35 cm². Total = 42 + 35 = 77 cm².",
+      [],
+      {
+        planeShapeDiagram: {
+          description: "T-shaped figure: a horizontal top bar 14 cm wide and 3 cm high, with a 5 cm wide by 7 cm tall stem hanging from its middle. Labelled sides: top 14 cm, top-bar height 3 cm, stem width 5 cm, stem height 7 cm.",
+          vertices: [
+            { x: 4.5, y: 0, rightAngle: true }, { x: 9.5, y: 0, rightAngle: true },
+            { x: 9.5, y: 7 }, { x: 14, y: 7, rightAngle: true },
+            { x: 14, y: 10, rightAngle: true }, { x: 0, y: 10, rightAngle: true },
+            { x: 0, y: 7, rightAngle: true }, { x: 4.5, y: 7 },
+          ],
+          edges: [{ label: "5 cm" }, { label: "7 cm" }, {}, { label: "3 cm" }, { label: "14 cm" }, {}, {}, {}],
+        },
+        hint: "Split the T into a top bar and a stem, find each area, then add.",
+      }
     ),
     answer(
       "y7-are-com-i4",
@@ -745,10 +774,23 @@ const areaCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-are-com-i5",
-      "A cross-shaped figure is made of a vertical rectangle 3 cm × 10 cm and a horizontal rectangle 8 cm × 3 cm crossing at the middle. The two rectangles overlap in a 3 cm × 3 cm square. Find the total area in cm².",
-      "A = (3 \\times 10) + (8 \\times 3) - (3 \\times 3)",
+      "The cross-shaped figure shown is made of a vertical rectangle 3 cm × 10 cm and a horizontal rectangle 8 cm × 3 cm crossing at the middle, overlapping in a 3 cm × 3 cm square. Find the total area in cm².",
+      "",
       "45",
-      "Vertical: 3 × 10 = 30 cm². Horizontal: 8 × 3 = 24 cm². Overlap: 3 × 3 = 9 cm². Total = 30 + 24 − 9 = 45 cm²."
+      "Vertical: 3 × 10 = 30 cm². Horizontal: 8 × 3 = 24 cm². The overlap square (3 × 3 = 9 cm²) is inside both, so count it once: 30 + 24 − 9 = 45 cm².",
+      [],
+      {
+        planeShapeDiagram: {
+          description: "Cross-shaped (plus-sign) figure formed by a vertical rectangle 3 cm wide by 10 cm tall and a horizontal rectangle 8 cm wide by 3 cm tall crossing at the middle, overlapping in a 3 cm square.",
+          vertices: [
+            { x: 2.5, y: 0 }, { x: 5.5, y: 0 }, { x: 5.5, y: 3.5 }, { x: 8, y: 3.5 },
+            { x: 8, y: 6.5 }, { x: 5.5, y: 6.5 }, { x: 5.5, y: 10 }, { x: 2.5, y: 10 },
+            { x: 2.5, y: 6.5 }, { x: 0, y: 6.5 }, { x: 0, y: 3.5 }, { x: 2.5, y: 3.5 },
+          ],
+          edges: [{ label: "3 cm" }, {}, {}, { label: "3 cm" }, {}, {}, { label: "3 cm" }, {}, {}, { label: "3 cm" }, {}, {}],
+        },
+        hint: "Add the two rectangle areas, then subtract the overlap square so it is only counted once.",
+      }
     ),
   ],
   commonMistakes: [
@@ -823,10 +865,22 @@ const areaCompositeShapes: LessonContent = {
     ),
     answer(
       "y7-are-com-m10",
-      "A composite figure is made of two identical rectangles, each 7 cm × 4 cm, joined along one 4 cm edge with no gap or overlap. Find the total area in cm².",
-      "A = 2 \\times (7 \\times 4)",
+      "The figure shown is made of two identical rectangles joined along one edge with no gap or overlap. Find the total area in cm².",
+      "",
       "56",
-      "Each rectangle: 7 × 4 = 28 cm². They do not overlap, so total = 2 × 28 = 56 cm²."
+      "Each rectangle is 7 × 4 = 28 cm². They do not overlap, so total = 2 × 28 = 56 cm².",
+      [],
+      {
+        planeShapeDiagram: {
+          description: "Two identical 7 cm by 4 cm rectangles joined side by side along a shared 4 cm edge, forming a 14 cm by 4 cm strip. The bottom edge is labelled 7 cm and 7 cm, and the right side 4 cm.",
+          vertices: [
+            { x: 0, y: 0, rightAngle: true }, { x: 7, y: 0 }, { x: 14, y: 0, rightAngle: true },
+            { x: 14, y: 4, rightAngle: true }, { x: 7, y: 4 }, { x: 0, y: 4, rightAngle: true },
+          ],
+          edges: [{ label: "7 cm" }, { label: "7 cm" }, { label: "4 cm" }, {}, {}, {}],
+        },
+        hint: "Find one rectangle's area, then double it.",
+      }
     ),
   ],
   masteryQuizPool: [
