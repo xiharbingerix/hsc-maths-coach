@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { BlockMath } from "react-katex";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { BlockMath as KatexBlockMath } from "react-katex";
+
+// KaTeX parsing/rendering is expensive; memoising by the latex string means
+// unrelated state changes (e.g. typing in another quiz answer) don't re-run it.
+const BlockMath = memo(KatexBlockMath);
 import { MathText } from "../components/MathText";
 import { AccessGate } from "./AccessGate";
 import {
@@ -1148,6 +1152,33 @@ function PracticeCard({
   );
 }
 
+// Memo wrapper with a per-question stable onChange so typing in one quiz
+// answer doesn't re-render (and re-run KaTeX for) every other question.
+const MemoQuizQuestion = memo(function MemoQuizQuestion({
+  question,
+  index,
+  value,
+  onAnswer,
+}: {
+  question: PracticeQuestion;
+  index: number;
+  value: string;
+  onAnswer: (questionId: string, value: string) => void;
+}) {
+  const handleChange = useCallback(
+    (nextValue: string) => onAnswer(question.id, nextValue),
+    [onAnswer, question.id]
+  );
+  return (
+    <QuizQuestion
+      question={question}
+      index={index}
+      value={value}
+      onChange={handleChange}
+    />
+  );
+});
+
 function QuizQuestion({
   question,
   index,
@@ -1771,6 +1802,14 @@ export function LessonRenderer({
   const [videoEnded, setVideoEnded] = useState(false);
   const [videoLoadFailed, setVideoLoadFailed] = useState(false);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
+  const handleQuizAnswerChange = useCallback((questionId: string, value: string) => {
+    setQuizAnswers((current) => ({
+      ...current,
+      [questionId]: value,
+    }));
+    setQuizSubmitted(false);
+    setQuizMarkingError(null);
+  }, []);
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   // Seed for the per-attempt mastery-quiz draw (when a lesson has a question
   // pool). A fresh seed on each lesson load / retry re-rolls the selection.
@@ -2601,19 +2640,12 @@ export function LessonRenderer({
         </div>
 
         {activeQuiz.map((question, index) => (
-          <QuizQuestion
+          <MemoQuizQuestion
             key={question.id}
             question={question}
             index={index}
             value={quizAnswers[question.id] ?? ""}
-            onChange={(value) => {
-              setQuizAnswers((current) => ({
-                ...current,
-                [question.id]: value,
-              }));
-              setQuizSubmitted(false);
-              setQuizMarkingError(null);
-            }}
+            onAnswer={handleQuizAnswerChange}
           />
         ))}
 

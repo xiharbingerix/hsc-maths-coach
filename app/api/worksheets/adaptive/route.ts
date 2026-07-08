@@ -22,6 +22,7 @@ type QuestionRow = {
   id: string;
   source_id: string | null;
   difficulty: number;
+  subtopic_slug: string;
 };
 
 function getBearerToken(request: Request) {
@@ -156,7 +157,37 @@ export async function POST(request: Request) {
   const selectedSet = new Set<string>();
   const fallbackQuestions: QuestionRow[] = [];
 
-  for (const topic of weakestTopics) {
+  // One query per topic (all active questions), fired in parallel; the
+  // weak-subtopic and preferred-difficulty phases are subsets of that result,
+  // so they filter in memory instead of extra round-trips. The seeded shuffle
+  // is order-independent, so selection is unchanged.
+  const topicResults = await Promise.all(
+    weakestTopics.map((topic) =>
+      supabaseAdmin
+        .from("questions")
+        .select("id, source_id, difficulty, subtopic_slug")
+        .eq("course_slug", topic.course_slug)
+        .eq("topic_slug", topic.topic_slug)
+        .eq("is_active", true)
+    )
+  );
+
+  for (const [topicIndex, topic] of weakestTopics.entries()) {
+    const { data: topicData, error: topicError } = topicResults[topicIndex];
+
+    if (topicError) {
+      console.error("[worksheets/adaptive] topic question query failed", {
+        userId: user.id,
+        topic,
+        message: topicError.message,
+      });
+      return NextResponse.json(
+        { error: "Could not load revision questions. Please try again." },
+        { status: 500 }
+      );
+    }
+
+    const topicQuestions = (topicData ?? []) as QuestionRow[];
     const preferredDifficulties = difficultyBand(topic.mastery_score);
     const weakSubtopics = weakSubtopicsByTopic.get(topic.topic_slug) ?? [];
     const topicSeed = `${user.id}:${todaySeed}:${topic.course_slug}:${topic.topic_slug}`;
@@ -165,29 +196,14 @@ export async function POST(request: Request) {
 
     // Phase 1: preferred difficulty + weak subtopics
     if (weakSubtopics.length > 0) {
-      const { data: weakPreferred, error: weakPreferredError } =
-        await supabaseAdmin
-          .from("questions")
-          .select("id, source_id, difficulty")
-          .eq("course_slug", topic.course_slug)
-          .eq("topic_slug", topic.topic_slug)
-          .in("subtopic_slug", weakSubtopics)
-          .eq("is_active", true)
-          .in("difficulty", preferredDifficulties);
-
-      if (weakPreferredError) {
-        console.error(
-          "[worksheets/adaptive] weak subtopic question query failed",
-          { userId: user.id, topic, message: weakPreferredError.message }
-        );
-        return NextResponse.json(
-          { error: "Could not load revision questions. Please try again." },
-          { status: 500 }
-        );
-      }
+      const weakPreferred = topicQuestions.filter(
+        (question) =>
+          weakSubtopics.includes(question.subtopic_slug) &&
+          preferredDifficulties.includes(question.difficulty)
+      );
 
       const shuffledWeak = stableDailyShuffle(
-        (weakPreferred ?? []) as QuestionRow[],
+        weakPreferred,
         `${topicSeed}:weak-preferred`
       );
 
@@ -201,28 +217,12 @@ export async function POST(request: Request) {
     }
 
     // Phase 2: fill remaining from all subtopics at preferred difficulty
-    const { data: preferred, error: preferredError } = await supabaseAdmin
-      .from("questions")
-      .select("id, source_id, difficulty")
-      .eq("course_slug", topic.course_slug)
-      .eq("topic_slug", topic.topic_slug)
-      .eq("is_active", true)
-      .in("difficulty", preferredDifficulties);
-
-    if (preferredError) {
-      console.error("[worksheets/adaptive] preferred question query failed", {
-        userId: user.id,
-        topic,
-        message: preferredError.message,
-      });
-      return NextResponse.json(
-        { error: "Could not load revision questions. Please try again." },
-        { status: 500 }
-      );
-    }
+    const preferred = topicQuestions.filter((question) =>
+      preferredDifficulties.includes(question.difficulty)
+    );
 
     const shuffledPreferred = stableDailyShuffle(
-      (preferred ?? []) as QuestionRow[],
+      preferred,
       `${topicSeed}:preferred`
     );
 
@@ -234,26 +234,7 @@ export async function POST(request: Request) {
       topicQuestionCount++;
     }
 
-    const { data: fallback, error: fallbackError } = await supabaseAdmin
-      .from("questions")
-      .select("id, source_id, difficulty")
-      .eq("course_slug", topic.course_slug)
-      .eq("topic_slug", topic.topic_slug)
-      .eq("is_active", true);
-
-    if (fallbackError) {
-      console.error("[worksheets/adaptive] fallback question query failed", {
-        userId: user.id,
-        topic,
-        message: fallbackError.message,
-      });
-      return NextResponse.json(
-        { error: "Could not load revision questions. Please try again." },
-        { status: 500 }
-      );
-    }
-
-    fallbackQuestions.push(...((fallback ?? []) as QuestionRow[]));
+    fallbackQuestions.push(...topicQuestions);
   }
 
   const allWeakSubtopics = [
