@@ -80,6 +80,12 @@ const PRESETS = [
     label: "Harder",
     description: "Skips Levels 1 & 2 - Level 3 to 6, incl. D6 challenge/exam",
   },
+  {
+    id: "challenge",
+    label: "Challenge",
+    description:
+      "Levels 4-6 only, spread evenly across every selected subtopic",
+  },
 ] as const;
 
 const QUESTION_COUNTS = [5, 8, 10, 12, 15, 20, 25, 30, 40, 50];
@@ -252,7 +258,7 @@ export function WorksheetGeneratorForm({
     resolvedInitialSubtopics
   );
   const [preset, setPreset] = useState<
-    "catch-up" | "standard" | "push-forward" | "harder"
+    "catch-up" | "standard" | "push-forward" | "harder" | "challenge"
   >("standard");
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [includeMultiPart, setIncludeMultiPart] = useState(false);
