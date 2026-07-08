@@ -261,13 +261,89 @@ export default function DashboardPage() {
       }
 
       setUser(sessionUser);
-      setLessonProgress(await getUserAllProgress(sessionUser.id));
 
-      const { data: profileData } = await supabase
-        .from("profiles")
-        .select("student_first_name, selected_course_slug")
-        .eq("id", sessionUser.id)
-        .maybeSingle();
+      // All of these reads depend only on the session user, so fire them in
+      // one parallel batch instead of a serial round-trip waterfall.
+      const userEmail = sessionUser.email?.toLowerCase() ?? null;
+      const [
+        progressResult,
+        { data: profileData },
+        { data: accessData, error: accessError },
+        { data: paymentData },
+        { data: masteryData },
+        { data: subtopicMasteryData, error: subtopicMasteryError },
+        { data: masteryHistoryData, error: masteryHistoryError },
+        { data: diagnosticData },
+        wsResult,
+        { data: attemptsData },
+      ] = await Promise.all([
+        getUserAllProgress(sessionUser.id),
+        supabase
+          .from("profiles")
+          .select("student_first_name, selected_course_slug")
+          .eq("id", sessionUser.id)
+          .maybeSingle(),
+        supabase
+          .from("user_access")
+          .select("status")
+          .eq("user_id", sessionUser.id)
+          .eq("access_type", "online_learning_beta")
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle(),
+        supabase
+          .from("payments")
+          .select("stripe_customer_id")
+          .eq("user_id", sessionUser.id)
+          .eq("offer_selected", "online-learning")
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle(),
+        supabase
+          .from("student_mastery")
+          .select("course_slug, topic_slug, mastery_score, attempt_count, last_updated")
+          .eq("user_id", sessionUser.id)
+          .order("mastery_score", { ascending: false }),
+        supabase
+          .from("student_subtopic_mastery")
+          .select(
+            "course_slug, topic_slug, subtopic_slug, mastery_score, attempt_count, last_updated"
+          )
+          .eq("user_id", sessionUser.id)
+          .order("mastery_score", { ascending: true }),
+        supabase
+          .from("student_mastery_history")
+          .select("course_slug, topic_slug, mastery_score, created_at")
+          .eq("user_id", sessionUser.id)
+          .order("created_at", { ascending: false })
+          .limit(500),
+        supabase
+          .from("diagnostic_results")
+          .select("year_level, unit_results, created_at")
+          .eq("user_id", sessionUser.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle(),
+        // Worksheets assigned to this student's email (RLS: migration 010).
+        userEmail
+          ? supabase
+              .from("worksheets")
+              .select("id, title, share_token, due_at, status, created_at")
+              .eq("assigned_student_email", userEmail)
+              .order("created_at", { ascending: false })
+              .limit(20)
+          : Promise.resolve({ data: null }),
+        // Recent completed attempts where this user was logged in.
+        supabase
+          .from("worksheet_attempts")
+          .select("id, worksheet_id, completed_at, score_correct, score_total, started_at")
+          .eq("user_id", sessionUser.id)
+          .not("completed_at", "is", null)
+          .order("started_at", { ascending: false })
+          .limit(20),
+      ]);
+
+      setLessonProgress(progressResult);
 
       if (profileData?.student_first_name) {
         setStudentFirstName(String(profileData.student_first_name));
@@ -278,66 +354,25 @@ export default function DashboardPage() {
       const rawCourse = (profileData as { selected_course_slug?: string | null } | null)?.selected_course_slug;
       setSelectedCourseSlug(typeof rawCourse === "string" && rawCourse.length > 0 ? rawCourse : null);
 
-      const { data: accessData, error: accessError } = await supabase
-        .from("user_access")
-        .select("status")
-        .eq("user_id", sessionUser.id)
-        .eq("access_type", "online_learning_beta")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
       if (accessError) {
         setAccessStatus("none");
       } else {
         setAccessStatus(normaliseUserAccessStatus(accessData?.status));
       }
 
-      const { data: paymentData } = await supabase
-        .from("payments")
-        .select("stripe_customer_id")
-        .eq("user_id", sessionUser.id)
-        .eq("offer_selected", "online-learning")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
-
       const cid = (paymentData as { stripe_customer_id?: string | null } | null)
         ?.stripe_customer_id ?? null;
       setStripeCustomerId(typeof cid === "string" && cid.length > 0 ? cid : null);
 
-      const { data: masteryData } = await supabase
-        .from("student_mastery")
-        .select("course_slug, topic_slug, mastery_score, attempt_count, last_updated")
-        .eq("user_id", sessionUser.id)
-        .order("mastery_score", { ascending: false });
-
       if (masteryData) {
         setMasteryRows(masteryData as MasteryRow[]);
       }
-
-      const { data: subtopicMasteryData, error: subtopicMasteryError } =
-        await supabase
-          .from("student_subtopic_mastery")
-          .select(
-            "course_slug, topic_slug, subtopic_slug, mastery_score, attempt_count, last_updated"
-          )
-          .eq("user_id", sessionUser.id)
-          .order("mastery_score", { ascending: true });
 
       if (!subtopicMasteryError && subtopicMasteryData) {
         setSubtopicMasteryRows(subtopicMasteryData as SubtopicMasteryRow[]);
       } else {
         setSubtopicMasteryRows([]);
       }
-
-      const { data: masteryHistoryData, error: masteryHistoryError } =
-        await supabase
-          .from("student_mastery_history")
-          .select("course_slug, topic_slug, mastery_score, created_at")
-          .eq("user_id", sessionUser.id)
-          .order("created_at", { ascending: false })
-          .limit(500);
 
       if (masteryHistoryError) {
         setMasteryHistoryRows([]);
@@ -346,14 +381,6 @@ export default function DashboardPage() {
         setMasteryHistoryRows(masteryHistoryData as MasteryHistoryRow[]);
         setIsMasteryHistoryUnavailable(false);
       }
-
-      const { data: diagnosticData } = await supabase
-        .from("diagnostic_results")
-        .select("year_level, unit_results, created_at")
-        .eq("user_id", sessionUser.id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
 
       if (diagnosticData) {
         const row = diagnosticData as DiagnosticResultRow;
@@ -364,26 +391,9 @@ export default function DashboardPage() {
         );
       }
 
-      // Worksheets assigned to this student's email (RLS: migration 010).
-      const userEmail = sessionUser.email?.toLowerCase() ?? null;
-      if (userEmail) {
-        const { data: wsData } = await supabase
-          .from("worksheets")
-          .select("id, title, share_token, due_at, status, created_at")
-          .eq("assigned_student_email", userEmail)
-          .order("created_at", { ascending: false })
-          .limit(20);
-        if (wsData) setAssignedWorksheets(wsData as AssignedWorksheet[]);
-      }
+      const wsData = wsResult.data;
+      if (wsData) setAssignedWorksheets(wsData as AssignedWorksheet[]);
 
-      // Recent completed attempts where this user was logged in.
-      const { data: attemptsData } = await supabase
-        .from("worksheet_attempts")
-        .select("id, worksheet_id, completed_at, score_correct, score_total, started_at")
-        .eq("user_id", sessionUser.id)
-        .not("completed_at", "is", null)
-        .order("started_at", { ascending: false })
-        .limit(20);
       if (attemptsData) setRecentAttempts(attemptsData as AttemptRow[]);
 
       setIsLoading(false);
