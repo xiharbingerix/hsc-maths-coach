@@ -92,12 +92,18 @@ export default async function WorksheetPage({
   searchParams,
 }: {
   params: Promise<{ token: string }>;
-  searchParams?: Promise<{ adminPreview?: string }>;
+  searchParams?: Promise<{ adminPreview?: string; attempt?: string }>;
 }) {
   const { token } = await params;
   const query = await searchParams;
   const adminPreview =
     query?.adminPreview === "1" || query?.adminPreview === "true";
+  // Dashboard "Resume" links carry the attempt id so resume works on any
+  // device, not just the one holding the localStorage copy.
+  const resumeAttemptId =
+    typeof query?.attempt === "string" && query.attempt.trim().length > 0
+      ? query.attempt.trim()
+      : null;
 
   // 1. Load worksheet by share token
   const { data: worksheet, error: wsError } = await supabaseAdmin
@@ -189,6 +195,7 @@ export default async function WorksheetPage({
       assignedStudentName={worksheet.assigned_student_name}
       dueAt={worksheet.due_at}
       questions={questions}
+      resumeAttemptId={resumeAttemptId}
     />
   );
 }
