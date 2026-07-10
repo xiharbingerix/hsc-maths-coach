@@ -91,6 +91,7 @@ export function WorksheetClient({
   assignedStudentName,
   dueAt,
   questions,
+  resumeAttemptId = null,
 }: {
   token: string;
   title: string;
@@ -99,6 +100,7 @@ export function WorksheetClient({
   assignedStudentName?: string | null;
   dueAt?: string | null;
   questions: WorksheetQuestion[];
+  resumeAttemptId?: string | null;
 }) {
   const [phase, setPhase] = useState<Phase>("intro");
   const [attemptId, setAttemptId] = useState<string | null>(null);
@@ -192,11 +194,15 @@ export function WorksheetClient({
     let cancelled = false;
 
     async function resumeStoredAttempt() {
-      let storedAttemptId: string | null = null;
-      try {
-        storedAttemptId = window.localStorage.getItem(storageKey);
-      } catch {
-        return;
+      // A dashboard "Resume" link carries the attempt id in the URL, which
+      // beats localStorage so resume works across devices.
+      let storedAttemptId: string | null = resumeAttemptId;
+      if (!storedAttemptId) {
+        try {
+          storedAttemptId = window.localStorage.getItem(storageKey);
+        } catch {
+          return;
+        }
       }
 
       if (!storedAttemptId) return;
@@ -214,7 +220,11 @@ export function WorksheetClient({
 
         if (!res.ok || data.error || !data.attemptId) {
           try {
-            window.localStorage.removeItem(storageKey);
+            // Only clear the stored id if it was the one that failed — a bad
+            // URL param shouldn't wipe a valid attempt saved on this device.
+            if (window.localStorage.getItem(storageKey) === storedAttemptId) {
+              window.localStorage.removeItem(storageKey);
+            }
           } catch {
             // localStorage may be unavailable; ignore and fall back to fresh start.
           }
@@ -226,6 +236,13 @@ export function WorksheetClient({
         }
 
         setAttemptId(data.attemptId);
+        try {
+          // Remember a URL-resumed attempt so later visits on this device
+          // resume even without the ?attempt= link.
+          window.localStorage.setItem(storageKey, data.attemptId);
+        } catch {
+          // localStorage is a same-device convenience only.
+        }
         if (data.studentName?.trim()) {
           setStudentName(data.studentName.trim());
         }
@@ -272,7 +289,7 @@ export function WorksheetClient({
     return () => {
       cancelled = true;
     };
-  }, [questions, storageKey, token, totalQuestions]);
+  }, [questions, resumeAttemptId, storageKey, token, totalQuestions]);
 
   // ── Start attempt ──────────────────────────────────────────────────────────
 

@@ -243,6 +243,9 @@ export default function DashboardPage() {
   const [diagnosticYearLevel, setDiagnosticYearLevel] = useState("year-12-advanced");
   const [assignedWorksheets, setAssignedWorksheets] = useState<AssignedWorksheet[]>([]);
   const [recentAttempts, setRecentAttempts] = useState<AttemptRow[]>([]);
+  const [attemptProgress, setAttemptProgress] = useState<
+    Record<string, { answered: number; total: number | null }>
+  >({});
   const [isGeneratingWorksheet, setIsGeneratingWorksheet] = useState(false);
   const [adaptiveWorksheetError, setAdaptiveWorksheetError] = useState("");
   const [selectedCourseSlug, setSelectedCourseSlug] = useState<string | null | undefined>(undefined);
@@ -333,12 +336,12 @@ export default function DashboardPage() {
               .order("created_at", { ascending: false })
               .limit(20)
           : Promise.resolve({ data: null }),
-        // Recent completed attempts where this user was logged in.
+        // Recent attempts where this user was logged in — including unfinished
+        // ones, so the dashboard can offer a "Resume" entry point.
         supabase
           .from("worksheet_attempts")
           .select("id, worksheet_id, completed_at, score_correct, score_total, started_at")
           .eq("user_id", sessionUser.id)
-          .not("completed_at", "is", null)
           .order("started_at", { ascending: false })
           .limit(20),
       ]);
@@ -395,6 +398,56 @@ export default function DashboardPage() {
       if (wsData) setAssignedWorksheets(wsData as AssignedWorksheet[]);
 
       if (attemptsData) setRecentAttempts(attemptsData as AttemptRow[]);
+
+      // For unfinished attempts, load how far the student got so the dashboard
+      // can show "3 of 8 answered" next to the Resume button.
+      const incomplete = ((attemptsData ?? []) as AttemptRow[]).filter(
+        (a) => !a.completed_at
+      );
+      if (incomplete.length > 0) {
+        const attemptIds = incomplete.map((a) => a.id);
+        const worksheetIds = [...new Set(incomplete.map((a) => a.worksheet_id))];
+        const [answersResult, questionsResult] = await Promise.all([
+          supabase
+            .from("worksheet_answers")
+            .select("attempt_id, question_id")
+            .in("attempt_id", attemptIds),
+          supabase
+            .from("worksheet_questions")
+            .select("worksheet_id, question_id")
+            .in("worksheet_id", worksheetIds),
+        ]);
+
+        const answeredByAttempt = new Map<string, Set<string>>();
+        for (const row of (answersResult.data ?? []) as Array<{
+          attempt_id: string;
+          question_id: string;
+        }>) {
+          const set = answeredByAttempt.get(row.attempt_id) ?? new Set<string>();
+          set.add(row.question_id);
+          answeredByAttempt.set(row.attempt_id, set);
+        }
+        const totalByWorksheet = new Map<string, number>();
+        for (const row of (questionsResult.data ?? []) as Array<{
+          worksheet_id: string;
+        }>) {
+          totalByWorksheet.set(
+            row.worksheet_id,
+            (totalByWorksheet.get(row.worksheet_id) ?? 0) + 1
+          );
+        }
+
+        const progress: Record<string, { answered: number; total: number | null }> = {};
+        for (const attempt of incomplete) {
+          progress[attempt.id] = {
+            answered: answeredByAttempt.get(attempt.id)?.size ?? 0,
+            // RLS can hide worksheet_questions for open-link worksheets; show
+            // progress without a total in that case.
+            total: totalByWorksheet.get(attempt.worksheet_id) ?? null,
+          };
+        }
+        setAttemptProgress(progress);
+      }
 
       setIsLoading(false);
     }
@@ -690,13 +743,25 @@ export default function DashboardPage() {
     totalCourseTopics
   );
 
-  // Worksheet history: latest completed attempt keyed by worksheet_id.
+  // Worksheet history: latest attempt (finished or not) keyed by worksheet_id.
   const latestAttemptByWorksheet = new Map<string, AttemptRow>();
   for (const attempt of recentAttempts) {
     if (!latestAttemptByWorksheet.has(attempt.worksheet_id)) {
       latestAttemptByWorksheet.set(attempt.worksheet_id, attempt);
     }
   }
+
+  // Unfinished worksheets first so resuming is the obvious next step,
+  // then untouched ones, then completed ones.
+  const worksheetSortRank = (ws: AssignedWorksheet): number => {
+    const attempt = latestAttemptByWorksheet.get(ws.id);
+    if (attempt && !attempt.completed_at) return 0;
+    if (!attempt) return 1;
+    return 2;
+  };
+  const sortedWorksheets = [...assignedWorksheets].sort(
+    (a, b) => worksheetSortRank(a) - worksheetSortRank(b)
+  );
 
   // Attempts for worksheets not in the assigned list (logged-in open-link attempts).
   const assignedIds = new Set(assignedWorksheets.map((w) => w.id));
@@ -736,6 +801,16 @@ export default function DashboardPage() {
     assignedWorksheets.find((ws) => !latestAttemptByWorksheet.get(ws.id)?.completed_at) ??
     assignedWorksheets[0] ??
     null;
+  const firstOpenWorksheetAttempt = firstOpenWorksheet
+    ? latestAttemptByWorksheet.get(firstOpenWorksheet.id) ?? null
+    : null;
+  const firstOpenWorksheetInProgress =
+    !!firstOpenWorksheetAttempt && !firstOpenWorksheetAttempt.completed_at;
+  const firstOpenWorksheetHref = firstOpenWorksheet
+    ? firstOpenWorksheetInProgress && firstOpenWorksheetAttempt
+      ? `/worksheet/${firstOpenWorksheet.share_token}?attempt=${firstOpenWorksheetAttempt.id}`
+      : `/worksheet/${firstOpenWorksheet.share_token}`
+    : null;
   const recommendedLessonHref =
     continueLearningTarget?.href ?? studyPlan.nextTopic?.href ?? nextBestAction?.href ?? "/course";
   const recommendedLessonTitle =
@@ -798,6 +873,8 @@ export default function DashboardPage() {
       done: hasReviewedTodaysRevision,
       actionLabel: hasReviewedTodaysRevision
         ? "View worksheets"
+        : firstOpenWorksheetInProgress
+        ? "Resume worksheet"
         : firstOpenWorksheet
         ? "Open worksheet"
         : reviewQueue.length > 0
@@ -805,8 +882,8 @@ export default function DashboardPage() {
         : "Generate revision",
       href: hasReviewedTodaysRevision
         ? "#worksheets"
-        : firstOpenWorksheet
-        ? `/worksheet/${firstOpenWorksheet.share_token}`
+        : firstOpenWorksheetHref
+        ? firstOpenWorksheetHref
         : reviewQueue.length > 0
         ? reviewQueue[0].suggested_action_href
         : undefined,
@@ -1584,17 +1661,23 @@ export default function DashboardPage() {
             </p>
           ) : (
             <div className="mt-5 space-y-3">
-              {/* Assigned worksheets */}
-              {assignedWorksheets.map((ws) => {
+              {/* Assigned worksheets — unfinished first */}
+              {sortedWorksheets.map((ws) => {
                 const attempt = latestAttemptByWorksheet.get(ws.id) ?? null;
                 const isCompleted = !!attempt?.completed_at;
+                const isInProgress = !!attempt && !isCompleted;
+                const progress = attempt ? attemptProgress[attempt.id] : undefined;
                 const isPastDue =
                   ws.due_at && !isCompleted && new Date(ws.due_at) < new Date();
 
                 return (
                   <div
                     key={ws.id}
-                    className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between"
+                    className={`flex flex-col gap-3 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between ${
+                      isInProgress
+                        ? "border-amber-300 bg-amber-50"
+                        : "border-slate-200 bg-slate-50"
+                    }`}
                   >
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-semibold text-slate-900">
@@ -1621,16 +1704,48 @@ export default function DashboardPage() {
                           <span className="font-semibold text-emerald-700">
                             Score: {attempt.score_correct}/{attempt.score_total}
                           </span>
-                        ) : attempt && !isCompleted ? (
-                          <span className="text-amber-600">In progress</span>
+                        ) : isInProgress ? (
+                          <span className="font-semibold text-amber-700">
+                            In progress
+                            {progress
+                              ? progress.total
+                                ? ` — ${progress.answered} of ${progress.total} answered`
+                                : ` — ${progress.answered} answered`
+                              : ""}
+                          </span>
                         ) : null}
                       </div>
+                      {isInProgress && progress?.total ? (
+                        <div className="mt-2 h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-amber-100">
+                          <div
+                            className="h-full rounded-full bg-amber-500"
+                            style={{
+                              width: `${Math.min(
+                                100,
+                                Math.round((progress.answered / progress.total) * 100)
+                              )}%`,
+                            }}
+                          />
+                        </div>
+                      ) : null}
                     </div>
                     <Link
-                      href={`/worksheet/${ws.share_token}`}
-                      className="inline-flex shrink-0 items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
+                      href={
+                        isInProgress && attempt
+                          ? `/worksheet/${ws.share_token}?attempt=${attempt.id}`
+                          : `/worksheet/${ws.share_token}`
+                      }
+                      className={`inline-flex shrink-0 items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition ${
+                        isInProgress
+                          ? "bg-amber-500 text-white shadow-sm hover:bg-amber-600"
+                          : "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50"
+                      }`}
                     >
-                      {isCompleted ? "Review" : "Open worksheet"}
+                      {isCompleted
+                        ? "Review"
+                        : isInProgress
+                        ? "Resume worksheet"
+                        : "Start worksheet"}
                     </Link>
                   </div>
                 );
