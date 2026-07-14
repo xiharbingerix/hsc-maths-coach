@@ -6,8 +6,10 @@ import type {
   CartesianGraph,
   CompositeSolidDiagram,
   CongruentTrianglesDiagram,
+  CircleGeometryDiagram,
   DotPlotDiagram,
   HistogramDiagram,
+  LineAngleDiagram,
   NetDiagram,
   NetworkDiagram,
   NormalDistributionDiagram,
@@ -24,6 +26,7 @@ import type {
   StepGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
+  TrianglePairDiagram,
   TrigGraphDiagram,
   TwoWayTableDiagram,
   UnitCircleDiagram,
@@ -54,7 +57,10 @@ export const DIAGRAM_SPECS = [
   { type: "argandDiagram", field: "argandDiagram" },
   { type: "vector3DDiagram", field: "vector3DDiagram" },
   { type: "triangleDiagram", field: "triangleDiagram" },
+  { type: "trianglePairDiagram", field: "trianglePairDiagram" },
   { type: "congruentTrianglesDiagram", field: "congruentTrianglesDiagram" },
+  { type: "lineAngleDiagram", field: "lineAngleDiagram" },
+  { type: "circleGeometryDiagram", field: "circleGeometryDiagram" },
   { type: "trapezoidalRuleDiagram", field: "trapezoidalRuleDiagram" },
   { type: "boxPlotDiagram", field: "boxPlotDiagram" },
   { type: "normalDistributionDiagram", field: "normalDistributionDiagram" },
@@ -99,7 +105,10 @@ export type DiagramFields = {
   argandDiagram?: ArgandDiagram;
   vector3DDiagram?: Vector3DDiagram;
   triangleDiagram?: TriangleDiagram;
+  trianglePairDiagram?: TrianglePairDiagram;
   congruentTrianglesDiagram?: CongruentTrianglesDiagram;
+  lineAngleDiagram?: LineAngleDiagram;
+  circleGeometryDiagram?: CircleGeometryDiagram;
   trapezoidalRuleDiagram?: TrapezoidalRuleDiagram;
   boxPlotDiagram?: BoxPlotDiagram;
   normalDistributionDiagram?: NormalDistributionDiagram;

@@ -1375,7 +1375,7 @@ choice(
 
 **You MUST attach a visual payload whenever a question (or worked example) involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it. Keep the prompt self-contained and let the payload carry the visual stimulus.
 
-There are **28 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
+There are **33 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
 
 ### Available renderers
 
@@ -1413,6 +1413,10 @@ There are **28 renderers**, dispatched through one registry. The authoritative s
 | Payload field | Use for |
 |---|---|
 | `triangleDiagram` | Labelled triangles — sides, angles, right-angle marks |
+| `trianglePairDiagram` | Two related triangles for correspondence, congruence or similarity without assuming the relationship |
+| `congruentTrianglesDiagram` | Two triangles already known to be congruent, with correspondence marks |
+| `lineAngleDiagram` | Intersecting or parallel lines, transversals, marked angles and right angles |
+| `circleGeometryDiagram` | Chords, radii, diameters, cyclic figures, arcs, tangents, secants and circle-theorem angles |
 | `planeShapeDiagram` | Any polygon / quadrilateral / composite shape — side & angle labels, right-angle marks, equal-length ticks, parallel chevrons |
 | `sectorDiagram` | Circle sector — arc length, sector area, radians |
 | `solid3DDiagram` | 3D solids (prism, cube, cylinder, cone, pyramid, sphere) for volume / surface area |
@@ -1441,6 +1445,9 @@ If a question refers to a visual, it must ship the matching payload. The lesson 
 | Scatter / line of best fit | `scatterPlotDiagram` | a list of coordinate pairs |
 | exp / log / hyperbola / abs / √ / cubic graph | `cartesianGraph` `curves` | omitting the graph because "Cartesian only does lines" |
 | Polygon / composite area figure | `planeShapeDiagram` | a stretched `triangleDiagram`, or no figure |
+| Parallel lines / transversal / vertically opposite angles | `lineAngleDiagram` | describing the line arrangement only in prose |
+| Two triangles compared for similarity or correspondence | `trianglePairDiagram` | displaying only one of the two triangles |
+| Circle theorems / chords / tangents / secants | `circleGeometryDiagram` | using `sectorDiagram` or describing the circle only in prose |
 | Arc length / sector area | `sectorDiagram` | a full circle with the wedge only described |
 | Prism / cylinder / cone / pyramid / sphere | `solid3DDiagram` | a single 2D face standing in for the solid |
 | Net for surface area | `netDiagram` | listing face dimensions in prose |

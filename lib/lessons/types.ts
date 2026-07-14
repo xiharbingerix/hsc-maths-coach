@@ -60,6 +60,91 @@ export type CongruentTrianglesDiagram = {
   rightCaption?: string;
 };
 
+/** Two triangles displayed together without assuming a particular relationship. */
+export type TrianglePairDiagram = {
+  description: string;
+  left: TriangleDiagram;
+  right: TriangleDiagram;
+  leftCaption?: string;
+  rightCaption?: string;
+  /** Short visible relationship label between the triangles, such as "congruent" or "similar". */
+  relationLabel?: string;
+};
+
+export type GeometryDiagramPoint = {
+  id: string;
+  x: number;
+  y: number;
+  label?: string;
+  labelOffset?: { x: number; y: number };
+  /** Defaults to true. Set false for an unmarked construction point. */
+  showDot?: boolean;
+  /** Defaults to true. Set false when the point is only used to position lines or angle arms. */
+  showLabel?: boolean;
+};
+
+export type GeometryDiagramSegment = {
+  from: string;
+  to: string;
+  label?: string;
+  labelOffset?: { x: number; y: number };
+  dashed?: boolean;
+  highlighted?: boolean;
+  /** Equal-length tick marks drawn across the segment. */
+  ticks?: 1 | 2 | 3;
+  /** One or two arrow-style marks denoting parallel lines. */
+  parallelMarks?: 1 | 2;
+};
+
+export type GeometryDiagramAngle = {
+  vertex: string;
+  from: string;
+  to: string;
+  label?: string;
+  radius?: number;
+  /** Repeated angle arcs used to show equal angle pairs. */
+  marks?: 1 | 2 | 3;
+  reflex?: boolean;
+  rightAngle?: boolean;
+  highlighted?: boolean;
+  labelOffset?: { x: number; y: number };
+};
+
+/** Lines, transversals and angle relationships using author-supplied points. */
+export type LineAngleDiagram = {
+  description: string;
+  points: GeometryDiagramPoint[];
+  segments: GeometryDiagramSegment[];
+  angles?: GeometryDiagramAngle[];
+  viewBox?: string;
+};
+
+export type CircleGeometryArc = {
+  from: string;
+  to: string;
+  label?: string;
+  /** Select the longer arc rather than the shorter arc. */
+  largeArc?: boolean;
+  /** Force the arc direction. When omitted, the requested short/long arc is chosen automatically. */
+  clockwise?: boolean;
+  highlighted?: boolean;
+  labelOffset?: number;
+};
+
+/**
+ * A circle-theorem figure supporting chords, radii, diameters, tangents,
+ * secants, cyclic polygons, highlighted arcs and marked angles.
+ */
+export type CircleGeometryDiagram = LineAngleDiagram & {
+  circle: {
+    center: string;
+    radius: number;
+    label?: string;
+    highlighted?: boolean;
+  };
+  arcs?: CircleGeometryArc[];
+};
+
 export type CartesianPoint = {
   x: number;
   y: number;
