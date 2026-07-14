@@ -86,6 +86,12 @@ const PRESETS = [
     description:
       "Levels 4-6 only, spread evenly across every selected subtopic",
   },
+  {
+    id: "even-spread",
+    label: "Even spread",
+    description:
+      "All levels 1-6 equally, balanced evenly across the selected topics",
+  },
 ] as const;
 
 const QUESTION_COUNTS = [5, 8, 10, 12, 15, 20, 25, 30, 40, 50];
@@ -258,7 +264,7 @@ export function WorksheetGeneratorForm({
     resolvedInitialSubtopics
   );
   const [preset, setPreset] = useState<
-    "catch-up" | "standard" | "push-forward" | "harder" | "challenge"
+    "catch-up" | "standard" | "push-forward" | "harder" | "challenge" | "even-spread"
   >("standard");
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [includeMultiPart, setIncludeMultiPart] = useState(false);

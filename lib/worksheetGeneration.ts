@@ -7,7 +7,8 @@ export type DifficultyPreset =
   | "standard"
   | "push-forward"
   | "harder"
-  | "challenge";
+  | "challenge"
+  | "even-spread";
 type DifficultyDist = Record<DifficultyLevel, number>;
 
 export type WorksheetQuestionPreview = {
@@ -57,11 +58,19 @@ export const WORKSHEET_PRESETS: Record<DifficultyPreset, DifficultyDist> = {
   // every selected subtopic (see orderForSubtopicCoverage) instead of the
   // usual random draw, so each subtopic is represented.
   challenge: { 1: 0, 2: 0, 3: 0, 4: 1, 5: 1, 6: 1 },
+  // Every level equally weighted; selection spreads questions across the
+  // selected topics so each topic is represented evenly.
+  "even-spread": { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 },
 };
 
-// Presets whose selection should round-robin across subtopics so every
-// selected subtopic contributes questions.
-const COVERAGE_PRESETS: ReadonlySet<DifficultyPreset> = new Set(["challenge"]);
+// Presets whose selection should round-robin across a grouping column so
+// every group (subtopic/topic) contributes questions evenly.
+const COVERAGE_PRESETS: Partial<
+  Record<DifficultyPreset, "subtopic_slug" | "topic_slug">
+> = {
+  challenge: "subtopic_slug",
+  "even-spread": "topic_slug",
+};
 
 function hasQuestionParts(row: Pick<RawQuestionRow, "question_parts">) {
   return Array.isArray(row.question_parts) && row.question_parts.length > 0;
@@ -138,24 +147,26 @@ function shuffle<T>(items: T[]) {
   return [...items].sort(() => Math.random() - 0.5);
 }
 
-// Orders candidate rows so subtopics with the fewest questions already
-// selected (across the whole worksheet) come first, round-robin. Rows are
-// shuffled within each subtopic so repeated generations still vary.
-function orderForSubtopicCoverage(
+// Orders candidate rows so groups (subtopics or topics) with the fewest
+// questions already selected (across the whole worksheet) come first,
+// round-robin. Rows are shuffled within each group so repeated generations
+// still vary.
+function orderForGroupCoverage(
   rows: RawQuestionRow[],
-  selectedPerSubtopic: Map<string, number>
+  groupKey: "subtopic_slug" | "topic_slug",
+  selectedPerGroup: Map<string, number>
 ) {
   const groups = new Map<string, RawQuestionRow[]>();
   for (const row of shuffle(rows)) {
-    const group = groups.get(row.subtopic_slug);
+    const group = groups.get(row[groupKey]);
     if (group) {
       group.push(row);
     } else {
-      groups.set(row.subtopic_slug, [row]);
+      groups.set(row[groupKey], [row]);
     }
   }
 
-  const virtualCounts = new Map(selectedPerSubtopic);
+  const virtualCounts = new Map(selectedPerGroup);
   const cursors = [...groups.entries()].map(([slug, list]) => ({
     slug,
     list,
@@ -245,14 +256,21 @@ export async function selectWorksheetQuestionsWithMetadata({
   const prioritySubtopics = isManual ? selectedSubtopicSlugs : weakSubtopicSlugs;
   const priorityFraction = isManual ? 1.0 : 0.65;
 
-  // Coverage presets spread questions across every subtopic in scope instead
-  // of drawing at random.
-  const spreadAcrossSubtopics = COVERAGE_PRESETS.has(preset);
-  const selectedPerSubtopic = new Map<string, number>();
+  // Coverage presets spread questions across every group (subtopic or topic)
+  // in scope instead of drawing at random.
+  const coverageKey = COVERAGE_PRESETS[preset];
+  const selectedPerGroup = new Map<string, number>();
   const orderRows = (rows: RawQuestionRow[]) =>
-    spreadAcrossSubtopics
-      ? orderForSubtopicCoverage(rows, selectedPerSubtopic)
+    coverageKey
+      ? orderForGroupCoverage(rows, coverageKey, selectedPerGroup)
       : shuffle(rows);
+  const countSelection = (row: RawQuestionRow) => {
+    if (!coverageKey) return;
+    selectedPerGroup.set(
+      row[coverageKey],
+      (selectedPerGroup.get(row[coverageKey]) ?? 0) + 1
+    );
+  };
 
   for (const [level, needed] of distribution) {
     if (needed === 0) continue;
@@ -286,10 +304,7 @@ export async function selectWorksheetQuestionsWithMetadata({
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
         selectedIds.add(row.id);
-        selectedPerSubtopic.set(
-          row.subtopic_slug,
-          (selectedPerSubtopic.get(row.subtopic_slug) ?? 0) + 1
-        );
+        countSelection(row);
         levelCount++;
       }
     }
@@ -323,10 +338,7 @@ export async function selectWorksheetQuestionsWithMetadata({
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
         selectedIds.add(row.id);
-        selectedPerSubtopic.set(
-          row.subtopic_slug,
-          (selectedPerSubtopic.get(row.subtopic_slug) ?? 0) + 1
-        );
+        countSelection(row);
         levelCount++;
         if (levelCount >= needed) break;
       }
