@@ -58,8 +58,10 @@ const placeholderPattern =
   /\bTODO\b|lorem ipsum|placeholder lesson|generated fallback|sample question/i;
 const visualRequiredPattern =
   /\b(?:read|use|using|from|shown (?:in|on)|given (?:in|on)|according to)\s+(?:the\s+)?(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram)\b|\b(?:graph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram)\s+(?:below|above|shown)\b/i;
+const geometryVisualRequiredPattern =
+  /\b(?:intersecting chords?|angles? in the same[- ]segment|cyclic quadrilateral|tangent(?:s)? from (?:the same )?(?:external )?point|radius\s+(?:meets|is perpendicular to)\s+(?:a\s+)?tangent)\b/i;
 const visualHelpfulPattern =
-  /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram|trapezoidal rule|area between curves|circle theorem\b/i;
+  /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram|trapezoidal rule|area between curves|circle theorem|diameter|semicircle|chord|tangent|central angle|angle at the centre\b/i;
 const tableDataPattern = /\btable|data set|data below|values below|following data|frequency table\b/i;
 
 function addIssue(
@@ -434,6 +436,82 @@ function validateTriangleDiagram(value: unknown, path: string) {
       value.highlightedSides.some((side) => !["AB", "BC", "AC"].includes(String(side)))
     ) {
       addIssue("FAIL", "triangle-payload", path, "highlightedSides may contain only AB, BC or AC.");
+    }
+  }
+}
+
+function validateTrianglePairDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "triangle-pair-payload", path, "Triangle pair diagram must be an object.");
+    return;
+  }
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "triangle-pair-payload", path, "Triangle pair diagram requires a description.");
+  }
+  validateTriangleDiagram(value.left, `${path}.left`);
+  validateTriangleDiagram(value.right, `${path}.right`);
+}
+
+function validateLineAngleDiagram(value: unknown, path: string, requireCircle = false) {
+  const rule = requireCircle ? "circle-geometry-payload" : "line-angle-payload";
+  if (!isRecord(value)) {
+    addIssue("FAIL", rule, path, "Geometry diagram must be an object.");
+    return;
+  }
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", rule, path, "Geometry diagram requires a description.");
+  }
+  if (!Array.isArray(value.points) || value.points.length < 2) {
+    addIssue("FAIL", rule, `${path}.points`, "Geometry diagram requires at least two points.");
+    return;
+  }
+
+  const pointIds = new Set<string>();
+  value.points.forEach((point, index) => {
+    const pointPath = `${path}.points[${index}]`;
+    if (!isRecord(point) || !isNonEmptyString(point.id) || !isFiniteNumber(point.x) || !isFiniteNumber(point.y)) {
+      addIssue("FAIL", rule, pointPath, "Each point requires a unique id and finite x and y coordinates.");
+      return;
+    }
+    if (pointIds.has(point.id)) addIssue("FAIL", rule, `${pointPath}.id`, "Point ids must be unique.");
+    pointIds.add(point.id);
+  });
+
+  if (!Array.isArray(value.segments) || value.segments.length === 0) {
+    addIssue("FAIL", rule, `${path}.segments`, "Geometry diagram requires at least one segment.");
+  } else {
+    value.segments.forEach((segment, index) => {
+      if (!isRecord(segment) || !pointIds.has(String(segment.from)) || !pointIds.has(String(segment.to))) {
+        addIssue("FAIL", rule, `${path}.segments[${index}]`, "Segment endpoints must reference diagram point ids.");
+      }
+    });
+  }
+
+  if (value.angles !== undefined) {
+    if (!Array.isArray(value.angles)) {
+      addIssue("FAIL", rule, `${path}.angles`, "angles must be an array when supplied.");
+    } else {
+      value.angles.forEach((angle, index) => {
+        if (
+          !isRecord(angle) ||
+          !pointIds.has(String(angle.vertex)) ||
+          !pointIds.has(String(angle.from)) ||
+          !pointIds.has(String(angle.to))
+        ) {
+          addIssue("FAIL", rule, `${path}.angles[${index}]`, "Angle vertex and arms must reference diagram point ids.");
+        }
+      });
+    }
+  }
+
+  if (requireCircle) {
+    if (
+      !isRecord(value.circle) ||
+      !pointIds.has(String(value.circle.center)) ||
+      !isFiniteNumber(value.circle.radius) ||
+      value.circle.radius <= 0
+    ) {
+      addIssue("FAIL", rule, `${path}.circle`, "Circle requires a point-id centre and a positive finite radius.");
     }
   }
 }
@@ -1148,6 +1226,10 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
   visualItems(lesson).forEach((item, index) => {
     const path = `${basePath}.visualItem[${index}]`;
     if (item.triangleDiagram) validateTriangleDiagram(item.triangleDiagram, `${path}.triangleDiagram`);
+    if (item.trianglePairDiagram) validateTrianglePairDiagram(item.trianglePairDiagram, `${path}.trianglePairDiagram`);
+    if (item.congruentTrianglesDiagram) validateTrianglePairDiagram(item.congruentTrianglesDiagram, `${path}.congruentTrianglesDiagram`);
+    if (item.lineAngleDiagram) validateLineAngleDiagram(item.lineAngleDiagram, `${path}.lineAngleDiagram`);
+    if (item.circleGeometryDiagram) validateLineAngleDiagram(item.circleGeometryDiagram, `${path}.circleGeometryDiagram`, true);
     if (item.cartesianGraph) validateCartesianGraph(item.cartesianGraph, `${path}.cartesianGraph`);
     if (item.unitCircleDiagram) validateUnitCircleDiagram(item.unitCircleDiagram, `${path}.unitCircleDiagram`);
     if (item.trigGraphDiagram) validateTrigGraphDiagram(item.trigGraphDiagram, `${path}.trigGraphDiagram`);
@@ -1363,7 +1445,7 @@ function classifyQuestionVisualStimulus(
     return;
   }
 
-  if (visualRequiredPattern.test(text)) {
+  if (visualRequiredPattern.test(text) || geometryVisualRequiredPattern.test(question.prompt)) {
     visualStimulusFindings.push({
       kind: "visual required, no payload",
       courseSlug,

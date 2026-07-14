@@ -8,6 +8,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { applyYear10GeometryVisuals } from "./geometryVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Name the angle/shape relationship, then apply it.", explanation };
@@ -91,7 +92,37 @@ const congruenceQuadrilaterals: Partial<ExplicitLesson> = {
   ],
   guidedPractice: [
     mcq("y10-cq-g1", "Which test uses three pairs of equal sides?", "A", ["SSS", "SAS", "ASA", "RHS"], 1, "SSS = side-side-side: three equal sides."),
-    ans("y10-cq-g2", "In congruent triangles, a side corresponds to one of 50 mm... an angle corresponds to one of 50°. Find that angle.", "\\text{congruent, corresponds to } 50^\\circ", "50", 2, "Corresponding angles of congruent triangles are equal: 50°.", deg("50")),
+    {
+      ...ans(
+        "y10-cq-g2",
+        "The two triangles in the diagram are congruent, with angle B corresponding to angle E. If angle E is 50°, find angle B.",
+        "\\triangle ABC \\cong \\triangle DEF,\\quad \\angle E=50^\\circ",
+        "50",
+        2,
+        "Corresponding angles in congruent triangles are equal. Since angle B corresponds to angle E, angle B is 50°.",
+        deg("50")
+      ),
+      hint: "Use the fact that corresponding angles in congruent triangles are equal.",
+      trianglePairDiagram: {
+        description: "Two congruent triangles, ABC and DEF. Angle B corresponds to angle E, which is labelled 50 degrees; angle B is labelled x degrees.",
+        relationLabel: "congruent",
+        leftCaption: "Triangle ABC",
+        rightCaption: "Triangle DEF",
+        left: {
+          description: "Triangle ABC with angle B labelled x degrees.",
+          vertices: { A: { x: 75, y: 220 }, B: { x: 320, y: 220 }, C: { x: 155, y: 55 } },
+          angleLabels: { B: "x degrees" },
+          angleMarks: { B: 1 },
+        },
+        right: {
+          description: "Triangle DEF with angle E labelled 50 degrees.",
+          vertices: { A: { x: 75, y: 220 }, B: { x: 320, y: 220 }, C: { x: 155, y: 55 } },
+          vertexLabels: { A: "D", B: "E", C: "F" },
+          angleLabels: { B: "50 degrees" },
+          angleMarks: { B: 1 },
+        },
+      },
+    },
     mcq("y10-cq-g3", "Which test applies to right-angled triangles using the hypotenuse and one side?", "D", ["SSS", "SAS", "ASA", "RHS"], 2, "RHS = right angle, hypotenuse, side."),
     ans("y10-cq-g4", "A parallelogram has one side of length 12. Find the opposite side.", "\\text{parallelogram, side } 12", "12", 1, "Opposite sides of a parallelogram are equal: 12.", []),
   ],
@@ -301,5 +332,6 @@ export function year10GeometryWave3LessonOverride(
   ) {
     return null;
   }
-  return SECTIONS[lesson.slug] ?? null;
+  const section = SECTIONS[lesson.slug];
+  return section ? applyYear10GeometryVisuals(lesson.slug, section) : null;
 }

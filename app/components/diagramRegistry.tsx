@@ -9,9 +9,11 @@ import type {
   BoxPlotDiagram,
   CartesianGraph,
   CompositeSolidDiagram,
+  CircleGeometryDiagram,
   CongruentTrianglesDiagram,
   DotPlotDiagram,
   HistogramDiagram,
+  LineAngleDiagram,
   NetworkDiagram,
   NetDiagram,
   NormalDistributionDiagram,
@@ -28,6 +30,7 @@ import type {
   StepGraphDiagram,
   TrapezoidalRuleDiagram,
   TriangleDiagram,
+  TrianglePairDiagram,
   TrigGraphDiagram,
   TwoWayTableDiagram,
   UnitCircleDiagram,
@@ -39,10 +42,12 @@ import { BoxPlotView } from "../course/components/BoxPlotView";
 import { BarChartView } from "../course/components/BarChartView";
 import { BearingsView } from "../course/components/BearingsView";
 import { CartesianGraphView } from "../course/components/CartesianGraphView";
+import { CircleGeometryDiagramView } from "../course/components/CircleGeometryDiagramView";
 import { CompositeSolidView } from "../course/components/CompositeSolidView";
 import { CongruentTrianglesView } from "../course/components/CongruentTrianglesView";
 import { DotPlotView } from "../course/components/DotPlotView";
 import { HistogramView } from "../course/components/HistogramView";
+import { LineAngleDiagramView } from "../course/components/LineAngleDiagramView";
 import { NetView } from "../course/components/NetView";
 import { NetworkDiagramView } from "../course/components/NetworkDiagramView";
 import { NormalDistributionView } from "../course/components/NormalDistributionView";
@@ -59,6 +64,7 @@ import { StemAndLeafView } from "../course/components/StemAndLeafView";
 import { StepGraphView } from "../course/components/StepGraphView";
 import { TrapezoidalRuleView } from "../course/components/TrapezoidalRuleView";
 import { TriangleDiagramView } from "../course/components/TriangleDiagramView";
+import { TrianglePairView } from "../course/components/TrianglePairView";
 import { TrigGraphDiagramView } from "../course/components/TrigGraphDiagramView";
 import { TwoWayTableView } from "../course/components/TwoWayTableView";
 import { UnitCircleDiagramView } from "../course/components/UnitCircleDiagramView";
@@ -83,8 +89,13 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   argandDiagram: (d) => <ArgandDiagramView diagram={d as unknown as ArgandDiagram} />,
   vector3DDiagram: (d) => <Vector3DDiagramView diagram={d as unknown as Vector3DDiagram} />,
   triangleDiagram: (d) => <TriangleDiagramView diagram={d as unknown as TriangleDiagram} />,
+  trianglePairDiagram: (d) => <TrianglePairView diagram={d as unknown as TrianglePairDiagram} />,
   congruentTrianglesDiagram: (d) => (
     <CongruentTrianglesView diagram={d as unknown as CongruentTrianglesDiagram} />
+  ),
+  lineAngleDiagram: (d) => <LineAngleDiagramView diagram={d as unknown as LineAngleDiagram} />,
+  circleGeometryDiagram: (d) => (
+    <CircleGeometryDiagramView diagram={d as unknown as CircleGeometryDiagram} />
   ),
   trapezoidalRuleDiagram: (d) => (
     <TrapezoidalRuleView diagram={d as unknown as TrapezoidalRuleDiagram} />

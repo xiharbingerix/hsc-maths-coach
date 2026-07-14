@@ -1,6 +1,7 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import type { TriangleDiagram } from "../types";
+import { applyYear10GeometryVisuals } from "./geometryVisuals";
 
 function safeGeometryAnswerVariants(prompt: string, latex: string, answer: string): string[] {
   const variants: string[] = [];
@@ -452,45 +453,45 @@ export function year10GeometryProofsLessonOverride(
   if (!["year-10-mathematics", "year-10-mathematics-advanced", "year-10-mathematics-core"].includes(course.slug) || !["geometrical-figures-circle-geometry"].includes(unit.slug)) return null;
   const base = { syllabusArea: "Measurement and Space", masteryPassMark: 0.8 };
 
-  if (lesson.slug === "congruent-triangles") return {
+  if (lesson.slug === "congruent-triangles") return applyYear10GeometryVisuals(lesson.slug, {
     ...base,
     description: "Use SSS, SAS, ASA and RHS to identify congruent triangles and match corresponding parts.",
     learningIntention: "Use congruence tests and vertex order to reason about triangles with the same shape and size.",
     successCriteria: ["Recognise congruent triangles.", "Choose SSS, SAS, ASA or RHS.", "Match corresponding vertices, sides and angles.", "Find a missing corresponding value."],
     teaching: { paragraphs: ["Congruent triangles have the same shape and the same size. They can be placed exactly on top of each other.", "The order of vertices matters when writing a congruence statement. Corresponding vertices must appear in matching positions.", "Four common tests prove congruence: three equal sides; two equal sides with their included angle; two equal angles with the included side; or the right-triangle test using hypotenuse and one shorter side.", "Once congruence is proven, corresponding sides and corresponding angles are equal."], latexBlocks: ["\\text{SSS},\\quad \\text{SAS},\\quad \\text{ASA},\\quad \\text{RHS}", "\\triangle ABC\\cong\\triangle DEF\\Rightarrow A\\leftrightarrow D,\\ B\\leftrightarrow E,\\ C\\leftrightarrow F"] },
     workedExamples: congruentWorked, guidedPractice: congruentGuided, independentPractice: congruentIndependent, commonMistakes: congruentMistakes, masteryQuiz: congruentMastery,
-  };
-  if (lesson.slug === "similar-triangles") return {
+  });
+  if (lesson.slug === "similar-triangles") return applyYear10GeometryVisuals(lesson.slug, {
     ...base,
     description: "Use angle and side relationships to identify similar triangles and calculate scale factors.",
     learningIntention: "Use similarity tests and scale factors to reason about triangles with the same shape.",
     successCriteria: ["Recognise similar triangles.", "Choose AA, SSS in proportion or SAS in proportion.", "Calculate a scale factor.", "Use a scale factor to find a missing side."],
     teaching: { paragraphs: ["Similar triangles have the same shape but are not required to have the same size.", "Corresponding angles are equal. Corresponding side lengths are connected by a constant scale factor.", "Similarity can be shown using two equal angles, three proportional sides, or two proportional sides with their included equal angle.", "Keep the direction of the scale factor clear. An enlargement factor compares the larger corresponding length with the smaller one."], latexBlocks: ["\\text{AA},\\quad \\text{SSS in proportion},\\quad \\text{SAS in proportion}", "k=\\frac{\\text{new length}}{\\text{original length}}"] },
     workedExamples: similarWorked, guidedPractice: similarGuided, independentPractice: similarIndependent, commonMistakes: similarMistakes, masteryQuiz: similarMastery,
-  };
-  if (lesson.slug === "circle-chord-angle") return {
+  });
+  if (lesson.slug === "circle-chord-angle") return applyYear10GeometryVisuals(lesson.slug, {
     ...base,
     description: "Use chord and angle theorems to find missing angles in circles and cyclic quadrilaterals.",
     learningIntention: "Use circle angle theorems to identify relationships and calculate missing angles.",
     successCriteria: ["Connect central and circumference angles on the same arc.", "Use same-segment and semicircle theorems.", "Find missing opposite angles in cyclic quadrilaterals.", "Choose a theorem that matches the stated information."],
     teaching: { paragraphs: ["Circle theorems connect angles that stand on the same arc or chord. Read each description carefully so you use the correct relationship.", "The angle at the centre is twice the angle at the circumference when both stand on the same arc.", "Angles at the circumference standing on the same chord in the same segment are equal. An angle at the circumference standing on a diameter is 90 degrees.", "A quadrilateral is cyclic when all four vertices lie on a circle. Its opposite angles sum to 180 degrees.", "Equal chords in the same circle subtend equal angles at the centre."], latexBlocks: ["\\angle\\text{ at centre}=2\\times\\angle\\text{ at circumference on the same arc}", "\\text{angle in a semicircle}=90^\\circ", "\\text{opposite angles in a cyclic quadrilateral sum to }180^\\circ"] },
     workedExamples: circleChordAngleWorked, guidedPractice: circleChordAngleGuided, independentPractice: circleChordAngleIndependent, commonMistakes: circleChordAngleMistakes, masteryQuiz: circleChordAngleMastery,
-  };
-  if (lesson.slug === "circle-tangents") return {
+  });
+  if (lesson.slug === "circle-tangents") return applyYear10GeometryVisuals(lesson.slug, {
     ...base,
     description: "Use radius-tangent, equal-tangent and alternate-segment facts to reason about circles.",
     learningIntention: "Recognise tangents and use tangent theorems to find angles and lengths.",
     successCriteria: ["Distinguish tangents, chords and radii.", "Use the right angle between a radius and tangent at contact.", "Use equal tangent lengths from an external point.", "Recognise a light application of the alternate segment theorem."],
     teaching: { paragraphs: ["A tangent is a line that touches a circle at exactly one point. The touching point is called the point of contact.", "A radius drawn to the point of contact is perpendicular to the tangent. This often creates a right triangle.", "Two tangents drawn from the same external point have equal lengths.", "A chord joins two points on a circle. The alternate segment theorem says the angle between a tangent and a chord equals the angle at the circumference standing on that chord in the alternate segment."], latexBlocks: ["\\text{radius}\\perp\\text{tangent at the point of contact}", "PA=PB\\quad\\text{for tangents from the same external point P}", "\\text{tangent-chord angle}=\\text{angle in the alternate segment}"] },
     workedExamples: circleTangentsWorked, guidedPractice: circleTangentsGuided, independentPractice: circleTangentsIndependent, commonMistakes: circleTangentsMistakes, masteryQuiz: circleTangentsMastery,
-  };
-  if (lesson.slug === "geometric-proofs") return {
+  });
+  if (lesson.slug === "geometric-proofs") return applyYear10GeometryVisuals(lesson.slug, {
     ...base,
     description: "Write short geometric proofs by linking given facts, valid reasons and precise conclusions.",
     learningIntention: "Build short geometric proof chains using given information and known theorems.",
     successCriteria: ["Separate given facts from conclusions.", "Choose a theorem that supports each step.", "Identify unsupported claims.", "Complete short proof chains involving triangles and circles."],
     teaching: { paragraphs: ["A geometric proof explains why a conclusion must be true. A clear short proof moves from given information to a reason and then to a conclusion.", "Reasons can be definitions, stated facts or known theorems. A diagram can help you think, but appearance alone is not proof.", "Before naming a theorem, check its conditions. For example, SAS congruence needs the included angle, and the same-segment theorem needs angles in the same segment.", "Write only the steps needed to justify the conclusion. A short connected argument is stronger than a long list of unrelated facts."], latexBlocks: ["\\text{given}\\Rightarrow\\text{reason}\\Rightarrow\\text{conclusion}", "\\text{evidence}+\\text{valid theorem}\\Rightarrow\\text{justified claim}", "\\text{appearance of a sketch}\\ne\\text{proof}"] },
     workedExamples: geometricProofsWorked, guidedPractice: geometricProofsGuided, independentPractice: geometricProofsIndependent, commonMistakes: geometricProofsMistakes, masteryQuiz: geometricProofsMastery,
-  };
+  });
   return null;
 }
