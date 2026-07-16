@@ -63,6 +63,10 @@ const geometryVisualRequiredPattern =
 const visualHelpfulPattern =
   /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram|trapezoidal rule|area between curves|circle theorem|diameter|semicircle|chord|tangent|central angle|angle at the centre\b/i;
 const tableDataPattern = /\btable|data set|data below|values below|following data|frequency table\b/i;
+const trapezoidalVisualRequiredPattern =
+  /\btrapezoid(?:al)?(?: rule| estimate| approximation| strip| chord)?|trapezia|trapeziums?|ordinates?|sampled values?\b/i;
+const trapezoidalVisualExemptPattern =
+  /\b(?:find|calculate|identify|state|choose)\b[\s\S]{0,80}\b(?:subinterval width|formula|units?)\b|\bwhich\b[\s\S]{0,50}\b(?:term|value)s?\b[\s\S]{0,30}\bdoubled\b/i;
 
 function addIssue(
   level: AuditLevel,
@@ -829,6 +833,57 @@ function validateTrapezoidalRuleDiagram(value: unknown, path: string) {
   ) {
     addIssue("FAIL", "trapezoidal-rule-payload", path, "xValues must strictly increase.");
   }
+
+  if (value.ordinateLabels !== undefined) {
+    if (
+      !Array.isArray(value.ordinateLabels) ||
+      value.ordinateLabels.length !== yValues.length ||
+      value.ordinateLabels.some((label) => !isNonEmptyString(label))
+    ) {
+      addIssue(
+        "FAIL",
+        "trapezoidal-rule-payload",
+        path,
+        "ordinateLabels must contain one non-empty label for every y-value."
+      );
+    }
+  }
+
+  if (value.curvePoints !== undefined) {
+    if (!Array.isArray(value.curvePoints) || value.curvePoints.length < 2) {
+      addIssue(
+        "FAIL",
+        "trapezoidal-rule-payload",
+        path,
+        "curvePoints must contain at least two points."
+      );
+    } else {
+      const curvePoints: unknown[] = value.curvePoints;
+      curvePoints.forEach((point, index) => {
+        validatePoint(point, `${path}.curvePoints[${index}]`);
+      });
+      if (
+        curvePoints.some((point, index) => {
+          const previousPoint = curvePoints[index - 1];
+          return (
+            index > 0 &&
+            isRecord(point) &&
+            isRecord(previousPoint) &&
+            isFiniteNumber(point.x) &&
+            isFiniteNumber(previousPoint.x) &&
+            point.x <= previousPoint.x
+          );
+        })
+      ) {
+        addIssue(
+          "FAIL",
+          "trapezoidal-rule-payload",
+          path,
+          "curvePoints x-values must strictly increase."
+        );
+      }
+    }
+  }
 }
 
 function validateBoxPlotDiagram(value: unknown, path: string) {
@@ -1433,6 +1488,27 @@ function classifyQuestionVisualStimulus(
   if (!text.trim() || hasItemVisualPayload(question)) return;
 
   const path = `${lessonPath(courseSlug, unitSlug, lessonSlug)}/${section}/${question.id}`;
+  if (
+    trapezoidalVisualRequiredPattern.test(text) &&
+    !trapezoidalVisualExemptPattern.test(text)
+  ) {
+    visualStimulusFindings.push({
+      kind: "visual required, no payload",
+      courseSlug,
+      unitSlug,
+      lessonSlug,
+      path,
+      excerpt: compactExcerpt(text),
+    });
+    addIssue(
+      "WARN",
+      "visual-required-no-payload",
+      path,
+      "Trapezoidal-rule questions that use ordinates, sampled values, strips, curves, or contextual readings require a visual payload."
+    );
+    return;
+  }
+
   if (hasSelfContainedTableData(text)) {
     visualStimulusFindings.push({
       kind: "text table/data fully present",

@@ -388,6 +388,8 @@ export type TrapezoidalRuleDiagram = {
   description: string;
   xValues: number[];
   yValues: number[];
+  curvePoints?: { x: number; y: number }[];
+  ordinateLabels?: string[];
   xAxisLabel?: string;
   yAxisLabel?: string;
   showOrdinateLabels?: boolean;

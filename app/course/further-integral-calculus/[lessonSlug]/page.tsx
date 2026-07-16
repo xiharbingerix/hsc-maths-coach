@@ -9,6 +9,11 @@ export default async function Page({
   params: Promise<{ lessonSlug: string }>;
 }) {
   const { lessonSlug } = await params;
+  if (lessonSlug === "trapezoidal-rule") {
+    permanentRedirect(
+      "/course/year-12-advanced/ma-c4-integral-calculus/trapezoidal-rule-area-approximation"
+    );
+  }
   const lesson = furtherIntegralCalculusLessons.find(
     (l) => l.slug === lessonSlug
   );
