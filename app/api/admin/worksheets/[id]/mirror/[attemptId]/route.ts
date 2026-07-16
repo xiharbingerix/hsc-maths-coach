@@ -152,7 +152,44 @@ export async function GET(
           typed?: string;
           choice?: string;
           parts?: Record<string, string>;
+          attention?: {
+            state?: unknown;
+            reason?: unknown;
+            eventId?: unknown;
+            changedAt?: unknown;
+            lastAwayEventId?: unknown;
+            lastAwayAt?: unknown;
+          };
         })
+      : null;
+
+  const attention = draft?.attention;
+  const safeAttention =
+    attention &&
+    (attention.state === "focused" || attention.state === "away") &&
+    (attention.reason === "focus" ||
+      attention.reason === "blur" ||
+      attention.reason === "hidden") &&
+    typeof attention.eventId === "string" &&
+    typeof attention.changedAt === "string"
+      ? {
+          state: attention.state,
+          reason: attention.reason,
+          eventId: attention.eventId,
+          changedAt: attention.changedAt,
+          lastAwayEventId:
+            typeof attention.lastAwayEventId === "string"
+              ? attention.lastAwayEventId
+              : attention.state === "away"
+                ? attention.eventId
+                : null,
+          lastAwayAt:
+            typeof attention.lastAwayAt === "string"
+              ? attention.lastAwayAt
+              : attention.state === "away"
+                ? attention.changedAt
+                : null,
+        }
       : null;
 
   return NextResponse.json({
@@ -177,6 +214,7 @@ export async function GET(
             draft.parts && typeof draft.parts === "object" ? draft.parts : {},
         }
       : null,
+    attention: safeAttention,
     submitted,
     updatedAt: new Date().toISOString(),
   });

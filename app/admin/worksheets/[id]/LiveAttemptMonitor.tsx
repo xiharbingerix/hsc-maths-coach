@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { WorksheetMirror } from "./WorksheetMirror";
 
 type LiveAttempt = {
@@ -72,6 +72,63 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
   const [watching, setWatching] = useState<
     { attemptId: string; studentName: string } | null
   >(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+
+  const primeAttentionPing = useCallback(() => {
+    const AudioContextClass =
+      window.AudioContext ??
+      (window as typeof window & { webkitAudioContext?: typeof AudioContext })
+        .webkitAudioContext;
+    if (!AudioContextClass) return;
+
+    if (!audioContextRef.current || audioContextRef.current.state === "closed") {
+      audioContextRef.current = new AudioContextClass();
+    }
+    void audioContextRef.current.resume();
+  }, []);
+
+  const playAttentionPing = useCallback(() => {
+    const context = audioContextRef.current;
+    if (!context || context.state === "closed") return;
+
+    function playTone(frequency: number, offset: number) {
+      if (!context) return;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      const start = context.currentTime + offset;
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, start);
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.18, start + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.16);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(start);
+      oscillator.stop(start + 0.17);
+    }
+
+    void context.resume().then(() => {
+      playTone(880, 0);
+      playTone(660, 0.18);
+    });
+  }, []);
+
+  const closeWatch = useCallback(() => {
+    setWatching(null);
+    if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+      void audioContextRef.current.close();
+    }
+    audioContextRef.current = null;
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (audioContextRef.current && audioContextRef.current.state !== "closed") {
+        void audioContextRef.current.close();
+      }
+    },
+    []
+  );
 
   const endpoint = useMemo(
     () => `/api/admin/worksheets/${worksheetId}/live`,
@@ -217,12 +274,13 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
                     ) : (
                       <button
                         type="button"
-                        onClick={() =>
+                        onClick={() => {
+                          primeAttentionPing();
                           setWatching({
                             attemptId: attempt.attemptId,
                             studentName: attempt.studentName,
-                          })
-                        }
+                          });
+                        }}
                         className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:border-sky-400 hover:bg-sky-50 hover:text-sky-700"
                       >
                         <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
@@ -242,7 +300,8 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
           worksheetId={worksheetId}
           attemptId={watching.attemptId}
           studentName={watching.studentName}
-          onClose={() => setWatching(null)}
+          onAttentionAlert={playAttentionPing}
+          onClose={closeWatch}
         />
       ) : null}
     </section>

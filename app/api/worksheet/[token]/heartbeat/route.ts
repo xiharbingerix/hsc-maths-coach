@@ -15,6 +15,16 @@ type HeartbeatBody = {
   questionIndex?: number;
   phase?: string;
   draft?: DraftInput;
+  attention?: unknown;
+};
+
+type AttentionInput = {
+  state?: unknown;
+  reason?: unknown;
+  eventId?: unknown;
+  changedAt?: unknown;
+  lastAwayEventId?: unknown;
+  lastAwayAt?: unknown;
 };
 
 function normalisePhase(value: unknown) {
@@ -51,8 +61,34 @@ function normaliseDraft(value: unknown) {
     }
   }
 
-  if (!typed && !choice && Object.keys(parts).length === 0) return null;
   return { typed, choice, parts };
+}
+
+function normaliseAttention(value: unknown) {
+  if (!value || typeof value !== "object") return null;
+  const input = value as AttentionInput;
+  const state = input.state === "focused" || input.state === "away" ? input.state : null;
+  const reason =
+    input.reason === "focus" || input.reason === "blur" || input.reason === "hidden"
+      ? input.reason
+      : null;
+  const eventId = clampString(input.eventId).slice(0, 100);
+  const changedAt = clampString(input.changedAt).slice(0, 40);
+  const lastAwayEventId = clampString(input.lastAwayEventId).slice(0, 100) || null;
+  const lastAwayAt = clampString(input.lastAwayAt).slice(0, 40) || null;
+
+  if (
+    !state ||
+    !reason ||
+    !eventId ||
+    !changedAt ||
+    !Number.isFinite(Date.parse(changedAt)) ||
+    (lastAwayAt !== null && !Number.isFinite(Date.parse(lastAwayAt)))
+  ) {
+    return null;
+  }
+
+  return { state, reason, eventId, changedAt, lastAwayEventId, lastAwayAt };
 }
 
 export async function POST(
@@ -117,12 +153,17 @@ export async function POST(
   const index = Number(body.questionIndex);
   const liveQuestionIndex = Number.isInteger(index) && index > 0 ? index : null;
 
+  const draft = normaliseDraft(body.draft);
+  const attention = normaliseAttention(body.attention);
   const payload = {
     last_seen_at: new Date().toISOString(),
     live_question_id: liveQuestionId,
     live_question_index: liveQuestionIndex,
     live_phase: normalisePhase(body.phase),
-    live_draft: normaliseDraft(body.draft),
+    live_draft: {
+      ...(draft ?? { typed: "", choice: "", parts: {} }),
+      attention,
+    },
   };
 
   const { error } = await supabaseAdmin

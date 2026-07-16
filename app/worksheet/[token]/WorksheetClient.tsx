@@ -66,6 +66,15 @@ type ResumeAttempt = {
   error?: string;
 };
 
+type AttentionSnapshot = {
+  state: "focused" | "away";
+  reason: "focus" | "blur" | "hidden";
+  eventId: string;
+  changedAt: string;
+  lastAwayEventId: string | null;
+  lastAwayAt: string | null;
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function scoreLabel(pct: number): string {
@@ -141,6 +150,8 @@ export function WorksheetClient({
     choice: string;
     parts: Record<string, string>;
   }>({ typed: "", choice: "", parts: {} });
+  const attentionRef = useRef<AttentionSnapshot | null>(null);
+  const attentionAttemptRef = useRef<string | null>(null);
 
   useEffect(() => {
     draftRef.current = {
@@ -162,7 +173,9 @@ export function WorksheetClient({
           questionIndex: currentIndex + 1,
           phase,
           draft: draftRef.current,
+          attention: attentionRef.current,
         }),
+        keepalive: true,
       });
     } catch {
       // Heartbeat is best-effort telemetry; worksheet flow should never fail because of it.
@@ -189,6 +202,92 @@ export function WorksheetClient({
     }, 600);
     return () => clearTimeout(timeout);
   }, [typedAnswer, choiceAnswer, partAnswers, attemptId, phase, sendHeartbeat]);
+
+  // Browsers do not reveal which tab or application was opened, but they do
+  // expose when this worksheet loses visibility or window focus. Send each
+  // transition as part of the existing live snapshot; only an open teacher
+  // Watch view turns an "away" transition into an alert.
+  useEffect(() => {
+    if (!attemptId || !currentQuestion || phase === "done") return;
+
+    function makeEventId() {
+      if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
+        return crypto.randomUUID();
+      }
+      return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    }
+
+    function reportAttention(
+      state: AttentionSnapshot["state"],
+      reason: AttentionSnapshot["reason"]
+    ) {
+      if (attentionRef.current?.state === state) return;
+      const eventId = makeEventId();
+      const changedAt = new Date().toISOString();
+      attentionRef.current = {
+        state,
+        reason,
+        eventId,
+        changedAt,
+        lastAwayEventId:
+          state === "away"
+            ? eventId
+            : attentionRef.current?.lastAwayEventId ?? null,
+        lastAwayAt:
+          state === "away"
+            ? changedAt
+            : attentionRef.current?.lastAwayAt ?? null,
+      };
+      void sendHeartbeat();
+    }
+
+    if (attentionAttemptRef.current !== attemptId) {
+      attentionAttemptRef.current = attemptId;
+      const state =
+        document.visibilityState === "hidden" || !document.hasFocus()
+          ? "away"
+          : "focused";
+      const eventId = makeEventId();
+      const changedAt = new Date().toISOString();
+      attentionRef.current = {
+        state,
+        reason: document.visibilityState === "hidden" ? "hidden" : "focus",
+        eventId,
+        changedAt,
+        lastAwayEventId: state === "away" ? eventId : null,
+        lastAwayAt: state === "away" ? changedAt : null,
+      };
+      void sendHeartbeat();
+    }
+
+    function onVisibilityChange() {
+      if (document.visibilityState === "hidden") {
+        reportAttention("away", "hidden");
+      } else if (document.hasFocus()) {
+        reportAttention("focused", "focus");
+      }
+    }
+
+    function onWindowBlur() {
+      reportAttention("away", "blur");
+    }
+
+    function onWindowFocus() {
+      if (document.visibilityState === "visible") {
+        reportAttention("focused", "focus");
+      }
+    }
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener("blur", onWindowBlur);
+    window.addEventListener("focus", onWindowFocus);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("blur", onWindowBlur);
+      window.removeEventListener("focus", onWindowFocus);
+    };
+  }, [attemptId, currentQuestion, phase, sendHeartbeat]);
 
   useEffect(() => {
     let cancelled = false;

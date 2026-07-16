@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../../components/MathText";
 import { VisualPayloadRenderer } from "../../../components/VisualPayloadRenderer";
@@ -35,6 +35,14 @@ type MirrorResponse = {
   totalQuestions: number | null;
   question: MirrorQuestion | null;
   draft: { typed: string; choice: string; parts: Record<string, string> } | null;
+  attention: {
+    state: "focused" | "away";
+    reason: "focus" | "blur" | "hidden";
+    eventId: string;
+    changedAt: string;
+    lastAwayEventId: string | null;
+    lastAwayAt: string | null;
+  } | null;
   submitted: { studentAnswer: string | null; isCorrect: boolean | null } | null;
   updatedAt: string;
   error?: string;
@@ -54,16 +62,49 @@ export function WorksheetMirror({
   worksheetId,
   attemptId,
   studentName,
+  onAttentionAlert,
   onClose,
 }: {
   worksheetId: string;
   attemptId: string;
   studentName: string;
+  onAttentionAlert: () => void;
   onClose: () => void;
 }) {
   const [data, setData] = useState<MirrorResponse | null>(null);
   const [error, setError] = useState("");
   const dataRef = useRef<MirrorResponse | null>(null);
+  const hasAttentionBaselineRef = useRef(false);
+  const lastAwayEventRef = useRef<string | null>(null);
+  const [recentAwayAt, setRecentAwayAt] = useState<string | null>(null);
+
+  const handleAttentionSnapshot = useCallback(
+    (attention: MirrorResponse["attention"]) => {
+      if (!attention) return;
+
+      if (!hasAttentionBaselineRef.current) {
+        hasAttentionBaselineRef.current = true;
+        lastAwayEventRef.current = attention.lastAwayEventId;
+        return;
+      }
+      if (
+        !attention.lastAwayEventId ||
+        lastAwayEventRef.current === attention.lastAwayEventId
+      ) {
+        return;
+      }
+
+      lastAwayEventRef.current = attention.lastAwayEventId;
+
+      // Do not chime for events that arrive while the teacher's own Watch view
+      // is in the background. The current away state remains visibly flagged.
+      if (document.visibilityState === "visible" && document.hasFocus()) {
+        setRecentAwayAt(attention.lastAwayAt ?? attention.changedAt);
+        onAttentionAlert();
+      }
+    },
+    [onAttentionAlert]
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -79,6 +120,7 @@ export function WorksheetMirror({
           return;
         }
         dataRef.current = payload;
+        handleAttentionSnapshot(payload.attention);
         setData(payload);
         setError("");
       } catch {
@@ -92,7 +134,13 @@ export function WorksheetMirror({
       cancelled = true;
       clearInterval(interval);
     };
-  }, [worksheetId, attemptId]);
+  }, [worksheetId, attemptId, handleAttentionSnapshot]);
+
+  useEffect(() => {
+    if (!recentAwayAt) return;
+    const timeout = setTimeout(() => setRecentAwayAt(null), 8000);
+    return () => clearTimeout(timeout);
+  }, [recentAwayAt]);
 
   // Close on Escape.
   useEffect(() => {
@@ -108,6 +156,11 @@ export function WorksheetMirror({
   const question = data?.question ?? null;
   const draft = data?.draft ?? null;
   const isAnswered = data?.phase === "answered";
+  const isAway = !completed && data?.attention?.state === "away";
+  const showAttentionWarning = isAway || Boolean(recentAwayAt);
+  const attentionWarningAt = isAway
+    ? data?.attention?.lastAwayAt ?? data?.attention?.changedAt ?? null
+    : recentAwayAt;
 
   return (
     <div
@@ -124,7 +177,7 @@ export function WorksheetMirror({
             <span className={`h-2.5 w-2.5 rounded-full ${dot.color}`} />
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                Watching live · {dot.label}
+                Watching live · Focus alerts on · {dot.label}
               </p>
               <p className="font-semibold text-slate-900">{studentName}</p>
             </div>
@@ -144,6 +197,32 @@ export function WorksheetMirror({
             </button>
           </div>
         </div>
+
+        {showAttentionWarning ? (
+          <div
+            role="alert"
+            aria-live="assertive"
+            className="flex items-center justify-between gap-4 rounded-2xl border border-red-300 bg-red-50 px-5 py-3 text-red-900 shadow-lg"
+          >
+            <div>
+              <p className="text-sm font-bold">Worksheet lost focus</p>
+              <p className="mt-0.5 text-xs text-red-700">
+                {isAway
+                  ? `${studentName} may have switched tabs, windows, or apps.`
+                  : `${studentName} has returned to the worksheet.`}
+              </p>
+            </div>
+            {attentionWarningAt ? (
+              <span className="shrink-0 text-xs font-semibold tabular-nums text-red-700">
+                {new Intl.DateTimeFormat("en-AU", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                }).format(new Date(attentionWarningAt))}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
 
         {/* Mirrored question card */}
         <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
