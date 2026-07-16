@@ -40,6 +40,9 @@ import {
   probabilityLessons,
 } from "./lessons/probability";
 import {
+  year12AdvancedRandomVariablesLessons,
+} from "./lessons/year12AdvancedRandomVariables";
+import {
   trigonometricFunctionsGraphsLessons,
 } from "./lessons/trigonometricFunctionsGraphs";
 
@@ -68,6 +71,7 @@ const allAdvancedLessons: ExplicitLesson[] = [
   ...financialMathematicsLessons,
   ...statisticalAnalysisLessons,
   ...probabilityLessons,
+  ...year12AdvancedRandomVariablesLessons,
 ];
 
 function lessonsBySlug(slug: string): ExplicitLesson[] {

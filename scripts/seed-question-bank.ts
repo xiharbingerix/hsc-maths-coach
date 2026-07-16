@@ -24,6 +24,7 @@ import { sequencesSeriesFinancialMathsLessons } from "../lib/lessons/sequencesSe
 import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 import { probabilityLessons } from "../lib/lessons/probability";
+import { year12AdvancedRandomVariablesLessons } from "../lib/lessons/year12AdvancedRandomVariables";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 import { isGenericMcqInstructionLatex } from "../lib/lessons/questionHelpers";
 import { getChallengeQuestions } from "../lib/challenges";
@@ -120,6 +121,7 @@ const allYear12AdvancedLessons: ExplicitLesson[] = [
   ...exponentialLogarithmicFunctionsLessons,
   ...probabilityLessons,
   ...statisticalAnalysisLessons,
+  ...year12AdvancedRandomVariablesLessons,
   ...sequencesSeriesFinancialMathsLessons,
   ...financialMathematicsLessons,
 ];
