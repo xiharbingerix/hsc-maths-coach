@@ -18,7 +18,7 @@
 import PptxGenJS from 'pptxgenjs';
 import { join } from 'path';
 import { mkdirSync } from 'fs';
-import { trapezoidalRuleLesson } from '../lib/lessons/furtherIntegralCalculus';
+import { trapezoidalRuleAreaApproximationLesson } from '../lib/lessons/integralCalculus';
 
 // ── LaTeX → Unicode converter ──────────────────────────────────────────────────
 
@@ -189,7 +189,7 @@ const DIAG_H = 3.6;               // diagram height
 const DIAG_Y = CT + 0.06;         // diagram top
 
 async function main(): Promise<void> {
-  const lesson = trapezoidalRuleLesson;
+  const lesson = trapezoidalRuleAreaApproximationLesson;
 
   const pptx   = new PptxGenJS();
   pptx.layout  = 'LAYOUT_WIDE';

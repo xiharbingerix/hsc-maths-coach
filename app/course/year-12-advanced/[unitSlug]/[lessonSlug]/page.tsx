@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { LessonRenderer } from "../../../LessonRenderer";
 import {
   getYear12AdvancedRouteLesson,
@@ -27,6 +27,14 @@ export default async function Year12AdvancedLessonPage({
   params: Promise<{ unitSlug: string; lessonSlug: string }>;
 }) {
   const { unitSlug, lessonSlug } = await params;
+  if (
+    unitSlug === "ma-c4-integral-calculus" &&
+    lessonSlug === "trapezoidal-rule"
+  ) {
+    permanentRedirect(
+      "/course/year-12-advanced/ma-c4-integral-calculus/trapezoidal-rule-area-approximation"
+    );
+  }
   const unit = getYear12AdvancedRouteUnit(unitSlug);
   const lesson = getYear12AdvancedRouteLesson(unitSlug, lessonSlug);
 

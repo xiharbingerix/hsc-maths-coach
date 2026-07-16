@@ -24,6 +24,7 @@ export function TrapezoidalRuleView({
   const titleId = `${reactId}-title`;
   const descriptionId = `${reactId}-description`;
   const { xValues, yValues } = diagram;
+  const curvePoints = diagram.curvePoints ?? [];
   const trapezoidCount = xValues.length - 1;
   const svgTitle = diagram.functionLabel
     ? `Trapezoidal rule for ${diagram.functionLabel}`
@@ -34,15 +35,24 @@ export function TrapezoidalRuleView({
     xValues.length !== yValues.length ||
     xValues.some((value) => !Number.isFinite(value)) ||
     yValues.some((value) => !Number.isFinite(value)) ||
-    xValues.some((value, index) => index > 0 && value <= xValues[index - 1])
+    xValues.some((value, index) => index > 0 && value <= xValues[index - 1]) ||
+    (diagram.ordinateLabels !== undefined &&
+      diagram.ordinateLabels.length !== yValues.length) ||
+    curvePoints.some(
+      (point, index) =>
+        !Number.isFinite(point.x) ||
+        !Number.isFinite(point.y) ||
+        (index > 0 && point.x <= curvePoints[index - 1].x)
+    )
   ) {
     return null;
   }
 
-  const xMin = xValues[0];
-  const xMax = xValues[xValues.length - 1];
-  const rawYMin = Math.min(0, ...yValues);
-  const rawYMax = Math.max(0, ...yValues);
+  const xMin = Math.min(xValues[0], ...curvePoints.map((point) => point.x));
+  const xMax = Math.max(xValues[xValues.length - 1], ...curvePoints.map((point) => point.x));
+  const allYValues = [...yValues, ...curvePoints.map((point) => point.y)];
+  const rawYMin = Math.min(0, ...allYValues);
+  const rawYMax = Math.max(0, ...allYValues);
   const ySpan = rawYMax - rawYMin || 1;
   const yMargin = ySpan * 0.12;
   const yMin = rawYMin - (rawYMin < 0 ? yMargin : 0);
@@ -54,6 +64,7 @@ export function TrapezoidalRuleView({
   });
   const baselineY = toSvg(xMin, 0).y;
   const points = xValues.map((x, index) => toSvg(x, yValues[index]));
+  const renderedCurvePoints = curvePoints.map((point) => toSvg(point.x, point.y));
 
   return (
     <div className={`my-3 overflow-x-auto ${className ?? ""}`}>
@@ -102,6 +113,17 @@ export function TrapezoidalRuleView({
             />
           );
         })}
+
+        {renderedCurvePoints.length >= 2 && (
+          <polyline
+            points={renderedCurvePoints.map((point) => `${point.x},${point.y}`).join(" ")}
+            fill="none"
+            stroke="#e11d48"
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        )}
 
         <line
           x1={padding.left}
@@ -165,7 +187,8 @@ export function TrapezoidalRuleView({
                   strokeWidth={4}
                   paintOrder="stroke"
                 >
-                  {`y${index} = ${formatValue(yValues[index])}`}
+                  {diagram.ordinateLabels?.[index] ??
+                    `y${index} = ${formatValue(yValues[index])}`}
                 </text>
               )}
             </g>
@@ -218,7 +241,7 @@ export function TrapezoidalRuleView({
             x={padding.left + plotWidth - 8}
             y={padding.top + 18}
             textAnchor="end"
-            className="fill-sky-800 text-xs font-semibold"
+            className={`${renderedCurvePoints.length >= 2 ? "fill-rose-700" : "fill-sky-800"} text-xs font-semibold`}
             stroke="#ffffff"
             strokeWidth={4}
             paintOrder="stroke"

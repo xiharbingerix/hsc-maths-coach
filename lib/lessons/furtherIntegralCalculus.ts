@@ -886,7 +886,6 @@ export const furtherIntegralCalculusLessons = [
   reverseChainRuleLesson,
   definiteIntegralsStandardFormsLesson,
   areaBetweenCurvesExtendedLesson,
-  trapezoidalRuleLesson,
   furtherIntegralCalculusExamPracticeLesson,
 ];
 

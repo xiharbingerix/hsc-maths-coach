@@ -3,6 +3,19 @@
   LessonOutlineItem,
   PracticeQuestion,
 } from "./differentialCalculus";
+import type { TrapezoidalRuleDiagram } from "./types";
+
+function sampledCurvePoints(
+  xMin: number,
+  xMax: number,
+  evaluate: (x: number) => number,
+  steps = 48
+): NonNullable<TrapezoidalRuleDiagram["curvePoints"]> {
+  return Array.from({ length: steps + 1 }, (_, index) => {
+    const x = xMin + ((xMax - xMin) * index) / steps;
+    return { x, y: evaluate(x) };
+  });
+}
 
 export const antidifferentiationReversePowerRuleLesson: ExplicitLesson = {
   id: "antidifferentiation-reverse-power-rule",
@@ -2302,7 +2315,7 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
     {
       title: "Worked example 1: One trapezium by hand",
       questionLatex:
-        "\\text{The curve has height }3\\text{ at the left edge and }7\\text{ at the right edge of a strip of width }2.\\text{ Find the strip's trapezium area.}",
+        "\\text{Use the single trapezoidal strip shown to estimate the area.}",
       steps: [
         {
           explanation:
@@ -2325,11 +2338,19 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
         },
       ],
       finalAnswerLatex: "10\\text{ square units}",
+      trapezoidalRuleDiagram: {
+        description:
+          "One trapezoidal strip of width 2 has left ordinate 3 and right ordinate 7.",
+        xValues: [0, 2],
+        yValues: [3, 7],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       title: "Worked example 2: Table values",
       questionLatex:
-        "\\text{Use the Trapezoidal rule with }h=1\\text{ and }y\\text{-values }2,5,10,17\\text{ to approximate the area.}",
+        "\\text{Use the four ordinates shown to approximate the area.}",
       steps: [
         {
           explanation:
@@ -2349,12 +2370,8 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
           explanation: "Evaluate the bracket, then halve it.",
           latex: "T=\\frac{49}{2}=24.5",
         },
-        {
-          explanation:
-            "The gaps between readings ($3, 5, 7$) keep growing, so the data bends upward. The straight tops of the trapezia sit above that upward-curving shape, so $24.5$ is an overestimate of the true area.",
-        },
       ],
-      finalAnswerLatex: "24.5\\text{ square units (an overestimate)}",
+      finalAnswerLatex: "24.5\\text{ square units}",
       trapezoidalRuleDiagram: {
         description: "Four ordinates at x equals 0, 1, 2 and 3 have heights 2, 5, 10 and 17. Straight top edges join adjacent points, creating three lightly shaded trapezia. The two middle ordinates are shared by neighbouring trapezia.",
         xValues: [0, 1, 2, 3],
@@ -2366,7 +2383,7 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
     {
       title: "Worked example 3: Function values",
       questionLatex:
-        "\\text{Approximate the area under }y=x^2+1\\text{ from }x=0\\text{ to }x=4\\text{ using }4\\text{ equal subintervals.}",
+        "\\text{The diagram shows }y=x^2+1\\text{ and four trapezoidal strips. Approximate the area and compare it with the exact value.}",
       steps: [
         {
           explanation:
@@ -2397,6 +2414,7 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
         description: "Five ordinates for y equals x squared plus 1 are drawn at x equals 0, 1, 2, 3 and 4. Straight top edges form four lightly shaded trapezia. The three middle ordinates belong to two adjacent trapezia.",
         xValues: [0, 1, 2, 3, 4],
         yValues: [1, 2, 5, 10, 17],
+        curvePoints: sampledCurvePoints(0, 4, (x) => x * x + 1),
         showOrdinateLabels: true,
         showTrapezoidLabels: true,
         functionLabel: "y = x^2 + 1",
@@ -2407,50 +2425,81 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
   guidedPractice: [
     {
       id: "trap-guided-1",
-      prompt: "Find the subinterval width:",
-      latex: "a=0, \\quad b=6, \\quad n=3",
+      prompt: "The interval is divided into four equal strips. Find the strip width $h$.",
+      latex: "",
       answer: "2",
-      hint: "Use $h=\\frac{b-a}{n}$.",
-      explanation: "$h=\\frac{6-0}{3}=2$.",
+      acceptedAnswers: ["h=2"],
+      hint: "Read the difference between two consecutive x-values.",
+      explanation:
+        "Consecutive ordinates occur at $x=2,4,6,8,10$, so every strip has width $h=4-2=2$.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Four equal strips span x equals 2 to x equals 10, with ordinates at x equals 2, 4, 6, 8 and 10.",
+        xValues: [2, 4, 6, 8, 10],
+        yValues: [1, 3, 4, 6, 5],
+        showOrdinateLabels: false,
+        showTrapezoidLabels: true,
+      },
     },
     {
       id: "trap-guided-2",
-      prompt: "Identify the first and last y-values:",
-      latex: "y\\text{-values: }4,7,9,12",
-      answer: "B",
-      choices: [
-        { label: "A", text: "$7$ and $9$" },
-        { label: "B", text: "$4$ and $12$" },
-        { label: "C", text: "$4$ and $7$" },
-      ],
-      hint: "Use the two end values.",
-      explanation: "The first and last y-values are $4$ and $12$.",
+      prompt: "Use the single trapezoidal strip shown to estimate the area.",
+      latex: "",
+      answer: "15",
+      acceptedAnswers: ["15 square units", "15 units^2"],
+      hint: "Average the two ordinates, then multiply by the strip width.",
+      explanation:
+        "The strip width is $3$ and the two ordinates are $2$ and $8$, so $T=\\frac{3}{2}(2+8)=15$ square units.",
+      trapezoidalRuleDiagram: {
+        description:
+          "One trapezoidal strip spans x equals 0 to x equals 3, with ordinates 2 and 8.",
+        xValues: [0, 3],
+        yValues: [2, 8],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       id: "trap-guided-3",
-      prompt: "Identify the middle y-values:",
-      latex: "y\\text{-values: }4,7,9,12",
-      answer: "B",
-      choices: [
-        { label: "A", text: "$4$ and $12$" },
-        { label: "B", text: "$7$ and $9$" },
-        { label: "C", text: "$4$ and $7$" },
-      ],
-      hint: "Middle values are all values except the two ends.",
-      explanation: "The middle y-values are $7$ and $9$.",
+      prompt: "Use the two trapezoidal strips shown to estimate the area.",
+      latex: "",
+      answer: "22",
+      acceptedAnswers: ["22 square units", "22 units^2"],
+      hint: "The shared middle ordinate is counted in both trapezoids.",
+      explanation:
+        "The width is $h=2$, so $T=\\frac{2}{2}[3+2(7)+5]=22$ square units.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Two trapezoidal strips of width 2 have ordinates 3, 7 and 5 at x equals 0, 2 and 4.",
+        xValues: [0, 2, 4],
+        yValues: [3, 7, 5],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       id: "trap-guided-4",
-      prompt: "Calculate the Trapezoidal rule approximation:",
-      latex: "h=2, \\quad y\\text{-values: }4,7,9,12",
-      answer: "48",
-      hint: "Use $\\frac{2}{2}[4+2(7+9)+12]$.",
-      explanation: "$T=1[4+32+12]=48$.",
+      prompt: "The curve and its trapezoidal chords are shown. Is the estimate an overestimate or an underestimate?",
+      latex: "y=x^2+1,\\quad 0\\le x\\le2",
+      answer: "A",
+      choices: [
+        { label: "A", text: "overestimate" },
+        { label: "B", text: "underestimate" },
+        { label: "C", text: "exact" },
+        { label: "D", text: "cannot be determined from the diagram" },
+      ],
+      hint: "Compare each straight chord with the red curve between the ordinates.",
+      explanation:
+        "The curve is concave up, so each straight trapezoidal chord lies above the curve and the estimate is an overestimate.",
       trapezoidalRuleDiagram: {
         description:
-          "Four function values 4, 7, 9 and 12 plotted at x = 0, 2, 4, 6 with three trapezoidal strips of width 2.",
-        xValues: [0, 2, 4, 6],
-        yValues: [4, 7, 9, 12],
+          "The concave-up curve y equals x squared plus 1 is shown from x equals 0 to 2. Two straight trapezoidal chords lie above the curve between ordinates 1, 2 and 5.",
+        xValues: [0, 1, 2],
+        yValues: [1, 2, 5],
+        curvePoints: sampledCurvePoints(0, 2, (x) => x * x + 1),
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+        functionLabel: "y = x^2 + 1",
       },
     },
   ],
@@ -2458,60 +2507,104 @@ export const trapezoidalRuleAreaApproximationLesson: ExplicitLesson = {
   independentPractice: [
     {
       id: "trap-ind-1",
-      prompt: "Use the Trapezoidal rule:",
-      latex: "h=1, \\quad y\\text{-values: }3,4,7",
-      answer: "9",
-      hint: "There is one middle value.",
-      explanation: "$T=\\frac{1}{2}[3+2(4)+7]=9$.",
+      prompt: "Use the ordinates shown to approximate the area.",
+      latex: "",
+      answer: "16",
+      acceptedAnswers: ["16 square units", "16 units^2"],
+      hint: "Read the common width from the x-axis before applying the composite rule.",
+      explanation:
+        "The ordinates are one unit apart, so $T=\\frac12[2+2(5)+2(6)+8]=16$ square units.",
       trapezoidalRuleDiagram: {
         description:
-          "Three function values 3, 4 and 7 plotted at x = 0, 1, 2 with two trapezoidal strips of width 1.",
-        xValues: [0, 1, 2],
-        yValues: [3, 4, 7],
+          "Three trapezoidal strips of width 1 have ordinates 2, 5, 6 and 8 at x equals 0, 1, 2 and 3.",
+        xValues: [0, 1, 2, 3],
+        yValues: [2, 5, 6, 8],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
       },
     },
     {
       id: "trap-ind-2",
-      prompt: "Approximate using values of $y=x^2$ from $x=0$ to $x=2$ with $n=2$.",
-      latex: "y\\text{-values: }0,1,4",
-      answer: "3",
-      hint: "$h=1$.",
-      explanation: "$T=\\frac{1}{2}[0+2(1)+4]=3$.",
+      prompt: "For the linear function shown, find the difference between the trapezoidal estimate and the exact integral.",
+      latex: "\\int_1^3(x+1)\\,dx",
+      answer: "0",
+      acceptedAnswers: ["0 square units", "zero"],
+      hint: "Calculate both the one-strip estimate and the exact definite integral.",
+      explanation:
+        "The trapezoidal estimate is $\\frac{2}{2}(2+4)=6$, while the exact integral is also $6$. Their difference is $0$ because the function is linear.",
       trapezoidalRuleDiagram: {
         description:
-          "Values of y = x^2 (0, 1 and 4) plotted at x = 0, 1, 2 with two trapezoidal strips of width 1.",
-        xValues: [0, 1, 2],
-        yValues: [0, 1, 4],
+          "The straight line y equals x plus 1 is shown from x equals 1 to 3. One trapezoidal strip has ordinates 2 and 4 and exactly follows the line.",
+        xValues: [1, 3],
+        yValues: [2, 4],
+        curvePoints: sampledCurvePoints(1, 3, (x) => x + 1),
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+        functionLabel: "y = x + 1",
       },
     },
     {
       id: "trap-ind-3",
-      prompt: "Which values are doubled?",
-      latex: "y_0, y_1, y_2, y_3, y_4",
-      answer: "B",
-      choices: [
-        { label: "A", text: "$y_0$ and $y_4$" },
-        { label: "B", text: "$y_1,y_2,y_3$" },
-        { label: "C", text: "all values" },
-      ],
-      hint: "Only middle values are doubled.",
-      explanation: "The middle values $y_1,y_2,y_3$ are doubled.",
+      prompt: "A pump's flow rate is shown at five-minute intervals. Estimate the amount pumped during the first 15 minutes.",
+      latex: "",
+      answer: "85",
+      acceptedAnswers: ["85 L", "85 litres", "85 liters"],
+      hint: "Integrating litres per minute over minutes gives litres.",
+      explanation:
+        "Here $h=5$ minutes, so the amount is $\\frac52[2+2(6)+2(8)+4]=85$ litres.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Pump flow rate readings are 2, 6, 8 and 4 litres per minute at times 0, 5, 10 and 15 minutes.",
+        xValues: [0, 5, 10, 15],
+        yValues: [2, 6, 8, 4],
+        xAxisLabel: "time (min)",
+        yAxisLabel: "flow (L/min)",
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       id: "trap-ind-4",
-      prompt: "Find $h$:",
-      latex: "a=2, \\quad b=10, \\quad n=4",
-      answer: "2",
-      hint: "Use $h=\\frac{10-2}{4}$.",
-      explanation: "$h=2$.",
+      prompt: "Can the standard composite trapezoidal formula be applied directly to all four ordinates shown?",
+      latex: "",
+      answer: "C",
+      choices: [
+        { label: "A", text: "Yes, using $h=1$" },
+        { label: "B", text: "Yes, using $h=\\frac43$" },
+        { label: "C", text: "No, because the x-intervals are not equal" },
+        { label: "D", text: "No, because four ordinates are never allowed" },
+      ],
+      hint: "Compare the gaps between consecutive x-values.",
+      explanation:
+        "The gaps are $1$, $2$ and $1$, so there is no single common width $h$. The standard composite formula cannot be applied directly.",
+      trapezoidalRuleDiagram: {
+        description:
+          "Four ordinates have heights 2, 4, 8 and 10 at unequally spaced x-values 0, 1, 3 and 4.",
+        xValues: [0, 1, 3, 4],
+        yValues: [2, 4, 8, 10],
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+      },
     },
     {
       id: "trap-ind-5",
-      prompt: "A tank flow-rate table has readings $1,3,5,4$ every 2 minutes. Approximate the total amount.",
-      latex: "h=2, \\quad y\\text{-values: }1,3,5,4",
-      answer: "21",
-      hint: "Use the Trapezoidal rule.",
-      explanation: "$T=\\frac{2}{2}[1+2(3+5)+4]=21$.",
+      prompt: "Using the displayed ordinates, calculate how much the estimate decreases when four strips are used instead of two.",
+      latex: "y=x^2+1,\\quad 0\\le x\\le4",
+      answer: "2",
+      acceptedAnswers: ["2 square units", "2 units^2"],
+      hint: "For two strips use every second ordinate; for four strips use all five.",
+      explanation:
+        "Using two strips gives $T_2=28$, while four strips give $T_4=26$. The estimate decreases by $28-26=2$ square units.",
+      trapezoidalRuleDiagram: {
+        description:
+          "The curve y equals x squared plus 1 is shown from x equals 0 to 4 with ordinates 1, 2, 5, 10 and 17. The values can form either two strips of width 2 or four strips of width 1.",
+        xValues: [0, 1, 2, 3, 4],
+        yValues: [1, 2, 5, 10, 17],
+        curvePoints: sampledCurvePoints(0, 4, (x) => x * x + 1),
+        showOrdinateLabels: true,
+        showTrapezoidLabels: true,
+        functionLabel: "y = x^2 + 1",
+      },
     },
   ],
 
@@ -3854,16 +3947,229 @@ areaUnderCurveLesson.masteryQuiz = [
 ];
 
 trapezoidalRuleAreaApproximationLesson.masteryQuiz = [
-  masteryTyped("trap-mastery-1", "Find the subinterval width.", "a=1,\\quad b=9,\\quad n=4", "2", ["h=2"]),
-  masteryChoice("trap-mastery-2", "Which y-values are doubled?", "y_0,y_1,y_2,y_3,y_4", "B", ["y_0 and y_4", "y_1,y_2,y_3", "all five values", "no values"], "Only middle y-values are doubled."),
-  masteryTyped("trap-mastery-3", "Use the Trapezoidal rule.", "h=1,\\quad y\\text{-values }2,5,10", "11", ["11 square units", "11 units^2"]),
-  masteryTyped("trap-mastery-4", "Approximate the area.", "h=2,\\quad y\\text{-values }3,4,8,9", "36", ["36 square units", "36 units^2"]),
-  masteryTyped("trap-mastery-5", "Use the listed equally spaced y-values to approximate the area.", "y=x^2+1,\\quad 0\\le x\\le3,\\quad h=1,\\quad y:1,2,5,10", "12.5", ["12.5 square units", "12.5 units^2"]),
-  masteryTyped("trap-mastery-6", "A flow-rate table is recorded at equal time intervals. Approximate the total amount.", "h=5,\\quad y\\text{-values: }2,6,8\\text{ L/min}", "55", ["55 L", "55 litres", "55 liters"]),
-  masteryChoice("trap-mastery-7", "What does the Trapezoidal rule usually give for a curved graph?", "\\text{Trapezoidal rule}", "C", ["An exact derivative", "A family of primitives", "An approximation", "A signed x-intercept"], "It approximates area using trapezia."),
-  masteryChoice("trap-mastery-8", "A student doubles the first and last y-values. What is the mistake?", "T=\\frac h2[y_0+2(y_1+...)+y_n]", "A", ["Only middle values should be doubled", "All values should be squared", "The width should be ignored", "+C is needed"], "End values are counted once."),
-  masteryTyped("trap-mastery-9", "A table has equally spaced x-values over the given interval. Find the subinterval width.", "0\\le x\\le12,\\quad x_0,\\ldots,x_6", "2", ["h=2"]),
-  masteryChoice("trap-mastery-10", "A table gives velocity in m/s every second. What unit should the trapezoidal estimate for displacement use?", "v(t)\\text{ m/s},\\quad t\\text{ seconds}", "D", ["m/s", "seconds", "square metres", "metres"], "Velocity multiplied by time gives metres."),
+  {
+    ...masteryTyped(
+      "trap-mastery-1",
+      "Use the ordinates shown to approximate the area.",
+      "",
+      "21",
+      ["21 square units", "21 units^2"],
+      "Read the common x-spacing and then apply the composite rule."
+    ),
+    explanation:
+      "The common width is $h=1.5$, so $T=\\frac{1.5}{2}[2+2(5)+2(4)+8]=21$ square units.",
+    trapezoidalRuleDiagram: {
+      description:
+        "Three trapezoidal strips of width 1.5 have ordinates 2, 5, 4 and 8 at x equals 1, 2.5, 4 and 5.5.",
+      xValues: [1, 2.5, 4, 5.5],
+      yValues: [2, 5, 4, 8],
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-2",
+      "The middle ordinate is labelled $k$. The trapezoidal estimate is 28 square units. Find $k$.",
+      "T=28",
+      "7",
+      ["k=7"],
+      "Substitute the known estimate and ordinates into the two-strip rule."
+    ),
+    explanation:
+      "$28=\\frac{2}{2}[3+2k+11]$, so $28=14+2k$ and therefore $k=7$.",
+    trapezoidalRuleDiagram: {
+      description:
+        "Two strips of width 2 have endpoint ordinates 3 and 11. The shared middle ordinate at x equals 2 is labelled k.",
+      xValues: [0, 2, 4],
+      yValues: [3, 7, 11],
+      ordinateLabels: ["y0 = 3", "k", "y2 = 11"],
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+    },
+  },
+  {
+    ...masteryChoice(
+      "trap-mastery-3",
+      "A student obtains a trapezoidal estimate of 12 for the linear function shown. Which comparison with the exact integral is correct?",
+      "\\int_0^3(2x+1)\\,dx",
+      "A",
+      [
+        "The estimate and exact integral are both $12$",
+        "The estimate is $12$ but the exact integral is $9$",
+        "The estimate is $9$ but the exact integral is $12$",
+        "The exact integral cannot be found from the function",
+      ],
+      "The trapezoidal chords coincide with a straight-line function, and direct integration also gives $12$.",
+      "Check whether the blue chords and red function separate anywhere."
+    ),
+    trapezoidalRuleDiagram: {
+      description:
+        "The line y equals 2x plus 1 is shown from x equals 0 to 3. Three trapezoidal chords coincide exactly with the line at ordinates 1, 3, 5 and 7.",
+      xValues: [0, 1, 2, 3],
+      yValues: [1, 3, 5, 7],
+      curvePoints: sampledCurvePoints(0, 3, (x) => 2 * x + 1),
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+      functionLabel: "y = 2x + 1",
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-4",
+      "A student doubles both endpoint ordinates and counts the interior ordinates once, obtaining 22. Find the correct estimate.",
+      "T_{student}=\\frac12[2(4)+7+9+2(10)]=22",
+      "23",
+      ["23 square units", "23 units^2"],
+      "Write the endpoints once and both interior ordinates twice."
+    ),
+    explanation:
+      "The correct weighting is $T=\\frac12[4+2(7)+2(9)+10]=\\frac12(46)=23$ square units.",
+    trapezoidalRuleDiagram: {
+      description:
+        "Three strips of width 1 have ordinates 4, 7, 9 and 10 at x equals 0, 1, 2 and 3.",
+      xValues: [0, 1, 2, 3],
+      yValues: [4, 7, 9, 10],
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-5",
+      "Using the displayed ordinates, calculate how much the estimate decreases when four strips are used instead of two.",
+      "y=2x^2,\\quad 0\\le x\\le2",
+      "0.5",
+      ["1/2", "0.5 square units"],
+      "Use every second ordinate for two strips, then all five ordinates for four strips."
+    ),
+    explanation:
+      "Two strips give $T_2=6$ and four strips give $T_4=5.5$, so the estimate decreases by $6-5.5=0.5$ square units.",
+    trapezoidalRuleDiagram: {
+      description:
+        "The concave-up curve y equals 2x squared is shown from x equals 0 to 2 with ordinates 0, 0.5, 2, 4.5 and 8 at half-unit intervals.",
+      xValues: [0, 0.5, 1, 1.5, 2],
+      yValues: [0, 0.5, 2, 4.5, 8],
+      curvePoints: sampledCurvePoints(0, 2, (x) => 2 * x * x),
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+      functionLabel: "y = 2x^2",
+    },
+  },
+  {
+    ...masteryChoice(
+      "trap-mastery-6",
+      "The two-strip estimate for the curve shown is 5 square units. Which statement correctly compares it with the exact integral?",
+      "\\int_0^2(4-x^2)\\,dx=\\frac{16}{3}",
+      "B",
+      [
+        "The estimate is an overestimate by $\\frac13$",
+        "The estimate is an underestimate by $\\frac13$",
+        "The estimate is an underestimate by $\\frac53$",
+        "The estimate is exact",
+      ],
+      "$5-\\frac{16}{3}=-\\frac13$, so the estimate is an underestimate by $\\frac13$; the concave-down diagram agrees.",
+      "Compare the two values and use the diagram to check the direction."
+    ),
+    trapezoidalRuleDiagram: {
+      description:
+        "The concave-down curve y equals 4 minus x squared is shown from x equals 0 to 2. Its trapezoidal chords join ordinates 4, 3 and 0 and lie below the curve.",
+      xValues: [0, 1, 2],
+      yValues: [4, 3, 0],
+      curvePoints: sampledCurvePoints(0, 2, (x) => 4 - x * x),
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+      functionLabel: "y = 4 - x^2",
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-7",
+      "A tank initially contains 250 L. The diagram shows its net inflow rate for 20 minutes. Estimate the final volume.",
+      "",
+      "335",
+      ["335 L", "335 litres", "335 liters"],
+      "First estimate the signed change in volume, then add it to the initial volume."
+    ),
+    explanation:
+      "The net change is $\\frac52[4+2(8)+2(6)+2(2)-2]=85$ L. Adding this to 250 L gives a final volume of $335$ L.",
+    trapezoidalRuleDiagram: {
+      description:
+        "Net tank flow rates at 0, 5, 10, 15 and 20 minutes are 4, 8, 6, 2 and negative 2 litres per minute. The final ordinate is below the time axis, indicating net outflow.",
+      xValues: [0, 5, 10, 15, 20],
+      yValues: [4, 8, 6, 2, -2],
+      xAxisLabel: "time (min)",
+      yAxisLabel: "net flow (L/min)",
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-8",
+      "The diagram shows a particle's velocity at one-second intervals. Assuming straight-line change between readings, estimate the total distance travelled from 0 to 4 seconds.",
+      "",
+      "10",
+      ["10 m", "10 metres", "10 meters"],
+      "Split the strip where the velocity changes sign; total distance counts both sides positively."
+    ),
+    explanation:
+      "The positive distance is $4+0.5=4.5$ m. The negative-velocity pieces contribute magnitudes $0.5+3+2=5.5$ m. Total distance is $10$ m.",
+    trapezoidalRuleDiagram: {
+      description:
+        "Velocity readings at times 0, 1, 2, 3 and 4 seconds are 6, 2, negative 2, negative 4 and 0 metres per second. The straight segment crosses zero halfway between 1 and 2 seconds.",
+      xValues: [0, 1, 2, 3, 4],
+      yValues: [6, 2, -2, -4, 0],
+      xAxisLabel: "time (s)",
+      yAxisLabel: "velocity (m/s)",
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-9",
+      "For the curve shown, choose the smallest of 2, 4 or 8 strips that makes the trapezoidal estimate differ from the exact integral by less than 0.5 square units.",
+      "y=x^2,\\quad 0\\le x\\le4,\\quad \\int_0^4x^2\\,dx=\\frac{64}{3}",
+      "8",
+      ["8 strips", "n=8"],
+      "Use every fourth, every second, and then every ordinate to form the three estimates."
+    ),
+    explanation:
+      "$T_2=24$ has error $\\frac83$, $T_4=22$ has error $\\frac23$, and $T_8=21.5$ has error $\\frac16$. Therefore 8 is the smallest listed strip count with error below $0.5$.",
+    trapezoidalRuleDiagram: {
+      description:
+        "The curve y equals x squared is shown from x equals 0 to 4 with eight half-unit trapezoidal strips and ordinates from 0 to 16. Subsets of the ordinates form four-strip and two-strip estimates.",
+      xValues: [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4],
+      yValues: [0, 0.25, 1, 2.25, 4, 6.25, 9, 12.25, 16],
+      curvePoints: sampledCurvePoints(0, 4, (x) => x * x),
+      showOrdinateLabels: true,
+      showTrapezoidLabels: false,
+      functionLabel: "y = x^2",
+    },
+  },
+  {
+    ...masteryTyped(
+      "trap-mastery-10",
+      "Cross-sectional areas of a road cutting are shown at 20 m intervals. Estimate the excavation cost at 35 dollars per cubic metre.",
+      "",
+      "40950",
+      ["$40,950", "$40950", "40950 dollars"],
+      "First integrate cross-sectional area along the chainage to estimate volume, then apply the unit cost."
+    ),
+    explanation:
+      "The estimated volume is $\\frac{20}{2}[12+2(18)+2(25)+19]=1170$ m$^3$. At 35 dollars per cubic metre, the cost is $1170\\times35=40\\,950$ dollars.",
+    trapezoidalRuleDiagram: {
+      description:
+        "Road-cutting cross-sectional areas are 12, 18, 25 and 19 square metres at chainages 0, 20, 40 and 60 metres.",
+      xValues: [0, 20, 40, 60],
+      yValues: [12, 18, 25, 19],
+      xAxisLabel: "chainage (m)",
+      yAxisLabel: "area (m^2)",
+      showOrdinateLabels: true,
+      showTrapezoidLabels: true,
+    },
+  },
 ];
 
 areaBetweenTwoCurvesLesson.masteryQuiz = [

@@ -1493,6 +1493,25 @@ Steps for diagram-first authoring:
 3. Write the prompt so it refers to the diagram ("Using the diagram above…", "From the graph…", "The network below shows…").
 4. Ensure the answer is a specific value the student reads from or computes using the diagram — not a general rule.
 
+### Trapezoidal-rule questions are visual by default
+
+Author trapezoidal-rule questions in the visual form students normally encounter at school. **Use a `trapezoidalRuleDiagram` as the stimulus whenever the student must use ordinates, sampled values, trapezoidal strips, a curve's concavity, or a comparison between different numbers of strips.** The diagram should replace a wordy description or a table faked in prose or LaTeX; do not present the same stimulus twice.
+
+Use diagram-first wording such as "Using the ordinates shown in the diagram, estimate the area" or "The diagram shows four trapezoidal strips. Find the approximation." Put the numerical x- and y-values in the payload, and include an accessibility description that states the same essential information for a student who cannot see it.
+
+A diagram is therefore required for:
+
+- one-strip and composite approximations when the ordinate values form the stimulus;
+- sampled values that would otherwise be written as a table, list, or LaTeX array;
+- contextual readings such as velocity, flow rate, survey offsets, or other measurements taken at intervals;
+- overestimate and underestimate questions involving concavity;
+- questions comparing the effect of using more or fewer strips; and
+- explanations that describe trapezia, ordinates, chords, or a curve in words.
+
+A diagram may be omitted only when the question is genuinely about notation or formula recall and no visual data is being interpreted, for example finding `h` from `a`, `b`, and `n`, identifying which symbolic terms receive coefficient 2, choosing the composite formula, or checking units. Do not use this exception to turn a naturally visual school-style question into a paragraph or a bare list of values.
+
+For concavity and error-direction questions, supply `curvePoints` so the renderer shows the true curve in addition to the trapezoidal chords. A straight polyline alone is not evidence of overestimation or underestimation because the underlying curve is not visible. Use `ordinateLabels` when an ordinate needs a symbolic label such as `k`; provide one label for every ordinate.
+
 ### Multi-part questions + visual payloads
 
 When a multi-part question needs a visual, attach the payload to the **top-level question object** — not to individual parts. Parts refer to the shared visual using phrases like "Using the diagram above" or "From the graph in part (a)". Do not duplicate the payload on each part.
