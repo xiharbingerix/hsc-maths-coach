@@ -20,8 +20,10 @@ import {
  * Deactivation (is_active = false) is reversible and is what the worksheet UI
  * filters on, so stale topics disappear without deleting any data.
  *
- *   npx tsx scripts/prune-question-bank.ts --dry-run   # report only
- *   npx tsx scripts/prune-question-bank.ts             # apply
+ *   npx tsx scripts/prune-question-bank.ts --course=year-12-advanced --topic=ma-s3-random-variables --dry-run
+ *   npx tsx scripts/prune-question-bank.ts --course=year-12-advanced --topic=ma-s3-random-variables
+ *
+ * Omitting --course retains the original all-supported-courses behaviour.
  */
 
 type ActiveRow = { id: string; source_id: string; course_slug: string; topic_slug: string };
@@ -34,12 +36,45 @@ function requiredEnv(name: string) {
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const supported = new Set<string>(SUPPORTED_COURSE_SLUGS);
+  const courseArgs = process.argv
+    .slice(2)
+    .flatMap((arg, index, args) => {
+      if (arg.startsWith("--course=")) return [arg.slice("--course=".length)];
+      if (arg === "--course" && args[index + 1]) return [args[index + 1]];
+      return [];
+    });
+  const requestedCourses =
+    courseArgs.length > 0
+      ? [...new Set(courseArgs)]
+      : [...SUPPORTED_COURSE_SLUGS];
+  const requestedTopics = process.argv
+    .slice(2)
+    .flatMap((arg, index, args) => {
+      if (arg.startsWith("--topic=")) return [arg.slice("--topic=".length)];
+      if (arg === "--topic" && args[index + 1]) return [args[index + 1]];
+      return [];
+    });
+  const unknownCourses = requestedCourses.filter(
+    (course) =>
+      !SUPPORTED_COURSE_SLUGS.includes(
+        course as (typeof SUPPORTED_COURSE_SLUGS)[number]
+      )
+  );
+  if (unknownCourses.length > 0) {
+    throw new Error("Unsupported course slug(s): " + unknownCourses.join(", "));
+  }
+  const supported = new Set<string>(requestedCourses);
 
   // 1. Source_ids the current seed would produce (the valid set).
-  const { rows } = collectAllQuestions([...SUPPORTED_COURSE_SLUGS]);
+  const { rows } = collectAllQuestions(requestedCourses);
   const validSourceIds = new Set(rows.map((row) => row.source_id));
-  console.log(`Current catalog produces ${validSourceIds.size} valid source_ids.`);
+  console.log(
+    "Current catalog produces " +
+      validSourceIds.size +
+      " valid source_ids for " +
+      requestedCourses.join(", ") +
+      "."
+  );
 
   // 2. Fetch all active rows in supported courses from the DB.
   const supabase = createClient(
@@ -68,7 +103,10 @@ async function main() {
 
   // 3. Stale = active, in a supported course, whose source_id is no longer valid.
   const stale = active.filter(
-    (row) => supported.has(row.course_slug) && !validSourceIds.has(row.source_id)
+    (row) =>
+      supported.has(row.course_slug) &&
+      (requestedTopics.length === 0 || requestedTopics.includes(row.topic_slug)) &&
+      !validSourceIds.has(row.source_id)
   );
 
   // Report by course/topic.

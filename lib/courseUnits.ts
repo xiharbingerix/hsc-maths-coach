@@ -96,25 +96,25 @@ export const courseUnits: CourseUnitSummary[] = [
     activeLessonCount: 5,
   },
   {
-    title: "Probability and Discrete Probability Distributions",
+    title: "Probability and Discrete Probability Distributions (Year 11 Assumed Knowledge)",
     href: "/course/ma-s1-probability-and-discrete-probability-distributions",
     description:
-      "Probability axioms, Venn diagrams, conditional probability, independence, and discrete probability distributions.",
-    activeLessonCount: 4,
+      "Revision of MA-S1 probability, simulation, random variables and discrete probability distributions assumed from Year 11.",
+    activeLessonCount: 6,
   },
   {
     title: "Descriptive Statistics and Bivariate Data Analysis",
     href: "/course/ma-s2-descriptive-statistics-and-bivariate-data",
     description:
       "Data displays, measures of centre and spread, z-scores, correlation, least-squares regression, and interpreting bivariate data.",
-    activeLessonCount: 5,
+    activeLessonCount: 6,
   },
   {
     title: "Random Variables",
     href: "/course/ma-s3-random-variables",
     description:
-      "The normal distribution and empirical rule, random variables, probability distributions, expected value, and variance.",
-    activeLessonCount: 3,
+      "Continuous random variables, probability density and cumulative distribution functions, percentiles, and normal-distribution probabilities and quantiles.",
+    activeLessonCount: 4,
   },
   {
     title: "Modelling Financial Situations",

@@ -69,6 +69,11 @@ export type ExplicitLesson = {
   syllabusArea: string;
   focus: string;
   status: "active" | "coming-soon";
+  /** Placement and traceability metadata for syllabus-alignment audits. */
+  coursePlacement?: "year-11-assumed-knowledge" | "year-12";
+  syllabusReferences?: string[];
+  syllabusOutcomes?: string[];
+  syllabusContent?: string[];
   /** HSC Section II-style multi-part questions seeded separately from the standard 4+5+10 sections. */
   multiPartPractice?: PracticeQuestion[];
 

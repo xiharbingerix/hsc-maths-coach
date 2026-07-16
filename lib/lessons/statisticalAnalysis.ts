@@ -1301,6 +1301,14 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
   syllabusArea: "Statistical Analysis",
   focus: "Statistical analysis",
   status: "active",
+  coursePlacement: "year-12",
+  syllabusReferences: ["MA-S3.2"],
+  syllabusOutcomes: ["MA12-8", "MA12-9", "MA12-10"],
+  syllabusContent: [
+    "Identify the normal distribution numerically and graphically",
+    "Use the parameters mu and sigma and the 68–95–99.7 empirical rule",
+    "Calculate and interpret z-scores in practical contexts",
+  ],
 
   video: {
     title: "Normal Distribution and Empirical Rule",
@@ -1320,19 +1328,17 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
 
   teaching: {
     paragraphs: [
-      "A normal distribution is symmetric and bell-shaped.",
-      "In a normal distribution, the mean, median, and mode are equal.",
-      "The empirical rule gives approximate proportions of values within standard deviation intervals.",
-      "About 68% of values lie within 1 standard deviation of the mean, about 95% lie within 2 standard deviations, and about 99.7% lie within 3 standard deviations.",
-      "Z-scores locate values relative to the mean and standard deviation.",
-      "Standardising allows values from different normal distributions to be compared.",
-      "Empirical-rule answers are approximate, so context and wording matter.",
+      "A normal distribution is a continuous, symmetric, bell-shaped model. Its mean $\\mu$, median and mode coincide at the centre, while its tails approach the axis without ending; this makes the model useful when values cluster around a typical value with balanced variation.",
+      "The parameter $\\mu$ fixes the centre and $\\sigma$ fixes the spread. Increasing $\\mu$ shifts the whole curve, whereas increasing $\\sigma$ makes it wider and lower because the total area must remain 1.",
+      "The empirical rule partitions that area: approximately 68% lies within $\\mu\\pm\\sigma$, 95% within $\\mu\\pm2\\sigma$, and 99.7% within $\\mu\\pm3\\sigma$. Symmetry lets you halve the area outside a central interval to find one tail.",
+      "A z-score translates a raw value into standard-deviation units. The sign tells which side of the mean the value lies on and the magnitude tells how unusual it is; for example, $z=-1.5$ means 1.5 standard deviations below the mean.",
+      "In an exam, first confirm that a normal model is stated or justified, then identify $\\mu$ and $\\sigma$, sketch or mark the requested region, and choose the empirical rule only when the boundary is at one, two or three standard deviations. These proportions are approximations, so conclusions should use words such as ‘about’ or ‘approximately’.",
     ],
     latexBlocks: [
-      "z=\\frac{x-\\bar{x}}{s}",
-      "\\bar{x}-s\\le x\\le \\bar{x}+s\\quad \\text{about }68\\%",
-      "\\bar{x}-2s\\le x\\le \\bar{x}+2s\\quad \\text{about }95\\%",
-      "\\bar{x}-3s\\le x\\le \\bar{x}+3s\\quad \\text{about }99.7\\%",
+      "X\\sim N(\\mu,\\sigma^2),\\qquad z=\\frac{x-\\mu}{\\sigma}",
+      "P(\\mu-\\sigma<X<\\mu+\\sigma)\\approx0.68",
+      "P(\\mu-2\\sigma<X<\\mu+2\\sigma)\\approx0.95",
+      "P(\\mu-3\\sigma<X<\\mu+3\\sigma)\\approx0.997",
     ],
   },
 
@@ -1344,7 +1350,7 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
       steps: [
         {
           explanation: "About 68% lies within 1 standard deviation of the mean.",
-          latex: "\\bar{x}-s\\le x\\le \\bar{x}+s",
+          latex: "\\mu-\\sigma\\le x\\le \\mu+\\sigma",
         },
         {
           explanation: "Substitute the mean and standard deviation.",
@@ -1372,7 +1378,7 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
       steps: [
         {
           explanation: "Use the z-score formula.",
-          latex: "z=\\frac{x-\\bar{x}}{s}",
+          latex: "z=\\frac{x-\\mu}{\\sigma}",
         },
         {
           explanation: "Substitute the values.",
@@ -1400,7 +1406,7 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       title: "Worked example 3: Two-standard-deviation interval",
       questionLatex:
-        "\\text{Use the empirical rule to estimate the percentage of values between }60\\text{ and }80\\text{ if }\\bar{x}=70\\text{ and }s=5.",
+        "\\text{Use the empirical rule to estimate the percentage of values between }60\\text{ and }80\\text{ if }\\mu=70\\text{ and }\\sigma=5.",
       steps: [
         {
           explanation: "Find how far the endpoints are from the mean.",
@@ -1434,15 +1440,15 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-guided-1",
       prompt: "Identify the mean.",
-      latex: "\\bar{x}=60,\\quad s=4",
+      latex: "\\mu=60,\\quad \\sigma=4",
       answer: "60",
-      hint: "The mean is labelled $\\bar{x}$.",
+      hint: "The population mean is labelled $\\mu$.",
       explanation: "The mean is $60$.",
     },
     {
       id: "normal-guided-2",
       prompt: "Find the one-standard-deviation interval.",
-      latex: "\\bar{x}=50,\\quad s=3",
+      latex: "\\mu=50,\\quad \\sigma=3",
       answer: "47 to 53",
       acceptedAnswers: ["47-53", "47,53", "[47,53]", "47 <= x <= 53", "47≤x≤53"],
       hint: "Subtract and add 3 to the mean.",
@@ -1451,16 +1457,16 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-guided-3",
       prompt: "Find the two-standard-deviation interval.",
-      latex: "\\bar{x}=100,\\quad s=8",
+      latex: "\\mu=100,\\quad \\sigma=8",
       answer: "84 to 116",
       acceptedAnswers: ["84-116", "84,116", "[84,116]", "84 <= x <= 116", "84≤x≤116"],
-      hint: "Use $\\bar{x}\\pm2s$.",
+      hint: "Use $\\mu\\pm2\\sigma$.",
       explanation: "$100-16=84$ and $100+16=116$.",
     },
     {
       id: "normal-guided-4",
       prompt: "Choose the empirical-rule percentage within 1 standard deviation.",
-      latex: "\\bar{x}\\pm s",
+      latex: "\\mu\\pm\\sigma",
       answer: "A",
       choices: [
         { label: "A", text: "about 68%" },
@@ -1476,41 +1482,41 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-ind-1",
       prompt: "Find the interval containing about 68% of values.",
-      latex: "\\bar{x}=40,\\quad s=6",
+      latex: "\\mu=40,\\quad \\sigma=6",
       answer: "34 to 46",
       acceptedAnswers: ["34-46", "34,46", "[34,46]", "34 <= x <= 46", "34≤x≤46"],
-      hint: "Use $\\bar{x}\\pm s$.",
+      hint: "Use $\\mu\\pm\\sigma$.",
       explanation: "$40-6=34$ and $40+6=46$.",
     },
     {
       id: "normal-ind-2",
       prompt: "Find the interval containing about 95% of values.",
-      latex: "\\bar{x}=70,\\quad s=5",
+      latex: "\\mu=70,\\quad \\sigma=5",
       answer: "60 to 80",
       acceptedAnswers: ["60-80", "60,80", "[60,80]", "60 <= x <= 80", "60≤x≤80"],
-      hint: "Use $\\bar{x}\\pm2s$.",
+      hint: "Use $\\mu\\pm2\\sigma$.",
       explanation: "$70-10=60$ and $70+10=80$.",
     },
     {
       id: "normal-ind-3",
       prompt: "Find the z-score.",
-      latex: "x=82,\\quad \\bar{x}=70,\\quad s=6",
+      latex: "x=82,\\quad \\mu=70,\\quad \\sigma=6",
       answer: "2",
-      hint: "Use $z=\\frac{x-\\bar{x}}{s}$.",
+      hint: "Use $z=\\frac{x-\\mu}{\\sigma}$.",
       explanation: "$z=(82-70)\\div6=2$.",
     },
     {
       id: "normal-ind-4",
       prompt: "Find the raw value.",
-      latex: "\\bar{x}=50,\\quad s=4,\\quad z=1.5",
+      latex: "\\mu=50,\\quad \\sigma=4,\\quad z=1.5",
       answer: "56",
-      hint: "Use $x=\\bar{x}+zs$.",
+      hint: "Use $x=\\mu+z\\sigma$.",
       explanation: "$x=50+1.5(4)=56$.",
     },
     {
       id: "normal-ind-5",
       prompt: "A normal distribution has mean 70 and standard deviation 5. What does a score of 80 represent?",
-      latex: "x=80,\\quad \\bar{x}=70,\\quad s=5",
+      latex: "x=80,\\quad \\mu=70,\\quad \\sigma=5",
       answer: "B",
       choices: [
         { label: "A", text: "1 standard deviation above the mean" },
@@ -1529,7 +1535,7 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     },
     {
       mistake: "Adding standard deviation only once for a two-standard-deviation interval.",
-      fix: "For 95%, use $\\bar{x}\\pm2s$.",
+      fix: "For 95%, use $\\mu\\pm2\\sigma$.",
     },
     {
       mistake: "Confusing z-score with raw score.",
@@ -1571,7 +1577,7 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-mastery-3",
       prompt: "About what percentage lies within 2 standard deviations?",
-      latex: "\\bar{x}\\pm2s",
+      latex: "\\mu\\pm2\\sigma",
       answer: "95%",
       acceptedAnswers: ["95", "95%", "about 95%", "approximately 95%"],
       hint: "Use the empirical rule.",
@@ -1580,34 +1586,34 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-mastery-4",
       prompt: "Find the 68% interval.",
-      latex: "\\bar{x}=70,\\quad s=5",
+      latex: "\\mu=70,\\quad \\sigma=5",
       answer: "65 to 75",
       acceptedAnswers: ["65-75", "65,75", "[65,75]", "65 <= x <= 75", "65≤x≤75"],
-      hint: "Use $\\bar{x}\\pm s$.",
+      hint: "Use $\\mu\\pm\\sigma$.",
       explanation: "$70-5=65$ and $70+5=75$.",
     },
     {
       id: "normal-mastery-5",
       prompt: "Find the 95% interval.",
-      latex: "\\bar{x}=50,\\quad s=4",
+      latex: "\\mu=50,\\quad \\sigma=4",
       answer: "42 to 58",
       acceptedAnswers: ["42-58", "42,58", "[42,58]", "42 <= x <= 58", "42≤x≤58"],
-      hint: "Use $\\bar{x}\\pm2s$.",
+      hint: "Use $\\mu\\pm2\\sigma$.",
       explanation: "$50-8=42$ and $50+8=58$.",
     },
     {
       id: "normal-mastery-6",
       prompt: "Find the 99.7% interval.",
-      latex: "\\bar{x}=100,\\quad s=10",
+      latex: "\\mu=100,\\quad \\sigma=10",
       answer: "70 to 130",
       acceptedAnswers: ["70-130", "70,130", "[70,130]", "70 <= x <= 130", "70≤x≤130"],
-      hint: "Use $\\bar{x}\\pm3s$.",
+      hint: "Use $\\mu\\pm3\\sigma$.",
       explanation: "$100-30=70$ and $100+30=130$.",
     },
     {
       id: "normal-mastery-7",
       prompt: "Find the z-score.",
-      latex: "x=82,\\quad \\bar{x}=70,\\quad s=6",
+      latex: "x=82,\\quad \\mu=70,\\quad \\sigma=6",
       answer: "2",
       hint: "Subtract the mean, then divide by standard deviation.",
       explanation: "$z=(82-70)\\div6=2$.",
@@ -1628,7 +1634,7 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-mastery-9",
       prompt: "Estimate the percentage between 60 and 80.",
-      latex: "\\bar{x}=70,\\quad s=5",
+      latex: "\\mu=70,\\quad \\sigma=5",
       answer: "95%",
       acceptedAnswers: ["95", "95%", "about 95%", "approximately 95%"],
       hint: "60 and 80 are 2 standard deviations from the mean.",
@@ -1653,12 +1659,12 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
     {
       id: "normal-pool-d5-1",
       prompt: "Heights are normally distributed with mean $170$ cm and standard deviation $10$ cm. Find the approximate percentage of heights between $160$ cm and $180$ cm.",
-      latex: "\\bar{x}=170,\\ s=10",
+      latex: "\\mu=170,\\ \\sigma=10",
       difficulty: 5,
       answer: "68",
       acceptedAnswers: ["68%"],
       hint: "$160$ and $180$ are one standard deviation either side of the mean.",
-      explanation: "$160$ to $180$ is $\\bar{x}\\pm 1s$, so by the empirical rule about $68\\%$ of values lie in this range.",
+      explanation: "$160$ to $180$ is $\\mu\\pm\\sigma$, so by the empirical rule about $68\\%$ of values lie in this range.",
     },
   ],
 
@@ -1668,8 +1674,8 @@ export const normalDistributionEmpiricalRuleLesson: ExplicitLesson = {
 export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
   id: "mixed-statistical-analysis-exam-practice",
   slug: "mixed-statistical-analysis-exam-practice",
-  moduleSlug: "ma-s3-random-variables",
-  moduleTitle: "Random Variables",
+  moduleSlug: "ma-s2-descriptive-statistics-and-bivariate-data",
+  moduleTitle: "Descriptive Statistics and Bivariate Data Analysis",
   courseTitle: "Year 12 Mathematics Advanced",
   title: "Mixed Statistical Analysis Exam Practice",
   description:
@@ -2019,35 +2025,44 @@ export const mixedStatisticalAnalysisExamPracticeLesson: ExplicitLesson = {
 export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
   id: "random-variables-probability-distributions",
   slug: "random-variables-probability-distributions",
-  moduleSlug: "ma-s3-random-variables",
-  moduleTitle: "Random Variables",
-  courseTitle: "Year 12 Mathematics Advanced",
+  moduleSlug: "ma-s1-probability-and-discrete-probability-distributions",
+  moduleTitle: "Probability and Discrete Probability Distributions (Year 11 assumed knowledge)",
+  courseTitle: "Year 12 Mathematics Advanced — assumed knowledge revision",
   title: "Random Variables and Probability Distributions",
   description:
-    "Use discrete random variables, probability distributions, and expected value in statistical contexts.",
+    "Classify random variables, use discrete probability distributions, and distinguish population parameters from sample estimates.",
   syllabusArea: "Statistical Analysis",
   focus: "Random variables",
   status: "active",
+  coursePlacement: "year-11-assumed-knowledge",
+  syllabusReferences: ["MA-S1.2"],
+  syllabusOutcomes: ["MA11-7", "MA11-8", "MA11-9"],
+  syllabusContent: [
+    "Define and categorise discrete and continuous random variables",
+    "Construct and use discrete probability distributions, including uniform distributions",
+    "Calculate and interpret expected value, variance and standard deviation",
+    "Distinguish population parameters from sample estimates",
+  ],
   video: {
     title: "Random Variables and Probability Distributions",
     url: "/videos/placeholder-lesson.mp4",
   },
   learningIntention:
-    "Learn how to identify random variables, check probability distributions, and calculate expected value.",
+    "Classify random variables and use discrete distributions to calculate and interpret expected value, variance and standard deviation.",
   successCriteria: [
-    "Recognise a discrete random variable in context.",
-    "Check whether probabilities in a distribution add to 1.",
-    "Calculate expected value using $E(X)=\\sum xP(X=x)$.",
-    "Find a missing probability in a simple distribution.",
-    "Interpret expected value as a long-run average, not a guaranteed outcome.",
+    "Define a random variable and distinguish discrete from continuous variables in context.",
+    "Construct and check uniform and non-uniform discrete probability distributions.",
+    "Calculate and interpret $E(X)$, $\\operatorname{Var}(X)$ and $\\sigma_X$.",
+    "Distinguish a population distribution with parameters $\\mu,\\sigma$ from sample statistics $\\bar{x},s$.",
+    "Explain why estimates from larger independent samples tend to be more reliable.",
   ],
   teaching: {
     paragraphs: [
-      "A random variable assigns numerical values to outcomes of a random process.",
-      "A discrete random variable has countable possible values, such as 0, 1, 2, or 3 successes.",
-      "A probability distribution lists each possible value and its probability. The probabilities must add to 1.",
-      "Expected value is the long-run mean of a random variable. It weights each value by its probability.",
-      "Expected value does not have to be a possible outcome. It describes what would happen on average over many repetitions.",
+      "A random variable assigns a number to each outcome of a random process. A count such as the number of goals is discrete because its possible values can be listed, while a measurement such as reaction time is continuous because every value in an interval is possible.",
+      "A discrete probability distribution pairs every possible value $x$ with $P(X=x)$. Each probability is between 0 and 1 and the total is 1; a uniform discrete distribution gives every listed value the same probability, whereas a non-uniform distribution does not.",
+      "Expected value is the probability-weighted mean of the population distribution. It predicts the long-run average across repeated trials and need not itself be a possible outcome—for example, the expected number of heads may be 1.5 even though half a head cannot occur.",
+      "Variance measures the probability-weighted squared distance from the mean, and standard deviation is its square root. The efficient identity $\\operatorname{Var}(X)=E(X^2)-[E(X)]^2$ requires squaring each value before weighting when calculating $E(X^2)$.",
+      "A population model uses parameters $\\mu$ and $\\sigma$, while data from one sample give statistics $\\bar{x}$ and $s$. These statistics estimate the population parameters, and estimates from larger independent samples generally show less random variation.",
     ],
     latexBlocks: [
       "\\sum P(X=x)=1",
@@ -2090,6 +2105,27 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
       ],
       finalAnswerLatex:
         "\\text{The expected payout is }\\$3.50\\text{ per game in the long run.}",
+    },
+    {
+      title: "Worked example 3: Variance and standard deviation",
+      questionLatex:
+        "X:0,1,2\\quad P(X=x):0.25,0.50,0.25.\\quad\\text{Find }\\operatorname{Var}(X)\\text{ and }\\sigma_X.",
+      steps: [
+        {
+          explanation: "Calculate the population expected value from the distribution.",
+          latex: "E(X)=0(0.25)+1(0.50)+2(0.25)=1",
+        },
+        {
+          explanation: "Square each possible value before weighting to find the second moment.",
+          latex: "E(X^2)=0^2(0.25)+1^2(0.50)+2^2(0.25)=1.5",
+        },
+        {
+          explanation: "Use the variance identity, then take the positive square root.",
+          latex: "\\operatorname{Var}(X)=1.5-1^2=0.5,\\quad\\sigma_X=\\sqrt{0.5}\\approx0.707",
+        },
+      ],
+      finalAnswerLatex:
+        "\\operatorname{Var}(X)=0.5,\\qquad\\sigma_X\\approx0.707",
     },
   ],
   guidedPractice: [
@@ -2184,17 +2220,12 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     },
     {
       id: "rv-ind-5",
-      prompt: "Choose the valid probability distribution.",
-      latex: "\\text{Choose one}",
-      answer: "A",
-      choices: [
-        { label: "A", text: "$0.2,0.3,0.5$" },
-        { label: "B", text: "$0.2,0.3,0.6$" },
-        { label: "C", text: "$-0.1,0.6,0.5$" },
-        { label: "D", text: "$1.2,-0.1,-0.1$" },
-      ],
-      hint: "Probabilities must be non-negative and add to 1.",
-      explanation: "Only option A has non-negative probabilities that add to 1.",
+      prompt: "A sample of 64 reaction times has mean 12.4 and standard deviation 2.1. Write these using sample-statistic notation.",
+      latex: "n=64",
+      answer: "xbar=12.4, s=2.1",
+      acceptedAnswers: ["bar x=12.4, s=2.1", "x̄=12.4, s=2.1"],
+      hint: "Use $\\bar{x}$ and $s$ for statistics calculated from a sample.",
+      explanation: "The correct sample notation is $\\bar{x}=12.4$ and $s=2.1$; $\\mu$ and $\\sigma$ would denote population parameters.",
     },
   ],
   commonMistakes: [
@@ -2291,43 +2322,29 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
     },
     {
       id: "rv-mastery-8",
-      prompt: "Choose the best interpretation of expected value.",
-      latex: "E(X)=2.4",
-      answer: "A",
-      choices: [
-        { label: "A", text: "The long-run average value is 2.4" },
-        { label: "B", text: "Every outcome must be 2.4" },
-        { label: "C", text: "The probability is 2.4" },
-        { label: "D", text: "The distribution is invalid" },
-      ],
-      hint: "Expected value is an average over many trials.",
-      explanation: "Expected value is the long-run average.",
+      prompt: "A population has $\\mu=24$. A random sample gives $\\bar{x}=23.6$. State which value is the parameter and which is the estimate.",
+      latex: "\\mu=24,\\quad\\bar{x}=23.6",
+      answer: "24 parameter; 23.6 estimate",
+      acceptedAnswers: ["mu is parameter, xbar is estimate", "μ=24 parameter, x̄=23.6 estimate"],
+      hint: "Greek letters describe the population; barred or Roman statistics come from a sample.",
+      explanation: "$\\mu=24$ is the fixed population parameter, while $\\bar{x}=23.6$ is the sample statistic used to estimate it.",
     },
     {
       id: "rv-mastery-9",
-      prompt: "Choose the formula for expected value.",
+      prompt: "Choose the computational formula for the variance of a discrete random variable.",
       latex: "\\text{Discrete random variable}",
       answer: "C",
       choices: [
-        { label: "A", text: "$\\sum P(X=x)=0$" },
-        { label: "B", text: "$E(X)=\\sum x$" },
-        { label: "C", text: "$E(X)=\\sum xP(X=x)$" },
-        { label: "D", text: "$E(X)=\\frac{x}{P(X=x)}$" },
+        { label: "A", text: "$E(X^2)+[E(X)]^2$" },
+        { label: "B", text: "$\\sqrt{E(X)}$" },
+        { label: "C", text: "$E(X^2)-[E(X)]^2$" },
+        { label: "D", text: "$E(X)-E(X^2)$" },
       ],
-      hint: "Expected value is a weighted mean.",
-      explanation: "$E(X)=\\sum xP(X=x)$.",
+      hint: "Variance is the second moment minus the square of the first moment.",
+      explanation: "The efficient identity is $\\operatorname{Var}(X)=E(X^2)-[E(X)]^2$, which is always non-negative.",
     },
     {
       id: "rv-mastery-10",
-      prompt: "Find $E(X)$.",
-      latex: "X:0,5,10\\quad P(X=x):0.3,0.4,0.3",
-      answer: "5",
-      acceptedAnswers: ["5.0", "5.00", "$5", "\\$5"],
-      hint: "Use $0(0.3)+5(0.4)+10(0.3)$.",
-      explanation: "$E(X)=5$.",
-    },
-    {
-      id: "rv-mastery-var1",
       prompt: "Using $\\text{Var}(X)=E(X^2)-[E(X)]^2$, find $\\text{Var}(X)$.",
       latex: "X:0,1\\quad P(X=x):0.5,0.5",
       answer: "0.25",
@@ -2335,31 +2352,6 @@ export const randomVariablesProbabilityDistributionsLesson: ExplicitLesson = {
       hint: "First find $E(X)$ and $E(X^2)$, then subtract.",
       explanation:
         "$E(X)=0(0.5)+1(0.5)=0.5$. $E(X^2)=0^2(0.5)+1^2(0.5)=0.5$. $\\text{Var}(X)=0.5-0.25=0.25$.",
-    },
-    {
-      id: "rv-mastery-var2",
-      prompt: "Find $E(X^2)$ for the distribution.",
-      latex: "X:1,3\\quad P(X=x):0.5,0.5",
-      answer: "5",
-      acceptedAnswers: ["5.0"],
-      hint: "Square each $x$ value before weighting: $1^2(0.5)+3^2(0.5)$.",
-      explanation:
-        "$E(X^2)=1^2(0.5)+3^2(0.5)=0.5+4.5=5$.",
-    },
-    {
-      id: "rv-mastery-var3",
-      prompt: "Choose the correct formula for standard deviation of a discrete random variable.",
-      latex: "\\text{Var}(X)=E(X^2)-[E(X)]^2",
-      answer: "C",
-      choices: [
-        { label: "A", text: "$\\text{Var}(X)$" },
-        { label: "B", text: "$[E(X)]^2$" },
-        { label: "C", text: "$\\sqrt{\\text{Var}(X)}$" },
-        { label: "D", text: "$E(X)$" },
-      ],
-      hint: "Standard deviation is the square root of variance.",
-      explanation:
-        "Standard deviation $\\sigma(X)=\\sqrt{\\text{Var}(X)}$. It measures spread in the same units as $X$.",
     },
   ],
   masteryQuizPool: [
@@ -2451,14 +2443,6 @@ export const statisticalAnalysisOutline: LessonOutlineItem[] = [
       "Practise mixed exam-style questions involving summary statistics, z-scores, correlation, regression, residuals, and normal distributions.",
     status: "active",
   },
-  {
-    id: "random-variables-probability-distributions",
-    slug: "random-variables-probability-distributions",
-    title: "Random Variables and Probability Distributions",
-    description:
-      "Use discrete random variables, probability distributions, and expected value in statistical contexts.",
-    status: "active",
-  },
 ];
 
 export const statisticalAnalysisLessons = [
@@ -2469,5 +2453,4 @@ export const statisticalAnalysisLessons = [
   interpretingAssociationResidualsLesson,
   normalDistributionEmpiricalRuleLesson,
   mixedStatisticalAnalysisExamPracticeLesson,
-  randomVariablesProbabilityDistributionsLesson,
 ];

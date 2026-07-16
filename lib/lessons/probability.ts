@@ -5,6 +5,8 @@
   WorkedExample,
 } from "./differentialCalculus";
 import { formatChoiceText } from "./questionHelpers";
+import { randomVariablesProbabilityDistributionsLesson } from "./statisticalAnalysis";
+import { probabilitySimulationRelativeFrequencyLesson } from "./probabilitySimulation";
 
 function probChoice(
   id: string,
@@ -65,13 +67,21 @@ function probLesson(
     id,
     slug: id,
     moduleSlug: "ma-s1-probability-and-discrete-probability-distributions",
-    moduleTitle: "Probability and Discrete Probability Distributions",
-    courseTitle: "Year 12 Mathematics Advanced",
+    moduleTitle: "Probability and Discrete Probability Distributions (Year 11 assumed knowledge)",
+    courseTitle: "Year 12 Mathematics Advanced — assumed knowledge revision",
     title,
     description,
     syllabusArea: "Statistical Analysis",
     focus: "Probability",
     status: "active",
+    coursePlacement: "year-11-assumed-knowledge",
+    syllabusReferences: ["MA-S1.1"],
+    syllabusOutcomes: ["MA11-7", "MA11-8", "MA11-9"],
+    syllabusContent: [
+      "Probability language, relative frequency and the probability scale",
+      "Multi-stage events represented with arrays, Venn diagrams and tree diagrams",
+      "Addition, complement, conditional-probability and multiplication rules",
+    ],
     video: { title, url: "/videos/placeholder-lesson.mp4" },
     learningIntention,
     successCriteria,
@@ -439,6 +449,14 @@ export const probabilityExamPracticeLesson = probLesson(
 
 export const probabilityOutline: LessonOutlineItem[] = [
   {
+    id: "probability-simulation-relative-frequency",
+    slug: "probability-simulation-relative-frequency",
+    title: "Probability Simulation and Relative Frequency",
+    description:
+      "Design simulations, calculate relative frequencies, and judge the quality of probability estimates.",
+    status: "active",
+  },
+  {
     id: "probability-basics-venn-diagrams",
     slug: "probability-basics-venn-diagrams",
     title: "Probability Basics and Venn Diagrams",
@@ -470,11 +488,21 @@ export const probabilityOutline: LessonOutlineItem[] = [
       "Read probabilities from two-way tables and practise mixed HSC-style probability questions.",
     status: "active",
   },
+  {
+    id: "random-variables-probability-distributions",
+    slug: "random-variables-probability-distributions",
+    title: "Random Variables and Probability Distributions",
+    description:
+      "Classify random variables and calculate expected value, variance and standard deviation for discrete distributions.",
+    status: "active",
+  },
 ];
 
 export const probabilityLessons: ExplicitLesson[] = [
+  probabilitySimulationRelativeFrequencyLesson,
   probabilityBasicsVennDiagramsLesson,
   conditionalProbabilityTreeDiagramsLesson,
   independenceMultiplicationRuleLesson,
   probabilityExamPracticeLesson,
+  randomVariablesProbabilityDistributionsLesson,
 ];
