@@ -1,5 +1,9 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import {
+  addTrapezoidalQuestionVisual,
+  addTrapezoidalWorkedVisual,
+} from "./integrationVisuals";
 
 function fa(
   id: string,
@@ -529,11 +533,11 @@ const trapGuided: PracticeQuestion[] = [
 
 const trapIndep: PracticeQuestion[] = [
   fa("y11adv-intg-trap-i1", "Use the trapezoidal rule with 4 strips to approximate.", "\\int_0^4 \\sqrt{x}\\,dx", "5.146", ["5.15", "5.1"]),
-  fa("y11adv-intg-trap-i2", "Approximate the integral using the table.", "\\begin{array}{c|cccc}x&1&2&3&4\\\\f(x)&4&3&5&2\\end{array}", "10.5", ["T≈10.5"]),
+  fa("y11adv-intg-trap-i2", "Approximate the integral using the table.", "\\begin{array}{c|cccc}x&1&2&3&4\\\\f(x)&4&3&5&2\\end{array}", "11", ["T≈11"]),
   mc("y11adv-intg-trap-i3", "For a concave-down curve, the trapezoidal rule gives:", "B",
     [{ label: "A", text: "An exact answer" }, { label: "B", text: "An underestimate" }, { label: "C", text: "An overestimate" }, { label: "D", text: "Zero" }],
     "When concave down, each trapezoid lies below the curve. The sum of trapezoid areas is less than the true area — an underestimate.", ""),
-  fa("y11adv-intg-trap-i4", "Use the trapezoidal rule with 3 strips to approximate.", "\\int_0^3 e^x\\,dx,\\;h=1", "17.63", ["17.6", "≈17.6"]),
+  fa("y11adv-intg-trap-i4", "Use the trapezoidal rule with 3 strips to approximate.", "\\int_0^3 e^x\\,dx,\\;h=1", "20.65", ["20.6", "≈20.65"]),
   mc("y11adv-intg-trap-i5", "The trapezoidal rule formula for n strips of width h is:", "C",
     [{ label: "A", text: "$h(f_0+f_1+\\cdots+f_n)$" }, { label: "B", text: "$\\frac{h}{2}(f_0+f_n)$" }, { label: "C", text: "$\\frac{h}{2}(f_0+2f_1+\\cdots+2f_{n-1}+f_n)$" }, { label: "D", text: "$h(f_0+2f_1+f_n)$" }],
     "The full formula doubles all interior (middle) function values and uses the endpoint values once each, multiplied by h/2.", ""),
@@ -544,16 +548,16 @@ const trapMastery: PracticeQuestion[] = [
   mc("y11adv-intg-trap-m2", "Which statement correctly describes error in the trapezoidal rule?", "B",
     [{ label: "A", text: "There is never any error if h is exact" }, { label: "B", text: "Error decreases as the number of strips increases" }, { label: "C", text: "Error is always positive" }, { label: "D", text: "Error is larger for linear functions" }],
     "Finer strips produce trapezoids that conform more closely to the curve, reducing approximation error. For linear functions, the trapezoidal rule is exact.", ""),
-  fa("y11adv-intg-trap-m3", "Approximate the integral using the table.", "\\begin{array}{c|ccccc}x&0&1&2&3&4\\\\f(x)&1&4&3&5&2\\end{array}", "15.5", []),
+  fa("y11adv-intg-trap-m3", "Approximate the integral using the table.", "\\begin{array}{c|ccccc}x&0&1&2&3&4\\\\f(x)&1&4&3&5&2\\end{array}", "13.5", []),
   mc("y11adv-intg-trap-m4", "The trapezoidal rule approximates the area by replacing the curve with:", "C",
     [{ label: "A", text: "A horizontal line at each midpoint" }, { label: "B", text: "Rectangles" }, { label: "C", text: "Straight-line segments (chords)" }, { label: "D", text: "Parabolic arcs" }],
     "Each strip is approximated by a trapezoid whose slanted top edge is the chord connecting adjacent curve points.", ""),
   fa("y11adv-intg-trap-m5", "The exact value of ∫₀² x² dx = 8/3 ≈ 2.667. Using 2 strips gives T = 3. What type of error does this represent?", "", "overestimate", ["overestimate (curve is concave up)", "over-estimate"]),
-  fa("y11adv-intg-trap-m6", "Use the trapezoidal rule with 4 strips to approximate.", "\\int_0^4 \\sin x\\,dx,\\;h=1", "2.840", ["2.84", "≈2.84"]),
+  fa("y11adv-intg-trap-m6", "Use the trapezoidal rule with 4 strips to approximate.", "\\int_0^4 \\sin x\\,dx,\\;h=1", "1.513", ["1.51", "≈1.513"]),
   mc("y11adv-intg-trap-m7", "What is the strip width h for approximating ∫₁⁵ f(x) dx using 4 strips?", "B",
     [{ label: "A", text: "2" }, { label: "B", text: "1" }, { label: "C", text: "4" }, { label: "D", text: "0.5" }],
     "h = (upper − lower) / n = (5 − 1) / 4 = 1.", ""),
-  fa("y11adv-intg-trap-m8", "Use the trapezoidal rule with 3 strips to approximate.", "\\int_0^3 \\cos x\\,dx,\\;h=1", "0.355", ["0.36", "≈0.355"]),
+  fa("y11adv-intg-trap-m8", "Use the trapezoidal rule with 3 strips to approximate.", "\\int_0^3 \\cos x\\,dx,\\;h=1", "0.129", ["0.13", "≈0.129"]),
 ];
 
 // ─── Main export ──────────────────────────────────────────────────────────────
@@ -880,15 +884,15 @@ export function year11AdvancedIntegrationLessonOverride(
           "h = \\frac{b-a}{n}",
         ],
       },
-      workedExamples: trapWorked,
-      guidedPractice: trapGuided,
-      independentPractice: trapIndep,
+      workedExamples: trapWorked.map(addTrapezoidalWorkedVisual),
+      guidedPractice: trapGuided.map(addTrapezoidalQuestionVisual),
+      independentPractice: trapIndep.map(addTrapezoidalQuestionVisual),
       commonMistakes: [
         { mistake: "Doubling all values including the endpoints.", fix: "The first and last values are NOT doubled. Only interior function values get the factor of 2." },
         { mistake: "Confusing n (number of strips) with the number of x-values.", fix: "n strips require n+1 function values: f₀, f₁, …, fₙ. The number of values is one more than the number of strips." },
         { mistake: "Forgetting the factor of h/2 outside the bracket.", fix: "The h/2 factor is always required. Omitting it gives a result that is off by a factor of h/2." },
       ],
-      masteryQuiz: trapMastery,
+      masteryQuiz: trapMastery.map(addTrapezoidalQuestionVisual),
     };
   }
 

@@ -4,6 +4,7 @@
   PracticeQuestion,
   WorkedExample,
 } from "./lessons/differentialCalculus";
+import { applyLessonVisualStandards } from "./lessons/visualAuthoringStandards";
 import type {
   CourseLessonSeed,
   CoursePathwaySeed,
@@ -635,7 +636,7 @@ export function buildLesson(
         ? enrichYear12Extension2Depth(built)
       : built;
 
-  return prefixLessonQuestionIds(enriched, course.slug);
+  return prefixLessonQuestionIds(applyLessonVisualStandards(enriched), course.slug);
 }
 
 export const newCoursePathways: CoursePathwaySeed[] = [

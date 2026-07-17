@@ -2,6 +2,7 @@ import type {
   ExplicitLesson,
   LessonOutlineItem,
 } from "./lessons/differentialCalculus";
+import { applyLessonVisualStandards } from "./lessons/visualAuthoringStandards";
 import { courseUnits } from "./courseUnits";
 import {
   applicationsDifferentiationLessons,
@@ -72,7 +73,7 @@ const allAdvancedLessons: ExplicitLesson[] = [
   ...statisticalAnalysisLessons,
   ...probabilityLessons,
   ...year12AdvancedRandomVariablesLessons,
-];
+].map(applyLessonVisualStandards);
 
 function lessonsBySlug(slug: string): ExplicitLesson[] {
   return allAdvancedLessons.filter((l) => l.moduleSlug === slug);

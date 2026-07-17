@@ -68,7 +68,7 @@ export function PlaneShapeView({
     return Array.from({ length: steps + 1 }, (_, i) => {
       const a = a1 + (delta * i) / steps;
       const p = { x: c.x + r * Math.cos(a), y: c.y + r * Math.sin(a) };
-      return `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`;
+      return `${i === 0 ? "M" : "L"} ${p.x.toFixed(3)} ${p.y.toFixed(3)}`;
     }).join(" ");
   };
 

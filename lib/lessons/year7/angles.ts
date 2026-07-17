@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { addYear7AngleVisual } from "./angleVisuals";
 
 function answer(
   id: string,
@@ -24,7 +25,7 @@ function answer(
     autoVariants.push(ans.slice(1));
   }
 
-  return {
+  return addYear7AngleVisual({
     id,
     prompt,
     latex,
@@ -32,7 +33,7 @@ function answer(
     acceptedAnswers: Array.from(new Set([ans, ...acceptedAnswers, ...autoVariants])),
     hint: "Use the angle relationship rule taught in this lesson.",
     explanation,
-  };
+  });
 }
 
 function choice(
@@ -43,7 +44,7 @@ function choice(
   explanation: string,
   latex = "\\text{Select A, B, C, or D.}"
 ): PracticeQuestion {
-  return {
+  return addYear7AngleVisual({
     id,
     prompt,
     latex,
@@ -51,7 +52,7 @@ function choice(
     answer: ans,
     hint: "Consider the key angle rule taught in this lesson before choosing.",
     explanation,
-  };
+  });
 }
 
 type LessonContent = Pick<

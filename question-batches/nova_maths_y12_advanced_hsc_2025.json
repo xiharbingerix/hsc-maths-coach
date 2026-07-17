@@ -227,7 +227,7 @@
       "year_level": "year-12",
       "difficulty": 3,
       "question_type": "procedural",
-      "prompt": "Lin invests a lump sum of $21 000 for 7 years at an interest rate of 6% per annum, compounding monthly. Yemi wants to achieve the same future value as Lin by using an annuity — depositing a fixed amount at the end of each month for 7 years at the same rate. The table below gives future value interest factors for an annuity of $1.\n\n| Period ($n$) | $r = 0.005$ | $r = 0.01$ | $r = 0.03$ | $r = 0.06$ |\n|---|---|---|---|---|\n| 7 | 7.106 | 7.214 | 7.662 | 8.394 |\n| 28 | 29.975 | 32.129 | 42.931 | 68.528 |\n| 56 | 64.441 | 74.581 | 141.154 | 418.822 |\n| 84 | 104.074 | 130.672 | 365.881 | 2209.417 |\n\nUsing the table, determine how much Yemi needs to deposit each month. Give your answer to the nearest cent.",
+      "prompt": "Lin invests a lump sum of $21 000 for 7 years at 6% per annum, compounding monthly. Yemi wants the same future value by depositing a fixed amount at the end of each month for 7 years at the same rate. Using the annuity-factor table, determine Yemi's monthly deposit to the nearest cent.",
       "latex": "\\text{FV} = P(1+r)^n",
       "choices": null,
       "question_parts": null,
@@ -237,7 +237,19 @@
       "explanation": "Lin: $n = 7 \\times 12 = 84$ periods, $r = 0.5\\%$ per month.\n$$\\text{FV} = 21\\,000 \\times (1.005)^{84} \\approx 21\\,000 \\times 1.5204 = 31\\,927.76$$\n\nYemi: $D \\times 104.074 = 31\\,927.76$\n$$D = \\frac{31\\,927.76}{104.074} \\approx 306.78$$\n\nYemi must deposit $306.78 per month.",
       "transfer_from_topics": ["sequences-series-financial-maths"],
       "is_active": true,
-      "diagram_data": null,
+      "diagram_data": {
+        "type": "twoWayTableDiagram",
+        "description": "Future-value annuity factors by number of periods and periodic interest rate; the needed entry is 104.074 for 84 periods at rate 0.005.",
+        "rowLabels": ["7", "28", "56", "84"],
+        "columnLabels": ["r = 0.005", "r = 0.01", "r = 0.03", "r = 0.06"],
+        "values": [
+          [7.106, 7.214, 7.662, 8.394],
+          [29.975, 32.129, 42.931, 68.528],
+          [64.441, 74.581, 141.154, 418.822],
+          [104.074, 130.672, 365.881, 2209.417]
+        ],
+        "highlight": { "kind": "cell", "rowIndex": 3, "columnIndex": 0, "label": "84 periods at 0.005" }
+      },
       "metadata": {
         "source_exam": "NSW HSC Mathematics Advanced",
         "source_year": 2025,

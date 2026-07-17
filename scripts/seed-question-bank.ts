@@ -27,6 +27,7 @@ import { probabilityLessons } from "../lib/lessons/probability";
 import { year12AdvancedRandomVariablesLessons } from "../lib/lessons/year12AdvancedRandomVariables";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 import { isGenericMcqInstructionLatex } from "../lib/lessons/questionHelpers";
+import { applyQuestionVisualStandards } from "../lib/lessons/visualAuthoringStandards";
 import { getChallengeQuestions } from "../lib/challenges";
 import { getAllExamPapers } from "../lib/exams";
 import { examQuestions } from "../lib/exams/types";
@@ -278,6 +279,7 @@ export function mapPracticeQuestionToQuestionRow(
   question: PracticeQuestion,
   context: QuestionMappingContext
 ): QuestionRow {
+  const preparedQuestion = applyQuestionVisualStandards(question);
   const section = context.section ?? "guidedPractice";
   const position = context.position ?? 0;
 
@@ -287,32 +289,32 @@ export function mapPracticeQuestionToQuestionRow(
   const latex =
     context.courseSlug === "year-12-standard-1"
       ? null
-      : isGenericMcqInstructionLatex(question.latex)
+      : isGenericMcqInstructionLatex(preparedQuestion.latex)
         ? null
-        : question.latex || null;
+        : preparedQuestion.latex || null;
 
   return {
-    source_id: question.id,
+    source_id: preparedQuestion.id,
     topic_slug: context.topicSlug,
     subtopic_slug: context.subtopicSlug,
     year_level: context.yearLevel,
     course_slug: context.courseSlug,
-    difficulty: inferDifficulty(question, section, position),
-    question_type: question.choices?.length ? "conceptual" : "procedural",
-    prompt: question.prompt,
+    difficulty: inferDifficulty(preparedQuestion, section, position),
+    question_type: preparedQuestion.choices?.length ? "conceptual" : "procedural",
+    prompt: preparedQuestion.prompt,
     latex,
-    choices: normaliseChoices(question),
-    question_parts: normaliseQuestionParts(question),
-    answer: question.answer,
-    accepted_answers: question.acceptedAnswers ?? [],
-    hint: question.hint ?? null,
+    choices: normaliseChoices(preparedQuestion),
+    question_parts: normaliseQuestionParts(preparedQuestion),
+    answer: preparedQuestion.answer,
+    accepted_answers: preparedQuestion.acceptedAnswers ?? [],
+    hint: preparedQuestion.hint ?? null,
     explanation:
-      question.explanation ??
+      preparedQuestion.explanation ??
       "Review the worked method and compare each step with the expected answer.",
     syllabus_ref: context.syllabusRef ?? null,
     transfer_from_topics: context.transferFromTopics ?? [],
     is_active: true,
-    diagram_data: extractDiagramData(question),
+    diagram_data: extractDiagramData(preparedQuestion),
   };
 }
 

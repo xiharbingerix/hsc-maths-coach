@@ -151,6 +151,22 @@ export const geometryQuestionVisuals: Record<string, GeometryQuestionVisual> = {
       fill: "amber",
     },
   },
+  "y8-geo-qprop-i1": {
+    prompt: "Use the trapezoid shown to find angle x in degrees.",
+    planeShapeDiagram: {
+      description:
+        "Trapezoid ABCD with AB parallel to DC. Co-interior angles A and D lie on the same side; angle A is 118 degrees and angle D is x degrees.",
+      vertices: [
+        { x: 0, y: 0, label: "A", angleLabel: "118°" },
+        { x: 6, y: 0, label: "B" },
+        { x: 5, y: 3, label: "C" },
+        { x: 1.5, y: 3, label: "D", angleLabel: "x°" },
+      ],
+      edges: [{ arrows: 1 }, {}, { arrows: 1 }, {}],
+      fill: "blue",
+      showVertexDots: true,
+    },
+  },
   "y8-geo-qprop-m3": {
     prompt: "Using the parallelogram shown, find angle x in degrees.",
     planeShapeDiagram: {

@@ -1,6 +1,10 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import { formatChoiceText } from "../questionHelpers";
+import {
+  addYear11ProbabilityVisual,
+  addYear11ProbabilityWorkedVisual,
+} from "./probabilityVisuals";
 
 function probabilityFeedback(prompt: string, latex: string, answer: string): string {
   const context = `${prompt} ${latex}`.toLowerCase();
@@ -135,7 +139,7 @@ function probabilityAnswer(
   acceptedAnswers: string[] = [],
   explanation?: string
 ): PracticeQuestion {
-  return {
+  return addYear11ProbabilityVisual({
     id,
     prompt,
     latex,
@@ -143,7 +147,7 @@ function probabilityAnswer(
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint: "Use favourable outcomes over total outcomes, or read the data carefully.",
     explanation: explanation ?? probabilityFeedback(prompt, latex, answer),
-  };
+  });
 }
 
 function probabilityChoice(
@@ -154,7 +158,7 @@ function probabilityChoice(
   explanation: string,
   latex = "\\text{Select A, B, C, or D.}"
 ): PracticeQuestion {
-  return {
+  return addYear11ProbabilityVisual({
     id,
     prompt,
     latex,
@@ -165,7 +169,7 @@ function probabilityChoice(
     answer,
     hint: "Check whether the question is asking for a count, a probability, or an interpretation.",
     explanation,
-  };
+  });
 }
 
 const halves = ["0.5", "0.50", "50%", "50 percent"];
@@ -466,7 +470,9 @@ export function year11StandardProbabilityRelativeFrequencyLessonOverride(
   }
 
   const base = {
-    workedExamples: probabilityWorkedExamples(lesson.slug),
+    workedExamples: probabilityWorkedExamples(lesson.slug).map((example, index) =>
+      addYear11ProbabilityWorkedVisual(example, index, lesson.slug)
+    ),
     syllabusArea: "Statistical Analysis",
     masteryPassMark: 0.8,
   };

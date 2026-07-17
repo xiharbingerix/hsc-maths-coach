@@ -54,7 +54,7 @@
       "subtopic_slug": "conditional-probability",
       "difficulty": 1,
       "question_type": "procedural",
-      "prompt": "A two-way table shows the results of a survey of 100 students.\n\n|              | Plays Sport | Does Not Play Sport | Total |\n|--------------|:-----------:|:-------------------:|:-----:|\n| Male         |     35      |         15          |  50   |\n| Female       |     25      |         25          |  50   |\n| Total        |     60      |         40          | 100   |\n\nFind the probability that a randomly selected student plays sport, given that the student is female.",
+      "prompt": "Use the two-way table to find the probability that a randomly selected student plays sport, given that the student is female.",
       "latex": "P(\\text{Sport} \\mid \\text{Female})",
       "answer": "1/2",
       "accepted_answers": [
@@ -66,7 +66,18 @@
       "hint": "Restrict your attention to the Female row only. Of the 50 females, how many play sport?",
       "explanation": "Restrict to the Female row: there are 50 females in total, of whom 25 play sport.\n\nP(Sport | Female) = 25/50 = 1/2",
       "transfer_from_topics": [],
-      "syllabus_ref": "MA-S1.2"
+      "syllabus_ref": "MA-S1.2",
+      "diagram_data": {
+        "type": "twoWayTableDiagram",
+        "description": "Two-way table for 100 students: 35 male and 25 female students play sport; 15 male and 25 female students do not play sport.",
+        "rowLabels": ["Male", "Female"],
+        "columnLabels": ["Plays Sport", "Does Not Play Sport"],
+        "values": [[35, 15], [25, 25]],
+        "rowTotals": [50, 50],
+        "columnTotals": [60, 40],
+        "grandTotal": 100,
+        "highlight": { "kind": "row", "rowIndex": 1, "label": "Given female" }
+      }
     },
     {
       "source_id": "y12adv-s12-sample-04",
@@ -143,7 +154,7 @@
       "subtopic_slug": "conditional-probability",
       "difficulty": 2,
       "question_type": "procedural",
-      "prompt": "A tree diagram shows that a factory has two machines. Machine A produces 60% of items and Machine B produces 40%. The defect rate for Machine A is 3% and for Machine B is 5%. An item is selected at random and found to be defective. Find the probability that it was produced by Machine A.",
+      "prompt": "Use the factory probability tree. An item selected at random is defective. Find the probability that it was produced by Machine A.",
       "latex": "P(A \\mid \\text{Defective})",
       "answer": "9/19",
       "accepted_answers": [
@@ -155,7 +166,30 @@
       "hint": "First find P(Defective) using the law of total probability. Then apply the conditional probability formula.",
       "explanation": "P(Defective | A) = 0.03, P(A) = 0.60\nP(Defective | B) = 0.05, P(B) = 0.40\n\nP(Defective) = P(Defective | A)·P(A) + P(Defective | B)·P(B)\n= (0.03)(0.60) + (0.05)(0.40)\n= 0.018 + 0.020\n= 0.038\n\nP(A | Defective) = P(Defective | A)·P(A) / P(Defective)\n= 0.018 / 0.038\n= 18/38\n= 9/19",
       "transfer_from_topics": [],
-      "syllabus_ref": "MA-S1.2"
+      "syllabus_ref": "MA-S1.2",
+      "diagram_data": {
+        "type": "probabilityTreeDiagram",
+        "description": "Probability tree: Machine A produces 60 percent of items with defect probability 3 percent; Machine B produces 40 percent with defect probability 5 percent.",
+        "rootLabel": "Item",
+        "stages": ["Machine", "Quality"],
+        "branches": [
+          {
+            "id": "A", "label": "Machine A", "probability": "0.60",
+            "children": [
+              { "id": "AD", "label": "Defective", "probability": "0.03" },
+              { "id": "AN", "label": "Not defective", "probability": "0.97" }
+            ]
+          },
+          {
+            "id": "B", "label": "Machine B", "probability": "0.40",
+            "children": [
+              { "id": "BD", "label": "Defective", "probability": "0.05" },
+              { "id": "BN", "label": "Not defective", "probability": "0.95" }
+            ]
+          }
+        ],
+        "highlightedPaths": [["A", "AD"], ["B", "BD"]]
+      }
     },
     {
       "source_id": "y12adv-s12-sample-08",
@@ -209,7 +243,7 @@
       "subtopic_slug": "conditional-probability",
       "difficulty": 2,
       "question_type": "procedural",
-      "prompt": "The following two-way table shows the results of a drug trial.\n\n|              | Improved | Did Not Improve | Total |\n|--------------|:--------:|:---------------:|:-----:|\n| Drug         |    42    |       18        |  60   |\n| Placebo      |    21    |       19        |  40   |\n| Total        |    63    |       37        | 100   |\n\nDetermine whether the events 'Improved' and 'Received Drug' are independent. Justify your answer.",
+      "prompt": "Use the drug-trial table to determine whether the events 'Improved' and 'Received Drug' are independent. Support the decision with the relevant probabilities.",
       "latex": "P(\\text{Improved} \\mid \\text{Drug}) \\stackrel{?}{=} P(\\text{Improved})",
       "answer": "not independent",
       "accepted_answers": [
@@ -221,7 +255,18 @@
       "hint": "Events are independent if P(A | B) = P(A). Compare P(Improved | Drug) with P(Improved).",
       "explanation": "P(Improved | Drug) = 42/60 = 0.7\nP(Improved) = 63/100 = 0.63\n\nSince P(Improved | Drug) = 0.7 ≠ 0.63 = P(Improved), the events are not independent.\n\nReceiving the drug increases the probability of improvement, so the events 'Improved' and 'Received Drug' are dependent.",
       "transfer_from_topics": [],
-      "syllabus_ref": "MA-S1.2"
+      "syllabus_ref": "MA-S1.2",
+      "diagram_data": {
+        "type": "twoWayTableDiagram",
+        "description": "Drug-trial two-way table: 42 drug recipients improved and 18 did not; 21 placebo recipients improved and 19 did not; 100 participants total.",
+        "rowLabels": ["Drug", "Placebo"],
+        "columnLabels": ["Improved", "Did Not Improve"],
+        "values": [[42, 18], [21, 19]],
+        "rowTotals": [60, 40],
+        "columnTotals": [63, 37],
+        "grandTotal": 100,
+        "highlight": { "kind": "row", "rowIndex": 0, "label": "Received drug" }
+      }
     },
     {
       "source_id": "y12adv-s12-sample-11",

@@ -13,6 +13,7 @@ const expectedAnswers: Record<string, string> = {
   "y8-geo-pol-g2": "120",
   "y8-geo-pol-i2": "108",
   "y8-geo-qprop-g1": "D",
+  "y8-geo-qprop-i1": "62",
   "y8-geo-qprop-m3": "117",
   "y8-geo-qprop-m6": "109",
   "y8-geo-rea-g2": "53",
@@ -77,7 +78,7 @@ test("Year 8 network visuals are complete, valid graphs", () => {
 });
 
 test("Year 8 geometry visuals have complete geometry and render as SVG", () => {
-  assert.equal(Object.keys(geometryQuestionVisuals).length, 12);
+  assert.equal(Object.keys(geometryQuestionVisuals).length, 13);
 
   for (const [questionId, visual] of Object.entries(geometryQuestionVisuals)) {
     assert.ok(visual.prompt.length >= 20, `${questionId} needs a specific prompt`);
@@ -112,7 +113,7 @@ test("Year 8 visual questions survive question-bank mapping with matching answer
   const rowsById = new Map(rows.map((row) => [row.source_id, row]));
 
   assert.equal(warnings.length, 0);
-  assert.equal(Object.keys(expectedAnswers).length, 27);
+  assert.equal(Object.keys(expectedAnswers).length, 28);
 
   for (const [questionId, expectedAnswer] of Object.entries(expectedAnswers)) {
     const row = rowsById.get(questionId);
