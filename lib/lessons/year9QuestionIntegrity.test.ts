@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { collectAllQuestions } from "../../scripts/seed-question-bank";
+import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../courseTypes";
+import { year9FinancialMathematicsLessonOverride } from "./year9/financialMathematics";
 
 test("Year 9 questions use explicit wording for values that are not defined", () => {
   const { rows, warnings } = collectAllQuestions(["year-9-mathematics"]);
@@ -66,6 +68,55 @@ test("Year 9 percentage and finance questions do not reveal their setup in latex
         !row.latex,
         `${courseSlug}/${row.subtopic_slug}/${row.source_id} still has giveaway latex: ${JSON.stringify(row.latex)}`
       );
+    }
+  }
+});
+
+test("retired Year 9 financial lessons also remain free of question latex", () => {
+  const course = {
+    slug: "year-9-mathematics-core",
+    title: "Year 9 Mathematics Core",
+    yearLevel: "Year 9",
+    courseType: "Mathematics Core",
+    status: "available",
+    description: "",
+    positioning: "",
+    units: [],
+  } satisfies CoursePathwaySeed;
+  const unit = {
+    slug: "financial-mathematics",
+    title: "Financial Mathematics",
+    description: "",
+    syllabusArea: "Number and Algebra",
+    focus: "Financial mathematics",
+    lessons: [],
+  } satisfies CourseUnitSeed;
+  const lessonSlugs = [
+    "wages-and-earnings",
+    "penalty-rates-overtime",
+    "non-wage-earnings",
+    "tax-and-net-earnings",
+    "spending-and-budgets",
+    "simple-interest",
+    "deposits-and-repayments",
+    "buy-now-pay-later-loans",
+  ];
+
+  for (const slug of lessonSlugs) {
+    const lesson = { slug, title: slug } satisfies CourseLessonSeed;
+    const content = year9FinancialMathematicsLessonOverride(course, unit, lesson);
+    assert.ok(content, `missing retired financial lesson ${slug}`);
+
+    const questions = [
+      ...(content.guidedPractice ?? []),
+      ...(content.independentPractice ?? []),
+      ...(content.masteryQuiz ?? []),
+      ...(content.masteryQuizPool ?? []),
+      ...(content.multiPartPractice ?? []),
+    ];
+    assert.ok(questions.length > 0, `${slug} did not expose any questions`);
+    for (const question of questions) {
+      assert.ok(!question.latex, `${slug}/${question.id} still has question latex`);
     }
   }
 });
