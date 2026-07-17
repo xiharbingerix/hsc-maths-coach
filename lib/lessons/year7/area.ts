@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { addYear7AreaVisual } from "./areaVisuals";
 
 function answer(
   id: string,
@@ -24,7 +25,7 @@ function answer(
     autoVariants.push(ans.slice(1));
   }
 
-  return {
+  return addYear7AreaVisual({
     id,
     prompt,
     latex,
@@ -32,7 +33,7 @@ function answer(
     acceptedAnswers: Array.from(new Set([ans, ...acceptedAnswers, ...autoVariants])),
     hint: "Use the area formula for this shape and substitute the given measurements.",
     explanation,
-  };
+  });
 }
 
 function choice(
@@ -43,7 +44,7 @@ function choice(
   explanation: string,
   latex = "\\text{Select A, B, C, or D.}"
 ): PracticeQuestion {
-  return {
+  return addYear7AreaVisual({
     id,
     prompt,
     latex,
@@ -51,7 +52,7 @@ function choice(
     answer: ans,
     hint: "Recall the area formula taught in this lesson.",
     explanation,
-  };
+  });
 }
 
 type LessonContent = Pick<
@@ -1223,7 +1224,9 @@ const areaProblemSolving: LessonContent = {
 // multi-part question is the hardest (D6). Content is otherwise byte-stable.
 function withDifficulty(content: LessonContent): LessonContent {
   const tier = (arr: PracticeQuestion[] | undefined, levels: number[]): PracticeQuestion[] =>
-    (arr ?? []).map((q, i) => ({ ...q, difficulty: levels[i % levels.length] }));
+    (arr ?? []).map((q, i) =>
+      addYear7AreaVisual({ ...q, difficulty: levels[i % levels.length] })
+    );
   return {
     ...content,
     guidedPractice: tier(content.guidedPractice, [1, 2]),

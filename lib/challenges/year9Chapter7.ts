@@ -3,6 +3,7 @@
 // lib/challenges/index.ts (consolidating → Core; core → all 3; path → base + advanced).
 
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { enhanceYear9GeometryQuestions } from "../lessons/year9GeometryVisuals";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "Challenge question — combine several geometric facts.", explanation };
@@ -11,7 +12,7 @@ const deg = (a: string) => [a, `${a}°`, `${a} degrees`];
 const test = (t: string) => [t, t.toLowerCase()];
 
 // angles-and-triangles (consol)
-export const anglesTriY9Challenge: PracticeQuestion[] = [
+export const anglesTriY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("angles-and-triangles", [
   q("y9c-at-1", "An isosceles triangle has an apex of 50°. Find each base angle.", "apex 50", "65", "(180 − 50)/2 = 65.", deg("65")),
   q("y9c-at-2", "An exterior angle is 130°; one opposite interior angle is 60°. Find the other.", "ext 130, 60", "70", "130 − 60 = 70.", deg("70")),
   q("y9c-at-3", "Triangle angles are in ratio 1 : 2 : 3. Find the largest.", "1:2:3", "90", "6 parts = 180 → largest 3×30 = 90.", deg("90")),
@@ -24,10 +25,10 @@ export const anglesTriY9Challenge: PracticeQuestion[] = [
   q("y9c-at-10", "A right triangle has one angle double the smallest. Find the smallest.", "right, double", "30", "x + 2x + 90 = 180 → x = 30.", deg("30")),
   q("y9c-at-11", "A triangle has angles 35° and 65°. Find the third.", "35,65", "80", "180 − 100 = 80.", deg("80")),
   q("y9c-at-12", "An exterior angle is 140°; one opposite interior angle is 90°. Find the other.", "ext 140, 90", "50", "140 − 90 = 50.", deg("50")),
-];
+]);
 
 // parallel-lines (consol)
-export const parallelLinesY9Challenge: PracticeQuestion[] = [
+export const parallelLinesY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("parallel-lines", [
   q("y9c-pl-1", "On parallel lines, the co-interior angle with 75° has what vertically opposite angle?", "co-int then v.o.", "105", "Co-interior 105; vertically opposite = 105.", deg("105")),
   q("y9c-pl-2", "An alternate angle 3x equals 60°. Find x.", "3x=60", "20", "x = 20.", deg("20")),
   q("y9c-pl-3", "Co-interior relationship x + 50 = 180. Find x.", "x+50=180", "130", "x = 130.", deg("130")),
@@ -40,10 +41,10 @@ export const parallelLinesY9Challenge: PracticeQuestion[] = [
   q("y9c-pl-10", "Co-interior angles 3x and x. Find x.", "3x+x=180", "45", "4x = 180 → x = 45.", deg("45")),
   q("y9c-pl-11", "Find the co-interior angle with 35° on parallel lines.", "co-int 35", "145", "180 − 35 = 145.", deg("145")),
   q("y9c-pl-12", "Find the corresponding angle to 128° on parallel lines.", "corr 128", "128", "Equal: 128.", deg("128")),
-];
+]);
 
 // quadrilaterals-polygons (path)
-export const polygonsY9Challenge: PracticeQuestion[] = [
+export const polygonsY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("quadrilaterals-polygons", [
   q("y9c-qp-1", "A regular polygon has an exterior angle of 36°. How many sides?", "ext 36", "10", "360 ÷ 36 = 10.", []),
   q("y9c-qp-2", "Find the interior angle of a regular dodecagon (12 sides).", "reg 12-gon", "150", "1800/12 = 150.", deg("150")),
   q("y9c-qp-3", "A regular polygon has an interior angle of 140°. How many sides?", "int 140", "9", "Exterior 40; 360 ÷ 40 = 9.", []),
@@ -56,10 +57,10 @@ export const polygonsY9Challenge: PracticeQuestion[] = [
   q("y9c-qp-10", "A regular polygon has an exterior angle of 45°. Find its interior angle.", "ext 45", "135", "180 − 45 = 135.", deg("135")),
   q("y9c-qp-11", "Find the angle sum of a heptagon (7 sides).", "heptagon", "900", "(7−2)×180 = 900.", deg("900")),
   q("y9c-qp-12", "Find each exterior angle of a regular pentagon.", "reg pentagon ext", "72", "360 ÷ 5 = 72.", deg("72")),
-];
+]);
 
 // congruent-triangles (path)
-export const congruentY9Challenge: PracticeQuestion[] = [
+export const congruentY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("congruent-triangles", [
   q("y9c-ct-1", "Two triangles share equal sides 5, 6, 7. Which test proves congruence?", "5,6,7", "SSS", "Three equal sides → SSS.", test("SSS")),
   q("y9c-ct-2", "Triangles with sides 8, 10 and the 40° angle between them match. Which test?", "8,10,40 incl", "SAS", "Two sides + included angle → SAS.", test("SAS")),
   q("y9c-ct-3", "△ABC ≅ △DEF with AB = 9. Find DE.", "ABC≅DEF AB=9", "9", "DE = AB = 9.", []),
@@ -72,10 +73,10 @@ export const congruentY9Challenge: PracticeQuestion[] = [
   q("y9c-ct-10", "Triangles with sides 6, 6 and included 70° match. Which test?", "6,6,70 incl", "SAS", "SAS.", test("SAS")),
   q("y9c-ct-11", "Triangles with two equal angles and a matching side. Which test?", "2 angles + side", "AAS", "AAS.", test("AAS")),
   q("y9c-ct-12", "Right triangles sharing the hypotenuse and one side. Which test?", "right hyp side", "RHS", "RHS.", test("RHS")),
-];
+]);
 
 // congruence-in-proof (path)
-export const congProofY9Challenge: PracticeQuestion[] = [
+export const congProofY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("congruence-in-proof", [
   q("y9c-cp-1", "△ABC ≅ △DEF by SAS with BC = 7. Find EF.", "SAS BC=7", "7", "EF = BC = 7.", []),
   q("y9c-cp-2", "A kite is split into two congruent triangles; one has a 35° angle. Find the matching angle.", "kite 35", "35", "35.", deg("35")),
   q("y9c-cp-3", "△ABC ≅ △DEF; angles A = 50°, B = 60°. Find angle F.", "A=50,B=60", "70", "C = 70; F = C = 70.", deg("70")),
@@ -88,10 +89,10 @@ export const congProofY9Challenge: PracticeQuestion[] = [
   q("y9c-cp-10", "Triangles congruent by SSS have sides 7, 24, 25. Find the longest matching side.", "SSS 7,24,25", "25", "25.", []),
   q("y9c-cp-11", "△ABC ≅ △DEF and angle B = 65°. Find angle E.", "angle B=65", "65", "65.", deg("65")),
   q("y9c-cp-12", "△ABC ≅ △DEF and AC = 14. Find DF.", "AC=14", "14", "DF = AC = 14.", []),
-];
+]);
 
 // enlargement-similar-figures (core)
-export const enlargementY9Challenge: PracticeQuestion[] = [
+export const enlargementY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("enlargement-similar-figures", [
   q("y9c-es-1", "Two similar rectangles: one side goes 4 → 6. The other side is 8; find its image.", "4->6,8->?", "12", "SF = 1.5; 8 × 1.5 = 12.", []),
   q("y9c-es-2", "Similar figures have linear scale factor 3. By what factor does the area scale?", "area SF", "9", "(linear SF)² = 9.", []),
   q("y9c-es-3", "A photo 6 cm wide is enlarged to 15 cm wide. Find the scale factor.", "15/6", "2.5", "15 ÷ 6 = 2.5.", []),
@@ -104,10 +105,10 @@ export const enlargementY9Challenge: PracticeQuestion[] = [
   q("y9c-es-10", "An image side is 21 and the original is 7. Find the scale factor.", "21/7", "3", "3.", []),
   q("y9c-es-11", "A length of 16 is reduced by scale factor 1/4. Find the image.", "16*1/4", "4", "16 × 1/4 = 4.", []),
   q("y9c-es-12", "A figure has area 7 cm²; enlarged by linear SF 2, find the new area.", "area 7 SF2", "28", "7 × 4 = 28.", ["28 cm²"]),
-];
+]);
 
 // similar-triangles (core)
-export const similarTriY9Challenge: PracticeQuestion[] = [
+export const similarTriY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("similar-triangles", [
   q("y9c-st-1", "A 2 m stick casts a 3 m shadow; a tree casts a 12 m shadow. Find the tree's height.", "2/3=h/12", "8", "h = 12 × 2/3 = 8 m.", ["8 m"]),
   q("y9c-st-2", "Similar triangles: 6/10 = 9/x. Find x.", "6/10=9/x", "15", "6x = 90 → x = 15.", []),
   q("y9c-st-3", "Similar triangles with SF 2.5; a side of 4 maps to:", "SF2.5,4", "10", "4 × 2.5 = 10.", []),
@@ -120,10 +121,10 @@ export const similarTriY9Challenge: PracticeQuestion[] = [
   q("y9c-st-10", "Similar triangles: 9/6 = x/4. Find x.", "9/6=x/4", "6", "6x = 36 → x = 6.", []),
   q("y9c-st-11", "Similar triangles with SF 3; a side of 9 maps to:", "SF3,9", "27", "9 × 3 = 27.", []),
   q("y9c-st-12", "Similar triangles: 6/9 = 4/x. Find x.", "6/9=4/x", "6", "6x = 36 → x = 6.", []),
-];
+]);
 
 // proving-similar-triangles (path)
-export const provingSimilarY9Challenge: PracticeQuestion[] = [
+export const provingSimilarY9Challenge: PracticeQuestion[] = enhanceYear9GeometryQuestions("proving-similar-triangles", [
   q("y9c-ps-1", "Two triangles have a pair of parallel sides giving equal corresponding angles. Which test proves similar?", "parallel AA", "AA", "Two equal angles → AA.", test("AA")),
   q("y9c-ps-2", "Prove similar, then solve 6/9 = 8/x. Find x.", "6/9=8/x", "12", "6x = 72 → x = 12.", []),
   q("y9c-ps-3", "A line parallel to one side gives 4/10 = 6/x. Find x.", "4/10=6/x", "15", "4x = 60 → x = 15.", []),
@@ -136,4 +137,4 @@ export const provingSimilarY9Challenge: PracticeQuestion[] = [
   q("y9c-ps-10", "Similar triangles: 10/4 = x/6. Find x.", "10/4=x/6", "15", "4x = 60 → x = 15.", []),
   q("y9c-ps-11", "Similar triangles: 3/12 = 5/x. Find x.", "3/12=5/x", "20", "3x = 60 → x = 20.", []),
   q("y9c-ps-12", "Two pairs of equal angles. Which similarity test?", "2 angles", "AA", "AA.", test("AA")),
-];
+]);

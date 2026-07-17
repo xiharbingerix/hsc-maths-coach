@@ -64,9 +64,19 @@ const visualHelpfulPattern =
   /\bgraph|diagram|figure|box(?:-and-whisker)? plot|tree diagram|venn(?: diagram)?|two-way table|network diagram|argand diagram|3d vector diagram|trapezoidal rule|area between curves|circle theorem|diameter|semicircle|chord|tangent|central angle|angle at the centre\b/i;
 const tableDataPattern = /\btable|data set|data below|values below|following data|frequency table\b/i;
 const trapezoidalVisualRequiredPattern =
-  /\btrapezoid(?:al)?(?: rule| estimate| approximation| strip| chord)?|trapezia|trapeziums?|ordinates?|sampled values?\b/i;
+  /\b(?:trapezoid(?:al)?(?: rule| estimate| approximation| strip| chord)?|trapezia|trapeziums?|ordinates?|sampled values?)\b/i;
 const trapezoidalVisualExemptPattern =
   /\b(?:find|calculate|identify|state|choose)\b[\s\S]{0,80}\b(?:subinterval width|formula|units?)\b|\bwhich\b[\s\S]{0,50}\b(?:term|value)s?\b[\s\S]{0,30}\bdoubled\b/i;
+const year9GeometryMinimumVisualCoverage: Record<string, number> = {
+  "angles-and-triangles": 0.6,
+  "parallel-lines": 0.75,
+  "quadrilaterals-polygons": 0.15,
+  "congruent-triangles": 0.7,
+  "congruence-in-proof": 0.7,
+  "enlargement-similar-figures": 0.75,
+  "similar-triangles": 0.75,
+  "proving-similar-triangles": 0.75,
+};
 
 function addIssue(
   level: AuditLevel,
@@ -119,8 +129,49 @@ function hasItemVisualPayload(item: WorkedExample | PracticeQuestion) {
   const fields = item as unknown as Record<string, unknown>;
   return Boolean(
     ("solutionDiagram" in item && item.solutionDiagram) ||
-      DIAGRAM_SPECS.some((spec) => fields[spec.field])
+    DIAGRAM_SPECS.some((spec) => fields[spec.field]) ||
+    ("choices" in item && item.choices?.some((choice) => {
+      const choiceFields = choice as unknown as Record<string, unknown>;
+      return DIAGRAM_SPECS.some((spec) => choiceFields[spec.field]);
+    }))
   );
+}
+
+function validateYear9GeometryVisualCoverage(
+  courseSlug: string,
+  unitSlug: string,
+  lesson: ExplicitLesson,
+  path: string
+) {
+  if (
+    !courseSlug.startsWith("year-9-mathematics") ||
+    unitSlug !== "properties-geometrical-figures"
+  ) return;
+
+  const minimum = year9GeometryMinimumVisualCoverage[lesson.slug];
+  if (minimum === undefined) return;
+
+  const workedWithVisual = lesson.workedExamples.filter(hasItemVisualPayload).length;
+  if (workedWithVisual !== lesson.workedExamples.length) {
+    addIssue(
+      "FAIL",
+      "year9-geometry-worked-visuals",
+      `${path}/workedExamples`,
+      `Year 9 geometry worked examples are diagram-first; ${workedWithVisual}/${lesson.workedExamples.length} have visual payloads.`
+    );
+  }
+
+  const questions = questionRecords(lesson).map(({ question }) => question);
+  const withVisual = questions.filter(hasItemVisualPayload).length;
+  const coverage = questions.length === 0 ? 0 : withVisual / questions.length;
+  if (coverage < minimum) {
+    addIssue(
+      "FAIL",
+      "year9-geometry-question-visuals",
+      path,
+      `Year 9 geometry diagram coverage is ${withVisual}/${questions.length} (${Math.round(coverage * 100)}%); expected at least ${Math.round(minimum * 100)}% for this lesson.`
+    );
+  }
 }
 
 function hasVisualPayload(lesson: ExplicitLesson) {
@@ -1368,7 +1419,6 @@ function questionStimulusText(question: PracticeQuestion) {
   return [
     question.prompt,
     question.latex,
-    ...(question.choices?.map((choice) => choice.text) ?? []),
     ...(question.parts?.flatMap((part) => [part.prompt, part.latex]) ?? []),
   ]
     .filter(Boolean)
@@ -1635,6 +1685,7 @@ function validateLesson(
   }
 
   validateVisualPayloads(lesson, path);
+  validateYear9GeometryVisualCoverage(courseSlug, unitSlug, lesson, path);
 
   const questions = questionRecords(lesson);
   for (const { section, question } of questions) {
@@ -1766,7 +1817,8 @@ function countVisualFindingsByKind() {
 
 function printVisualStimulusReport() {
   console.log("\nVISUAL STIMULUS AUDIT");
-  console.log("  Fields inspected: prompt, latex, and choice text only.");
+  console.log("  Fields inspected: prompt, latex, and multi-part prompt/latex fields.");
+  console.log("  Choice text is excluded; structured diagrams attached to choices count as payloads.");
   console.log("  Fields ignored: hint, explanation, teaching paragraphs, helper feedback, and generic feedback strings.");
   console.log("  Distinctions:");
   for (const [kind, count] of countVisualFindingsByKind()) {

@@ -10,6 +10,7 @@
     "test": "node --import tsx --test \"lib/**/*.test.ts\"",
     "check:env": "tsx scripts/check-env.ts",
     "audit:lessons": "tsx scripts/audit-lessons.ts",
+    "audit:question-visuals": "tsx scripts/audit-question-visuals.ts",
     "audit:questions": "tsx scripts/audit-questions.ts",
     "seed:question-bank": "tsx scripts/seed-question-bank.ts",
     "prune:question-bank": "tsx scripts/prune-question-bank.ts",

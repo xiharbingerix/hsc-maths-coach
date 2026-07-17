@@ -4,6 +4,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { applyYear9GeometryVisuals } from "../year9GeometryVisuals";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Match corresponding parts; use the congruence/similarity tests.", explanation };
@@ -353,5 +354,6 @@ export function year9Chapter7CongruenceLessonOverride(
   if (!["year-9-mathematics", "year-9-mathematics-core", "year-9-mathematics-advanced"].includes(course.slug) || unit.slug !== "properties-geometrical-figures") {
     return null;
   }
-  return SECTIONS[lesson.slug] ?? null;
+  const content = SECTIONS[lesson.slug];
+  return content ? applyYear9GeometryVisuals(lesson.slug, content) : null;
 }

@@ -1,6 +1,7 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "./differentialCalculus";
 import { practicalChoice, measurementAnswer, dataAnswer } from "./questionHelpers";
+import { trapezoidDiagram } from "./geometryVisualFactories";
 
 export function year12Standard1RightAngleTrigonometryLessonOverride(
   course: CoursePathwaySeed,
@@ -1246,9 +1247,10 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
         "502.7",
         ["502.65", "502.7 cm^3"]
       ),
-      practicalChoice(
+      {
+        ...practicalChoice(
         "area-vol-i4",
-        "A trapezium has parallel sides 6 cm and 10 cm, and a perpendicular height of 4 cm. Which formula gives its area?",
+        "Which formula gives the area of the trapezium shown?",
         "A",
         [
           "½ × (6 + 10) × 4",
@@ -1257,7 +1259,18 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
           "6 × 10 × 4",
         ],
         "Area of trapezium = ½(a + b)h = ½ × (6 + 10) × 4 = 32 cm²."
-      ),
+        ),
+        planeShapeDiagram: trapezoidDiagram({
+          description:
+            "Right trapezium with parallel sides 6 centimetres and 10 centimetres and perpendicular height 4 centimetres.",
+          bottom: 10,
+          top: 6,
+          height: 4,
+          bottomLabel: "10 cm",
+          topLabel: "6 cm",
+          heightLabel: "4 cm",
+        }),
+      },
       measurementAnswer(
         "area-vol-i5",
         "A triangular prism has a triangular cross-section with base 6 cm and height 4 cm, and the prism is 10 cm long. Find its volume.",

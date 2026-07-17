@@ -1,6 +1,10 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import { financeChoice, measurementAnswer as baseMeasurementAnswer } from "../questionHelpers";
+import {
+  addTrapezoidalLandQuestionVisual,
+  addTrapezoidalLandWorkedVisual,
+} from "./trapezoidalLandVisuals";
 
 function applicationsMeasurementFeedback(prompt: string, latex: string, answer: string): string {
   const context = `${prompt} ${latex}`.toLowerCase();
@@ -923,7 +927,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
           "1\\text{ hectare} = 10\\,000\\text{ m}^2",
         ],
       },
-      workedExamples: [
+      workedExamples: ([
         {
           title: "Single-strip Trapezoidal Rule",
           questionLatex:
@@ -980,7 +984,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
           ],
           finalAnswerLatex: "0.3 \\text{ ha}",
         },
-      ],
+      ] as WorkedExample[]).map(addTrapezoidalLandWorkedVisual),
       guidedPractice: [
         measurementAnswer(
           "y11s-tra-g1",
@@ -1010,7 +1014,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
           "4.5 ha",
           ["4.5", "4.5 hectares"]
         ),
-      ],
+      ].map(addTrapezoidalLandQuestionVisual),
       independentPractice: [
         measurementAnswer(
           "y11s-tra-i1",
@@ -1047,7 +1051,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
           "2.8 ha",
           ["2.8", "2.8 hectares"]
         ),
-      ],
+      ].map(addTrapezoidalLandQuestionVisual),
       commonMistakes: [
         {
           mistake: "Doubling the first and last offsets in the multi-strip formula.",
@@ -1077,7 +1081,7 @@ export function year11StandardApplicationsMeasurementLessonOverride(
         financeChoice("y11s-tra-m8", "The Trapezoidal Rule is used because:", "A", ["Standard formulas cannot handle irregular boundaries", "It always gives the exact area", "It only applies to triangles", "It requires no measurements"], "Standard formulas require regular shapes; the Trapezoidal Rule handles irregular ones."),
         measurementAnswer("y11s-tra-m9", "Offsets: 10, 20, 10 m at 30 m intervals. Estimate the area.", "", "900 m²", ["900", "900m2"]),
         financeChoice("y11s-tra-m10", "If 1 ha = 10,000 m², then 3.5 ha equals:", "B", ["3,500 m²", "35,000 m²", "350 m²", "350,000 m²"], "3.5 × 10,000 = 35,000 m²."),
-      ],
+      ].map(addTrapezoidalLandQuestionVisual),
       masteryPassMark: 0.8,
     };
   }
