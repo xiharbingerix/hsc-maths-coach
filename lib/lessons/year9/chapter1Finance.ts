@@ -5,6 +5,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { withoutPracticeLatex } from "../questionHelpers";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Identify the amounts and the rule before calculating.", explanation };
@@ -15,7 +16,7 @@ function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices:
 const money = (a: string) => [a, `$${a}`, a.includes(".") ? a : `${a}.00`, `$${a}.00`];
 
 // ── 1I income (core) ───────────────────────────────────────────────────────────────────
-const income: Partial<ExplicitLesson> = {
+const income: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Calculate gross income from wages, salaries, overtime, commission and piecework.",
   learningIntention: "Work out earnings from different pay structures.",
   successCriteria: ["Find wages from an hourly rate and hours.", "Convert between annual, monthly, fortnightly and weekly pay.", "Calculate overtime (time-and-a-half, double-time).", "Calculate commission and piecework pay."],
@@ -77,10 +78,10 @@ const income: Partial<ExplicitLesson> = {
     { mistake: "Confusing gross and net pay.", fix: "Gross is before deductions; net is after." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── 1J payg-income-tax (core) ──────────────────────────────────────────────────────────
-const paygIncomeTax: Partial<ExplicitLesson> = {
+const paygIncomeTax: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Find taxable income, calculate income tax from a stated rate, the Medicare levy and net pay.",
   learningIntention: "Work through taxable income, tax, levy and take-home pay.",
   successCriteria: ["Find taxable income = gross − deductions.", "Apply a stated tax rate over the tax-free threshold.", "Calculate the Medicare levy.", "Find net (take-home) income."],
@@ -142,10 +143,10 @@ const paygIncomeTax: Partial<ExplicitLesson> = {
     { mistake: "Reporting tax as the net pay.", fix: "Net = gross − tax (− levy)." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── 1L compound-interest-depreciation (core) ───────────────────────────────────────────
-const compoundInterestDepreciation: Partial<ExplicitLesson> = {
+const compoundInterestDepreciation: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Calculate compound interest and depreciation by repeated multiplication.",
   learningIntention: "Grow or shrink an amount year-on-year by a percentage.",
   successCriteria: ["Compound interest by multiplying by (1 + r) each period.", "Depreciate by multiplying by (1 − r) each period.", "See why compound beats simple over time.", "Compute multi-year amounts."],
@@ -207,10 +208,10 @@ const compoundInterestDepreciation: Partial<ExplicitLesson> = {
     { mistake: "Using (1 + r) for depreciation.", fix: "Depreciation uses (1 − r)." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── 1M compound-interest-formula (core) ────────────────────────────────────────────────
-const compoundInterestFormula: Partial<ExplicitLesson> = {
+const compoundInterestFormula: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Use the compound interest formula A = P(1 + r)ⁿ to find the final amount.",
   learningIntention: "Apply A = P(1 + r)ⁿ and identify P, r and n.",
   successCriteria: ["Identify P, r (as a decimal) and n.", "Compute A = P(1 + r)ⁿ.", "Find the interest as A − P.", "Recognise (1 + r) as the growth factor."],
@@ -272,7 +273,7 @@ const compoundInterestFormula: Partial<ExplicitLesson> = {
     { mistake: "Mismatching r and n periods.", fix: "Quarterly rate needs n counted in quarters." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "income": income,

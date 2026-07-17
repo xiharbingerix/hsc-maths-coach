@@ -11,6 +11,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { withoutPracticeLatex } from "../questionHelpers";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Identify the quantities and the relationship before calculating.", explanation };
@@ -20,7 +21,7 @@ function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices:
 }
 
 // ── simple-interest (DIRECT-REUSE, Number, core) ───────────────────────────────────────
-const simpleInterest: Partial<ExplicitLesson> = {
+const simpleInterest: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Calculate simple interest with I = Prn and the total amount A = P + I.",
   learningIntention: "Use the simple-interest formula and find the total owed or earned.",
   successCriteria: ["State I = Prn and that interest is on the original principal only.", "Convert a percentage rate to a decimal.", "Find the interest for given P, r, n.", "Find the total amount A = P + I."],
@@ -82,7 +83,7 @@ const simpleInterest: Partial<ExplicitLesson> = {
     { mistake: "Mismatching the rate period and n.", fix: "A per-year rate needs n in years (per-month rate → n in months)." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── gradient (ADAPT, Algebra, core) ────────────────────────────────────────────────────
 const gradient: Partial<ExplicitLesson> = {

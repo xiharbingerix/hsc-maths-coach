@@ -1,4 +1,5 @@
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { withoutQuestionLatex } from "../lessons/questionHelpers";
 
 // Year 9 Wave 1 validation sample — D6 (Level-6) challenge pools, 12 per section. Registered by
 // lesson slug in lib/challenges/index.ts; unlocked after mastery via the existing challenge flow
@@ -20,7 +21,7 @@ export const simpleInterestY9Challenge: PracticeQuestion[] = [
   { id: "chal-y9-si-10", prompt: "Find the greater interest: $3000 at 4% for 5 years, or $3000 at 6% for 3 years. (give the amount)", latex: "I=Prn", answer: "600", acceptedAnswers: ["$600"], hint: "Compute both.", explanation: "600 vs 540 → the larger is 600." },
   { id: "chal-y9-si-11", prompt: "Find the simple interest on $2500 at 4.8% per year for 2 years.", latex: "I=Prn", answer: "240", acceptedAnswers: ["$240"], hint: "4.8% = 0.048.", explanation: "2500×0.048×2 = 240." },
   { id: "chal-y9-si-12", prompt: "An investment earns $90 per year simple interest on $1800. Find the annual rate (%).", latex: "I=Prn", answer: "5", acceptedAnswers: ["5%", "0.05"], hint: "r = (I per year)/P.", explanation: "90/1800 = 0.05 = 5%." },
-];
+].map(withoutQuestionLatex);
 
 export const gradientY9Challenge: PracticeQuestion[] = [
   { id: "chal-y9-gr-1", prompt: "Find the gradient of the line through (2, 3) and (5, 9).", latex: "(2,3),(5,9)", answer: "2", acceptedAnswers: [], hint: "Rise over run.", explanation: "6/3 = 2." },

@@ -4,6 +4,7 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { withoutPracticeLatex } from "../questionHelpers";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Convert the percentage to a decimal or fraction first.", explanation };
@@ -14,7 +15,7 @@ function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices:
 const money = (a: string) => [a, `$${a}`, a.includes(".") ? a : `${a}.00`, `$${a}.00`];
 
 // ── 1F percentages-and-money (consolidating) ───────────────────────────────────────────
-const percentagesAndMoney: Partial<ExplicitLesson> = {
+const percentagesAndMoney: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Find a percentage of an amount and convert between percentages, fractions and decimals.",
   learningIntention: "Calculate percentages of money amounts and convert percentage forms.",
   successCriteria: ["Convert a percentage to a decimal or fraction.", "Find a percentage of an amount.", "Convert a decimal/fraction to a percentage.", "Apply percentages to money."],
@@ -76,10 +77,10 @@ const percentagesAndMoney: Partial<ExplicitLesson> = {
     { mistake: "Confusing ‘% of’ with ‘% off’.", fix: "‘Of’ multiplies; ‘off’ subtracts a percentage." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── 1G percentage-increase-decrease (consolidating) ────────────────────────────────────
-const percentageIncreaseDecrease: Partial<ExplicitLesson> = {
+const percentageIncreaseDecrease: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Increase or decrease a quantity by a percentage using a multiplying factor.",
   learningIntention: "Apply percentage increases and decreases efficiently.",
   successCriteria: ["Increase by r% using × (1 + r).", "Decrease by r% using × (1 − r).", "Find the multiplying factor for a change.", "Solve simple reverse problems."],
@@ -141,10 +142,10 @@ const percentageIncreaseDecrease: Partial<ExplicitLesson> = {
     { mistake: "Treating successive % changes as one combined %.", fix: "Multiply the factors in turn." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── 1H profits-and-discounts (consolidating) ───────────────────────────────────────────
-const profitsAndDiscounts: Partial<ExplicitLesson> = {
+const profitsAndDiscounts: Partial<ExplicitLesson> = withoutPracticeLatex({
   description: "Calculate profit, loss, percentage profit/loss and discounts on a price.",
   learningIntention: "Work out profit/loss and discounted prices in money contexts.",
   successCriteria: ["Find profit/loss = selling − cost.", "Find a percentage profit or loss.", "Apply a percentage discount.", "Interpret selling below cost as a loss."],
@@ -206,7 +207,7 @@ const profitsAndDiscounts: Partial<ExplicitLesson> = {
     { mistake: "Reporting a loss as a profit.", fix: "Sell < cost is a loss (negative profit)." },
   ],
   masteryPassMark: 0.8,
-};
+});
 
 // ── 1B decimal-places-significant-figures (core) ───────────────────────────────────────
 const decimalPlacesSigFigs: Partial<ExplicitLesson> = {

@@ -39,3 +39,33 @@ test("Year 9 questions are standalone rather than relying on adjacent questions"
     );
   }
 });
+
+test("Year 9 percentage and finance questions do not reveal their setup in latex", () => {
+  const financeLessons = new Set([
+    "percentages-and-money",
+    "percentage-increase-decrease",
+    "profits-and-discounts",
+    "income",
+    "payg-income-tax",
+    "simple-interest",
+    "compound-interest-depreciation",
+    "compound-interest-formula",
+  ]);
+
+  for (const courseSlug of [
+    "year-9-mathematics",
+    "year-9-mathematics-core",
+    "year-9-mathematics-advanced",
+  ]) {
+    const { rows } = collectAllQuestions([courseSlug]);
+    const financeRows = rows.filter((row) => financeLessons.has(row.subtopic_slug));
+
+    assert.ok(financeRows.length > 0, `${courseSlug} did not expose any finance questions`);
+    for (const row of financeRows) {
+      assert.ok(
+        !row.latex,
+        `${courseSlug}/${row.subtopic_slug}/${row.source_id} still has giveaway latex: ${JSON.stringify(row.latex)}`
+      );
+    }
+  }
+});

@@ -3,6 +3,7 @@
 // course-scoped in lib/challenges/index.ts. simple-interest D6 lives in year9Wave1.ts.
 
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { withoutQuestionLatex } from "../lessons/questionHelpers";
 
 function q(id: string, prompt: string, latex: string, answer: string, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty: 6, hint: "These are challenge questions — combine several steps.", explanation };
@@ -87,7 +88,7 @@ export const percentagesY9Challenge: PracticeQuestion[] = [
   q("y9c-pc-10", "Find 8.5% of $1200.", "8.5\\%\\times1200", "102", "0.085 × 1200 = 102.", money("102")),
   q("y9c-pc-11", "What percentage of $2.50 is 50 cents?", "0.5/2.5", "20%", "0.50/2.50 = 0.2 = 20%.", ["20"]),
   q("y9c-pc-12", "A bill of $88 includes 10% GST. How much is the GST?", "\\div1.1", "8", "Pre-GST 80; GST = 88 − 80 = 8.", money("8")),
-];
+].map(withoutQuestionLatex);
 
 // 1G percentage-increase-decrease
 export const incDecY9Challenge: PracticeQuestion[] = [
@@ -103,7 +104,7 @@ export const incDecY9Challenge: PracticeQuestion[] = [
   q("y9c-pid-10", "After two 10% discounts a price is $324. Find the original.", "\\div0.9^2", "400", "324 ÷ 0.81 = 400.", money("400")),
   q("y9c-pid-11", "A $90 item rises 20% then falls 20%. Final price?", "\\times1.2\\times0.8", "86.40", "90×1.2=108; 108×0.8=86.40.", money("86.40")),
   q("y9c-pid-12", "Increasing a number by 150% gives 75. Find the number.", "\\div2.5", "30", "75 ÷ 2.5 = 30.", []),
-];
+].map(withoutQuestionLatex);
 
 // 1H profits-and-discounts
 export const profitsY9Challenge: PracticeQuestion[] = [
@@ -119,7 +120,7 @@ export const profitsY9Challenge: PracticeQuestion[] = [
   q("y9c-pd-10", "Sold $90 at a 50% profit. Cost price?", "\\div1.5", "60", "90 ÷ 1.5 = 60.", money("60")),
   q("y9c-pd-11", "Cost $200, sold at 35% profit, then gave a 10% discount on the selling price. Final price?", "200\\times1.35\\times0.9", "243", "270 × 0.9 = 243.", money("243")),
   q("y9c-pd-12", "A retailer makes 25% profit on cost. The profit is $60. Find the selling price.", "\\text{solve}", "300", "Cost = 60/0.25 = 240; sell = 240 + 60 = 300.", money("300")),
-];
+].map(withoutQuestionLatex);
 
 // 1B decimal-places-significant-figures
 export const roundingY9Challenge: PracticeQuestion[] = [
@@ -151,7 +152,7 @@ export const incomeY9Challenge: PracticeQuestion[] = [
   q("y9c-inc-10", "Retainer $400/wk plus 3% of sales. In a week with $25 000 sales, total?", "400+0.03\\times25000", "1150", "400 + 750 = 1150.", money("1150")),
   q("y9c-inc-11", "$24/h normal; earned $1056 with 8 h overtime at time-and-a-half. Normal hours?", "\\text{solve}", "32", "OT pay 8×36 = 288; normal 1056−288 = 768; ÷24 = 32 h.", ["32 hours"]),
   q("y9c-inc-12", "A salary rises from $60 000 to $63 600. Percentage rise?", "3600/60000", "6%", "3600/60000 = 6%.", ["6"]),
-];
+].map(withoutQuestionLatex);
 
 // 1J payg-income-tax
 export const taxY9Challenge: PracticeQuestion[] = [
@@ -167,7 +168,7 @@ export const taxY9Challenge: PracticeQuestion[] = [
   q("y9c-tax-10", "Tax 19c/$ over $18 200 on $68 200. Find the tax.", "0.19\\times50000", "9500", "0.19 × 50000 = 9500.", money("9500")),
   q("y9c-tax-11", "2% levy on $61 750.", "2\\%\\times61750", "1235", "0.02 × 61750 = 1235.", money("1235")),
   q("y9c-tax-12", "Gross $60 000, deductions $2000; tax 19c/$ over $18 200; plus 2% levy on taxable. Net income?", "\\text{solve}", "51278", "Taxable 58000; tax 0.19×39800 = 7562; levy 0.02×58000 = 1160; net 60000 − 7562 − 1160 = 51278.", money("51278")),
-];
+].map(withoutQuestionLatex);
 
 // 1L compound-interest-depreciation
 export const compoundDepY9Challenge: PracticeQuestion[] = [
@@ -183,7 +184,7 @@ export const compoundDepY9Challenge: PracticeQuestion[] = [
   q("y9c-cid-10", "A painting at $6000 appreciates 20%/yr for 2 years. Value?", "\\times1.2^2", "8640", "6000 × 1.44 = 8640.", money("8640")),
   q("y9c-cid-11", "Depreciate $12 000 by 20%/yr. After how many whole years does it first drop below $6000?", "\\text{solve}", "4", "9600, 7680, 6144, 4915 — first below $6000 at year 4.", ["4 years"]),
   q("y9c-cid-12", "$1000 at 10% for 2 years compound vs simple — give the compound amount.", "\\times1.1^2", "1210", "1000 × 1.21 = 1210.", money("1210")),
-];
+].map(withoutQuestionLatex);
 
 // 1M compound-interest-formula
 export const compoundFormulaY9Challenge: PracticeQuestion[] = [
@@ -199,4 +200,4 @@ export const compoundFormulaY9Challenge: PracticeQuestion[] = [
   q("y9c-cif-10", "P = 1000 at 6% compounded half-yearly (3% per half-year) for 2 years (n = 4). Find A.", "P(1+r)^n", "1125.51", "1000 × 1.03⁴ = 1125.51.", money("1125.51")),
   q("y9c-cif-11", "Find the interest (A − P) for P = 2000, r = 0.075, n = 2.", "A-P", "311.25", "A = 2311.25; interest 311.25.", money("311.25")),
   q("y9c-cif-12", "Find A for P = 50 000, r = 0.02, n = 5.", "P(1+r)^n", "55204.04", "50000 × 1.02⁵ = 55204.04.", money("55204.04")),
-];
+].map(withoutQuestionLatex);

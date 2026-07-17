@@ -1,10 +1,25 @@
-import type { PracticeQuestion } from "./differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "./differentialCalculus";
 
 const GENERIC_MCQ_INSTRUCTION_RE =
   /^\\text\{\s*Select\s+A,?\s*B,?\s*C,?\s*(?:or\s+)?D\.?\s*\}$/i;
 
 export function isGenericMcqInstructionLatex(latex: string | null | undefined) {
   return Boolean(latex && GENERIC_MCQ_INSTRUCTION_RE.test(latex.trim()));
+}
+
+export function withoutQuestionLatex(question: PracticeQuestion): PracticeQuestion {
+  return { ...question, latex: "" };
+}
+
+export function withoutPracticeLatex<T extends Partial<ExplicitLesson>>(lesson: T): T {
+  return {
+    ...lesson,
+    guidedPractice: lesson.guidedPractice?.map(withoutQuestionLatex),
+    independentPractice: lesson.independentPractice?.map(withoutQuestionLatex),
+    masteryQuiz: lesson.masteryQuiz?.map(withoutQuestionLatex),
+    masteryQuizPool: lesson.masteryQuizPool?.map(withoutQuestionLatex),
+    multiPartPractice: lesson.multiPartPractice?.map(withoutQuestionLatex),
+  };
 }
 
 export function formatChoiceText(text: string) {
