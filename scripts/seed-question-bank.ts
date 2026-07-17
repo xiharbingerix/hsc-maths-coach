@@ -686,16 +686,27 @@ async function upsertQuestions(rows: QuestionRow[]) {
     auth: { persistSession: false },
   });
 
-  const { data, error } = await supabase
-    .from("questions")
-    .upsert(rows, { onConflict: "source_id" })
-    .select("id,source_id");
+  let upsertedCount = 0;
+  const batchSize = 500;
 
-  if (error) {
-    throw new Error(`Could not seed question bank: ${error.message}`);
+  for (let index = 0; index < rows.length; index += batchSize) {
+    const batch = rows.slice(index, index + batchSize);
+    const { data, error } = await supabase
+      .from("questions")
+      .upsert(batch, { onConflict: "source_id" })
+      .select("id,source_id");
+
+    if (error) {
+      const batchNumber = Math.floor(index / batchSize) + 1;
+      throw new Error(
+        `Could not seed question bank batch ${batchNumber}: ${error.message}`
+      );
+    }
+
+    upsertedCount += data?.length ?? 0;
   }
 
-  return data?.length ?? 0;
+  return upsertedCount;
 }
 
 async function main() {
