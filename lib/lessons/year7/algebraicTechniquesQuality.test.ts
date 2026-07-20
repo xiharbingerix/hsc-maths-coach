@@ -113,3 +113,16 @@ test("all Year 7 algebra diagrams serialize and render as accessible finite SVG"
     assert.doesNotMatch(markup, /NaN|undefined/);
   }
 });
+
+test("the zero-expression misconception item keys the cancelling expression", () => {
+  const lesson = lessons.find((item) => item.slug === "collecting-like-terms");
+  const question = lesson?.masteryQuiz.find(
+    (item) => item.id === "y7-y7-alg-like-m7"
+  );
+  assert.ok(question?.choices);
+  assert.equal(question.answer, "D");
+  assert.equal(
+    question.choices.find((choice) => choice.label === question.answer)?.text,
+    "$7x-3x-4x$"
+  );
+});
