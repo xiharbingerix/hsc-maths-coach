@@ -464,6 +464,38 @@ export type TwoWayTableDiagram = {
   };
 };
 
+/** A general-purpose data table where row/column totals have no special meaning. */
+export type DataTableDiagram = {
+  description: string;
+  columnHeaders: string[];
+  rowHeaders?: string[];
+  values: (number | string)[][];
+  highlight?: {
+    rowIndex: number;
+    columnIndex?: number;
+    label?: string;
+  };
+};
+
+export type GanttChartActivity = {
+  label: string;
+  start: number;
+  duration: number;
+  /** Optional scheduling float shown after the activity bar. */
+  float?: number;
+  critical?: boolean;
+  resource?: string;
+};
+
+export type GanttChartDiagram = {
+  description: string;
+  activities: GanttChartActivity[];
+  timeMin?: number;
+  timeMax?: number;
+  timeStep?: number;
+  timeUnit?: string;
+};
+
 export type ProbabilityTreeBranch = {
   id: string;
   label: string;
@@ -778,6 +810,25 @@ export type CompositeSolidDiagram = CompositeSolidBase &
         kind: "cylinderOnRectangularPrism";
         base: RectangularPrismDimensions;
         cylinder: { radius: number; height: number };
+      }
+    | {
+        kind: "triangularPrismOnRectangularPrism";
+        base: RectangularPrismDimensions;
+        triangularPrism: { crossSectionArea: number; length: number };
+      }
+    | {
+        kind: "hemisphere";
+        radius: number;
+      }
+    | {
+        kind: "hemisphereOnCylinder";
+        radius: number;
+        cylinderHeight: number;
+      }
+    | {
+        kind: "capsule";
+        radius: number;
+        cylinderLength: number;
       }
     | {
         kind: "rectangularPrismWithTriangularNotch";

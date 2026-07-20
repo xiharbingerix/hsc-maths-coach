@@ -468,6 +468,92 @@ export function CompositeSolidView({
         );
       }
 
+      case "triangularPrismOnRectangularPrism": {
+        const dx = 40;
+        const dy = -24;
+        const baseFront = [{ x: 42, y: 145 }, { x: 226, y: 145 }, { x: 226, y: 205 }, { x: 42, y: 205 }];
+        const baseBack = baseFront.map((point) => shifted(point, dx, dy));
+        const roofFront = [{ x: 70, y: 145 }, { x: 198, y: 145 }, { x: 134, y: 72 }];
+        const roofBack = roofFront.map((point) => shifted(point, dx, dy));
+        return (
+          <>
+            <polygon points={points(baseFront)} {...face} />
+            <polygon points={points([baseFront[0], baseFront[1], baseBack[1], baseBack[0]])} {...face} />
+            <polygon points={points([baseFront[1], baseFront[2], baseBack[2], baseBack[1]])} {...face} />
+            <polygon points={points(baseFront)} {...edge} />
+            <path d={`M ${baseFront[0].x} ${baseFront[0].y} L ${baseBack[0].x} ${baseBack[0].y} L ${baseBack[1].x} ${baseBack[1].y} L ${baseFront[1].x} ${baseFront[1].y}`} {...edge} />
+            <path d={`M ${baseFront[1].x} ${baseFront[1].y} L ${baseBack[1].x} ${baseBack[1].y} L ${baseBack[2].x} ${baseBack[2].y} L ${baseFront[2].x} ${baseFront[2].y}`} {...edge} />
+            <polygon points={points(roofFront)} {...face} />
+            <polygon points={points([roofFront[1], roofFront[2], roofBack[2], roofBack[1]])} {...face} />
+            <polygon points={points(roofFront)} {...edge} />
+            <path d={`M ${roofFront[0].x} ${roofFront[0].y} L ${roofBack[0].x} ${roofBack[0].y} L ${roofBack[2].x} ${roofBack[2].y} L ${roofFront[2].x} ${roofFront[2].y}`} {...edge} />
+            <path d={`M ${roofFront[2].x} ${roofFront[2].y} L ${roofBack[2].x} ${roofBack[2].y} L ${roofBack[1].x} ${roofBack[1].y} L ${roofFront[1].x} ${roofFront[1].y}`} {...edge} />
+            {label(134, 225, `base ${diagram.base.length} x ${diagram.base.width} x ${diagram.base.height} ${unit}`)}
+            {label(133, 92, `triangle area ${diagram.triangularPrism.crossSectionArea} ${unit}²`)}
+            {label(249, 107, `length ${dimension(diagram.triangularPrism.length)}`, "start")}
+          </>
+        );
+      }
+
+      case "hemisphere": {
+        const cx = 145;
+        const cy = 166;
+        const rx = 88;
+        const ry = 92;
+        return (
+          <>
+            <path d={`M ${cx - rx} ${cy} A ${rx} ${ry} 0 0 1 ${cx + rx} ${cy} Z`} {...face} />
+            <path d={`M ${cx - rx} ${cy} A ${rx} ${ry} 0 0 1 ${cx + rx} ${cy}`} {...edge} />
+            <path d={ellipseArc(cx, cy, rx, 20, 0, 180)} {...edge} />
+            <path d={ellipseArc(cx, cy, rx, 20, 180, 360)} {...hidden} />
+            <line x1={cx} y1={cy} x2={cx + rx} y2={cy} {...hidden} />
+            {label(cx + 38, cy - 12, `r = ${dimension(diagram.radius)}`, "start")}
+          </>
+        );
+      }
+
+      case "hemisphereOnCylinder": {
+        const cx = 145;
+        const rx = 70;
+        const ry = 17;
+        const joinY = 103;
+        const bottomY = 205;
+        return (
+          <>
+            <rect x={cx - rx} y={joinY} width={rx * 2} height={bottomY - joinY} {...face} />
+            <path d={`M ${cx - rx} ${joinY} A ${rx} 67 0 0 1 ${cx + rx} ${joinY} Z`} {...face} />
+            <path d={`M ${cx - rx} ${joinY} A ${rx} 67 0 0 1 ${cx + rx} ${joinY}`} {...edge} />
+            <line x1={cx - rx} y1={joinY} x2={cx - rx} y2={bottomY} {...edge} />
+            <line x1={cx + rx} y1={joinY} x2={cx + rx} y2={bottomY} {...edge} />
+            <path d={ellipseArc(cx, bottomY, rx, ry, 0, 180)} {...edge} />
+            <path d={ellipseArc(cx, bottomY, rx, ry, 180, 360)} {...hidden} />
+            {label(226, 83, `r = ${dimension(diagram.radius)}`, "start")}
+            {label(226, 157, `h = ${dimension(diagram.cylinderHeight)}`, "start")}
+          </>
+        );
+      }
+
+      case "capsule": {
+        const x1 = 78;
+        const x2 = 222;
+        const cy = 132;
+        const radius = 58;
+        return (
+          <>
+            <rect x={x1} y={cy - radius} width={x2 - x1} height={radius * 2} {...face} />
+            <path d={`M ${x1} ${cy - radius} A ${radius} ${radius} 0 0 0 ${x1} ${cy + radius}`} {...face} />
+            <path d={`M ${x2} ${cy - radius} A ${radius} ${radius} 0 0 1 ${x2} ${cy + radius}`} {...face} />
+            <line x1={x1} y1={cy - radius} x2={x2} y2={cy - radius} {...edge} />
+            <line x1={x1} y1={cy + radius} x2={x2} y2={cy + radius} {...edge} />
+            <path d={`M ${x1} ${cy - radius} A ${radius} ${radius} 0 0 0 ${x1} ${cy + radius}`} {...edge} />
+            <path d={`M ${x2} ${cy - radius} A ${radius} ${radius} 0 0 1 ${x2} ${cy + radius}`} {...edge} />
+            <line x1={x1} y1={cy} x2={x1 + radius} y2={cy} {...hidden} />
+            {label(150, 54, `cylinder length ${dimension(diagram.cylinderLength)}`)}
+            {label(108, 122, `r = ${dimension(diagram.radius)}`, "start")}
+          </>
+        );
+      }
+
       case "rectangularPrismWithTriangularNotch": {
         const dx = 41;
         const dy = -24;

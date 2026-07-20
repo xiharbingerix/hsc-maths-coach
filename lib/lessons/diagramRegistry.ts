@@ -8,6 +8,8 @@ import type {
   CongruentTrianglesDiagram,
   CircleGeometryDiagram,
   DotPlotDiagram,
+  DataTableDiagram,
+  GanttChartDiagram,
   HistogramDiagram,
   LineAngleDiagram,
   NetDiagram,
@@ -66,6 +68,8 @@ export const DIAGRAM_SPECS = [
   { type: "normalDistributionDiagram", field: "normalDistributionDiagram" },
   { type: "probabilityTreeDiagram", field: "probabilityTreeDiagram" },
   { type: "twoWayTableDiagram", field: "twoWayTableDiagram" },
+  { type: "dataTableDiagram", field: "dataTableDiagram" },
+  { type: "ganttChartDiagram", field: "ganttChartDiagram" },
   { type: "vennDiagram", field: "vennDiagram" },
   { type: "networkDiagram", field: "diagram" },
   { type: "polynomialCurveDiagram", field: "polynomialCurveDiagram" },
@@ -114,6 +118,8 @@ export type DiagramFields = {
   normalDistributionDiagram?: NormalDistributionDiagram;
   probabilityTreeDiagram?: ProbabilityTreeDiagram;
   twoWayTableDiagram?: TwoWayTableDiagram;
+  dataTableDiagram?: DataTableDiagram;
+  ganttChartDiagram?: GanttChartDiagram;
   vennDiagram?: VennDiagram;
   polynomialCurveDiagram?: PolynomialCurveDiagram;
   slopeFieldDiagram?: SlopeFieldDiagram;

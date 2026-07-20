@@ -1375,7 +1375,7 @@ choice(
 
 **You MUST attach a visual payload whenever a question (or worked example) involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it. Keep the prompt self-contained and let the payload carry the visual stimulus.
 
-There are **33 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
+There are **35 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
 
 ### Available renderers
 
@@ -1406,6 +1406,8 @@ There are **33 renderers**, dispatched through one registry. The authoritative s
 | `pieChartDiagram` | Categorical proportions as a pie |
 | `probabilityTreeDiagram` | Multi-stage probability trees |
 | `twoWayTableDiagram` | Two-way frequency / probability tables |
+| `dataTableDiagram` | General value, finance, survey, or comparison tables that are not two-way frequency tables |
+| `ganttChartDiagram` | Project schedules, critical activities, duration, and float |
 | `vennDiagram` | Two- or three-set Venn diagrams |
 
 **Geometry & measurement**

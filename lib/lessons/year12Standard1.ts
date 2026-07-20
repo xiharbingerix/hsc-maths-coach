@@ -9419,7 +9419,10 @@ function applyShortExplanationMarking(
   };
 }
 
-export function normalizeYear12Standard1Lesson(lesson: ExplicitLesson): ExplicitLesson {
+export function normalizeYear12Standard1Lesson(
+  lesson: ExplicitLesson,
+  options: { addVisuals?: boolean } = {}
+): ExplicitLesson {
   let normalized: ExplicitLesson = {
     ...lesson,
     description: normalizeText(lesson.description),
@@ -9440,7 +9443,7 @@ export function normalizeYear12Standard1Lesson(lesson: ExplicitLesson): Explicit
   };
 
   normalized = addMissingQuestions(normalized);
-  normalized = addVisuals(normalized);
+  if (options.addVisuals !== false) normalized = addVisuals(normalized);
 
   normalized = {
     ...normalized,

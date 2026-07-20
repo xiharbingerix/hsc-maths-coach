@@ -563,14 +563,28 @@ export function applyWorkedExampleVisualStandards(example: WorkedExample): Worke
   return visual ? attachVisual(example, visual) : example;
 }
 
-export function applyLessonVisualStandards(lesson: ExplicitLesson): ExplicitLesson {
+export function applyLessonVisualStandards(lesson: ExplicitLesson): ExplicitLesson;
+export function applyLessonVisualStandards(
+  lesson: ExplicitLesson,
+  options: { inferQuestions?: boolean; inferWorkedExamples?: boolean }
+): ExplicitLesson;
+export function applyLessonVisualStandards(
+  lesson: ExplicitLesson,
+  options: { inferQuestions?: boolean; inferWorkedExamples?: boolean } = {}
+): ExplicitLesson {
+  const mapQuestion = options.inferQuestions === false
+    ? (question: PracticeQuestion) => question
+    : applyQuestionVisualStandards;
+  const mapWorkedExample = options.inferWorkedExamples === false
+    ? (example: WorkedExample) => example
+    : applyWorkedExampleVisualStandards;
   return {
     ...lesson,
-    workedExamples: lesson.workedExamples.map(applyWorkedExampleVisualStandards),
-    guidedPractice: lesson.guidedPractice.map(applyQuestionVisualStandards),
-    independentPractice: lesson.independentPractice.map(applyQuestionVisualStandards),
-    masteryQuiz: lesson.masteryQuiz.map(applyQuestionVisualStandards),
-    masteryQuizPool: lesson.masteryQuizPool?.map(applyQuestionVisualStandards),
-    multiPartPractice: lesson.multiPartPractice?.map(applyQuestionVisualStandards),
+    workedExamples: lesson.workedExamples.map(mapWorkedExample),
+    guidedPractice: lesson.guidedPractice.map(mapQuestion),
+    independentPractice: lesson.independentPractice.map(mapQuestion),
+    masteryQuiz: lesson.masteryQuiz.map(mapQuestion),
+    masteryQuizPool: lesson.masteryQuizPool?.map(mapQuestion),
+    multiPartPractice: lesson.multiPartPractice?.map(mapQuestion),
   };
 }

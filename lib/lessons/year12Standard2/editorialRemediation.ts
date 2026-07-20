@@ -1409,21 +1409,17 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
     case "working-with-formulae-substitution":
       workedExamples[0] = {
         ...workedExamples[0],
-        planeShapeDiagram: {
-          description: "Rectangle with length l and width w illustrating the area formula A = lw and rearrangement l = A/w.",
-          vertices: [{ x: 0, y: 0, rightAngle: true }, { x: 7, y: 0, rightAngle: true }, { x: 7, y: 4, rightAngle: true }, { x: 0, y: 4, rightAngle: true }],
-          edges: [{ label: "l" }, { label: "w" }, {}, {}],
-        },
+        planeShapeDiagram: undefined,
       };
       break;
     case "ambiguous-case-sine-rule":
       workedExamples[0] = {
         ...workedExamples[0],
         triangleDiagram: {
-          description: "SSA triangle showing known angle A of 35 degrees, opposite side a of 8 cm, and side b of 11 cm, with two possible positions for vertex B.",
+          description: "SSA triangle with angle A equal to 45 degrees, opposite side a equal to 7, and side b equal to 9; these measurements can produce two values of angle B.",
           vertices: { A: { x: 0, y: 0 }, B: { x: 8, y: 0 }, C: { x: 5, y: 5 } },
-          sideLabels: { BC: "a = 8 cm", AC: "b = 11 cm" },
-          angleLabels: { A: "35 degrees" },
+          sideLabels: { BC: "a = 7", AC: "b = 9" },
+          angleLabels: { A: "45 degrees" },
         },
       };
       break;
@@ -1431,9 +1427,9 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
       workedExamples[0] = {
         ...workedExamples[0],
         bearingsDiagram: {
-          description: "Navigation diagram from port A showing a 060-degree bearing to point B.",
+          description: "Navigation diagram from port A showing the ship's outward bearing of 050 degrees to point B; the question asks for the reverse bearing from B.",
           originLabel: "A",
-          rays: [{ bearing: 60, label: "B", showAngle: true }],
+          rays: [{ bearing: 50, label: "B", showAngle: true }],
         },
       };
       break;
@@ -1441,14 +1437,14 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
       workedExamples[0] = {
         ...workedExamples[0],
         planeShapeDiagram: {
-          description: "Rectangular site plan measuring 7.6 cm by 5 cm, used with a scale of 1 to 250.",
+          description: "Rectangular room on a 1 to 100 plan, measuring 4.5 centimetres by 3.2 centimetres on the drawing.",
           vertices: [
             { x: 0, y: 0, rightAngle: true },
-            { x: 7.6, y: 0, rightAngle: true },
-            { x: 7.6, y: 5, rightAngle: true },
-            { x: 0, y: 5, rightAngle: true },
+            { x: 4.5, y: 0, rightAngle: true },
+            { x: 4.5, y: 3.2, rightAngle: true },
+            { x: 0, y: 3.2, rightAngle: true },
           ],
-          edges: [{ label: "7.6 cm" }, { label: "5 cm" }, {}, {}],
+          edges: [{ label: "4.5 cm" }, { label: "3.2 cm" }, {}, {}],
         },
       };
       break;
@@ -1456,8 +1452,8 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
       workedExamples[0] = {
         ...workedExamples[0],
         barChartDiagram: {
-          description: "Energy comparison for a 1.5 kW appliance used for 2 hours and a 0.9 kW appliance used for 3.5 hours.",
-          bars: [{ label: "1.5 kW for 2 h", value: 3 }, { label: "0.9 kW for 3.5 h", value: 3.15 }],
+          description: "Energy calculation for a 2.4 kilowatt oven used for 2.5 hours, producing 6 kilowatt-hours of energy use.",
+          bars: [{ label: "Oven: 2.4 kW for 2.5 h", value: 6 }],
           valueAxisLabel: "Energy (kWh)",
           orientation: "horizontal",
         },
@@ -1490,9 +1486,9 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
       workedExamples[0] = {
         ...workedExamples[0],
         solid3DDiagram: {
-          description: "Closed cylinder with radius 4 cm and perpendicular height 10 cm for total surface-area calculation.",
-          solid: "cylinder",
-          labels: { radius: "4 cm", height: "10 cm" },
+          description: "Rectangular prism with length 8 centimetres, width 5 centimetres, and height 3 centimetres for a surface-area calculation.",
+          solid: "rectangularPrism",
+          labels: { length: "8 cm", width: "5 cm", height: "3 cm" },
         },
       };
       break;
@@ -1500,53 +1496,41 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
       workedExamples[0] = {
         ...workedExamples[0],
         solid3DDiagram: {
-          description: "Sphere with radius 9 cm for a volume calculation.",
-          solid: "sphere",
-          labels: { radius: "9 cm" },
+          description: "Cylinder with radius 5 centimetres and perpendicular height 12 centimetres for a volume calculation.",
+          solid: "cylinder",
+          labels: { radius: "5 cm", height: "12 cm" },
         },
       };
       break;
     case "composite-solids-practical":
       workedExamples[0] = {
         ...workedExamples[0],
-        solid3DDiagram: {
-          description: "Cylindrical section of a capsule-shaped vessel with radius 2 m and length 6 m; hemispherical end volumes are added separately.",
-          solid: "cylinder",
-          labels: { radius: "2 m", height: "6 m" },
+        compositeSolidDiagram: {
+          description: "Composite solid formed by a cylinder of radius 3 centimetres and height 8 centimetres standing on a rectangular prism 8 centimetres long, 8 centimetres wide, and 4 centimetres high.",
+          kind: "cylinderOnRectangularPrism",
+          unit: "cm",
+          base: { length: 8, width: 8, height: 4 },
+          cylinder: { radius: 3, height: 8 },
         },
+        solid3DDiagram: undefined,
       };
       break;
     case "shares-dividends-brokerage":
       workedExamples[0] = {
         ...workedExamples[0],
-        barChartDiagram: {
-          description: "Share transaction showing gross purchase value, brokerage and total purchase cost.",
-          bars: [{ label: "Share value", value: 500 }, { label: "Brokerage", value: 5 }, { label: "Total cost", value: 505 }],
-          valueAxisLabel: "Dollars",
-        },
+        barChartDiagram: undefined,
       };
       break;
     case "financial-decision-making-exam-practice":
       workedExamples[0] = {
         ...workedExamples[0],
-        barChartDiagram: {
-          description: "Comparison of total deposits and accumulated balance for a regular-payment investment.",
-          bars: [{ label: "Deposits", value: 60000 }, { label: "Accumulated balance", value: 81940 }],
-          valueAxisLabel: "Dollars",
-          orientation: "horizontal",
-        },
+        barChartDiagram: undefined,
       };
       break;
     case "bivariate-data-revision":
       workedExamples[0] = {
         ...workedExamples[0],
-        scatterPlotDiagram: {
-          description: "Scatterplot of delivery distance against delivery time showing a strong positive association.",
-          xAxisLabel: "Distance (km)",
-          yAxisLabel: "Time (min)",
-          points: [{ x: 2, y: 18 }, { x: 4, y: 24 }, { x: 6, y: 31 }, { x: 8, y: 38 }, { x: 10, y: 45 }],
-          lineOfBestFit: "auto",
-        },
+        scatterPlotDiagram: undefined,
       };
       break;
     case "normal-distribution-revision":
@@ -1565,34 +1549,29 @@ function addEditorialVisuals(lesson: ExplicitLesson): ExplicitLesson {
     case "statistical-analysis-exam-practice":
       workedExamples[0] = {
         ...workedExamples[0],
-        normalDistributionDiagram: {
-          description: "Normal distribution of package masses with mean 500 g and standard deviation 40 g, highlighting the interval from 460 g to 580 g.",
-          mean: 500,
-          standardDeviation: 40,
-          axisLabel: "mass (g)",
-          showStandardDeviationLabels: true,
-          markers: [{ value: 460, label: "460 g", zScore: -1 }, { value: 580, label: "580 g", zScore: 2 }],
+        scatterPlotDiagram: {
+          description: "Scatterplot of study hours against test score, with points following a strong upward linear pattern and no major outliers.",
+          xAxisLabel: "Study hours",
+          yAxisLabel: "Test score",
+          points: [{ x: 1, y: 46 }, { x: 2, y: 53 }, { x: 3, y: 57 }, { x: 4, y: 65 }, { x: 5, y: 71 }, { x: 6, y: 77 }],
         },
+        normalDistributionDiagram: undefined,
       };
       break;
     case "network-flow-capacity-cuts":
       workedExamples[0] = {
         ...workedExamples[0],
         diagram: {
-          description: "Directed capacity network from source S through A and B to sink T.",
-          vertices: [{ id: "S", label: "S", x: 30, y: 110 }, { id: "A", label: "A", x: 180, y: 50 }, { id: "B", label: "B", x: 180, y: 170 }, { id: "T", label: "T", x: 340, y: 110 }],
-          edges: [{ from: "S", to: "A", weight: 8, directed: true }, { from: "S", to: "B", weight: 6, directed: true }, { from: "A", to: "T", weight: 5, directed: true }, { from: "A", to: "B", weight: 3, directed: true }, { from: "B", to: "T", weight: 7, directed: true }],
+          description: "Single directed arc from A to B labelled with capacity 12; the proposed flow of 9 is compared with that capacity.",
+          vertices: [{ id: "A", label: "A", x: 50, y: 100 }, { id: "B", label: "B", x: 300, y: 100 }],
+          edges: [{ from: "A", to: "B", weight: 12, directed: true }],
         },
       };
       break;
     case "networks-exam-practice":
       workedExamples[0] = {
         ...workedExamples[0],
-        diagram: {
-          description: "Weighted road network connecting depots A and D through intermediate sites B and C.",
-          vertices: [{ id: "A", label: "A", x: 30, y: 110 }, { id: "B", label: "B", x: 170, y: 45 }, { id: "C", label: "C", x: 170, y: 175 }, { id: "D", label: "D", x: 330, y: 110 }],
-          edges: [{ from: "A", to: "B", weight: 4 }, { from: "A", to: "C", weight: 7 }, { from: "B", to: "C", weight: 2 }, { from: "B", to: "D", weight: 6 }, { from: "C", to: "D", weight: 3 }],
-        },
+        diagram: undefined,
       };
       break;
     default:
