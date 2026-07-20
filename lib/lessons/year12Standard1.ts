@@ -1,7 +1,55 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "./differentialCalculus";
 import { practicalChoice, measurementAnswer, dataAnswer } from "./questionHelpers";
-import { trapezoidDiagram } from "./geometryVisualFactories";
+import {
+  scaleLengthDiagram,
+  scaleRectangleDiagram,
+  trapezoidDiagram,
+} from "./geometryVisualFactories";
+
+function withScaleLength(
+  question: PracticeQuestion,
+  prompt: string,
+  description: string,
+  label: string,
+  startLabel?: string,
+  endLabel?: string
+): PracticeQuestion {
+  return {
+    ...question,
+    prompt,
+    latex: "",
+    lineAngleDiagram: scaleLengthDiagram({
+      description,
+      label,
+      startLabel,
+      endLabel,
+    }),
+  };
+}
+
+function withScaleRectangle(
+  question: PracticeQuestion,
+  prompt: string,
+  description: string,
+  width: number,
+  height: number,
+  widthLabel: string,
+  heightLabel: string
+): PracticeQuestion {
+  return {
+    ...question,
+    prompt,
+    latex: "",
+    planeShapeDiagram: scaleRectangleDiagram({
+      description,
+      width,
+      height,
+      widthLabel,
+      heightLabel,
+    }),
+  };
+}
 
 export function year12Standard1RightAngleTrigonometryLessonOverride(
   course: CoursePathwaySeed,
@@ -1414,7 +1462,12 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       {
         title: "Use the scale factor for a real distance",
         questionLatex:
-          "\\text{A map scale is 1:50000. A road on the map is 3 cm long. Find the actual road length in metres.}",
+          "\\text{The map scale is }1:50000.\\text{ Find the actual length of road }AB\\text{ in metres.}",
+        lineAngleDiagram: scaleLengthDiagram({
+          description:
+            "Map segment AB representing a road, labelled 3 centimetres.",
+          label: "3 cm",
+        }),
         steps: [
           {
             explanation:
@@ -1431,7 +1484,11 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       {
         title: "Find a drawing length from a real measurement",
         questionLatex:
-          "\\text{A floor plan is drawn at scale 1:100. A wall is 12 m long in reality. Find its length on the plan in centimetres.}",
+          "\\text{The floor plan scale is }1:100.\\text{ Find the plan length of wall }AB\\text{ in centimetres.}",
+        lineAngleDiagram: scaleLengthDiagram({
+          description: "Real wall AB with an actual length of 12 metres.",
+          label: "12 m (actual)",
+        }),
         steps: [
           {
             explanation:
@@ -1448,19 +1505,21 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       },
     ],
     guidedPractice: [
-      measurementAnswer(
-        "scale-g1",
-        "A scale model uses scale 1:250. A training airplane model is 24 cm long. What is the real airplane length in metres?",
-        "",
-        "60",
-        ["60 m"]
+      withScaleLength(
+        measurementAnswer("scale-g1", "", "", "60", ["60 m"]),
+        "The training-airplane model is built at scale 1:250. Find the real airplane length in metres.",
+        "Length of the training-airplane model, labelled 24 centimetres.",
+        "24 cm (model)",
+        "nose",
+        "tail"
       ),
-      measurementAnswer(
-        "scale-g2",
-        "A room is 600 cm long in reality. On a plan with scale 1:100, what is the room length on the drawing in centimetres?",
-        "",
-        "6",
-        ["6 cm"]
+      withScaleLength(
+        measurementAnswer("scale-g2", "", "", "6", ["6 cm"]),
+        "The room plan uses scale 1:100. Find the room's drawing length in centimetres.",
+        "Actual room length labelled 600 centimetres.",
+        "600 cm (actual)",
+        "wall A",
+        "wall B"
       ),
       practicalChoice(
         "scale-g3",
@@ -1474,21 +1533,27 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
         ],
         "1 cm represents 50 000 cm = 500 m in reality."
       ),
-      measurementAnswer(
-        "scale-g4",
-        "A plan with scale 1:20 shows a bookshelf as 9 cm long. Find the real length of the bookshelf in metres.",
-        "",
-        "1.8",
-        ["1.8 m", "180 cm"]
+      withScaleLength(
+        measurementAnswer(
+          "scale-g4",
+          "",
+          "",
+          "1.8",
+          ["1.8 m", "180 cm"]
+        ),
+        "The bookshelf plan uses scale 1:20. Find the real length in metres.",
+        "Bookshelf length on the plan, labelled 9 centimetres.",
+        "9 cm (plan)",
+        "left",
+        "right"
       ),
     ],
     independentPractice: [
-      measurementAnswer(
-        "scale-i1",
-        "A drawing length is 7 cm at scale 1:200. Find the real length in metres.",
-        "",
-        "14",
-        ["14 m"]
+      withScaleLength(
+        measurementAnswer("scale-i1", "", "", "14", ["14 m"]),
+        "The drawing uses scale 1:200. Find the real length of AB in metres.",
+        "Drawing segment AB labelled 7 centimetres.",
+        "7 cm"
       ),
       measurementAnswer(
         "scale-i2",
@@ -1497,31 +1562,45 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
         "30",
         ["1:30"]
       ),
-      measurementAnswer(
-        "scale-i3",
-        "A map uses scale 1:10 000. Two towns are 8 cm apart on the map. Find their real distance in kilometres.",
-        "",
-        "0.8",
-        ["0.8 km", "800 m"]
+      withScaleLength(
+        measurementAnswer(
+          "scale-i3",
+          "",
+          "",
+          "0.8",
+          ["0.8 km", "800 m"]
+        ),
+        "The map uses scale 1:10 000. Find the real distance between towns A and B in kilometres.",
+        "Map route between towns A and B, labelled 8 centimetres.",
+        "8 cm"
       ),
-      practicalChoice(
-        "scale-i4",
-        "On a floor plan with scale 1:50, a bedroom is 8 cm × 6 cm. What are the real dimensions?",
-        "A",
-        [
-          "4 m × 3 m",
-          "400 m × 300 m",
-          "40 cm × 30 cm",
-          "8 m × 6 m",
-        ],
-        "Multiply each drawing length by 50: 8 × 50 = 400 cm = 4 m and 6 × 50 = 300 cm = 3 m."
+      withScaleRectangle(
+        practicalChoice(
+          "scale-i4",
+          "",
+          "A",
+          [
+            "4 m × 3 m",
+            "400 m × 300 m",
+            "40 cm × 30 cm",
+            "8 m × 6 m",
+          ],
+          "Multiply each drawing length by 50: 8 × 50 = 400 cm = 4 m and 6 × 50 = 300 cm = 3 m."
+        ),
+        "The bedroom floor plan uses scale 1:50. What are the real dimensions?",
+        "Rectangular bedroom on a floor plan, measuring 8 centimetres by 6 centimetres.",
+        8,
+        6,
+        "8 cm",
+        "6 cm"
       ),
-      measurementAnswer(
-        "scale-i5",
-        "A real window is 1.2 m wide. On a plan with scale 1:40, how wide is the window on the plan in centimetres?",
-        "",
-        "3",
-        ["3 cm"]
+      withScaleLength(
+        measurementAnswer("scale-i5", "", "", "3", ["3 cm"]),
+        "The window plan uses scale 1:40. Find the window width on the plan in centimetres.",
+        "Actual window width labelled 1.2 metres.",
+        "1.2 m (actual)",
+        "left",
+        "right"
       ),
     ],
     commonMistakes: [
@@ -1539,78 +1618,92 @@ export function year12Standard1ScaleDrawingsAndPlansLessonOverride(
       },
     ],
     masteryQuiz: [
-      measurementAnswer(
-        "scale-m1",
-        "A map uses scale 1:25000. A river is drawn 4 cm long on the map. Find the real river length in kilometres.",
-        "",
-        "1",
-        ["1 km"]
+      withScaleLength(
+        measurementAnswer("scale-m1", "", "", "1", ["1 km"]),
+        "The map uses scale 1:25 000. Find the real length of river AB in kilometres.",
+        "River segment AB on a map, labelled 4 centimetres.",
+        "4 cm"
       ),
-      measurementAnswer(
-        "scale-m2",
-        "A plan uses scale 1:50. A table is 120 cm long in reality. What length does it have on the plan?",
-        "",
-        "2.4",
-        ["2.4 cm"]
+      withScaleLength(
+        measurementAnswer("scale-m2", "", "", "2.4", ["2.4 cm"]),
+        "The table plan uses scale 1:50. Find its plan length in centimetres.",
+        "Actual table length labelled 120 centimetres.",
+        "120 cm (actual)",
+        "end A",
+        "end B"
       ),
-      measurementAnswer(
-        "scale-m3",
-        "A model house is built at scale 1:100. A wall is 2.8 m long in reality. What is the wall length on the model in centimetres?",
-        "",
-        "2.8",
-        ["2.8 cm"]
+      withScaleLength(
+        measurementAnswer("scale-m3", "", "", "2.8", ["2.8 cm"]),
+        "The model house uses scale 1:100. Find the model length of wall AB in centimetres.",
+        "Actual wall AB labelled 2.8 metres.",
+        "2.8 m (actual)"
       ),
-      measurementAnswer(
-        "scale-m4",
-        "A map uses scale 1:250 000. Two cities are 12 cm apart on the map. What is the real distance in kilometres?",
-        "",
-        "30",
-        ["30 km"]
+      withScaleLength(
+        measurementAnswer("scale-m4", "", "", "30", ["30 km"]),
+        "The map uses scale 1:250 000. Find the real distance between cities A and B in kilometres.",
+        "Map route between cities A and B, labelled 12 centimetres.",
+        "12 cm"
       ),
-      practicalChoice(
-        "scale-m5",
-        "On a plan with scale 1:80, a pool is shown as 5 cm × 3 cm. What is the real area of the pool?",
-        "A",
-        [
-          "9.6 m²",
-          "15 m²",
-          "96 m²",
-          "960 m²",
-        ],
-        "Real dimensions: 5×80 = 400 cm = 4 m and 3×80 = 240 cm = 2.4 m. Area = 4 × 2.4 = 9.6 m²."
+      withScaleRectangle(
+        practicalChoice(
+          "scale-m5",
+          "",
+          "A",
+          ["9.6 m²", "15 m²", "96 m²", "960 m²"],
+          "Real dimensions: 5×80 = 400 cm = 4 m and 3×80 = 240 cm = 2.4 m. Area = 4 × 2.4 = 9.6 m²."
+        ),
+        "The pool plan uses scale 1:80. What is the real area of the pool?",
+        "Rectangular pool on a plan, measuring 5 centimetres by 3 centimetres.",
+        5,
+        3,
+        "5 cm",
+        "3 cm"
       ),
-      measurementAnswer(
-        "scale-m6",
-        "A model train has scale 1:87 (HO scale). The real locomotive is 17.4 m long. How long is the model in centimetres?",
-        "",
-        "20",
-        ["20 cm"]
+      withScaleLength(
+        measurementAnswer("scale-m6", "", "", "20", ["20 cm"]),
+        "The HO model uses scale 1:87. Find the model locomotive length in centimetres.",
+        "Actual locomotive length labelled 17.4 metres.",
+        "17.4 m (actual)",
+        "front",
+        "rear"
       ),
-      measurementAnswer(
-        "scale-m7",
-        "A blueprint shows a corridor 4.5 cm wide at scale 1:40. Find the real corridor width in metres.",
-        "",
-        "1.8",
-        ["1.8 m", "180 cm"]
+      withScaleLength(
+        measurementAnswer(
+          "scale-m7",
+          "",
+          "",
+          "1.8",
+          ["1.8 m", "180 cm"]
+        ),
+        "The corridor blueprint uses scale 1:40. Find the real corridor width in metres.",
+        "Corridor width on a blueprint, labelled 4.5 centimetres.",
+        "4.5 cm (plan)",
+        "wall A",
+        "wall B"
       ),
-      practicalChoice(
-        "scale-m8",
-        "A student uses a scale of 1:500 and draws a rectangle 6 cm × 4 cm. What is the real area of the rectangle?",
-        "B",
-        [
-          "120 m²",
-          "600 m²",
-          "24 m²",
-          "6000 m²",
-        ],
-        "Real dimensions: 6×500 cm = 3000 cm = 30 m; 4×500 cm = 2000 cm = 20 m. Area = 30 × 20 = 600 m²."
+      withScaleRectangle(
+        practicalChoice(
+          "scale-m8",
+          "",
+          "B",
+          ["120 m²", "600 m²", "24 m²", "6000 m²"],
+          "Real dimensions: 6×500 cm = 3000 cm = 30 m; 4×500 cm = 2000 cm = 20 m. Area = 30 × 20 = 600 m²."
+        ),
+        "The rectangle is drawn at scale 1:500. What is its real area?",
+        "Scale drawing of a rectangle measuring 6 centimetres by 4 centimetres.",
+        6,
+        4,
+        "6 cm",
+        "4 cm"
       ),
-      measurementAnswer(
-        "scale-m9",
-        "A map at scale 1:20 000 shows a lake that is 3.5 cm × 2 cm. Find the real area of the lake in hectares. (1 ha = 10 000 m²)",
-        "",
-        "28",
-        ["28 ha"]
+      withScaleRectangle(
+        measurementAnswer("scale-m9", "", "", "28", ["28 ha"]),
+        "The lake is modelled by a rectangle on a 1:20 000 map. Find its real area in hectares. (1 ha = 10 000 m²)",
+        "Rectangular lake model on a map, measuring 3.5 centimetres by 2 centimetres.",
+        3.5,
+        2,
+        "3.5 cm",
+        "2 cm"
       ),
       practicalChoice(
         "scale-m10",
@@ -7752,7 +7845,6 @@ function parsePromptNumbers(prompt: string) {
 }
 
 function buildPatternExplanation(prompt: string, answer: string) {
-  const cleanPrompt = stripTerminalPunctuation(prompt);
   const nums = parsePromptNumbers(prompt);
 
   const gradientMatch = prompt.match(
@@ -8606,22 +8698,6 @@ function addVisuals(lesson: ExplicitLesson): ExplicitLesson {
             { x: 0, y: 5, rightAngle: true },
           ],
           edges: [{ label: "8 m" }, { label: "5 m" }, {}, {}],
-        },
-      };
-      break;
-    case "scale-drawings-and-plans":
-      workedExamples[0] = {
-        ...workedExamples[0],
-        planeShapeDiagram: {
-          description:
-            "Simple floor plan rectangle 6 cm by 4 cm used with a scale to find real dimensions.",
-          vertices: [
-            { x: 0, y: 0, rightAngle: true },
-            { x: 6, y: 0, rightAngle: true },
-            { x: 6, y: 4, rightAngle: true },
-            { x: 0, y: 4, rightAngle: true },
-          ],
-          edges: [{ label: "6 cm" }, { label: "4 cm" }, {}, {}],
         },
       };
       break;

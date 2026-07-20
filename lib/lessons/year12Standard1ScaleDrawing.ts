@@ -11,7 +11,11 @@
 
 import type { CoursePathwaySeed, CourseLessonSeed, CourseUnitSeed } from "../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "./differentialCalculus";
-import type { TriangleDiagram } from "./types";
+import {
+  scaleLengthDiagram,
+  similarTrianglePairDiagram,
+} from "./geometryVisualFactories";
+import type { LineAngleDiagram, TrianglePairDiagram } from "./types";
 
 const UNIT = "scale-drawing";
 
@@ -62,17 +66,6 @@ function mcq(
     ...extra,
   };
 }
-
-// Two similar right triangles can be suggested with one labelled triangle (right angle at A).
-const tri = (
-  description: string,
-  sideLabels: TriangleDiagram["sideLabels"]
-): TriangleDiagram => ({
-  description,
-  vertices: { A: { x: 80, y: 240 }, B: { x: 340, y: 240 }, C: { x: 80, y: 60 } },
-  sideLabels,
-  rightAngleAt: "A",
-});
 
 // ── 7A Ratios ────────────────────────────────────────────────────────────────────────
 export function year12Standard1ScaleRatiosLessonOverride(
@@ -331,6 +324,323 @@ export function year12Standard1ScaleDividingRatioLessonOverride(
   };
 }
 
+type ScaleUnitVisualSpec = {
+  prompt: string;
+  lineAngleDiagram?: LineAngleDiagram;
+  trianglePairDiagram?: TrianglePairDiagram;
+};
+
+function pairVisual(
+  prompt: string,
+  description: string,
+  smallSideLabel: string | undefined,
+  largeSideLabel: string | undefined,
+  relationLabel: string,
+  leftCaption = "Original",
+  rightCaption = "Image"
+): ScaleUnitVisualSpec {
+  return {
+    prompt,
+    trianglePairDiagram: similarTrianglePairDiagram({
+      description,
+      smallSideLabel,
+      largeSideLabel,
+      relationLabel,
+      leftCaption,
+      rightCaption,
+    }),
+  };
+}
+
+function lengthVisual(
+  prompt: string,
+  description: string,
+  label: string,
+  startLabel = "A",
+  endLabel = "B"
+): ScaleUnitVisualSpec {
+  return {
+    prompt,
+    lineAngleDiagram: scaleLengthDiagram({
+      description,
+      label,
+      startLabel,
+      endLabel,
+    }),
+  };
+}
+
+function addQuestionVisuals(
+  questions: PracticeQuestion[] | undefined,
+  specs: Record<string, ScaleUnitVisualSpec>
+) {
+  return questions?.map((question) => {
+    const spec = specs[question.id];
+    return spec
+      ? { ...question, ...spec, prompt: spec.prompt, latex: "" }
+      : question;
+  });
+}
+
+const similarityQuestionVisuals: Record<string, ScaleUnitVisualSpec> = {
+  "simsf-g2": pairVisual(
+    "The triangles are similar with length scale factor 3. Find x in centimetres.",
+    "Similar triangles with a 5 centimetre side corresponding to an unknown side x under scale factor 3.",
+    "5 cm",
+    "x",
+    "k = 3"
+  ),
+  "simsf-g3": pairVisual(
+    "The triangles are similar with length scale factor 2. Find x in centimetres.",
+    "Similar triangles with a 7 centimetre side corresponding to an unknown side x under scale factor 2.",
+    "7 cm",
+    "x",
+    "k = 2"
+  ),
+  "simsf-g4": pairVisual(
+    "Use the corresponding sides to find the scale factor from the small triangle to the large triangle.",
+    "Similar triangles with corresponding sides labelled 4 centimetres and 12 centimetres.",
+    "4 cm",
+    "12 cm",
+    "k = ?"
+  ),
+  "simsf-i1": pairVisual(
+    "The triangles are similar with length scale factor 4. Find x in centimetres.",
+    "Similar triangles with a 6 centimetre side corresponding to an unknown side x under scale factor 4.",
+    "6 cm",
+    "x",
+    "k = 4"
+  ),
+  "simsf-i3": pairVisual(
+    "Use the corresponding sides to find the scale factor from the small triangle to the large triangle.",
+    "Similar triangles with corresponding sides labelled 5 centimetres and 20 centimetres.",
+    "5 cm",
+    "20 cm",
+    "k = ?"
+  ),
+  "simsf-i4": pairVisual(
+    "The similar figures have length scale factor 2. The original area is 10 cm². Find the image area.",
+    "Similar figures comparing an original area of 10 square centimetres with an unknown image area under length scale factor 2.",
+    undefined,
+    undefined,
+    "length k = 2",
+    "Area 10 cm²",
+    "Area ?"
+  ),
+  "simsf-i5": pairVisual(
+    "The figures are similar with length scale factor 5. Find x in centimetres.",
+    "Similar figures with a 3 centimetre side corresponding to an unknown side x under scale factor 5.",
+    "3 cm",
+    "x",
+    "k = 5"
+  ),
+  "simsf-m1": pairVisual(
+    "The figures are similar with length scale factor 3. Find x in centimetres.",
+    "Similar figures with an 8 centimetre side corresponding to an unknown side x under scale factor 3.",
+    "8 cm",
+    "x",
+    "k = 3"
+  ),
+  "simsf-m3": pairVisual(
+    "Use the corresponding sides to find the scale factor from the small figure to the large figure.",
+    "Similar figures with corresponding sides labelled 6 centimetres and 18 centimetres.",
+    "6 cm",
+    "18 cm",
+    "k = ?"
+  ),
+  "simsf-m4": pairVisual(
+    "The figures are similar with length scale factor 10. Find x in centimetres.",
+    "Similar figures with a 2.5 centimetre side corresponding to an unknown side x under scale factor 10.",
+    "2.5 cm",
+    "x",
+    "k = 10"
+  ),
+  "simsf-m6": pairVisual(
+    "The similar figures have length scale factor 2. The original area is 7 cm². Find the image area.",
+    "Similar figures comparing an original area of 7 square centimetres with an unknown image area under length scale factor 2.",
+    undefined,
+    undefined,
+    "length k = 2",
+    "Area 7 cm²",
+    "Area ?"
+  ),
+  "simsf-m9": pairVisual(
+    "The similar figures have length scale factor 3. The original area is 12 cm². Find the image area.",
+    "Similar figures comparing an original area of 12 square centimetres with an unknown image area under length scale factor 3.",
+    undefined,
+    undefined,
+    "length k = 3",
+    "Area 12 cm²",
+    "Area ?"
+  ),
+  "simsf-m10": pairVisual(
+    "The right triangles are similar with length scale factor 4. Find the image's longest side x in centimetres.",
+    "Similar right triangles with the original hypotenuse labelled 5 centimetres and the image hypotenuse labelled x under scale factor 4.",
+    "5 cm",
+    "x",
+    "k = 4"
+  ),
+};
+
+function addSimilarityVisuals(
+  lesson: Partial<ExplicitLesson>
+): Partial<ExplicitLesson> {
+  const workedExamples = [...(lesson.workedExamples ?? [])];
+  if (workedExamples[0]) {
+    workedExamples[0] = {
+      ...workedExamples[0],
+      questionLatex:
+        "\\text{The triangles are similar with length scale factor }3.\\text{ Find }x.",
+      trianglePairDiagram: similarTrianglePairDiagram({
+        description:
+          "Similar triangles with a 5 centimetre side corresponding to an unknown side x under scale factor 3.",
+        smallSideLabel: "5 cm",
+        largeSideLabel: "x",
+        relationLabel: "k = 3",
+      }),
+    };
+  }
+  if (workedExamples[1]) {
+    workedExamples[1] = {
+      ...workedExamples[1],
+      questionLatex:
+        "\\text{The figures are similar with length scale factor }2.\\text{ By what factor does area scale?}",
+      trianglePairDiagram: similarTrianglePairDiagram({
+        description:
+          "Similar figures comparing an original area A with an image area under length scale factor 2.",
+        relationLabel: "length k = 2",
+        leftCaption: "Area A",
+        rightCaption: "Image area",
+      }),
+    };
+  }
+
+  return {
+    ...lesson,
+    workedExamples,
+    guidedPractice: addQuestionVisuals(
+      lesson.guidedPractice,
+      similarityQuestionVisuals
+    ),
+    independentPractice: addQuestionVisuals(
+      lesson.independentPractice,
+      similarityQuestionVisuals
+    ),
+    masteryQuiz: addQuestionVisuals(
+      lesson.masteryQuiz,
+      similarityQuestionVisuals
+    ),
+  };
+}
+
+const plansQuestionVisuals: Record<string, ScaleUnitVisualSpec> = {
+  "plev-g2": lengthVisual(
+    "The plan uses scale 1:100. Find the real length of wall AB in centimetres.",
+    "Wall AB on a plan, labelled 5 centimetres.",
+    "5 cm (plan)"
+  ),
+  "plev-g3": lengthVisual(
+    "The plan uses scale 1:100. Find the real length of wall AB in metres.",
+    "Wall AB on a plan, labelled 5 centimetres.",
+    "5 cm (plan)"
+  ),
+  "plev-i1": lengthVisual(
+    "The drawing uses scale 1:200. Find the real length of AB in metres.",
+    "Drawing segment AB labelled 4 centimetres.",
+    "4 cm (drawing)"
+  ),
+  "plev-i3": lengthVisual(
+    "The drawing uses scale 1:100. Find the drawing length of wall AB in centimetres.",
+    "Actual wall AB labelled 6 metres.",
+    "6 m (actual)"
+  ),
+  "plev-i4": lengthVisual(
+    "The drawing uses scale 1:50. Find the real length of AB in centimetres.",
+    "Drawing segment AB labelled 3 centimetres.",
+    "3 cm (drawing)"
+  ),
+  "plev-i5": lengthVisual(
+    "The drawing uses scale 1:250. Find the drawing length of AB in centimetres.",
+    "Actual segment AB labelled 10 metres.",
+    "10 m (actual)"
+  ),
+  "plev-m1": lengthVisual(
+    "The plan uses scale 1:100. Find the real length of AB in metres.",
+    "Plan segment AB labelled 7 centimetres.",
+    "7 cm (plan)"
+  ),
+  "plev-m3": lengthVisual(
+    "The drawing uses scale 1:100. Find the drawing length of wall AB in centimetres.",
+    "Actual wall AB labelled 12 metres.",
+    "12 m (actual)"
+  ),
+  "plev-m4": lengthVisual(
+    "The drawing uses scale 1:500. Find the real length of AB in metres.",
+    "Drawing segment AB labelled 3 centimetres.",
+    "3 cm (drawing)"
+  ),
+  "plev-m6": lengthVisual(
+    "The drawing uses scale 1:200. Find the drawing length of AB in centimetres.",
+    "Actual segment AB labelled 16 metres.",
+    "16 m (actual)"
+  ),
+  "plev-m7": lengthVisual(
+    "The drawing uses scale 1:50. Find the real length of AB in metres.",
+    "Drawing segment AB labelled 6 centimetres.",
+    "6 cm (drawing)"
+  ),
+  "plev-m10": lengthVisual(
+    "The drawing uses scale 1:1000. Find the real length of AB in metres.",
+    "Drawing segment AB labelled 2.5 centimetres.",
+    "2.5 cm (drawing)"
+  ),
+};
+
+function addPlansVisuals(
+  lesson: Partial<ExplicitLesson>
+): Partial<ExplicitLesson> {
+  const workedExamples = [...(lesson.workedExamples ?? [])];
+  if (workedExamples[0]) {
+    workedExamples[0] = {
+      ...workedExamples[0],
+      questionLatex:
+        "\\text{The plan uses scale }1:100.\\text{ Find the real length of wall }AB.",
+      lineAngleDiagram: scaleLengthDiagram({
+        description: "Wall AB on a plan, labelled 5 centimetres.",
+        label: "5 cm (plan)",
+      }),
+    };
+  }
+  if (workedExamples[1]) {
+    workedExamples[1] = {
+      ...workedExamples[1],
+      questionLatex:
+        "\\text{The plan uses scale }1:100.\\text{ Find the plan length of wall }AB.",
+      lineAngleDiagram: scaleLengthDiagram({
+        description: "Actual wall AB labelled 6 metres.",
+        label: "6 m (actual)",
+      }),
+    };
+  }
+
+  return {
+    ...lesson,
+    workedExamples,
+    guidedPractice: addQuestionVisuals(
+      lesson.guidedPractice,
+      plansQuestionVisuals
+    ),
+    independentPractice: addQuestionVisuals(
+      lesson.independentPractice,
+      plansQuestionVisuals
+    ),
+    masteryQuiz: addQuestionVisuals(
+      lesson.masteryQuiz,
+      plansQuestionVisuals
+    ),
+  };
+}
+
 // ── 7C Similarity and Scale Factors ──────────────────────────────────────────────────
 export function year12Standard1SimilarityScaleFactorsLessonOverride(
   course: CoursePathwaySeed,
@@ -340,7 +650,7 @@ export function year12Standard1SimilarityScaleFactorsLessonOverride(
   if (course.slug !== "year-12-standard-1" || unit.slug !== UNIT || lesson.slug !== "similarity-scale-factors") {
     return null;
   }
-  return {
+  return addSimilarityVisuals({
     description:
       "Use scale factors with similar figures to find unknown sides, and scale areas by the square of the length scale factor.",
     learningIntention:
@@ -395,7 +705,7 @@ export function year12Standard1SimilarityScaleFactorsLessonOverride(
         ["14 cm"]),
       ans("simsf-g4", "Using the triangles, a 4 cm side on the small triangle matches a 12 cm side on the large one. Find the scale factor.", "", "3", 2,
         "Scale factor = new ÷ original.", "Scale factor = 12 ÷ 4 = 3.",
-        [], { triangleDiagram: tri("Right triangle with a side labelled 4 (small) corresponding to 12 (enlarged), illustrating a scale factor of 3.", { AB: "4", BC: "12" }) }),
+        []),
     ],
     independentPractice: [
       ans("simsf-i1", "A figure is enlarged by scale factor 4. A 6 cm side becomes what length (in cm)?", "", "24", 2,
@@ -447,7 +757,7 @@ export function year12Standard1SimilarityScaleFactorsLessonOverride(
         ["108 cm²"]),
       ans("simsf-m10", "Using the triangles, a triangle with sides 3, 4, 5 is enlarged by scale factor 4. Find the length of its longest side (in cm).", "", "20", 4,
         "Multiply the longest side by the scale factor.", "Longest side = 5 × 4 = 20 cm.",
-        ["20 cm"], { triangleDiagram: tri("Right triangle with sides 3, 4, 5; the side of 5 (hypotenuse) is enlarged by scale factor 4.", { AB: "4", AC: "3", BC: "5" }) }),
+        ["20 cm"]),
     ],
     commonMistakes: [
       { mistake: "Scaling area by k instead of k².", fix: "Area scales by the SQUARE of the length scale factor." },
@@ -456,7 +766,7 @@ export function year12Standard1SimilarityScaleFactorsLessonOverride(
       { mistake: "Adding the scale factor to a side.", fix: "Multiply the side by the scale factor, not add it." },
     ],
     masteryPassMark: 0.8,
-  };
+  });
 }
 
 // ── 7E Plans and Elevations ──────────────────────────────────────────────────────────
@@ -468,7 +778,7 @@ export function year12Standard1PlansAndElevationsLessonOverride(
   if (course.slug !== "year-12-standard-1" || unit.slug !== UNIT || lesson.slug !== "plans-and-elevations") {
     return null;
   }
-  return {
+  return addPlansVisuals({
     description:
       "Interpret plans and elevations as different views of one object, and use a scale to convert between drawing and real lengths.",
     learningIntention:
@@ -586,5 +896,5 @@ export function year12Standard1PlansAndElevationsLessonOverride(
       { mistake: "Treating the views as separate objects.", fix: "Plan and elevations are different views of one object and must agree on shared dimensions." },
     ],
     masteryPassMark: 0.8,
-  };
+  });
 }
