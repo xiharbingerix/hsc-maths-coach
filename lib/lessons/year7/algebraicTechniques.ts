@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import { applyYear7AlgebraicTechniquesQuality } from "./algebraicTechniquesQuality";
 
 function answer(
   id: string,
@@ -1051,7 +1052,7 @@ const factorisingCommonFactors: LessonContent = {
     ),
     choice(
       "y7-alg-fac-i5",
-      "Which is the correct factorisation of $18p + 12q$?",
+      "Which is the fully factorised form of $18p + 12q$?",
       "B",
       ["$3(6p + 4q)$", "$6(3p + 2q)$", "$9(2p + q)$", "$2(9p + 6q)$"],
       "HCF of 18 and 12 is 6. 18p ÷ 6 = 3p and 12q ÷ 6 = 2q. Correct factorisation: 6(3p + 2q)."
@@ -1500,11 +1501,11 @@ const substitution: LessonContent = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const lessons: Record<string, LessonContent> = {
-  "algebraic-notation": algebraicNotation,
-  "collecting-like-terms": collectingLikeTerms,
-  "expanding-brackets": expandingBrackets,
-  "factorising-common-factors": factorisingCommonFactors,
-  "substitution": substitution,
+  "algebraic-notation": applyYear7AlgebraicTechniquesQuality(algebraicNotation, "algebraic-notation"),
+  "collecting-like-terms": applyYear7AlgebraicTechniquesQuality(collectingLikeTerms, "collecting-like-terms"),
+  "expanding-brackets": applyYear7AlgebraicTechniquesQuality(expandingBrackets, "expanding-brackets"),
+  "factorising-common-factors": applyYear7AlgebraicTechniquesQuality(factorisingCommonFactors, "factorising-common-factors"),
+  substitution: applyYear7AlgebraicTechniquesQuality(substitution, "substitution"),
 };
 
 export function year7AlgebraicTechniquesLessonOverride(

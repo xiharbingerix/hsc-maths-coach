@@ -215,11 +215,6 @@ import {
   twoStepEquationsChallenge,
   equationsWordedProblemsChallenge,
   quadraticAx2EqualsCChallenge,
-  algebraicNotationChallenge,
-  collectingLikeTermsChallenge,
-  expandingBracketsChallenge,
-  factorisingCommonFactorsChallenge,
-  substitutionChallenge,
 } from "./year7Algebra";
 import {
   fractionsTypesEquivalenceChallenge,
@@ -902,11 +897,6 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-7-mathematics/two-step-equations": twoStepEquationsChallenge,
   "year-7-mathematics/equations-worded-problems": equationsWordedProblemsChallenge,
   "year-7-mathematics/quadratic-equations-ax2-equals-c": quadraticAx2EqualsCChallenge,
-  "year-7-mathematics/algebraic-notation": algebraicNotationChallenge,
-  "year-7-mathematics/collecting-like-terms": collectingLikeTermsChallenge,
-  "year-7-mathematics/expanding-brackets": expandingBracketsChallenge,
-  "year-7-mathematics/factorising-common-factors": factorisingCommonFactorsChallenge,
-  "year-7-mathematics/substitution": substitutionChallenge,
   // Year 7 — Wave 3 number cluster (fractions, percentages).
   "year-7-mathematics/fractions-types-and-equivalence": fractionsTypesEquivalenceChallenge,
   "year-7-mathematics/comparing-ordering-fractions": comparingOrderingFractionsChallenge,
