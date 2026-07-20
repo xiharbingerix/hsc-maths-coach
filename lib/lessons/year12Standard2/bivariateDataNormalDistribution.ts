@@ -368,7 +368,7 @@ export function year12Standard2StatisticsLessonOverride(
             },
           ],
           finalAnswerLatex: "\\text{Strong positive linear association.}",
-          cartesianGraph: {
+          scatterPlotDiagram: {
             description: "Illustrative scatterplot of study hours and test score. The points sit close to a rising line, showing strong positive linear association.",
             xMin: 0,
             xMax: 7,
@@ -376,8 +376,6 @@ export function year12Standard2StatisticsLessonOverride(
             yMax: 100,
             xStep: 1,
             yStep: 10,
-            showGrid: true,
-            showAxisLabels: true,
             xAxisLabel: "study hours",
             yAxisLabel: "test score",
             points: [{ x: 1, y: 42 }, { x: 2, y: 49 }, { x: 3, y: 61 }, { x: 4, y: 68 }, { x: 5, y: 80 }, { x: 6, y: 87 }],
@@ -496,7 +494,7 @@ export function year12Standard2StatisticsLessonOverride(
             },
           ],
           finalAnswerLatex: "\\text{Strong positive linear association.}",
-          cartesianGraph: {
+          scatterPlotDiagram: {
             description: "Illustrative scatterplot of study hours and marks with points close to a rising line, showing strong positive linear association.",
             xMin: 0,
             xMax: 7,
@@ -504,8 +502,6 @@ export function year12Standard2StatisticsLessonOverride(
             yMax: 100,
             xStep: 1,
             yStep: 10,
-            showGrid: true,
-            showAxisLabels: true,
             xAxisLabel: "study hours",
             yAxisLabel: "marks",
             points: [{ x: 1, y: 40 }, { x: 2, y: 52 }, { x: 3, y: 59 }, { x: 4, y: 71 }, { x: 5, y: 79 }, { x: 6, y: 91 }],
@@ -526,7 +522,7 @@ export function year12Standard2StatisticsLessonOverride(
             },
           ],
           finalAnswerLatex: "\\text{Moderate negative association.}",
-          cartesianGraph: {
+          scatterPlotDiagram: {
             description: "Illustrative scatterplot of vehicle speed and travel time. The points generally fall from left to right with some spread, showing moderate negative association.",
             xMin: 20,
             xMax: 90,
@@ -534,8 +530,6 @@ export function year12Standard2StatisticsLessonOverride(
             yMax: 60,
             xStep: 10,
             yStep: 10,
-            showGrid: true,
-            showAxisLabels: true,
             xAxisLabel: "vehicle speed",
             yAxisLabel: "travel time",
             points: [{ x: 30, y: 52 }, { x: 40, y: 43 }, { x: 50, y: 46 }, { x: 60, y: 32 }, { x: 70, y: 35 }, { x: 80, y: 22 }],
@@ -637,7 +631,7 @@ export function year12Standard2StatisticsLessonOverride(
             },
           ],
           finalAnswerLatex: "\\text{Predicted score }=37.7",
-          cartesianGraph: {
+          scatterPlotDiagram: {
             description: "Illustrative training-score scatterplot with the regression line y equals 12.5 plus 4.2x. The line predicts a score of 37.7 at 6 training hours.",
             xMin: 0,
             xMax: 8,
@@ -645,11 +639,9 @@ export function year12Standard2StatisticsLessonOverride(
             yMax: 50,
             xStep: 1,
             yStep: 5,
-            showGrid: true,
-            showAxisLabels: true,
             xAxisLabel: "training hours",
             yAxisLabel: "score",
-            lines: [{ kind: "linear", m: 4.2, b: 12.5, label: "regression line" }],
+            lineOfBestFit: { m: 4.2, b: 12.5 },
             points: [{ x: 1, y: 18 }, { x: 2, y: 20 }, { x: 3, y: 27 }, { x: 4, y: 28 }, { x: 5, y: 35 }, { x: 6, y: 37.7, label: "prediction" }, { x: 7, y: 43 }],
           },
         },

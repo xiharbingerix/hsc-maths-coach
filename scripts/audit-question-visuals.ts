@@ -24,6 +24,8 @@ type VisualKind =
   | "cartesianGraph"
   | "circleGeometryDiagram"
   | "dotPlotDiagram"
+  | "dataTableDiagram"
+  | "ganttChartDiagram"
   | "histogramDiagram"
   | "lineAngleDiagram"
   | "netDiagram"
@@ -61,8 +63,6 @@ type Finding = {
 
 const explicitVisualReference =
   /\b(?:use|using|read|from|shown|displayed|sketch(?:ed)?|drawn|plotted|according to|in)\s+(?:the\s+|this\s+|a\s+)?(?:graph|diagram|figure|plot|chart|number line|network|table|tree|solid|shape)\b|\b(?:graph|diagram|figure|plot|chart|number line|network|table|tree|solid|shape)\s+(?:below|above|shown|displayed|provided)\b/i;
-
-const coordinatePair = /\(\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*\)/g;
 
 function stimulus(row: BankRow) {
   const partText = (row.question_parts ?? [])
@@ -119,10 +119,10 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
     return { kind: "histogramDiagram", reason: "a histogram is referenced or described in prose" };
   }
   if (has("scatter", "correlation", "line of best fit", "bivariate") || contextHas("scatter-plots")) {
-    const pairs = text.match(coordinatePair)?.length ?? 0;
-    if (pairs >= 3 || /\b(?:pattern|plot|graph|points?)\b/i.test(text)) {
-      return { kind: "scatterPlotDiagram", reason: "a scatter pattern is supplied as coordinate prose/list data" };
-    }
+    return { kind: "scatterPlotDiagram", reason: "a scatter pattern is supplied as coordinate prose/list data" };
+  }
+  if (has("gantt", "activity schedule", "project schedule") || contextHas("gantt")) {
+    return { kind: "ganttChartDiagram", reason: "a project schedule is supplied as prose instead of a Gantt chart" };
   }
   if (has("bar chart", "bar graph", "column graph", "column chart")) {
     if (/\b(?:shows?|axis|gridline|bar reaches|column reaches|frequency|sales|attendance|temperature|votes?|categories?)\b/i.test(text)) {
@@ -138,6 +138,12 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (has("two-way table", "two way table", "contingency table")) {
     return { kind: "twoWayTableDiagram", reason: "a two-way table is referenced or written inline" };
   }
+  if (
+    /\b(?:table|tabulated)\b/i.test(text) ||
+    /\b(?:from|using)\s+the\s+(?:following\s+)?(?:survey|data|values?|results?)\b/i.test(text)
+  ) {
+    return { kind: "dataTableDiagram", reason: "tabular stimulus is referenced or written inline" };
+  }
   if (has("venn diagram", "venn")) {
     return { kind: "vennDiagram", reason: "set regions are referenced or described without a Venn diagram" };
   }
@@ -150,6 +156,9 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if ((explicitVisualReference.test(text) && /\b(?:network|vertices|edges|path|route)\b/i.test(text)) ||
       /\b(?:[Ee]dges?|[Rr]outes?|[Pp]aths?)\s*:?\s*(?:[A-Z][–—-][A-Z]|[A-Z]{2}\s*(?:\(|=))|\b[A-Z]\s*(?:→|->|[–—-])\s*[A-Z]|\b(?:AB|BC|CD|PQ|QR)\s*(?:\(|=)\s*\d/.test(text)) {
     return { kind: "networkDiagram", reason: "network topology is referenced or encoded as an edge list" };
+  }
+  if (contextHas("network", "critical-path") && has("network", "path", "flow", "vertices", "edges")) {
+    return { kind: "networkDiagram", reason: "network reasoning requires a visible topology" };
   }
   if (has("number line")) {
     return { kind: "numberLineDiagram", reason: "a number-line position or interval is part of the stimulus" };
@@ -181,6 +190,9 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (has("right triangle", "right-angled triangle", "right angled triangle", "angle of elevation", "angle of depression", "hypotenuse") && /\b(?:side|angle|height|distance|length|find|calculate)\b/i.test(text)) {
     return { kind: "triangleDiagram", reason: "triangle geometry is encoded in prose" };
   }
+  if (has("triangle") && contextHas("trigonometry", "sine-rule", "cosine-rule", "triangle")) {
+    return { kind: "triangleDiagram", reason: "non-right triangle measurements or relationships are encoded in prose" };
+  }
   if (has("similar triangles", "congruent triangles", "two triangles")) {
     return { kind: "trianglePairDiagram", reason: "a comparison between two triangles needs both figures" };
   }
@@ -196,6 +208,13 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
       return { kind: "stepGraphDiagram", reason: "the prompt explicitly refers to a step graph" };
     }
     return { kind: "cartesianGraph", reason: "the prompt explicitly refers to an absent graph/figure" };
+  }
+
+  if (has("graph", "curve") && contextHas("algebra", "quadratic", "reciprocal", "simultaneous")) {
+    return { kind: "cartesianGraph", reason: "a function graph is referenced without a graph payload" };
+  }
+  if (has("shape") && contextHas("bivariate", "statistics", "distribution")) {
+    return { kind: "histogramDiagram", reason: "distribution shape is referenced without a statistical display" };
   }
 
   return null;
@@ -250,7 +269,15 @@ function batchFindings() {
   return findings;
 }
 
-const { rows } = collectAllQuestions([...SUPPORTED_COURSE_SLUGS]);
+const courseIndex = process.argv.indexOf("--course");
+const requestedCourse = courseIndex >= 0 ? process.argv[courseIndex + 1] : undefined;
+if (requestedCourse && !SUPPORTED_COURSE_SLUGS.some((slug) => slug === requestedCourse)) {
+  throw new Error(`Unsupported course slug: ${requestedCourse}`);
+}
+const selectedCourses = requestedCourse
+  ? [requestedCourse as (typeof SUPPORTED_COURSE_SLUGS)[number]]
+  : [...SUPPORTED_COURSE_SLUGS];
+const { rows } = collectAllQuestions(selectedCourses);
 const findings = auditRows(rows);
 const byVisual = new Map<string, number>();
 const byCourse = new Map<string, number>();
@@ -288,7 +315,7 @@ if (detailed) {
   }
 }
 
-const batches = batchFindings();
+const batches = requestedCourse ? [] : batchFindings();
 console.log(`\nJSON batch visual-required rows without a payload: ${batches.length}`);
 if (detailed) {
   for (const finding of batches) {

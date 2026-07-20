@@ -28,6 +28,7 @@ import { year12AdvancedRandomVariablesLessons } from "../lib/lessons/year12Advan
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 import { isGenericMcqInstructionLatex } from "../lib/lessons/questionHelpers";
 import { applyQuestionVisualStandards } from "../lib/lessons/visualAuthoringStandards";
+import { applyYear12Standard2QuestionDiagramRemediation } from "../lib/lessons/year12Standard2/diagramRemediation";
 import { getChallengeQuestions } from "../lib/challenges";
 import { getAllExamPapers } from "../lib/exams";
 import { examQuestions } from "../lib/exams/types";
@@ -279,7 +280,10 @@ export function mapPracticeQuestionToQuestionRow(
   question: PracticeQuestion,
   context: QuestionMappingContext
 ): QuestionRow {
-  const preparedQuestion = applyQuestionVisualStandards(question);
+  const inferredQuestion = applyQuestionVisualStandards(question);
+  const preparedQuestion = context.courseSlug === "year-12-standard-2"
+    ? applyYear12Standard2QuestionDiagramRemediation(inferredQuestion)
+    : inferredQuestion;
   const section = context.section ?? "guidedPractice";
   const position = context.position ?? 0;
 
@@ -535,6 +539,7 @@ export function collectExamQuestions() {
         choices: question.choices as PracticeQuestion["choices"],
         parts: question.parts as PracticeQuestion["parts"],
         explanation: question.explanation,
+        ...pickDiagramFields(question),
       };
 
       const sourceId = `exam/${paper.id}/${question.id}`;

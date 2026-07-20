@@ -12,6 +12,8 @@ import type {
   CircleGeometryDiagram,
   CongruentTrianglesDiagram,
   DotPlotDiagram,
+  DataTableDiagram,
+  GanttChartDiagram,
   HistogramDiagram,
   LineAngleDiagram,
   NetworkDiagram,
@@ -46,6 +48,8 @@ import { CircleGeometryDiagramView } from "../course/components/CircleGeometryDi
 import { CompositeSolidView } from "../course/components/CompositeSolidView";
 import { CongruentTrianglesView } from "../course/components/CongruentTrianglesView";
 import { DotPlotView } from "../course/components/DotPlotView";
+import { DataTableView } from "../course/components/DataTableView";
+import { GanttChartView } from "../course/components/GanttChartView";
 import { HistogramView } from "../course/components/HistogramView";
 import { LineAngleDiagramView } from "../course/components/LineAngleDiagramView";
 import { NetView } from "../course/components/NetView";
@@ -108,6 +112,8 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
     <ProbabilityTreeView diagram={d as unknown as ProbabilityTreeDiagram} />
   ),
   twoWayTableDiagram: (d) => <TwoWayTableView diagram={d as unknown as TwoWayTableDiagram} />,
+  dataTableDiagram: (d) => <DataTableView diagram={d as unknown as DataTableDiagram} />,
+  ganttChartDiagram: (d) => <GanttChartView diagram={d as unknown as GanttChartDiagram} />,
   vennDiagram: (d) => <VennDiagramView diagram={d as unknown as VennDiagram} />,
   networkDiagram: (d) => <NetworkDiagramView diagram={d as unknown as NetworkDiagram} />,
   polynomialCurveDiagram: (d) => (

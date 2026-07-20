@@ -42,9 +42,13 @@ export const year12Standard2Paper1: ExamPaper = {
         },
         {
           id: "y12s2-p1-q2",
-          prompt:
-            "A closed cylinder has radius 5 cm and height 10 cm. Find its total surface area, to the nearest cm².",
+          prompt: "Find the total surface area of the labelled closed cylinder, to the nearest cm².",
           latex: "\\text{TSA} = 2\\pi r(r + h)",
+          solid3DDiagram: {
+            description: "Closed cylinder with radius 5 centimetres and perpendicular height 10 centimetres.",
+            solid: "cylinder",
+            labels: { radius: "5 cm", height: "10 cm" },
+          },
           marks: 1,
           difficulty: 3,
           topicSlug: "surface-area-prisms-cylinders",

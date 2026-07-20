@@ -117,6 +117,7 @@ import {
   applyYear12Standard2EditorialRemediation,
 } from "./lessons/year12Standard2";
 import { enrichYear12Standard2Depth } from "./lessons/year12Standard2/feynmanEnhancements";
+import { applyYear12Standard2DiagramRemediation } from "./lessons/year12Standard2/diagramRemediation";
 import {
   year11AdvancedExponentialLogarithmicLessonOverride,
   year11AdvancedGraphTransformationsLessonOverride,
@@ -630,13 +631,20 @@ export function buildLesson(
         ? normalizeYear12Standard1Lesson(built)
       : course.slug === "year-12-standard-2"
         ? applyYear12Standard2EditorialRemediation(
-            normalizeYear12Standard1Lesson(enrichYear12Standard2Depth(built))
+            normalizeYear12Standard1Lesson(enrichYear12Standard2Depth(built), {
+              addVisuals: false,
+            })
           )
       : course.slug === "year-12-extension-2"
         ? enrichYear12Extension2Depth(built)
       : built;
 
-  return prefixLessonQuestionIds(applyLessonVisualStandards(enriched), course.slug);
+  const visualized = applyLessonVisualStandards(enriched);
+  const remediated = course.slug === "year-12-standard-2"
+    ? applyYear12Standard2DiagramRemediation(visualized)
+    : visualized;
+
+  return prefixLessonQuestionIds(remediated, course.slug);
 }
 
 export const newCoursePathways: CoursePathwaySeed[] = [
