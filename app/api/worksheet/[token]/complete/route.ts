@@ -3,6 +3,7 @@ import { supabaseAdmin } from "../../../../../lib/supabaseAdmin";
 import { recordMasteryEvents } from "../../../../../lib/mastery/updateMastery";
 import type { MasteryEventInput } from "../../../../../lib/mastery/updateMastery";
 import { trackEvent } from "../../../../../lib/analytics/trackEvent";
+import { isTeacherGuidedRetryEnabled } from "../../../../../lib/worksheetRetryPolicy";
 
 export const runtime = "nodejs";
 
@@ -17,6 +18,7 @@ type PartResultPayload = {
 
 type AnswerPayload = {
   marksEarned?: unknown;
+  hadIncorrectAttempt?: unknown;
 };
 
 type WorksheetQuestionRow = {
@@ -92,7 +94,7 @@ export async function POST(
 
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, expires_at, assigned_to_user")
+    .select("id, expires_at, assigned_to_user, topic_config")
     .eq("id", attempt.worksheet_id)
     .eq("share_token", token)
     .maybeSingle();
@@ -110,6 +112,8 @@ export async function POST(
       { status: 410 }
     );
   }
+
+  const teacherGuidedRetry = isTeacherGuidedRetryEnabled(worksheet.topic_config);
 
   const { data: worksheetQuestions, error: questionCountError } = await supabaseAdmin
     .from("worksheet_questions")
@@ -157,7 +161,7 @@ export async function POST(
 
   const latestAnswersByQuestion = new Map<
     string,
-    { isCorrect: boolean; marksEarned: number }
+    { isCorrect: boolean; marksEarned: number; hadIncorrectAttempt: boolean }
   >();
   for (const answer of answers ?? []) {
     const row = answer as WorksheetAnswerRow;
@@ -166,6 +170,9 @@ export async function POST(
       latestAnswersByQuestion.set(row.question_id, {
         isCorrect: row.is_correct === true,
         marksEarned: answerMarksEarned(row),
+        hadIncorrectAttempt:
+          row.answer_payload?.hadIncorrectAttempt === true ||
+          row.is_correct === false,
       });
     }
   }
@@ -177,6 +184,19 @@ export async function POST(
     (sum, answer) => sum + answer.marksEarned,
     0
   );
+
+  if (
+    teacherGuidedRetry &&
+    [...latestAnswersByQuestion.values()].some((answer) => !answer.isCorrect)
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Please discuss each missed question with Joshua and answer it correctly before finishing.",
+      },
+      { status: 409 }
+    );
+  }
 
   if (attempt.completed_at) {
     return NextResponse.json({
@@ -255,7 +275,9 @@ export async function POST(
             topicSlug: meta.topic_slug,
             subtopicSlug: meta.subtopic_slug ?? null,
             difficulty: meta.difficulty,
-            isCorrect: answer.isCorrect,
+            isCorrect:
+              answer.isCorrect &&
+              !(teacherGuidedRetry && answer.hadIncorrectAttempt),
           });
         }
 

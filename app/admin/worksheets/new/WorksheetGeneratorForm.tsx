@@ -268,6 +268,7 @@ export function WorksheetGeneratorForm({
   >("standard");
   const [totalQuestions, setTotalQuestions] = useState(10);
   const [includeMultiPart, setIncludeMultiPart] = useState(false);
+  const [teacherGuidedRetry, setTeacherGuidedRetry] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "previewing" | "preview" | "creating" | "success" | "error"
   >("idle");
@@ -464,6 +465,7 @@ export function WorksheetGeneratorForm({
           preset,
           totalQuestions: previewQuestions.length,
           includeMultiPart,
+          teacherGuidedRetry,
           questionIds: previewQuestions.map((q) => q.id),
           assignedStudentId: studentId || undefined,
           assignedStudentName: studentName.trim() || undefined,
@@ -508,6 +510,7 @@ export function WorksheetGeneratorForm({
     setStudentName("");
     setStudentEmail("");
     setDueDate("");
+    setTeacherGuidedRetry(false);
     setSelectedTopics([]);
     setSelectedSubtopics([]);
     setPreviewQuestions([]);
@@ -936,6 +939,26 @@ export function WorksheetGeneratorForm({
           <span className="mt-1 block text-xs leading-5 text-slate-500">
             Optional for HSC Section II-style practice. Leave off for the
             existing single-part worksheet mix.
+          </span>
+        </span>
+      </label>
+
+      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-sm hover:border-indigo-300">
+        <input
+          type="checkbox"
+          checked={teacherGuidedRetry}
+          onChange={(event) => setTeacherGuidedRetry(event.target.checked)}
+          disabled={status === "previewing"}
+          className="mt-1 rounded border-indigo-300"
+        />
+        <span>
+          <span className="font-semibold text-slate-900">
+            Require discussion and retry after a wrong answer
+          </span>
+          <span className="mt-1 block text-xs leading-5 text-slate-600">
+            Students cannot move on after an incorrect response. They are asked
+            to discuss it with you and try again; a later correct answer earns
+            half marks.
           </span>
         </span>
       </label>

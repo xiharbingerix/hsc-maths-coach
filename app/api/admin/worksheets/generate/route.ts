@@ -23,6 +23,7 @@ type GenerateBody = {
   assignedStudentEmail?: string;
   dueAt?: string;
   includeMultiPart?: boolean;
+  teacherGuidedRetry?: boolean;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -75,6 +76,7 @@ export async function POST(request: Request) {
     assignedStudentEmail,
     dueAt,
     includeMultiPart,
+    teacherGuidedRetry,
   } = body;
 
   if (!title?.trim()) {
@@ -182,6 +184,7 @@ export async function POST(request: Request) {
         topic_slugs: topicSlugs,
         preset,
         preview_approved: approvedQuestionIds.length > 0,
+        teacher_guided_retry: teacherGuidedRetry === true,
       },
       assigned_to_user: trimmedStudentId,
       assigned_student_name: trimmedStudentName,

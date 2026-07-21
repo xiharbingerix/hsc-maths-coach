@@ -28,6 +28,9 @@ type AnswerResult = {
   percentage?: number;
   explanation: string;
   partResults?: PartAnswerResult[];
+  retryRequired?: boolean;
+  halfMarksApplied?: boolean;
+  attemptNumber?: number;
 };
 
 type PartAnswerResult = {
@@ -52,6 +55,8 @@ type FinalScore = {
 type ResumeAnswer = {
   questionId: string;
   isCorrect: boolean;
+  hadIncorrectAttempt?: boolean;
+  attemptCount?: number;
 };
 
 type ResumeAttempt = {
@@ -99,6 +104,7 @@ export function WorksheetClient({
   adminPreview = false,
   assignedStudentName,
   dueAt,
+  teacherGuidedRetry = false,
   questions,
   resumeAttemptId = null,
 }: {
@@ -108,6 +114,7 @@ export function WorksheetClient({
   adminPreview?: boolean;
   assignedStudentName?: string | null;
   dueAt?: string | null;
+  teacherGuidedRetry?: boolean;
   questions: WorksheetQuestion[];
   resumeAttemptId?: string | null;
 }) {
@@ -357,24 +364,47 @@ export function WorksheetClient({
           return;
         }
 
-        const answeredIds = new Set(
-          (data.answeredQuestions ?? []).map((answer) => answer.questionId)
+        const answeredById = new Map(
+          (data.answeredQuestions ?? []).map((answer) => [answer.questionId, answer])
         );
         const firstUnansweredIndex = questions.findIndex(
-          (question) => !answeredIds.has(question.id)
+          (question) => {
+            const savedAnswer = answeredById.get(question.id);
+            return (
+              !savedAnswer ||
+              (teacherGuidedRetry && savedAnswer.isCorrect !== true)
+            );
+          }
         );
 
-        setCurrentIndex(
+        const resumedIndex =
           firstUnansweredIndex === -1
             ? Math.max(0, totalQuestions - 1)
-            : firstUnansweredIndex
-        );
+            : firstUnansweredIndex;
+        const resumedAnswer = answeredById.get(questions[resumedIndex]?.id);
+
+        setCurrentIndex(resumedIndex);
         setTypedAnswer("");
         setChoiceAnswer("");
         setPartAnswers({});
-        setResult(null);
+        setResult(
+          teacherGuidedRetry && resumedAnswer?.isCorrect === false
+            ? {
+                isCorrect: false,
+                scoreState: "incorrect",
+                marksEarned: 0,
+                explanation: "",
+                retryRequired: true,
+                attemptNumber: resumedAnswer.attemptCount,
+              }
+            : null
+        );
         setFinalScore(null);
-        setPhase("asking");
+        setPhase(
+          teacherGuidedRetry && resumedAnswer?.isCorrect === false
+            ? "answered"
+            : "asking"
+        );
         questionStartTimeRef.current = Date.now();
       } catch {
         if (!cancelled) {
@@ -388,7 +418,14 @@ export function WorksheetClient({
     return () => {
       cancelled = true;
     };
-  }, [questions, resumeAttemptId, storageKey, token, totalQuestions]);
+  }, [
+    questions,
+    resumeAttemptId,
+    storageKey,
+    teacherGuidedRetry,
+    token,
+    totalQuestions,
+  ]);
 
   // ── Start attempt ──────────────────────────────────────────────────────────
 
@@ -471,6 +508,9 @@ export function WorksheetClient({
         percentage?: number;
         explanation?: string;
         partResults?: PartAnswerResult[];
+        retryRequired?: boolean;
+        halfMarksApplied?: boolean;
+        attemptNumber?: number;
         error?: string;
       };
 
@@ -488,6 +528,9 @@ export function WorksheetClient({
         percentage: data.percentage,
         explanation: data.explanation ?? "",
         partResults: data.partResults ?? [],
+        retryRequired: data.retryRequired,
+        halfMarksApplied: data.halfMarksApplied,
+        attemptNumber: data.attemptNumber,
       });
       setPhase("answered");
     } catch {
@@ -498,6 +541,19 @@ export function WorksheetClient({
   }
 
   // ── Advance to next question or complete ───────────────────────────────────
+
+  function handleDiscussedAndRetry() {
+    setTypedAnswer("");
+    setChoiceAnswer("");
+    setPartAnswers({});
+    setResult(null);
+    setErrorMessage("");
+    setFlagState("idle");
+    setFlagReason("");
+    setFlagComment("");
+    setPhase("asking");
+    questionStartTimeRef.current = Date.now();
+  }
 
   async function handleNext() {
     if (!attemptId) return;
@@ -592,6 +648,11 @@ export function WorksheetClient({
             Admin preview mode
           </p>
         ) : null}
+        {teacherGuidedRetry ? (
+          <p className="mt-1 inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-700">
+            Discuss-and-retry mode
+          </p>
+        ) : null}
         {assignedName || dueLabel ? (
           <p className="mt-0.5 text-sm text-slate-500">
             {assignedName ? `Worksheet for ${assignedName}` : null}
@@ -634,6 +695,13 @@ export function WorksheetClient({
                 but encouraged.
               </p>
             </div>
+
+            {teacherGuidedRetry ? (
+              <div className="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm leading-6 text-indigo-900">
+                If an answer is not correct, pause and discuss the question with
+                Joshua before trying again. A correct retry earns half marks.
+              </div>
+            ) : null}
 
             <label className="block space-y-1.5">
               <span className="text-sm font-medium text-slate-700">
@@ -792,7 +860,11 @@ export function WorksheetClient({
       ? "text-amber-900"
       : "text-red-900";
   const resultTitle =
-    resultState === "correct"
+    result?.retryRequired
+      ? "Pause here."
+      : result?.halfMarksApplied
+      ? "Correct after your retry."
+      : resultState === "correct"
       ? "Correct!"
       : resultState === "partial"
       ? "Partly correct."
@@ -951,6 +1023,23 @@ export function WorksheetClient({
               className={`space-y-2 rounded-xl border p-4 ${resultPanelClass}`}
             >
               <p className={`font-semibold ${resultTextClass}`}>{resultTitle}</p>
+              {result.retryRequired ? (
+                <div className="space-y-2 text-sm leading-6 text-red-900">
+                  <p>
+                    Don&apos;t move on yet. Please discuss this question with Joshua,
+                    then come back and try it again.
+                  </p>
+                  <p className="font-medium">
+                    A correct answer after this point is worth half marks.
+                  </p>
+                </div>
+              ) : null}
+              {result.halfMarksApplied ? (
+                <p className="text-sm font-medium text-emerald-900">
+                  You can move on now. Because this was correct after a retry,
+                  it has been awarded half marks.
+                </p>
+              ) : null}
               {typeof result.marksEarned === "number" &&
               typeof result.marksAvailable === "number" ? (
                 <p className={`text-sm font-semibold ${resultBodyClass}`}>
@@ -965,7 +1054,9 @@ export function WorksheetClient({
                   <MathText text={result.explanation} />
                 </p>
               ) : null}
-              {result.partResults && result.partResults.length > 0 ? (
+              {!result.retryRequired &&
+              result.partResults &&
+              result.partResults.length > 0 ? (
                 <div className="space-y-2">
                   {result.partResults.map((part) => (
                     <div
@@ -998,11 +1089,17 @@ export function WorksheetClient({
 
               <button
                 type="button"
-                onClick={() => void handleNext()}
+                onClick={() =>
+                  result.retryRequired
+                    ? handleDiscussedAndRetry()
+                    : void handleNext()
+                }
                 disabled={isSubmitting}
                 className="mt-1 rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
               >
-                {isSubmitting
+                {result.retryRequired
+                  ? "I've discussed it with Joshua — try again"
+                  : isSubmitting
                   ? "Saving…"
                   : isLastQuestion
                   ? "Finish worksheet"
