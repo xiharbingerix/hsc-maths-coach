@@ -3,6 +3,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "../../../lib/supabaseAdmin";
 import { pickDiagramFields, type Choice } from "../../../lib/lessons/diagramRegistry";
 import { WorksheetClient } from "./WorksheetClient";
+import { isTeacherGuidedRetryEnabled } from "../../../lib/worksheetRetryPolicy";
 
 export const metadata: Metadata = {
   title: "Worksheet | Nova Maths",
@@ -108,7 +109,9 @@ export default async function WorksheetPage({
   // 1. Load worksheet by share token
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, title, year_level, expires_at, assigned_student_name, due_at")
+    .select(
+      "id, title, year_level, topic_config, expires_at, assigned_student_name, due_at"
+    )
     .eq("share_token", token)
     .maybeSingle();
 
@@ -194,6 +197,7 @@ export default async function WorksheetPage({
       adminPreview={adminPreview}
       assignedStudentName={worksheet.assigned_student_name}
       dueAt={worksheet.due_at}
+      teacherGuidedRetry={isTeacherGuidedRetryEnabled(worksheet.topic_config)}
       questions={questions}
       resumeAttemptId={resumeAttemptId}
     />

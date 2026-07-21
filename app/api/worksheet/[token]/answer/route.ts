@@ -7,6 +7,11 @@ import {
 } from "../../../../../lib/proofMarker/markProofWithAi";
 import { allowProofMarkRequest } from "../../../../../lib/proofMarker/rateLimit";
 import { isWordedConceptualAnswer } from "../../../../../lib/proofMarker/conceptualAnswer";
+import {
+  applyTeacherGuidedRetryPolicy,
+  isTeacherGuidedRetryEnabled,
+  type WorksheetAnswerMetadata,
+} from "../../../../../lib/worksheetRetryPolicy";
 
 export const runtime = "nodejs";
 
@@ -120,7 +125,7 @@ export async function POST(
   // Confirm the attempt's worksheet matches the token in the URL
   const { data: worksheet, error: wsError } = await supabaseAdmin
     .from("worksheets")
-    .select("id, expires_at")
+    .select("id, expires_at, topic_config")
     .eq("id", attempt.worksheet_id)
     .eq("share_token", token)
     .maybeSingle();
@@ -154,6 +159,26 @@ export async function POST(
     );
   }
 
+  const teacherGuidedRetry = isTeacherGuidedRetryEnabled(worksheet.topic_config);
+  const { data: previousAnswer, error: previousAnswerError } = await supabaseAdmin
+    .from("worksheet_answers")
+    .select("is_correct, answer_payload")
+    .eq("attempt_id", attemptId)
+    .eq("question_id", questionId)
+    .maybeSingle();
+
+  if (previousAnswerError) {
+    console.error("[worksheet/answer] previous answer query failed", {
+      attemptId,
+      questionId,
+      message: previousAnswerError.message,
+    });
+    return NextResponse.json(
+      { error: "Could not check the previous answer. Please try again." },
+      { status: 500 }
+    );
+  }
+
   // 3. Load the question answer data (kept server-side only)
   const { data: question, error: qError } = await supabaseAdmin
     .from("questions")
@@ -182,6 +207,9 @@ export async function POST(
     marksAvailable?: number;
     percentage?: number;
     scoreState?: QuestionScoreState;
+    attemptCount?: number;
+    hadIncorrectAttempt?: boolean;
+    halfMarksApplied?: boolean;
   } | null = null;
   let partResults: PartAnswerResult[] | null = null;
   let marksEarned = 0;
@@ -330,6 +358,41 @@ export async function POST(
     scoreState = isCorrect ? "correct" : "incorrect";
   }
 
+  const retryPolicy = applyTeacherGuidedRetryPolicy({
+    enabled: teacherGuidedRetry,
+    isCorrect,
+    rawMarksEarned: marksEarned,
+    marksAvailable,
+    previousIsCorrect:
+      typeof previousAnswer?.is_correct === "boolean"
+        ? previousAnswer.is_correct
+        : null,
+    previousMetadata:
+      previousAnswer?.answer_payload &&
+      typeof previousAnswer.answer_payload === "object"
+        ? (previousAnswer.answer_payload as WorksheetAnswerMetadata)
+        : null,
+  });
+
+  marksEarned = retryPolicy.marksEarned;
+  percentage = retryPolicy.percentage;
+  if (retryPolicy.halfMarksApplied && partResults) {
+    partResults = partResults.map((part) => ({
+      ...part,
+      marksEarned: part.marksEarned / 2,
+    }));
+  }
+  answerPayload = {
+    ...(answerPayload ?? {}),
+    marksEarned,
+    marksAvailable,
+    percentage,
+    scoreState,
+    attemptCount: retryPolicy.attemptCount,
+    hadIncorrectAttempt: retryPolicy.hadIncorrectAttempt,
+    halfMarksApplied: retryPolicy.halfMarksApplied,
+  };
+
   // 5. Save the answer
   const { error: saveError } = await supabaseAdmin
     .from("worksheet_answers")
@@ -363,7 +426,10 @@ export async function POST(
     marksEarned,
     marksAvailable,
     percentage,
-    explanation,
-    partResults: partResults ?? [],
+    explanation: retryPolicy.retryRequired ? "" : explanation,
+    partResults: retryPolicy.retryRequired ? [] : partResults ?? [],
+    retryRequired: retryPolicy.retryRequired,
+    halfMarksApplied: retryPolicy.halfMarksApplied,
+    attemptNumber: retryPolicy.attemptCount,
   });
 }

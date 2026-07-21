@@ -9,6 +9,8 @@ type PartResultPayload = {
 
 type AnswerPayload = {
   marksEarned?: unknown;
+  attemptCount?: unknown;
+  hadIncorrectAttempt?: unknown;
 };
 
 type WorksheetQuestionRow = {
@@ -138,7 +140,12 @@ export async function GET(
 
   const latestByQuestion = new Map<
     string,
-    { isCorrect: boolean; marksEarned: number }
+    {
+      isCorrect: boolean;
+      marksEarned: number;
+      attemptCount: number;
+      hadIncorrectAttempt: boolean;
+    }
   >();
   for (const answer of answers ?? []) {
     const row = answer as WorksheetAnswerRow;
@@ -146,6 +153,13 @@ export async function GET(
       latestByQuestion.set(row.question_id, {
         isCorrect: row.is_correct === true,
         marksEarned: answerMarksEarned(row),
+        attemptCount:
+          typeof row.answer_payload?.attemptCount === "number"
+            ? row.answer_payload.attemptCount
+            : 1,
+        hadIncorrectAttempt:
+          row.answer_payload?.hadIncorrectAttempt === true ||
+          row.is_correct === false,
       });
     }
   }
@@ -164,7 +178,12 @@ export async function GET(
     marksEarned,
     marksAvailable,
     answeredQuestions: [...latestByQuestion.entries()].map(
-      ([questionId, answer]) => ({ questionId, isCorrect: answer.isCorrect })
+      ([questionId, answer]) => ({
+        questionId,
+        isCorrect: answer.isCorrect,
+        attemptCount: answer.attemptCount,
+        hadIncorrectAttempt: answer.hadIncorrectAttempt,
+      })
     ),
   });
 }

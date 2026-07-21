@@ -22,6 +22,7 @@ type TopicConfig = {
   topicSlugs?: string[];
   topic_slugs?: string[];
   preset?: string;
+  teacher_guided_retry?: boolean;
 };
 
 type QuestionData = {
@@ -156,6 +157,9 @@ export default async function WorksheetDetailPage({
                 year: "numeric",
               })}
               {worksheet.topic_config?.preset && ` · ${worksheet.topic_config.preset} preset`}
+              {worksheet.topic_config?.teacher_guided_retry
+                ? " · discuss-and-retry enabled"
+                : ""}
             </p>
           </div>
           <Link
