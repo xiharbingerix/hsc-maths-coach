@@ -30,6 +30,7 @@ import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lesso
 import { isGenericMcqInstructionLatex } from "../lib/lessons/questionHelpers";
 import { applyQuestionVisualStandards } from "../lib/lessons/visualAuthoringStandards";
 import { applyYear12Standard2QuestionDiagramRemediation } from "../lib/lessons/year12Standard2/diagramRemediation";
+import { applyYear9CoreQuestionDiagramRemediation } from "../lib/lessons/year9/coreDiagramRemediation";
 import { getChallengeQuestions } from "../lib/challenges";
 import { getAllExamPapers } from "../lib/exams";
 import { examQuestions } from "../lib/exams/types";
@@ -284,7 +285,9 @@ export function mapPracticeQuestionToQuestionRow(
   const inferredQuestion = applyQuestionVisualStandards(question);
   const preparedQuestion = context.courseSlug === "year-12-standard-2"
     ? applyYear12Standard2QuestionDiagramRemediation(inferredQuestion)
-    : inferredQuestion;
+    : context.courseSlug === "year-9-mathematics-core"
+      ? applyYear9CoreQuestionDiagramRemediation(inferredQuestion)
+      : inferredQuestion;
   const section = context.section ?? "guidedPractice";
   const position = context.position ?? 0;
 

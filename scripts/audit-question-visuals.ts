@@ -189,7 +189,7 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (/\b(?:sector|arc length)\b/i.test(text) && /\b(?:radius|angle|area|length|diagram|figure)\b/i.test(text)) {
     return { kind: "sectorDiagram", reason: "sector geometry is supplied only as dimensions" };
   }
-  if (has("net of", "net diagram", "nets of")) {
+  if (has("net diagram", "nets of") || (has("net of") && has("solid", "prism", "cube", "cylinder", "cone", "pyramid"))) {
     return { kind: "netDiagram", reason: "a solid net is referenced or described in prose" };
   }
   if (has("composite solid")) {
@@ -200,6 +200,9 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   }
   if (has("right triangle", "right-angled triangle", "right angled triangle", "angle of elevation", "angle of depression", "hypotenuse") && /\b(?:side|angle|height|distance|length|find|calculate)\b/i.test(text)) {
     return { kind: "triangleDiagram", reason: "triangle geometry is encoded in prose" };
+  }
+  if (/\b(?:angles? of a triangle add to|each angle of an equilateral triangle|an isosceles triangle has|exterior angle of a triangle equals|similar triangles (?:have|always)|usual test that two triangles are similar|interior angle sum of an? n-sided polygon|regular polygon(?:'s)? interior angle|regular polygon has an? (?:interior|exterior) angle)\b/i.test(text)) {
+    return null;
   }
   if (has("triangle") && contextHas("trigonometry", "sine-rule", "cosine-rule", "triangle")) {
     return { kind: "triangleDiagram", reason: "non-right triangle measurements or relationships are encoded in prose" };

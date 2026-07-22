@@ -1,4 +1,5 @@
 import type { PracticeQuestion } from "../lessons/differentialCalculus";
+import { applyYear9CoreQuestionDiagramRemediation } from "../lessons/year9/coreDiagramRemediation";
 import { year12AdvancedOptimisationChallenge } from "./year12AdvancedOptimisation";
 import {
   differentiatingPolynomialFunctionsChallenge,
@@ -1001,9 +1002,14 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
 export function getChallengeQuestions(lessonSlug: string, courseSlug?: string): PracticeQuestion[] {
   if (courseSlug) {
     const scoped = REGISTRY[`${courseSlug}/${lessonSlug}`];
-    if (scoped) return scoped;
+    if (scoped) return courseSlug === "year-9-mathematics-core"
+      ? scoped.map(applyYear9CoreQuestionDiagramRemediation)
+      : scoped;
   }
-  return REGISTRY[lessonSlug] ?? [];
+  const questions = REGISTRY[lessonSlug] ?? [];
+  return courseSlug === "year-9-mathematics-core"
+    ? questions.map(applyYear9CoreQuestionDiagramRemediation)
+    : questions;
 }
 
 export function hasChallenge(lessonSlug: string, courseSlug?: string): boolean {

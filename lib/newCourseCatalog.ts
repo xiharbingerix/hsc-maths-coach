@@ -118,6 +118,7 @@ import {
 } from "./lessons/year12Standard2";
 import { enrichYear12Standard2Depth } from "./lessons/year12Standard2/feynmanEnhancements";
 import { applyYear12Standard2DiagramRemediation } from "./lessons/year12Standard2/diagramRemediation";
+import { applyYear9CoreDiagramRemediation } from "./lessons/year9/coreDiagramRemediation";
 import {
   year11AdvancedExponentialLogarithmicLessonOverride,
   year11AdvancedGraphTransformationsLessonOverride,
@@ -642,7 +643,9 @@ export function buildLesson(
   const visualized = applyLessonVisualStandards(enriched);
   const remediated = course.slug === "year-12-standard-2"
     ? applyYear12Standard2DiagramRemediation(visualized)
-    : visualized;
+    : course.slug === "year-9-mathematics-core"
+      ? applyYear9CoreDiagramRemediation(visualized)
+      : visualized;
 
   return prefixLessonQuestionIds(remediated, course.slug);
 }

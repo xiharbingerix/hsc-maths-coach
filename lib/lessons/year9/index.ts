@@ -42,3 +42,4 @@ export { year9SimultaneousEquationsLessonOverride } from "./simultaneousEquation
 export { year9ProbabilityBLessonOverride } from "./probabilityB";
 export { year9LinearRelationshipsCLessonOverride } from "./linearRelationshipsC";
 export { enhanceYear9CoreLesson } from "./coreDepthEnhancements";
+export { applyYear9CoreDiagramRemediation } from "./coreDiagramRemediation";
