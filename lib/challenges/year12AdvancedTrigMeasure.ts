@@ -17,6 +17,14 @@ export const trigMeasureChallenge: PracticeQuestion[] = [
     latex: "\\ell = 6,\\quad A = 12",
     answer: "4",
     acceptedAnswers: ["4 cm", "r=4"],
+    sectorDiagram: {
+      description: "Circle sector with arc length 6 centimetres, area 12 square centimetres and unknown radius r.",
+      angleDegrees: 86,
+      radiusLabel: "r",
+      angleLabel: "theta",
+      arcLabel: "6 cm",
+      showFullCircle: true,
+    },
     hint: "Area of a sector can be written as A = ½ r ℓ (combining A = ½ r²θ with ℓ = rθ).",
     explanation:
       "A = ½ r ℓ ⟹ 12 = ½ · r · 6 = 3r ⟹ r = 4. (Check: θ = ℓ/r = 1.5 rad, A = ½ · 16 · 1.5 = 12.)",

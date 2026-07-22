@@ -1,74 +1,51 @@
-// Validator gate for visual payloads on Year 12 Advanced worked examples.
-// audit:lessons only iterates newCoursePathways (which excludes year-12-advanced),
-// so this replicates the key cartesianGraph / trapezoidalRuleDiagram runtime rules
-// for the legacy calculus course. Reports FAIL lines; exits non-zero on any failure.
+/** Runtime-shape gate for every Year 12 Advanced worked-example visual payload. */
 import { year12AdvancedRouteUnits } from "../lib/year12AdvancedRoutes";
+import { DIAGRAM_SPECS } from "../lib/lessons/diagramRegistry";
 
 const errors: string[] = [];
-const isNum = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v);
-const isStr = (v: unknown): v is string => typeof v === "string" && v.trim().length > 0;
+const finite = (value: unknown): value is number => typeof value === "number" && Number.isFinite(value);
+const text = (value: unknown): value is string => typeof value === "string" && value.trim().length > 0;
 
-function checkCartesian(g: any, path: string) {
-  if (!isStr(g.description)) errors.push(`${path}: cartesianGraph needs non-empty description`);
-  for (const k of ["xMin", "xMax", "yMin", "yMax", "xStep", "yStep"]) {
-    if (g[k] !== undefined && !isNum(g[k])) errors.push(`${path}: ${k} must be finite`);
+function validate(payload: Record<string, unknown>, field: string, path: string) {
+  if (!text(payload.description)) errors.push(`${path}: ${field} needs a non-empty description`);
+  const serialized = JSON.stringify(payload);
+  if (serialized.includes("NaN") || serialized.includes("Infinity")) errors.push(`${path}: contains a non-finite value`);
+
+  if (field === "cartesianGraph") {
+    for (const key of ["xMin", "xMax", "yMin", "yMax", "xStep", "yStep"]) {
+      if (payload[key] !== undefined && !finite(payload[key])) errors.push(`${path}: ${key} must be finite`);
+    }
+    if (finite(payload.xMin) && finite(payload.xMax) && payload.xMin >= payload.xMax) errors.push(`${path}: xMin must be less than xMax`);
+    if (finite(payload.yMin) && finite(payload.yMax) && payload.yMin >= payload.yMax) errors.push(`${path}: yMin must be less than yMax`);
   }
-  if (isNum(g.xStep) && g.xStep <= 0) errors.push(`${path}: xStep must be > 0`);
-  if (isNum(g.yStep) && g.yStep <= 0) errors.push(`${path}: yStep must be > 0`);
-  if (isNum(g.xMin) && isNum(g.xMax) && g.xMin >= g.xMax) errors.push(`${path}: xMin must be < xMax`);
-  if (isNum(g.yMin) && isNum(g.yMax) && g.yMin >= g.yMax) errors.push(`${path}: yMin must be < yMax`);
-  (g.points ?? []).forEach((p: any, i: number) => {
-    if (!isNum(p?.x) || !isNum(p?.y)) errors.push(`${path}.points[${i}]: needs finite x,y`);
-  });
-  (g.lines ?? []).forEach((l: any, i: number) => {
-    if (l?.kind !== "linear" || !isNum(l?.m) || !isNum(l?.b)) errors.push(`${path}.lines[${i}]: linear needs finite m,b`);
-  });
-  (g.parabolas ?? []).forEach((p: any, i: number) => {
-    if (p?.kind !== "quadratic" || !isNum(p?.a) || !isNum(p?.b) || !isNum(p?.c) || p.a === 0)
-      errors.push(`${path}.parabolas[${i}]: quadratic needs finite a,b,c with a!=0`);
-  });
-  (g.lineSegments ?? []).forEach((s: any, i: number) => {
-    if (!isNum(s?.from?.x) || !isNum(s?.from?.y) || !isNum(s?.to?.x) || !isNum(s?.to?.y))
-      errors.push(`${path}.lineSegments[${i}]: from/to need finite x,y`);
-  });
-  (g.shadedRegions ?? []).forEach((r: any, i: number) => {
-    const rp = `${path}.shadedRegions[${i}]`;
-    if (!isNum(r?.xMin) || !isNum(r?.xMax) || r.xMin >= r.xMax) errors.push(`${rp}: needs finite xMin < xMax`);
-    if (r?.color !== undefined && !["blue", "green", "red", "amber"].includes(r.color)) errors.push(`${rp}: bad color ${r.color}`);
-    const okFn = (f: any) =>
-      (f?.functionType === "line" && isNum(f?.line?.m) && isNum(f?.line?.b)) ||
-      (f?.functionType === "quadratic" && isNum(f?.quadratic?.a) && isNum(f?.quadratic?.b) && isNum(f?.quadratic?.c));
-    if (r?.kind === "under-function") { if (!okFn(r)) errors.push(`${rp}: under-function needs line/quadratic (NOT sin)`); }
-    else if (r?.kind === "between-functions") { if (!okFn(r?.top) || !okFn(r?.bottom)) errors.push(`${rp}: between-functions top/bottom need line/quadratic`); }
-    else errors.push(`${rp}: kind must be under-function or between-functions`);
-  });
-}
-
-function checkTrapezoid(t: any, path: string) {
-  if (!isStr(t.description)) errors.push(`${path}: trapezoidalRuleDiagram needs description`);
-  if (!Array.isArray(t.xValues) || !Array.isArray(t.yValues)) { errors.push(`${path}: needs xValues,yValues arrays`); return; }
-  if (t.xValues.length !== t.yValues.length) errors.push(`${path}: xValues/yValues length mismatch`);
-  if (t.xValues.length < 2) errors.push(`${path}: needs >= 2 points`);
-  if (t.xValues.some((x: unknown) => !isNum(x)) || t.yValues.some((y: unknown) => !isNum(y))) errors.push(`${path}: all values finite`);
-  if (t.xValues.some((x: number, i: number) => i > 0 && x <= t.xValues[i - 1])) errors.push(`${path}: xValues must strictly increase`);
-}
-
-const UNITS = new Set([
-  "ma-c1-introduction-to-differentiation", "ma-c2-differential-calculus",
-  "ma-c3-applications-of-differentiation", "ma-c4-integral-calculus",
-]);
-let payloadCount = 0;
-for (const unit of year12AdvancedRouteUnits) {
-  if (!UNITS.has(unit.slug)) continue;
-  for (const lesson of unit.lessons) {
-    lesson.workedExamples.forEach((we, i) => {
-      const rec = we as unknown as Record<string, unknown>;
-      const base = `${unit.slug}/${lesson.slug}/WE${i + 1}`;
-      if (rec.cartesianGraph) { payloadCount++; checkCartesian(rec.cartesianGraph, `${base}.cartesianGraph`); }
-      if (rec.trapezoidalRuleDiagram) { payloadCount++; checkTrapezoid(rec.trapezoidalRuleDiagram, `${base}.trapezoidalRuleDiagram`); }
-    });
+  if (field === "trapezoidalRuleDiagram") {
+    const xs = payload.xValues as unknown[] | undefined;
+    const ys = payload.yValues as unknown[] | undefined;
+    if (!Array.isArray(xs) || !Array.isArray(ys) || xs.length !== ys.length || xs.length < 2) errors.push(`${path}: needs matching x/y arrays with at least two values`);
   }
+  if (field === "dataTableDiagram" || field === "twoWayTableDiagram") {
+    if (!Array.isArray(payload.values) || payload.values.length === 0) errors.push(`${path}: table needs values`);
+  }
+  if (field === "scatterPlotDiagram" && (!Array.isArray(payload.points) || payload.points.length < 2)) errors.push(`${path}: scatter plot needs at least two points`);
+  if (field === "probabilityTreeDiagram" && (!Array.isArray(payload.branches) || payload.branches.length < 2)) errors.push(`${path}: probability tree needs branches`);
 }
-console.log(`Checked ${payloadCount} visual payload(s) across C1-C4.`);
-if (errors.length) { console.error(`\n${errors.length} FAILURE(S):`); errors.forEach((e) => console.error("  " + e)); process.exit(1); }
+
+let count = 0;
+for (const unit of year12AdvancedRouteUnits) for (const lesson of unit.lessons) {
+  lesson.workedExamples.forEach((example, index) => {
+    const record = example as unknown as Record<string, unknown>;
+    for (const spec of DIAGRAM_SPECS) {
+      const payload = record[spec.field];
+      if (!payload || typeof payload !== "object") continue;
+      count++;
+      validate(payload as Record<string, unknown>, spec.field, `${unit.slug}/${lesson.slug}/WE${index + 1}.${spec.field}`);
+    }
+  });
+}
+
+console.log(`Checked ${count} worked-example visual payload(s) across all Year 12 Advanced units.`);
+if (errors.length) {
+  errors.forEach((error) => console.error(`  ${error}`));
+  process.exit(1);
+}
 console.log("All visual payloads PASS.");

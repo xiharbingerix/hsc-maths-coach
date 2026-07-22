@@ -3,6 +3,7 @@ import type {
   LessonOutlineItem,
 } from "./lessons/differentialCalculus";
 import { applyLessonVisualStandards } from "./lessons/visualAuthoringStandards";
+import { applyYear12AdvancedDiagramRemediation } from "./lessons/year12Advanced/diagramRemediation";
 import { courseUnits } from "./courseUnits";
 import {
   applicationsDifferentiationLessons,
@@ -73,7 +74,7 @@ const allAdvancedLessons: ExplicitLesson[] = [
   ...statisticalAnalysisLessons,
   ...probabilityLessons,
   ...year12AdvancedRandomVariablesLessons,
-].map(applyLessonVisualStandards);
+].map(applyLessonVisualStandards).map(applyYear12AdvancedDiagramRemediation);
 
 function lessonsBySlug(slug: string): ExplicitLesson[] {
   return allAdvancedLessons.filter((l) => l.moduleSlug === slug);

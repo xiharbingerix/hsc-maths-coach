@@ -25,6 +25,7 @@ import { statisticalAnalysisLessons } from "../lib/lessons/statisticalAnalysis";
 import { trigonometricFunctionsGraphsLessons } from "../lib/lessons/trigonometricFunctionsGraphs";
 import { probabilityLessons } from "../lib/lessons/probability";
 import { year12AdvancedRandomVariablesLessons } from "../lib/lessons/year12AdvancedRandomVariables";
+import { applyYear12AdvancedDiagramRemediation } from "../lib/lessons/year12Advanced/diagramRemediation";
 import { extractDiagramData, pickDiagramFields, type Choice } from "../lib/lessons/diagramRegistry";
 import { isGenericMcqInstructionLatex } from "../lib/lessons/questionHelpers";
 import { applyQuestionVisualStandards } from "../lib/lessons/visualAuthoringStandards";
@@ -126,7 +127,7 @@ const allYear12AdvancedLessons: ExplicitLesson[] = [
   ...year12AdvancedRandomVariablesLessons,
   ...sequencesSeriesFinancialMathsLessons,
   ...financialMathematicsLessons,
-];
+].map(applyYear12AdvancedDiagramRemediation);
 
 const year12AdvancedLessonSets: Record<string, ExplicitLesson[]> = {};
 for (const lesson of allYear12AdvancedLessons) {

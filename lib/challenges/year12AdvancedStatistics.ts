@@ -65,6 +65,14 @@ export const statsRegressionChallenge: PracticeQuestion[] = [
     latex: "b = r\\,\\dfrac{s_y}{s_x}",
     answer: "20",
     acceptedAnswers: [],
+    scatterPlotDiagram: {
+      description: "Representative bivariate scatterplot with a strong positive association, correlation 0.8, and least-squares line passing through the mean point (5, 14).",
+      xAxisLabel: "x",
+      yAxisLabel: "y",
+      points: [{ x: 2, y: 7 }, { x: 3, y: 11 }, { x: 4, y: 12 }, { x: 5, y: 14 }, { x: 6, y: 17 }, { x: 7, y: 17 }, { x: 8, y: 21 }],
+      lineOfBestFit: { m: 2, b: 4 },
+      correlationLabel: "r = 0.8",
+    },
     hint: "The least-squares gradient is b = r·(s_y/s_x); the line passes through the mean point (x̄, ȳ).",
     explanation:
       "Gradient b = r·s_y/s_x = 0.8 × 5/2 = 2. The line through (5, 14): y − 14 = 2(x − 5) ⟹ y = 2x + 4. At x = 8: y = 2(8) + 4 = 20.",

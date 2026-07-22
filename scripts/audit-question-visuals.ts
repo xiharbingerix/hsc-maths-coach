@@ -161,8 +161,11 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (has("bearing", "navigation") && /\d\s*(?:°|\\circ)|\b[NS]\s*\d|\b(?:north|south|east|west|compass|ray|route|travel|from\s+[A-Z]\s+to\s+[A-Z])\b/i.test(text)) {
     return { kind: "bearingsDiagram", reason: "bearing directions and rays are encoded in prose" };
   }
-  if ((explicitVisualReference.test(text) && /\b(?:network|vertices|edges|path|route)\b/i.test(text)) ||
-      /\b(?:[Ee]dges?|[Rr]outes?|[Pp]aths?)\s*:?\s*(?:[A-Z][–—-][A-Z]|[A-Z]{2}\s*(?:\(|=))|\b[A-Z]\s*(?:→|->|[–—-])\s*[A-Z]|\b(?:AB|BC|CD|PQ|QR)\s*(?:\(|=)\s*\d/.test(text)) {
+  // A subtraction inside a trig compound-angle formula (for example sin(A-B))
+  // is not an edge list. Keep the generic A-B heuristic from treating it as one.
+  const isTrigCompound = /\\(?:sin|cos|tan)\s*\([^)]*[A-Z]\s*-\s*[A-Z]/.test(text);
+  if (!isTrigCompound && ((explicitVisualReference.test(text) && /\b(?:network|vertices|edges|path|route)\b/i.test(text)) ||
+      /\b(?:[Ee]dges?|[Rr]outes?|[Pp]aths?)\s*:?\s*(?:[A-Z][–—-][A-Z]|[A-Z]{2}\s*(?:\(|=))|\b[A-Z]\s*(?:→|->|[–—-])\s*[A-Z]|\b(?:AB|BC|CD|PQ|QR)\s*(?:\(|=)\s*\d/.test(text))) {
     return { kind: "networkDiagram", reason: "network topology is referenced or encoded as an edge list" };
   }
   if (contextHas("network", "critical-path") && has("network", "path", "flow", "vertices", "edges")) {

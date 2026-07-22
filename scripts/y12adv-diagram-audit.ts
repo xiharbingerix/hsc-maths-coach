@@ -1,55 +1,36 @@
-// Throwaway: report which C1-C4 lessons have a visual/renderer payload on any worked example.
+/** Course-wide diagram coverage audit for Year 12 Advanced worked examples. */
 import { year12AdvancedRouteUnits } from "../lib/year12AdvancedRoutes";
+import { DIAGRAM_SPECS } from "../lib/lessons/diagramRegistry";
 
-const DIAGRAM_FIELDS = [
-  "triangleDiagram", "cartesianGraph", "unitCircleDiagram", "trigGraphDiagram",
-  "argandDiagram", "vector3DDiagram", "trapezoidalRuleDiagram", "boxPlotDiagram",
-  "normalDistributionDiagram", "probabilityTreeDiagram", "twoWayTableDiagram",
-  "vennDiagram", "diagram", "solutionDiagram", "dotPlot", "histogram", "barChart",
-  "stemAndLeaf",
-];
-
-const UNITS = new Set([
-  "ma-c1-introduction-to-differentiation",
-  "ma-c2-differential-calculus",
-  "ma-c3-applications-of-differentiation",
-  "ma-c4-integral-calculus",
-]);
-
-// The 13 lessons targeted by the diagram-implementation pass.
-const TARGETS = new Set([
-  "differentiating-polynomial-terms", "differentiating-polynomial-functions",
-  "optimisation", "rates-of-change-applications", "second-derivative-concavity",
-  "stationary-point-classification", "curve-sketching-calculus", "kinematics-rates-change",
-  "definite-integrals-fundamental-theorem", "applications-total-change-motion",
-  "initial-conditions-particular-primitive", "standard-integrals",
-  "definite-integrals-standard-forms",
-]);
-let targetsWithDiagram = 0;
-const targetsMissing: string[] = [];
+const visualLanguage = /\b(?:graph|curve|asymptote|unit circle|Venn|tree diagram|two-way table|sign table|scatterplot|residual plot|box plot|histogram|normal distribution|trapezoid|area under|area between)\b/i;
+const missing: string[] = [];
+let lessons = 0;
+let examples = 0;
+let payloads = 0;
 
 for (const unit of year12AdvancedRouteUnits) {
-  if (!UNITS.has(unit.slug)) continue;
+  let unitPayloads = 0;
   for (const lesson of unit.lessons) {
     if (lesson.status !== "active") continue;
-    const hits: string[] = [];
-    lesson.workedExamples.forEach((we, i) => {
-      const rec = we as unknown as Record<string, unknown>;
-      for (const f of DIAGRAM_FIELDS) {
-        if (rec[f]) hits.push(`WE${i + 1}.${f}`);
+    lessons++;
+    lesson.workedExamples.forEach((example, index) => {
+      examples++;
+      const record = example as unknown as Record<string, unknown>;
+      const fields = DIAGRAM_SPECS.filter((spec) => record[spec.field]).map((spec) => spec.field);
+      payloads += fields.length;
+      unitPayloads += fields.length;
+      const stimulus = `${String(record.question ?? "")} ${example.questionLatex ?? ""}`;
+      if (visualLanguage.test(stimulus) && fields.length === 0) {
+        missing.push(`${unit.slug}/${lesson.slug}/WE${index + 1}`);
       }
     });
-    const flag = hits.length ? "HASDIAGRAM" : "nodiagram ";
-    console.log(`${flag}  ${unit.slug}/${lesson.slug}${hits.length ? "  [" + hits.join(", ") + "]" : ""}`);
-    if (TARGETS.has(lesson.slug)) {
-      if (hits.length) targetsWithDiagram++;
-      else targetsMissing.push(`${unit.slug}/${lesson.slug}`);
-    }
   }
+  console.log(`${unit.slug}: ${unitPayloads} worked-example visual payload(s)`);
 }
 
-console.log(`\nDIAGRAM-PASS COVERAGE: ${targetsWithDiagram}/${TARGETS.size} target lessons now have a diagram.`);
-if (targetsMissing.length) {
-  console.log("STILL MISSING:");
-  targetsMissing.forEach((t) => console.log("  " + t));
+console.log(`\nCOURSE COVERAGE: ${lessons} active lessons, ${examples} worked examples, ${payloads} visual payloads.`);
+console.log(`Explicitly visual worked examples without a payload: ${missing.length}`);
+if (missing.length) {
+  missing.forEach((path) => console.error(`  ${path}`));
+  process.exitCode = 1;
 }
