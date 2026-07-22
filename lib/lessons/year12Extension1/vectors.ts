@@ -1,4 +1,5 @@
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import type { Vector2DDiagram } from "../types";
 import type {
   CourseLessonSeed,
   CoursePathwaySeed,
@@ -11,7 +12,8 @@ function vectorChoice(
   answer: "A" | "B" | "C" | "D",
   choices: string[],
   explanation: string,
-  latex = "\\text{Choose the best option.}"
+  latex = "\\text{Choose the best option.}",
+  vector2DDiagram?: Vector2DDiagram
 ): PracticeQuestion {
   return {
     id,
@@ -24,6 +26,7 @@ function vectorChoice(
     answer,
     hint: "Track the vector components carefully and decide whether the answer should be a vector or a scalar.",
     explanation,
+    ...(vector2DDiagram ? { vector2DDiagram } : {}),
   };
 }
 
@@ -95,6 +98,16 @@ const vectorsScalarsNotation: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "|\\mathbf{a}|=5,\\quad \\hat{\\mathbf{a}}=\\begin{pmatrix}3/5\\\\-4/5\\end{pmatrix}",
+      vector2DDiagram: {
+        description: "Vector a from the origin to (3, -4), with dashed horizontal and vertical component legs of lengths 3 and 4 forming a right triangle.",
+        xMin: -1, xMax: 5, yMin: -5, yMax: 1,
+        vectors: [{ to: { x: 3, y: -4 }, label: "a = (3,-4)" }],
+        segments: [
+          { from: { x: 0, y: 0 }, to: { x: 3, y: 0 }, label: "3", dashed: true },
+          { from: { x: 3, y: 0 }, to: { x: 3, y: -4 }, label: "-4", dashed: true },
+        ],
+        angles: [{ vertex: { x: 3, y: 0 }, from: { x: 0, y: 0 }, to: { x: 3, y: -4 }, rightAngle: true }],
+      },
     },
     {
       title: "Convert between vector notation",
@@ -270,6 +283,16 @@ const vectorAdditionSubtraction: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "\\text{Total displacement }=\\begin{pmatrix}2\\\\4\\end{pmatrix}\\text{ km}",
+      vector2DDiagram: {
+        description: "Head-to-tail displacement diagram: the drone moves from O to A by (4, 1), then from A to B by (-2, 3). The resultant vector runs from O to B and equals (2, 4).",
+        xMin: -0.5, xMax: 5, yMin: -0.5, yMax: 5,
+        vectors: [
+          { to: { x: 4, y: 1 }, label: "(4,1)", color: "blue" },
+          { from: { x: 4, y: 1 }, to: { x: 2, y: 4 }, label: "(-2,3)", color: "violet" },
+          { to: { x: 2, y: 4 }, label: "resultant (2,4)", color: "teal" },
+        ],
+        points: [{ x: 0, y: 0, label: "O" }, { x: 4, y: 1, label: "A" }, { x: 2, y: 4, label: "B" }],
+      },
     },
   ],
   guidedPractice: [
@@ -282,7 +305,23 @@ const vectorAdditionSubtraction: Partial<ExplicitLesson> = {
     vectorTyped("y12e1-vector-add-i1", "Find $\\mathbf{a}-\\mathbf{b}$.", "\\mathbf{a}=\\begin{pmatrix}7\\\\1\\end{pmatrix},\\quad \\mathbf{b}=\\begin{pmatrix}2\\\\5\\end{pmatrix}", "(5,-4)", ["(5, -4)", "5,-4"], "Subtract matching components."),
     vectorTyped("y12e1-vector-add-i2", "Find $3\\mathbf{v}$.", "\\mathbf{v}=\\begin{pmatrix}2\\\\-3\\end{pmatrix}", "(6,-9)", ["(6, -9)", "6,-9"], "Multiply each component by 3."),
     vectorTyped("y12e1-vector-add-i3", "Find $2\\mathbf{a}+\\mathbf{b}$.", "\\mathbf{a}=\\begin{pmatrix}1\\\\-1\\end{pmatrix},\\quad \\mathbf{b}=\\begin{pmatrix}4\\\\3\\end{pmatrix}", "(6,1)", ["(6, 1)", "6,1"], "First double a, then add b."),
-    vectorChoice("y12e1-vector-add-i4", "The head-to-tail method represents:", "A", ["Vector addition", "Dot product only", "Finding magnitude only", "Changing to scalar form"], "It shows one movement followed by another."),
+    vectorChoice(
+      "y12e1-vector-add-i4",
+      "Using the diagram, the head-to-tail method represents:",
+      "A",
+      ["Vector addition", "Dot product only", "Finding magnitude only", "Changing to scalar form"],
+      "It shows one movement followed by another.",
+      "\\text{Choose the best option.}",
+      {
+        description: "Two directed vectors arranged head-to-tail, followed by a resultant vector from the first tail to the final head.",
+        xMin: -0.5, xMax: 6, yMin: -0.5, yMax: 5, showGrid: false,
+        vectors: [
+          { to: { x: 3, y: 1 }, label: "a", color: "blue" },
+          { from: { x: 3, y: 1 }, to: { x: 5, y: 4 }, label: "b", color: "violet" },
+          { to: { x: 5, y: 4 }, label: "a + b", color: "teal" },
+        ],
+      }
+    ),
     vectorTyped("y12e1-vector-add-i5", "A velocity changes by adding wind vector $(-2,1)$ to plane velocity $(8,3)$. Find the resulting velocity.", "\\begin{pmatrix}8\\\\3\\end{pmatrix}+\\begin{pmatrix}-2\\\\1\\end{pmatrix}", "(6,4)", ["(6, 4)", "6,4"], "Combine the velocity components."),
   ],
   commonMistakes: [
@@ -308,7 +347,28 @@ const vectorAdditionSubtraction: Partial<ExplicitLesson> = {
     vectorTyped("y12e1-vector-add-m2", "Find $\\mathbf{a}-\\mathbf{b}$.", "\\begin{pmatrix}2\\\\3\\end{pmatrix}-\\begin{pmatrix}4\\\\-1\\end{pmatrix}", "(-2,4)", ["(-2, 4)", "-2,4"], "Subtract components."),
     vectorChoice("y12e1-vector-add-m3", "Multiplying a vector by 3:", "B", ["Turns it into a dot product", "Stretches it by factor 3", "Always reverses it", "Makes its magnitude 1"], "A positive scalar stretches without reversing."),
     vectorTyped("y12e1-vector-add-m4", "Find $-2\\mathbf{v}$.", "\\mathbf{v}=\\begin{pmatrix}3\\\\-5\\end{pmatrix}", "(-6,10)", ["(-6, 10)", "-6,10"], "Multiply both components by -2."),
-    vectorChoice("y12e1-vector-add-m5", "The parallelogram rule is a geometric way to show:", "A", ["Vector addition", "Scalar projection", "Perpendicularity", "Magnitude only"], "The diagonal gives the sum of two vectors."),
+    vectorChoice(
+      "y12e1-vector-add-m5",
+      "Using the diagram, the parallelogram rule is a geometric way to show:",
+      "A",
+      ["Vector addition", "Scalar projection", "Perpendicularity", "Magnitude only"],
+      "The diagonal gives the sum of two vectors.",
+      "\\text{Choose the best option.}",
+      {
+        description: "Parallelogram formed by vectors a and b from the origin, with the diagonal labelled a + b as the resultant.",
+        xMin: -0.5, xMax: 6, yMin: -0.5, yMax: 5,
+        showGrid: false,
+        vectors: [
+          { to: { x: 4, y: 1 }, label: "a", color: "blue" },
+          { to: { x: 1.5, y: 3 }, label: "b", color: "violet" },
+          { to: { x: 5.5, y: 4 }, label: "a + b", color: "teal" },
+        ],
+        segments: [
+          { from: { x: 4, y: 1 }, to: { x: 5.5, y: 4 }, dashed: true, color: "violet" },
+          { from: { x: 1.5, y: 3 }, to: { x: 5.5, y: 4 }, dashed: true, color: "blue" },
+        ],
+      }
+    ),
     vectorTyped("y12e1-vector-add-m6", "Find $3\\mathbf{a}-2\\mathbf{b}$.", "\\mathbf{a}=\\begin{pmatrix}1\\\\2\\end{pmatrix},\\quad \\mathbf{b}=\\begin{pmatrix}2\\\\1\\end{pmatrix}", "(-1,4)", ["(-1, 4)", "-1,4"], "3a = (3,6) and 2b = (4,2), so the result is (-1,4)."),
     vectorTyped("y12e1-vector-add-m7", "A displacement $(3,2)$ is followed by $(-1,5)$. Find the total displacement.", "\\begin{pmatrix}3\\\\2\\end{pmatrix}+\\begin{pmatrix}-1\\\\5\\end{pmatrix}", "(2,7)", ["(2, 7)", "2,7"], "Add the movements head-to-tail."),
     vectorChoice("y12e1-vector-add-m8", "Which operation reverses the direction of $(2,4)$?", "D", ["Multiply by 2", "Add (0,0)", "Find magnitude", "Multiply by -1"], "A negative scalar points the vector in the opposite direction."),
@@ -378,6 +438,15 @@ const dotProduct: Partial<ExplicitLesson> = {
         },
       ],
       finalAnswerLatex: "\\theta\\approx81.9^\\circ",
+      vector2DDiagram: {
+        description: "Two vectors from the origin: a = (1, 2) in quadrant I and b = (3, -1) in quadrant IV, with the angle theta marked between them.",
+        xMin: -0.5, xMax: 4, yMin: -2, yMax: 3,
+        vectors: [
+          { to: { x: 1, y: 2 }, label: "a = (1,2)", color: "blue" },
+          { to: { x: 3, y: -1 }, label: "b = (3,-1)", color: "violet" },
+        ],
+        angles: [{ vertex: { x: 0, y: 0 }, from: { x: 3, y: -1 }, to: { x: 1, y: 2 }, label: "theta", radius: 0.65 }],
+      },
     },
     {
       title: "Show two vectors are perpendicular",
@@ -553,6 +622,16 @@ const vectorProjectionsApplications: Partial<ExplicitLesson> = {
         },
       ],
       finalAnswerLatex: "\\begin{pmatrix}78/25\\\\104/25\\end{pmatrix}",
+      vector2DDiagram: {
+        description: "Vector a = (6, 2), direction vector b = (3, 4), and the projection of a onto the b-direction shown from the origin.",
+        xMin: -0.5, xMax: 7, yMin: -0.5, yMax: 5,
+        vectors: [
+          { to: { x: 6, y: 2 }, label: "a", color: "violet" },
+          { to: { x: 3, y: 4 }, label: "b", color: "blue" },
+          { to: { x: 78 / 25, y: 104 / 25 }, label: "proj_b(a)", color: "teal" },
+        ],
+        segments: [{ from: { x: 78 / 25, y: 104 / 25 }, to: { x: 6, y: 2 }, dashed: true, color: "amber" }],
+      },
     },
     {
       title: "Resolve velocity into a direction",

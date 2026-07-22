@@ -90,6 +90,13 @@ const vectorsMotion2d: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "\\mathbf{v}(t)=\\begin{pmatrix}2\\\\2t\\end{pmatrix},\\;\\mathbf{a}(t)=\\begin{pmatrix}0\\\\2\\end{pmatrix},\\;\\text{speed}=2\\sqrt{5}",
+      cartesianGraph: {
+        description: "Trajectory of r(t) = (2t + 1, t^2 - 3) for t from 0 to 3, beginning at (1, -3) and curving upward through the position (5, 1) at t = 2.",
+        xMin: 0, xMax: 8, yMin: -4, yMax: 7,
+        xAxisLabel: "x", yAxisLabel: "y",
+        parabolas: [{ kind: "quadratic", a: 0.25, b: -0.5, c: -2.75, xMin: 1, xMax: 7, label: "r(t)" }],
+        points: [{ x: 1, y: -3, label: "t = 0" }, { x: 5, y: 1, label: "t = 2" }],
+      },
     },
     {
       title: "Find position from velocity by integration",
@@ -398,6 +405,17 @@ const vectorsProjectileParametric: Partial<ExplicitLesson> = {
         xAxisLabel: "x (m)",
         yAxisLabel: "y (m)",
         lines: [{ kind: "linear", m: 0, b: 0, label: "ground" }],
+        parabolas: [
+          {
+            kind: "quadratic",
+            a: -1 / 60,
+            b: 1 / Math.sqrt(3),
+            c: 0,
+            xMin: 0,
+            xMax: 20 * Math.sqrt(3),
+            label: "projectile path",
+          },
+        ],
         points: [
           { x: 0, y: 0, label: "launch" },
           { x: 17.3, y: 5, label: "max height (5 m)" },

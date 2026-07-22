@@ -1375,7 +1375,7 @@ choice(
 
 **You MUST attach a visual payload whenever a question (or worked example) involves a diagram, graph, plot, table, number line, geometric figure, or solid.** Never describe a visual in words, fake it in LaTeX, or spell a plot out as text when a renderer exists for it. Keep the prompt self-contained and let the payload carry the visual stimulus.
 
-There are **35 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
+There are **36 renderers**, dispatched through one registry. The authoritative schema for every payload field is **`lib/lessons/types.ts`**; the registry is **`lib/lessons/diagramRegistry.ts`** (payload types) + **`app/components/diagramRegistry.tsx`** (renderers). Any of these fields may be set on a `PracticeQuestion`, a `WorkedExample`, or an MCQ `Choice`.
 
 ### Available renderers
 
@@ -1431,6 +1431,7 @@ There are **35 renderers**, dispatched through one registry. The authoritative s
 |---|---|
 | `diagram` (`networkDiagram`) | Graphs, networks, critical paths |
 | `argandDiagram` | Complex-number plots, modulus circles, loci (Ext 2) |
+| `vector2DDiagram` | 2D directed vectors, head-to-tail addition, resultants, angles, projections and geometric vector configurations (Ext 1) |
 | `vector3DDiagram` | 3D vectors, points, direction lines (Ext 2) |
 
 ### Use the right renderer — never fake a visual
@@ -1533,6 +1534,25 @@ argandDiagram: {
   vectorsFromOrigin: [{ to: { re: 2, im: -3 }, label: "z" }],
   showConjugates: true,
   modulusCircles: [{ radius: 2, label: "|z| = 2" }],
+}
+```
+
+### Vector2DDiagram
+
+Use `vector2DDiagram` for Extension 1 vectors in two dimensions. It supports directed arrows, construction segments, labelled points, marked angles and right-angle markers. Use schematic bounds and hide axes/grid when exact coordinate reading would reveal the answer.
+
+```typescript
+vector2DDiagram: {
+  description: "Vectors a and b arranged head-to-tail with resultant a + b.",
+  xMin: -1,
+  xMax: 6,
+  yMin: -1,
+  yMax: 5,
+  vectors: [
+    { to: { x: 3, y: 1 }, label: "a", color: "blue" },
+    { from: { x: 3, y: 1 }, to: { x: 5, y: 4 }, label: "b", color: "violet" },
+    { to: { x: 5, y: 4 }, label: "a + b", color: "teal" },
+  ],
 }
 ```
 

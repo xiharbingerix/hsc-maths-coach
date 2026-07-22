@@ -33,6 +33,7 @@ import type {
   TwoWayTableDiagram,
   UnitCircleDiagram,
   Vector3DDiagram,
+  Vector2DDiagram,
   VennDiagram,
 } from "./types";
 
@@ -57,6 +58,7 @@ export const DIAGRAM_SPECS = [
   { type: "unitCircleDiagram", field: "unitCircleDiagram" },
   { type: "trigGraphDiagram", field: "trigGraphDiagram" },
   { type: "argandDiagram", field: "argandDiagram" },
+  { type: "vector2DDiagram", field: "vector2DDiagram" },
   { type: "vector3DDiagram", field: "vector3DDiagram" },
   { type: "triangleDiagram", field: "triangleDiagram" },
   { type: "trianglePairDiagram", field: "trianglePairDiagram" },
@@ -107,6 +109,7 @@ export type DiagramFields = {
   unitCircleDiagram?: UnitCircleDiagram;
   trigGraphDiagram?: TrigGraphDiagram;
   argandDiagram?: ArgandDiagram;
+  vector2DDiagram?: Vector2DDiagram;
   vector3DDiagram?: Vector3DDiagram;
   triangleDiagram?: TriangleDiagram;
   trianglePairDiagram?: TrianglePairDiagram;

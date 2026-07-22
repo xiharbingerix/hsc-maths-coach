@@ -191,6 +191,49 @@ export type Vector3DPoint = {
   label?: string;
 };
 
+export type Vector2DPoint = {
+  x: number;
+  y: number;
+  label?: string;
+};
+
+export type Vector2DDiagram = {
+  description: string;
+  xMin?: number;
+  xMax?: number;
+  yMin?: number;
+  yMax?: number;
+  xStep?: number;
+  yStep?: number;
+  showGrid?: boolean;
+  showAxes?: boolean;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  points?: Vector2DPoint[];
+  vectors?: {
+    from?: Vector2DPoint;
+    to: Vector2DPoint;
+    label?: string;
+    color?: CartesianCurveColor;
+    dashed?: boolean;
+  }[];
+  segments?: {
+    from: Vector2DPoint;
+    to: Vector2DPoint;
+    label?: string;
+    color?: CartesianCurveColor;
+    dashed?: boolean;
+  }[];
+  angles?: {
+    vertex: Vector2DPoint;
+    from: Vector2DPoint;
+    to: Vector2DPoint;
+    label?: string;
+    radius?: number;
+    rightAngle?: boolean;
+  }[];
+};
+
 export type Vector3DDiagram = {
   description: string;
   axisLength?: number;

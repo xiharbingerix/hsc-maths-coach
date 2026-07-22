@@ -207,6 +207,18 @@ const notationD5: TopicTestQuestion[] = [
   },
   {
     id: "y12e1-vec-not-d5-8",
+    vector2DDiagram: {
+      description: "Schematic parallelogram ABCD with A(0, 0), B(3, 1), C(5, 4), and the coordinates of D to be determined.",
+      xMin: -0.5, xMax: 6, yMin: -0.5, yMax: 5,
+      showGrid: false, showAxes: false,
+      segments: [
+        { from: { x: 0, y: 0 }, to: { x: 3, y: 1 } },
+        { from: { x: 3, y: 1 }, to: { x: 5, y: 4 } },
+        { from: { x: 5, y: 4 }, to: { x: 2, y: 3 } },
+        { from: { x: 2, y: 3 }, to: { x: 0, y: 0 } },
+      ],
+      points: [{ x: 0, y: 0, label: "A" }, { x: 3, y: 1, label: "B" }, { x: 5, y: 4, label: "C" }, { x: 2, y: 3, label: "D" }],
+    },
     prompt:
       "ABCD is a parallelogram with A(0, 0), B(3, 1) and C(5, 4). Find the i-component of D.",
     latex: "ABCD \\text{ parallelogram}",
@@ -407,6 +419,19 @@ const additionD5: TopicTestQuestion[] = [
   },
   {
     id: "y12e1-vec-add-d5-6",
+    vector2DDiagram: {
+      description: "Parallelogram ABCD with directed sides AB = (3, 1), AD = (2, 4), and diagonal AC shown as their resultant.",
+      xMin: -0.5, xMax: 6, yMin: -0.5, yMax: 6,
+      vectors: [
+        { to: { x: 3, y: 1 }, label: "AB = (3,1)", color: "blue" },
+        { to: { x: 2, y: 4 }, label: "AD = (2,4)", color: "violet" },
+        { to: { x: 5, y: 5 }, label: "AC", color: "teal" },
+      ],
+      segments: [
+        { from: { x: 3, y: 1 }, to: { x: 5, y: 5 }, dashed: true, color: "violet" },
+        { from: { x: 2, y: 4 }, to: { x: 5, y: 5 }, dashed: true, color: "blue" },
+      ],
+    },
     prompt:
       "In parallelogram ABCD, AB = (3, 1) and AD = (2, 4). Find |AC| (exact form).",
     latex: "AB = (3,1), \\ AD = (2,4)",
@@ -450,6 +475,15 @@ const additionD5: TopicTestQuestion[] = [
   },
   {
     id: "y12e1-vec-add-d5-10",
+    vector2DDiagram: {
+      description: "Three collinear points A(1, 2), B(4, 3), and C(10, 5), with directed vectors AB and BC along the same line.",
+      xMin: 0, xMax: 11, yMin: 0, yMax: 6,
+      vectors: [
+        { from: { x: 1, y: 2 }, to: { x: 4, y: 3 }, label: "AB", color: "blue" },
+        { from: { x: 4, y: 3 }, to: { x: 10, y: 5 }, label: "BC", color: "teal" },
+      ],
+      points: [{ x: 1, y: 2, label: "A" }, { x: 4, y: 3, label: "B" }, { x: 10, y: 5, label: "C" }],
+    },
     prompt:
       "A(1, 2), B(4, 3) and C(10, 5) are collinear. Find k where BC = k·AB.",
     latex: "A(1,2), \\ B(4,3), \\ C(10,5)",

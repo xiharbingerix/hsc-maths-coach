@@ -48,6 +48,7 @@ type VisualKind =
   | "trigGraphDiagram"
   | "twoWayTableDiagram"
   | "unitCircleDiagram"
+  | "vector2DDiagram"
   | "vector3DDiagram"
   | "vennDiagram";
 
@@ -86,6 +87,13 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   const context = `${row.topic_slug} ${row.subtopic_slug}`.toLowerCase();
   const has = (...terms: string[]) => terms.some((term) => value.includes(term));
   const contextHas = (...terms: string[]) => terms.some((term) => context.includes(term));
+
+  if (
+    contextHas("vectors") &&
+    /\b(?:head-to-tail|parallelogram|collinear|intersect(?:ing|ion)?\b[\s\S]{0,60}\bx-axis|2d vector diagram)\b/i.test(text)
+  ) {
+    return { kind: "vector2DDiagram", reason: "two-dimensional vector geometry needs directed arrows or a labelled configuration" };
+  }
 
   if (has("argand", "complex plane")) {
     return { kind: "argandDiagram", reason: "complex-plane geometry is encoded in prose or notation" };

@@ -37,6 +37,7 @@ import type {
   TwoWayTableDiagram,
   UnitCircleDiagram,
   Vector3DDiagram,
+  Vector2DDiagram,
   VennDiagram,
 } from "../../lib/lessons/types";
 import { ArgandDiagramView } from "../course/components/ArgandDiagramView";
@@ -73,6 +74,7 @@ import { TrigGraphDiagramView } from "../course/components/TrigGraphDiagramView"
 import { TwoWayTableView } from "../course/components/TwoWayTableView";
 import { UnitCircleDiagramView } from "../course/components/UnitCircleDiagramView";
 import { Vector3DDiagramView } from "../course/components/Vector3DDiagramView";
+import { Vector2DDiagramView } from "../course/components/Vector2DDiagramView";
 import { VennDiagramView } from "../course/components/VennDiagramView";
 
 /** Renders a single raw diagram object (the payload without its `type` field). */
@@ -91,6 +93,7 @@ export const DIAGRAM_COMPONENTS: Record<DiagramType, DiagramComponent> = {
   unitCircleDiagram: (d) => <UnitCircleDiagramView diagram={d as unknown as UnitCircleDiagram} />,
   trigGraphDiagram: (d) => <TrigGraphDiagramView diagram={d as unknown as TrigGraphDiagram} />,
   argandDiagram: (d) => <ArgandDiagramView diagram={d as unknown as ArgandDiagram} />,
+  vector2DDiagram: (d) => <Vector2DDiagramView diagram={d as unknown as Vector2DDiagram} />,
   vector3DDiagram: (d) => <Vector3DDiagramView diagram={d as unknown as Vector3DDiagram} />,
   triangleDiagram: (d) => <TriangleDiagramView diagram={d as unknown as TriangleDiagram} />,
   trianglePairDiagram: (d) => <TrianglePairView diagram={d as unknown as TrianglePairDiagram} />,

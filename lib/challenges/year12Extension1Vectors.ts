@@ -12,6 +12,12 @@ export const vectorsCollinearityChallenge: PracticeQuestion[] = [
   {
     // Collinearity reconstruction: AB ∥ AC recovers the unknown coordinate.
     id: "chal-y12e1-vec-3",
+    vector2DDiagram: {
+      description: "Schematic straight line through collinear points A(1, 2), B(4, 6), and C(k, 14), with C furthest from A.",
+      xMin: 0, xMax: 11, yMin: 0, yMax: 16, showGrid: false, showAxes: false,
+      segments: [{ from: { x: 1, y: 2 }, to: { x: 10, y: 14 }, color: "blue" }],
+      points: [{ x: 1, y: 2, label: "A(1,2)" }, { x: 4, y: 6, label: "B(4,6)" }, { x: 10, y: 14, label: "C(k,14)" }],
+    },
     prompt:
       "The points A(1, 2), B(4, 6) and C(k, 14) are collinear. Find the value of k.",
     latex: "A(1,2),\\ B(4,6),\\ C(k,14)\\text{ collinear}",
@@ -28,6 +34,12 @@ export const vectorsGeometryChallenge: PracticeQuestion[] = [
   {
     // Section/ratio reconstruction in REVERSE: recover the far endpoint from P, A and the ratio.
     id: "chal-y12e1-vec-4",
+    vector2DDiagram: {
+      description: "Schematic interval AB with A(1, 2), P(5, 4) between A and B, and AP to PB in the ratio 2 to 1.",
+      xMin: 0, xMax: 8, yMin: 0, yMax: 6, showGrid: false, showAxes: false,
+      segments: [{ from: { x: 1, y: 2 }, to: { x: 7, y: 5 }, color: "blue" }],
+      points: [{ x: 1, y: 2, label: "A(1,2)" }, { x: 5, y: 4, label: "P(5,4)" }, { x: 7, y: 5, label: "B" }],
+    },
     prompt:
       "The point P(5, 4) divides the interval AB in the ratio AP : PB = 2 : 1, where A = (1, 2). Find the coordinates of B.",
     latex: "P=(5,4),\\ AP:PB=2:1,\\ A=(1,2)",
@@ -40,6 +52,15 @@ export const vectorsGeometryChallenge: PracticeQuestion[] = [
   {
     // Parameterised-line parameter recovery: intersection forced onto the x-axis fixes a.
     id: "chal-y12e1-vec-5",
+    vector2DDiagram: {
+      description: "Two parameterised lines intersect at a point on the x-axis. The first passes through (1, 0) in direction (2, 1); the second passes through (a, 3) in direction (-1, 1).",
+      xMin: -4, xMax: 5, yMin: -4, yMax: 6,
+      segments: [
+        { from: { x: -3, y: -2 }, to: { x: 5, y: 2 }, label: "r = (1,0) + t(2,1)", color: "blue" },
+        { from: { x: 2, y: -1 }, to: { x: -4, y: 5 }, label: "r = (a,3) + s(-1,1)", color: "violet" },
+      ],
+      points: [{ x: 1, y: 0, label: "intersection" }],
+    },
     prompt:
       "The lines r = (1, 0) + t(2, 1) and r = (a, 3) + s(−1, 1) intersect at a point on the x-axis. Find a.",
     latex: "r=(1,0)+t(2,1),\\quad r=(a,3)+s(-1,1)",

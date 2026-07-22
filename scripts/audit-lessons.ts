@@ -279,6 +279,44 @@ function validateArgandDiagram(value: unknown, path: string) {
   }
 }
 
+function validateVector2DPoint(value: unknown, path: string) {
+  if (!isRecord(value) || !isFiniteNumber(value.x) || !isFiniteNumber(value.y)) {
+    addIssue("FAIL", "vector-2d-payload", path, "Vector2D point requires finite x and y values.");
+  }
+}
+
+function validateVector2DDiagram(value: unknown, path: string) {
+  if (!isRecord(value)) {
+    addIssue("FAIL", "vector-2d-payload", path, "Vector2D diagram must be an object.");
+    return;
+  }
+  if (!isNonEmptyString(value.description)) {
+    addIssue("FAIL", "vector-2d-payload", path, "Vector2D diagram requires a description.");
+  }
+  for (const key of ["points", "vectors", "segments", "angles"] as const) {
+    if (value[key] !== undefined && !Array.isArray(value[key])) {
+      addIssue("FAIL", "vector-2d-payload", `${path}.${key}`, `${key} must be an array when supplied.`);
+    }
+  }
+  if (Array.isArray(value.points)) {
+    value.points.forEach((point, index) => validateVector2DPoint(point, `${path}.points[${index}]`));
+  }
+  if (Array.isArray(value.vectors)) {
+    value.vectors.forEach((vector, index) => {
+      if (!isRecord(vector)) return addIssue("FAIL", "vector-2d-payload", `${path}.vectors[${index}]`, "Vector must be an object.");
+      if (vector.from !== undefined) validateVector2DPoint(vector.from, `${path}.vectors[${index}].from`);
+      validateVector2DPoint(vector.to, `${path}.vectors[${index}].to`);
+    });
+  }
+  if (Array.isArray(value.segments)) {
+    value.segments.forEach((segment, index) => {
+      if (!isRecord(segment)) return addIssue("FAIL", "vector-2d-payload", `${path}.segments[${index}]`, "Segment must be an object.");
+      validateVector2DPoint(segment.from, `${path}.segments[${index}].from`);
+      validateVector2DPoint(segment.to, `${path}.segments[${index}].to`);
+    });
+  }
+}
+
 function validateVector3DDiagram(value: unknown, path: string) {
   if (!isRecord(value)) {
     addIssue("FAIL", "vector-3d-payload", path, "Vector3D diagram must be an object.");
@@ -1340,6 +1378,7 @@ function validateVisualPayloads(lesson: ExplicitLesson, basePath: string) {
     if (item.unitCircleDiagram) validateUnitCircleDiagram(item.unitCircleDiagram, `${path}.unitCircleDiagram`);
     if (item.trigGraphDiagram) validateTrigGraphDiagram(item.trigGraphDiagram, `${path}.trigGraphDiagram`);
     if (item.argandDiagram) validateArgandDiagram(item.argandDiagram, `${path}.argandDiagram`);
+    if (item.vector2DDiagram) validateVector2DDiagram(item.vector2DDiagram, `${path}.vector2DDiagram`);
     if (item.vector3DDiagram) validateVector3DDiagram(item.vector3DDiagram, `${path}.vector3DDiagram`);
     if (item.trapezoidalRuleDiagram) {
       validateTrapezoidalRuleDiagram(item.trapezoidalRuleDiagram, `${path}.trapezoidalRuleDiagram`);

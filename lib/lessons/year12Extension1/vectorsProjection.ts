@@ -104,7 +104,7 @@ const vectorsProjection: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "\\operatorname{proj}_{\\mathbf{b}}\\mathbf{a}=\\begin{pmatrix}6\\\\3\\end{pmatrix},\\quad\\mathbf{a}^\\perp=\\begin{pmatrix}1\\\\-2\\end{pmatrix}",
-      cartesianGraph: {
+      vector2DDiagram: {
         description:
           "Geometric picture of the decomposition a = proj_b(a) + a⊥. The line through the origin in the direction of b (slope 1/2) represents the b-direction. The point (7, 1) is the tip of a. The projection lands at (6, 3) on the b-direction line. The perpendicular component (1, −2) goes from the projection point (6, 3) to the tip of a at (7, 1), meeting the b-direction line at a right angle.",
         xMin: -0.5,
@@ -116,7 +116,18 @@ const vectorsProjection: Partial<ExplicitLesson> = {
         showGrid: true,
         xAxisLabel: "x",
         yAxisLabel: "y",
-        lines: [{ kind: "linear", m: 0.5, b: 0, label: "b direction (slope 1/2)" }],
+        showAxes: true,
+        segments: [
+          { from: { x: 0, y: 0 }, to: { x: 8, y: 4 }, label: "b direction", dashed: true, color: "blue" },
+        ],
+        vectors: [
+          { to: { x: 7, y: 1 }, label: "a = (7,1)", color: "violet" },
+          { to: { x: 6, y: 3 }, label: "proj_b(a) = (6,3)", color: "teal" },
+          { from: { x: 6, y: 3 }, to: { x: 7, y: 1 }, label: "a_perp = (1,-2)", color: "amber" },
+        ],
+        angles: [
+          { vertex: { x: 6, y: 3 }, from: { x: 4, y: 2 }, to: { x: 7, y: 1 }, rightAngle: true },
+        ],
         points: [
           { x: 0, y: 0, label: "O" },
           { x: 7, y: 1, label: "a = (7,1)" },
@@ -157,6 +168,25 @@ const vectorsProjection: Partial<ExplicitLesson> = {
       ],
       finalAnswerLatex:
         "\\operatorname{proj}_{\\mathbf{b}}\\mathbf{a}=\\left(\\tfrac{9}{5},\\tfrac{12}{5}\\right),\\quad\\mathbf{a}^\\perp=\\left(\\tfrac{16}{5},-\\tfrac{12}{5}\\right)",
+      vector2DDiagram: {
+        description:
+          "Vector decomposition of a = (5, 0) relative to b = (3, 4). The projection (9/5, 12/5) runs from the origin along b, and the perpendicular component (16/5, -12/5) runs from the projection tip to (5, 0), meeting the b-direction at a right angle.",
+        xMin: -0.5,
+        xMax: 5.8,
+        yMin: -0.8,
+        yMax: 4.8,
+        vectors: [
+          { to: { x: 5, y: 0 }, label: "a", color: "violet" },
+          { to: { x: 1.8, y: 2.4 }, label: "proj_b(a)", color: "teal" },
+          { from: { x: 1.8, y: 2.4 }, to: { x: 5, y: 0 }, label: "a_perp", color: "amber" },
+        ],
+        segments: [
+          { from: { x: 0, y: 0 }, to: { x: 3.3, y: 4.4 }, label: "b direction", dashed: true },
+        ],
+        angles: [
+          { vertex: { x: 1.8, y: 2.4 }, from: { x: 0, y: 0 }, to: { x: 5, y: 0 }, rightAngle: true },
+        ],
+      },
     },
   ],
   guidedPractice: [
