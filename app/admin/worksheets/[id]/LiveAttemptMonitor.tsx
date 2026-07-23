@@ -175,7 +175,10 @@ export function LiveAttemptMonitor({ worksheetId }: { worksheetId: string }) {
   }, [endpoint]);
 
   return (
-    <section className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <section
+      id="live-monitor"
+      className="scroll-mt-24 space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+    >
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">

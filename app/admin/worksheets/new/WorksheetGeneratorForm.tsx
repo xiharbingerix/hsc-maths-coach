@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { BlockMath } from "react-katex";
 import { MathText } from "../../../components/MathText";
@@ -547,6 +548,12 @@ export function WorksheetGeneratorForm({
         </div>
 
         <div className="flex flex-wrap gap-3">
+          <Link
+            href={`/admin/worksheets/${result.worksheetId}#live-monitor`}
+            className="inline-flex rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700"
+          >
+            Open live view
+          </Link>
           <a
             href={result.shareUrl}
             target="_blank"
