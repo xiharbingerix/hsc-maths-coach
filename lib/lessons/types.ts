@@ -784,6 +784,7 @@ export type Solid3DDiagram = {
     width?: string;
     height?: string;
     radius?: string;
+    diameter?: string;
     slant?: string;
     base?: string;
   };

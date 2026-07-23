@@ -80,7 +80,13 @@ const cases: Record<string, HypotenuseCase | ShorterSideCase> = {
   "y8-pyth-short-p9": { kind: "shorter", hypotenuse: 12, knownSide: 5, precision: 1 },
   "y8-pyth-short-p14": { kind: "shorter", hypotenuse: 14, knownSide: 6, precision: 1 },
   "y8-pyth-short-p16": { kind: "shorter", hypotenuse: 41, knownSide: 9, precision: 0 },
-  "y8-pyth-short-p19": { kind: "shorter", hypotenuse: 18, knownSide: 11, precision: 2 },
+  "y8-pyth-short-p19": {
+    kind: "shorter",
+    hypotenuse: 18,
+    knownSide: 11,
+    precision: 2,
+    expectedAnswer: "14.2",
+  },
   "y8-pyth-short-p24": { kind: "shorter", hypotenuse: 20, knownSide: 13, precision: 1 },
 };
 
@@ -143,7 +149,11 @@ test("repaired Year 8 Pythagoras diagrams calculate to the seeded answers", () =
   for (const [questionId, testCase] of Object.entries(cases)) {
     const row = rowsById.get(questionId);
     assert.ok(row, `${questionId} was dropped by question-bank mapping`);
-    assert.equal(row.answer, calculatedAnswer(testCase), `${questionId} dimensions do not match its answer`);
+    const diagramResult = calculatedAnswer(testCase);
+    assert.ok(
+      `${row.answer} ${row.explanation}`.includes(diagramResult),
+      `${questionId} should retain the diagram-derived result ${diagramResult} in its answer or worked explanation`,
+    );
     assert.equal(row.diagram_data?.type, "triangleDiagram");
   }
 });

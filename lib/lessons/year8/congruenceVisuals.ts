@@ -244,6 +244,70 @@ export const congruenceQuestionVisuals: Record<string, CongruenceQuestionVisual>
       "Triangle PQR"
     ),
   },
+  "y8-geo-con-p18": {
+    prompt: "Triangles ABC and DEF are congruent in the stated order. Angle D is 2x° and angle A is 50°. Find x and the size of angle D.",
+    congruentTrianglesDiagram: pair(
+      "Congruent triangles ABC and DEF with angle A, labelled 50 degrees, corresponding to angle D, labelled 2x degrees.",
+      triangle("Triangle ABC with angle A labelled 50 degrees and marked to show its correspondence with angle D.", ["A", "B", "C"], {
+        angleLabels: { A: "50°" },
+        angleMarks: { A: 1 },
+      }),
+      triangle("Triangle DEF with corresponding angle D labelled 2x degrees and carrying the matching angle mark.", ["D", "E", "F"], {
+        angleLabels: { A: "2x°" },
+        angleMarks: { A: 1 },
+      }, rightVertices),
+      "Triangle ABC",
+      "Triangle DEF"
+    ),
+  },
+  "y8-geo-con-p19": {
+    prompt: "Triangles ABC and PQR are congruent in the stated order. AB = (3x - 4) cm and PQ = 11 cm. Find x and verify the common side length.",
+    congruentTrianglesDiagram: pair(
+      "Congruent triangles ABC and PQR with side AB, labelled 3x minus 4 centimetres, corresponding to side PQ, labelled 11 centimetres.",
+      triangle("Triangle ABC with side AB labelled 3x minus 4 centimetres and marked as a corresponding side.", ["A", "B", "C"], {
+        sideLabels: { AB: "3x - 4 cm" },
+        sideTicks: { AB: 1 },
+      }),
+      triangle("Triangle PQR with corresponding side PQ labelled 11 centimetres and carrying the matching side mark.", ["P", "Q", "R"], {
+        sideLabels: { AB: "11 cm" },
+        sideTicks: { AB: 1 },
+      }, rightVertices),
+      "Triangle ABC",
+      "Triangle PQR"
+    ),
+  },
+  "y8-geo-con-p21": {
+    prompt: "Triangles ABC and DEF are congruent in the stated order. BC = (4x + 1) cm and EF = (2x + 9) cm. Find x and the common corresponding length.",
+    congruentTrianglesDiagram: pair(
+      "Congruent triangles ABC and DEF with side BC, labelled 4x plus 1 centimetres, corresponding to side EF, labelled 2x plus 9 centimetres.",
+      triangle("Triangle ABC with side BC labelled 4x plus 1 centimetres and marked as a corresponding side.", ["A", "B", "C"], {
+        sideLabels: { BC: "4x + 1 cm" },
+        sideTicks: { BC: 2 },
+      }),
+      triangle("Triangle DEF with corresponding side EF labelled 2x plus 9 centimetres and the matching side mark.", ["D", "E", "F"], {
+        sideLabels: { BC: "2x + 9 cm" },
+        sideTicks: { BC: 2 },
+      }, rightVertices),
+      "Triangle ABC",
+      "Triangle DEF"
+    ),
+  },
+  "y8-geo-con-p23": {
+    prompt: "Triangles ABC and PQR are congruent in the stated order. Angle P is (3x + 10)° and angle A is (x + 40)°. Find x and the common angle size.",
+    congruentTrianglesDiagram: pair(
+      "Congruent triangles ABC and PQR with angle A, labelled x plus 40 degrees, corresponding to angle P, labelled 3x plus 10 degrees.",
+      triangle("Triangle ABC with angle A labelled x plus 40 degrees and marked to show its correspondence with angle P.", ["A", "B", "C"], {
+        angleLabels: { A: "x + 40°" },
+        angleMarks: { A: 1 },
+      }),
+      triangle("Triangle PQR with corresponding angle P labelled 3x plus 10 degrees and carrying the matching angle mark.", ["P", "Q", "R"], {
+        angleLabels: { A: "3x + 10°" },
+        angleMarks: { A: 1 },
+      }, rightVertices),
+      "Triangle ABC",
+      "Triangle PQR"
+    ),
+  },
   "y8-geo-con-mp1": {
     prompt:
       "The matching marks show triangles ABC and DEF satisfy SAS. Use the given angles and side length for each part.",

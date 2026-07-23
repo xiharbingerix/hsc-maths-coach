@@ -119,7 +119,9 @@ function poolA(
   value: string,
   explanation: string,
   difficulty: number,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  hint = "Substitute values carefully and show each step of working.",
+  cartesianGraph?: CartesianGraph
 ): PracticeQuestion {
   return {
     id,
@@ -128,8 +130,9 @@ function poolA(
     difficulty,
     answer: value,
     acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])),
-    hint: "Substitute values carefully and show each step of working.",
+    hint,
     explanation,
+    cartesianGraph,
   };
 }
 
@@ -544,83 +547,93 @@ const numberPatternsAndRules: LessonContent = {
     ),
     poolA(
       "y8-lin-pat-p17",
-      "Find the rule for 4, 9, 14, 19, … and use it to find the 20th term.",
+      "An auditorium numbers the seats in each row using a linear pattern. Row 4 has 29 seats and row 9 has 54 seats. Safety rules allow at most 200 seats in one row. Find the largest permitted row number.",
       "",
-      "99",
-      "m = 5, c = −1, so T = 5n − 1. The 20th term is 5 × 20 − 1 = 99.",
-      4
+      "38",
+      "The five-row increase from row 4 to row 9 is 54 − 29 = 25, so the common difference is 25 ÷ 5 = 5. Write T = 5n + c and use row 4: 29 = 20 + c, giving c = 9. The rule is T = 5n + 9. Solve 5n + 9 ≤ 200: n ≤ 38.2. A row number must be a whole number, so row 38 is the largest permitted row (199 seats); row 39 would have 204.",
+      4,
+      ["row 38", "38th row"],
+      "First use the two non-consecutive rows to find the increase per row; then model the safety limit with an inequality."
     ),
     poolA(
       "y8-lin-pat-p18",
-      "Rule: T = 6n − 5. For which n is T = 73?",
+      "A tile pattern follows T = 6n − 5. A student says, 'The pattern reaches 100 tiles at step 18 because solving 6n − 5 = 100 gives n = 17.5, which rounds to 18.' Give the first step with at least 100 tiles and the actual number of tiles at that step. Enter your answer as step, tiles.",
       "",
-      "13",
-      "6n = 78, so n = 13.",
-      4
+      "18, 103",
+      "The equation gives n = 17.5, but a pattern step must be a whole number and T = 100 is not itself a term. Test the neighbouring whole steps: T₁₇ = 6(17) − 5 = 97 and T₁₈ = 6(18) − 5 = 103. Therefore step 18 is the first with at least 100 tiles, but it contains 103 tiles rather than exactly 100.",
+      4,
+      ["18,103", "step 18, 103 tiles", "(18,103)"],
+      "Do not round and stop: evaluate the rule at the whole steps on either side of 17.5."
     ),
     poolA(
       "y8-lin-pat-p19",
-      "A pattern has a common difference of 4 and its 10th term is 41. What is its first term?",
+      "A linear pattern has 10th term 41 and 18th term 73. Without listing every term, find the position of the term whose value is 101.",
       "",
-      "5",
-      "From the 1st to the 10th term is 9 steps of 4 = 36. So T₁ = 41 − 36 = 5.",
-      4
+      "25",
+      "From the 10th to the 18th term there are 8 equal steps and the value rises by 32, so the common difference is 4. Using T = 4n + c and T₁₀ = 41 gives 41 = 40 + c, so c = 1. Solve 4n + 1 = 101 to obtain n = 25. Checking gives T₂₅ = 101.",
+      4,
+      ["n=25", "25th"],
+      "Use the spacing between the 10th and 18th terms to recover the common difference before finding the rule."
     ),
-    poolC(
+    poolA(
       "y8-lin-pat-p20",
-      "The rule T = mn + c gives T = 13 when n = 2 and T = 23 when n = 4. What is m?",
-      "C",
-      ["3", "4", "5", "6"],
-      "From n = 2 to n = 4 is 2 steps and T rises by 10, so m = 10 ÷ 2 = 5.",
-      4
+      "A linear rule T = mn + c gives T = 13 when n = 2 and T = 23 when n = 4. A student predicts T = 50 when n = 10. By how much is the prediction too low?",
+      "",
+      "3",
+      "Across two steps of n, T rises by 10, so m = 5. Substitute n = 2: 13 = 10 + c, hence c = 3 and T = 5n + 3. At n = 10 the correct value is 53. The prediction 50 is therefore too low by 3.",
+      4,
+      ["3 units"],
+      "Recover both parameters from the two given points, then compare the model's value at n = 10 with the prediction."
     ),
     poolA(
       "y8-lin-pat-p21",
-      "A pattern starts 3, 10, 17, … For which n does the term first exceed 100?",
+      "Machine A produces 3, 10, 17, … parts in successive test runs. Machine B follows T = 4n + 20. Which machine first produces at least 100 parts in a run, and how many runs earlier? Enter machine, difference.",
       "",
-      "15",
-      "T = 7n − 4. Solve 7n − 4 > 100: 7n > 104, n > 14.86, so the first whole n is 15.",
-      4
+      "A, 5",
+      "Machine A has rule T = 7n − 4. For A, 7n − 4 ≥ 100 gives n ≥ 104/7, so its first qualifying whole run is 15. For B, 4n + 20 ≥ 100 gives n ≥ 20. Machine A reaches the target first, 20 − 15 = 5 runs earlier.",
+      4,
+      ["A,5", "Machine A, 5 runs", "machine a, 5"],
+      "Build Machine A's rule, solve the same at-least-100 inequality for both machines, and compare the first whole-number runs."
     ),
     poolA(
       "y8-lin-pat-p22",
-      "Pattern A is 4, 7, 10, 13, … and pattern B is 1, 7, 13, 19, … At which position n are their terms equal?",
+      "Pattern A is 4, 7, 10, 13, … and pattern B is 1, 7, 13, 19, …. Find the position and common term where they are equal.",
       "",
-      "2",
-      "A: T = 3n + 1. B: T = 6n − 5. Set equal: 3n + 1 = 6n − 5, so 6 = 3n and n = 2. (Check: A's 2nd term = 7, B's 2nd term = 7.)",
-      5
+      "2, 7",
+      "A has rule $T=3n+1$ and B has rule $T=6n-5$. Equating gives $n=2$, and substitution gives the common term 7.",
+      5, ["n=2, T=7", "2 and 7"]
     ),
     poolA(
       "y8-lin-pat-p23",
-      "The 5th term of a linear pattern is 23 and the 9th term is 43. Find the common difference.",
+      "The 5th term of a linear pattern is 23 and the 9th term is 43. Find the common difference and the first term.",
       "",
-      "5",
-      "From the 5th to the 9th term is 4 steps and the value rises by 20, so d = 20 ÷ 4 = 5.",
-      5
+      "5, 3",
+      "Four steps produce a rise of 20, so $d=5$. Moving back four steps from term 5 gives $23-4(5)=3$.",
+      5, ["d=5, first term=3", "5 and 3"]
     ),
     poolA(
       "y8-lin-pat-p24",
-      "The 3rd term of a linear pattern is 17 and the 7th term is 37. Find the 1st term.",
+      "The 3rd term is 17 and the 7th term is 37. Find the first term and write the nth-term rule.",
       "",
-      "7",
-      "Common difference d = 20 ÷ 4 = 5. The 1st term is 2 steps before the 3rd: 17 − 2 × 5 = 7.",
-      5
+      "7, T=5n+2",
+      "The common difference is $20/4=5$. The first term is $17-2(5)=7$, so $T=7+5(n-1)=5n+2$.",
+      5, ["7, 5n+2", "first term 7 and T=5n+2"]
     ),
     poolA(
       "y8-lin-pat-p25",
-      "A linear pattern has rule T = 8n + c. Its 4th term is 35. Find c, then find the 10th term.",
+      "A linear pattern has rule $T=8n+c$ and fourth term 35. Find $c$, the tenth term, and check the fourth term using your rule.",
       "",
-      "83",
-      "32 + c = 35, so c = 3 and T = 8n + 3. The 10th term is 8 × 10 + 3 = 83.",
-      5
+      "3, 83, 35",
+      "$32+c=35$ gives $c=3$. Then $T_{10}=8(10)+3=83$, and $T_4=8(4)+3=35$ confirms the condition.",
+      5, ["c=3, T10=83, check=35"]
     ),
     poolA(
       "y8-lin-pat-p26",
-      "Pattern: 5, 9, 13, 17, … How many terms are less than 50?",
+      "For 5, 9, 13, 17, …, find how many terms are less than 50 and state the greatest such term.",
       "",
-      "12",
-      "T = 4n + 1. Solve 4n + 1 < 50: 4n < 49, n < 12.25, so 12 terms (n = 1 to 12) are below 50.",
-      5
+      "12, 49",
+      "$T=4n+1$. The inequality $4n+1<50$ gives $n<12.25$, so there are 12 whole-number positions. The twelfth term is $49$.",
+      5, ["12 terms, 49"]
     ),
   ],
   multiPartPractice: [
@@ -1061,84 +1074,94 @@ const coordinatesAndPoints: LessonContent = {
     ),
     poolA(
       "y8-lin-coo-p17",
-      "A(−4, 3) and B(2, 3) are joined by a line segment. What is its length?",
+      "A warehouse robot travels from A(−4, 3) horizontally to B(2, 3), then vertically to C(2, −5). An operator adds the signed coordinate changes and reports a total distance of −2 units. Find the actual total distance travelled.",
       "",
-      "6",
-      "Same y, so length = |2 − (−4)| = 6 units.",
-      4
+      "14",
+      "Distance uses the size of each movement, not its sign. From A to B the robot travels |2 − (−4)| = 6 units. From B to C it travels |−5 − 3| = 8 units. The total distance is 6 + 8 = 14 units. The operator's −2 came from adding +6 and −8 as displacements, which is not total distance.",
+      4,
+      ["14 units"],
+      "Separate the route into its horizontal and vertical segments and use absolute changes for distance."
     ),
     poolA(
       "y8-lin-coo-p18",
-      "Find the x-coordinate of the midpoint of (−3, 0) and (9, 0).",
+      "The midpoint of A(−3, 4) and B is M(3, −2). Find the coordinates of B and state its quadrant. Enter coordinates, quadrant.",
       "",
-      "3",
-      "Midpoint x = (−3 + 9) ÷ 2 = 6 ÷ 2 = 3.",
-      4
+      "(9,-8), IV",
+      "For the x-coordinate, (−3 + x_B)/2 = 3, so x_B = 9. For the y-coordinate, (4 + y_B)/2 = −2, so y_B = −8. Thus B = (9, −8). A positive x-coordinate and negative y-coordinate place B in Quadrant IV.",
+      4,
+      ["(9, −8), IV", "(9,-8), quadrant IV", "9,-8,IV"],
+      "Reverse the midpoint calculation separately for x and y, then use the signs of the recovered coordinates."
     ),
     poolA(
       "y8-lin-coo-p19",
-      "Find the y-coordinate of the midpoint of (1, −2) and (1, 8).",
+      "Three vertices of an axis-aligned rectangle are A(−5, −2), B(4, −2) and C(4, 6), listed in order. Find the fourth vertex D and state its quadrant. Enter coordinates, quadrant.",
       "",
-      "3",
-      "Midpoint y = (−2 + 8) ÷ 2 = 3.",
-      4
+      "(-5,6), II",
+      "AB is horizontal, so the opposite side CD is horizontal and D must share C's y-coordinate 6. BC is vertical, so AD is vertical and D must share A's x-coordinate −5. Therefore D = (−5, 6), which lies in Quadrant II because x is negative and y is positive.",
+      4,
+      ["(−5, 6), II", "(-5,6), quadrant II", "-5,6,II"],
+      "Use the repeated x- and y-coordinates forced by horizontal and vertical opposite sides."
     ),
     poolA(
       "y8-lin-coo-p20",
-      "A square has corners (0, 0), (6, 0), (6, 6) and (0, 6). What is the x-coordinate of its centre?",
+      "P(a, −4) is the midpoint of Q(−6, 2) and R(8, −10). The point P is then reflected in the y-axis. Find the reflected coordinates and state the quadrant. Enter coordinates, quadrant.",
       "",
-      "3",
-      "The centre is the midpoint of a diagonal: x = (0 + 6) ÷ 2 = 3.",
-      4
+      "(-1,-4), III",
+      "The midpoint of Q and R is ((−6 + 8)/2, (2 + (−10))/2) = (1, −4), so a = 1. Reflection in the y-axis changes the sign of x but keeps y unchanged, giving (−1, −4). Both coordinates are negative, so the image lies in Quadrant III.",
+      4,
+      ["(−1, −4), III", "(-1,-4), quadrant III", "-1,-4,III"],
+      "First calculate P from the two endpoints; only then apply the reflection by changing the sign of x."
     ),
     poolA(
       "y8-lin-coo-p21",
-      "The midpoint of A(2, 5) and B is (5, 5). Find the x-coordinate of B.",
+      "A point is 7 units from the y-axis, 3 units above the x-axis, and lies in Quadrant II. A student reverses the coordinate order when plotting it. How many horizontal and vertical units in total must the plotted point move to reach the correct point?",
       "",
-      "8",
-      "(2 + x_B) ÷ 2 = 5, so 2 + x_B = 10 and x_B = 8.",
-      4
+      "20",
+      "Quadrant II makes x negative and y positive. The correct point is (−7, 3). Reversing the coordinate order gives the student's point (3, −7). To correct it requires |−7 − 3| = 10 horizontal units and |3 − (−7)| = 10 vertical units, for 20 units in total.",
+      4,
+      ["20 units"],
+      "Determine the signs before writing the correct coordinate, then compare it with the coordinate-order error one axis at a time."
     ),
     poolA(
       "y8-lin-coo-p22",
-      "Three corners of a rectangle are (1, 1), (7, 1) and (7, 4). Find the x-coordinate of the fourth corner.",
+      "Three rectangle corners are $(1,1)$, $(7,1)$ and $(7,4)$. Find the fourth corner and the rectangle's area.",
       "",
-      "1",
-      "The fourth corner is above (1, 1), so it is (1, 4). Its x-coordinate is 1.",
-      5
+      "(1,4), 18",
+      "The missing corner shares $x=1$ with the first point and $y=4$ with the third, so it is $(1,4)$. Width 6 and height 3 give area 18.",
+      5, ["(1, 4), 18 square units"]
     ),
     poolA(
       "y8-lin-coo-p23",
-      "The midpoint of P(−1, 4) and Q is (3, 4). Find the x-coordinate of Q.",
+      "The midpoint of $P(-1,4)$ and $Q$ is $(3,4)$. Find $Q$ and the length $PQ$.",
       "",
-      "7",
-      "(−1 + x_Q) ÷ 2 = 3, so −1 + x_Q = 6 and x_Q = 7.",
-      5
+      "(7,4), 8",
+      "$(-1+x_Q)/2=3$ gives $x_Q=7$, while the midpoint y-coordinate gives $y_Q=4$. Thus $Q=(7,4)$ and the horizontal length is 8.",
+      5, ["Q=(7,4), PQ=8"]
     ),
     poolA(
       "y8-lin-coo-p24",
-      "A(−5, 2) and B(7, 2) are the ends of a horizontal segment. What is the x-coordinate of its midpoint?",
+      "$A(-5,2)$ and $B(7,2)$ form a horizontal segment. Find its midpoint and length.",
       "",
-      "1",
-      "Midpoint x = (−5 + 7) ÷ 2 = 2 ÷ 2 = 1.",
-      5
+      "(1,2), 12",
+      "The midpoint is $((-5+7)/2,(2+2)/2)=(1,2)$. The horizontal length is $7-(-5)=12$.",
+      5, ["(1, 2), 12 units"]
     ),
     poolA(
       "y8-lin-coo-p25",
-      "The point (a, b) is in Quadrant II and lies on the line y = 5. If its distance from the y-axis is 3 units, find a.",
+      "Point $(a,b)$ is in Quadrant II, lies on $y=5$, and is 3 units from the y-axis. Find the point and its distance from the x-axis.",
       "",
-      "-3",
-      "In Quadrant II, x is negative. A distance of 3 from the y-axis means a = −3.",
+      "(-3,5), 5",
+      "Quadrant II makes $x$ negative, so distance 3 from the y-axis gives $a=-3$. The line gives $b=5$, and its distance from the x-axis is 5.",
       5,
-      ["−3"]
+      ["(-3, 5), 5"]
     ),
     poolA(
       "y8-lin-coo-p26",
-      "A line segment from (2, 1) to (2, 9) is divided into 4 equal parts. What is the y-coordinate of the first division point above (2, 1)?",
+      "The segment from $(2,1)$ to $(2,9)$ is divided into 4 equal parts. List all three internal division points.",
       "",
-      "3",
-      "Each part is (9 − 1) ÷ 4 = 2 units. The first division point is at y = 1 + 2 = 3.",
-      5
+      "(2,3), (2,5), (2,7)",
+      "The vertical length is 8, so each part is 2 units. Adding 2 repeatedly to the starting y-coordinate gives 3, 5 and 7.",
+      5, ["(2, 3), (2, 5), (2, 7)"]
     ),
   ],
   multiPartPractice: [
@@ -1589,84 +1612,94 @@ const tablesOfValues: LessonContent = {
     ),
     poolA(
       "y8-lin-tab-p17",
-      "Table: x = 1 → 8, x = 3 → 18, x = 5 → 28. Find the rule y = mx + c and give c.",
+      "A table is meant to follow y = mx + c, where m and c are whole numbers: x = 1 → 8, x = 3 → 18, x = 5 → 29. Exactly one y-value was copied incorrectly. State the incorrect value and its correction. Enter incorrect, correct.",
       "",
-      "3",
-      "m = (18 − 8) ÷ (3 − 1) = 5. Then 5(1) + c = 8, so c = 3.",
-      4
+      "29, 28",
+      "The first two pairs give m = (18 − 8)/(3 − 1) = 5, a whole number. Then 8 = 5(1) + c gives c = 3. The rule predicts y = 5(5) + 3 = 28 at x = 5, so 29 is the copied error and must be corrected to 28. Using either pair involving 29 would give a non-whole slope, contradicting the condition.",
+      4,
+      ["29,28", "29 should be 28", "29 → 28"],
+      "Test which pair produces the required whole-number slope, then use that rule to check the remaining entry."
     ),
     poolA(
       "y8-lin-tab-p18",
-      "Rule: y = 8x − 5. For which x is y = 51?",
+      "A tool-hire table is linear: x = 0 hours → $18, x = 3 hours → $42, x = 7 hours → $74. A customer has at most $70 and hires for a whole number of hours. Find the greatest possible number of hours and the resulting cost. Enter hours, cost.",
       "",
-      "7",
-      "8x = 56, so x = 7.",
-      4
+      "6, 66",
+      "The cost rises by $32 from 3 to 7 hours, so the hourly rate is $32 ÷ 4 = $8. The x = 0 row shows the fixed fee is $18, giving C = 8x + 18. The budget condition 8x + 18 ≤ 70 gives x ≤ 6.5. Whole hours make 6 the greatest possible hire time, costing 8(6) + 18 = $66.",
+      4,
+      ["6,66", "6 hours, $66", "6 hours, 66"],
+      "Use two rows to find the hourly increase and the x = 0 row for the fixed charge, then apply the whole-hour budget constraint."
     ),
     poolA(
       "y8-lin-tab-p19",
-      "A rule y = mx + c gives y = 13 at x = 2 and y = 25 at x = 5. Find m.",
+      "A calibration table gives x = 2 → y = 13 and x = 5 → y = 25. A manager assumes direct proportion and uses y/x = 25/5 to predict y = 60 when x = 12. By how much does this prediction exceed the value from the correct linear rule y = mx + c?",
       "",
-      "4",
-      "m = (25 − 13) ÷ (5 − 2) = 12 ÷ 3 = 4.",
-      4
+      "7",
+      "The slope from the table is (25 − 13)/(5 − 2) = 4. Using (2, 13), 13 = 4(2) + c gives c = 5, so the correct rule is y = 4x + 5. At x = 12 it gives 53. The manager's direct-proportion prediction is 60, which exceeds 53 by 7. Direct proportion was invalid because the intercept is not zero.",
+      4,
+      ["7 units"],
+      "Check whether the data pass through a zero intercept before using y/x as a constant rate."
     ),
     poolA(
       "y8-lin-tab-p20",
-      "A rule y = mx + c gives y = 13 at x = 2 and y = 25 at x = 5. Find c.",
+      "Plan A's cost table includes x = 2 → $13 and x = 5 → $25 and follows a linear rule. Plan B costs 3x + 14 dollars. Find the first whole-number x for which Plan A costs more than Plan B.",
       "",
-      "5",
-      "With m = 4: 13 = 8 + c, so c = 5.",
-      4
+      "10",
+      "For Plan A, m = (25 − 13)/(5 − 2) = 4 and 13 = 4(2) + c gives c = 5, so A = 4x + 5. Compare the plans: 4x + 5 > 3x + 14 gives x > 9. Therefore the first whole-number input is x = 10. At x = 10, A costs $45 and B costs $44, confirming the change.",
+      4,
+      ["x=10", "10 units"],
+      "Build Plan A's rule from its two table rows, then solve a strict comparison and check the first allowable whole number."
     ),
     poolA(
       "y8-lin-tab-p21",
-      "Rule: y = −4x + 30. For which x is y = 2?",
+      "A cooling table follows y = −4x + 30, where x is a whole number of hours. The equipment is safe while y ≥ 2. A student solves y = 2, gets x = 7, and says hour 7 is the first unsafe hour. Find the first unsafe hour and its y-value. Enter hour, value.",
       "",
-      "7",
-      "−4x = −28, so x = 7.",
-      4
+      "8, -2",
+      "At x = 7, y = −4(7) + 30 = 2, which still satisfies y ≥ 2, so the student's interpretation is wrong. At the next whole hour, x = 8, y = −4(8) + 30 = −2, which is below the safe limit. The first unsafe reading is therefore hour 8 with y = −2.",
+      4,
+      ["8,-2", "hour 8, -2", "8, −2"],
+      "Distinguish the boundary value from the first value outside the safe region, remembering that time is restricted to whole hours."
     ),
     poolA(
       "y8-lin-tab-p22",
-      "A table of y = 3x + c includes the pair x = 4, y = 17. Find c.",
+      "A table for $y=3x+c$ contains $(4,17)$. Find $c$ and the y-value when $x=-2$.",
       "",
-      "5",
-      "12 + c = 17, so c = 5.",
-      5
+      "5, -1",
+      "$17=3(4)+c$ gives $c=5$. Then at $x=-2$, $y=3(-2)+5=-1$.",
+      5, ["c=5, y=-1"]
     ),
     poolA(
       "y8-lin-tab-p23",
-      "Two rules y = 2x + 3 and y = 5x − 9 give the same y at one value of x. Find that x.",
+      "Find the intersection point of $y=2x+3$ and $y=5x-9$, and verify it in both rules.",
       "",
-      "4",
-      "2x + 3 = 5x − 9 gives 12 = 3x, so x = 4.",
-      5
+      "(4,11)",
+      "Equating gives $2x+3=5x-9$, hence $x=4$. Both rules then give $y=11$, so the intersection is $(4,11)$.",
+      5, ["4, 11", "x=4, y=11"]
     ),
     poolA(
       "y8-lin-tab-p24",
-      "For the x-value where y = 2x + 3 and y = 5x − 9 are equal, what is the common y-value?",
+      "At the intersection of $y=2x+3$ and $y=5x-9$, find the common y-value and the value of $x+y$.",
       "",
-      "11",
-      "At x = 4: y = 2(4) + 3 = 11 (and 5(4) − 9 = 11).",
-      5
+      "11, 15",
+      "Equating the rules gives $x=4$. Substitution gives $y=11$, so $x+y=15$.",
+      5, ["y=11, x+y=15"]
     ),
     poolA(
       "y8-lin-tab-p25",
-      "A linear rule gives y = 20 at x = 3 and y = 32 at x = 7. Find y when x = 10.",
+      "A linear rule gives $(3,20)$ and $(7,32)$. Find the rule and then find $y$ when $x=10$.",
       "",
-      "41",
-      "m = 12 ÷ 4 = 3, and 20 = 3(3) + c gives c = 11. So y = 3x + 11 and at x = 10, y = 41.",
-      5
+      "y=3x+11, 41",
+      "$m=(32-20)/(7-3)=3$, and $20=3(3)+c$ gives $c=11$. Thus $y=3x+11$ and $y(10)=41$.",
+      5, ["3x+11, 41"]
     ),
     poolA(
       "y8-lin-tab-p26",
-      "A table follows y = mx + c with y = −1 at x = 1 and y = 11 at x = 4. Find y when x = 0.",
+      "A table contains $(1,-1)$ and $(4,11)$ for $y=mx+c$. Find $m$, $c$, and the value at $x=0$.",
       "",
-      "-5",
-      "m = 12 ÷ 3 = 4. Then −1 = 4(1) + c gives c = −5. At x = 0, y = c = −5.",
+      "4, -5, -5",
+      "$m=(11-(-1))/(4-1)=4$. Then $-1=4+c$ gives $c=-5$, and at $x=0$, $y=c=-5$.",
       5,
-      ["−5"]
+      ["m=4, c=-5, y=-5"]
     ),
   ],
   multiPartPractice: [
@@ -2137,87 +2170,129 @@ const graphingLinearRelationships: LessonContent = {
     ),
     poolA(
       "y8-lin-gra-p17",
-      "Find the x-intercept of y = 2x + 7 (let y = 0). Give your answer as a decimal.",
+      "A taxi fare graph passes through (0, 4) and (6, 19), where x is the distance in kilometres and y is the fare in dollars. Priya writes y = 4x + 2.5. Correct Priya's rule, then find the fare for a 10 km trip. Enter the rule and fare.",
       "",
-      "-3.5",
-      "2x = −7, so x = −3.5.",
+      "y = 2.5x + 4, $29",
+      "The y-intercept is the value at x = 0, so c = 4. The gradient is (19 - 4) / (6 - 0) = 15 / 6 = 2.5. Priya interchanged these two quantities. The corrected rule is y = 2.5x + 4, and y = 2.5(10) + 4 = 29, so the 10 km fare is $29.",
       4,
-      ["−3.5", "-7/2"]
+      ["y=2.5x+4, 29", "y = 2.5x + 4, 29", "2.5x + 4, $29", "2.5x+4,29"],
+      "Use the two points to calculate the gradient. The point with x = 0 gives the y-intercept.",
+      lineGraph(
+        "Taxi fare against distance, passing through (0, 4) and (6, 19)",
+        2.5, 4, 0, 10, 0, 32, 1, 4,
+        [{ x: 0, y: 4 }, { x: 6, y: 19 }]
+      )
     ),
     poolA(
       "y8-lin-gra-p18",
-      "A line has y-intercept 6 and passes through (2, 0). What is its x-intercept?",
+      "A cooling chamber follows a straight-line model. Its temperature is 18 degrees Celsius after 2 hours and 6 degrees Celsius after 8 hours. Readings are taken only at whole hours. At what first whole-hour reading will the model predict a temperature at or below 0 degrees Celsius?",
       "",
-      "2",
-      "The x-intercept is where y = 0, which is the point (2, 0). The x-intercept is 2.",
-      4
+      "11",
+      "The gradient is (6 - 18) / (8 - 2) = -2 degrees per hour. Using (2, 18), the rule is y = -2x + 22. The boundary y = 0 occurs at x = 11. Since 11 is a whole hour and the condition includes 0, the first qualifying reading is at 11 hours.",
+      4,
+      ["11 hours", "11 h"],
+      "First construct the linear rule from the two readings. Pay attention to 'at or below' and to the whole-hour condition.",
+      lineGraph(
+        "Cooling chamber temperature, with recorded points at (2, 18) and (8, 6)",
+        -2, 22, 0, 12, -2, 24, 1, 2,
+        [{ x: 2, y: 18 }, { x: 8, y: 6 }]
+      )
     ),
-    poolC(
+    poolA(
       "y8-lin-gra-p19",
-      "A line passes through (0, −3) and (2, 1). Which rule fits?",
-      "B",
-      ["y = x − 3", "y = 2x − 3", "y = 3x − 2", "y = 2x + 1"],
-      "Gradient (1 − (−3)) ÷ 2 = 2 and y-intercept −3, so y = 2x − 3.",
-      4
+      "Two storage plans are shown by A: y = 3x + 8 and B: y = 5x, where x is the number of months and y is the total cost in dollars. Find the number of months when the costs are equal, then state which plan is cheaper for 6 months. Enter the month and plan.",
+      "",
+      "4, A",
+      "Set the costs equal: 3x + 8 = 5x, so x = 4. At 6 months, Plan A costs $26 and Plan B costs $30, so Plan A is cheaper.",
+      4,
+      ["4 months, A", "4, Plan A", "4 months, Plan A"],
+      "The intersection represents equal costs. Compare the two rules again at x = 6.",
+      {
+        description: "Total cost of storage plans A and B over 0 to 8 months",
+        xMin: 0,
+        xMax: 8,
+        yMin: 0,
+        yMax: 42,
+        xStep: 1,
+        yStep: 5,
+        lines: [
+          { kind: "linear", m: 3, b: 8, label: "Plan A" },
+          { kind: "linear", m: 5, b: 0, label: "Plan B" },
+        ],
+        points: [{ x: 4, y: 20, label: "Equal cost" }],
+      }
     ),
     poolA(
       "y8-lin-gra-p20",
-      "The line y = 4x + c passes through (2, 11). Find c.",
+      "Only the section of a straight line from x = -1 to x = 5 is visible. The line passes through (0, -6) and (4, 2). Find its x-intercept, then decide whether (7, 8) lies on the same line even though it is outside the displayed window. Enter the x-intercept and yes or no.",
       "",
-      "3",
-      "8 + c = 11, so c = 3.",
-      4
+      "3, yes",
+      "The gradient is 2 and the y-intercept is -6, so the rule is y = 2x - 6. Setting y = 0 gives x = 3. At x = 7 the rule gives y = 8, so (7, 8) is on the line; the viewing window does not limit the relationship.",
+      4,
+      ["3, Yes", "3 yes", "3, y", "x = 3, yes"],
+      "Derive the equation of the entire line from the two visible points. A graph window does not change the equation.",
+      lineGraph(
+        "Visible section of a line through (0, -6) and (4, 2)",
+        2, -6, -1, 5, -9, 5, 1, 1,
+        [{ x: 0, y: -6 }, { x: 4, y: 2 }]
+      )
     ),
     poolA(
       "y8-lin-gra-p21",
-      "A line has x-intercept (5, 0) and gradient 2. Find its y-intercept.",
+      "A calibration line passes through (2, 9) and (6, 21). The instrument may be used only while the output y is no more than 30. If the input x must be a whole number, what is the greatest permitted input?",
       "",
-      "-10",
-      "0 = 10 + c, so c = −10. The y-intercept is (0, −10).",
+      "9",
+      "The gradient is (21 - 9) / (6 - 2) = 3. Using (2, 9) gives y = 3x + 3. The limit requires 3x + 3 <= 30, so x <= 9. Therefore the greatest permitted whole-number input is 9.",
       4,
-      ["−10"]
+      ["9 units", "x = 9"],
+      "Build the rule from the two calibration points, then turn 'no more than 30' into an inequality.",
+      lineGraph(
+        "Instrument calibration line through (2, 9) and (6, 21), with output limit 30",
+        3, 3, 0, 10, 0, 33, 1, 3,
+        [{ x: 2, y: 9 }, { x: 6, y: 21 }, { x: 9, y: 30 }]
+      )
     ),
     poolA(
       "y8-lin-gra-p22",
-      "A line passes through (1, 5) and (4, 11). Find its y-intercept.",
+      "A line passes through $(1,5)$ and $(4,11)$. Find its equation and y-intercept.",
       "",
-      "3",
-      "Gradient = 6 ÷ 3 = 2. Then 5 = 2(1) + c gives c = 3.",
-      5
+      "y=2x+3, 3",
+      "The gradient is $(11-5)/(4-1)=2$. Then $5=2(1)+c$ gives $c=3$, so the equation is $y=2x+3$.",
+      5, ["2x+3, 3"]
     ),
     poolA(
       "y8-lin-gra-p23",
-      "A line has gradient 3 and passes through (2, 4). Find its x-intercept. Give a fraction or decimal.",
+      "A line has gradient 3 and passes through $(2,4)$. Find its equation and x-intercept.",
       "",
-      "0.6667",
-      "y = 3x + c with 4 = 3(2) + c gives c = −2, so y = 3x − 2. Setting y = 0: x = 2/3 ≈ 0.6667.",
+      "y=3x-2, 2/3",
+      "$4=3(2)+c$ gives $c=-2$, so $y=3x-2$. Setting $y=0$ gives $x=2/3$.",
       5,
-      ["2/3", "0.67"]
+      ["3x-2, 0.6667", "y=3x-2, x=2/3"]
     ),
     poolA(
       "y8-lin-gra-p24",
-      "The line y = 5x − 8 and the line y = 2x + 7 cross. Find the x-coordinate of the crossing point.",
+      "Find the intersection point of $y=5x-8$ and $y=2x+7$, then state which line is higher at $x=6$.",
       "",
-      "5",
-      "5x − 8 = 2x + 7 gives 3x = 15, so x = 5.",
-      5
+      "(5,17), y=5x-8",
+      "Equating gives $x=5$, and substitution gives $y=17$. At $x=6$, the first line gives 22 and the second 19, so $y=5x-8$ is higher.",
+      5, ["(5, 17), first line"]
     ),
     poolA(
       "y8-lin-gra-p25",
-      "At the point where y = 5x − 8 and y = 2x + 7 cross, what is the y-coordinate?",
+      "For $y=5x-8$ and $y=2x+7$, find the intersection and verify the common y-value using both equations.",
       "",
-      "17",
-      "At x = 5: y = 5(5) − 8 = 17 (and 2(5) + 7 = 17).",
-      5
+      "(5,17); 17,17",
+      "Solving $5x-8=2x+7$ gives $x=5$. The equations give $5(5)-8=17$ and $2(5)+7=17$, confirming $(5,17)$.",
+      5, ["(5,17), both 17"]
     ),
     poolA(
       "y8-lin-gra-p26",
-      "A line crosses the x-axis at (3, 0) and the y-axis at (0, 12). Find its gradient.",
+      "A line crosses the axes at $(3,0)$ and $(0,12)$. Find its gradient and equation.",
       "",
-      "-4",
-      "Gradient = (12 − 0) ÷ (0 − 3) = 12 ÷ (−3) = −4.",
+      "-4, y=-4x+12",
+      "The gradient is $(0-12)/(3-0)=-4$. The y-intercept is 12, so the equation is $y=-4x+12$.",
       5,
-      ["−4"]
+      ["-4, -4x+12"]
     ),
   ],
   multiPartPractice: [
@@ -2677,87 +2752,111 @@ const gradientAsRateOfChange: LessonContent = {
     ),
     poolA(
       "y8-lin-grd-p17",
-      "A line passes through (−2, −3) and (2, 5). Find the gradient.",
+      "A ramp rises 0.75 m over a horizontal run of 9 m. A guideline requires the gradient to be no greater than 1/14. Does the ramp comply, and if not, how much longer must the horizontal run be for the same rise? Enter yes or no and the extra run.",
       "",
-      "2",
-      "Rise = 5 − (−3) = 8, run = 2 − (−2) = 4. Gradient = 2.",
-      4
+      "no, 1.5 m",
+      "The ramp's gradient is 0.75 / 9 = 1/12, which is greater than 1/14, so it is too steep. For a rise of 0.75 m at gradient 1/14, the run must be 0.75 × 14 = 10.5 m. The extra run needed is 10.5 - 9 = 1.5 m.",
+      4,
+      ["No, 1.5", "no 1.5 m", "no, 1.5", "does not comply, 1.5 m"],
+      "Compare the two rise/run ratios before calculating the run required at the limiting gradient."
     ),
     poolA(
       "y8-lin-grd-p18",
-      "A line passes through (3, 11) and (8, 1). Find the gradient.",
+      "A sensor should produce a linear pattern, but one recorded point is wrong: (1, 7), (3, 15), (5, 24), (7, 31). Identify the incorrect recorded point and give the y-value it should have.",
       "",
-      "-2",
-      "Rise = −10, run = 5. Gradient = −2.",
+      "(5, 24), 23",
+      "The points (1, 7), (3, 15) and (7, 31) have a consistent gradient of 4: y rises 8 when x rises 2, and 16 when x rises 4. Their rule is y = 4x + 3. At x = 5 this gives y = 23, so (5, 24) is the incorrect record and its y-value should be 23.",
       4,
-      ["−2"]
+      ["(5,24),23", "(5, 24), y = 23", "point (5, 24), 23"],
+      "Do not assume the first pair is correct. Find a rate that is supported by three of the four points.",
+      {
+        description: "Sensor readings, including one point that does not lie on the linear trend",
+        xMin: 0,
+        xMax: 8,
+        yMin: 0,
+        yMax: 34,
+        xStep: 1,
+        yStep: 4,
+        lines: [{ kind: "linear", m: 4, b: 3, label: "Expected trend" }],
+        points: [
+          { x: 1, y: 7, label: "(1, 7)" },
+          { x: 3, y: 15, label: "(3, 15)" },
+          { x: 5, y: 24, label: "(5, 24)" },
+          { x: 7, y: 31, label: "(7, 31)" },
+        ],
+      }
     ),
     poolA(
       "y8-lin-grd-p19",
-      "A line has gradient 4 and passes through (1, 5) and (4, k). Find k.",
+      "A road descends from an altitude of 420 m at 1.5 km along the route to 300 m at 4 km. Find its signed gradient in metres per kilometre, then express the descent as a signed percentage gradient.",
       "",
-      "17",
-      "Rise = k − 5 over run 3 equals 4, so k − 5 = 12 and k = 17.",
-      4
+      "-48 m/km, -4.8%",
+      "The change in altitude is 300 - 420 = -120 m over 4 - 1.5 = 2.5 km, so the gradient is -120 / 2.5 = -48 m/km. For a percentage, convert 2.5 km to 2500 m: (-120 / 2500) × 100 = -4.8%. The negative signs show that the road descends.",
+      4,
+      ["-48, -4.8%", "−48 m/km, −4.8%", "-48 m per km, -4.8 percent"],
+      "Keep the descent negative. Use kilometres for the first rate, but matching metre units for the percentage."
     ),
     poolA(
       "y8-lin-grd-p20",
-      "A line has gradient −3 and passes through (2, 10) and (5, k). Find k.",
+      "A cyclist travels 12 km in the first 30 minutes, rests for 15 minutes, then reaches 30 km from the start at 75 minutes. A student averages the two riding speeds and says the gradient for the whole trip is 30 km/h. Find the actual average gradient of the complete distance-time graph.",
       "",
-      "1",
-      "k − 10 over 3 equals −3, so k − 10 = −9 and k = 1.",
-      4
+      "24 km/h",
+      "The gradient over the complete trip uses total change in distance divided by total elapsed time, including the rest. The cyclist travels 30 km in 75 minutes = 1.25 hours, so the average gradient is 30 / 1.25 = 24 km/h. Averaging selected segment speeds ignores how long the complete trip took.",
+      4,
+      ["24", "24 km per hour"],
+      "For the average gradient from start to finish, use the two endpoints and include the resting time."
     ),
     poolA(
       "y8-lin-grd-p21",
-      "A hiker climbs 450 m of altitude over a horizontal distance of 1500 m. Find the gradient as a decimal.",
+      "On a printed tank graph, 2 cm horizontally represents 5 minutes and 1 cm vertically represents 20 litres. The line rises 3 cm while moving 4 cm to the right. Kai calculates 3/4 = 0.75. Find the actual gradient in litres per minute.",
       "",
-      "0.3",
-      "450 ÷ 1500 = 0.3.",
+      "6 L/min",
+      "A horizontal movement of 4 cm represents (4 / 2) × 5 = 10 minutes. A vertical rise of 3 cm represents 3 × 20 = 60 litres. Therefore the gradient is 60 / 10 = 6 L/min. Kai used page lengths instead of the quantities represented by the axis scales.",
       4,
-      ["3/10"]
+      ["6", "6 litres per minute", "6 L per min"],
+      "Convert each measured page length using its own axis scale before dividing rise by run."
     ),
     poolA(
       "y8-lin-grd-p22",
-      "A line passes through (1, 2) and (5, k) with gradient 3. Find k.",
+      "A line passes through $(1,2)$ and $(5,k)$ with gradient 3. Find $k$ and the line's equation.",
       "",
-      "14",
-      "k − 2 over 4 equals 3, so k − 2 = 12 and k = 14.",
-      5
+      "14, y=3x-1",
+      "$(k-2)/4=3$ gives $k=14$. Using $(1,2)$, $2=3+c$ gives $c=-1$, so $y=3x-1$.",
+      5, ["k=14, y=3x-1"]
     ),
     poolA(
       "y8-lin-grd-p23",
-      "Points (2, 7), (4, 13) and (6, k) are collinear. Find k.",
+      "Points $(2,7)$, $(4,13)$ and $(6,k)$ are collinear. Find $k$ and the equation of the line.",
       "",
-      "19",
-      "Gradient = 6 ÷ 2 = 3. From (4, 13), the next point 2 across rises 6: k = 13 + 6 = 19.",
-      5
+      "19, y=3x+1",
+      "The first two points give gradient 3. Moving two units right raises y by 6, so $k=19$. Using $(2,7)$ gives $c=1$, hence $y=3x+1$.",
+      5, ["k=19, y=3x+1"]
     ),
     poolA(
       "y8-lin-grd-p24",
-      "A line through (−3, k) and (1, 5) has gradient 2. Find k.",
+      "A line through $(-3,k)$ and $(1,5)$ has gradient 2. Find $k$ and the y-intercept.",
       "",
-      "-3",
-      "(5 − k) ÷ 4 = 2, so 5 − k = 8 and k = −3.",
+      "-3, 3",
+      "$(5-k)/4=2$ gives $k=-3$. With gradient 2 through $(1,5)$, $5=2+c$, so the y-intercept is 3.",
       5,
-      ["−3"]
+      ["k=-3, c=3"]
     ),
     poolA(
       "y8-lin-grd-p25",
-      "A phone is charged 5% every 4 minutes. What is the gradient of the charge-time graph in percent per minute? Give a decimal.",
+      "A phone gains 5 percentage points every 4 minutes. Find the gradient in percentage points per minute and the gain after 30 minutes.",
       "",
-      "1.25",
-      "5 ÷ 4 = 1.25 percent per minute.",
+      "1.25, 37.5%",
+      "The gradient is $5/4=1.25$ percentage points per minute. In 30 minutes the gain is $1.25(30)=37.5$ percentage points.",
       5,
-      ["5/4"]
+      ["1.25, 37.5"]
     ),
     poolA(
       "y8-lin-grd-p26",
-      "A line has gradient −2 and passes through (0, 8). At what x-value does the line reach y = 0?",
+      "A line has gradient $-2$ and passes through $(0,8)$. Find its equation and both axis intercepts.",
       "",
-      "4",
-      "Using y = −2x + 8, set y = 0: 2x = 8, so x = 4.",
-      5
+      "y=-2x+8; (0,8), (4,0)",
+      "The given point is the y-intercept, so $y=-2x+8$. Setting $y=0$ gives $x=4$, hence intercepts $(0,8)$ and $(4,0)$.",
+      5, ["-2x+8, (0,8), (4,0)"]
     ),
   ],
   multiPartPractice: [
@@ -3206,84 +3305,98 @@ const interpretingLinearGraphs: LessonContent = {
     ),
     poolA(
       "y8-lin-int-p17",
-      "Two phone plans: A is C = 0.10t + 30 and B is C = 0.20t + 20. For how many texts t do they cost the same?",
+      "Two phone plans have monthly costs A: C = 0.10t + 30 and B: C = 0.20t + 20, where t is the number of texts. Find the break-even number of texts, then state which plan is cheaper for a customer who sends 120 texts. Enter the number and plan.",
       "",
-      "100",
-      "0.10t + 30 = 0.20t + 20 gives 10 = 0.10t, so t = 100.",
-      4
+      "100, A",
+      "At break-even, 0.10t + 30 = 0.20t + 20. This gives 10 = 0.10t, so t = 100. At 120 texts, Plan A costs $42 and Plan B costs $44, so Plan A is cheaper.",
+      4,
+      ["100 texts, A", "100, Plan A", "100 texts, Plan A"],
+      "The equal-cost point is only the boundary. Substitute 120 into both rules to decide which side is cheaper."
     ),
     poolA(
       "y8-lin-int-p18",
-      "A gym costs $25 joining plus $12 per visit: C = 12v + 25. After how many visits does the total reach $169?",
+      "Gym A costs C = 12v + 25 dollars and Gym B costs C = 8v + 85 dollars for v visits. A member can spend at most $250. Find the first whole-number visit at which Gym B is cheaper than Gym A, then find the greatest number of Gym B visits within the budget.",
       "",
-      "12",
-      "12v = 144, so v = 12.",
-      4
+      "16, 20",
+      "The plans are equal when 12v + 25 = 8v + 85, so 4v = 60 and v = 15. Gym B has the smaller per-visit rate, so it is cheaper for whole-number visits starting at 16. For the budget, 8v + 85 <= 250 gives 8v <= 165 and v <= 20.625, so at most 20 whole visits are affordable.",
+      4,
+      ["16 visits, 20 visits", "16,20", "16 and 20"],
+      "Solve the equality first, then handle the strict 'cheaper' boundary and the whole-number budget separately."
     ),
     poolA(
       "y8-lin-int-p19",
-      "A candle is 20 cm tall and burns 4 cm per hour: H = 20 − 4t. After how many hours is it fully burnt (H = 0)?",
+      "A candle's height is modelled by H = 20 - 4t centimetres after t hours. For safety, it must be extinguished before its height falls below 3 cm, and checks occur only at whole hours. What is the latest whole-hour check at which it is still safe?",
       "",
-      "5",
-      "4t = 20, so t = 5 hours.",
-      4
+      "4",
+      "The safety condition is 20 - 4t >= 3. This gives -4t >= -17, so t <= 4.25. At the 4-hour check the candle is 4 cm tall and safe; at 5 hours the model gives 0 cm, which is below the safety limit. The latest safe whole-hour check is 4 hours.",
+      4,
+      ["4 hours", "4 h"],
+      "Use the 3 cm safety threshold, not the x-intercept where the candle reaches zero."
     ),
     poolA(
       "y8-lin-int-p20",
-      "A taxi charges a $4 flag fall plus $2 per km. A trip costs $30. How many km was it?",
+      "A taxi meter charges a $4 flag fall plus $2 per kilometre. The meter shows $30, and a separate $3 toll is then added to the payment. Noah uses the $33 total in the taxi rule. Find the actual metered distance and explain which amount belongs in the rule.",
       "",
-      "13",
-      "2k = 26, so k = 13 km.",
-      4
+      "13 km",
+      "The taxi rule describes the meter only, so use 30 = 4 + 2k. Then 2k = 26 and k = 13 km. The separate toll is not generated by either the flag fall or the per-kilometre rate, so the $33 total must not be substituted into this rule.",
+      4,
+      ["13", "13 kilometres"],
+      "Decide which charges the linear model includes before rearranging it."
     ),
     poolA(
       "y8-lin-int-p21",
-      "A graph passes through (0, 24) and (4, 8). Find its gradient.",
+      "A tank-volume graph passes through (0, 24) and (4, 8), with time in hours and volume in litres. The pump must stop while at least 6 L remains, and it can stop only on a whole hour. Find the gradient, then the latest permitted stopping hour.",
       "",
-      "-4",
-      "Gradient = (8 − 24) ÷ 4 = −16 ÷ 4 = −4.",
+      "-4 L/h, 4 hours",
+      "The gradient is (8 - 24) / (4 - 0) = -4 L/h, so V = 24 - 4t. The condition 24 - 4t >= 6 gives t <= 4.5. Because the pump can stop only on a whole hour, the latest permitted time is 4 hours, when 8 L remains.",
       4,
-      ["−4"]
+      ["-4, 4", "−4 L/h, 4 hours", "-4 litres per hour, 4"],
+      "Use the two graph points to build the rule, then apply the minimum-volume and whole-hour conditions.",
+      lineGraph(
+        "Tank volume falling from 24 litres at 0 hours through 8 litres at 4 hours",
+        -4, 24, 0, 6, 0, 26, 1, 2,
+        [{ x: 0, y: 24 }, { x: 4, y: 8 }]
+      )
     ),
     poolA(
       "y8-lin-int-p22",
-      "A tank starts at 5 L and fills at 3 L/min while another starts at 50 L and drains at 2 L/min. After how many minutes are the volumes equal?",
+      "A tank starts at 5 L and fills at 3 L/min; another starts at 50 L and drains at 2 L/min. Find when their volumes are equal and the common volume.",
       "",
-      "9",
-      "5 + 3t = 50 − 2t gives 5t = 45, so t = 9 minutes.",
-      5
+      "9 min, 32 L",
+      "$5+3t=50-2t$ gives $t=9$. Substitution gives $5+27=32$ L in each tank.",
+      5, ["9, 32"]
     ),
     poolA(
       "y8-lin-int-p23",
-      "At the time the two tanks (5 + 3t and 50 − 2t) have equal volume, what is that volume in litres?",
+      "For tanks modelled by $5+3t$ and $50-2t$, find the intersection point and explain what both coordinates mean.",
       "",
-      "32",
-      "At t = 9: V = 5 + 3(9) = 32 litres (and 50 − 2(9) = 32).",
-      5
+      "(9,32): 9 min and 32 L",
+      "Equating the models gives $t=9$, and both then give 32. The intersection means that after 9 minutes both tanks contain 32 L.",
+      5, ["9, 32", "(9,32)"]
     ),
     poolA(
       "y8-lin-int-p24",
-      "A plumber charges C = 45n + 80. A job cost $440. How many hours n did it take?",
+      "A plumber charges $C=45n+80$. A job costs $440$. Find the hours worked and the part of the bill due to labour.",
       "",
-      "8",
-      "45n = 360, so n = 8 hours.",
-      5
+      "8 hours, $360",
+      "$45n+80=440$ gives $45n=360$ and $n=8$. The labour component is $45(8)=\\$360$.",
+      5, ["8, 360"]
     ),
     poolA(
       "y8-lin-int-p25",
-      "A car's fuel follows F = 60 − 0.08d litres, where d is km driven. After how many km is the fuel down to 36 L?",
+      "A car's fuel follows $F=60-0.08d$ litres. Find the distance when 36 L remains and the fuel used by then.",
       "",
-      "300",
-      "0.08d = 24, so d = 300 km.",
-      5
+      "300 km, 24 L",
+      "$36=60-0.08d$ gives $0.08d=24$ and $d=300$ km. The fuel used is $60-36=24$ L.",
+      5, ["300, 24"]
     ),
     poolA(
       "y8-lin-int-p26",
-      "Plan A: C = 50 + 8m. Plan B: C = 20 + 14m. Beyond how many months m is plan A cheaper than plan B?",
+      "Plans cost $A=50+8m$ and $B=20+14m$. Find the break-even month and the first whole month when A is cheaper.",
       "",
-      "5",
-      "50 + 8m < 20 + 14m gives 30 < 6m, so m > 5. Plan A is cheaper once m exceeds 5 months.",
-      5
+      "5 months, month 6",
+      "Equating gives $50+8m=20+14m$, so $m=5$. A is cheaper for $m>5$, making month 6 the first whole month.",
+      5, ["5, 6"]
     ),
   ],
   multiPartPractice: [

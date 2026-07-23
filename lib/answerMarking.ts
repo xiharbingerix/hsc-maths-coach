@@ -74,6 +74,9 @@ function normaliseText(value: string) {
     .replace(/\\omega/g, "omega")
     .replace(/\\infty/g, "infinity")
     .replace(/\\pm/g, "+-")
+    // MathLive serialises a typed percent sign as the LaTeX escape `\%`.
+    // Stored answers use the display form `%`, so canonicalise both to `%`.
+    .replace(/\\%/g, "%")
     .replace(/\^\((\d+)\)/g, "^$1")
     .toLowerCase()
     .trim()

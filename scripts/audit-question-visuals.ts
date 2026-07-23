@@ -105,7 +105,11 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (has("slope field", "direction field")) {
     return { kind: "slopeFieldDiagram", reason: "a slope field is an inherently visual stimulus" };
   }
-  if ((has("trapezoidal rule") || contextHas("trapezoidal-rule")) && /\b(?:ordinate|strip|sampled|area|curve|table|values?)\b/i.test(text)) {
+  if (
+    (has("trapezoidal rule") || contextHas("trapezoidal-rule")) &&
+    /\b(?:ordinate|sampled|area|curve|table|values?)\b/i.test(text) &&
+    !/\bstrip width\b/i.test(text)
+  ) {
     return { kind: "trapezoidalRuleDiagram", reason: "trapezoidal ordinates/strips are supplied as text" };
   }
   if (has("stem-and-leaf", "stem and leaf")) {
@@ -114,6 +118,7 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
     }
   }
   if (has("box plot", "box-and-whisker", "boxplot")) {
+    if (/\b(?:what does this tell you|which feature tells you|when comparing two box plots|side-by-side box plots are most useful)\b/i.test(text)) return null;
     if (/\b(?:min(?:imum)?|max(?:imum)?|q_?1|q_?3|quartile|median|whisker|outlier|skew|symmetric|box (?:from|spans)|side-by-side|two box plots?)\b/i.test(text)) {
       return { kind: "boxPlotDiagram", reason: "a box plot is referenced or reduced to a five-number list" };
     }
@@ -126,13 +131,19 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (has("histogram")) {
     return { kind: "histogramDiagram", reason: "a histogram is referenced or described in prose" };
   }
-  if (has("scatter", "correlation", "line of best fit", "bivariate") || contextHas("scatter-plots")) {
+  if (
+    has("scatter plot", "scatterplot") ||
+    (explicitVisualReference.test(text) && has("line of best fit", "bivariate plot")) ||
+    (contextHas("scatter-plots", "bivariate") &&
+      /(?:\(\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*\).*){3}/i.test(text))
+  ) {
     return { kind: "scatterPlotDiagram", reason: "a scatter pattern is supplied as coordinate prose/list data" };
   }
   if (has("gantt", "activity schedule", "project schedule") || contextHas("gantt")) {
     return { kind: "ganttChartDiagram", reason: "a project schedule is supplied as prose instead of a Gantt chart" };
   }
   if (has("bar chart", "bar graph", "column graph", "column chart")) {
+    if (/\b(?:axis starts at|fix for a bar graph|draws a bar graph whose)\b/i.test(text)) return null;
     if (/\b(?:shows?|axis|gridline|bar reaches|column reaches|frequency|sales|attendance|temperature|votes?|categories?)\b/i.test(text)) {
       return { kind: "barChartDiagram", reason: "a categorical chart is referenced or described in prose" };
     }
@@ -150,6 +161,7 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
     /\b(?:table|tabulated)\b/i.test(text) ||
     /\b(?:from|using)\s+the\s+(?:following\s+)?(?:survey|data|values?|results?)\b/i.test(text)
   ) {
+    if (/\b(?:build the frequency table|they build a frequency table|table follows|a table of .* includes the pair)\b/i.test(text)) return null;
     return { kind: "dataTableDiagram", reason: "tabular stimulus is referenced or written inline" };
   }
   if (has("venn diagram", "venn")) {
@@ -164,12 +176,21 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   // A subtraction inside a trig compound-angle formula (for example sin(A-B))
   // is not an edge list. Keep the generic A-B heuristic from treating it as one.
   const isTrigCompound = /\\(?:sin|cos|tan)\s*\([^)]*[A-Z]\s*-\s*[A-Z]/.test(text);
-  if (!isTrigCompound && ((explicitVisualReference.test(text) && /\b(?:network|vertices|edges|path|route)\b/i.test(text)) ||
-      /\b(?:[Ee]dges?|[Rr]outes?|[Pp]aths?)\s*:?\s*(?:[A-Z][–—-][A-Z]|[A-Z]{2}\s*(?:\(|=))|\b[A-Z]\s*(?:→|->|[–—-])\s*[A-Z]|\b(?:AB|BC|CD|PQ|QR)\s*(?:\(|=)\s*\d/.test(text))) {
+  const edgeBearingClause =
+    /\b(?:edges?|roads?|routes?|paths?|cables?|train times?)\s*:?\s*[^.;?]*/i.exec(text)?.[0] ?? "";
+  const namedNetworkTopology =
+    /(?:\b[A-Z][–—-][A-Z]\b|\b[A-Z]{2}\s*(?:\(|=|,)|\b[A-Z]{2}\b[\s,]*(?:and\s+)?[A-Z]{2}\b)/.test(edgeBearingClause) ||
+    /\b(?:network|graph)\b[^.;?]*\bedges?\s+[A-Z]{2}\b/.test(text);
+  const networkContextTopology =
+    contextHas("network", "critical-path") &&
+    (namedNetworkTopology ||
+      /\b(?:square|cycle|ring|triangle|line|fan|star|complete (?:network|graph))\b[^.;?]*(?:edges?|vertices?)\b/i.test(text));
+  if (!isTrigCompound && (
+    (explicitVisualReference.test(text) && /\b(?:network|vertices|edges|path|route)\b/i.test(text)) ||
+    networkContextTopology
+  )) {
+    if (/\b(?:what is a vertex|Hamiltonian path visits every vertex once)\b/i.test(text)) return null;
     return { kind: "networkDiagram", reason: "network topology is referenced or encoded as an edge list" };
-  }
-  if (contextHas("network", "critical-path") && has("network", "path", "flow", "vertices", "edges")) {
-    return { kind: "networkDiagram", reason: "network reasoning requires a visible topology" };
   }
   if (has("number line")) {
     return { kind: "numberLineDiagram", reason: "a number-line position or interval is part of the stimulus" };
@@ -184,13 +205,33 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
     return { kind: "circleGeometryDiagram", reason: "circle-theorem geometry depends on a figure" };
   }
   if (has("parallel lines", "transversal", "vertically opposite", "co-interior", "corresponding angle", "alternate angle")) {
+    if (/\bwhich reason correctly justifies\b/i.test(text)) return null;
     return { kind: "lineAngleDiagram", reason: "the line/angle arrangement is encoded in prose" };
   }
   if (/\b(?:sector|arc length)\b/i.test(text) && /\b(?:radius|angle|area|length|diagram|figure)\b/i.test(text)) {
+    if (/\bpie-chart sector\b/i.test(text)) return null;
     return { kind: "sectorDiagram", reason: "sector geometry is supplied only as dimensions" };
   }
   if (has("net diagram", "nets of") || (has("net of") && has("solid", "prism", "cube", "cylinder", "cone", "pyramid"))) {
     return { kind: "netDiagram", reason: "a solid net is referenced or described in prose" };
+  }
+  if (
+    /\bto find (?:the )?(?:remaining )?volume[^?.]*\byou should\b/i.test(text) ||
+    /\bhas volume\s+\d+(?:\.\d+)?[\s\S]*?\bwith volume\s+\d+(?:\.\d+)?[\s\S]*?\bremoved\b/i.test(text) ||
+    /\bbox A\b[\s\S]*?\bbox B\b/i.test(text)
+  ) {
+    return null;
+  }
+  if (
+    /\b(?:composite solid|joined|placed on top|sharing)\b/i.test(text) &&
+    (
+      /\b(?:what happens to the surfaces|to find the volume .* you should)\b/i.test(text) ||
+      (/\b(?:surface area|SA|volumes?)\s*(?:=|of|is|are|has)?\s*\d/i.test(text) &&
+        !/\b\d+(?:\.\d+)?\s*cm\s*(?:×|x|by)\s*\d/i.test(text)) ||
+      /\btwo (?:triangular prisms|cylinders)\b/i.test(text)
+    )
+  ) {
+    return null;
   }
   if (has("composite solid")) {
     return { kind: "solid3DDiagram", reason: "the composite solid is assembled only in prose" };
@@ -204,12 +245,20 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (/\b(?:angles? of a triangle add to|each angle of an equilateral triangle|an isosceles triangle has|exterior angle of a triangle equals|similar triangles (?:have|always)|usual test that two triangles are similar|interior angle sum of an? n-sided polygon|regular polygon(?:'s)? interior angle|regular polygon has an? (?:interior|exterior) angle)\b/i.test(text)) {
     return null;
   }
+  if (/\b(?:which feature marks the right angle|for which set|angle sum of a triangle|state each interior angle of an equilateral triangle|NOT a valid congruence test|AAA proves)\b/i.test(text)) return null;
   if (has("triangle") && contextHas("trigonometry", "sine-rule", "cosine-rule", "triangle")) {
     return { kind: "triangleDiagram", reason: "non-right triangle measurements or relationships are encoded in prose" };
   }
   if (has("similar triangles", "congruent triangles", "two triangles")) {
     return { kind: "trianglePairDiagram", reason: "a comparison between two triangles needs both figures" };
   }
+  if (
+    /\b(?:regular )?polygon\b/i.test(text) &&
+    /\b(?:how many sides|number of sides|find (?:the )?(?:number of )?sides|find the interior angle)\b/i.test(text)
+  ) {
+    return null;
+  }
+  if (/\binterior angle sum of a polygon\b/i.test(text) && /\bhow many sides\b/i.test(text)) return null;
   if (has("trapezoid", "trapezium", "parallelogram", "rhombus", "quadrilateral", "polygon", "composite shape") && /\b(?:area|perimeter|angle|side|height|diagonal|parallel)\b/i.test(text)) {
     return { kind: "planeShapeDiagram", reason: "plane-shape dimensions/relationships are encoded in prose" };
   }
@@ -227,7 +276,11 @@ function chooseVisual(row: BankRow, text: string): { kind: VisualKind; reason: s
   if (has("graph", "curve") && contextHas("algebra", "quadratic", "reciprocal", "simultaneous")) {
     return { kind: "cartesianGraph", reason: "a function graph is referenced without a graph payload" };
   }
-  if (has("shape") && contextHas("bivariate", "statistics", "distribution")) {
+  if (
+    has("shape") &&
+    contextHas("bivariate", "statistics", "distribution") &&
+    explicitVisualReference.test(text)
+  ) {
     return { kind: "histogramDiagram", reason: "distribution shape is referenced without a statistical display" };
   }
 

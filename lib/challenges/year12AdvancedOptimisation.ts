@@ -10,6 +10,11 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     latex: "V = 1000",
     answer: "5.42",
     acceptedAnswers: ["5.4", "5.42 cm", "(500/pi)^(1/3)"],
+    solid3DDiagram: {
+      description: "Closed cylinder with radius r and height h, constrained to have volume one thousand cubic centimetres.",
+      solid: "cylinder",
+      labels: { radius: "r", height: "h" },
+    },
     hint: "Use V = πr²h = 1000 to write h in terms of r, substitute into the surface area, then set S'(r) = 0.",
     explanation:
       "V = πr²h = 1000 gives h = 1000/(πr²). Then S = 2πr² + 2πrh = 2πr² + 2000/r. S'(r) = 4πr − 2000/r² = 0 ⟹ r³ = 500/π ⟹ r ≈ 5.42 cm (and S''(r) > 0, so it is a minimum).",
@@ -69,6 +74,17 @@ export const year12AdvancedOptimisationChallenge: PracticeQuestion[] = [
     latex: "",
     answer: "16",
     acceptedAnswers: ["16 units^2", "16 square units"],
+    triangleDiagram: {
+      description: "Right triangle with its right angle at the origin, intercepts a and b on the positive axes, and hypotenuse passing through the point two comma four.",
+      vertices: {
+        A: { x: 0, y: 0 },
+        B: { x: 4, y: 0 },
+        C: { x: 0, y: 8 },
+      },
+      vertexLabels: { A: "O", B: "(a, 0)", C: "(0, b)" },
+      sideLabels: { AB: "a", AC: "b" },
+      rightAngleAt: "A",
+    },
     hint: "With intercepts a and b, the line is x/a + y/b = 1 through (2,4); write b in terms of a, then minimise the area ab/2.",
     explanation:
       "With x-intercept a and y-intercept b, the line x/a + y/b = 1 through (2, 4) gives 2/a + 4/b = 1, so b = 4a/(a − 2). Area = ½ab = 2a²/(a − 2). A'(a) = 2a(a − 4)/(a − 2)² = 0 ⟹ a = 4 (a > 2), so b = 8. Minimum area = ½(4)(8) = 16 square units.",

@@ -226,9 +226,30 @@ export function GeometryFigureView({
 }): React.ReactElement {
   const reactId = React.useId();
   const titleId = `${reactId}-title`;
-  const validPoints = diagram.points.filter(validPoint);
+  const sourcePoints = diagram.points.filter(validPoint);
+  const xs = sourcePoints.map((point) => point.x);
+  const ys = sourcePoints.map((point) => point.y);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+  const dataWidth = maxX - minX;
+  const dataHeight = maxY - minY;
+  const usesModelCoordinates =
+    !("circle" in diagram) &&
+    Math.max(dataWidth, dataHeight) <= 20;
+  const validPoints = usesModelCoordinates
+    ? sourcePoints.map((point) => ({
+        ...point,
+        x: 55 + ((point.x - minX) / (dataWidth || 1)) * 290,
+        y: 45 + ((point.y - minY) / (dataHeight || 1)) * 210,
+      }))
+    : sourcePoints;
+  const displayDiagram = usesModelCoordinates
+    ? { ...diagram, points: validPoints, viewBox: undefined }
+    : diagram;
   const points = new Map(validPoints.map((point) => [point.id, point]));
-  const circleDiagram = "circle" in diagram ? diagram : null;
+  const circleDiagram = "circle" in displayDiagram ? displayDiagram : null;
   const circleCentre = circleDiagram ? points.get(circleDiagram.circle.center) : undefined;
   const origin = validPoint(circleCentre)
     ? circleCentre
@@ -242,12 +263,12 @@ export function GeometryFigureView({
       <svg
         role="img"
         aria-labelledby={titleId}
-        viewBox={diagram.viewBox ?? "0 0 400 300"}
+        viewBox={displayDiagram.viewBox ?? "0 0 400 300"}
         width="100%"
         preserveAspectRatio="xMidYMid meet"
         className="max-h-[360px] min-w-[320px]"
       >
-        <title id={titleId}>{diagram.description}</title>
+        <title id={titleId}>{displayDiagram.description}</title>
 
         {circleDiagram && validPoint(circleCentre) && circleDiagram.circle.radius > 0 ? (
           <>
@@ -303,7 +324,7 @@ export function GeometryFigureView({
           );
         })}
 
-        {diagram.segments.map((segment, index) => {
+        {displayDiagram.segments.map((segment, index) => {
           const from = points.get(segment.from);
           const to = points.get(segment.to);
           if (!validPoint(from) || !validPoint(to)) return null;
@@ -322,7 +343,7 @@ export function GeometryFigureView({
           );
         })}
 
-        {diagram.segments.flatMap((segment, segmentIndex) =>
+        {displayDiagram.segments.flatMap((segment, segmentIndex) =>
           segmentMarkerLines(segment, points).map((marker, markerIndex) => (
             <line
               key={`ticks-${segmentIndex}-${markerIndex}`}
@@ -334,7 +355,7 @@ export function GeometryFigureView({
           ))
         )}
 
-        {diagram.segments.flatMap((segment, segmentIndex) =>
+        {displayDiagram.segments.flatMap((segment, segmentIndex) =>
           parallelMarkerPaths(segment, points).map((path, markerIndex) => (
             <path
               key={`parallel-${segmentIndex}-${markerIndex}`}
@@ -348,7 +369,7 @@ export function GeometryFigureView({
           ))
         )}
 
-        {diagram.angles?.flatMap((angle, angleIndex) => {
+        {displayDiagram.angles?.flatMap((angle, angleIndex) => {
           if (angle.rightAngle) {
             const path = rightAnglePath(angle, points);
             return path ? [
@@ -378,7 +399,7 @@ export function GeometryFigureView({
           });
         })}
 
-        {diagram.segments.map((segment, index) => {
+        {displayDiagram.segments.map((segment, index) => {
           if (!segment.label) return null;
           const position = segmentLabelPosition(segment, points);
           return position ? (
@@ -398,7 +419,7 @@ export function GeometryFigureView({
           ) : null;
         })}
 
-        {diagram.angles?.map((angle, index) => {
+        {displayDiagram.angles?.map((angle, index) => {
           if (!angle.label) return null;
           const geometry = angleGeometry(angle, points, angle.radius ?? 24);
           return geometry ? (

@@ -511,6 +511,8 @@ const rdMastery: PracticeQuestion[] = [
     latex: "f'(x) = -x + 2",
     answer: "maximum at x = 2; f is concave down everywhere (f″ = −1 < 0)",
     acceptedAnswers: ["max at x=2, concave down", "x=2 maximum, always concave down"],
+    hint: "Use the zero and sign change of f′ to locate the maximum. Then interpret the constant slope of the f′ graph as f″.",
+    explanation: "The derivative f′=−x+2 is positive before x=2 and negative after x=2, so f has a local maximum at x=2. The derivative graph has constant slope −1, hence f″=−1<0 and f is concave down everywhere.",
     cartesianGraph: {
       description: "Linear f′(x) = −x+2",
       xMin: -1, xMax: 5, yMin: -3, yMax: 4,
@@ -669,7 +671,7 @@ const exMastery: PracticeQuestion[] = [
   mc("y11adv-cs-ex-m5", "Which conditions together confirm an inflection point at x = a?", "D",
     [{label:"A",text:"f′(a) = 0 only"},{label:"B",text:"f″(a) = 0 only"},{label:"C",text:"f(a) = 0 and f′(a) = 0"},{label:"D",text:"f″(a) = 0 and f″ changes sign at x = a"}],
     "An inflection requires f″=0 (necessary) AND f″ changes sign (sufficient). f″=0 alone is not enough — e.g. f(x)=x⁴ has f″(0)=0 but no inflection there."),
-  fa("y11adv-cs-ex-m6", "A curve satisfies f′(x) > 0 for all x. What can you conclude about the number of stationary points and intercepts?", "", "No stationary points (f′ never zero). Exactly one x-intercept (f strictly increasing → one-to-one).", []),
+  fa("y11adv-cs-ex-m6", "A differentiable curve satisfies f′(x) > 0 for all real x. What can you conclude about its stationary points and monotonicity?", "", "It has no stationary points and is strictly increasing for all real x.", ["no stationary points; strictly increasing", "strictly increasing with no stationary points"]),
   mc("y11adv-cs-ex-m7", "The gradient of f(x) = x³ − 3x is zero at x = ±1. Between these points the curve:", "B",
     [{label:"A",text:"Increases from (−1, 2) to (1, −2)"},{label:"B",text:"Decreases from (−1, 2) to (1, −2)"},{label:"C",text:"Has an inflection at x = 0 and increases throughout"},{label:"D",text:"Has zero gradient throughout the interval"}],
     "f′=3x²−3<0 for −1<x<1, so f is decreasing on this interval. It drops from local max (−1,2) to local min (1,−2).", "f(x)=x^3-3x"),

@@ -18,12 +18,16 @@ const expectedAnswers: Record<string, string> = {
   "y8-geo-con-m5": "C",
   "y8-geo-con-m7": "yes",
   "y8-geo-con-m9": "60",
+  "y8-geo-con-p18": "25, 50°",
+  "y8-geo-con-p19": "5, 11 cm",
+  "y8-geo-con-p21": "4, 17 cm",
+  "y8-geo-con-p23": "15, 55°",
   "y8-geo-con-mp1": "48",
 };
 
 test("Year 8 congruence visuals have matching correspondence marks", () => {
   const visuals = Object.entries(congruenceQuestionVisuals);
-  assert.equal(visuals.length, 10);
+  assert.equal(visuals.length, 14);
 
   for (const [questionId, visual] of visuals) {
     const { congruentTrianglesDiagram: diagram } = visual;
@@ -74,7 +78,7 @@ test("Year 8 congruence diagrams retain their answers through seeding", () => {
   const rowsById = new Map(rows.map((row) => [row.source_id, row]));
 
   assert.equal(warnings.length, 0);
-  assert.equal(Object.keys(expectedAnswers).length, 10);
+  assert.equal(Object.keys(expectedAnswers).length, 14);
 
   for (const [questionId, expectedAnswer] of Object.entries(expectedAnswers)) {
     const row = rowsById.get(questionId);

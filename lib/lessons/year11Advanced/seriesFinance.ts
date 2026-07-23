@@ -319,7 +319,11 @@ const sfExMastery: PracticeQuestion[] = [
   mc("y11adv-sf-ex-m6", "The formula Aₙ = P(1+r)ⁿ − M·[(1+r)ⁿ−1]/r equals zero when:", "C",
     [{ label: "A", text: "$P = M$" }, { label: "B", text: "$n = 0$" }, { label: "C", text: "The loan is fully repaid — i.e. n is exactly the loan term and M was set correctly" }, { label: "D", text: "$(1+r)^n = 1$" }],
     "Aₙ = 0 means the balance has reached zero — the loan is paid off. If M was calculated using the PV formula with exactly n periods, then at period n the balance is exactly zero.", ""),
-  fa("y11adv-sf-ex-m7", "Compare two strategies over 20 years: (A) invest $10 000 now at 6% p.a. monthly; (B) invest $80/month at 6% p.a. monthly. Which gives more?", "", "A: $10000(1.005)^240≈$33102; B: 80·[(1.005)^240-1]/0.005≈$55 019. B gives more.", ["B gives more"]),
+  {
+    ...fa("y11adv-sf-ex-m7", "Compare two strategies over 20 years: (A) invest $10 000 now at 6% p.a. monthly; (B) invest $80 at the end of every month at 6% p.a. monthly. Which gives more?", "", "A: $10 000(1.005)^240 ≈ $33 102; B: $80[(1.005)^240−1]/0.005 ≈ $36 963. Strategy B gives more.", ["B gives more", "strategy B"]),
+    hint: "Use compound interest for the single deposit and the future-value annuity formula for the monthly deposits. Compare both values at month 240.",
+    explanation: "The monthly rate is 0.005 and there are 240 months. Strategy A grows to $10 000(1.005)²⁴⁰≈$33 102. Strategy B is an ordinary annuity worth $80[(1.005)²⁴⁰−1]/0.005≈$36 963, so strategy B gives more.",
+  },
   mc("y11adv-sf-ex-m8", "If the repayment M is less than the first month's interest (P × r), then:", "D",
     [{ label: "A", text: "The loan is paid off faster" }, { label: "B", text: "The balance stays constant" }, { label: "C", text: "The principal is repaid at rate M" }, { label: "D", text: "The loan balance grows — it is never repaid" }],
     "If M < P·r, the repayment doesn't cover the interest accrued in the first period. The unpaid interest is added to the balance: the loan grows. This is 'negative amortisation' and the debt is never cleared.", ""),

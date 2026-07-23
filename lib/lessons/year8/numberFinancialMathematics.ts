@@ -73,7 +73,8 @@ function poolAnswer(
   value: string,
   explanation: string,
   difficulty: number,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  hint = "Identify the key values, choose the correct method, then calculate step by step."
 ): PracticeQuestion {
   return {
     id,
@@ -82,7 +83,7 @@ function poolAnswer(
     difficulty,
     answer: value,
     acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])),
-    hint: "Identify the key values, choose the correct method, then calculate step by step.",
+    hint,
     explanation,
   };
 }
@@ -363,11 +364,56 @@ const percentagesBasics: LessonContent = {
     poolChoice("y8-fin-pct-p14", "A meal costs \\(\\$64\\). A 10% tip is added. How much is the tip?", "A", ["$6.40", "$7.40", "$64", "$640"], "0.10 × 64 = 6.40.", 3),
     poolAnswer("y8-fin-pct-p15", "Find 1% of \\(\\$350\\).", "", "3.5", "0.01 × 350 = 3.5.", 3, ["$3.50", "3.50"]),
     // ── Difficulty 4: multi-step and reverse reasoning ───────────────────
-    poolAnswer("y8-fin-pct-p16", "Find 17.5% of \\(\\$200\\).", "", "35", "0.175 × 200 = 35.", 4, ["$35"]),
-    poolAnswer("y8-fin-pct-p17", "Find 12% of \\(\\$250\\).", "", "30", "0.12 × 250 = 30.", 4, ["$30"]),
-    poolChoice("y8-fin-pct-p18", "10% of an amount is \\(\\$9\\). What is the full amount?", "C", ["$0.90", "$90", "$90 (since 100% = 10 × 10%)", "$900"], "If 10% = $9, then 100% = 10 × $9 = $90.", 4),
-    poolAnswer("y8-fin-pct-p19", "25% of an amount is \\(\\$15\\). Find the full amount.", "", "60", "25% is one quarter, so 100% = 4 × $15 = $60.", 4, ["$60"]),
-    poolAnswer("y8-fin-pct-p20", "Find 8% of \\(\\$625\\).", "", "50", "0.08 × 625 = 50.", 4, ["$50"]),
+    poolAnswer(
+      "y8-fin-pct-p16",
+      "A student calculates 17.5% of $200 by multiplying 200 by 17.5 and obtains $3500. Give the correct amount and the factor by which the student's answer is too large.",
+      "",
+      "$35, factor 100",
+      "17.5% = 0.175, so the correct amount is 200 × 0.175 = $35. The incorrect answer is 3500 / 35 = 100 times too large because the student did not divide the percentage by 100.",
+      4,
+      ["35, 100", "$35, 100", "35 dollars, factor 100"],
+      "Compare 17.5 with its decimal multiplier, then compare the incorrect and correct results."
+    ),
+    poolAnswer(
+      "y8-fin-pct-p17",
+      "Of 250 event tickets, 12% are held for performers. Of the tickets left after that, 10% are reserved for giveaways. How many tickets remain for paid public sale?",
+      "",
+      "198",
+      "The performer allocation is 0.12 × 250 = 30 tickets, leaving 220. The giveaway percentage uses this new base: 0.10 × 220 = 22. Therefore 220 - 22 = 198 tickets remain for paid sale.",
+      4,
+      ["198 tickets"],
+      "The second percentage is not taken from 250. Find the new base after the first allocation."
+    ),
+    poolAnswer(
+      "y8-fin-pct-p18",
+      "A 10% service charge on a meal is $9. Find the meal price before the charge and the total price after the charge. Enter both amounts.",
+      "",
+      "$90, $99",
+      "If 10% is $9, then 100% is 10 × $9 = $90. The total after the service charge is $90 + $9 = $99.",
+      4,
+      ["90, 99", "$90 and $99", "90 dollars, 99 dollars"],
+      "Recover 100% from the 10% charge, then add the charge only once."
+    ),
+    poolAnswer(
+      "y8-fin-pct-p19",
+      "Twenty-five per cent of a fund is $15. After finding the whole fund, 40% of the whole fund is spent. How much money remains? Enter the whole fund and the amount remaining.",
+      "",
+      "$60, $36",
+      "Since 25% is one quarter, the whole fund is 4 × $15 = $60. Spending 40% leaves 60%, so the remaining amount is 0.60 × $60 = $36.",
+      4,
+      ["60, 36", "$60 and $36"],
+      "First reverse the 25% statement. The 40% is then taken from the recovered whole."
+    ),
+    poolAnswer(
+      "y8-fin-pct-p20",
+      "Supplier A offers a rebate of 8% on $625. Supplier B offers a rebate of 12.5% on $400. A salesperson says A's rebate must be larger because $625 is larger. Decide which rebate is larger and give the rebate amount.",
+      "",
+      "equal, $50",
+      "Supplier A's rebate is 0.08 × 625 = $50. Supplier B's rebate is 0.125 × 400 = $50. The rebates are equal; comparing the starting amounts alone ignores the different percentages.",
+      4,
+      ["equal, 50", "both equal, $50", "same, $50"],
+      "Calculate both percentage amounts. A larger base does not guarantee a larger percentage amount."
+    ),
     // ── Difficulty 5: harder reverse / combined ──────────────────────────
     poolChoice("y8-fin-pct-p21", "5% of an amount is \\(\\$4\\). What is 100% of the amount?", "B", ["$20", "$80", "$8", "$400"], "If 5% = $4, then 1% = $0.80 and 100% = 100 × $0.80 = $80.", 5),
     poolAnswer("y8-fin-pct-p22", "Find 37.5% of \\(\\$96\\).", "", "36", "0.375 × 96 = 36.", 5, ["$36"]),
@@ -1936,18 +1982,18 @@ const simpleInterestIntroduction: LessonContent = {
     poolChoice("y8-fin-si-p14", "What is the total amount when \\(\\$800\\) is invested at 5% simple interest for 4 years?", "B", ["$160", "$960", "$840", "$1000"], "I = (800 × 5 × 4) ÷ 100 = 160; A = 800 + 160 = $960.", 3),
     poolAnswer("y8-fin-si-p15", "Find the simple interest on \\(\\$1200\\) at 2.5% for 4 years.", "", "120", "(1200 × 2.5 × 4) ÷ 100 = 120.", 3, ["$120"]),
     // ── Difficulty 4: larger / decimal rate / total ──────────────────────
-    poolAnswer("y8-fin-si-p16", "Find the simple interest on \\(\\$5000\\) at 4.5% for 3 years.", "", "675", "(5000 × 4.5 × 3) ÷ 100 = 675.", 4, ["$675"]),
-    poolAnswer("y8-fin-si-p17", "A loan of \\(\\$8000\\) at 7% simple interest runs for 5 years. Find the total repayment.", "", "10800", "I = (8000 × 7 × 5) ÷ 100 = 2800; A = 8000 + 2800 = 10800.", 4, ["$10800", "10,800"]),
-    poolChoice("y8-fin-si-p18", "Which time T (in years) makes the simple interest on \\(\\$500\\) at 4% equal to \\(\\$60\\)?", "C", ["1", "2", "3", "4"], "I = (500 × 4 × T) ÷ 100 = 20T; 20T = 60, so T = 3.", 4),
-    poolAnswer("y8-fin-si-p19", "Find the simple interest on \\(\\$3600\\) at 6.25% for 2 years.", "", "450", "(3600 × 6.25 × 2) ÷ 100 = 450.", 4, ["$450"]),
-    poolAnswer("y8-fin-si-p20", "\\(\\$2400\\) is invested at 3% simple interest for 30 months. (T = 2.5 years.) Find the interest.", "", "180", "T = 30 ÷ 12 = 2.5 years; I = (2400 × 3 × 2.5) ÷ 100 = 180.", 4, ["$180"]),
+    poolAnswer("y8-fin-si-p16", "\\(\\$5000\\) is invested at 4.5% p.a. simple interest for 3 years. Find both the interest and the final balance.", "", "675, 5675", "Interest is $5000\\times0.045\\times3=\\$675$. The final balance is $5000+675=\\$5675$.", 4, ["$675, $5675", "675 and 5675"]),
+    poolAnswer("y8-fin-si-p17", "A \\(\\$8000\\) loan at 7% p.a. simple interest runs for 5 years. Find the interest charged and total repayment.", "", "2800, 10800", "Interest is $8000\\times0.07\\times5=\\$2800$; total repayment is $8000+2800=\\$10,800$.", 4, ["$2800, $10800", "2,800 and 10,800"]),
+    poolChoice("y8-fin-si-p18", "For \\(\\$500\\) at 4% p.a. simple interest, which option gives both the time needed to earn \\(\\$60\\) and the final balance?", "C", ["1 year and $560", "2 years and $560", "3 years and $560", "4 years and $500"], "$60=500\\times0.04\\times T=20T$, so $T=3$ years. The final balance is $500+$60=$560$.", 4),
+    poolAnswer("y8-fin-si-p19", "\\(\\$3600\\) earns 6.25% p.a. simple interest for 2 years. Find the interest and the percentage increase in the balance.", "", "450, 12.5%", "Interest is $3600\\times0.0625\\times2=\\$450$. Relative to the principal, $450/3600\\times100=12.5\\%$.", 4, ["$450, 12.5", "450 and 12.5%"]),
+    poolAnswer("y8-fin-si-p20", "\\(\\$2400\\) is invested at 3% p.a. simple interest for 30 months. Convert the time to years, then find the interest.", "", "2.5 years, 180", "The time is $30/12=2.5$ years. Interest is $2400\\times0.03\\times2.5=\\$180$.", 4, ["2.5, $180", "2.5 years and 180"]),
     // ── Difficulty 5: find rate / find principal ─────────────────────────
-    poolChoice("y8-fin-si-p21", "Simple interest of \\(\\$90\\) is earned on \\(\\$600\\) over 3 years. What is the annual rate?", "A", ["5%", "6%", "4%", "3%"], "I = (600 × R × 3) ÷ 100 = 18R; 18R = 90, so R = 5%.", 5),
-    poolAnswer("y8-fin-si-p22", "Simple interest of \\(\\$120\\) is earned at 4% over 2 years. Find the principal P.", "", "1500", "I = (P × 4 × 2) ÷ 100 = 0.08P; 0.08P = 120, so P = $1500.", 5, ["$1500"]),
-    poolAnswer("y8-fin-si-p23", "A \\(\\$2000\\) loan is repaid as \\(\\$2360\\) after 3 years of simple interest. Find the annual rate.", "", "6", "I = 2360 − 2000 = 360; R = (360 × 100) ÷ (2000 × 3) = 6%.", 5, ["6%"]),
-    poolAnswer("y8-fin-si-p24", "How many years does it take \\(\\$1000\\) at 5% simple interest to earn \\(\\$250\\)?", "", "5", "I = (1000 × 5 × T) ÷ 100 = 50T; 50T = 250, so T = 5 years.", 5, ["5 years"]),
-    poolAnswer("y8-fin-si-p25", "Find the simple interest on \\(\\$12000\\) at 5.5% for 4 years.", "", "2640", "(12000 × 5.5 × 4) ÷ 100 = 2640.", 5, ["$2640", "2,640"]),
-    poolChoice("y8-fin-si-p26", "Simple interest of \\(\\$160\\) is earned on a principal at 8% over 2 years. What is the principal?", "B", ["$800", "$1000", "$1200", "$1600"], "I = (P × 8 × 2) ÷ 100 = 0.16P; 0.16P = 160, so P = $1000.", 5),
+    poolChoice("y8-fin-si-p21", "$90 interest is earned on $600 over 3 years. Which gives annual rate and final balance?", "A", ["5%, $690", "6%, $690", "4%, $600", "3%, $630"], "$90=600R(3)$ gives $R=5\\%$; balance is $690$.", 5),
+    poolAnswer("y8-fin-si-p22", "$120 simple interest is earned at 4% over 2 years. Find principal and final balance.", "", "1500, 1620", "$120=0.08P$, so $P=1500$ and balance $=1620$.", 5, ["$1500,$1620"]),
+    poolAnswer("y8-fin-si-p23", "A $2000 loan is repaid as $2360 after 3 years. Find interest and annual simple rate.", "", "360, 6%", "Interest is $360$; $R=360/(2000×3)=0.06=6\\%$.", 5, ["$360,6"]),
+    poolAnswer("y8-fin-si-p24", "How long does $1000 at 5% simple interest take to earn $250, and what is the final balance?", "", "5 years, 1250", "$50T=250$ gives 5 years; balance is $1250$.", 5, ["5,$1250"]),
+    poolAnswer("y8-fin-si-p25", "For $12000 at 5.5% simple interest for 4 years, find interest and balance.", "", "2640, 14640", "Interest is $12000×0.055×4=$2640; balance $14640$.", 5, ["$2640,$14640"]),
+    poolChoice("y8-fin-si-p26", "$160 interest is earned at 8% over 2 years. Which gives principal and final balance?", "B", ["$800,$960", "$1000,$1160", "$1200,$1360", "$1600,$1760"], "$160=0.16P$ gives $P=1000$ and balance $1160$.", 5),
   ],
   multiPartPractice: [
     {
@@ -2238,9 +2284,9 @@ const wagesAndSalary: LessonContent = {
       "y8-nfm-wag-m10",
       "Chloe works 38 hours at $26 per hour and 3 hours at time-and-a-half. Her colleague Liam works 41 hours all at $26 per hour. Who earns more and by how much?",
       "",
-      "Chloe by 19.50",
-      "Chloe: Regular 38 × 26 = 988. Overtime rate 1.5 × 26 = 39. Overtime pay 3 × 39 = 117. Chloe total = 988 + 117 = 1105. Liam: 41 × 26 = 1066. Chloe earns 1105 − 1066 = $19.50 more.",
-      ["chloe by $19.50", "$19.50 more", "19.50"]
+      "Chloe by 39",
+      "Chloe: Regular 38 × 26 = 988. Overtime rate 1.5 × 26 = 39. Overtime pay 3 × 39 = 117. Chloe total = 988 + 117 = 1105. Liam: 41 × 26 = 1066. Chloe earns 1105 − 1066 = $39 more.",
+      ["chloe by $39", "$39 more", "39"]
     ),
   ],
   masteryQuizPool: [
@@ -2263,18 +2309,18 @@ const wagesAndSalary: LessonContent = {
     poolChoice("y8-nfm-wag-p14", "A worker does 5 hours at double time on a \\(\\$16\\) base rate. What is the overtime pay?", "B", ["$80", "$160", "$120", "$40"], "DT rate = 32; 5 × 32 = 160.", 3),
     poolAnswer("y8-nfm-wag-p15", "An annual salary of \\(\\$57200\\) is paid monthly. Find the monthly pay (to the nearest cent).", "", "4766.67", "57200 ÷ 12 ≈ 4766.67.", 3, ["$4766.67"]),
     // ── Difficulty 4: combined regular + overtime ────────────────────────
-    poolAnswer("y8-nfm-wag-p16", "A worker earns \\(\\$22\\) per hour, working 38 regular hours plus 4 hours at time-and-a-half. Find the gross pay.", "", "968", "Regular 836; OT 4 × 33 = 132; total 968.", 4, ["$968"]),
-    poolAnswer("y8-nfm-wag-p17", "A worker earns \\(\\$24\\) per hour, working 38 regular hours plus 3 hours at double time. Find the gross pay.", "", "1056", "Regular 912; OT 3 × 48 = 144; total 1056.", 4, ["$1056"]),
-    poolAnswer("y8-nfm-wag-p18", "A worker earns \\(\\$25\\) per hour, working 38 regular hours plus 2 hours at time-and-a-half. Find the gross pay.", "", "1025", "Regular 950; OT 2 × 37.50 = 75; total 1025.", 4, ["$1025"]),
-    poolChoice("y8-nfm-wag-p19", "A worker earns \\(\\$16\\) per hour, working 38 regular hours plus 2 hours at time-and-a-half. What is the gross pay?", "C", ["$640", "$648", "$656", "$664"], "Regular 608; OT 2 × 24 = 48; total $656.", 4),
-    poolAnswer("y8-nfm-wag-p20", "A worker earns \\(\\$19\\) per hour, working 38 regular hours plus 5 hours at time-and-a-half. Find the gross pay.", "", "864.50", "Regular 722; OT 5 × 28.50 = 142.50; total 864.50.", 4, ["$864.50"]),
+    poolAnswer("y8-nfm-wag-p16", "A worker earns \\(\\$22\\) per hour for 38 regular hours plus 4 hours at time-and-a-half. Find the overtime rate and gross pay.", "", "33, 968", "The overtime rate is $22\\times1.5=\\$33$/h. Regular pay is $836 and overtime pay is $132, so gross pay is $968.", 4, ["$33, $968"]),
+    poolAnswer("y8-nfm-wag-p17", "A worker earns \\(\\$24\\) per hour for 38 regular hours plus 3 hours at double time. Find the overtime pay and gross pay.", "", "144, 1056", "Regular pay is $38\\times24=\\$912$. Overtime pay is $3\\times48=\\$144$, giving gross pay $1056.", 4, ["$144, $1056"]),
+    poolAnswer("y8-nfm-wag-p18", "A worker earns \\(\\$25\\) per hour for 38 regular hours plus 2 hours at time-and-a-half. Find gross pay and the fraction of it earned as overtime, as a percentage to 1 decimal place.", "", "1025, 7.3%", "Regular pay is $950; overtime is $2\\times37.50=\\$75$; gross pay is $1025$. Overtime is $75/1025\\times100\\approx7.3\\%$.", 4, ["$1025, 7.3", "1025 and 7.3%"]),
+    poolChoice("y8-nfm-wag-p19", "A worker earns \\(\\$16\\) per hour for 38 regular hours plus 2 hours at time-and-a-half. Which option gives the overtime pay and gross pay?", "C", ["$32 and $640", "$48 and $648", "$48 and $656", "$56 and $664"], "The overtime rate is $24/h, so overtime pay is $48. Regular pay is $608, giving gross pay $656.", 4),
+    poolAnswer("y8-nfm-wag-p20", "A worker earns \\(\\$19\\) per hour for 38 regular hours plus 5 hours at time-and-a-half. Find the gross pay and the extra pay compared with working all 43 hours at the base rate.", "", "864.50, 47.50", "Gross pay is $38\\times19+5\\times28.50=\\$864.50$. At the base rate, 43 hours pays $817, so the overtime loading adds $47.50.", 4, ["$864.50, $47.50"]),
     // ── Difficulty 5: mixed overtime / comparison ────────────────────────
-    poolAnswer("y8-nfm-wag-p21", "A worker earns \\(\\$26\\) per hour, working 38 regular hours, 3 hours at time-and-a-half, and 2 hours at double time. Find the gross pay.", "", "1326", "Regular 988; T1.5: 3 × 39 = 117; DT: 2 × 52 = 104; total 988 + 117 + 104 = 1326.", 5, ["$1326"]),
-    poolAnswer("y8-nfm-wag-p22", "Worker A does 41 hours at \\(\\$26\\) (all regular). Worker B does 38 regular plus 3 at time-and-a-half at \\(\\$26\\). How much more does B earn?", "", "19.50", "A: 41 × 26 = 1066. B: 988 + 117 = 1105. B earns 1105 − 1066 = $19.50 more.", 5, ["$19.50"]),
-    poolAnswer("y8-nfm-wag-p23", "A worker earns \\(\\$30\\) per hour and is paid \\(\\$1320\\) for a week of 38 regular hours plus overtime at double time. How many overtime hours were worked?", "", "3", "Regular = 1140; OT pay = 180; DT rate = 60; OT hours = 180 ÷ 60 = 3.", 5, ["3 hours", "3"]),
-    poolChoice("y8-nfm-wag-p24", "An annual salary of \\(\\$93600\\) is paid fortnightly. What is the fortnightly pay?", "A", ["$3600", "$1800", "$7800", "$3500"], "93600 ÷ 26 = 3600.", 5),
-    poolAnswer("y8-nfm-wag-p24b", "A salary of \\(\\$80000\\) per year. Find the weekly pay (to the nearest cent).", "", "1538.46", "80000 ÷ 52 ≈ 1538.46.", 5, ["$1538.46"]),
-    poolAnswer("y8-nfm-wag-p25", "A worker earns \\(\\$28\\) per hour, working 38 regular hours plus 6 hours at time-and-a-half. Find the gross pay.", "", "1316", "Regular 1064; OT 6 × 42 = 252; total 1316.", 5, ["$1316"]),
+    poolAnswer("y8-nfm-wag-p21", "At $26/h, a worker does 38 regular, 3 time-and-a-half and 2 double-time hours. Find overtime pay and gross pay.", "", "221, 1326", "Overtime is $117+$104=$221; gross is $988+$221=$1326$.", 5, ["$221,$1326"]),
+    poolAnswer("y8-nfm-wag-p22", "At $26/h, A works 41 regular hours; B works 38 regular plus 3 time-and-a-half. Find both pays and difference.", "", "1066, 1105, 39", "A earns $1066$, B $1105$, so B earns $39$ more.", 5, ["$1066,$1105,$39"]),
+    poolAnswer("y8-nfm-wag-p23", "At $30/h, gross pay is $1320 for 38 regular hours plus double-time overtime. Find overtime pay and hours.", "", "180, 3 hours", "Regular pay is $1140$, leaving $180$ overtime; at $60/h$ this is 3 hours.", 5, ["$180,3"]),
+    poolChoice("y8-nfm-wag-p24", "A $93600 salary is paid fortnightly. Which gives pay and number of payments?", "A", ["$3600,26", "$1800,52", "$7800,12", "$3500,26"], "$93600/26=$3600$ across 26 payments.", 5),
+    poolAnswer("y8-nfm-wag-p24b", "For an $80000 annual salary, find weekly and fortnightly pay to nearest cent.", "", "1538.46, 3076.92", "Weekly is $80000/52=$1538.46; fortnightly is twice this, $3076.92$.", 5, ["$1538.46,$3076.92"]),
+    poolAnswer("y8-nfm-wag-p25", "At $28/h, a worker does 38 regular plus 6 time-and-a-half hours. Find overtime and gross pay.", "", "252, 1316", "Overtime is $6×42=$252$; gross is $1064+$252=$1316$.", 5, ["$252,$1316"]),
   ],
   multiPartPractice: [
     {
@@ -2594,18 +2640,18 @@ const incomeTaxBasics: LessonContent = {
     poolChoice("y8-nfm-tax-p14", "Gross weekly pay \\(\\$900\\), tax 25%, levy 2%. What is the take-home pay?", "B", ["$648", "$657", "$675", "$693"], "Tax 225; levy 18; 900 − 225 − 18 = $657.", 3),
     poolAnswer("y8-nfm-tax-p15", "A job is quoted at \\(\\$550\\) plus GST. Find the total the client pays.", "", "605", "550 × 1.10 = 605.", 3, ["$605"]),
     // ── Difficulty 4: larger pay periods / combined ──────────────────────
-    poolAnswer("y8-nfm-tax-p16", "Gross fortnightly pay \\(\\$1200\\), tax 22%, levy 2%. Find the take-home pay.", "", "912", "Tax 264; levy 24; 1200 − 264 − 24 = 912.", 4, ["$912"]),
-    poolAnswer("y8-nfm-tax-p17", "Gross monthly pay \\(\\$2600\\), tax 19%, levy 2%. Find the take-home pay.", "", "2054", "Tax 494; levy 52; 2600 − 494 − 52 = 2054.", 4, ["$2054"]),
-    poolAnswer("y8-nfm-tax-p18", "A \\(\\$1320\\) item includes GST. Find the pre-GST price.", "", "1200", "1320 ÷ 1.10 = 1200.", 4, ["$1200"]),
-    poolChoice("y8-nfm-tax-p19", "A \\(\\$960\\) pre-GST quote. What is the GST-inclusive total?", "C", ["$1056", "$96", "$1056 (960 × 1.10)", "$1066"], "960 × 1.10 = $1056.", 4),
-    poolAnswer("y8-nfm-tax-p20", "Gross weekly pay \\(\\$1100\\), tax 24%, levy 2%. Find the take-home pay.", "", "814", "Tax 264; levy 22; 1100 − 264 − 22 = 814.", 4, ["$814"]),
+    poolAnswer("y8-nfm-tax-p16", "On gross fortnightly pay of \\(\\$1200\\), tax is 22% and a levy is 2%. Find total deductions and take-home pay.", "", "288, 912", "Tax is $264 and the levy is $24. Total deductions are $288, leaving $1200-288=\\$912$.", 4, ["$288, $912"]),
+    poolAnswer("y8-nfm-tax-p17", "On gross monthly pay of \\(\\$2600\\), tax is 19% and a levy is 2%. Find total deductions and take-home pay.", "", "546, 2054", "Tax is $494 and the levy is $52, totalling $546. Take-home pay is $2600-546=\\$2054$.", 4, ["$546, $2054"]),
+    poolAnswer("y8-nfm-tax-p18", "An item costs \\(\\$1320\\) including 10% GST. Find its pre-GST price and the GST component.", "", "1200, 120", "The pre-GST price is $1320/1.10=\\$1200$. The GST component is $1320-$1200=\\$120$.", 4, ["$1200, $120"]),
+    poolChoice("y8-nfm-tax-p19", "For a \\(\\$960\\) pre-GST quote, which option correctly gives both the GST and GST-inclusive total?", "C", ["$1056 and $96", "$96 and $960", "$96 and $1056", "$106 and $1066"], "GST is $0.10\\times960=\\$96$, so the inclusive total is $960+$96=$1056$.", 4),
+    poolAnswer("y8-nfm-tax-p20", "On gross weekly pay of \\(\\$1100\\), tax is 24% and a levy is 2%. Find take-home pay and the percentage of gross pay retained.", "", "814, 74%", "The deductions total $26\\%$, so $74\\%$ is retained. Take-home pay is $0.74\\times1100=\\$814$.", 4, ["$814, 74", "814 and 74%"]),
     // ── Difficulty 5: annual / reverse GST reasoning ─────────────────────
-    poolAnswer("y8-nfm-tax-p21", "Gross annual salary \\(\\$62400\\), tax 21%, levy 2%. Find the annual take-home pay.", "", "48048", "Tax 13104; levy 1248; 62400 − 13104 − 1248 = 48048.", 5, ["$48048", "48,048"]),
-    poolAnswer("y8-nfm-tax-p22", "The GST portion of a price is \\(\\$45\\). Find the GST-inclusive price.", "", "495", "GST is 10% of the pre-GST price, so pre-GST = $450; inclusive = $450 + $45 = $495 (= 45 × 11).", 5, ["$495"]),
-    poolAnswer("y8-nfm-tax-p23", "An item costs \\(\\$880\\) including GST. How much of this is GST?", "", "80", "Pre-GST = 880 ÷ 1.10 = 800; GST = 880 − 800 = $80.", 5, ["$80"]),
-    poolChoice("y8-nfm-tax-p24", "Gross annual salary \\(\\$80000\\), tax 23%, levy 2%. What is the annual take-home pay?", "A", ["$60000", "$61600", "$58400", "$64000"], "Tax 18400; levy 1600; 80000 − 18400 − 1600 = $60000.", 5),
-    poolAnswer("y8-nfm-tax-p25", "Gross monthly pay \\(\\$5000\\), tax 26%, levy 2%. Find the take-home pay.", "", "3600", "Tax 1300; levy 100; 5000 − 1300 − 100 = 3600.", 5, ["$3600"]),
-    poolAnswer("y8-nfm-tax-p26", "An invoice reads \\(\\$2200\\) including GST. Find the pre-GST amount.", "", "2000", "2200 ÷ 1.10 = 2000.", 5, ["$2000", "2,000"]),
+    poolAnswer("y8-nfm-tax-p21", "On $62400, tax is 21% and levy 2%. Find deductions and annual take-home.", "", "14352, 48048", "Deductions are 23% of $62400=$14352$; take-home is $48048$.", 5, ["$14352,$48048"]),
+    poolAnswer("y8-nfm-tax-p22", "The GST component is $45. Find pre-GST and GST-inclusive prices.", "", "450, 495", "GST is 10% of pre-GST, so base is $450$ and inclusive $495$.", 5, ["$450,$495"]),
+    poolAnswer("y8-nfm-tax-p23", "An item costs $880 including GST. Find pre-GST price and GST component.", "", "800, 80", "$880/1.10=$800$; GST is $80$.", 5, ["$800,$80"]),
+    poolChoice("y8-nfm-tax-p24", "On $80000, tax is 23% and levy 2%. Which gives deductions and take-home?", "A", ["$20000,$60000", "$18400,$61600", "$21600,$58400", "$16000,$64000"], "Combined deductions are 25%=$20000$, leaving $60000$.", 5),
+    poolAnswer("y8-nfm-tax-p25", "On $5000 monthly pay, tax is 26% and levy 2%. Find deductions and take-home.", "", "1400, 3600", "Combined 28% deductions are $1400$, leaving $3600$.", 5, ["$1400,$3600"]),
+    poolAnswer("y8-nfm-tax-p26", "An invoice is $2200 including GST. Find pre-GST and GST.", "", "2000, 200", "$2200/1.10=$2000$; GST is $200$.", 5, ["$2000,$200"]),
   ],
   multiPartPractice: [
     {
@@ -3258,18 +3304,18 @@ const budgetingAndMoneyManagement: LessonContent = {
     poolChoice("y8-nfm-bud-p14", "Income \\(\\$1000\\), expenses \\(\\$750\\). What is the savings rate?", "C", ["15%", "20%", "25%", "30%"], "Savings 250; 250 ÷ 1000 × 100 = 25%.", 3),
     poolAnswer("y8-nfm-bud-p15", "A \\(\\$3200\\) monthly income with \\(\\$2600\\) expenses. Find the monthly surplus.", "", "600", "3200 − 2600 = 600.", 3, ["$600"]),
     // ── Difficulty 4: multi-item budgets / break-even ────────────────────
-    poolAnswer("y8-nfm-bud-p16", "Income \\(\\$520\\). Expenses: \\(\\$180\\), \\(\\$110\\), \\(\\$50\\), \\(\\$35\\), \\(\\$80\\). Find the surplus.", "", "65", "Total expenses 455; 520 − 455 = 65.", 4, ["$65"]),
-    poolAnswer("y8-nfm-bud-p17", "Monthly income \\(\\$1400\\), expenses \\(\\$1550\\). How much must expenses be cut to break even?", "", "150", "Deficit = 1550 − 1400 = $150, so cut $150 to break even.", 4, ["$150"]),
-    poolChoice("y8-nfm-bud-p18", "A \\(\\$30/\\text{week}\\) deficit. Which cut removes it best?", "D", ["Save $5 on coffee", "Save $2 on phone plan", "Save $20 skipping an outing", "Cut eating out by $40/week"], "Cutting $40 removes the $30 deficit and leaves a $10 surplus.", 4),
-    poolAnswer("y8-nfm-bud-p19", "Monthly income \\(\\$3200\\), surplus \\(\\$600\\). Savings goal \\(\\$1800\\). How many months?", "", "3", "1800 ÷ 600 = 3 months.", 4, ["3 months"]),
-    poolAnswer("y8-nfm-bud-p20", "Income \\(\\$320\\). Expenses: \\(\\$40\\), \\(\\$30\\), \\(\\$60\\), \\(\\$50\\), \\(\\$40\\). Find the savings rate (%).", "", "31.25", "Total expenses 220; savings 100; 100 ÷ 320 × 100 = 31.25%.", 4, ["31.25%"]),
+    poolAnswer("y8-nfm-bud-p16", "Weekly income is \\(\\$520\\). Expenses are \\(\\$180, \\$110, \\$50, \\$35\\), and \\(\\$80\\). Find the surplus and savings rate.", "", "65, 12.5%", "Expenses total $455, leaving $65. The savings rate is $65/520\\times100=12.5\\%$.", 4, ["$65, 12.5", "65 and 12.5%"]),
+    poolAnswer("y8-nfm-bud-p17", "Monthly income is \\(\\$1400\\) and expenses are \\(\\$1550\\). Find the current deficit and the expense cut needed to finish with a \\(\\$70\\) surplus.", "", "150, 220", "The current deficit is $1550-$1400=$150. To move from a $150 deficit to a $70 surplus requires a $220 expense cut.", 4, ["$150, $220"]),
+    poolChoice("y8-nfm-bud-p18", "A budget has a \\(\\$30\\) weekly deficit. Which cut both removes the deficit and produces the stated surplus?", "D", ["Cut $5; surplus $25", "Cut $20; surplus $10", "Cut $30; surplus $30", "Cut $40; surplus $10"], "A $40 cut first covers the $30 deficit and leaves a $10 surplus.", 4),
+    poolAnswer("y8-nfm-bud-p19", "Monthly income is \\(\\$3200\\) and expenses are \\(\\$2600\\). Find the monthly surplus and the number of full months needed to save \\(\\$1800\\).", "", "600, 3 months", "The surplus is $3200-$2600=$600 per month. Then $1800/$600=3 months.", 4, ["$600, 3", "600 and 3 months"]),
+    poolAnswer("y8-nfm-bud-p20", "Income is \\(\\$320\\). Expenses are \\(\\$40, \\$30, \\$60, \\$50\\), and \\(\\$40\\). Find total savings and the savings rate.", "", "100, 31.25%", "Expenses total $220, so savings are $100. The savings rate is $100/320\\times100=31.25\\%$.", 4, ["$100, 31.25", "100 and 31.25%"]),
     // ── Difficulty 5: compare budgets / reverse target ───────────────────
-    poolChoice("y8-nfm-bud-p21", "Budget A: income \\(\\$700\\), expenses \\(\\$630\\). Budget B: income \\(\\$850\\), expenses \\(\\$795\\). Higher savings rate?", "A", ["Budget A (10%)", "Budget B (6.47%)", "Both equal", "Cannot tell"], "A: 70 ÷ 700 = 10%. B: 55 ÷ 850 ≈ 6.47%. A is higher.", 5),
-    poolAnswer("y8-nfm-bud-p22", "Monthly income \\(\\$1400\\), expenses \\(\\$1550\\). What expense reduction gives a 10% savings rate?", "", "290", "Target expenses = 1400 − 140 = 1260; reduction = 1550 − 1260 = $290.", 5, ["$290"]),
-    poolAnswer("y8-nfm-bud-p23", "Option 1: income \\(\\$2800\\), expenses \\(\\$2380\\). Find its savings rate (%).", "", "15", "Savings 420; 420 ÷ 2800 × 100 = 15%.", 5, ["15%"]),
-    poolAnswer("y8-nfm-bud-p24", "A family wants a 20% savings rate on \\(\\$3000\\) income. What is the maximum they can spend?", "", "2400", "Target savings = $600; max expenses = 3000 − 600 = $2400.", 5, ["$2400"]),
-    poolChoice("y8-nfm-bud-p25", "Income \\(\\$2000\\), savings goal rate 25%. What weekly saving is required?", "B", ["$400", "$500", "$250", "$600"], "0.25 × 2000 = $500.", 5),
-    poolAnswer("y8-nfm-bud-p26", "A teenager has a \\(\\$100/\\text{week}\\) surplus and wants a \\(\\$650\\) item. How many full weeks of saving are needed?", "", "7", "650 ÷ 100 = 6.5, so 7 full weeks are needed.", 5, ["7 weeks", "7"]),
+    poolChoice("y8-nfm-bud-p21", "A: income $700, expenses $630. B: income $850, expenses $795. Which gives both savings rates and higher one?", "A", ["A 10%, B 6.47%; A", "A 6.47%, B 10%; B", "both 10%", "cannot tell"], "Rates are 10% and 6.47%, so A is higher.", 5),
+    poolAnswer("y8-nfm-bud-p22", "Income is $1400, expenses $1550. Find target savings for a 10% rate and required expense cut.", "", "140, 290", "Target savings $140$ means expenses $1260$; cut is $290$.", 5, ["$140,$290"]),
+    poolAnswer("y8-nfm-bud-p23", "Income is $2800 and expenses $2380. Find savings and savings rate.", "", "420, 15%", "Savings are $420$; $420/2800=15\\%$.", 5, ["$420,15"]),
+    poolAnswer("y8-nfm-bud-p24", "For $3000 income and a 20% savings target, find savings and maximum spending.", "", "600, 2400", "Savings target is $600$, leaving $2400$.", 5, ["$600,$2400"]),
+    poolChoice("y8-nfm-bud-p25", "Income is $2000 with a 25% savings goal. Which gives saving and maximum expenses?", "B", ["$400,$1600", "$500,$1500", "$250,$1750", "$600,$1400"], "Saving is $500$ and expenses at most $1500$.", 5),
+    poolAnswer("y8-nfm-bud-p26", "Saving $100/week for a $650 item, find full weeks needed and money left after purchase.", "", "7 weeks, 50", "Seven weeks gives $700$, leaving $50$.", 5, ["7,$50"]),
   ],
   multiPartPractice: [
     {
@@ -3546,9 +3592,9 @@ const creditAndDebit: LessonContent = {
       "y8-nfm-crd-m8",
       "A student buys a $900 phone. Option 1: credit card at 20% p.a. held 4 months. Option 2: lay-by with a $40 fee, no interest. Which is cheaper and by how much? (Simple monthly interest.)",
       "",
-      "60",
+      "Lay-by by 20",
       "Option 1 monthly interest = 900 × (0.20 ÷ 12) = 15. Total credit cost = 900 + 4 × 15 = 960. Option 2 lay-by total = 900 + 40 = 940. Lay-by is cheaper by $960 − $940 = $20. (Answer: 20 or lay-by.)",
-      ["$20", "20", "lay-by"]
+      ["$20", "20", "lay-by", "lay-by by $20"]
     ),
     answer(
       "y8-nfm-crd-m9",
@@ -3562,9 +3608,9 @@ const creditAndDebit: LessonContent = {
       "y8-nfm-crd-m10",
       "A $1200 purchase can be made three ways. Debit card: $1200. Credit card at 15% p.a. held 6 months: find total. Lay-by with $50 fee: find total. Rank from cheapest to most expensive.",
       "",
-      "1290",
+      "Debit, lay-by, credit",
       "Monthly interest = 1200 × 0.0125 = 15. Credit total = 1200 + 6 × 15 = 1290. Lay-by total = 1200 + 50 = 1250. Ranking: Debit ($1200) < Lay-by ($1250) < Credit ($1290).",
-      ["$1290", "1290"]
+      ["debit < lay-by < credit", "debit card, lay-by, credit card"]
     ),
   ],
   masteryQuizPool: [
@@ -3587,18 +3633,18 @@ const creditAndDebit: LessonContent = {
     poolChoice("y8-nfm-crd-p14", "A \\(\\$1000\\) balance at 18% p.a. Monthly interest \\(\\$15\\), repayment \\(\\$20\\). How much does the debt fall?", "C", ["$20", "$15", "$5", "$35"], "20 − 15 = $5 reduction.", 3),
     poolAnswer("y8-nfm-crd-p15", "A \\(\\$600\\) item is bought on credit at 18% p.a. and held 2 months. Find the total cost (simple monthly interest).", "", "618", "Monthly interest 9; total 600 + 18 = 618.", 3, ["$618"]),
     // ── Difficulty 4: compare methods / longer holds ─────────────────────
-    poolAnswer("y8-nfm-crd-p16", "An \\(\\$800\\) TV on credit at 20% p.a. held 6 months. Find the total cost (simple monthly interest).", "", "880", "Monthly interest 13.33; total 800 + 80 = 880.", 4, ["$880"]),
-    poolChoice("y8-nfm-crd-p17", "A \\(\\$900\\) phone: credit at 20% p.a. held 4 months (total \\(\\$960\\)) vs lay-by with \\(\\$40\\) fee (total \\(\\$940\\)). Which is cheaper?", "B", ["Credit", "Lay-by", "Both equal", "Cannot tell"], "Lay-by $940 < credit $960, so lay-by is cheaper.", 4),
-    poolAnswer("y8-nfm-crd-p18", "A \\(\\$1200\\) purchase on credit at 15% p.a. held 6 months. Find the total cost (simple monthly interest).", "", "1290", "Monthly interest 15; total 1200 + 90 = 1290.", 4, ["$1290"]),
-    poolAnswer("y8-nfm-crd-p19", "A \\(\\$1000\\) balance at 18% p.a. With \\(\\$200\\) available monthly and \\(\\$15\\) monthly interest, find months to clear.", "", "6", "Net reduction 185/month; 1000 ÷ 185 ≈ 5.4, so 6 months.", 4, ["6 months", "6"]),
-    poolAnswer("y8-nfm-crd-p20", "Paying a \\(\\$500\\) balance in full vs holding 12 months at 20% p.a. How much extra by waiting?", "", "100", "Annual interest = 500 × 0.20 = $100 extra.", 4, ["$100"]),
+    poolAnswer("y8-nfm-crd-p16", "An \\(\\$800\\) TV is bought on credit at 20% p.a. simple interest for 6 months. Find the interest charged and total cost.", "", "80, 880", "Six months is half a year, so interest is $800\\times0.20\\times0.5=\\$80$. Total cost is $880.", 4, ["$80, $880"]),
+    poolChoice("y8-nfm-crd-p17", "A \\(\\$900\\) phone costs \\(\\$960\\) on credit or \\(\\$940\\) on lay-by. Which option identifies the cheaper method and saving?", "B", ["Credit by $20", "Lay-by by $20", "Lay-by by $40", "They cost the same"], "Lay-by is cheaper because $960-$940=$20$.", 4),
+    poolAnswer("y8-nfm-crd-p18", "A \\(\\$1200\\) purchase is held on credit at 15% p.a. simple interest for 6 months. Find the interest and total cost.", "", "90, 1290", "Six months is 0.5 years. Interest is $1200\\times0.15\\times0.5=\\$90$, so total cost is $1290.", 4, ["$90, $1290"]),
+    poolAnswer("y8-nfm-crd-p19", "A \\(\\$1000\\) balance has \\(\\$15\\) monthly interest and a \\(\\$200\\) monthly payment. Find the net monthly reduction and the number of whole months needed to clear the balance.", "", "185, 6 months", "The debt falls by $200-$15=$185 per month. Since $1000/$185\\approx5.4$, 6 whole payments are needed.", 4, ["$185, 6", "185 and 6 months"]),
+    poolAnswer("y8-nfm-crd-p20", "A \\(\\$500\\) balance can be paid now or held for 12 months at 20% p.a. simple interest. Find the interest and total amount paid after waiting.", "", "100, 600", "Interest is $500\\times0.20=\\$100$. Waiting makes the total payment $500+$100=$600$.", 4, ["$100, $600"]),
     // ── Difficulty 5: minimum-payment trap / multi-method ───────────────
-    poolAnswer("y8-nfm-crd-p21", "A \\(\\$750\\) balance at 24% p.a. The repayment is \\(\\$25/\\text{month}\\) and monthly interest is \\(\\$15\\). How many months to clear (assume $10 net reduction)?", "", "75", "Net reduction $10/month; 750 ÷ 10 = 75 months.", 5, ["75 months", "75"]),
-    poolAnswer("y8-nfm-crd-p22", "A \\(\\$900\\) phone: credit at 20% p.a. held 4 months vs lay-by with \\(\\$40\\) fee. How much cheaper is the lay-by?", "", "20", "Credit total 960; lay-by 940; lay-by is $20 cheaper.", 5, ["$20", "20"]),
-    poolAnswer("y8-nfm-crd-p23", "A \\(\\$600\\) balance at 20% p.a. The minimum repayment is \\(\\$15/\\text{month}\\); monthly interest is \\(\\$10\\). How much of the first payment reduces the debt?", "", "5", "$15 − $10 interest = $5 reduces the debt.", 5, ["$5"]),
-    poolChoice("y8-nfm-crd-p24", "A \\(\\$1200\\) item: debit \\(\\$1200\\), credit \\(\\$1290\\), lay-by \\(\\$1250\\). Which is cheapest?", "A", ["Debit", "Credit", "Lay-by", "All equal"], "Debit $1200 is the cheapest.", 5),
-    poolAnswer("y8-nfm-crd-p25", "A \\(\\$1500\\) balance at 18% p.a. is paid off at \\(\\$150/\\text{month}\\). Monthly interest is \\(\\$22.50\\). What is the net monthly reduction?", "", "127.50", "150 − 22.50 = 127.50.", 5, ["$127.50"]),
-    poolAnswer("y8-nfm-crd-p26", "A \\(\\$2400\\) balance at 20% p.a. is left unpaid for a full year. Find the total interest.", "", "480", "2400 × 0.20 = 480.", 5, ["$480"]),
+    poolAnswer("y8-nfm-crd-p21", "A $750 balance has $15 monthly interest and $25 payment. Find net reduction and months to clear.", "", "10, 75 months", "Net reduction is $10$ monthly; $750/10=75$ months.", 5, ["$10,75"]),
+    poolAnswer("y8-nfm-crd-p22", "A $900 phone costs credit at 20% p.a. for 4 months or lay-by plus $40. Find both totals and saving.", "", "960, 940, 20", "Credit interest is $60$, total $960$; lay-by $940$, saving $20$.", 5, ["$960,$940,$20"]),
+    poolAnswer("y8-nfm-crd-p23", "A $600 balance has $10 monthly interest and $15 payment. Find net reduction and balance after payment.", "", "5, 595", "Only $5$ reduces principal, leaving $595$.", 5, ["$5,$595"]),
+    poolChoice("y8-nfm-crd-p24", "An item costs debit $1200, credit $1290, lay-by $1250. Which gives cheapest method and saving over next cheapest?", "A", ["Debit, $50", "Credit, $40", "Lay-by, $40", "All equal, $0"], "Debit is cheapest and saves $50$ versus lay-by.", 5),
+    poolAnswer("y8-nfm-crd-p25", "A $1500 balance has $22.50 monthly interest and $150 payment. Find net reduction and new balance.", "", "127.50, 1372.50", "Net reduction is $127.50$, leaving $1372.50$.", 5, ["$127.50,$1372.50"]),
+    poolAnswer("y8-nfm-crd-p26", "A $2400 balance at 20% p.a. is unpaid one year. Find interest and final balance.", "", "480, 2880", "Interest is $480$; balance becomes $2880$.", 5, ["$480,$2880"]),
   ],
   multiPartPractice: [
     {

@@ -109,13 +109,13 @@ export const directInverseVariationChallenge: PracticeQuestion[] = [
   {
     id: "chal-y11a-var-1",
     prompt:
-      "For a fixed area of 96 cm², the length L of a rectangle varies inversely with its width w. The cost C of a border varies directly with the perimeter. If C = 80 when w = 8, find the larger possible value of w when C = 104.",
+      "For a fixed area of 96 cm², the length L of a rectangle varies inversely with its width w. The cost C of a border varies directly with the perimeter. If C = 80 when w = 8, find the larger possible value of w when C = 88.",
     latex:
       "A = 96,\\quad L = \\frac{96}{w},\\quad C \\propto P",
     answer: "16",
     hint: "Use the first case to connect cost with perimeter, then solve for the new width.",
     explanation:
-      "When $w = 8$, the length is $96/8 = 12$, so the perimeter is $2(8 + 12) = 40$. Since $C = 80$, the cost is 2 dollars per perimeter unit. If $C = 104$, the perimeter is 52, so $2\\left(w + \\frac{96}{w}\\right) = 52$. Hence $w + \\frac{96}{w} = 26$, giving $w^2 - 26w + 96 = 0$. This factorises to $(w - 6)(w - 16) = 0$, so the larger possible width is 16.",
+      "When $w = 8$, the length is $96/8 = 12$, so the perimeter is $2(8 + 12) = 40$. Since $C = 80$, the cost is 2 dollars per perimeter unit. If $C = 88$, the perimeter is 44, so $2\\left(w + \\frac{96}{w}\\right) = 44$. Hence $w + \\frac{96}{w} = 22$, giving $w^2 - 22w + 96 = 0$. This factorises to $(w - 6)(w - 16) = 0$, so the larger possible width is 16.",
   },
   {
     id: "chal-y11a-var-2",

@@ -15,3 +15,4 @@ export * from "./seriesFinance";
 export * from "./graphsEquations";
 export * from "./bivariateData";
 export * from "./continuousProbability";
+export * from "./diagramRemediation";

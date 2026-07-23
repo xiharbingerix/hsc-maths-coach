@@ -137,6 +137,7 @@ import {
   year11AdvancedGraphsEquationsLessonOverride,
   year11AdvancedBivariateDataLessonOverride,
   year11AdvancedContinuousProbabilityLessonOverride,
+  applyYear11AdvancedDiagramRemediation,
 } from "./lessons/year11Advanced";
 import { enrichYear11AdvancedFeynmanDepth } from "./lessons/year11Advanced/feynmanEnhancements";
 import {
@@ -643,6 +644,8 @@ export function buildLesson(
   const visualized = applyLessonVisualStandards(enriched);
   const remediated = course.slug === "year-12-standard-2"
     ? applyYear12Standard2DiagramRemediation(visualized)
+    : course.slug === "year-11-advanced"
+      ? applyYear11AdvancedDiagramRemediation(visualized)
     : course.slug === "year-9-mathematics-core"
       ? applyYear9CoreDiagramRemediation(visualized)
       : visualized;

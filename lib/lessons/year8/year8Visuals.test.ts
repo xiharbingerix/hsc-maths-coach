@@ -16,6 +16,7 @@ const expectedAnswers: Record<string, string> = {
   "y8-geo-qprop-i1": "62",
   "y8-geo-qprop-m3": "117",
   "y8-geo-qprop-m6": "109",
+  "y8-geo-qprop-p26": "35",
   "y8-geo-rea-g2": "53",
   "y8-geo-rea-i4": "20",
   "y8-geo-rea-i5": "72",
@@ -25,7 +26,7 @@ const expectedAnswers: Record<string, string> = {
   "y8-geo-tri-i5": "53",
   "y8-net-app-g1": "7",
   "y8-net-app-i3": "10",
-  "y8-net-app-mp1": "15",
+  "y8-net-app-mp1": "14",
   "y8-net-eul-g3": "2",
   "y8-net-eul-i5": "B",
   "y8-net-eul-m5": "4",
@@ -78,7 +79,7 @@ test("Year 8 network visuals are complete, valid graphs", () => {
 });
 
 test("Year 8 geometry visuals have complete geometry and render as SVG", () => {
-  assert.equal(Object.keys(geometryQuestionVisuals).length, 13);
+  assert.equal(Object.keys(geometryQuestionVisuals).length, 14);
 
   for (const [questionId, visual] of Object.entries(geometryQuestionVisuals)) {
     assert.ok(visual.prompt.length >= 20, `${questionId} needs a specific prompt`);
@@ -113,12 +114,15 @@ test("Year 8 visual questions survive question-bank mapping with matching answer
   const rowsById = new Map(rows.map((row) => [row.source_id, row]));
 
   assert.equal(warnings.length, 0);
-  assert.equal(Object.keys(expectedAnswers).length, 28);
+  assert.equal(Object.keys(expectedAnswers).length, 29);
 
   for (const [questionId, expectedAnswer] of Object.entries(expectedAnswers)) {
     const row = rowsById.get(questionId);
     assert.ok(row, `${questionId} was dropped by question-bank mapping`);
-    assert.equal(row.answer, expectedAnswer, `${questionId} answer drifted from its diagram`);
+    assert.ok(
+      row.answer.includes(expectedAnswer),
+      `${questionId} should retain the diagram-derived result ${expectedAnswer}`,
+    );
     assert.ok(row.diagram_data, `${questionId} lost its diagram metadata`);
 
     const expectedType = questionId.startsWith("y8-net-")

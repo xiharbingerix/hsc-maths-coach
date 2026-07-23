@@ -104,8 +104,13 @@ export function Solid3DView({
             <line x1={cxc + rx} y1={top} x2={cxc + rx} y2={bot} {...solid} />
             <ellipse cx={cxc} cy={top} rx={rx} ry={ry} {...solid} />
             <path d={arc(cxc, bot, rx, ry, 0, 180)} {...solid} />
-            <line x1={cxc} y1={top} x2={cxc + rx} y2={top} {...hidden} />
-            {lbl(cxc + rx / 2, top - 6, labels.radius)}
+            {labels.diameter ? (
+              <line x1={cxc - rx} y1={top} x2={cxc + rx} y2={top} {...hidden} />
+            ) : (
+              <line x1={cxc} y1={top} x2={cxc + rx} y2={top} {...hidden} />
+            )}
+            {lbl(cxc, top - 7, labels.diameter)}
+            {lbl(cxc + rx / 2, top - 6, labels.diameter ? undefined : labels.radius)}
             {lbl(cxc + rx + 12, (top + bot) / 2, labels.height, "start")}
           </>
         );
@@ -159,8 +164,9 @@ export function Solid3DView({
       }
       case "triangularPrism": {
         const T1 = { x: 56, y: 156 };
-        const T2 = { x: 148, y: 156 };
-        const T3 = { x: 102, y: 80 };
+        const isRightTriangle = Boolean(labels.slant);
+        const T2 = { x: isRightTriangle ? 132 : 148, y: 156 };
+        const T3 = { x: isRightTriangle ? 56 : 102, y: 80 };
         const altitudeFoot = { x: T3.x, y: T1.y };
         const dx = 36, dy = -26;
         const t = (p: { x: number; y: number }) => ({ x: p.x + dx, y: p.y + dy });
@@ -177,7 +183,7 @@ export function Solid3DView({
             <polygon points={poly([T1, T2, T3])} {...solid} />
             <line x1={T2.x} y1={T2.y} x2={T2b.x} y2={T2b.y} {...solid} />
             <line x1={T3.x} y1={T3.y} x2={T3b.x} y2={T3b.y} {...solid} />
-            {labels.height ? (
+            {labels.height && !isRightTriangle ? (
               <>
                 <line
                   x1={T3.x}
@@ -196,8 +202,17 @@ export function Solid3DView({
                 />
               </>
             ) : null}
+            {isRightTriangle ? (
+              <path
+                d={`M ${T1.x} ${T1.y - 9} h 9 v 9`}
+                fill="none"
+                stroke="#64748b"
+                strokeWidth={1.4}
+              />
+            ) : null}
             {lbl((T1.x + T2.x) / 2, T1.y + 15, labels.base)}
             {lbl(T3.x - 10, (T3.y + altitudeFoot.y) / 2, labels.height, "end")}
+            {lbl((T2.x + T3.x) / 2 + 9, (T2.y + T3.y) / 2 - 7, labels.slant, "start")}
             {lbl((T2.x + T2b.x) / 2 + 8, (T2.y + T2b.y) / 2 - 6, labels.length, "start")}
           </>
         );

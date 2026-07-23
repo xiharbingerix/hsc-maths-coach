@@ -245,6 +245,14 @@ export const year11AdvancedPaper1: ExamPaper = {
           prompt:
             "A sector of a circle has radius 6 cm and a central angle of π/3 radians. Give exact answers in terms of π.",
           latex: "r = 6,\\quad \\theta = \\tfrac{\\pi}{3}",
+          sectorDiagram: {
+            description: "Circle sector with radius six centimetres and central angle pi over three radians.",
+            radiusLabel: "r = 6 cm",
+            angleDegrees: 60,
+            angleLabel: "pi/3",
+            arcLabel: "l",
+            showFullCircle: true,
+          },
           marks: 3,
           difficulty: 5,
           topicSlug: "arc-length-radian-measure",

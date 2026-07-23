@@ -231,7 +231,7 @@ export function CompositeSolidView({
               <rect x={hole.x} y={hole.y} width={hole.width} height={hole.height} fill="white" stroke={VOID} strokeWidth={2.2} />
               <path d={`M ${hole.x} ${hole.y} l ${dx} ${dy} h ${hole.width} v ${hole.height} l ${-dx} ${-dy}`} fill="none" stroke={VOID} strokeWidth={1.6} strokeDasharray="5 4" />
               {label(136, 226, dimension(diagram.outer.length))}
-              {label(29, 140, dimension(diagram.outer.height), "end")}
+              {label(40, 140, dimension(diagram.outer.height), "end")}
               {label(251, 65, dimension(diagram.outer.width), "start")}
               {label(141, 178, `hole ${voidText}`, "middle", true)}
             </>
@@ -650,8 +650,8 @@ export function CompositeSolidView({
             <line x1={frontX} y1={cy} x2={frontX} y2={cy - outerRy} stroke={EDGE} strokeWidth={1.5} />
             <line x1={frontX} y1={cy} x2={frontX} y2={cy - innerRy} stroke={VOID} strokeWidth={1.5} />
             {label((frontX + backX) / 2, 53, dimension(diagram.length))}
-            {label(51, 87, `R = ${dimension(diagram.outerRadius)}`, "end")}
-            {label(51, 116, `r = ${dimension(diagram.innerRadius)}`, "end", true)}
+            {label(64, 87, `R = ${dimension(diagram.outerRadius)}`, "end")}
+            {label(64, 116, `r = ${dimension(diagram.innerRadius)}`, "end", true)}
           </>
         );
       }

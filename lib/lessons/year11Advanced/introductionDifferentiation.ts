@@ -1020,7 +1020,17 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         practicalChoice("y11adv-stat-m3", "For f(x)=x^2+6x+5, f'(−4)<0 and f'(−2)>0 at x=−3. Classify this stationary point.", "D", ["Local maximum", "Horizontal inflection", "Not a stationary point", "Local minimum"], "f' goes from negative to positive at x=−3, so it is a local minimum.", "\\text{Sign diagram at }x=-3"),
         formulaAnswer("y11adv-stat-m4", "Find the x-values of the stationary points for the function. Give answers in ascending order, separated by a comma.", "f(x)=2x^3-3x^2-12x", "-1, 2", ["x=-1,2", "x=-1 and x=2", "-1 and 2", "x = -1, 2"]),
         practicalChoice("y11adv-stat-m5", "On which interval is f(x) = −x² + 4x decreasing?", "A", ["$x>2$", "$x<2$", "All real x", "$x<0$"], "f'(x)=−2x+4 < 0 when x > 2, so f is decreasing there.", "f'(x)=-2x+4"),
-        formulaAnswer("y11adv-stat-m6", "Find the y-value of the local maximum of f(x) = x^3 − 3x at x = −1.", "f(x)=x^3-3x,\\quad x=-1", "2", ["f(-1)=2", "y=2"]),
+        {
+          ...formulaAnswer(
+            "y11adv-stat-m6",
+            "Find the y-value of the local maximum of f(x) = x^3 − 3x.",
+            "f(x)=x^3-3x",
+            "2",
+            ["f(-1)=2", "y=2"],
+          ),
+          hint: "Differentiate and solve f'(x)=0. Use a derivative sign change to identify which stationary point is the local maximum, then substitute its x-value into f.",
+          explanation: "f′(x)=3x²−3=0 gives x=−1 and x=1. Since f′ changes from positive to negative at x=−1, that point is the local maximum. Therefore f(−1)=(−1)³−3(−1)=2.",
+        },
         practicalChoice("y11adv-stat-m7", "At x=1, f(x)=x^3−3x has a stationary point. f'(0)=−3<0 and f'(2)=9>0. Classify it.", "C", ["Local maximum", "Horizontal inflection", "Local minimum", "Global maximum"], "f' changes from negative to positive at x=1, so it is a local minimum.", "\\text{Sign diagram at }x=1"),
         formulaAnswer("y11adv-stat-m8", "State the interval where f(x) = x^3 − 3x is increasing for x > 0.", "f(x)=x^3-3x,\\quad x>0", "x > 1", ["x>1", "(1, \\infty)"]),
         formulaAnswer("y11adv-stat-m9", "Find the x-values of the stationary points for the function. Give answers in ascending order, separated by a comma.", "f(x)=-x^3+3x^2", "0, 2", ["x=0,2", "x=0 and x=2", "0 and 2", "x = 0, 2"]),

@@ -224,24 +224,48 @@ export function TriangleDiagramView({
 }): React.ReactElement {
   const reactId = React.useId();
   const titleId = `${reactId}-title`;
-  const vertices = diagram.vertices;
+  const sourceVertices = diagram.vertices;
+  const xs = Object.values(sourceVertices).map((vertex) => vertex.x);
+  const ys = Object.values(sourceVertices).map((vertex) => vertex.y);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+  const dataWidth = maxX - minX;
+  const dataHeight = maxY - minY;
+  const usesModelCoordinates =
+    !diagram.viewBox && Math.max(dataWidth, dataHeight) <= 20;
+  const vertices = usesModelCoordinates
+    ? (Object.fromEntries(
+        Object.entries(sourceVertices).map(([key, vertex]) => [
+          key,
+          {
+            x: 55 + ((vertex.x - minX) / (dataWidth || 1)) * 290,
+            y: 45 + ((vertex.y - minY) / (dataHeight || 1)) * 190,
+          },
+        ])
+      ) as TriangleDiagram["vertices"])
+    : sourceVertices;
+  const displayDiagram = usesModelCoordinates
+    ? { ...diagram, vertices }
+    : diagram;
   const centre = {
     x: (vertices.A.x + vertices.B.x + vertices.C.x) / 3,
     y: (vertices.A.y + vertices.B.y + vertices.C.y) / 3,
   };
-  const highlightedSides = new Set(diagram.highlightedSides ?? []);
+  const highlightedSides = new Set(displayDiagram.highlightedSides ?? []);
 
   return (
     <div className={`my-3 overflow-x-auto ${className ?? ""}`}>
       <svg
         role="img"
         aria-labelledby={titleId}
-        viewBox={diagram.viewBox ?? "0 0 400 280"}
+        viewBox={displayDiagram.viewBox ?? "0 0 400 280"}
         width="100%"
         preserveAspectRatio="xMidYMid meet"
         className="max-h-[320px] min-w-[320px]"
       >
-        <title id={titleId}>{diagram.description}</title>
+        <title id={titleId}>{displayDiagram.description}</title>
 
         {sides.map((side) => {
           const from = vertices[side.from];
@@ -263,9 +287,9 @@ export function TriangleDiagramView({
         })}
 
         {sides.flatMap((side) => {
-          const count = diagram.sideTicks?.[side.key];
+          const count = displayDiagram.sideTicks?.[side.key];
           if (!count) return [];
-          return sideTickPaths(diagram, side, count).map((tick, index) => (
+          return sideTickPaths(displayDiagram, side, count).map((tick, index) => (
             <line
               key={`${side.key}-tick-${index}`}
               {...tick}
@@ -276,9 +300,12 @@ export function TriangleDiagramView({
           ));
         })}
 
-        {diagram.rightAngleAt &&
+        {displayDiagram.rightAngleAt &&
           (() => {
-            const path = rightAnglePath(diagram, diagram.rightAngleAt);
+            const path = rightAnglePath(
+              displayDiagram,
+              displayDiagram.rightAngleAt
+            );
 
             return path ? (
               <path
@@ -292,7 +319,7 @@ export function TriangleDiagramView({
           })()}
 
         {sides.map((side) => {
-          const label = diagram.sideLabels?.[side.key];
+          const label = displayDiagram.sideLabels?.[side.key];
 
           if (!label) {
             return null;
@@ -322,9 +349,11 @@ export function TriangleDiagramView({
         })}
 
         {(Object.keys(vertices) as VertexKey[]).flatMap((key) => {
-          const markCount = diagram.angleMarks?.[key] ?? (diagram.angleLabels?.[key] ? 1 : 0);
+          const markCount =
+            displayDiagram.angleMarks?.[key] ??
+            (displayDiagram.angleLabels?.[key] ? 1 : 0);
           return Array.from({ length: markCount }, (_, index) => {
-            const path = angleArcPath(diagram, key, 21 + index * 7);
+            const path = angleArcPath(displayDiagram, key, 21 + index * 7);
             return path ? (
               <path
                 key={`${key}-angle-arc-${index}`}
@@ -354,19 +383,19 @@ export function TriangleDiagramView({
               strokeWidth={5}
               paintOrder="stroke"
             >
-              {diagram.vertexLabels?.[key] ?? key}
+              {displayDiagram.vertexLabels?.[key] ?? key}
             </text>
           );
         })}
 
         {(Object.keys(vertices) as VertexKey[]).map((key) => {
-          const label = diagram.angleLabels?.[key];
+          const label = displayDiagram.angleLabels?.[key];
 
           if (!label) {
             return null;
           }
 
-          const position = angleLabelPosition(diagram, key, centre);
+          const position = angleLabelPosition(displayDiagram, key, centre);
 
           return (
             <text

@@ -94,6 +94,17 @@ export const volumeSurfaceAreaQuestionVisuals: Record<
       color: "green",
     },
   },
+  "y8-vsa-sp-p18": {
+    prompt:
+      "The right triangular prism shown has total surface area 240 cm\u00b2. Find its length l.",
+    solid3DDiagram: {
+      description:
+        "Right triangular prism with perpendicular cross-section legs 5 cm and 12 cm, hypotenuse 13 cm, unknown prism length l and total surface area 240 square centimetres.",
+      solid: "triangularPrism",
+      labels: { base: "5 cm", height: "12 cm", slant: "13 cm", length: "l" },
+      color: "violet",
+    },
+  },
   "y8-vsa-sp-mp1": {
     prompt:
       "The net represents a closed wooden box with length 20 cm, width 15 cm and height 10 cm. It will be painted on its outer faces.",

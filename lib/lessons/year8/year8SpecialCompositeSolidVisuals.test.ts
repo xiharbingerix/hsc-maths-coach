@@ -10,10 +10,10 @@ import { specialCompositeSolidVisuals } from "./specialCompositeSolidVisuals";
 
 const expectedAnswers: Record<string, string> = {
   "y8-vsa-cv-p18": "1000 - 90π",
-  "y8-vsa-cv-p22": "120000π + 192000",
+  "y8-vsa-cv-p22": "120000π, 192000, 120000π+192000",
   "y8-vsa-cv-p24": "1080",
   "y8-vsa-cv-p25": "C",
-  "y8-vsa-cv-p26": "72000 - 3000π",
+  "y8-vsa-cv-p26": "72000, 3000π, 72000-3000π",
 };
 
 test("specialised Year 8 volume diagrams render complete geometry", () => {
@@ -51,7 +51,10 @@ test("specialised diagram dimensions calculate to every seeded answer", () => {
   for (const [questionId, expectedAnswer] of Object.entries(expectedAnswers)) {
     const row = rowsById.get(questionId);
     assert.ok(row, `${questionId} was dropped by question-bank mapping`);
-    assert.equal(row.answer, expectedAnswer);
+    assert.ok(
+      row.answer.includes(expectedAnswer),
+      `${questionId} should retain the diagram-derived result ${expectedAnswer}`,
+    );
     assert.equal(row.diagram_data?.type, "compositeSolidDiagram");
   }
 

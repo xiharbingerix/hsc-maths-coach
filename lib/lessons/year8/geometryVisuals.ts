@@ -204,4 +204,20 @@ export const geometryQuestionVisuals: Record<string, GeometryQuestionVisual> = {
       showVertexDots: true,
     },
   },
+  "y8-geo-qprop-p26": {
+    prompt:
+      "Diagonal AC of rhombus ABCD forms triangle ABC. Use the labelled triangle to find angle ACB.",
+    triangleDiagram: {
+      description:
+        "Triangle ABC formed by diagonal AC of a rhombus. Rhombus sides AB and BC are equal, angle ABC is 110 degrees, and angle BAC is 35 degrees because the 70-degree vertex angle at A is bisected by AC.",
+      vertices: {
+        A: { x: 0, y: 0 },
+        B: { x: 7, y: 0 },
+        C: { x: 4.2, y: 4.5 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      angleLabels: { A: "35°", B: "110°", C: "x°" },
+      sideTicks: { AB: 1, BC: 1 },
+    },
+  },
 };

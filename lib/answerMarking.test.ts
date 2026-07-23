@@ -24,6 +24,9 @@ test("\\sqrt{x} matches sqrt(x)", () => assert.equal(mark("\\sqrt{x}", "sqrt(x)"
 test("\\pi matches pi", () => assert.equal(mark("\\pi", "pi"), true));
 test("\\theta matches theta", () => assert.equal(mark("\\theta", "theta"), true));
 test("\\infty matches infinity", () => assert.equal(mark("\\infty", "infinity"), true));
+test("MathLive escaped percent matches stored percent", () => assert.equal(mark("5\\%", "5%"), true));
+test("MathLive escaped percent matches an accepted percent variant", () =>
+  assert.equal(mark("5\\%", "5", ["5%", "0.05"]), true));
 test("\\left(x+1\\right) matches (x+1)", () => assert.equal(mark("\\left(x+1\\right)", "(x+1)"), true));
 // Brace-less \frac shorthand in stored answers must match MathLive's braced student output.
 test("student \\frac{1}{2} matches stored \\frac12", () => assert.equal(mark("\\frac{1}{2}", "\\frac12"), true));

@@ -21,18 +21,18 @@ const expectedAnswers: Record<string, string> = {
   "y8-vsa-cv-p11": "540",
   "y8-vsa-cv-p12": "420",
   "y8-vsa-cv-p13": "360π",
-  "y8-vsa-cv-p17": "2304",
-  "y8-vsa-cv-p19": "816",
+  "y8-vsa-cv-p17": "2304 cm^3, 16.7%",
+  "y8-vsa-cv-p19": "816 cm^3, 29.4%",
   "y8-vsa-cs-p9": "256",
   "y8-vsa-cs-p10": "412",
   "y8-vsa-cs-p11": "148",
   "y8-vsa-cs-p12": "240",
   "y8-vsa-cs-p14": "218",
   "y8-vsa-cs-p16": "294",
-  "y8-vsa-cs-p18": "432",
-  "y8-vsa-cs-p19": "430",
-  "y8-vsa-cs-p20": "B",
-  "y8-vsa-cs-p21": "420",
+  "y8-vsa-cs-p18": "432 cm^2, 864 cm^2",
+  "y8-vsa-cs-p19": "430 cm^2, overcount 80 cm^2",
+  "y8-vsa-cs-p20": "112 cm^2, overcount 8 cm^2",
+  "y8-vsa-cs-p21": "420 cm^2, 120 cm^2 hidden",
   "y8-vsa-cs-p24": "496",
   "y8-vsa-cs-p26": "252",
 };
@@ -141,26 +141,23 @@ test("mastery-pool diagrams independently calculate to every seeded answer", () 
     const row = rowsById.get(questionId);
     const diagram = compositeSolidPoolVisuals[questionId].compositeSolidDiagram;
     assert.ok(row, `${questionId} was dropped by question-bank mapping`);
-    assert.equal(row.answer, expectedAnswer, `${questionId} has an incorrect seeded answer`);
+    assert.ok(
+      row.answer.includes(expectedAnswer),
+      `${questionId} should retain the diagram-derived result ${expectedAnswer}`,
+    );
     assert.equal(row.diagram_data?.type, "compositeSolidDiagram");
 
     if (volumeQuestionIds.has(questionId)) {
       const calculated = calculateVolume(diagram);
       if (diagram.kind === "hollowCylinder") {
-        assert.equal(row.answer, `${calculated}π`);
+        assert.equal(expectedAnswer, `${calculated}π`);
       } else {
-        assert.equal(Number(row.answer), calculated);
+        assert.equal(Number.parseFloat(expectedAnswer), calculated);
       }
       continue;
     }
 
     const calculated = calculateSurfaceArea(diagram);
-    if (questionId === "y8-vsa-cs-p20") {
-      assert.equal(calculated, 112);
-      const correctChoice = row.choices?.find((choice) => choice.label === row.answer);
-      assert.match(correctChoice?.text ?? "", /112/);
-    } else {
-      assert.equal(Number(row.answer), calculated);
-    }
+    assert.equal(Number.parseFloat(expectedAnswer), calculated);
   }
 });

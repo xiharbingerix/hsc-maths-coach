@@ -55,8 +55,28 @@ export function NetworkDiagramView({
   const titleId = `${reactId}-title`;
   const markerId = `${reactId}-arrow`;
   const highlightedMarkerId = `${reactId}-arrow-highlighted`;
+  const xs = diagram.vertices.map((vertex) => vertex.x);
+  const ys = diagram.vertices.map((vertex) => vertex.y);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+  const dataWidth = maxX - minX;
+  const dataHeight = maxY - minY;
+  const usesModelCoordinates =
+    !diagram.viewBox && Math.max(dataWidth, dataHeight) <= 20;
+  const vertices = usesModelCoordinates
+    ? diagram.vertices.map((vertex) => ({
+        ...vertex,
+        x: 60 + ((vertex.x - minX) / (dataWidth || 1)) * 280,
+        y: 55 + ((vertex.y - minY) / (dataHeight || 1)) * 190,
+      }))
+    : diagram.vertices;
+  const displayDiagram = usesModelCoordinates
+    ? { ...diagram, vertices }
+    : diagram;
   const vertexById = new Map(
-    diagram.vertices.map((vertex) => [vertex.id, vertex])
+    displayDiagram.vertices.map((vertex) => [vertex.id, vertex])
   );
 
   return (
@@ -64,12 +84,12 @@ export function NetworkDiagramView({
       <svg
         role="img"
         aria-labelledby={titleId}
-        viewBox={diagram.viewBox ?? "0 0 400 300"}
+        viewBox={displayDiagram.viewBox ?? "0 0 400 300"}
         width="100%"
         preserveAspectRatio="xMidYMid meet"
         className="max-h-[320px] min-w-[320px]"
       >
-        <title id={titleId}>{diagram.description}</title>
+        <title id={titleId}>{displayDiagram.description}</title>
         <defs>
           <marker
             id={markerId}
@@ -95,7 +115,7 @@ export function NetworkDiagramView({
           </marker>
         </defs>
 
-        {diagram.edges.map((edge, index) => {
+        {displayDiagram.edges.map((edge, index) => {
           const from = vertexById.get(edge.from);
           const to = vertexById.get(edge.to);
 
@@ -109,7 +129,7 @@ export function NetworkDiagramView({
             return null;
           }
 
-          const isHighlighted = highlightedEdge(diagram, edge);
+          const isHighlighted = highlightedEdge(displayDiagram, edge);
 
           return (
             <line
@@ -131,7 +151,7 @@ export function NetworkDiagramView({
           );
         })}
 
-        {diagram.edges.map((edge, index) => {
+        {displayDiagram.edges.map((edge, index) => {
           if (edge.weight === undefined) {
             return null;
           }
@@ -166,10 +186,10 @@ export function NetworkDiagramView({
           );
         })}
 
-        {diagram.vertices.map((vertex) => {
+        {displayDiagram.vertices.map((vertex) => {
           const isHighlighted =
             vertex.highlighted ||
-            diagram.highlightedVertices?.includes(vertex.id);
+            displayDiagram.highlightedVertices?.includes(vertex.id);
 
           return (
             <circle
@@ -184,7 +204,7 @@ export function NetworkDiagramView({
           );
         })}
 
-        {diagram.vertices.map((vertex) => (
+        {displayDiagram.vertices.map((vertex) => (
           <text
             key={`${vertex.id}-label`}
             x={vertex.x}

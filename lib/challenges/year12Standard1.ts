@@ -27,6 +27,17 @@ export const rightAngleTrigAppliedChallenge: PracticeQuestion[] = [
       "From a point 15 m from the base of a tower, the angle of elevation to the top is measured. The tower is 20 m tall. Find the angle of elevation, to the nearest degree.",
     latex: "",
     answer: "53",
+    triangleDiagram: {
+      description: "Right line-of-sight triangle with horizontal distance fifteen metres, vertical tower height twenty metres and the observer angle unknown.",
+      vertices: {
+        A: { x: 0, y: 0 },
+        B: { x: 4, y: 0 },
+        C: { x: 4, y: 3 },
+      },
+      sideLabels: { AB: "15 m", BC: "20 m" },
+      angleLabels: { A: "theta" },
+      rightAngleAt: "B",
+    },
     acceptedAnswers: ["53°", "53 degrees"],
     hint: "Use tan θ = opposite / adjacent, then inverse tan.",
     explanation: "$\\theta = \\tan^{-1}\\left(\\tfrac{20}{15}\\right) \\approx 53°$.",

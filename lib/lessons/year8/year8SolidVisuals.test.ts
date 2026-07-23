@@ -16,6 +16,7 @@ const expectedAnswers: Record<string, string> = {
   "y8-vsa-sp-g2": "94",
   "y8-vsa-sp-g3": "216",
   "y8-vsa-sp-i4": "4",
+  "y8-vsa-sp-p18": "6 cm, 180 cm^3",
   "y8-vsa-sp-mp1": "1300",
   "y8-vsa-vc-g2": "200\u03c0",
   "y8-vsa-vc-i4": "4",
@@ -29,7 +30,7 @@ const expectedAnswers: Record<string, string> = {
 
 test("Year 8 solid visuals are specific, accessible, and render as SVG", () => {
   const visuals = Object.entries(volumeSurfaceAreaQuestionVisuals);
-  assert.equal(visuals.length, 17);
+  assert.equal(visuals.length, 18);
   assert.ok(visuals.every(([questionId]) => !questionId.includes("-cs-")));
 
   for (const [questionId, visual] of visuals) {
@@ -61,7 +62,12 @@ test("Year 8 solid visuals are specific, accessible, and render as SVG", () => {
     assert.doesNotMatch(markup, /NaN|undefined/);
 
     if (visual.solid3DDiagram?.solid === "triangularPrism") {
-      assert.match(markup, /M 102 147 h 9 v 9/);
+      assert.match(
+        markup,
+        visual.solid3DDiagram.labels?.slant
+          ? /M 56 147 h 9 v 9/
+          : /M 102 147 h 9 v 9/
+      );
     }
   }
 });
@@ -71,7 +77,7 @@ test("Year 8 solid visuals retain their authored answers through seeding", () =>
   const rowsById = new Map(rows.map((row) => [row.source_id, row]));
 
   assert.equal(warnings.length, 0);
-  assert.equal(Object.keys(expectedAnswers).length, 17);
+  assert.equal(Object.keys(expectedAnswers).length, 18);
 
   for (const [questionId, expectedAnswer] of Object.entries(expectedAnswers)) {
     const visual = volumeSurfaceAreaQuestionVisuals[questionId];

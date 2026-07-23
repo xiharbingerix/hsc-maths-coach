@@ -4,7 +4,7 @@ import * as React from "react";
 import type { BoxPlotDiagram } from "../../../lib/lessons/types";
 
 const width = 560;
-const rowHeight = 82;
+const rowHeight = 118;
 const padding = { top: 24, right: 34, bottom: 52, left: 92 };
 const plotWidth = width - padding.left - padding.right;
 
@@ -132,7 +132,7 @@ export function BoxPlotView({
                   <text
                     key={`${key}-${valueIndex}`}
                     x={toSvgX(value)}
-                    y={y + 36}
+                    y={y + 32 + (valueIndex % 3) * 13}
                     textAnchor="middle"
                     className="fill-slate-600 text-[10px] font-semibold"
                   >

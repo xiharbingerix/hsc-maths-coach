@@ -115,7 +115,10 @@ function poolAnswer(
   value: string,
   explanation: string,
   difficulty: number,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  hint = "Identify what is known and unknown, choose the matching method, then calculate step by step.",
+  triangleDiagram?: TriangleDiagram,
+  cartesianGraph?: CartesianGraph
 ): PracticeQuestion {
   return {
     id,
@@ -124,8 +127,10 @@ function poolAnswer(
     difficulty,
     answer: value,
     acceptedAnswers: Array.from(new Set([value, ...acceptedAnswers])),
-    hint: "Identify what is known and unknown, choose the matching method, then calculate step by step.",
+    hint,
     explanation,
+    triangleDiagram,
+    cartesianGraph,
   };
 }
 
@@ -424,13 +429,70 @@ const introTheorem: LessonContent = {
     poolAnswer("y8-pyth-intro-p17", "Calculate 12 squared plus 16 squared.", "", "400", "144 plus 256 equals 400.", 3),
     poolChoice("y8-pyth-intro-p18", "A student says 5, 6, 8 is a right triangle because 5 plus 6 is greater than 8. Why is this reasoning wrong?", "B", ["The numbers are too small", "The theorem compares squares, not a sum of two sides", "8 must be a shorter side", "All triangles are right-angled"], "Pythagoras' theorem checks a squared plus b squared against c squared, not a plain sum.", 3),
     poolAnswer("y8-pyth-intro-p19", "Do sides 10, 24, 26 satisfy Pythagoras' theorem? Enter yes or no.", "", "yes", "100 plus 576 equals 676, which equals 26 squared.", 3, ["Yes", "YES"]),
-    poolChoice("y8-pyth-intro-p20", "Which describes a converse use of Pythagoras' theorem?", "A", ["Checking whether three given lengths form a right angle", "Finding the area of a triangle", "Measuring an angle with a protractor", "Adding all three sides for the perimeter"], "The converse uses the theorem to test whether a triangle is right-angled.", 4),
-    poolAnswer("y8-pyth-intro-p21", "A triangle has sides 20, 21 and 29. Does it satisfy Pythagoras' theorem? Enter yes or no.", "", "yes", "400 plus 441 equals 841, which equals 29 squared.", 4, ["Yes", "YES"]),
-    poolAnswer("y8-pyth-intro-p22", "A triangle has sides 9, 40 and 42. Does it satisfy Pythagoras' theorem? Enter yes or no.", "", "no", "81 plus 1600 equals 1681, but 42 squared is 1764. The theorem does not hold.", 4, ["No", "NO"]),
-    poolChoice("y8-pyth-intro-p23", "For which set is a squared plus b squared LESS than c squared, suggesting an obtuse triangle?", "C", ["3, 4, 5", "6, 8, 10", "4, 5, 8", "5, 12, 13"], "4 squared plus 5 squared is 41, which is less than 8 squared (64).", 4),
-    poolAnswer("y8-pyth-intro-p24", "Calculate 20 squared plus 21 squared.", "", "841", "400 plus 441 equals 841.", 4),
-    poolAnswer("y8-pyth-intro-p25", "A triangle has sides 11, 60 and 61. Does it satisfy Pythagoras' theorem? Enter yes or no.", "", "yes", "121 plus 3600 equals 3721, which equals 61 squared.", 5, ["Yes", "YES"]),
-    poolChoice("y8-pyth-intro-p26", "A triangle has sides 7, 8 and 10. Comparing 7 squared plus 8 squared with 10 squared, what does the result tell you?", "D", ["It is right-angled because 7 + 8 > 10", "It is right-angled because all sides differ", "It is obtuse because 113 is less than 100", "It is acute because 113 is greater than 100"], "7 squared plus 8 squared is 113, which is greater than 10 squared (100), so the largest angle is acute.", 5),
+    poolAnswer(
+      "y8-pyth-intro-p20",
+      "A builder marks 6 m along one wall and 8 m along another. The distance between the marks is 10 m. Decide whether this evidence shows that the walls meet at a right angle, and name the reasoning used.",
+      "",
+      "yes, converse of Pythagoras",
+      "The longest side is 10 m. Since 6² + 8² = 36 + 64 = 100 = 10², the triangle formed by the marks is right-angled. Using equality of the three side lengths to establish a right angle is the converse of Pythagoras' theorem.",
+      4,
+      ["yes, converse", "Yes, converse of Pythagoras' theorem", "right angle, converse"],
+      "Check the square of the longest length against the sum of the other two squares, then identify the direction of the reasoning.",
+      tri("Builder's 6-8-10 checking triangle", { AC: "6 m", BC: "8 m", AB: "10 m" })
+    ),
+    poolAnswer(
+      "y8-pyth-intro-p21",
+      "A triangular gate has side lengths 20 cm, 21 cm and 29 cm. Determine whether it is right-angled. If it is, find its area. Enter the decision and area.",
+      "",
+      "yes, 210 cm^2",
+      "The longest side is 29 cm. Since 20² + 21² = 400 + 441 = 841 = 29², the gate is right-angled, with perpendicular sides 20 cm and 21 cm. Its area is 1/2 × 20 × 21 = 210 cm².",
+      4,
+      ["yes, 210", "Yes, 210 cm²", "right-angled, 210 cm^2"],
+      "First use the converse to decide whether the two shorter sides are perpendicular. Only then use them as base and height.",
+      tri("Triangular gate with sides 20 cm, 21 cm and 29 cm", { AC: "20 cm", BC: "21 cm", AB: "29 cm" })
+    ),
+    poolAnswer(
+      "y8-pyth-intro-p22",
+      "A triangular frame has sides 9 cm, 40 cm and 42 cm. It was intended to be right-angled, with the two shorter sides unchanged. Decide whether it is right-angled and find the length that should replace 42 cm.",
+      "",
+      "no, 41 cm",
+      "For the unchanged sides, 9² + 40² = 81 + 1600 = 1681, and √1681 = 41. Since 42² is not 1681, the existing frame is not right-angled. Replacing the 42 cm side with 41 cm creates a right triangle.",
+      4,
+      ["no, 41", "No, 41 cm", "not right-angled, 41 cm"],
+      "Do more than reject 42 cm: use the two fixed shorter sides to calculate the required longest side.",
+      tri("Triangular frame labelled 9 cm, 40 cm and 42 cm", { AC: "9 cm", BC: "40 cm", AB: "42 cm" })
+    ),
+    poolAnswer(
+      "y8-pyth-intro-p23",
+      "A triangle has side lengths 4 cm, 5 cm and 8 cm. First check that the lengths can form a triangle, then classify its largest angle as acute, right or obtuse.",
+      "",
+      "obtuse",
+      "The lengths form a triangle because 4 + 5 > 8. For the largest angle, compare 4² + 5² = 41 with 8² = 64. Since 41 < 64, the angle opposite the 8 cm side is obtuse.",
+      4,
+      ["obtuse angle", "the largest angle is obtuse"],
+      "The triangle inequality and the squared-length comparison answer different questions; check both.",
+      {
+        description: "Triangle with side lengths 4 cm, 5 cm and 8 cm; no right-angle marker is shown",
+        vertices: {
+          A: { x: 65, y: 225 },
+          B: { x: 345, y: 225 },
+          C: { x: 155, y: 95 },
+        },
+        sideLabels: { AB: "8 cm", AC: "4 cm", BC: "5 cm" },
+      }
+    ),
+    poolAnswer(
+      "y8-pyth-intro-p24",
+      "Two brackets should form a right triangle with shorter sides 20 cm and 21 cm. Bracket A has a longest side of 29 cm; Bracket B has a longest side of 28.5 cm. A tolerance of 0.2 cm from the exact required length is allowed. Which bracket passes, and how far short of the exact length is Bracket B?",
+      "",
+      "A, 0.5 cm",
+      "The exact required length is √(20² + 21²) = √841 = 29 cm. Bracket A differs by 0 cm and passes. Bracket B is 29 - 28.5 = 0.5 cm short, which exceeds the 0.2 cm tolerance, so it fails.",
+      4,
+      ["Bracket A, 0.5 cm", "A, 0.5", "A passes, B is 0.5 cm short"],
+      "Calculate the exact Pythagorean length before comparing each manufactured length with the tolerance."
+    ),
+    poolAnswer("y8-pyth-intro-p25", "For a triangle with sides 11, 60 and 61, compare the two sides of Pythagoras' equation and classify the triangle.", "", "3721=3721, right-angled", "$11^2+60^2=121+3600=3721$ and $61^2=3721$. Equality proves the triangle is right-angled.", 5, ["right-angled, 3721=3721"]),
+    poolChoice("y8-pyth-intro-p26", "For sides 7, 8 and 10, which option gives the correct comparison and angle classification?", "D", ["$113<100$; obtuse", "$15=10$; right-angled", "$113=100$; right-angled", "$113>100$; acute"], "$7^2+8^2=113$ and $10^2=100$. Because the shorter-side sum is greater, the largest angle is acute.", 5),
   ],
   multiPartPractice: [
     {
@@ -594,15 +656,61 @@ const findingHypotenuse: LessonContent = {
     poolAnswer("y8-pyth-hyp-p14", "Find the hypotenuse in metres. Round to 1 decimal place.", "", "13.0", "Square root of 49 plus 121 equals square root of 170 which is about 13.0.", 3, ["13.0 m", "13 m", "13"]),
     poolAnswer("y8-pyth-hyp-p15", "Find the hypotenuse in centimetres.", "", "30", "Square root of 324 plus 576 equals 30.", 3, ["30 cm"]),
     poolChoice("y8-pyth-hyp-p16", "Which gives the longer hypotenuse: sides 5 and 12, or sides 6 and 10?", "A", ["Sides 5 and 12 (hypotenuse 13)", "Sides 6 and 10 (hypotenuse about 11.7)", "They are equal", "Cannot be compared"], "13 is greater than the square root of 136 (about 11.7).", 3),
-    poolAnswer("y8-pyth-hyp-p17", "A square has side length 5 cm. Find its diagonal in centimetres. Round to 1 decimal place.", "", "7.1", "Square root of 25 plus 25 equals square root of 50 which is about 7.1.", 4, ["7.1 cm"]),
-    poolAnswer("y8-pyth-hyp-p18", "A rectangle is 1.5 m by 2.0 m. Find its diagonal in metres.", "", "2.5", "Square root of 2.25 plus 4 equals square root of 6.25 which is 2.5.", 4, ["2.5 m"]),
-    poolAnswer("y8-pyth-hyp-p19", "Find the hypotenuse in metres. Round to 2 decimal places.", "", "7.5", "Square root of 20.25 plus 36 equals square root of 56.25 which is 7.5.", 4, ["7.50 m", "7.5 m", "7.5"]),
-    poolAnswer("y8-pyth-hyp-p20", "A right-angled triangle has shorter sides 1.2 m and 1.6 m. Find the hypotenuse in metres.", "", "2", "Square root of 1.44 plus 2.56 equals square root of 4 which is 2.", 4, ["2 m", "2.0 m"]),
-    poolChoice("y8-pyth-hyp-p21", "Two shorter sides are tripled from 3 and 4 to 9 and 12. What happens to the hypotenuse?", "B", ["It stays 5", "It triples to 15", "It increases by 3 to 8", "It doubles to 10"], "Scaling both sides by 3 scales the hypotenuse by 3: from 5 to 15.", 4),
-    poolAnswer("y8-pyth-hyp-p22", "Find the hypotenuse in metres. Round to 1 decimal place.", "", "19.8", "Square root of 169 plus 225 equals square root of 394 which is about 19.8.", 5, ["19.8 m"]),
-    poolAnswer("y8-pyth-hyp-p23", "A ladder leans so its top is 8 m up a wall and its base is 6 m out. Find the ladder length in metres.", "", "10", "Square root of 64 plus 36 equals 10.", 5, ["10 m"]),
-    poolAnswer("y8-pyth-hyp-p24", "A rectangular field is 40 m by 9 m. Find the diagonal in metres.", "", "41", "Square root of 1600 plus 81 equals square root of 1681 which is 41.", 5, ["41 m"]),
-    poolAnswer("y8-pyth-hyp-p25", "Find the hypotenuse in centimetres. Round to 2 decimal places.", "", "6.5", "Square root of 6.25 plus 36 equals square root of 42.25 which is 6.5.", 5, ["6.50 cm", "6.5 cm", "6.5"]),
+    poolAnswer(
+      "y8-pyth-hyp-p17",
+      "A square tile has side length 5 cm. A 7.0 cm strip is proposed for its corner-to-corner diagonal. Decide whether the strip is long enough and give the shortage or excess to the nearest 0.1 cm.",
+      "",
+      "no, 0.1 cm short",
+      "The diagonal is √(5² + 5²) = √50 ≈ 7.071 cm, which rounds to 7.1 cm. A 7.0 cm strip is therefore not long enough and is about 0.1 cm short.",
+      4,
+      ["no, 0.1", "No, short by 0.1 cm", "not long enough, 0.1 cm"],
+      "Calculate with the unrounded diagonal before comparing it with the available strip.",
+      tri("Square tile represented by a right triangle with two 5 cm sides", { AC: "5 cm", BC: "5 cm", AB: "strip" })
+    ),
+    poolAnswer(
+      "y8-pyth-hyp-p18",
+      "A rigid rectangular panel is 1.5 m by 2.0 m. It can pass flat through an opening only if its diagonal is at most 2.45 m. Determine whether it meets the limit and by how much.",
+      "",
+      "no, 0.05 m over",
+      "The panel's diagonal is √(1.5² + 2.0²) = √6.25 = 2.50 m. This is 2.50 - 2.45 = 0.05 m above the limit, so the panel does not meet it.",
+      4,
+      ["no, 0.05", "No, 5 cm over", "does not meet, 0.05 m"],
+      "The comparison is with the diagonal, not either side. Keep enough precision to find the difference."
+    ),
+    poolAnswer(
+      "y8-pyth-hyp-p19",
+      "A guy wire runs from the top of a 6 m pole to a ground point 4.5 m from its base. Installation requires an extra 0.4 m at each end for fastening. Is an 8 m wire long enough, and by how much?",
+      "",
+      "no, 0.3 m short",
+      "The straight span is √(6² + 4.5²) = √56.25 = 7.5 m. Two fastening allowances add 0.8 m, so 8.3 m is required. An 8 m wire is therefore 0.3 m short.",
+      4,
+      ["no, 0.3", "No, short by 0.3 m", "8.3 m required, 0.3 m short"],
+      "Find the right-triangle span first, then include both fastening allowances."
+    ),
+    poolAnswer(
+      "y8-pyth-hyp-p20",
+      "On a 1:25 scale model, a rectangular floor is 1.2 m by 1.6 m. Find the real corner-to-corner distance in metres.",
+      "",
+      "50 m",
+      "The model diagonal is √(1.2² + 1.6²) = √4 = 2 m. At a 1:25 scale, the real distance is 2 × 25 = 50 m.",
+      4,
+      ["50"],
+      "Use Pythagoras on dimensions in the same scale, then apply the scale factor once."
+    ),
+    poolAnswer(
+      "y8-pyth-hyp-p21",
+      "A 3 cm by 4 cm rectangle has a 5 cm diagonal. A new rectangle is made by tripling only the 3 cm side and doubling only the 4 cm side. A student triples the old diagonal to get 15 cm. Find the actual new diagonal to 1 decimal place.",
+      "",
+      "12.0 cm",
+      "The new side lengths are 9 cm and 8 cm, not a common scale enlargement. The new diagonal is √(9² + 8²) = √145 ≈ 12.041 cm, which rounds to 12.0 cm. The old diagonal cannot be multiplied by one scale factor because the two sides changed by different factors.",
+      4,
+      ["12 cm", "12.0", "12"],
+      "Write the two new side lengths first. A diagonal scales directly only when every length uses the same factor."
+    ),
+    poolAnswer("y8-pyth-hyp-p22", "A right triangle has shorter sides 13 m and 15 m. Find the hypotenuse to 1 decimal place and its perimeter to 1 decimal place.", "", "19.8, 47.8", "$c=\\sqrt{13^2+15^2}=\\sqrt{394}\\approx19.8$ m. The perimeter is $13+15+19.8=47.8$ m.", 5, ["19.8 m, 47.8 m"]),
+    poolAnswer("y8-pyth-hyp-p23", "A ladder reaches 8 m up a wall with its base 6 m out. Find the ladder length and the area of the right triangle formed.", "", "10 m, 24 m^2", "The ladder is $\\sqrt{8^2+6^2}=10$ m. The triangular area is $\\frac12(6)(8)=24$ m².", 5, ["10, 24"]),
+    poolAnswer("y8-pyth-hyp-p24", "A rectangular field is 40 m by 9 m. Find its diagonal and compare the diagonal with the shorter two-edge route between opposite corners.", "", "41 m, 8 m shorter", "The diagonal is $\\sqrt{40^2+9^2}=41$ m. The edge route is 49 m, so the diagonal is 8 m shorter.", 5, ["41, 8"]),
+    poolAnswer("y8-pyth-hyp-p25", "A right triangle has shorter sides 2.5 cm and 6 cm. Find the hypotenuse to 2 decimal places and the perimeter.", "", "6.50 cm, 15 cm", "$c=\\sqrt{2.5^2+6^2}=\\sqrt{42.25}=6.5$ cm. The perimeter is $2.5+6+6.5=15$ cm.", 5, ["6.5, 15"]),
   ],
   multiPartPractice: [
     {
@@ -767,15 +875,60 @@ const findingShorterSide: LessonContent = {
     poolAnswer("y8-pyth-short-p14", "Find the unknown shorter side in centimetres. Round to 1 decimal place.", "", "12.6", "Square root of 196 minus 36 equals square root of 160 which is about 12.6.", 3, ["12.6 cm"]),
     poolChoice("y8-pyth-short-p15", "Why is square root of 6 squared minus 10 squared invalid for an unknown shorter side?", "C", ["Squares cannot be subtracted", "6 is the hypotenuse", "The hypotenuse square (100) must come first because it is larger", "Square roots only find hypotenuses"], "The larger hypotenuse square must be the value subtracted from.", 3),
     poolAnswer("y8-pyth-short-p16", "Find the unknown shorter side in metres.", "", "40", "Square root of 1681 minus 81 equals 40.", 3, ["40 m"]),
-    poolAnswer("y8-pyth-short-p17", "A 6.5 m ramp covers 6 m horizontally. Find the rise in metres.", "", "2.5", "Square root of 42.25 minus 36 equals square root of 6.25 which is 2.5.", 4, ["2.5 m"]),
-    poolAnswer("y8-pyth-short-p18", "A rectangular park has diagonal 26 m and length 24 m. Find the width in metres.", "", "10", "Square root of 676 minus 576 equals 10.", 4, ["10 m"]),
-    poolAnswer("y8-pyth-short-p19", "Find the unknown shorter side in metres. Round to 2 decimal places.", "", "14.25", "Square root of 324 minus 121 equals square root of 203 which is about 14.25.", 4, ["14.25 m"]),
-    poolAnswer("y8-pyth-short-p20", "A 13 m guy wire reaches a point 12 m up a pole. Find its horizontal distance from the base in metres.", "", "5", "Square root of 169 minus 144 equals 5.", 4, ["5 m"]),
-    poolChoice("y8-pyth-short-p21", "A shorter side comes out as the square root of a negative number. What does this mean?", "B", ["The triangle is valid", "The hypotenuse was identified incorrectly", "The answer is negative", "The sides must be doubled"], "A negative under the root means the wrong side was treated as the hypotenuse.", 4),
-    poolAnswer("y8-pyth-short-p22", "A support cable 2.5 m long is fixed 1.5 m horizontally from a post. Find the height in metres.", "", "2", "Square root of 6.25 minus 2.25 equals square root of 4 which is 2.", 5, ["2 m", "2.0 m"]),
-    poolAnswer("y8-pyth-short-p23", "A rectangular screen has diagonal 50 cm and height 30 cm. Find its width in centimetres.", "", "40", "Square root of 2500 minus 900 equals 40.", 5, ["40 cm"]),
-    poolAnswer("y8-pyth-short-p24", "Find the unknown shorter side in metres. Round to 1 decimal place.", "", "15.2", "Square root of 400 minus 169 equals square root of 231 which is about 15.2.", 5, ["15.2 m"]),
-    poolAnswer("y8-pyth-short-p25", "A 61 cm diagonal brace crosses a panel 60 cm wide. Find the panel height in centimetres.", "", "11", "Square root of 3721 minus 3600 equals square root of 121 which is 11.", 5, ["11 cm"]),
+    poolAnswer(
+      "y8-pyth-short-p17",
+      "A 6.5 m ramp covers 6 m horizontally. A site rule allows a vertical rise of at most 2.4 m over that run. Find the actual rise and decide whether the ramp complies, including the amount over or under the limit.",
+      "",
+      "2.5 m, no, 0.1 m over",
+      "The ramp is the hypotenuse, so the rise is √(6.5² - 6²) = √6.25 = 2.5 m. This is 2.5 - 2.4 = 0.1 m above the permitted rise, so the ramp does not comply.",
+      4,
+      ["2.5, no, 0.1", "2.5 m, not compliant, 0.1 m over"],
+      "Identify the sloping ramp as the hypotenuse, then compare the calculated rise with the stated limit."
+    ),
+    poolAnswer(
+      "y8-pyth-short-p18",
+      "A rectangular park has a 26 m diagonal and a 24 m length. A proposed 11 m-wide design uses the same diagonal and length. Find the actual width and state how much narrower it is than proposed.",
+      "",
+      "10 m, 1 m narrower",
+      "The actual width is √(26² - 24²) = √(676 - 576) = √100 = 10 m. Compared with the proposed 11 m width, it is 1 m narrower.",
+      4,
+      ["10, 1", "10 m, 1 m", "10 metres, one metre narrower"],
+      "Use the diagonal as the hypotenuse, then compare the calculated width with the proposal."
+    ),
+    poolAnswer(
+      "y8-pyth-short-p19",
+      "An 18 m support cable runs from the top of a post to a ground anchor 11 m from its base. The post is sold in 0.1 m height increments. What is the greatest available post height that does not exceed the height allowed by the cable?",
+      "",
+      "14.2 m",
+      "The exact height is √(18² - 11²) = √203 ≈ 14.2478 m. A 14.3 m post would exceed this height, so the greatest available 0.1 m increment that does not exceed it is 14.2 m. This is a downward choice, not ordinary rounding.",
+      4,
+      ["14.2"],
+      "Calculate the unrounded height, then choose the greatest tenth that stays below it."
+    ),
+    poolAnswer(
+      "y8-pyth-short-p20",
+      "A 13 m guy wire reaches 12 m up a pole. Safety rules require the ground anchor to be at least 5.5 m from the base. Find the actual anchor distance and decide whether the setup complies.",
+      "",
+      "5 m, no",
+      "The horizontal distance is √(13² - 12²) = √25 = 5 m. Since 5 m is less than the required 5.5 m, the setup does not comply; the anchor is 0.5 m too close.",
+      4,
+      ["5, no", "5 m, not compliant", "5 m, no, 0.5 m too close"],
+      "The wire is the hypotenuse. Compare the calculated ground distance with the minimum, not the maximum."
+    ),
+    poolAnswer(
+      "y8-pyth-short-p21",
+      "For a triangle with one side 9 cm and longest side 15 cm, a student writes √(9² - 15²) and gets a negative value. Identify the student's structural error and find the unknown shorter side.",
+      "",
+      "15 cm is the hypotenuse, 12 cm",
+      "The hypotenuse is the longest side, 15 cm, so its square must come first. The unknown shorter side is √(15² - 9²) = √(225 - 81) = √144 = 12 cm. The negative value came from reversing the subtraction.",
+      4,
+      ["hypotenuse 15, side 12", "15, 12", "reversed subtraction, 12 cm"],
+      "Name the hypotenuse before forming the subtraction."
+    ),
+    poolAnswer("y8-pyth-short-p22", "A 2.5 m support cable is fixed 1.5 m horizontally from a post. Find the attachment height and the triangular area enclosed.", "", "2 m, 1.5 m^2", "$h=\\sqrt{2.5^2-1.5^2}=2$ m. Area is $\\frac12(1.5)(2)=1.5$ m².", 5, ["2, 1.5"]),
+    poolAnswer("y8-pyth-short-p23", "A rectangular screen has diagonal 50 cm and height 30 cm. Find its width and area.", "", "40 cm, 1200 cm^2", "$w=\\sqrt{50^2-30^2}=40$ cm, so area is $40\\times30=1200$ cm².", 5, ["40, 1200"]),
+    poolAnswer("y8-pyth-short-p24", "A right triangle has hypotenuse 20 m and one shorter side 13 m. Find the other side and perimeter to 1 decimal place.", "", "15.2 m, 48.2 m", "$b=\\sqrt{20^2-13^2}=\\sqrt{231}\\approx15.2$ m. Perimeter is $20+13+15.2=48.2$ m.", 5, ["15.2, 48.2"]),
+    poolAnswer("y8-pyth-short-p25", "A 61 cm diagonal brace crosses a panel 60 cm wide. Find the panel height and area.", "", "11 cm, 660 cm^2", "$h=\\sqrt{61^2-60^2}=11$ cm. The rectangular area is $60\\times11=660$ cm².", 5, ["11, 660"]),
   ],
   multiPartPractice: [
     {
@@ -938,15 +1091,60 @@ const realContexts: LessonContent = {
     poolAnswer("y8-pyth-ctx-p14", "A square has side 9 m. Find its diagonal in metres. Round to 1 decimal place.", "", "12.7", "Square root of 162 is about 12.7.", 3, ["12.7 m"]),
     poolChoice("y8-pyth-ctx-p15", "A student adds the ladder length and wall height to find the ground distance. What is the error?", "C", ["Area was used", "The answer needs cm", "The ladder is the hypotenuse, so subtract the wall-height square from the ladder square", "The ladder is a shorter side"], "The ladder is the hypotenuse; subtract the known wall-height square.", 3),
     poolAnswer("y8-pyth-ctx-p16", "A rectangular paddock is 20 m by 21 m. Find the diagonal in metres.", "", "29", "Square root of 400 plus 441 equals 29.", 3, ["29 m"]),
-    poolAnswer("y8-pyth-ctx-p17", "A ramp is 6.5 m long and covers 6 m horizontally. Find the rise in metres.", "", "2.5", "Square root of 42.25 minus 36 equals square root of 6.25 which is 2.5.", 4, ["2.5 m"]),
-    poolAnswer("y8-pyth-ctx-p18", "A boat sails 24 km east then 7 km north. Find its direct distance from the start in kilometres.", "", "25", "Square root of 576 plus 49 equals 25.", 4, ["25 km"]),
-    poolAnswer("y8-pyth-ctx-p19", "A rectangular room is 4.0 m by 3.0 m. Find the diagonal distance across the floor in metres.", "", "5", "Square root of 16 plus 9 equals 5.", 4, ["5 m", "5.0 m"]),
-    poolAnswer("y8-pyth-ctx-p20", "A support cable 14 m long connects to a point 11 m horizontally from a pole. Find the height in metres. Round to 1 decimal place.", "", "8.7", "Square root of 196 minus 121 equals square root of 75 which is about 8.7.", 4, ["8.7 m"]),
-    poolChoice("y8-pyth-ctx-p21", "Two ships leave a port. One sails 8 km north, the other 6 km east. Which calculation gives the distance between them?", "A", ["$\\sqrt{8^2+6^2}$", "$8+6$", "$\\sqrt{8^2-6^2}$", "$8\\times 6$"], "The two paths are at right angles, so the distance is the hypotenuse: square root of 64 plus 36 equals 10 km.", 4),
-    poolAnswer("y8-pyth-ctx-p22", "A 2.6 m plank leans against a step, with its base 1.0 m out. Find the height it reaches in metres. Round to 1 decimal place.", "", "2.4", "Square root of 6.76 minus 1 equals square root of 5.76 which is 2.4.", 5, ["2.4 m"]),
-    poolAnswer("y8-pyth-ctx-p23", "A rectangular pool is 12 m by 35 m. Find the diagonal in metres.", "", "37", "Square root of 144 plus 1225 equals square root of 1369 which is 37.", 5, ["37 m"]),
-    poolAnswer("y8-pyth-ctx-p24", "A walker goes 1.2 km east, then 0.9 km north, then stops. Find the straight-line distance back to the start in kilometres.", "", "1.5", "Square root of 1.44 plus 0.81 equals square root of 2.25 which is 1.5.", 5, ["1.5 km"]),
-    poolAnswer("y8-pyth-ctx-p25", "A rectangular box has a base 9 cm by 12 cm. A diagonal is drawn across the base. Find its length in centimetres.", "", "15", "Square root of 81 plus 144 equals 15.", 5, ["15 cm"]),
+    poolAnswer(
+      "y8-pyth-ctx-p17",
+      "A 6.5 m ramp covers 6 m horizontally and begins on a platform 0.4 m above ground. Find the height of the top above ground, then decide whether it is below a 3.0 m clearance limit.",
+      "",
+      "2.9 m, yes",
+      "The ramp rise is √(6.5² - 6²) = √6.25 = 2.5 m. Including the 0.4 m platform gives 2.9 m above ground. This is 0.1 m below the 3.0 m limit, so it clears.",
+      4,
+      ["2.9, yes", "2.9 m, clears", "yes, 2.9 m"],
+      "Pythagoras gives the rise above the platform, not the final height above the ground."
+    ),
+    poolAnswer(
+      "y8-pyth-ctx-p18",
+      "A boat sails 24 km east and then 7 km north. It can return to the start either by retracing both legs or by travelling directly. How many kilometres shorter is the direct return?",
+      "",
+      "6 km",
+      "Retracing the legs is 24 + 7 = 31 km. The direct distance is √(24² + 7²) = √625 = 25 km. The direct return is 31 - 25 = 6 km shorter.",
+      4,
+      ["6"],
+      "Compare the sum of the two perpendicular legs with the hypotenuse; do not report only the direct distance."
+    ),
+    poolAnswer(
+      "y8-pyth-ctx-p19",
+      "A 4.0 m by 3.0 m rectangular room needs a cable laid corner to corner. Only 4.9 m of cable remains. Decide whether it is enough and give the shortage or excess.",
+      "",
+      "no, 0.1 m short",
+      "The diagonal is √(4² + 3²) = 5.0 m. Since only 4.9 m is available, the cable is not enough and is 5.0 - 4.9 = 0.1 m short.",
+      4,
+      ["no, 0.1", "No, short by 0.1 m", "4.9 m is 0.1 m short"],
+      "The required route is the diagonal, then it must be compared with the available length."
+    ),
+    poolAnswer(
+      "y8-pyth-ctx-p20",
+      "A 14 m support cable is anchored 11 m horizontally from a pole. Attachment points are available every 0.5 m up the pole. What is the highest attachment point the cable can reach without being stretched?",
+      "",
+      "8.5 m",
+      "The maximum continuous height is √(14² - 11²) = √75 ≈ 8.660 m. The available 9.0 m point is too high, so the highest 0.5 m increment not exceeding the maximum is 8.5 m.",
+      4,
+      ["8.5"],
+      "Calculate the unrounded height, then choose an available attachment point below it rather than rounding normally."
+    ),
+    poolAnswer(
+      "y8-pyth-ctx-p21",
+      "Two ships leave a port at the same time. One is 8 km north of the port and the other is 6 km east. Their radios work over at most 9.5 km. Find the distance between the ships and decide whether they can communicate directly.",
+      "",
+      "10 km, no",
+      "The ships and port form a right triangle, so their separation is √(8² + 6²) = √100 = 10 km. Since 10 km exceeds the 9.5 km radio range by 0.5 km, they cannot communicate directly.",
+      4,
+      ["10, no", "10 km, cannot communicate", "no, 10 km"],
+      "The two ship positions are on perpendicular directions from the same port; their separation is the hypotenuse."
+    ),
+    poolAnswer("y8-pyth-ctx-p22", "A 2.6 m plank has its base 1.0 m from a step. Find the vertical height and the triangular area to 1 decimal place.", "", "2.4 m, 1.2 m^2", "$h=\\sqrt{2.6^2-1^2}=2.4$ m. Area is $\\frac12(1)(2.4)=1.2$ m².", 5, ["2.4, 1.2"]),
+    poolAnswer("y8-pyth-ctx-p23", "A pool is 12 m by 35 m. Find its diagonal and how much shorter that is than travelling along two adjacent sides.", "", "37 m, 10 m", "The diagonal is $\\sqrt{12^2+35^2}=37$ m. The edge route is 47 m, so the saving is 10 m.", 5, ["37, 10"]),
+    poolAnswer("y8-pyth-ctx-p24", "A walker travels 1.2 km east then 0.9 km north. Find the straight-line return distance and the total trip distance after returning directly.", "", "1.5 km, 3.6 km", "The return is $\\sqrt{1.2^2+0.9^2}=1.5$ km. Total travel is $1.2+0.9+1.5=3.6$ km.", 5, ["1.5, 3.6"]),
+    poolAnswer("y8-pyth-ctx-p25", "A box base is 9 cm by 12 cm. Find the base diagonal and the area of each triangle formed by that diagonal.", "", "15 cm, 54 cm^2", "The diagonal is $\\sqrt{9^2+12^2}=15$ cm. Each triangular half has area $\\frac12(9)(12)=54$ cm².", 5, ["15, 54"]),
   ],
   multiPartPractice: [
     {
@@ -1110,15 +1308,60 @@ const pythagoreanTriples: LessonContent = {
     poolAnswer("y8-pyth-trip-p14", "A right triangle has shorter sides 16 m and 30 m. State the hypotenuse.", "", "34", "8-15-17 scaled by 2 gives 16-30-34.", 3, ["34 m"]),
     poolChoice("y8-pyth-trip-p15", "Shorter sides 21 and 28 belong to which triple family?", "A", ["3-4-5 scaled by 7", "5-12-13 scaled by 4", "7-24-25 scaled by 3", "8-15-17 scaled by 3"], "21 and 28 are 3 and 4 scaled by 7, giving hypotenuse 35.", 3),
     poolAnswer("y8-pyth-trip-p16", "A right triangle has shorter sides 21 cm and 28 cm. State the hypotenuse.", "", "35", "3-4-5 scaled by 7 gives 21-28-35.", 3, ["35 cm"]),
-    poolAnswer("y8-pyth-trip-p17", "The hypotenuse is 51 m and one shorter side is 24 m. Find the other shorter side.", "", "45", "8-15-17 scaled by 3 gives 24-45-51.", 4, ["45 m"]),
-    poolAnswer("y8-pyth-trip-p18", "The hypotenuse is 65 m and one shorter side is 25 m. Find the other shorter side.", "", "60", "5-12-13 scaled by 5 gives 25-60-65.", 4, ["60 m"]),
-    poolAnswer("y8-pyth-trip-p19", "A right triangle has shorter sides 24 m and 32 m. State the hypotenuse.", "", "40", "3-4-5 scaled by 8 gives 24-32-40.", 4, ["40 m"]),
-    poolChoice("y8-pyth-trip-p20", "Why is 6-8-12 not a Pythagorean triple?", "A", ["6 squared plus 8 squared is 100 but 12 squared is 144", "12 is too large", "All values must be odd", "The numbers must be under 10"], "100 does not equal 144, so the theorem fails.", 4),
-    poolAnswer("y8-pyth-trip-p21", "Do sides 11, 60, 61 form a Pythagorean triple? Enter yes or no.", "", "yes", "121 plus 3600 equals 3721, which is 61 squared.", 4, ["Yes", "YES"]),
-    poolAnswer("y8-pyth-trip-p22", "A right triangle has shorter sides 20 km and 21 km. State the hypotenuse.", "", "29", "20-21-29 is a Pythagorean triple.", 5, ["29 km"]),
-    poolChoice("y8-pyth-trip-p23", "Which set is a primitive triple that is NOT a multiple of 3-4-5, 5-12-13, 8-15-17 or 7-24-25?", "B", ["6-8-10", "20-21-29", "10-24-26", "9-12-15"], "20-21-29 is a distinct primitive triple, not a scaled version of the common four.", 5),
-    poolAnswer("y8-pyth-trip-p24", "The hypotenuse is 85 cm and one shorter side is 13 cm. The triangle uses the 13-84-85 triple. Find the other shorter side.", "", "84", "13-84-85 is a Pythagorean triple, so the missing side is 84.", 5, ["84 cm"]),
-    poolAnswer("y8-pyth-trip-p25", "A right triangle has shorter sides 40 m and 42 m. The hypotenuse is found from the 20-21-29 family scaled by 2. State the hypotenuse.", "", "58", "20-21-29 scaled by 2 gives 40-42-58.", 5, ["58 m"]),
+    poolAnswer(
+      "y8-pyth-trip-p17",
+      "A right-triangular frame has a 51 m hypotenuse and one shorter side of 24 m. Recognise the triple to find the other side, then decide whether a 44 m beam is long enough for it.",
+      "",
+      "45 m, no",
+      "The lengths use the 8-15-17 triple scaled by 3: 24-45-51. The missing side is 45 m, so a 44 m beam is not long enough and is 1 m short.",
+      4,
+      ["45, no", "45 m, not enough", "no, 45 m"],
+      "Match both known sides to the same scale factor before comparing the required side with the beam."
+    ),
+    poolAnswer(
+      "y8-pyth-trip-p18",
+      "A right-triangular boundary has a 65 m hypotenuse and a 25 m shorter side. Find the third side using a known triple, then find the triangle's perimeter.",
+      "",
+      "60 m, 150 m",
+      "The 5-12-13 triple scaled by 5 gives 25-60-65, so the missing side is 60 m. The perimeter is 25 + 60 + 65 = 150 m.",
+      4,
+      ["60, 150", "60 m and 150 m"],
+      "Use one common scale factor for all three lengths, then include every side in the perimeter."
+    ),
+    poolAnswer(
+      "y8-pyth-trip-p19",
+      "A rectangular sign is 24 m by 32 m. A diagonal cable needs an extra 1 m at each end for fastening. Find the total cable required and decide whether a 41 m cable is sufficient.",
+      "",
+      "42 m, no",
+      "The 24-32-40 triangle is the 3-4-5 triple scaled by 8, so the diagonal is 40 m. The two fastening allowances add 2 m, making 42 m in total. A 41 m cable is 1 m short.",
+      4,
+      ["42, no", "42 m, not sufficient", "no, 42 m"],
+      "Recognise the diagonal triple, then add an allowance for both ends."
+    ),
+    poolAnswer(
+      "y8-pyth-trip-p20",
+      "A student claims 6-8-12 is a Pythagorean triple because 6 and 8 are double 3 and 4. Identify the correct third length for that scale factor and state how much the listed 12 must be reduced.",
+      "",
+      "10, reduce by 2",
+      "Doubling every member of 3-4-5 gives 6-8-10, not 6-8-12. Equivalently, 6² + 8² = 100 = 10². The listed longest side must be reduced from 12 to 10, a reduction of 2.",
+      4,
+      ["10, 2", "10 and reduce by 2", "third side 10, reduction 2"],
+      "A scaled triple requires the same multiplier on all three members."
+    ),
+    poolAnswer(
+      "y8-pyth-trip-p21",
+      "A triangular panel has sides 11 cm, 60 cm and 61 cm. Determine whether it is right-angled and, if so, find its area.",
+      "",
+      "yes, 330 cm^2",
+      "Since 11² + 60² = 121 + 3600 = 3721 = 61², the panel is right-angled. The perpendicular sides are 11 cm and 60 cm, so its area is 1/2 × 11 × 60 = 330 cm².",
+      4,
+      ["yes, 330", "Yes, 330 cm²", "right-angled, 330 cm^2"],
+      "Verify the triple before treating the two shorter sides as a perpendicular base and height."
+    ),
+    poolAnswer("y8-pyth-trip-p22", "A right triangle has shorter sides 20 km and 21 km. Find its hypotenuse and perimeter.", "", "29 km, 70 km", "$20^2+21^2=841=29^2$, so the hypotenuse is 29 km and the perimeter is 70 km.", 5, ["29, 70"]),
+    poolChoice("y8-pyth-trip-p23", "Which option identifies a distinct primitive triple and verifies it?", "B", ["6-8-10; $36+64=90$", "20-21-29; $400+441=841$", "10-24-26; no common factor", "9-12-15; primitive"], "$20^2+21^2=841=29^2$, and the three values share no common factor, so 20-21-29 is primitive.", 5),
+    poolAnswer("y8-pyth-trip-p24", "A right triangle has hypotenuse 85 cm and one shorter side 13 cm. Find the other side and area.", "", "84 cm, 546 cm^2", "The 13-84-85 triple gives the missing side 84 cm. Area is $\\frac12(13)(84)=546$ cm².", 5, ["84, 546"]),
+    poolAnswer("y8-pyth-trip-p25", "A right triangle has shorter sides 40 m and 42 m. Identify the scale factor from 20-21-29, then find the hypotenuse.", "", "2, 58 m", "Both shorter sides are twice 20 and 21, so the scale factor is 2 and the hypotenuse is $2(29)=58$ m.", 5, ["2, 58"]),
   ],
   multiPartPractice: [
     {
@@ -1293,15 +1536,74 @@ const distanceBetweenPoints: LessonContent = {
     poolAnswer("y8-pyth-dist-p14", "Find the distance between (2, 5) and (5, 9) in units.", "", "5", "Square root of 9 plus 16 equals 5.", 3, ["5 units"]),
     poolChoice("y8-pyth-dist-p15", "Why does the sign of Δx or Δy not affect the distance?", "A", ["Squaring makes any value positive", "Distances can be negative", "Subtraction removes the sign", "Only positive coordinates are allowed"], "Squaring a negative gives a positive result, so the sign is irrelevant.", 3),
     poolAnswer("y8-pyth-dist-p16", "Find the distance between (1, 2) and (9, 17) in units.", "", "17", "Square root of 64 plus 225 equals 17.", 3, ["17 units"]),
-    poolAnswer("y8-pyth-dist-p17", "Find the distance between (-2, -1) and (1, 3) in units.", "", "5", "Square root of 9 plus 16 equals 5.", 4, ["5 units"]),
-    poolAnswer("y8-pyth-dist-p18", "Find the distance between (-4, 2) and (4, -4) in units.", "", "10", "Square root of 64 plus 36 equals 10.", 4, ["10 units"]),
-    poolAnswer("y8-pyth-dist-p19", "Find the distance between (1, 1) and (6, 13) in units.", "", "13", "Square root of 25 plus 144 equals 13.", 4, ["13 units"]),
-    poolAnswer("y8-pyth-dist-p20", "Find the distance between (3, 2) and (7, 9) in units. Round to 1 decimal place.", "", "8.1", "Square root of 16 plus 49 equals square root of 65 which is about 8.1.", 4, ["8.1 units"]),
-    poolChoice("y8-pyth-dist-p21", "Points P(1, 2) and Q(4, 6) are given. Which expression gives PQ?", "B", ["$\\sqrt{(4+1)^2+(6+2)^2}$", "$\\sqrt{(4-1)^2+(6-2)^2}$", "$(4-1)+(6-2)$", "$\\sqrt{4^2+6^2}$"], "Subtract coordinates for the separations, then apply the distance formula.", 4),
-    poolAnswer("y8-pyth-dist-p22", "Find the distance between (-5, -2) and (7, 3) in units.", "", "13", "Square root of 144 plus 25 equals 13.", 5, ["13 units"]),
-    poolAnswer("y8-pyth-dist-p23", "Find the distance between (-6, 4) and (2, -11) in units.", "", "17", "Square root of 64 plus 225 equals 17.", 5, ["17 units"]),
-    poolAnswer("y8-pyth-dist-p24", "Find the distance between (2, -3) and (-1, 1) in units.", "", "5", "Square root of 9 plus 16 equals 5.", 5, ["5 units"]),
-    poolAnswer("y8-pyth-dist-p25", "Find the distance between (0, 0) and (9, 40) in units.", "", "41", "Square root of 81 plus 1600 equals square root of 1681 which is 41.", 5, ["41 units"]),
+    poolAnswer(
+      "y8-pyth-dist-p17",
+      "A robot travels from (-2, -1) to (1, 3). Compare the direct straight-line distance with a route that moves only horizontally and vertically. How many units shorter is the direct route?",
+      "",
+      "2 units",
+      "The horizontal and vertical changes are 3 and 4, so the direct distance is √(3² + 4²) = 5 units. An axis-only route has length 3 + 4 = 7 units. The direct route is 7 - 5 = 2 units shorter.",
+      4,
+      ["2"],
+      "Use coordinate differences for both routes: Pythagoras for the direct route and their sum for the axis-only route.",
+      undefined,
+      coordGraph(
+        "Robot route endpoints from (-2, -1) to (1, 3)",
+        { x: -2, y: -1, label: "Start" },
+        { x: 1, y: 3, label: "Finish" },
+        { xMin: -4, xMax: 4, yMin: -3, yMax: 5, xStep: 1, yStep: 1 }
+      )
+    ),
+    poolAnswer(
+      "y8-pyth-dist-p18",
+      "A line segment joins A(-4, 2) to B(4, -4). Find its length and its midpoint. Enter both.",
+      "",
+      "10, (0, -1)",
+      "The coordinate changes are 8 and -6, so the length is √(8² + (-6)²) = √100 = 10. The midpoint is ((-4 + 4)/2, (2 + (-4))/2) = (0, -1).",
+      4,
+      ["10 units, (0, -1)", "10,(0,-1)", "10 and (0, -1)"],
+      "Use differences for distance but averages for the midpoint; do not mix the two operations.",
+      undefined,
+      coordGraph(
+        "Segment from A(-4, 2) to B(4, -4)",
+        { x: -4, y: 2, label: "A" },
+        { x: 4, y: -4, label: "B" },
+        { xMin: -6, xMax: 6, yMin: -6, yMax: 4, xStep: 1, yStep: 1 }
+      )
+    ),
+    poolAnswer(
+      "y8-pyth-dist-p19",
+      "A drone flies directly from (1, 1) to (6, 13) at 2.6 coordinate units per second. Find the flight distance and the travel time.",
+      "",
+      "13 units, 5 s",
+      "The changes are 5 and 12, so the distance is √(5² + 12²) = 13 units. Time = distance / speed = 13 / 2.6 = 5 seconds.",
+      4,
+      ["13, 5", "13 units and 5 seconds"],
+      "Find the geometric distance before using the rate relationship."
+    ),
+    poolAnswer(
+      "y8-pyth-dist-p20",
+      "A path from (3, 2) to (7, 9) can be built directly or as a horizontal-then-vertical path. Find the direct length to 1 decimal place and how much shorter it is than the two-part path, also to 1 decimal place.",
+      "",
+      "8.1 units, 2.9 units shorter",
+      "The changes are 4 and 7. The direct length is √(4² + 7²) = √65 ≈ 8.062, or 8.1 units. The two-part path is 4 + 7 = 11 units, so using unrounded values the saving is 11 - √65 ≈ 2.938, or 2.9 units.",
+      4,
+      ["8.1, 2.9", "8.1 units, 2.9 units", "8.1 and 2.9"],
+      "Keep the square-root value unrounded until after calculating the saving."
+    ),
+    poolAnswer(
+      "y8-pyth-dist-p21",
+      "For P(1, 2) and Q(4, 6), a student calculates √(4² + 6²), treating Q as though P were the origin. Find PQ and explain the coordinate error.",
+      "",
+      "5 units",
+      "Distance depends on the change between the points: Δx = 4 - 1 = 3 and Δy = 6 - 2 = 4. Thus PQ = √(3² + 4²) = 5 units. The student's calculation finds the distance from the origin to Q, not the distance from P to Q.",
+      4,
+      ["5", "PQ = 5", "5 units; used origin instead of P"],
+      "Translate the segment mentally so that P is the origin by subtracting P's coordinates from Q's."
+    ),
+    poolAnswer("y8-pyth-dist-p22", "For points $(-5,-2)$ and $(7,3)$, find the horizontal change, vertical change, and distance.", "", "12, 5, 13", "The changes are $12$ and $5$, so distance is $\\sqrt{12^2+5^2}=13$.", 5, ["12,5,13"]),
+    poolAnswer("y8-pyth-dist-p23", "For points $(-6,4)$ and $(2,-11)$, find the absolute coordinate changes and distance.", "", "8, 15, 17", "The absolute changes are 8 and 15, giving distance $\\sqrt{8^2+15^2}=17$.", 5, ["8,15,17"]),
+    poolAnswer("y8-pyth-dist-p24", "For points $(2,-3)$ and $(-1,1)$, find the midpoint and distance.", "", "(0.5,-1), 5", "The midpoint is $((2-1)/2,(-3+1)/2)=(0.5,-1)$. Coordinate changes 3 and 4 give distance 5.", 5, ["(1/2,-1), 5"]),
+    poolAnswer("y8-pyth-dist-p25", "For $(0,0)$ and $(9,40)$, find the distance and gradient of the segment.", "", "41, 40/9", "Distance is $\\sqrt{9^2+40^2}=41$. Gradient is rise over run, $40/9$.", 5, ["41, 4.444...", "41 units, 40/9"]),
   ],
   multiPartPractice: [
     {
