@@ -243,9 +243,6 @@ export default function DashboardPage() {
   const [diagnosticYearLevel, setDiagnosticYearLevel] = useState("year-12-advanced");
   const [assignedWorksheets, setAssignedWorksheets] = useState<AssignedWorksheet[]>([]);
   const [recentAttempts, setRecentAttempts] = useState<AttemptRow[]>([]);
-  const [attemptProgress, setAttemptProgress] = useState<
-    Record<string, { answered: number; total: number | null }>
-  >({});
   const [isGeneratingWorksheet, setIsGeneratingWorksheet] = useState(false);
   const [adaptiveWorksheetError, setAdaptiveWorksheetError] = useState("");
   const [selectedCourseSlug, setSelectedCourseSlug] = useState<string | null | undefined>(undefined);
@@ -398,56 +395,6 @@ export default function DashboardPage() {
       if (wsData) setAssignedWorksheets(wsData as AssignedWorksheet[]);
 
       if (attemptsData) setRecentAttempts(attemptsData as AttemptRow[]);
-
-      // For unfinished attempts, load how far the student got so the dashboard
-      // can show "3 of 8 answered" next to the Resume button.
-      const incomplete = ((attemptsData ?? []) as AttemptRow[]).filter(
-        (a) => !a.completed_at
-      );
-      if (incomplete.length > 0) {
-        const attemptIds = incomplete.map((a) => a.id);
-        const worksheetIds = [...new Set(incomplete.map((a) => a.worksheet_id))];
-        const [answersResult, questionsResult] = await Promise.all([
-          supabase
-            .from("worksheet_answers")
-            .select("attempt_id, question_id")
-            .in("attempt_id", attemptIds),
-          supabase
-            .from("worksheet_questions")
-            .select("worksheet_id, question_id")
-            .in("worksheet_id", worksheetIds),
-        ]);
-
-        const answeredByAttempt = new Map<string, Set<string>>();
-        for (const row of (answersResult.data ?? []) as Array<{
-          attempt_id: string;
-          question_id: string;
-        }>) {
-          const set = answeredByAttempt.get(row.attempt_id) ?? new Set<string>();
-          set.add(row.question_id);
-          answeredByAttempt.set(row.attempt_id, set);
-        }
-        const totalByWorksheet = new Map<string, number>();
-        for (const row of (questionsResult.data ?? []) as Array<{
-          worksheet_id: string;
-        }>) {
-          totalByWorksheet.set(
-            row.worksheet_id,
-            (totalByWorksheet.get(row.worksheet_id) ?? 0) + 1
-          );
-        }
-
-        const progress: Record<string, { answered: number; total: number | null }> = {};
-        for (const attempt of incomplete) {
-          progress[attempt.id] = {
-            answered: answeredByAttempt.get(attempt.id)?.size ?? 0,
-            // RLS can hide worksheet_questions for open-link worksheets; show
-            // progress without a total in that case.
-            total: totalByWorksheet.get(attempt.worksheet_id) ?? null,
-          };
-        }
-        setAttemptProgress(progress);
-      }
 
       setIsLoading(false);
     }
@@ -751,24 +698,7 @@ export default function DashboardPage() {
     }
   }
 
-  // Unfinished worksheets first so resuming is the obvious next step,
-  // then untouched ones, then completed ones.
-  const worksheetSortRank = (ws: AssignedWorksheet): number => {
-    const attempt = latestAttemptByWorksheet.get(ws.id);
-    if (attempt && !attempt.completed_at) return 0;
-    if (!attempt) return 1;
-    return 2;
-  };
-  const sortedWorksheets = [...assignedWorksheets].sort(
-    (a, b) => worksheetSortRank(a) - worksheetSortRank(b)
-  );
-
-  // Attempts for worksheets not in the assigned list (logged-in open-link attempts).
-  const assignedIds = new Set(assignedWorksheets.map((w) => w.id));
-  const extraAttempts = recentAttempts.filter((a) => !assignedIds.has(a.worksheet_id));
-
   const hasWorksheets = assignedWorksheets.length > 0;
-  const hasExtraAttempts = extraAttempts.length > 0;
 
   // Next best action: weakest topic with at least one attempt.
   const nextBestRow = hasMastery
@@ -881,7 +811,7 @@ export default function DashboardPage() {
         ? "Review topic"
         : "Generate revision",
       href: hasReviewedTodaysRevision
-        ? "#worksheets"
+        ? "/dashboard/worksheets"
         : firstOpenWorksheetHref
         ? firstOpenWorksheetHref
         : reviewQueue.length > 0
@@ -1267,7 +1197,7 @@ export default function DashboardPage() {
                   {hasDiagnosticResult ? "Retake diagnostic" : "Start diagnostic"}
                 </Link>
                 <Link
-                  href="#worksheets"
+                  href="/dashboard/worksheets"
                   className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
                 >
                   View worksheets
@@ -1647,119 +1577,6 @@ export default function DashboardPage() {
           {adaptiveWorksheetError ? (
             <p className="mt-3 text-sm text-red-600">{adaptiveWorksheetError}</p>
           ) : null}
-        </section>
-
-        <section id="worksheets" className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Practice
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight">Your worksheets</h2>
-
-          {!hasWorksheets && !hasExtraAttempts ? (
-            <p className="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600">
-              No worksheets yet. Generate one from your study plan when you are ready.
-            </p>
-          ) : (
-            <div className="mt-5 space-y-3">
-              {/* Assigned worksheets — unfinished first */}
-              {sortedWorksheets.map((ws) => {
-                const attempt = latestAttemptByWorksheet.get(ws.id) ?? null;
-                const isCompleted = !!attempt?.completed_at;
-                const isInProgress = !!attempt && !isCompleted;
-                const progress = attempt ? attemptProgress[attempt.id] : undefined;
-                const isPastDue =
-                  ws.due_at && !isCompleted && new Date(ws.due_at) < new Date();
-
-                return (
-                  <div
-                    key={ws.id}
-                    className={`flex flex-col gap-3 rounded-2xl border p-4 sm:flex-row sm:items-center sm:justify-between ${
-                      isInProgress
-                        ? "border-amber-300 bg-amber-50"
-                        : "border-slate-200 bg-slate-50"
-                    }`}
-                  >
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate font-semibold text-slate-900">
-                        {ws.title}
-                      </p>
-                      <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
-                        {ws.due_at ? (
-                          <span className={isPastDue ? "font-semibold text-red-600" : ""}>
-                            Due{" "}
-                            {new Date(ws.due_at).toLocaleDateString("en-AU", {
-                              day: "numeric",
-                              month: "short",
-                              year: "numeric",
-                            })}
-                            {isPastDue ? " — overdue" : ""}
-                          </span>
-                        ) : null}
-                        {ws.status && ws.status !== "active" ? (
-                          <span className="rounded-full bg-slate-200 px-2 py-0.5 font-semibold capitalize text-slate-700">
-                            {ws.status}
-                          </span>
-                        ) : null}
-                        {isCompleted && attempt ? (
-                          <span className="font-semibold text-emerald-700">
-                            Score: {attempt.score_correct}/{attempt.score_total}
-                          </span>
-                        ) : isInProgress ? (
-                          <span className="font-semibold text-amber-700">
-                            In progress
-                            {progress
-                              ? progress.total
-                                ? ` — ${progress.answered} of ${progress.total} answered`
-                                : ` — ${progress.answered} answered`
-                              : ""}
-                          </span>
-                        ) : null}
-                      </div>
-                      {isInProgress && progress?.total ? (
-                        <div className="mt-2 h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-amber-100">
-                          <div
-                            className="h-full rounded-full bg-amber-500"
-                            style={{
-                              width: `${Math.min(
-                                100,
-                                Math.round((progress.answered / progress.total) * 100)
-                              )}%`,
-                            }}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    <Link
-                      href={
-                        isInProgress && attempt
-                          ? `/worksheet/${ws.share_token}?attempt=${attempt.id}`
-                          : `/worksheet/${ws.share_token}`
-                      }
-                      className={`inline-flex shrink-0 items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition ${
-                        isInProgress
-                          ? "bg-amber-500 text-white shadow-sm hover:bg-amber-600"
-                          : "border border-slate-300 bg-white text-slate-900 hover:bg-slate-50"
-                      }`}
-                    >
-                      {isCompleted
-                        ? "Review"
-                        : isInProgress
-                        ? "Resume worksheet"
-                        : "Start worksheet"}
-                    </Link>
-                  </div>
-                );
-              })}
-
-              {/* Extra logged-in attempts (open-link worksheets) */}
-              {hasExtraAttempts ? (
-                <p className="pt-1 text-xs text-slate-400">
-                  Plus {extraAttempts.length} other worksheet attempt
-                  {extraAttempts.length !== 1 ? "s" : ""} from shared links.
-                </p>
-              ) : null}
-            </div>
-          )}
         </section>
 
         {/* ── Mastery summary ─────────────────────────────────────────────── */}
