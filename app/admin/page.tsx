@@ -1812,7 +1812,7 @@ export default async function AdminPage() {
       <section className="mx-auto max-w-6xl space-y-8">
 
         {/* ── Header ────────────────────────────────────────────────────── */}
-        <header className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+        <header className="rounded-3xl bg-white p-6 shadow-sm">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
               Nova Maths
@@ -1823,70 +1823,6 @@ export default async function AdminPage() {
             <p className="mt-2 text-sm text-slate-600">
               Manage students, enquiries, payments and diagnostic reports.
             </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/admin/students"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Students
-            </Link>
-            <Link
-              href="/admin/worksheets"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Worksheets
-            </Link>
-            <Link
-              href="/admin/worksheets/new"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              New worksheet
-            </Link>
-            <Link
-              href="/admin/questions"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Question Bank
-            </Link>
-            <Link
-              href="/admin/question-flags"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Question Flags
-            </Link>
-            <Link
-              href="/admin/analytics"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Analytics
-            </Link>
-            <Link
-              href="/admin/diagnostics"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Diagnostics
-            </Link>
-            <Link
-              href="/admin/lesson-maker"
-              className="rounded-xl border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-800 hover:bg-indigo-100"
-            >
-              Lesson Maker
-            </Link>
-            <Link
-              href="/admin/tutoring"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-            >
-              Tutoring
-            </Link>
-            <form action="/api/admin/logout" method="post">
-              <button
-                type="submit"
-                className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
-              >
-                Log out
-              </button>
-            </form>
           </div>
         </header>
 
