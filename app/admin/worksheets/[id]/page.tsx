@@ -38,6 +38,7 @@ type QuestionData = {
 type QuestionPartData = {
   key: string;
   label: string;
+  prompt: string;
   answer: string;
 };
 
@@ -79,6 +80,7 @@ function normaliseQuestionParts(value: unknown): QuestionPartData[] {
       {
         key,
         label: String(part.label ?? `(${key})`),
+        prompt: String(part.prompt ?? "").trim(),
         answer,
       },
     ];
@@ -299,7 +301,19 @@ export default async function WorksheetDetailPage({
                           {wq.position + 1}
                         </td>
                         <td className="px-5 py-3 text-slate-800">
-                          {wq.questions.prompt}
+                          <p>{wq.questions.prompt}</p>
+                          {parts.length > 0 ? (
+                            <div className="mt-3 space-y-2 border-l-2 border-slate-200 pl-3">
+                              {parts.map((part) => (
+                                <p key={part.key} className="text-sm text-slate-600">
+                                  <span className="mr-2 font-semibold text-slate-800">
+                                    {part.label}
+                                  </span>
+                                  {part.prompt || "Question part"}
+                                </p>
+                              ))}
+                            </div>
+                          ) : null}
                         </td>
                         <td className="px-5 py-3 text-slate-700">
                           {parts.length > 0 ? (
@@ -419,7 +433,19 @@ export default async function WorksheetDetailPage({
                               {wq.position + 1}
                             </td>
                             <td className="px-5 py-3 text-slate-600">
-                              <span className="line-clamp-2">{wq.questions.prompt}</span>
+                              <p>{wq.questions.prompt}</p>
+                              {questionParts.length > 0 ? (
+                                <div className="mt-2 space-y-1.5 border-l-2 border-slate-200 pl-3">
+                                  {questionParts.map((part) => (
+                                    <p key={part.key} className="text-xs">
+                                      <span className="mr-1.5 font-semibold text-slate-700">
+                                        {part.label}
+                                      </span>
+                                      {part.prompt || "Question part"}
+                                    </p>
+                                  ))}
+                                </div>
+                              ) : null}
                             </td>
                             <td className="px-5 py-3 text-slate-800">
                               {hasStructuredPartAnswers ? (
