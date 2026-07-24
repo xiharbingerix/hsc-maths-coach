@@ -91,7 +91,7 @@ const PRESETS = [
     id: "even-spread",
     label: "Even spread",
     description:
-      "All levels 1-6 equally, balanced evenly across the selected topics",
+      "All levels 1-6 equally, balanced evenly across the selected units",
   },
 ] as const;
 
@@ -287,8 +287,7 @@ export function WorksheetGeneratorForm({
 
   const topicsForCourse = courseTopics
     .filter((ct) => ct.courseSlug === courseSlug)
-    .map((ct) => ct.topicSlug)
-    .sort();
+    .map((ct) => ct.topicSlug);
 
   const subtopicsForSelectedTopics = [
     ...new Set(
@@ -299,7 +298,7 @@ export function WorksheetGeneratorForm({
         )
         .map((cts) => cts.subtopicSlug)
     ),
-  ].sort();
+  ];
 
   function handleCourseChange(next: string) {
     setCourseSlug(next);
@@ -358,7 +357,7 @@ export function WorksheetGeneratorForm({
   async function handlePreview(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (selectedTopics.length === 0) {
-      setErrorMessage("Select at least one topic.");
+      setErrorMessage("Select at least one unit.");
       return;
     }
 
@@ -841,7 +840,7 @@ export function WorksheetGeneratorForm({
 
       <fieldset className="space-y-2">
         <div className="flex items-center justify-between">
-          <legend className="text-sm font-medium text-slate-800">Topics</legend>
+          <legend className="text-sm font-medium text-slate-800">Units</legend>
           {topicsForCourse.length > 1 ? (
             <button
               type="button"
@@ -857,7 +856,7 @@ export function WorksheetGeneratorForm({
 
         {topicsForCourse.length === 0 ? (
           <p className="text-sm text-slate-500">
-            No topics available for this course. Run the seed script first.
+            No units with worksheet questions are available for this course.
           </p>
         ) : (
           <div className="grid gap-1.5 sm:grid-cols-2">
