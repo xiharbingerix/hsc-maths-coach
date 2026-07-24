@@ -11,7 +11,6 @@ type ReplaceBody = {
   subtopicSlug?: string;
   difficulty?: number;
   excludeQuestionIds?: string[];
-  includeMultiPart?: boolean;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -42,7 +41,6 @@ export async function POST(request: Request) {
     subtopicSlug,
     difficulty,
     excludeQuestionIds,
-    includeMultiPart,
   } = body;
 
   if (!courseSlug?.trim() || !topicSlug?.trim()) {
@@ -69,7 +67,6 @@ export async function POST(request: Request) {
       excludeQuestionIds: Array.isArray(excludeQuestionIds)
         ? excludeQuestionIds
         : [],
-      includeMultiPart: includeMultiPart === true,
     });
 
     if (!replacement) {

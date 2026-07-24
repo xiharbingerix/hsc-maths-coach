@@ -147,6 +147,18 @@ function shuffle<T>(items: T[]) {
   return [...items].sort(() => Math.random() - 0.5);
 }
 
+// Keep worksheet draws varied while ensuring an available multi-part question
+// is considered before single-answer alternatives at the same difficulty.
+function prioritiseMultiPartQuestion(rows: RawQuestionRow[]) {
+  const ordered = shuffle(rows);
+  const multipartIndex = ordered.findIndex(hasQuestionParts);
+  if (multipartIndex <= 0) return ordered;
+
+  const [multipart] = ordered.splice(multipartIndex, 1);
+  ordered.unshift(multipart);
+  return ordered;
+}
+
 // Orders candidate rows so groups (subtopics or topics) with the fewest
 // questions already selected (across the whole worksheet) come first,
 // round-robin. Rows are shuffled within each group so repeated generations
@@ -169,7 +181,7 @@ function orderForGroupCoverage(
   const virtualCounts = new Map(selectedPerGroup);
   const cursors = [...groups.entries()].map(([slug, list]) => ({
     slug,
-    list,
+    list: prioritiseMultiPartQuestion(list),
     index: 0,
   }));
   const ordered: RawQuestionRow[] = [];
@@ -204,7 +216,6 @@ export async function selectWorksheetQuestions({
   totalQuestions,
   weakSubtopicSlugs = [],
   selectedSubtopicSlugs,
-  includeMultiPart = false,
 }: {
   courseSlug: string;
   topicSlugs: string[];
@@ -212,7 +223,6 @@ export async function selectWorksheetQuestions({
   totalQuestions: number;
   weakSubtopicSlugs?: string[];
   selectedSubtopicSlugs?: string[];
-  includeMultiPart?: boolean;
 }) {
   const result = await selectWorksheetQuestionsWithMetadata({
     courseSlug,
@@ -221,7 +231,6 @@ export async function selectWorksheetQuestions({
     totalQuestions,
     weakSubtopicSlugs,
     selectedSubtopicSlugs,
-    includeMultiPart,
   });
 
   return result.questions;
@@ -234,7 +243,6 @@ export async function selectWorksheetQuestionsWithMetadata({
   totalQuestions,
   weakSubtopicSlugs = [],
   selectedSubtopicSlugs,
-  includeMultiPart = false,
 }: {
   courseSlug: string;
   topicSlugs: string[];
@@ -242,7 +250,6 @@ export async function selectWorksheetQuestionsWithMetadata({
   totalQuestions: number;
   weakSubtopicSlugs?: string[];
   selectedSubtopicSlugs?: string[];
-  includeMultiPart?: boolean;
 }) {
   const distribution = scalePreset(WORKSHEET_PRESETS[preset], totalQuestions);
   const selected: WorksheetQuestionPreview[] = [];
@@ -263,7 +270,7 @@ export async function selectWorksheetQuestionsWithMetadata({
   const orderRows = (rows: RawQuestionRow[]) =>
     coverageKey
       ? orderForGroupCoverage(rows, coverageKey, selectedPerGroup)
-      : shuffle(rows);
+      : prioritiseMultiPartQuestion(rows);
   const countSelection = (row: RawQuestionRow) => {
     if (!coverageKey) return;
     selectedPerGroup.set(
@@ -295,11 +302,8 @@ export async function selectWorksheetQuestionsWithMetadata({
       const priorityRows = (priorityData ?? []) as RawQuestionRow[];
       totalCandidates += priorityRows.length;
       multipartCandidates += priorityRows.filter(hasQuestionParts).length;
-      const eligiblePriorityRows = includeMultiPart
-        ? priorityRows
-        : priorityRows.filter((row) => !hasQuestionParts(row));
 
-      for (const row of orderRows(eligiblePriorityRows)) {
+      for (const row of orderRows(priorityRows)) {
         if (levelCount >= priorityTarget || selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
@@ -329,11 +333,8 @@ export async function selectWorksheetQuestionsWithMetadata({
       const rows = (data ?? []) as RawQuestionRow[];
       totalCandidates += rows.length;
       multipartCandidates += rows.filter(hasQuestionParts).length;
-      const eligibleRows = includeMultiPart
-        ? rows
-        : rows.filter((row) => !hasQuestionParts(row));
 
-      for (const row of orderRows(eligibleRows)) {
+      for (const row of orderRows(rows)) {
         if (selected.length >= totalQuestions) break;
         if (selectedIds.has(row.id)) continue;
         selected.push(toPreviewQuestion(row));
@@ -361,14 +362,12 @@ export async function findReplacementQuestion({
   subtopicSlug,
   difficulty,
   excludeQuestionIds,
-  includeMultiPart = false,
 }: {
   courseSlug: string;
   topicSlug: string;
   subtopicSlug?: string;
   difficulty: number;
   excludeQuestionIds: string[];
-  includeMultiPart?: boolean;
 }) {
   let query = supabaseAdmin
     .from("questions")
@@ -389,7 +388,7 @@ export async function findReplacementQuestion({
 
   const excluded = new Set(excludeQuestionIds);
   const candidates = ((data ?? []) as RawQuestionRow[]).filter(
-    (row) => !excluded.has(row.id) && (includeMultiPart || !hasQuestionParts(row))
+    (row) => !excluded.has(row.id)
   );
 
   if (candidates.length === 0) {

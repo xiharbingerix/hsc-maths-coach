@@ -22,7 +22,6 @@ type GenerateBody = {
   assignedStudentName?: string;
   assignedStudentEmail?: string;
   dueAt?: string;
-  includeMultiPart?: boolean;
   teacherGuidedRetry?: boolean;
 };
 
@@ -75,7 +74,6 @@ export async function POST(request: Request) {
     assignedStudentName,
     assignedStudentEmail,
     dueAt,
-    includeMultiPart,
     teacherGuidedRetry,
   } = body;
 
@@ -141,7 +139,6 @@ export async function POST(request: Request) {
               topicSlugs,
               preset,
               totalQuestions: count,
-              includeMultiPart: includeMultiPart === true,
             })
           ).map((question) => question.id);
   } catch (error) {

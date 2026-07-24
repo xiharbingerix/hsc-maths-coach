@@ -16,7 +16,6 @@ type PreviewBody = {
   totalQuestions?: number;
   studentId?: string;
   selectedSubtopicSlugs?: string[];
-  includeMultiPart?: boolean;
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -48,7 +47,6 @@ export async function POST(request: Request) {
     totalQuestions,
     studentId,
     selectedSubtopicSlugs,
-    includeMultiPart,
   } = body;
 
   if (!courseSlug?.trim()) {
@@ -110,7 +108,6 @@ export async function POST(request: Request) {
       totalQuestions: count,
       weakSubtopicSlugs,
       selectedSubtopicSlugs: manualSubtopics.length > 0 ? manualSubtopics : undefined,
-      includeMultiPart: includeMultiPart === true,
     });
 
     if (questions.length === 0) {
