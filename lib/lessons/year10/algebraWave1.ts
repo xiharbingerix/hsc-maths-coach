@@ -15,7 +15,8 @@ function ans(
   answer: string,
   difficulty: number,
   explanation: string,
-  acceptedAnswers: string[] = []
+  acceptedAnswers: string[] = [],
+  hint = "Identify the method first, then work step by step."
 ): PracticeQuestion {
   return {
     id,
@@ -24,7 +25,7 @@ function ans(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     difficulty,
-    hint: "Identify the method first, then work step by step.",
+    hint,
     explanation,
   };
 }
@@ -35,7 +36,8 @@ function mcq(
   answer: "A" | "B" | "C" | "D",
   choices: [string, string, string, string],
   difficulty: number,
-  explanation: string
+  explanation: string,
+  hint = "Apply the rule, then check each option."
 ): PracticeQuestion {
   return {
     id,
@@ -44,7 +46,7 @@ function mcq(
     choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })),
     answer,
     difficulty,
-    hint: "Apply the rule, then check each option.",
+    hint,
     explanation,
   };
 }
@@ -137,6 +139,74 @@ const reviewOfAlgebra: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
+const equationsComplexFractionsMultiPart: PracticeQuestion[] = [
+  {
+    id: "y10-ecf-mp-d6-1",
+    prompt:
+      "Pipe A fills a tank by itself in $x$ minutes. Pipe B fills the same tank by itself in $x+6$ minutes. Working together, they fill the tank in 4 minutes.",
+    latex: "",
+    answer: "1/3",
+    hint:
+      "Use rates in tanks per minute, state the denominator restrictions, clear the rational equation, then interpret the algebraic candidates in context.",
+    explanation:
+      "The restrictions are $x\\ne0,-6$. The rate equation is $1/x+1/(x+6)=1/4$. Multiplying by $4x(x+6)$ gives $4(x+6)+4x=x(x+6)$, hence $x^2-2x-24=0$. The candidates are $x=6,-4$, but only 6 is a positive time. In 2 minutes, Pipe A fills $2/6=1/3$ of the tank.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt:
+          "State the two values of $x$ excluded by the algebraic denominators.",
+        latex: "",
+        marks: 1,
+        answer: "0, -6",
+        acceptedAnswers: ["0,-6", "-6,0", "-6, 0", "x≠0,-6", "x != 0,-6"],
+        hint: "Set each denominator equal to zero.",
+        explanation:
+          "The denominators are $x$ and $x+6$. They are zero at $x=0$ and $x=-6$, so both values are excluded.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt:
+          "Form the combined-rate equation and clear its denominators. Give the resulting quadratic in the form $x^2+bx+c=0$.",
+        latex: "",
+        marks: 3,
+        answer: "x^2-2x-24=0",
+        acceptedAnswers: ["x²-2x-24=0", "x^2 - 2x - 24 = 0"],
+        hint: "The rates are 1/x and 1/(x+6) tanks per minute; multiply their sum by 4x(x+6).",
+        explanation:
+          "$1/x+1/(x+6)=1/4$. Multiplying by $4x(x+6)$ gives $4(x+6)+4x=x(x+6)$. Expanding and rearranging gives $x^2-2x-24=0$.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt:
+          "Solve the quadratic from part (b), then state the physically valid value of $x$.",
+        latex: "",
+        marks: 3,
+        answer: "6",
+        acceptedAnswers: ["x=6", "x = 6", "6 minutes"],
+        hint: "Factorise the quadratic, then reject any candidate that cannot represent a positive filling time.",
+        explanation:
+          "$x^2-2x-24=(x-6)(x+4)=0$, so the algebraic candidates are $x=6$ and $x=-4$. A filling time must be positive, so the valid value is $x=6$ minutes.",
+      },
+      {
+        key: "d",
+        label: "(d)",
+        prompt:
+          "Using the valid time from part (c), what fraction of the tank does Pipe A fill in 2 minutes?",
+        latex: "",
+        marks: 2,
+        answer: "1/3",
+        acceptedAnswers: ["\\frac{1}{3}", "one third", "0.3333333333"],
+        hint: "Pipe A fills 1/x of the tank each minute; multiply this rate by 2.",
+        explanation:
+          "With $x=6$, Pipe A fills $1/6$ of the tank per minute. In 2 minutes it fills $2(1/6)=1/3$ of the tank.",
+      },
+    ],
+  },
+];
+
 // ── 1D Equations with Complex Algebraic Fractions (path) ───────────────────────────────
 const equationsComplexFractions: Partial<ExplicitLesson> = {
   description: "Solve linear equations involving algebraic fractions by multiplying through by the lowest common denominator.",
@@ -145,19 +215,20 @@ const equationsComplexFractions: Partial<ExplicitLesson> = {
     "Find the lowest common denominator of the fractions in an equation.",
     "Multiply every term by the LCD to clear the fractions.",
     "Solve the resulting linear equation.",
-    "Check the solution by substitution.",
+    "State restrictions from variable denominators and reject excluded candidates.",
+    "Check the solution in the original equation.",
   ],
   teaching: {
     paragraphs: [
       "Fractions in an equation are hard to work with directly, so the key move is to CLEAR them. Multiply EVERY term on both sides by the lowest common denominator (LCD) of all the fractions, and the denominators cancel.",
-      "The LCD is the smallest expression every denominator divides into. For x/2 + x/3 the denominators are 2 and 3, so the LCD is 6. Multiplying each term by 6 turns x/2 into 3x and x/3 into 2x.",
+      "The LCD is the smallest expression every denominator divides into. For x/2 + x/3 the LCD is 6. If a denominator contains a variable, include that factor too: the LCD of 2 and x−1 is 2(x−1).",
       "After clearing fractions you are left with an ordinary linear equation: collect like terms and solve with inverse operations. For x/2 + x/3 = 5, multiplying by 6 gives 3x + 2x = 30, so 5x = 30 and x = 6.",
-      "Multiply the WHOLE term — including any number on the right-hand side — by the LCD, not just the fractions. Forgetting a term is the most common error. Finish by checking your answer back in the original equation.",
+      "Multiply the WHOLE term — including every bracket and any number on the right — by the LCD. A variable denominator also creates a restriction: for 1/(x−1), x cannot equal 1. Reject any candidate that makes an original denominator zero.",
     ],
     latexBlocks: [
       "\\frac{x}{2} + \\frac{x}{3} = 5 \\quad\\xrightarrow{\\times 6}\\quad 3x + 2x = 30",
       "5x = 30 \\Rightarrow x = 6",
-      "\\text{LCD = smallest number every denominator divides into}",
+      "\\frac{x+2}{x-1}=3:\\quad x\\ne1,\\quad x+2=3(x-1)",
     ],
   },
   workedExamples: [
@@ -182,43 +253,91 @@ const equationsComplexFractions: Partial<ExplicitLesson> = {
       finalAnswerLatex: "x = -5",
     },
     {
-      title: "Subtraction of fractions",
-      questionLatex: "\\text{Solve } \\frac{x}{4} - \\frac{x}{6} = 1.",
+      title: "Variable denominator and domain restriction",
+      questionLatex: "\\text{Solve } \\frac{x+4}{x-2}=3.",
       steps: [
-        { explanation: "LCD of 4 and 6 is 12. Multiply every term by 12.", latex: "3x - 2x = 12" },
-        { explanation: "Simplify and solve.", latex: "x = 12" },
+        { explanation: "Record the restriction from the denominator.", latex: "x\\ne2" },
+        { explanation: "Multiply both sides by x−2.", latex: "x+4=3(x-2)" },
+        { explanation: "Expand and solve.", latex: "x+4=3x-6\\Rightarrow x=5" },
+        { explanation: "The candidate is permitted because 5≠2.", latex: "x=5\\ \\checkmark" },
       ],
-      finalAnswerLatex: "x = 12",
+      finalAnswerLatex: "x = 5",
     },
   ],
   guidedPractice: [
-    mcq("y10-ecf-g1", "To solve x/4 + x/2 = 3, which number should you multiply every term by?", "B", ["2", "4", "6", "8"], 3,
-      "The LCD of 4 and 2 is 4 (the smallest number both divide into), so multiply every term by 4."),
-    ans("y10-ecf-g2", "Solve x/2 = 5.", "\\frac{x}{2}=5", "10", 2, "Multiply both sides by 2: x = 10.", ["x=10", "x = 10"]),
-    ans("y10-ecf-g3", "Solve x/3 + x/3 = 4.", "\\frac{x}{3}+\\frac{x}{3}=4", "6", 3, "The left side is 2x/3, so 2x/3 = 4. Multiply by 3: 2x = 12, then x = 6.", ["x=6", "x = 6"]),
-    ans("y10-ecf-g4", "Solve x/2 + x/4 = 3.", "\\frac{x}{2}+\\frac{x}{4}=3", "4", 3, "LCD is 4: multiply through to get 2x + x = 12, so 3x = 12 and x = 4.", ["x=4", "x = 4"]),
+    mcq("y10-ecf-g1", "Which expression is the LCD of denominators 4 and 6?", "B",
+      ["$10$", "$12$", "$24$", "$2$"], 1,
+      "The least positive multiple shared by 4 and 6 is 12. Using 24 would clear the fractions but is not the lowest common denominator.",
+      "List the first few multiples of each denominator."),
+    ans("y10-ecf-g2", "Solve $\\dfrac{x}{5}=7$.", "\\frac{x}{5}=7", "35", 2,
+      "Multiply both sides by 5: $x=35$. Checking gives $35/5=7$.", ["x=35", "x = 35"],
+      "Clear the denominator by multiplying both complete sides by 5."),
+    ans("y10-ecf-g3", "Solve $\\dfrac{x+3}{4}=6$.", "\\frac{x+3}{4}=6", "21", 2,
+      "Multiply by 4 to get $x+3=24$, then subtract 3: $x=21$. The whole numerator is divided by 4.", ["x=21", "x = 21"],
+      "Clear the denominator before separating the numerator terms."),
+    mcq("y10-ecf-g4", "Multiplying $\\dfrac{x-2}{3}+1=5$ by 3 gives which equivalent equation?", "C",
+      ["$x-2+1=15$", "$x-6+3=15$", "$x-2+3=15$", "$x-2+3=5$"], 2,
+      "Every term is multiplied by 3: the fraction becomes $x-2$, the 1 becomes 3, and 5 becomes 15. Thus $x-2+3=15$.",
+      "Write a factor of 3 beside every term before cancelling."),
   ],
   independentPractice: [
-    ans("y10-ecf-i1", "Solve x/5 = 2.", "\\frac{x}{5}=2", "10", 2, "Multiply both sides by 5: x = 10.", ["x=10", "x = 10"]),
-    mcq("y10-ecf-i2", "What is the lowest common denominator of x/3 and x/4?", "C", ["7", "1", "12", "24"], 3,
-      "The LCD is the smallest number both 3 and 4 divide into, which is 12."),
-    ans("y10-ecf-i3", "Solve x/2 + x/3 = 5.", "\\frac{x}{2}+\\frac{x}{3}=5", "6", 4, "LCD 6: 3x + 2x = 30, so 5x = 30 and x = 6.", ["x=6", "x = 6"]),
-    ans("y10-ecf-i4", "Solve (x + 2)/3 = 4.", "\\frac{x+2}{3}=4", "10", 3, "Multiply both sides by 3: x + 2 = 12, so x = 10.", ["x=10", "x = 10"]),
-    ans("y10-ecf-i5", "Solve x/4 − x/6 = 1.", "\\frac{x}{4}-\\frac{x}{6}=1", "12", 4, "LCD 12: 3x − 2x = 12, so x = 12.", ["x=12", "x = 12"]),
+    ans("y10-ecf-i1", "Solve $\\dfrac{x}{3}-\\dfrac{x}{4}=2$.", "\\frac{x}{3}-\\frac{x}{4}=2", "24", 2,
+      "Multiply every term by 12: $4x-3x=24$. Hence $x=24$, which checks because $8-6=2$.", ["x=24", "x = 24"],
+      "Use the LCD 12 and multiply all three terms."),
+    mcq("y10-ecf-i2", "Which equation results from clearing denominators in $\\dfrac{x+1}{2}-\\dfrac{x-3}{5}=4$?", "D",
+      ["$5x+1-2x-3=40$", "$5(x+1)-2(x-3)=4$", "$2(x+1)-5(x-3)=40$", "$5(x+1)-2(x-3)=40$"], 2,
+      "The LCD is 10. Multiplying each term gives $5(x+1)-2(x-3)=40$. Keeping both numerators bracketed prevents sign and distribution errors.",
+      "Multiply 10 by each fraction and preserve each complete numerator."),
+    ans("y10-ecf-i3", "Solve $\\dfrac{x+1}{2}-\\dfrac{x-3}{5}=4$.", "\\frac{x+1}{2}-\\frac{x-3}{5}=4", "29/3", 3,
+      "Multiply by 10: $5(x+1)-2(x-3)=40$. Expanding gives $5x+5-2x+6=40$, so $3x=29$ and $x=29/3$.", ["x=29/3", "x = 29/3"],
+      "Clear denominators, expand the subtracted bracket carefully, then collect terms."),
+    ans("y10-ecf-i4", "Solve $\\dfrac{x+4}{x-2}=3$, stating only the valid solution.", "\\frac{x+4}{x-2}=3", "5", 3,
+      "First $x\\ne2$. Multiply by $x-2$: $x+4=3x-6$, so $10=2x$ and $x=5$. Since 5 is not excluded, it is valid.", ["x=5", "x = 5"],
+      "Record the excluded value before clearing the variable denominator."),
+    mcq("y10-ecf-i5", "A student multiplies $\\dfrac{x}{2}+\\dfrac{x-1}{3}=5$ by 6 and writes $3x+2(x-1)=5$. What is the error?", "B",
+      ["The first term should be $6x$", "The right side should be 30", "The second numerator should lose its brackets", "The LCD should be 12"], 3,
+      "Multiplying every term by 6 changes the right side to $6\\times5=30$. The left-side terms $3x$ and $2(x-1)$ are correct.",
+      "Check the multiplier against every term, including the whole-number side."),
   ],
   masteryQuiz: [
-    ans("y10-ecf-m1", "Solve x/3 = 7.", "\\frac{x}{3}=7", "21", 2, "Multiply both sides by 3: x = 21.", ["x=21", "x = 21"]),
-    mcq("y10-ecf-m2", "What is the LCD of x/2 and x/5?", "B", ["7", "10", "20", "2"], 3, "The smallest number both 2 and 5 divide into is 10."),
-    ans("y10-ecf-m3", "Solve x/2 + x/2 = 8.", "\\frac{x}{2}+\\frac{x}{2}=8", "8", 2, "The left side is x, so x = 8.", ["x=8", "x = 8"]),
-    ans("y10-ecf-m4", "Solve x/3 + x/6 = 3.", "\\frac{x}{3}+\\frac{x}{6}=3", "6", 4, "LCD 6: 2x + x = 18, so 3x = 18 and x = 6.", ["x=6", "x = 6"]),
-    mcq("y10-ecf-m5", "What is the first step to solve x/4 + x/3 = 7?", "C", ["Subtract x/3", "Square both sides", "Multiply every term by 12", "Add the numerators"], 3,
-      "Clear the fractions first by multiplying every term by the LCD of 4 and 3, which is 12."),
-    ans("y10-ecf-m6", "Solve (x − 1)/2 = 3.", "\\frac{x-1}{2}=3", "7", 3, "Multiply both sides by 2: x − 1 = 6, so x = 7.", ["x=7", "x = 7"]),
-    ans("y10-ecf-m7", "Solve x/2 − x/5 = 3.", "\\frac{x}{2}-\\frac{x}{5}=3", "10", 4, "LCD 10: 5x − 2x = 30, so 3x = 30 and x = 10.", ["x=10", "x = 10"]),
-    mcq("y10-ecf-m8", "Solve x/3 = 6.", "A", ["18", "2", "9", "3"], 2, "Multiply both sides by 3: x = 18."),
-    ans("y10-ecf-m9", "Solve 2x/3 = 8.", "\\frac{2x}{3}=8", "12", 4, "Multiply both sides by 3: 2x = 24, then x = 12.", ["x=12", "x = 12"]),
-    ans("y10-ecf-m10", "Solve x/4 + 1 = 3.", "\\frac{x}{4}+1=3", "8", 3, "Subtract 1: x/4 = 2. Multiply by 4: x = 8.", ["x=8", "x = 8"]),
+    ans("y10-ecf-m1", "Solve $\\dfrac{2x-1}{3}=5$.", "\\frac{2x-1}{3}=5", "8", 2,
+      "Multiply by 3: $2x-1=15$. Add 1 and divide by 2 to get $x=8$.", ["x=8", "x = 8"],
+      "Clear the denominator before undoing operations inside the numerator."),
+    ans("y10-ecf-m2", "Solve $\\dfrac{x+2}{3}+\\dfrac{x-1}{4}=6$.", "\\frac{x+2}{3}+\\frac{x-1}{4}=6", "67/7", 3,
+      "Multiply by 12: $4(x+2)+3(x-1)=72$. Thus $4x+8+3x-3=72$, so $7x=67$ and $x=67/7$.", ["x=67/7", "x = 67/7"],
+      "Use LCD 12 and keep each numerator grouped while expanding."),
+    ans("y10-ecf-m3", "Find $k$ if $\\dfrac{x+k}{4}=\\dfrac{2x-1}{3}$ has solution $x=5$.", "\\frac{x+k}{4}=\\frac{2x-1}{3},\\quad x=5", "7", 3,
+      "Substitute $x=5$: $(5+k)/4=9/3=3$. Therefore $5+k=12$ and $k=7$.", ["k=7", "k = 7"],
+      "A stated solution must make both fractions equal; substitute it first."),
+    mcq("y10-ecf-m4", "What restriction is required before solving $\\dfrac{2x+1}{(x-3)(x+4)}=5$?", "C",
+      ["$x\\ne3$ only", "$x\\ne-4$ only", "$x\\ne3$ and $x\\ne-4$", "$x>3$"], 3,
+      "Each denominator factor must be non-zero. Thus $x-3\\ne0$ and $x+4\\ne0$, giving $x\\ne3,-4$.",
+      "Set each denominator factor unequal to zero."),
+    mcq("y10-ecf-m5", "A 120 L tank fills at $x$ L/min, then setup takes 8 minutes. If the total time is 32 minutes, which equation and flow rate are correct?", "A",
+      ["$120/x+8=32$, so $x=5$", "$120x+8=32$, so $x=0.2$", "$120/(x+8)=32$, so $x=-4.25$", "$120/x=32+8$, so $x=3$"], 4,
+      "Filling time is volume divided by rate, so it is $120/x$ minutes. Thus $120/x+8=32$, giving $120/x=24$ and $x=5$ L/min.",
+      "Build the equation from the two contributions before clearing x."),
+    ans("y10-ecf-m6", "Solve $\\dfrac{2x+3}{x-1}=5$, stating only the valid solution.", "\\frac{2x+3}{x-1}=5", "8/3", 4,
+      "The restriction is $x\\ne1$. Multiply by $x-1$: $2x+3=5x-5$, so $8=3x$ and $x=8/3$, which is permitted.", ["x=8/3", "x = 8/3"],
+      "Record the excluded value, clear the denominator, then test the candidate."),
+    mcq("y10-ecf-m7", "How many valid solutions does $\\dfrac{x+2}{x-2}=\\dfrac{2x}{x-2}$ have?", "D",
+      ["Two", "One: $x=2$", "Infinitely many", "None"], 4,
+      "The domain excludes $x=2$. For permitted x, multiplying by $x-2$ gives $x+2=2x$, whose only candidate is $x=2$. Because that candidate is excluded, there is no valid solution.",
+      "Record the domain restriction before accepting the algebraic candidate."),
+    mcq("y10-ecf-m8", "A student cancels the x in $\\dfrac{x+6}{x}=4$ and writes $1+6=4$. Which correction is valid?", "B",
+      ["Cancel x from both numerator terms", "Rewrite as $1+6/x=4$", "Multiply only 4 by x", "Conclude $x=0$"], 4,
+      "Cancellation works on factors, not terms in a sum. Dividing each numerator term by x gives $(x+6)/x=1+6/x$, leading to $x=2$ with $x\\ne0$.",
+      "A common factor may cancel; a term within addition may not."),
+    mcq("y10-ecf-m9", "Classify $\\dfrac{kx+2}{x-1}=k$ for real $k$, with $x\\ne1$.", "C",
+      ["One solution for every k", "Infinitely many solutions for every k", "All permitted x if $k=-2$; otherwise no solution", "No solution if $k=-2$; otherwise one solution"], 5,
+      "Multiplying by $x-1$ gives $kx+2=kx-k$, so $2=-k$. If $k=-2$, the equation is true for every permitted $x\\ne1$; otherwise the constants contradict.",
+      "Clear the denominator symbolically and classify what remains."),
+    mcq("y10-ecf-m10", "In $\\dfrac{ax+b}{x-2}=3$, the numerator is zero at $x=-1$ and the equation has solution $x=5$. Find $(a,b)$.", "D",
+      ["$(1,1)$", "$(3,3)$", "$(3/2,-3/2)$", "$(3/2,3/2)$"], 5,
+      "A zero at $x=-1$ gives $-a+b=0$, so $b=a$. Substituting $x=5$ gives $(5a+b)/3=3$, hence $6a=9$. Thus $a=b=3/2$.",
+      "Translate each condition into an equation for a and b, then solve the pair."),
   ],
+  multiPartPractice: equationsComplexFractionsMultiPart,
   commonMistakes: [
     { mistake: "Multiplying only the fractions by the LCD, not the whole-number terms.", fix: "Every term — including numbers on the right — is multiplied by the LCD." },
     { mistake: "Using the product of denominators instead of the LCD.", fix: "Use the smallest common denominator (e.g. 6 for 2 and 3, not necessarily 6 for all)." },

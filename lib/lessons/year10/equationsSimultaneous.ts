@@ -175,6 +175,41 @@ function eqChoice(
   };
 }
 
+function auditedEqAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  difficulty: 1 | 2 | 3 | 4 | 5,
+  explanation: string,
+  hint: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...eqAnswer(id, prompt, latex, answer, acceptedAnswers),
+    difficulty,
+    explanation,
+    hint,
+  };
+}
+
+function auditedEqChoice(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  choices: [string, string, string, string],
+  difficulty: 1 | 2 | 3 | 4 | 5,
+  explanation: string,
+  hint: string,
+  latex = "\\text{Select A, B, C, or D.}"
+): PracticeQuestion {
+  return {
+    ...eqChoice(id, prompt, answer, choices, explanation, latex),
+    difficulty,
+    hint,
+  };
+}
+
 // ─── Lesson 1: Solving Linear Equations ──────────────────────────────────────
 
 const solvingLinearWorkedExamples: WorkedExample[] = [
@@ -209,29 +244,41 @@ const solvingLinearWorkedExamples: WorkedExample[] = [
 ];
 
 const solvingLinearGuided: PracticeQuestion[] = [
-  eqAnswer("lin-g1", "Solve x + 9 = 22.", "x+9=22", "13", ["13"]),
-  eqChoice("lin-g2", "Which step correctly begins solving 2x + 5 = 17?", "A",
+  auditedEqAnswer("lin-g1", "Solve $x+9=22$.", "x+9=22", "13", 1,
+    "Subtract 9 from both sides: $x+9-9=22-9$, so $x=13$. Substitution gives $13+9=22$, confirming the solution.",
+    "Undo the addition of 9 while keeping both sides balanced.", ["x=13"]),
+  auditedEqChoice("lin-g2", "Which step correctly begins solving $2x+5=17$?", "A",
     ["Subtract 5 from both sides", "Add 5 to both sides", "Divide both sides by 2", "Multiply both sides by 2"],
-    "To isolate the x-term, first undo the +5 by subtracting 5 from both sides: 2x = 12."),
-  eqAnswer("lin-g3", "Solve 4x = 28.", "4x=28", "7", ["7"]),
-  eqChoice("lin-g4", "What is the solution to 5x − 3 = 2x + 12?", "B",
+    1, "The outer operation on $2x$ is adding 5, so undo it first: $2x+5-5=17-5$, giving $2x=12$.",
+    "Identify the operation applied after multiplication by 2."),
+  auditedEqAnswer("lin-g3", "Solve $-4x=28$.", "-4x=28", "-7", 2,
+    "Divide both sides by $-4$: $x=28\\div(-4)=-7$. Checking gives $-4(-7)=28$.",
+    "The coefficient of x is negative; divide by the complete coefficient.", ["x=-7"]),
+  auditedEqChoice("lin-g4", "What is the solution to $5x-3=2x+12$?", "B",
     ["$x=3$", "$x=5$", "$x=9$", "$x=15$"],
-    "Collect x-terms: 5x − 2x = 3x. Collect constants: 12 + 3 = 15. So 3x = 15, x = 5.",
-    "5x-3=2x+12"),
+    2, "Subtract $2x$ and add 3 on both sides: $3x=15$. Dividing by 3 gives $x=5$; both original sides then equal 22.",
+    "Bring variable terms to one side and constants to the other.", "5x-3=2x+12"),
 ];
 
 const solvingLinearIndependent: PracticeQuestion[] = [
-  eqAnswer("lin-i1", "Solve x − 6 = 13.", "x-6=13", "19", ["19"]),
-  eqChoice("lin-i2", "Which is the solution to 3x + 2 = 14?", "C",
-    ["$x=6$", "$x=12$", "$x=4$", "$x=2$"],
-    "Subtract 2: 3x = 12. Divide by 3: x = 4.",
-    "3x+2=14"),
-  eqAnswer("lin-i3", "Solve 6x = 42.", "6x=42", "7", ["7"]),
-  eqChoice("lin-i4", "Which is the solution to 4x − 1 = 2x + 9?", "A",
-    ["$x=5$", "$x=4$", "$x=10$", "$x=3$"],
-    "Collect x-terms: 2x. Collect constants: 10. So 2x = 10, x = 5.",
-    "4x-1=2x+9"),
-  eqAnswer("lin-i5", "Solve 2(x + 3) = 16.", "2(x+3)=16", "5", ["5"]),
+  auditedEqAnswer("lin-i1", "Solve $3x-7=-19$.", "3x-7=-19", "-4", 2,
+    "Add 7 to both sides to obtain $3x=-12$, then divide by 3: $x=-4$. The check $3(-4)-7=-19$ is true.",
+    "Undo subtraction before dividing by the coefficient.", ["x=-4"]),
+  auditedEqChoice("lin-i2", "Which equation is equivalent to $3(2x-5)=21$ after one valid balancing step?", "C",
+    ["$6x-5=21$", "$2x-5=18$", "$2x-5=7$", "$6x-15=7$"],
+    2, "Dividing the whole equation by 3 gives $2x-5=7$. Option A fails to distribute 3 to $-5$; B and D change only part of the equation.",
+    "Apply one operation to both complete sides, not to selected terms.", "3(2x-5)=21"),
+  auditedEqAnswer("lin-i3", "Solve $4(x-2)=2x+10$.", "4(x-2)=2x+10", "9", 3,
+    "Expand to get $4x-8=2x+10$. Subtract $2x$ and add 8: $2x=18$, so $x=9$. Both sides equal 28 when checked.",
+    "Expand first, then collect variable terms and constants on opposite sides.", ["x=9"]),
+  auditedEqChoice("lin-i4", "A student changes $5-2(x+3)=3x$ into $5-2x+6=3x$. Which diagnosis is correct?", "B",
+    ["They should multiply 5 by -2", "They distributed -2 incorrectly; the constant term should be -6", "They should change 3x to -3x", "Their expansion is correct"],
+    3, "The factor $-2$ multiplies both terms: $-2(x+3)=-2x-6$. The valid equation is $5-2x-6=3x$, not $5-2x+6=3x$.",
+    "Track the negative factor across every term in the bracket."),
+  auditedEqChoice("lin-i5", "Plan A costs $12+3n$ dollars and Plan B costs $24+2n$ dollars for $n$ sessions. Which option gives the break-even number and the cheaper plan for fewer sessions?", "D",
+    ["6 sessions; Plan B", "10 sessions; Plan A", "12 sessions; Plan B", "12 sessions; Plan A"],
+    3, "Set the costs equal: $12+3n=24+2n$, so $n=12$. At $n=0$, Plan A costs $12$ and Plan B costs $24$, so Plan A is cheaper below break-even.",
+    "Find the intersection, then test a value below it to interpret which plan is cheaper."),
 ];
 
 const solvingLinearMistakes = [
@@ -242,31 +289,107 @@ const solvingLinearMistakes = [
 ];
 
 const solvingLinearMastery: PracticeQuestion[] = [
-  eqAnswer("lin-m1", "Solve x + 14 = 25.", "x+14=25", "11", ["11"]),
-  eqChoice("lin-m2", "Which is the solution to 7x = 56?", "B",
-    ["$x=7$", "$x=8$", "$x=9$", "$x=6$"],
-    "Divide both sides by 7: x = 56 ÷ 7 = 8.",
-    "7x=56"),
-  eqAnswer("lin-m3", "Solve 2x − 3 = 11.", "2x-3=11", "7", ["7"]),
-  eqChoice("lin-m4", "Which is the solution to 6x + 1 = 4x + 13?", "C",
-    ["$x=4$", "$x=7$", "$x=6$", "$x=3$"],
-    "Collect: 2x = 12, x = 6. Check: 6(6) + 1 = 37 and 4(6) + 13 = 37 ✓",
-    "6x+1=4x+13"),
-  eqAnswer("lin-m5", "Solve 4(x − 1) = 2(x + 5).", "4(x-1)=2(x+5)", "7", ["7"]),
-  eqChoice("lin-m6", "Which equation has solution x = 4?", "A",
-    ["$2x+3=11$", "$3x=9$", "$x+7=12$", "$4x-2=10$"],
-    "Check A: 2(4) + 3 = 11 ✓. The others give x = 3, x = 5, x = 3 respectively.",
-    "\\text{Which equation has solution }x=4?"),
-  eqAnswer("lin-m7", "Solve 5x − 7 = 3x + 9.", "5x-7=3x+9", "8", ["8"]),
-  eqChoice("lin-m8", "What is the solution to 4(2x − 1) = 28?", "A",
-    ["$x=4$", "$x=3$", "$x=5$", "$x=3.5$"],
-    "Divide both sides by 4: 2x − 1 = 7. Add 1: 2x = 8. Divide by 2: x = 4.",
-    "4(2x-1)=28"),
-  eqAnswer("lin-m9", "Solve (x + 2)/3 = 5. Multiply both sides by 3 first.", "\\dfrac{x+2}{3}=5", "13", ["13"]),
-  eqChoice("lin-m10", "A student solves 3x + 5 = 20 and gets x = 3. What went wrong?", "A",
-    ["They subtracted 5 correctly to get 3x = 15, then divided by 5 instead of 3.", "They forgot to subtract 5 and divided 20 by 3.", "They made no error — x = 3 is correct.", "They multiplied both sides by 3 instead of dividing."],
-    "3x + 5 = 20 → 3x = 15 → x = 5. Dividing 15 by 5 instead of 3 gives the wrong answer of 3.",
-    "\\text{Identify the error in }3x+5=20\\Rightarrow x=3"),
+  auditedEqAnswer("lin-m1", "Solve $7-3x=25$.", "7-3x=25", "-6", 2,
+    "Subtract 7 to obtain $-3x=18$, then divide by $-3$: $x=-6$. Checking gives $7-3(-6)=25$.",
+    "Isolate the negative x-term before dividing.", ["x=-6"]),
+  auditedEqAnswer("lin-m2", "Three consecutive integers have sum 72. Find the middle integer.", "(x-1)+x+(x+1)=72", "24", 3,
+    "Represent the integers as $x-1,x,x+1$. Their sum is $3x=72$, so $x=24$; the integers $23,24,25$ total 72.",
+    "Represent consecutive integers relative to the middle one.", ["x=24"]),
+  auditedEqAnswer("lin-m3", "Solve $\\dfrac{2x-3}{5}=\\dfrac{x+4}{3}$.", "\\frac{2x-3}{5}=\\frac{x+4}{3}", "29", 3,
+    "Multiply by 15: $3(2x-3)=5(x+4)$. Expanding gives $6x-9=5x+20$, hence $x=29$. Substitution makes both sides 11.",
+    "Clear both denominators with 15 before expanding.", ["x=29"]),
+  auditedEqChoice("lin-m4", "Classify $4(x-2)=4x-8$.", "C",
+    ["One solution: $x=0$", "No solution", "Infinitely many solutions", "One solution: $x=2$"],
+    3, "Expanding the left side gives $4x-8=4x-8$, an identity true for every real $x$. Therefore the equation has infinitely many solutions.",
+    "Simplify both sides completely and see what remains."),
+  auditedEqChoice("lin-m5", "A theatre charges a $90 booking fee plus $14 per ticket. Another charges no fee but $20 per ticket. Which statement is correct?", "B",
+    ["They cost the same at 10 tickets; the first is cheaper above 10", "They cost the same at 15 tickets; the first is cheaper above 15", "They cost the same at 15 tickets; the second is cheaper above 15", "They never cost the same"],
+    4, "Solve $90+14t=20t$: $90=6t$, so $t=15$. Beyond 15 tickets, the smaller per-ticket rate makes the first theatre cheaper.",
+    "Model both total costs, solve their equality, then interpret the rates."),
+  auditedEqAnswer("lin-m6", "Find $k$ so that $3(x-2)+k=2x+7$ has solution $x=5$.", "3(x-2)+k=2x+7,\\quad x=5", "8", 4,
+    "Substitute the required solution: $3(5-2)+k=2(5)+7$. Thus $9+k=17$, so $k=8$. The resulting equation solves back to $x=5$.",
+    "A required solution must make the original left and right sides equal.", ["k=8"]),
+  auditedEqChoice("lin-m7", "A student solves $2(3x-4)=5x+7$ as shown: $6x-4=5x+7$, then $x=11$. What is the first error?", "A",
+    ["The -4 should also be multiplied by 2", "The 5x should be moved without changing sign", "The 7 should be divided by 2 first", "There is no error"],
+    4, "Distribution must reach both bracket terms: $2(3x-4)=6x-8$, not $6x-4$. The correct equation gives $6x-8=5x+7$, so $x=15$.",
+    "Check the earliest line against the distributive law."),
+  auditedEqChoice("lin-m8", "A rectangle has perimeter 70 cm. Its length is 5 cm more than twice its width. Which option gives its dimensions?", "D",
+    ["11 cm by 24 cm", "12 cm by 23 cm", "15 cm by 20 cm", "10 cm by 25 cm"],
+    4, "Let width be $w$ and length $2w+5$. Then $2[w+(2w+5)]=70$, so $6w+10=70$ and $w=10$; the length is 25 cm.",
+    "Translate the perimeter and length conditions into one equation."),
+  auditedEqChoice("lin-m9", "Classify $(a-2)x=3a-6$ for every real value of $a$.", "A",
+    ["If $a\\ne2$, $x=3$; if $a=2$, every real x is a solution", "The only solution is $x=3$ for every a", "If $a\\ne2$, $x=3$; if $a=2$, there is no solution", "If $a\\ne2$, every real x is a solution; if $a=2$, $x=3$"],
+    5, "Factor the right side: $(a-2)x=3(a-2)$. If $a\\ne2$, division gives $x=3$. If $a=2$, the equation becomes $0=0$, so every real x is a solution.",
+    "Do not divide by a-2 until you have handled the case where it is zero."),
+  auditedEqChoice("lin-m10", "The identity $p(x-3)=px+q$ holds for every real $x$, and $p+q=-8$. Find $(p,q)$.", "B",
+    ["$p=0,q=-3$", "$p=4,q=-12$", "$p=4,q=12$", "$p=-4,q=-3$"],
+    5, "The identity gives $q=-3p$. Combining this with $p+q=-8$ gives $p-3p=-8$, so $p=4$ and then $q=-12$.",
+    "Use the identity to create one parameter relation, then combine it with the second condition."),
+];
+
+const solvingLinearMultiPart: PracticeQuestion[] = [
+  {
+    id: "lin-mp-d6-1",
+    prompt:
+      "A 240-seat school concert sells standard tickets for $18 and concession tickets for $12. Exactly 60 concession tickets are sold. Fixed costs are $1680, plus $3 per attendee. Let $n$ be the total attendance.",
+    latex: "",
+    answer: "90%",
+    hint:
+      "Express standard-ticket sales as n−60, form profit as revenue minus cost, then use the required profit and capacity.",
+    explanation:
+      "Revenue is $18(n-60)+12(60)=18n-360$ and cost is $1680+3n$, so profit is $P=15n-2040$. Break-even is $n=136$. For at least $1200 profit, $15n-2040\\ge1200$, giving $n\\ge216$. This is within the 240-seat capacity, and $216/240=90\\%$.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Write the profit $P$ as a simplified linear expression in $n$.",
+        latex: "",
+        marks: 3,
+        answer: "15n-2040",
+        acceptedAnswers: ["P=15n-2040", "P = 15n - 2040", "15n − 2040"],
+        hint: "Revenue is standard-ticket revenue plus concession-ticket revenue; subtract both cost components.",
+        explanation:
+          "There are $n-60$ standard tickets. Revenue is $18(n-60)+12(60)=18n-360$. Costs are $1680+3n$, so $P=(18n-360)-(1680+3n)=15n-2040$.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt: "Use your model to find the break-even attendance.",
+        latex: "",
+        marks: 2,
+        answer: "136",
+        acceptedAnswers: ["136 attendees", "n=136", "n = 136"],
+        hint: "Break-even means profit equals zero.",
+        explanation:
+          "Set $P=0$: $15n-2040=0$, so $15n=2040$ and $n=136$ attendees.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt:
+          "The concert must make at least $1200 profit. Find the least whole-number attendance that meets this requirement.",
+        latex: "",
+        marks: 3,
+        answer: "216",
+        acceptedAnswers: ["216 attendees", "n=216", "n = 216"],
+        hint: "Replace break-even by the inequality P≥1200 and interpret the capacity constraint.",
+        explanation:
+          "$15n-2040\\ge1200$ gives $15n\\ge3240$, hence $n\\ge216$. Attendance is whole-numbered and 216 is below the 240-seat capacity, so the least feasible attendance is 216.",
+      },
+      {
+        key: "d",
+        label: "(d)",
+        prompt: "At the attendance from part (c), what percentage of seats are occupied?",
+        latex: "",
+        marks: 2,
+        answer: "90%",
+        acceptedAnswers: ["90", "0.9", "90 percent"],
+        hint: "Divide the attendance from part (c) by 240 and convert to a percentage.",
+        explanation:
+          "The occupied fraction is $216/240=0.9$, so $0.9\\times100\\%=90\\%$ of the seats are occupied.",
+      },
+    ],
+  },
 ];
 
 // ─── Lesson 2: Solving Quadratics by Factorising ─────────────────────────────
@@ -689,6 +812,24 @@ function ineqAnswer(
   };
 }
 
+function auditedIneqAnswer(
+  id: string,
+  prompt: string,
+  latex: string,
+  answer: string,
+  difficulty: 1 | 2 | 3 | 4 | 5,
+  explanation: string,
+  hint: string,
+  acceptedAnswers: string[] = []
+): PracticeQuestion {
+  return {
+    ...ineqAnswer(id, prompt, latex, answer, acceptedAnswers),
+    difficulty,
+    explanation,
+    hint,
+  };
+}
+
 const linearInequalitiesWorkedExamples: WorkedExample[] = [
   {
     title: "Solving a two-step inequality — no sign reversal",
@@ -719,34 +860,42 @@ const linearInequalitiesWorkedExamples: WorkedExample[] = [
 ];
 
 const linearInequalitiesGuided: PracticeQuestion[] = [
-  eqChoice("ineq-g1", "Which is the correct solution to 2x + 3 < 11?", "A",
+  auditedEqChoice("ineq-g1", "Which is the correct solution to $2x+3<11$?", "A",
     ["$x<4$", "$x>4$", "$x\\le4$", "$x<8$"],
-    "Subtract 3: 2x < 8. Divide by 2 (positive — no sign change): x < 4.",
-    "2x+3<11"),
-  eqChoice("ineq-g2", "When solving an inequality, in which situation must the inequality sign be reversed?", "B",
+    1, "Subtract 3 to get $2x<8$, then divide by positive 2, so the direction stays unchanged: $x<4$.",
+    "Positive division preserves the inequality direction.", "2x+3<11"),
+  auditedEqChoice("ineq-g2", "When must the direction of an inequality be reversed?", "B",
     ["When adding a positive number to both sides", "When multiplying or dividing both sides by a negative number", "When subtracting a variable term from both sides", "When the solution is a negative number"],
-    "The inequality sign must be reversed only when multiplying or dividing both sides by a negative number."),
-  ineqAnswer("ineq-g3", "Solve −4x > 20. Write your answer (e.g. x < −5).", "-4x>20", "x < -5", ["x<-5"]),
-  eqChoice("ineq-g4", "Which is the correct solution to 3x − 2 ≥ 7?", "A",
-    ["$x\\ge3$", "$x\\le3$", "$x>3$", "$x\\ge9$"],
-    "Add 2: 3x ≥ 9. Divide by 3 (positive — no sign change): x ≥ 3.",
-    "3x-2\\ge7"),
+    1, "Only multiplication or division by a negative reverses order. Adding or subtracting the same amount preserves the order, even when the result is negative.",
+    "Think about how multiplying two ordered numbers by -1 swaps their positions."),
+  auditedIneqAnswer("ineq-g3", "Solve $-4x>20$.", "-4x>20", "x < -5", 2,
+    "Divide both sides by $-4$. Because the divisor is negative, reverse $>$ to $<$: $x<20/(-4)=-5$.",
+    "Divide by the negative coefficient and reverse the sign.", ["x<-5"]),
+  auditedEqChoice("ineq-g4", "Which description matches $x\\ge3$?", "C",
+    ["Open endpoint at 3, values to the right", "Closed endpoint at 3, values to the left", "Closed endpoint at 3, values to the right", "Open endpoint at -3, values to the right"],
+    2, "The symbol $\\ge$ includes 3, so the endpoint is closed. Greater values lie to the right, giving a closed endpoint at 3 with shading right.",
+    "Separate endpoint inclusion from the direction of the solution set."),
 ];
 
 const linearInequalitiesIndependent: PracticeQuestion[] = [
-  ineqAnswer("ineq-i1", "Solve 2x + 5 ≤ 13. Write your answer.", "2x+5\\le13", "x ≤ 4", ["x≤4", "x<=4"]),
-  eqChoice("ineq-i2", "Which correctly solves −5x < 15?", "C",
+  auditedIneqAnswer("ineq-i1", "Solve $3(x-2)\\le15$.", "3(x-2)\\le15", "x ≤ 7", 2,
+    "Divide by positive 3 to get $x-2\\le5$, then add 2: $x\\le7$. No reversal occurs because the divisor is positive.",
+    "Remove the positive outer factor before isolating x.", ["x≤7", "x<=7"]),
+  auditedEqChoice("ineq-i2", "Which correctly solves $-5x<15$?", "C",
     ["$x<-3$", "$x<3$", "$x>-3$", "$x>3$"],
-    "Divide by −5. Because −5 is negative, the sign reverses from < to >. Result: x > −3.",
-    "-5x<15"),
-  eqChoice("ineq-i3", "Which is the correct solution to 4 − 3x > −2?", "A",
-    ["$x<2$", "$x>2$", "$x<-2$", "$x<-6$"],
-    "Subtract 4: −3x > −6. Divide by −3 (reverse sign): x < 2.",
-    "4-3x>-2"),
-  ineqAnswer("ineq-i4", "Solve 3x + 4 > 13. Write your answer.", "3x+4>13", "x > 3", ["x>3"]),
-  eqChoice("ineq-i5", "Which describes the number-line graph of x < 2?", "A",
-    ["Open circle at 2 with the arrow pointing to the left", "Closed circle at 2 with the arrow pointing to the left", "Open circle at 2 with the arrow pointing to the right", "Closed circle at 0 with the arrow pointing to the right"],
-    "x < 2 excludes the value 2 (open circle) and includes all values less than 2 (arrow pointing left)."),
+    2, "Dividing by $-5$ reverses the sign: $x>15/(-5)=-3$. Option A is the common no-reversal error.",
+    "A negative divisor reverses the order.", "-5x<15"),
+  auditedIneqAnswer("ineq-i3", "Solve $4x-7>2x+9$.", "4x-7>2x+9", "x > 8", 3,
+    "Subtract $2x$ to get $2x-7>9$, then add 7: $2x>16$. Dividing by positive 2 gives $x>8$.",
+    "Collect variable terms first; track whether any negative division occurs.", ["x>8"]),
+  auditedEqChoice("ineq-i4", "A student claims $2-3x\\ge11$ gives $x\\ge-3$. Which check most directly disproves the claim?", "D",
+    ["Substitute $x=-3$; the statement is true", "Substitute $x=0$; the statement is false", "Add 3 to both sides", "Substitute $x=1$; it satisfies $x\\ge-3$ but makes the original inequality false"],
+    3, "The claimed set includes $x=1$, but $2-3(1)=-1$ is not at least 11. Correctly solving gives $-3x\\ge9$, hence $x\\le-3$.",
+    "Test a value admitted by the claimed solution, not just its endpoint."),
+  auditedEqChoice("ineq-i5", "A ride has a minimum height of 140 cm. Sam is 132 cm tall and grows $g$ cm. Which inequality and conclusion are correct?", "B",
+    ["$132+g>140$, so $g>8$", "$132+g\\ge140$, so $g\\ge8$", "$132g\\ge140$, so $g\\ge8/132$", "$132+g\\le140$, so $g\\le8$"],
+    3, "A minimum includes the boundary, so $132+g\\ge140$. Subtracting 132 gives $g\\ge8$ cm.",
+    "Translate 'minimum' with an inclusive inequality before solving."),
 ];
 
 const linearInequalitiesMistakes = [
@@ -757,32 +906,109 @@ const linearInequalitiesMistakes = [
 ];
 
 const linearInequalitiesMastery: PracticeQuestion[] = [
-  eqChoice("ineq-m1", "Which is the correct solution to 3x − 1 < 8?", "A",
-    ["$x<3$", "$x<3.67$", "$x<9$", "$x<7$"],
-    "Add 1: 3x < 9. Divide by 3: x < 3.",
-    "3x-1<8"),
-  ineqAnswer("ineq-m2", "Solve 5x + 2 ≥ 17. Write your answer.", "5x+2\\ge17", "x ≥ 3", ["x≥3", "x>=3"]),
-  eqChoice("ineq-m3", "Which is the correct solution to −2x ≤ 8?", "A",
-    ["$x\\ge-4$", "$x\\le-4$", "$x\\ge4$", "$x\\le4$"],
-    "Divide both sides by −2. Reverse the sign: x ≥ 8/(−2) = −4.",
-    "-2x\\le8"),
-  ineqAnswer("ineq-m4", "Solve 4 − x > 9. Write your answer.", "4-x>9", "x < -5", ["x<-5"]),
-  eqChoice("ineq-m5", "A student solves −3x > 6 and writes x > −2. What went wrong?", "A",
-    ["Dividing by −3 requires reversing the inequality — the correct answer is x < −2", "The answer is correct", "They should subtract 3 first, not divide", "The inequality should become an equation before solving"],
-    "Dividing by a negative number reverses the inequality. −3x > 6 → x < 6/(−3) = −2."),
-  ineqAnswer("ineq-m6", "Solve 2(x + 1) ≤ 12. Write your answer.", "2(x+1)\\le12", "x ≤ 5", ["x≤5", "x<=5"]),
-  eqChoice("ineq-m7", "Which describes the correct number-line graph of x ≥ −1?", "A",
-    ["Closed circle at −1, arrow pointing to the right", "Open circle at −1, arrow pointing to the right", "Closed circle at −1, arrow pointing to the left", "Closed circle at 1, arrow pointing to the right"],
-    "x ≥ −1 includes −1 (closed circle) and all values greater than −1 (arrow pointing right)."),
-  ineqAnswer("ineq-m8", "Solve 5 − 3x < −1. Write your answer.", "5-3x<-1", "x > 2", ["x>2"]),
-  eqChoice("ineq-m9", "Which is the correct solution to 2x − 3 > x + 4?", "A",
-    ["$x>7$", "$x>1$", "$x<7$", "$x<1$"],
-    "Subtract x from both sides: x − 3 > 4. Add 3: x > 7.",
-    "2x-3>x+4"),
-  eqChoice("ineq-m10", "Which inequality has x ≤ 3 as its solution?", "B",
-    ["$2x+1\\ge7$", "$-x-1\\ge-4$", "$3x>9$", "$x+2<3$"],
-    "Option B: −x − 1 ≥ −4 → −x ≥ −3 → x ≤ 3 (reverse sign when dividing by −1) ✓. Option A gives x ≥ 3, C gives x > 3, D gives x < 1.",
-    "\\text{Which has solution }x\\le3?"),
+  auditedIneqAnswer("ineq-m1", "Solve $5-2x<-9$.", "5-2x<-9", "x > 7", 2,
+    "Subtract 5: $-2x<-14$. Divide by $-2$ and reverse the sign to obtain $x>7$.",
+    "Isolate the negative x-term, then reverse on division.", ["x>7"]),
+  auditedEqChoice("ineq-m2", "An integer $n$ satisfies $3n+2<20$. What is the greatest possible value of $n$?", "A",
+    ["5", "6", "17", "18"],
+    3, "Solving gives $3n<18$, so $n<6$. Because $n$ is an integer and 6 is excluded, its greatest possible value is 5.",
+    "Solve the inequality, then apply the integer constraint."),
+  auditedEqChoice("ineq-m3", "A student solves $6-2x\\le14$ by writing $-2x\\le8$, then $x\\le-4$. What is the first incorrect step or conclusion?", "C",
+    ["Subtracting 6", "Obtaining $-2x\\le8$", "Failing to reverse the sign when dividing by -2", "Using an inclusive inequality"],
+    3, "The line $-2x\\le8$ is correct. Dividing by $-2$ must reverse $\\le$ to $\\ge$, giving $x\\ge-4$.",
+    "Locate the first transition that involves a negative divisor."),
+  auditedEqChoice("ineq-m4", "Which inequality has a closed endpoint at $-2$ and includes all values to its left?", "B",
+    ["$x<-2$", "$x\\le-2$", "$x\\ge-2$", "$x>-2$"],
+    3, "A closed endpoint means equality is included, and values to the left are smaller. Therefore the symbolic form is $x\\le-2$.",
+    "Decode endpoint inclusion and direction separately."),
+  auditedEqChoice("ineq-m5", "A club has $420 to spend. Venue hire is $135 and each meal costs $19. What is the greatest whole number of meals it can buy without exceeding the budget?", "B",
+    ["14", "15", "16", "17"],
+    4, "Model $135+19m\\le420$. Then $19m\\le285$, so $m\\le15$. The greatest whole number is 15; 16 meals would cost $439$.",
+    "Use an inclusive budget inequality, then interpret the whole-number result."),
+  auditedEqChoice("ineq-m6", "Plan A costs $18+4n$ and Plan B costs $42+2n$. For which whole-number values of $n$ is Plan A strictly cheaper?", "A",
+    ["$n<12$", "$n\\le12$", "$n>12$", "$n\\ge12$"],
+    4, "Solve $18+4n<42+2n$: $2n<24$, so $n<12$. At $n=12$ the plans are equal, so the endpoint is excluded.",
+    "Translate 'strictly cheaper' with < and preserve the strict endpoint."),
+  auditedEqAnswer("ineq-m7", "Find $k$ so that $x=4$ is the boundary value of $3x+k\\le20$.", "3x+k\\le20,\\quad x=4", "8", 4,
+    "A boundary value makes the corresponding equation true: $3(4)+k=20$. Thus $12+k=20$ and $k=8$; the solution is then $x\\le4$.",
+    "Replace the boundary inequality by equality and substitute the given x-value.", ["k=8"]),
+  auditedIneqAnswer("ineq-m8", "Solve $\\dfrac{3-2x}{5}>\\dfrac{x+1}{2}$.", "\\frac{3-2x}{5}>\\frac{x+1}{2}", "x < 1/9", 4,
+    "Multiply by positive 10, so the sign stays: $2(3-2x)>5(x+1)$. Then $6-4x>5x+5$, so $1>9x$ and $x<1/9$.",
+    "Clear denominators with a positive LCD, expand, and collect x-terms.", ["x<1/9", "x < 0.1111111111"]),
+  auditedEqChoice("ineq-m9", "For which values of $a$ does $ax>6$ have the solution $x<6/a$?", "B",
+    ["$a>0$", "$a<0$", "$a=0$", "All real $a$"],
+    4, "Dividing by $a$ produces $x<6/a$ only when $a<0$, because negative division reverses $>$. For $a>0$ the solution is $x>6/a$; for $a=0$ there is no solution.",
+    "The direction after division depends on the sign of the parameter."),
+  auditedEqChoice("ineq-m10", "Classify the solutions of $(a-1)x<a-1$ for all possible real $a$.", "D",
+    ["Always $x<1$", "$x<1$ if $a>1$, otherwise $x>1$", "$x<1$ if $a>1$, otherwise no solution", "$x<1$ if $a>1$; $x>1$ if $a<1$; no solution if $a=1$"],
+    5, "If $a-1>0$, division keeps the sign and gives $x<1$. If $a-1<0$, it reverses to $x>1$. If $a=1$, the statement is $0<0$, which is false, so there is no solution.",
+    "Split into positive, negative, and zero cases for the coefficient."),
+];
+
+const linearInequalitiesMultiPart: PracticeQuestion[] = [
+  {
+    id: "ineq-mp-d6-1",
+    prompt:
+      "A courier van can carry at most 1200 kg. Fixed equipment weighs 360 kg. Each crate weighs 42 kg and earns $310, while the delivery has a fixed operating cost of $900. Let $n$ be the number of crates.",
+    latex: "",
+    answer: "19",
+    hint:
+      "Build separate capacity and net-proceeds inequalities, combine their integer solutions, then revisit capacity after the percentage mass increase.",
+    explanation:
+      "Capacity gives $360+42n\\le1200$, so $n\\le20$. Net proceeds of at least $3750$ give $310n-900\\ge3750$, so $n\\ge15$. Thus $15\\le n\\le20$. Maximum proceeds occur at $n=20$ and equal $5300$. After a 5% mass increase, each crate is 44.1 kg and capacity gives $n\\le840/44.1\\approx19.05$, so at most 19 whole crates fit.",
+    parts: [
+      {
+        key: "a",
+        label: "(a)",
+        prompt: "Use the mass limit to find the greatest possible whole-number value of $n$.",
+        latex: "",
+        marks: 2,
+        answer: "20",
+        acceptedAnswers: ["20 crates", "n=20", "n = 20"],
+        hint: "Equipment mass plus crate mass cannot exceed 1200 kg.",
+        explanation:
+          "$360+42n\\le1200$ gives $42n\\le840$, so $n\\le20$. Therefore at most 20 whole crates fit.",
+      },
+      {
+        key: "b",
+        label: "(b)",
+        prompt:
+          "The delivery must earn net proceeds of at least $3750$. Combine this with part (a) to state the feasible integer range for $n$.",
+        latex: "",
+        marks: 3,
+        answer: "15≤n≤20",
+        acceptedAnswers: ["15 <= n <= 20", "15≤n≤20, n integer", "15 to 20 crates"],
+        hint: "Net proceeds are 310n−900; solve its inequality and intersect it with the capacity range.",
+        explanation:
+          "$310n-900\\ge3750$ gives $310n\\ge4650$, so $n\\ge15$. Combining this with $n\\le20$ from part (a) gives $15\\le n\\le20$ for integer $n$.",
+      },
+      {
+        key: "c",
+        label: "(c)",
+        prompt: "Find the maximum net proceeds over the feasible range from part (b).",
+        latex: "",
+        marks: 2,
+        answer: "5300",
+        acceptedAnswers: ["$5300", "5300 dollars"],
+        hint: "The proceeds expression increases with n, so use the largest feasible value.",
+        explanation:
+          "Because $310n-900$ increases as $n$ increases, use $n=20$. The maximum net proceeds are $310(20)-900=5300$ dollars.",
+      },
+      {
+        key: "d",
+        label: "(d)",
+        prompt:
+          "A packaging change increases each crate's mass by 5%, while the equipment and van limit stay unchanged. Find the new maximum whole number of crates.",
+        latex: "",
+        marks: 3,
+        answer: "19",
+        acceptedAnswers: ["19 crates", "n=19", "n = 19"],
+        hint: "Increase 42 kg by 5%, then solve the revised capacity inequality and round down.",
+        explanation:
+          "The new crate mass is $42(1.05)=44.1$ kg. Then $360+44.1n\\le1200$, so $n\\le840/44.1\\approx19.05$. The largest whole number that does not exceed this is 19.",
+      },
+    ],
+  },
 ];
 
 // ─── Main override function ───────────────────────────────────────────────────
@@ -824,6 +1050,7 @@ export function year10EquationsSimultaneousLessonOverride(
       independentPractice: solvingLinearIndependent,
       commonMistakes: solvingLinearMistakes,
       masteryQuiz: solvingLinearMastery,
+      multiPartPractice: solvingLinearMultiPart,
       masteryPassMark: 0.8,
     };
   }
@@ -951,6 +1178,7 @@ export function year10EquationsSimultaneousLessonOverride(
       independentPractice: linearInequalitiesIndependent,
       commonMistakes: linearInequalitiesMistakes,
       masteryQuiz: linearInequalitiesMastery,
+      multiPartPractice: linearInequalitiesMultiPart,
       masteryPassMark: 0.8,
     };
   }
