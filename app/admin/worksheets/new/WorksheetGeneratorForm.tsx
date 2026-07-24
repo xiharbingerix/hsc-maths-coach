@@ -268,7 +268,6 @@ export function WorksheetGeneratorForm({
     "catch-up" | "standard" | "push-forward" | "harder" | "challenge" | "even-spread"
   >("standard");
   const [totalQuestions, setTotalQuestions] = useState(10);
-  const [includeMultiPart, setIncludeMultiPart] = useState(false);
   const [teacherGuidedRetry, setTeacherGuidedRetry] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "previewing" | "preview" | "creating" | "success" | "error"
@@ -375,7 +374,6 @@ export function WorksheetGeneratorForm({
           preset,
           totalQuestions,
           studentId: studentId || undefined,
-          includeMultiPart,
           selectedSubtopicSlugs:
             selectedSubtopics.length > 0 ? selectedSubtopics : undefined,
         }),
@@ -417,7 +415,6 @@ export function WorksheetGeneratorForm({
           topicSlug: question.topicSlug,
           subtopicSlug: question.subtopicSlug,
           difficulty: question.difficulty,
-          includeMultiPart,
           excludeQuestionIds: previewQuestions.map((q) => q.id),
         }),
       });
@@ -464,7 +461,6 @@ export function WorksheetGeneratorForm({
           topicSlugs: selectedTopics,
           preset,
           totalQuestions: previewQuestions.length,
-          includeMultiPart,
           teacherGuidedRetry,
           questionIds: previewQuestions.map((q) => q.id),
           assignedStudentId: studentId || undefined,
@@ -930,24 +926,15 @@ export function WorksheetGeneratorForm({
         </fieldset>
       ) : null}
 
-      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm hover:border-slate-300">
-        <input
-          type="checkbox"
-          checked={includeMultiPart}
-          onChange={(event) => setIncludeMultiPart(event.target.checked)}
-          disabled={status === "previewing"}
-          className="mt-1 rounded border-slate-300"
-        />
-        <span>
-          <span className="font-semibold text-slate-800">
-            Include multi-part questions
-          </span>
-          <span className="mt-1 block text-xs leading-5 text-slate-500">
-            Optional for HSC Section II-style practice. Leave off for the
-            existing single-part worksheet mix.
-          </span>
-        </span>
-      </label>
+      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm">
+        <p className="font-semibold text-slate-800">
+          Multi-part questions are included automatically
+        </p>
+        <p className="mt-1 text-xs leading-5 text-slate-500">
+          When suitable multi-part questions exist for the selected units,
+          subtopics, and difficulty, they are included in the worksheet pool.
+        </p>
+      </div>
 
       <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-indigo-200 bg-indigo-50 p-4 text-sm hover:border-indigo-300">
         <input

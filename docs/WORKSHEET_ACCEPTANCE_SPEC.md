@@ -5,8 +5,8 @@ be able to generate a worksheet meeting this spec; the generation test is run **
 each topic is committed.
 
 ## Target worksheet
-- **Mode:** `harder` preset ([lib/worksheetGeneration.ts](../lib/worksheetGeneration.ts)),
-  `includeMultiPart` **on** (the intended hard-worksheet mode).
+- **Mode:** `harder` preset ([lib/worksheetGeneration.ts](../lib/worksheetGeneration.ts)).
+  Multi-part questions are always eligible when they match the selected scope and difficulty.
 - **Length:** 14 questions ≈ **50 minutes**.
 - **Difficulty mix (harder/14):** D3×1, D4×3, D5×4, **D6×6** (scaled preset ratio 1:2:3:4).
 - **Per-item time budget:** D3 ~2 min, D4 ~2.5, D5 ~3.5, D6 ~5. Flag any item >8 min.
@@ -20,7 +20,7 @@ A generated sample passes only if **all** hold:
 4. **Time realism:** total estimated time **45–55 min**.
 5. **Markability:** every selected item auto-markable; no free-text/extraction/filler.
 6. **Eligibility:** every selected item is seeded and eligible under the intended mode
-   (no "authored but unseeded" or default-excluded multipart counted toward D6).
+   (no "authored but unseeded" items counted toward D6).
 7. **Genuine difficulty:** D5/D6 items pass their domain richness gate
    ([HIGH_DIFFICULTY_DOMAIN_PLAYBOOKS.md](./HIGH_DIFFICULTY_DOMAIN_PLAYBOOKS.md)); D6 answers
    are hard to predict before setting up the full chain.
@@ -29,9 +29,9 @@ If a sample fails because the **selector** over-concentrates on one lesson/arche
 (not because questions are missing), fix the generation rule — do not just author more.
 
 ## Multipart policy
-- D6 may be single-answer or multipart; **single-answer preferred** (always eligible).
-- Multipart D6 are only drawn when `includeMultiPart` is on, so they count toward the
-  D6 target **only** for the harder/push-forward-with-multipart mode.
+- D6 may be single-answer or multipart.
+- Multipart D6 are always eligible and may be drawn whenever they match the selected
+  course, unit, subtopic, and difficulty.
 - Every multipart item must have a **non-empty top-level `answer`** (= part (a)'s answer)
   or the seeder silently skips it — see the Phase 0 seeder-bug fix.
 

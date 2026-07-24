@@ -26,8 +26,8 @@ committed or seeded. Remaining: supervisor sign-off on Batch 3 → user-approved
 
 **Supervisor (ChatGPT) quality gates — enforced from Batch 2 onward:**
 (1) Seeder Reality Gate — prove each item reaches the pool (id, difficulty, multipart,
-default-eligibility); don't count excluded multipart toward the D6 target unless the
-50-min worksheet runs `includeMultiPart`. (2) No Hidden Skip Gate — report/fix every
+default-eligibility); multi-part questions are always worksheet-eligible when they
+match the selected scope and difficulty. (2) No Hidden Skip Gate — report/fix every
 seeder skip touching D5/D6 candidates. (3) Independent Solve Gate — re-solve every item,
 report a match table. (4) Difficulty Justification Gate — one-line cognitive-demand per
 item. (5) Replay Variety Gate — ≤2 items per batch sharing the same core structure.
@@ -39,13 +39,9 @@ D4 ~2.5, D5 ~3.5, D6 ~5; scaled `harder` ratio 1:2:3:4 → ~D3:1 D4:3 D5:4 D6:6)
 The admin sets `totalQuestions: 14`, `preset: harder` at generation — there is no
 saved template; the only lever we control by authoring is **pool depth**.
 
-> ⚠️ **NOTE — multi-part D6 require `includeMultiPart` (esp. for `harder`/`push-forward`):**
-> Multi-part questions are **excluded from generated worksheets unless `includeMultiPart`
-> is enabled** at generation time ([lib/worksheetGeneration.ts:217,247](../lib/worksheetGeneration.ts#L217)).
-> Several of our D6 are multi-part. For a `harder` worksheet to include them, the
-> generator's "include multi-part" option **must be toggled on**. With it off, the
-> worksheet silently skips every multi-part item and fills D6 slots from single-answer
-> items only.
+> **Multi-part selection:** Multi-part questions are always included in the eligible
+> worksheet pool when they match the selected scope and difficulty. There is no
+> separate generator toggle.
 
 ## How questions reach the worksheet pool (verified mechanics)
 
@@ -101,7 +97,7 @@ Source: [QUESTION_AUTHORING_STANDARD.md](./QUESTION_AUTHORING_STANDARD.md) +
 - Ensure migration `022_difficulty_d6.sql` is applied (needed for `difficulty = 6`).
 - Run the real seed (no `--dry-run`).
 - Generate a 14-question `harder` worksheet for the Differential Calculus topic
-  **with `includeMultiPart` on**; confirm varied draw + correct auto-marking.
+  and confirm varied draw + correct multi-part auto-marking.
 
 ## Known doc discrepancy (track separately, not a blocker)
 Prose standards say `multiPartPractice` seeds at **D5**
@@ -138,8 +134,7 @@ Doesn't affect this plan. Worth a separate docs fix.
 - `chal-y12a-sp-7` — **single-answer**: open-box optimisation, 12 cm sheet,
   `V = x(12−2x)²` → x = 2 (reject x=6). Synoptic: modelling + product-rule diff + reject root.
 
-Notes: 2 of the 4 D6 are multi-part (sp-4, sp-6) → only appear in worksheets when
-`includeMultiPart` is on; sp-5 and sp-7 are single-answer (always eligible).
+Notes: 2 of the 4 D6 are multi-part (sp-4, sp-6); all four are worksheet-eligible.
 All answers hand-verified.
 
 **Gates (passed):** `tsc --noEmit` clean; `git diff --check` clean; `audit:lessons`
@@ -181,7 +176,7 @@ the pool/challenge (rectangle-perimeter/fencing, open-box, projectile, revenue
   h(x); substitute into V=x²h; maximise (reject negative root). *Original cubic-profit/
   classify item was flagged as closer to D4 (routine stationary-point analysis, and it
   overlapped Batch 1 `sp-4`); replaced with this constrained optimisation, which is also
-  single-answer so it no longer depends on `includeMultiPart`.*
+  single-answer.*
 - `chal-y12a-opt-6` (single) — min area of a right triangle whose hypotenuse passes
   through (2,4) → **16**. Synoptic: intercept-form line + fixed-point constraint +
   rational area + quotient-rule minimise; uncued insight = b=4a/(a−2) substitution.
@@ -206,7 +201,7 @@ the pool/challenge (rectangle-perimeter/fencing, open-box, projectile, revenue
 optimisation difficulty histogram `{1:9,2:17,3:18,4:12,5:16,6:7}`, 79 total.
 opt-pool-31..34 → difficulty 5, single-answer (always eligible). opt-4/5/6/7 →
 difficulty 6, single-answer (always eligible after the opt-5 revision). So **all 4 new
-D6 are default-eligible** — none depend on `includeMultiPart`.
+D6 are default-eligible**.
 
 **Gate 2 — Skips:** the optimisation challenge set is collected twice (pre-existing
 structural quirk, present for opt-1..3 since Batch 1); dedup keeps the first copy, so
@@ -287,6 +282,6 @@ point = 1 (pool-31), perpendicular-tangents = 1 (tn-4). **All ≤2.** Reverse co
 meets-again structure (done — Option A: tangent ∥ y=6x−5, triangle area 27/4). Supervisor
 then considers the **12 D5 + 12 D6 pool signed off** and ready for worksheet-generation testing.
 
-*Default worksheet eligibility:* confirmed 100% (no includeMultiPart dependency).
+*Default worksheet eligibility:* confirmed 100%.
 
 **Other gates:** `tsc` clean; `git diff --check` clean. Nothing committed or seeded.
