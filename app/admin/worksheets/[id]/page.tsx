@@ -30,8 +30,15 @@ type QuestionData = {
   prompt: string;
   latex: string | null;
   choices: Array<{ label: string; text: string }> | null;
+  question_parts: unknown;
   answer: string;
   explanation: string | null;
+};
+
+type QuestionPartData = {
+  key: string;
+  label: string;
+  answer: string;
 };
 
 type WorksheetQuestionRow = {
@@ -52,10 +59,44 @@ type AnswerRow = {
   attempt_id: string;
   question_id: string;
   student_answer: string | null;
+  answer_payload: unknown;
   is_correct: boolean | null;
   time_spent_secs: number | null;
   answered_at: string;
 };
+
+function normaliseQuestionParts(value: unknown): QuestionPartData[] {
+  if (!Array.isArray(value)) return [];
+
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const part = item as Record<string, unknown>;
+    const key = String(part.key ?? "").trim();
+    const answer = String(part.answer ?? "").trim();
+    if (!key || !answer) return [];
+
+    return [
+      {
+        key,
+        label: String(part.label ?? `(${key})`),
+        answer,
+      },
+    ];
+  });
+}
+
+function readSubmittedPartAnswers(value: unknown): Record<string, string> {
+  if (!value || typeof value !== "object") return {};
+  const parts = (value as { parts?: unknown }).parts;
+  if (!parts || typeof parts !== "object" || Array.isArray(parts)) return {};
+
+  return Object.fromEntries(
+    Object.entries(parts as Record<string, unknown>).map(([key, answer]) => [
+      key,
+      String(answer ?? ""),
+    ])
+  );
+}
 
 export default async function WorksheetDetailPage({
   params,
@@ -92,7 +133,9 @@ export default async function WorksheetDetailPage({
   const [wqResult, attemptsResult] = await Promise.all([
     supabaseAdmin
       .from("worksheet_questions")
-      .select("position, questions(id, prompt, latex, choices, answer, explanation)")
+      .select(
+        "position, questions(id, prompt, latex, choices, question_parts, answer, explanation)"
+      )
       .eq("worksheet_id", id)
       .order("position"),
     supabaseAdmin
@@ -112,7 +155,9 @@ export default async function WorksheetDetailPage({
     const attemptIds = attempts.map((a) => a.id);
     const { data: answersData } = await supabaseAdmin
       .from("worksheet_answers")
-      .select("attempt_id, question_id, student_answer, is_correct, time_spent_secs, answered_at")
+      .select(
+        "attempt_id, question_id, student_answer, answer_payload, is_correct, time_spent_secs, answered_at"
+      )
       .in("attempt_id", attemptIds);
 
     if (answersData) {
@@ -243,13 +288,40 @@ export default async function WorksheetDetailPage({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {questions.map((wq) => (
-                    <tr key={wq.questions.id}>
-                      <td className="px-4 py-3 text-center text-slate-400">{wq.position + 1}</td>
-                      <td className="px-5 py-3 text-slate-800">{wq.questions.prompt}</td>
-                      <td className="px-5 py-3 font-mono text-slate-700">{wq.questions.answer}</td>
-                    </tr>
-                  ))}
+                  {questions.map((wq) => {
+                    const parts = normaliseQuestionParts(
+                      wq.questions.question_parts
+                    );
+
+                    return (
+                      <tr key={wq.questions.id}>
+                        <td className="px-4 py-3 text-center text-slate-400">
+                          {wq.position + 1}
+                        </td>
+                        <td className="px-5 py-3 text-slate-800">
+                          {wq.questions.prompt}
+                        </td>
+                        <td className="px-5 py-3 text-slate-700">
+                          {parts.length > 0 ? (
+                            <div className="space-y-1.5">
+                              {parts.map((part) => (
+                                <p key={part.key} className="font-mono">
+                                  <span className="mr-2 font-sans font-semibold text-slate-500">
+                                    {part.label}
+                                  </span>
+                                  {part.answer}
+                                </p>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="font-mono">
+                              {wq.questions.answer || "—"}
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -331,6 +403,16 @@ export default async function WorksheetDetailPage({
                     <tbody className="divide-y divide-slate-50">
                       {questions.map((wq) => {
                         const ans = answers[wq.questions.id];
+                        const questionParts = normaliseQuestionParts(
+                          wq.questions.question_parts
+                        );
+                        const submittedParts = readSubmittedPartAnswers(
+                          ans?.answer_payload
+                        );
+                        const hasStructuredPartAnswers =
+                          questionParts.length > 0 &&
+                          Object.keys(submittedParts).length > 0;
+
                         return (
                           <tr key={wq.questions.id}>
                             <td className="px-4 py-3 text-center text-slate-400">
@@ -339,8 +421,23 @@ export default async function WorksheetDetailPage({
                             <td className="px-5 py-3 text-slate-600">
                               <span className="line-clamp-2">{wq.questions.prompt}</span>
                             </td>
-                            <td className="px-5 py-3 font-mono text-slate-800">
-                              {ans?.student_answer ?? (
+                            <td className="px-5 py-3 text-slate-800">
+                              {hasStructuredPartAnswers ? (
+                                <div className="space-y-1.5">
+                                  {questionParts.map((part) => (
+                                    <p key={part.key} className="font-mono">
+                                      <span className="mr-2 font-sans font-semibold text-slate-500">
+                                        {part.label}
+                                      </span>
+                                      {submittedParts[part.key] || "—"}
+                                    </p>
+                                  ))}
+                                </div>
+                              ) : ans?.student_answer ? (
+                                <span className="font-mono">
+                                  {ans.student_answer}
+                                </span>
+                              ) : (
                                 <span className="text-slate-300">—</span>
                               )}
                             </td>
