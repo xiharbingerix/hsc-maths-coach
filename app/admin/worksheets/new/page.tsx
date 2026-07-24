@@ -1,44 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "../../../../lib/adminSession";
-import { newCoursePathways } from "../../../../lib/newCourseCatalog";
 import { supabaseAdmin } from "../../../../lib/supabaseAdmin";
+import {
+  buildWorksheetCourseMeta,
+  type WorksheetCourseTopicEntry,
+  type WorksheetCourseTopicSubtopicEntry,
+  type WorksheetQuestionMetaRow,
+} from "../../../../lib/worksheetCourseMeta";
 import { WorksheetGeneratorForm } from "./WorksheetGeneratorForm";
 
 export const metadata: Metadata = {
   title: "New Worksheet | Nova Maths Admin",
 };
 
-type CourseTopicEntry = {
-  courseSlug: string;
-  courseTitle: string;
-  topicSlug: string;
-  topicTitle: string;
-};
-
-export type CourseTopicSubtopicEntry = {
-  courseSlug: string;
-  courseTitle: string;
-  topicSlug: string;
-  topicTitle: string;
-  subtopicSlug: string;
-  subtopicTitle: string;
-};
-
-type QuestionMetaRow = {
-  course_slug: string;
-  topic_slug: string;
-  subtopic_slug: string;
-};
-
 async function loadCourseMeta(): Promise<{
-  courseTopics: CourseTopicEntry[];
-  courseTopicSubtopics: CourseTopicSubtopicEntry[];
+  courseTopics: WorksheetCourseTopicEntry[];
+  courseTopicSubtopics: WorksheetCourseTopicSubtopicEntry[];
 }> {
-  const courseMap = new Map<string, (typeof newCoursePathways)[number]>(
-    newCoursePathways.map((pathway) => [pathway.slug, pathway])
-  );
-  const rows: QuestionMetaRow[] = [];
+  const rows: WorksheetQuestionMetaRow[] = [];
   const batchSize = 1000;
   let from = 0;
 
@@ -53,47 +33,12 @@ async function loadCourseMeta(): Promise<{
       .range(from, from + batchSize - 1);
 
     if (error) throw error;
-    rows.push(...((data ?? []) as QuestionMetaRow[]));
+    rows.push(...((data ?? []) as WorksheetQuestionMetaRow[]));
     if (!data || data.length < batchSize) break;
     from += batchSize;
   }
 
-  const seenTopics = new Set<string>();
-  const seenSubtopics = new Set<string>();
-  const courseTopics: CourseTopicEntry[] = [];
-  const courseTopicSubtopics: CourseTopicSubtopicEntry[] = [];
-
-  for (const row of rows) {
-    const course = courseMap.get(row.course_slug);
-    const topic = course?.units.find((unit) => unit.slug === row.topic_slug);
-    const subtopic = topic?.lessons.find((lesson) => lesson.slug === row.subtopic_slug);
-    const topicKey = `${row.course_slug}::${row.topic_slug}`;
-    if (!seenTopics.has(topicKey)) {
-      seenTopics.add(topicKey);
-      courseTopics.push({
-        courseSlug: row.course_slug,
-        courseTitle: course?.title ?? row.course_slug,
-        topicSlug: row.topic_slug,
-        topicTitle: topic?.title ?? row.topic_slug,
-      });
-    }
-    if (row.subtopic_slug) {
-      const subtopicKey = `${row.course_slug}::${row.topic_slug}::${row.subtopic_slug}`;
-      if (!seenSubtopics.has(subtopicKey)) {
-        seenSubtopics.add(subtopicKey);
-        courseTopicSubtopics.push({
-          courseSlug: row.course_slug,
-          courseTitle: course?.title ?? row.course_slug,
-          topicSlug: row.topic_slug,
-          topicTitle: topic?.title ?? row.topic_slug,
-          subtopicSlug: row.subtopic_slug,
-          subtopicTitle: subtopic?.title ?? row.subtopic_slug,
-        });
-      }
-    }
-  }
-
-  return { courseTopics, courseTopicSubtopics };
+  return buildWorksheetCourseMeta(rows);
 }
 
 export default async function NewWorksheetPage({
@@ -128,8 +73,8 @@ export default async function NewWorksheetPage({
 
   // Load distinct (course, topic, subtopic) tuples from active questions.
   // Returns empty lists if the questions table is empty or migration not applied.
-  let courseTopics: CourseTopicEntry[] = [];
-  let courseTopicSubtopics: CourseTopicSubtopicEntry[] = [];
+  let courseTopics: WorksheetCourseTopicEntry[] = [];
+  let courseTopicSubtopics: WorksheetCourseTopicSubtopicEntry[] = [];
 
   try {
     ({ courseTopics, courseTopicSubtopics } = await loadCourseMeta());
@@ -151,7 +96,8 @@ export default async function NewWorksheetPage({
               New Worksheet
             </h1>
             <p className="mt-1.5 text-sm text-slate-600">
-              Select a course, topics, and difficulty to generate a student link.
+              Select a course, units, subtopics, and difficulty to generate a
+              student link.
             </p>
           </div>
           <Link
@@ -197,7 +143,7 @@ export default async function NewWorksheetPage({
             {initialCourseSlug && (
               <div className="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-sm text-indigo-800">
                 Pre-filled from lesson plan
-                {initialTopicSlug ? ` — topic preselected where available` : ""}.
+                {initialTopicSlug ? ` — unit preselected where available` : ""}.
                 Adjust selections as needed.
               </div>
             )}
