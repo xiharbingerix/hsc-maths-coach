@@ -44,6 +44,14 @@ test("\\neq matches !=", () => assert.equal(mark("x\\neq0", "x!=0"), true));
 test("exact match", () => assert.equal(mark("42", "42"), true));
 test("acceptedAnswers match", () => assert.equal(mark("1/2", "0.5", ["1/2"]), true));
 test("normalised numeric match", () => assert.equal(mark("0.5 ", "0.5"), true));
+test("MathLive escaped currency with a thousands separator matches a bare number", () =>
+  assert.equal(mark("\\$2,140", "2140"), true));
+test("plain currency with a thousands separator matches a bare number", () =>
+  assert.equal(mark("$2,140", "2140"), true));
+test("bare number matches a stored MathLive escaped currency answer", () =>
+  assert.equal(mark("2140", "\\$2,140"), true));
+test("escaped currency does not make a wrong amount correct", () =>
+  assert.equal(mark("\\$2,141", "2140"), false));
 test("coordinate match", () => assert.equal(mark("(3, -1)", "(3, -1)"), true));
 test("solution set — order independent", () => assert.equal(mark("x = -4 or x = 1", "x = 1 or x = -4"), true));
 test("pi normalisation", () => assert.equal(mark("π", "pi"), true));

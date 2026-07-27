@@ -212,7 +212,9 @@ function parseScalar(value: string): ScalarAnswer | null {
   }
 
   working = working
-    .replace(/^\$\s*/, "")
+    // MathLive serialises a typed currency sign as the LaTeX escape `\$`.
+    // Accept that form as well as a plain leading dollar sign.
+    .replace(/^\\?\$\s*/, "")
     .replace(/\s*(?:dollars?|aud)\s*$/i, "")
     .replace(/\s*(?:degrees?|deg|°)\s*$/i, "")
     .replace(/\s*(?:hours?|hrs?|minutes?|mins?|seconds?|secs?)\s*$/i, "")
