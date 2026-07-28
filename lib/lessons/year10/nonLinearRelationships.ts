@@ -65,6 +65,28 @@ function choice(
   };
 }
 
+function graphChoice(
+  id: string,
+  prompt: string,
+  expected: "A" | "B" | "C" | "D",
+  graphs: [CartesianGraph, CartesianGraph, CartesianGraph, CartesianGraph],
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: "",
+      cartesianGraph: graphs[index],
+    })),
+    answer: expected,
+    hint: "Compare the opening direction, vertex and intercepts shown in each graph.",
+    explanation,
+  };
+}
+
 const standardDomain = { xMin: -5, xMax: 5, yMin: -5, yMax: 7 };
 const circleDomain = { xMin: -8, xMax: 8, yMin: -6, yMax: 6 };
 
@@ -106,7 +128,7 @@ const parabolaWorked: WorkedExample[] = [
     questionLatex: "\\text{Describe the key features of }y=x^2.",
     cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared with vertex at the origin.", [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y = x^2" }], [{ x: 0, y: 0, label: "(0, 0)" }]),
     steps: [
-      { explanation: "The lowest point is the vertex.", latex: "\\text{vertex}=(0,0)" },
+      { explanation: "The lowest point is where the curve changes direction, so it is the vertex.", latex: "\\text{vertex}=(0,0)" },
       { explanation: "The left and right sides mirror across the y-axis.", latex: "\\text{axis of symmetry: }x=0" },
     ],
     finalAnswerLatex: "\\text{vertex }(0,0),\\quad \\text{axis of symmetry }x=0",
@@ -122,37 +144,54 @@ const parabolaWorked: WorkedExample[] = [
     title: "Recognise a vertical shift",
     questionLatex: "\\text{Describe the vertex of }y=x^2+2.",
     cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared plus two with vertex at zero comma two.", [{ kind: "quadratic", a: 1, b: 0, c: 2, label: "y = x^2 + 2" }], [{ x: 0, y: 2, label: "(0, 2)" }]),
-    steps: [{ explanation: "Adding 2 moves every y-value up by 2.", latex: "(0,0)\\rightarrow(0,2)" }],
+    steps: [{ explanation: "Adding 2 to the rule moves every y-value upward by 2, including the vertex.", latex: "(0,0)\\rightarrow(0,2)" }],
     finalAnswerLatex: "\\text{vertex }(0,2)",
   },
 ];
 
 const parabolaGuided: PracticeQuestion[] = [
   { ...choice("y10-nonlinear-intro-g1", "Which direction does the displayed parabola open?", "A", ["Upward", "Downward", "Left", "Right"], "The arms rise on both sides of the vertex."), cartesianGraph: parabolaGraph("Coordinate graph of y equals two x squared.", [{ kind: "quadratic", a: 2, b: 0, c: 0 }]) },
-  answer("y10-nonlinear-intro-g2", "State the y-intercept.", "y=x^2+4", "4", "At x = 0, the graph has y-value 4.", ["(0,4)", "0,4", "(0, 4)"]),
+  answer("y10-nonlinear-intro-g2", "State the y-intercept.", "y=x^2+4", "4", "Substituting x = 0 removes the squared term and gives y = 4, so the graph crosses the y-axis at (0, 4).", ["(0,4)", "0,4", "(0, 4)"]),
   choice("y10-nonlinear-intro-g3", "Which equation has a parabola opening downward?", "C", ["$y=x^2$", "$y=2x^2+1$", "$y=-x^2+3$", "$y=x+3$"], "A negative coefficient of x squared gives a downward-opening parabola."),
-  { ...answer("y10-nonlinear-intro-g4", "State the vertex of the displayed parabola.", "", "(0,2)", "The turning point is at zero comma two.", ["0,2", "(0, 2)", "0, 2"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared plus two.", [{ kind: "quadratic", a: 1, b: 0, c: 2 }], [{ x: 0, y: 2 }]) },
+  { ...answer("y10-nonlinear-intro-g4", "Read the turning point of the displayed vertically shifted basic parabola.", "", "(0,2)", "The lowest point shown is the turning point at (0, 2), so this point is the vertex.", ["0,2", "(0, 2)", "0, 2"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared plus two.", [{ kind: "quadratic", a: 1, b: 0, c: 2 }], [{ x: 0, y: 2 }]) },
 ];
 
 const parabolaIndependent: PracticeQuestion[] = [
-  answer("y10-nonlinear-intro-i1", "State the y-intercept.", "y=-x^2+5", "5", "Set x to zero.", ["(0,5)", "0,5", "(0, 5)"]),
+  answer("y10-nonlinear-intro-i1", "State the y-intercept.", "y=-x^2+5", "5", "Setting x = 0 gives y = 5, so the parabola crosses the y-axis at the point (0, 5).", ["(0,5)", "0,5", "(0, 5)"]),
   choice("y10-nonlinear-intro-i2", "Which equation is a quadratic relationship?", "B", ["$y=3x+1$", "$y=2x^2-1$", "$y=4/x$", "$y=2^x$"], "A quadratic relationship contains an x-squared term."),
-  choice("y10-nonlinear-intro-i3", "How does the graph change from y = x squared to y = 2x squared?", "D", ["It moves right", "It opens downward", "It becomes a line", "It becomes narrower"], "Doubling the positive coefficient makes y-values grow faster away from the vertex."),
-  { ...choice("y10-nonlinear-intro-i4", "Which equation matches the displayed graph?", "C", ["$y=x^2$", "$y=x^2-2$", "$y=-x^2+2$", "$y=-x^2$"], "The graph opens downward and has vertex zero comma two."), cartesianGraph: parabolaGraph("Coordinate graph of a downward-opening parabola with vertex zero comma two.", [{ kind: "quadratic", a: -1, b: 0, c: 2 }], [{ x: 0, y: 2 }]) },
+  {
+    ...choice("y10-nonlinear-intro-i3", "The displayed curves compare y = x squared and y = 2x squared. How does multiplying by 2 change the parabola?", "D", ["It moves right", "It opens downward", "It becomes a line", "It becomes narrower"], "Both graphs share the origin, but y = 2x squared rises faster on each side and is therefore narrower."),
+    cartesianGraph: parabolaGraph("Coordinate graph comparing y equals x squared with the narrower y equals two x squared; both share the vertex at the origin.", [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y = x²" }, { kind: "quadratic", a: 2, b: 0, c: 0, label: "y = 2x²" }], [{ x: 0, y: 0, label: "shared vertex" }], { xMin: -3, xMax: 3, yMin: -1, yMax: 10 }),
+  },
+  { ...choice("y10-nonlinear-intro-i4", "Use the opening direction and vertex to identify the equation of the displayed graph.", "C", ["$y=x^2$", "$y=x^2-2$", "$y=-x^2+2$", "$y=-x^2$"], "The graph opens downward and has vertex zero comma two."), cartesianGraph: parabolaGraph("Coordinate graph of a downward-opening parabola with vertex zero comma two.", [{ kind: "quadratic", a: -1, b: 0, c: 2 }], [{ x: 0, y: 2 }]) },
   answer("y10-nonlinear-intro-i5", "State the axis of symmetry.", "y=x^2-3", "x=0", "This basic parabola is symmetric about the y-axis.", ["0"]),
 ];
 
 const parabolaMastery: PracticeQuestion[] = [
-  choice("y10-nonlinear-intro-m1", "Which graph family contains y = x squared?", "B", ["Linear", "Quadratic", "Circular", "Reciprocal"], "A graph with an x-squared term is quadratic."),
-  answer("y10-nonlinear-intro-m2", "State the vertex.", "y=x^2", "(0,0)", "The basic parabola turns at the origin.", ["0,0", "(0, 0)", "0, 0"]),
-  choice("y10-nonlinear-intro-m3", "Which parabola opens downward?", "D", ["$y=x^2+4$", "$y=3x^2$", "$y=\\frac12x^2$", "$y=-2x^2+1$"], "Its x-squared coefficient is negative."),
-  answer("y10-nonlinear-intro-m4", "State the y-intercept.", "y=x^2-6", "-6", "Set x to zero.", ["(0,-6)", "0,-6", "(0, -6)"]),
-  choice("y10-nonlinear-intro-m5", "Which statement describes y = 3x squared compared with y = x squared?", "A", ["It is narrower", "It shifts left", "It shifts down", "It opens downward"], "The larger positive coefficient makes the arms steeper."),
+  graphChoice(
+    "y10-nonlinear-intro-m1",
+    "Which displayed graph could represent y = -2x squared + 1?",
+    "C",
+    [
+      parabolaGraph("Upward-opening parabola with vertex at zero comma one.", [{ kind: "quadratic", a: 2, b: 0, c: 1 }], [{ x: 0, y: 1 }], { xMin: -3, xMax: 3, yMin: -7, yMax: 7 }),
+      parabolaGraph("Downward-opening parabola with vertex at zero comma negative one.", [{ kind: "quadratic", a: -2, b: 0, c: -1 }], [{ x: 0, y: -1 }], { xMin: -3, xMax: 3, yMin: -9, yMax: 5 }),
+      parabolaGraph("Downward-opening parabola with vertex at zero comma one.", [{ kind: "quadratic", a: -2, b: 0, c: 1 }], [{ x: 0, y: 1 }], { xMin: -3, xMax: 3, yMin: -9, yMax: 5 }),
+      parabolaGraph("Upward-opening parabola with vertex at zero comma negative one.", [{ kind: "quadratic", a: 2, b: 0, c: -1 }], [{ x: 0, y: -1 }], { xMin: -3, xMax: 3, yMin: -3, yMax: 9 }),
+    ],
+    "The negative leading coefficient makes the graph open downward, while the constant 1 places its vertex and y-intercept at (0, 1)."
+  ),
+  answer("y10-nonlinear-intro-m2", "A parabola is symmetric about the y-axis and contains the point (2, 8). State the y-value when x = -2.", "", "8", "Reflection across the y-axis pairs x = 2 and x = -2 at the same height."),
+  choice("y10-nonlinear-intro-m3", "A parabola is symmetric about x = 0 and contains (2, 8). Which point must also lie on it?", "D", ["$(2,-8)$", "$(-8,2)$", "$(8,-2)$", "$(-2,8)$"], "Reflection across x = 0 changes the sign of x but preserves the y-coordinate."),
+  answer("y10-nonlinear-intro-m4", "State the y-intercept.", "y=x^2-6", "-6", "Setting x = 0 gives y = -6, so the parabola crosses the y-axis at (0, -6).", ["(0,-6)", "0,-6", "(0, -6)"]),
+  {
+    ...choice("y10-nonlinear-intro-m5", "The displayed curves compare y = x squared and y = 3x squared. Which statement describes y = 3x squared?", "A", ["It is narrower", "It shifts left", "It shifts down", "It opens downward"], "The larger positive coefficient makes the arms rise more steeply from the shared vertex, producing the narrower graph."),
+    cartesianGraph: parabolaGraph("Coordinate graph comparing y equals x squared and the narrower y equals three x squared, both opening upward from the origin.", [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y = x²" }, { kind: "quadratic", a: 3, b: 0, c: 0, label: "y = 3x²" }], [{ x: 0, y: 0, label: "shared vertex" }], { xMin: -3, xMax: 3, yMin: -1, yMax: 12 }),
+  },
   answer("y10-nonlinear-intro-m6", "State the vertex.", "y=-x^2+4", "(0,4)", "The turning point is at zero comma four.", ["0,4", "(0, 4)", "0, 4"]),
   choice("y10-nonlinear-intro-m7", "Which equation has vertex (0, -3) and opens upward?", "C", ["$y=-x^2-3$", "$y=x^2+3$", "$y=x^2-3$", "$y=3x^2$"], "Subtracting 3 shifts the upward-opening basic parabola down."),
   choice("y10-nonlinear-intro-m8", "A parabola has vertex (0, 2), opens downward and passes through (1, 1). Which equation matches it?", "B", ["$y=x^2+2$", "$y=-x^2+2$", "$y=-2x^2+2$", "$y=x^2-2$"], "The downward-opening rule with vertex two gives y = 1 when x = 1."),
-  answer("y10-nonlinear-intro-m9", "A parabola follows y = ax squared and passes through (2, 8). Find a.", "y=ax^2,\\quad (2,8)", "2", "Substitute the point: 8 = 4a."),
-  choice("y10-nonlinear-intro-m10", "Which statement must be true for y = ax squared + c when a is negative?", "D", ["The vertex is always the origin", "The y-intercept is always negative", "The graph has no axis of symmetry", "The graph opens downward"], "The sign of a controls the opening direction."),
+  answer("y10-nonlinear-intro-m9", "A parabola follows y = ax squared and passes through (2, 8). Find a.", "y=ax^2,\\quad (2,8)", "2", "Substituting (2, 8) gives 8 = a times 2 squared = 4a, so dividing by 4 gives a = 2."),
+  answer("y10-nonlinear-intro-m10", "A parabola y = ax squared + c has vertex (0, 5) and passes through (2, -7). Find a.", "y=ax^2+c", "-3", "The vertex gives c = 5. Substituting (2, -7) gives -7 = 4a + 5, so a = -3.", ["a=-3", "a = -3", "−3"]),
 ];
 
 const sketchWorked: WorkedExample[] = [
@@ -161,7 +200,7 @@ const sketchWorked: WorkedExample[] = [
     questionLatex: "\\text{Sketch }y=x^2-4.",
     cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared minus four crossing the x-axis at negative two and two.", [{ kind: "quadratic", a: 1, b: 0, c: -4, label: "y = x^2 - 4" }], [{ x: -2, y: 0, label: "(-2, 0)" }, { x: 2, y: 0, label: "(2, 0)" }, { x: 0, y: -4, label: "(0, -4)" }], { xMin: -4, xMax: 4, yMin: -5, yMax: 6 }),
     steps: [
-      { explanation: "Set y to zero and factorise.", latex: "0=x^2-4=(x-2)(x+2)" },
+      { explanation: "Set y equal to zero, then factorise the difference of two squares.", latex: "0=x^2-4=(x-2)(x+2)" },
       { explanation: "The x-intercepts are symmetric around the y-axis.", latex: "x=-2,\\quad x=2" },
     ],
     finalAnswerLatex: "\\text{x-intercepts }(-2,0)\\text{ and }(2,0)",
@@ -177,38 +216,87 @@ const sketchWorked: WorkedExample[] = [
     title: "Factorise to locate x-intercepts",
     questionLatex: "\\text{Find the x-intercepts of }y=x^2-2x-3.",
     cartesianGraph: parabolaGraph("Coordinate graph of y equals x squared minus two x minus three crossing at negative one and three.", [{ kind: "quadratic", a: 1, b: -2, c: -3, label: "y = x^2 - 2x - 3" }], [{ x: -1, y: 0, label: "(-1, 0)" }, { x: 3, y: 0, label: "(3, 0)" }], { xMin: -3, xMax: 5, yMin: -5, yMax: 7 }),
-    steps: [{ explanation: "Set y to zero and factorise.", latex: "0=x^2-2x-3=(x-3)(x+1)" }],
+    steps: [{ explanation: "Set y equal to zero and factorise to expose the two x-intercepts.", latex: "0=x^2-2x-3=(x-3)(x+1)" }],
     finalAnswerLatex: "x=-1,\\quad x=3",
   },
 ];
 
 const sketchGuided: PracticeQuestion[] = [
-  answer("y10-nonlinear-sketch-g1", "Find the y-intercept.", "y=x^2-4", "-4", "Set x to zero.", ["(0,-4)", "0,-4", "(0, -4)"]),
+  answer("y10-nonlinear-sketch-g1", "Find the y-intercept.", "y=x^2-4", "-4", "Setting x = 0 gives y = -4, so the graph crosses the y-axis at (0, -4).", ["(0,-4)", "0,-4", "(0, -4)"]),
   choice("y10-nonlinear-sketch-g2", "Which pair gives the x-intercepts?", "A", ["$(-3,0)$ and $(3,0)$", "$(0,-3)$ and $(0,3)$", "$(-9,0)$ and $(9,0)$", "There are no x-intercepts"], "Factor x squared minus nine as a difference of squares.", "y=x^2-9"),
-  { ...answer("y10-nonlinear-sketch-g3", "State the vertex of the displayed parabola.", "", "(2,0)", "The graph turns at two comma zero.", ["2,0", "(2, 0)", "2, 0"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals open bracket x minus two close bracket squared.", [{ kind: "quadratic", a: 1, b: -4, c: 4 }], [{ x: 2, y: 0 }], { xMin: -1, xMax: 5, yMin: -1, yMax: 6 }) },
-  answer("y10-nonlinear-sketch-g4", "Find the x-intercepts.", "y=(x-1)(x+4)", "x=1,-4", "Each factor can equal zero.", ["1,-4", "-4,1", "x=-4,1", "x=-4,x=1"]),
+  { ...answer("y10-nonlinear-sketch-g3", "Use the plotted curve to state the vertex of y = (x - 2) squared.", "", "(2,0)", "The curve reaches its minimum and changes direction at (2, 0), so that point is the vertex.", ["2,0", "(2, 0)", "2, 0"]), cartesianGraph: parabolaGraph("Coordinate graph of y equals open bracket x minus two close bracket squared.", [{ kind: "quadratic", a: 1, b: -4, c: 4 }], [{ x: 2, y: 0 }], { xMin: -1, xMax: 5, yMin: -1, yMax: 6 }) },
+  answer("y10-nonlinear-sketch-g4", "Find the x-intercepts.", "y=(x-1)(x+4)", "x=1,-4", "The product is zero when x - 1 = 0 or x + 4 = 0, giving x-intercepts 1 and -4.", ["1,-4", "-4,1", "x=-4,1", "x=-4,x=1"]),
 ];
 
 const sketchIndependent: PracticeQuestion[] = [
-  answer("y10-nonlinear-sketch-i1", "Find the x-intercepts.", "y=x^2-16", "x=-4,4", "Use the difference of squares.", ["-4,4", "x=-4,x=4", "x=4,-4"]),
-  choice("y10-nonlinear-sketch-i2", "Which table row is correct for y = x squared - 1 when x is -1, 0, 1?", "B", ["$1,0,1$", "$0,-1,0$", "$-2,-1,0$", "$2,1,2$"], "Substituting gives zero, negative one, zero."),
-  { ...choice("y10-nonlinear-sketch-i3", "Which equation matches the displayed graph?", "D", ["$y=x^2+4$", "$y=-x^2+4$", "$y=(x+2)^2$", "$y=x^2-4$"], "The parabola opens upward and crosses at negative two and two."), cartesianGraph: parabolaGraph("Coordinate graph of an upward-opening parabola with x-intercepts negative two and two.", [{ kind: "quadratic", a: 1, b: 0, c: -4 }], [{ x: -2, y: 0 }, { x: 2, y: 0 }], { xMin: -4, xMax: 4, yMin: -5, yMax: 6 }) },
-  answer("y10-nonlinear-sketch-i4", "Find the y-intercept.", "y=x^2+3x-4", "-4", "Set x to zero.", ["(0,-4)", "0,-4", "(0, -4)"]),
-  choice("y10-nonlinear-sketch-i5", "Why is a table with x-values on both sides of the vertex useful?", "C", ["It changes the equation", "It removes the y-intercept", "It shows the symmetry of the parabola", "It makes every y-value negative"], "Points on both sides reveal the mirrored shape."),
+  answer("y10-nonlinear-sketch-i1", "Find the x-intercepts.", "y=x^2-16", "x=-4,4", "Factorising the difference of squares gives (x - 4)(x + 4), so the roots are -4 and 4.", ["-4,4", "x=-4,x=4", "x=4,-4"]),
+  {
+    ...choice("y10-nonlinear-sketch-i2", "Which displayed table correctly gives y = x squared - 1 for x = -1, 0, 1?", "B", ["", "", "", ""], "Substitution gives y-values 0, -1 and 0, which also show symmetry about x = 0."),
+    choices: [
+      { label: "A", text: "", dataTableDiagram: { description: "Candidate value table with y-values one, zero and one.", columnHeaders: ["x", "-1", "0", "1"], values: [["y", 1, 0, 1]] } },
+      { label: "B", text: "", dataTableDiagram: { description: "Candidate value table with y-values zero, negative one and zero.", columnHeaders: ["x", "-1", "0", "1"], values: [["y", 0, -1, 0]] } },
+      { label: "C", text: "", dataTableDiagram: { description: "Candidate value table with y-values negative two, negative one and zero.", columnHeaders: ["x", "-1", "0", "1"], values: [["y", -2, -1, 0]] } },
+      { label: "D", text: "", dataTableDiagram: { description: "Candidate value table with y-values two, one and two.", columnHeaders: ["x", "-1", "0", "1"], values: [["y", 2, 1, 2]] } },
+    ],
+  },
+  { ...choice("y10-nonlinear-sketch-i3", "Use the two x-intercepts and opening direction to identify the displayed parabola's equation.", "D", ["$y=x^2+4$", "$y=-x^2+4$", "$y=(x+2)^2$", "$y=x^2-4$"], "The parabola opens upward and crosses at negative two and two."), cartesianGraph: parabolaGraph("Coordinate graph of an upward-opening parabola with x-intercepts negative two and two.", [{ kind: "quadratic", a: 1, b: 0, c: -4 }], [{ x: -2, y: 0 }, { x: 2, y: 0 }], { xMin: -4, xMax: 4, yMin: -5, yMax: 6 }) },
+  answer("y10-nonlinear-sketch-i4", "Find the y-intercept.", "y=x^2+3x-4", "-4", "Substituting x = 0 removes both variable terms and leaves y = -4, so the intercept is (0, -4).", ["(0,-4)", "0,-4", "(0, -4)"]),
+  {
+    ...choice("y10-nonlinear-sketch-i5", "The displayed value table uses x-values on both sides of the vertex. Why is this useful when sketching?", "C", ["It changes the equation", "It removes the y-intercept", "It shows the symmetry of the parabola", "It makes every y-value negative"], "The equal y-values at x-values equally spaced from 2 reveal the parabola's mirrored shape about x = 2."),
+    dataTableDiagram: {
+      description: "Value table for y equals x minus two squared, showing symmetric y-values around the vertex x equals two.",
+      columnHeaders: ["x", "0", "1", "2", "3", "4"],
+      values: [["y", 4, 1, 0, 1, 4]],
+    },
+  },
 ];
 
 const sketchMastery: PracticeQuestion[] = [
-  answer("y10-nonlinear-sketch-m1", "Find the y-intercept.", "y=x^2+2x-3", "-3", "Set x to zero.", ["(0,-3)", "0,-3"]),
-  answer("y10-nonlinear-sketch-m2", "Find the x-intercepts.", "y=x^2-25", "x=-5,5", "Use the difference of squares.", ["-5,5", "x=-5,x=5", "x=5,-5"]),
+  answer("y10-nonlinear-sketch-m1", "Find the y-intercept.", "y=x^2+2x-3", "-3", "Setting x = 0 leaves y = -3, so the parabola crosses the y-axis at (0, -3).", ["(0,-3)", "0,-3"]),
+  answer("y10-nonlinear-sketch-m2", "Find the x-intercepts.", "y=x^2-25", "x=-5,5", "Factorising as (x - 5)(x + 5) gives roots x = -5 and x = 5, the two x-intercepts.", ["-5,5", "x=-5,x=5", "x=5,-5"]),
   choice("y10-nonlinear-sketch-m3", "Which equation has x-intercepts -2 and 4?", "C", ["$y=(x-2)(x+4)$", "$y=(x+2)(x+4)$", "$y=(x+2)(x-4)$", "$y=(x-2)(x-4)$"], "The factors are x plus two and x minus four."),
-  answer("y10-nonlinear-sketch-m4", "Find the y-value when x = 2.", "y=x^2-3x+1", "-1", "Substitute two."),
+  answer("y10-nonlinear-sketch-m4", "Find the y-value when x = 2.", "y=x^2-3x+1", "-1", "Substituting x = 2 gives y = 2 squared - 3(2) + 1 = 4 - 6 + 1 = -1."),
   choice("y10-nonlinear-sketch-m5", "Which feature can always be found by setting x = 0?", "B", ["Axis of symmetry", "y-intercept", "Both x-intercepts", "Opening direction"], "A point on the y-axis has x-coordinate zero."),
-  answer("y10-nonlinear-sketch-m6", "Find the x-intercepts.", "y=(x-3)(x+5)", "x=3,-5", "Set each factor to zero.", ["3,-5", "-5,3", "x=-5,x=3"]),
+  answer("y10-nonlinear-sketch-m6", "Find the x-intercepts.", "y=(x-3)(x+5)", "x=3,-5", "Setting each factor to zero gives x - 3 = 0 or x + 5 = 0, so the roots are 3 and -5.", ["3,-5", "-5,3", "x=-5,x=3"]),
   choice("y10-nonlinear-sketch-m7", "A parabola crosses the x-axis at -1 and 3. Which axis of symmetry is consistent with the graph?", "A", ["$x=1$", "$x=2$", "$x=-1$", "$x=3$"], "The axis lies halfway between the intercepts."),
   answer("y10-nonlinear-sketch-m8", "A parabola has x-intercepts -2 and 5. Find the x-coordinate of its axis of symmetry.", "x=\\frac{-2+5}{2}", "1.5", "The axis lies halfway between the intercepts.", ["x=1.5", "3/2"]),
   choice("y10-nonlinear-sketch-m9", "A parabola opens upward, has x-intercepts -3 and 1, and y-intercept -3. Which rule matches?", "B", ["$y=(x-3)(x+1)$", "$y=(x+3)(x-1)$", "$y=-(x+3)(x-1)$", "$y=x^2-3$"], "The factors give the stated intercepts, and substituting zero gives negative three."),
-  choice("y10-nonlinear-sketch-m10", "A sketch of y = x squared - 2x - 3 must include which three points?", "D", ["$(0,3),(-1,0),(3,0)$", "$(0,-3),(1,0),(-3,0)$", "$(0,-2),(-1,0),(3,0)$", "$(0,-3),(-1,0),(3,0)$"], "The y-intercept is negative three and the factorised form gives x-intercepts negative one and three."),
+  graphChoice(
+    "y10-nonlinear-sketch-m10",
+    "Which displayed sketch matches y = x squared - 2x - 3?",
+    "D",
+    [
+      parabolaGraph("Upward-opening parabola with roots negative three and one and y-intercept negative three.", [{ kind: "quadratic", a: 1, b: 2, c: -3 }], [{ x: -3, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -3 }], { xMin: -5, xMax: 4, yMin: -6, yMax: 8 }),
+      parabolaGraph("Downward-opening parabola with roots negative one and three and y-intercept positive three.", [{ kind: "quadratic", a: -1, b: 2, c: 3 }], [{ x: -1, y: 0 }, { x: 3, y: 0 }, { x: 0, y: 3 }], { xMin: -4, xMax: 6, yMin: -8, yMax: 6 }),
+      parabolaGraph("Upward-opening parabola with y-intercept positive three and no real x-intercepts.", [{ kind: "quadratic", a: 1, b: -2, c: 3 }], [{ x: 0, y: 3 }], { xMin: -4, xMax: 6, yMin: -1, yMax: 10 }),
+      parabolaGraph("Upward-opening parabola with roots negative one and three and y-intercept negative three.", [{ kind: "quadratic", a: 1, b: -2, c: -3 }], [{ x: -1, y: 0 }, { x: 3, y: 0 }, { x: 0, y: -3 }], { xMin: -4, xMax: 6, yMin: -6, yMax: 10 }),
+    ],
+    "Factorising gives (x - 3)(x + 1), so the roots are -1 and 3; setting x = 0 gives the y-intercept -3, and the positive leading coefficient opens upward."
+  ),
 ];
+
+const PARABOLA_AUDITED_DIFFICULTIES: Record<string, 1 | 2 | 3> = {
+  "y10-nonlinear-intro-g1": 1, "y10-nonlinear-intro-g2": 1, "y10-nonlinear-intro-g3": 1, "y10-nonlinear-intro-g4": 1,
+  "y10-nonlinear-intro-i1": 1, "y10-nonlinear-intro-i2": 1, "y10-nonlinear-intro-i3": 2, "y10-nonlinear-intro-i4": 2, "y10-nonlinear-intro-i5": 1,
+  "y10-nonlinear-intro-m1": 2, "y10-nonlinear-intro-m2": 2, "y10-nonlinear-intro-m3": 2, "y10-nonlinear-intro-m4": 1,
+  "y10-nonlinear-intro-m5": 2, "y10-nonlinear-intro-m6": 1, "y10-nonlinear-intro-m7": 2, "y10-nonlinear-intro-m8": 3,
+  "y10-nonlinear-intro-m9": 3, "y10-nonlinear-intro-m10": 3,
+  "y10-nonlinear-sketch-g1": 1, "y10-nonlinear-sketch-g2": 2, "y10-nonlinear-sketch-g3": 1, "y10-nonlinear-sketch-g4": 2,
+  "y10-nonlinear-sketch-i1": 1, "y10-nonlinear-sketch-i2": 2, "y10-nonlinear-sketch-i3": 2, "y10-nonlinear-sketch-i4": 1, "y10-nonlinear-sketch-i5": 2,
+  "y10-nonlinear-sketch-m1": 1, "y10-nonlinear-sketch-m2": 1, "y10-nonlinear-sketch-m3": 2, "y10-nonlinear-sketch-m4": 1,
+  "y10-nonlinear-sketch-m5": 1, "y10-nonlinear-sketch-m6": 1, "y10-nonlinear-sketch-m7": 2, "y10-nonlinear-sketch-m8": 2,
+  "y10-nonlinear-sketch-m9": 3, "y10-nonlinear-sketch-m10": 3,
+};
+
+function applyParabolaAuditedDifficulties(
+  questions: PracticeQuestion[]
+): PracticeQuestion[] {
+  return questions.map((question) => ({
+    ...question,
+    difficulty:
+      PARABOLA_AUDITED_DIFFICULTIES[question.id] ?? question.difficulty,
+  }));
+}
 
 const circleWorked: WorkedExample[] = [
   {
@@ -414,10 +502,10 @@ export function year10NonLinearRelationshipsLessonOverride(
   const base = { syllabusArea: "Number and Algebra", masteryPassMark: 0.8 };
 
   if (lesson.slug === "introduction-to-parabolas") return {
-    ...base, description: "Recognise basic parabola features including vertex, symmetry, opening direction and y-intercept.", learningIntention: "Describe the features of basic quadratic graphs.", successCriteria: ["Recognise a parabola.", "Identify a vertex and axis of symmetry.", "Use the sign of the x-squared coefficient.", "Read a y-intercept."], teaching: { paragraphs: ["A quadratic graph is called a parabola. It is a smooth curve with a turning point called the vertex.", "The axis of symmetry is the vertical line through the vertex.", "For a basic quadratic rule, the sign of the x-squared coefficient controls whether the graph opens upward or downward.", "Adding a constant shifts the graph vertically and changes the y-intercept."], latexBlocks: ["y=ax^2+c", "a>0:\\ \\text{opens upward},\\qquad a<0:\\ \\text{opens downward}"] }, workedExamples: parabolaWorked, guidedPractice: parabolaGuided, independentPractice: parabolaIndependent, commonMistakes: mistakes("intro"), masteryQuiz: parabolaMastery,
+    ...base, description: "Recognise basic parabola features including vertex, symmetry, opening direction and y-intercept.", learningIntention: "Describe the features of basic quadratic graphs.", successCriteria: ["Recognise a parabola.", "Identify a vertex and axis of symmetry.", "Use the sign of the x-squared coefficient.", "Read a y-intercept."], teaching: { paragraphs: ["A quadratic graph is called a parabola. It is a smooth curve with a turning point called the vertex.", "The axis of symmetry is the vertical line through the vertex.", "For a basic quadratic rule, the sign of the x-squared coefficient controls whether the graph opens upward or downward.", "Adding a constant shifts the graph vertically and changes the y-intercept."], latexBlocks: ["y=ax^2+c", "a>0:\\ \\text{opens upward},\\qquad a<0:\\ \\text{opens downward}"] }, workedExamples: parabolaWorked, guidedPractice: applyParabolaAuditedDifficulties(parabolaGuided), independentPractice: applyParabolaAuditedDifficulties(parabolaIndependent), commonMistakes: mistakes("intro"), masteryQuiz: applyParabolaAuditedDifficulties(parabolaMastery),
   };
   if (lesson.slug === "sketching-parabolas") return {
-    ...base, description: "Sketch simple parabolas using tables, symmetry, y-intercepts and factorised x-intercepts.", learningIntention: "Use key points and symmetry to sketch simple parabolas.", successCriteria: ["Create a useful table of values.", "Find a y-intercept.", "Find simple x-intercepts by factorising.", "Use symmetry to check a sketch."], teaching: { paragraphs: ["A good parabola sketch begins with key points rather than guesswork.", "A table of values helps you plot points on both sides of the turning point.", "The y-intercept is found by setting x to zero. Simple x-intercepts are found by setting y to zero and factorising.", "The two sides of the parabola should mirror across its axis of symmetry."], latexBlocks: ["\\text{y-intercept: set }x=0", "\\text{x-intercepts: set }y=0"] }, workedExamples: sketchWorked, guidedPractice: sketchGuided, independentPractice: sketchIndependent, commonMistakes: mistakes("sketch"), masteryQuiz: sketchMastery,
+    ...base, description: "Sketch simple parabolas using tables, symmetry, y-intercepts and factorised x-intercepts.", learningIntention: "Use key points and symmetry to sketch simple parabolas.", successCriteria: ["Create a useful table of values.", "Find a y-intercept.", "Find simple x-intercepts by factorising.", "Use symmetry to check a sketch."], teaching: { paragraphs: ["A good parabola sketch begins with key points rather than guesswork.", "A table of values helps you plot points on both sides of the turning point.", "The y-intercept is found by setting x to zero. Simple x-intercepts are found by setting y to zero and factorising.", "The two sides of the parabola should mirror across its axis of symmetry."], latexBlocks: ["\\text{y-intercept: set }x=0", "\\text{x-intercepts: set }y=0"] }, workedExamples: sketchWorked, guidedPractice: applyParabolaAuditedDifficulties(sketchGuided), independentPractice: applyParabolaAuditedDifficulties(sketchIndependent), commonMistakes: mistakes("sketch"), masteryQuiz: applyParabolaAuditedDifficulties(sketchMastery),
   };
   if (lesson.slug === "circle-graphs") return {
     ...base, description: "Interpret circle equations using centre, radius and intercepts.", learningIntention: "Connect simple circle equations with their graphs.", successCriteria: ["Read the radius of an origin-centred circle.", "Find axis intercepts.", "Test whether a point lies on a circle.", "Interpret a simple translated circle."], teaching: { paragraphs: ["A circle contains every point that is the same distance from its centre.", "For a circle centred at the origin, the equation uses radius squared on the right.", "The axis intercepts of an origin-centred circle are one radius away from the origin.", "A translated circle uses brackets to show the centre. The signs inside the brackets are opposite to the centre coordinates."], latexBlocks: ["x^2+y^2=r^2", "(x-h)^2+(y-k)^2=r^2"] }, workedExamples: circleWorked, guidedPractice: circleGuided, independentPractice: circleIndependent, commonMistakes: mistakes("circle"), masteryQuiz: circleMastery,

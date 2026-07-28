@@ -8,12 +8,59 @@
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
+import type { CartesianGraph, CartesianPoint } from "../types";
 
 function ans(id: string, prompt: string, latex: string, answer: string, difficulty: number, explanation: string, accepted: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers: Array.from(new Set([answer, ...accepted])), difficulty, hint: "Read the graph feature or relationship first, then compute.", explanation };
 }
 function mcq(id: string, prompt: string, answer: "A" | "B" | "C" | "D", choices: [string, string, string, string], difficulty: number, explanation: string): PracticeQuestion {
   return { id, prompt, latex: "\\text{Select A, B, C, or D.}", choices: ["A", "B", "C", "D"].map((label, i) => ({ label, text: choices[i] })), answer, difficulty, hint: "Reason about the relationship, then check each option.", explanation };
+}
+
+function parabolaGraph(
+  description: string,
+  a: number,
+  b: number,
+  c: number,
+  points: CartesianPoint[] = [],
+  domain: Pick<CartesianGraph, "xMin" | "xMax" | "yMin" | "yMax"> = {
+    xMin: -5,
+    xMax: 5,
+    yMin: -8,
+    yMax: 10,
+  }
+): CartesianGraph {
+  return {
+    description,
+    ...domain,
+    showGrid: true,
+    parabolas: [{ kind: "quadratic", a, b, c }],
+    points,
+  };
+}
+
+function graphMcq(
+  id: string,
+  prompt: string,
+  answer: "A" | "B" | "C" | "D",
+  graphs: [CartesianGraph, CartesianGraph, CartesianGraph, CartesianGraph],
+  difficulty: number,
+  explanation: string
+): PracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex: "",
+    choices: ["A", "B", "C", "D"].map((label, index) => ({
+      label,
+      text: "",
+      cartesianGraph: graphs[index],
+    })),
+    answer,
+    difficulty,
+    hint: "Compare the opening direction, roots, vertex and y-intercept in each displayed option.",
+    explanation,
+  };
 }
 
 // ── 7C Sketching by Factorisation (path) ───────────────────────────────────────────────
@@ -31,34 +78,76 @@ const sketchFactorisation: Partial<ExplicitLesson> = {
     latexBlocks: ["y=(x-2)(x-3):\\ \\text{x-intercepts } 2,3", "\\text{axis of symmetry} = \\text{midpoint of the roots}", "\\text{y-intercept} = c\\ (\\text{value at } x=0)"],
   },
   workedExamples: [
-    { title: "Roots and axis", questionLatex: "\\text{For } y=x^2-5x+6, \\text{ find the x-intercepts and axis of symmetry.}", steps: [{ explanation: "Factorise.", latex: "(x-2)(x-3)" }, { explanation: "x-intercepts where each factor is 0.", latex: "x=2,\\ x=3" }, { explanation: "Axis is the midpoint.", latex: "x = 2.5" }], finalAnswerLatex: "x=2,3;\\ \\text{axis } x=2.5" },
-    { title: "Symmetric roots", questionLatex: "\\text{Find the x-intercepts of } y=x^2-4.", steps: [{ explanation: "Difference of squares.", latex: "(x-2)(x+2)" }, { explanation: "Roots.", latex: "x = 2,\\ -2" }], finalAnswerLatex: "x=2,\\ -2" },
-    { title: "A root at zero", questionLatex: "\\text{Find the x-intercepts of } y=x^2+2x.", steps: [{ explanation: "Common factor x.", latex: "x(x+2)" }, { explanation: "Roots.", latex: "x=0,\\ -2" }], finalAnswerLatex: "x=0,\\ -2" },
+    {
+      title: "Roots and axis",
+      questionLatex: "\\text{For } y=x^2-5x+6, \\text{ find the x-intercepts and axis of symmetry.}",
+      cartesianGraph: parabolaGraph("Upward-opening parabola y equals x squared minus five x plus six, crossing at x equals two and three with axis halfway at x equals two point five.", 1, -5, 6, [{ x: 2, y: 0, label: "(2, 0)" }, { x: 3, y: 0, label: "(3, 0)" }, { x: 2.5, y: -0.25, label: "vertex" }], { xMin: 0, xMax: 5, yMin: -2, yMax: 8 }),
+      steps: [{ explanation: "Factorise the quadratic to expose both roots.", latex: "(x-2)(x-3)" }, { explanation: "Each x-intercept occurs when one factor is zero.", latex: "x=2,\\ x=3" }, { explanation: "The axis is the midpoint of the two roots.", latex: "x = 2.5" }],
+      finalAnswerLatex: "x=2,3;\\ \\text{axis } x=2.5",
+    },
+    {
+      title: "Symmetric roots",
+      questionLatex: "\\text{Find the x-intercepts of } y=x^2-4.",
+      cartesianGraph: parabolaGraph("Upward-opening parabola y equals x squared minus four, with symmetric roots negative two and two and vertex at zero comma negative four.", 1, 0, -4, [{ x: -2, y: 0, label: "(-2, 0)" }, { x: 2, y: 0, label: "(2, 0)" }, { x: 0, y: -4, label: "vertex" }], { xMin: -4, xMax: 4, yMin: -6, yMax: 8 }),
+      steps: [{ explanation: "Recognise and factorise the difference of two squares.", latex: "(x-2)(x+2)" }, { explanation: "Set each factor equal to zero to obtain both roots.", latex: "x = 2,\\ -2" }],
+      finalAnswerLatex: "x=2,\\ -2",
+    },
+    {
+      title: "A root at zero",
+      questionLatex: "\\text{Find the x-intercepts of } y=x^2+2x.",
+      cartesianGraph: parabolaGraph("Upward-opening parabola y equals x squared plus two x, crossing at negative two and zero with vertex at negative one comma negative one.", 1, 2, 0, [{ x: -2, y: 0, label: "(-2, 0)" }, { x: 0, y: 0, label: "(0, 0)" }, { x: -1, y: -1, label: "vertex" }], { xMin: -4, xMax: 2, yMin: -3, yMax: 6 }),
+      steps: [{ explanation: "Take out the common factor x before finding the roots.", latex: "x(x+2)" }, { explanation: "Set each factor equal to zero; one root is the common factor itself.", latex: "x=0,\\ -2" }],
+      finalAnswerLatex: "x=0,\\ -2",
+    },
   ],
   guidedPractice: [
-    mcq("y10-pf-g1", "What are the x-intercepts of y = (x − 2)(x − 3)?", "A", ["2 and 3", "−2 and −3", "2 and −3", "5 and 6"], 2, "Each factor zero: x − 2 = 0 → 2, x − 3 = 0 → 3."),
-    ans("y10-pf-g2", "Find the y-intercept of y = x² − 5x + 6.", "y=x^2-5x+6,\\ x=0", "6", 2, "At x = 0, y = 6 (the constant term).", []),
-    ans("y10-pf-g3", "A parabola has x-intercepts 2 and 4. Find the axis of symmetry (give x).", "\\text{roots } 2,4", "3", 2, "Axis is the midpoint: (2 + 4)/2 = 3.", ["x=3"]),
-    mcq("y10-pf-g4", "What are the x-intercepts of y = x² − 9?", "A", ["3 and −3", "9 and −9", "3 only", "0 and 9"], 2, "x² − 9 = (x − 3)(x + 3), so 3 and −3."),
+    mcq("y10-pf-g1", "What are the x-intercepts of y = (x − 2)(x − 3)?", "A", ["2 and 3", "−2 and −3", "2 and −3", "5 and 6"], 1, "Setting each factor equal to zero gives x = 2 and x = 3, so the intercepts are (2, 0) and (3, 0)."),
+    ans("y10-pf-g2", "Find the y-intercept of y = x² − 5x + 6.", "y=x^2-5x+6,\\ x=0", "6", 1, "At x = 0, both terms containing x vanish and the remaining y-value is the constant term 6.", ["6.0", "(0,6)", "(0, 6)", "0,6"]),
+    ans("y10-pf-g3", "A parabola has x-intercepts 2 and 4. Find the axis of symmetry (give x).", "\\text{roots } 2,4", "3", 2, "The axis lies halfway between the two roots: (2 + 4) / 2 = 3, so its equation is x = 3.", ["x=3"]),
+    graphMcq(
+      "y10-pf-g4",
+      "Which displayed sketch matches y = x squared - 9?",
+      "B",
+      [
+        parabolaGraph("Upward-opening parabola with roots negative nine and nine.", 1 / 9, 0, -9, [{ x: -9, y: 0 }, { x: 9, y: 0 }], { xMin: -10, xMax: 10, yMin: -11, yMax: 5 }),
+        parabolaGraph("Upward-opening parabola y equals x squared minus nine, with roots negative three and three and vertex zero comma negative nine.", 1, 0, -9, [{ x: -3, y: 0 }, { x: 3, y: 0 }, { x: 0, y: -9 }], { xMin: -5, xMax: 5, yMin: -11, yMax: 10 }),
+        parabolaGraph("Downward-opening parabola with roots negative three and three and vertex zero comma nine.", -1, 0, 9, [{ x: -3, y: 0 }, { x: 3, y: 0 }, { x: 0, y: 9 }], { xMin: -5, xMax: 5, yMin: -10, yMax: 11 }),
+        parabolaGraph("Upward-opening parabola with vertex zero comma nine and no x-intercepts.", 1, 0, 9, [{ x: 0, y: 9 }], { xMin: -5, xMax: 5, yMin: -2, yMax: 18 }),
+      ],
+      2,
+      "Factorising x squared minus 9 as (x - 3)(x + 3) gives roots -3 and 3; the positive leading coefficient opens upward and the y-intercept is -9."
+    ),
   ],
   independentPractice: [
-    mcq("y10-pf-i1", "What are the roots of y = x² + 5x + 6?", "B", ["2 and 3", "−2 and −3", "−1 and −6", "5 and 6"], 3, "(x + 2)(x + 3) = 0 gives −2 and −3."),
-    ans("y10-pf-i2", "Find the y-intercept of y = x² − 3x + 4.", "y=x^2-3x+4", "4", 2, "At x = 0, y = 4.", []),
-    ans("y10-pf-i3", "A parabola has roots −1 and 5. Find the axis of symmetry (give x).", "\\text{roots } -1,5", "2", 3, "Midpoint: (−1 + 5)/2 = 2.", ["x=2"]),
-    mcq("y10-pf-i4", "What are the x-intercepts of y = x(x − 4)?", "A", ["0 and 4", "0 and −4", "4 only", "−4 only"], 2, "x = 0 or x − 4 = 0 → 0 and 4."),
-    mcq("y10-pf-i5", "The axis of symmetry of a parabola passes through its:", "B", ["y-intercept", "vertex (turning point)", "focus only", "x-intercepts"], 2, "The turning point lies on the axis of symmetry."),
+    mcq("y10-pf-i1", "What are the roots of y = x² + 5x + 6?", "B", ["2 and 3", "−2 and −3", "−1 and −6", "5 and 6"], 2, "Factorising gives (x + 2)(x + 3) = 0, so the roots are x = -2 and x = -3."),
+    ans("y10-pf-i2", "Find the y-intercept of y = x² − 3x + 4.", "y=x^2-3x+4", "4", 1, "Substituting x = 0 removes both variable terms, leaving the y-intercept value 4.", ["4.0", "(0,4)", "(0, 4)", "0,4"]),
+    ans("y10-pf-i3", "A parabola has roots −1 and 5. Find the axis of symmetry (give x).", "\\text{roots } -1,5", "2", 2, "The axis is halfway between the roots: (-1 + 5) / 2 = 2, so its equation is x = 2.", ["x=2"]),
+    mcq("y10-pf-i4", "What are the x-intercepts of y = x(x − 4)?", "A", ["0 and 4", "0 and −4", "4 only", "−4 only"], 1, "The product is zero when x = 0 or when x - 4 = 0, giving intercepts at 0 and 4."),
+    mcq("y10-pf-i5", "The axis of symmetry of a parabola passes through its:", "B", ["y-intercept", "vertex (turning point)", "focus only", "x-intercepts"], 1, "The vertex is the turning point, and the vertical axis of symmetry passes directly through it."),
   ],
   masteryQuiz: [
-    mcq("y10-pf-m1", "What are the roots of y = (x + 1)(x − 6)?", "C", ["1 and 6", "−1 and −6", "−1 and 6", "1 and −6"], 2, "x + 1 = 0 → −1; x − 6 = 0 → 6."),
-    mcq("y10-pf-m2", "The turning point of a parabola lies on the:", "A", ["axis of symmetry", "y-axis always", "x-axis always", "line y = x"], 2, "The vertex sits on the axis of symmetry."),
-    ans("y10-pf-m3", "Find the y-intercept of y = x² + 2x − 8.", "y=x^2+2x-8", "-8", 2, "At x = 0, y = −8.", ["−8"]),
-    ans("y10-pf-m4", "A parabola has roots 0 and 8. Find the axis of symmetry (give x).", "\\text{roots } 0,8", "4", 3, "Midpoint: (0 + 8)/2 = 4.", ["x=4"]),
-    mcq("y10-pf-m5", "What are the x-intercepts of y = x² − 16?", "A", ["4 and −4", "16 and −16", "4 only", "0 and 16"], 2, "(x − 4)(x + 4) → 4 and −4."),
-    mcq("y10-pf-m6", "What are the roots of y = x² − 7x + 12?", "A", ["3 and 4", "−3 and −4", "2 and 6", "1 and 12"], 3, "(x − 3)(x − 4) = 0 → 3 and 4."),
-    ans("y10-pf-m7", "y = x² − 6x + 5 has roots 1 and 5. Find the axis of symmetry (give x).", "\\text{roots } 1,5", "3", 3, "Midpoint: (1 + 5)/2 = 3.", ["x=3"]),
-    mcq("y10-pf-m8", "The y-intercept of y = ax² + bx + c is:", "C", ["a", "b", "c", "−c"], 2, "At x = 0, y = c."),
-    mcq("y10-pf-m9", "What are the roots of y = x² − x − 12?", "B", ["3 and −4", "4 and −3", "6 and −2", "12 and 1"], 3, "(x − 4)(x + 3) = 0 → 4 and −3."),
-    ans("y10-pf-m10", "Find the x-coordinate of the vertex of y = (x − 2)(x − 8).", "(x-2)(x-8)", "5", 3, "Roots 2 and 8; vertex x = midpoint = 5.", ["x=5"]),
+    mcq("y10-pf-m1", "What are the roots of y = (x + 1)(x − 6)?", "C", ["1 and 6", "−1 and −6", "−1 and 6", "1 and −6"], 1, "Setting x + 1 and x - 6 equal to zero gives the two roots x = -1 and x = 6."),
+    mcq("y10-pf-m2", "The turning point of a parabola lies on the:", "A", ["axis of symmetry", "y-axis always", "x-axis always", "line y = x"], 1, "The vertex is the point where the curve turns, and the axis of symmetry passes through it."),
+    ans("y10-pf-m3", "Find the y-intercept of y = x² + 2x − 8.", "y=x^2+2x-8", "-8", 1, "Substituting x = 0 leaves y = -8, so the graph crosses the y-axis at (0, -8).", ["−8", "-8.0", "(0,-8)", "(0, -8)", "0,-8"]),
+    ans("y10-pf-m4", "A parabola has roots 0 and 8. Find the axis of symmetry (give x).", "\\text{roots } 0,8", "4", 2, "The axis is the midpoint of the roots: (0 + 8) / 2 = 4, so its equation is x = 4.", ["x=4"]),
+    ans("y10-pf-m5", "For y = (x − 1)(x − 5), use the roots to locate the axis, then find the y-coordinate of the vertex.", "(x-1)(x-5)", "-4", 3, "The axis is x = 3, the midpoint of 1 and 5. Substituting x = 3 gives y = (2)(-2) = -4.", ["−4", "-4.0", "y=-4", "y = -4"]),
+    mcq("y10-pf-m6", "What are the roots of y = x² − 7x + 12?", "A", ["3 and 4", "−3 and −4", "2 and 6", "1 and 12"], 2, "Factorising gives (x - 3)(x - 4) = 0, so the roots are x = 3 and x = 4."),
+    graphMcq(
+      "y10-pf-m7",
+      "Which displayed sketch matches y = -2(x + 1)(x - 3)?",
+      "C",
+      [
+        parabolaGraph("Upward-opening parabola with roots negative one and three.", 2, -4, -6, [{ x: -1, y: 0 }, { x: 3, y: 0 }, { x: 0, y: -6 }], { xMin: -4, xMax: 6, yMin: -10, yMax: 14 }),
+        parabolaGraph("Downward-opening parabola with roots one and negative three.", -2, -4, 6, [{ x: 1, y: 0 }, { x: -3, y: 0 }, { x: 0, y: 6 }], { xMin: -6, xMax: 4, yMin: -14, yMax: 10 }),
+        parabolaGraph("Downward-opening parabola with roots negative one and three and y-intercept six.", -2, 4, 6, [{ x: -1, y: 0 }, { x: 3, y: 0 }, { x: 0, y: 6 }], { xMin: -4, xMax: 6, yMin: -14, yMax: 10 }),
+        parabolaGraph("Downward-opening parabola with y-intercept negative six and no real x-intercepts.", -2, 4, -6, [{ x: 0, y: -6 }], { xMin: -4, xMax: 6, yMin: -16, yMax: 4 }),
+      ],
+      3,
+      "The factors give roots -1 and 3, the negative coefficient makes the parabola open downward, and y(0) = -2(1)(-3) = 6."
+    ),
+    mcq("y10-pf-m8", "The y-intercept of y = ax² + bx + c is:", "C", ["a", "b", "c", "−c"], 1, "When x = 0, the terms ax squared and bx vanish, leaving y = c at the y-intercept."),
+    mcq("y10-pf-m9", "What are the roots of y = x² − x − 12?", "B", ["3 and −4", "4 and −3", "6 and −2", "12 and 1"], 2, "Factorising gives (x - 4)(x + 3) = 0, so the roots are x = 4 and x = -3."),
+    ans("y10-pf-m10", "A monic parabola has y-intercept -8 and one x-intercept 2. Use the product of the roots to find the other root, then enter the x-coordinate of the vertex.", "", "-1", 4, "For a monic quadratic, the product of the roots equals the constant term -8. The other root is -4, and the midpoint of 2 and -4 is -1.", ["−1", "-1.0", "x=-1", "x = -1"]),
   ],
   commonMistakes: [
     { mistake: "Reading the root straight from the bracket, e.g. (x + 2) → 2.", fix: "Set the factor to 0: (x + 2) = 0 gives x = −2." },
@@ -84,34 +173,88 @@ const sketchCompletingSquare: Partial<ExplicitLesson> = {
     latexBlocks: ["y=(x-h)^2+k:\\ \\text{vertex } (h,k)", "\\text{minimum value} = k\\ \\text{at } x=h", "x^2-4x+7 = (x-2)^2+3"],
   },
   workedExamples: [
-    { title: "Vertex from completed form", questionLatex: "\\text{State the vertex of } y=(x-2)^2+3.", steps: [{ explanation: "Vertex is (h, k).", latex: "(2, 3)" }], finalAnswerLatex: "(2, 3)" },
-    { title: "Complete the square", questionLatex: "\\text{Write } y=x^2-4x+7 \\text{ in completed-square form.}", steps: [{ explanation: "Half of −4 is −2; (−2)² = 4.", latex: "(x-2)^2 - 4 + 7" }, { explanation: "Simplify.", latex: "= (x-2)^2 + 3" }], finalAnswerLatex: "(x-2)^2+3" },
-    { title: "Minimum value", questionLatex: "\\text{Find the minimum value of } y=(x-1)^2+5.", steps: [{ explanation: "Smallest value of a square is 0, leaving k.", latex: "\\text{min} = 5" }], finalAnswerLatex: "5" },
+    {
+      title: "Vertex from completed form",
+      questionLatex: "\\text{State the vertex of } y=(x-2)^2+3.",
+      cartesianGraph: parabolaGraph("Upward-opening parabola y equals x minus two squared plus three, with vertex at two comma three and axis x equals two.", 1, -4, 7, [{ x: 2, y: 3, label: "vertex (2, 3)" }], { xMin: -2, xMax: 6, yMin: 0, yMax: 15 }),
+      steps: [{ explanation: "Completed-square form displays the vertex as (h, k).", latex: "(2, 3)" }],
+      finalAnswerLatex: "(2, 3)",
+    },
+    {
+      title: "Complete the square",
+      questionLatex: "\\text{Write } y=x^2-4x+7 \\text{ in completed-square form.}",
+      cartesianGraph: parabolaGraph("Upward-opening parabola y equals x squared minus four x plus seven, with vertex at two comma three revealed by completed-square form.", 1, -4, 7, [{ x: 2, y: 3, label: "vertex" }], { xMin: -2, xMax: 6, yMin: 0, yMax: 15 }),
+      steps: [{ explanation: "Half of -4 is -2, and squaring -2 gives the adjustment 4.", latex: "(x-2)^2 - 4 + 7" }, { explanation: "Combine the remaining constants to expose the vertex form.", latex: "= (x-2)^2 + 3" }],
+      finalAnswerLatex: "(x-2)^2+3",
+    },
+    {
+      title: "Minimum value",
+      questionLatex: "\\text{Find the minimum value of } y=(x-1)^2+5.",
+      cartesianGraph: parabolaGraph("Upward-opening parabola y equals x minus one squared plus five, with minimum vertex at one comma five.", 1, -2, 6, [{ x: 1, y: 5, label: "minimum (1, 5)" }], { xMin: -3, xMax: 5, yMin: 2, yMax: 15 }),
+      steps: [{ explanation: "The squared term cannot be negative, so its smallest value is zero and y is then 5.", latex: "\\text{min} = 5" }],
+      finalAnswerLatex: "5",
+    },
   ],
   guidedPractice: [
-    mcq("y10-pc-g1", "What is the vertex of y = (x − 2)² + 3?", "A", ["(2, 3)", "(−2, 3)", "(2, −3)", "(3, 2)"], 2, "Vertex is (h, k) = (2, 3); flip the sign inside the bracket."),
-    ans("y10-pc-g2", "Find the minimum value of y = (x − 1)² + 5.", "y=(x-1)^2+5", "5", 2, "The square is ≥ 0, so the minimum is k = 5.", []),
-    mcq("y10-pc-g3", "What is the vertex of y = (x + 3)² − 2?", "B", ["(3, −2)", "(−3, −2)", "(−3, 2)", "(3, 2)"], 3, "Vertex (h, k): x + 3 = 0 → h = −3, k = −2."),
-    ans("y10-pc-g4", "Find the x-coordinate of the vertex of y = (x − 4)².", "y=(x-4)^2", "4", 2, "Vertex at x = h = 4.", ["x=4"]),
+    graphMcq(
+      "y10-pc-g1",
+      "Which displayed graph matches y = (x - 2) squared + 3?",
+      "A",
+      [
+        parabolaGraph("Upward-opening parabola with vertex at two comma three.", 1, -4, 7, [{ x: 2, y: 3 }], { xMin: -2, xMax: 6, yMin: 0, yMax: 15 }),
+        parabolaGraph("Upward-opening parabola with vertex at negative two comma three.", 1, 4, 7, [{ x: -2, y: 3 }], { xMin: -6, xMax: 2, yMin: 0, yMax: 15 }),
+        parabolaGraph("Upward-opening parabola with vertex at two comma negative three.", 1, -4, 1, [{ x: 2, y: -3 }], { xMin: -2, xMax: 6, yMin: -6, yMax: 9 }),
+        parabolaGraph("Downward-opening parabola with vertex at two comma three.", -1, 4, -1, [{ x: 2, y: 3 }], { xMin: -2, xMax: 6, yMin: -10, yMax: 6 }),
+      ],
+      1,
+      "In y = (x - h) squared + k, the vertex is (h, k) = (2, 3), and the positive coefficient makes the graph open upward."
+    ),
+    ans("y10-pc-g2", "Find the minimum value of y = (x − 1)² + 5.", "y=(x-1)^2+5", "5", 1, "The square is at least zero, so the smallest possible y-value is the vertical shift k = 5.", ["5.0"]),
+    mcq("y10-pc-g3", "What is the vertex of y = (x + 3)² − 2?", "B", ["(3, −2)", "(−3, −2)", "(−3, 2)", "(3, 2)"], 1, "Writing x + 3 as x - (-3) gives h = -3, while k = -2, so the vertex is (-3, -2)."),
+    ans("y10-pc-g4", "Find the x-coordinate of the vertex of y = (x − 4)².", "y=(x-4)^2", "4", 1, "The squared term is zero at x = 4, so the vertex has x-coordinate 4.", ["x=4", "4.0"]),
   ],
   independentPractice: [
-    mcq("y10-pc-i1", "What is the vertex of y = (x + 1)² − 4?", "B", ["(1, −4)", "(−1, −4)", "(−1, 4)", "(1, 4)"], 3, "x + 1 = 0 → h = −1, k = −4."),
-    ans("y10-pc-i2", "Complete the square: y = x² − 4x + 7 = (x − 2)² + ?", "y=x^2-4x+7", "3", 3, "(x − 2)² − 4 + 7 = (x − 2)² + 3.", []),
-    ans("y10-pc-i3", "Find the minimum value of y = (x − 5)² + 2.", "y=(x-5)^2+2", "2", 2, "Minimum is k = 2.", []),
-    ans("y10-pc-i4", "Find the y-coordinate of the vertex of y = (x − 3)² − 7.", "y=(x-3)^2-7", "-7", 2, "k = −7.", ["−7"]),
-    mcq("y10-pc-i5", "y = (x − h)² + k has its minimum at:", "A", ["x = h", "x = k", "x = 0", "x = −h"], 3, "The square is smallest when x − h = 0, i.e. x = h."),
+    graphMcq(
+      "y10-pc-i1",
+      "Which displayed graph matches y = (x + 1) squared - 4?",
+      "B",
+      [
+        parabolaGraph("Upward-opening parabola with vertex at one comma negative four.", 1, -2, -3, [{ x: 1, y: -4 }], { xMin: -4, xMax: 5, yMin: -7, yMax: 10 }),
+        parabolaGraph("Upward-opening parabola with vertex at negative one comma negative four.", 1, 2, -3, [{ x: -1, y: -4 }], { xMin: -5, xMax: 4, yMin: -7, yMax: 10 }),
+        parabolaGraph("Upward-opening parabola with vertex at negative one comma four.", 1, 2, 5, [{ x: -1, y: 4 }], { xMin: -5, xMax: 4, yMin: 1, yMax: 18 }),
+        parabolaGraph("Downward-opening parabola with vertex at negative one comma negative four.", -1, -2, -5, [{ x: -1, y: -4 }], { xMin: -5, xMax: 4, yMin: -18, yMax: -1 }),
+      ],
+      2,
+      "The bracket x + 1 gives h = -1, the outside constant gives k = -4, and the positive squared coefficient opens upward."
+    ),
+    ans("y10-pc-i2", "Complete the square: y = x² − 4x + 7 = (x − 2)² + ?", "y=x^2-4x+7", "3", 2, "Expanding (x - 2) squared gives x squared - 4x + 4, so an additional 3 is needed to recover the constant 7.", ["3.0"]),
+    ans("y10-pc-i3", "Find the minimum value of y = (x − 5)² + 2.", "y=(x-5)^2+2", "2", 1, "The squared term is smallest at zero, leaving the minimum y-value k = 2.", ["2.0"]),
+    ans("y10-pc-i4", "Find the y-coordinate of the vertex of y = (x − 3)² − 7.", "y=(x-3)^2-7", "-7", 1, "The outside constant k is the vertex's y-coordinate, so the required value is -7.", ["−7", "-7.0"]),
+    mcq("y10-pc-i5", "y = (x − h)² + k has its minimum at:", "A", ["x = h", "x = k", "x = 0", "x = −h"], 2, "The square is smallest when x - h = 0, which occurs at x = h."),
   ],
   masteryQuiz: [
-    mcq("y10-pc-m1", "What is the vertex of y = (x − 2)² + 1?", "A", ["(2, 1)", "(−2, 1)", "(2, −1)", "(1, 2)"], 2, "Vertex (2, 1)."),
-    mcq("y10-pc-m2", "The minimum value of y = (x − h)² + k is:", "C", ["h", "−k", "k", "0"], 2, "The square ≥ 0, so the minimum is k."),
-    ans("y10-pc-m3", "y = x² + 6x + 11 = (x + 3)² + ? Find the y-coordinate of the vertex.", "y=x^2+6x+11", "2", 4, "(x + 3)² − 9 + 11 = (x + 3)² + 2, so vertex y = 2.", []),
-    mcq("y10-pc-m4", "What is the vertex of y = (x + 5)² − 3?", "B", ["(5, −3)", "(−5, −3)", "(−5, 3)", "(5, 3)"], 3, "h = −5, k = −3."),
-    mcq("y10-pc-m5", "The parabola y = (x − 2)² + 3 opens:", "A", ["upward", "downward", "left", "right"], 2, "A positive coefficient of the square means it opens upward."),
-    ans("y10-pc-m6", "Find the minimum value of y = (x + 2)² + 6.", "y=(x+2)^2+6", "6", 2, "Minimum is k = 6.", []),
-    ans("y10-pc-m7", "Find the x-coordinate of the vertex of y = (x − 7)² + 1.", "y=(x-7)^2+1", "7", 2, "h = 7.", ["x=7"]),
-    mcq("y10-pc-m8", "Completing the square on a quadratic reveals its:", "C", ["x-intercepts only", "y-intercept", "vertex (turning point)", "gradient"], 2, "Completed-square form shows the vertex directly."),
-    ans("y10-pc-m9", "y = x² − 8x + 20 = (x − 4)² + ? Find the y-coordinate of the vertex.", "y=x^2-8x+20", "4", 4, "(x − 4)² − 16 + 20 = (x − 4)² + 4, so vertex y = 4.", []),
-    mcq("y10-pc-m10", "What is the vertex of y = (x − 1)² − 9?", "A", ["(1, −9)", "(−1, −9)", "(1, 9)", "(9, 1)"], 2, "h = 1, k = −9."),
+    graphMcq(
+      "y10-pc-m1",
+      "Which displayed graph matches y = -2(x + 1) squared + 3?",
+      "D",
+      [
+        parabolaGraph("Upward-opening parabola with vertex at negative one comma three.", 2, 4, 5, [{ x: -1, y: 3 }], { xMin: -5, xMax: 4, yMin: 0, yMax: 18 }),
+        parabolaGraph("Downward-opening parabola with vertex at one comma three.", -2, 4, 1, [{ x: 1, y: 3 }], { xMin: -4, xMax: 5, yMin: -18, yMax: 6 }),
+        parabolaGraph("Downward-opening parabola with vertex at negative one comma negative three.", -2, -4, -5, [{ x: -1, y: -3 }], { xMin: -5, xMax: 4, yMin: -20, yMax: 0 }),
+        parabolaGraph("Downward-opening parabola with vertex at negative one comma three.", -2, -4, 1, [{ x: -1, y: 3 }], { xMin: -5, xMax: 4, yMin: -18, yMax: 6 }),
+      ],
+      2,
+      "The factor -2 makes the graph open downward, x + 1 gives vertex x-coordinate -1, and the outside constant gives vertex y-coordinate 3."
+    ),
+    mcq("y10-pc-m2", "The minimum value of y = (x − h)² + k is:", "C", ["h", "−k", "k", "0"], 1, "The squared term cannot be negative, so its minimum is zero and the smallest possible y-value is k."),
+    ans("y10-pc-m3", "y = x² + 6x + 11 = (x + 3)² + ? Find the y-coordinate of the vertex.", "y=x^2+6x+11", "2", 2, "Completing the square gives (x + 3) squared - 9 + 11 = (x + 3) squared + 2, so the vertex y-coordinate is 2.", ["2.0"]),
+    mcq("y10-pc-m4", "What is the vertex of y = (x + 5)² − 3?", "B", ["(5, −3)", "(−5, −3)", "(−5, 3)", "(5, 3)"], 1, "Writing x + 5 as x - (-5) gives h = -5 and k = -3, so the vertex is (-5, -3)."),
+    mcq("y10-pc-m5", "The parabola y = (x − 2)² + 3 opens:", "A", ["upward", "downward", "left", "right"], 1, "The coefficient of the squared term is positive, so the arms of the parabola open upward."),
+    ans("y10-pc-m6", "Find the minimum value of y = (x + 2)² + 6.", "y=(x+2)^2+6", "6", 1, "The squared term has minimum zero, leaving the minimum y-value 6.", ["6.0"]),
+    ans("y10-pc-m7", "Find the x-coordinate of the vertex of y = (x − 7)² + 1.", "y=(x-7)^2+1", "7", 1, "The squared term becomes zero at x = 7, so the vertex has x-coordinate 7.", ["x=7", "7.0"]),
+    mcq("y10-pc-m8", "Completing the square on a quadratic reveals its:", "C", ["x-intercepts only", "y-intercept", "vertex (turning point)", "gradient"], 1, "Completed-square form y = a(x - h) squared + k displays the vertex coordinates (h, k) directly."),
+    ans("y10-pc-m9", "y = x² − 8x + 20 = (x − 4)² + ? Find the y-coordinate of the vertex.", "y=x^2-8x+20", "4", 2, "Completing the square gives (x - 4) squared - 16 + 20 = (x - 4) squared + 4, so the vertex y-coordinate is 4.", ["4.0"]),
+    ans("y10-pc-m10", "A monic parabola y = x² + bx + c has axis of symmetry x = 3 and minimum value -4. Rewrite it mentally in completed-square form, then find c.", "", "5", 4, "The completed-square form is y = (x - 3) squared - 4. Expanding gives y = x squared - 6x + 9 - 4, so c = 5.", ["5.0", "c=5", "c = 5"]),
   ],
   commonMistakes: [
     { mistake: "Reading the vertex x-coordinate with the wrong sign.", fix: "y = (x − h)² + k has vertex x = h; (x + 3)² gives h = −3." },
