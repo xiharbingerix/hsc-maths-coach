@@ -9,9 +9,9 @@
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Introduction to parabolas | 19 | 9 | 7 | 3 | 0 | 0 | 0 | 6 | 1 | 3/3 | 19 |
 | Sketching parabolas | 19 | 9 | 8 | 2 | 0 | 0 | 0 | 5 | 2 | 3/3 | 19 |
-| Sketching by factorisation | 19 | 9 | 7 | 2 | 1 | 0 | 0 | 2 | 2 | 3/3 | 19 |
-| Sketching by completing the square | 19 | 12 | 6 | 0 | 1 | 0 | 0 | 3 | 3 | 3/3 | 19 |
-| **Total** | **76** | **39** | **28** | **7** | **2** | **0** | **0** | **16** | **8** | **12/12** | **76** |
+| Sketching by factorisation | 19 | 9 | 6 | 2 | 1 | 1 | 0 | 2 | 2 | 3/3 | 19 |
+| Sketching by completing the square | 19 | 12 | 5 | 0 | 1 | 1 | 0 | 4 | 3 | 3/3 | 19 |
+| **Total** | **76** | **39** | **26** | **7** | **2** | **2** | **0** | **17** | **8** | **12/12** | **76** |
 
 “Visual question rows” includes top-level graphs or tables and questions whose answer choices contain graph payloads. The seeder's diagram count only reports top-level `diagram_data`; it does not count diagrams nested in MCQ choices or worked-example visuals.
 
@@ -19,12 +19,13 @@
 
 - Reviewed all 76 guided, independent and mastery questions, plus every worked example. No separate challenge, multipart or topic-pool questions are linked to these lessons.
 - Preserved sound questions and manually rewrote weak, repetitive or answer-leaking items.
-- Reclassified every question by its actual cognitive demand. Removed unsupported positional D4/D5 labels, retained two genuine D4 reverse-reasoning tasks, and assigned no D5 or D6 because these introductory lessons do not naturally support novel synthesis or a synoptic three-stage task.
+- Reclassified every question by its actual cognitive demand. Removed unsupported positional high-tier labels, retained two genuine D4 reverse-reasoning tasks, and added two hand-written D5 synthesis tasks where the later lessons naturally support them. No D6 was assigned because these lessons do not support a synoptic, non-routine three-stage task naturally.
+- The factorisation D5 combines an unknown integer-root product, an axis-derived root sum and vertex evaluation. The completing-square D5 requires interpreting a displayed parabola, transferring its axis and y-intercept to a different monic parabola, and reconstructing that parabola's minimum.
 - Added diagram-first graph discrimination to eight MCQs, including diagrams inside the answer choices, so students select an actual curve rather than a verbal proxy for one.
 - Added or refined coordinate graphs and one structured value table where they materially support the mathematics. All 12 worked examples now include a graph.
 - Strengthened mastery questions around symmetry, roots, axes, vertex values, parameter inference and reverse construction.
 - Corrected answers, accepted variants, hints and question-specific explanations. Every question and worked-step explanation is at least 40 characters.
-- Confirmed typed-answer markability for all 37 typed questions using canonical answers and accepted variants. Representative natural inputs such as `\left(0,2\right)`, `x=-4, x=1`, `\frac{3}{2}`, `x = -1` and `c=5` also mark correctly. All 39 remaining questions are markable MCQs.
+- Confirmed typed-answer markability for all 38 typed questions using canonical answers and accepted variants. Representative natural inputs such as `\left(0,2\right)`, `x=-4, x=1`, `\frac{3}{2}`, `-\frac{49}{4}`, `x = -1` and `c=5` also mark correctly. All 38 remaining questions are markable MCQs.
 
 ## Validation
 

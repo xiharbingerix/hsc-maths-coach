@@ -146,7 +146,18 @@ const sketchFactorisation: Partial<ExplicitLesson> = {
       "The factors give roots -1 and 3, the negative coefficient makes the parabola open downward, and y(0) = -2(1)(-3) = 6."
     ),
     mcq("y10-pf-m8", "The y-intercept of y = ax² + bx + c is:", "C", ["a", "b", "c", "−c"], 1, "When x = 0, the terms ax squared and bx vanish, leaving y = c at the y-intercept."),
-    mcq("y10-pf-m9", "What are the roots of y = x² − x − 12?", "B", ["3 and −4", "4 and −3", "6 and −2", "12 and 1"], 2, "Factorising gives (x - 4)(x + 3) = 0, so the roots are x = 4 and x = -3."),
+    {
+      ...ans(
+        "y10-pf-m9",
+        "A monic parabola has integer roots, y-intercept -12 and axis of symmetry x = 0.5. Determine the two roots from these linked conditions, then enter the y-coordinate of the vertex.",
+        "",
+        "-12.25",
+        5,
+        "The roots have product -12 and sum 1 because their midpoint is 0.5. The only integer pair is -3 and 4. At x = 0.5, y = (0.5 + 3)(0.5 - 4) = -12.25.",
+        ["−12.25", "-49/4", "−49/4", "y=-12.25", "y = -12.25", "y=-49/4", "y = -49/4"]
+      ),
+      hint: "Translate the y-intercept into a product of roots and the axis into their sum. Then evaluate the factorised rule at the midpoint.",
+    },
     ans("y10-pf-m10", "A monic parabola has y-intercept -8 and one x-intercept 2. Use the product of the roots to find the other root, then enter the x-coordinate of the vertex.", "", "-1", 4, "For a monic quadratic, the product of the roots equals the constant term -8. The other root is -4, and the midpoint of 2 and -4 is -1.", ["−1", "-1.0", "x=-1", "x = -1"]),
   ],
   commonMistakes: [
@@ -253,7 +264,29 @@ const sketchCompletingSquare: Partial<ExplicitLesson> = {
     ans("y10-pc-m6", "Find the minimum value of y = (x + 2)² + 6.", "y=(x+2)^2+6", "6", 1, "The squared term has minimum zero, leaving the minimum y-value 6.", ["6.0"]),
     ans("y10-pc-m7", "Find the x-coordinate of the vertex of y = (x − 7)² + 1.", "y=(x-7)^2+1", "7", 1, "The squared term becomes zero at x = 7, so the vertex has x-coordinate 7.", ["x=7", "7.0"]),
     mcq("y10-pc-m8", "Completing the square on a quadratic reveals its:", "C", ["x-intercepts only", "y-intercept", "vertex (turning point)", "gradient"], 1, "Completed-square form y = a(x - h) squared + k displays the vertex coordinates (h, k) directly."),
-    ans("y10-pc-m9", "y = x² − 8x + 20 = (x − 4)² + ? Find the y-coordinate of the vertex.", "y=x^2-8x+20", "4", 2, "Completing the square gives (x - 4) squared - 16 + 20 = (x - 4) squared + 4, so the vertex y-coordinate is 4.", ["4.0"]),
+    {
+      ...ans(
+        "y10-pc-m9",
+        "The displayed graph is parabola P. A different monic parabola Q has the same axis of symmetry and the same y-intercept as P. Find the minimum value of Q.",
+        "",
+        "1",
+        5,
+        "P's vertex shows that the shared axis is x = 2, while its labelled y-intercept is 5. Hence Q = (x - 2) squared + k, and 5 = 4 + k gives k = 1, its minimum.",
+        ["1.0", "y=1", "y = 1"]
+      ),
+      hint: "Read P's axis and y-intercept from the graph. Use the axis in Q = (x - h) squared + k, then substitute the shared y-intercept.",
+      cartesianGraph: parabolaGraph(
+        "Parabola P opens upward, with labelled vertex at two comma negative three and labelled y-intercept at zero comma five.",
+        2,
+        -8,
+        5,
+        [
+          { x: 2, y: -3, label: "vertex (2, -3)" },
+          { x: 0, y: 5, label: "(0, 5)" },
+        ],
+        { xMin: -1, xMax: 5, yMin: -5, yMax: 12 }
+      ),
+    },
     ans("y10-pc-m10", "A monic parabola y = x² + bx + c has axis of symmetry x = 3 and minimum value -4. Rewrite it mentally in completed-square form, then find c.", "", "5", 4, "The completed-square form is y = (x - 3) squared - 4. Expanding gives y = x squared - 6x + 9 - 4, so c = 5.", ["5.0", "c=5", "c = 5"]),
   ],
   commonMistakes: [
