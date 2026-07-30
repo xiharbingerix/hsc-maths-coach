@@ -45,6 +45,97 @@ Every question should satisfy as many of the following characteristics as possib
 
 ---
 
+# Task Classification: Procedural Practice and Mathematically Rich Tasks
+
+Question quality must be judged against the **pedagogical purpose of the task**.
+Procedural practice and mathematically rich tasks are both valuable, but they do
+different work and must not be confused.
+
+## Procedural tasks
+
+A procedural task gives the student a known method to practise. The representation,
+operation, and solution path are familiar or explicitly cued.
+
+Procedural tasks are appropriate when the purpose is to:
+
+* build accuracy, fluency, and confidence
+* rehearse notation, facts, or a newly taught algorithm
+* reduce cognitive load while a method is being consolidated
+* check whether a student can execute a procedure correctly
+
+A well-authored procedural task can be high quality **for fluency practice**. It must
+still be correct, concise, purposeful, and diagnostically useful. However, it does not
+become mathematically rich merely through larger numbers, unfamiliar notation, extra
+steps, a real-world story, or exam-style wording. Procedural tasks should normally be
+classified D1-D2 and must not dominate mastery assessment.
+
+## Mathematically rich tasks
+
+A mathematically rich task requires the student to make mathematical decisions and
+develop or connect ideas, rather than only reproduce a taught procedure. It creates
+opportunities to deepen or learn mathematics while developing processes such as:
+
+* choosing and adapting problem-solving strategies
+* analysing relationships, constraints, cases, or representations
+* making and testing conjectures
+* connecting multiple concepts
+* constructing, comparing, or evaluating models
+* generalising, synthesising, or creating a mathematical approach
+* explaining, interpreting, or checking the reasonableness of a result
+
+Rich tasks include **analytical tasks**, in which students examine structure, compare
+approaches, interpret information, or diagnose an error, and **synthesis tasks**, in
+which students combine ideas to construct a strategy, model, generalisation, or
+solution.
+
+Richness does not require a long prompt, a decorative context, or an unmarkable written
+response. A concise numeric, exact-answer, MCQ, or structured multi-part item can be
+mathematically rich when reaching the answer requires genuine analysis or synthesis.
+
+The key distinction is:
+
+* **Procedural:** the student is mainly executing a known path.
+* **Mathematically rich:** the student must determine, adapt, connect, evaluate, or
+  create part of the path.
+
+Do not reject a procedural task that serves a clear fluency purpose. Do reject or
+relabel a procedural task presented as mastery, transfer, investigation, or high
+difficulty.
+
+---
+
+# Diverse Task Types and Their Uses
+
+Different mathematical tasks serve different aspects of learning and assessment. Do
+not treat one task type as universally superior; select the type that matches the
+intended learning evidence.
+
+| Task type | Defining student activity | Best pedagogical use | Authoring implication |
+|---|---|---|---|
+| **Procedural practice** | Rehearse or apply a known method in a familiar form | Fluency, accuracy, confidence, prerequisite checks | Keep lean and purposeful; normally D1-D2 |
+| **Problem-solving task** | Select or adapt a strategy when the path is not fully cued | Strategic competence, transfer, perseverance, non-routine assessment | Require a genuine decision and a specific markable outcome |
+| **Investigative task** | Explore cases, identify patterns, test conjectures, and draw a conclusion | Discovering relationships, reasoning, generalisation, formative learning | Use structured stages or bound the conclusion so evidence remains markable |
+| **Guided-discovery task** | Follow carefully sequenced prompts that expose a new relationship or method | Introducing new mathematics with productive scaffolding | Place primarily in instruction, guided practice, or structured multi-part practice; do not count scaffolded steps as independent difficulty |
+| **Open task** | Choose assumptions, methods, representations, or possible solutions where more than one valid route or outcome may exist | Creativity, discussion, modelling, investigation, extension | Valuable as a learning activity; for assessed product surfaces, decompose or constrain it into objective parts before publication |
+| **Analytical task** | Compare, classify, interpret, diagnose, or evaluate mathematical information | Conceptual understanding, error analysis, interpretation | Ensure the analysis determines a bounded answer and reveals a specific misconception |
+| **Synthesis task** | Combine concepts or representations to construct a model, strategy, generalisation, or solution | Mastery, transfer, high-difficulty assessment | Carry the synthesis through linked, independently markable outputs |
+
+These types can overlap. For example, an investigation may culminate in synthesis, and
+a problem-solving task may require analytical comparison before a strategy is chosen.
+Classify the task by the **dominant student activity**, not by its surface format.
+
+Open tasks are part of a balanced mathematics programme, but the question bank's
+markability rules still apply. An unconstrained prompt with many defensible answers is
+not publishable as an auto-marked question. Preserve its openness during learning, or
+convert the assessable evidence into bounded classifications, values, conditions, or
+structured parts without reducing the task to answer extraction.
+
+Across a lesson or assessment sequence, use a deliberate mix of task types. Students
+need procedural fluency, but they must also encounter problem solving, investigation,
+guided discovery, analysis, and synthesis where these serve the learning goals.
+
+---
+
 # The Diagnostic Test
 
 Before approving a question, ask:
@@ -262,10 +353,13 @@ Across a mastery pool, assessment should include:
 
 * procedural fluency
 * conceptual understanding
+* problem solving
+* analytical or investigative reasoning
 * interpretation
 * modelling/application
 * transfer
 * error analysis
+* synthesis across connected ideas
 
 No more than 30% of a pool should assess the same cognitive skill in the same way.
 
@@ -776,6 +870,12 @@ External JSON uses the same shape in `question_parts`. `accepted_answers` is als
 | `"procedural"` | `null` | Typed answer |
 
 These are the **only two** valid values. The validator rejects all others (`"application"`, `"analytical"`, etc.).
+
+> **Schema note:** these two values describe the current response format, not the
+> pedagogical richness of the task. In this schema, `"conceptual"` means MCQ and
+> `"procedural"` means typed answer. Do not infer that every MCQ is conceptually rich
+> or that every typed answer is merely procedural. Use the task-classification standard
+> above to judge the student's actual mathematical activity.
 
 ---
 

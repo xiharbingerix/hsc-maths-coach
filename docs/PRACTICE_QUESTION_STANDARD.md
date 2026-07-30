@@ -276,6 +276,20 @@ The 19 questions across a lesson must cover:
 - Both positive and negative cases where applicable (e.g. positive and negative gradient)
 - At least one contextual/real-world question in independent or mastery
 - Enough variation that the lesson does not stop at procedural fluency alone
+- A deliberate progression from procedural practice to mathematically rich activity:
+  problem solving, analysis, interpretation, investigation, modelling, transfer, or
+  synthesis as appropriate to the lesson
+- Guided-discovery or bounded investigative sequences when students are meant to
+  develop a relationship or method, rather than merely rehearse one
+
+Task diversity is about different **student mathematical activity**, not different
+surface formats. Changing numbers, switching between MCQ and typed response, or adding
+a story does not turn a procedural task into a rich one.
+
+Open tasks may be used as optional learning, discussion, or extension activities.
+Because standard practice questions must be auto-markable, an open task must be
+decomposed into structured parts or constrained to a bounded outcome before it appears
+in guided, independent, mastery, or multi-part assessment.
 
 ---
 
