@@ -25,6 +25,30 @@ const completedLessonConfigs = [
     slug: "quotient-rule",
     masteryIdPattern: /^y11adv-qr-qm\d+$/,
   },
+  {
+    slug: "chain-rule-basics",
+    masteryIdPattern: /^y11adv-chain-qm\d+$/,
+  },
+  {
+    slug: "stationary-points-first-derivative-test",
+    masteryIdPattern: /^y11adv-stat-qm\d+$/,
+  },
+  {
+    slug: "second-derivative-concavity",
+    masteryIdPattern: /^y11adv-conc-qm\d+$/,
+  },
+  {
+    slug: "tangents-normals-applications",
+    masteryIdPattern: /^y11adv-id-tn-qm\d+$/,
+  },
+  {
+    slug: "curve-sketching-calculus",
+    masteryIdPattern: /^y11adv-curve-qm\d+$/,
+  },
+  {
+    slug: "introduction-differentiation-exam-practice",
+    masteryIdPattern: /^y11adv-id-exam-qm\d+$/,
+  },
 ] as const;
 
 const completedLessonSlugs = completedLessonConfigs.map(({ slug }) => slug);
