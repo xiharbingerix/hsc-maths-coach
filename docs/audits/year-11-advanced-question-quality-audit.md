@@ -627,6 +627,51 @@ D4 143, D5 137, and D6 1: 281 D4-D6 rows in total, including 265 in standard
 lesson practice. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Introduction to Differentiation — complete (11 of 11 subtopics)
+
+All eleven subtopics were remediated and seeded live on 31 July 2026:
+
+* `rates-of-change-gradients` separates secant and tangent information and
+  includes signed contextual rates, symmetric intervals, sparse-data
+  insufficiency, zero displacement, and model reconstruction.
+* `derivatives-first-principles` now tests limit setup, premature substitution,
+  numerical secants, symmetry, invalid cancellation, parameters, and recovery
+  of a polynomial from its difference quotient.
+* `differentiating-polynomial-functions` now includes derivative degree
+  structure, coefficient recovery, derivative invariants, motion models, and
+  reconstruction from multiple gradient conditions.
+* `product-rule`, `quotient-rule`, and `chain-rule-basics` now emphasise rule
+  selection, method diagnosis, abstract local data, parameter families,
+  retained domains, equivalent algebraic methods, and nested composition.
+* `stationary-points-first-derivative-test` and
+  `second-derivative-concavity` distinguish candidates from classifications,
+  use derivative-root multiplicity, require sign-change evidence, and include
+  parameterised feature reconstruction.
+* `tangents-normals-applications` and `curve-sketching-calculus` integrate
+  points, gradients, perpendicular lines, tangent families, stationary
+  features, concavity, symmetry, and end-to-end feature maps.
+* `introduction-differentiation-exam-practice` mixes method selection, symmetric
+  secants, parameter recovery, cubic reconstruction, and motion interpretation
+  across the whole unit.
+
+The completed unit retains 209 standard questions and ten multipart rows. All
+110 new mastery questions are active, with each lesson using 4 D3 / 3 D4 /
+3 D5, exactly three diagnostic MCQs, seven constructed responses, and all five
+bounded task types. The production bank contains 219 active unit rows and 448
+inactive historical rows; the scoped stale-row check is zero.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, complete constructed-answer and
+multipart variants, persisted authored difficulty, and valid visual and
+accessibility payloads. The repository passes 334/334 tests; the mastery
+selector, TypeScript, lint, and visual audit pass. The course visual audit
+reports 311 payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726,
+D3 1,102, D4 175, D5 170, and D6 1: 346 D4-D6 rows in total, including 330
+outside the challenge layer. The whole-course verdict remains **FAIL** because
+the other incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -950,7 +995,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Trigonometry: Measure of Angles | 15 | 285 | 90 | — | — | 0 | Complete post-audit |
 | Trigonometric Identities and Equations | 9 | 171 | 54 | — | — | 0 | Complete post-audit |
 | Exponential and Logarithmic Functions | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
-| Introduction to Differentiation | 11 | 209 | 1 | 43 | 7 | 7 | P1 |
+| Introduction to Differentiation | 11 | 209 | 66 | — | — | 0 | Complete post-audit |
 | Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
 | Sequences and Series | 5 | 95 | 0 | 22 | 3 | 5 | P2 |
 | Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
