@@ -1,6 +1,25 @@
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+import {
+  formatChoiceText,
+  practicalChoice,
+  formulaAnswer as baseFormulaAnswer,
+} from "../questionHelpers";
+
+type QualityTaskType =
+  | "procedural"
+  | "problem-solving"
+  | "analytical"
+  | "investigative"
+  | "synthesis";
+
+type QualityPracticeQuestion = PracticeQuestion & {
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  distractorMisconceptions?: Partial<
+    Record<"A" | "B" | "C" | "D", string>
+  >;
+};
 
 function differentiationFeedback(prompt: string, answer: string) {
   if (prompt.includes("average rate") || prompt.includes("average velocity") || prompt.includes("gradient of the secant")) {
@@ -127,6 +146,88 @@ function formulaAnswer(
   };
 }
 
+function qualityAnswer({
+  id,
+  prompt,
+  latex,
+  answer,
+  acceptedAnswers,
+  hint,
+  explanation,
+  difficulty,
+  diagnosticIntent,
+  taskType,
+}: {
+  id: string;
+  prompt: string;
+  latex: string;
+  answer: string;
+  acceptedAnswers: string[];
+  hint: string;
+  explanation: string;
+  difficulty: 3 | 4 | 5;
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+}): QualityPracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint,
+    explanation,
+    difficulty,
+    diagnosticIntent,
+    taskType,
+  };
+}
+
+function qualityChoice({
+  id,
+  prompt,
+  latex,
+  answer,
+  choices,
+  hint,
+  explanation,
+  difficulty,
+  diagnosticIntent,
+  taskType,
+  distractorMisconceptions,
+}: {
+  id: string;
+  prompt: string;
+  latex: string;
+  answer: "A" | "B" | "C" | "D";
+  choices: [string, string, string, string];
+  hint: string;
+  explanation: string;
+  difficulty: 3 | 4 | 5;
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  distractorMisconceptions: Partial<
+    Record<"A" | "B" | "C" | "D", string>
+  >;
+}): QualityPracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    choices: (["A", "B", "C", "D"] as const).map((label, index) => ({
+      label,
+      text: formatChoiceText(choices[index]),
+    })),
+    hint,
+    explanation,
+    difficulty,
+    diagnosticIntent,
+    taskType,
+    distractorMisconceptions,
+  };
+}
+
 export function year11AdvancedIntroductionDifferentiationLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
@@ -218,7 +319,7 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       independentPractice: [
         formulaAnswer("y11adv-id-roc-i1", "Find the average rate of change over the given interval.", "f(0)=3,\\quad f(4)=27", "6", ["m=6"]),
         formulaAnswer("y11adv-id-roc-i2", "Use the table values to find the average rate of change from the first time to the last time.", "\\begin{array}{c|ccc}t&0&2&5\\\\ h(t)&40&34&10\\end{array}", "-6", ["-6 m/s", "-6 units per second"]),
-        practicalChoice("y11adv-id-roc-i3", "A graph is flat at a point. Which gradient is most appropriate at that point?", "A", ["0", "positive", "negative", "undefined"], "A horizontal tangent has gradient 0.", "\\text{Horizontal tangent}"),
+        practicalChoice("y11adv-id-roc-i3", "A graph is flat at a point. Which gradient is most appropriate at that point?", "A", ["0", "positive", "negative", "undefined"], "A flat point has a horizontal tangent, so its vertical change is zero for a small horizontal change and the local gradient is 0.", "\\text{Horizontal tangent}"),
         formulaAnswer("y11adv-id-roc-i4", "Find the average rate of change for the height over the time interval.", "\\text{height changes from }1.2\\text{ m to }4.8\\text{ m in }3\\text{ s}", "1.2", ["1.2 m/s"]),
         practicalChoice("y11adv-id-roc-i5", "Which description matches a positive rate of change in this context?", "D", ["The tank is empty", "The volume is decreasing", "The volume is unchanged", "The volume is increasing"], "Positive rate of change means the output is increasing.", "\\frac{dV}{dt}>0"),
       ],
@@ -229,16 +330,202 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         { mistake: "Dropping units in contextual rates.", fix: "Use output units divided by input units, such as metres per second." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-id-roc-m1", "Find the gradient of the secant through the two points.", "(2,9),\\quad (6,21)", "3", ["m=3"]),
-        formulaAnswer("y11adv-id-roc-m2", "Find the average rate of change over the given interval.", "f(1)=8,\\quad f(4)=17", "3", ["3 units per x"]),
-        practicalChoice("y11adv-id-roc-m3", "Which gradient sign matches a decreasing graph?", "B", ["Positive", "Negative", "Zero", "Cannot be decided"], "A decreasing graph has negative gradient.", "\\text{Decreasing graph}"),
-        formulaAnswer("y11adv-id-roc-m4", "Use the table to find the average rate of change over the full interval. Give the exact fraction.", "\\begin{array}{c|ccc}x&1&3&7\\\\ y&10&18&30\\end{array}", "10/3"),
-        practicalChoice("y11adv-id-roc-m5", "Which setup correctly calculates the average speed over the trip?", "A", ["$\\frac{150-30}{4-1}$", "$\\frac{4-1}{150-30}$", "$\\frac{150+30}{4+1}$", "$150-30$"], "Average rate uses change in distance divided by change in time.", "\\begin{array}{c|cc}t\\text{ hours}&1&4\\\\ d\\text{ km}&30&150\\end{array}"),
-        formulaAnswer("y11adv-id-roc-m6", "Find the average rate at which the tank volume changes.", "\\text{Volume changes from }240\\text{ L to }168\\text{ L in }9\\text{ min}", "-8", ["-8 L/min", "-8 litres per minute"]),
-        practicalChoice("y11adv-id-roc-m7", "A student says the average rate must be positive because both output values are positive. Which option identifies the error?", "C", ["Positive outputs always give positive rates", "The input values should be added", "The change in output can be negative", "The tangent gradient is always zero"], "Rate depends on the change in output, not just whether the outputs are positive.", "f(2)=15,\\quad f(5)=6"),
-        practicalChoice("y11adv-id-roc-m8", "Which statement correctly connects the limiting idea to instantaneous rate of change?", "D", ["Use the secant through any two far apart points", "Average all y-values in the table", "Use the y-intercept", "Let the second point move closer to the first point"], "Instantaneous rate is approached by secants through closer and closer points.", "\\text{Gradient at one point}"),
-        formulaAnswer("y11adv-id-roc-m9", "A cyclist's distance is recorded at two times. Find the average velocity.", "\\begin{array}{c|cc}t\\text{ s}&4&10\\\\ s\\text{ m}&18&45\\end{array}", "4.5", ["4.5 m/s"]),
-        practicalChoice("y11adv-id-roc-m10", "Which interpretation is best for the displayed average rate?", "B", ["The height increases at 5 metres per second", "The height decreases at 5 metres per second on average", "The height is always negative", "The object is stationary"], "The negative rate means decreasing; the magnitude is 5.", "\\frac{h(8)-h(2)}{8-2}=-5\\text{ m/s}"),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm1",
+          prompt:
+            "Find the average rate of change of f over the stated interval.",
+          latex: "f(x)=x^2+2x,\qquad 1\\le x\\le4",
+          answer: "7",
+          acceptedAnswers: ["7.0", "7 units per x", "m=7"],
+          hint:
+            "Calculate f(4) and f(1), then divide their difference by 4-1.",
+          explanation:
+            "The endpoint values are f(4)=16+8=24 and f(1)=1+2=3. Average rate of change is [f(4)-f(1)]/(4-1)=(24-3)/3=21/3=7. This is the gradient of the secant joining the two endpoint values.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Checks direct computation of an average rate from a function, including endpoint evaluation and denominator order.",
+          taskType: "procedural",
+        }),
+        qualityChoice({
+          id: "y11adv-id-roc-qm2",
+          prompt:
+            "A student calculates the reciprocal rate shown. Which correction is mathematically valid?",
+          latex:
+            "\\text{distance: }30\\text{ km to }150\\text{ km};\\quad \\text{time: }1\\text{ h to }4\\text{ h};\\quad \\frac{4-1}{150-30}",
+          answer: "B",
+          choices: [
+            "Keep the fraction because average speed is change in time divided by change in distance.",
+            "Reverse the fraction: average speed is (150-30)/(4-1)=40 km/h.",
+            "Add both distances and divide by the sum of the times.",
+            "Use only the final distance, so the speed is 150/4 km/h.",
+          ],
+          hint:
+            "The requested units are kilometres per hour, so distance change must be divided by time change.",
+          explanation:
+            "Average speed has units kilometres per hour, which requires change in distance divided by change in time. The distance change is 120 km and the time change is 3 h, so the average speed is 120/3=40 km/h. Option B corrects both the ratio and its units.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Diagnoses inversion of input and output changes by using dimensional units as an independent check.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Defines the reciprocal quantity hours per kilometre instead of speed.",
+            C: "Uses sums of readings rather than changes between endpoint readings.",
+            D: "Treats cumulative position and clock time as though both began at zero.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm3",
+          prompt:
+            "A liquid cools between the two recorded times. Find and interpret its average temperature rate.",
+          latex: "T(2)=84^\\circ\\mathrm{C},\qquad T(8)=48^\\circ\\mathrm{C}",
+          answer: "-6 °C/min",
+          acceptedAnswers: [
+            "-6",
+            "-6 degrees Celsius per minute",
+            "decreases by 6 °C/min",
+          ],
+          hint:
+            "Use final temperature minus initial temperature over final time minus initial time, retaining the sign.",
+          explanation:
+            "The temperature change is 48-84=-36 degrees Celsius over 8-2=6 minutes. Therefore the average rate is -36/6=-6 °C/min. The negative sign means the liquid's temperature decreases by 6 °C per minute on average.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Checks signed contextual rate calculation and interpretation with correct output-per-input units.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-id-roc-qm4",
+          prompt:
+            "A secant calculation gives the average rate below. Which conclusion is justified?",
+          latex: "\\frac{f(5)-f(2)}{5-2}=4",
+          answer: "D",
+          choices: [
+            "The instantaneous rate at x=3 must equal 4.",
+            "The function must be linear for every real x.",
+            "Every tangent between x=2 and x=5 has gradient 4.",
+            "The output increases by 12 overall, with average rate 4 on this interval.",
+          ],
+          hint:
+            "Separate what an endpoint secant guarantees from what would require local derivative information.",
+          explanation:
+            "The equation states that [f(5)-f(2)]/3=4, so f(5)-f(2)=12 and the secant's average gradient is 4. It does not determine any particular tangent gradient or prove the function is linear. Therefore only option D is guaranteed.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Diagnoses confusion between an interval's secant gradient and instantaneous tangent gradients inside the interval.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Assigns the average rate to an arbitrary interior point without derivative evidence.",
+            B: "Infers a global linear function from one secant calculation.",
+            C: "Assumes every local rate equals the interval average.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm5",
+          prompt:
+            "The average rate of change over the interval is 12. Determine the parameter a.",
+          latex: "f(x)=ax^2+1,\qquad 1\\le x\\le3",
+          answer: "a=3",
+          acceptedAnswers: ["3", "a = 3", "3.0"],
+          hint:
+            "Evaluate f(3)-f(1), divide by 2, and solve the resulting equation.",
+          explanation:
+            "The endpoint change is (9a+1)-(a+1)=8a. Dividing by the interval width 3-1=2 gives average rate 4a. Since this equals 12, 4a=12 and a=3. Substitution confirms the endpoint outputs differ by 24 across two units.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Assesses reverse inference of a function parameter from a prescribed secant gradient.",
+          taskType: "problem-solving",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm6",
+          prompt:
+            "For every positive a, the average rate over the symmetric interval is 5. Determine k.",
+          latex: "f(x)=x^2+kx,\qquad -a\\le x\\le a,\qquad a>0",
+          answer: "k=5",
+          acceptedAnswers: ["5", "k = 5", "5.0"],
+          hint:
+            "Calculate f(a)-f(-a); the even squared terms cancel across the symmetric endpoints.",
+          explanation:
+            "We have f(a)=a^2+ka and f(-a)=a^2-ka. Their difference is 2ka, while the interval width is 2a. The average rate is therefore (2ka)/(2a)=k for every a>0. Since the measured rate is 5, k=5.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Investigates how symmetry cancels an even component and isolates the linear coefficient in an average rate.",
+          taskType: "investigative",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm7",
+          prompt:
+            "For s(t)=t cubed, compare the average velocities on [0,2] and [2,4]. Find the ratio later rate to earlier rate.",
+          latex: "s(t)=t^3",
+          answer: "7",
+          acceptedAnswers: ["7.0", "7:1", "28/4=7"],
+          hint:
+            "Calculate each endpoint difference over its two-unit time interval before forming the ratio.",
+          explanation:
+            "On [0,2], the average velocity is (8-0)/2=4. On [2,4], it is (64-8)/2=56/2=28. The requested ratio is 28/4=7. Equal interval widths do not produce equal rates because the cubic steepens rapidly.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Probes comparison of average rates on equal-width intervals for a nonlinear position function.",
+          taskType: "investigative",
+        }),
+        qualityChoice({
+          id: "y11adv-id-roc-qm8",
+          prompt:
+            "A student averages two neighbouring secant gradients and claims this must be f'(3). Which evaluation is correct?",
+          latex: "f(1)=2,\qquad f(3)=10,\qquad f(5)=6",
+          answer: "C",
+          choices: [
+            "The claim is correct: f'(3) is always the mean of the two secant gradients.",
+            "The derivative must be 1 because the left and right secant gradients are 4 and -2.",
+            "The three values do not determine f'(3); many smooth functions can pass through them with different tangent gradients.",
+            "The derivative must be zero because f(3) is larger than the two recorded endpoint values.",
+          ],
+          hint:
+            "Finite secants constrain endpoint changes but do not uniquely determine the local tangent between them.",
+          explanation:
+            "The left secant gradient is 4 and the right secant gradient is -2, but their average is not a derivative rule. Infinitely many smooth functions can pass through the three points while having different tangent gradients at x=3. Thus the local rate cannot be determined from these values alone.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Diagnoses unjustified estimation of an instantaneous rate from sparse finite secants without a limiting process.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Treats averaging adjacent secants as an exact derivative theorem.",
+            B: "Computes the proposed average but assumes it is uniquely determined local information.",
+            D: "Infers a horizontal tangent from sampled values without knowing behaviour between them.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm9",
+          prompt:
+            "Find the later time k when the average velocity from t=1 to t=k is zero.",
+          latex: "s(t)=t^2-6t,\qquad k>1",
+          answer: "k=5",
+          acceptedAnswers: ["5", "k = 5", "5 seconds"],
+          hint:
+            "Zero average velocity means s(k)=s(1); solve that equation and reject the endpoint root.",
+          explanation:
+            "Average velocity is [s(k)-s(1)]/(k-1). For it to be zero with k>1, the numerator must be zero. Since s(1)=1-6=-5, solve k^2-6k=-5, giving (k-1)(k-5)=0. The later time is k=5.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Combines a zero-rate condition, position equality, quadratic solving, and rejection of the repeated starting time.",
+          taskType: "synthesis",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-roc-qm10",
+          prompt:
+            "Two interval-average measurements determine the quadratic model. Find a+b.",
+          latex:
+            "V(t)=at^2+bt+100,\quad \\mathrm{AROC}_{[0,2]}=10,\quad \\mathrm{AROC}_{[2,4]}=18",
+          answer: "8",
+          acceptedAnswers: ["8.0", "a+b=8", "a=2,b=6"],
+          hint:
+            "Translate each average rate into an equation: 2a+b=10 and 6a+b=18.",
+          explanation:
+            "From [0,2], [V(2)-V(0)]/2=(4a+2b)/2=2a+b=10. From [2,4], [V(4)-V(2)]/2=(12a+2b)/2=6a+b=18. Subtracting gives 4a=8, so a=2 and then b=6. Hence a+b=8.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Synthesises two secant-rate conditions into a simultaneous system for a contextual quadratic model.",
+          taskType: "synthesis",
+        }),
       ],
     };
   }
@@ -311,11 +598,11 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         practicalChoice("y11adv-id-fp-g4", "What does the derivative represent at a point on the graph?", "B", ["The y-intercept", "The tangent gradient", "The average of all y-values", "The area under the curve"], "The derivative gives the instantaneous gradient at a point.", "\\text{Derivative at }x=a"),
       ],
       independentPractice: [
-        practicalChoice("y11adv-id-fp-i1", "Which first-principles setup matches the displayed function?", "D", ["$\\lim_{h\\to0}\\frac{(x+h)^2+x^2}{h}$", "$\\lim_{h\\to0}\\frac{x^2-(x+h)^2}{h}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{x}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{h}$"], "Use f(x+h) minus f(x), divided by h.", "f(x)=x^2"),
+        practicalChoice("y11adv-id-fp-i1", "Which first-principles setup matches the displayed function?", "D", ["$\\lim_{h\\to0}\\frac{(x+h)^2+x^2}{h}$", "$\\lim_{h\\to0}\\frac{x^2-(x+h)^2}{h}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{x}$", "$\\lim_{h\\to0}\\frac{(x+h)^2-x^2}{h}$"], "First principles compares the new output f(x+h) with f(x), then divides that change by h before taking the limit.", "f(x)=x^2"),
         formulaAnswer("y11adv-id-fp-i2", "Simplify the difference quotient before taking the limit.", "\\frac{(x+h)^2-x^2}{h}", "2x+h", ["h+2x"]),
         formulaAnswer("y11adv-id-fp-i3", "Find the derivative from first principles after simplification.", "\\lim_{h\\to0}(2x+h)", "2x", ["f'(x)=2x"]),
         formulaAnswer("y11adv-id-fp-i4", "Use first principles to find the derivative of the linear function.", "g(x)=-4x+7", "-4", ["g'(x)=-4"]),
-        practicalChoice("y11adv-id-fp-i5", "A student substitutes zero for h before simplifying. Which option identifies the problem?", "A", ["It creates division by zero in the difference quotient", "It changes the function into a reciprocal", "It finds the y-intercept", "It reflects the graph"], "The h in the denominator must cancel before the limit is taken.", "\\frac{f(x+h)-f(x)}{h}"),
+        practicalChoice("y11adv-id-fp-i5", "A student substitutes zero for h before simplifying. Which option identifies the problem?", "A", ["It creates division by zero in the difference quotient", "It changes the function into a reciprocal", "It finds the y-intercept", "It reflects the graph"], "Substituting h=0 immediately makes the denominator zero; simplify and cancel the common factor of h before evaluating the limit.", "\\frac{f(x+h)-f(x)}{h}"),
       ],
       commonMistakes: [
         { mistake: "Putting $f(x)-f(x+h)$ in the numerator.", fix: "Use new output minus original output: $f(x+h)-f(x)$." },
@@ -324,16 +611,207 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         { mistake: "Thinking first principles is a separate kind of derivative.", fix: "First principles explains the same derivative used later by rules." },
       ],
       masteryQuiz: [
-        practicalChoice("y11adv-id-fp-m1", "Which expression is the correct first-principles definition?", "B", ["$\\lim_{h\\to0}\\frac{f(x)-f(x+h)}{h}$", "$\\lim_{h\\to0}\\frac{f(x+h)-f(x)}{h}$", "$\\lim_{h\\to0}\\frac{f(x+h)+f(x)}{h}$", "$\\lim_{x\\to0}\\frac{f(h)-f(x)}{x}$"], "Use f(x+h) minus f(x), divided by h.", "f'(x)"),
-        formulaAnswer("y11adv-id-fp-m2", "Simplify the numerator for the first-principles calculation.", "(x+h)^2-x^2", "2xh+h^2", ["h(2x+h)", "h^2+2xh"]),
-        formulaAnswer("y11adv-id-fp-m3", "Use first principles to find the derivative of the linear function.", "f(x)=2x+9", "2", ["f'(x)=2"]),
-        formulaAnswer("y11adv-id-fp-m4", "Complete the simplified difference quotient.", "\\frac{(x+h)^2-x^2}{h}", "2x+h", ["h+2x"]),
-        formulaAnswer("y11adv-id-fp-m5", "Use first principles to find the derivative.", "f(x)=x^2", "2x", ["f'(x)=2x"]),
-        practicalChoice("y11adv-id-fp-m6", "Which setup is correct for the displayed function?", "C", ["$\\lim_{h\\to0}\\frac{3x+1-3(x+h)-1}{h}$", "$\\lim_{h\\to0}\\frac{3(x+h)+1+3x+1}{h}$", "$\\lim_{h\\to0}\\frac{[3(x+h)+1]-(3x+1)}{h}$", "$\\lim_{h\\to0}\\frac{3h+1}{x}$"], "Substitute x+h into the whole function, then subtract f(x).", "f(x)=3x+1"),
-        practicalChoice("y11adv-id-fp-m7", "Which option identifies the expansion error?", "A", ["The middle term $2xh$ is missing", "The denominator should be x", "The limit should be infinity", "The derivative must be negative"], "The expansion of the square needs the middle term.", "(x+h)^2=x^2+h^2"),
-        practicalChoice("y11adv-id-fp-m8", "Why does the limit idea use a very small h-value?", "D", ["To find the area under the graph", "To remove the x-values from the function", "To find the average of all gradients", "To make the secant gradient approach the tangent gradient"], "As h approaches zero, the second point moves closer to the first.", "\\text{First principles}"),
-        formulaAnswer("y11adv-id-fp-m9", "After simplifying the difference quotient, find the derivative.", "\\frac{[4(x+h)-6]-(4x-6)}{h}", "4", ["f'(x)=4"]),
-        practicalChoice("y11adv-id-fp-m10", "Which statement best interprets the result of a first-principles calculation?", "B", ["It gives only the y-intercept", "It gives the gradient function", "It gives the area between two curves", "It gives the midpoint of an interval"], "The derivative is a function that gives tangent gradients.", "f'(x)=2x"),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm1",
+          prompt:
+            "Use the first-principles definition to find the derivative of the linear function.",
+          latex: "f(x)=3x+2",
+          answer: "f'(x)=3",
+          acceptedAnswers: ["3", "f'(x) = 3", "dy/dx=3"],
+          hint:
+            "Substitute x+h into the whole function, subtract f(x), divide by h, and simplify before taking the limit.",
+          explanation:
+            "First principles gives [f(x+h)-f(x)]/h=[3(x+h)+2-(3x+2)]/h=3h/h=3 for h not equal to zero. Taking the limit as h approaches zero leaves f'(x)=3, the constant gradient of the linear function.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Checks execution of the complete first-principles process for a linear function rather than rule recall alone.",
+          taskType: "procedural",
+        }),
+        qualityChoice({
+          id: "y11adv-id-fp-qm2",
+          prompt:
+            "Which expression correctly represents the secant-to-tangent limit for f'(x)?",
+          latex: "f'(x)=\\lim_{h\\to0}\\;?",
+          answer: "B",
+          choices: [
+            "[f(x)-f(x+h)]/h",
+            "[f(x+h)-f(x)]/h",
+            "[f(x+h)+f(x)]/h",
+            "[f(h)-f(x)]/x",
+          ],
+          hint:
+            "Use new output minus original output over the horizontal change h, preserving the order.",
+          explanation:
+            "The nearby point has coordinates (x+h,f(x+h)), so its vertical change from (x,f(x)) is f(x+h)-f(x) and its horizontal change is h. Therefore the secant gradient is [f(x+h)-f(x)]/h, and its limit is option B.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Diagnoses reversed output subtraction, addition of outputs, and confusion between the increment h and the input x.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Reverses the vertical change while keeping a positive horizontal change.",
+            C: "Adds endpoint outputs instead of calculating their change.",
+            D: "Substitutes h as an independent input and divides by x rather than the increment.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm3",
+          prompt:
+            "Use first principles to determine the derivative value at x=2.",
+          latex: "f(x)=x^2",
+          answer: "f'(2)=4",
+          acceptedAnswers: ["4", "4.0", "gradient=4"],
+          hint:
+            "At x=2, simplify [(2+h)^2-4]/h before letting h approach zero.",
+          explanation:
+            "The difference quotient at x=2 is [(2+h)^2-2^2]/h=(4+4h+h^2-4)/h=(4h+h^2)/h=4+h. Taking h toward zero gives f'(2)=4. The cancellation must occur before the limit is evaluated.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Checks local first-principles calculation at a specified input, including expansion, cancellation, and limiting.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-id-fp-qm4",
+          prompt:
+            "A student substitutes h=0 into the unsimplified quotient and obtains 0/0. Which correction is valid?",
+          latex:
+            "f(x)=x^2,\qquad \\frac{(x+h)^2-x^2}{h}",
+          answer: "D",
+          choices: [
+            "Conclude that x squared has no derivative.",
+            "Replace the denominator h by x.",
+            "Cancel h directly from (x+h)^2 before expanding.",
+            "Expand and factor the numerator, cancel h for h≠0, then take the limit.",
+          ],
+          hint:
+            "A limit examines nearby non-zero h-values; simplify their common factor before h approaches zero.",
+          explanation:
+            "The form 0/0 signals that direct substitution is premature, not that the derivative fails. Expanding gives 2xh+h^2=h(2x+h). For nearby h not equal to zero, the quotient becomes 2x+h, whose limit is 2x. Thus option D gives the valid order.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Diagnoses direct substitution into an indeterminate difference quotient before algebraic cancellation.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Treats an indeterminate form as proof that the derivative does not exist.",
+            B: "Changes the definition's horizontal increment to avoid division by zero.",
+            C: "Attempts cancellation across an unexpanded sum where h is not a factor of every term.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm5",
+          prompt:
+            "The derivative at x=1 is 7. Use the first-principles structure to determine a.",
+          latex: "f(x)=ax^2+3x",
+          answer: "a=2",
+          acceptedAnswers: ["2", "a = 2", "2.0"],
+          hint:
+            "The difference quotient simplifies to 2ax+ah+3; take the limit and then substitute x=1.",
+          explanation:
+            "Expanding f(x+h)-f(x) gives a(2xh+h^2)+3h. After dividing by h, the quotient is 2ax+ah+3, so f'(x)=2ax+3. At x=1, 2a+3=7, giving 2a=4 and therefore a=2.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Assesses parameter recovery by deriving and applying a first-principles gradient rather than quoting a rule.",
+          taskType: "problem-solving",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm6",
+          prompt:
+            "For f(x)=x² at x=3, calculate the secant-gradient expression and state the value it approaches as h tends to zero.",
+          latex: "h\\in\\{1,0.1,0.01\\}",
+          answer: "7, 6.1, 6.01; approaches 6",
+          acceptedAnswers: [
+            "approaches 6",
+            "6",
+            "the secant gradients 7, 6.1 and 6.01 tend to 6",
+          ],
+          hint:
+            "At x=3 the difference quotient simplifies to 6+h; substitute the three positive h-values.",
+          explanation:
+            "For x=3, [(3+h)^2-9]/h=(6h+h^2)/h=6+h. The listed h-values give gradients 7, 6.1 and 6.01. As h becomes closer to zero, these secant gradients approach 6, the tangent gradient f'(3).",
+          difficulty: 4,
+          diagnosticIntent:
+            "Investigates numerically how a sequence of secant gradients converges to an instantaneous gradient.",
+          taskType: "investigative",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm7",
+          prompt:
+            "Use first-principles symmetry to determine f'(a)+f'(-a) for every real a.",
+          latex: "f(x)=x^2",
+          answer: "0",
+          acceptedAnswers: ["0.0", "f'(a)+f'(-a)=0", "the sum is zero"],
+          hint:
+            "First principles gives f'(x)=2x; evaluate this at the two symmetric inputs.",
+          explanation:
+            "The first-principles quotient for x^2 simplifies to 2x+h, so f'(x)=2x. Hence f'(a)=2a and f'(-a)=-2a. Adding the gradients at symmetric inputs gives 2a-2a=0 for every real a.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Probes the odd symmetry of the derivative that emerges from an even quadratic through first principles.",
+          taskType: "investigative",
+        }),
+        qualityChoice({
+          id: "y11adv-id-fp-qm8",
+          prompt:
+            "A student reaches the correct final derivative using an invalid cancellation. Which critique identifies the flaw?",
+          latex:
+            "\\frac{h(2x+h)}{h}\\overset{?}{=}2x\\quad\\Rightarrow\\quad f'(x)=2x",
+          answer: "A",
+          choices: [
+            "After cancelling h, the quotient is 2x+h; only the limit then removes the remaining h.",
+            "The h factors cannot be cancelled for any non-zero h.",
+            "The final derivative should be x because the original power is two.",
+            "The limit should be taken as x approaches zero rather than h.",
+          ],
+          hint:
+            "Cancellation removes the common factor outside the bracket, not the h term added inside the bracket.",
+          explanation:
+            "For h not equal to zero, h(2x+h)/h simplifies to the entire bracket 2x+h, not just 2x. The term h disappears only when the limit h→0 is taken. The student's final answer happens to be right, but option A identifies the invalid intermediate step.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Diagnoses a lucky correct answer produced by dropping an additive term during factor cancellation.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            B: "Forgets that limits use nearby non-zero h-values where cancellation is valid.",
+            C: "Misstates the power rule and ignores the first-principles derivation.",
+            D: "Confuses the increment tending to zero with the independent variable.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm9",
+          prompt:
+            "Use first principles and the stated gradient to determine c.",
+          latex: "f(x)=x^2+cx,\qquad f'(2)=9",
+          answer: "c=5",
+          acceptedAnswers: ["5", "c = 5", "5.0"],
+          hint:
+            "The difference quotient simplifies to 2x+h+c; take its limit and evaluate at x=2.",
+          explanation:
+            "Expanding f(x+h)-f(x) gives 2xh+h^2+ch. Dividing by h yields 2x+h+c, whose limit is f'(x)=2x+c. The condition f'(2)=9 gives 4+c=9, so c=5.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Synthesises first-principles algebra with reverse parameter inference from a local gradient condition.",
+          taskType: "synthesis",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-fp-qm10",
+          prompt:
+            "A quadratic has the displayed first-principles numerator and value at zero. Reconstruct f(x).",
+          latex:
+            "f(x+h)-f(x)=h(6x+3h-4),\qquad f(0)=5",
+          answer: "f(x)=3x^2-4x+5",
+          acceptedAnswers: [
+            "3x^2-4x+5",
+            "f(x) = 3x^2 - 4x + 5",
+            "y=3x^2-4x+5",
+          ],
+          hint:
+            "For Ax²+Bx+C the numerator is h(2Ax+Ah+B); match coefficients and use f(0).",
+          explanation:
+            "A quadratic Ax^2+Bx+C produces f(x+h)-f(x)=h(2Ax+Ah+B). Matching h(6x+3h-4) gives 2A=6 and A=3, consistently, with B=-4. Finally f(0)=C=5, so f(x)=3x^2-4x+5.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Reverses the entire first-principles numerator to reconstruct a quadratic's coefficients and constant.",
+          taskType: "synthesis",
+        }),
       ],
     };
   }
@@ -402,7 +880,7 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       guidedPractice: [
         formulaAnswer("y11adv-id-poly-g1", "Differentiate the polynomial function.", "f(x)=4x^3-2x+5", "12x^2-2", ["f'(x)=12x^2-2"]),
         formulaAnswer("y11adv-id-poly-g2", "Evaluate the derivative at the given x-value.", "f'(x)=6x-4,\\quad x=3", "14", ["f'(3)=14"]),
-        practicalChoice("y11adv-id-poly-g3", "Which derivative correctly handles the constant term?", "A", ["$6x$", "$6x+5$", "$3x^2+5$", "$3x$"], "The constant 5 differentiates to zero.", "f(x)=3x^2+5"),
+        practicalChoice("y11adv-id-poly-g3", "Which derivative correctly handles the constant term?", "A", ["$6x$", "$6x+5$", "$3x^2+5$", "$3x$"], "The power rule gives 6x from 3x squared, while the constant 5 differentiates to zero because it does not change.", "f(x)=3x^2+5"),
         practicalChoice("y11adv-id-poly-g4", "Which statement matches the derivative value?", "C", ["The graph is flat", "The graph is decreasing", "The graph is increasing", "The graph has no gradient"], "A positive derivative value means the graph is increasing at that point.", "f'(2)=7"),
       ],
       independentPractice: [
@@ -419,16 +897,208 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         { mistake: "Dropping negative signs.", fix: "Keep each sign attached to its term while differentiating." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-id-poly-m1", "Differentiate the polynomial function.", "f(x)=5x^2-3", "10x", ["f'(x)=10x"]),
-        formulaAnswer("y11adv-id-poly-m2", "Differentiate the polynomial function.", "y=x^4-2x", "4x^3-2", ["dy/dx=4x^3-2", "\\frac{dy}{dx}=4x^3-2"]),
-        formulaAnswer("y11adv-id-poly-m3", "Evaluate the derivative at the given x-value.", "f'(x)=8x+1,\\quad x=2", "17", ["f'(2)=17"]),
-        formulaAnswer("y11adv-id-poly-m4", "Differentiate the function term-by-term.", "g(x)=3x^5-4x^3+9", "15x^4-12x^2", ["g'(x)=15x^4-12x^2"]),
-        formulaAnswer("y11adv-id-poly-m5", "Find the gradient of the curve at the given point.", "y=x^3-3x,\\quad x=2", "9", ["m=9"]),
-        practicalChoice("y11adv-id-poly-m6", "Which derivative is correct?", "B", ["$6x^3-4x+7$", "$6x^2-4$", "$2x^3-4$", "$6x^2-4x$"], "Differentiate term-by-term and drop the constant.", "f(x)=2x^3-4x+7"),
-        practicalChoice("y11adv-id-poly-m7", "Which option identifies the mistake in the displayed derivative?", "C", ["The power should increase", "The constant should stay as 5", "The coefficient was not multiplied by the original power", "The derivative should be negative"], "The derivative of 7x^4 is 28x^3.", "\\frac{d}{dx}(7x^4)=7x^3"),
-        practicalChoice("y11adv-id-poly-m8", "A derivative value is zero at a point. What does that tell you about the tangent there?", "A", ["It is horizontal", "It is vertical", "It must cross the y-axis", "It has gradient one"], "A zero derivative means a horizontal tangent.", "f'(a)=0"),
-        formulaAnswer("y11adv-id-poly-m9", "Find the x-value where the tangent is horizontal.", "f(x)=x^2-6x+4", "3", ["x=3"]),
-        formulaAnswer("y11adv-id-poly-m10", "Find the derivative value, then interpret its sign as a gradient.", "s(t)=2t^3-9t,\\quad t=2", "15", ["s'(2)=15", "15 positive"]),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm1",
+          prompt: "Differentiate the polynomial term by term.",
+          latex: "f(x)=4x^5-3x^2+7",
+          answer: "20x^4-6x",
+          acceptedAnswers: ["f'(x)=20x^4-6x", "20x^4 - 6x"],
+          hint:
+            "Multiply each non-constant coefficient by its exponent, then reduce that exponent by one.",
+          explanation:
+            "Apply the power rule separately to each term. The derivative of 4x^5 is 20x^4, the derivative of -3x^2 is -6x, and the constant 7 differentiates to zero. Therefore f'(x)=20x^4-6x.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Checks accurate term-by-term use of the power rule, including a negative coefficient and a constant term.",
+          taskType: "procedural",
+        }),
+        qualityChoice({
+          id: "y11adv-id-poly-qm2",
+          prompt:
+            "Without expanding any additional expressions, which statement about the derivative must be true?",
+          latex: "p(x)=-2x^4+5x^2-x+9",
+          answer: "C",
+          choices: [
+            "The derivative has degree 4 and leading coefficient -2.",
+            "The derivative has degree 3 and leading coefficient -2.",
+            "The derivative has degree 3 and leading coefficient -8.",
+            "The derivative has degree 5 and leading coefficient -8.",
+          ],
+          hint:
+            "Track what the power rule does to the highest-degree term -2x^4.",
+          explanation:
+            "The highest-degree term controls the derivative's degree and leading coefficient. Differentiating -2x^4 gives -8x^3, so the derivative has degree 3 and leading coefficient -8. Lower-degree terms cannot change that leading term.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Tests structural understanding of how differentiation changes polynomial degree and the leading coefficient.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Leaves both the leading coefficient and exponent unchanged.",
+            B: "Reduces the exponent but forgets to multiply by the original power.",
+            D: "Increases the polynomial degree while multiplying the coefficient.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm3",
+          prompt: "Find the gradient of the curve at x=-1.",
+          latex: "y=x^3-2x^2+4",
+          answer: "7",
+          acceptedAnswers: ["m=7", "y'(-1)=7", "7.0"],
+          hint:
+            "Differentiate first to obtain 3x^2-4x, then substitute x=-1 with its sign intact.",
+          explanation:
+            "The derivative is y'=3x^2-4x. At x=-1, the squared term contributes 3(-1)^2=3 and the linear term contributes -4(-1)=4. Hence the tangent gradient is 3+4=7.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Checks whether a student differentiates before substitution and handles a negative input correctly.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-id-poly-qm4",
+          prompt:
+            "A student writes the derivative shown. Which diagnosis identifies the error?",
+          latex: "\\frac{d}{dx}(-3x^4+2x)=-12x^4+2",
+          answer: "B",
+          choices: [
+            "The coefficient -3 should not have been multiplied by 4.",
+            "The exponent on x should reduce from 4 to 3 after multiplying by 4.",
+            "The derivative of 2x should be 2x rather than 2.",
+            "Every term in a derivative must have a positive coefficient.",
+          ],
+          hint:
+            "Compare the student's first term with the complete rule d(ax^n)/dx=anx^(n-1).",
+          explanation:
+            "The coefficient calculation -3 times 4=-12 is correct, but the power rule also reduces the exponent by one. Thus d(-3x^4)/dx=-12x^3, while d(2x)/dx=2. The correct derivative is -12x^3+2.",
+          difficulty: 3,
+          diagnosticIntent:
+            "Diagnoses partial power-rule use where the coefficient is updated but the exponent is not reduced.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Rejects the required multiplication by the original exponent.",
+            C: "Treats a linear term as unchanged under differentiation.",
+            D: "Assumes differentiation removes negative signs from coefficients.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm5",
+          prompt:
+            "The curve has the stated tangent gradient at x=2. Determine a.",
+          latex: "f(x)=ax^3-2x+5,\qquad f'(2)=34",
+          answer: "a=3",
+          acceptedAnswers: ["3", "a = 3", "3.0"],
+          hint:
+            "Differentiate symbolically to get 3ax^2-2, then use the given derivative value.",
+          explanation:
+            "Differentiate to obtain f'(x)=3ax^2-2. At x=2 this becomes f'(2)=12a-2. The condition 12a-2=34 gives 12a=36, so a=3. Substitution confirms the gradient is 36-2=34.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Assesses reverse determination of a polynomial coefficient from a prescribed local gradient.",
+          taskType: "problem-solving",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm6",
+          prompt:
+            "Find the value of k for which the member of this family has a horizontal tangent at x=2.",
+          latex: "f_k(x)=x^3-kx",
+          answer: "k=12",
+          acceptedAnswers: ["12", "k = 12", "12.0"],
+          hint:
+            "Differentiate the family and impose the horizontal-tangent condition f'_k(2)=0.",
+          explanation:
+            "Each member has derivative f'_k(x)=3x^2-k. A horizontal tangent at x=2 requires 3(2)^2-k=0, so 12-k=0 and k=12. Changing k shifts every derivative value by the same amount.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Investigates how a parameter changes the derivative family and uses a geometric condition to select one member.",
+          taskType: "investigative",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm7",
+          prompt:
+            "The two polynomials have identical derivatives for every x. State the most specific relationship that must hold between f and g.",
+          latex: "f'(x)=g'(x)\\quad\\text{for all real }x",
+          answer: "They differ by a constant",
+          acceptedAnswers: [
+            "f(x)-g(x) is constant",
+            "f=g+C",
+            "f(x)=g(x)+C",
+          ],
+          hint:
+            "Ask which kind of polynomial term disappears completely when differentiated.",
+          explanation:
+            "If f'(x)=g'(x), then the derivative of f(x)-g(x) is zero for every x. A polynomial with zero derivative everywhere is constant. Therefore f and g can have different vertical positions but must differ only by a constant.",
+          difficulty: 4,
+          diagnosticIntent:
+            "Probes generalisation from examples to the invariant information lost when polynomials are differentiated.",
+          taskType: "investigative",
+        }),
+        qualityChoice({
+          id: "y11adv-id-poly-qm8",
+          prompt:
+            "Which conclusion about the coefficients is forced by the derivative information?",
+          latex: "f(x)=ax^4+bx^2+cx+d,\qquad f'(x)=8x^3-6x+5",
+          answer: "D",
+          choices: [
+            "a=8, b=-6, c=5 and d=0",
+            "a=2, b=-6, c=5 and d=0",
+            "a=2, b=-3, c=5 and d=5",
+            "a=2, b=-3 and c=5, while d cannot be determined",
+          ],
+          hint:
+            "Match 4a, 2b and c with the derivative coefficients, then consider what happens to d.",
+          explanation:
+            "Differentiating gives f'(x)=4ax^3+2bx+c. Matching coefficients yields 4a=8, 2b=-6 and c=5, so a=2, b=-3 and c=5. The constant d disappears under differentiation, so the derivative gives no information about it.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Diagnoses whether students can reverse coefficient matching while recognising that differentiation loses the additive constant.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Copies derivative coefficients directly without reversing the power rule.",
+            B: "Reverses the quartic coefficient but not the quadratic coefficient and invents d=0.",
+            C: "Correctly reconstructs non-constant coefficients but treats the derivative's constant as d.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm9",
+          prompt:
+            "Use the two gradient conditions to reconstruct the polynomial f.",
+          latex:
+            "f(x)=x^3+ax^2+bx+4,\qquad f'(0)=1,\qquad f'(1)=0",
+          answer: "x^3-2x^2+x+4",
+          acceptedAnswers: [
+            "f(x)=x^3-2x^2+x+4",
+            "x^3 - 2x^2 + x + 4",
+            "a=-2,b=1",
+          ],
+          hint:
+            "Differentiate first; f'(0) identifies b, and f'(1)=0 then determines a.",
+          explanation:
+            "Differentiation gives f'(x)=3x^2+2ax+b. The condition f'(0)=1 immediately gives b=1. Then f'(1)=0 gives 3+2a+1=0, so 2a=-4 and a=-2. Hence f(x)=x^3-2x^2+x+4.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Synthesises multiple derivative constraints to recover unknown coefficients in an original polynomial.",
+          taskType: "synthesis",
+        }),
+        qualityAnswer({
+          id: "y11adv-id-poly-qm10",
+          prompt:
+            "A particle's position has the stated form. Use the three velocity measurements to determine s(t).",
+          latex:
+            "s(t)=at^3+bt^2+ct,\qquad v(0)=3,\quad v(1)=2,\quad v(2)=7",
+          answer: "t^3-2t^2+3t",
+          acceptedAnswers: [
+            "s(t)=t^3-2t^2+3t",
+            "t^3 - 2t^2 + 3t",
+            "a=1,b=-2,c=3",
+          ],
+          hint:
+            "Differentiate to v(t)=3at^2+2bt+c; use v(0) first, then solve the remaining two equations.",
+          explanation:
+            "Velocity is v(t)=3at^2+2bt+c. From v(0)=3, c=3. The other conditions give 3a+2b=-1 and 12a+4b=4. Doubling the first and subtracting gives 6a=6, so a=1; then b=-2. Therefore s(t)=t^3-2t^2+3t.",
+          difficulty: 5,
+          diagnosticIntent:
+            "Synthesises differentiation, contextual interpretation, and simultaneous equations to reconstruct a motion model.",
+          taskType: "synthesis",
+        }),
       ],
     };
   }
@@ -1213,8 +1883,8 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
           ["$\\dfrac{d}{dx}(uv)=u'v'$", "$\\dfrac{d}{dx}(uv)=u'v+uv'$", "$\\dfrac{d}{dx}(uv)=u+v$", "$\\dfrac{d}{dx}(uv)=u'v-uv'$"],
           "The product rule is: derivative of the first times the second, plus the first times derivative of the second.",
           "\\frac{d}{dx}(uv)"),
-        formulaAnswer("y11adv-pr-g2", "For the product rule applied to y = x²(x+3), find u' when u = x².", "u=x^2,\\quad u'=\\Box", "2x"),
-        formulaAnswer("y11adv-pr-g3", "For the product rule applied to y = x²(x+3), find v' when v = x+3.", "v=x+3,\\quad v'=\\Box", "1"),
+        formulaAnswer("y11adv-pr-g2", "For the product rule applied to y = x²(x+3), find u' when u = x².", "u=x^2,\\quad u'=\\Box", "2x", ["u'=2x"]),
+        formulaAnswer("y11adv-pr-g3", "For the product rule applied to y = x²(x+3), find v' when v = x+3.", "v=x+3,\\quad v'=\\Box", "1", ["v'=1"]),
         practicalChoice("y11adv-pr-g4", "Choose the simplified derivative of y = x²(x+3).", "A",
           ["$3x^2+6x$", "$2x(x+3)$ only", "$x^2+6x$", "$3x^2-6x$"],
           "Using u'v + uv' = 2x(x+3) + x² = 2x²+6x+x² = 3x²+6x.",
@@ -1222,9 +1892,9 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
       ],
       independentPractice: [
         formulaAnswer("y11adv-pr-i1", "Find u' when u = x³.", "u=x^3,\\quad u'=\\Box", "3x^2", ["3x²"]),
-        formulaAnswer("y11adv-pr-i2", "Find v' when v = 2x-5.", "v=2x-5,\\quad v'=\\Box", "2"),
-        formulaAnswer("y11adv-pr-i3", "Evaluate the derivative of y = x(x+2) at x = 0.", "y=x(x+2),\\quad \\frac{dy}{dx}\\text{ at }x=0", "2"),
-        formulaAnswer("y11adv-pr-i4", "Evaluate the derivative of y = x(x+2) at x = 3.", "y=x(x+2),\\quad \\frac{dy}{dx}\\text{ at }x=3", "8"),
+        formulaAnswer("y11adv-pr-i2", "Find v' when v = 2x-5.", "v=2x-5,\\quad v'=\\Box", "2", ["v'=2"]),
+        formulaAnswer("y11adv-pr-i3", "Evaluate the derivative of y = x(x+2) at x = 0.", "y=x(x+2),\\quad \\frac{dy}{dx}\\text{ at }x=0", "2", ["y'(0)=2"]),
+        formulaAnswer("y11adv-pr-i4", "Evaluate the derivative of y = x(x+2) at x = 3.", "y=x(x+2),\\quad \\frac{dy}{dx}\\text{ at }x=3", "8", ["y'(3)=8"]),
         practicalChoice("y11adv-pr-i5", "Which function requires the product rule (cannot be simplified by expanding first)?", "C",
           ["$y=x^3+2x$", "$y=(x+1)^2$", "$y=x^2\\sin x$", "$y=x(x+3)$"],
           "When one factor is not a polynomial (such as sin x), the product cannot be expanded and the product rule is essential.",
@@ -1237,22 +1907,141 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         { mistake: "Differentiating u and v at the same time without labelling.", fix: "Write u and v explicitly, then write u' and v' before applying the formula." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-pr-m1", "Evaluate the derivative of y = x²(x-1) at x = 2.", "y=x^2(x-1),\\quad \\frac{dy}{dx}=3x^2-2x,\\quad x=2", "8"),
-        formulaAnswer("y11adv-pr-m2", "Evaluate the derivative of y = 3x(x+1) at x = 0.", "y=3x(x+1),\\quad \\frac{dy}{dx}=6x+3,\\quad x=0", "3"),
-        formulaAnswer("y11adv-pr-m3", "Evaluate the derivative of y = 3x(x+1) at x = 1.", "y=3x(x+1),\\quad \\frac{dy}{dx}=6x+3,\\quad x=1", "9"),
-        formulaAnswer("y11adv-pr-m4", "Evaluate the derivative of y = x(x²-1) at x = 1.", "y=x(x^2-1),\\quad \\frac{dy}{dx}=3x^2-1,\\quad x=1", "2"),
-        formulaAnswer("y11adv-pr-m5", "Evaluate the derivative of y = x²(2x-3) at x = 1.", "y=x^2(2x-3),\\quad \\frac{dy}{dx}=6x^2-6x,\\quad x=1", "0"),
-        formulaAnswer("y11adv-pr-m6", "Evaluate the derivative of y = x(x+4) at x = 3.", "y=x(x+4),\\quad \\frac{dy}{dx}=2x+4,\\quad x=3", "10"),
-        practicalChoice("y11adv-pr-m7", "A student differentiates y = x(x+3) and gets dy/dx = x+3. What is the error?", "C",
-          ["The derivative of x is wrong", "The product rule formula is u'v'", "The second term uv' = x·1 was omitted", "The brackets should have been expanded first"],
-          "The product rule needs both u'v and uv'. Here uv' = x·1 = x was omitted, so the answer should be (x+3)+x = 2x+3.",
-          "y=x(x+3)"),
-        formulaAnswer("y11adv-pr-m8", "Evaluate the derivative of y = x(x-2) at x = 4.", "y=x(x-2),\\quad \\frac{dy}{dx}=2x-2,\\quad x=4", "6"),
-        formulaAnswer("y11adv-pr-m9", "Evaluate the derivative of y = x²(x+1) at x = 2.", "y=x^2(x+1),\\quad \\frac{dy}{dx}=3x^2+2x,\\quad x=2", "16"),
-        practicalChoice("y11adv-pr-m10", "Which shows the correct first step for y = x(x²+1)?", "D",
-          ["$u=x^2+1,\\;v=x$", "$\\frac{dy}{dx}=1\\cdot2x$", "$\\frac{dy}{dx}=x'\\cdot(x^2+1)'$", "$u'v+uv'=1\\cdot(x^2+1)+x\\cdot2x$"],
-          "u=x, u'=1, v=x²+1, v'=2x. So u'v+uv' = (x²+1)+2x² = 3x²+1.",
-          "y=x(x^2+1)"),
+        qualityAnswer({
+          id: "y11adv-pr-qm1",
+          prompt: "Differentiate using the product rule, then simplify.",
+          latex: "y=x^2(x-3)",
+          answer: "3x^2-6x",
+          acceptedAnswers: ["dy/dx=3x^2-6x", "\\frac{dy}{dx}=3x^2-6x", "2x(x-3)+x^2"],
+          hint: "Let u=x^2 and v=x-3, then form u'v+uv' before collecting terms.",
+          explanation: "With u=x^2 and v=x-3, we have u'=2x and v'=1. The product rule gives y'=2x(x-3)+x^2(1). Expanding and combining produces 2x^2-6x+x^2=3x^2-6x.",
+          difficulty: 3,
+          diagnosticIntent: "Checks complete execution of both product-rule terms followed by accurate polynomial simplification.",
+          taskType: "procedural",
+        }),
+        qualityChoice({
+          id: "y11adv-pr-qm2",
+          prompt: "Which line is a correct unsimplified product-rule derivative?",
+          latex: "y=(2x+1)(x^2-4)",
+          answer: "B",
+          choices: ["y'=2(2x)+(1)(x^2-4)", "y'=2(x^2-4)+(2x+1)(2x)", "y'=2(2x+1)(x^2-4)(2x)", "y'=2(x^2-4)-(2x+1)(2x)"],
+          hint: "Differentiate one factor at a time while keeping the other factor unchanged, then add.",
+          explanation: "For u=2x+1 and v=x^2-4, the derivatives are u'=2 and v'=2x. Therefore u'v+uv'=2(x^2-4)+(2x+1)(2x), which is option B. Each term retains one original factor.",
+          difficulty: 3,
+          diagnosticIntent: "Diagnoses whether students can map two factors and their derivatives into the product-rule structure.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Pairs derivatives together and omits the original factor 2x+1.",
+            C: "Multiplies both derivatives and both original factors into one term.",
+            D: "Uses subtraction instead of the required sum of two contributions.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-pr-qm3",
+          prompt: "Find the tangent gradient at x=1.",
+          latex: "y=(x^2+1)(x-2)",
+          answer: "0",
+          acceptedAnswers: ["m=0", "y'(1)=0", "zero"],
+          hint: "Use y'=2x(x-2)+(x^2+1), then substitute x=1 into both terms.",
+          explanation: "The product rule gives y'=2x(x-2)+(x^2+1)(1). At x=1, this is 2(1)(-1)+(1+1)=-2+2=0. Hence the tangent is horizontal at the stated point.",
+          difficulty: 3,
+          diagnosticIntent: "Checks application of the product rule at a point, including cancellation between its two terms.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-pr-qm4",
+          prompt: "A student obtains the displayed derivative. Which diagnosis is correct?",
+          latex: "y=x^2(x+5),\\qquad y'=2x",
+          answer: "C",
+          choices: ["The derivative of x^2 should be x.", "The factors should have been divided rather than multiplied.", "The student differentiated both factors but omitted the unchanged factors and the required sum.", "The answer is correct because the derivative of x+5 is 1."],
+          hint: "Write the full structure u'v+uv' and compare every factor with the student's expression.",
+          explanation: "The derivative must be 2x(x+5)+x^2(1), not merely 2x times 1. The student has effectively multiplied u' and v' while discarding both original factors. The correct simplified derivative is 3x^2+10x.",
+          difficulty: 3,
+          diagnosticIntent: "Diagnoses the common false rule (uv)'=u'v' and identifies precisely what information it loses.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Misstates the power rule for x squared.",
+            B: "Confuses the product rule with the quotient rule.",
+            D: "Uses one correct component to justify an incomplete derivative.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-pr-qm5",
+          prompt: "The product has the stated derivative value at x=1. Determine a.",
+          latex: "f(x)=(x+a)(x^2+1),\\qquad f'(1)=10",
+          answer: "a=3",
+          acceptedAnswers: ["3", "a = 3", "3.0"],
+          hint: "Use f'(x)=(x^2+1)+(x+a)(2x), then substitute x=1.",
+          explanation: "The product rule gives f'(x)=1(x^2+1)+(x+a)(2x). At x=1 this becomes 2+2(1+a)=4+2a. Setting 4+2a=10 gives 2a=6, so a=3.",
+          difficulty: 4,
+          diagnosticIntent: "Assesses reverse parameter inference from a local derivative condition on a product.",
+          taskType: "problem-solving",
+        }),
+        qualityAnswer({
+          id: "y11adv-pr-qm6",
+          prompt: "Differentiate in product form and use simplification to explain why the middle terms cancel.",
+          latex: "y=(x-1)(x^2+x+1)",
+          answer: "3x^2",
+          acceptedAnswers: ["y'=3x^2", "dy/dx=3x^2", "\\frac{dy}{dx}=3x^2"],
+          hint: "Form (x^2+x+1)+(x-1)(2x+1), then expand only the second contribution.",
+          explanation: "The product rule gives y'=(x^2+x+1)+(x-1)(2x+1). Expanding the second term gives 2x^2-x-1, so the x and constant terms cancel, leaving 3x^2. This agrees with the identity y=x^3-1.",
+          difficulty: 4,
+          diagnosticIntent: "Investigates equivalence between product-rule and expansion methods, with attention to structural cancellation.",
+          taskType: "investigative",
+        }),
+        qualityAnswer({
+          id: "y11adv-pr-qm7",
+          prompt: "Find k so that this product has a horizontal tangent at x=3.",
+          latex: "f(x)=x(x-k)",
+          answer: "k=6",
+          acceptedAnswers: ["6", "k = 6", "6.0"],
+          hint: "Differentiate the product to obtain f'(x)=2x-k, then impose f'(3)=0.",
+          explanation: "Using the product rule, f'(x)=1(x-k)+x(1)=2x-k. A horizontal tangent at x=3 requires f'(3)=6-k=0. Therefore k=6, and the two product-rule contributions cancel at that point.",
+          difficulty: 4,
+          diagnosticIntent: "Connects product differentiation to a geometric constraint and solves backwards for a model parameter.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-pr-qm8",
+          prompt: "The values of two functions and their derivatives are known at x=2. What is the derivative of their product there?",
+          latex: "u(2)=0,\\quad u'(2)=3,\\quad v(2)=-4,\\quad v'(2)=5",
+          answer: "A",
+          choices: ["-12", "15", "3", "0"],
+          hint: "Evaluate u'v+uv' using the four local values; do not assume a zero factor makes the derivative zero.",
+          explanation: "At x=2, (uv)'=u'v+uv'=3(-4)+0(5)=-12. Although the product itself is zero because u(2)=0, its derivative need not be zero: the first contribution records how u is changing while v is nonzero.",
+          difficulty: 5,
+          diagnosticIntent: "Diagnoses confusion between a product's value and its derivative using abstract local function data.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            B: "Multiplies the two derivative values u' and v'.",
+            C: "Keeps only u' and ignores the value of the other factor.",
+            D: "Assumes a zero product value forces a zero product derivative.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-pr-qm9",
+          prompt: "The gradient conditions determine a and b up to order. Find the unordered pair {a,b}.",
+          latex: "f(x)=(x+a)(x^2+bx),\\qquad f'(0)=2,\\qquad f'(1)=11",
+          answer: "{1,2}",
+          acceptedAnswers: ["{2,1}", "1 and 2", "a,b=1,2 in either order"],
+          hint: "Expand or use the product rule to show f'(0)=ab and f'(1)=3+2(a+b)+ab.",
+          explanation: "Expanding gives f=x^3+(a+b)x^2+abx, so f'=3x^2+2(a+b)x+ab. Thus ab=2, while 11=3+2(a+b)+2 gives a+b=3. The numbers with sum 3 and product 2 are 1 and 2.",
+          difficulty: 5,
+          diagnosticIntent: "Synthesises product differentiation, coefficient structure, and simultaneous symmetric conditions to recover parameters.",
+          taskType: "synthesis",
+        }),
+        qualityAnswer({
+          id: "y11adv-pr-qm10",
+          prompt: "Differentiate the parameterised product and state why the final derivative does not depend on k.",
+          latex: "F_k(x)=(x-k)(x^2+kx+k^2)",
+          answer: "3x^2",
+          acceptedAnswers: ["F'_k(x)=3x^2", "F'(x)=3x^2", "dF/dx=3x^2"],
+          hint: "Apply the product rule, then collect the x squared, x, and constant contributions separately.",
+          explanation: "The product rule gives F'_k=(x^2+kx+k^2)+(x-k)(2x+k). The second term expands to 2x^2-kx-k^2, so all k-dependent terms cancel and F'_k=3x^2. Equivalently, the product is x^3-k^3.",
+          difficulty: 5,
+          diagnosticIntent: "Synthesises algebraic identity structure with the product rule to reveal parameter cancellation.",
+          taskType: "synthesis",
+        }),
       ],
       multiPartPractice: [
         {
@@ -1263,9 +2052,9 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
           hint: "Label u and v, differentiate each, then apply u'v + uv'.",
           explanation: "(a) u'=2x. (b) v'=1. (c) dy/dx=3x²+6x; at x=1 the value is 9.",
           parts: [
-            { key: "a", label: "(a)", prompt: "Find u' when u = x².", latex: "u=x^2", marks: 1, answer: "2x", hint: "Use the power rule on x².", explanation: "d/dx(x²) = 2x." },
-            { key: "b", label: "(b)", prompt: "Find v' when v = x + 3.", latex: "v=x+3", marks: 1, answer: "1", hint: "Differentiate x+3 term by term.", explanation: "d/dx(x+3) = 1." },
-            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 1. The derivative is dy/dx = 3x² + 6x.", latex: "\\frac{dy}{dx}=3x^2+6x,\\quad x=1", marks: 2, answer: "9", hint: "Substitute x=1 into 3(1)²+6(1).", explanation: "3(1)+6(1) = 3+6 = 9." },
+            { key: "a", label: "(a)", prompt: "Find u' when u = x².", latex: "u=x^2", marks: 1, answer: "2x", acceptedAnswers: ["u'=2x"], hint: "Use the power rule on x².", explanation: "Applying the power rule to u=x² multiplies by 2 and reduces the exponent to 1, so u'=2x." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x + 3.", latex: "v=x+3", marks: 1, answer: "1", acceptedAnswers: ["v'=1"], hint: "Differentiate x+3 term by term.", explanation: "The derivative of x is 1 and the constant 3 differentiates to zero, so v'=1+0=1." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 1. The derivative is dy/dx = 3x² + 6x.", latex: "\\frac{dy}{dx}=3x^2+6x,\\quad x=1", marks: 2, answer: "9", acceptedAnswers: ["y'(1)=9"], hint: "Substitute x=1 into 3(1)²+6(1).", explanation: "Substituting x=1 into the completed derivative gives 3(1)²+6(1)=3+6=9, so the tangent gradient is 9." },
           ],
         },
         {
@@ -1276,9 +2065,9 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
           hint: "u=x, v=x²-1. Find u', v', apply u'v+uv', then evaluate at x=2.",
           explanation: "(a) u'=1. (b) v'=2x. (c) dy/dx=3x²-1; at x=2 the value is 11.",
           parts: [
-            { key: "a", label: "(a)", prompt: "Find u' when u = x.", latex: "u=x", marks: 1, answer: "1", hint: "d/dx(x) = 1.", explanation: "The derivative of x is 1." },
-            { key: "b", label: "(b)", prompt: "Find v' when v = x² − 1.", latex: "v=x^2-1", marks: 1, answer: "2x", hint: "Differentiate x²-1 term by term.", explanation: "d/dx(x²-1) = 2x." },
-            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 2. The derivative is dy/dx = 3x² − 1.", latex: "\\frac{dy}{dx}=3x^2-1,\\quad x=2", marks: 2, answer: "11", hint: "Substitute x=2: 3(4)-1.", explanation: "3(2²)-1 = 12-1 = 11." },
+            { key: "a", label: "(a)", prompt: "Find u' when u = x.", latex: "u=x", marks: 1, answer: "1", acceptedAnswers: ["u'=1"], hint: "d/dx(x) = 1.", explanation: "The function u=x has constant gradient 1, so differentiating the linear factor gives u'=1." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x² − 1.", latex: "v=x^2-1", marks: 1, answer: "2x", acceptedAnswers: ["v'=2x"], hint: "Differentiate x²-1 term by term.", explanation: "The power rule gives 2x from x², while the constant -1 differentiates to zero; therefore v'=2x." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 2. The derivative is dy/dx = 3x² − 1.", latex: "\\frac{dy}{dx}=3x^2-1,\\quad x=2", marks: 2, answer: "11", acceptedAnswers: ["y'(2)=11"], hint: "Substitute x=2: 3(4)-1.", explanation: "Substituting x=2 gives 3(2²)-1=3(4)-1=12-1=11, so the tangent gradient at x=2 is 11." },
           ],
         },
       ],
@@ -1351,15 +2140,15 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
           ["$\\dfrac{u'}{v'}$", "$\\dfrac{u'v'}{v^2}$", "$\\dfrac{u'v-uv'}{v^2}$", "$\\dfrac{uv'-u'v}{v^2}$"],
           "The quotient rule is (u'v − uv') ÷ v². The order in the numerator matters: u'v first, then subtract uv'.",
           "\\frac{d}{dx}\\!\\left(\\frac{u}{v}\\right)"),
-        formulaAnswer("y11adv-qr-g2", "For y = (x+1)/x, find u' when u = x+1.", "u=x+1,\\quad u'=\\Box", "1"),
-        formulaAnswer("y11adv-qr-g3", "For y = (x+1)/x, find v' when v = x.", "v=x,\\quad v'=\\Box", "1"),
+        formulaAnswer("y11adv-qr-g2", "For y = (x+1)/x, find u' when u = x+1.", "u=x+1,\\quad u'=\\Box", "1", ["u'=1"]),
+        formulaAnswer("y11adv-qr-g3", "For y = (x+1)/x, find v' when v = x.", "v=x,\\quad v'=\\Box", "1", ["v'=1"]),
         formulaAnswer("y11adv-qr-g4", "Evaluate dy/dx = −1/x² at x = 1.", "\\frac{dy}{dx}=-\\frac{1}{x^2},\\quad x=1", "-1", ["−1"]),
       ],
       independentPractice: [
-        formulaAnswer("y11adv-qr-i1", "For y = (x²+4)/x, find u' when u = x²+4.", "u=x^2+4,\\quad u'=\\Box", "2x"),
-        formulaAnswer("y11adv-qr-i2", "For y = (x²+4)/x, find v' when v = x.", "v=x,\\quad v'=\\Box", "1"),
+        formulaAnswer("y11adv-qr-i1", "For y = (x²+4)/x, find u' when u = x²+4.", "u=x^2+4,\\quad u'=\\Box", "2x", ["u'=2x"]),
+        formulaAnswer("y11adv-qr-i2", "For y = (x²+4)/x, find v' when v = x.", "v=x,\\quad v'=\\Box", "1", ["v'=1"]),
         formulaAnswer("y11adv-qr-i3", "Evaluate d/dx[(x²+4)/x] at x = 1. The derivative is (x²−4)/x².", "\\frac{d}{dx}\\!\\left[\\frac{x^2+4}{x}\\right]=\\frac{x^2-4}{x^2},\\quad x=1", "-3", ["−3"]),
-        formulaAnswer("y11adv-qr-i4", "Evaluate d/dx[(x²+4)/x] at x = 2.", "\\frac{d}{dx}\\!\\left[\\frac{x^2+4}{x}\\right]=\\frac{x^2-4}{x^2},\\quad x=2", "0"),
+        formulaAnswer("y11adv-qr-i4", "Evaluate d/dx[(x²+4)/x] at x = 2.", "\\frac{d}{dx}\\!\\left[\\frac{x^2+4}{x}\\right]=\\frac{x^2-4}{x^2},\\quad x=2", "0", ["y'(2)=0"]),
         practicalChoice("y11adv-qr-i5", "For y = (x+3)/(x−1), what does v² equal in the denominator of the quotient rule?", "B",
           ["$(x+3)^2$", "$(x-1)^2$", "$x^2$", "$(x+3)(x-1)$"],
           "v is the denominator x−1, so v² = (x−1)².",
@@ -1372,22 +2161,141 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
         { mistake: "Forgetting that v' may require the chain rule when v is composite.", fix: "If v = (x+1)², then v' = 2(x+1), not 1." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-qr-m1", "Evaluate the derivative of y = (x+3)/(x−1) at x = 2. The derivative is −4/(x−1)².", "y=\\frac{x+3}{x-1},\\quad \\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=2", "-4", ["−4"]),
-        formulaAnswer("y11adv-qr-m2", "Evaluate the derivative of y = x/(x+1) at x = 0. The derivative is 1/(x+1)².", "y=\\frac{x}{x+1},\\quad \\frac{dy}{dx}=\\frac{1}{(x+1)^2},\\quad x=0", "1"),
-        formulaAnswer("y11adv-qr-m3", "For y = (2x+3)/(x+1), find u' when u = 2x+3.", "u=2x+3,\\quad u'=\\Box", "2"),
-        formulaAnswer("y11adv-qr-m4", "Evaluate the derivative of y = (2x+3)/(x+1) at x = 0. The derivative is −1/(x+1)².", "y=\\frac{2x+3}{x+1},\\quad \\frac{dy}{dx}=-\\frac{1}{(x+1)^2},\\quad x=0", "-1", ["−1"]),
-        formulaAnswer("y11adv-qr-m5", "Evaluate the derivative of y = (x+3)/(x−1) at x = 3.", "y=\\frac{x+3}{x-1},\\quad \\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=3", "-1", ["−1"]),
-        formulaAnswer("y11adv-qr-m6", "Evaluate the derivative of y = x²/(x−1) at x = 2. The derivative is (x²−2x)/(x−1)².", "y=\\frac{x^2}{x-1},\\quad \\frac{dy}{dx}=\\frac{x^2-2x}{(x-1)^2},\\quad x=2", "0"),
-        practicalChoice("y11adv-qr-m7", "A student differentiates y = (x+2)/(x−1) and gets dy/dx = 1/(x−1)². What was the error?", "B",
-          ["The denominator should be (x−1) not (x−1)²", "The term −uv' = −(x+2)·1 was omitted from the numerator", "u' should be zero", "The quotient rule does not apply here"],
-          "The quotient-rule numerator needs u'v − uv'. The student only kept u'v = (x−1) and dropped −uv' = −(x+2).",
-          "y=\\frac{x+2}{x-1}"),
-        formulaAnswer("y11adv-qr-m8", "Evaluate the derivative of y = (x+1)/x at x = 1.", "y=\\frac{x+1}{x},\\quad \\frac{dy}{dx}=-\\frac{1}{x^2},\\quad x=1", "-1", ["−1"]),
-        practicalChoice("y11adv-qr-m9", "Which function can be differentiated without the quotient rule by simplifying first?", "A",
-          ["$y=\\dfrac{x^2+3x}{x}$", "$y=\\dfrac{x+1}{x+2}$", "$y=\\dfrac{x^2}{x+1}$", "$y=\\dfrac{\\sin x}{x}$"],
-          "(x²+3x)/x simplifies to x+3, a polynomial that needs only the power rule.",
-          "\\text{Simplify first?}"),
-        formulaAnswer("y11adv-qr-m10", "Evaluate the derivative of y = (x+2)/(x−1) at x = 2. The derivative is −3/(x−1)².", "y=\\frac{x+2}{x-1},\\quad \\frac{dy}{dx}=-\\frac{3}{(x-1)^2},\\quad x=2", "-3", ["−3"]),
+        qualityAnswer({
+          id: "y11adv-qr-qm1",
+          prompt: "Differentiate using the quotient rule and simplify the numerator.",
+          latex: "y=\\frac{x^2+1}{x-1}",
+          answer: "(x^2-2x-1)/(x-1)^2",
+          acceptedAnswers: ["y'=(x^2-2x-1)/(x-1)^2", "\\frac{x^2-2x-1}{(x-1)^2}", "[2x(x-1)-(x^2+1)]/(x-1)^2"],
+          hint: "Use u=x^2+1 and v=x-1 in (u'v-uv')/v^2.",
+          explanation: "Here u'=2x and v'=1. The quotient rule gives [2x(x-1)-(x^2+1)]/(x-1)^2. Expanding the numerator produces 2x^2-2x-x^2-1=x^2-2x-1, with the denominator still squared.",
+          difficulty: 3,
+          diagnosticIntent: "Checks complete quotient-rule execution, subtraction brackets, and preservation of the squared denominator.",
+          taskType: "procedural",
+        }),
+        qualityChoice({
+          id: "y11adv-qr-qm2",
+          prompt: "Which expression is the correct unsimplified derivative?",
+          latex: "y=\\frac{3x-2}{x^2+1}",
+          answer: "C",
+          choices: ["\\frac{3}{2x}", "\\frac{3(x^2+1)+(3x-2)(2x)}{(x^2+1)^2}", "\\frac{3(x^2+1)-(3x-2)(2x)}{(x^2+1)^2}", "\\frac{3(x^2+1)-(3x-2)(2x)}{x^2+1}"],
+          hint: "Place u'v first, subtract uv', and square the entire original denominator.",
+          explanation: "With u=3x-2 and v=x^2+1, u'=3 and v'=2x. Substitution into (u'v-uv')/v^2 gives [3(x^2+1)-(3x-2)(2x)]/(x^2+1)^2, which is option C.",
+          difficulty: 3,
+          diagnosticIntent: "Diagnoses sign order and denominator-squaring errors in the quotient-rule template.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Divides the two derivatives instead of applying the quotient rule.",
+            B: "Adds the uv' contribution instead of subtracting it.",
+            D: "Builds the numerator correctly but fails to square the denominator.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-qr-qm3",
+          prompt: "Find the tangent gradient at x=2.",
+          latex: "y=\\frac{x+2}{x}",
+          answer: "-1/2",
+          acceptedAnswers: ["-0.5", "m=-1/2", "y'(2)=-1/2"],
+          hint: "The derivative simplifies to -2/x^2; then substitute x=2.",
+          explanation: "The quotient rule gives y'=[1(x)-(x+2)(1)]/x^2=-2/x^2. At x=2, y'(2)=-2/4=-1/2, so the tangent is decreasing with gradient one-half in magnitude.",
+          difficulty: 3,
+          diagnosticIntent: "Checks quotient differentiation at a point and exact simplification of a negative fractional gradient.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-qr-qm4",
+          prompt: "A student obtains the displayed derivative. Which diagnosis is correct?",
+          latex: "y=\\frac{x+3}{x-1},\\qquad y'=\\frac{4}{(x-1)^2}",
+          answer: "B",
+          choices: ["The denominator should not be squared.", "The two numerator contributions were subtracted in the reverse order, changing the sign.", "The derivatives of both linear expressions should be zero.", "The quotient rule always produces a positive derivative."],
+          hint: "Compute (x-1)-(x+3) and compare its sign with the displayed numerator.",
+          explanation: "The correct numerator is 1(x-1)-(x+3)(1)=x-1-x-3=-4. The student has effectively used uv'-u'v, reversing the required order and changing the sign. Thus y'=-4/(x-1)^2.",
+          difficulty: 3,
+          diagnosticIntent: "Diagnoses reversal of the quotient-rule numerator through a concrete sign error.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Rejects the required squared denominator.",
+            C: "Treats non-constant linear functions as constants.",
+            D: "Assumes a squared denominator forces the whole derivative to be positive.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-qr-qm5",
+          prompt: "Use the derivative condition to determine a.",
+          latex: "f(x)=\\frac{x+a}{x-1},\\qquad f'(2)=-5",
+          answer: "a=4",
+          acceptedAnswers: ["4", "a = 4", "4.0"],
+          hint: "The quotient-rule numerator simplifies to (x-1)-(x+a)=-1-a.",
+          explanation: "The derivative is f'(x)=[(x-1)-(x+a)]/(x-1)^2=(-1-a)/(x-1)^2. At x=2 the denominator is 1, so -1-a=-5. Therefore a=4.",
+          difficulty: 4,
+          diagnosticIntent: "Assesses reverse inference of a numerator parameter from a prescribed quotient gradient.",
+          taskType: "problem-solving",
+        }),
+        qualityAnswer({
+          id: "y11adv-qr-qm6",
+          prompt: "Simplify before differentiating, then state the derivative with its valid domain.",
+          latex: "f(x)=\\frac{x^3-x}{x}",
+          answer: "2x, x≠0",
+          acceptedAnswers: ["f'(x)=2x for x not equal to 0", "2x (x != 0)", "2x, x\\ne0"],
+          hint: "Cancel the common factor x, but retain the exclusion inherited from the original denominator.",
+          explanation: "For x not equal to zero, (x^3-x)/x=x^2-1, so f'(x)=2x. The cancellation does not define the original function at x=0; therefore the derivative statement is f'(x)=2x only for x≠0.",
+          difficulty: 4,
+          diagnosticIntent: "Investigates strategic simplification while preserving the original quotient's excluded input.",
+          taskType: "investigative",
+        }),
+        qualityAnswer({
+          id: "y11adv-qr-qm7",
+          prompt: "Use the local function data to find the derivative of u/v at x=1.",
+          latex: "u(1)=5,\\quad u'(1)=2,\\quad v(1)=-2,\\quad v'(1)=3",
+          answer: "-19/4",
+          acceptedAnswers: ["-4.75", "(u/v)'(1)=-19/4", "-19÷4"],
+          hint: "Substitute the four values into [u'v-uv']/v^2, keeping the numerator order.",
+          explanation: "At x=1, (u/v)'=[2(-2)-5(3)]/(-2)^2=(-4-15)/4=-19/4. The negative denominator value becomes positive when squared, while the numerator remains negative.",
+          difficulty: 4,
+          diagnosticIntent: "Applies the quotient rule to abstract local data and checks signed arithmetic independently of formulas for u and v.",
+          taskType: "problem-solving",
+        }),
+        qualityChoice({
+          id: "y11adv-qr-qm8",
+          prompt: "Which derivative statement is fully correct, including the original domain?",
+          latex: "f(x)=\\frac{x^2-1}{x-1}",
+          answer: "D",
+          choices: ["f'(x)=1 for every real x.", "f'(x)=2x for x≠1.", "f'(x)=1 only at x=1.", "f'(x)=1 for x≠1, and f' is undefined at x=1."],
+          hint: "Factor and cancel for allowed inputs, but remember that cancellation cannot fill the original hole.",
+          explanation: "For x≠1, f(x)=(x-1)(x+1)/(x-1)=x+1, so f'(x)=1. The original quotient is undefined at x=1, and therefore its derivative is also undefined there. Option D preserves both facts.",
+          difficulty: 5,
+          diagnosticIntent: "Diagnoses loss of domain restrictions after algebraic cancellation of a removable discontinuity.",
+          taskType: "analytical",
+          distractorMisconceptions: {
+            A: "Extends the simplified derivative across an input absent from the original function.",
+            B: "Differentiates the numerator alone and ignores the quotient simplification.",
+            C: "Assigns the derivative only at the excluded input.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-qr-qm9",
+          prompt: "Use the function value and gradient conditions to reconstruct f.",
+          latex: "f(x)=\\frac{ax+b}{x+1},\\qquad f(0)=3,\\qquad f'(0)=-1",
+          answer: "(2x+3)/(x+1)",
+          acceptedAnswers: ["f(x)=(2x+3)/(x+1)", "\\frac{2x+3}{x+1}", "a=2,b=3"],
+          hint: "The first condition gives b; the quotient-rule derivative has numerator a-b.",
+          explanation: "Since f(0)=b=3, the constant is fixed. The derivative is [a(x+1)-(ax+b)]/(x+1)^2=(a-b)/(x+1)^2. At x=0, a-b=-1, so a=2. Hence f(x)=(2x+3)/(x+1).",
+          difficulty: 5,
+          diagnosticIntent: "Synthesises a quotient's value and derivative conditions to reconstruct two unknown coefficients.",
+          taskType: "synthesis",
+        }),
+        qualityAnswer({
+          id: "y11adv-qr-qm10",
+          prompt: "Find the condition on a and b so that f'(x)=1 everywhere f is defined.",
+          latex: "f(x)=\\frac{x^2+ax+b}{x-1}",
+          answer: "a+b=-1",
+          acceptedAnswers: ["a + b = -1", "b=-a-1", "a=-b-1"],
+          hint: "Set the quotient-rule numerator equal to (x-1)^2 and compare constant terms.",
+          explanation: "The quotient rule gives numerator (2x+a)(x-1)-(x^2+ax+b)=x^2-2x-a-b. For f'(x)=1, this must equal (x-1)^2=x^2-2x+1. Hence -a-b=1, or a+b=-1.",
+          difficulty: 5,
+          diagnosticIntent: "Synthesises quotient differentiation and polynomial identity matching to characterise an entire parameter family.",
+          taskType: "synthesis",
+        }),
       ],
       multiPartPractice: [
         {
@@ -1398,9 +2306,9 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
           hint: "u=x²+4, v=x. Find u' and v', apply (u'v−uv')/v², then evaluate at x=1.",
           explanation: "(a) u'=2x. (b) v'=1. (c) dy/dx=(x²−4)/x²; at x=1 the value is −3.",
           parts: [
-            { key: "a", label: "(a)", prompt: "Find u' when u = x² + 4.", latex: "u=x^2+4", marks: 1, answer: "2x", hint: "Differentiate x²+4 term by term.", explanation: "d/dx(x²+4) = 2x." },
-            { key: "b", label: "(b)", prompt: "Find v' when v = x.", latex: "v=x", marks: 1, answer: "1", hint: "d/dx(x) = 1.", explanation: "The derivative of x is 1." },
-            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 1. The derivative is dy/dx = (x² − 4)/x².", latex: "\\frac{dy}{dx}=\\frac{x^2-4}{x^2},\\quad x=1", marks: 2, answer: "-3", acceptedAnswers: ["-3", "−3"], hint: "Substitute x=1: (1−4)/1.", explanation: "(1²-4)/1² = −3." },
+            { key: "a", label: "(a)", prompt: "Find u' when u = x² + 4.", latex: "u=x^2+4", marks: 1, answer: "2x", acceptedAnswers: ["u'=2x"], hint: "Differentiate x²+4 term by term.", explanation: "The power rule gives 2x from x², while the constant 4 differentiates to zero, so u'=2x." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x.", latex: "v=x", marks: 1, answer: "1", acceptedAnswers: ["v'=1"], hint: "d/dx(x) = 1.", explanation: "The denominator function v=x is linear with constant gradient 1, so its derivative is v'=1." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 1. The derivative is dy/dx = (x² − 4)/x².", latex: "\\frac{dy}{dx}=\\frac{x^2-4}{x^2},\\quad x=1", marks: 2, answer: "-3", acceptedAnswers: ["−3", "y'(1)=-3"], hint: "Substitute x=1: (1−4)/1.", explanation: "Substitution gives (1²-4)/1²=(1-4)/1=-3, so the tangent gradient at x=1 is -3." },
           ],
         },
         {
@@ -1411,9 +2319,9 @@ export function year11AdvancedIntroductionDifferentiationLessonOverride(
           hint: "u=x+3, v=x−1. Find u' and v', apply (u'v−uv')/v², then evaluate at x=2.",
           explanation: "(a) u'=1. (b) v'=1. (c) dy/dx=−4/(x−1)²; at x=2 the value is −4.",
           parts: [
-            { key: "a", label: "(a)", prompt: "Find u' when u = x + 3.", latex: "u=x+3", marks: 1, answer: "1", hint: "d/dx(x+3) = 1.", explanation: "The derivative of x+3 is 1." },
-            { key: "b", label: "(b)", prompt: "Find v' when v = x − 1.", latex: "v=x-1", marks: 1, answer: "1", hint: "d/dx(x−1) = 1.", explanation: "The derivative of x−1 is 1." },
-            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 2. The derivative is dy/dx = −4/(x − 1)².", latex: "\\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=2", marks: 2, answer: "-4", acceptedAnswers: ["-4", "−4"], hint: "Substitute x=2: −4/(2−1)².", explanation: "−4/(1)² = −4." },
+            { key: "a", label: "(a)", prompt: "Find u' when u = x + 3.", latex: "u=x+3", marks: 1, answer: "1", acceptedAnswers: ["u'=1"], hint: "d/dx(x+3) = 1.", explanation: "The x term has derivative 1 and the constant 3 has derivative zero, so the numerator derivative is u'=1." },
+            { key: "b", label: "(b)", prompt: "Find v' when v = x − 1.", latex: "v=x-1", marks: 1, answer: "1", acceptedAnswers: ["v'=1"], hint: "d/dx(x−1) = 1.", explanation: "The x term has derivative 1 and the constant -1 has derivative zero, so the denominator derivative is v'=1." },
+            { key: "c", label: "(c)", prompt: "Evaluate dy/dx at x = 2. The derivative is dy/dx = −4/(x − 1)².", latex: "\\frac{dy}{dx}=-\\frac{4}{(x-1)^2},\\quad x=2", marks: 2, answer: "-4", acceptedAnswers: ["−4", "y'(2)=-4"], hint: "Substitute x=2: −4/(2−1)².", explanation: "At x=2 the denominator is (2-1)²=1, so -4/(2-1)²=-4 and the tangent gradient is -4." },
           ],
         },
       ],
