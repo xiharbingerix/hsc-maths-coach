@@ -719,6 +719,52 @@ D3 1,078, D4 193, D5 188, and D6 1: 382 D4-D6 rows in total, including 366
 outside the challenge layer. The whole-course verdict remains **FAIL** because
 the other incomplete units have not yet met the course acceptance gate.
 
+### Trigonometric Calculus — complete (6 of 6 subtopics)
+
+All six subtopics were remediated and seeded live on 31 July 2026:
+
+* `differentiating-sin-cos` now connects derivative cycles, exact gradients,
+  radians-versus-degrees scaling, differential-equation invariants, parameter
+  recovery, and function reconstruction.
+* `differentiating-trig-chain-rule` now tests frequency structure, stationary
+  point counts, missing inner factors, nonlinear chains, tangent construction,
+  phase reconstruction, and generalisation.
+* `integrating-sin-cos` now includes sign diagnosis, parity and symmetric
+  integrals, initial-value problems, displacement reconstruction, and
+  parameterised antiderivative families.
+* `integrating-trig-chain-rule` now tests reverse-chain scaling, invalid
+  division by a variable, exact accumulation, initial values, frequency
+  reconstruction, and calibrated rate models.
+* `applications-trig-calculus` now combines tangent invariants, monotonicity,
+  extrema, endpoint optimisation, signed area, and motion reconstruction.
+* `trig-calculus-exam-practice` now mixes method selection, half-angle
+  integration, higher-derivative cycles, extrema and phase reconstruction,
+  signed-area reasoning, and derivative-to-function synthesis.
+
+The completed unit contains 114 standard questions. All 60 new mastery
+questions are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three
+diagnostic MCQs, seven constructed responses, and all five bounded task types.
+The production bank contains 114 active unit rows and 48 inactive superseded
+mastery rows; the scoped stale-row check is zero.
+
+The remediation also corrected inherited content defects. The retained value of
+$\int_0^{\pi/6}\sin(3x)\,dx$ was corrected from $2/3$ to $1/3$, an ambiguous
+antiderivative-pair MCQ was made uniquely markable, and terse prompts, feedback,
+and answer variants were repaired. Two authored Cartesian graphs support
+signed-area reasoning.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, complete constructed-answer
+variants, persisted authored difficulty, and valid visual/accessibility
+coverage. The repository passes 340/340 tests; the mastery selector,
+TypeScript, lint, and visual audit pass. The course visual audit reports 307
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726,
+D3 1,054, D4 211, D5 206, and D6 1: 418 D4-D6 rows in total, including 402
+outside the challenge layer. The whole-course verdict remains **FAIL** because
+the other incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -729,13 +775,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,184 |
+| Mastery quiz | 1,196 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,396** |
+| **Total** | **2,408** |
 
-The standard guided + independent + mastery sequence contains **2,318 questions**.
+The standard guided + independent + mastery sequence contains **2,330 questions**.
 
 ## Headline scorecard
 
@@ -1048,7 +1094,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
 | Curve Sketching | 7 | 119 | 1 | 19 | 4 | 0 | P2 |
 | Exponential and Logarithmic Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
-| Trigonometric Calculus | 6 | 102 | 0 | 9 | 0 | 1 | P1 |
+| Trigonometric Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Motion and Rates | 5 | 85 | 0 | 4 | 2 | 4 | P2 |
 | Series and Finance | 5 | 85 | 1 | 6 | 5 | 0 | P2 |
 | Graphs and Equations | 5 | 85 | 3 | 0 | 3 | 3 | P2 |
