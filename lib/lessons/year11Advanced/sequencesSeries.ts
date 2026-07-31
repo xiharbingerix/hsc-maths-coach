@@ -1,6 +1,10 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import { formatChoiceText } from "../questionHelpers";
+import {
+  enhanceSequencesSeriesRetainedPractice,
+  getSequencesSeriesQualityMastery,
+} from "./sequencesSeriesQuality";
 
 function sequenceFeedback(
   id: string,
@@ -375,7 +379,7 @@ function sequencesWorkedExamples(slug: string): WorkedExample[] {
   ];
 }
 
-export function year11AdvancedSequencesSeriesLessonOverride(
+function baseYear11AdvancedSequencesSeriesLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -707,4 +711,31 @@ export function year11AdvancedSequencesSeriesLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedSequencesSeriesLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const lessonOverride = baseYear11AdvancedSequencesSeriesLessonOverride(
+    course,
+    unit,
+    lesson,
+  );
+  if (!lessonOverride) return null;
+
+  const qualityMastery = getSequencesSeriesQualityMastery(lesson.slug);
+  if (!qualityMastery) return lessonOverride;
+
+  return {
+    ...lessonOverride,
+    guidedPractice: enhanceSequencesSeriesRetainedPractice(
+      lessonOverride.guidedPractice ?? [],
+    ),
+    independentPractice: enhanceSequencesSeriesRetainedPractice(
+      lessonOverride.independentPractice ?? [],
+    ),
+    masteryQuiz: qualityMastery,
+  };
 }

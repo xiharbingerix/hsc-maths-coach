@@ -869,6 +869,50 @@ D4 278, D5 275, and D6 1: 554 D4-D6 rows in total, including 538 outside the
 challenge layer. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Sequences and Series — complete (5 of 5 subtopics)
+
+All five subtopics were remediated and seeded live on 31 July 2026:
+
+* `arithmetic-sequences` now extends routine nth-term work into parameter
+  recovery, parity classification, reverse constraints, and construction from
+  term and sum conditions.
+* `geometric-sequences` now tests signed ratios, boundedness versus convergence,
+  reverse recovery, simultaneous sum-and-product conditions, and the special
+  case of sequences that are both arithmetic and geometric.
+* `arithmetic-series-sigma-notation` now links notation, theatre and savings
+  models, unknown term counts, proof of the odd-number sum, and recovery from
+  partial sums.
+* `geometric-series-limiting-sums` now includes convergence intervals, recurring
+  decimals, bouncing-distance models, error bounds, and reconstruction from two
+  related infinite sums.
+* `sequences-series-exam-practice` now requires model classification, reverse
+  arithmetic and geometric reasoning, representation comparison, crossover
+  timing, parameterised convergence, and arithmetic/geometric synthesis.
+
+The completed unit contains 95 standard questions. All 50 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. The production
+bank contains 95 active unit rows and 50 inactive superseded mastery rows, while
+zero retired mastery IDs remain active and the scoped stale-row check is zero.
+
+Retained practice now has question-specific feedback of at least 40 characters
+and complete constructed-response variants. Three authored Cartesian point plots
+support comparison and pattern interpretation without revealing the requested
+rule or conclusion.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 352/352 tests; the mastery selector, TypeScript, targeted lint,
+and diagram-rendering tests pass. The course visual audit reports 319
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 902,
+D4 293, D5 290, and D6 1: 584 D4-D6 rows in total, including 568 outside the
+challenge layer. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1194,7 +1238,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Exponential and Logarithmic Functions | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Introduction to Differentiation | 11 | 209 | 66 | — | — | 0 | Complete post-audit |
 | Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
-| Sequences and Series | 5 | 95 | 0 | 22 | 3 | 5 | P2 |
+| Sequences and Series | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
 | Curve Sketching | 7 | 133 | 42 | — | — | 0 | Complete post-audit |
 | Exponential and Logarithmic Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
@@ -1250,6 +1294,7 @@ Start with:
 
 * Working with Functions
 * Curve Sketching
+* Sequences and Series
 * Graph Transformations
 * Trigonometry and Measure of Angles
 * Trigonometric Identities and Equations
