@@ -813,6 +813,62 @@ D4 258, D5 254, and D6 1: 513 D4-D6 rows in total, including 497 outside the
 challenge layer. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Curve Sketching — complete (7 of 7 subtopics)
+
+All seven subtopics were remediated and seeded live on 31 July 2026:
+
+* `stationary-points` now includes derivative multiplicity, reverse coefficient
+  recovery, parameter families, quartic classifications, and construction from
+  prescribed stationary x-values.
+* `classifying-stationary-points` now contrasts first- and second-derivative
+  tests, uses counterexamples to the (f''=0) shortcut, and reconstructs
+  functions from classified stationary coordinates.
+* `concavity-inflection` now tests sign-change evidence, parameter-dependent
+  inflection counts, reverse coefficient recovery, double integration, and
+  construction from prescribed concavity.
+* `systematic-curve-sketching` now connects intercept multiplicity, end
+  behaviour, stationary coordinates, inflections, vertical-shift root counts,
+  and reverse reconstruction into complete sketch plans.
+* `reading-derivative-graphs` now distinguishes derivative value from slope,
+  handles crossing and touching zeros, reconstructs original functions, and
+  investigates parameterised derivative graphs.
+* `optimisation` now includes modelling-error diagnosis, closed-interval
+  comparisons, geometric constraints, a symbolic reciprocal family, poster and
+  cylinder design, and an exact open-box maximum.
+* `curve-sketching-exam-practice` now combines full feature lists, reverse
+  reconstruction, parameter investigations, global extrema, stationary
+  inflections, and tied endpoint extrema.
+
+The completed unit has 133 standard questions, up from 119 because every lesson
+now has the required 4 guided + 5 independent + 10 mastery structure. All 70
+new mastery questions are active, with each lesson using 4 D3 / 3 D4 / 3 D5,
+exactly three diagnostic MCQs, seven constructed responses, and all five bounded
+task types. The production bank contains 147 active unit rows: 133 standard
+questions and 14 retained challenge questions. It also contains 56 historical
+inactive mastery rows, while zero retired mastery IDs remain active and the
+scoped stale-row check is zero.
+
+Retained practice now has question-specific worked feedback and complete answer
+variants. Three inherited defects were corrected: the local maximum of
+(x^3+3x^2-9x+5) is 32 rather than 27; the global maximum of
+(x^3-6x+1) on ([-2,4]) is 41 at the right endpoint rather than 5 at the
+left endpoint; and a local-minimum prompt now states the second-derivative-test
+assumption needed to conclude (f''(3)>0). Ten authored Cartesian graphs and
+two labelled cylinder diagrams support the new mastery set.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 348/348 tests; the mastery selector, TypeScript, targeted
+lint, and diagram-rendering tests pass. The course visual audit reports 316
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 932,
+D4 278, D5 275, and D6 1: 554 D4-D6 rows in total, including 538 outside the
+challenge layer. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -823,13 +879,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,196 |
+| Mastery quiz | 1,210 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,408** |
+| **Total** | **2,422** |
 
-The standard guided + independent + mastery sequence contains **2,330 questions**.
+The standard guided + independent + mastery sequence contains **2,344 questions**.
 
 ## Headline scorecard
 
@@ -1140,7 +1196,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
 | Sequences and Series | 5 | 95 | 0 | 22 | 3 | 5 | P2 |
 | Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
-| Curve Sketching | 7 | 119 | 1 | 19 | 4 | 0 | P2 |
+| Curve Sketching | 7 | 133 | 42 | — | — | 0 | Complete post-audit |
 | Exponential and Logarithmic Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Trigonometric Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Motion and Rates | 5 | 85 | 0 | 4 | 2 | 4 | P2 |
@@ -1193,6 +1249,7 @@ For every lesson:
 Start with:
 
 * Working with Functions
+* Curve Sketching
 * Graph Transformations
 * Trigonometry and Measure of Angles
 * Trigonometric Identities and Equations
