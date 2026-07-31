@@ -1010,6 +1010,52 @@ D4 329, D5 326, and D6 1: 656 D4-D6 rows in total, including 640 outside the
 challenge layer. The whole-course verdict remains **FAIL** because the four
 remaining units have not yet met the course acceptance gate.
 
+### Series and Finance — complete (5 of 5 subtopics)
+
+All five subtopics were remediated and seeded live on 31 July 2026:
+
+* `compound-interest` now tests effective rates, reverse principal and rate
+  recovery, real value, competing nominal-rate conventions, and threshold
+  decisions rather than repeated substitution alone.
+* `recursive-formulas-financial` now connects event timing, recurrence
+  construction, parameter recovery, fixed points, convergence, tables, and
+  closed geometric forms.
+* `superannuation-future-value` now distinguishes beginning- and end-of-period
+  deposits, compares lump-sum and annuity strategies, and solves reverse target
+  and contribution problems.
+* `loan-repayments-present-value` now covers amortisation behaviour, outstanding
+  balances, term comparisons, repayment derivation, early intervention, and the
+  changing split between interest and principal.
+* `series-finance-exam-practice` now requires model selection, negative-
+  amortisation diagnosis, cross-model parameter recovery, strategy comparison,
+  recurrence-table synthesis, and valuation-date equivalence.
+
+The completed unit contains 95 standard questions. All 50 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. The production
+bank contains 95 active unit rows and 51 historical inactive rows. Zero retired
+mastery IDs remain active, the scoped stale-row check is zero, and each of the five
+subtopics has exactly 19 active rows.
+
+Four authored financial tables support recurrence, accumulation, and amortisation
+reasoning without revealing the required conclusion. Every retained constructed
+response now has question-specific worked feedback and answer variants. The audit
+also corrected 20 inherited numerical, cash-flow timing, model-selection, wording,
+and answer-completeness defects before publication.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 364/364 tests; the mastery selector, TypeScript, targeted lint,
+and diagram-rendering tests pass. The course seed contains 335 payload-backed
+visual rows.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 821,
+D4 343, D5 341, and D6 1: 685 D4-D6 rows in total, including 669 outside the
+challenge layer. The whole-course verdict remains **FAIL** because the three
+remaining units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1020,13 +1066,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,220 |
+| Mastery quiz | 1,230 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,432** |
+| **Total** | **2,442** |
 
-The standard guided + independent + mastery sequence contains **2,354 questions**.
+The standard guided + independent + mastery sequence contains **2,364 questions**.
 
 ## Headline scorecard
 
@@ -1341,7 +1387,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Exponential and Logarithmic Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Trigonometric Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Motion and Rates | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
-| Series and Finance | 5 | 85 | 1 | 6 | 5 | 0 | P2 |
+| Series and Finance | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Graphs and Equations | 5 | 85 | 3 | 0 | 3 | 3 | P2 |
 | Bivariate Data | 5 | 85 | 0 | 9 | 18 | 2 | P2 |
 | Continuous Probability | 5 | 85 | 0 | 3 | 6 | 1 | P2 |
@@ -1354,7 +1400,7 @@ Preserve:
 * guided fluency questions that genuinely scaffold a newly taught method;
 * the optimisation and curve-analysis challenge questions;
 * `y11adv-ge-sim-m7`, which evaluates a tangency claim through exact intersections;
-* `y11adv-sf-ex-m7`, which compares two financial strategies and interprets the
+* `y11adv-sf-ex-qm7`, which compares two financial strategies and interprets the
   result;
 * bivariate-data questions that require model selection and comparison after
   transformation;

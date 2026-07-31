@@ -19,7 +19,6 @@ const expectedHighDifficulty = new Map<string, number>([
   ["chal-y12a-opt-5", 5],
   ["chal-y12a-opt-6", 5],
   ["chal-y12a-opt-7", 4],
-  ["y11adv-sf-ex-m7", 4],
   ["y11adv-ge-sp-m4b", 4],
   ["y11adv-ge-sim-m7", 4],
   ["y11adv-ge-ex-m7", 4],
@@ -618,6 +617,36 @@ const expectedHighDifficulty = new Map<string, number>([
   ["y11adv-mot-ex-qm8", 5],
   ["y11adv-mot-ex-qm9", 5],
   ["y11adv-mot-ex-qm10", 5],
+  ["y11adv-sf-ci-qm5", 4],
+  ["y11adv-sf-ci-qm6", 4],
+  ["y11adv-sf-ci-qm7", 4],
+  ["y11adv-sf-rf-qm5", 4],
+  ["y11adv-sf-rf-qm6", 4],
+  ["y11adv-sf-rf-qm7", 4],
+  ["y11adv-sf-sup-qm5", 4],
+  ["y11adv-sf-sup-qm6", 4],
+  ["y11adv-sf-sup-qm7", 4],
+  ["y11adv-sf-ln-qm5", 4],
+  ["y11adv-sf-ln-qm6", 4],
+  ["y11adv-sf-ln-qm7", 4],
+  ["y11adv-sf-ex-qm5", 4],
+  ["y11adv-sf-ex-qm6", 4],
+  ["y11adv-sf-ex-qm7", 4],
+  ["y11adv-sf-ci-qm8", 5],
+  ["y11adv-sf-ci-qm9", 5],
+  ["y11adv-sf-ci-qm10", 5],
+  ["y11adv-sf-rf-qm8", 5],
+  ["y11adv-sf-rf-qm9", 5],
+  ["y11adv-sf-rf-qm10", 5],
+  ["y11adv-sf-sup-qm8", 5],
+  ["y11adv-sf-sup-qm9", 5],
+  ["y11adv-sf-sup-qm10", 5],
+  ["y11adv-sf-ln-qm8", 5],
+  ["y11adv-sf-ln-qm9", 5],
+  ["y11adv-sf-ln-qm10", 5],
+  ["y11adv-sf-ex-qm8", 5],
+  ["y11adv-sf-ex-qm9", 5],
+  ["y11adv-sf-ex-qm10", 5],
   ["y11adv-pd-data-qm5", 4],
   ["y11adv-pd-data-qm6", 4],
   ["y11adv-pd-data-qm7", 4],
@@ -692,7 +721,7 @@ test("repaired high-tier questions retain their corrected prompts and answers", 
   assert.match(byId.get("y11adv-ge-sp-m4b")!.answer, /±9√2/);
   assert.match(byId.get("y11adv-ge-ex-m7")!.answer, /1 or k = 4/);
   assert.match(byId.get("chal-y11a-var-1")!.prompt, /C = 88/);
-  assert.match(byId.get("y11adv-sf-ex-m7")!.answer, /36 963/);
+  assert.match(byId.get("y11adv-sf-ex-qm10")!.answer, /254\.10/);
 });
 
 test("Year 11 Advanced seeded question text contains no escaped control characters", () => {
