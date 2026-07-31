@@ -523,6 +523,61 @@ D4 101, D5 95, and D6 1: 197 D4-D6 rows in total, including 181 in standard
 lesson practice. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Exponential and Logarithmic Functions — complete (6 of 6 subtopics)
+
+All six subtopics were remediated and seeded live on 31 July 2026:
+
+* `index-laws-exponential-functions` now moves from coordinated index-law
+  fluency into error diagnosis, reverse exponents, method comparison, bounded
+  investigation, reverse graph parameters, matching-base synthesis, and
+  inference of an exponential function from two values. A decay graph supports
+  the integrated feature question.
+* `logarithms-logarithm-laws` now distinguishes inverse meaning from law
+  manipulation and includes invalid sum-law diagnosis, compound domain
+  restrictions, reverse base inference, exact method comparison, bounded
+  domain investigation, output-versus-input power diagnosis, a domain-filtered
+  equation, and coefficient synthesis.
+* `solving-exponential-logarithmic-equations` now includes non-trivial
+  matching-base work, linear-versus-exponential error diagnosis, prescribed
+  parameter inference, exact-method comparison, bounded integer investigation,
+  wrong-log-base diagnosis, common-factor synthesis, and quadratic/domain
+  filtering.
+* `graphing-exponential-logarithmic-functions` replaces an eight-MCQ mastery
+  set with inverse-coordinate production, asymptote-versus-intercept diagnosis,
+  reverse base inference, coordinate/asymptote reflection, growth-decay
+  invariants, bounded integer-coordinate investigation, transformation
+  diagnosis, inverse evaluation, and coordinate-geometry synthesis. Ten
+  graph-backed mastery stimuli are present across the unit, and both retained multipart graph
+  tasks now have complete feedback and accepted-answer variants.
+* `exponential-logarithmic-modelling` now includes percentage-to-factor
+  translation, retained-factor diagnosis, reverse rate inference, exponential
+  versus linear comparison, a visual half-life investigation,
+  discrete-versus-continuous diagnosis, a piecewise medicine intervention, and
+  exact logarithmic doubling time.
+* `exponential-logarithmic-functions-exam-practice` integrates index laws,
+  reciprocal logarithms, percentage models, graph features, reverse base
+  inference, exact method selection, bounded logarithm investigation,
+  incompatible-domain diagnosis, model inference, and inverse-function
+  synthesis.
+
+The completed unit retains 114 standard questions across six lessons and two
+multipart graph tasks. All 60 new mastery questions are active, with each lesson
+using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic MCQs, seven constructed
+responses, and all five bounded task types. The production bank contains 116
+active unit rows and zero stale rows.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, complete constructed-answer and
+multipart-part variants, persisted authored difficulty, and valid visual and
+accessibility payloads. The full repository passes 326/326 tests, the mastery
+selector and TypeScript checks pass, and the course visual audit reports 313
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 1,199,
+D4 119, D5 113, and D6 1: 233 D4-D6 rows in total, including 217 in standard
+lesson practice. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -845,7 +900,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Graph Transformations | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Trigonometry: Measure of Angles | 15 | 285 | 90 | — | — | 0 | Complete post-audit |
 | Trigonometric Identities and Equations | 9 | 171 | 54 | — | — | 0 | Complete post-audit |
-| Exponential and Logarithmic Functions | 6 | 114 | 0 | 58 | 16 | 11 | P1 |
+| Exponential and Logarithmic Functions | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Introduction to Differentiation | 11 | 209 | 1 | 43 | 7 | 7 | P1 |
 | Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
 | Sequences and Series | 5 | 95 | 0 | 22 | 3 | 5 | P2 |
