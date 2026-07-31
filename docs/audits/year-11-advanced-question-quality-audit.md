@@ -672,6 +672,53 @@ D3 1,102, D4 175, D5 170, and D6 1: 346 D4-D6 rows in total, including 330
 outside the challenge layer. The whole-course verdict remains **FAIL** because
 the other incomplete units have not yet met the course acceptance gate.
 
+### Exponential and Logarithmic Calculus — complete (6 of 6 subtopics)
+
+All six subtopics were remediated and seeded live on 31 July 2026:
+
+* `differentiating-exponential-functions` now combines reverse-chain
+  diagnosis, tangent construction, rate parameters, relative-growth
+  invariants, differential equations, model reconstruction, and optimisation.
+* `differentiating-logarithmic-functions` now tests domain-aware chain rules,
+  missing inner derivatives, gradient and tangent constraints, logarithmic
+  invariance, function reconstruction, and stationary minima.
+* `integrating-exponential-functions` now includes coefficient diagnosis,
+  exact accumulation, symmetric-integral comparison, initial values, invalid
+  reverse-chain extensions, and limiting-amount models.
+* `integrating-reciprocal-functions` now tests absolute values and disconnected
+  domains, equal logarithmic areas, initial values, denominator reconstruction,
+  and calibrated reciprocal-rate accumulation.
+* `applications-exp-log-calculus` now connects tangents, stationary points,
+  concavity, inverse-function exact values, general tangent invariants,
+  optimisation parameters, and model reconstruction.
+* `exp-log-calculus-exam-practice` now mixes method selection, domain-aware
+  inverse functions, inverse-curve gradients, stationary classification, and
+  reconstruction from value, first-derivative, and second-derivative data.
+
+The completed unit contains 114 standard questions. All 60 new mastery
+questions are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three
+diagnostic MCQs, seven constructed responses, and all five bounded task types.
+The production bank contains 114 active unit rows and 48 inactive superseded
+mastery rows; the scoped stale-row check is zero.
+
+The remediation also corrected inherited content defects: one applications
+MCQ had two defensible correct answers, and the exam-practice tangent to
+$y=\ln x$ at $x=e^2$ had an incorrect canonical equation. Terse prompts,
+shallow explanations, and incomplete answer variants were repaired across the
+retained guided and independent practice.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, complete constructed-answer
+variants, persisted authored difficulty, and valid visual/accessibility
+coverage. The repository passes 337/337 tests; the mastery selector,
+TypeScript, lint, and visual audit pass. The course visual audit reports 308
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726,
+D3 1,078, D4 193, D5 188, and D6 1: 382 D4-D6 rows in total, including 366
+outside the challenge layer. The whole-course verdict remains **FAIL** because
+the other incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -682,13 +729,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,172 |
+| Mastery quiz | 1,184 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,384** |
+| **Total** | **2,396** |
 
-The standard guided + independent + mastery sequence contains **2,290 questions**.
+The standard guided + independent + mastery sequence contains **2,318 questions**.
 
 ## Headline scorecard
 
@@ -1000,7 +1047,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Sequences and Series | 5 | 95 | 0 | 22 | 3 | 5 | P2 |
 | Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
 | Curve Sketching | 7 | 119 | 1 | 19 | 4 | 0 | P2 |
-| Exponential and Logarithmic Calculus | 6 | 102 | 0 | 13 | 0 | 6 | P1 |
+| Exponential and Logarithmic Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Trigonometric Calculus | 6 | 102 | 0 | 9 | 0 | 1 | P1 |
 | Motion and Rates | 5 | 85 | 0 | 4 | 2 | 4 | P2 |
 | Series and Finance | 5 | 85 | 1 | 6 | 5 | 0 | P2 |
