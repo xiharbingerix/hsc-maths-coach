@@ -1663,7 +1663,7 @@ test("Right-Angle Trigonometry Applications mastery meets the rich-task quality 
         question.trianglePairDiagram ||
         question.bearingsDiagram,
     ).length,
-    6,
+    10,
   );
 });
 
