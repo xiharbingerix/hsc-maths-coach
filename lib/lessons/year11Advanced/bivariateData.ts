@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { enhanceBivariateDataRetainedPractice, getBivariateDataQualityMastery } from "./bivariateDataQuality";
 
 function fa(id: string, prompt: string, latex: string, answer: string, acceptedAnswers: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers };
@@ -134,7 +135,7 @@ const lfMastery: PracticeQuestion[] = [
   fa("y11adv-bd-lf-m1", "r = 0.5, s_y = 12, s_x = 4. Find b.", "", "b = 1.5", ["1.5"]),
   mc("y11adv-bd-lf-m2", "If the slope b of a regression line is negative, which is true?", "B",
     [{ label: "A", text: "r is positive" }, { label: "B", text: "r is negative" }, { label: "C", text: "r = 0" }, { label: "D", text: "The sign of b and r can differ" }],
-    "Since b = r·(s_y/s_x) and standard deviations s_x, s_y are always positive, the sign of b equals the sign of r. A negative slope means r is negative.", ""),
+    "Since b=r(sᵧ/sₓ) and standard deviations sₓ and sᵧ are always positive, the sign of b equals the sign of r. A negative slope means r is negative.", ""),
   fa("y11adv-bd-lf-m3", "x̄ = 3, ȳ = 9, b = 2.5. Find a.", "", "a = 1.5", ["1.5"]),
   mc("y11adv-bd-lf-m4", "A fitness study gives y = 220 − 0.8x where x = age and y = predicted max heart rate. Predict for a 40-year-old.", "B",
     [{ label: "A", text: "$192$" }, { label: "B", text: "$188$" }, { label: "C", text: "$196$" }, { label: "D", text: "$180$" }],
@@ -261,7 +262,7 @@ const dtIndep: PracticeQuestion[] = [
   fa("y11adv-bd-dt-i2", "A linearised model gives log(y) = 2 + 0.1x. Find y when x = 10.", "", "y = 1000", ["1000"]),
   mc("y11adv-bd-dt-i3", "You plot (x, y) and see a curve. You then plot (x, log y) and the points appear linear. What does this suggest?", "A",
     [{ label: "A", text: "The original data follows an exponential model $y = ab^x$" }, { label: "B", text: "The original data is quadratic" }, { label: "C", text: "The transformation made the data worse" }, { label: "D", text: "The correlation coefficient r has increased to 1" }],
-    "If (x, log y) is linear, the log-transformed model is log y = a + bx. Exponentiating both sides gives y = 10^a · 10^{bx} = A · B^x, an exponential model.", ""),
+    "If (x, log y) is linear, the transformed model is log y=a+bx. Exponentiating gives $y=10^a\\cdot10^{bx}=A\\cdot B^x$, an exponential model.", ""),
   fa("y11adv-bd-dt-i4", "The regression line on transformed data is log(y) = 1.5 + 0.2x. Predict y when x = 0.", "", "y ≈ 31.6", ["31.6"]),
   mc("y11adv-bd-dt-i5", "How do you check whether a transformation has been successful?", "D",
     [{ label: "A", text: "The value of r increases to above 0.9" }, { label: "B", text: "The slope of the transformed line is positive" }, { label: "C", text: "The back-transformed equation has integer coefficients" }, { label: "D", text: "The scatter plot of the transformed data appears linear" }],
@@ -271,7 +272,7 @@ const dtIndep: PracticeQuestion[] = [
 const dtMastery: PracticeQuestion[] = [
   mc("y11adv-bd-dt-m1", "A curve in the scatter plot of (x, y) straightens when you plot (x, log y). The appropriate model is:", "C",
     [{ label: "A", text: "$y = a + bx$" }, { label: "B", text: "$y = a + b\\sqrt{x}$" }, { label: "C", text: "$y = A \\cdot B^x$" }, { label: "D", text: "$y = ax^2 + bx$" }],
-    "If (x, log y) is linear, then log y = a + bx, which gives y = 10^a · 10^{bx}. Setting A = 10^a and B = 10^b gives the exponential model y = A·B^x.", ""),
+    "If (x, log y) is linear, then log y=a+bx, which gives $y=10^a\\cdot10^{bx}$. Setting $A=10^a$ and $B=10^b$ gives the exponential model $y=A\\cdot B^x$.", ""),
   fa("y11adv-bd-dt-m2", "log(y) = 3 − 0.4x. Find y when x = 5.", "", "y = 10", ["10"]),
   mc("y11adv-bd-dt-m3", "After a square root transformation, the line of best fit for (√x, y) is y = 4 + 6√x. Predict y when x = 9.", "B",
     [{ label: "A", text: "$58$" }, { label: "B", text: "$22$" }, { label: "C", text: "$18$" }, { label: "D", text: "$10$" }],
@@ -279,7 +280,7 @@ const dtMastery: PracticeQuestion[] = [
   fa("y11adv-bd-dt-m4", "Why do we back-transform predictions?", "", "to give predictions in the original units of the response variable", ["to convert to original scale"]),
   mc("y11adv-bd-dt-m5", "log(y) = 0.6 + 0.3x is fitted. Which statement correctly back-transforms this model?", "A",
     [{ label: "A", text: "$y = 10^{0.6} \\cdot 10^{0.3x}$" }, { label: "B", text: "$y = 0.6 + 0.3x$" }, { label: "C", text: "$y = e^{0.6+0.3x}$" }, { label: "D", text: "$y = 10^{0.6+0.3}\\cdot x$" }],
-    "log(y) = 0.6 + 0.3x → y = 10^{0.6 + 0.3x} = 10^{0.6} · 10^{0.3x}. This is the exponential model in original units.", ""),
+    "$\\log(y)=0.6+0.3x$ gives $y=10^{0.6+0.3x}=10^{0.6}\\cdot10^{0.3x}$. This is the exponential model in original units.", ""),
   fa("y11adv-bd-dt-m6", "A transformed model is y = 2 + 5√x. Predict y when x = 16.", "", "y = 22", ["22"]),
   mc("y11adv-bd-dt-m7", "A scatter plot curves upward but plotting (log x, y) gives a linear pattern. What model fits the original data?", "B",
     [{ label: "A", text: "$y = ab^x$" }, { label: "B", text: "$y = a + b\\log x$" }, { label: "C", text: "$y = a + bx$" }, { label: "D", text: "$y = ax^2$" }],
@@ -296,7 +297,7 @@ const exGuided: PracticeQuestion[] = [
   fa("y11adv-bd-ex-g2", "A study of plant growth (y cm) vs sunlight (x hours) gives x̄ = 6, ȳ = 18, r = 0.80, s_x = 2, s_y = 5. Write the regression equation.", "", "y = 6 + 2x", ["y=6+2x"]),
   mc("y11adv-bd-ex-g3", "A scatter plot of (x, y) is curved. After plotting (x, log y) the points are approximately linear with line log y = 0.5 + 0.2x. A researcher predicts y at x = 10. Calculate this prediction.", "C",
     [{ label: "A", text: "$y = 0.5 + 0.2(10) = 2.5$" }, { label: "B", text: "$y = 10^{0.5} \\approx 3.16$" }, { label: "C", text: "$y = 10^{0.5 + 0.2(10)} = 10^{2.5} \\approx 316$" }, { label: "D", text: "$y = e^{0.5+2} \\approx 12$" }],
-    "log y = 0.5 + 0.2(10) = 2.5. Back-transform: y = 10^{2.5} ≈ 316. Always substitute into the transformed equation first, then back-transform.", ""),
+    "$\\log y=0.5+0.2(10)=2.5$. Back-transforming gives $y=10^{2.5}\\approx316$. Always substitute into the transformed equation first, then return to the original scale.", ""),
   fa("y11adv-bd-ex-g4", "In a study, r = 0.95 between ice cream sales and drowning deaths. Does this mean ice cream causes drowning? Explain.", "", "no; hot weather (temperature) is a lurking variable causing both to increase", ["lurking variable; causation ≠ correlation"]),
 ];
 
@@ -307,7 +308,7 @@ const exIndep: PracticeQuestion[] = [
   fa("y11adv-bd-ex-i2", "Data on x = age of car (years) and y = value ($000): x̄ = 4, ȳ = 18, r = −0.88, s_x = 1.5, s_y = 6. Find the regression line.", "", "y = 32.08 − 3.52x", ["y=32.08-3.52x"]),
   mc("y11adv-bd-ex-i3", "A curved scatter plot is linearised by plotting (x, log y). The transformed line is log y = 2.1 − 0.05x. Predict y when x = 20.", "A",
     [{ label: "A", text: "$y = 10^{2.1-0.05(20)} = 10^{1.1} \\approx 12.6$" }, { label: "B", text: "$y = 2.1 - 0.05(20) = 1.1$" }, { label: "C", text: "$y = 10^{2.1} - 0.05(20) = 125.9 - 1 = 124.9$" }, { label: "D", text: "$y = e^{1.1} \\approx 3.0$" }],
-    "log y = 2.1 − 0.05(20) = 2.1 − 1 = 1.1. Back-transform: y = 10^{1.1} ≈ 12.6. Note: use base 10 (log₁₀) as that is the convention in HSC problems.", ""),
+    "$\\log y=2.1-0.05(20)=1.1$. Back-transforming gives $y=10^{1.1}\\approx12.6$. Use base 10 because that is the stated HSC convention here.", ""),
   fa("y11adv-bd-ex-i4", "The regression line for study hours vs mark is y = 40 + 4x, fitted using data with x ∈ [1, 10]. State whether predicting for x = 12 is interpolation or extrapolation, and give the prediction.", "", "extrapolation; ŷ = 88", ["extrapolation, y=88"]),
   mc("y11adv-bd-ex-i5", "Which of the following correctly describes the difference between correlation and causation?", "D",
     [{ label: "A", text: "Correlation means one variable directly affects the other; causation does not" }, { label: "B", text: "They are the same thing — a high r value proves causation" }, { label: "C", text: "Causation can be proved by getting a negative correlation coefficient" }, { label: "D", text: "Correlation measures the strength of a linear association; causation requires additional evidence (e.g. experiment, mechanism)" }],
@@ -335,7 +336,7 @@ const exMastery: PracticeQuestion[] = [
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 
-export function year11AdvancedBivariateDataLessonOverride(
+function year11AdvancedBivariateDataLessonOverrideBase(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -386,7 +387,7 @@ export function year11AdvancedBivariateDataLessonOverride(
       description: "Find and interpret the least squares regression line y = a + bx, including the slope and intercept, and use the centroid property to determine the line.",
       learningIntention: "Calculate the equation of the least squares regression line from summary statistics and interpret the slope and intercept in context.",
       successCriteria: [
-        "Calculate the slope b = r·(s_y/s_x) of the regression line from summary statistics.",
+        "Calculate the slope b=r(sᵧ/sₓ) of the regression line from summary statistics.",
         "Calculate the intercept a = ȳ − b·x̄ using the centroid property.",
         "Write the regression equation y = a + bx.",
         "Interpret the slope as the average change in y for each one-unit increase in x.",
@@ -395,7 +396,7 @@ export function year11AdvancedBivariateDataLessonOverride(
       teaching: {
         paragraphs: [
           "Once we have established that a bivariate dataset has a linear association (by examining the scatter plot and checking r), we want to find the 'line of best fit' — a straight line that best summarises the linear relationship. The standard method is least squares regression: we find the line y = a + bx that minimises the sum of squared vertical distances from each data point to the line.",
-          "The slope b of the least squares line is given by b = r · (s_y / s_x), where r is the correlation coefficient, s_y is the standard deviation of the y-values, and s_x is the standard deviation of the x-values. The formula shows that the slope depends on how spread out y is relative to x (the ratio s_y/s_x) and how strongly they're correlated (r). Notice that if r > 0, then b > 0 (positive slope); if r < 0, then b < 0 (negative slope).",
+          "The slope b of the least squares line is b=r(sᵧ/sₓ), where r is the correlation coefficient, sᵧ is the standard deviation of the y-values, and sₓ is the standard deviation of the x-values. The slope depends on the spread ratio sᵧ/sₓ and the strength of correlation. Since both standard deviations are positive, b and r always have the same sign.",
           "A key property of the least squares line: it always passes through the centroid (x̄, ȳ) — the point of the means. This gives us the intercept formula: substituting (x̄, ȳ) into y = a + bx gives ȳ = a + b·x̄, so a = ȳ − b·x̄. Knowing this property lets us check our answer and also means that if you can't recall the intercept formula in an exam, you can derive it from first principles.",
           "Interpretation is as important as calculation. The slope b = change in y ÷ change in x means: for each one-unit increase in x, y changes by b units on average. If b = 3.5, each extra unit of x is associated with an average increase of 3.5 in y. The intercept a is the predicted value of y when x = 0. This may or may not be practically meaningful — for example, predicting weight when height = 0 cm is nonsensical, but the intercept is still needed to define the line.",
           "When fitting a line by eye, place a ruler so the line passes through (or near) the centroid and roughly balances the points above and below. The least squares line is the 'official' version of this intuition — it provides the unique line that minimises total squared residuals, making it the mathematically optimal straight-line fit.",
@@ -471,10 +472,10 @@ export function year11AdvancedBivariateDataLessonOverride(
       teaching: {
         paragraphs: [
           "Not all real-world relationships are linear. If a scatter plot shows a curved pattern — for example, y increasing rapidly and curving upward — a straight-line regression will fit poorly. The solution is data transformation: we apply a mathematical function to one or both variables to try to straighten the relationship, then fit a linear model to the transformed data.",
-          "The most common transformation in the HSC is the logarithmic transformation. If the scatter plot of (x, y) is curved but the scatter plot of (x, log y) is approximately linear, the original relationship is exponential: log y = a + bx, which gives y = 10^a · 10^{bx} — an exponential model. Here we use log base 10 (log₁₀) unless otherwise stated. Alternatively, if plotting (log x, y) gives a linear pattern, the model is y = a + b log x — a logarithmic model.",
+          "The most common transformation in the HSC is logarithmic. If the scatter plot of (x,y) is curved but (x,log y) is approximately linear, the original relationship is exponential: log y=a+bx gives $y=10^a\\cdot10^{bx}$. Here log means base 10 unless otherwise stated. If instead (log x,y) is linear, the original model is y=a+b log x, a logarithmic model.",
           "A square root transformation is used when the curvature is less extreme. If plotting (√x, y) gives a linear pattern, the model is y = a + b√x. This is called a square root model. In general, we try a transformation, look at the scatter plot of the transformed data, and judge whether it looks more linear than the original.",
           "To assess whether a transformation has worked, examine the scatter plot of the transformed data. If the points now follow an approximate straight line (and r for the transformed data is closer to ±1), the transformation is appropriate. If the transformed scatter plot is still curved, try a different transformation.",
-          "Back-transformation is the step of converting a prediction from the transformed scale back to the original units. If the model is log y = a + bx, and we want to predict y: first compute log ŷ = a + bx, then find ŷ = 10^{a + bx}. Forgetting to back-transform is a common error — always check that your final answer is in the units of the original response variable.",
+          "Back-transformation converts a prediction from the transformed scale to the original units. For log y=a+bx, first compute log ŷ=a+bx, then use $\\hat y=10^{a+bx}$. Forgetting this final step leaves the answer in log units rather than the response variable's units.",
         ],
         latexBlocks: [
           "\\log y = a + bx \\implies y = 10^a \\cdot 10^{bx}\\quad(\\text{exponential model})",
@@ -501,7 +502,7 @@ export function year11AdvancedBivariateDataLessonOverride(
       learningIntention: "Apply all bivariate data techniques to multi-step HSC-standard problems, selecting and justifying appropriate methods.",
       successCriteria: [
         "Describe the association in a scatter plot using direction, form, and strength.",
-        "Calculate the regression equation from summary statistics (b = r·s_y/s_x; a = ȳ − b·x̄).",
+        "Calculate the regression equation from summary statistics (b=r·sᵧ/sₓ and a=ȳ−b·x̄).",
         "Use the regression line to make predictions and classify them as interpolation or extrapolation.",
         "Calculate and interpret residuals, and identify points above or below the regression line.",
         "Apply logarithmic or square root transformations to linearise data and back-transform predictions.",
@@ -510,7 +511,7 @@ export function year11AdvancedBivariateDataLessonOverride(
         paragraphs: [
           "Bivariate data exam questions typically test a sequence of skills in the one problem. A typical structure: describe the scatter plot → calculate r or regression line → make a prediction → classify as interpolation or extrapolation → comment on reliability. Training yourself to move through this sequence automatically is the key to scoring full marks.",
           "When asked to 'describe the association', use three descriptors: direction (positive/negative/none), form (linear/non-linear), and strength (strong/moderate/weak). If r is given, use |r| ≥ 0.75 as a rough benchmark for 'strong'. Write a full sentence, e.g. 'The scatter plot shows a strong, positive, linear association between hours studied and exam mark.'",
-          "Regression calculations: memorise b = r·(s_y/s_x) and a = ȳ − b·x̄. In multi-part questions, earlier parts often give you r and summary statistics to find the regression line, and later parts ask you to use the line to predict. Always re-read what is given — sometimes the regression line is given directly and you skip to the prediction step.",
+          "Regression calculations use b=r(sᵧ/sₓ) and a=ȳ−b·x̄. In multi-part questions, earlier parts often supply r and summary statistics to build the line, while later parts ask for a prediction. Re-read what is given: sometimes the fitted line is supplied directly and calculation begins with prediction.",
           "When a scatter plot is curved, expect a data transformation sub-question. The typical HSC structure: (a) describe why a linear model is not suitable, (b) apply the given transformation (e.g. log y), (c) use the transformed linear equation to predict, (d) back-transform. Common error: computing log ŷ and stopping there instead of back-transforming to get ŷ.",
           "Causation vs correlation questions are common in extended response. A safe answer acknowledges (1) that correlation does not imply causation, (2) that a high r value only indicates a linear statistical association, and (3) that a lurking variable may explain the relationship. Providing a specific plausible lurking variable shows deeper understanding.",
         ],
@@ -533,4 +534,23 @@ export function year11AdvancedBivariateDataLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedBivariateDataLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const base = year11AdvancedBivariateDataLessonOverrideBase(course, unit, lesson);
+  if (!base) return null;
+
+  const masteryQuiz = getBivariateDataQualityMastery(lesson.slug);
+  if (!masteryQuiz) return base;
+
+  return {
+    ...base,
+    guidedPractice: enhanceBivariateDataRetainedPractice(base.guidedPractice ?? []),
+    independentPractice: enhanceBivariateDataRetainedPractice(base.independentPractice ?? []),
+    masteryQuiz,
+  };
 }

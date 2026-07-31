@@ -1104,6 +1104,58 @@ D4 355, D5 356, and D6 1: 712 D4-D6 rows in total, including 696 outside the
 challenge layer. The whole-course verdict remains **FAIL** because Bivariate Data
 and Continuous Probability have not yet met the course acceptance gate.
 
+### Bivariate Data — complete (5 of 5 subtopics)
+
+All five subtopics were remediated and seeded live on 31 July 2026:
+
+* `scatter-plots-correlation` now distinguishes direction from strength, tests
+  nonlinear zero-correlation cases, lurking variables, influential observations,
+  transformation invariance, scale-dependent slopes, and causal study design.
+* `line-of-best-fit` now develops regression from summary statistics into reverse
+  parameter recovery, unit changes, residual-property checks, paired regression
+  slopes, and complete prediction-residual interpretation.
+* `interpolation-extrapolation` now compares degrees of evidential support,
+  diagnoses patterned residuals, reconstructs missing residuals, tracks unit
+  changes, and selects between competing models.
+* `data-transformation` now requires transformation selection, base-aware back-
+  transformation, reverse model construction, residual-based validation, domain
+  restrictions, exact exponential synthesis, and model comparison.
+* `bivariate-data-exam-practice` now combines regression construction,
+  residuals, interpolation and extrapolation, transformations, causal limits,
+  influential-point analysis, study design, and multi-stage synthesis.
+
+The completed unit contains 95 standard questions. All 50 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. The production
+bank contains 95 active unit rows and 40 historical inactive rows. Zero retired
+mastery IDs remain active, the scoped stale-row check is zero, and each subtopic
+has exactly 19 active rows.
+
+Eight new authored table or scatter-plot stimuli support influential-point,
+residual-pattern, model-comparison, regression-property, and transformation tasks.
+Together with retained and automatically supplied statistical visuals, the active
+unit has 17 payload-backed questions. Every retained constructed response now has
+question-specific worked feedback and a legitimate answer variant. The audit also
+repaired all 12 inherited unformatted-math findings in `bivariateData.ts`; retained
+regression, residual, transformation, and back-transformation keys were manually
+reconciled before publication.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 372/372 tests; the mastery selector, TypeScript, targeted lint,
+and diagram-rendering tests pass. The course seed contains 341 payload-backed
+visual rows. The visual-required audit has zero scoped Bivariate Data findings;
+its two remaining Year 11 Advanced findings belong to previously completed
+Probability and Data Venn tasks and are reserved for the final course gate.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 784,
+D4 370, D5 371, and D6 1: 742 D4-D6 rows in total, including 726 outside the
+challenge layer. The whole-course verdict remains **FAIL** because Continuous
+Probability has not yet met the course acceptance gate and the final whole-course
+verification is still pending.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1114,13 +1166,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,240 |
+| Mastery quiz | 1,250 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,452** |
+| **Total** | **2,462** |
 
-The standard guided + independent + mastery sequence contains **2,374 questions**.
+The standard guided + independent + mastery sequence contains **2,384 questions**.
 
 ## Headline scorecard
 
@@ -1437,7 +1489,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Motion and Rates | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Series and Finance | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Graphs and Equations | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
-| Bivariate Data | 5 | 85 | 0 | 9 | 18 | 2 | P2 |
+| Bivariate Data | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Continuous Probability | 5 | 85 | 0 | 3 | 6 | 1 | P2 |
 
 ## Strong material to preserve
