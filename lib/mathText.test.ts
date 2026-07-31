@@ -56,6 +56,45 @@ test("auto-wraps bare subscript/superscript notation", () => {
   assert.match(maths[0].value, /T_2/);
 });
 
+test("auto-wraps a compound bare power without swallowing prose", () => {
+  const input = "At x=2, simplify [(2+h)^2-4]/h before taking the limit.";
+  const maths = mathSegments(input);
+  assert.ok(maths.some((segment) => segment.value === "[(2+h)^2-4]/h"));
+  assert.equal(renderedText(input), "At x=2, simplify $[(2+h)^2-4]/h$ before taking the limit.");
+});
+
+test("auto-wraps a multi-token bare LaTeX expression", () => {
+  const input = "Apply the rule to \\int 8x^3\\,dx. This gives the primitive.";
+  const maths = mathSegments(input);
+  assert.deepEqual(maths.map((segment) => segment.value), ["\\int 8x^3\\,dx"]);
+  assert.equal(renderedText(input), "Apply the rule to $\\int 8x^3\\,dx$. This gives the primitive.");
+});
+
+test("auto-wraps an entirely mathematical bare choice", () => {
+  const input = "\\frac{2x}{x^2-4},\\ x\\ne\\pm2";
+  assert.deepEqual(mathSegments(input).map((segment) => segment.value), [input]);
+});
+
+test("keeps spaced LaTeX text groups inside one auto-wrapped expression", () => {
+  const input = "x\\le-2\\text{ or }x\\ge3";
+  assert.deepEqual(mathSegments(input).map((segment) => segment.value), [input]);
+});
+
+test("keeps a spaced integral and its differential inside one expression", () => {
+  const input = "Apply \\int (e^x + \\cos x)\\,dx term by term.";
+  assert.deepEqual(mathSegments(input).map((segment) => segment.value), [
+    "\\int (e^x + \\cos x)\\,dx",
+  ]);
+});
+
+test("normalises common Unicode notation before handing maths to KaTeX", () => {
+  const input = "$A=½(8)(16)\\sin60°=32√3$ and $y″=-√(x+1)$";
+  assert.deepEqual(mathSegments(input).map((segment) => segment.value), [
+    "A=\\frac{1}{2}(8)(16)\\sin60^{\\circ}=32\\sqrt{3}",
+    "y''=-\\sqrt{x+1}",
+  ]);
+});
+
 test("over-wrapped currency ($25$) does not swallow later maths spans", () => {
   // AI-authored prose sometimes wraps currency in maths delimiters. The old
   // behaviour sentinel-ised the opener but left the closer dangling, which

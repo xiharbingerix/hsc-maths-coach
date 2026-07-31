@@ -38,7 +38,7 @@ export function formatChoiceText(text: string) {
     /^-?\d+\s*<=/.test(text) ||
     /^[0-9A-Za-z+\-^ ().]+$/.test(text) && /\^|=|>=|<=|!=/.test(text)
   ) {
-    return `$${latexText.replace(/\s+/g, "")}$`;
+    return `$${latexText.replace(/\\\s+/g, "\\,").replace(/\s+/g, "")}$`;
   }
 
   return latexText;

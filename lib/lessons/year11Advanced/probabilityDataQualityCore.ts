@@ -576,6 +576,16 @@ export const probabilityDataQualityCore: ProbabilityDataMasteryMap = {
         "Combines a parameterised Venn model, normalisation, region aggregation, and conditional probability.",
       taskType: "synthesis",
       difficulty: 5,
+      vennDiagram: {
+        description: "Two-set Venn diagram showing symbolic probabilities in all four disjoint regions for events A and B.",
+        setALabel: "A",
+        setBLabel: "B",
+        aOnly: "2p",
+        intersection: "p",
+        bOnly: "3p",
+        neither: "0.2",
+        total: "1",
+      },
     }),
   ],
 };

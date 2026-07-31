@@ -397,6 +397,16 @@ export const probabilityDataQualityApplied: ProbabilityDataMasteryMap = {
         "Synthesises set reconstruction, random-variable construction, expectation, and variance across representations.",
       taskType: "synthesis",
       difficulty: 5,
+      vennDiagram: {
+        description: "Two-set Venn diagram for one hundred students with reconstructed Calculus-only, intersection, Statistics-only, and neither counts.",
+        setALabel: "Calculus",
+        setBLabel: "Statistics",
+        aOnly: 40,
+        intersection: 20,
+        bOnly: 30,
+        neither: 10,
+        total: 100,
+      },
     }),
   ],
 };

@@ -44,6 +44,10 @@ test("\\neq matches !=", () => assert.equal(mark("x\\neq0", "x!=0"), true));
 test("exact match", () => assert.equal(mark("42", "42"), true));
 test("acceptedAnswers match", () => assert.equal(mark("1/2", "0.5", ["1/2"]), true));
 test("normalised numeric match", () => assert.equal(mark("0.5 ", "0.5"), true));
+test("bare value does not erase the unknown named by the key", () =>
+  assert.equal(mark("5", "x=5"), false));
+test("student may name the unknown when the key is numeric", () =>
+  assert.equal(mark("x=5", "5"), true));
 test("MathLive escaped currency with a thousands separator matches a bare number", () =>
   assert.equal(mark("\\$2,140", "2140"), true));
 test("plain currency with a thousands separator matches a bare number", () =>

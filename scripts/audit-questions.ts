@@ -8,62 +8,18 @@
  *    latex (BlockMath) fields.
  *  - SELF-REVEAL: an MCQ whose latex/prompt equals the correct option's text.
  *
- * The auto-wrap logic is copied verbatim from app/components/MathText.tsx so the
- * detector matches what actually renders.
+ * The detector calls the same framework-free tokeniser as MathText so the audit
+ * stays aligned with what the learner actually sees.
  */
 import fs from "fs";
 import path from "path";
-
-// ── copied from MathText.tsx (keep in sync) ──────────────────────────────────
-const AUTO_MATH_RE =
-  /(?<![/:.@])([A-Za-z][A-Za-z0-9]*)([_^][A-Za-z0-9]{1,3})+(?:=\s*-?\d+(?:\.\d+)?)?/g;
-function autoWrapPlainText(text: string): string {
-  return text.replace(AUTO_MATH_RE, (m) => `$${m}$`);
-}
-function preprocess(input: string): string {
-  const out: string[] = [];
-  let i = 0;
-  while (i < input.length) {
-    if (input[i] === "\\" && input[i + 1] === "(") {
-      const end = input.indexOf("\\)", i + 2);
-      if (end !== -1) { out.push(input.slice(i, end + 2)); i = end + 2; continue; }
-    }
-    if (input[i] === "\\" && input[i + 1] === "[") {
-      const end = input.indexOf("\\]", i + 2);
-      if (end !== -1) { out.push(input.slice(i, end + 2)); i = end + 2; continue; }
-    }
-    if (input[i] === "$") {
-      if (i + 1 < input.length && /\d/.test(input[i + 1])) {
-        let k = i + 1;
-        while (k < input.length && /[\d.,]/.test(input[k])) k++;
-        const isMathCoefficient = /[A-Za-z^_(){}+\-*/<>=\\|]/.test(input[k] ?? "");
-        if (!isMathCoefficient) { out.push("$"); i++; continue; }
-      }
-      let j = i + 1, closing = -1;
-      while (j < input.length) {
-        if (input[j] === "\\" && j + 1 < input.length) { j += 2; continue; }
-        if (input[j] === "$") { closing = j; break; }
-        j++;
-      }
-      if (closing !== -1) { out.push(input.slice(i, closing + 1)); i = closing + 1; continue; }
-      out.push("$"); i++; continue;
-    }
-    const start = i;
-    while (i < input.length) {
-      if (input[i] === "$" || (input[i] === "\\" && (input[i + 1] === "(" || input[i + 1] === "["))) break;
-      i++;
-    }
-    if (i > start) out.push(autoWrapPlainText(input.slice(start, i)));
-  }
-  return out.join("");
-}
-const DELIMITER_RE = /(\$[^$]+\$|\\\([^)]*\\\)|\\\[[^\]]*\\\])/g;
+import { tokenizeMathText } from "../lib/mathText";
 
 // Plain-text that survives MathText rendering (i.e. shown literally).
 function renderedPlainText(s: string): string {
-  return preprocess(s)
-    .split(DELIMITER_RE)
-    .filter((p) => !(p.startsWith("$") || p.startsWith("\\(") || p.startsWith("\\[")))
+  return tokenizeMathText(s)
+    .filter((segment) => segment.type === "text")
+    .map((segment) => segment.value)
     .join("");
 }
 
