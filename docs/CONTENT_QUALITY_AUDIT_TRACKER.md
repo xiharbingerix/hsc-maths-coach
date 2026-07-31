@@ -29,7 +29,7 @@
 | Year 10 Mathematics Advanced | No | pending | |
 | Year 10 Mathematics Core | No | pending | |
 | Year 11 Standard | Partial | in_progress | Data Analysis unit (9 lessons) audited + reworked to standard on 2026-06-24 and seeded LIVE — see Unit Audit Board. Other units pending. |
-| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30: 126 seeded lessons / 2,368 rows; final verdict remains FAIL. Graph Transformations, all 15 Trigonometry and Measure of Angles subtopics, and all 9 Trigonometric Identities and Equations subtopics are complete and seeded LIVE. The latest completed unit has 171 standard questions, 54 D4-D5 mastery tasks, zero shallow explanations or exact repeats, and 178 active live rows with no stale mastery IDs. The current course distribution is D1 210 / D2 726 / D3 1,235 / D4 101 / D5 95 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
+| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30: 126 seeded lessons / 2,368 rows; final verdict remains FAIL. Graph Transformations, Trigonometry and Measure of Angles, Trigonometric Identities and Equations, and Exponential and Logarithmic Functions are complete and seeded LIVE. The latest completed unit has 114 standard questions, 36 D4-D5 mastery tasks, zero shallow explanations or exact repeats, and 116 active live rows with no stale mastery IDs. The current course distribution is D1 210 / D2 726 / D3 1,199 / D4 119 / D5 113 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
@@ -61,7 +61,8 @@ Source folder: `lib/lessons/year12Extension1/`
 
 Status: `in_progress` (whole-course audit complete 2026-07-30; Graph
 Transformations complete; Trigonometry and Measure of Angles complete;
-Trigonometric Identities and Equations complete)
+Trigonometric Identities and Equations complete; Exponential and Logarithmic
+Functions complete)
 
 Source: all live `year-11-advanced` lesson, multi-part, challenge, and exam questions.
 Full report: `docs/audits/year-11-advanced-question-quality-audit.md`.
@@ -305,6 +306,31 @@ Unit completion gate:
       exact cross-subtopic repeats, complete constructed-answer variants,
       322/322 repository tests passing, 303 course visual rows, and zero
       required visuals missing.
+  - [x] Exponential and Logarithmic Functions — complete:
+        `index-laws-exponential-functions`, `logarithms-logarithm-laws`,
+        `solving-exponential-logarithmic-equations`,
+        `graphing-exponential-logarithmic-functions`,
+        `exponential-logarithmic-modelling`, and
+        `exponential-logarithmic-functions-exam-practice` (6/6 subtopics).
+    - All 114 standard questions retain 4 guided + 5 independent + 10 mastery.
+    - All 60 new mastery tasks use a per-lesson 4 D3 / 3 D4 / 3 D5 ramp,
+      exactly three diagnostic MCQs, seven constructed responses, all five
+      task classifications, diagnostic intent, and per-distractor misconception
+      mappings.
+    - Mastery now includes reverse index/base/parameter inference, invalid-law
+      diagnosis, strict logarithm domains, method comparison, bounded
+      investigation, inverse-graph coordinate production, graph-supported
+      synthesis, discrete-versus-continuous modelling, intervention models, and
+      integrated exam tasks.
+    - Added eleven visual mastery payloads across exponential/logarithmic graphs
+      and a half-life table; repaired all retained graph multipart feedback and
+      answer variants.
+    - Seeded LIVE on 2026-07-31: 116 active unit rows, all 60 new mastery IDs,
+      24 D3 / 18 D4 / 18 D5 across mastery, and zero stale unit rows.
+    - Completed-unit gate: zero shallow explanations, zero exact cross-subtopic
+      repeats, complete constructed-answer variants, 326/326 repository tests
+      passing, mastery selector and TypeScript passing, 313 course visual rows,
+      and zero required visuals missing.
 - [ ] P2 — add bounded problem-solving, analytical, investigative,
       guided-discovery, and synthesis tasks.
 - [ ] P3 — make target misconceptions and per-distractor wrong-method mappings
