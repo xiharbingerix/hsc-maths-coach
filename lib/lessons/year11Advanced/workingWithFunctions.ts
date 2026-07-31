@@ -2,6 +2,7 @@ import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { CartesianGraph } from "../types";
 import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+import { getWorkingFunctionsQualityMastery } from "./workingFunctionsQuality";
 
 function workingFunctionsFeedback(prompt: string, answer: string) {
   if (prompt.includes("Evaluate the displayed function")) {
@@ -107,6 +108,15 @@ function qa(
   explanation: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
+  const completeExplanation =
+    explanation.length >= 40
+      ? explanation
+      : explanation +
+        " Substitution into " +
+        (latex || "the stated relationship") +
+        " confirms the requested result " +
+        answer +
+        ".";
   return {
     id,
     prompt,
@@ -114,11 +124,11 @@ function qa(
     answer,
     acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
     hint,
-    explanation,
+    explanation: completeExplanation,
   };
 }
 
-export function year11AdvancedWorkingFunctionsLessonOverride(
+function baseYear11AdvancedWorkingFunctionsLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -217,13 +227,13 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         formulaAnswer("y11adv-fn-g1", "Evaluate the displayed function at the given input.", "f(x)=2x^2-3x+1,\\quad f(-2)", "15", ["f(-2)=15"]),
         formulaAnswer("y11adv-fn-g2", "Which x-value is excluded from the domain of the displayed function?", "g(x)=\\frac{1}{x-4}", "4", ["x=4"]),
         practicalChoice("y11adv-fn-g3", "For the displayed square-root function, which domain is correct?", "B", ["x > 3", "x >= -3", "x <= -3", "x != -3"], "The expression under the square root must be non-negative.", "h(x)=\\sqrt{x+3}"),
-        practicalChoice("y11adv-fn-g4", "A table has x-values -2, -1, 0, 1, 2 and outputs 4, 1, 0, 1, 4. Which range is correct?", "C", ["{-2,-1,0,1,2}", "{4,1,0,1,4}", "{0,1,4}", "All real numbers"], "The range uses distinct output values."),
+        practicalChoice("y11adv-fn-g4", "A table has x-values -2, -1, 0, 1, 2 and outputs 4, 1, 0, 1, 4. Which range is correct?", "C", ["{-2,-1,0,1,2}", "{4,1,0,1,4}", "{0,1,4}", "All real numbers"], "The range is the set of distinct outputs, so repeated values are listed once and give {0,1,4}."),
       ],
       independentPractice: [
         formulaAnswer("y11adv-fn-i1", "Evaluate the displayed function at the given input.", "p(x)=x^2-5x,\\quad p(-3)", "24", ["p(-3)=24"]),
         formulaAnswer("y11adv-fn-i2", "Which x-value is excluded from the domain of the displayed function?", "q(x)=\\frac{3}{x+2}", "-2", ["x=-2"]),
         practicalChoice("y11adv-fn-i3", "For the displayed square-root function, which domain is correct?", "D", ["x >= 5", "x != 5", "x < -5", "x <= 5"], "The expression 5 - x must be at least zero.", "r(x)=\\sqrt{5-x}"),
-        practicalChoice("y11adv-fn-i4", "A graph description says the lowest y-value is -4 and the graph continues upward forever. Which range matches?", "A", ["y >= -4", "x >= -4", "y <= -4", "x != -4"], "Range describes output y-values."),
+        practicalChoice("y11adv-fn-i4", "A graph description says the lowest y-value is -4 and the graph continues upward forever. Which range matches?", "A", ["y >= -4", "x >= -4", "y <= -4", "x != -4"], "Range describes output y-values; including the attained minimum and every larger output gives y >= -4."),
         formulaAnswer("y11adv-fn-i5", "Which x-value is excluded from the domain of the displayed function?", "f(x)=\\frac{x+1}{x-6}", "6", ["x=6"]),
       ],
       commonMistakes: [
@@ -232,18 +242,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Allowing a denominator to equal zero.", fix: "Set the denominator not equal to zero and exclude that x-value." },
         { mistake: "Forgetting square-root restrictions.", fix: "For real-valued functions, the expression under a square root must be at least zero." },
       ],
-      masteryQuiz: [
-        formulaAnswer("y11adv-fn-m1", "Evaluate the displayed function at the given input.", "f(x)=2x^2-3x+1,\\quad f(-1)", "6", ["f(-1)=6"]),
-        formulaAnswer("y11adv-fn-m2", "Which x-value is excluded from the domain of the displayed function?", "g(x)=\\frac{1}{x-7}", "7", ["x=7"]),
-        practicalChoice("y11adv-fn-m3", "For the displayed square-root function, which domain is correct?", "A", ["x >= 2", "x <= 2", "x != 2", "x > -2"], "x - 2 must be at least zero.", "h(x)=\\sqrt{x-2}"),
-        practicalChoice("y11adv-fn-m4", "A table gives outputs 9, 4, 1, 0, 1. Which set could be the range?", "B", ["{-2,-1,0,1,2}", "{0,1,4,9}", "{9,4,1,0,1}", "All real numbers"], "Range records distinct output values."),
-        formulaAnswer("y11adv-fn-m5", "Evaluate the displayed function at the given input.", "p(x)=x^2+4x,\\quad p(-5)", "5", ["p(-5)=5"]),
-        practicalChoice("y11adv-fn-m6", "Which error would most likely give the wrong sign when evaluating the displayed function?", "C", ["Using $x=2$", "Writing the range first", "Not using brackets around -2", "Finding the y-intercept"], "Negative inputs should be substituted with brackets.", ""),
-        formulaAnswer("y11adv-fn-m7", "Which x-value is excluded from the domain of the displayed function?", "q(x)=\\frac{x-3}{x+5}", "-5", ["x=-5"]),
-        practicalChoice("y11adv-fn-m8", "A graph has outputs from -1 to 6 inclusive. Which range matches?", "D", ["-1 <= x <= 6", "x != 6", "y < -1", "-1 <= y <= 6"], "Range uses y-values."),
-        formulaAnswer("y11adv-fn-m9", "Evaluate the displayed function at the given input.", "f(x)=4-x^2,\\quad f(3)", "-5", ["f(3)=-5"]),
-        practicalChoice("y11adv-fn-m10", "For the displayed reciprocal function, the domain restriction is:", "A", ["x != -1", "x != 1", "y != -1", "x >= -1"], "The denominator x + 1 cannot be zero.", "y=\\frac{1}{x+1}"),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -325,7 +324,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         },
       ],
       guidedPractice: [
-        practicalChoice("y11adv-lqc-g1", "Which function family does the displayed function belong to?", "A", ["Linear", "Quadratic", "Cubic", "Reciprocal"], "The highest power of x is 1.", "f(x)=3x-5"),
+        practicalChoice("y11adv-lqc-g1", "Which function family does the displayed function belong to?", "A", ["Linear", "Quadratic", "Cubic", "Reciprocal"], "The highest power of x is 1 and its coefficient is non-zero, so the rule defines a linear function.", "f(x)=3x-5"),
         formulaAnswer("y11adv-lqc-g2", "Find the zeros of the displayed function. Enter the smaller zero.", "f(x)=(x-3)(x+2)", "-2", ["x=-2"]),
         practicalChoice("y11adv-lqc-g3", "A graph is a parabola opening upward with a lowest point. Which function type is most likely?", "B", ["Linear", "Quadratic", "Cubic", "Constant only"], "A parabola is the graph of a quadratic function."),
         formulaAnswer("y11adv-lqc-g4", "For the displayed function, enter the largest zero.", "g(x)=(x+1)(x-4)(x-6)", "6", ["x=6"]),
@@ -343,18 +342,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Swapping x-intercepts and y-intercepts.", fix: "x-intercepts happen when y = 0; the y-intercept happens when x = 0." },
         { mistake: "Ignoring the sign of the leading coefficient.", fix: "For quadratics, the sign tells whether the parabola opens up or down." },
       ],
-      masteryQuiz: [
-        practicalChoice("y11adv-lqc-m1", "Which function family does the displayed function belong to?", "B", ["Linear", "Quadratic", "Cubic", "Reciprocal"], "Multiplying the two linear factors gives a degree-2 function: (x−1)(x+3) = x²+2x−3, which is quadratic.", "f(x)=(x-1)(x+3)"),
-        practicalChoice("y11adv-lqc-m2", "Which function family does the displayed function belong to?", "C", ["Linear", "Quadratic", "Cubic", "Quartic"], "Three linear factors multiply to a degree-3 function: x(x−2)(x+2) = x³−4x, which is cubic.", "f(x)=x(x-2)(x+2)"),
-        formulaAnswer("y11adv-lqc-m3", "For the displayed function, enter the larger zero.", "f(x)=(x-5)(x+1)", "5", ["x=5"]),
-        formulaAnswer("y11adv-lqc-m4", "For the displayed function, enter the negative zero.", "g(x)=x^2-16", "-4", ["x=-4"]),
-        practicalChoice("y11adv-lqc-m5", "A straight-line graph with y-intercept 3 is most likely:", "A", ["Linear", "Quadratic only", "Cubic only", "A reciprocal asymptote"], "Straight-line graphs are linear."),
-        formulaAnswer("y11adv-lqc-m6", "For the displayed function, enter the smallest zero.", "h(x)=(x+2)(x-1)(x-4)", "-2", ["x=-2"]),
-        practicalChoice("y11adv-lqc-m7", "A table follows the displayed rule and sample values. Which function type is it?", "C", ["Linear", "Quadratic", "Cubic", "Reciprocal"], "The outputs match a cubic pattern.", "y=x^3,\\quad x=-2\\Rightarrow y=-8,\\quad x=2\\Rightarrow y=8"),
-        formulaAnswer("y11adv-lqc-m8", "For the displayed function, find the x-intercept.", "f(x)=-3x+12", "4", ["x=4", "(4,0)"]),
-        practicalChoice("y11adv-lqc-m9", "For the displayed function, the parabola opens:", "B", ["Upward", "Downward", "Sideways", "Not at all"], "The coefficient of x^2 is negative.", "f(x)=-x^2+6x-5"),
-        practicalChoice("y11adv-lqc-m10", "A factor x + 3 means the matching zero is:", "D", ["3", "0", "x + 3", "-3"], "Set x + 3 = 0."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -438,8 +426,8 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
       guidedPractice: [
         formulaAnswer("y11adv-poly-g1", "For the displayed function, enter the positive zero.", "p(x)=(x-4)(x+1)", "4", ["x=4"]),
         formulaAnswer("y11adv-poly-g2", "For the displayed reciprocal function, what is the vertical asymptote?", "g(x)=\\frac{1}{x-6}", "x=6", ["6"]),
-        practicalChoice("y11adv-poly-g3", "Which statement best describes the displayed function?", "C", ["It is linear", "It is reciprocal", "It is a degree 4 polynomial", "It has vertical asymptote $x=4$"], "The highest power is 4.", "p(x)=3x^4-2x+1"),
-        practicalChoice("y11adv-poly-g4", "A reciprocal graph has vertical asymptote x = -2. Which denominator matches?", "A", ["x + 2", "x - 2", "x^2", "2x"], "x + 2 = 0 gives x = -2."),
+        practicalChoice("y11adv-poly-g3", "Which statement best describes the displayed function?", "C", ["It is linear", "It is reciprocal", "It is a degree 4 polynomial", "It has vertical asymptote $x=4$"], "The highest non-zero power is x^4, so the expression is a polynomial of degree 4.", "p(x)=3x^4-2x+1"),
+        practicalChoice("y11adv-poly-g4", "A reciprocal graph has vertical asymptote x = -2. Which denominator matches?", "A", ["x + 2", "x - 2", "x^2", "2x"], "A vertical asymptote occurs where the denominator is zero; x + 2 = 0 gives the required value x = -2."),
       ],
       independentPractice: [
         formulaAnswer("y11adv-poly-i1", "For the displayed function, enter the largest zero.", "p(x)=(x+5)(x-2)(x-7)", "7", ["x=7"]),
@@ -454,18 +442,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Calling every curved graph a quadratic.", fix: "Check whether the rule is polynomial, reciprocal, or another function type." },
         { mistake: "Reversing horizontal shifts in reciprocal denominators.", fix: "For x - h in the denominator, the vertical asymptote is x = h." },
       ],
-      masteryQuiz: [
-        practicalChoice("y11adv-poly-m1", "For the displayed polynomial, the degree is:", "C", ["1", "2", "3", "8"], "The highest power of x is 3.", "p(x)=-2x^3+x-8"),
-        formulaAnswer("y11adv-poly-m2", "For the displayed function, enter the negative zero.", "p(x)=(x-2)(x+6)", "-6", ["x=-6"]),
-        formulaAnswer("y11adv-poly-m3", "For the displayed reciprocal function, enter the excluded x-value.", "g(x)=\\frac{1}{x-9}", "9", ["x=9"]),
-        formulaAnswer("y11adv-poly-m4", "For the displayed reciprocal function, enter the horizontal asymptote.", "y=\\frac{1}{x-1}+5", "y=5", ["5"]),
-        practicalChoice("y11adv-poly-m5", "Zeros at -2, 1 and 4 match which expression?", "B", ["(x-2)(x+1)(x+4)", "(x+2)(x-1)(x-4)", "(x-2)(x-1)(x+4)", "x^2+3x+2"], "Use factor x - r for zero r."),
-        formulaAnswer("y11adv-poly-m6", "For the displayed reciprocal function, enter the vertical asymptote.", "y=\\frac{1}{x+8}", "x=-8", ["-8"]),
-        practicalChoice("y11adv-poly-m7", "Which function is reciprocal rather than polynomial?", "D", ["x^2 - 4", "3x^3 + 1", "x - 7", "1/(x - 4)"], "The variable appears in the denominator."),
-        formulaAnswer("y11adv-poly-m8", "For the displayed function, enter the zero that is neither positive nor negative.", "p(x)=x(x-3)(x+2)", "0", ["x=0"]),
-        practicalChoice("y11adv-poly-m9", "For the displayed reciprocal function, the graph cannot cross which vertical line?", "A", ["x = 4", "x = -4", "y = 4", "y = 0"], "x = 4 is the vertical asymptote.", "y=\\frac{1}{x-4}"),
-        practicalChoice("y11adv-poly-m10", "A factor x - 5 means the graph has an x-intercept at:", "C", ["(-5,0)", "(0,5)", "(5,0)", "(0,-5)"], "Set x - 5 = 0, so x = 5."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -549,7 +526,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         formulaAnswer("y11adv-abs-i1", "Evaluate the absolute value expression.", "|-5|+3", "8", ["|-5|+3=8"]),
         formulaAnswer("y11adv-abs-i2", "Find the vertex of the absolute-value function.", "y=|x+1|-4", "(-1,-4)", ["(-1, -4)", "-1,-4", "-1, -4", "vertex (-1,-4)", "vertex (-1, -4)"]),
         formulaAnswer("y11adv-abs-i3", "Solve the absolute-value equation. Enter the smaller solution.", "|x-2|=5", "-3", ["x=-3"]),
-        practicalChoice("y11adv-abs-i4", "Which graph feature belongs to y = |x - 4|?", "C", ["A horizontal asymptote", "A cubic turning point", "Vertex at (4, 0)", "Vertex at (-4, 0)"], "For y = |x - a|, the vertex is (a, 0)."),
+        practicalChoice("y11adv-abs-i4", "Which graph feature belongs to y = |x - 4|?", "C", ["A horizontal asymptote", "A cubic turning point", "Vertex at (4, 0)", "Vertex at (-4, 0)"], "For y = |x-a|, the absolute value is smallest when x=a; here that gives the vertex (4,0)."),
         formulaAnswer("y11adv-abs-i5", "Find the minimum value of the absolute-value function.", "y=|x-6|+2", "2", ["minimum=2", "min=2", "y=2"]),
       ],
       commonMistakes: [
@@ -558,18 +535,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Giving only one solution to |x - a| = c.", fix: "Use both x - a = c and x - a = -c when c is positive." },
         { mistake: "Treating the V-shaped graph as a parabola.", fix: "Absolute-value graphs are made from straight-line arms, not a smooth quadratic curve." },
       ],
-      masteryQuiz: [
-        formulaAnswer("y11adv-abs-m1", "Evaluate the absolute value expression.", "|-9|-2", "7", ["|-9|-2=7"]),
-        formulaAnswer("y11adv-abs-m2", "Find the vertex of the absolute-value function.", "y=|x-5|-3", "(5,-3)", ["(5, -3)", "5,-3", "5, -3", "vertex (5,-3)", "vertex (5, -3)"]),
-        practicalChoice("y11adv-abs-m3", "Which equation has vertex (-2, 1)?", "D", ["y=|x-2|+1", "y=|x+1|-2", "y=|x-1|-2", "y=|x+2|+1"], "A vertex at (-2, 1) matches y = |x - (-2)| + 1 = |x + 2| + 1."),
-        formulaAnswer("y11adv-abs-m4", "Solve the absolute-value equation. Enter the larger solution.", "|x+3|=6", "3", ["x=3"]),
-        formulaAnswer("y11adv-abs-m5", "Find the y-intercept of the absolute-value function.", "y=|x-2|+1", "3", ["(0,3)", "y=3"]),
-        practicalChoice("y11adv-abs-m6", "Which statement about y = |x| is true?", "A", ["It has vertex (0, 0)", "It is negative for x < 0", "It has no y-intercept", "It is a cubic graph"], "The graph y = |x| has vertex at the origin."),
-        formulaAnswer("y11adv-abs-m7", "Solve the absolute-value equation. Enter the smaller solution.", "|x-1|=4", "-3", ["x=-3"]),
-        formulaAnswer("y11adv-abs-m8", "Find the axis of symmetry of the absolute-value function.", "y=|x+4|-1", "x=-4", ["-4"]),
-        formulaAnswer("y11adv-abs-m9", "Find the minimum value of the absolute-value function.", "y=|x+2|-5", "-5", ["minimum=-5", "min=-5", "y=-5"]),
-        practicalChoice("y11adv-abs-m10", "A student says y = |x - 3| has vertex (-3, 0). What is the error?", "B", ["They used the wrong y-intercept", "They reversed the horizontal shift", "They treated |-3| as 0", "They used a reciprocal asymptote"], "In y = |x - a|, the vertex x-value is a."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -668,18 +634,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Thinking every function must be even or odd.", fix: "Many functions are neither when neither test works." },
         { mistake: "Forgetting to compare f(-x) with -f(x) for odd functions.", fix: "For odd functions, the whole output changes sign." },
       ],
-      masteryQuiz: [
-        formulaAnswer("y11adv-sym-m1", "Classify the function as even, odd or neither.", "f(x)=x^6-3x^2", "even", ["even function"]),
-        formulaAnswer("y11adv-sym-m2", "Classify the function as even, odd or neither.", "g(x)=2x^5-x", "odd", ["odd function"]),
-        formulaAnswer("y11adv-sym-m3", "Classify the function as even, odd or neither.", "h(x)=x^3+1", "neither", ["neither even nor odd", "neither odd nor even"]),
-        practicalChoice("y11adv-sym-m4", "Which condition defines an even function?", "A", ["f(-x)=f(x)", "f(-x)=-f(x)", "f(x)=0", "f(-x)=x"], "Even functions have the same output for x and -x."),
-        practicalChoice("y11adv-sym-m5", "Which condition defines an odd function?", "B", ["f(-x)=f(x)", "f(-x)=-f(x)", "f(x)=x^2", "f(0)=1"], "Odd functions change sign when x changes to -x."),
-        formulaAnswer("y11adv-sym-m6", "For the even function, find f(-4).", "f(4)=9", "9", ["f(-4)=9"]),
-        formulaAnswer("y11adv-sym-m7", "For the odd function, find f(-2).", "f(2)=7", "-7", ["f(-2)=-7"]),
-        practicalChoice("y11adv-sym-m8", "A graph contains (-1, -3) and (1, 3). Which symmetry does this suggest?", "C", ["Y-axis symmetry", "X-axis symmetry", "Origin symmetry", "No function symmetry"], "The coordinates both change sign, matching origin symmetry."),
-        formulaAnswer("y11adv-sym-m9", "Classify the function as even, odd or neither.", "p(x)=x^4+x^2+5", "even", ["even function"]),
-        formulaAnswer("y11adv-sym-m10", "Classify the function as even, odd or neither.", "q(x)=x^5+x^2", "neither", ["neither even nor odd", "neither odd nor even"]),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -765,7 +720,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         formulaAnswer("y11adv-func-exam-g1", "Evaluate the displayed function at the given input.", "f(x)=x^2-4x+2,\\quad f(-1)", "7", ["f(-1)=7"]),
         formulaAnswer("y11adv-func-exam-g2", "For the displayed reciprocal function, enter the excluded x-value.", "g(x)=\\frac{1}{x+5}", "-5", ["x=-5"]),
         practicalChoice("y11adv-func-exam-g3", "A function has zeros at -2 and 3. Which expression could represent it?", "B", ["(x-2)(x-3)", "(x+2)(x-3)", "(x-2)(x+3)", "1/(x-3)"], "Zeros -2 and 3 match factors x + 2 and x - 3."),
-        practicalChoice("y11adv-func-exam-g4", "A student says the range of a table is the listed x-values. What is the error?", "C", ["They found the y-intercept", "They found the vertical asymptote", "They confused domain and range", "They found the cubic degree"], "The listed x-values are the domain."),
+        practicalChoice("y11adv-func-exam-g4", "A student says the range of a table is the listed x-values. What is the error?", "C", ["They found the y-intercept", "They found the vertical asymptote", "They confused domain and range", "They found the cubic degree"], "The listed x-values form the domain; the student confused the input set with the output set that forms the range."),
       ],
       independentPractice: [
         formulaAnswer("y11adv-func-exam-i1", "Evaluate the displayed function at the given input.", "p(x)=3x^2+2x,\\quad p(-2)", "8", ["p(-2)=8"]),
@@ -780,18 +735,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Forgetting brackets in function substitution.", fix: "Put negative inputs in brackets before evaluating powers." },
         { mistake: "Treating an asymptote as an intercept.", fix: "An asymptote is approached by the graph; it is not usually crossed as an intercept." },
       ],
-      masteryQuiz: [
-        formulaAnswer("y11adv-func-exam-m1", "Evaluate the displayed function at the given input.", "f(x)=2x^2-3x+1,\\quad f(-2)", "15", ["f(-2)=15"]),
-        formulaAnswer("y11adv-func-exam-m2", "For the displayed reciprocal function, enter the excluded x-value.", "g(x)=\\frac{1}{x-4}", "4", ["x=4"]),
-        practicalChoice("y11adv-func-exam-m3", "For the displayed square-root function, which domain is correct?", "A", ["x >= -6", "x <= -6", "x != -6", "x >= 6"], "x + 6 must be at least zero.", "h(x)=\\sqrt{x+6}"),
-        formulaAnswer("y11adv-func-exam-m4", "For the displayed function, enter the negative zero.", "f(x)=(x-2)(x+7)", "-7", ["x=-7"]),
-        practicalChoice("y11adv-func-exam-m5", "A cubic function has zeros at -2, 1 and 4. Which expression could represent it?", "B", ["(x-2)(x+1)(x+4)", "(x+2)(x-1)(x-4)", "(x+2)(x+1)(x-4)", "x^2-3x+2"], "Use x - r for each zero r."),
-        formulaAnswer("y11adv-func-exam-m6", "For the displayed reciprocal function, enter the horizontal asymptote.", "y=\\frac{1}{x+3}-2", "y=-2", ["-2"]),
-        practicalChoice("y11adv-func-exam-m7", "In the displayed factorised function, the highlighted factor gives which x-intercept?", "C", ["(-6,0)", "(0,6)", "(6,0)", "(0,-6)"], "Set x - 6 = 0.", "f(x)=(x-6)(x+1)"),
-        formulaAnswer("y11adv-func-exam-m8", "For the displayed function, enter the positive x-intercept.", "f(x)=-x^2+9", "3", ["x=3", "(3,0)"]),
-        practicalChoice("y11adv-func-exam-m9", "A table lists inputs -1, 0, 1 and outputs 2, 5, 10. Which set is the domain?", "D", ["{2,5,10}", "{-1,2,5}", "{0,5,10}", "{-1,0,1}"], "Domain is the set of input x-values."),
-        practicalChoice("y11adv-func-exam-m10", "Which common error would change the value of the displayed function for the negative input?", "A", ["Writing $-3^2$ instead of $(-3)^2$", "Finding the y-intercept", "Using the range first", "Factoring the denominator"], "Brackets are needed around a negative input.", "f(x)=x^2+2x,\\quad f(-3)"),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -893,18 +837,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Adding unlike surds (e.g., √3 + √5 = √8).", fix: "Surds can only be added when they have the same value under the root, like 2√3 + 5√3 = 7√3." },
         { mistake: "Forgetting to apply the index to the coefficient in (2x³)², writing x^6 instead of 4x^6.", fix: "The index outside the bracket applies to every factor inside: (2x³)² = 2² · (x³)² = 4x^6." },
       ],
-      masteryQuiz: [
-        qa("y11adv-alg-m1", "Simplify $x^4 \\div x^{-2}$.", "x^4 \\div x^{-2}", "x^6", "Subtract indices when dividing: 4 − (−2).", "Dividing same-base powers subtracts indices: $x^4 ÷ x^{−2} = x^{4−(−2)} = x^6$.", ["x^(6)"]),
-        qa("y11adv-alg-m2", "Evaluate $27^{1/3}$.", "27^{1/3}", "3", "$27^{1/3}$ is the cube root of 27.", "$27^{1/3}$ = ∛27 = 3, since 3³ = 27."),
-        practicalChoice("y11adv-alg-m3", "Which expression is equal to $x^{-3}$?", "B", ["$x^3$", "$\\frac{1}{x^3}$", "$-x^3$", "$\\frac{3}{x}$"], "A negative index means the reciprocal: $x^{−3} = 1/x^3$."),
-        qa("y11adv-alg-m4", "In the expansion $(1+\\sqrt{3})^2 = a + b\\sqrt{3}$, find $a$.", "(1+\\sqrt{3})^2 = a+b\\sqrt{3}", "4", "Expand using (p+q)² = p² + 2pq + q².", "(1+√3)² = 1 + 2√3 + (√3)² = 1 + 2√3 + 3 = 4 + 2√3. So a = 4."),
-        qa("y11adv-alg-m5", "Simplify $\\sqrt{50} - \\sqrt{8}$ to the form $a\\sqrt{2}$. What is $a$?", "\\sqrt{50} - \\sqrt{8} = a\\sqrt{2}", "3", "√50 = 5√2, √8 = 2√2.", "√50 = √(25×2) = 5√2. √8 = √(4×2) = 2√2. 5√2 − 2√2 = 3√2. Coefficient a = 3."),
-        practicalChoice("y11adv-alg-m6", "To rationalise $\\frac{1}{\\sqrt{5}-1}$, you multiply top and bottom by:", "B", ["$\\sqrt{5}-1$", "$\\sqrt{5}+1$", "$\\sqrt{5}-2$", "$\\frac{1}{\\sqrt{5}}$"], "The conjugate of (√5 − 1) is (√5 + 1). Their product is (√5)² − 1² = 4, which is rational."),
-        qa("y11adv-alg-m7", "Simplify $(2x^3)^2$.", "(2x^3)^2", "4x^6", "Apply the index to both 2 and x³: 2² = 4, (x³)² = x^6.", "(2x³)² = 2² · (x³)² = 4x^6.", ["4x^(6)"]),
-        qa("y11adv-alg-m8", "Simplify $(2\\sqrt{3})(3\\sqrt{3})$.", "(2\\sqrt{3})(3\\sqrt{3})", "18", "Multiply integer parts and surd parts separately.", "(2×3)(√3×√3) = 6 × 3 = 18."),
-        qa("y11adv-alg-m9", "Simplify $x^{1/2} \\cdot x^{3/2}$.", "x^{1/2} \\cdot x^{3/2}", "x^2", "Add fractional indices: 1/2 + 3/2 = 2.", "x^{1/2} · x^{3/2} = x^{1/2 + 3/2} = x^{4/2} = x^2.", ["x^(2)"]),
-        practicalChoice("y11adv-alg-m10", "Evaluate $16^{3/4}$.", "B", ["$4$", "$8$", "$12$", "$64$"], "16^{1/4} = ∜16 = 2 (since 2^4 = 16), so 16^{3/4} = (16^{1/4})^3 = 2^3 = 8.", "16^{3/4}"),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1004,18 +937,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Writing the formula as x = (b ± √Δ)/(2a) instead of x = (−b ± √Δ)/(2a).", fix: "The quadratic formula has −b, not b. Check the sign of b before substituting." },
         { mistake: "Concluding that a repeated root means x = 0.", fix: "A double root occurs at x = −b/(2a), which is rarely zero unless b = 0." },
       ],
-      masteryQuiz: [
-        qa("y11adv-quad-m1", "Solve $x^2 - x - 6 = 0$ by factorisation. Enter the positive root.", "x^2 - x - 6 = 0", "3", "Find two numbers that multiply to −6 and add to −1.", "(x−3)(x+2) = 0. Roots: x = 3 or x = −2. Positive root is 3."),
-        qa("y11adv-quad-m2", "Compute $\\Delta$ for $2x^2 + 3x + 5 = 0$.", "", "-31", "Δ = 9 − 40.", "Δ = 3² − 4(2)(5) = 9 − 40 = −31.", ["-31", "−31"]),
-        practicalChoice("y11adv-quad-m3", "A discriminant of $-31$ indicates the quadratic has:", "D", ["Two distinct rational roots", "One repeated root", "Two distinct irrational roots", "No real roots"], "Δ < 0 means no real roots — the formula would require the square root of a negative number."),
-        qa("y11adv-quad-m4", "Solve $x^2 - 4x + 4 = 0$. Enter the repeated root.", "x^2 - 4x + 4 = 0", "2", "Δ = 0 means one repeated root.", "x² − 4x + 4 = (x−2)² = 0, giving the repeated root x = 2."),
-        qa("y11adv-quad-m5", "Solve $x^2 + 2x - 3 = 0$ using the formula. Enter the positive root.", "", "1", "Δ = 16. Then x = (−2 ± 4)/2.", "Δ = 16. x = (−2 + 4)/2 = 1 or x = (−2 − 4)/2 = −3. Positive root is 1."),
-        practicalChoice("y11adv-quad-m6", "For $3x^2 + 2x - 1 = 0$, why are the roots rational?", "C", ["$\\Delta < 0$", "$\\Delta$ is a negative perfect square", "$\\Delta = 4 + 12 = 16$, a perfect square", "$\\Delta = 4 - 12 = -8$"], "Δ = 4 + 12 = 16 = 4². A non-negative perfect square discriminant guarantees rational roots."),
-        practicalChoice("y11adv-quad-m7", "When $\\Delta > 0$ but is not a perfect square, the roots are:", "C", ["Rational", "Equal", "Two distinct irrational real numbers", "Imaginary"], "Δ > 0 guarantees two distinct real roots. If Δ is not a perfect square, √Δ is irrational, making both roots irrational."),
-        qa("y11adv-quad-m8", "Compute $b^2 - 4ac$ for $x^2 - 6x + 9 = 0$.", "", "0", "Δ = 36 − 36.", "Δ = (−6)² − 4(1)(9) = 36 − 36 = 0."),
-        qa("y11adv-quad-m9", "Solve $x^2 - 5x = 0$ by factorisation. Enter the non-zero solution.", "x^2 - 5x = 0", "5", "Factor out x: x(x − 5) = 0.", "x(x − 5) = 0 gives x = 0 or x = 5. The non-zero solution is 5."),
-        practicalChoice("y11adv-quad-m10", "Which equation has no real roots?", "C", ["$x^2-4=0$", "$x^2+4x+4=0$", "$x^2+4x+5=0$", "$x^2-4x+3=0$"], "For x² + 4x + 5 = 0: Δ = 16 − 20 = −4 < 0, so no real roots. The other equations have Δ ≥ 0."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1115,18 +1037,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Using m₂ = −m₁ for perpendicular lines instead of m₂ = −1/m₁.", fix: "Perpendicular gradients are negative reciprocals: m₁ × m₂ = −1, so m₂ = −1/m₁." },
         { mistake: "Substituting x = 0 to find the x-intercept instead of y = 0.", fix: "The x-intercept is where y = 0. Set y = 0 and solve for x. The y-intercept is where x = 0." },
       ],
-      masteryQuiz: [
-        qa("y11adv-lin-m1", "State the gradient of $y = -5x + 2$.", "y = -5x + 2", "-5", "In y = mx + c, m is the coefficient of x.", "The gradient is the coefficient of x, which is −5.", ["-5", "−5"]),
-        qa("y11adv-lin-m2", "Find the y-intercept of $3x - y - 6 = 0$ by setting $x = 0$.", "3x - y - 6 = 0,\\quad x=0", "-6", "Set x = 0: −y − 6 = 0.", "When x = 0: −y − 6 = 0 → y = −6.", ["-6", "−6"]),
-        qa("y11adv-lin-m3", "Find the gradient of the line through $(0,\\,4)$ and $(2,\\,0)$.", "", "-2", "Rise = 0 − 4 = −4. Run = 2 − 0 = 2.", "m = (0 − 4)/(2 − 0) = −4/2 = −2.", ["-2", "−2"]),
-        practicalChoice("y11adv-lin-m4", "The gradient of a line perpendicular to $y = -3x + 1$ is:", "C", ["$-3$", "$3$", "$\\frac{1}{3}$", "$-\\frac{1}{3}$"], "m₁ × m₂ = −1. If m₁ = −3, then m₂ = −1/(−3) = 1/3."),
-        qa("y11adv-lin-m5", "Solve $5 - 2x \\le 1$. Enter in the form $x \\ge ...$", "5 - 2x \\le 1", "x>=2", "Subtract 5, then divide by −2 and reverse the sign.", "5 − 2x ≤ 1 → −2x ≤ −4 → x ≥ 2 (sign reverses when dividing by −2).", ["x >= 2", "x≥2"]),
-        qa("y11adv-lin-m6", "Find the x-intercept of $y = 2x + 6$ by setting $y = 0$.", "y = 2x + 6,\\quad y=0", "-3", "0 = 2x + 6, so 2x = −6.", "0 = 2x + 6 → 2x = −6 → x = −3.", ["-3", "−3"]),
-        practicalChoice("y11adv-lin-m7", "Which form of a linear equation uses a known point $(x_1, y_1)$ and gradient $m$?", "B", ["$y=mx+c$", "$y-y_1=m(x-x_1)$", "$ax+by+c=0$", "$y=mx$"], "The point-gradient form y − y₁ = m(x − x₁) uses a known point and gradient directly without first finding the y-intercept."),
-        qa("y11adv-lin-m8", "State the y-intercept of $y = 7 - 4x$.", "", "7", "The y-intercept is the constant term in y = mx + c form.", "Rewritten: y = −4x + 7. The y-intercept c = 7."),
-        qa("y11adv-lin-m9", "Solve $3(x-1) > 6$. Enter in the form $x > ...$", "3(x-1) > 6", "x>3", "Divide both sides by 3, then add 1.", "3(x − 1) > 6 → x − 1 > 2 → x > 3.", ["x > 3"]),
-        qa("y11adv-lin-m10", "Find the gradient of a line perpendicular to $y = \\frac{1}{3}x + 5$.", "", "-3", "m₂ = −1/m₁ = −1/(1/3).", "m₂ = −1/(1/3) = −3.", ["-3", "−3"]),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1206,7 +1117,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
       guidedPractice: [
         qa("y11adv-model-g1", "A cost model is $C = 5n + 20$ where $n$ is the number of items. Find $C$ when $n = 8$.", "C = 5n + 20,\\quad n = 8", "60", "Substitute n = 8.", "C = 5(8) + 20 = 40 + 20 = 60."),
         qa("y11adv-model-g2", "Solve the simultaneous equations by adding them. Enter the value of $x$.", "x + y = 10,\\quad x - y = 4", "7", "Add both equations to eliminate y: 2x = 14.", "Adding: 2x = 14 → x = 7."),
-        practicalChoice("y11adv-model-g3", "Break-even occurs when:", "B", ["Revenue is greater than cost", "Revenue equals cost", "Cost is greater than revenue", "Revenue minus cost equals 100"], "Break-even is where R = C — the business makes zero profit."),
+        practicalChoice("y11adv-model-g3", "Which relationship between revenue and cost defines the break-even production level?", "B", ["Revenue is greater than cost", "Revenue equals cost", "Cost is greater than revenue", "Revenue minus cost equals 100"], "Break-even is where R = C — the business makes zero profit."),
         qa("y11adv-model-g4", "Revenue $R = 12n$ and cost $C = 8n + 40$. Find the break-even quantity.", "", "10", "Set R = C: 12n = 8n + 40. Solve for n.", "12n − 8n = 40 → 4n = 40 → n = 10."),
       ],
       independentPractice: [
@@ -1222,18 +1133,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Setting profit to zero when finding break-even instead of setting R = C.", fix: "Break-even is where R − C = 0, which is the same as R = C. Setting them equal directly is the clearest method." },
         { mistake: "Treating break-even as a revenue or cost value rather than a quantity.", fix: "Solving R = C gives the break-even quantity n. Substitute n back to find the break-even revenue or cost if needed." },
       ],
-      masteryQuiz: [
-        qa("y11adv-model-m1", "A cost model is $C = 7n + 30$. Find $C$ when $n = 5$.", "C = 7n + 30,\\quad n = 5", "65", "Substitute n = 5.", "C = 7(5) + 30 = 35 + 30 = 65."),
-        qa("y11adv-model-m2", "Solve the simultaneous equations by subtraction. Enter $y$.", "x + y = 9,\\quad x - y = 3", "3", "Subtract the second from the first: 2y = 6.", "Subtracting: 2y = 6 → y = 3."),
-        qa("y11adv-model-m3", "Revenue $R = 15n$, cost $C = 9n + 48$. Find the break-even quantity.", "", "8", "Set R = C. Solve 6n = 48.", "15n = 9n + 48 → 6n = 48 → n = 8."),
-        practicalChoice("y11adv-model-m4", "In a linear cost model $C = mn + c$, the gradient $m$ represents:", "B", ["The fixed cost", "The variable cost per unit", "The break-even point", "The total revenue"], "The gradient m is how much cost changes for each additional unit — the variable (marginal) cost per unit."),
-        qa("y11adv-model-m5", "Revenue $R = 10n$, cost $C = 4n + 60$. Find the profit when $n = 15$.", "", "30", "P = 6n − 60. Substitute n = 15.", "P = 6(15) − 60 = 90 − 60 = 30."),
-        qa("y11adv-model-m6", "Solve by elimination. Enter $y$.", "3x + y = 11,\\quad 2x - y = 4", "2", "Add both equations to eliminate y: 5x = 15, x = 3.", "Adding: 5x = 15 → x = 3. Sub into 3(3) + y = 11 → y = 2."),
-        qa("y11adv-model-m7", "A plumber charges a $80 callout fee plus $45 per hour. Find the cost of a 3-hour job.", "", "215", "Cost = fixed fee + rate × hours.", "C = 80 + 45 × 3 = 80 + 135 = 215."),
-        practicalChoice("y11adv-model-m8", "Two straight lines with different gradients will:", "C", ["Be parallel", "Have no intersection", "Intersect at exactly one point", "Have the same y-intercept"], "Different gradients mean the lines are not parallel, so they must cross at exactly one point."),
-        qa("y11adv-model-m9", "Revenue $R = 25n$, cost $C = 15n + 80$. What is the minimum integer $n$ for profit?", "", "9", "10n > 80 → n > 8. Smallest integer is 9.", "25n − 15n > 80 → 10n > 80 → n > 8. Smallest integer n = 9."),
-        qa("y11adv-model-m10", "Solve simultaneously. Enter $x$.", "x = 2y,\\quad x + y = 12", "8", "Substitute x = 2y into x + y = 12: 3y = 12.", "2y + y = 12 → y = 4. x = 2(4) = 8."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1333,18 +1233,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Computing k = y/x instead of k = xy for inverse variation.", fix: "From y = k/x, multiply both sides by x: k = xy." },
         { mistake: "Expecting the graph of y = k/x to pass through the origin.", fix: "The inverse variation curve never crosses the origin — the function is undefined at x = 0." },
       ],
-      masteryQuiz: [
-        qa("y11adv-var-m1", "If $y = kx$ and $y = 16$ when $x = 4$, find $k$.", "", "4", "k = y/x.", "k = 16/4 = 4."),
-        qa("y11adv-var-m2", "If $y \propto 1/x$ and $y = 4$ when $x = 5$, find $k$.", "", "20", "k = xy.", "k = 5 times 4 = 20."),
-        practicalChoice("y11adv-var-m3", "Which equation represents inverse variation between $y$ and $x$?", "C", ["$y=5x$", "$y=5x+2$", "$y=\\frac{5}{x}$", "$y=\\frac{x^2}{5}$"], "Inverse variation has the form y = k/x. Only y = 5/x matches this structure."),
-        qa("y11adv-var-m4", "If $y = 3x$, find $y$ when $x = 11$.", "", "33", "Substitute x = 11.", "y = 3 times 11 = 33."),
-        qa("y11adv-var-m5", "A student uses $y=\\frac{20}{x}$ and says that when $x=\\frac12$, the value of $y$ is 10. What is the correct value of $y$?", "", "40", "Dividing by one half is the same as multiplying by 2.", "Substitute $x=\\frac12$: $y=20\\div\\frac12=20\\times2=40$. The student treated dividing by $\\frac12$ as dividing by 2."),
-        qa("y11adv-var-m6", "The time $t$ to complete a job varies inversely with the number of workers $n$. If $t=18$ when $n=4$, find $n$ when $t=12$.", "", "6", "For inverse variation, the product $tn$ stays constant.", "Since $t \\propto \\frac{1}{n}$, the product $tn$ is constant. So $18\\times4=72$, then $12n=72$, giving $n=6$."),
-        practicalChoice("y11adv-var-m7", "A student says $y=3x+5$ is direct variation because it has a constant gradient. Which fact proves the student is wrong?", "A", ["It has a non-zero y-intercept", "It is undefined at $x=0$", "It is inverse variation", "Its gradient is positive"], "Direct variation must have the form $y=kx$, so the graph must pass through the origin. A non-zero y-intercept rules that out."),
-        qa("y11adv-var-m8", "For a fixed area of 72 square centimetres, the length $L$ of a rectangle varies inversely with its width $w$. The cost $C$ of edging varies directly with the perimeter. If $C=72$ when $w=6$, find $C$ when $w=9$.", "", "68", "First use the fixed area to find the missing length in each case, then compare perimeters.", "When $w=6$, the length is $72/6=12$, so the perimeter is $2(6+12)=36$. Since $C$ varies directly with perimeter and $C=72$, the cost is 2 dollars per perimeter unit. When $w=9$, the length is $72/9=8$, so the perimeter is $2(9+8)=34$. Therefore $C=2\times34=68$."),
-        qa("y11adv-var-m9", "A table includes the points $(2,12)$, $(3,8)$ and $(4,6)$. Decide whether the relation is direct or inverse variation, then find $y$ when $x=10$.", "", "12/5", "Check whether the ratio $y/x$ stays constant or the product $xy$ stays constant.", "The ratios are not constant, but the products are: $2\\times12=24$, $3\\times8=24$, and $4\\times6=24$. So the relation is inverse variation with $y=\\frac{24}{x}$. When $x=10$, $y=\\frac{24}{10}=\\frac{12}{5}$.", ["2.4"]),
-        qa("y11adv-var-m10", "A direct variation model $y=ax$ and an inverse variation model $y=\\frac{b}{x}$ have the same output when $x=3$. When $x=6$, the direct model gives a value 15 greater than the inverse model. Find their common output when $x=3$.", "", "10", "Use the equality at $x=3$ to relate $a$ and $b$, then use the information at $x=6$.", "At $x=3$, the outputs are equal, so $3a=\\frac{b}{3}$ and therefore $b=9a$. At $x=6$, the direct output exceeds the inverse output by 15, so $6a-\\frac{b}{6}=15$. Substituting $b=9a$ gives $6a-\\frac{9a}{6}=15$, so $\\frac{9a}{2}=15$ and $a=\\frac{10}{3}$. The common output when $x=3$ is $3a=10$."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1433,7 +1322,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
       ],
       independentPractice: [
         qa("y11adv-cir-i1", "Find the radius of the circle $x^2 + y^2 = 49$.", "", "7", "Take the positive square root of 49.", "r = √49 = 7."),
-        practicalChoice("y11adv-cir-i2", "What is the domain of $y = \\sqrt{9 - x^2}$?", "B", ["$x \\le 3$", "$-3 \\le x \\le 3$", "$x \\ge 0$", "All real numbers"], "9 − x² ≥ 0 → x² ≤ 9 → −3 ≤ x ≤ 3."),
+        practicalChoice("y11adv-cir-i2", "What is the domain of $y = \\sqrt{9 - x^2}$?", "B", ["$x \\le 3$", "$-3 \\le x \\le 3$", "$x \\ge 0$", "All real numbers"], "The radicand condition 9 − x² ≥ 0 gives x² ≤ 9, so both bounds are required: −3 ≤ x ≤ 3."),
         qa("y11adv-cir-i3", "Upper semicircle $x^2 + y^2 = 100$. Find $y$ when $x = 6$.", "", "8", "Subtract 36 from 100, then take the square root.", "y = √(100 − 36) = √64 = 8."),
         qa("y11adv-cir-i4", "Lower semicircle: $y = -\\sqrt{25 - x^2}$. Find $y$ when $x = 3$.", "y = -\\sqrt{25 - x^2}", "-4", "y = −√16.", "y = −√(25 − 9) = −√16 = −4.", ["-4", "−4"]),
         qa("y11adv-cir-i5", "A circle centred at the origin passes through $(5,\\,12)$. Find $r$.", "", "13", "r² = 25 + 144 = 169. Take the square root.", "r² = 25 + 144 = 169. r = √169 = 13."),
@@ -1444,18 +1333,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Stating the domain of a semicircle as 0 ≤ x ≤ r instead of −r ≤ x ≤ r.", fix: "The semicircle exists for both positive and negative x. The domain is −r ≤ x ≤ r." },
         { mistake: "Confusing radius r with r² when writing the equation.", fix: "The equation uses r², not r. A circle of radius 5 has equation x² + y² = 25, not x² + y² = 5." },
       ],
-      masteryQuiz: [
-        qa("y11adv-cir-m1", "A circle has radius 3. What is $r^2$?", "", "9", "Square the radius.", "r² = 9."),
-        practicalChoice("y11adv-cir-m2", "Which point lies on $x^2 + y^2 = 25$?", "C", ["$(3,\\,5)$", "$(4,\\,4)$", "$(3,\\,4)$", "$(5,\\,5)$"], "Check (3, 4): 3² + 4² = 9 + 16 = 25 ✓. The others give 34, 32, and 50 respectively."),
-        qa("y11adv-cir-m3", "Upper semicircle $x^2 + y^2 = 16$. Find $y$ when $x = 0$.", "", "4", "y = √16.", "y = √16 = 4."),
-        qa("y11adv-cir-m4", "Find the largest $x$-value in the domain of $y = \\sqrt{36 - x^2}$.", "y = \\sqrt{36 - x^2}", "6", "Domain is −6 ≤ x ≤ 6. Largest value is 6.", "36 − x² ≥ 0 → x² ≤ 36 → −6 ≤ x ≤ 6. Largest x = 6."),
-        practicalChoice("y11adv-cir-m5", "The graph of $y = -\\sqrt{r^2 - x^2}$ is:", "C", ["Upper semicircle", "Full circle", "Lower semicircle", "Parabola"], "The negative sign gives y ≤ 0 — this is only the lower half of the circle."),
-        qa("y11adv-cir-m6", "The point $(a,\\,0)$ with $a > 0$ lies on $x^2 + y^2 = 64$. Find $a$.", "", "8", "a² = 64. Take the positive root.", "a² = 64 → a = 8."),
-        qa("y11adv-cir-m7", "A circle centred at origin passes through $(6,\\,8)$. Find $r$.", "", "10", "r² = 100. Take the square root.", "r² = 36 + 64 = 100. r = 10."),
-        practicalChoice("y11adv-cir-m8", "What is the range of $y = \\sqrt{25 - x^2}$?", "B", ["$-5 \\le y \\le 5$", "$0 \\le y \\le 5$", "$y \\ge 0$", "All real numbers"], "The square root is non-negative and at most 5 (when x = 0). Range: 0 ≤ y ≤ 5."),
-        qa("y11adv-cir-m9", "Does $(5,\\,5)$ lie on $x^2 + y^2 = 50$? Enter yes or no.", "", "yes", "Check 25 + 25 against r².", "5² + 5² = 25 + 25 = 50 = r². Yes, the point lies on the circle."),
-        qa("y11adv-cir-m10", "A circle passes through $(0,\\,11)$. Find its radius.", "", "11", "r² = 0 + 121 = 121.", "r² = 0² + 11² = 121. r = √121 = 11."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1554,18 +1432,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Assuming a piecewise function is always discontinuous.", fix: "A piecewise function is continuous if outputs match at every boundary. The piecewise form does not automatically mean discontinuous." },
         { mistake: "Applying the even/odd test to only one piece rather than checking all pieces.", fix: "f(−x) = ±f(x) must hold for every x in the domain — verify the test on both pieces and at boundary values." },
       ],
-      masteryQuiz: [
-        qa("y11adv-piece-m1", "Evaluate $f(-3)$ for the displayed function.", "f(x) = \\begin{cases} 2x+1 & x < 0 \\\\ x-3 & x \\ge 0 \\end{cases}", "-5", "x = −3 < 0, use 2x + 1.", "f(−3) = 2(−3) + 1 = −6 + 1 = −5.", ["-5", "−5"]),
-        qa("y11adv-piece-m2", "Evaluate $f(0)$ for the displayed function.", "f(x) = \\begin{cases} 2x+1 & x < 0 \\\\ x-3 & x \\ge 0 \\end{cases}", "-3", "x = 0 ≥ 0, use x − 3.", "f(0) = 0 − 3 = −3.", ["-3", "−3"]),
-        qa("y11adv-piece-m3", "Evaluate $f(3)$ for the displayed function.", "f(x) = \\begin{cases} x^2-1 & x \\le 3 \\\\ 2x+5 & x > 3 \\end{cases}", "8", "x = 3 satisfies x ≤ 3, use x² − 1.", "f(3) = 3² − 1 = 9 − 1 = 8."),
-        qa("y11adv-piece-m4", "Evaluate $f(5)$ for the displayed function.", "f(x) = \\begin{cases} x^2-1 & x \\le 3 \\\\ 2x+5 & x > 3 \\end{cases}", "15", "x = 5 > 3, use 2x + 5.", "f(5) = 2(5) + 5 = 10 + 5 = 15."),
-        practicalChoice("y11adv-piece-m5", "The function $f(x) = x^2$ satisfies $f(-x) = x^2 = f(x)$ for all $x$. It is:", "B", ["Odd", "Even", "Neither", "Piecewise only"], "f(−x) = (−x)² = x² = f(x) for all x confirms the function is even."),
-        practicalChoice("y11adv-piece-m6", "The constant function $f(x) = 3$ for all $x$ satisfies $f(-x) = ?$", "B", ["$-3$", "$3$", "$0$", "Undefined"], "f(−x) = 3 = f(x) for all x. The constant function is even."),
-        qa("y11adv-piece-m7", "For $f(x) = \\begin{cases} x+4 & x < 1 \\\\ 2x+3 & x \\ge 1 \\end{cases}$, find the common boundary value (from each side at $x = 1$).", "f(x) = \\begin{cases} x+4 & x < 1 \\\\ 2x+3 & x \\ge 1 \\end{cases}", "5", "Evaluate each piece at x = 1 and compare.", "Left: 1 + 4 = 5. Right: 2(1) + 3 = 5. Both equal 5, so f is continuous at x = 1. The common value is 5."),
-        practicalChoice("y11adv-piece-m8", "Which piecewise rule is equivalent to $|x|$?", "B", ["$f(x)=\\begin{cases} -x & x \\ge 0 \\\\ x & x < 0 \\end{cases}$", "$f(x)=\\begin{cases} x & x \\ge 0 \\\\ -x & x < 0 \\end{cases}$", "$f(x)=x$ for all $x$", "$f(x)=x^2$ for all $x$"], "|x| returns x for non-negative inputs and −x for negative inputs. This matches option B."),
-        qa("y11adv-piece-m9", "Evaluate $f(-7)$ for $f(x) = \\begin{cases} x & x > 0 \\\\ -x & x < 0 \\\\ 0 & x = 0 \\end{cases}$.", "", "7", "x = −7 < 0, so f(−7) = −(−7).", "Since −7 < 0, use f(x) = −x: f(−7) = −(−7) = 7."),
-        practicalChoice("y11adv-piece-m10", "The domain of $f(x) = \\begin{cases} 1/(x-2) & x > 3 \\\\ x+1 & x \\le 1 \\end{cases}$ is:", "C", ["All real numbers", "$x \\ne 2$", "$x > 3$ or $x \\le 1$", "$1 < x < 3$"], "The function is defined only where x > 3 or x ≤ 1. The interval (1, 3] is not covered by either piece."),
-      ],
+      masteryQuiz: [],
     };
   }
 
@@ -1644,18 +1511,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Reversing the direction — writing outside the roots when the expression should be negative.", fix: "Draw a quick sketch. The upward parabola is below zero between the roots (for < 0) and above zero outside them (for > 0)." },
         { mistake: "Including endpoints when strict inequality (< or >) is used.", fix: "Strict inequalities exclude roots. Non-strict (≤ ≥) include them. Always check the inequality symbol." },
       ],
-      masteryQuiz: [
-        qa("y11adv-qi-m1", "Solve $x^2+x-6=0$. Enter the smaller root.", "x^2+x-6=0", "-3", "Factorise: (x+3)(x−2)=0. Roots: −3 and 2.", "Smaller root = −3.", ["-3", "−3"]),
-        qa("y11adv-qi-m2", "Solve $x^2+x-6=0$. Enter the larger root.", "x^2+x-6=0", "2", "Roots are −3 and 2.", "Larger root = 2."),
-        practicalChoice("y11adv-qi-m3", "Solve $(x+3)(x-2)>0$.", "A", ["$x<-3$ or $x>2$", "$-3<x<2$", "$x>2$", "$x<-3$"], "Positive outside the roots at −3 and 2. Solution: x < −3 or x > 2.", "(x+3)(x-2)>0"),
-        practicalChoice("y11adv-qi-m4", "Solve $x^2+x-6<0$.", "B", ["$x<-3$ or $x>2$", "$-3<x<2$", "$x>-3$", "$x<2$"], "Negative between the roots at −3 and 2. Solution: −3 < x < 2.", "x^2+x-6<0"),
-        qa("y11adv-qi-m5", "Solve $x^2-9=0$. Enter the smaller root.", "x^2-9=0", "-3", "Difference of two squares: (x−3)(x+3)=0. Roots: 3 and −3.", "Smaller root = −3.", ["-3", "−3"]),
-        practicalChoice("y11adv-qi-m6", "Solve $x^2\\leq 9$.", "C", ["$x\\leq 3$", "$x\\geq -3$", "$-3\\leq x\\leq 3$", "$x\\leq -3$ or $x\\geq 3$"], "x²−9≤0. Roots ±3. Non-strict inequality: between and including roots → −3 ≤ x ≤ 3.", "x^2\\leq 9"),
-        qa("y11adv-qi-m7", "Solve $x^2-7x+6=0$. Enter the larger root.", "x^2-7x+6=0", "6", "Factorise: (x−1)(x−6)=0. Roots 1 and 6.", "Larger root = 6."),
-        practicalChoice("y11adv-qi-m8", "Solve $(x-2)^2>0$.", "B", ["All real $x$", "$x\\neq 2$", "$x>2$", "$x<2$"], "(x−2)²=0 only at x=2 and is positive everywhere else. Solution: all x except x=2.", "(x-2)^2>0"),
-        practicalChoice("y11adv-qi-m9", "Solve $x^2+2x\\leq 0$.", "D", ["$x\\leq 0$", "$x\\geq -2$", "$x\\leq -2$ or $x\\geq 0$", "$-2\\leq x\\leq 0$"], "x(x+2)≤0. Roots 0 and −2. Non-strict, between and including: −2 ≤ x ≤ 0.", "x^2+2x\\leq 0"),
-        qa("y11adv-qi-m10", "Find the largest integer satisfying $x^2-7x+6\\leq 0$.", "x^2-7x+6\\leq 0", "6", "Solution is 1 ≤ x ≤ 6. Largest integer = 6.", "1 ≤ x ≤ 6. Integers: 1, 2, 3, 4, 5, 6. Largest = 6."),
-      ],
+      masteryQuiz: [],
       multiPartPractice: [
         {
           id: "y11adv-qi-mp1",
@@ -1782,18 +1638,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Assuming (f∘g)(x) always equals (g∘f)(x).", fix: "Composition is generally not commutative. Always check both orders if asked." },
         { mistake: "Ignoring domain restrictions when composing functions.", fix: "The domain of f∘g requires x to be valid for g AND g(x) to be valid for f. Check both conditions." },
       ],
-      masteryQuiz: [
-        qa("y11adv-comp-m1", "$f(x)=x+3$, $g(x)=2x$. Evaluate $(f\\circ g)(5)$.", "", "13", "g(5) = 10, then f(10) = 13.", "g(5) = 10. f(10) = 13."),
-        qa("y11adv-comp-m2", "$f(x)=x+3$, $g(x)=2x$. Evaluate $(g\\circ f)(5)$.", "", "16", "f(5) = 8, then g(8) = 16.", "f(5) = 8. g(8) = 16."),
-        practicalChoice("y11adv-comp-m3", "Is it always true that $(f\\circ g)(x) = (g\\circ f)(x)$?", "B", ["Yes — composition is commutative", "No — the two orders generally differ", "Yes — only when both functions are linear", "No — only when one function is a constant"], "Composition is not commutative in general. (f∘g)(5) = 13 ≠ 16 = (g∘f)(5) for the functions above."),
-        qa("y11adv-comp-m4", "$f(x)=x^2-1$, $g(x)=x+2$. Evaluate $(f\\circ g)(1)$.", "", "8", "g(1) = 3, then f(3) = 9 − 1.", "g(1) = 3. f(3) = 8."),
-        qa("y11adv-comp-m5", "$f(x)=x^2-1$, $g(x)=x+2$. Evaluate $(g\\circ f)(1)$.", "", "2", "f(1) = 0, then g(0) = 2.", "f(1) = 0. g(0) = 2."),
-        qa("y11adv-comp-m6", "$f(x)=2x$, $g(x)=x+4$. Write $(f\\circ g)(x)$ in simplest form. Enter the constant term.", "", "8", "f(x+4) = 2(x+4) = 2x + 8. Constant term is 8.", "(f∘g)(x) = 2(x+4) = 2x + 8. The constant term is 8."),
-        qa("y11adv-comp-m7", "$f(x)=x^2$, $g(x)=3x$. Write $(g\\circ f)(x)$ in simplest form. Enter the coefficient of $x^2$.", "", "3", "g(x²) = 3x². The coefficient is 3.", "(g∘f)(x) = g(x²) = 3x². Coefficient of x² is 3."),
-        practicalChoice("y11adv-comp-m8", "$f(x)=\\frac{1}{x}$, $g(x)=x-1$. The domain of $f\\circ g$ excludes which value?", "B", ["$x=0$", "$x=1$", "$x=-1$", "$x=2$"], "f(g(x)) = 1/(x−1). The denominator is zero when x − 1 = 0, i.e. x = 1. So x = 1 is excluded."),
-        qa("y11adv-comp-m9", "$f(x)=\\sqrt{x}$, $g(x)=4-x$. What is the largest $x$-value in the domain of $f\\circ g$?", "", "4", "Need 4 − x ≥ 0, so x ≤ 4. Largest x is 4.", "f∘g = √(4−x). Need 4 − x ≥ 0 → x ≤ 4. Largest x-value is 4."),
-        qa("y11adv-comp-m10", "$f(x)=x+2$, $g(x)=x-2$. Find the constant term of $(f\\circ g)(x)$.", "", "0", "f(x−2) = (x−2) + 2 = x. Constant term is 0.", "(f∘g)(x) = (x−2) + 2 = x. The constant term is 0."),
-      ],
+      masteryQuiz: [],
       multiPartPractice: [
         {
           id: "y11adv-comp-mp1",
@@ -1977,18 +1822,7 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
         { mistake: "Forgetting to multiply (b/2)² by a when a ≠ 1.", fix: "When factoring out a before completing the square, the adjustment inside the bracket is then multiplied by a when redistributed: a[(x−h)² − c] = a(x−h)² − ac." },
         { mistake: "Only taking the positive square root when solving (x−h)² = c.", fix: "Taking the square root gives ±√c. Both solutions must be considered: x = h + √c and x = h − √c." },
       ],
-      masteryQuiz: [
-        qa("y11adv-cts-m1", "Find $k$ for $x^2 + 8x + 7 = (x+4)^2 + k$.", "x^2+8x+7=(x+4)^2+k", "-9", "Expand (x+4)² = x²+8x+16. k = 7 − 16.", "k = 7 − 16 = −9.", ["-9", "−9"]),
-        qa("y11adv-cts-m2", "State the x-coordinate of the vertex of $f(x) = (x-5)^2 + 3$.", "f(x)=(x-5)^2+3", "5", "Read h directly: (x − h)² with h = 5.", "Vertex form (x−5)² + 3: h = 5, k = 3. Vertex x-coordinate = 5."),
-        qa("y11adv-cts-m3", "Solve $x^2 - 6x - 7 = 0$ by completing the square. Enter the larger root.", "x^2 - 6x - 7 = 0", "7", "(x−3)² − 9 − 7 = 0 → (x−3)² = 16 → x = 7 or x = −1.", "(x−3)² = 16 → x = 3 + 4 = 7 or x = 3 − 4 = −1. Larger root = 7."),
-        practicalChoice("y11adv-cts-m4", "In the form $a(x-h)^2 + k$ with $a < 0$, the parabola:", "B", ["Opens upward (minimum at vertex)", "Opens downward (maximum at vertex)", "Has no vertex", "Has two axes of symmetry"], "When a < 0 the squared term is always ≤ 0, so the vertex gives the maximum value of f."),
-        qa("y11adv-cts-m5", "Find $k$ for $2x^2 + 4x + 9 = 2(x+1)^2 + k$.", "", "7", "2(x+1)² = 2x²+4x+2. k = 9 − 2.", "k = 9 − 2 = 7."),
-        qa("y11adv-cts-m6", "Find the y-coordinate of the vertex of $f(x) = 3x^2 - 6x + 1$.", "f(x) = 3x^2 - 6x + 1", "-2", "3(x−1)² = 3x²−6x+3. k = 1 − 3 = −2.", "3x²−6x+1 = 3(x−1)² − 3 + 1 = 3(x−1)² − 2. Vertex y-coordinate = −2.", ["-2", "−2"]),
-        practicalChoice("y11adv-cts-m7", "Which method is guaranteed to solve any quadratic equation?", "C", ["Factorisation over the integers", "Inspection only", "Completing the square", "Using the axis of symmetry only"], "Completing the square always works because every quadratic can be written in vertex form, and then (x−h)² = c can always be solved (with real solutions when c ≥ 0)."),
-        qa("y11adv-cts-m8", "Solve $y = (x-3)^2 - 16 = 0$. Enter the smaller root.", "(x-3)^2 - 16 = 0", "-1", "(x−3) = ±4 → x = 7 or x = −1. Smaller root = −1.", "x = 3 − 4 = −1 or x = 3 + 4 = 7. Smaller root = −1.", ["-1", "−1"]),
-        qa("y11adv-cts-m9", "Find $h$ for $4x^2 - 24x + 11 = 4(x-h)^2 + k$.", "", "3", "h = coefficient of x ÷ (2a) = 24 ÷ 8 = 3.", "Factoring: 4(x² − 6x) + 11. Half of −6 is −3, so (x−3)². h = 3."),
-        practicalChoice("y11adv-cts-m10", "The vertex form $a(x-h)^2 + k$ is useful for graphing because:", "A", ["It gives the vertex and axis of symmetry directly without calculus", "It shows the x-intercepts directly", "It always has integer coefficients", "It is the only form that shows the y-intercept"], "Reading (h, k) from vertex form gives the vertex and therefore the axis of symmetry — all without differentiation."),
-      ],
+      masteryQuiz: [],
       multiPartPractice: [
         {
           id: "y11adv-cts-mp1",
@@ -2075,5 +1909,43 @@ export function year11AdvancedWorkingFunctionsLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedWorkingFunctionsLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed
+): Partial<ExplicitLesson> | null {
+  const override = baseYear11AdvancedWorkingFunctionsLessonOverride(
+    course,
+    unit,
+    lesson
+  );
+  if (!override) {
+    return null;
+  }
+
+  const qualityMastery = getWorkingFunctionsQualityMastery(lesson.slug);
+  const addOperationalVariant = (question: PracticeQuestion) =>
+    question.choices
+      ? question
+      : {
+          ...question,
+          acceptedAnswers: Array.from(
+            new Set([
+              question.answer,
+              ...(question.acceptedAnswers ?? []),
+              "\\(" + question.answer + "\\)",
+            ])
+          ),
+        };
+
+  return {
+    ...override,
+    guidedPractice: override.guidedPractice?.map(addOperationalVariant),
+    independentPractice:
+      override.independentPractice?.map(addOperationalVariant),
+    masteryQuiz: qualityMastery?.map(addOperationalVariant) ?? [],
+  };
 }
 
