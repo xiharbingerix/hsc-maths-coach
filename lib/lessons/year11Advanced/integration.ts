@@ -1,9 +1,48 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { formatChoiceText } from "../questionHelpers";
 import {
   addTrapezoidalQuestionVisual,
   addTrapezoidalWorkedVisual,
 } from "./integrationVisuals";
+
+type QualityTaskType =
+  | "procedural"
+  | "problem-solving"
+  | "analytical"
+  | "investigative"
+  | "synthesis";
+
+type QualityPracticeQuestion = PracticeQuestion & {
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  distractorMisconceptions?: Partial<
+    Record<"A" | "B" | "C" | "D", string>
+  >;
+};
+
+function numericFormatVariants(answer: string): string[] {
+  const value = answer.trim();
+  if (/^-?\d+$/.test(value)) return [`${value}.0`];
+  if (/^-?\d+\.\d*[1-9]$/.test(value)) return [`${value}0`];
+  return [];
+}
+
+function integrationFeedback(prompt: string, latex: string, answer: string) {
+  if (prompt.includes("primitive") || prompt.includes("antiderivative")) {
+    return `Apply the relevant reverse-derivative rule term by term to ${latex || "the displayed function"}. This gives ${answer}; differentiating the result checks that the original integrand is recovered.`;
+  }
+  if (prompt.includes("area") || prompt.includes("Area")) {
+    return `Identify the required bounded region and evaluate the relevant definite integral from the displayed data. The resulting geometric area is ${answer}, with negative signed contributions converted appropriately when area is requested.`;
+  }
+  if (prompt.includes("trapezoid") || prompt.includes("estimate")) {
+    return `Use the stated interval width and the trapezoidal weighting of the endpoint and interior ordinates. Substitution of the displayed values gives the estimate ${answer}.`;
+  }
+  if (prompt.includes("Solve") || prompt.includes("Find")) {
+    return `Apply the integration rule indicated by the displayed expression, then use any stated bounds or condition to determine the required value. The resulting answer is ${answer}.`;
+  }
+  return `Use the defining integration relationship shown in ${latex || "the stimulus"} and check the result by differentiation or substitution. This gives ${answer}.`;
+}
 
 function fa(
   id: string,
@@ -12,7 +51,18 @@ function fa(
   answer: string,
   acceptedAnswers: string[] = []
 ): PracticeQuestion {
-  return { id, prompt, latex, answer, acceptedAnswers };
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(
+      new Set([answer, ...numericFormatVariants(answer), ...acceptedAnswers]),
+    ),
+    hint:
+      "Identify the relevant reverse-derivative or definite-integral rule before simplifying.",
+    explanation: integrationFeedback(prompt, latex, answer),
+  };
 }
 
 function mc(
@@ -24,6 +74,88 @@ function mc(
   latex?: string
 ): PracticeQuestion {
   return { id, prompt, latex: latex ?? "", answer, choices, explanation };
+}
+
+function qualityAnswer({
+  id,
+  prompt,
+  latex,
+  answer,
+  acceptedAnswers,
+  hint,
+  explanation,
+  difficulty,
+  diagnosticIntent,
+  taskType,
+}: {
+  id: string;
+  prompt: string;
+  latex: string;
+  answer: string;
+  acceptedAnswers: string[];
+  hint: string;
+  explanation: string;
+  difficulty: 3 | 4 | 5;
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+}): QualityPracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint,
+    explanation,
+    difficulty,
+    diagnosticIntent,
+    taskType,
+  };
+}
+
+function qualityChoice({
+  id,
+  prompt,
+  latex,
+  answer,
+  choices,
+  hint,
+  explanation,
+  difficulty,
+  diagnosticIntent,
+  taskType,
+  distractorMisconceptions,
+}: {
+  id: string;
+  prompt: string;
+  latex: string;
+  answer: "A" | "B" | "C" | "D";
+  choices: [string, string, string, string];
+  hint: string;
+  explanation: string;
+  difficulty: 3 | 4 | 5;
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  distractorMisconceptions: Partial<
+    Record<"A" | "B" | "C" | "D", string>
+  >;
+}): QualityPracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    choices: (["A", "B", "C", "D"] as const).map((label, index) => ({
+      label,
+      text: formatChoiceText(choices[index]),
+    })),
+    hint,
+    explanation,
+    difficulty,
+    diagnosticIntent,
+    taskType,
+    distractorMisconceptions,
+  };
 }
 
 // ─── L1: Primitives and Antidifferentiation ──────────────────────────────────
@@ -86,20 +218,204 @@ const primIndep: PracticeQuestion[] = [
 ];
 
 const primMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-prim-m1", "Find the primitive.", "\\int 4x^3\\,dx", "x^4+C", ["x^4 + C"]),
-  fa("y11adv-intg-prim-m2", "Find the primitive.", "\\int 12x^5\\,dx", "2x^6+C", ["2x^6 + C"]),
-  mc("y11adv-intg-prim-m3", "Which is the correct primitive of 5x⁴?", "B",
-    [{ label: "A", text: "$20x^3+C$" }, { label: "B", text: "$x^5+C$" }, { label: "C", text: "$5x^5+C$" }, { label: "D", text: "$x^3+C$" }],
-    "Increase the power to 5 and divide 5 by 5: (5/5)x⁵ = x⁵. So the primitive is x⁵ + C.", ""),
-  fa("y11adv-intg-prim-m4", "Find the primitive.", "\\int x\\,dx", "x^2/2+C", ["(1/2)x^2+C"]),
-  mc("y11adv-intg-prim-m5", "Which expression checks that 3x⁴ + C is a primitive of 12x³?", "D",
-    [{ label: "A", text: "$\\int 3x^4\\,dx$" }, { label: "B", text: "$3x^4+C=12x^3$" }, { label: "C", text: "$\\int 12x^3+C\\,dx$" }, { label: "D", text: "$\\frac{d}{dx}(3x^4+C)=12x^3$" }],
-    "To check a primitive, differentiate it and confirm you recover the original integrand.", ""),
-  fa("y11adv-intg-prim-m6", "Find the primitive.", "\\int (6x^2-2x+4)\\,dx", "2x^3-x^2+4x+C", ["2x^3-x^2+4x+C"]),
-  mc("y11adv-intg-prim-m7", "What is the primitive of a constant k?", "A",
-    [{ label: "A", text: "$kx+C$" }, { label: "B", text: "$k+C$" }, { label: "C", text: "$kx^2/2+C$" }, { label: "D", text: "$0+C$" }],
-    "A constant k = kx⁰ has power 0; integrating gives kx^(0+1)/(0+1) = kx. So ∫k dx = kx + C.", ""),
-  fa("y11adv-intg-prim-m8", "Find the primitive.", "\\int 4x^{-3}\\,dx", "-2x^{-2}+C", ["-2/x^2+C", "-2x^(-2)+C"]),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm1",
+    prompt:
+      "Find the complete family of primitives, writing the negative-power term with a positive denominator if possible.",
+    latex: "\\int\\left(6x^2-4x^{-2}\\right)\\,dx",
+    answer: "2x^3+4/x+C",
+    acceptedAnswers: [
+      "2x^3+4x^(-1)+C",
+      "2x^3+4x^{-1}+C",
+      "2x^3 + 4/x + C",
+    ],
+    hint:
+      "Apply the reverse power rule separately to each term, then include one arbitrary constant.",
+    explanation:
+      "For each power other than negative one, increase the exponent by one and divide by the new exponent. Thus 6x^2 becomes 2x^3, while -4x^(-2) becomes 4x^(-1), since differentiating 4x^(-1) gives -4x^(-2). Therefore the family is 2x^3+4/x+C.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks term-by-term antidifferentiation, sign control with negative powers, and inclusion of the arbitrary constant.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-prim-qm2",
+    prompt:
+      "A student writes the result below. Which critique most precisely identifies the mathematical issue?",
+    latex: "\\int 8x^3\\,dx=2x^4",
+    answer: "C",
+    choices: [
+      "The coefficient should be 32 because differentiation multiplies by the power.",
+      "The exponent should remain 3 because integration does not change powers.",
+      "The antiderivative term is correct, but +C is required to represent every primitive.",
+      "The term should be 2x^3+C because only the coefficient changes.",
+    ],
+    hint:
+      "Differentiate the proposed expression, then decide whether it represents one function or the whole family.",
+    explanation:
+      "Differentiating 2x^4 gives 8x^3, so the power and coefficient are correct. However, an indefinite integral represents every function with that derivative. Since constants disappear under differentiation, the complete result is 2x^4+C, making C the precise critique.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Distinguishes a correct particular antiderivative from the complete family required by an indefinite integral.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Confuses differentiation with antidifferentiation and multiplies instead of reversing the power rule.",
+      B: "Treats integration as a coefficient-only operation and leaves the exponent unchanged.",
+      D: "Divides the coefficient but fails to increase the exponent.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm3",
+    prompt:
+      "The function shown is a primitive of the displayed derivative for every real x. Determine the value of a.",
+    latex: "F(x)=ax^4+3x,\\qquad F'(x)=12x^3+3",
+    answer: "a=3",
+    acceptedAnswers: ["3", "a = 3", "3.0"],
+    hint:
+      "Differentiate ax^4+3x and equate the coefficient of x cubed with the stated derivative.",
+    explanation:
+      "Differentiating gives F'(x)=4ax^3+3. For this to equal 12x^3+3 for every x, corresponding coefficients must match, so 4a=12. Hence a=3. This uses differentiation to verify and recover the coefficient in a proposed primitive.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks whether students can reverse-check a proposed primitive and compare polynomial coefficients correctly.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-prim-qm4",
+    prompt:
+      "A student claims the following power-rule calculation is complete. Which correction is required?",
+    latex: "\\int x^5\\,dx=x^6+C",
+    answer: "B",
+    choices: [
+      "Replace x^6 by 5x^4 because integration lowers the power.",
+      "Divide by the new exponent: the result is x^6/6+C.",
+      "Keep x^6 but replace +C with +6.",
+      "The calculation is already correct because the exponent increased by one.",
+    ],
+    hint:
+      "Differentiate x^6 and compare the coefficient obtained with the original integrand x^5.",
+    explanation:
+      "Increasing the exponent is only the first part of the reverse power rule. Since the derivative of x^6 is 6x^5, the coefficient must be divided by 6. Therefore the correct primitive is x^6/6+C, so option B identifies the missing step.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses the common incomplete power rule in which the exponent is increased without dividing by it.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Applies the differentiation power rule instead of reversing it.",
+      C: "Treats the divisor as a replacement for the arbitrary constant.",
+      D: "Recognises the exponent change but omits the necessary coefficient adjustment.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm5",
+    prompt:
+      "The proposed function is a primitive of the displayed polynomial. Determine the value of k.",
+    latex: "F(x)=2x^3+kx^2+x,\\qquad F'(x)=6x^2-8x+1",
+    answer: "k=-4",
+    acceptedAnswers: ["-4", "k = -4", "-4.0"],
+    hint:
+      "Differentiate the proposed primitive and match the coefficient of the linear term.",
+    explanation:
+      "Differentiating the proposal gives F'(x)=6x^2+2kx+1. Matching this with 6x^2-8x+1 requires 2k=-8, so k=-4. The other coefficients already agree, confirming that this value makes the equality true for all x.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Tests reverse use of differentiation and coefficient matching inside a parameterised primitive.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm6",
+    prompt:
+      "The two functions below are primitives of the same derivative. Find the constant vertical separation G(x)-F(x).",
+    latex: "F(x)=x^2-3x+1,\\qquad G(x)=x^2-3x+8",
+    answer: "7",
+    acceptedAnswers: ["7.0", "G(x)-F(x)=7", "G-F=7"],
+    hint:
+      "Subtract the functions and observe which non-constant terms cancel.",
+    explanation:
+      "Subtracting gives G(x)-F(x)=(x^2-3x+8)-(x^2-3x+1)=7. Their derivatives are both 2x-3 because the constants vanish. This illustrates why all primitives of a given function differ only by an arbitrary constant.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Checks conceptual understanding that primitives of one function form a family differing by constants.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm7",
+    prompt:
+      "For integer n from -4 to 4, excluding n=-1, count the values for which a primitive of x^n is a polynomial.",
+    latex: "\\int x^n\\,dx,\\qquad n\\in\\{-4,-3,-2,0,1,2,3,4\\}",
+    answer: "5",
+    acceptedAnswers: ["5.0", "five", "n=0,1,2,3,4"],
+    hint:
+      "Apply the reverse power rule and decide when the new exponent n+1 is a non-negative integer.",
+    explanation:
+      "For n not equal to -1, a primitive is x^(n+1)/(n+1)+C. It is polynomial when n+1 is a non-negative integer, which here occurs for n=0,1,2,3,4. The negative choices produce negative powers, so exactly five listed values work.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes generalisation of the reverse power rule and classification of when its result is polynomial.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-prim-qm8",
+    prompt:
+      "A student applies the power rule directly to the outer square as shown. Which response gives a valid method?",
+    latex: "\\int (x^2+1)^2\\,dx\\overset{?}{=}\\frac{(x^2+1)^3}{3}+C",
+    answer: "D",
+    choices: [
+      "The working is valid because every squared expression integrates by increasing its outer power.",
+      "Replace the denominator 3 by 2, leaving the rest unchanged.",
+      "Differentiate x^2+1 first, so the answer is 2x(x^2+1)+C.",
+      "Expand to x^4+2x^2+1, then integrate each term separately.",
+    ],
+    hint:
+      "Check by differentiating the proposed answer, and consider whether the integrand can first be written as a polynomial.",
+    explanation:
+      "The direct outer power rule is invalid because differentiating (x^2+1)^3/3 introduces an extra factor 2x. Here the reliable method is to expand (x^2+1)^2=x^4+2x^2+1 and integrate term by term, giving x^5/5+2x^3/3+x+C.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses inappropriate transfer of the simple power rule to a composite expression without a matching inner derivative.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Assumes the power rule applies unchanged to any composite expression.",
+      B: "Adjusts only the divisor without accounting for the inner function and its derivative.",
+      C: "Differentiates the integrand instead of finding an antiderivative.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm9",
+    prompt:
+      "Expand the product and hence find the complete family of primitives.",
+    latex: "\\int (x-1)^2(x+2)\\,dx",
+    answer: "x^4/4-3x^2/2+2x+C",
+    acceptedAnswers: [
+      "(1/4)x^4-(3/2)x^2+2x+C",
+      "0.25x^4-1.5x^2+2x+C",
+      "x^4/4+(-3/2)x^2+2x+C",
+    ],
+    hint:
+      "First expand (x-1)^2(x+2) completely; the cubic and quadratic terms simplify before integration.",
+    explanation:
+      "Expanding gives (x^2-2x+1)(x+2)=x^3-3x+2 because the x^2 terms cancel. Integrating term by term then gives x^4/4-3x^2/2+2x+C. Differentiating this result recovers x^3-3x+2 and hence the original product.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses synthesis of algebraic expansion, simplification, antidifferentiation, and derivative-based checking.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-prim-qm10",
+    prompt:
+      "The proposed function is a primitive of the displayed expression for x not equal to zero. Find a+b.",
+    latex: "F(x)=ax^4+bx^{-2},\\qquad F'(x)=8x^3-6x^{-3}",
+    answer: "5",
+    acceptedAnswers: ["5.0", "a+b=5", "a = 2, b = 3"],
+    hint:
+      "Differentiate both terms in F, then match the coefficients of x cubed and x to the power negative three.",
+    explanation:
+      "Differentiating gives F'(x)=4ax^3-2bx^(-3). Coefficient matching with 8x^3-6x^(-3) gives 4a=8 and -2b=-6, so a=2 and b=3. Therefore a+b=5. Both powers and signs must be matched independently.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines negative-power differentiation with two simultaneous coefficient comparisons in a reverse primitive problem.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L2: Standard Antiderivatives ────────────────────────────────────────────
@@ -156,20 +472,214 @@ const stdIndep: PracticeQuestion[] = [
 ];
 
 const stdMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-std-m1", "Find the primitive.", "\\int 4e^x\\,dx", "4e^x+C", ["4e^x + C"]),
-  mc("y11adv-intg-std-m2", "What is ∫(1/x) dx?", "C",
-    [{ label: "A", text: "$x^{-2}+C$" }, { label: "B", text: "$\\ln x+C$" }, { label: "C", text: "$\\ln|x|+C$" }, { label: "D", text: "$e^x+C$" }],
-    "The antiderivative of 1/x is ln|x| + C. The absolute value is needed because ln is only defined for positive numbers, but 1/x is defined for all x ≠ 0.", "\\int \\frac{1}{x}\\,dx"),
-  fa("y11adv-intg-std-m3", "Find the primitive.", "\\int 2\\cos x\\,dx", "2sin x+C", ["2\\sin x+C"]),
-  fa("y11adv-intg-std-m4", "Find the primitive.", "\\int -3\\sin x\\,dx", "3cos x+C", ["3\\cos x+C"]),
-  mc("y11adv-intg-std-m5", "Which is the primitive of eˣ + sin x?", "A",
-    [{ label: "A", text: "$e^x-\\cos x+C$" }, { label: "B", text: "$e^x+\\cos x+C$" }, { label: "C", text: "$e^x-\\sin x+C$" }, { label: "D", text: "$e^x+\\sin x+C$" }],
-    "∫eˣ dx = eˣ and ∫sin x dx = −cos x. So the primitive is eˣ − cos x + C.", "\\int(e^x+\\sin x)\\,dx"),
-  fa("y11adv-intg-std-m6", "Find the primitive.", "\\int \\left(x^3+\\frac{1}{x}\\right)dx", "x^4/4+ln|x|+C", ["(1/4)x^4+ln|x|+C"]),
-  mc("y11adv-intg-std-m7", "Why does ∫eˣ dx = eˣ + C (not eˣ⁺¹/(x+1))?", "B",
-    [{ label: "A", text: "The power rule applies to all functions" }, { label: "B", text: "eˣ is its own derivative, so eˣ is also its own antiderivative" }, { label: "C", text: "The exponent in eˣ is a constant" }, { label: "D", text: "eˣ cannot be integrated" }],
-    "Since d/dx(eˣ) = eˣ, eˣ is its own antiderivative. The reverse power rule requires a variable base, not a constant base.", ""),
-  fa("y11adv-intg-std-m8", "Find the primitive.", "\\int (e^x-\\cos x+3)\\,dx", "e^x-sin x+3x+C", ["e^x-\\sin x+3x+C"]),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm1",
+    prompt:
+      "Find the complete family of primitives using the standard exponential and trigonometric antiderivatives.",
+    latex: "\\int\\left(3e^x-4\\cos x\\right)\\,dx",
+    answer: "3e^x-4sin x+C",
+    acceptedAnswers: [
+      "3e^x-4\\sin x+C",
+      "3e^x - 4sin(x) + C",
+      "3exp(x)-4sin(x)+C",
+    ],
+    hint:
+      "Recall that e to the x is its own derivative and that the derivative of sin x is cos x.",
+    explanation:
+      "Integrate term by term. Since the derivative of e^x is e^x, the first term remains 3e^x. Since the derivative of sin x is cos x, -4cos x has primitive -4sin x. Including the arbitrary constant gives 3e^x-4sin x+C.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks accurate recall and combination of the standard exponential and cosine antiderivatives.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-std-qm2",
+    prompt:
+      "A student gives the following antiderivative. Which correction is mathematically valid?",
+    latex: "\\int \\sin x\\,dx=\\cos x+C",
+    answer: "A",
+    choices: [
+      "Change the result to -cos x+C because the derivative of cos x is -sin x.",
+      "Change the result to sin x+C because sine is unchanged by integration.",
+      "Change the result to -sin x+C because integration only changes the sign.",
+      "Keep cos x+C because differentiation and integration use the same sign.",
+    ],
+    hint:
+      "Differentiate the student's proposed cosine term and compare it with positive sin x.",
+    explanation:
+      "Differentiating cos x gives -sin x, the opposite of the required integrand. Differentiating -cos x instead gives sin x, so the correct family is -cos x+C. Option A fixes the sign by using the derivative relationship rather than a memorised pattern alone.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses the frequent sign error when reversing the derivative relationship between sine and cosine.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      B: "Assumes sine is its own antiderivative in the same way as e to the x.",
+      C: "Changes a sign without changing to the complementary trigonometric function.",
+      D: "Forgets that differentiating cosine introduces a negative sign.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm3",
+    prompt:
+      "The proposed function has the displayed derivative for every real x. Determine a+b.",
+    latex: "F(x)=ae^x+b\\sin x,\\qquad F'(x)=5e^x+6\\cos x",
+    answer: "11",
+    acceptedAnswers: ["11.0", "a+b=11", "a = 5, b = 6"],
+    hint:
+      "Differentiate each term in F and match the exponential and cosine coefficients separately.",
+    explanation:
+      "Differentiating gives F'(x)=ae^x+bcos x. Equality for every x requires the independent coefficients to match: a=5 and b=6. Therefore a+b=11. This also checks that sin x, rather than -sin x, is the primitive associated with cos x.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks reverse verification of standard primitives and coefficient matching across two function families.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-std-qm4",
+    prompt:
+      "A student is working only on the interval x<0 and writes the result below. Which evaluation is correct?",
+    latex: "\\int\\frac{1}{x}\\,dx=\\ln x+C",
+    answer: "B",
+    choices: [
+      "It is correct because the derivative of ln x is 1/x for every non-zero x.",
+      "It is not real-valued there; ln|x|+C, equivalently ln(-x)+C on this interval, is required.",
+      "It should be xln x+C because the integrand contains a reciprocal.",
+      "No real primitive of 1/x exists on any negative interval.",
+    ],
+    hint:
+      "Check the real domain of ln x, then differentiate ln(-x) for negative x.",
+    explanation:
+      "For x<0, ln x is not a real-valued function, so it cannot be the required real primitive. However, ln|x|=ln(-x) on this interval, and its derivative is (1/(-x))(-1)=1/x. Thus option B gives both the domain correction and a valid equivalent form.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Tests whether students connect the absolute value in the reciprocal antiderivative with its real domain.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Extends the positive-domain derivative formula for ln x across zero without checking its real domain.",
+      C: "Invents a product resembling integration by parts rather than using the standard reciprocal primitive.",
+      D: "Mistakes the failure of ln x on negative inputs for non-existence of any local primitive.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm5",
+    prompt:
+      "The proposed function is a primitive of the displayed expression on any interval not containing zero. Find k.",
+    latex:
+      "F(x)=ke^x+3\\cos x+2\\ln|x|,\\qquad F'(x)=4e^x-3\\sin x+\\frac{2}{x}",
+    answer: "k=4",
+    acceptedAnswers: ["4", "k = 4", "4.0"],
+    hint:
+      "Differentiate the proposal and compare the coefficient of e to the x; the other two terms provide checks.",
+    explanation:
+      "Differentiating F gives ke^x-3sin x+2/x. The sine and reciprocal terms already match the target derivative. Matching the exponential coefficient requires k=4. Substitution then confirms every term of the derivative is correct.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses coefficient matching while coordinating exponential, trigonometric, and reciprocal derivative pairs.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm6",
+    prompt:
+      "On the interval x<0, decide whether H is a primitive of 1/x and give the derivative-based conclusion.",
+    latex: "H(x)=\\ln(-x)",
+    answer: "Yes, H'(x)=1/x",
+    acceptedAnswers: [
+      "yes",
+      "H'(x)=1/x",
+      "yes because d/dx ln(-x)=1/x",
+    ],
+    hint:
+      "Differentiate ln(-x) with the chain rule and simplify the two negative factors.",
+    explanation:
+      "On x<0 the quantity -x is positive, so H is real-valued. By the chain rule, H'(x)=(1/(-x))(-1)=1/x. Therefore H is a valid primitive of 1/x on that interval, consistent with ln|x| because |x|=-x there.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Investigates how domain and the chain rule justify an equivalent reciprocal primitive on a negative interval.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm7",
+    prompt:
+      "Find all real a and b for which the trigonometric function shown is its own derivative for every x.",
+    latex: "H(x)=a\\sin x+b\\cos x,\\qquad H'(x)=H(x)",
+    answer: "a=0,b=0",
+    acceptedAnswers: [
+      "a = 0, b = 0",
+      "(a,b)=(0,0)",
+      "a and b are both zero",
+    ],
+    hint:
+      "Differentiate H, then equate the separate sine and cosine coefficients.",
+    explanation:
+      "Differentiation gives H'(x)=acos x-bsin x. Matching sine coefficients with H requires -b=a, while matching cosine coefficients requires a=b. Together these give a=-a, hence a=0 and then b=0. Only the zero trigonometric combination is its own derivative.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes structural understanding of sine-cosine differentiation through a coefficient system rather than direct recall.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-std-qm8",
+    prompt:
+      "A student claims the following standard exponential rule applies unchanged. Which diagnosis is correct?",
+    latex: "\\int e^{2x}\\,dx=e^{2x}+C",
+    answer: "C",
+    choices: [
+      "The result is correct because every exponential function is its own derivative.",
+      "The exponent should increase, giving e^(2x+1)/(2x+1)+C.",
+      "A factor of one half is needed because differentiating e^(2x) produces an extra factor 2.",
+      "The result should be 2e^x+C because the exponent coefficient moves outside.",
+    ],
+    hint:
+      "Differentiate e to the 2x and identify the constant factor introduced by the chain rule.",
+    explanation:
+      "The chain rule gives d/dx(e^(2x))=2e^(2x), so e^(2x) alone differentiates to twice the integrand. Multiplying by one half compensates for that factor: the correct primitive is (1/2)e^(2x)+C. Therefore C is the valid diagnosis.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses overgeneralisation of the e-to-the-x primitive when a non-unit linear inner derivative is present.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Ignores the chain-rule factor created by the inner function 2x.",
+      B: "Misapplies the algebraic reverse power rule to an exponential expression.",
+      D: "Moves the inner coefficient while also incorrectly changing the exponential argument.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm9",
+    prompt:
+      "Simplify the integrand into standard terms and hence find the complete family of primitives.",
+    latex: "\\int\\frac{(e^x+1)^2}{e^x}\\,dx",
+    answer: "e^x+2x-e^(-x)+C",
+    acceptedAnswers: [
+      "e^x+2x-e^{-x}+C",
+      "e^x+2x-1/e^x+C",
+      "exp(x)+2x-exp(-x)+C",
+    ],
+    hint:
+      "Expand the numerator and divide every term by e to the x before integrating.",
+    explanation:
+      "Expanding and dividing gives (e^(2x)+2e^x+1)/e^x=e^x+2+e^(-x). The primitives are e^x, 2x, and -e^(-x), since differentiating -e^(-x) gives e^(-x). Thus the result is e^x+2x-e^(-x)+C.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses synthesis of exponential algebra, standard primitives, sign control, and derivative checking.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-std-qm10",
+    prompt:
+      "The proposed function is a primitive of the displayed expression for x not equal to zero. Determine a+b+c.",
+    latex:
+      "F(x)=ae^{2x}+b\\cos(3x)+c\\ln|x|,\\qquad F'(x)=8e^{2x}+6\\sin(3x)-\\frac{5}{x}",
+    answer: "-3",
+    acceptedAnswers: ["-3.0", "a+b+c=-3", "a=4,b=-2,c=-5"],
+    hint:
+      "Differentiate all three terms, retaining each inner-derivative factor, then match coefficients.",
+    explanation:
+      "Differentiating gives F'(x)=2ae^(2x)-3bsin(3x)+c/x. Matching coefficients yields 2a=8, -3b=6 and c=-5, so a=4, b=-2 and c=-5. Their sum is 4-2-5=-3. The inner factors 2 and 3 are essential.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines three standard primitive families with chain-rule coefficient reversal and multi-step synthesis.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L3: Initial-Value Problems ───────────────────────────────────────────────
@@ -217,20 +727,208 @@ const ivIndep: PracticeQuestion[] = [
 ];
 
 const ivMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-iv-m1", "Find C if f'(x) = 8x and f(0) = −4.", "f'(x)=8x,\\quad f(0)=-4", "-4", ["C=-4"]),
-  fa("y11adv-intg-iv-m2", "Find f(x) given f'(x) = x² + 1 and f(3) = 12.", "f'(x)=x^2+1,\\quad f(3)=12", "x^3/3+x+0", ["x^3/3+x", "(1/3)x^3+x"]),
-  mc("y11adv-intg-iv-m3", "A curve has gradient function f'(x) = 4x and passes through (2, 10). What is f(x)?", "B",
-    [{ label: "A", text: "$2x^2$" }, { label: "B", text: "$2x^2+2$" }, { label: "C", text: "$2x^2-2$" }, { label: "D", text: "$4x+2$" }],
-    "∫4x dx = 2x² + C. Substituting (2, 10): 10 = 2(4) + C → C = 2. So f(x) = 2x² + 2.", ""),
-  fa("y11adv-intg-iv-m4", "Find y given y' = 2x − 3 and y = 4 when x = 2.", "y'=2x-3,\\quad(2,4)", "x^2-3x+6", ["y=x^2-3x+6"]),
-  mc("y11adv-intg-iv-m5", "Which describes the graph of y = x³ + C for three different values of C?", "C",
-    [{ label: "A", text: "Three curves with different shapes" }, { label: "B", text: "Three curves with different gradients" }, { label: "C", text: "Three identical curves shifted vertically" }, { label: "D", text: "Three curves with different x-intercepts only" }],
-    "Changing C shifts the curve up or down without altering its shape or gradient at any x-value.", ""),
-  fa("y11adv-intg-iv-m6", "Find f(x) given f'(x) = 3e^x and f(0) = 5.", "f'(x)=3e^x,\\quad f(0)=5", "3e^x+2", ["f(x)=3e^x+2"]),
-  mc("y11adv-intg-iv-m7", "Which step correctly starts solving 'find f(x) given f'(x) = 6x², f(1) = 5'?", "A",
-    [{ label: "A", text: "Integrate 6x² to get 2x³ + C, then substitute (1, 5)" }, { label: "B", text: "Differentiate 6x² to get 12x, then substitute" }, { label: "C", text: "Substitute (1, 5) into f'(x) = 6x²" }, { label: "D", text: "Set 6x² = 5 and solve for x" }],
-    "First antidifferentiate to get the general form, then use the initial condition to find C.", ""),
-  fa("y11adv-intg-iv-m8", "Find y given dy/dx = sin x and y = 3 when x = 0.", "\\frac{dy}{dx}=\\sin x,\\quad y(0)=3", "-cos x+4", ["y=-\\cos x+4", "-\\cos x+4"]),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm1",
+    prompt:
+      "Find the particular function satisfying the derivative and initial condition.",
+    latex: "f'(x)=6x^2-4x,\\qquad f(1)=5",
+    answer: "f(x)=2x^3-2x^2+5",
+    acceptedAnswers: [
+      "2x^3-2x^2+5",
+      "f(x) = 2x^3 - 2x^2 + 5",
+      "y=2x^3-2x^2+5",
+    ],
+    hint:
+      "Antidifferentiate the gradient first, retaining +C, and only then substitute x=1 and f(1)=5.",
+    explanation:
+      "Antidifferentiating term by term gives f(x)=2x^3-2x^2+C. The condition f(1)=5 gives 5=2-2+C, so C=5. Therefore f(x)=2x^3-2x^2+5. Differentiating the result recovers 6x^2-4x and confirms the model.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks the complete initial-value sequence: antidifferentiate, retain the constant, substitute, and verify.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-iv-qm2",
+    prompt:
+      "A student substitutes the point directly into the derivative as shown. Which critique identifies the error?",
+    latex: "f'(x)=4x,\quad f(2)=10;\qquad 10=4(2)+C",
+    answer: "D",
+    choices: [
+      "The substitution is valid, but the constant should be multiplied by x.",
+      "The point should be substituted into f'(x) before any integration and no constant is needed.",
+      "The derivative should be differentiated again before the point is used.",
+      "The point lies on f, not f'; first find f(x)=2x^2+C, then substitute f(2)=10.",
+    ],
+    hint:
+      "Decide whether the y-coordinate 10 is a function value or a gradient value.",
+    explanation:
+      "The condition f(2)=10 gives a point on the original curve, not on its gradient function. First integrate f'(x)=4x to obtain f(x)=2x^2+C. Then 10=2(2^2)+C gives C=2. Option D correctly separates derivative information from function information.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses substitution of an initial function value into the derivative rather than into its primitive.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Accepts the incorrect equation and changes only the treatment of the constant.",
+      B: "Confuses the supplied function value with a value of the derivative.",
+      C: "Moves in the wrong calculus direction by differentiating the known gradient.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm3",
+    prompt:
+      "A curve has the displayed gradient and passes through the stated point. Determine f(2).",
+    latex: "f'(x)=3x^2+2,\qquad f(0)=-4",
+    answer: "8",
+    acceptedAnswers: ["8.0", "f(2)=8", "f(2) = 8"],
+    hint:
+      "Recover f(x), use the value at zero to determine C, and then evaluate the resulting function at two.",
+    explanation:
+      "Integrating gives f(x)=x^3+2x+C. The condition f(0)=-4 immediately gives C=-4, so f(x)=x^3+2x-4. Evaluating at x=2 gives f(2)=8+4-4=8. The point determines the vertical member of the primitive family.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks whether students can reconstruct a function from its gradient and then use it to predict another value.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-iv-qm4",
+    prompt:
+      "Which function satisfies both the differential equation and the value at pi?",
+    latex: "y'=\\sin x,\\qquad y(\\pi)=2",
+    answer: "B",
+    choices: [
+      "y=cos x+3",
+      "y=-cos x+1",
+      "y=-cos x+3",
+      "y=sin x+2",
+    ],
+    hint:
+      "Start with the primitive of positive sine, then use cos pi equals negative one.",
+    explanation:
+      "A primitive of sin x is -cos x, so y=-cos x+C. At x=pi, -cos(pi)=1, and the condition 2=1+C gives C=1. Hence y=-cos x+1, which also differentiates to positive sin x. Option B satisfies both requirements.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Tests sign control in trigonometric antidifferentiation together with substitution of an exact initial value.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Uses cosine with the wrong derivative sign and adjusts the constant to fit the point.",
+      C: "Finds the correct primitive form but substitutes cos pi with the wrong sign when solving for C.",
+      D: "Treats sine as its own antiderivative and uses the initial value as a constant.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm5",
+    prompt:
+      "A single function satisfies the derivative and both conditions. Determine the parameter k.",
+    latex: "f'(x)=2x+k,\qquad f(0)=1,\qquad f(2)=9",
+    answer: "k=2",
+    acceptedAnswers: ["2", "k = 2", "2.0"],
+    hint:
+      "Integrate with k treated as a constant; the condition at zero fixes C before the second condition is used.",
+    explanation:
+      "Integrating gives f(x)=x^2+kx+C. From f(0)=1, C=1. Then f(2)=9 gives 4+2k+1=9, so 2k=4 and k=2. Substituting this value produces f(x)=x^2+2x+1, which meets both conditions.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses coordinated use of two conditions to determine both an integration constant and a model parameter.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm6",
+    prompt:
+      "Investigate whether one function can satisfy all three statements, and state the conclusion.",
+    latex: "f'(x)=2x,\qquad f(1)=3,\qquad f(-1)=5",
+    answer: "No such function exists",
+    acceptedAnswers: [
+      "no solution",
+      "impossible",
+      "the conditions are inconsistent",
+    ],
+    hint:
+      "Write the complete primitive family and compare its values at x=1 and x=-1.",
+    explanation:
+      "Every primitive of 2x has the form f(x)=x^2+C. Therefore f(1)=1+C and f(-1)=1+C must be equal. The stated values 3 and 5 are different, so no choice of C can satisfy both. The initial conditions are inconsistent with the given derivative.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes whether students test compatibility of multiple initial conditions instead of forcing a constant from each.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm7",
+    prompt:
+      "The function has the given derivative and value at zero. Find the positive input t for which f(t)=0.",
+    latex: "f'(x)=4x,\qquad f(0)=-8,\qquad t>0",
+    answer: "t=2",
+    acceptedAnswers: ["2", "t = 2", "2.0"],
+    hint:
+      "Recover the particular quadratic first, then solve its zero equation and apply the positive-input condition.",
+    explanation:
+      "Integrating gives f(x)=2x^2+C, and f(0)=-8 gives C=-8. Thus f(t)=0 means 2t^2-8=0, so t^2=4 and t=plus or minus 2. The restriction t>0 selects t=2. The initial condition must be used before solving for the input.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Investigates a reconstructed function and checks selection between algebraic roots using a stated restriction.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-iv-qm8",
+    prompt:
+      "A student claims the data determine f(x)=x^3+2. Which evaluation is correct?",
+    latex: "f''(x)=6x,\qquad f(0)=2",
+    answer: "C",
+    choices: [
+      "The claim is correct because one condition always determines one function.",
+      "The claim is wrong only because the cubic coefficient should be 3.",
+      "The data leave an undetermined linear term: f(x)=x^3+Ax+2.",
+      "The data leave only an undetermined constant: f(x)=x^3+C.",
+    ],
+    hint:
+      "Integrate twice and count how many independent constants appear before applying the one supplied condition.",
+    explanation:
+      "Integrating f''=6x once gives f'=3x^2+A, and integrating again gives f=x^3+Ax+B. The condition f(0)=2 fixes B=2 but provides no information about A. Thus an entire family f=x^3+Ax+2 remains, so option C is correct.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses underdetermination when a second derivative is supplied with too few independent initial conditions.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Counts conditions without accounting for the two constants introduced by two integrations.",
+      B: "Misapplies the reverse power rule to the leading term.",
+      D: "Introduces only one constant across two successive integrations.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm9",
+    prompt:
+      "Use both initial conditions to reconstruct the function f.",
+    latex: "f''(x)=6x-2,\qquad f'(0)=3,\qquad f(1)=4",
+    answer: "f(x)=x^3-x^2+3x+1",
+    acceptedAnswers: [
+      "x^3-x^2+3x+1",
+      "f(x) = x^3 - x^2 + 3x + 1",
+      "y=x^3-x^2+3x+1",
+    ],
+    hint:
+      "Integrate once and use f'(0), then integrate again and use f(1); keep the constants separate.",
+    explanation:
+      "First integrate to get f'(x)=3x^2-2x+A. Since f'(0)=3, A=3. Integrating again gives f(x)=x^3-x^2+3x+B. The condition f(1)=4 gives 1-1+3+B=4, so B=1 and f(x)=x^3-x^2+3x+1.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses two-stage antidifferentiation with separate constants and conditions attached to different derivative levels.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-iv-qm10",
+    prompt:
+      "A tank's volume V litres changes at the stated rate. Find the first positive time when the volume reaches 82 litres.",
+    latex: "V'(t)=12-2t,\qquad V(0)=50,\qquad V(t)=82",
+    answer: "4 hours",
+    acceptedAnswers: ["4", "t=4", "t = 4 hours", "4 h"],
+    hint:
+      "Integrate the rate, use the initial volume, then solve the resulting quadratic and choose the earlier positive root.",
+    explanation:
+      "Integrating gives V(t)=12t-t^2+C, and V(0)=50 sets C=50. Solving 12t-t^2+50=82 gives t^2-12t+32=0, so t=4 or t=8. The question asks for the first positive time, hence the required answer is 4 hours.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines reconstruction from a rate, quadratic solving, and contextual selection when the target occurs twice.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L4: Definite Integrals ───────────────────────────────────────────────────
@@ -278,20 +976,202 @@ const defIndep: PracticeQuestion[] = [
 ];
 
 const defMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-def-m1", "Evaluate the definite integral.", "\\int_1^3 4x\\,dx", "16", []),
-  fa("y11adv-intg-def-m2", "Evaluate the definite integral.", "\\int_0^2 (x^2+x)\\,dx", "14/3", ["4⅔", "4.667"]),
-  mc("y11adv-intg-def-m3", "How is ∫₁³ f(x) dx calculated?", "B",
-    [{ label: "A", text: "$F(3)\\times F(1)$" }, { label: "B", text: "$F(3)-F(1)$" }, { label: "C", text: "$F(1)-F(3)$" }, { label: "D", text: "$F(1)+F(3)$" }],
-    "A definite integral equals F(upper) − F(lower) where F' = f.", ""),
-  fa("y11adv-intg-def-m4", "Evaluate the definite integral.", "\\int_0^{\\pi} \\sin x\\,dx", "2", []),
-  mc("y11adv-intg-def-m5", "Which statement about ∫ₐᵃ f(x) dx is always true?", "D",
-    [{ label: "A", text: "It equals f(a)" }, { label: "B", text: "It equals 2f(a)" }, { label: "C", text: "It is undefined" }, { label: "D", text: "It equals 0" }],
-    "When both limits are equal, F(a) − F(a) = 0, regardless of the function.", "\\int_a^a f(x)\\,dx"),
-  fa("y11adv-intg-def-m6", "Evaluate the definite integral.", "\\int_{-1}^{2} (3x^2-1)\\,dx", "6", []),
-  mc("y11adv-intg-def-m7", "What happens to ∫ₐᵇ f(x) dx when the limits are reversed?", "C",
-    [{ label: "A", text: "It doubles" }, { label: "B", text: "It stays the same" }, { label: "C", text: "It changes sign" }, { label: "D", text: "It becomes undefined" }],
-    "∫ₐᵇ f(x) dx = −∫ᵦₐ f(x) dx. Reversing limits negates the result.", ""),
-  fa("y11adv-intg-def-m8", "Evaluate the definite integral.", "\\int_1^e \\frac{1}{x}\\,dx", "1", ["ln e − ln 1 = 1"]),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm1",
+    prompt:
+      "Evaluate the definite integral exactly, showing the upper-minus-lower substitution in your working.",
+    latex: "\\int_{-1}^{2}\\left(3x^2-2x\\right)\\,dx",
+    answer: "6",
+    acceptedAnswers: ["6.0", "6 units", "[x^3-x^2]_-1^2=6"],
+    hint:
+      "Use the primitive x cubed minus x squared, then subtract its value at negative one from its value at two.",
+    explanation:
+      "A primitive of 3x^2-2x is F(x)=x^3-x^2. At the upper limit F(2)=8-4=4, while at the lower limit F(-1)=-1-1=-2. Therefore the integral is F(2)-F(-1)=4-(-2)=6.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks routine definite integration while exposing sign errors caused by substituting a negative lower limit.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-def-qm2",
+    prompt:
+      "A student evaluates the integral using the line below. Which statement pinpoints the error?",
+    latex: "\\int_1^4 2x\\,dx=F(1)-F(4),\\qquad F(x)=x^2",
+    answer: "B",
+    choices: [
+      "The primitive should be 2x^2, but the order of substitution is correct.",
+      "The primitive is correct, but the value must be F(4)-F(1), not lower minus upper.",
+      "Both endpoint values should be added because the interval has positive length.",
+      "The constant of integration must be found before a definite integral can be evaluated.",
+    ],
+    hint:
+      "Recall the order in the Fundamental Theorem: primitive at the upper endpoint minus primitive at the lower endpoint.",
+    explanation:
+      "The primitive F(x)=x^2 is correct because F'(x)=2x. For limits from 1 to 4, the Fundamental Theorem requires F(4)-F(1)=16-1=15. The student's reversed subtraction would give -15, so option B isolates the error without changing the primitive.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses reversal of upper and lower endpoint values while preserving a correctly found primitive.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Carries the integrand coefficient into the primitive without dividing by the new power.",
+      C: "Treats endpoint evaluation as addition rather than an oriented difference.",
+      D: "Assumes the arbitrary constant is needed even though it cancels in definite integration.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm3",
+    prompt:
+      "Given the positive restriction on k, determine the upper limit that makes the integral equal to 16.",
+    latex: "\\int_0^k 2x\\,dx=16,\qquad k>0",
+    answer: "k=4",
+    acceptedAnswers: ["4", "k = 4", "4.0"],
+    hint:
+      "Evaluate the integral in terms of k, solve the resulting square equation, and then use k>0.",
+    explanation:
+      "Using the primitive x^2 gives [x^2]_0^k=k^2. Hence k^2=16, so algebraically k=plus or minus 4. The stated restriction k>0 selects k=4. The limit is an unknown in the endpoint evaluation, not an integration constant.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks whether students can reverse a definite integral to find a limit and apply a sign restriction.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-def-qm4",
+    prompt:
+      "Without performing a full endpoint calculation, which conclusion about the integral is correct?",
+    latex: "\\int_{-2}^{2}\\left(3x^3-x\\right)\\,dx",
+    answer: "D",
+    choices: [
+      "It is positive because the upper limit is positive.",
+      "It is negative because the integrand is negative for some x.",
+      "It equals twice the integral from 0 to 2 because every polynomial is even.",
+      "It equals zero because the integrand is odd and the interval is symmetric.",
+    ],
+    hint:
+      "Compare f(-x) with f(x) for f(x)=3x cubed minus x.",
+    explanation:
+      "For f(x)=3x^3-x, replacing x by -x gives f(-x)=-3x^3+x=-f(x), so f is odd. On the symmetric interval [-2,2], the signed contribution to the left of zero cancels the contribution to the right. Therefore the integral is zero.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Tests recognition of odd symmetry as a reason for cancellation in a definite integral.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Infers the sign of an integral from the upper limit rather than the integrand's accumulated values.",
+      B: "Assumes any negative part forces the entire signed accumulation to be negative.",
+      C: "Applies the even-function doubling rule without checking parity.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm5",
+    prompt:
+      "The definite integral equals 8. Determine the parameter a.",
+    latex: "\\int_0^2(ax+1)\\,dx=8",
+    answer: "a=3",
+    acceptedAnswers: ["3", "a = 3", "3.0"],
+    hint:
+      "Integrate with a treated as a constant, evaluate at two and zero, and solve the resulting linear equation.",
+    explanation:
+      "A primitive is ax^2/2+x. Evaluating from 0 to 2 gives 2a+2. Setting this equal to 8 yields 2a=6, so a=3. Substitution checks the result: the integrand becomes 3x+1 and its integral is 6+2=8.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses parameter recovery from a definite integral rather than direct evaluation with fixed coefficients.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm6",
+    prompt:
+      "Use interval additivity to determine the signed accumulation over the combined interval.",
+    latex:
+      "\\int_0^2 f(x)\\,dx=5,\qquad \\int_2^5 f(x)\\,dx=-1",
+    answer: "4",
+    acceptedAnswers: ["4.0", "integral from 0 to 5 = 4", "∫_0^5 f(x)dx=4"],
+    hint:
+      "Adjacent definite integrals add when the end of the first interval is the start of the second.",
+    explanation:
+      "Definite integrals are additive across adjacent intervals: the accumulation from 0 to 5 equals the accumulation from 0 to 2 plus that from 2 to 5. Therefore ∫_0^5 f(x)dx=5+(-1)=4. The negative second contribution reduces the total.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Checks structural use of interval additivity and interpretation of a negative contribution to total accumulation.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm7",
+    prompt:
+      "Use symmetry to evaluate the integral efficiently, explaining which term cancels.",
+    latex: "\\int_{-3}^{3}\\left(2x^5+4x^2\\right)\\,dx",
+    answer: "72",
+    acceptedAnswers: ["72.0", "72 units", "4∫_-3^3 x^2 dx=72"],
+    hint:
+      "Separate the odd fifth-power term from the even squared term before integrating.",
+    explanation:
+      "The term 2x^5 is odd, so its integral over [-3,3] is zero. The term 4x^2 is even, so its contribution is 8∫_0^3 x^2dx=8[x^3/3]_0^3=8(9)=72. Hence the complete definite integral equals 72.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes decomposition of a mixed-parity integrand and strategic use of symmetry before calculation.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-def-qm8",
+    prompt:
+      "A student obtains a negative result and concludes that the calculation must be wrong. Which response is valid?",
+    latex: "\\int_1^4 f(x)\\,dx=-7",
+    answer: "A",
+    choices: [
+      "A negative value is possible: below-axis signed contributions exceed above-axis contributions on the interval.",
+      "A definite integral is geometric area, so it must always be non-negative.",
+      "The negative sign proves that the limits were written in the wrong order.",
+      "The value means f(x) is negative at every point from 1 to 4.",
+    ],
+    hint:
+      "Distinguish signed accumulation from total geometric area and avoid inferring pointwise behaviour from one net value.",
+    explanation:
+      "A definite integral records signed accumulation: regions below the x-axis contribute negatively and regions above contribute positively. A total of -7 means the negative contribution dominates, not that an error occurred or that f must be negative everywhere. Thus option A is the justified interpretation.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses confusion between signed definite integrals, non-negative geometric area, and pointwise function signs.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      B: "Equates a signed integral with total geometric area.",
+      C: "Assumes a negative result can only arise from reversed limits.",
+      D: "Infers the sign at every point from a negative net accumulation.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm9",
+    prompt:
+      "Evaluate the absolute-value integral exactly by identifying where the integrand changes form.",
+    latex: "\\int_{-2}^{3}|x-1|\\,dx",
+    answer: "13/2",
+    acceptedAnswers: ["6.5", "6.50", "13/2 units"],
+    hint:
+      "Split the interval at x=1: use 1-x to the left and x-1 to the right.",
+    explanation:
+      "The expression changes sign at x=1. Thus the integral is ∫_-2^1(1-x)dx+∫_1^3(x-1)dx. The first part is 9/2 and the second is 2, so the total is 9/2+4/2=13/2. Splitting prevents negative signed cancellation inside the absolute value.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses synthesis of piecewise reasoning, exact endpoint evaluation, and the meaning of an absolute-value integrand.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-def-qm10",
+    prompt:
+      "Find the value of a in the stated interval that divides the signed accumulation into two equal parts.",
+    latex:
+      "\\int_0^a(6x-2)\\,dx=\\int_a^4(6x-2)\\,dx,\qquad 0<a<4",
+    answer: "a=(1+sqrt(61))/3",
+    acceptedAnswers: [
+      "(1+√61)/3",
+      "a=(1+\\sqrt{61})/3",
+      "a ≈ 2.94",
+    ],
+    hint:
+      "The total integral from zero to four is 40, so the left-hand integral must equal 20.",
+    explanation:
+      "The total accumulation is [3x^2-2x]_0^4=40, so equality requires ∫_0^a(6x-2)dx=20. Hence 3a^2-2a-20=0, giving a=(1±sqrt(61))/3. Only the positive root lies between 0 and 4, so a=(1+sqrt(61))/3.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines interval additivity, parameterised endpoint evaluation, quadratic solving, and domain-based root selection.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L5: Fundamental Theorem of Calculus ──────────────────────────────────────
@@ -340,20 +1220,206 @@ const ftcIndep: PracticeQuestion[] = [
 ];
 
 const ftcMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-ftc-m1", "Evaluate.", "\\int_0^1 (e^x+x)\\,dx", "e-1/2", ["e − 0.5", "e-½"]),
-  mc("y11adv-intg-ftc-m2", "Which correctly states the FTC for ∫ₐᵇ f(x) dx?", "A",
-    [{ label: "A", text: "$F(b)-F(a)$ where $F'(x)=f(x)$" }, { label: "B", text: "$f(b)-f(a)$" }, { label: "C", text: "$F(a)-F(b)$" }, { label: "D", text: "$f'(b)-f'(a)$" }],
-    "The FTC: ∫ₐᵇ f(x) dx = F(b) − F(a) where F is any primitive of f.", ""),
-  fa("y11adv-intg-ftc-m3", "Evaluate.", "\\int_0^{\\pi} \\cos x\\,dx", "0", []),
-  fa("y11adv-intg-ftc-m4", "Evaluate.", "\\int_4^9 \\frac{1}{\\sqrt{x}}\\,dx", "2", []),
-  mc("y11adv-intg-ftc-m5", "Why does the +C cancel in a definite integral?", "C",
-    [{ label: "A", text: "The limits make C = 0" }, { label: "B", text: "C is always negative" }, { label: "C", text: "(F(b)+C) − (F(a)+C) = F(b) − F(a)" }, { label: "D", text: "The FTC assumes C = 1" }],
-    "When evaluating F(b) − F(a), the constant C appears in both terms and subtracts away: (F(b)+C) − (F(a)+C) = F(b) − F(a).", ""),
-  fa("y11adv-intg-ftc-m6", "Evaluate.", "\\int_0^2 (x^2-2x+1)\\,dx", "2/3", ["0.667"]),
-  mc("y11adv-intg-ftc-m7", "If G(x) = ∫₀ˣ cos t dt, what is G'(x)?", "B",
-    [{ label: "A", text: "$\\sin x$" }, { label: "B", text: "$\\cos x$" }, { label: "C", text: "$-\\sin x$" }, { label: "D", text: "$0$" }],
-    "By the FTC, the derivative of ∫₀ˣ f(t) dt is f(x). Here f(t) = cos t so G'(x) = cos x.", ""),
-  fa("y11adv-intg-ftc-m8", "Evaluate.", "\\int_1^2 \\left(x+\\frac{1}{x}\\right)dx", "3/2+ln2", ["1.5+ln2", "3/2+\\ln 2"]),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm1",
+    prompt:
+      "Use a primitive and the Fundamental Theorem to evaluate the definite integral exactly.",
+    latex: "\\int_1^4\\left(\\sqrt{x}+\\frac{1}{x}\\right)\\,dx",
+    answer: "14/3+ln(4)",
+    acceptedAnswers: [
+      "14/3+\\ln 4",
+      "14/3+2ln2",
+      "14/3+2\\ln(2)",
+    ],
+    hint:
+      "Rewrite the square root as x to the one half, then use upper minus lower for both primitive terms.",
+    explanation:
+      "A primitive is (2/3)x^(3/2)+ln|x|. At x=4 this is 16/3+ln4, and at x=1 it is 2/3+0. Subtracting lower from upper gives 14/3+ln4. No arbitrary constant is needed because it would cancel.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks exact endpoint evaluation using both a power primitive and the logarithmic reciprocal primitive.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-ftc-qm2",
+    prompt:
+      "A student uses the endpoint values of the integrand as shown. Which correction accurately applies the theorem?",
+    latex: "\\int_a^b f(x)\\,dx=f(b)-f(a)",
+    answer: "C",
+    choices: [
+      "Replace subtraction with addition: f(b)+f(a).",
+      "Differentiate f first and use f'(b)-f'(a).",
+      "Use F(b)-F(a), where F is any primitive satisfying F'=f.",
+      "The statement is correct for every continuous function f.",
+    ],
+    hint:
+      "The theorem evaluates an antiderivative at the endpoints, not the original integrand.",
+    explanation:
+      "The Fundamental Theorem states that ∫_a^b f(x)dx=F(b)-F(a), where F'=f. The student's expression uses values of f itself and generally gives a different quantity. Option C corrects both the function being evaluated and retains the upper-minus-lower order.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses confusion between endpoint values of an integrand and endpoint values of its primitive.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Keeps the wrong function and changes only the endpoint operation.",
+      B: "Moves to the derivative of the integrand rather than to its primitive.",
+      D: "Assumes the theorem evaluates the original function directly.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm3",
+    prompt:
+      "The function G records accumulation from 2 to x. Determine the instantaneous rate G'(3).",
+    latex: "G(x)=\\int_2^x(t^2+1)\\,dt",
+    answer: "10",
+    acceptedAnswers: ["10.0", "G'(3)=10", "G'(3) = 10"],
+    hint:
+      "Use the differentiation form of the Fundamental Theorem before substituting x=3.",
+    explanation:
+      "By the Fundamental Theorem, differentiating an accumulation function with upper limit x recovers the integrand at x: G'(x)=x^2+1. Therefore G'(3)=3^2+1=10. There is no need to first evaluate the full integral.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks interpretation of the Fundamental Theorem as a rate-of-accumulation result rather than only an evaluation rule.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-ftc-qm4",
+    prompt:
+      "Which derivative correctly accounts for the variable upper limit?",
+    latex: "H(x)=\\int_0^{x^2}\\cos t\\,dt",
+    answer: "D",
+    choices: [
+      "H'(x)=cos x",
+      "H'(x)=cos(x^2)",
+      "H'(x)=-sin(x^2)",
+      "H'(x)=2xcos(x^2)",
+    ],
+    hint:
+      "Evaluate the integrand at x squared, then multiply by the derivative of the upper limit.",
+    explanation:
+      "For an upper limit g(x), d/dx ∫_0^(g(x)) f(t)dt=f(g(x))g'(x). Here f(t)=cos t and g(x)=x^2, so H'(x)=cos(x^2)(2x)=2xcos(x^2). Option D includes both substitution and the chain-rule factor.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses omission of the chain-rule factor when differentiating an integral with a composite upper limit.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Ignores both the composite upper limit and its derivative.",
+      B: "Substitutes the upper limit correctly but omits its derivative factor.",
+      C: "Differentiates the integrand itself instead of the accumulation function.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm5",
+    prompt:
+      "Determine the lower limit a from the accumulation value and the stated interval restriction.",
+    latex:
+      "\\int_a^2(3t^2-1)\\,dt=6,\qquad 0<a<2",
+    answer: "a=1",
+    acceptedAnswers: ["1", "a = 1", "1.0"],
+    hint:
+      "Use the primitive t cubed minus t and solve the resulting cubic expression with the interval restriction.",
+    explanation:
+      "A primitive is t^3-t, so the integral equals (8-2)-(a^3-a)=6-a^3+a. Setting this equal to 6 gives a^3-a=0, or a(a-1)(a+1)=0. Of the roots -1, 0 and 1, only a=1 satisfies 0<a<2.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses recovery of an unknown integration limit and selection among multiple roots using a domain restriction.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm6",
+    prompt:
+      "Differentiate the moving-window accumulation and then determine its rate of change at x=2.",
+    latex: "A(x)=\\int_x^{x+1}t^2\\,dt",
+    answer: "A'(2)=5",
+    acceptedAnswers: ["5", "5.0", "A'(2) = 5"],
+    hint:
+      "The upper-limit contribution is positive and the lower-limit contribution is subtracted.",
+    explanation:
+      "For variable bounds, A'(x)=(x+1)^2(1)-x^2(1)=2x+1. The lower limit contributes with a minus sign. Substituting x=2 gives A'(2)=2(2)+1=5. This is the rate at which the one-unit accumulation window changes.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Investigates how simultaneous movement of both bounds affects the derivative of an accumulation function.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm7",
+    prompt:
+      "Classify the interior stationary point of the accumulation function on 0≤x≤3.",
+    latex: "A(x)=\\int_0^x t(t-2)\\,dt",
+    answer: "local minimum at x=2",
+    acceptedAnswers: [
+      "minimum at x=2",
+      "x=2 is a local minimum",
+      "A has a minimum at 2",
+    ],
+    hint:
+      "Use A'(x)=x(x-2) and inspect its sign immediately before and after the interior zero.",
+    explanation:
+      "The Fundamental Theorem gives A'(x)=x(x-2). Inside the interval, the stationary point is x=2. For 0<x<2 the derivative is negative, while for 2<x≤3 it is positive. Therefore A decreases then increases, so x=2 is a local minimum.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Connects the sign of an integrand with increasing and decreasing behaviour of its accumulation function.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-ftc-qm8",
+    prompt:
+      "A student differentiates the moving-bound integral but omits all bound derivatives. Which result is correct?",
+    latex: "J(x)=\\int_x^{3x}f(t)\\,dt",
+    answer: "B",
+    choices: [
+      "J'(x)=f(3x)-f(x)",
+      "J'(x)=3f(3x)-f(x)",
+      "J'(x)=3f(3x)+f(x)",
+      "J'(x)=f'(3x)-f'(x)",
+    ],
+    hint:
+      "Apply the upper contribution times the derivative of 3x, then subtract the lower contribution times the derivative of x.",
+    explanation:
+      "With upper bound u=3x and lower bound l=x, Leibniz's rule gives J'=f(u)u'-f(l)l'. Hence J'(x)=3f(3x)-f(x). Option A substitutes both bounds but misses the factor 3 from differentiating the upper bound.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses missing chain-rule multipliers and sign structure when both limits depend on x.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Evaluates at both bounds but omits the derivative of the upper limit.",
+      C: "Uses the upper multiplier but adds rather than subtracting the lower-limit contribution.",
+      D: "Differentiates the integrand function instead of applying the Fundamental Theorem at the bounds.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm9",
+    prompt:
+      "Differentiate the accumulation with two composite bounds and evaluate the result at x=1.",
+    latex: "H(x)=\\int_{x^2}^{x^3}(1+t^2)\\,dt",
+    answer: "2",
+    acceptedAnswers: ["2.0", "H'(1)=2", "H'(1) = 2"],
+    hint:
+      "Use upper integrand times 3x squared minus lower integrand times 2x before substituting one.",
+    explanation:
+      "Leibniz's rule gives H'(x)=(1+x^6)(3x^2)-(1+x^4)(2x). At x=1, both integrand factors equal 2, so H'(1)=2(3)-2(2)=6-4=2. Both composite-bound derivatives and the lower-bound subtraction are required.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses synthesis of the Fundamental Theorem, two chain-rule factors, substitution, and lower-bound orientation.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-ftc-qm10",
+    prompt:
+      "The derivative condition determines a. Use it and the integral definition to find H(1).",
+    latex:
+      "H(x)=\\int_x^{2x}(t^2+a)\\,dt,\qquad H'(1)=10",
+    answer: "16/3",
+    acceptedAnswers: ["5⅓", "5.333", "H(1)=16/3"],
+    hint:
+      "First use H'(x)=2((2x)^2+a)-(x^2+a) to determine a, then evaluate the definite integral.",
+    explanation:
+      "Differentiating gives H'(x)=2(4x^2+a)-(x^2+a)=7x^2+a. Since H'(1)=10, a=3. Then H(1)=∫_1^2(t^2+3)dt=[t^3/3+3t]_1^2=7/3+3=16/3.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines variable-bound differentiation, parameter recovery, and subsequent exact evaluation of the original accumulation.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L6: Areas Under and Between Curves ───────────────────────────────────────
@@ -410,20 +1476,197 @@ const areaIndep: PracticeQuestion[] = [
 ];
 
 const areaMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-area-m1", "Find the area under the curve above the x-axis.", "y=6x^2,\\;0\\le x\\le 2", "16", []),
-  fa("y11adv-intg-area-m2", "Find the area between the curve and the x-axis.", "y=x^2-9,\\;-3\\le x\\le 3", "36", []),
-  mc("y11adv-intg-area-m3", "Which equals the area enclosed by y = f(x) and the x-axis from a to b when f(x) ≤ 0?", "B",
-    [{ label: "A", text: "$\\int_a^b f(x)\\,dx$" }, { label: "B", text: "$-\\int_a^b f(x)\\,dx$" }, { label: "C", text: "$\\int_a^b f(x)\\,dx + C$" }, { label: "D", text: "$\\left(\\int_a^b f(x)\\,dx\\right)^2$" }],
-    "When f(x) ≤ 0, the integral is negative. The area is positive, so we negate it: Area = −∫ₐᵇ f(x) dx.", ""),
-  fa("y11adv-intg-area-m4", "Find the area between the parabola and the line.", "y=x^2\\text{ and }y=2x,\\;0\\le x\\le 2", "4/3", ["1.333"]),
-  mc("y11adv-intg-area-m5", "The area between y = sin x and the x-axis for 0 ≤ x ≤ π is:", "C",
-    [{ label: "A", text: "0" }, { label: "B", text: "$\\pi$" }, { label: "C", text: "2" }, { label: "D", text: "1" }],
-    "∫₀^π sin x dx = [−cos x]₀^π = (−cos π) − (−cos 0) = 1 + 1 = 2. Since sin x ≥ 0 on [0, π], this is also the area.", ""),
-  fa("y11adv-intg-area-m6", "Find the area enclosed between the curves.", "y=x^2\\text{ and }y=x^3,\\;0\\le x\\le 1", "1/12", ["0.0833"]),
-  mc("y11adv-intg-area-m7", "The graph of f(x) is above the x-axis for 0 ≤ x ≤ 2 and below for 2 ≤ x ≤ 5. Which gives the total area?", "D",
-    [{ label: "A", text: "$\\int_0^5 f(x)\\,dx$" }, { label: "B", text: "$\\int_0^2 f(x)\\,dx - \\int_2^5 f(x)\\,dx$" }, { label: "C", text: "$\\int_2^5 f(x)\\,dx$" }, { label: "D", text: "$\\int_0^2 f(x)\\,dx + \\left|\\int_2^5 f(x)\\,dx\\right|$" }],
-    "Add the area above the axis (positive integral) to the absolute value of the area below the axis (negative integral becomes positive).", ""),
-  fa("y11adv-intg-area-m8", "Find the area between y = cos x and the x-axis.", "y=\\cos x,\\;0\\le x\\le \\pi/2", "1", []),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm1",
+    prompt:
+      "Find the exact area between the curve and the x-axis over the stated interval.",
+    latex: "y=4x-x^2,\qquad 0\\le x\\le4",
+    answer: "32/3 square units",
+    acceptedAnswers: ["32/3", "10⅔", "10.667 square units"],
+    hint:
+      "The quadratic is non-negative between its zeros 0 and 4, so integrate it directly over that interval.",
+    explanation:
+      "Since 4x-x^2=x(4-x) is non-negative on [0,4], its definite integral equals the geometric area. Evaluating [2x^2-x^3/3]_0^4 gives 32-64/3=32/3. Therefore the area is 32/3 square units.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks direct area calculation after confirming that the integrand remains above the axis on the interval.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-area-qm2",
+    prompt:
+      "A student reports the signed integral as the geometric area. Which correction is valid?",
+    latex:
+      "y=x^2-4,\quad -2\\le x\\le2;\qquad \\int_{-2}^{2}(x^2-4)\\,dx=-\\frac{32}{3}",
+    answer: "C",
+    choices: [
+      "The area is -32/3 square units because the curve is below the axis.",
+      "The area is zero because the interval is symmetric.",
+      "The area is 32/3 square units because geometric area is the magnitude of the below-axis integral.",
+      "The area is 64/3 square units because every symmetric integral must be doubled after evaluation.",
+    ],
+    hint:
+      "The curve is at or below the axis throughout the interval, while geometric area cannot be negative.",
+    explanation:
+      "On [-2,2], x^2-4≤0, so the definite integral is a negative signed accumulation. The geometric area is its magnitude: |-32/3|=32/3 square units. Symmetry is already included in the evaluated integral, so no further doubling is required.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses reporting a negative signed integral as geometric area and unnecessary extra use of symmetry.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Treats signed accumulation as geometric area despite its negative value.",
+      B: "Assumes symmetry causes cancellation even though the integrand is even rather than odd.",
+      D: "Double-counts symmetry after the integral over the full symmetric interval has already been evaluated.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm3",
+    prompt:
+      "Find the exact area between the two curves on the interval, first identifying which function is upper.",
+    latex: "y=2x,\qquad y=x^2,\qquad 0\\le x\\le2",
+    answer: "4/3 square units",
+    acceptedAnswers: ["4/3", "1⅓", "1.333 square units"],
+    hint:
+      "On this interval 2x is at least x squared, so integrate line minus parabola.",
+    explanation:
+      "For 0≤x≤2, 2x-x^2=x(2-x) is non-negative, so the line is the upper curve. The area is ∫_0^2(2x-x^2)dx=[x^2-x^3/3]_0^2=4-8/3=4/3 square units.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks correct upper-minus-lower setup and exact evaluation for a line-parabola region.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-area-qm4",
+    prompt:
+      "Which integral correctly represents the area between the functions on the stated interval?",
+    latex: "y=x+2,\qquad y=x^2,\qquad 0\\le x\\le2",
+    answer: "A",
+    choices: [
+      "∫_0^2[(x+2)-x^2] dx",
+      "∫_0^2[x^2-(x+2)] dx",
+      "∫_0^2[x^2+x+2] dx",
+      "∫_0^2|(x+2)+x^2| dx",
+    ],
+    hint:
+      "Compare the values of the two functions within the interval and use upper minus lower.",
+    explanation:
+      "The difference (x+2)-x^2 is non-negative from x=0 to their meeting point x=2, so y=x+2 is the upper function throughout the interval. Area is therefore ∫_0^2[(x+2)-x^2]dx, which is option A.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses reversal of upper and lower curves and confusion between adding functions and finding their separation.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      B: "Subtracts upper from lower, producing a negative signed result.",
+      C: "Adds the function heights rather than measuring their vertical separation.",
+      D: "Uses an absolute value around a sum instead of the difference between curves.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm5",
+    prompt:
+      "The region under the line has the stated area. Determine the positive parameter k.",
+    latex: "y=kx,\qquad 0\\le x\\le3,\qquad A=18",
+    answer: "k=4",
+    acceptedAnswers: ["4", "k = 4", "4.0"],
+    hint:
+      "Write the area as the definite integral of kx from zero to three and solve for k.",
+    explanation:
+      "Because k>0 is implied by the region under the line, the area is ∫_0^3 kx dx=k[x^2/2]_0^3=9k/2. Setting 9k/2=18 gives 9k=36 and hence k=4. The resulting triangle also has area one half times 3 times 12, confirming 18.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses recovery of a model parameter from a geometric area condition using integration and verification.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm6",
+    prompt:
+      "Find the total geometric area between the curve and the x-axis, splitting wherever the sign changes.",
+    latex: "y=x^2-1,\qquad -2\\le x\\le2",
+    answer: "4 square units",
+    acceptedAnswers: ["4", "4.0", "A=4"],
+    hint:
+      "Use symmetry and split at x=1 on the right half; the curve is below first and above second.",
+    explanation:
+      "The function is even and crosses the axis at x=±1. On [0,1] the area is ∫_0^1(1-x^2)dx=2/3; on [1,2] it is ∫_1^2(x^2-1)dx=4/3. Doubling the right-half total gives 2(2/3+4/3)=4 square units.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Investigates sign changes, symmetry, and piecewise absolute area for a curve crossing the axis twice.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm7",
+    prompt:
+      "Find the exact enclosed area by first deriving the intersection points and the upper function.",
+    latex: "y=x^2,\qquad y=2-x^2",
+    answer: "8/3 square units",
+    acceptedAnswers: ["8/3", "2⅔", "2.667 square units"],
+    hint:
+      "Set the functions equal to obtain x=plus or minus one, then integrate upper minus lower.",
+    explanation:
+      "The intersections satisfy x^2=2-x^2, so x=±1. Between them, 2-x^2 is above x^2. The area is ∫_-1^1(2-2x^2)dx. Using even symmetry gives 2[2x-(2/3)x^3]_0^1=2(4/3)=8/3 square units.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes synthesis of intersection solving, upper-curve identification, symmetry, and exact area evaluation.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-area-qm8",
+    prompt:
+      "A student uses one signed integral for a curve that crosses the axis. Which method gives total geometric area?",
+    latex: "y=x^2-1,\qquad -2\\le x\\le2",
+    answer: "D",
+    choices: [
+      "Use ∫_-2^2(x^2-1)dx without any splitting.",
+      "Use the absolute value of the function only at x=0.",
+      "Set the area to zero because the curve has two x-intercepts.",
+      "Split at x=-1 and x=1, then add the magnitudes of the three signed integrals.",
+    ],
+    hint:
+      "Geometric area requires every region to contribute positively, so locate all zeros inside the interval.",
+    explanation:
+      "The curve changes sign at x=-1 and x=1. A single signed integral allows below-axis and above-axis contributions to offset one another. Total geometric area must instead split at both zeros and add the absolute value of each piece, exactly as option D states.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses failure to partition a total-area calculation at every axis crossing.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Uses net signed accumulation despite the requested total geometric area.",
+      B: "Applies absolute value to one function value rather than to the regional integrals.",
+      C: "Treats the existence of two intercepts as evidence of complete area cancellation.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm9",
+    prompt:
+      "Find the total enclosed area between the curve and the x-axis, using symmetry and sign information.",
+    latex: "y=x^3-x,\qquad -1\\le x\\le1",
+    answer: "1/2 square unit",
+    acceptedAnswers: ["1/2", "0.5", "0.50 square units"],
+    hint:
+      "The function is odd, but total area does not cancel; double the magnitude of the region from zero to one.",
+    explanation:
+      "The curve is odd and changes sign at -1, 0 and 1. On [0,1], x^3-x≤0, so that region has area ∫_0^1(x-x^3)dx=[x^2/2-x^4/4]_0^1=1/4. Symmetry gives two equal regions, so total area is 2(1/4)=1/2 square unit.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses distinction between zero signed accumulation for an odd function and positive total geometric area.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-area-qm10",
+    prompt:
+      "The two curves enclose 36 square units. Determine the positive parameter k.",
+    latex: "y=kx,\qquad y=x^2,\qquad k>0",
+    answer: "k=6",
+    acceptedAnswers: ["6", "k = 6", "6.0"],
+    hint:
+      "The curves meet at x=0 and x=k; integrate kx-x squared between those intersections.",
+    explanation:
+      "Solving kx=x^2 gives intersections x=0 and x=k. For k>0, the line is above the parabola between them. The enclosed area is ∫_0^k(kx-x^2)dx=k^3/2-k^3/3=k^3/6. Setting this to 36 gives k^3=216, so k=6.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines parameter-dependent intersections, upper-minus-lower integration, and inversion of an area formula.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L7: Reverse Chain Rule ───────────────────────────────────────────────────
@@ -471,7 +1714,7 @@ const rcrGuided: PracticeQuestion[] = [
 
 const rcrIndep: PracticeQuestion[] = [
   fa("y11adv-intg-rcr-i1", "Integrate.", "\\int (2x-1)^6\\,dx", "(2x-1)^7/14+C", ["\\frac{(2x-1)^7}{14}+C"]),
-  fa("y11adv-intg-rcr-i2", "Integrate.", "\\int e^{-x}\\,dx", "-e^{-x}+C", []),
+  fa("y11adv-intg-rcr-i2", "Integrate.", "\\int e^{-x}\\,dx", "-e^{-x}+C", ["-e^(-x)+C", "-\\exp(-x)+C"]),
   fa("y11adv-intg-rcr-i3", "Integrate.", "\\int \\cos(3x+2)\\,dx", "sin(3x+2)/3+C", ["\\frac{\\sin(3x+2)}{3}+C"]),
   fa("y11adv-intg-rcr-i4", "Integrate.", "\\int (5x+1)^2\\,dx", "(5x+1)^3/15+C", ["\\frac{(5x+1)^3}{15}+C"]),
   mc("y11adv-intg-rcr-i5", "The reverse chain rule requires the inner function to be:", "A",
@@ -480,20 +1723,208 @@ const rcrIndep: PracticeQuestion[] = [
 ];
 
 const rcrMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-rcr-m1", "Integrate.", "\\int (x+1)^4\\,dx", "(x+1)^5/5+C", ["\\frac{(x+1)^5}{5}+C"]),
-  fa("y11adv-intg-rcr-m2", "Integrate.", "\\int e^{5x}\\,dx", "e^{5x}/5+C", ["\\frac{e^{5x}}{5}+C"]),
-  mc("y11adv-intg-rcr-m3", "What is ∫sin(2x+1) dx?", "A",
-    [{ label: "A", text: "$-\\frac{\\cos(2x+1)}{2}+C$" }, { label: "B", text: "$\\frac{\\cos(2x+1)}{2}+C$" }, { label: "C", text: "$-\\cos(2x+1)+C$" }, { label: "D", text: "$2\\cos(2x+1)+C$" }],
-    "∫sin(ax+b) dx = −cos(ax+b)/a + C. Here a = 2, so the answer is −cos(2x+1)/2 + C.", "\\int\\sin(2x+1)\\,dx"),
-  fa("y11adv-intg-rcr-m4", "Integrate.", "\\int (4x-3)^3\\,dx", "(4x-3)^4/16+C", ["\\frac{(4x-3)^4}{16}+C"]),
-  mc("y11adv-intg-rcr-m5", "Which differentiation rule is reversed when integrating f(ax+b)?", "C",
-    [{ label: "A", text: "Product rule" }, { label: "B", text: "Quotient rule" }, { label: "C", text: "Chain rule" }, { label: "D", text: "Power rule" }],
-    "The reverse chain rule undoes the chain rule: we divide by the inner derivative a to compensate for the factor that appears when differentiating.", ""),
-  fa("y11adv-intg-rcr-m6", "Integrate.", "\\int \\cos(5-x)\\,dx", "-sin(5-x)+C", ["-\\sin(5-x)+C"]),
-  fa("y11adv-intg-rcr-m7", "Integrate.", "\\int e^{3-2x}\\,dx", "-e^{3-2x}/2+C", ["-\\frac{e^{3-2x}}{2}+C"]),
-  mc("y11adv-intg-rcr-m8", "Which integral cannot be found using the reverse chain rule at Year 11 level?", "D",
-    [{ label: "A", text: "$\\int(3x+2)^5\\,dx$" }, { label: "B", text: "$\\int e^{4x}\\,dx$" }, { label: "C", text: "$\\int\\cos(2x-1)\\,dx$" }, { label: "D", text: "$\\int xe^{x^2}\\,dx$" }],
-    "The integral ∫xe^(x²) dx requires a non-linear substitution u = x² (not a linear inner function). This is beyond Year 11 scope.", ""),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm1",
+    prompt:
+      "Use the reverse chain rule to find the complete family of primitives.",
+    latex: "\\int(3x-2)^4\\,dx",
+    answer: "(3x-2)^5/15+C",
+    acceptedAnswers: [
+      "\\frac{(3x-2)^5}{15}+C",
+      "(1/15)(3x-2)^5+C",
+      "((3x-2)^5)/15 + C",
+    ],
+    hint:
+      "Increase the outer power to five, then divide by both five and the inner derivative three.",
+    explanation:
+      "Increasing the outer power gives (3x-2)^5/5, but differentiating this would introduce the inner factor 3. Dividing by 3 as well gives (3x-2)^5/15+C. Differentiation produces 5(3x-2)^4(3)/15=(3x-2)^4.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks routine reverse-chain integration of a linear expression raised to a power, including both divisors.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-rcr-qm2",
+    prompt:
+      "A student applies the e-to-the-x rule unchanged. Which correction explains the required coefficient?",
+    latex: "\\int e^{5x}\\,dx=e^{5x}+C",
+    answer: "B",
+    choices: [
+      "Multiply by 5 because the exponent contains 5x.",
+      "Divide by 5 because differentiating e^(5x) introduces the inner factor 5.",
+      "Increase the exponent to 5x+1 and divide by 5x+1.",
+      "Replace e^(5x) by 5e^x because coefficients move outside exponents.",
+    ],
+    hint:
+      "Differentiate e to the 5x and identify the constant factor that must be cancelled.",
+    explanation:
+      "The chain rule gives d/dx(e^(5x))=5e^(5x), which is five times the integrand. Multiplying by 1/5 compensates for that inner derivative, so the correct primitive is e^(5x)/5+C. Option B gives both the correction and its reason.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses omission of the reciprocal inner-derivative factor in a linear exponential primitive.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Uses the chain-rule multiplier in the same direction instead of reversing it.",
+      C: "Misapplies the algebraic power rule to an exponential function.",
+      D: "Separates an exponential argument using an invalid algebraic rule.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm3",
+    prompt:
+      "The proposed function is a primitive of the displayed integrand. Determine the constant a.",
+    latex: "F(x)=\\frac{(2x+1)^5}{a},\qquad F'(x)=(2x+1)^4",
+    answer: "a=10",
+    acceptedAnswers: ["10", "a = 10", "10.0"],
+    hint:
+      "Differentiate the numerator with the chain rule and equate its overall coefficient to one.",
+    explanation:
+      "Differentiating gives F'(x)=(1/a)·5(2x+1)^4·2=(10/a)(2x+1)^4. For this to equal (2x+1)^4 for every x, 10/a=1, so a=10. The denominator combines the new outer power and inner derivative.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks reverse verification of the two coefficient factors created by differentiating a composite power.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-rcr-qm4",
+    prompt:
+      "Which primitive has the correct trigonometric sign and inner-derivative factor?",
+    latex: "\\int\\cos(4-3x)\\,dx",
+    answer: "D",
+    choices: [
+      "3sin(4-3x)+C",
+      "sin(4-3x)/3+C",
+      "-3sin(4-3x)+C",
+      "-sin(4-3x)/3+C",
+    ],
+    hint:
+      "Differentiate sin(4-3x): the inner derivative is negative three.",
+    explanation:
+      "Differentiating sin(4-3x) gives -3cos(4-3x). To recover positive cos(4-3x), multiply by -1/3. Hence the primitive is -sin(4-3x)/3+C, so option D has both the correct sign and reciprocal factor.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses sign and reciprocal-factor errors when the linear inner function has a negative derivative.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Multiplies by the magnitude of the inner derivative and ignores its negative sign.",
+      B: "Uses the reciprocal magnitude but omits the negative sign.",
+      C: "Uses the correct sign but multiplies rather than divides by the inner derivative magnitude.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm5",
+    prompt:
+      "Determine k so that the stated antiderivative relationship is true for every real x.",
+    latex: "\\int k(2x+1)^3\\,dx=(2x+1)^4+C",
+    answer: "k=8",
+    acceptedAnswers: ["8", "k = 8", "8.0"],
+    hint:
+      "Differentiate the proposed right-hand side and compare its coefficient with the integrand.",
+    explanation:
+      "Differentiating (2x+1)^4 gives 4(2x+1)^3·2=8(2x+1)^3. Therefore the integrand must have coefficient k=8. This reverses the usual question: the chain-rule coefficient is recovered from a proposed primitive.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses reverse coefficient reasoning from a proposed composite primitive rather than direct integration.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm6",
+    prompt:
+      "For non-zero real a, determine all values for which the displayed primitive has the same amplitude as cos(ax).",
+    latex: "F_a(x)=\\frac{\\sin(ax)}{a},\qquad F_a'(x)=\\cos(ax)",
+    answer: "a=±1",
+    acceptedAnswers: ["a=1 or a=-1", "a = ±1", "{-1,1}"],
+    hint:
+      "The amplitude of F sub a is the absolute value of one over a; set it equal to one.",
+    explanation:
+      "The cosine integrand has amplitude 1, while F_a has amplitude |1/a| because sine itself has amplitude 1. Equal amplitudes require |1/a|=1, so |a|=1 and a=±1. Both signs still differentiate correctly because the chain-rule factor a cancels the denominator.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Investigates how the inner frequency controls the amplitude of a trigonometric primitive through reciprocal scaling.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm7",
+    prompt:
+      "Compare the primitive amplitudes and find A2/A5 for the family shown.",
+    latex:
+      "\\int\\cos(kx)\\,dx=A_k\\sin(kx)+C,\qquad k>0",
+    answer: "5/2",
+    acceptedAnswers: ["2.5", "2.50", "A_2/A_5=5/2"],
+    hint:
+      "Use A sub k equals one over k, then form the requested ratio carefully.",
+    explanation:
+      "Reverse-chain integration gives A_k=1/k. Therefore A_2=1/2 and A_5=1/5. Their ratio is (1/2)/(1/5)=5/2. The lower-frequency cosine has the larger primitive amplitude because less reciprocal scaling is needed.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes generalisation of reciprocal inner-frequency scaling across a parameterised family of primitives.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-rcr-qm8",
+    prompt:
+      "A student tries to compensate for a non-constant inner derivative by dividing by 2x. Which diagnosis is valid?",
+    latex:
+      "\\int(x^2+1)^4\\,dx\\overset{?}{=}\\frac{(x^2+1)^5}{10x}+C",
+    answer: "C",
+    choices: [
+      "The method is valid because every inner derivative can be placed in the denominator.",
+      "Only the 10 should be changed to 5; the division by x is valid.",
+      "The method is invalid: differentiating a quotient also differentiates 1/x, creating an extra term.",
+      "The result is valid only when x is positive.",
+    ],
+    hint:
+      "Differentiate the proposed quotient; a variable factor in the denominator cannot be treated as a constant.",
+    explanation:
+      "For a linear inner function, division is by a constant derivative. Here 2x varies with x. Writing 1/(10x) introduces a quotient or product factor whose derivative creates an additional term, so differentiating the proposal does not recover (x^2+1)^4. Option C identifies the structural failure.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses invalid extension of constant reverse-chain compensation to a variable inner derivative.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Treats a variable inner derivative as though it were a constant coefficient.",
+      B: "Adjusts the numerical power factor but retains the invalid variable division.",
+      D: "Mistakes a differentiation-rule failure for a domain restriction.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm9",
+    prompt:
+      "Find the complete family of primitives, coordinating all three linear inner functions.",
+    latex:
+      "\\int\\left(2(3x-1)^4-5e^{-2x}+6\\cos(3x)\\right)\\,dx",
+    answer: "2(3x-1)^5/15+5e^(-2x)/2+2sin(3x)+C",
+    acceptedAnswers: [
+      "\\frac{2(3x-1)^5}{15}+\\frac{5e^{-2x}}{2}+2\\sin(3x)+C",
+      "(2/15)(3x-1)^5+(5/2)e^(-2x)+2sin(3x)+C",
+      "2(3x-1)^5/15+2.5e^(-2x)+2sin(3x)+C",
+    ],
+    hint:
+      "Treat each term separately and divide by its own inner derivative, paying attention to the negative exponential coefficient.",
+    explanation:
+      "The composite power gives 2(3x-1)^5/(5·3). For -5e^(-2x), division by -2 gives +(5/2)e^(-2x). Finally, 6cos(3x) integrates to 2sin(3x). Combining these terms and +C gives the stated primitive.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses synthesis of power, exponential, and trigonometric reverse-chain rules with independent signs and factors.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-rcr-qm10",
+    prompt:
+      "The proposed function is a primitive of the displayed expression. Determine a+b+c.",
+    latex:
+      "F(x)=a(2x-1)^4+be^{-3x}+c\\sin(5x),\\quad F'(x)=8(2x-1)^3+6e^{-3x}+10\\cos(5x)",
+    answer: "1",
+    acceptedAnswers: ["1.0", "a+b+c=1", "a=1,b=-2,c=2"],
+    hint:
+      "Differentiate each composite term and match the three independent coefficients separately.",
+    explanation:
+      "Differentiating gives F'=8a(2x-1)^3-3be^(-3x)+5ccos(5x). Matching the target yields a=1, -3b=6 so b=-2, and 5c=10 so c=2. Therefore a+b+c=1-2+2=1.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines three chain-rule reversals with coefficient matching and sign control in a single synthesis task.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── L8: Trapezoidal Rule ─────────────────────────────────────────────────────
@@ -544,20 +1975,208 @@ const trapIndep: PracticeQuestion[] = [
 ];
 
 const trapMastery: PracticeQuestion[] = [
-  fa("y11adv-intg-trap-m1", "Use the trapezoidal rule with 2 strips to approximate.", "\\int_0^2 (x^2+1)\\,dx,\\;h=1", "5", []),
-  mc("y11adv-intg-trap-m2", "Which statement correctly describes error in the trapezoidal rule?", "B",
-    [{ label: "A", text: "There is never any error if h is exact" }, { label: "B", text: "Error decreases as the number of strips increases" }, { label: "C", text: "Error is always positive" }, { label: "D", text: "Error is larger for linear functions" }],
-    "Finer strips produce trapezoids that conform more closely to the curve, reducing approximation error. For linear functions, the trapezoidal rule is exact.", ""),
-  fa("y11adv-intg-trap-m3", "Approximate the integral using the table.", "\\begin{array}{c|ccccc}x&0&1&2&3&4\\\\f(x)&1&4&3&5&2\\end{array}", "13.5", []),
-  mc("y11adv-intg-trap-m4", "The trapezoidal rule approximates the area by replacing the curve with:", "C",
-    [{ label: "A", text: "A horizontal line at each midpoint" }, { label: "B", text: "Rectangles" }, { label: "C", text: "Straight-line segments (chords)" }, { label: "D", text: "Parabolic arcs" }],
-    "Each strip is approximated by a trapezoid whose slanted top edge is the chord connecting adjacent curve points.", ""),
-  fa("y11adv-intg-trap-m5", "The exact value of ∫₀² x² dx = 8/3 ≈ 2.667. Using 2 strips gives T = 3. What type of error does this represent?", "", "overestimate", ["overestimate (curve is concave up)", "over-estimate"]),
-  fa("y11adv-intg-trap-m6", "Use the trapezoidal rule with 4 strips to approximate.", "\\int_0^4 \\sin x\\,dx,\\;h=1", "1.513", ["1.51", "≈1.513"]),
-  mc("y11adv-intg-trap-m7", "What is the strip width h for approximating ∫₁⁵ f(x) dx using 4 strips?", "B",
-    [{ label: "A", text: "2" }, { label: "B", text: "1" }, { label: "C", text: "4" }, { label: "D", text: "0.5" }],
-    "h = (upper − lower) / n = (5 − 1) / 4 = 1.", ""),
-  fa("y11adv-intg-trap-m8", "Use the trapezoidal rule with 3 strips to approximate.", "\\int_0^3 \\cos x\\,dx,\\;h=1", "0.129", ["0.13", "≈0.129"]),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm1",
+    prompt:
+      "Use the four displayed ordinates and three unit-width strips to calculate the trapezoidal estimate.",
+    latex: "x:0,1,2,3;\\qquad f(x):2,4,5,3",
+    answer: "11.5",
+    acceptedAnswers: ["11.50", "23/2", "T=11.5"],
+    hint:
+      "Use each endpoint once and double the two interior ordinates before multiplying by one half.",
+    explanation:
+      "With h=1 and ordinates 2, 4, 5 and 3, the trapezoidal rule gives T=(1/2)[2+2(4+5)+3]. The bracket is 2+18+3=23, so T=23/2=11.5. The interior values are doubled because each is shared by two adjacent strips.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks accurate substitution into the composite trapezoidal rule with correct endpoint and interior weights.",
+    taskType: "procedural",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-trap-qm2",
+    prompt:
+      "A student weights the ordinates in reverse. Which correction gives the composite trapezoidal rule?",
+    latex:
+      "T\\overset{?}{=}\\frac{1}{2}\\left[2y_0+y_1+y_2+2y_3\\right]",
+    answer: "A",
+    choices: [
+      "Use T=(1/2)[y_0+2y_1+2y_2+y_3].",
+      "Use T=(1/2)[2y_0+2y_1+2y_2+2y_3].",
+      "Use T=y_0+y_1+y_2+y_3.",
+      "Use T=(1/2)[y_0+y_1+y_2+y_3].",
+    ],
+    hint:
+      "Count how many adjacent trapezoids share each interior ordinate and each endpoint ordinate.",
+    explanation:
+      "Each endpoint belongs to one trapezoid, while every interior ordinate is a side of two adjacent trapezoids. Therefore endpoints receive weight 1 and interior values weight 2: T=(1/2)[y_0+2y_1+2y_2+y_3]. Option A reverses the student's incorrect weighting.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses reversal of endpoint and interior weights by connecting the formula to shared trapezoid sides.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      B: "Doubles every ordinate without distinguishing endpoints from shared interior sides.",
+      C: "Omits both the one-half factor and the repeated interior contributions.",
+      D: "Uses the one-half factor but gives every ordinate equal weight.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm3",
+    prompt:
+      "The three-strip trapezoidal estimate is 15. Determine the missing interior ordinate p.",
+    latex:
+      "x:0,1,2,3;\\qquad f(x):2,5,p,4;\\qquad h=1",
+    answer: "p=7",
+    acceptedAnswers: ["7", "p = 7", "7.0"],
+    hint:
+      "Substitute the known values into T=(1/2)[first+2(interiors)+last] and solve the linear equation.",
+    explanation:
+      "The rule gives 15=(1/2)[2+2(5+p)+4]. Simplifying the bracket gives 16+2p, so 15=8+p. Therefore p=7. The unknown is an interior ordinate and must receive weight 2 in the equation.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Checks reverse use of the trapezoidal formula to recover a missing shared ordinate from a known estimate.",
+    taskType: "problem-solving",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-trap-qm4",
+    prompt:
+      "The displayed square-root curve is concave down. What does that imply about the trapezoidal estimate?",
+    latex: "y=\\sqrt{x},\qquad 0\\le x\\le4",
+    answer: "C",
+    choices: [
+      "It is always exact because the endpoints lie on the curve.",
+      "It is an overestimate because every chord lies above a concave-down curve.",
+      "It is an underestimate because the chords lie below a concave-down curve.",
+      "Its error sign cannot be related to concavity.",
+    ],
+    hint:
+      "Compare each straight chord joining adjacent sampled points with the concave-down arc between them.",
+    explanation:
+      "For a concave-down curve, each chord between sampled points lies below the curve. The trapezoids therefore omit some of the true under-curve area, producing an underestimate. Option C correctly connects the geometric chord position with the error direction.",
+    difficulty: 3,
+    diagnosticIntent:
+      "Diagnoses reversal of the overestimate-underestimate rule by reasoning from chord position and concavity.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Assumes matching endpoint heights makes a curved strip exact.",
+      B: "Uses the concave-up chord relationship for a concave-down function.",
+      D: "Treats the error direction as unrelated to a known global concavity.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm5",
+    prompt:
+      "For y=x² on [0,4], compare the two-strip and four-strip estimates. By what factor is the absolute error reduced?",
+    latex:
+      "T_2=24,\qquad T_4=22,\qquad \\int_0^4x^2\\,dx=\\frac{64}{3}",
+    answer: "factor of 4",
+    acceptedAnswers: ["4", "4.0", "the error is quartered"],
+    hint:
+      "Calculate |T2-exact| and |T4-exact| using thirds, then divide the larger error by the smaller.",
+    explanation:
+      "The two-strip error is |24-64/3|=|72/3-64/3|=8/3. The four-strip error is |22-64/3|=|66/3-64/3|=2/3. Their ratio is (8/3)/(2/3)=4, so doubling the strip count reduces the absolute error by a factor of 4 here.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Assesses quantitative comparison of approximation errors rather than the vague claim that more strips are better.",
+    taskType: "problem-solving",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm6",
+    prompt:
+      "Investigate the displayed linear data: find the trapezoidal estimate and compare it with the exact integral of y=2x+1.",
+    latex:
+      "x:0,1,2,3;\\qquad y:1,3,5,7",
+    answer: "12, exact",
+    acceptedAnswers: [
+      "T=12 and the error is 0",
+      "12 with zero error",
+      "exactly 12",
+    ],
+    hint:
+      "Apply the rule with h=1, then integrate 2x+1 from zero to three for comparison.",
+    explanation:
+      "The trapezoidal estimate is (1/2)[1+2(3+5)+7]=(1/2)(24)=12. The exact integral is [x^2+x]_0^3=9+3=12. The values agree because straight chords reproduce a linear function exactly on every strip.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Investigates the exactness of the trapezoidal rule for linear functions through numerical and integral comparison.",
+    taskType: "investigative",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm7",
+    prompt:
+      "The sample points are not equally spaced. Estimate the signed integral by calculating each trapezoid separately.",
+    latex:
+      "x:0,1,3,4;\\qquad f(x):2,4,8,6",
+    answer: "22",
+    acceptedAnswers: ["22.0", "T=22", "22 square units"],
+    hint:
+      "Use width times average endpoint height on each interval; the three widths are 1, 2 and 1.",
+    explanation:
+      "The three trapezoids have areas 1(2+4)/2=3, 2(4+8)/2=12, and 1(8+6)/2=7. Adding them gives 3+12+7=22. A single common h formula is inappropriate because the middle interval is twice as wide.",
+    difficulty: 4,
+    diagnosticIntent:
+      "Probes adaptation of trapezoidal reasoning to unequal spacing rather than automatic use of one common strip width.",
+    taskType: "investigative",
+  }),
+  qualityChoice({
+    id: "y11adv-intg-trap-qm8",
+    prompt:
+      "Some sampled ordinates are negative. Which statement correctly estimates the signed integral?",
+    latex:
+      "x:0,1,2;\\qquad f(x):2,-1,-2;\\qquad h=1",
+    answer: "D",
+    choices: [
+      "Replace all ordinates by their magnitudes, giving T=3 for the signed integral.",
+      "Discard the negative ordinates because area cannot be negative.",
+      "The trapezoidal rule cannot be used when sampled values cross the axis.",
+      "Retain the signs: T=(1/2)[2+2(-1)+(-2)]=-1.",
+    ],
+    hint:
+      "A definite integral is signed accumulation; negative ordinates must remain negative unless total geometric area is requested.",
+    explanation:
+      "For a signed integral, ordinates below the axis contribute negatively. The rule gives T=(1/2)[2-2-2]=-1, so option D is correct. Replacing values by magnitudes would attempt a different total-area calculation and would also ignore where crossings occur between samples.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Diagnoses inappropriate conversion of negative ordinates to positive values in a signed trapezoidal estimate.",
+    taskType: "analytical",
+    distractorMisconceptions: {
+      A: "Confuses signed accumulation with a rough total-area calculation.",
+      B: "Deletes below-axis contributions rather than retaining their negative sign.",
+      C: "Assumes an axis crossing invalidates a method that supports signed ordinates.",
+    },
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm9",
+    prompt:
+      "A vehicle's speed is sampled at unequal time intervals. Use trapezoids to estimate the distance travelled.",
+    latex:
+      "t\\text{ (s)}:0,2,5,7;\\qquad v\\text{ (m/s)}:0,6,10,4",
+    answer: "44 m",
+    acceptedAnswers: ["44", "44 metres", "distance=44 m"],
+    hint:
+      "For each time interval, multiply its width by the average of the two endpoint speeds, then add.",
+    explanation:
+      "From 0 to 2 seconds the estimate is 2(0+6)/2=6 m. From 2 to 5 it is 3(6+10)/2=24 m, and from 5 to 7 it is 2(10+4)/2=14 m. The total estimated distance is 6+24+14=44 m.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Assesses synthesis of unequal interval widths, rate-to-amount interpretation, units, and cumulative estimation.",
+    taskType: "synthesis",
+  }),
+  qualityAnswer({
+    id: "y11adv-intg-trap-qm10",
+    prompt:
+      "The four-strip estimate is 20 and the missing interior ordinates satisfy b=a+2. Determine a and b.",
+    latex:
+      "x:0,1,2,3,4;\\qquad f(x):1,a,b,7,5;\\qquad h=1",
+    answer: "a=4,b=6",
+    acceptedAnswers: ["a = 4, b = 6", "(a,b)=(4,6)", "a=4 and b=6"],
+    hint:
+      "Substitute the ordinates into the weighted formula to obtain a+b=10, then combine it with b=a+2.",
+    explanation:
+      "The rule gives 20=(1/2)[1+2(a+b+7)+5]=(1/2)(20+2a+2b)=10+a+b, so a+b=10. With b=a+2, this becomes 2a+2=10, giving a=4 and b=6. Both missing values receive interior weight 2.",
+    difficulty: 5,
+    diagnosticIntent:
+      "Combines reverse trapezoidal weighting with a simultaneous linear condition to reconstruct two missing data values.",
+    taskType: "synthesis",
+  }),
 ];
 
 // ─── Main export ──────────────────────────────────────────────────────────────

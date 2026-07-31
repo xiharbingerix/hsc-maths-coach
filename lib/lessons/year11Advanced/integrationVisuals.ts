@@ -181,6 +181,111 @@ const questionVisuals: Record<string, TrapVisual> = {
       }
     ),
   },
+  "y11adv-intg-trap-qm1": {
+    prompt: "Use the four displayed ordinates and three unit-width strips to calculate the trapezoidal estimate.",
+    trapezoidalRuleDiagram: diagram(
+      "Three unit-width trapezoidal strips through the sampled points (0, 2), (1, 4), (2, 5) and (3, 3).",
+      [0, 1, 2, 3], [2, 4, 5, 3],
+      { functionLabel: "sampled values" }
+    ),
+  },
+  "y11adv-intg-trap-qm2": {
+    prompt: "The diagram labels endpoint and shared interior ordinates. Which correction gives the composite trapezoidal rule?",
+    trapezoidalRuleDiagram: diagram(
+      "Three unit-width strips with endpoint ordinates y zero and y three used by one trapezoid, and interior ordinates y one and y two shared by two.",
+      [0, 1, 2, 3], [1, 4, 3, 2],
+      {
+        ordinateLabels: ["y_0", "y_1", "y_2", "y_3"],
+        functionLabel: "endpoint and interior weights",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm3": {
+    prompt: "The three-strip trapezoidal estimate shown is 15. Determine the missing interior ordinate p.",
+    trapezoidalRuleDiagram: diagram(
+      "Three unit-width strips with sampled ordinates 2, 5, p and 4; the unknown ordinate p is the second interior height.",
+      [0, 1, 2, 3], [2, 5, 7, 4],
+      {
+        ordinateLabels: ["2", "5", "p", "4"],
+        functionLabel: "T = 15",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm4": {
+    prompt: "The displayed square-root curve is concave down. What does that imply about the trapezoidal estimate?",
+    trapezoidalRuleDiagram: diagram(
+      "Four trapezoidal chords lie below the concave-down square-root curve from x equals zero to x equals four.",
+      [0, 1, 2, 3, 4], [0, 1, Math.sqrt(2), Math.sqrt(3), 2],
+      {
+        curvePoints: sqrtCurve,
+        functionLabel: "y = sqrt{x}",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm5": {
+    prompt: "For y=x squared on [0,4], compare the displayed four-strip estimate with the stated two-strip estimate. By what factor is the absolute error reduced?",
+    trapezoidalRuleDiagram: diagram(
+      "Four unit-width trapezoidal strips approximate the concave-up curve y equals x squared from zero to four.",
+      [0, 1, 2, 3, 4], [0, 1, 4, 9, 16],
+      {
+        curvePoints: xSquaredCurve,
+        functionLabel: "T_4 = 22; T_2 = 24",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm6": {
+    prompt: "Investigate the displayed linear data: find the trapezoidal estimate and compare it with the exact integral of y=2x+1.",
+    trapezoidalRuleDiagram: diagram(
+      "Three unit-width trapezoids lie exactly on the straight line through (0, 1), (1, 3), (2, 5) and (3, 7).",
+      [0, 1, 2, 3], [1, 3, 5, 7],
+      {
+        curvePoints: [{ x: 0, y: 1 }, { x: 1, y: 3 }, { x: 2, y: 5 }, { x: 3, y: 7 }],
+        functionLabel: "y = 2x + 1",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm7": {
+    prompt: "The displayed sample points are not equally spaced. Estimate the signed integral by calculating each trapezoid separately.",
+    trapezoidalRuleDiagram: diagram(
+      "Three trapezoids have unequal widths one, two and one through the points (0, 2), (1, 4), (3, 8) and (4, 6).",
+      [0, 1, 3, 4], [2, 4, 8, 6],
+      { functionLabel: "unequal spacing" }
+    ),
+  },
+  "y11adv-intg-trap-qm8": {
+    prompt: "Some displayed ordinates are negative. Which statement correctly estimates the signed integral?",
+    trapezoidalRuleDiagram: diagram(
+      "Two unit-width trapezoids use signed ordinates 2, negative 1 and negative 2, crossing the x-axis between the first two samples.",
+      [0, 1, 2], [2, -1, -2],
+      {
+        curvePoints: [{ x: 0, y: 2 }, { x: 1, y: -1 }, { x: 2, y: -2 }],
+        functionLabel: "signed ordinates",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm9": {
+    prompt: "A vehicle's speed is sampled at the unequal times shown. Use trapezoids to estimate the distance travelled.",
+    trapezoidalRuleDiagram: diagram(
+      "A speed-time approximation with sample points (0, 0), (2, 6), (5, 10) and (7, 4), giving strip widths two, three and two seconds.",
+      [0, 2, 5, 7], [0, 6, 10, 4],
+      {
+        xAxisLabel: "time (s)",
+        yAxisLabel: "speed (m/s)",
+        functionLabel: "sampled speed",
+      }
+    ),
+  },
+  "y11adv-intg-trap-qm10": {
+    prompt: "The four-strip estimate shown is 20 and the missing interior ordinates satisfy b=a+2. Determine a and b.",
+    trapezoidalRuleDiagram: diagram(
+      "Four unit-width strips with ordinates 1, a, b, 7 and 5; a and b are the first two interior heights.",
+      [0, 1, 2, 3, 4], [1, 4, 6, 7, 5],
+      {
+        ordinateLabels: ["1", "a", "b", "7", "5"],
+        functionLabel: "T = 20",
+      }
+    ),
+  },
 };
 
 const workedVisuals: TrapezoidalRuleDiagram[] = [

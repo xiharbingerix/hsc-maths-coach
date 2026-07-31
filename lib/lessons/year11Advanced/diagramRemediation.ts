@@ -777,6 +777,67 @@ const areaCartesianById: Record<string, CartesianGraph> = {
     xMin: -0.5, xMax: 2.2, yMin: -0.3, yMax: 1.4, showGrid: true,
     sinusoidals: [{ kind: "cos", a: 1, b: 1, c: 0, d: 0, xMin: 0, xMax: Math.PI / 2, label: "y=cos x" }],
   },
+  "y11adv-intg-area-qm1": {
+    description: "The shaded region under y equals four x minus x squared and above the x-axis from zero to four.",
+    xMin: -1, xMax: 5, yMin: -1, yMax: 5, showGrid: true,
+    parabolas: [{ kind: "quadratic", a: -1, b: 4, c: 0, label: "y=4x-x^2" }],
+    shadedRegions: [{ kind: "under-function", functionType: "quadratic", quadratic: { a: -1, b: 4, c: 0 }, xMin: 0, xMax: 4, color: "blue" }],
+  },
+  "y11adv-intg-area-qm2": {
+    description: "The shaded region between y equals x squared minus four and the x-axis from negative two to two, lying below the axis.",
+    xMin: -3, xMax: 3, yMin: -5, yMax: 3, showGrid: true,
+    parabolas: [{ kind: "quadratic", a: 1, b: 0, c: -4, label: "y=x^2-4" }],
+    shadedRegions: [{ kind: "between-functions", xMin: -2, xMax: 2, top: { functionType: "line", line: { m: 0, b: 0 } }, bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: -4 } }, color: "amber" }],
+  },
+  "y11adv-intg-area-qm3": {
+    description: "The shaded region below y equals two x and above y equals x squared from zero to two.",
+    xMin: -1, xMax: 3, yMin: -1, yMax: 6, showGrid: true,
+    lines: [{ kind: "linear", m: 2, b: 0, label: "y=2x" }],
+    parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y=x^2" }],
+    shadedRegions: [{ kind: "between-functions", xMin: 0, xMax: 2, top: { functionType: "line", line: { m: 2, b: 0 } }, bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } }, color: "blue" }],
+  },
+  "y11adv-intg-area-qm4": {
+    description: "The shaded region below y equals x plus two and above y equals x squared from zero to their intersection at two.",
+    xMin: -1, xMax: 3, yMin: -1, yMax: 6, showGrid: true,
+    lines: [{ kind: "linear", m: 1, b: 2, label: "y=x+2" }],
+    parabolas: [{ kind: "quadratic", a: 1, b: 0, c: 0, label: "y=x^2" }],
+    shadedRegions: [{ kind: "between-functions", xMin: 0, xMax: 2, top: { functionType: "line", line: { m: 1, b: 2 } }, bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } }, color: "blue" }],
+  },
+  "y11adv-intg-area-qm6": {
+    description: "Three shaded regions between y equals x squared minus one and the x-axis, split at negative one and one.",
+    xMin: -3, xMax: 3, yMin: -2, yMax: 4, showGrid: true,
+    parabolas: [{ kind: "quadratic", a: 1, b: 0, c: -1, label: "y=x^2-1" }],
+    shadedRegions: [
+      { kind: "under-function", functionType: "quadratic", quadratic: { a: 1, b: 0, c: -1 }, xMin: -2, xMax: -1, color: "blue" },
+      { kind: "between-functions", xMin: -1, xMax: 1, top: { functionType: "line", line: { m: 0, b: 0 } }, bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: -1 } }, color: "amber" },
+      { kind: "under-function", functionType: "quadratic", quadratic: { a: 1, b: 0, c: -1 }, xMin: 1, xMax: 2, color: "blue" },
+    ],
+  },
+  "y11adv-intg-area-qm7": {
+    description: "The shaded lens-shaped region below y equals two minus x squared and above y equals x squared from negative one to one.",
+    xMin: -2, xMax: 2, yMin: -1, yMax: 3, showGrid: true,
+    parabolas: [
+      { kind: "quadratic", a: 1, b: 0, c: 0, label: "y=x^2" },
+      { kind: "quadratic", a: -1, b: 0, c: 2, label: "y=2-x^2" },
+    ],
+    shadedRegions: [{ kind: "between-functions", xMin: -1, xMax: 1, top: { functionType: "quadratic", quadratic: { a: -1, b: 0, c: 2 } }, bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: 0 } }, color: "blue" }],
+  },
+  "y11adv-intg-area-qm8": {
+    description: "Three coloured regions between y equals x squared minus one and the x-axis, showing why total area must be split at both zeros.",
+    xMin: -3, xMax: 3, yMin: -2, yMax: 4, showGrid: true,
+    parabolas: [{ kind: "quadratic", a: 1, b: 0, c: -1, label: "y=x^2-1" }],
+    shadedRegions: [
+      { kind: "under-function", functionType: "quadratic", quadratic: { a: 1, b: 0, c: -1 }, xMin: -2, xMax: -1, color: "blue" },
+      { kind: "between-functions", xMin: -1, xMax: 1, top: { functionType: "line", line: { m: 0, b: 0 } }, bottom: { functionType: "quadratic", quadratic: { a: 1, b: 0, c: -1 } }, color: "amber" },
+      { kind: "under-function", functionType: "quadratic", quadratic: { a: 1, b: 0, c: -1 }, xMin: 1, xMax: 2, color: "blue" },
+    ],
+  },
+  "y11adv-intg-area-qm9": {
+    description: "The cubic y equals x cubed minus x crossing the x-axis at negative one, zero and one, with symmetric lobes on the interval.",
+    xMin: -1.5, xMax: 1.5, yMin: -0.6, yMax: 0.6, showGrid: true,
+    curves: [{ kind: "cubic", a: 1, b: 0, c: -1, d: 0, xMin: -1, xMax: 1, label: "y=x^3-x" }],
+    points: [{ x: -1, y: 0, label: "-1" }, { x: 0, y: 0, label: "0" }, { x: 1, y: 0, label: "1" }],
+  },
   "y11adv-elc-ap-g3": {
     description: "Region under y equals e to the x and above the x-axis from zero to two.",
     xMin: -1, xMax: 3, yMin: -1, yMax: 9, showGrid: true,

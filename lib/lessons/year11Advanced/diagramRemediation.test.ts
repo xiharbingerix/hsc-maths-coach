@@ -11,7 +11,7 @@ const explicitVisualWords =
 
 test("Year 11 Advanced visual references are payload-backed and accessible", () => {
   const { rows, warnings } = collectAllQuestions(["year-11-advanced"]);
-  assert.equal(rows.length, 2368);
+  assert.equal(rows.length, 2384);
   assert.equal(warnings.length, 3);
 
   for (const row of rows) {

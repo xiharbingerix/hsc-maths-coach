@@ -578,6 +578,55 @@ D4 119, D5 113, and D6 1: 233 D4-D6 rows in total, including 217 in standard
 lesson practice. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Integration — complete (8 of 8 subtopics)
+
+All eight subtopics were remediated and seeded live on 31 July 2026:
+
+* `primitives-and-antidifferentiation` now combines reverse-power fluency with
+  missing-constant diagnosis, coefficient reconstruction, primitive-family
+  investigation, invalid composite-power diagnosis, and algebraic synthesis.
+* `standard-antiderivatives` now coordinates exponential, reciprocal, and
+  trigonometric forms with reciprocal-domain reasoning, parameter inference,
+  family investigation, invalid-chain diagnosis, and mixed-form synthesis.
+* `initial-value-problems` now tests correct condition substitution, consistency
+  of multiple conditions, reconstruction from a second derivative, and
+  contextual selection when a model reaches a target twice.
+* `definite-integrals` now includes symmetry, interval additivity, signed
+  accumulation, absolute-value splitting, unknown limits, and equal-accumulation
+  parameter problems.
+* `fundamental-theorem-of-calculus` now separates evaluation from accumulation
+  rates and includes composite upper limits, moving lower and upper bounds,
+  stationary accumulation, and variable-bound synthesis.
+* `areas-under-curves` now requires upper-minus-lower decisions, axis-crossing
+  splits, total-versus-signed area reasoning, parameterised intersections, and
+  reverse area inference. Eight new mastery graphs make the spatial regions
+  explicit without revealing the method.
+* `reverse-chain-rule-integration` now tests reciprocal inner-derivative
+  scaling, negative inner derivatives, parameter families, invalid division by
+  a variable derivative, and mixed-form coefficient synthesis.
+* `trapezoidal-rule` now includes reverse weighting, missing ordinates,
+  concavity-based error direction, quantitative error comparison, exactness for
+  linear data, unequal spacing, signed ordinates, and a speed-time model. All
+  ten new mastery questions have trapezoidal diagrams.
+
+The completed unit contains 152 standard questions. All 80 new mastery
+questions are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three
+diagnostic MCQs, seven constructed responses, and all five bounded task types.
+The production bank contains 152 active unit rows; 64 superseded mastery rows
+are inactive and the scoped stale-row check is zero.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, complete constructed-answer
+variants, persisted authored difficulty, and valid visual/accessibility
+payloads. The repository passes 330/330 tests; the mastery selector, TypeScript,
+lint, and the visual audit pass. The course visual audit reports 317
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 1,167,
+D4 143, D5 137, and D6 1: 281 D4-D6 rows in total, including 265 in standard
+lesson practice. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -588,11 +637,11 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,156 |
+| Mastery quiz | 1,172 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,368** |
+| **Total** | **2,384** |
 
 The standard guided + independent + mastery sequence contains **2,290 questions**.
 
@@ -904,7 +953,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Introduction to Differentiation | 11 | 209 | 1 | 43 | 7 | 7 | P1 |
 | Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
 | Sequences and Series | 5 | 95 | 0 | 22 | 3 | 5 | P2 |
-| Integration | 8 | 136 | 0 | 26 | 2 | 0 | P1 |
+| Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
 | Curve Sketching | 7 | 119 | 1 | 19 | 4 | 0 | P2 |
 | Exponential and Logarithmic Calculus | 6 | 102 | 0 | 13 | 0 | 6 | P1 |
 | Trigonometric Calculus | 6 | 102 | 0 | 9 | 0 | 1 | P1 |
