@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { enhanceMotionRatesRetainedPractice, getMotionRatesQualityMastery } from "./motionRatesQuality";
 
 function fa(id: string, prompt: string, latex: string, answer: string, acceptedAnswers: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers };
@@ -103,12 +104,12 @@ const fdWorked: WorkedExample[] = [
 
 const fdGuided: PracticeQuestion[] = [
   fa("y11adv-mot-fd-g1", "v = 4t − 2 and x(0) = 3. Find x(t).", "v=4t-2", "x = 2t²-2t+3", ["2t^2-2t+3"]),
-  mc("y11adv-mot-fd-g2", "Why is an initial condition needed when finding x from v?", "B",
+  mc("y11adv-mot-fd-g2", "Why is an initial condition needed when finding x from v?", "D",
     [{ label: "A", text: "So we can differentiate x twice" }, { label: "B", text: "Integration produces a constant C; the initial condition determines its value" }, { label: "C", text: "Velocity doesn't determine displacement uniquely without C" }, { label: "D", text: "Both B and C — the constant of integration can only be found from a given condition" }],
     "The antiderivative of v gives x + C, a family of displacement functions. The initial condition x(t₀) = x₀ fixes C and uniquely determines x(t).", ""),
   fa("y11adv-mot-fd-g3", "v = 6t² and x(1) = 4. Find x(t).", "v=6t^2,\\;x(1)=4", "x = 2t³+2", ["2t^3+2"]),
   mc("y11adv-mot-fd-g4", "A particle starts at the origin with v = t². What is its displacement at t = 3?", "C",
-    [{ label: "A", text: "$9$" }, { label: "B", text: "$6$" }, { label: "C", text: "$9$" }, { label: "D", text: "$27$" }],
+    [{ label: "A", text: "$3$" }, { label: "B", text: "$6$" }, { label: "C", text: "$9$" }, { label: "D", text: "$27$" }],
     "x = ∫t² dt = t³/3 + C. x(0) = 0 → C = 0. x(t) = t³/3. At t=3: x(3) = 27/3 = 9.", ""),
 ];
 
@@ -130,9 +131,9 @@ const fdMastery: PracticeQuestion[] = [
     [{ label: "A", text: "$18$" }, { label: "B", text: "$24$" }, { label: "C", text: "$12$" }, { label: "D", text: "$6$" }],
     "v = ∫4 dt = 4t + C₁. v(0) = −2 → C₁ = −2. v = 4t−2. x = ∫(4t−2) dt = 2t²−2t+C₂. x(0)=0 → C₂=0. x = 2t²−2t. x(3) = 18−6 = 12.", ""),
   fa("y11adv-mot-fd-m3", "v = cos t and x(0) = 0. Find x(π/2).", "v=\\cos t,\\;x(0)=0", "x(π/2) = 1", ["1"]),
-  mc("y11adv-mot-fd-m4", "What does the definite integral ∫₀^T v dt represent?", "B",
+  mc("y11adv-mot-fd-m4", "What does the definite integral of velocity from time 0 to time T represent?", "B",
     [{ label: "A", text: "Total distance travelled from t = 0 to t = T" }, { label: "B", text: "Displacement (change in position) from t = 0 to t = T" }, { label: "C", text: "Total speed from t = 0 to t = T" }, { label: "D", text: "Average velocity" }],
-    "∫₀^T v dt = x(T) − x(0) = displacement. If v changes sign during [0, T], this is not the total distance — the displacement can be less than the distance.", ""),
+    "The definite integral of velocity equals x(T) − x(0), the signed change in position. If velocity changes sign, this displacement is smaller in magnitude than the total distance.", ""),
   fa("y11adv-mot-fd-m5", "v = e^t and x(0) = 1. Find x(t).", "v=e^t,\\;x(0)=1", "x = e^t", ["e^t"]),
   mc("y11adv-mot-fd-m6", "A particle starts at x = 0 with v = t − 2. At t = 4, its displacement is:", "A",
     [{ label: "A", text: "$0$" }, { label: "B", text: "$4$" }, { label: "C", text: "$-4$" }, { label: "D", text: "$8$" }],
@@ -184,14 +185,14 @@ const maGuided: PracticeQuestion[] = [
 ];
 
 const maIndep: PracticeQuestion[] = [
-  fa("y11adv-mot-ma-i1", "x = t³ − 3t on [0, 3]. Find total distance travelled.", "x=t^3-3t", "6+18 = 24... let me recalc. x(0)=0, x(1)=-2, x(3)=18. total = 2+20=22", ["20 m"]),
+  fa("y11adv-mot-ma-i1", "x = t³ − 3t on [0, 3]. Find total distance travelled.", "x=t^3-3t", "22 m", ["22"]),
   mc("y11adv-mot-ma-i2", "A particle has v = 2 − 4t. At what time is its speed a minimum (i.e., the particle momentarily at rest)?", "B",
     [{ label: "A", text: "$t=0$" }, { label: "B", text: "$t=1/2$" }, { label: "C", text: "$t=1$" }, { label: "D", text: "$t=2$" }],
     "Speed is minimum at 0 when the particle is at rest: v = 0 → 2−4t = 0 → t = 1/2.", ""),
   mc("y11adv-mot-ma-i3", "x = t² − 4t + 3 on [0, 5]. Displacement = x(5) − x(0) =", "B",
     [{ label: "A", text: "$3$" }, { label: "B", text: "$5$" }, { label: "C", text: "$8$" }, { label: "D", text: "$-2$" }],
     "x(0) = 3; x(5) = 25−20+3 = 8. Displacement = 8−3 = 5.", ""),
-  fa("y11adv-mot-ma-i4", "v = 3t² − 12t = 3t(t−4). Find the time(s) when the particle changes direction.", "v=3t^2-12t", "t = 0 and t = 4", ["t=0, t=4"]),
+  fa("y11adv-mot-ma-i4", "For t > 0, v = 3t² − 12t = 3t(t−4). Find when the particle changes direction.", "v=3t^2-12t,\\quad t>0", "t = 4", ["4"]),
   mc("y11adv-mot-ma-i5", "A particle has v > 0 throughout. How does total distance relate to displacement?", "A",
     [{ label: "A", text: "They are equal" }, { label: "B", text: "Distance > displacement always" }, { label: "C", text: "Displacement > distance always" }, { label: "D", text: "Cannot be compared without the position function" }],
     "If v > 0 throughout, the particle only moves in one direction. Total distance = displacement (both equal x(T) − x(0) > 0).", ""),
@@ -249,13 +250,13 @@ const rcWorked: WorkedExample[] = [
 
 const rcGuided: PracticeQuestion[] = [
   fa("y11adv-mot-rc-g1", "V = 200 − 4t². Find dV/dt and interpret its sign at t = 3.", "V=200-4t^2", "dV/dt = -8t; at t=3: dV/dt=-24 (decreasing)", ["-8t; -24"]),
-  mc("y11adv-mot-rc-g2", "A population P = 1000e^(0.2t). What does dP/dt represent?", "B",
+  mc("y11adv-mot-rc-g2", "For the displayed population model, what does dP/dt represent?", "B",
     [{ label: "A", text: "The total population at time t" }, { label: "B", text: "The rate at which the population is growing" }, { label: "C", text: "The average population over time t" }, { label: "D", text: "The population in year 0" }],
-    "dP/dt is the derivative of P with respect to time — the instantaneous rate of change of the population, i.e., how fast it's growing.", ""),
+    "The derivative dP/dt is the instantaneous rate at which the population changes with time. For this model it is positive, so it measures population growth rather than population size.", "P=1000e^{0.2t}"),
   fa("y11adv-mot-rc-g3", "The height of a projectile is h = 30t − 5t². Find the rate of change of height at t = 2.", "h=30t-5t^2", "dh/dt = 10 m/s", ["10"]),
-  mc("y11adv-mot-rc-g4", "For T = 80e^(−0.5t) + 20, the rate of cooling dT/dt at t = 0 is:", "C",
+  mc("y11adv-mot-rc-g4", "For the displayed temperature model, the rate of cooling dT/dt at t = 0 is:", "C",
     [{ label: "A", text: "$-80$" }, { label: "B", text: "$80$" }, { label: "C", text: "$-40$" }, { label: "D", text: "$40$" }],
-    "dT/dt = −0.5·80e^(−0.5t) = −40e^(−0.5t). At t=0: −40e⁰ = −40.", ""),
+    "Differentiating multiplies the model's exponential term by −0.5, giving an initial rate of −40 degrees per unit time. The negative sign means the temperature is falling.", "T=80e^{-0.5t}+20"),
 ];
 
 const rcIndep: PracticeQuestion[] = [
@@ -263,7 +264,7 @@ const rcIndep: PracticeQuestion[] = [
   mc("y11adv-mot-rc-i2", "A quantity Q = 500/t. The rate of change dQ/dt at t = 5 is:", "B",
     [{ label: "A", text: "$-100$" }, { label: "B", text: "$-20$" }, { label: "C", text: "$100$" }, { label: "D", text: "$20$" }],
     "Q = 500t^(−1). dQ/dt = −500t^(−2) = −500/t². At t=5: −500/25 = −20.", ""),
-  fa("y11adv-mot-rc-i3", "P = 2000e^(0.1t). Find the initial rate of growth (at t = 0).", "P=2000e^{0.1t}", "dP/dt = 200 per unit time", ["200"]),
+  fa("y11adv-mot-rc-i3", "For the displayed population model, find the initial rate of growth at t = 0.", "P=2000e^{0.1t}", "dP/dt = 200 per unit time", ["200"]),
   mc("y11adv-mot-rc-i4", "Which context is NOT a rate of change problem?", "D",
     [{ label: "A", text: "How fast a tank drains (dV/dt)" }, { label: "B", text: "How quickly a population grows (dP/dt)" }, { label: "C", text: "The temperature drop per hour (dT/dt)" }, { label: "D", text: "The total volume in a tank after 3 hours" }],
     "The total volume after 3 hours is a value, not a rate. Rates always involve derivatives — 'how fast' some quantity changes.", ""),
@@ -276,9 +277,9 @@ const rcMastery: PracticeQuestion[] = [
     [{ label: "A", text: "$t = 0$" }, { label: "B", text: "$t = 2.5$" }, { label: "C", text: "$t = 5$" }, { label: "D", text: "$t = 10$" }],
     "Volume stops increasing when dV/dt = 0: 5 − t = 0 → t = 5.", ""),
   fa("y11adv-mot-rc-m3", "h = 20 − 4t² (height above ground). Find the rate of descent at t = 2.", "h=20-4t^2", "dh/dt = -16 m/s (descending at 16 m/s)", ["-16"]),
-  mc("y11adv-mot-rc-m4", "For P = 500e^(0.2t), which is the correct dP/dt?", "B",
+  mc("y11adv-mot-rc-m4", "For the displayed population model, which is the correct dP/dt?", "B",
     [{ label: "A", text: "$500e^{0.2t}$" }, { label: "B", text: "$100e^{0.2t}$" }, { label: "C", text: "$0.2e^{0.2t}$" }, { label: "D", text: "$2500e^{0.2t}$" }],
-    "dP/dt = 0.2·500·e^(0.2t) = 100e^(0.2t).", ""),
+    "The chain rule multiplies the original exponential term by the exponent coefficient. Since 500 times 0.2 is 100, option B retains both the population scale and growth constant.", "P=500e^{0.2t}"),
   fa("y11adv-mot-rc-m5", "At t=0, V = 100 and dV/dt = −5. When (approximately) is V = 0?", "V=100,\\;dV/dt=-5", "t = 20 (if rate is constant)", ["20"]),
   mc("y11adv-mot-rc-m6", "A rate of −40°C/hour means:", "B",
     [{ label: "A", text: "The temperature is −40°C" }, { label: "B", text: "The temperature is decreasing by 40°C each hour" }, { label: "C", text: "The temperature fell by 40°C in total" }, { label: "D", text: "The temperature will reach −40°C" }],
@@ -294,7 +295,7 @@ const rcMastery: PracticeQuestion[] = [
 const mrExGuided: PracticeQuestion[] = [
   fa("y11adv-mot-ex-g1", "x = t³ − 3t² + 1. Find v when a = 0.", "x=t^3-3t^2+1", "v = -3 m/s", ["-3"]),
   mc("y11adv-mot-ex-g2", "A particle starts at origin with v = 6t − 6. Find displacement at t = 3.", "B",
-    [{ label: "A", text: "$9$" }, { label: "B", text: "$9$" }, { label: "C", text: "$18$" }, { label: "D", text: "$0$" }],
+    [{ label: "A", text: "$6$" }, { label: "B", text: "$9$" }, { label: "C", text: "$18$" }, { label: "D", text: "$0$" }],
     "x = ∫(6t−6) dt = 3t²−6t+C. x(0)=0→C=0. x(3)=27−18=9.", ""),
   fa("y11adv-mot-ex-g3", "v = 2t − 6 on [0, 5] from x(0) = 0. Find total distance.", "v=2t-6", "13 m", ["13"]),
   mc("y11adv-mot-ex-g4", "V = 100 − 5t² (litres). At what rate is V changing when t = 4?", "C",
@@ -304,14 +305,14 @@ const mrExGuided: PracticeQuestion[] = [
 
 const mrExIndep: PracticeQuestion[] = [
   fa("y11adv-mot-ex-i1", "x = 2t³ − 9t² + 12t. Find all times when the particle is at rest and classify the motion before and after each.", "", "t=1 (moves +, then -); t=2 (moves -, then +)", ["t=1, t=2"]),
-  mc("y11adv-mot-ex-i2", "A particle starts at x = 5 with v = 3 − 2t. Its displacement when it first stops is:", "C",
+  mc("y11adv-mot-ex-i2", "A particle starts at x = 5 with v = 3 − 2t. Its position when it first stops is:", "B",
     [{ label: "A", text: "$5$" }, { label: "B", text: "$7.25$" }, { label: "C", text: "$9.25$" }, { label: "D", text: "$7.5$" }],
-    "v=0 at t=1.5. x = ∫(3−2t)dt = 3t−t²+C. x(0)=5→C=5. x = 3t−t²+5. x(1.5) = 4.5−2.25+5 = 7.25. Displacement = 7.25 — wait, displacement is x(1.5)−x(0) = 7.25−5 = 2.25. The position is 7.25. Let me re-check. x(1.5) = 3(1.5) − (1.5)² + 5 = 4.5 − 2.25 + 5 = 7.25.", ""),
+    "The particle first stops when v=0, so 3−2t=0 and t=1.5. Integrating gives x=3t−t²+C; x(0)=5 makes C=5. Therefore x(1.5)=4.5−2.25+5=7.25.", ""),
   fa("y11adv-mot-ex-i3", "The height of a ball is h = −5t² + 20t. Find the maximum height and when it is reached.", "", "max h = 20 m at t = 2 s", ["20 m, t=2"]),
-  mc("y11adv-mot-ex-i4", "∫₀^4 v dt = 8 and ∫₀^4 |v| dt = 16. What does this tell us?", "B",
+  mc("y11adv-mot-ex-i4", "The displacement integral from t = 0 to t = 4 is 8, while the corresponding speed integral is 16. What does this tell us?", "B",
     [{ label: "A", text: "The particle moved 16 m in total and ended 16 m from start" }, { label: "B", text: "The particle moved a total of 16 m but the displacement was only 8 m" }, { label: "C", text: "The particle moved 8 m in total" }, { label: "D", text: "The velocity was always positive" }],
     "∫|v| dt = 16 = total distance. ∫v dt = 8 = displacement. Since 16 ≠ 8, the particle reversed direction at some point during [0, 4].", ""),
-  fa("y11adv-mot-ex-i5", "The temperature T = 60e^(−0.1t) + 20. Find the temperature when the rate of cooling is −3°C/hour.", "T=60e^{-0.1t}+20", "T = 50°C", ["50"]),
+  fa("y11adv-mot-ex-i5", "For the displayed cooling model, find the temperature when the rate of cooling is −3°C/hour.", "T=60e^{-0.1t}+20", "T = 50°C", ["50"]),
 ];
 
 const mrExMastery: PracticeQuestion[] = [
@@ -327,7 +328,7 @@ const mrExMastery: PracticeQuestion[] = [
   mc("y11adv-mot-ex-m6", "Given a = 2, v(0) = −6, x(0) = 5. The particle returns to its starting position when:", "C",
     [{ label: "A", text: "$t = 3$" }, { label: "B", text: "$t = 6$" }, { label: "C", text: "$t = 6$" }, { label: "D", text: "$t = 2$" }],
     "v = 2t−6. x = t²−6t+C. x(0)=5→C=5. x=t²−6t+5. Return to start: x=5 → t²−6t=0 → t(t−6)=0 → t=6 (first non-zero).", ""),
-  fa("y11adv-mot-ex-m7", "dT/dt = −k(T−20) and T(0)=80. The solution is T = 60e^(−kt)+20. Find k if T(2) = 50.", "T=60e^{-kt}+20,\\;T(2)=50", "k = ln 2/2", ["(ln 2)/2"]),
+  fa("y11adv-mot-ex-m7", "A cooling model satisfies dT/dt = −k(T−20), T(0)=80, and the displayed solution. Find k if T(2)=50.", "T=60e^{-kt}+20,\\;T(2)=50", "k = ln 2/2", ["(ln 2)/2"]),
   mc("y11adv-mot-ex-m8", "Which integral gives the displacement of a particle from t=a to t=b?", "A",
     [{ label: "A", text: "$\\int_a^b v\\,dt$" }, { label: "B", text: "$\\int_a^b |v|\\,dt$" }, { label: "C", text: "$\\int_a^b a\\,dt$" }, { label: "D", text: "$\\int_a^b x\\,dt$" }],
     "Displacement = ∫v dt (signed). Distance = ∫|v| dt. ∫a dt gives velocity change. ∫x dt has no standard kinematic meaning.", ""),
@@ -335,7 +336,7 @@ const mrExMastery: PracticeQuestion[] = [
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 
-export function year11AdvancedMotionRatesLessonOverride(
+function year11AdvancedMotionRatesLessonOverrideBase(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -472,7 +473,7 @@ export function year11AdvancedMotionRatesLessonOverride(
         paragraphs: [
           "Differentiation measures how fast something changes. Any quantity that varies with time (volume, temperature, population, height) has a rate of change given by its derivative with respect to time.",
           "The sign of dQ/dt is meaningful. dQ/dt > 0 → Q is increasing. dQ/dt < 0 → Q is decreasing. dQ/dt = 0 → Q is momentarily constant (at a maximum or minimum). This is the first derivative test for any real-world quantity.",
-          "Exponential models appear frequently in rate problems. For N = N₀e^(kt): dN/dt = kN. The rate of growth is proportional to the current size — the characteristic of exponential growth. When k < 0, this gives exponential decay.",
+          "Exponential models appear frequently in rate problems. For the displayed general model, the derivative satisfies dN/dt = kN. The rate of growth is proportional to the current size; when k < 0, this instead gives exponential decay.",
           "For area and volume problems using geometry: A = πr², V = (4/3)πr³. Differentiating with respect to r gives the rate of change of area or volume per unit radius. These are spatial rates, not time rates — but the technique is identical.",
           "Units of a rate of change: if Q is in litres and t is in seconds, dQ/dt is in litres per second (L/s). Always attach units to rates of change — it is part of the correct answer in HSC questions.",
         ],
@@ -531,4 +532,23 @@ export function year11AdvancedMotionRatesLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedMotionRatesLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const base = year11AdvancedMotionRatesLessonOverrideBase(course, unit, lesson);
+  if (!base) return null;
+
+  const masteryQuiz = getMotionRatesQualityMastery(lesson.slug);
+  if (!masteryQuiz) return base;
+
+  return {
+    ...base,
+    guidedPractice: enhanceMotionRatesRetainedPractice(base.guidedPractice ?? []),
+    independentPractice: enhanceMotionRatesRetainedPractice(base.independentPractice ?? []),
+    masteryQuiz,
+  };
 }

@@ -964,6 +964,52 @@ D4 314, D5 311, and D6 1: 626 D4-D6 rows in total, including 610 outside the
 challenge layer. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Motion and Rates — complete (5 of 5 subtopics)
+
+All five subtopics were remediated and seeded live on 31 July 2026:
+
+* `displacement-velocity-acceleration` now distinguishes position, rest,
+  direction, acceleration, and speed; reconstructs motion from derivative
+  constraints; and investigates repeated roots and parameter ranges.
+* `finding-displacement-by-integration` now treats constants of integration as
+  model parameters, reconstructs velocity from position observations, and uses
+  both symbolic and piecewise-graph accumulation.
+* `motion-analysis` now includes sign-chart classification, pause-versus-reversal
+  reasoning, bounded parameter families, graphical distance, and proof of the
+  distance-displacement inequality.
+* `rates-of-change-applications` now covers units, exponential rates, related
+  geometric rates, model identification, bounded extrema, and total variation.
+* `motion-rates-exam-practice` now combines parameter recovery, exact
+  integration, multiple direction changes, velocity-graph analysis, cooling
+  invariants, and synoptic distance synthesis.
+
+The completed unit contains 95 standard questions. All 50 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. The production
+bank contains 95 active unit rows and 51 historical inactive rows. Zero retired
+mastery IDs remain active, the scoped stale-row check is zero, and every active
+payload matches the local catalogue exactly.
+
+Five authored velocity graphs now support signed-area, direction-change, and
+average-velocity reasoning. Every retained constructed response has worked
+feedback and a legitimate answer variant. The audit also corrected six inherited
+defects: two ambiguous integration choices, a wrong total-distance key, a
+time-domain boundary error, a duplicate exam distractor, and a position-versus-
+displacement mismatch.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 360/360 tests; the mastery selector, TypeScript, targeted lint,
+and diagram-rendering tests pass. The course visual audit reports 331
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 840,
+D4 329, D5 326, and D6 1: 656 D4-D6 rows in total, including 640 outside the
+challenge layer. The whole-course verdict remains **FAIL** because the four
+remaining units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -974,13 +1020,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,210 |
+| Mastery quiz | 1,220 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,422** |
+| **Total** | **2,432** |
 
-The standard guided + independent + mastery sequence contains **2,344 questions**.
+The standard guided + independent + mastery sequence contains **2,354 questions**.
 
 ## Headline scorecard
 
@@ -1294,7 +1340,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Curve Sketching | 7 | 133 | 42 | — | — | 0 | Complete post-audit |
 | Exponential and Logarithmic Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Trigonometric Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
-| Motion and Rates | 5 | 85 | 0 | 4 | 2 | 4 | P2 |
+| Motion and Rates | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Series and Finance | 5 | 85 | 1 | 6 | 5 | 0 | P2 |
 | Graphs and Equations | 5 | 85 | 3 | 0 | 3 | 3 | P2 |
 | Bivariate Data | 5 | 85 | 0 | 9 | 18 | 2 | P2 |
@@ -1354,6 +1400,7 @@ Start with:
 * Integration
 * Exponential and Logarithmic Calculus
 * Trigonometric Calculus
+* Motion and Rates
 
 ### P2 — add explicit task-type diversity
 
