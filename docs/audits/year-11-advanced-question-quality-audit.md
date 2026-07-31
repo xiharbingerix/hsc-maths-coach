@@ -913,6 +913,57 @@ D4 293, D5 290, and D6 1: 584 D4-D6 rows in total, including 568 outside the
 challenge layer. The whole-course verdict remains **FAIL** because the other
 incomplete units have not yet met the course acceptance gate.
 
+### Probability and Data — complete (7 of 7 subtopics)
+
+All seven subtopics were remediated and seeded live on 31 July 2026:
+
+* `data-displays-summary-statistics` now tests robust statistic selection,
+  quartile conventions, transformation effects, outlier boundaries, and reverse
+  reconstruction from mean, median, endpoints, and IQR.
+* `probability-relative-frequency` now includes estimator interpretation,
+  overlap bounds, future-sample ranges, partitioned populations, reverse
+  conditioning, and parameterised independence.
+* `sets-venn-diagrams` now moves from region notation into feasibility bounds,
+  complete region reconstruction, proportional models, De Morgan proof, and
+  parameterised conditional probability.
+* `conditional-probability-independence` now distinguishes independence from
+  mutual exclusivity, updates without-replacement sample spaces, reconstructs
+  joint models, reverses conditions, and compares sampling schemes.
+* `discrete-random-variables` now requires validity intervals, symbolic
+  normalisation, sample-space construction, event constraints, and arithmetic
+  probability distributions.
+* `expected-value-standard-deviation` now includes fair-price design,
+  transformation effects, parameter recovery from spread, and explicit
+  expectation-risk comparisons.
+* `probability-data-exam-practice` now combines data reconstruction, Venn and
+  table reasoning, conditional diagnosis, parameterised distributions, and
+  cross-representation expectation and variance synthesis.
+
+The completed unit contains 133 standard questions. All 70 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. The production
+bank contains 140 active unit rows: 133 standard questions and seven retained
+challenge questions. It also contains 285 historical inactive rows, while zero
+retired mastery IDs remain active and the scoped stale-row check is zero.
+
+All retained guided and independent keys, frequency tables, Venn diagrams, and
+two-way tables were manually reconciled. Sixteen new mastery visuals were added,
+including a comparative box plot, probability tables, highlighted two-way tables,
+and Venn models. Across all layers, the active unit contains 25 visual payloads.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 356/356 tests; the mastery selector, TypeScript, targeted lint,
+and diagram-rendering tests pass. The course visual audit reports 326
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 860,
+D4 314, D5 311, and D6 1: 626 D4-D6 rows in total, including 610 outside the
+challenge layer. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1237,7 +1288,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Trigonometric Identities and Equations | 9 | 171 | 54 | — | — | 0 | Complete post-audit |
 | Exponential and Logarithmic Functions | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Introduction to Differentiation | 11 | 209 | 66 | — | — | 0 | Complete post-audit |
-| Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
+| Probability and Data | 7 | 133 | 42 | — | — | 0 | Complete post-audit |
 | Sequences and Series | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Integration | 8 | 152 | 48 | — | — | 0 | Complete post-audit |
 | Curve Sketching | 7 | 133 | 42 | — | — | 0 | Complete post-audit |
@@ -1295,6 +1346,7 @@ Start with:
 * Working with Functions
 * Curve Sketching
 * Sequences and Series
+* Probability and Data
 * Graph Transformations
 * Trigonometry and Measure of Angles
 * Trigonometric Identities and Equations

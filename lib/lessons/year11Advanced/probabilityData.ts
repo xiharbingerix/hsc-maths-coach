@@ -1,6 +1,10 @@
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import { practicalChoice, dataAnswer as baseDataAnswer } from "../questionHelpers";
+import {
+  enhanceProbabilityDataRetainedPractice,
+  getProbabilityDataQualityMastery,
+} from "./probabilityDataQuality";
 
 function gcd(a: number, b: number): number {
   let x = Math.abs(a);
@@ -180,7 +184,7 @@ function dataAnswer(
   };
 }
 
-export function year11AdvancedProbabilityDataLessonOverride(
+function baseYear11AdvancedProbabilityDataLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -1491,4 +1495,31 @@ export function year11AdvancedProbabilityDataLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedProbabilityDataLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const lessonOverride = baseYear11AdvancedProbabilityDataLessonOverride(
+    course,
+    unit,
+    lesson,
+  );
+  if (!lessonOverride) return null;
+
+  const qualityMastery = getProbabilityDataQualityMastery(lesson.slug);
+  if (!qualityMastery) return lessonOverride;
+
+  return {
+    ...lessonOverride,
+    guidedPractice: enhanceProbabilityDataRetainedPractice(
+      lessonOverride.guidedPractice ?? [],
+    ),
+    independentPractice: enhanceProbabilityDataRetainedPractice(
+      lessonOverride.independentPractice ?? [],
+    ),
+    masteryQuiz: qualityMastery,
+  };
 }
