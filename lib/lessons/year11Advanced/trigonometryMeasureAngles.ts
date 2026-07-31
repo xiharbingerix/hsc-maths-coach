@@ -5548,6 +5548,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           taskType: "synthesis",
           diagnosticIntent:
             "Combines perpendicular displacement with correct north-referenced bearing convention and rounding.",
+          bearingsDiagram: {
+            description:
+              "Compass-component diagram from the starting point showing an 8 km north component, a 6 km east component, and the north-east resultant whose bearing is to be found.",
+            originLabel: "start",
+            rays: [
+              { bearing: 0, label: "north component 8 km", length: 0.8 },
+              { bearing: 90, label: "east component 6 km", length: 0.6 },
+              { bearing: 36.87, label: "resultant", length: 1, showAngle: true },
+            ],
+          },
         }),
         qualityAnswer({
           id: "y11adv-rat-qm5",
@@ -5613,6 +5623,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           taskType: "synthesis",
           diagnosticIntent:
             "Combines bearing components across two legs and requires interpretation of cancellation in the resultant direction.",
+          bearingsDiagram: {
+            description:
+              "Compass diagram comparing the two equal route directions at bearings 060 degrees and 120 degrees; their north-south components oppose and their east components reinforce.",
+            originLabel: "direction comparison",
+            rays: [
+              { bearing: 60, label: "first 12 km leg", showAngle: true },
+              { bearing: 120, label: "second 12 km leg", showAngle: true },
+              { bearing: 90, label: "resultant direction", length: 0.9 },
+            ],
+          },
         }),
         qualityAnswer({
           id: "y11adv-rat-qm8",
@@ -5629,6 +5649,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           taskType: "investigative",
           diagnosticIntent:
             "Tests systematic investigation of a bounded bearing family after deriving a general resultant expression.",
+          bearingsDiagram: {
+            description:
+              "Compass comparison for a representative acute value of n, showing equal directions labelled n degrees and 180 minus n degrees symmetrically about east; the drawing illustrates the component structure and is not a particular case to measure.",
+            originLabel: "direction comparison",
+            rays: [
+              { bearing: 40, label: "bearing n degrees", showAngle: true },
+              { bearing: 140, label: "bearing (180-n) degrees", showAngle: true },
+              { bearing: 90, label: "resultant", length: 0.9 },
+            ],
+          },
         }),
         qualityAnswer({
           id: "y11adv-rat-qm9",
@@ -5662,6 +5692,20 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           taskType: "analytical",
           diagnosticIntent:
             "Requires reverse component inference, exact Pythagorean recovery of cosine, and distinction between net and total directional travel.",
+          bearingsDiagram: {
+            description:
+              "Compass comparison showing equal route directions labelled alpha and 180 degrees minus alpha, symmetric about east, together with the due-east resultant; the ray positions are illustrative rather than values to measure.",
+            originLabel: "direction comparison",
+            rays: [
+              { bearing: 40, label: "bearing alpha", showAngle: true },
+              {
+                bearing: 140,
+                label: "bearing (180-alpha)",
+                showAngle: true,
+              },
+              { bearing: 90, label: "18 km resultant", length: 0.75 },
+            ],
+          },
         }),
       ],
       multiPartPractice: [

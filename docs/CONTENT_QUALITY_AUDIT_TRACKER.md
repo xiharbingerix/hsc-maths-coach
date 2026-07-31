@@ -3,7 +3,7 @@
 > Objective: track content-quality audits year by year and unit by unit, with concrete fix lists that can be marked complete as we finish them.
 > Scope: question quality, unnecessary or answer-revealing LaTeX, diagram/visual needs, and any notable structural content issues discovered during audit.
 > Workflow: pick one year, add its units, audit one unit at a time, complete the fixes, then mark the unit complete before moving on.
-> Last updated: 2026-07-30
+> Last updated: 2026-07-31
 
 ---
 
@@ -29,7 +29,7 @@
 | Year 10 Mathematics Advanced | No | pending | |
 | Year 10 Mathematics Core | No | pending | |
 | Year 11 Standard | Partial | in_progress | Data Analysis unit (9 lessons) audited + reworked to standard on 2026-06-24 and seeded LIVE — see Unit Audit Board. Other units pending. |
-| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30: 126 seeded lessons / 2,368 rows; final verdict remains FAIL. Graph Transformations and all 15 Trigonometry and Measure of Angles subtopics are complete and seeded LIVE. The completed trigonometry unit has 285 standard questions, 90 D4-D5 standard tasks, zero shallow explanations, zero exact repeats, and 296 active live rows with no retired mastery IDs. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
+| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30: 126 seeded lessons / 2,368 rows; final verdict remains FAIL. Graph Transformations, all 15 Trigonometry and Measure of Angles subtopics, and all 9 Trigonometric Identities and Equations subtopics are complete and seeded LIVE. The latest completed unit has 171 standard questions, 54 D4-D5 mastery tasks, zero shallow explanations or exact repeats, and 178 active live rows with no stale mastery IDs. The current course distribution is D1 210 / D2 726 / D3 1,235 / D4 101 / D5 95 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
@@ -60,7 +60,8 @@ Source folder: `lib/lessons/year12Extension1/`
 ### Year 11 Advanced — Question Quality
 
 Status: `in_progress` (whole-course audit complete 2026-07-30; Graph
-Transformations complete; Trigonometry and Measure of Angles complete)
+Transformations complete; Trigonometry and Measure of Angles complete;
+Trigonometric Identities and Equations complete)
 
 Source: all live `year-11-advanced` lesson, multi-part, challenge, and exam questions.
 Full report: `docs/audits/year-11-advanced-question-quality-audit.md`.
@@ -238,7 +239,7 @@ Unit completion gate:
       five task types in every set.
 - [x] Zero exact standard-question repeats, zero explanations below 40
       characters, and complete constructed-response variants.
-- [x] 296 active live rows, 150 new mastery IDs, 78 visual mastery payloads, zero
+- [x] 296 active live rows, 150 new mastery IDs, 82 visual mastery payloads, zero
       retired mastery IDs, and zero stale unit rows.
 
 #### Fix backlog
@@ -257,6 +258,53 @@ Unit completion gate:
         `trig-graph-transformations`, `right-angle-trig-applications`,
         `sine-rule-cosine-rule`, `ambiguous-case-sine-rule`, and
         `trigonometry-measure-angles-exam-practice` (15/15 subtopics).
+  - [x] Trigonometric Identities and Equations — complete: all 9 subtopics.
+    - [x] `trigonometric-equations` — 19 standard questions, 4 D3 / 3 D4 / 3 D5
+          mastery ramp, three diagnostic MCQs, all five task types, zero shallow
+          explanations or repeats, and complete constructed-answer variants.
+          Seeded LIVE on 2026-07-31: 22 active subtopic rows, ten new mastery IDs,
+          zero retired mastery IDs, and zero stale unit rows.
+    - [x] `trigonometric-identities` — 19 standard questions, 4 D3 / 3 D4 /
+          3 D5 mastery ramp, three diagnostic MCQs, all five task types, zero
+          shallow explanations or repeats, and complete constructed-answer
+          variants. Seeded LIVE on 2026-07-31: 19 active subtopic rows, ten new
+          mastery IDs, zero retired mastery IDs, and zero stale unit rows.
+    - [x] `related-angle-identities` — 19 standard questions, 4 D3 / 3 D4 /
+          3 D5 mastery ramp, three diagnostic MCQs, all five task types, four
+          visual mastery payloads, zero shallow explanations or repeats, and
+          complete constructed-answer variants. Seeded LIVE on 2026-07-31:
+          19 active rows, ten new mastery IDs, zero retired mastery IDs, and
+          zero stale unit rows.
+    - [x] `complementary-angle-identities` — 19 standard questions plus two
+          multipart tasks, a 4 D3 / 3 D4 / 3 D5 mastery ramp, all five task
+          types, and an authored complementary-angle triangle. Seeded LIVE:
+          21 active rows and zero stale unit rows.
+    - [x] `trig-equations-basic` — 19 standard questions, a 4 D3 / 3 D4 /
+          3 D5 mastery ramp, all five task types, two visual mastery tasks, and
+          two pre-existing cross-subtopic repeats removed. Seeded LIVE:
+          19 active rows and zero stale unit rows.
+    - [x] `trig-equations-advanced` — 19 standard questions, a 4 D3 / 3 D4 /
+          3 D5 mastery ramp spanning zero-product branches, both square-root
+          signs, method comparison, parameters, investigation, and synthesis.
+          Seeded LIVE: 19 active rows and zero stale unit rows.
+    - [x] `trig-identities-proof-strategies` — 19 standard questions, a
+          4 D3 / 3 D4 / 3 D5 mastery ramp spanning valid proof decisions,
+          counterexamples, coefficient matching, conjugates, and domain
+          restrictions. Seeded LIVE: 19 active rows and zero stale unit rows.
+    - [x] `reciprocal-trig-ratios` — 19 standard questions plus two multipart
+          tasks, a 4 D3 / 3 D4 / 3 D5 mastery ramp, two unit-circle mastery
+          visuals, and repaired multipart feedback/variants. Seeded LIVE:
+          21 active rows and zero stale unit rows.
+    - [x] `trigonometric-identities-equations-exam-practice` — 19 standard
+          questions, a 4 D3 / 3 D4 / 3 D5 integrated mastery ramp, all five
+          task types, and a graph-supported periodic model. Seeded LIVE:
+          19 active rows and zero stale unit rows.
+    - Completed-unit gate: 171 standard questions, 90 new mastery IDs,
+      36 D3 / 27 D4 / 27 D5 across mastery, exactly three diagnostic MCQs per
+      lesson, all five task types per lesson, zero shallow explanations, zero
+      exact cross-subtopic repeats, complete constructed-answer variants,
+      322/322 repository tests passing, 303 course visual rows, and zero
+      required visuals missing.
 - [ ] P2 — add bounded problem-solving, analytical, investigative,
       guided-discovery, and synthesis tasks.
 - [ ] P3 — make target misconceptions and per-distractor wrong-method mappings

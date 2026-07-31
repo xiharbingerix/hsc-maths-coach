@@ -5,7 +5,7 @@
 course-scoped challenge questions, and the Year 11 Advanced exam paper.
 **Standard applied:** `QUESTION_AUTHORING_STANDARD.md`,
 `PRACTICE_QUESTION_STANDARD.md`, and `FEEDBACK_AND_HINTS_STANDARD.md`.
-**Mode:** report only. No questions were rewritten during this audit.
+**Mode:** baseline audit followed by unit-by-unit remediation and live verification.
 
 ## Final verdict
 
@@ -383,13 +383,145 @@ mastery questions comprise 60 D3, 45 D4, and 45 D5 tasks, with 45 MCQs and 105
 constructed responses. Every mastery set spans procedural, problem-solving,
 analytical, investigative, and synthesis work. Unit-wide checks report zero exact
 standard-question repeats, zero explanations below 40 characters, complete
-accepted-answer variants for constructed responses, and 78 visual mastery stimuli.
+accepted-answer variants for constructed responses, and 82 visual mastery stimuli.
 The live bank contains 296 active unit rows and zero retired mastery IDs.
 
 After unit completion, the course-wide distribution is D1 210, D2 726, D3 1,289,
 D4 74, D5 68, and D6 1: 143 D4-D6 rows in total, including 127 in standard lesson
 practice. The whole-course verdict remains **FAIL** because the other incomplete
 units have not yet met the course acceptance gate.
+
+### Trigonometric Identities and Equations — complete (9 of 9 subtopics)
+
+`trigonometric-equations` was remediated and seeded live on 31 July 2026:
+
+* all 19 standard questions retain the required 4 guided + 5 independent + 10
+  mastery structure;
+* the ten mastery questions now use four D3, three D4, and three D5 tasks;
+* the mastery set contains three diagnostic MCQs and seven constructed responses;
+* all five tracked task types are present: procedural, problem-solving,
+  analytical, investigative, and synthesis;
+* the new tasks include complete-domain solution production, error diagnosis,
+  reverse parameter inference, a bounded solution-count investigation,
+  contextual modelling, long-interval periodic reasoning, and phase-based
+  solution selection;
+* every mastery question has inspectable diagnostic intent, and every distractor
+  has an explicit wrong-method mapping;
+* the remaining shallow feedback and constructed-answer coverage gaps in the
+  lesson were repaired; and
+* zero exact repeats remain among the lesson's 19 standard questions.
+
+The production seed upserted all 2,368 current Year 11 Advanced rows. A scoped
+prune deactivated the ten retired mastery IDs, and a second dry run found zero
+stale rows. A live read confirmed 22 active subtopic rows, all ten new mastery
+rows at 4 D3 / 3 D4 / 3 D5, and zero retired mastery IDs still active.
+
+After this subtopic, the course-wide difficulty distribution is D1 210, D2 726,
+D3 1,283, D4 77, D5 71, and D6 1: 149 D4-D6 rows in total, including 133 in
+standard lesson practice.
+
+`trigonometric-identities` was then remediated and seeded live on 31 July 2026:
+
+* all 19 standard questions retain the required 4 + 5 + 10 structure;
+* the ten mastery questions use the same four D3, three D4, and three D5 ramp,
+  with three misconception-mapped MCQs and seven constructed responses;
+* purposeful fluency remains in guided and independent practice, while mastery
+  adds identity-versus-equation diagnosis, domain-aware simplification, exact
+  inference without solving for the angle, method comparison, reverse parameter
+  construction, a bounded domain investigation, invalid-cancellation diagnosis,
+  hidden-product inference, and coefficient-matching synthesis;
+* all five tracked task types and inspectable diagnostic metadata are present;
+* every constructed response has legitimate accepted variants; and
+* zero shallow explanations or exact standard-question repeats remain.
+
+The live bank contains 19 active rows for this subtopic, including all ten new
+mastery IDs at 4 D3 / 3 D4 / 3 D5. The ten retired mastery IDs are inactive, and
+the scoped unit prune reports zero stale rows.
+
+After two completed subtopics, the course-wide distribution is D1 210, D2 726,
+D3 1,277, D4 80, D5 74, and D6 1: 155 D4-D6 rows in total, including 139 in
+standard lesson practice.
+
+`related-angle-identities` was then remediated and seeded live on 31 July 2026:
+
+* all 19 standard questions retain the 4 + 5 + 10 structure;
+* mastery uses four D3, three D4, and three D5 tasks, with three diagnostic MCQs,
+  seven constructed responses, and all five task classifications;
+* unit-circle symmetry is used for coordinate reflection, sign diagnosis, exact
+  evaluation, reverse inference, comparison of related forms, bounded
+  generalisation, coordinate-area synthesis, and parameter elimination;
+* four mastery tasks retain or add authored unit-circle payloads, including a
+  three-point related-angle triangle;
+* misconception mappings, diagnostic intent, feedback depth, accepted variants,
+  and cross-lesson uniqueness all pass the regression gate; and
+* the 19 standard questions contain zero shallow explanations or exact repeats.
+
+Live verification confirmed 19 active subtopic rows, ten new mastery IDs at
+4 D3 / 3 D4 / 3 D5, four visual mastery rows, zero active retired mastery IDs,
+and zero stale unit rows.
+
+After three completed subtopics, the course-wide distribution is D1 210, D2 726,
+D3 1,271, D4 83, D5 77, and D6 1: 161 D4-D6 rows in total, including 145 in
+standard lesson practice.
+
+The remaining six subtopics were then remediated and seeded live on 31 July 2026:
+
+* `complementary-angle-identities` retains 19 standard questions and two multipart
+  tasks. Its new mastery set uses the 4 D3 / 3 D4 / 3 D5 ramp, all five task
+  classifications, exactly three diagnostic MCQs, and an authored
+  complementary-angle triangle. Existing multipart feedback and accepted-answer
+  variants were repaired.
+* `trig-equations-basic` retains 19 standard questions. Its mastery now combines
+  degree and radian domains, endpoint control, parameter inference, solution-count
+  investigation, modelling, and extended-domain synthesis. Two pre-existing
+  cross-subtopic standard repeats were re-authored.
+* `trig-equations-advanced` retains 19 standard questions. Its mastery now tests
+  zero-product branches, both square-root signs, safe cancellation, method
+  comparison, reverse parameters, bounded families, identity-plus-factorisation
+  synthesis, and construction of a trigonometric quadratic.
+* `trig-identities-proof-strategies` retains 19 standard questions. Its mastery
+  now assesses valid first moves, illegal cancellation, comparison of proof
+  pathways, counterexamples, reverse coefficient matching, domain precision,
+  conjugate reasoning, and multi-identity synthesis. One old cross-subtopic
+  repeat was removed.
+* `reciprocal-trig-ratios` retains 19 standard questions and two multipart tasks.
+  Its mastery now covers reciprocal-versus-quotient diagnosis, signed exact
+  values, undefined axis values, quadrant inference, bounded investigation,
+  invalid square-root reasoning, dual-identity synthesis, and reciprocal
+  equations. Two unit-circle mastery payloads were added, and the retained
+  multipart feedback and variants were completed.
+* `trigonometric-identities-equations-exam-practice` retains 19 standard
+  questions. Its integrated mastery mixes equation-versus-identity diagnosis,
+  reciprocal related angles, zero-product solving, domain restrictions,
+  graph-supported periodic modelling, coefficient matching, parameter
+  investigation, reciprocal identities, and domain-aware solving.
+
+Each of the six production updates was followed by a scoped prune of the ten
+superseded mastery rows and a second dry run reporting zero stale rows. Final live
+verification found 178 active unit rows: 171 standard questions plus two
+complementary-angle multipart tasks, two reciprocal-ratio multipart tasks, and
+three retained challenge rows. All 90 new mastery IDs are active.
+
+The completed unit acceptance gate confirms:
+
+* every lesson retains 4 guided + 5 independent + 10 mastery questions;
+* every mastery set contains 4 D3 / 3 D4 / 3 D5, exactly three diagnostic MCQs,
+  seven constructed responses, and all five bounded task types;
+* all 171 standard stimuli are unique across the unit;
+* no standard explanation is below 40 characters;
+* every constructed standard response and every retained multipart part has a
+  legitimate accepted-answer variant;
+* all misconception mappings, diagnostic intents, authored difficulty values,
+  visual payloads, and accessibility descriptions pass automated regression;
+* the repository test suite passes 322/322 tests;
+* the mastery selector checks and TypeScript validation pass; and
+* the Year 11 Advanced visual audit reports 303 payload-backed rows and zero
+  required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 1,235,
+D4 101, D5 95, and D6 1: 197 D4-D6 rows in total, including 181 in standard
+lesson practice. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
 
 ## Live scope
 
@@ -712,7 +844,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Working with Functions | 16 | 304 | 1 | 50 | 11 | 96 | P1 |
 | Graph Transformations | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Trigonometry: Measure of Angles | 15 | 285 | 90 | — | — | 0 | Complete post-audit |
-| Trigonometric Identities and Equations | 9 | 171 | 0 | 63 | 8 | 19 | P1 |
+| Trigonometric Identities and Equations | 9 | 171 | 54 | — | — | 0 | Complete post-audit |
 | Exponential and Logarithmic Functions | 6 | 114 | 0 | 58 | 16 | 11 | P1 |
 | Introduction to Differentiation | 11 | 209 | 1 | 43 | 7 | 7 | P1 |
 | Probability and Data | 7 | 133 | 0 | 26 | 14 | 5 | P2 |
@@ -976,7 +1108,7 @@ The course should not be marked complete until:
 * TypeScript, targeted ESLint, and the visual-rendering regression suite — pass.
 * source question lint — zero findings in the remediated source.
 * live verification — 24 active rows, ten new mastery rows at 4 D3 / 3 D4 /
-  3 D5, three MCQs and seven constructed responses, six visual mastery payloads,
+  3 D5, three MCQs and seven constructed responses, ten visual mastery payloads,
   two visual multipart tasks, zero retired mastery IDs, and zero stale topic rows.
 
 ### Sine Rule, Cosine Rule and Area Formula remediation validation
@@ -1021,8 +1153,42 @@ The course should not be marked complete until:
 * TypeScript, targeted ESLint, `git diff --check`, mastery selection, visual
   serialization/rendering, and scoped source lint — pass.
 * live verification — 296 active rows across 15 subtopics, 150 new mastery IDs,
-  45 mastery MCQs, 105 constructed mastery responses, 78 visual mastery payloads,
+  45 mastery MCQs, 105 constructed mastery responses, 82 visual mastery payloads,
   zero retired mastery IDs, and zero stale unit rows.
 * the repository-wide answer-marking harness retains its pre-existing unrelated
   failure (`unknown variable not dropped from correct answer`, 1/129); no
   unit-authored answer mapping fails.
+
+### Trigonometric Equations remediation validation
+
+* `node --import tsx --test "lib/**/*.test.ts"` — 320/320 pass.
+* Year 11 Advanced targeted tests — 59/59 pass.
+* The new subtopic gates verify the 4/3/3 difficulty ramp, three diagnostic
+  MCQs, all five task types, feedback depth, accepted-answer coverage,
+  uniqueness, and persistence of authored difficulty through question-bank
+  mapping.
+* TypeScript, targeted ESLint, and `git diff --check` — pass.
+* `audit-question-visuals --course year-11-advanced --details` — 2,368 rows
+  inspected, 294 visual payloads, and zero required visuals missing.
+* live verification — 22 active subtopic rows, ten new mastery rows at 4 D3 /
+  3 D4 / 3 D5, zero retired mastery IDs, and zero stale unit rows.
+
+### Trigonometric Identities remediation validation
+
+* `node --import tsx --test "lib/**/*.test.ts"` — 320/320 pass.
+* The completed-subtopic regression gates pass for both remediated lessons,
+  including cross-lesson uniqueness, feedback and variant coverage, cognitive
+  mix, diagnostic metadata, and seeded difficulty persistence.
+* TypeScript, targeted ESLint, `git diff --check`, and the mastery selector — pass.
+* live verification — 19 active subtopic rows, ten new mastery rows at 4 D3 /
+  3 D4 / 3 D5, zero retired mastery IDs, and zero stale unit rows.
+
+### Related-Angle Identities remediation validation
+
+* Completed-subtopic and difficulty-audit tests pass, including the new visual
+  symmetry coverage gate.
+* TypeScript, targeted ESLint, visual serialization/rendering, the visual-required
+  audit, and `git diff --check` — pass.
+* live verification — 19 active subtopic rows, ten new mastery rows at 4 D3 /
+  3 D4 / 3 D5, four visual mastery payloads, zero retired mastery IDs, and zero
+  stale unit rows.
