@@ -29,7 +29,7 @@
 | Year 10 Mathematics Advanced | No | pending | |
 | Year 10 Mathematics Core | No | pending | |
 | Year 11 Standard | Partial | in_progress | Data Analysis unit (9 lessons) audited + reworked to standard on 2026-06-24 and seeded LIVE — see Unit Audit Board. Other units pending. |
-| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30; the current build has 126 seeded lessons / 2,384 rows and the final verdict remains FAIL. Graph Transformations, Trigonometry and Measure of Angles, Trigonometric Identities and Equations, Exponential and Logarithmic Functions, Integration, and Introduction to Differentiation are complete and seeded LIVE. The latest completed unit has 209 standard questions, 66 D4-D5 mastery tasks, zero shallow explanations or exact repeats, and 219 active live rows with no stale mastery IDs. The current course distribution is D1 210 / D2 726 / D3 1,102 / D4 175 / D5 170 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
+| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30; the current build has 126 seeded lessons / 2,396 rows and the final verdict remains FAIL. Graph Transformations, Trigonometry and Measure of Angles, Trigonometric Identities and Equations, Exponential and Logarithmic Functions, Integration, Introduction to Differentiation, and Exponential and Logarithmic Calculus are complete and seeded LIVE. The latest completed unit has 114 standard questions, 36 D4-D5 mastery tasks, zero shallow explanations or exact repeats, and 114 active live rows with no stale mastery IDs. The current course distribution is D1 210 / D2 726 / D3 1,078 / D4 193 / D5 188 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
@@ -63,7 +63,7 @@ Status: `in_progress` (whole-course audit complete 2026-07-30; Graph
 Transformations complete; Trigonometry and Measure of Angles complete;
 Trigonometric Identities and Equations complete; Exponential and Logarithmic
 Functions complete; Integration complete; Introduction to Differentiation
-complete)
+complete; Exponential and Logarithmic Calculus complete)
 
 Source: all live `year-11-advanced` lesson, multi-part, challenge, and exam questions.
 Full report: `docs/audits/year-11-advanced-question-quality-audit.md`.
@@ -387,6 +387,33 @@ Unit completion gate:
       difficulty persistence, 334/334 repository tests passing, mastery
       selector, TypeScript and lint passing, 311 course visual rows, and zero
       required visuals missing.
+  - [x] Exponential and Logarithmic Calculus — complete:
+        `differentiating-exponential-functions`,
+        `differentiating-logarithmic-functions`,
+        `integrating-exponential-functions`,
+        `integrating-reciprocal-functions`,
+        `applications-exp-log-calculus`, and
+        `exp-log-calculus-exam-practice` (6/6 subtopics).
+    - All 114 standard questions retain 4 guided + 5 independent + 10 mastery.
+    - All 60 new mastery tasks use a per-lesson 4 D3 / 3 D4 / 3 D5 ramp,
+      exactly three diagnostic MCQs, seven constructed responses, all five task
+      classifications, diagnostic intent, and per-distractor misconception
+      mappings.
+    - Mastery now spans chain-rule diagnosis, domain-aware logarithmic
+      differentiation and integration, coefficient and parameter recovery,
+      equal-area investigation, inverse-function gradient comparison,
+      initial-value problems, optimisation, model reconstruction, and synoptic
+      derivative-to-function synthesis.
+    - Repaired terse inherited prompts and explanations, a multiple-choice item
+      with two correct answers, and an incorrect canonical tangent equation.
+    - Seeded LIVE on 2026-07-31: 114 active unit rows, all 60 new mastery IDs,
+      24 D3 / 18 D4 / 18 D5 across mastery, 48 superseded mastery rows inactive,
+      and zero stale unit rows.
+    - Completed-unit gate: zero shallow explanations, zero exact cross-subtopic
+      repeats, complete constructed-answer variants, authored difficulty
+      persistence, 337/337 repository tests passing, mastery selector,
+      TypeScript and lint passing, 308 course visual rows, and zero required
+      visuals missing.
 - [ ] P2 — add bounded problem-solving, analytical, investigative,
       guided-discovery, and synthesis tasks.
 - [ ] P3 — make target misconceptions and per-distractor wrong-method mappings
