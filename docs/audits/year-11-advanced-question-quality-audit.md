@@ -765,6 +765,54 @@ D3 1,054, D4 211, D5 206, and D6 1: 418 D4-D6 rows in total, including 402
 outside the challenge layer. The whole-course verdict remains **FAIL** because
 the other incomplete units have not yet met the course acceptance gate.
 
+### Working with Functions — complete (16 of 16 subtopics)
+
+All 16 subtopics were remediated and seeded live on 31 July 2026:
+
+* `function-notation-domain-range`, `linear-quadratic-cubic-functions`,
+  `polynomial-reciprocal-functions`, and `absolute-value-functions` now move
+  beyond recognition into intersected domains and ranges, finite-difference
+  structure, polynomial reconstruction, factor multiplicity, reciprocal holes
+  and asymptotes, and parameterised absolute-value families.
+* `odd-even-functions`, `algebraic-techniques`,
+  `quadratic-equations-discriminant`, and `linear-functions` now test odd/even
+  decomposition, symmetry diagnosis, indices, surds and conjugates,
+  discriminant and Vieta reasoning, tangency, intersections, and concurrency.
+* `constructing-using-functions`, `direct-inverse-variation`,
+  `circles-semicircles`, and `piecewise-defined-functions` now combine model
+  construction, break-even analysis, direct and inverse variation, circle
+  reconstruction, semicircle domains, continuity, and range analysis.
+* `composite-functions`, `completing-the-square`, `quadratic-inequalities`, and
+  `working-with-functions-exam-practice` now include composition domains and
+  commutativity, vertex-form reconstruction, optimisation, parameterised sign
+  conditions, and synoptic multi-concept synthesis.
+
+The completed unit contains 304 standard questions. All 160 new mastery
+questions are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three
+diagnostic MCQs, seven constructed responses, and all five bounded task types.
+The production bank contains 319 active unit rows: 304 standard questions, six
+multipart rows, and nine challenge rows. It also contains 653 historical
+inactive rows, while zero retired mastery IDs remain active and the scoped
+stale-row check is zero.
+
+The remediation expanded every retained explanation to at least 40 characters,
+removed exact standard-question repeats, completed legitimate accepted-answer
+variants for constructed responses, and added ten authored Cartesian graphs.
+During mathematical review, an under-constrained reciprocal-function parameter
+task was repaired so its published prompt has a unique answer.
+
+The completed-unit acceptance gate confirms zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 344/344 tests; the mastery selector, TypeScript, targeted
+lint, and diagram-rendering tests pass. The course visual audit reports 307
+payload-backed rows with zero required visuals missing.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 959,
+D4 258, D5 254, and D6 1: 513 D4-D6 rows in total, including 497 outside the
+challenge layer. The whole-course verdict remains **FAIL** because the other
+incomplete units have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1083,7 +1131,7 @@ Treat these as enrichment opportunities, not publication blockers.
 
 | Unit | Lessons | Standard Q | D4+ | Recognition | Rich cue | Short explanations | Priority |
 |---|---:|---:|---:|---:|---:|---:|---|
-| Working with Functions | 16 | 304 | 1 | 50 | 11 | 96 | P1 |
+| Working with Functions | 16 | 304 | 96 | — | — | 0 | Complete post-audit |
 | Graph Transformations | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Trigonometry: Measure of Angles | 15 | 285 | 90 | — | — | 0 | Complete post-audit |
 | Trigonometric Identities and Equations | 9 | 171 | 54 | — | — | 0 | Complete post-audit |
@@ -1144,6 +1192,7 @@ For every lesson:
 
 Start with:
 
+* Working with Functions
 * Graph Transformations
 * Trigonometry and Measure of Angles
 * Trigonometric Identities and Equations
