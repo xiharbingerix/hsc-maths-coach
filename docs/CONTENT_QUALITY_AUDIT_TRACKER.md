@@ -3,7 +3,7 @@
 > Objective: track content-quality audits year by year and unit by unit, with concrete fix lists that can be marked complete as we finish them.
 > Scope: question quality, unnecessary or answer-revealing LaTeX, diagram/visual needs, and any notable structural content issues discovered during audit.
 > Workflow: pick one year, add its units, audit one unit at a time, complete the fixes, then mark the unit complete before moving on.
-> Last updated: 2026-06-30
+> Last updated: 2026-07-30
 
 ---
 
@@ -29,7 +29,7 @@
 | Year 10 Mathematics Advanced | No | pending | |
 | Year 10 Mathematics Core | No | pending | |
 | Year 11 Standard | Partial | in_progress | Data Analysis unit (9 lessons) audited + reworked to standard on 2026-06-24 and seeded LIVE — see Unit Audit Board. Other units pending. |
-| Year 11 Advanced | No | pending | |
+| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30: 126 seeded lessons / 2,368 rows; final verdict remains FAIL. Graph Transformations and all 15 Trigonometry and Measure of Angles subtopics are complete and seeded LIVE. The completed trigonometry unit has 285 standard questions, 90 D4-D5 standard tasks, zero shallow explanations, zero exact repeats, and 296 active live rows with no retired mastery IDs. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
@@ -56,6 +56,211 @@ Source folder: `lib/lessons/year12Extension1/`
 ---
 
 ## Unit Audit Board
+
+### Year 11 Advanced — Question Quality
+
+Status: `in_progress` (whole-course audit complete 2026-07-30; Graph
+Transformations complete; Trigonometry and Measure of Angles complete)
+
+Source: all live `year-11-advanced` lesson, multi-part, challenge, and exam questions.
+Full report: `docs/audits/year-11-advanced-question-quality-audit.md`.
+
+#### Findings summary
+
+- **126 seeded lessons / 2,368 rows** audited.
+- **Mastery design fails:** 1,149 of 1,156 mastery questions are D3; only 7 are D4
+  and none are D5-D6.
+- **52 lessons** have 17 questions instead of the required 19.
+- **91 lessons** fall outside the 2-3 mastery-MCQ range; **38** have more than two
+  recognition-style mastery prompts by screening proxy.
+- **44 exact duplicate groups** occur in standard practice; 38 mastery rows repeat
+  an earlier guided or independent item.
+- **230 short explanations**, **102 unformatted-math findings**, **243 source-level
+  typed-answer variant warnings**, and **2 prompt-reveals-answer warnings**.
+- `y11adv-cir-m10` is ambiguous and not uniquely markable.
+- Visual layer is strong: 278 rows with payloads and zero required visuals missing.
+- High-tier layer is mostly sound but too sparse and too separate from normal
+  mastery.
+
+#### Completed remediation
+
+- [x] **Graph Transformations** — 5 seeded lessons / 95 standard questions + 2
+      multipart, remediated and seeded LIVE on 2026-07-30.
+  - Replaced all 50 mastery questions with a per-lesson D3/D4/D5 distribution of
+    4/3/3.
+  - Limited every mastery set to three diagnostic MCQs and seven constructed
+    responses.
+  - Added inspectable task classifications, diagnostic intent, and per-distractor
+    misconception mappings.
+  - Removed exact repeats and expanded all remaining short explanations, leaving
+    zero duplicate standard stimuli and zero explanations below 40 characters in
+    the unit.
+  - Added automated unit gates for structure, task diversity, difficulty
+    persistence, accepted answers, feedback depth, uniqueness, and self-contained
+    stimuli.
+- [x] **Degrees and Radians** (`degrees-and-radians-concept`) — 19 standard
+      questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced all ten mastery questions with a 4 D3 / 3 D4 / 3 D5 progression.
+  - Added procedural, problem-solving, analytical, investigative, and synthesis
+    tasks, with three misconception-mapped MCQs.
+  - Removed the exact mastery repeat, repaired shallow feedback, and added a
+    full-turn radian model.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Converting Degrees to Radians** (`converting-degrees-radians`) — 19
+      standard questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten number-swapped mastery conversions with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added signed/reflex conversions, reverse inference, method comparison, bounded
+    investigation, motion transfer, and calibration-error analysis.
+  - Added a conversion sector model and removed both shallow-feedback findings.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Converting Radians to Degrees** (`converting-radians-degrees`) — 19
+      standard questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten number-swapped mastery conversions with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added error analysis, reverse inference, method comparison, signed synthesis,
+    bounded investigation, angular-motion transfer, and calibration-error analysis.
+  - Added a conversion sector model and repaired both shallow-feedback findings.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Arc Length** (`arc-length-radian-measure`) — 19 standard questions
+      remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten number-swapped mastery calculations with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added error analysis, equivalent-method comparison, linked-path modelling,
+    bounded investigation, signed pulley motion, and a two-constraint design task.
+  - Added five authored mastery visuals while retaining the worked-example
+    diagrams.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Sector Area** (`sector-area-radian-measure`) — 19 standard questions
+      plus one multipart question remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten number-swapped mastery calculations with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added error analysis, equivalent-method comparison, area-preserving redesign,
+    bounded investigation, an annular sweep, and simultaneous constraints.
+  - Added nine authored mastery visuals and strengthened feedback across all three
+    parts of the retained visual multipart task.
+  - Live verification: 20 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Special-Triangle Exact Values** (`exact-trig-values-special-triangles`) —
+      19 standard questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten recall-heavy mastery questions with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added derivation, error analysis, reverse parameters, exact radical algebra,
+    bounded investigation, paired-triangle modelling, and a linear-system task.
+  - Added four authored mastery visuals, including a paired-triangle comparison.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Unit-Circle Exact Values** (`exact-trig-values-unit-circle`) — 19
+      standard questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten recall-heavy mastery questions with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added coordinate error analysis, reverse inference, parameter constraints,
+    exact coordinate geometry, bounded investigation, and determinant modelling.
+  - Added six authored unit-circle mastery visuals.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **All-Quadrant Unit Circle** (`unit-circle-all-quadrants`) — 19 standard
+      questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced ten direct evaluations with a 4 D3 / 3 D4 / 3 D5 progression across
+    five task types.
+  - Added sign-error analysis, reverse inference, signed-coordinate modelling,
+    bounded periodic investigation, angular motion, and filtered solution sets.
+  - Added seven authored unit-circle mastery visuals.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Parent Trigonometric Graphs** (`graphing-sin-cos-tan`) — 19 standard
+      questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced transformation-heavy and recall-only mastery items with a
+    4 D3 / 3 D4 / 3 D5 progression across five task types.
+  - Added linked-feature identification, discontinuity diagnosis, reverse
+    inference, function comparison, bounded investigation, and multi-period
+    synthesis.
+  - Added five authored sine, cosine, or tangent graph payloads.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Amplitude and Period** (`trig-graph-amplitude-period`) — 19 standard
+      questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced repeated coefficient-reading items with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added graph reconstruction, reverse parameters, simultaneous extrema,
+    bounded family investigation, Ferris-wheel distance, and integer design.
+  - Added four authored Cartesian sinusoidal mastery payloads.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Trigonometric Graph Transformations** (`trig-graph-transformations`) —
+      19 standard questions remediated and seeded LIVE on 2026-07-30.
+  - Replaced isolated feature-reading items with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added curve reconstruction, reverse extrema inference, constrained design,
+    bounded phase investigation, contextual modelling, and periodic constraints.
+  - Added three authored Cartesian sinusoidal mastery payloads.
+  - Live verification: 19 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Right-Angle Trigonometry Applications**
+      (`right-angle-trig-applications`) — 19 standard questions plus two multipart
+      tasks remediated and seeded LIVE on 2026-07-30.
+  - Replaced shallow routine mastery items with a 4 D3 / 3 D4 / 3 D5 progression
+    across five task types.
+  - Added error diagnosis, linked-observer modelling, equivalent-method analysis,
+    route-component synthesis, bounded bearing investigation, and a two-stage
+    drone model.
+  - Added six mastery visuals and visuals for both multipart tasks; also corrected
+    a pre-existing rope-length answer from 36 m to \(12\sqrt3\) m.
+  - Live verification: 24 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Sine Rule, Cosine Rule and Area Formula**
+      (`sine-rule-cosine-rule`) — 19 standard questions plus two multipart tasks
+      remediated and seeded LIVE on 2026-07-30.
+  - Replaced routine number swaps with a 4 D3 / 3 D4 / 3 D5 progression across
+    five task types.
+  - Added structural rule selection, included-angle error diagnosis,
+    method comparison, composite area, bounded investigation, nested-triangle
+    transfer, and constrained design.
+  - Added visuals to all ten mastery questions and both multipart tasks.
+  - Live verification: 21 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Ambiguous Case of the Sine Rule** (`ambiguous-case-sine-rule`) — 19
+      standard questions plus two multipart tasks remediated and seeded LIVE on
+      2026-07-30.
+  - Replaced repeated triangle-count classifications with a 4 D3 / 3 D4 / 3 D5
+    progression across five task types.
+  - Added incomplete-rule diagnosis, exact dual solutions, candidate validity,
+    method comparison, bounded investigation, paired-area synthesis, and reverse
+    interval design.
+  - Added visuals to all ten mastery questions and both multipart tasks.
+  - Live verification: 21 active rows, ten new mastery IDs, and zero retired IDs.
+- [x] **Unit Exam Practice** (`trigonometry-measure-angles-exam-practice`) — 19
+      standard questions plus one multipart task remediated and seeded LIVE on
+      2026-07-30.
+  - Replaced isolated recall mastery with a 4 D3 / 3 D4 / 3 D5 synoptic
+    progression across five task types.
+  - Added multi-step error diagnosis, graph reconstruction, method comparison,
+    circular-coordinate synthesis, bounded transformation investigation, reverse
+    sector design, and circular-measure-to-phase transfer.
+  - Added nine mastery visuals and a graph for the multipart task.
+  - Live verification: 20 active rows, ten new mastery IDs, and zero retired IDs.
+
+Unit completion gate:
+
+- [x] 15/15 seeded subtopics use 4 guided + 5 independent + 10 mastery.
+- [x] 150 mastery questions use 60 D3 / 45 D4 / 45 D5, with three MCQs and all
+      five task types in every set.
+- [x] Zero exact standard-question repeats, zero explanations below 40
+      characters, and complete constructed-response variants.
+- [x] 296 active live rows, 150 new mastery IDs, 78 visual mastery payloads, zero
+      retired mastery IDs, and zero stale unit rows.
+
+#### Fix backlog
+
+- [ ] P0 — repair ambiguous/answer-leaking questions, rendering, explanations, and
+      accepted-answer coverage.
+- [ ] P1 — rebuild every mastery set to the required cognitive mix and 10-question
+      count; start with graph transformations, trigonometry, exp/log, and calculus.
+  - [x] Graph Transformations.
+  - [x] Trigonometry and Measure of Angles — complete: `degrees-and-radians-concept`,
+        `converting-degrees-radians`, `converting-radians-degrees`,
+        `arc-length-radian-measure`, `sector-area-radian-measure`,
+        `exact-trig-values-special-triangles`,
+        `exact-trig-values-unit-circle`, `unit-circle-all-quadrants`,
+        `graphing-sin-cos-tan`, `trig-graph-amplitude-period`,
+        `trig-graph-transformations`, `right-angle-trig-applications`,
+        `sine-rule-cosine-rule`, `ambiguous-case-sine-rule`, and
+        `trigonometry-measure-angles-exam-practice` (15/15 subtopics).
+- [ ] P2 — add bounded problem-solving, analytical, investigative,
+      guided-discovery, and synthesis tasks.
+- [ ] P3 — make target misconceptions and per-distractor wrong-method mappings
+      inspectable.
 
 ### Year 12 Advanced - Teaching Quality (whole-course AI-judge pass)
 

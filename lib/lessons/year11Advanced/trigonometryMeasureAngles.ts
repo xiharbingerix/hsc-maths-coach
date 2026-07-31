@@ -1,6 +1,149 @@
 import type { ExplicitLesson, PracticeQuestion } from "../differentialCalculus";
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
-import { practicalChoice, formulaAnswer as baseFormulaAnswer } from "../questionHelpers";
+import {
+  formatChoiceText,
+  practicalChoice,
+  formulaAnswer as baseFormulaAnswer,
+} from "../questionHelpers";
+
+type QualityTaskType =
+  | "procedural"
+  | "problem-solving"
+  | "analytical"
+  | "investigative"
+  | "synthesis";
+
+type QualityPracticeQuestion = PracticeQuestion & {
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  distractorMisconceptions?: Partial<
+    Record<"A" | "B" | "C" | "D", string>
+  >;
+};
+
+function qualityAnswer({
+  id,
+  prompt,
+  latex,
+  answer,
+  acceptedAnswers,
+  hint,
+  explanation,
+  difficulty,
+  diagnosticIntent,
+  taskType,
+  sectorDiagram,
+  triangleDiagram,
+  trianglePairDiagram,
+  unitCircleDiagram,
+  trigGraphDiagram,
+  cartesianGraph,
+  bearingsDiagram,
+}: {
+  id: string;
+  prompt: string;
+  latex: string;
+  answer: string;
+  acceptedAnswers: string[];
+  hint: string;
+  explanation: string;
+  difficulty: 3 | 4 | 5;
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  sectorDiagram?: PracticeQuestion["sectorDiagram"];
+  triangleDiagram?: PracticeQuestion["triangleDiagram"];
+  trianglePairDiagram?: PracticeQuestion["trianglePairDiagram"];
+  unitCircleDiagram?: PracticeQuestion["unitCircleDiagram"];
+  trigGraphDiagram?: PracticeQuestion["trigGraphDiagram"];
+  cartesianGraph?: PracticeQuestion["cartesianGraph"];
+  bearingsDiagram?: PracticeQuestion["bearingsDiagram"];
+}): QualityPracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    acceptedAnswers: Array.from(new Set([answer, ...acceptedAnswers])),
+    hint,
+    explanation,
+    difficulty,
+    diagnosticIntent,
+    taskType,
+    sectorDiagram,
+    triangleDiagram,
+    trianglePairDiagram,
+    unitCircleDiagram,
+    trigGraphDiagram,
+    cartesianGraph,
+    bearingsDiagram,
+  };
+}
+
+function qualityChoice({
+  id,
+  prompt,
+  latex,
+  answer,
+  choices,
+  hint,
+  explanation,
+  difficulty,
+  diagnosticIntent,
+  taskType,
+  distractorMisconceptions,
+  sectorDiagram,
+  triangleDiagram,
+  trianglePairDiagram,
+  unitCircleDiagram,
+  trigGraphDiagram,
+  cartesianGraph,
+  bearingsDiagram,
+}: {
+  id: string;
+  prompt: string;
+  latex: string;
+  answer: "A" | "B" | "C" | "D";
+  choices: [string, string, string, string];
+  hint: string;
+  explanation: string;
+  difficulty: 3 | 4 | 5;
+  diagnosticIntent: string;
+  taskType: QualityTaskType;
+  distractorMisconceptions: Partial<
+    Record<"A" | "B" | "C" | "D", string>
+  >;
+  sectorDiagram?: PracticeQuestion["sectorDiagram"];
+  triangleDiagram?: PracticeQuestion["triangleDiagram"];
+  trianglePairDiagram?: PracticeQuestion["trianglePairDiagram"];
+  unitCircleDiagram?: PracticeQuestion["unitCircleDiagram"];
+  trigGraphDiagram?: PracticeQuestion["trigGraphDiagram"];
+  cartesianGraph?: PracticeQuestion["cartesianGraph"];
+  bearingsDiagram?: PracticeQuestion["bearingsDiagram"];
+}): QualityPracticeQuestion {
+  return {
+    id,
+    prompt,
+    latex,
+    answer,
+    choices: (["A", "B", "C", "D"] as const).map((label, index) => ({
+      label,
+      text: formatChoiceText(choices[index]),
+    })),
+    hint,
+    explanation,
+    difficulty,
+    diagnosticIntent,
+    taskType,
+    distractorMisconceptions,
+    sectorDiagram,
+    triangleDiagram,
+    trianglePairDiagram,
+    unitCircleDiagram,
+    trigGraphDiagram,
+    cartesianGraph,
+    bearingsDiagram,
+  };
+}
 
 function numericFormatVariants(answer: string): string[] {
   const t = answer.trim();
@@ -376,7 +519,7 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
   "y11adv-shift-g2":
     "y = cos(x − π/4) is cos(x + (−π/4)), so c = −π/4, b = 1. Phase shift = −c/b = −(−π/4)/1 = π/4 right.",
   "y11adv-shift-g3":
-    "Maximum value = d + |a| = 1 + 2 = 3.",
+    "The midline is y = 1 and the amplitude is 2, so the crest lies 2 units above the midline. Maximum value = d + |a| = 1 + 2 = 3.",
   "y11adv-shift-i1":
     "The vertical shift is d = −4 in y = 3 cos(2x) − 4.",
   "y11adv-shift-i2":
@@ -384,7 +527,7 @@ const TRIG_MEASURE_EXPLANATIONS: Record<string, string> = {
   "y11adv-shift-i3":
     "Amplitude = |a| = 4 in y = 4 sin(x − π/3) + 1.",
   "y11adv-shift-i4":
-    "Minimum = d − |a| = −3 − 2 = −5.",
+    "The midline is y = −3 and the amplitude is 2, so the trough lies 2 units below the midline. Minimum = d − |a| = −3 − 2 = −5.",
   "y11adv-shift-m1":
     "Amplitude = |a| = |−3| = 3.",
   "y11adv-shift-m2":
@@ -687,6 +830,72 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
   }
 
   if (lesson.slug === "trigonometry-measure-angles-exam-practice") {
+    const examCurve: import("../types").CartesianGraph = {
+      description:
+        "An unlabelled sinusoidal curve on 0 to 2 pi has midline y equals 1, maximum 3, minimum negative 1, starts at the midline rising, and completes two cycles.",
+      xMin: 0,
+      xMax: 2 * Math.PI,
+      yMin: -1.5,
+      yMax: 3.5,
+      xStep: Math.PI / 2,
+      yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        {
+          kind: "sin",
+          a: 2,
+          b: 2,
+          c: 0,
+          d: 1,
+          description: "The unlabelled curve used for equation reconstruction.",
+        },
+      ],
+    };
+    const reverseFeatureCurve: import("../types").CartesianGraph = {
+      description:
+        "A sinusoidal curve has maximum 5, minimum negative 3, period pi, and crosses its midline upward at the origin.",
+      xMin: 0,
+      xMax: 2 * Math.PI,
+      yMin: -3.5,
+      yMax: 5.5,
+      xStep: Math.PI / 2,
+      yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        {
+          kind: "sin",
+          a: 4,
+          b: 2,
+          c: 0,
+          d: 1,
+          description:
+            "The curve crosses y equals 1 upward at x equals 0 and repeats every pi.",
+        },
+      ],
+    };
+    const examMultipartGraph: import("../types").CartesianGraph = {
+      description:
+        "The graph of y equals 2 sine of 3x minus pi over 2 plus 1 has amplitude 2, period 2 pi over 3, midline y equals 1, a right phase shift of pi over 6, and maximum 3.",
+      xMin: 0,
+      xMax: (4 * Math.PI) / 3,
+      yMin: -1.5,
+      yMax: 3.5,
+      xStep: Math.PI / 6,
+      yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        {
+          kind: "sin",
+          a: 2,
+          b: 3,
+          c: -Math.PI / 2,
+          d: 1,
+          label: "y=2\\sin(3x-\\pi/2)+1",
+          description:
+            "Two complete cycles of the transformed sine curve.",
+        },
+      ],
+    };
     return {
       ...base,
       description:
@@ -769,7 +978,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         practicalChoice("y11adv-trig-exam-g4", "Which graph feature is correct?", "D", ["Sine has period pi", "Cosine has range all real values", "Tangent has range [-1,1]", "Tangent has period pi"], "The basic tangent graph repeats every pi.", "\\text{Basic trigonometric graphs}"),
       ],
       independentPractice: [
-        formulaAnswer("y11adv-trig-exam-i1", "Convert the angle to degrees.", "\\frac{3\\pi}{4}", "135", ["135 degrees", "135°"]),
+        formulaAnswer("y11adv-trig-exam-i1", "Convert the angle to degrees.", "\\frac{7\\pi}{12}", "105", ["105 degrees", "105°"]),
         formulaAnswer("y11adv-trig-exam-i2", "Find the sector area.", "r=3,\\quad \\theta=\\frac{2\\pi}{3}", "3pi", ["3\\pi", "3π"]),
         practicalChoice("y11adv-trig-exam-i3", "Which coordinate rule is correct?", "A", ["$(\\cos\\theta,\\sin\\theta)$", "$(\\sin\\theta,\\cos\\theta)$", "$(\\tan\\theta,\\sin\\theta)$", "$(\\theta,\\tan\\theta)$"], "On the unit circle, cosine is x and sine is y.", "\\theta"),
         practicalChoice("y11adv-trig-exam-i4", "Which sign pattern is correct?", "C", ["Sine positive, cosine positive", "Sine positive, cosine negative", "Sine negative, cosine positive", "Sine negative, cosine negative"], "In quadrant IV, y is negative and x is positive.", "\\text{Quadrant IV}"),
@@ -784,16 +993,264 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Including the vertical shift $d$ in the amplitude.", fix: "Amplitude $=|a|$. Vertical shift raises the midline but does not change $|a|$." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-trig-exam-m1", "Convert the angle to radians.", "180^\\circ", "pi", ["\\pi", "π"]),
-        formulaAnswer("y11adv-trig-exam-m2", "Convert the angle to degrees.", "\\frac{\\pi}{4}", "45", ["45 degrees", "45°"]),
-        practicalChoice("y11adv-trig-exam-m3", "Which exact value is correct?", "A", ["$\\frac12$", "$\\frac{\\sqrt2}{2}$", "$\\frac{\\sqrt3}{2}$", "$1$"], "Use the 30-60-90 triangle.", "\\cos\\left(\\frac{\\pi}{3}\\right)"),
-        formulaAnswer("y11adv-trig-exam-m4", "Find the arc length.", "r=5,\\quad \\theta=\\frac{2\\pi}{5}", "2pi", ["2\\pi", "2π"]),
-        formulaAnswer("y11adv-trig-exam-m5", "Find the sector area.", "r=6,\\quad \\theta=\\frac{\\pi}{3}", "6pi", ["6\\pi", "6π"]),
-        practicalChoice("y11adv-trig-exam-m6", "Which quadrant contains the angle?", "D", ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"], "The angle is between three quarters of a turn and one full turn.", "\\frac{5\\pi}{3}"),
-        practicalChoice("y11adv-trig-exam-m7", "Which statement identifies the common tangent error?", "B", ["Tangent is undefined where sine is zero", "Tangent is undefined where cosine is zero", "Tangent has range [-1,1]", "Tangent has period 2pi"], "Tangent has cosine in the denominator.", "\\tan\\theta=\\frac{\\sin\\theta}{\\cos\\theta}"),
-        practicalChoice("y11adv-trig-exam-m8", "Which graph has starting value one?", "C", ["$y=\\sin x$", "$y=\\tan x$", "$y=\\cos x$", "$y=-\\cos x$"], "Cosine starts at 1 when x is zero.", "x=0"),
-        practicalChoice("y11adv-trig-exam-m9", "Which exact value is correct?", "D", ["$\\frac{\\sqrt3}{2}$", "$-\\frac{\\sqrt2}{2}$", "$\\frac12$", "$-\\frac{\\sqrt3}{2}$"], "Use the reference angle and quadrant III cosine sign.", "\\cos\\left(\\frac{7\\pi}{6}\\right)"),
-        formulaAnswer("y11adv-trig-exam-m10", "State the period of the basic tangent graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+        qualityChoice({
+          id: "y11adv-trig-exam-qm1",
+          prompt:
+            "A sector has radius 3 cm and central angle $120^\\circ$. A student converts the angle to $2\\pi/3$ but states the sector area is $2\\pi$ cm². Which response is correct?",
+          latex: "\\text{audit the complete calculation}",
+          answer: "C",
+          choices: [
+            "The answer is correct",
+            "The conversion is wrong; $120^\\circ=\\pi/3$",
+            "The conversion is correct, but the area is $\\frac12(3^2)(2\\pi/3)=3\\pi$",
+            "The area is $6\\pi$ because the radius should not be squared",
+          ],
+          hint:
+            "Check the degree-to-radian conversion and the radius-squared factor separately.",
+          explanation:
+            "The conversion $120^\\circ=2\\pi/3$ is correct. Applying $A=\\frac12r^2\\theta$ gives $A=\\frac12(9)(2\\pi/3)=3\\pi$ cm². The student's $2\\pi$ loses part of the radius-squared factor, so option C gives the correct diagnosis and value.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether a learner can audit a multi-step circular-measure solution rather than merely recall one formula.",
+          distractorMisconceptions: {
+            A: "Accepts the stated result without checking the radius-squared substitution.",
+            B: "Halves the correct radian conversion.",
+            D: "Uses an arc-length-style radius factor in the area formula.",
+          },
+          sectorDiagram: {
+            description:
+              "A sector of a circle with radius 3 centimetres and central angle 120 degrees, equivalent to two pi over three radians.",
+            angleDegrees: 120,
+            radiusLabel: "r=3\\text{ cm}",
+            angleLabel: "120^\\circ",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm2",
+          prompt:
+            "The unit-circle point has angle $5\\pi/6$. Find the exact value of $x+y$ for its coordinates $(x,y)$.",
+          latex: "\\text{give an exact value}",
+          answer: "(1-sqrt(3))/2",
+          acceptedAnswers: [
+            "(1-\\sqrt3)/2",
+            "$\\frac{1-\\sqrt{3}}2$",
+            "1/2-sqrt(3)/2",
+          ],
+          hint:
+            "Use the reference angle $\\pi/6$ and the coordinate signs in quadrant II.",
+          explanation:
+            "At $5\\pi/6$, the unit-circle coordinates are $(\\cos5\\pi/6,\\sin5\\pi/6)=(-\\sqrt3/2,1/2)$. Therefore $x+y=-\\sqrt3/2+1/2=(1-\\sqrt3)/2$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Tests exact coordinate recovery with quadrant signs and a short symbolic combination.",
+          unitCircleDiagram: {
+            description:
+              "A unit-circle point in quadrant II at angle five pi over six, with its coordinates labelled x and y.",
+            angleRadians: "\\frac{5\\pi}{6}",
+            terminalPoint: { x: "-√3/2", y: "1/2", label: "(x,y)" },
+            quadrant: 2,
+            showReferenceTriangle: true,
+            highlightRadius: true,
+          },
+        }),
+        qualityChoice({
+          id: "y11adv-trig-exam-qm3",
+          prompt:
+            "Which equation matches the displayed unlabelled sinusoidal curve?",
+          latex: "0\\le x\\le2\\pi",
+          answer: "B",
+          choices: [
+            "$y=2\\sin x+1$",
+            "$y=2\\sin(2x)+1$",
+            "$y=2\\cos(2x)+1$",
+            "$y=\\sin(2x)+1$",
+          ],
+          hint:
+            "Read amplitude and midline from the extrema, period from the number of cycles, and the starting direction from x equals zero.",
+          explanation:
+            "The extrema 3 and $-1$ give amplitude 2 and midline 1. Two cycles on $[0,2\\pi]$ give period $\\pi$, hence $b=2$. The curve starts at the midline and rises, selecting sine rather than cosine. Therefore option B is $y=2\\sin(2x)+1$.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Requires reconstructing a transformed equation from several independent graphical features.",
+          distractorMisconceptions: {
+            A: "Reads amplitude and midline but misses the halved period.",
+            C: "Uses cosine despite the upward midline start.",
+            D: "Reads period and midline but loses the vertical stretch.",
+          },
+          cartesianGraph: examCurve,
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm4",
+          prompt:
+            "A circle has radius 6 cm and an arc of length $4\\pi$ cm. Find the central angle in radians and the sector area, in that order.",
+          latex: "\\text{state }\\theta\\text{, then }A",
+          answer: "2pi/3,12pi",
+          acceptedAnswers: [
+            "2\\pi/3,12\\pi",
+            "theta=2pi/3; area=12pi",
+            "2π/3 radians,12π cm^2",
+          ],
+          hint:
+            "First rearrange $s=r\\theta$. Then use either the sector formula or $A=rs/2$.",
+          explanation:
+            "From $s=r\\theta$, $\\theta=4\\pi/6=2\\pi/3$. The area is $\\frac12r^2\\theta=\\frac12(36)(2\\pi/3)=12\\pi$ cm². Equivalently, $A=rs/2=6(4\\pi)/2=12\\pi$.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Links inverse arc-length reasoning with an exact sector-area calculation from the same circular data.",
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 6 centimetres, arc length 4 pi centimetres, and unknown central angle theta.",
+            angleDegrees: 120,
+            radiusLabel: "r=6\\text{ cm}",
+            angleLabel: "\\theta",
+            arcLabel: "s=4\\pi\\text{ cm}",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm5",
+          prompt:
+            "A sinusoid $y=a\\sin(bx)+d$ has $a>0$, $b>0$, maximum 5, minimum $-3$, period $\\pi$, and crosses its midline upward at $x=0$. Find $a+b+d$.",
+          latex: "y=a\\sin(bx)+d",
+          answer: "7",
+          acceptedAnswers: ["a=4,b=2,d=1; sum=7", "4+2+1", "seven"],
+          hint:
+            "Use the extrema for amplitude and midline, then use $2\\pi/b$ for the period.",
+          explanation:
+            "The amplitude is $(5-(-3))/2=4$, so $a=4$. The midline is $(5+(-3))/2=1$, so $d=1$. Period $\\pi$ gives $2\\pi/b=\\pi$, hence $b=2$. The upward origin crossing is consistent with positive sine, and $a+b+d=7$.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires reverse inference of three sinusoidal parameters from extrema, period, and orientation.",
+          cartesianGraph: reverseFeatureCurve,
+        }),
+        qualityChoice({
+          id: "y11adv-trig-exam-qm6",
+          prompt:
+            "Mina evaluates $\\sin(5\\pi/6)+\\cos(4\\pi/3)$ using unit-circle coordinates. Theo uses reference angles and quadrant signs. Whose method is valid?",
+          latex: "\\sin\\frac{5\\pi}{6}+\\cos\\frac{4\\pi}{3}",
+          answer: "C",
+          choices: ["Mina only", "Theo only", "Both methods", "Neither method"],
+          hint:
+            "Both representations encode the same exact sine and cosine values. Evaluate each chain before judging it.",
+          explanation:
+            "Unit-circle coordinates give $\\sin(5\\pi/6)=1/2$ and $\\cos(4\\pi/3)=-1/2$. Reference angles with quadrant signs give the same pair. Both methods therefore obtain a total of 0 and are valid.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Assesses equivalence between coordinate and reference-angle strategies for exact values across different quadrants.",
+          distractorMisconceptions: {
+            A: "Rejects a valid reference-angle method.",
+            B: "Rejects a valid unit-circle coordinate method.",
+            D: "Fails to recognise either representation as a complete exact-value method.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm7",
+          prompt:
+            "A point starts at $(5,0)$ on a circle of radius 5 centred at the origin and travels counterclockwise through arc length $5\\pi/2$. Find its final coordinates.",
+          latex: "\\text{counterclockwise circular motion}",
+          answer: "0,5",
+          acceptedAnswers: ["(0,5)", "x=0,y=5", "0,5 units"],
+          hint:
+            "Convert arc length to angular displacement using $\\theta=s/r$, then apply the unit-circle coordinate rule scaled by radius 5.",
+          explanation:
+            "The angular displacement is $\\theta=(5\\pi/2)/5=\\pi/2$. Starting on the positive x-axis and rotating counterclockwise by $\\pi/2$ reaches the positive y-axis. Scaling $(\\cos\\theta,\\sin\\theta)$ by 5 gives $(0,5)$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines arc-length inversion, rotation direction, and scaled unit-circle coordinates.",
+          sectorDiagram: {
+            description:
+              "A radius-5 circle with a point starting on the positive x-axis and travelling counterclockwise through a quarter-turn arc of length 5 pi over 2.",
+            angleDegrees: 90,
+            radiusLabel: "r=5",
+            angleLabel: "\\theta",
+            arcLabel: "s=\\frac{5\\pi}{2}",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm8",
+          prompt:
+            "For $f_n(x)=3\\sin(nx-\\pi/2)+1$, where $n$ is an integer satisfying $1\\le n\\le8$, find the sum of all $n$ for which $x=\\pi/2$ is a maximum point.",
+          latex: "\\text{bounded transformed-graph family}",
+          answer: "8",
+          acceptedAnswers: ["n=2,6; sum=8", "2+6=8", "eight"],
+          hint:
+            "At a maximum, the sine input equals $\\pi/2$ modulo $2\\pi$. Substitute $x=\\pi/2$ and solve the bounded congruence.",
+          explanation:
+            "A maximum requires $n\\pi/2-\\pi/2=\\pi/2+2k\\pi$. Thus $(n-1)\\pi/2=\\pi/2+2k\\pi$, so $n=2+4k$. Within $1\\le n\\le8$, the values are 2 and 6, whose sum is 8.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests systematic filtering of a bounded transformation-parameter family using periodic phase conditions.",
+          trigGraphDiagram: {
+            description:
+              "A generic transformed sine family f sub n with midline 1, amplitude 3, variable frequency n, and the test location x equals pi over 2 marked.",
+            functionType: "sin",
+            equationLabel: "f_n(x)=3\\sin(nx-\\pi/2)+1",
+            xMin: "0",
+            xMax: "2pi",
+            yMin: -2.5,
+            yMax: 4.5,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm9",
+          prompt:
+            "A sector has arc length $6\\pi$ cm and area $18\\pi$ cm². Find its exact perimeter, including the two radii.",
+          latex: "\\text{reverse sector design}",
+          answer: "12+6pi",
+          acceptedAnswers: ["12+6\\pi", "$12+6\\pi$", "6pi+12 cm"],
+          hint:
+            "Use $A=rs/2$ to recover the radius from area and arc length, then add the arc and two radii.",
+          explanation:
+            "For a sector, $A=rs/2$, so $18\\pi=r(6\\pi)/2=3\\pi r$ and $r=6$ cm. The perimeter is the arc plus two radii: $6\\pi+2(6)=12+6\\pi$ cm.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires reverse inference from linked circular measures and distinction between arc length and full sector perimeter.",
+          sectorDiagram: {
+            description:
+              "A circle sector with unknown radius, arc length 6 pi centimetres, area 18 pi square centimetres, and perimeter to be found.",
+            angleDegrees: 180,
+            radiusLabel: "r",
+            arcLabel: "s=6\\pi\\text{ cm}",
+            angleLabel: "\\theta",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-trig-exam-qm10",
+          prompt:
+            "A sector of radius 6 has arc length $4\\pi$. A sinusoid $y=3\\sin(bx+c)+1$ has period equal to the sector angle in radians and its first upward midline crossing is at one quarter of that angle. Using the value of $c$ with smallest absolute value, find $b+c$.",
+          latex: "\\text{link circular measure and phase}",
+          answer: "3-pi/2",
+          acceptedAnswers: ["3-\\pi/2", "$3-\\frac\\pi2$", "b=3,c=-pi/2"],
+          hint:
+            "Find the sector angle, use it as the sinusoid's period to determine b, then impose a zero sine input at the stated upward crossing.",
+          explanation:
+            "The sector angle is $\\theta=s/r=4\\pi/6=2\\pi/3$. Setting the sinusoid's period $2\\pi/b$ equal to $2\\pi/3$ gives $b=3$. The crossing is at $x=\\theta/4=\\pi/6$ and must have input 0, so $3(\\pi/6)+c=0$ gives $c=-\\pi/2$. Hence $b+c=3-\\pi/2$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates arc-length inversion, period reconstruction, and a directional phase condition across two representations.",
+          sectorDiagram: {
+            description:
+              "A circle sector of radius 6 with arc length 4 pi and unknown central angle theta, which will become a sinusoidal period.",
+            angleDegrees: 120,
+            radiusLabel: "r=6",
+            arcLabel: "s=4\\pi",
+            angleLabel: "\\theta",
+            showFullCircle: true,
+          },
+        }),
       ],
       multiPartPractice: [
         {
@@ -804,6 +1261,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           hint: "Identify a = 2, b = 3, c = −π/2, d = 1. Then apply the standard formulas.",
           explanation:
             "(a) amplitude = |a| = 2. (b) period = 2π/b = 2π/3. (c) phase shift = −c/b = −(−π/2)/3 = π/6 (right). (d) maximum = d + |a| = 1 + 2 = 3.",
+          cartesianGraph: examMultipartGraph,
           parts: [
             {
               key: "a",
@@ -812,9 +1270,9 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               latex: "\\text{amplitude}=|a|",
               marks: 1,
               answer: "2",
-              acceptedAnswers: [],
-              hint: "Amplitude = |a|. Read the coefficient of sin.",
-              explanation: "a = 2, so amplitude = |2| = 2.",
+              acceptedAnswers: ["amplitude 2", "2.0"],
+              hint: "Amplitude is the absolute value of the outside sine coefficient.",
+              explanation: "The outside coefficient is a = 2, so the amplitude is |a| = |2| = 2.",
             },
             {
               key: "b",
@@ -824,8 +1282,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               marks: 1,
               answer: "2pi/3",
               acceptedAnswers: ["2\\pi/3", "2π/3"],
-              hint: "Period = 2π/b. Here b = 3.",
-              explanation: "b = 3. Period = 2π/3.",
+              hint: "Read b = 3 from the coefficient of x, then use period = 2π/b.",
+              explanation: "The horizontal coefficient is b = 3. Therefore the period is 2π/b = 2π/3.",
             },
             {
               key: "c",
@@ -836,7 +1294,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               answer: "pi/6",
               acceptedAnswers: ["\\pi/6", "π/6"],
               hint: "Phase shift = −c/b = −(−π/2)/3. Simplify the double negative.",
-              explanation: "c = −π/2, b = 3. Phase shift = (π/2)/3 = π/6 to the right.",
+              explanation: "Here c = −π/2 and b = 3. Thus −c/b = (π/2)/3 = π/6, so the graph shifts π/6 to the right.",
             },
             {
               key: "d",
@@ -845,9 +1303,9 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               latex: "\\text{max}=d+|a|",
               marks: 1,
               answer: "3",
-              acceptedAnswers: [],
-              hint: "Maximum = d + |a| = 1 + 2.",
-              explanation: "d = 1, |a| = 2. Maximum = 1 + 2 = 3.",
+              acceptedAnswers: ["maximum 3", "y=3"],
+              hint: "Add the amplitude to the midline value d = 1.",
+              explanation: "The midline is d = 1 and the amplitude is |a| = 2. Therefore the maximum is d + |a| = 1 + 2 = 3.",
             },
           ],
         },
@@ -983,54 +1441,206 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Confusing cos(π/4) = √2 with the correct value √2/2.", fix: "The hypotenuse is √2; dividing the leg 1 by √2 gives 1/√2 = √2/2." },
       ],
       masteryQuiz: [
-        {
-          ...formulaAnswer("y11adv-ev-m1", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{6}\\right)", "1/2", ["0.5"]),
-          hint: "Opposite to 30° is 1, hypotenuse is 2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ev-m2", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{3}\\right)", "1/2", ["0.5"]),
-          hint: "Adjacent to 60° is 1, hypotenuse is 2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ev-m3", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2"]),
-          hint: "Opposite to 60° is √3, hypotenuse is 2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ev-m4", "Evaluate without a calculator.", "\\cos\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2"]),
-          hint: "Adjacent to 30° is √3, hypotenuse is 2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ev-m5", "Evaluate without a calculator.", "\\tan\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)", ["\\sqrt{3}"]),
-          hint: "Opposite to 60° is √3, adjacent is 1.",
-        },
-        {
-          ...formulaAnswer("y11adv-ev-m6", "Evaluate without a calculator.", "\\sin\\left(\\frac{\\pi}{4}\\right)", "sqrt(2)/2", ["1/sqrt(2)", "\\sqrt{2}/2"]),
-          hint: "Opposite is 1, hypotenuse is √2 in the 45-45-90 triangle.",
-        },
-        practicalChoice(
-          "y11adv-ev-m7",
-          "Which is the correct value of $\\cos\\!\\left(\\frac{\\pi}{4}\\right)$?",
-          "A",
-          ["$\\frac{\\sqrt{2}}{2}$", "$1$", "$\\frac{\\sqrt{3}}{2}$", "$\\frac{1}{2}$"],
-          "cos(π/4) = adjacent/hypotenuse = 1/√2 = √2/2.",
-          "\\cos\\left(\\frac{\\pi}{4}\\right)"
-        ),
-        {
-          ...formulaAnswer("y11adv-ev-m8", "Evaluate without a calculator.", "2\\sin\\!\\left(\\frac{\\pi}{6}\\right)+\\cos\\!\\left(\\frac{\\pi}{3}\\right)", "3/2", []),
-          hint: "Substitute sin(π/6) = 1/2 and cos(π/3) = 1/2, then compute 2(1/2) + 1/2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ev-m9", "Evaluate without a calculator.", "\\tan\\!\\left(\\frac{\\pi}{3}\\right)\\times\\cos\\!\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2"]),
-          hint: "Substitute tan(π/3) = √3 and cos(π/3) = 1/2, then multiply.",
-        },
-        practicalChoice(
-          "y11adv-ev-m10",
-          "A student writes $\\sin\\!\\left(\\frac{\\pi}{3}\\right)=\\frac{1}{2}$. Identify the error.",
-          "B",
-          ["They used the wrong triangle", "They swapped $\\sin(\\frac{\\pi}{3})$ and $\\sin(\\frac{\\pi}{6})$", "They forgot to rationalise", "The hypotenuse should be √3"],
-          "sin(π/3) = √3/2. The value 1/2 belongs to sin(π/6).",
-          "\\sin\\left(\\frac{\\pi}{3}\\right)"
-        ),
+        qualityChoice({
+          id: "y11adv-est-qm1",
+          prompt:
+            "In a $30^\\circ$-$60^\\circ$-$90^\\circ$ triangle with side ratio $1:\\sqrt3:2$, which quotient gives $\\sin(\\pi/3)$?",
+          latex: "\\sin\\left(\\frac{\\pi}{3}\\right)",
+          choices: ["$\\dfrac{1}{2}$", "$\\dfrac{\\sqrt3}{2}$", "$\\sqrt3$", "$\\dfrac{2}{\\sqrt3}$"],
+          answer: "B",
+          hint: "For the 60-degree angle, identify the opposite side and divide it by the hypotenuse.",
+          explanation:
+            "At the $60^\\circ$ angle, the opposite side has length $\\sqrt3$ and the hypotenuse has length 2. Therefore $\\sin(\\pi/3)=\\text{opposite}/\\text{hypotenuse}=\\sqrt3/2$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks whether the learner derives an exact value from labelled side roles rather than recalling an ungrounded table entry.",
+          distractorMisconceptions: {
+            A: "Uses the side opposite 30 degrees instead of the side opposite 60 degrees.",
+            C: "Forms opposite over adjacent, which is tangent rather than sine.",
+            D: "Reverses the sine ratio to hypotenuse over opposite.",
+          },
+          triangleDiagram: tri3060,
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm2",
+          prompt: "Evaluate exactly without a calculator.",
+          latex: "2\\cos\\left(\\frac{\\pi}{6}\\right)-\\sin\\left(\\frac{\\pi}{3}\\right)",
+          answer: "sqrt(3)/2",
+          acceptedAnswers: ["\\sqrt{3}/2", "√3/2", "$\\frac{\\sqrt3}{2}$"],
+          hint: "Substitute both exact values before combining their like radical terms.",
+          explanation:
+            "Both values come from the 30-60-90 triangle: $\\cos(\\pi/6)=\\sqrt3/2$ and $\\sin(\\pi/3)=\\sqrt3/2$. Hence $2(\\sqrt3/2)-\\sqrt3/2=\\sqrt3/2$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks accurate recall and simplification of a short exact-value expression with like radicals.",
+        }),
+        qualityChoice({
+          id: "y11adv-est-qm3",
+          prompt:
+            "A student obtains $\\tan(\\pi/6)=1/\\sqrt3$ and then writes $\\tan(\\pi/6)=\\sqrt3$. Which correction is valid?",
+          latex: "\\frac{1}{\\sqrt3}",
+          choices: [
+            "$\\tan(\\pi/6)=\\sqrt3$ because only the numerator changes",
+            "$\\tan(\\pi/6)=\\dfrac13$ because the denominator is squared",
+            "$\\tan(\\pi/6)=\\dfrac{\\sqrt3}{3}$ because numerator and denominator are multiplied by $\\sqrt3$",
+            "$\\tan(\\pi/6)=\\dfrac{\\sqrt2}{2}$ because all special-triangle values have denominator 2",
+          ],
+          answer: "C",
+          hint: "Rationalising must multiply the numerator and denominator by the same non-zero value.",
+          explanation:
+            "Multiplying both parts of $1/\\sqrt3$ by $\\sqrt3$ gives $\\sqrt3/(\\sqrt3\\cdot\\sqrt3)=\\sqrt3/3$. Changing only the numerator does not preserve the value of the fraction.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses an invalid rationalisation step rather than merely asking for the memorised tangent value.",
+          distractorMisconceptions: {
+            A: "Changes only the numerator and therefore changes the fraction's value.",
+            B: "Squares the denominator without applying the same factor to the numerator.",
+            D: "Transfers the 45-degree sine or cosine value to a 30-degree tangent.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm4",
+          prompt:
+            "Find the real number $a$ that makes the equation true.",
+          latex: "a\\sin\\left(\\frac{\\pi}{6}\\right)+\\cos\\left(\\frac{\\pi}{3}\\right)=\\frac52",
+          answer: "4",
+          acceptedAnswers: ["4.0", "a=4", "$a=4$"],
+          hint: "Replace both trigonometric values by one half, then solve the resulting linear equation.",
+          explanation:
+            "Since $\\sin(\\pi/6)=\\cos(\\pi/3)=1/2$, the equation becomes $a/2+1/2=5/2$. Subtracting $1/2$ gives $a/2=2$, so $a=4$.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Checks reverse use of exact values inside a simple parameter equation rather than direct evaluation alone.",
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm5",
+          prompt: "Evaluate exactly and simplify fully.",
+          latex: "\\frac{\\sin(\\pi/3)-\\cos(\\pi/3)}{\\sin(\\pi/6)+\\cos(\\pi/6)}",
+          answer: "2-sqrt(3)",
+          acceptedAnswers: ["2-\\sqrt{3}", "2−√3", "$2-\\sqrt3$"],
+          hint: "Substitute the four exact values, cancel the common halves, and rationalise the resulting quotient.",
+          explanation:
+            "Substitution gives $(\\sqrt3-1)/(1+\\sqrt3)$. Multiplying by $(\\sqrt3-1)/(\\sqrt3-1)$ produces $(\\sqrt3-1)^2/(3-1)=(4-2\\sqrt3)/2=2-\\sqrt3$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines four exact values with fraction simplification, conjugate rationalisation, and radical algebra.",
+        }),
+        qualityChoice({
+          id: "y11adv-est-qm6",
+          prompt:
+            "Mia finds $\\tan(\\pi/6)$ directly from a $30$-$60$-$90$ triangle as $1/\\sqrt3$. Noah uses $\\sin(\\pi/6)/\\cos(\\pi/6)$. Which assessment is correct?",
+          latex: "\\frac{1}{\\sqrt3}=\\frac{\\sin(\\pi/6)}{\\cos(\\pi/6)}",
+          choices: [
+            "Only Mia is correct because tangent cannot be written using sine and cosine",
+            "Only Noah is correct because a triangle quotient cannot contain a surd",
+            "Both are correct and simplify to $\\dfrac{\\sqrt3}{3}$",
+            "Neither is correct because $\\tan(\\pi/6)=1$",
+          ],
+          answer: "C",
+          hint: "Evaluate Noah's quotient and rationalise both representations before comparing them.",
+          explanation:
+            "Mia has opposite over adjacent, $1/\\sqrt3$. Noah obtains $(1/2)/(\\sqrt3/2)=1/\\sqrt3$. Both are valid and rationalise to $\\sqrt3/3$.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks equivalence of geometric and identity-based derivations instead of privileging one memorised method.",
+          distractorMisconceptions: {
+            A: "Rejects the valid identity tangent equals sine divided by cosine.",
+            B: "Rejects a valid surd ratio from a special triangle.",
+            D: "Transfers the 45-degree tangent value to 30 degrees.",
+          },
+          triangleDiagram: tri3060,
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm7",
+          prompt:
+            "A $30^\\circ$-$60^\\circ$-$90^\\circ$ triangle has side lengths $k$, $k\\sqrt3$, and $2k$. Its area is $8\\sqrt3$ square units. Find its exact perimeter.",
+          latex: "\\frac12(k)(k\\sqrt3)=8\\sqrt3",
+          answer: "12+4sqrt(3)",
+          acceptedAnswers: ["12+4\\sqrt{3}", "4sqrt(3)+12", "12+4√3", "$12+4\\sqrt3$"],
+          hint: "Use the two perpendicular legs to find the positive scale factor $k$, then add all three sides.",
+          explanation:
+            "The area equation is $k^2\\sqrt3/2=8\\sqrt3$, so $k^2=16$ and the positive scale is $k=4$. The perimeter is $k+k\\sqrt3+2k=3k+k\\sqrt3=12+4\\sqrt3$.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Uses the special-triangle ratio in reverse through area, a square root, and a final perimeter synthesis.",
+          triangleDiagram: {
+            ...tri3060,
+            description:
+              "A 30-60-90 right triangle with legs k and k square root three, hypotenuse 2k, and total area eight square root three.",
+            sideLabels: { AC: "k", BC: "k\\sqrt3", AB: "2k" },
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm8",
+          prompt:
+            "For integers $1\\le n\\le40$, define $E_n=n\\sin(\\pi/6)+\\cos(\\pi/3)$. How many values of $n$ make $E_n$ a positive integer multiple of 5?",
+          latex: "E_n=n\\sin\\left(\\frac{\\pi}{6}\\right)+\\cos\\left(\\frac{\\pi}{3}\\right)",
+          answer: "4",
+          acceptedAnswers: ["4.0", "four", "4 values"],
+          hint: "Simplify $E_n$ to $(n+1)/2$, then translate the multiple-of-five condition into a congruence for $n$.",
+          explanation:
+            "Exact substitution gives $E_n=(n+1)/2$. This is a multiple of 5 when $n+1$ is divisible by 10, so $n\\equiv9\\pmod{10}$. In the stated range the values are $9,19,29,39$, giving 4.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded family to connect exact trigonometric values, integrality, divisibility, and systematic counting.",
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm9",
+          prompt:
+            "Two right triangles each have hypotenuse 12. Their chosen acute angles are $\\pi/4$ and $\\pi/6$. Find the exact area of the first triangle minus the area of the second.",
+          latex: "A(\\theta)=\\frac12(12\\sin\\theta)(12\\cos\\theta)",
+          answer: "36-18sqrt(3)",
+          acceptedAnswers: ["36-18\\sqrt{3}", "36−18√3", "18(2-sqrt(3))", "18(2-\\sqrt3)"],
+          hint: "For each triangle, express the perpendicular legs as $12\\sin\\theta$ and $12\\cos\\theta$.",
+          explanation:
+            "The area is $72\\sin\\theta\\cos\\theta$. At $\\pi/4$ this is $72(\\sqrt2/2)^2=36$. At $\\pi/6$ it is $72(1/2)(\\sqrt3/2)=18\\sqrt3$. The requested difference is $36-18\\sqrt3$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Builds and compares two triangle-area models using several exact values and radical simplification.",
+          trianglePairDiagram: {
+            description:
+              "Two right triangles, each with hypotenuse 12; the left has chosen acute angle pi over four and the right has chosen acute angle pi over six.",
+            left: {
+              ...tri4545,
+              description:
+                "Right isosceles triangle with hypotenuse 12 and both legs 6 square root two.",
+              sideLabels: { AC: "6\\sqrt2", BC: "6\\sqrt2", AB: "12" },
+            },
+            right: {
+              ...tri3060,
+              description:
+                "30-60-90 right triangle with chosen 30-degree angle, hypotenuse 12, opposite leg 6, and adjacent leg 6 square root three.",
+              sideLabels: { AC: "6", BC: "6\\sqrt3", AB: "12" },
+            },
+            leftCaption: "\\theta=\\frac{\\pi}{4}",
+            rightCaption: "\\theta=\\frac{\\pi}{6}",
+            relationLabel: "\\text{same hypotenuse}",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-est-qm10",
+          prompt:
+            "Real numbers $x$ and $y$ satisfy the system below. Find $xy$.",
+          latex: "\\begin{aligned}x\\sin(\\pi/6)+y\\cos(\\pi/6)&=2+\\sqrt3\\\\x\\cos(\\pi/6)-y\\sin(\\pi/6)&=2\\sqrt3-1\\end{aligned}",
+          answer: "8",
+          acceptedAnswers: ["8.0", "xy=8", "$xy=8$"],
+          hint: "Replace the exact trigonometric values first; the resulting two linear equations determine $x$ and $y$.",
+          explanation:
+            "Substitution gives $x+\\sqrt3y=4+2\\sqrt3$ and $\\sqrt3x-y=4\\sqrt3-2$. Solving yields $x=4$ and $y=2$, so $xy=8$. Substitution back into both original equations verifies the pair.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Integrates exact values with a two-equation algebraic system and requires verification of the inferred parameters.",
+        }),
       ],
     };
   }
@@ -1191,7 +1801,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           "y=\\sin x"
         ),
         {
-          ...formulaAnswer("y11adv-graph-i3", "State the period of the graph.", "y=\\tan x", "pi", ["\\pi", "π"]),
+          ...formulaAnswer("y11adv-graph-i3", "State the horizontal distance between consecutive vertical asymptotes.", "y=\\tan x", "pi", ["\\pi", "π"]),
           trigGraphDiagram: tanGraph,
           hint: "Read the distance between two consecutive asymptotes or identical-looking branches.",
         },
@@ -1215,62 +1825,211 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Locating the zeros of cos x at x = 0 and x = π.", fix: "cos(0) = 1 and cos(π) = −1. Cosine is zero at x = π/2 and x = 3π/2." },
       ],
       masteryQuiz: [
-        {
-          ...formulaAnswer("y11adv-graph-m1", "State the period of the graph.", "y=\\sin(4x)", "pi/2", ["\\pi/2", "π/2"]),
-          hint: "Period = 2π ÷ b; here b = 4.",
-        },
-        {
-          ...formulaAnswer("y11adv-graph-m2", "State the period of the graph.", "y=\\tan(2x)", "pi/2", ["\\pi/2", "π/2"]),
-          hint: "Tangent's period is π ÷ b; here b = 2.",
-        },
-        practicalChoice(
-          "y11adv-graph-m3",
-          "Which graph has a y-intercept of 1?",
-          "B",
-          ["$y=\\sin x$", "$y=\\cos x$", "$y=\\tan x$", "$y=-\\sin x$"],
-          "cos(0) = 1. Cosine starts at its maximum.",
-          "x=0"
-        ),
-        {
-          ...formulaAnswer("y11adv-graph-m4", "State the maximum value of the graph.", "y=4\\sin x", "4", []),
-          hint: "For an unshifted graph the maximum equals the amplitude.",
-        },
-        {
-          ...formulaAnswer("y11adv-graph-m5", "Evaluate.", "\\cos\\pi", "-1", []),
-          hint: "At x = π the cosine curve is at its minimum.",
-        },
-        {
-          ...formulaAnswer("y11adv-graph-m6", "Evaluate.", "\\sin\\frac{3\\pi}{2}", "-1", []),
-          hint: "At x = 3π/2 the sine curve is at its minimum.",
-        },
-        practicalChoice(
-          "y11adv-graph-m7",
-          "A student states that $y=\\tan x$ has range $[-1,1]$. Identify the error.",
-          "C",
-          ["Tangent is never negative", "Tangent has no period", "Tangent has range all real numbers, not $[-1,1]$", "Tangent equals sine divided by sine"],
-          "Tangent = sin/cos and is unbounded. Its range is all real numbers.",
-          "y=\\tan x"
-        ),
-        practicalChoice(
-          "y11adv-graph-m8",
-          "A student states that $y=\\tan x$ has period $2\\pi$. Identify the error.",
-          "A",
-          ["Tangent has period $\\pi$, not $2\\pi$", "Tangent has no period", "Period $2\\pi$ is correct for tangent", "Tangent has period $\\pi/2$"],
-          "Tangent completes one cycle every π radians.",
-          "y=\\tan x"
-        ),
-        {
-          ...formulaAnswer("y11adv-graph-m9", "State the first positive vertical asymptote.", "y=\\tan x", "pi/2", ["\\pi/2", "π/2"]),
-          hint: "Tangent is undefined where cos x = 0. The first positive angle where cos x = 0 is π/2.",
-        },
-        practicalChoice(
-          "y11adv-graph-m10",
-          "Which set gives all zeros of $y=\\sin x$ on $[0,2\\pi]$?",
-          "D",
-          ["$\\left\\{\\frac{\\pi}{2},\\,\\frac{3\\pi}{2}\\right\\}$", "$\\{0,\\,\\pi\\}$", "$\\left\\{\\frac{\\pi}{2},\\,\\pi,\\,\\frac{3\\pi}{2}\\right\\}$", "$\\{0,\\,\\pi,\\,2\\pi\\}$"],
-          "sin x = 0 at x = 0, π, and 2π on [0, 2π].",
-          "y=\\sin x,\\quad x\\in[0,2\\pi]"
-        ),
+        qualityChoice({
+          id: "y11adv-graph-qm1",
+          prompt:
+            "A parent trigonometric graph passes through the origin, reaches a maximum at $x=\\frac{\\pi}{2}$, and first returns to the $x$-axis at $x=\\pi$. Which function is it?",
+          latex: "0\\le x\\le 2\\pi",
+          answer: "A",
+          choices: [
+            "$y=\\sin x$",
+            "$y=\\cos x$",
+            "$y=\\tan x$",
+            "There is not enough information",
+          ],
+          hint:
+            "Compare the starting value and first turning point with the five key points of sine and cosine.",
+          explanation:
+            "The sine graph starts at $(0,0)$, rises to $(\\frac{\\pi}{2},1)$, and returns to zero at $x=\\pi$. Cosine starts at 1, while tangent has no maximum. Therefore the function is $y=\\sin x$.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether the learner can identify a parent graph from a linked set of features rather than from its equation.",
+          distractorMisconceptions: {
+            B: "Confuses the sine and cosine starting values.",
+            C: "Recognises the origin but ignores that tangent has no maximum.",
+            D: "Does not combine multiple graph features to identify a unique parent function.",
+          },
+          trigGraphDiagram: sinGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm2",
+          prompt:
+            "List every zero of the cosine graph on the closed interval shown.",
+          latex: "y=\\cos x,\\qquad 0\\le x\\le 2\\pi",
+          answer: "pi/2,3pi/2",
+          acceptedAnswers: [
+            "3pi/2,pi/2",
+            "{pi/2,3pi/2}",
+            "\\frac{\\pi}{2},\\frac{3\\pi}{2}",
+            "x=pi/2,3pi/2",
+          ],
+          hint:
+            "Zeros are the points where the curve crosses the horizontal axis; check the quarter-turn and three-quarter-turn positions.",
+          explanation:
+            "The cosine graph crosses the $x$-axis twice in one complete cycle: at $x=\\frac{\\pi}{2}$ and $x=\\frac{3\\pi}{2}$. Both endpoints have cosine value 1, so neither is included.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks accurate extraction of all zeros from a parent cosine graph, including endpoint checking.",
+          trigGraphDiagram: cosGraph,
+        }),
+        qualityChoice({
+          id: "y11adv-graph-qm3",
+          prompt:
+            "A student says the tangent graph is continuous on $[0,2\\pi]$ because it crosses the $x$-axis at $0$, $\\pi$, and $2\\pi$. Which response best diagnoses the claim?",
+          latex: "y=\\tan x",
+          answer: "C",
+          choices: [
+            "The claim is correct because every zero joins two branches.",
+            "The graph is discontinuous only at $x=\\pi$.",
+            "The graph has vertical asymptotes at $x=\\frac{\\pi}{2}$ and $x=\\frac{3\\pi}{2}$.",
+            "The graph has endpoints, so continuity cannot be discussed.",
+          ],
+          hint:
+            "Zeros tell you where the graph meets the axis; they do not tell you where the function is undefined.",
+          explanation:
+            "Since $\\tan x=\\frac{\\sin x}{\\cos x}$, tangent is undefined wherever $\\cos x=0$. On this interval that occurs at $x=\\frac{\\pi}{2}$ and $x=\\frac{3\\pi}{2}$, producing vertical asymptotes and breaking continuity.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests whether the learner distinguishes zeros from undefined points and can use the quotient definition to diagnose discontinuity.",
+          distractorMisconceptions: {
+            A: "Treats x-intercepts as evidence that separate tangent branches join.",
+            B: "Mistakes a tangent zero for an undefined point.",
+            D: "Confuses continuity on a closed interval with the existence of endpoints.",
+          },
+          trigGraphDiagram: tanGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm4",
+          prompt:
+            "A parent trigonometric function has range $[-1,1]$, satisfies $f(0)=1$, and satisfies $f(\\pi)=-1$. Identify $f(x)$.",
+          latex: "f:\\mathbb{R}\\to[-1,1]",
+          answer: "cos x",
+          acceptedAnswers: ["cos(x)", "y=cos x", "f(x)=cos x", "\\cos x"],
+          hint:
+            "Use the starting value to separate sine from cosine, then use the bounded range to rule out tangent.",
+          explanation:
+            "Both sine and cosine have range $[-1,1]$, but only cosine starts at 1. The check $\\cos\\pi=-1$ confirms the second feature, so $f(x)=\\cos x$.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires synthesising range and sampled-value information to reconstruct the unique parent function.",
+          trigGraphDiagram: cosGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm5",
+          prompt:
+            "Find every $x$ in the interval for which the sine and cosine parent graphs have the same height.",
+          latex: "\\sin x=\\cos x,\\qquad 0\\le x\\le 2\\pi",
+          answer: "pi/4,5pi/4",
+          acceptedAnswers: [
+            "5pi/4,pi/4",
+            "{pi/4,5pi/4}",
+            "\\frac{\\pi}{4},\\frac{5\\pi}{4}",
+            "x=pi/4,5pi/4",
+          ],
+          hint:
+            "Where cosine is nonzero, divide by $\\cos x$ and solve $\\tan x=1$. Then check the points where cosine is zero.",
+          explanation:
+            "At any solution, $\\cos x\\ne0$, so division gives $\\tan x=1$. The reference angle is $\\frac{\\pi}{4}$ and tangent is positive in quadrants I and III. Hence $x=\\frac{\\pi}{4}$ and $x=\\frac{5\\pi}{4}$. At the two excluded cosine zeros, sine is not zero, so no solution was lost.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks comparison of two parent graphs through an equivalent equation, quadrant reasoning, and validation of a division step.",
+        }),
+        qualityChoice({
+          id: "y11adv-graph-qm6",
+          prompt:
+            "Jada locates tangent's vertical asymptotes by solving $\\cos x=0$. Minh locates them halfway between consecutive tangent zeros. On $[0,2\\pi]$, whose method is valid?",
+          latex: "y=\\tan x",
+          answer: "C",
+          choices: [
+            "Jada only",
+            "Minh only",
+            "Both methods",
+            "Neither method",
+          ],
+          hint:
+            "Compare the zeros $0,\\pi,2\\pi$ with the points where the denominator in $\\tan x=\\frac{\\sin x}{\\cos x}$ vanishes.",
+          explanation:
+            "Jada's method gives $x=\\frac{\\pi}{2},\\frac{3\\pi}{2}$ because tangent is undefined where cosine is zero. These values are also exactly halfway between the consecutive tangent zeros $0,\\pi,2\\pi$, so Minh's graphical pattern is valid as well.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Assesses whether the learner can reconcile an algebraic definition with a structural pattern in the tangent graph.",
+          distractorMisconceptions: {
+            A: "Accepts the quotient definition but does not recognise the midpoint pattern.",
+            B: "Recognises a graph pattern but rejects the defining quotient.",
+            D: "Does not connect tangent zeros, cosine zeros, and vertical asymptotes.",
+          },
+          trigGraphDiagram: tanGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm7",
+          prompt:
+            "How many distinct values of $x$ in the interval make at least one of the three parent functions equal to zero?",
+          latex: "\\sin x=0\\;\\text{or}\\;\\cos x=0\\;\\text{or}\\;\\tan x=0,\\qquad 0\\le x\\le2\\pi",
+          answer: "5",
+          acceptedAnswers: ["5 values", "five"],
+          hint:
+            "Form the union of the three zero sets. Remember that every tangent zero is also a sine zero.",
+          explanation:
+            "Sine and tangent are zero at $0,\\pi,2\\pi$. Cosine is zero at $\\frac{\\pi}{2},\\frac{3\\pi}{2}$. Combining the sets without double-counting gives five distinct values.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires combining three graph-feature sets while recognising overlap instead of double-counting shared zeros.",
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm8",
+          prompt:
+            "For $x_n=\\frac{n\\pi}{8}$ with integer $0\\le n\\le32$, how many values of $n$ make $\\sin x_n$ and $\\cos x_n$ equal?",
+          latex: "\\sin x_n=\\cos x_n",
+          answer: "4",
+          acceptedAnswers: ["4 values", "four"],
+          hint:
+            "First solve $\\sin x=\\cos x$ generally, then determine which solutions lie on the stated grid.",
+          explanation:
+            "Equality occurs when $x=\\frac{\\pi}{4}+k\\pi$. Setting $\\frac{n\\pi}{8}=\\frac{\\pi}{4}+k\\pi$ gives $n=2+8k$. Within $0\\le n\\le32$, the valid indices are $2,10,18,26$, so there are four.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests systematic investigation of a finite angular grid using a general intersection pattern and boundary filtering.",
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm9",
+          prompt:
+            "Two oscillating signals are modelled by $s(x)=\\sin x$ and $c(x)=\\cos x$. Find the sum of all times in the interval when the signals have equal values.",
+          latex: "0\\le x\\le4\\pi",
+          answer: "7pi",
+          acceptedAnswers: ["7\\pi", "$7\\pi$", "7 pi"],
+          hint:
+            "The equality repeats every $\\pi$. List every solution in the interval before adding them.",
+          explanation:
+            "The signals are equal when $x=\\frac{\\pi}{4}+k\\pi$. In $[0,4\\pi]$ the times are $\\frac{\\pi}{4},\\frac{5\\pi}{4},\\frac{9\\pi}{4},\\frac{13\\pi}{4}$. Their sum is $\\frac{28\\pi}{4}=7\\pi$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires extending a parent-graph intersection pattern over multiple periods and aggregating all valid solutions.",
+        }),
+        qualityAnswer({
+          id: "y11adv-graph-qm10",
+          prompt:
+            "Find the sum of all $x$-values in the interval for which $|\\sin x|$ and $|\\cos x|$ are equal.",
+          latex: "|\\sin x|=|\\cos x|,\\qquad 0\\le x\\le2\\pi",
+          answer: "4pi",
+          acceptedAnswers: ["4\\pi", "$4\\pi$", "4 pi"],
+          hint:
+            "Square both sides, or use symmetry to find where the magnitudes are equal in every quadrant.",
+          explanation:
+            "Squaring gives $\\sin^2x=\\cos^2x$, so $\\tan^2x=1$ at all solutions. In one cycle these are $\\frac{\\pi}{4},\\frac{3\\pi}{4},\\frac{5\\pi}{4},\\frac{7\\pi}{4}$. Their sum is $\\frac{16\\pi}{4}=4\\pi$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Assesses symmetry, absolute-value interpretation, complete solution enumeration, and exact aggregation across one cycle.",
+        }),
       ],
     };
   }
@@ -1313,6 +2072,15 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Each arc subtends 1 radian, so one full turn subtends 2π radians.", latex: "360^\\circ=2\\pi\\text{ radians}" },
           ],
           finalAnswerLatex: "360^\\circ=2\\pi\\text{ radians}",
+          sectorDiagram: {
+            description:
+              "A full circle of radius r with circumference 2 pi r, showing that the boundary contains 2 pi consecutive radius-length arcs and therefore subtends 2 pi radians.",
+            angleDegrees: 360,
+            radiusLabel: "r",
+            angleLabel: "2\\pi\\text{ radians}",
+            arcLabel: "2\\pi r",
+            showFullCircle: true,
+          },
         },
         {
           title: "Recall benchmark angles",
@@ -1346,7 +2114,7 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         formulaAnswer("y11adv-rcon-i1", "State the degree equivalent of the angle.", "\\frac{\\pi}{4}", "45", ["45 degrees", "45°"]),
         practicalChoice("y11adv-rcon-i2", "Which quadrant contains the angle?", "C", ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"], "The angle is between a half turn and three quarter turns.", "\\frac{5\\pi}{4}"),
         formulaAnswer("y11adv-rcon-i3", "State the degree equivalent of the angle.", "2\\pi", "360", ["360 degrees", "360°"]),
-        practicalChoice("y11adv-rcon-i4", "How many radians are in a half turn?", "A", ["$\\pi$", "$2\\pi$", "$\\frac{\\pi}{2}$", "$\\frac{3\\pi}{2}$"], "A half turn is 180°. Use 180° = π.", "\\text{half turn}"),
+        practicalChoice("y11adv-rcon-i4", "How many radians are in a half turn?", "A", ["$\\pi$", "$2\\pi$", "$\\frac{\\pi}{2}$", "$\\frac{3\\pi}{2}$"], "A full turn is $2\\pi$ radians, so a half turn is half of that measure: $\\tfrac12(2\\pi)=\\pi$ radians. This is the same angle as $180^\\circ$.", "\\text{half turn}"),
         practicalChoice("y11adv-rcon-i5", "Which quadrant contains the angle?", "D", ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"], "The angle is between three quarter turns and a full turn.", "\\frac{5\\pi}{3}"),
       ],
       commonMistakes: [
@@ -1356,16 +2124,189 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Forgetting that π/6 = 30°, not 60°.", fix: "π/6 is the smallest common benchmark; π/3 = 60° is twice as large." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-rcon-m1", "State the radian measure of one full turn.", "360^\\circ", "2pi", ["2\\pi", "2π"]),
-        formulaAnswer("y11adv-rcon-m2", "State the radian measure of a right angle.", "90^\\circ", "pi/2", ["\\pi/2", "π/2"]),
-        formulaAnswer("y11adv-rcon-m3", "State the radian measure of a half turn.", "180^\\circ", "pi", ["\\pi", "π"]),
-        formulaAnswer("y11adv-rcon-m4", "State the radian measure of three quarter turns.", "270^\\circ", "3pi/2", ["3\\pi/2", "3π/2"]),
-        practicalChoice("y11adv-rcon-m5", "Which quadrant contains the angle?", "B", ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"], "The angle is between a right angle and a half turn.", "\\frac{5\\pi}{6}"),
-        practicalChoice("y11adv-rcon-m6", "Which quadrant contains the angle?", "C", ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"], "The angle is between a half turn and three quarter turns.", "\\frac{4\\pi}{3}"),
-        practicalChoice("y11adv-rcon-m7", "Which quadrant contains the angle?", "D", ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"], "The angle is between three quarter turns and a full turn.", "\\frac{5\\pi}{3}"),
-        practicalChoice("y11adv-rcon-m8", "Which angle marks the boundary between Q3 and Q4?", "C", ["$\\pi$", "$2\\pi$", "$\\frac{3\\pi}{2}$", "$\\frac{\\pi}{2}$"], "The Q3-Q4 boundary is three quarter turns.", "\\text{quadrant boundaries}"),
-        practicalChoice("y11adv-rcon-m9", "Which statement about radians is correct?", "D", ["A full turn equals $\\pi$ radians", "A right angle equals $\\pi$ radians", "A half turn equals $2\\pi$ radians", "A full turn equals $2\\pi$ radians"], "Use 360° = 2π as the anchor fact.", "\\text{radian facts}"),
-        practicalChoice("y11adv-rcon-m10", "A wheel rotates $3\\pi$ radians. How many complete turns does it make?", "B", ["$2$", "$1$", "$3$", "$\\frac{3}{2}$"], "One full turn is 2π. Divide: 3π ÷ 2π = 1.5, so 1 complete turn.", "3\\pi\\text{ radians}"),
+        qualityChoice({
+          id: "y11adv-rcon-qm1",
+          prompt:
+            "On one circle, an arc of length 4 cm is cut from radius 4 cm. On another, an arc of length 10 cm is cut from radius 10 cm. Which statement about the central angles is correct?",
+          latex: "\\theta=\\frac{s}{r}",
+          choices: [
+            "Both central angles measure $1$ radian",
+            "The central angles measure $4$ and $10$ radians",
+            "The central angles measure $\\tfrac14$ and $\\tfrac1{10}$ radians",
+            "The larger circle has the larger central angle",
+          ],
+          answer: "A",
+          hint: "Compare the ratio of subtended arc to radius in each case.",
+          explanation:
+            "Radian measure is the ratio $\\theta=s/r$. For the first circle, $\\theta=4/4=1$; for the second, $\\theta=10/10=1$. Equal arc-to-radius ratios produce equal central angles even though the circles and arcs have different sizes.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether students understand a radian as a dimensionless arc-to-radius ratio rather than a fixed length.",
+          distractorMisconceptions: {
+            B: "Uses arc length directly as the angle and ignores radius.",
+            C: "Inverts the radian ratio to use radius divided by arc.",
+            D: "Assumes a larger radius automatically creates a larger angle.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm2",
+          prompt:
+            "Find the smallest positive angle coterminal with $\\dfrac{13\\pi}{6}$.",
+          latex: "\\theta=\\frac{13\\pi}{6}",
+          answer: "pi/6",
+          acceptedAnswers: ["\\pi/6", "$\\frac{\\pi}{6}$", "π/6"],
+          hint: "Remove one full turn, written with denominator 6.",
+          explanation:
+            "One full turn is $2\\pi=12\\pi/6$. Subtracting it does not change the terminal ray: $13\\pi/6-12\\pi/6=\\pi/6$. This result is positive and below $2\\pi$, so it is the smallest positive coterminal angle.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Checks whether students use full turns to reduce an angle instead of treating its unreduced numerator as a quadrant label.",
+        }),
+        qualityChoice({
+          id: "y11adv-rcon-qm3",
+          prompt: "Which quadrant contains $\\dfrac{5\\pi}{8}$?",
+          latex: "\\theta=\\frac{5\\pi}{8}",
+          choices: ["Quadrant I", "Quadrant II", "Quadrant III", "Quadrant IV"],
+          answer: "B",
+          hint: "Express the nearest quadrant boundaries with denominator 8.",
+          explanation:
+            "A right angle is $\\pi/2=4\\pi/8$ and a half turn is $\\pi=8\\pi/8$. Since $4\\pi/8<5\\pi/8<8\\pi/8$, the terminal ray lies strictly between the positive $y$-axis and negative $x$-axis, in Quadrant II.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks exact fraction comparison against quadrant boundaries without relying on decimal conversion.",
+          distractorMisconceptions: {
+            A: "Compares only the numerator with the denominator and places the angle before a right angle.",
+            C: "Treats $\\pi/2$ as the start of Quadrant III rather than Quadrant II.",
+            D: "Reads the fraction as being close to a full turn.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm4",
+          prompt:
+            "A shaft rotates through $\\dfrac{17\\pi}{4}$ radians and then stops. How many full revolutions has it completed before reaching its final position?",
+          latex: "\\theta=\\frac{17\\pi}{4}",
+          answer: "2",
+          acceptedAnswers: ["2.0", "two", "2 full revolutions"],
+          hint: "Write one full revolution with denominator 4 and separate the remainder.",
+          explanation:
+            "One revolution is $2\\pi=8\\pi/4$. Dividing $17\\pi/4$ into full turns gives $17\\pi/4=2(8\\pi/4)+\\pi/4$. The shaft therefore completes 2 full revolutions and then continues through another $\\pi/4$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Distinguishes the number of completed revolutions from the non-integer total number of turns.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm5",
+          prompt:
+            "An arc of length 12 cm on a circle of radius 8 cm subtends the same central angle as an arc of length 21 cm on a second circle. Find the second circle's radius in centimetres.",
+          latex: "\\frac{12}{8}=\\frac{21}{R}",
+          answer: "14",
+          acceptedAnswers: ["14.0", "14 cm", "R=14"],
+          hint: "Equal central angles mean equal arc-to-radius ratios.",
+          explanation:
+            "The first central angle is $12/8=3/2$ radians. For the second circle, $21/R=3/2$. Cross-multiplying gives $42=3R$, so $R=14$ cm. The arc is longer because the radius is larger, while the angle remains unchanged.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests transfer of the radian definition to infer an unknown radius from equal central angles.",
+        }),
+        qualityChoice({
+          id: "y11adv-rcon-qm6",
+          prompt:
+            "A student places $\\dfrac{11\\pi}{8}$ in Quadrant II because it is less than $2\\pi$. Which response correctly diagnoses the claim?",
+          latex: "\\theta=\\frac{11\\pi}{8}",
+          choices: [
+            "It is in Quadrant I because $11<16$",
+            "It is in Quadrant II because every angle below $2\\pi$ is in the upper half-plane",
+            "It is in Quadrant III because $\\pi<\\tfrac{11\\pi}{8}<\\tfrac{3\\pi}{2}$",
+            "It is in Quadrant IV because it is greater than $\\pi$",
+          ],
+          answer: "C",
+          hint: "Being below one full turn is not enough; compare with both adjacent boundaries.",
+          explanation:
+            "Using denominator 8, the relevant boundaries are $\\pi=8\\pi/8$ and $3\\pi/2=12\\pi/8$. Since $8\\pi/8<11\\pi/8<12\\pi/8$, the angle lies in Quadrant III. The student's comparison with $2\\pi$ only locates it somewhere before a full turn.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses the misconception that comparison with a full turn alone determines the quadrant.",
+          distractorMisconceptions: {
+            A: "Compares bare numerator and denominator without using angular boundaries.",
+            B: "Treats the entire interval from zero to a full turn as the upper half-plane.",
+            D: "Uses only the lower boundary $\\pi$ and ignores the upper boundary.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm7",
+          prompt:
+            "Starting on the positive $x$-axis, a pointer rotates $\\dfrac{19\\pi}{6}$ counterclockwise and then $\\dfrac{5\\pi}{3}$ clockwise. On which axis does it finish?",
+          latex: "\\frac{19\\pi}{6}-\\frac{5\\pi}{3}",
+          answer: "negative y-axis",
+          acceptedAnswers: [
+            "the negative y-axis",
+            "-y-axis",
+            "negative y axis",
+            "at 3pi/2",
+          ],
+          hint: "Treat clockwise rotation as negative, combine the angles, then identify the boundary.",
+          explanation:
+            "The net rotation is $19\\pi/6-5\\pi/3=19\\pi/6-10\\pi/6=9\\pi/6=3\\pi/2$. An angle of $3\\pi/2$ terminates on the negative $y$-axis, so it is on a boundary rather than inside Quadrant III or IV.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Checks signed combination of rotations and recognition that quadrant boundaries are not quadrants.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm8",
+          prompt:
+            "For integers $0\\le n\\le11$, let $\\theta_n=\\dfrac{(2n+1)\\pi}{6}$. How many of these twelve angles have terminal rays in Quadrant II?",
+          latex: "\\theta_n=\\frac{(2n+1)\\pi}{6},\\qquad 0\\le n\\le11",
+          answer: "2",
+          acceptedAnswers: ["2.0", "two", "2 angles"],
+          hint: "Solve the Quadrant II inequality for one turn, then account for the repeated second turn.",
+          explanation:
+            "Quadrant II requires $\\pi/2<\\theta_n<\\pi$. In the first turn this gives $3<2n+1<6$, so $n=2$ and $\\theta_2=5\\pi/6$. The list spans two full turns, and $n=8$ gives the coterminal angle $17\\pi/6$. Therefore exactly 2 listed angles finish in Quadrant II.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded family to test systematic case analysis, periodicity, and exclusion of axis boundaries.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm9",
+          prompt:
+            "Two externally touching wheels roll without slipping. A wheel of radius 4 cm turns $\\dfrac{13\\pi}{4}$ counterclockwise. A wheel of radius 5 cm starts on the positive $x$-axis and turns through the same contact distance in the opposite direction. In which quadrant does its marker finish?",
+          latex: "4\\left(\\frac{13\\pi}{4}\\right)=5\\lvert\\phi\\rvert",
+          answer: "Quadrant III",
+          acceptedAnswers: ["III", "Q3", "quadrant 3", "third quadrant"],
+          hint: "Equal contact distances give $r_1|\\theta_1|=r_2|\\theta_2|$; then reduce the signed angle.",
+          explanation:
+            "The contact distance is $4(13\\pi/4)=13\\pi$ cm, so the second wheel turns through magnitude $13\\pi/5$. Its direction is clockwise, giving $\\phi=-13\\pi/5$. Adding two full turns gives the coterminal angle $-13\\pi/5+20\\pi/5=7\\pi/5$, which lies in Quadrant III.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Transfers radian measure into a linked-rotation model requiring scale, direction, coterminality, and quadrant reasoning.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rcon-qm10",
+          prompt:
+            "An angle $\\theta$ satisfies $0<\\theta<2\\pi$ and lies in Quadrant IV. If $2\\theta$ is coterminal with $\\dfrac{5\\pi}{3}$, find $\\theta$.",
+          latex: "2\\theta=\\frac{5\\pi}{3}+2k\\pi",
+          answer: "11pi/6",
+          acceptedAnswers: [
+            "11\\pi/6",
+            "$\\frac{11\\pi}{6}$",
+            "11π/6",
+          ],
+          hint: "List the solutions produced by full-turn adjustments, then use the quadrant condition.",
+          explanation:
+            "Coterminality gives $2\\theta=5\\pi/3+2k\\pi$, so $\\theta=5\\pi/6+k\\pi$. Within $0<\\theta<2\\pi$, the possibilities are $5\\pi/6$ and $11\\pi/6$. The first is in Quadrant II, while $11\\pi/6$ is in Quadrant IV. Hence $\\theta=11\\pi/6$.",
+          difficulty: 5,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Requires generating all bounded coterminal solutions and using a quadrant constraint to select the valid angle.",
+        }),
       ],
     };
   }
@@ -1405,6 +2346,15 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Find HCF(120, 180) = 60 and cancel.", latex: "\\frac{120\\pi}{180}=\\frac{2\\pi}{3}" },
           ],
           finalAnswerLatex: "\\frac{2\\pi}{3}",
+          sectorDiagram: {
+            description:
+              "A circle sector with central angle 120 degrees, equivalently two pi over three radians, showing an arc of length two pi r over three on radius r.",
+            angleDegrees: 120,
+            radiusLabel: "r",
+            angleLabel: "120^\\circ=\\frac{2\\pi}{3}",
+            arcLabel: "\\frac{2\\pi r}{3}",
+            showFullCircle: true,
+          },
         },
         {
           title: "Convert 225° to radians",
@@ -1445,16 +2395,184 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Giving a decimal answer instead of an exact fraction.", fix: "Keep π in the answer; only compute a decimal if asked." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-d2r-m1", "Convert the angle to radians.", "30^\\circ", "pi/6", ["\\pi/6", "π/6"]),
-        formulaAnswer("y11adv-d2r-m2", "Convert the angle to radians.", "135^\\circ", "3pi/4", ["3\\pi/4", "3π/4"]),
-        formulaAnswer("y11adv-d2r-m3", "Convert the angle to radians.", "300^\\circ", "5pi/3", ["5\\pi/3", "5π/3"]),
-        formulaAnswer("y11adv-d2r-m4", "Convert the angle to radians.", "210^\\circ", "7pi/6", ["7\\pi/6", "7π/6"]),
-        formulaAnswer("y11adv-d2r-m5", "Convert the angle to radians.", "360^\\circ", "2pi", ["2\\pi", "2π"]),
-        practicalChoice("y11adv-d2r-m6", "A student converts 60° and writes $\\frac{\\pi}{2}$. What is the error?", "D", ["Used the wrong denominator on π", "Forgot to write the π symbol", "The answer should be a decimal", "Divided 180 by 60 instead of 60 by 180"], "60 × π/180 = π/3, not π/2.", "60^\\circ"),
-        formulaAnswer("y11adv-d2r-m7", "Convert the angle to radians.", "225^\\circ", "5pi/4", ["5\\pi/4", "5π/4"]),
-        formulaAnswer("y11adv-d2r-m8", "Convert the angle to radians.", "120^\\circ", "2pi/3", ["2\\pi/3", "2π/3"]),
-        formulaAnswer("y11adv-d2r-m9", "Convert the angle to radians.", "75^\\circ", "5pi/12", ["5\\pi/12", "5π/12"]),
-        practicalChoice("y11adv-d2r-m10", "Which is the correct radian equivalent of 270°?", "B", ["$\\pi$", "$\\frac{3\\pi}{2}$", "$\\frac{\\pi}{2}$", "$2\\pi$"], "270 × π/180 = 270π/180. HCF = 90: 3π/2.", "270^\\circ"),
+        qualityChoice({
+          id: "y11adv-d2r-qm1",
+          prompt: "Which exact radian measure is equivalent to $-150^\\circ$?",
+          latex: "-150^\\circ\\times\\frac{\\pi}{180}",
+          choices: [
+            "$-\\dfrac{5\\pi}{6}$",
+            "$\\dfrac{5\\pi}{6}$",
+            "$-\\dfrac{6\\pi}{5}$",
+            "$-\\dfrac{5\\pi}{3}$",
+          ],
+          answer: "A",
+          hint: "Preserve the direction sign and simplify $150/180$.",
+          explanation:
+            "Multiply by $\\pi/180$: $-150^\\circ\\times\\pi/180=-150\\pi/180$. Dividing numerator and denominator by 30 gives $-5\\pi/6$. The negative sign remains because the original rotation is clockwise.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks whether students preserve a negative rotation and simplify the degree-to-radian ratio in the correct orientation.",
+          distractorMisconceptions: {
+            B: "Drops the clockwise direction sign during conversion.",
+            C: "Inverts the simplified fraction.",
+            D: "Uses 90 rather than 180 in the conversion denominator.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm2",
+          prompt: "Convert $72^\\circ$ to an exact radian measure.",
+          latex: "72^\\circ",
+          answer: "2pi/5",
+          acceptedAnswers: ["2\\pi/5", "$\\frac{2\\pi}{5}$", "2π/5"],
+          hint: "Multiply by $\\pi/180$ and divide 72 and 180 by their highest common factor.",
+          explanation:
+            "The conversion is $72\\pi/180$. The highest common factor of 72 and 180 is 36, so $72/180=2/5$. Therefore $72^\\circ=2\\pi/5$ radians in simplified exact form.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks accurate use of the conversion factor and simplification for a non-standard benchmark angle.",
+        }),
+        qualityChoice({
+          id: "y11adv-d2r-qm3",
+          prompt:
+            "A student converts $140^\\circ$ to $\\dfrac{7\\pi}{8}$ after saying they divided both 140 and 180 by 20. Which correction identifies the error?",
+          latex: "\\frac{140\\pi}{180}",
+          choices: [
+            "The denominator is 9 because $180\\div20=9$, so the result is $\\dfrac{7\\pi}{9}$",
+            "The numerator is 6 because $140\\div20=6$",
+            "The conversion factor should have been $\\dfrac{180}{\\pi}$",
+            "The fraction should be replaced by a decimal radian value",
+          ],
+          answer: "A",
+          hint: "Check both divisions in the student's claimed cancellation.",
+          explanation:
+            "Multiplying by $\\pi/180$ is correct, and 20 is the highest common factor. However, $180\\div20=9$, not 8, while $140\\div20=7$. The correctly simplified exact result is therefore $7\\pi/9$.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses an arithmetic cancellation error without misidentifying the conversion method itself.",
+          distractorMisconceptions: {
+            B: "Makes a second division error in the numerator.",
+            C: "Uses the radians-to-degrees factor for a degree input.",
+            D: "Assumes an exact pi fraction is less valid than a decimal.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm4",
+          prompt:
+            "Convert the unreduced rotation $495^\\circ$ to an exact radian measure. Do not replace it by a coterminal angle.",
+          latex: "495^\\circ",
+          answer: "11pi/4",
+          acceptedAnswers: ["11\\pi/4", "$\\frac{11\\pi}{4}$", "11π/4"],
+          hint: "Convert the complete stated rotation, including the part beyond one full turn.",
+          explanation:
+            "Using the full rotation gives $495\\pi/180$. The highest common factor of 495 and 180 is 45, so the fraction simplifies to $11\\pi/4$. Reducing to a coterminal angle would change the stated amount of rotation.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Distinguishes conversion of a rotation's full measure from reduction to a coterminal terminal angle.",
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm5",
+          prompt:
+            "An integer angle $d^\\circ$ converts exactly to $\\dfrac{7\\pi}{15}$ radians. Find $d$.",
+          latex: "\\frac{d\\pi}{180}=\\frac{7\\pi}{15}",
+          answer: "84",
+          acceptedAnswers: ["84.0", "84 degrees", "84°", "d=84"],
+          hint: "Equate the degree-to-radian expression with the supplied exact fraction and cancel $\\pi$.",
+          explanation:
+            "The conversion rule gives $d\\pi/180=7\\pi/15$. Cancelling $\\pi$ and multiplying by 180 gives $d=180(7/15)$. Since $180/15=12$, $d=12\\times7=84^\\circ$.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests reverse inference from an exact radian fraction while preserving the structure of the conversion rule.",
+        }),
+        qualityChoice({
+          id: "y11adv-d2r-qm6",
+          prompt:
+            "Mina converts $210^\\circ$ by simplifying $210\\pi/180$ to $7\\pi/6$. Ravi writes $210^\\circ=180^\\circ+30^\\circ$ and obtains $\\pi+\\pi/6=7\\pi/6$. Which evaluation is correct?",
+          latex: "210^\\circ",
+          choices: [
+            "Only Mina is correct because splitting an angle changes its measure",
+            "Only Ravi is correct because the conversion factor cannot be used above $180^\\circ$",
+            "Both are correct; they use equivalent multiplicative and additive reasoning",
+            "Neither is correct because a radian answer must be a decimal",
+          ],
+          answer: "C",
+          hint: "Check whether degree and radian measures both preserve angle addition.",
+          explanation:
+            "Mina correctly applies $\\pi/180$ and simplifies by 30. Ravi also uses valid angle addition: $180^\\circ$ becomes $\\pi$ and $30^\\circ$ becomes $\\pi/6$. Both methods give the same exact measure $7\\pi/6$.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether students can compare two valid representations rather than assuming there is only one acceptable method.",
+          distractorMisconceptions: {
+            A: "Rejects the additive structure of angle measure.",
+            B: "Invents a range restriction on the conversion factor.",
+            D: "Treats exact radian form as invalid unless decimalised.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm7",
+          prompt:
+            "A platform rotates $735^\\circ$ counterclockwise and then $210^\\circ$ clockwise. Express its net signed rotation in exact radians.",
+          latex: "735^\\circ-210^\\circ",
+          answer: "35pi/12",
+          acceptedAnswers: ["35\\pi/12", "$\\frac{35\\pi}{12}$", "35π/12"],
+          hint: "Combine the signed degree rotations before converting the resulting measure.",
+          explanation:
+            "Clockwise rotation is negative, so the net angle is $735^\\circ-210^\\circ=525^\\circ$. Converting gives $525\\pi/180$. Dividing numerator and denominator by 15 produces the exact result $35\\pi/12$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines signed rotational reasoning with exact conversion and simplification beyond one full turn.",
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm8",
+          prompt:
+            "For integers $1\\le n\\le24$, convert $15n^\\circ$ to radians and simplify. For how many values of $n$ does the coefficient of $\\pi$ have denominator 4?",
+          latex: "15n^\\circ=\\frac{n\\pi}{12}",
+          answer: "4",
+          acceptedAnswers: ["4.0", "four", "4 values"],
+          hint: "The reduced denominator of $n/12$ is 4 exactly when the common factor with 12 is 3.",
+          explanation:
+            "Since $15n^\\circ=n\\pi/12$, the reduced denominator is $12/\\gcd(n,12)$. It equals 4 when $\\gcd(n,12)=3$. Between 1 and 24 this occurs for $n=3,9,15,21$, so there are 4 values.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded family to connect exact conversion, fraction reduction, divisibility, and systematic case counting.",
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm9",
+          prompt:
+            "A point on the end of an 8 cm rotating arm moves $150^\\circ$ counterclockwise, then $75^\\circ$ clockwise along the same circular path. Find the exact total distance travelled by the point.",
+          latex: "s=r\\theta",
+          answer: "10pi",
+          acceptedAnswers: ["10\\pi", "10π", "10 pi", "10π cm", "10 pi cm"],
+          hint: "Total distance adds both travelled angle magnitudes; it is not based on the net rotation.",
+          explanation:
+            "The point travels through a total angular distance of $150^\\circ+75^\\circ=225^\\circ$, despite the direction change. Converting gives $225^\\circ=5\\pi/4$. Hence $s=r\\theta=8(5\\pi/4)=10\\pi$ cm.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Transfers degree conversion into arc length while distinguishing total path distance from net angular displacement.",
+        }),
+        qualityAnswer({
+          id: "y11adv-d2r-qm10",
+          prompt:
+            "A faulty converter multiplies a positive degree angle $x^\\circ$ by $\\pi/200$ instead of $\\pi/180$. For $0<x\\le360$, the faulty result is exactly $\\pi/12$ less than the correct result. Find $x$.",
+          latex: "\\frac{x\\pi}{180}-\\frac{x\\pi}{200}=\\frac{\\pi}{12}",
+          answer: "150",
+          acceptedAnswers: ["150.0", "150 degrees", "150°", "x=150"],
+          hint: "Model the difference between the two conversion factors, then cancel $\\pi$.",
+          explanation:
+            "The difference is $x\\pi(1/180-1/200)=x\\pi/1800$. Setting this equal to $\\pi/12$ and cancelling $\\pi$ gives $x/1800=1/12$. Therefore $x=150^\\circ$, which lies in the stated interval.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires constructing and solving an error model from competing conversion factors rather than performing a direct conversion.",
+        }),
       ],
     };
   }
@@ -1495,6 +2613,15 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
             { explanation: "Simplify.", latex: "=\\frac{360}{3}=120^\\circ" },
           ],
           finalAnswerLatex: "120^\\circ",
+          sectorDiagram: {
+            description:
+              "A circle sector showing the same central angle labelled both two pi over three radians and 120 degrees, with a radius r and matching arc.",
+            angleDegrees: 120,
+            radiusLabel: "r",
+            angleLabel: "\\frac{2\\pi}{3}=120^\\circ",
+            arcLabel: "\\frac{2\\pi r}{3}",
+            showFullCircle: true,
+          },
         },
         {
           title: "Convert 5π/4 to degrees",
@@ -1535,16 +2662,179 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Leaving the answer as a fraction of π instead of a pure degree value.", fix: "After cancelling π, the result is a plain number of degrees." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-r2d-m1", "Convert the angle to degrees.", "\\frac{\\pi}{6}", "30", ["30 degrees", "30°"]),
-        formulaAnswer("y11adv-r2d-m2", "Convert the angle to degrees.", "\\frac{2\\pi}{3}", "120", ["120 degrees", "120°"]),
-        formulaAnswer("y11adv-r2d-m3", "Convert the angle to degrees.", "\\frac{5\\pi}{4}", "225", ["225 degrees", "225°"]),
-        formulaAnswer("y11adv-r2d-m4", "Convert the angle to degrees.", "\\frac{11\\pi}{6}", "330", ["330 degrees", "330°"]),
-        formulaAnswer("y11adv-r2d-m5", "Convert the angle to degrees.", "\\frac{3\\pi}{2}", "270", ["270 degrees", "270°"]),
-        practicalChoice("y11adv-r2d-m6", "A student says $\\frac{\\pi}{3}=180^\\circ$. Identify the error.", "A", ["They used π = 180 but forgot to divide by 3", "They multiplied by π instead of dividing", "They forgot to cancel the π factors", "The answer should be negative"], "π/3 × 180/π = 180/3 = 60°, not 180°.", "\\frac{\\pi}{3}"),
-        formulaAnswer("y11adv-r2d-m7", "Convert the angle to degrees.", "\\pi", "180", ["180 degrees", "180°"]),
-        formulaAnswer("y11adv-r2d-m8", "Convert the angle to degrees.", "\\frac{7\\pi}{6}", "210", ["210 degrees", "210°"]),
-        formulaAnswer("y11adv-r2d-m9", "Convert the angle to degrees.", "\\frac{5\\pi}{2}", "450", ["450 degrees", "450°"]),
-        practicalChoice("y11adv-r2d-m10", "Which conversion gives 315°?", "C", ["$\\frac{5\\pi}{4}$", "$\\frac{11\\pi}{6}$", "$\\frac{7\\pi}{4}$", "$\\frac{4\\pi}{3}$"], "7π/4 × 180/π = 7 × 45 = 315°.", "315^\\circ"),
+        qualityChoice({
+          id: "y11adv-r2d-qm1",
+          prompt: "Which degree measure is equivalent to $-\\dfrac{7\\pi}{12}$ radians?",
+          latex: "-\\frac{7\\pi}{12}\\times\\frac{180}{\\pi}",
+          choices: ["$-105^\\circ$", "$105^\\circ$", "$-84^\\circ$", "$-210^\\circ$"],
+          answer: "A",
+          hint: "Cancel $\\pi$, simplify $180/12$, and preserve the direction sign.",
+          explanation:
+            "Multiplying by $180/\\pi$ gives $-(7\\pi/12)(180/\\pi)=-7(15)=-105^\\circ$. The negative sign is retained because the original angle represents a clockwise rotation.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks whether students cancel pi correctly, simplify the scale factor, and preserve a negative rotation.",
+          distractorMisconceptions: {
+            B: "Drops the clockwise direction sign.",
+            C: "Uses an incorrect value for 180 divided by 12.",
+            D: "Doubles the converted magnitude.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm2",
+          prompt: "Convert $\\dfrac{13\\pi}{10}$ radians to degrees.",
+          latex: "\\frac{13\\pi}{10}",
+          answer: "234",
+          acceptedAnswers: ["234.0", "234 degrees", "234°"],
+          hint: "Cancel $\\pi$ and calculate $13(180/10)$.",
+          explanation:
+            "Multiplying by $180/\\pi$ cancels the $\\pi$ factors: $(13\\pi/10)(180/\\pi)=13(18)$. Since $13\\times18=234$, the angle is $234^\\circ$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks accurate conversion of a non-benchmark radian fraction to a whole-number degree measure.",
+        }),
+        qualityChoice({
+          id: "y11adv-r2d-qm3",
+          prompt:
+            "A student converts $\\dfrac{7\\pi}{12}$ radians to $95^\\circ$ after writing $180\\div12=15$. Which correction identifies the error?",
+          latex: "\\frac{7\\pi}{12}\\times\\frac{180}{\\pi}",
+          choices: [
+            "The final multiplication is wrong: $7\\times15=105$, not 95",
+            "The cancellation is wrong because the $\\pi$ factors cannot cancel",
+            "The conversion factor should be $\\dfrac{\\pi}{180}$",
+            "The answer must retain a factor of $\\pi$",
+          ],
+          answer: "A",
+          hint: "The student's scale factor is correct; check the remaining arithmetic.",
+          explanation:
+            "The setup and cancellation are both valid, and $180/12=15$. The error occurs only in the last multiplication: $7\\times15=105$. Therefore $7\\pi/12$ radians equals $105^\\circ$.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Distinguishes a final arithmetic error from incorrect conversion, cancellation, or answer-format methods.",
+          distractorMisconceptions: {
+            B: "Treats the common pi factor as non-cancellable.",
+            C: "Uses the degrees-to-radians factor in the reverse direction.",
+            D: "Assumes degree answers should still contain pi.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm4",
+          prompt:
+            "Convert the complete rotation $\\dfrac{17\\pi}{6}$ radians to degrees. Do not replace it by a coterminal angle.",
+          latex: "\\frac{17\\pi}{6}",
+          answer: "510",
+          acceptedAnswers: ["510.0", "510 degrees", "510°"],
+          hint: "Convert the full coefficient before considering where the rotation finishes.",
+          explanation:
+            "The conversion is $(17\\pi/6)(180/\\pi)=17(30)=510^\\circ$. Although this rotation is coterminal with $150^\\circ$, the question asks for the complete amount of rotation, so $510^\\circ$ is required.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Distinguishes conversion of a full rotation measure from reduction to its terminal angle.",
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm5",
+          prompt:
+            "The radian angle $\\dfrac{a\\pi}{14}$ converts exactly to $270^\\circ$, where $a$ is a positive integer. Find $a$.",
+          latex: "\\frac{a\\pi}{14}\\times\\frac{180}{\\pi}=270",
+          answer: "21",
+          acceptedAnswers: ["21.0", "a=21", "a = 21"],
+          hint: "Cancel $\\pi$ and solve the resulting linear equation for $a$.",
+          explanation:
+            "After cancellation, $180a/14=270$. Multiplying by 14 and dividing by 180 gives $a=270(14)/180=21$. Indeed, $21\\pi/14=3\\pi/2$, which converts to $270^\\circ$.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests reverse use of the conversion relationship to reconstruct an unknown radian coefficient.",
+        }),
+        qualityChoice({
+          id: "y11adv-r2d-qm6",
+          prompt:
+            "Leila converts $\\dfrac{11\\pi}{6}$ using $(11\\pi/6)(180/\\pi)=330^\\circ$. Noah writes $11\\pi/6=2\\pi-\\pi/6$ and obtains $360^\\circ-30^\\circ=330^\\circ$. Which evaluation is correct?",
+          latex: "\\frac{11\\pi}{6}",
+          choices: [
+            "Only Leila is correct because subtraction cannot be used with angle measures",
+            "Only Noah is correct because the conversion factor fails in Quadrant IV",
+            "Both are correct; they use equivalent multiplicative and benchmark reasoning",
+            "Neither is correct because the result should contain $\\pi$",
+          ],
+          answer: "C",
+          hint: "Check whether angle subtraction is preserved between radian and degree units.",
+          explanation:
+            "Leila correctly applies the general conversion factor. Noah also uses the valid identity $11\\pi/6=2\\pi-\\pi/6$ and converts the two benchmarks. Both methods preserve the angle and give $330^\\circ$.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks evaluation of two valid methods instead of enforcing one procedural route.",
+          distractorMisconceptions: {
+            A: "Rejects the additive structure of angle measure.",
+            B: "Invents a quadrant restriction on the conversion factor.",
+            D: "Retains pi in a degree answer after conversion.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm7",
+          prompt:
+            "A pointer rotates $\\dfrac{17\\pi}{9}$ counterclockwise and then $\\dfrac{5\\pi}{6}$ clockwise. Express its net signed rotation in degrees.",
+          latex: "\\frac{17\\pi}{9}-\\frac{5\\pi}{6}",
+          answer: "190",
+          acceptedAnswers: ["190.0", "190 degrees", "190°"],
+          hint: "Combine the signed radian rotations exactly before converting.",
+          explanation:
+            "Using denominator 18, the net rotation is $34\\pi/18-15\\pi/18=19\\pi/18$. Multiplying by $180/\\pi$ gives $19(10)=190^\\circ$. The result is positive, so the net direction is counterclockwise.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines signed fraction arithmetic with exact radian-to-degree conversion.",
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm8",
+          prompt:
+            "For integers $1\\le n\\le48$, let $\\theta_n=\\dfrac{n\\pi}{24}$. How many values of $n$ convert to a whole-number degree measure strictly between $90^\\circ$ and $270^\\circ$?",
+          latex: "\\theta_n=\\frac{n\\pi}{24}",
+          answer: "11",
+          acceptedAnswers: ["11.0", "eleven", "11 values"],
+          hint: "Convert symbolically, impose the interval, then apply the whole-number condition.",
+          explanation:
+            "Conversion gives $\\theta_n=180n/24=15n/2$ degrees, which is a whole number exactly when $n$ is even. The strict interval gives $12<n<36$. The even integers $14,16,\\ldots,34$ form 11 valid values.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded family to combine symbolic conversion, parity, strict inequalities, and systematic counting.",
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm9",
+          prompt:
+            "A disk rotates counterclockwise at $\\dfrac{7\\pi}{12}$ radians per second for 9 seconds, then clockwise at $\\dfrac{5\\pi}{18}$ radians per second for 6 seconds. Find its net signed rotation in degrees.",
+          latex: "9\\left(\\frac{7\\pi}{12}\\right)-6\\left(\\frac{5\\pi}{18}\\right)",
+          answer: "645",
+          acceptedAnswers: ["645.0", "645 degrees", "645°"],
+          hint: "Find each signed angular displacement, combine them in radians, then convert.",
+          explanation:
+            "The first displacement is $21\\pi/4$ and the clockwise displacement is $5\\pi/3$. Their signed difference is $21\\pi/4-5\\pi/3=43\\pi/12$. Converting gives $(43\\pi/12)(180/\\pi)=43(15)=645^\\circ$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates angular rate, elapsed time, direction, fraction arithmetic, and unit conversion in a linked model.",
+        }),
+        qualityAnswer({
+          id: "y11adv-r2d-qm10",
+          prompt:
+            "A faulty converter multiplies a positive radian angle $x$ by $200/\\pi$ instead of $180/\\pi$. For $0<x\\le2\\pi$, its result is $30^\\circ$ greater than the correct result. Find $x$.",
+          latex: "\\frac{200x}{\\pi}-\\frac{180x}{\\pi}=30",
+          answer: "3pi/2",
+          acceptedAnswers: ["3\\pi/2", "$\\frac{3\\pi}{2}$", "3π/2"],
+          hint: "Model the difference between the faulty and correct conversion factors.",
+          explanation:
+            "The excess is $x(200/\\pi-180/\\pi)=20x/\\pi$. Setting $20x/\\pi=30$ gives $20x=30\\pi$, so $x=3\\pi/2$. This lies within the stated positive interval.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires constructing and solving a calibration-error model from two radian-to-degree factors.",
+        }),
       ],
     };
   }
@@ -1625,16 +2915,226 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Rounding an exact answer prematurely.", fix: "Keep π in the answer unless asked to give a decimal." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-arc-m1", "Find the arc length.", "r=5,\\quad \\theta=\\frac{\\pi}{5}", "pi", ["\\pi", "π"]),
-        formulaAnswer("y11adv-arc-m2", "Find the arc length.", "r=7,\\quad \\theta=\\frac{2\\pi}{7}", "2pi", ["2\\pi", "2π"]),
-        formulaAnswer("y11adv-arc-m3", "Find the angle $\\theta$ in radians.", "s=4\\pi,\\quad r=8", "pi/2", ["\\pi/2", "π/2"]),
-        formulaAnswer("y11adv-arc-m4", "Find the angle $\\theta$ in radians.", "s=3\\pi,\\quad r=9", "pi/3", ["\\pi/3", "π/3"]),
-        formulaAnswer("y11adv-arc-m5", "Convert the angle to radians first, then find the arc length.", "r=6,\\quad \\theta=90^\\circ", "3pi", ["3\\pi", "3π"]),
-        practicalChoice("y11adv-arc-m6", "A student applies $s=6\\times 30$ and gets $s=180$. Identify the error.", "B", ["The radius should be squared", "The angle must be converted to radians before using $s=r\\theta$", "The formula should be $s=2r\\theta$", "The arc cannot be longer than the radius"], "s = rθ requires θ in radians. Convert 30° → π/6 first.", "r=6,\\quad \\theta=30^\\circ"),
-        formulaAnswer("y11adv-arc-m7", "Find the arc length.", "r=10,\\quad \\theta=\\frac{2\\pi}{5}", "4pi", ["4\\pi", "4π"]),
-        formulaAnswer("y11adv-arc-m8", "Find the angle $\\theta$ in radians.", "s=\\pi,\\quad r=3", "pi/3", ["\\pi/3", "π/3"]),
-        formulaAnswer("y11adv-arc-m9", "Find the arc length.", "r=15,\\quad \\theta=\\frac{\\pi}{5}", "3pi", ["3\\pi", "3π"]),
-        formulaAnswer("y11adv-arc-m10", "Find the angle $\\theta$ in radians.", "s=5\\pi,\\quad r=10", "pi/2", ["\\pi/2", "π/2"]),
+        qualityChoice({
+          id: "y11adv-alen-qm1",
+          prompt:
+            "A sector has radius 9 cm and central angle $\\dfrac{4\\pi}{9}$ radians. What is its arc length?",
+          latex: "s=r\\theta",
+          choices: ["$\\dfrac{4\\pi}{9}$ cm", "$4\\pi$ cm", "$36\\pi$ cm", "$720$ cm"],
+          answer: "B",
+          hint: "The angle is already in radians, so substitute it directly into $s=r\\theta$.",
+          explanation:
+            "Using $s=r\\theta$, the arc length is $9(4\\pi/9)=4\\pi$ cm. The factor of 9 cancels the denominator; no degree conversion is needed because the supplied angle is already in radians.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks direct use of the radian arc-length formula and whether the learner simplifies an exact product correctly.",
+          distractorMisconceptions: {
+            A: "Reports the angle itself and omits the radius factor.",
+            C: "Multiplies by the numerator but does not divide by the denominator.",
+            D: "Converts to 80 degrees and then incorrectly uses the degree value in the radian formula.",
+          },
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 9 centimetres, central angle four pi over nine radians, and unknown arc length s.",
+            angleDegrees: 80,
+            radiusLabel: "r=9\\text{ cm}",
+            angleLabel: "\\frac{4\\pi}{9}",
+            arcLabel: "s",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm2",
+          prompt:
+            "An arc has length $\\dfrac{15\\pi}{2}$ cm and subtends $\\dfrac{5\\pi}{6}$ radians at the centre. Find the radius in centimetres.",
+          latex: "r=\\frac{s}{\\theta}",
+          answer: "9",
+          acceptedAnswers: ["9.0", "9 cm", "9 centimetres"],
+          hint: "Rearrange $s=r\\theta$ for the radius before substituting the two exact values.",
+          explanation:
+            "Rearranging gives $r=s/\\theta$. Hence $r=(15\\pi/2)\\div(5\\pi/6)=(15\\pi/2)(6/5\\pi)=9$ cm. Both the factor of $\\pi$ and the common numerical factors cancel.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks correct rearrangement of the arc-length formula and exact division by a fractional radian measure.",
+          sectorDiagram: {
+            description:
+              "A circle sector with unknown radius, central angle five pi over six radians, and arc length fifteen pi over two centimetres.",
+            angleDegrees: 150,
+            radiusLabel: "r",
+            angleLabel: "\\frac{5\\pi}{6}",
+            arcLabel: "s=\\frac{15\\pi}{2}\\text{ cm}",
+            showFullCircle: true,
+          },
+        }),
+        qualityChoice({
+          id: "y11adv-alen-qm3",
+          prompt:
+            "For a sector of radius 12 cm and central angle $75^\\circ$, a student writes $s=12(75)=900$ cm. Which correction identifies the error and gives the exact arc length?",
+          latex: "r=12,\\quad \\theta=75^\\circ",
+          choices: [
+            "Square the radius: $s=12^2(75)=10800$ cm",
+            "Use the full circumference: $s=2\\pi(12)=24\\pi$ cm",
+            "Convert $75^\\circ=\\dfrac{5\\pi}{12}$, then $s=12\\left(\\dfrac{5\\pi}{12}\\right)=5\\pi$ cm",
+            "Divide by the angle: $s=\\dfrac{12}{75}=\\dfrac{4}{25}$ cm",
+          ],
+          answer: "C",
+          hint: "The formula $s=r\\theta$ requires the central angle to be measured in radians.",
+          explanation:
+            "The student's substitution uses degrees where radians are required. Since $75^\\circ(\\pi/180)=5\\pi/12$, the correct length is $s=12(5\\pi/12)=5\\pi$ cm. The radius is neither squared nor divided by the angle.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses the common degree-versus-radian error and requires evaluation of the corrected exact calculation.",
+          distractorMisconceptions: {
+            A: "Confuses arc length with a formula involving radius squared.",
+            B: "Uses the entire circumference instead of the stated fraction of a turn.",
+            D: "Reverses the multiplicative relationship between radius, angle, and arc length.",
+          },
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 12 centimetres, central angle 75 degrees, and unknown arc length s.",
+            angleDegrees: 75,
+            radiusLabel: "r=12\\text{ cm}",
+            angleLabel: "75^\\circ",
+            arcLabel: "s",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm4",
+          prompt:
+            "A circle of radius 14 cm contains an arc of length $7\\pi$ cm. Find the central angle in degrees.",
+          latex: "\\theta=\\frac{s}{r}",
+          answer: "90",
+          acceptedAnswers: ["90.0", "90 degrees", "90°"],
+          hint: "Find the angle in radians from $\\theta=s/r$, then convert it to degrees.",
+          explanation:
+            "First, $\\theta=s/r=7\\pi/14=\\pi/2$ radians. Converting gives $(\\pi/2)(180/\\pi)=90^\\circ$. The division by the radius produces a radian measure before the final unit conversion.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Checks a two-stage reverse calculation from arc length to a radian angle and then to degrees.",
+          sectorDiagram: {
+            description:
+              "A not-to-scale circle sector with radius 14 centimetres, arc length seven pi centimetres, and unknown central angle theta.",
+            angleDegrees: 72,
+            radiusLabel: "r=14\\text{ cm}",
+            angleLabel: "\\theta",
+            arcLabel: "s=7\\pi\\text{ cm}",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm5",
+          prompt:
+            "Two concentric circular paths subtend the same central angle. The inner path has radius 6 m and curved length $5\\pi$ m; the outer path has curved length $15\\pi$ m. Find the outer radius in metres.",
+          latex: "\\frac{s_{\\text{outer}}}{s_{\\text{inner}}}=\\frac{R}{6}",
+          answer: "18",
+          acceptedAnswers: ["18.0", "18 m", "18 metres"],
+          hint: "Because both paths share the same angle, their curved lengths are proportional to their radii.",
+          explanation:
+            "For the shared angle $\\theta$, $5\\pi=6\\theta$ and $15\\pi=R\\theta$. Dividing the equations gives $15\\pi/(5\\pi)=R/6$, so $3=R/6$ and $R=18$ m. The unknown angle need not be calculated separately.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests proportional reasoning from $s=r\\theta$ across linked paths rather than isolated formula substitution.",
+        }),
+        qualityChoice({
+          id: "y11adv-alen-qm6",
+          prompt:
+            "A sector has radius 8 cm and central angle $135^\\circ$. Nina converts to $3\\pi/4$ radians and uses $s=r\\theta$. Omar takes $135/360$ of the circumference $2\\pi r$. Which assessment is correct?",
+          latex: "8\\left(\\frac{3\\pi}{4}\\right)=\\frac{135}{360}(2\\pi\\cdot8)",
+          choices: [
+            "Only Nina is correct; the circumference method cannot be used for an arc",
+            "Only Omar is correct; $s=r\\theta$ cannot begin with a degree angle",
+            "Both are correct and each gives $6\\pi$ cm",
+            "Neither is correct; the exact length is $3\\pi$ cm",
+          ],
+          answer: "C",
+          hint: "Evaluate each expression and decide whether the two methods represent the same fraction of a turn.",
+          explanation:
+            "Nina correctly converts $135^\\circ$ to $3\\pi/4$, giving $8(3\\pi/4)=6\\pi$ cm. Omar uses the equivalent fraction-of-circumference model: $(135/360)(16\\pi)=6\\pi$ cm. Both methods encode the same geometry.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether learners can connect and validate the radian formula and fraction-of-circumference method.",
+          distractorMisconceptions: {
+            A: "Rejects a valid fraction-of-circumference representation.",
+            B: "Overlooks that Nina converts the angle before applying the radian formula.",
+            D: "Halves the correct result, commonly by using pi r as the full circumference.",
+          },
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 8 centimetres, central angle 135 degrees, and unknown arc length s.",
+            angleDegrees: 135,
+            radiusLabel: "r=8\\text{ cm}",
+            angleLabel: "135^\\circ",
+            arcLabel: "s",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm7",
+          prompt:
+            "A sweeping arm traces two concentric circular paths with radii 14 cm and 8 cm through the same angle. The outer traced distance exceeds the inner traced distance by $5\\pi$ cm. Find the angle in degrees.",
+          latex: "14\\theta-8\\theta=5\\pi",
+          answer: "150",
+          acceptedAnswers: ["150.0", "150 degrees", "150°"],
+          hint: "Express both traced distances with $s=r\\theta$, subtract, and then convert the resulting angle.",
+          explanation:
+            "The difference is $(14-8)\\theta=6\\theta$. Thus $6\\theta=5\\pi$, so $\\theta=5\\pi/6$ radians. Converting gives $(5\\pi/6)(180/\\pi)=150^\\circ$. The shared angle links the two paths.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires constructing a difference model for two related arcs and converting the inferred angle to degrees.",
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm8",
+          prompt:
+            "For integers $1\\le n\\le35$, a circle has radius 12 cm and central angle $\\theta_n=\\dfrac{n\\pi}{18}$. How many values of $n$ make $s_n=12\\theta_n$ a whole-number multiple of $\\pi$ strictly between $4\\pi$ cm and $16\\pi$ cm?",
+          latex: "s_n=12\\left(\\frac{n\\pi}{18}\\right)",
+          answer: "5",
+          acceptedAnswers: ["5.0", "five", "5 values"],
+          hint: "Simplify $s_n$ first, then combine the divisibility condition with the strict interval.",
+          explanation:
+            "Here $s_n=2n\\pi/3$, so its coefficient of $\\pi$ is a whole number exactly when $n$ is divisible by 3. The strict bounds give $6<n<24$. The valid multiples are $9,12,15,18,21$, giving 5 values.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded family to combine an arc-length model, divisibility, strict inequalities, and systematic counting.",
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm9",
+          prompt:
+            "A cord does not slip on a pulley of radius $\\dfrac{6}{25}$ m. Taking clockwise rotation as negative, the pulley turns $\\dfrac{35\\pi}{6}$ radians clockwise and then $\\dfrac{11\\pi}{4}$ radians anticlockwise. Find the net signed displacement of the cord in metres.",
+          latex: "s=\\frac{6}{25}\\left(-\\frac{35\\pi}{6}+\\frac{11\\pi}{4}\\right)",
+          answer: "-37pi/50",
+          acceptedAnswers: ["-37\\pi/50", "$-\\frac{37\\pi}{50}$", "-0.74pi", "-0.74\\pi"],
+          hint: "Combine the rotations with their signs before multiplying the net angle by the pulley radius.",
+          explanation:
+            "The net angle is $-35\\pi/6+11\\pi/4=(-70+33)\\pi/12=-37\\pi/12$. With no slipping, the signed cord displacement is $r\\theta=(6/25)(-37\\pi/12)=-37\\pi/50$ m.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates direction, exact fraction arithmetic, rotational motion, and the no-slip arc-length model.",
+        }),
+        qualityAnswer({
+          id: "y11adv-alen-qm10",
+          prompt:
+            "A circular route has radius $r$ metres, central angle $\\theta$ radians, and length $\\dfrac{20\\pi}{3}$ metres. Increasing the radius by 2 m and decreasing the angle by $\\dfrac{\\pi}{6}$ leaves the route length unchanged. Find the original radius.",
+          latex: "r\\theta=\\frac{20\\pi}{3},\\quad (r+2)\\left(\\theta-\\frac{\\pi}{6}\\right)=\\frac{20\\pi}{3}",
+          answer: "8",
+          acceptedAnswers: ["8.0", "8 m", "8 metres"],
+          hint: "Subtract the equal-length equations to relate $\\theta$ and $r$, then use the original length condition.",
+          explanation:
+            "Since both products equal the same length, expansion and cancellation give $-r\\pi/6+2\\theta-\\pi/3=0$, so $\\theta=\\pi(r+2)/12$. Substituting into $r\\theta=20\\pi/3$ gives $r(r+2)=80$, hence $(r-8)(r+10)=0$. A radius is positive, so $r=8$ m.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires forming and solving two linked arc-length constraints, then rejecting the non-physical algebraic root.",
+        }),
       ],
     };
   }
@@ -1717,16 +3217,256 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Taking r² = A/θ instead of r² = 2A/θ when rearranging.", fix: "Start from A = ½r²θ: multiply both sides by 2 before dividing by θ." },
       ],
       masteryQuiz: [
-        formulaAnswer("y11adv-sector-m1", "Find the sector area.", "r=3,\\quad \\theta=\\frac{2\\pi}{3}", "3pi", ["3\\pi", "3π"]),
-        formulaAnswer("y11adv-sector-m2", "Find the sector area.", "r=8,\\quad \\theta=\\frac{\\pi}{4}", "8pi", ["8\\pi", "8π"]),
-        formulaAnswer("y11adv-sector-m3", "Find the radius.", "A=9\\pi,\\quad \\theta=\\frac{\\pi}{2}", "6", []),
-        formulaAnswer("y11adv-sector-m4", "Find the radius.", "A=3\\pi,\\quad \\theta=\\frac{2\\pi}{3}", "3", []),
-        formulaAnswer("y11adv-sector-m5", "Find the sector area.", "r=5,\\quad \\theta=\\frac{2\\pi}{5}", "5pi", ["5\\pi", "5π"]),
-        formulaAnswer("y11adv-sector-m6", "Convert the angle to radians first, then find the sector area.", "r=6,\\quad \\theta=90^\\circ", "9pi", ["9\\pi", "9π"]),
-        practicalChoice("y11adv-sector-m7", "A student computes $A=\\frac12\\times r\\times\\theta$ instead of $A=\\frac12r^2\\theta$. Identify the error.", "C", ["The ½ should be removed", "θ must be in degrees", "The radius should be squared", "The formula needs an extra factor of π"], "The correct formula is A = ½r²θ; r must be squared.", "A=\\frac12r^2\\theta"),
-        formulaAnswer("y11adv-sector-m8", "Find the sector area.", "r=4,\\quad \\theta=\\frac{\\pi}{3}", "8pi/3", ["8\\pi/3", "8π/3"]),
-        formulaAnswer("y11adv-sector-m9", "Find the perimeter of the sector.", "r=6,\\quad \\theta=\\frac{\\pi}{3}", "12+2pi", ["12+2\\pi", "12+2π"]),
-        formulaAnswer("y11adv-sector-m10", "Find the angle $\\theta$ in radians.", "A=6\\pi,\\quad r=6", "pi/3", ["\\pi/3", "π/3"]),
+        qualityChoice({
+          id: "y11adv-sarea-qm1",
+          prompt:
+            "A sector has radius 6 cm and central angle $\\dfrac{5\\pi}{6}$ radians. What is its exact area?",
+          latex: "A=\\frac12r^2\\theta",
+          choices: ["$5\\pi$ cm$^2$", "$15\\pi$ cm$^2$", "$30\\pi$ cm$^2$", "$36\\pi$ cm$^2$"],
+          answer: "B",
+          hint: "Square the radius before multiplying by one half and the radian angle.",
+          explanation:
+            "Using $A=\\frac12r^2\\theta$, the area is $\\frac12(6^2)(5\\pi/6)=18(5\\pi/6)=15\\pi$ cm$^2$. The angle is already in radians, so no conversion is required.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks direct use of the sector-area formula, including the squared radius and exact simplification.",
+          distractorMisconceptions: {
+            A: "Uses the radius rather than its square.",
+            C: "Omits the factor of one half.",
+            D: "Squares the radius but then drops both the angle and the factor of one half.",
+          },
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 6 centimetres, central angle five pi over six radians, and unknown area A.",
+            angleDegrees: 150,
+            radiusLabel: "r=6\\text{ cm}",
+            angleLabel: "\\frac{5\\pi}{6}",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm2",
+          prompt:
+            "A sector has area $\\dfrac{49\\pi}{4}$ cm$^2$ and central angle $\\dfrac{\\pi}{2}$ radians. Find its radius in centimetres.",
+          latex: "r^2=\\frac{2A}{\\theta}",
+          answer: "7",
+          acceptedAnswers: ["7.0", "7 cm", "7 centimetres"],
+          hint: "Rearrange for $r^2$, simplify the exact quotient, and take the positive square root.",
+          explanation:
+            "From $r^2=2A/\\theta$, $r^2=(49\\pi/2)\\div(\\pi/2)=49$. Therefore $r=7$ cm; the negative root is rejected because a geometric radius must be positive.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks rearrangement for a squared unknown, exact fraction division, and selection of the physical root.",
+          sectorDiagram: {
+            description:
+              "A circle sector with unknown radius, central angle pi over two radians, and area forty-nine pi over four square centimetres.",
+            angleDegrees: 90,
+            radiusLabel: "r",
+            angleLabel: "\\frac{\\pi}{2}",
+            showFullCircle: true,
+          },
+        }),
+        qualityChoice({
+          id: "y11adv-sarea-qm3",
+          prompt:
+            "For a sector of radius 10 cm and central angle $72^\\circ$, a student writes $A=\\frac12(10^2)(72)=3600$ cm$^2$. Which correction identifies the error and gives the exact area?",
+          latex: "r=10,\\quad \\theta=72^\\circ",
+          choices: [
+            "Replace $r^2$ by $r$: $A=\\frac12(10)(72)=360$ cm$^2$",
+            "Use the whole-circle area: $A=\\pi(10^2)=100\\pi$ cm$^2$",
+            "Convert $72^\\circ=\\dfrac{2\\pi}{5}$, then $A=\\frac12(10^2)\\left(\\dfrac{2\\pi}{5}\\right)=20\\pi$ cm$^2$",
+            "Convert the radius to radians, then use $A=\\frac12(10)(72)$",
+          ],
+          answer: "C",
+          hint: "The sector-area formula requires the central angle, not the radius, to be expressed in radians.",
+          explanation:
+            "The student has substituted a degree value into a radian formula. Since $72^\\circ(\\pi/180)=2\\pi/5$, the correct area is $\\frac12(100)(2\\pi/5)=20\\pi$ cm$^2$.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses degree substitution in a radian formula and requires evaluation of the fully corrected method.",
+          distractorMisconceptions: {
+            A: "Removes the required square on the radius while retaining the degree error.",
+            B: "Uses the entire circle rather than the stated sector.",
+            D: "Treats the linear radius as the quantity requiring angular-unit conversion.",
+          },
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 10 centimetres, central angle 72 degrees, and unknown area A.",
+            angleDegrees: 72,
+            radiusLabel: "r=10\\text{ cm}",
+            angleLabel: "72^\\circ",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm4",
+          prompt:
+            "Find the exact perimeter of a sector with radius 4 cm and central angle $\\dfrac{3\\pi}{4}$ radians.",
+          latex: "P=2r+r\\theta",
+          answer: "8+3pi",
+          acceptedAnswers: ["8+3\\pi", "8+3π", "3pi+8", "3\\pi+8", "$8+3\\pi$"],
+          hint: "Find the curved length $r\\theta$, then add the two straight radii.",
+          explanation:
+            "The curved boundary has length $s=r\\theta=4(3\\pi/4)=3\\pi$ cm. A sector perimeter also includes two radii, so $P=2(4)+3\\pi=8+3\\pi$ cm.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Checks coordination of arc length and straight radii rather than confusing sector perimeter with area.",
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 4 centimetres, central angle three pi over four radians, and unknown perimeter.",
+            angleDegrees: 135,
+            radiusLabel: "r=4\\text{ cm}",
+            angleLabel: "\\frac{3\\pi}{4}",
+            arcLabel: "s",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm5",
+          prompt:
+            "A sector has radius $2k$ cm, central angle $\\dfrac{3\\pi}{8}$ radians, and area $27\\pi$ cm$^2$. Find the positive value of $k$.",
+          latex: "27\\pi=\\frac12(2k)^2\\left(\\frac{3\\pi}{8}\\right)",
+          answer: "6",
+          acceptedAnswers: ["6.0", "k=6", "$k=6$"],
+          hint: "Substitute the algebraic radius, simplify the constants, and solve the resulting equation in $k^2$.",
+          explanation:
+            "Substitution gives $27\\pi=\\frac12(4k^2)(3\\pi/8)=3\\pi k^2/4$. Hence $k^2=36$. The radius $2k$ is positive, so the relevant solution is $k=6$.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests reverse parameter inference through a squared radius and interpretation of the positive geometric solution.",
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 2k centimetres, central angle three pi over eight radians, and area 27 pi square centimetres.",
+            angleDegrees: 67.5,
+            radiusLabel: "r=2k\\text{ cm}",
+            angleLabel: "\\frac{3\\pi}{8}",
+            showFullCircle: true,
+          },
+        }),
+        qualityChoice({
+          id: "y11adv-sarea-qm6",
+          prompt:
+            "A sector has radius 12 cm and central angle $150^\\circ$. Rina converts to $5\\pi/6$ radians and uses $A=\\frac12r^2\\theta$. Kai takes $150/360$ of the circle area $\\pi r^2$. Which assessment is correct?",
+          latex: "\\frac12(12^2)\\left(\\frac{5\\pi}{6}\\right)=\\frac{150}{360}\\pi(12^2)",
+          choices: [
+            "Only Rina is correct; fractions of a circle cannot be used for area",
+            "Only Kai is correct; the radian formula cannot be used after converting degrees",
+            "Both are correct and each gives $60\\pi$ cm$^2$",
+            "Neither is correct; the area is $120\\pi$ cm$^2$",
+          ],
+          answer: "C",
+          hint: "Evaluate both expressions and compare the radian angle with the corresponding fraction of a full turn.",
+          explanation:
+            "Rina obtains $\\frac12(144)(5\\pi/6)=60\\pi$ cm$^2$. Kai uses $150/360=5/12$ of $144\\pi$, which is also $60\\pi$ cm$^2$. The two methods are equivalent representations of the same sector.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether learners can connect and validate radian and fraction-of-circle sector-area methods.",
+          distractorMisconceptions: {
+            A: "Rejects the valid fraction-of-circle area model.",
+            B: "Rejects the valid radian formula even after the required conversion.",
+            D: "Omits the factor of one half in the radian calculation.",
+          },
+          sectorDiagram: {
+            description:
+              "A circle sector with radius 12 centimetres, central angle 150 degrees, and unknown area A.",
+            angleDegrees: 150,
+            radiusLabel: "r=12\\text{ cm}",
+            angleLabel: "150^\\circ",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm7",
+          prompt:
+            "A sector initially has radius 5 cm and central angle $\\dfrac{4\\pi}{5}$. It is redesigned to keep the same area while its angle becomes $\\dfrac{\\pi}{5}$. Find the exact perimeter of the redesigned sector.",
+          latex: "\\frac12(5^2)\\left(\\frac{4\\pi}{5}\\right)=\\frac12R^2\\left(\\frac{\\pi}{5}\\right)",
+          answer: "20+2pi",
+          acceptedAnswers: ["20+2\\pi", "20+2π", "2pi+20", "2\\pi+20", "$20+2\\pi$"],
+          hint: "Use equal areas to find the new radius first, then add its curved boundary and two radii.",
+          explanation:
+            "The original area is $10\\pi$ cm$^2$. Equal areas give $10\\pi=\\frac12R^2(\\pi/5)$, so $R^2=100$ and $R=10$. The new arc is $10(\\pi/5)=2\\pi$, hence the perimeter is $20+2\\pi$ cm.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Links area invariance, inverse angle-radius scaling, a positive square root, arc length, and perimeter.",
+          sectorDiagram: {
+            description:
+              "The redesigned circle sector, with unknown radius R, central angle pi over five radians, and the same area as the original radius-five sector.",
+            angleDegrees: 36,
+            radiusLabel: "R",
+            angleLabel: "\\frac{\\pi}{5}",
+            arcLabel: "s",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm8",
+          prompt:
+            "For integers $1\\le n\\le40$, let a sector have radius 6 cm and angle $\\theta_n=\\dfrac{n\\pi}{24}$. How many values of $n$ make its area a whole-number multiple of $\\pi$ strictly between $6\\pi$ cm$^2$ and $24\\pi$ cm$^2$?",
+          latex: "A_n=\\frac12(6^2)\\left(\\frac{n\\pi}{24}\\right)",
+          answer: "5",
+          acceptedAnswers: ["5.0", "five", "5 values"],
+          hint: "Simplify $A_n$ first, then combine the divisibility condition with the strict area bounds.",
+          explanation:
+            "The area is $A_n=3n\\pi/4$, so its coefficient of $\\pi$ is a whole number exactly when $n$ is divisible by 4. The strict bounds give $8<n<32$. Thus $n=12,16,20,24,28$, giving 5 values.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded family to combine sector modelling, divisibility, strict inequalities, and systematic counting.",
+          sectorDiagram: {
+            description:
+              "A representative circle sector from a family, with radius 6 centimetres and variable central angle n pi over twenty-four radians.",
+            angleDegrees: 60,
+            radiusLabel: "r=6\\text{ cm}",
+            angleLabel: "\\frac{n\\pi}{24}",
+            showFullCircle: true,
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm9",
+          prompt:
+            "A windscreen wiper blade spans radii from $\\dfrac15$ m to $\\dfrac{13}{20}$ m and sweeps through $\\dfrac{5\\pi}{6}$ radians. Assuming complete coverage between the two arcs, find the exact area swept in square metres.",
+          latex: "A=\\frac12\\left[\\left(\\frac{13}{20}\\right)^2-\\left(\\frac15\\right)^2\\right]\\frac{5\\pi}{6}",
+          answer: "51pi/320",
+          acceptedAnswers: ["51\\pi/320", "51π/320", "$\\frac{51\\pi}{320}$", "\\frac{51\\pi}{320}"],
+          hint: "Subtract the inner sector area from the outer sector area before simplifying the exact fractions.",
+          explanation:
+            "The squared-radius difference is $169/400-1/25=153/400$. Therefore the swept area is $\\frac12(153/400)(5\\pi/6)=765\\pi/4800=51\\pi/320$ m$^2$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Models an annular sweep by combining two sector areas and exact rational arithmetic in context.",
+        }),
+        qualityAnswer({
+          id: "y11adv-sarea-qm10",
+          prompt:
+            "A sector has perimeter 20 cm and area 24 cm$^2$. Find the sum of all possible positive radii, given that each corresponding central angle must be positive.",
+          latex: "r(2+\\theta)=20,\\quad \\frac12r^2\\theta=24",
+          answer: "10",
+          acceptedAnswers: ["10.0", "10 cm", "10 centimetres"],
+          hint: "Use the perimeter equation to express $\\theta$ in terms of $r$, then substitute into the area equation.",
+          explanation:
+            "From $r(2+\\theta)=20$, $\\theta=20/r-2$. Substitution gives $\\frac12r^2(20/r-2)=24$, so $r^2-10r+24=0$. Thus $r=4$ or $6$; their angles are $3$ and $4/3$ radians, both positive. The radius sum is $10$ cm.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires forming linked perimeter-area constraints, solving a quadratic, and validating both geometric solutions.",
+          sectorDiagram: {
+            description:
+              "A not-to-scale circle sector with unknown radius r, unknown positive central angle theta, perimeter 20 centimetres, and area 24 square centimetres.",
+            angleDegrees: 70,
+            radiusLabel: "r",
+            angleLabel: "\\theta",
+            arcLabel: "s",
+            showFullCircle: true,
+          },
+        }),
       ],
       multiPartPractice: [
         {
@@ -1747,7 +3487,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               answer: "6pi",
               acceptedAnswers: ["6\\pi", "6π"],
               hint: "Substitute r = 9 and θ = 2π/3 into s = rθ.",
-              explanation: "s = 9 × 2π/3 = 6π.",
+              explanation:
+                "The angle is already in radians, so $s=r\\theta=9(2\\pi/3)=6\\pi$ cm. The factor of 9 simplifies with the denominator 3.",
             },
             {
               key: "b",
@@ -1758,7 +3499,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               answer: "27pi",
               acceptedAnswers: ["27\\pi", "27π"],
               hint: "Substitute r = 9 and θ = 2π/3 into A = ½r²θ.",
-              explanation: "A = ½ × 81 × 2π/3 = 81π/3 = 27π.",
+              explanation:
+                "Square the radius first: $A=\\frac12(9^2)(2\\pi/3)=\\frac12(81)(2\\pi/3)=27\\pi$ cm$^2$.",
             },
             {
               key: "c",
@@ -1769,7 +3511,8 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
               answer: "18+6pi",
               acceptedAnswers: ["18+6\\pi", "18+6π"],
               hint: "Perimeter = 2 radii + arc length from part (a).",
-              explanation: "P = 2(9) + 6π = 18 + 6π.",
+              explanation:
+                "The boundary contains two radii and the arc from part (a), so $P=2(9)+6\\pi=18+6\\pi$ cm.",
             },
           ],
         },
@@ -1819,12 +3562,12 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
       showReferenceTriangle: true,
       highlightRadius: true,
     };
-    const ucvPi: import("../types").UnitCircleDiagram = {
+    const ucvThreePiOver2: import("../types").UnitCircleDiagram = {
       description:
-        "Unit circle showing the boundary angle θ = π (180°). The terminal point (−1, 0) is at the leftmost point of the circle on the negative x-axis. cos(π) = −1 and sin(π) = 0.",
-      angleRadians: "π",
-      angleDegrees: "180",
-      terminalPoint: { x: "-1", y: "0", label: "(-1, 0)" },
+        "Unit circle showing the boundary angle theta equals three pi over two. The terminal point (0, -1) lies on the negative y-axis.",
+      angleRadians: "3π/2",
+      angleDegrees: "270",
+      terminalPoint: { x: "0", y: "-1", label: "(0, -1)" },
       quadrant: "axis",
       highlightRadius: true,
     };
@@ -1963,66 +3706,200 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Forgetting the boundary-angle coordinates.", fix: "Memorise the four axis points: (1,0), (0,1), (−1,0), (0,−1) at θ = 0, π/2, π, 3π/2." },
       ],
       masteryQuiz: [
-        {
-          ...formulaAnswer("y11adv-ucv-m1", "Evaluate using the unit circle.", "\\cos\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
-          hint: "cos(π/6) = x-coordinate at θ = π/6.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucv-m2", "Evaluate using the unit circle.", "\\sin\\left(\\frac{\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
-          hint: "sin(π/3) = y-coordinate at θ = π/3.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucv-m3", "Evaluate using the unit circle.", "\\cos\\pi", "-1", []),
-          unitCircleDiagram: ucvPi,
-          hint: "At θ = π the terminal point is (−1, 0). Read the x-coordinate.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucv-m4", "Evaluate using $\\tan\\theta=\\sin\\theta/\\cos\\theta$.", "\\tan\\left(\\frac{\\pi}{4}\\right)", "1", []),
-          hint: "sin(π/4) = cos(π/4) = √2/2. Their ratio is 1.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucv-m5", "Evaluate using the unit circle.", "\\cos\\left(\\frac{\\pi}{2}\\right)", "0", []),
+        qualityChoice({
+          id: "y11adv-ucv2-qm1",
+          prompt:
+            "A terminal point has coordinates $\\left(\\dfrac{\\sqrt3}{2},\\dfrac12\\right)$. Which statement correctly reads its trigonometric values?",
+          latex: "(x,y)=(\\cos\\theta,\\sin\\theta)",
+          choices: [
+            "$\\cos\\theta=\\dfrac12$ and $\\sin\\theta=\\dfrac{\\sqrt3}{2}$",
+            "$\\cos\\theta=\\dfrac{\\sqrt3}{2}$ and $\\sin\\theta=\\dfrac12$",
+            "$\\tan\\theta=\\dfrac{\\sqrt3}{2}$",
+            "$\\cos\\theta=\\sin\\theta$",
+          ],
+          answer: "B",
+          hint: "Match the first coordinate with cosine and the second coordinate with sine.",
+          explanation:
+            "The coordinate rule is $(x,y)=(\\cos\\theta,\\sin\\theta)$. Therefore the first coordinate gives $\\cos\\theta=\\sqrt3/2$ and the second gives $\\sin\\theta=1/2$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks the ordered-coordinate meaning of cosine and sine rather than recognition of an angle label alone.",
+          distractorMisconceptions: {
+            A: "Reverses the cosine and sine coordinate order.",
+            C: "Treats an individual coordinate as tangent instead of forming y over x.",
+            D: "Transfers the equal-coordinate property of the 45-degree point.",
+          },
+          unitCircleDiagram: ucvPiOver6,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm2",
+          prompt:
+            "The terminal point for angle $\\theta$ is $\\left(\\dfrac{\\sqrt2}{2},\\dfrac{\\sqrt2}{2}\\right)$. Evaluate $\\tan\\theta$ exactly.",
+          latex: "\\tan\\theta=\\frac{y}{x}",
+          answer: "1",
+          acceptedAnswers: ["1.0", "1/1", "$1$"],
+          hint: "Divide the y-coordinate by the x-coordinate and simplify the equal factors.",
+          explanation:
+            "Tangent is the coordinate ratio $y/x$. Here the coordinates are equal and non-zero, so $\\tan\\theta=(\\sqrt2/2)/(\\sqrt2/2)=1$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks use of the coordinate ratio for tangent and simplification when the coordinates are equal.",
+          unitCircleDiagram: ucvPiOver4,
+        }),
+        qualityChoice({
+          id: "y11adv-ucv2-qm3",
+          prompt:
+            "At $\\theta=\\pi/2$, a student says $\\tan\\theta=0$ because the terminal point lies on an axis. Which correction is valid?",
+          latex: "(\\cos\\theta,\\sin\\theta)=(0,1)",
+          choices: [
+            "$\\tan\\theta=0$ because every axis point has zero tangent",
+            "$\\tan\\theta=1$ because the y-coordinate is 1",
+            "$\\tan\\theta$ is undefined because $y/x=1/0$",
+            "$\\tan\\theta=-1$ because the x-coordinate is not positive",
+          ],
+          answer: "C",
+          hint: "Use $\\tan\\theta=y/x$ and inspect the denominator at the top axis point.",
+          explanation:
+            "At $\\pi/2$ the terminal point is $(0,1)$, so $\\tan\\theta=y/x=1/0$. Division by zero is undefined; the fact that the point lies on an axis does not make every ratio zero.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses confusion between a zero coordinate and a zero ratio, with explicit attention to division by zero.",
+          distractorMisconceptions: {
+            A: "Generalises incorrectly that all axis points have zero tangent.",
+            B: "Uses the numerator alone and ignores the zero denominator.",
+            D: "Assigns a sign from axis location without evaluating the coordinate ratio.",
+          },
           unitCircleDiagram: ucvPiOver2,
-          hint: "At θ = π/2 the terminal point is (0, 1). Read the x-coordinate for cosine.",
-        },
-        practicalChoice(
-          "y11adv-ucv-m6",
-          "Which is the correct unit-circle point at $\\theta=\\frac{\\pi}{6}$?",
-          "C",
-          [
-            "$\\left(\\frac{1}{2},\\,\\frac{\\sqrt{3}}{2}\\right)$",
-            "$\\left(\\frac{\\sqrt{2}}{2},\\,\\frac{\\sqrt{2}}{2}\\right)$",
-            "$\\left(\\frac{\\sqrt{3}}{2},\\,\\frac{1}{2}\\right)$",
-            "$(0,\\,1)$",
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm4",
+          prompt:
+            "For $0\\le\\theta<2\\pi$, the terminal point is $(0,-1)$. Find $\\theta$ in radians.",
+          latex: "(\\cos\\theta,\\sin\\theta)=(0,-1)",
+          answer: "3pi/2",
+          acceptedAnswers: ["3\\pi/2", "$\\frac{3\\pi}{2}$", "1.5pi", "270 degrees", "270°"],
+          hint: "Locate the negative y-axis point and measure its anticlockwise angle from the positive x-axis.",
+          explanation:
+            "The point $(0,-1)$ is at the bottom of the circle on the negative y-axis. The anticlockwise angle from the positive x-axis is three quarters of a turn, so $\\theta=3\\pi/2$.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Checks reverse interpretation from an axis coordinate to its unique angle in a stated interval.",
+          unitCircleDiagram: ucvThreePiOver2,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm5",
+          prompt:
+            "A first-quadrant point has coordinates $(k,\\sqrt3k)$ and lies on the circle $x^2+y^2=1$. Find $k$.",
+          latex: "k^2+(\\sqrt3k)^2=1",
+          answer: "1/2",
+          acceptedAnswers: ["0.5", "\\frac12", "$\\frac{1}{2}$", "one half"],
+          hint: "Substitute both coordinates into $x^2+y^2=1$, then choose the sign consistent with quadrant I.",
+          explanation:
+            "The circle equation gives $k^2+3k^2=1$, so $4k^2=1$ and $k=\\pm1/2$. In quadrant I both coordinates are positive, hence $k=1/2$.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Combines the unit-circle constraint with a coordinate parameter and requires selection of the quadrant-consistent root.",
+          unitCircleDiagram: {
+            description:
+              "A first-quadrant unit-circle point labelled P equals open parenthesis k comma square root three k close parenthesis.",
+            angleRadians: "\\theta",
+            terminalPoint: { x: "k", y: "√3k", label: "(k, √3k)" },
+            quadrant: 1,
+            showReferenceTriangle: true,
+            highlightRadius: true,
+          },
+        }),
+        qualityChoice({
+          id: "y11adv-ucv2-qm6",
+          prompt:
+            "Ari reads the point at $\\pi/3$ as $(1/2,\\sqrt3/2)$ and calculates tangent as $y/x=\\sqrt3$. Bea uses $\\sin(\\pi/3)/\\cos(\\pi/3)$. Which assessment is correct?",
+          latex: "\\frac{y}{x}=\\frac{\\sin\\theta}{\\cos\\theta}",
+          choices: [
+            "Only Ari is correct because tangent must be read from coordinates",
+            "Only Bea is correct because coordinate division reverses x and y",
+            "Both are correct and each gives $\\sqrt3$",
+            "Neither is correct because tangent is the x-coordinate",
           ],
-          "At π/6: x = cos(π/6) = √3/2, y = sin(π/6) = 1/2. The point is (√3/2, 1/2).",
-          "\\theta=\\frac{\\pi}{6}"
-        ),
-        {
-          ...formulaAnswer("y11adv-ucv-m7", "Evaluate using the unit circle.", "\\cos 0", "1", []),
-          hint: "The starting point on the unit circle is (1, 0). cos(0) = x-coordinate = 1.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucv-m8", "Evaluate using the unit circle.", "\\sin 0", "0", []),
-          hint: "The starting point on the unit circle is (1, 0). sin(0) = y-coordinate = 0.",
-        },
-        practicalChoice(
-          "y11adv-ucv-m9",
-          "A student writes $\\sin\\!\\left(\\frac{\\pi}{6}\\right)=\\frac{\\sqrt{3}}{2}$. Identify the error.",
-          "C",
-          [
-            "$\\sin\\!\\left(\\frac{\\pi}{6}\\right)=1$",
-            "$\\frac{\\sqrt{3}}{2}$ is correct",
-            "$\\sin\\!\\left(\\frac{\\pi}{6}\\right)=\\frac{1}{2}$; the value $\\frac{\\sqrt{3}}{2}$ belongs to $\\sin\\!\\left(\\frac{\\pi}{3}\\right)$",
-            "$\\sin\\!\\left(\\frac{\\pi}{6}\\right)=\\frac{\\sqrt{2}}{2}$",
-          ],
-          "At π/6 the y-coordinate is 1/2. The value √3/2 is the y-coordinate at π/3 — the two angles are swapped.",
-          "\\sin\\left(\\frac{\\pi}{6}\\right)"
-        ),
-        {
-          ...formulaAnswer("y11adv-ucv-m10", "Evaluate without a calculator.", "2\\sin\\!\\left(\\frac{\\pi}{6}\\right)\\cos\\!\\left(\\frac{\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
-          hint: "Substitute sin(π/6) = 1/2 and cos(π/6) = √3/2. Multiply: 2 × (1/2) × (√3/2).",
-        },
+          answer: "C",
+          hint: "Substitute the same sine and cosine coordinates into both proposed ratios.",
+          explanation:
+            "Ari obtains $(\\sqrt3/2)/(1/2)=\\sqrt3$. Bea uses exactly the same ratio because $y=\\sin\\theta$ and $x=\\cos\\theta$. Both methods are equivalent.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks equivalence between coordinate slope and the sine-over-cosine definition of tangent.",
+          distractorMisconceptions: {
+            A: "Rejects the equivalent sine-over-cosine definition.",
+            B: "Reverses the tangent ratio to x over y.",
+            D: "Confuses tangent with an individual coordinate.",
+          },
+          unitCircleDiagram: ucvPiOver3,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm7",
+          prompt:
+            "Let $P=\\left(\\dfrac{\\sqrt3}{2},\\dfrac12\\right)$ and $Q=\\left(\\dfrac12,\\dfrac{\\sqrt3}{2}\\right)$. Find the exact distance $PQ$.",
+          latex: "PQ=\\sqrt{(x_Q-x_P)^2+(y_Q-y_P)^2}",
+          answer: "(sqrt(6)-sqrt(2))/2",
+          acceptedAnswers: ["(\\sqrt6-\\sqrt2)/2", "\\frac{\\sqrt6-\\sqrt2}{2}", "(sqrt(2)/2)(sqrt(3)-1)", "\\frac{\\sqrt2}{2}(\\sqrt3-1)"],
+          hint: "The coordinate differences are opposites, so their squares are equal before taking the square root.",
+          explanation:
+            "The differences are $(1-\\sqrt3)/2$ and $(\\sqrt3-1)/2$. Thus $PQ=\\sqrt{2(\\sqrt3-1)^2/4}=(\\sqrt2/2)(\\sqrt3-1)=(\\sqrt6-\\sqrt2)/2$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Connects two benchmark terminal coordinates with exact coordinate geometry and radical simplification.",
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm8",
+          prompt:
+            "For integers $0\\le n\\le12$, define $P_n=(\\cos(n\\pi/24),\\sin(n\\pi/24))$. How many values of $n$ make both coordinates members of $\\{0,\\tfrac12,\\tfrac{\\sqrt2}{2},\\tfrac{\\sqrt3}{2},1\\}$?",
+          latex: "P_n=\\left(\\cos\\frac{n\\pi}{24},\\sin\\frac{n\\pi}{24}\\right)",
+          answer: "5",
+          acceptedAnswers: ["5.0", "five", "5 values"],
+          hint: "Within the first quadrant, identify which multiples of pi over twenty-four are standard benchmark angles.",
+          explanation:
+            "The benchmark angles in $[0,\\pi/2]$ are $0,\\pi/6,\\pi/4,\\pi/3,\\pi/2$. They correspond to $n=0,4,6,8,12$, respectively, so there are 5 valid values.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded angle family to distinguish benchmark coordinate pairs from non-standard first-quadrant points.",
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm9",
+          prompt:
+            "Find the exact area enclosed by $O=(0,0)$, $P=\\left(\\dfrac{\\sqrt3}{2},\\dfrac12\\right)$, and $Q=\\left(\\dfrac12,\\dfrac{\\sqrt3}{2}\\right)$.",
+          latex: "A=\\frac12\\left|x_Py_Q-y_Px_Q\\right|",
+          answer: "1/4",
+          acceptedAnswers: ["0.25", "\\frac14", "$\\frac{1}{4}$", "one quarter"],
+          hint: "Use the determinant area formula with O at the origin, then simplify the products.",
+          explanation:
+            "With $O$ at the origin, the determinant gives twice the signed area: $x_Py_Q-y_Px_Q=3/4-1/4=1/2$. Taking the absolute value and halving gives $A=1/4$ square unit.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Uses two unit-circle coordinate pairs as inputs to an exact determinant-area calculation.",
+        }),
+        qualityAnswer({
+          id: "y11adv-ucv2-qm10",
+          prompt:
+            "A first-quadrant point $P=(x,y)$ satisfies $x^2+y^2=1$ and $x-y=\\dfrac{\\sqrt3-1}{2}$. Find the exact value of $xy$.",
+          latex: "(x-y)^2=x^2+y^2-2xy",
+          answer: "sqrt(3)/4",
+          acceptedAnswers: ["\\sqrt3/4", "\\frac{\\sqrt3}{4}", "√3/4", "$\\frac{\\sqrt3}{4}$"],
+          hint: "Square the given difference and use $x^2+y^2=1$ to isolate the product.",
+          explanation:
+            "Squaring gives $(x-y)^2=(\\sqrt3-1)^2/4=1-\\sqrt3/2$. Since $(x-y)^2=1-2xy$, we get $2xy=\\sqrt3/2$, hence $xy=\\sqrt3/4$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires transforming a coordinate constraint to infer a product without solving for each coordinate separately.",
+        }),
       ],
     };
   }
@@ -2056,6 +3933,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
       terminalPoint: { x: "1/2", y: "-√3/2", label: "(1/2, -√3/2)" },
       quadrant: 4,
       referenceAngle: "π/3",
+      showReferenceTriangle: true,
+    };
+    const ucqQ4b: import("../types").UnitCircleDiagram = {
+      description:
+        "Unit circle showing the angle 11 pi over 6 in quadrant four. Its reference angle pi over 6 is measured to the positive x-axis, and the terminal point is (square root three over two, negative one half).",
+      angleRadians: "11π/6",
+      angleDegrees: "330",
+      terminalPoint: { x: "√3/2", y: "-1/2", label: "(√3/2, -1/2)" },
+      quadrant: 4,
+      referenceAngle: "π/6",
       showReferenceTriangle: true,
     };
     const ucqQ2b: import("../types").UnitCircleDiagram = {
@@ -2230,57 +4117,192 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Confusing which formula gives the reference angle in each quadrant.", fix: "Q2: ref = π − θ. Q3: ref = θ − π. Q4: ref = 2π − θ. In each case the result should be acute (between 0 and π/2)." },
       ],
       masteryQuiz: [
-        {
-          ...formulaAnswer("y11adv-ucq-m1", "Evaluate using a reference angle.", "\\sin\\left(\\frac{2\\pi}{3}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
-          hint: "Reference angle of 2π/3 is π/3. Sine is positive in Q2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m2", "Evaluate using a reference angle.", "\\cos\\left(\\frac{5\\pi}{6}\\right)", "-sqrt(3)/2", ["-\\sqrt{3}/2", "-(√3)/2"]),
-          unitCircleDiagram: ucqQ2a,
-          hint: "Reference angle of 5π/6 is π/6. Cosine is negative in Q2.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m3", "Find the reference angle.", "\\frac{5\\pi}{4}", "pi/4", ["\\pi/4", "π/4"]),
-          unitCircleDiagram: ucqQ3d,
-          hint: "5π/4 is in Q3. Reference angle = 5π/4 − π.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m4", "Evaluate using a reference angle.", "\\tan\\left(\\frac{5\\pi}{4}\\right)", "1", []),
-          hint: "Reference angle of 5π/4 is π/4. tan(π/4) = 1. Tangent is positive in Q3.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m5", "Evaluate using a reference angle.", "\\cos\\left(\\frac{11\\pi}{6}\\right)", "sqrt(3)/2", ["\\sqrt{3}/2", "√3/2"]),
-          hint: "Reference angle of 11π/6 is 2π − 11π/6 = π/6. Cosine is positive in Q4.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m6", "Evaluate using a reference angle.", "\\sin\\left(\\frac{4\\pi}{3}\\right)", "-sqrt(3)/2", ["-\\sqrt{3}/2", "-(√3)/2"]),
-          hint: "Reference angle of 4π/3 is π/3. Sine is negative in Q3.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m7", "Evaluate using a reference angle.", "\\tan\\left(\\frac{2\\pi}{3}\\right)", "-sqrt(3)", ["-\\sqrt{3}", "-√3"]),
-          hint: "Reference angle of 2π/3 is π/3. tan(π/3) = √3. Tangent is negative in Q2.",
-        },
-        practicalChoice(
-          "y11adv-ucq-m8",
-          "Why is $\\tan\\!\\left(\\frac{7\\pi}{6}\\right)$ positive?",
-          "B",
-          [
-            "In Q3 tangent is always negative",
-            "In Q3 both sin and cos are negative, so their ratio is positive",
-            "$\\frac{7\\pi}{6}$ is in Q2 where tangent is positive",
-            "$\\tan\\!\\left(\\frac{7\\pi}{6}\\right)=1$",
+        qualityChoice({
+          id: "y11adv-ucqa-qm1",
+          prompt:
+            "Which evaluation of $\\cos(5\\pi/6)$ correctly combines its reference angle and quadrant sign?",
+          latex: "\\cos\\left(\\frac{5\\pi}{6}\\right)",
+          choices: [
+            "$\\dfrac{\\sqrt3}{2}$ because the reference angle is $\\pi/6$",
+            "$-\\dfrac{\\sqrt3}{2}$ because cosine is negative in quadrant II",
+            "$-\\dfrac12$ because the angle is measured from the negative x-axis",
+            "$\\dfrac12$ because sine is positive in quadrant II",
           ],
-          "ASTC: in Q3 only tangent is positive. Because sin < 0 and cos < 0, their ratio sin/cos is (−)/(−) = positive.",
-          "\\tan\\left(\\frac{7\\pi}{6}\\right)"
-        ),
-        {
-          ...formulaAnswer("y11adv-ucq-m9", "Evaluate using a reference angle.", "\\sin\\left(\\frac{5\\pi}{3}\\right)", "-sqrt(3)/2", ["-\\sqrt{3}/2", "-(√3)/2"]),
-          hint: "Reference angle of 5π/3 is 2π − 5π/3 = π/3. Sine is negative in Q4.",
-        },
-        {
-          ...formulaAnswer("y11adv-ucq-m10", "Evaluate using the related-angle rule $\\sin(\\pi+\\theta)=-\\sin\\theta$.", "\\sin\\!\\left(\\pi+\\frac{\\pi}{6}\\right)", "-1/2", ["-0.5"]),
-          hint: "sin(π + π/6) = −sin(π/6) = −(1/2) = −1/2. The rule adds a negative sign for Q3 angles.",
-        },
+          answer: "B",
+          hint: "Find the QII reference angle, use the cosine magnitude at that angle, then apply the QII sign.",
+          explanation:
+            "The reference angle is $\\pi-5\\pi/6=\\pi/6$, so the cosine magnitude is $\\sqrt3/2$. Cosine is negative in quadrant II, giving $\\cos(5\\pi/6)=-\\sqrt3/2$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks the complete reference-angle process: quadrant, benchmark magnitude, and sign.",
+          distractorMisconceptions: {
+            A: "Uses the correct magnitude but omits the quadrant-II sign.",
+            C: "Uses the sine magnitude for the pi-over-six reference angle.",
+            D: "Transfers sine's positive quadrant-II sign and magnitude to cosine.",
+          },
+          unitCircleDiagram: ucqQ2a,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm2",
+          prompt: "Find the reference angle.",
+          latex: "\\theta=\\frac{11\\pi}{6}",
+          answer: "pi/6",
+          acceptedAnswers: ["\\pi/6", "π/6", "$\\frac{\\pi}{6}$", "30 degrees", "30°"],
+          hint: "The angle is in quadrant IV, so subtract it from one full turn.",
+          explanation:
+            "For a quadrant-IV angle the reference angle is $2\\pi-\\theta$. Therefore $2\\pi-11\\pi/6=12\\pi/6-11\\pi/6=\\pi/6$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks selection and execution of the quadrant-IV reference-angle construction.",
+          unitCircleDiagram: ucqQ4b,
+        }),
+        qualityChoice({
+          id: "y11adv-ucqa-qm3",
+          prompt:
+            "A student writes $\\sin(4\\pi/3)=\\sqrt3/2$ because the reference angle is $\\pi/3$. Which correction is valid?",
+          latex: "\\sin\\left(\\frac{4\\pi}{3}\\right)",
+          choices: [
+            "The magnitude is wrong; it should be $1/2$",
+            "The answer is correct because reference angles preserve every sign",
+            "The magnitude is correct but sine is negative in quadrant III, so the value is $-\\sqrt3/2$",
+            "The angle lies in quadrant IV, where sine is positive",
+          ],
+          answer: "C",
+          hint: "Keep the benchmark magnitude separate from the sign determined by the quadrant.",
+          explanation:
+            "The reference angle is indeed $\\pi/3$, giving magnitude $\\sqrt3/2$. However, $4\\pi/3$ lies in quadrant III, where the y-coordinate and sine are negative, so the value is $-\\sqrt3/2$.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses the common mistake of carrying a first-quadrant magnitude across without applying the new sign.",
+          distractorMisconceptions: {
+            A: "Uses the cosine magnitude associated with a pi-over-three reference angle.",
+            B: "Assumes reference angles preserve sign as well as magnitude.",
+            D: "Misclassifies four pi over three as a quadrant-IV angle and reverses its sign rule.",
+          },
+          unitCircleDiagram: ucqQ3c,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm4",
+          prompt:
+            "For $0\\le\\theta<2\\pi$, the terminal point is $\\left(-\\dfrac{\\sqrt2}{2},-\\dfrac{\\sqrt2}{2}\\right)$. Find $\\theta$.",
+          latex: "(\\cos\\theta,\\sin\\theta)=\\left(-\\frac{\\sqrt2}{2},-\\frac{\\sqrt2}{2}\\right)",
+          answer: "5pi/4",
+          acceptedAnswers: ["5\\pi/4", "$\\frac{5\\pi}{4}$", "225 degrees", "225°"],
+          hint: "Equal coordinate magnitudes give a pi-over-four reference angle; use the signs to choose the quadrant.",
+          explanation:
+            "Both coordinates are negative, so the point is in quadrant III. Equal magnitudes give reference angle $\\pi/4$. Hence $\\theta=\\pi+\\pi/4=5\\pi/4$.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Checks reverse inference from signed terminal coordinates to a unique angle in the specified interval.",
+          unitCircleDiagram: ucqQ3d,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm5",
+          prompt:
+            "For $0\\le\\theta<2\\pi$, $\\sin\\theta=-\\dfrac12$ and $\\cos\\theta<0$. Find $\\theta$.",
+          latex: "\\sin\\theta=-\\frac12,\\quad \\cos\\theta<0",
+          answer: "7pi/6",
+          acceptedAnswers: ["7\\pi/6", "$\\frac{7\\pi}{6}$", "210 degrees", "210°"],
+          hint: "The sine magnitude gives a pi-over-six reference angle; combine both signs to identify the quadrant.",
+          explanation:
+            "The magnitude $|\\sin\\theta|=1/2$ gives reference angle $\\pi/6$. Negative sine places the point in QIII or QIV, while negative cosine selects QIII. Thus $\\theta=\\pi+\\pi/6=7\\pi/6$.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Combines an exact magnitude with two sign constraints to identify a unique all-quadrant angle.",
+          unitCircleDiagram: ucqQ3b,
+        }),
+        qualityChoice({
+          id: "y11adv-ucqa-qm6",
+          prompt:
+            "Leah finds $\\tan(7\\pi/6)$ from its $\\pi/6$ reference angle and the QIII sign. Max divides the terminal coordinates $(-1/2)/(-\\sqrt3/2)$. Which assessment is correct?",
+          latex: "\\tan\\left(\\frac{7\\pi}{6}\\right)",
+          choices: [
+            "Only Leah is correct because coordinate division cannot be used outside quadrant I",
+            "Only Max is correct because ASTC gives signs but not magnitudes",
+            "Both are correct and each gives $\\dfrac{\\sqrt3}{3}$",
+            "Neither is correct because tangent is negative in quadrant III",
+          ],
+          answer: "C",
+          hint: "Evaluate the coordinate quotient and compare it with the signed reference-angle value.",
+          explanation:
+            "Leah uses $|\\tan(\\pi/6)|=\\sqrt3/3$ and the positive QIII tangent sign. Max obtains $(-1/2)/(-\\sqrt3/2)=1/\\sqrt3=\\sqrt3/3$. Both methods agree.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks equivalence of ASTC/reference-angle reasoning and direct signed-coordinate division.",
+          distractorMisconceptions: {
+            A: "Incorrectly restricts coordinate ratios to quadrant I.",
+            B: "Incorrectly claims reference angles cannot determine magnitude.",
+            D: "Treats a negative divided by a negative as negative.",
+          },
+          unitCircleDiagram: ucqQ3a,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm7",
+          prompt:
+            "Find the exact area enclosed by $O=(0,0)$, $P=\\left(-\\dfrac{\\sqrt3}{2},\\dfrac12\\right)$, and $Q=\\left(-\\dfrac{\\sqrt3}{2},-\\dfrac12\\right)$.",
+          latex: "A=\\frac12\\left|x_Py_Q-y_Px_Q\\right|",
+          answer: "sqrt(3)/4",
+          acceptedAnswers: ["\\sqrt3/4", "\\frac{\\sqrt3}{4}", "√3/4", "$\\frac{\\sqrt3}{4}$"],
+          hint: "Use the determinant area formula with O at the origin and retain the signs of both y-coordinates.",
+          explanation:
+            "The determinant is $x_Py_Q-y_Px_Q=\\sqrt3/4-(-\\sqrt3/4)=\\sqrt3/2$. Halving its absolute value gives area $\\sqrt3/4$ square unit.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Uses symmetric QII and QIII terminal coordinates in an exact signed-coordinate area calculation.",
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm8",
+          prompt:
+            "For integers $0\\le n\\le24$, let $\\theta_n=n\\pi/6$. How many values of $n$ make $\\tan\\theta_n$ defined and strictly positive?",
+          latex: "\\theta_n=\\frac{n\\pi}{6}",
+          answer: "8",
+          acceptedAnswers: ["8.0", "eight", "8 values"],
+          hint: "Classify one full cycle first, exclude axis angles, then account for repetition through four pi.",
+          explanation:
+            "Tangent is positive in QI and QIII. For $n=0,\\ldots,12$, the valid residues are $1,2,7,8$; the same pattern repeats for $n=13,\\ldots,24$. Thus $n=1,2,7,8,13,14,19,20$, giving 8 values.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Uses a bounded periodic family to combine quadrant signs, undefined axis cases, and systematic counting.",
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm9",
+          prompt:
+            "A terminal point starts at angle $5\\pi/6$ and is rotated anticlockwise by $\\pi/2$. Find the exact sum of the new point's coordinates.",
+          latex: "\\frac{5\\pi}{6}+\\frac{\\pi}{2}=\\frac{4\\pi}{3}",
+          answer: "-(1+sqrt(3))/2",
+          acceptedAnswers: ["-(1+\\sqrt3)/2", "\\frac{-1-\\sqrt3}{2}", "(-1-sqrt(3))/2", "-(sqrt(3)+1)/2"],
+          hint: "Find the new angle first, then use its reference angle and quadrant to write both coordinates.",
+          explanation:
+            "The new angle is $5\\pi/6+\\pi/2=4\\pi/3$. Its QIII coordinates are $(-1/2,-\\sqrt3/2)$, so their sum is $-(1+\\sqrt3)/2$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Links angular motion, exact reference-angle coordinates, quadrant signs, and symbolic combination.",
+          unitCircleDiagram: ucqQ2a,
+        }),
+        qualityAnswer({
+          id: "y11adv-ucqa-qm10",
+          prompt:
+            "For $0\\le\\theta<2\\pi$, suppose $|\\sin\\theta|=\\dfrac12$ and $\\tan\\theta<0$. Find the sum of all possible values of $\\theta$.",
+          latex: "|\\sin\\theta|=\\frac12,\\quad \\tan\\theta<0",
+          answer: "8pi/3",
+          acceptedAnswers: ["8\\pi/3", "$\\frac{8\\pi}{3}$", "480 degrees", "480°"],
+          hint: "List all angles with pi-over-six reference angle, then keep only quadrants where tangent is negative.",
+          explanation:
+            "The sine magnitude gives candidates $\\pi/6,5\\pi/6,7\\pi/6,11\\pi/6$. Tangent is negative in QII and QIV, leaving $5\\pi/6$ and $11\\pi/6$. Their sum is $16\\pi/6=8\\pi/3$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires generating a complete solution family, filtering it by a second sign condition, and aggregating the results.",
+        }),
       ],
     };
   }
@@ -2329,13 +4351,101 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { kind: "cos", a: 3, b: 2, c: 0, d: 0, label: "y = 3cos(2x)", description: "Amplitude 3, period π." },
       ],
     };
-    const m4Graph: import("../types").CartesianGraph = {
+    const featureGraph: import("../types").CartesianGraph = {
       description:
-        "y = 2 sin(πx) on [0, 2] — one full period. b = π gives period 2π/π = 2.",
-      xMin: 0, xMax: 2, yMin: -2.5, yMax: 2.5,
-      xStep: 0.5, yStep: 1,
+        "An unlabelled sinusoidal curve on 0 to pi starts at the origin and rises. It passes through the key points (pi/4, 2), (pi/2, 0), (3pi/4, -2), and (pi, 0).",
+      xMin: 0,
+      xMax: Math.PI,
+      yMin: -2.5,
+      yMax: 2.5,
+      xStep: Math.PI / 4,
+      yStep: 1,
+      xAxisLabel: "x",
       sinusoidals: [
-        { kind: "sin", a: 2, b: Math.PI, c: 0, d: 0, label: "y = 2sin(πx)", description: "Period 2: one complete wave from x = 0 to x = 2." },
+        {
+          kind: "sin",
+          a: 2,
+          b: 2,
+          c: 0,
+          d: 0,
+          description: "The unlabelled curve used in the question.",
+        },
+      ],
+    };
+    const methodComparisonGraph: import("../types").CartesianGraph = {
+      description:
+        "The graph of y = 5 cos(6x) shows consecutive crests at x = 0 and x = pi/3, with one complete wave between them.",
+      xMin: 0,
+      xMax: (2 * Math.PI) / 3,
+      yMin: -5.5,
+      yMax: 5.5,
+      xStep: Math.PI / 6,
+      yStep: 1,
+      xAxisLabel: "x",
+      sinusoidals: [
+        {
+          kind: "cos",
+          a: 5,
+          b: 6,
+          c: 0,
+          d: 0,
+          label: "y = 5cos(6x)",
+          description: "The curve named in the question.",
+        },
+      ],
+    };
+    const simultaneousMaximaGraph: import("../types").CartesianGraph = {
+      description:
+        "Two labelled sinusoidal curves are drawn on 0 to 4pi. Their shared crest positions can be identified by comparing the repeating waves.",
+      xMin: 0,
+      xMax: 4 * Math.PI,
+      yMin: -1.5,
+      yMax: 1.5,
+      xStep: Math.PI / 2,
+      yStep: 0.5,
+      xAxisLabel: "x",
+      sinusoidals: [
+        {
+          kind: "sin",
+          a: 1,
+          b: 2,
+          c: 0,
+          d: 0,
+          label: "f(x) = sin(2x)",
+          description: "The first curve named in the question.",
+        },
+        {
+          kind: "cos",
+          a: -1,
+          b: 4,
+          c: 0,
+          d: 0,
+          label: "g(x) = -cos(4x)",
+          description: "The second curve named in the question.",
+        },
+      ],
+    };
+    const ferrisWheelHeightGraph: import("../types").CartesianGraph = {
+      description:
+        "The displacement of a Ferris-wheel seat from the wheel centre is drawn over eight minutes. It starts at zero and completes three full oscillations between -12 and 12.",
+      xMin: 0,
+      xMax: 8,
+      yMin: -13,
+      yMax: 13,
+      xStep: 1,
+      yStep: 4,
+      xAxisLabel: "time (minutes)",
+      yAxisLabel: "displacement (metres)",
+      sinusoidals: [
+        {
+          kind: "sin",
+          a: 12,
+          b: (3 * Math.PI) / 4,
+          c: 0,
+          d: 0,
+          label: "h(t) = 12sin(bt)",
+          description: "The displacement model stated in the question.",
+        },
       ],
     };
     return {
@@ -2464,55 +4574,209 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Confusing amplitude change with vertical shift.", fix: "Amplitude stretches the wave; vertical shift moves the midline. y = 3sin(x) still has midline y = 0." },
       ],
       masteryQuiz: [
-        {
-          ...formulaAnswer("y11adv-amp-m1", "State the period.", "y=\\sin(2x)", "pi", ["\\pi", "π"]),
-          hint: "Period = 2π/b.",
-        },
-        {
-          ...formulaAnswer("y11adv-amp-m2", "State the amplitude.", "y=-6\\cos(3x)", "6", []),
-          hint: "Amplitude = |a|, never negative.",
-        },
-        {
-          ...formulaAnswer("y11adv-amp-m3", "State the period.", "y=4\\sin(3x)", "2pi/3", ["2\\pi/3", "2π/3"]),
-          hint: "Period = 2π/3.",
-        },
-        {
-          ...formulaAnswer("y11adv-amp-m4", "The graph shows y = 2sin(πx). State the period.", "y=2\\sin(\\pi x)", "2", []),
-          cartesianGraph: m4Graph,
-          hint: "b = π. Period = 2π/π.",
-        },
-        {
-          ...formulaAnswer("y11adv-amp-m5", "State the maximum value.", "y=-5\\sin x", "5", []),
-          hint: "A reflection does not lower the maximum; max = |a|.",
-        },
-        {
-          ...formulaAnswer("y11adv-amp-m6", "State the minimum value.", "y=-3\\sin(2x)", "-3", []),
-          hint: "Minimum = d − |a| = 0 − 3.",
-        },
-        practicalChoice(
-          "y11adv-amp-m7",
-          "Which is the range of $y=4\\cos x$?",
-          "D",
-          ["$(0,4]$", "$[-1,1]$", "$[0,4]$", "$[-4,4]$"],
-          "Amplitude = 4, so range = [−4, 4].",
-          "y=4\\cos x"
-        ),
-        practicalChoice(
-          "y11adv-amp-m8",
-          "A student doubles $b$ and says the period doubles. Identify the error.",
-          "A",
-          ["Period halves when $b$ doubles: period $=2\\pi/b$", "The student is correct — period doubles", "Period is unaffected by $b$", "Period doubles only for cosine, not sine"],
-          "Period = 2π/b. Doubling b halves the period, not doubles it.",
-          "y=\\sin(bx)"
-        ),
-        {
-          ...formulaAnswer("y11adv-amp-m9", "y = a sin(bx) has amplitude 2 and period π. Find b.", "\\text{amplitude }2,\\text{ period }\\pi", "2", []),
-          hint: "Period = 2π/b = π. Solve for b.",
-        },
-        {
-          ...formulaAnswer("y11adv-amp-m10", "State the period.", "y=3\\sin\\!\\left(\\frac{\\pi x}{2}\\right)", "4", []),
-          hint: "b = π/2. Period = 2π ÷ (π/2) = 4.",
-        },
+        qualityChoice({
+          id: "y11adv-amp-qm1",
+          prompt:
+            "A student says $y=-4\\cos(3x)$ has amplitude $-4$ and period $6\\pi$. Which correction is complete?",
+          latex: "y=-4\\cos(3x)",
+          answer: "A",
+          choices: [
+            "Amplitude $4$ and period $\\frac{2\\pi}{3}$",
+            "Amplitude $-4$ and period $\\frac{2\\pi}{3}$",
+            "Amplitude $4$ and period $6\\pi$",
+            "Amplitude $3$ and period $\\frac{\\pi}{2}$",
+          ],
+          hint:
+            "Treat the vertical coefficient with an absolute value, and divide $2\\pi$ by the coefficient of $x$.",
+          explanation:
+            "Amplitude is $|a|=|-4|=4$; the negative sign reflects the curve but cannot make amplitude negative. The period is $\\frac{2\\pi}{b}=\\frac{2\\pi}{3}$, so the student also multiplied by $b$ instead of dividing.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses the two independent misconceptions of signed amplitude and multiplying rather than dividing when finding period.",
+          distractorMisconceptions: {
+            B: "Corrects the period but retains a signed amplitude.",
+            C: "Corrects the amplitude but retains the multiply-by-b period error.",
+            D: "Uses the horizontal coefficient as amplitude and applies an unrelated period.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm2",
+          prompt:
+            "State the amplitude and period, in that order, of the function.",
+          latex: "y=-3\\cos(4x)",
+          answer: "3,pi/2",
+          acceptedAnswers: [
+            "3,\\pi/2",
+            "(3,pi/2)",
+            "amplitude 3, period pi/2",
+            "3 and pi/2",
+          ],
+          hint:
+            "Read $a$ and $b$ separately: amplitude is $|a|$ and period is $2\\pi/b$.",
+          explanation:
+            "Here $a=-3$ and $b=4$. Therefore the amplitude is $|-3|=3$, while the period is $\\frac{2\\pi}{4}=\\frac{\\pi}{2}$. The sign of $a$ affects orientation, not either requested magnitude.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks coordinated use of both defining formulas without confusing the vertical and horizontal coefficients.",
+        }),
+        qualityChoice({
+          id: "y11adv-amp-qm3",
+          prompt:
+            "Which equation matches the displayed unlabelled curve?",
+          latex: "0\\le x\\le\\pi",
+          answer: "A",
+          choices: [
+            "$y=2\\sin(2x)$",
+            "$y=2\\sin\\left(\\frac{x}{2}\\right)$",
+            "$y=-2\\sin(2x)$",
+            "$y=\\sin(2x)$",
+          ],
+          hint:
+            "Use the maximum height for $|a|$, the direction from the origin for the sign, and the length of one wave for the period.",
+          explanation:
+            "The curve ranges from $-2$ to $2$, so its amplitude is 2. It starts at the origin and rises, ruling out the reflected option. One complete wave occupies $\\pi$, so $b=2$. Thus $y=2\\sin(2x)$.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests reconstruction of an equation from visual amplitude, orientation, and period rather than coefficient reading.",
+          distractorMisconceptions: {
+            B: "Inverts the horizontal coefficient and therefore assigns a much longer period.",
+            C: "Reads the amplitude and period but reverses the initial direction.",
+            D: "Reads the period but ignores the vertical scale.",
+          },
+          cartesianGraph: featureGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm4",
+          prompt:
+            "A controller is modelled by $y=a\\sin(bx)$ with $a>0$ and $b>0$. Its range is $[-7,7]$ and it repeats every $\\frac{5\\pi}{2}$ units. Find $ab$.",
+          latex: "y=a\\sin(bx)",
+          answer: "28/5",
+          acceptedAnswers: ["5.6", "\\frac{28}{5}", "ab=28/5", "$\\frac{28}{5}$"],
+          hint:
+            "The range determines $a$. Then solve $2\\pi/b=5\\pi/2$ for $b$ before multiplying.",
+          explanation:
+            "The symmetric range gives amplitude $a=7$. From $\\frac{2\\pi}{b}=\\frac{5\\pi}{2}$, cross-multiplication gives $4=5b$, so $b=\\frac45$. Hence $ab=7\\cdot\\frac45=\\frac{28}{5}$.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires combining range and period information to infer both parameters of an unshifted sinusoidal model.",
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm5",
+          prompt:
+            "The function $y=a\\sin(bx)$ has $a>0$, maximum value $6$, and exactly five complete cycles on $0\\le x\\le4\\pi$. Find $a+b$.",
+          latex: "y=a\\sin(bx)",
+          answer: "17/2",
+          acceptedAnswers: ["8.5", "\\frac{17}{2}", "a+b=17/2", "$\\frac{17}{2}$"],
+          hint:
+            "The maximum gives $a$. Five cycles across a width of $4\\pi$ determine the period, then determine $b$.",
+          explanation:
+            "Since the midline is zero and $a>0$, the maximum gives $a=6$. Five cycles in width $4\\pi$ means period $T=\\frac{4\\pi}{5}$. Thus $b=\\frac{2\\pi}{T}=\\frac52$, and $a+b=6+\\frac52=\\frac{17}{2}$.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Tests reverse inference of two coefficients from a vertical extremum and a cycle count over a finite interval.",
+        }),
+        qualityChoice({
+          id: "y11adv-amp-qm6",
+          prompt:
+            "For $y=5\\cos(6x)$, Lena calculates $2\\pi/6$. Omar reads the horizontal distance between consecutive crests. Whose method correctly finds the period?",
+          latex: "y=5\\cos(6x)",
+          answer: "C",
+          choices: [
+            "Lena only",
+            "Omar only",
+            "Both methods",
+            "Neither method",
+          ],
+          hint:
+            "A period can be obtained from the equation or measured between equivalent positions on consecutive cycles.",
+          explanation:
+            "Lena's coefficient method gives $T=\\frac{2\\pi}{6}=\\frac{\\pi}{3}$. The displayed consecutive crests occur at $x=0$ and $x=\\frac{\\pi}{3}$, so Omar measures the same horizontal distance. Both methods are valid.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Assesses whether algebraic and graphical definitions of period are recognised as equivalent evidence.",
+          distractorMisconceptions: {
+            A: "Accepts only the formula and does not recognise equivalent positions on a graph.",
+            B: "Accepts graph reading but rejects the coefficient formula.",
+            D: "Does not connect the horizontal coefficient or consecutive crests with period.",
+          },
+          cartesianGraph: methodComparisonGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm7",
+          prompt:
+            "Find the sum of all $x$-values in the interval where both functions attain their maximum value at the same time.",
+          latex: "f(x)=\\sin(2x),\\quad g(x)=-\\cos(4x),\\quad 0\\le x\\le4\\pi",
+          answer: "7pi",
+          acceptedAnswers: ["7\\pi", "$7\\pi$", "7 pi"],
+          hint:
+            "Write a repeating formula for the maxima of each function, then keep the common values in the interval.",
+          explanation:
+            "$f$ is maximal when $x=\\frac\\pi4+k\\pi$. The reflected cosine $g$ is maximal when $x=\\frac\\pi4+\\frac{m\\pi}{2}$. Common maxima occur for even $m$, giving $\\frac\\pi4,\\frac{5\\pi}{4},\\frac{9\\pi}{4},\\frac{13\\pi}{4}$. Their sum is $7\\pi$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires coordinating two different periods and a reflection to identify and aggregate simultaneous extrema.",
+          cartesianGraph: simultaneousMaximaGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm8",
+          prompt:
+            "For the family $f_n(x)=\\sin(nx)$, where $n$ is an integer satisfying $1\\le n\\le14$, find the sum of all $n$ for which $f_n$ completes an even whole number of cycles on $0\\le x\\le3\\pi$.",
+          latex: "f_n(x)=\\sin(nx)",
+          answer: "24",
+          acceptedAnswers: ["n=4,8,12; sum=24", "4+8+12=24", "twenty-four"],
+          hint:
+            "The number of cycles is interval width divided by period: $3\\pi/(2\\pi/n)=3n/2$. Impose the even-integer condition.",
+          explanation:
+            "The cycle count is $\\frac{3n}{2}$. For this to be an even integer, $3n$ must be divisible by 4. Since 3 and 4 are coprime, $n$ must be a multiple of 4. The valid values are $4,8,12$, whose sum is $24$.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests systematic classification of a bounded parameter family through period, divisibility, and completeness conditions.",
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm9",
+          prompt:
+            "A Ferris-wheel seat has displacement from the wheel centre $h(t)=12\\sin(bt)$ metres, where $t$ is in minutes and $b>0$. It completes three revolutions in eight minutes. Find $b$ and the total vertical distance travelled in those eight minutes.",
+          latex: "h(t)=12\\sin(bt)",
+          answer: "3pi/4,144",
+          acceptedAnswers: [
+            "b=3pi/4, distance=144",
+            "3\\pi/4,144 m",
+            "b=\\frac{3\\pi}{4}; 144 metres",
+          ],
+          hint:
+            "Three revolutions determine the period. During one full sine cycle, track the vertical travel from centre to top, bottom, and back to centre.",
+          explanation:
+            "Three cycles in eight minutes give $T=\\frac83$, so $b=\\frac{2\\pi}{T}=\\frac{3\\pi}{4}$. In one cycle the displacement travels $0\\to12\\to0\\to-12\\to0$, a total of 48 m. Across three cycles the distance is $3\\cdot48=144$ m.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates period inference with interpretation of total vertical travel, distinguishing distance from net displacement.",
+          cartesianGraph: ferrisWheelHeightGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-amp-qm10",
+          prompt:
+            "A design uses $y=a\\cos(bx)$, where $a$ and $b$ are positive integers. The product of the range width and the period is $12\\pi$, and $a+b=16$. Find $ab$.",
+          latex: "y=a\\cos(bx)",
+          answer: "48",
+          acceptedAnswers: ["a=12,b=4,ab=48", "12 times 4", "forty-eight"],
+          hint:
+            "The range width is $2a$ and the period is $2\\pi/b$. Use their product to relate $a$ and $b$.",
+          explanation:
+            "Range width times period is $(2a)(2\\pi/b)=4\\pi a/b$. Setting this equal to $12\\pi$ gives $a=3b$. Then $a+b=16$ becomes $4b=16$, so $b=4$ and $a=12$. Therefore $ab=48$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires translating two graph invariants into simultaneous parameter constraints and solving an integer design problem.",
+        }),
       ],
     };
   }
@@ -2561,15 +4825,70 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { kind: "sin", a: 1, b: 1, c: 0, d: 2, label: "y = sin(x) + 2", description: "Amplitude 1, midline y = 2, range [1, 3]." },
       ],
     };
-    const m4Graph: import("../types").CartesianGraph = {
+    const transformedFeatureGraph: import("../types").CartesianGraph = {
       description:
-        "y = 2 sin(x) + 3 on [0, 2π]. Midline y = 3, amplitude 2, range [1, 5].",
-      xMin: 0, xMax: 2 * Math.PI, yMin: 0.5, yMax: 5.5,
-      xStep: Math.PI / 2, yStep: 1,
+        "An unlabelled sinusoidal curve on 0 to 2pi passes through the key points (0, -1), (pi/2, 1), (pi, 3), (3pi/2, 1), and (2pi, -1).",
+      xMin: 0,
+      xMax: 2 * Math.PI,
+      yMin: -1.5,
+      yMax: 3.5,
+      xStep: Math.PI / 2,
+      yStep: 1,
       xAxisLabel: "x",
-      lines: [{ kind: "linear", m: 0, b: 3, label: "midline y = 3" }],
       sinusoidals: [
-        { kind: "sin", a: 2, b: 1, c: 0, d: 3, label: "y = 2sin(x) + 3", description: "Amplitude 2, midline y = 3, range [1, 5]." },
+        {
+          kind: "sin",
+          a: 2,
+          b: 1,
+          c: -Math.PI / 2,
+          d: 1,
+          description: "The unlabelled curve used in the question.",
+        },
+      ],
+    };
+    const inferredCosineGraph: import("../types").CartesianGraph = {
+      description:
+        "An unlabelled cosine-shaped curve has maximum value 7, minimum value -1, and consecutive maxima at x = pi/6 and x = 5pi/6.",
+      xMin: 0,
+      xMax: Math.PI,
+      yMin: -1.5,
+      yMax: 7.5,
+      xStep: Math.PI / 6,
+      yStep: 1,
+      xAxisLabel: "x",
+      lines: [{ kind: "linear", m: 0, b: 3, label: "midline" }],
+      sinusoidals: [
+        {
+          kind: "cos",
+          a: 4,
+          b: 3,
+          c: -Math.PI / 2,
+          d: 3,
+          description: "The unlabelled transformed cosine curve.",
+        },
+      ],
+    };
+    const tideGraph: import("../types").CartesianGraph = {
+      description:
+        "A tide-height curve ranges from 2 metres to 8 metres, repeats every 12 hours, and crosses its 5-metre midline upward at t = 3 hours.",
+      xMin: 0,
+      xMax: 15,
+      yMin: 1.5,
+      yMax: 8.5,
+      xStep: 3,
+      yStep: 1,
+      xAxisLabel: "time (hours)",
+      yAxisLabel: "height (metres)",
+      lines: [{ kind: "linear", m: 0, b: 5, label: "midline" }],
+      sinusoidals: [
+        {
+          kind: "sin",
+          a: 3,
+          b: Math.PI / 6,
+          c: -Math.PI / 2,
+          d: 5,
+          description: "The tide curve described in the question.",
+        },
       ],
     };
     return {
@@ -2695,56 +5014,211 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Including the sign in the amplitude — writing a = −3 instead of 3.", fix: "Amplitude = |a|. y = −3sin(x) has amplitude 3, not −3." },
       ],
       masteryQuiz: [
-        {
-          ...formulaAnswer("y11adv-shift-m1", "State the amplitude.", "y=-3\\sin(2x)+5", "3", []),
-          hint: "Amplitude = |a| = |−3|.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m2", "State the period.", "y=\\cos(3x-\\pi)+1", "2pi/3", ["2\\pi/3", "2π/3"]),
-          hint: "Period = 2π/b = 2π/3.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m3", "State the vertical shift.", "y=4\\sin(x+\\pi)-2", "-2", ["−2"]),
-          hint: "Vertical shift d = −2.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m4", "The graph shows y = 2sin(x) + 3. State the minimum value.", "y=2\\sin x+3", "1", []),
-          cartesianGraph: m4Graph,
-          hint: "Read the lowest point. Minimum = d − |a| = 3 − 2.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m5", "State the size of the phase shift.", "y=\\sin\\!\\left(2x+\\frac{\\pi}{2}\\right)", "pi/4", ["\\pi/4", "π/4"]),
-          hint: "Phase shift = −c/b = −(π/2)/2 = −π/4. Size = π/4.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m6", "State the maximum value.", "y=3\\cos x+2", "5", []),
-          hint: "Maximum = d + |a| = 2 + 3.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m7", "State the minimum value.", "y=2\\sin\\!\\left(x+\\frac{\\pi}{6}\\right)-1", "-3", ["−3"]),
-          hint: "Minimum = d − |a| = −1 − 2.",
-        },
-        practicalChoice(
-          "y11adv-shift-m8",
-          "A student reads $y=\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)$ and says the phase shift is $\\frac{\\pi}{3}$ to the right because the sign is positive. Identify the error.",
-          "B",
-          [
-            "The student forgot to include the period in the calculation",
-            "Positive $c$ means shift LEFT; phase shift $=-c/b=-\\frac{\\pi}{3}$ (left)",
-            "The phase shift should be $\\frac{\\pi}{6}$, not $\\frac{\\pi}{3}$",
-            "The student is correct",
+        qualityChoice({
+          id: "y11adv-shift-qm1",
+          prompt:
+            "A student says $y=2\\sin(3x+\\pi)+4$ is shifted left by $\\pi$ because the constant inside is positive. Which correction is complete?",
+          latex: "y=2\\sin(3x+\\pi)+4",
+          answer: "B",
+          choices: [
+            "Shift right by $\\pi$; midline $y=4$",
+            "Shift left by $\\frac{\\pi}{3}$; midline $y=4$",
+            "Shift left by $\\pi$; midline $y=2$",
+            "Shift right by $\\frac{\\pi}{3}$; midline $y=-4$",
           ],
-          "Phase shift = −c/b = −π/3. Negative result means left. Positive c always shifts left.",
-          "y=\\sin\\!\\left(x+\\frac{\\pi}{3}\\right)"
-        ),
-        {
-          ...formulaAnswer("y11adv-shift-m9", "State the period.", "y=5\\cos(\\pi x+\\tfrac{\\pi}{2})", "2", []),
-          hint: "b = π. Period = 2π/π = 2.",
-        },
-        {
-          ...formulaAnswer("y11adv-shift-m10", "State the maximum value of y.", "y=2\\sin\\!\\left(\\frac{\\pi x}{3}+\\frac{\\pi}{6}\\right)+1", "3", []),
-          hint: "Maximum = d + |a| = 1 + 2.",
-        },
+          hint:
+            "Factor the horizontal coefficient, or calculate $-c/b$. The constant outside the sine sets the midline.",
+          explanation:
+            "The phase shift is $-c/b=-\\pi/3$, so the curve moves left by $\\frac{\\pi}{3}$, not by $\\pi$. The outside constant is $d=4$, so the midline is $y=4$. Option B corrects both features.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Diagnoses failure to divide the horizontal translation by b while separately checking vertical-shift interpretation.",
+          distractorMisconceptions: {
+            A: "Reverses the translation direction and does not divide by b.",
+            C: "Does not divide by b and confuses amplitude with the midline.",
+            D: "Divides by b but reverses both the horizontal and vertical directions.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm2",
+          prompt:
+            "State, in order, the amplitude, period, phase shift, and midline of the function.",
+          latex: "y=-3\\cos\\!\\left(2x+\\frac{\\pi}{2}\\right)-4",
+          answer: "3,pi,pi/4 left,-4",
+          acceptedAnswers: [
+            "3,\\pi,left pi/4,y=-4",
+            "amplitude 3; period pi; shift left pi/4; midline -4",
+            "(3,pi,-pi/4,-4)",
+          ],
+          hint:
+            "Identify $a,b,c,d$, then use $|a|$, $2\\pi/b$, and $-c/b$. State the direction of the signed phase shift.",
+          explanation:
+            "Here $a=-3$, $b=2$, $c=\\frac\\pi2$, and $d=-4$. Thus amplitude is 3, period is $\\pi$, and phase shift is $-\\frac{\\pi/2}{2}=-\\frac\\pi4$, meaning left by $\\frac\\pi4$. The midline is $y=-4$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Checks coordinated extraction of all four transformation features, including sign and division in the phase shift.",
+        }),
+        qualityChoice({
+          id: "y11adv-shift-qm3",
+          prompt:
+            "Which equation matches the displayed unlabelled curve?",
+          latex: "0\\le x\\le2\\pi",
+          answer: "A",
+          choices: [
+            "$y=2\\sin\\left(x-\\frac{\\pi}{2}\\right)+1$",
+            "$y=2\\sin\\left(x+\\frac{\\pi}{2}\\right)+1$",
+            "$y=2\\sin\\left(x-\\frac{\\pi}{2}\\right)-1$",
+            "$y=\\sin\\left(x-\\frac{\\pi}{2}\\right)+1$",
+          ],
+          hint:
+            "Use the maximum and minimum for amplitude and midline, then use the starting position to determine the phase direction.",
+          explanation:
+            "The maximum 3 and minimum $-1$ give amplitude 2 and midline 1. At $x=0$ the curve is at its minimum, which matches $2\\sin(-\\pi/2)+1=-1$. Therefore the inside shift is $x-\\frac\\pi2$, giving option A.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Tests reconstruction of a transformed equation from vertical features and phase position on an unlabelled curve.",
+          distractorMisconceptions: {
+            B: "Uses the opposite phase direction, placing a maximum at the origin.",
+            C: "Reads the phase and amplitude but assigns the wrong midline.",
+            D: "Reads the phase and midline but ignores the vertical stretch.",
+          },
+          cartesianGraph: transformedFeatureGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm4",
+          prompt:
+            "State the range and midline, in that order, of the transformed function.",
+          latex: "y=4\\sin(3x-\\pi)+2",
+          answer: "[-2,6],y=2",
+          acceptedAnswers: [
+            "-2<=y<=6,midline y=2",
+            "range [-2,6], midline 2",
+            "[-2,6],2",
+          ],
+          hint:
+            "The inside transformation does not affect vertical values. Use $d-|a|$ and $d+|a|$ around the midline $y=d$.",
+          explanation:
+            "The amplitude is 4 and the vertical shift is 2. Therefore the wave extends from $2-4=-2$ to $2+4=6$, so its range is $[-2,6]$. Its midline is the vertically shifted axis $y=2$.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Checks whether horizontal transformations are correctly separated from the vertical range and midline calculation.",
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm5",
+          prompt:
+            "A transformed cosine is written $y=a\\cos(b(x-h))+d$ with $a>0$ and $b>0$. It has maximum $7$, minimum $-1$, and consecutive maxima at $x=\\frac\\pi6$ and $x=\\frac{5\\pi}{6}$. Find $a+b+d$.",
+          latex: "y=a\\cos(b(x-h))+d",
+          answer: "10",
+          acceptedAnswers: ["a=4,b=3,d=3; sum=10", "4+3+3", "ten"],
+          hint:
+            "Use the extrema for amplitude and midline. The distance between consecutive maxima is one period.",
+          explanation:
+            "The amplitude is $(7-(-1))/2=4$ and the midline is $(7+(-1))/2=3$, so $a=4$ and $d=3$. The period is $5\\pi/6-\\pi/6=2\\pi/3$, hence $b=2\\pi/(2\\pi/3)=3$. Thus $a+b+d=10$.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires reverse inference of vertical and horizontal parameters from extrema and consecutive equivalent graph positions.",
+          cartesianGraph: inferredCosineGraph,
+        }),
+        qualityChoice({
+          id: "y11adv-shift-qm6",
+          prompt:
+            "For $y=2\\sin(4x+\\pi)+5$, Jaya uses $-c/b=-\\pi/4$. Leon factors the inside as $4(x+\\pi/4)$. Whose method correctly identifies the phase shift?",
+          latex: "y=2\\sin(4x+\\pi)+5",
+          answer: "C",
+          choices: [
+            "Jaya only",
+            "Leon only",
+            "Both methods",
+            "Neither method",
+          ],
+          hint:
+            "A factored form $b(x-h)$ and the formula $-c/b$ should encode the same horizontal translation.",
+          explanation:
+            "Jaya obtains the signed shift $-\\pi/4$, meaning left by $\\pi/4$. Leon's factorisation $4(x+\\pi/4)$ displays the same left shift because the zero of the bracket is $x=-\\pi/4$. Both methods are correct.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Assesses equivalence between the phase-shift formula and factorisation of the transformed input.",
+          distractorMisconceptions: {
+            A: "Accepts the formula but does not recognise the factored horizontal translation.",
+            B: "Accepts factorisation but rejects the equivalent parameter formula.",
+            D: "Does not connect either representation with a left shift of pi over four.",
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm7",
+          prompt:
+            "Design $y=a\\sin(bx+c)+d$ with $a>0$, $b>0$, amplitude $2$, period $\\pi$, midline $y=3$, and an upward midline crossing at $x=\\frac\\pi4$. Use the value of $c$ with smallest absolute value. State $(a,b,c,d)$.",
+          latex: "y=a\\sin(bx+c)+d",
+          answer: "2,2,-pi/2,3",
+          acceptedAnswers: [
+            "(2,2,-pi/2,3)",
+            "a=2,b=2,c=-pi/2,d=3",
+            "2,2,-\\pi/2,3",
+          ],
+          hint:
+            "Amplitude and midline give $a,d$; period gives $b$. At an upward midline crossing, set the sine input equal to zero.",
+          explanation:
+            "Amplitude gives $a=2$, midline gives $d=3$, and $2\\pi/b=\\pi$ gives $b=2$. For an upward crossing at $x=\\pi/4$, require $2(\\pi/4)+c=0$, so the least-magnitude choice is $c=-\\pi/2$. The tuple is $(2,2,-\\pi/2,3)$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires constructing all four parameters from independent vertical, period, direction, and location constraints.",
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm8",
+          prompt:
+            "For $f_n(x)=3\\sin\\left(2x+\\frac{n\\pi}{4}\\right)-1$, where $n$ is an integer satisfying $1\\le n\\le18$, find the sum of all $n$ for which $x=0$ is a maximum point.",
+          latex: "f_n(x)=3\\sin\\left(2x+\\frac{n\\pi}{4}\\right)-1",
+          answer: "30",
+          acceptedAnswers: ["n=2,10,18; sum=30", "2+10+18=30", "thirty"],
+          hint:
+            "At $x=0$, require the sine input to be $\\pi/2$ modulo $2\\pi$, then solve the resulting congruence for the bounded integers.",
+          explanation:
+            "At $x=0$, a maximum requires $\\sin(n\\pi/4)=1$, so $n\\pi/4=\\pi/2+2k\\pi$. Hence $n=2+8k$. Within the stated bounds the values are $2,10,18$, and their sum is $30$.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests systematic investigation of a bounded phase-parameter family using periodic congruence and endpoint filtering.",
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm9",
+          prompt:
+            "A tide ranges from $2$ m to $8$ m, repeats every $12$ hours, and first crosses its midline upward at $t=3$ hours. Find the sum of all times in $0\\le t\\le15$ when the tide is at its midline.",
+          latex: "h(t)=d+a\\sin(b(t-c))",
+          answer: "27",
+          acceptedAnswers: ["3+9+15=27", "t=3,9,15; sum=27", "27 hours"],
+          hint:
+            "Build the model from amplitude, midline, period, and the upward crossing. Midline crossings occur every half-period.",
+          explanation:
+            "The model is $h(t)=5+3\\sin(\\frac\\pi6(t-3))$: midline 5, amplitude 3, period 12, and upward crossing at 3. Midline crossings occur every 6 hours, giving $t=3,9,15$ in the interval. Their sum is $27$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates model construction from contextual features with repeated-event enumeration over a bounded time interval.",
+          cartesianGraph: tideGraph,
+        }),
+        qualityAnswer({
+          id: "y11adv-shift-qm10",
+          prompt:
+            "A function $y=a\\sin(bx+c)+d$ has $a>0$, $b>0$, range $[-2,10]$, period $\\frac{4\\pi}{3}$, and a minimum at $x=\\frac\\pi9$. If $c$ is the smallest non-negative value satisfying these conditions, find $abc$.",
+          latex: "y=a\\sin(bx+c)+d",
+          answer: "12pi",
+          acceptedAnswers: ["12\\pi", "$12\\pi$", "a=6,b=3/2,c=4pi/3"],
+          hint:
+            "Infer $a$ and $b$ from range and period. At the stated minimum, set the sine input equal to $3\\pi/2$ modulo $2\\pi$.",
+          explanation:
+            "The range gives $a=(10-(-2))/2=6$. The period gives $b=2\\pi/(4\\pi/3)=3/2$. At $x=\\pi/9$, $bx=\\pi/6$; a minimum needs $bx+c=3\\pi/2$, so the least non-negative $c=4\\pi/3$. Hence $abc=6(3/2)(4\\pi/3)=12\\pi$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires reconstructing three transformation parameters and resolving a periodic phase constraint before aggregation.",
+        }),
       ],
     };
   }
@@ -2763,6 +5237,143 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
 
   // ── Right-angle trig applications ─────────────────────────────────────────
   if (lesson.slug === "right-angle-trig-applications") {
+    const ladderTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A right triangle models a ladder against a vertical wall. The ladder is the 10-metre hypotenuse, the ground angle is 35 degrees, and the vertical height is h.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 5, y: 0 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { AC: "10\\text{ m}", BC: "h" },
+      angleLabels: { A: "35^\\circ" },
+      rightAngleAt: "B",
+      highlightedSides: ["AC", "BC"],
+    };
+    const buildingTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A right triangle from an observer's eye level to a building. The horizontal distance is 20 metres, the elevation angle is 45 degrees, and x is the height above eye level.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 5, y: 0 },
+      },
+      vertexLabels: { A: "eye", B: "level", C: "top" },
+      sideLabels: { AB: "20\\text{ m}", BC: "x" },
+      angleLabels: { A: "45^\\circ" },
+      rightAngleAt: "B",
+      highlightedSides: ["AB", "BC"],
+    };
+    const towerObservationPair: import("../types").TrianglePairDiagram = {
+      description:
+        "Two right-triangle models share the same tower height. The nearer observer sees 60 degrees from horizontal, the farther observer sees 30 degrees, and the observers are 20 metres apart on the same line.",
+      left: {
+        description:
+          "Near-observer triangle with horizontal distance x, tower height h, and elevation angle 60 degrees.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 5, y: 0 },
+        },
+        sideLabels: { AB: "x", BC: "h" },
+        angleLabels: { A: "60^\\circ" },
+        rightAngleAt: "B",
+      },
+      right: {
+        description:
+          "Far-observer triangle with horizontal distance x plus 20, tower height h, and elevation angle 30 degrees.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 5, y: 0 },
+        },
+        sideLabels: { AB: "x+20", BC: "h" },
+        angleLabels: { A: "30^\\circ" },
+        rightAngleAt: "B",
+      },
+      leftCaption: "\\text{near observer}",
+      rightCaption: "\\text{far observer}",
+      relationLabel: "\\text{observers }20\\text{ m apart}",
+    };
+    const methodTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A right triangle has horizontal adjacent side 20 metres, elevation angle 60 degrees, and unknown vertical height h.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 5, y: 0 },
+      },
+      sideLabels: { AB: "20\\text{ m}", BC: "h", AC: "L" },
+      angleLabels: { A: "60^\\circ" },
+      rightAngleAt: "B",
+    };
+    const droneTrianglePair: import("../types").TrianglePairDiagram = {
+      description:
+        "A horizontal-plan triangle and a vertical elevation triangle for a drone. Ground observers A and B are 120 metres apart; bearings to the ground projection P are 030 degrees and 330 degrees, and the elevation from A is 30 degrees.",
+      left: {
+        description:
+          "Horizontal plan with A and B 120 metres apart and ground projection P north of the segment; the bearing geometry gives 60-degree interior angles at A and B.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 2.5, y: 0.4 },
+        },
+        vertexLabels: { A: "A", B: "B", C: "P" },
+        sideLabels: { AB: "120\\text{ m}" },
+        angleLabels: { A: "60^\\circ", B: "60^\\circ" },
+      },
+      right: {
+        description:
+          "Vertical right triangle from observer A to the drone above P, with horizontal distance AP marked x, height h, and elevation angle 30 degrees.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 5, y: 0 },
+        },
+        vertexLabels: { A: "A", B: "P", C: "drone" },
+        sideLabels: { AB: "x", BC: "h" },
+        angleLabels: { A: "30^\\circ" },
+        rightAngleAt: "B",
+      },
+      leftCaption: "\\text{horizontal plan}",
+      rightCaption: "\\text{vertical section}",
+      relationLabel: "\\text{shared distance }AP=x",
+    };
+    const multipartLadderTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A right triangle models a 20-metre ladder against a vertical wall. The ladder is the hypotenuse and makes a 30-degree angle with level ground.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 5, y: 0 },
+      },
+      sideLabels: {
+        AB: "b",
+        BC: "h",
+        AC: "20\\text{ m}",
+      },
+      angleLabels: { A: "30^\\circ" },
+      rightAngleAt: "B",
+      highlightedSides: ["AB", "BC", "AC"],
+    };
+    const shipDisplacementTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A plan-view right triangle shows a ship travelling 5 kilometres north and then 5 kilometres east. The diagonal d joins the port to the ship.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 0, y: 0 },
+        C: { x: 5, y: 0 },
+      },
+      vertexLabels: { A: "port", B: "turn", C: "ship" },
+      sideLabels: {
+        AB: "5\\text{ km N}",
+        BC: "5\\text{ km E}",
+        AC: "d",
+      },
+      rightAngleAt: "B",
+      highlightedSides: ["AB", "BC", "AC"],
+    };
     return {
       ...base,
       description:
@@ -2816,16 +5427,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         },
       ],
       guidedPractice: [
-        qa("y11adv-rat-g1", "A ladder 14 m long leans against a wall at 30° to the ground. Find the height it reaches.", "", "7", "sin 30° = ½. So h = 14 × ½.", "h = 14 sin 30° = 14 × ½ = 7 m."),
+        qa("y11adv-rat-g1", "A ladder 14 m long leans against a wall at 30° to the ground. Find the height it reaches.", "", "7", "The height is opposite the ground angle and the ladder is the hypotenuse, so use sine. Evaluate 14 sin 30°.", "The height is opposite the 30° angle and the 14 m ladder is the hypotenuse. Therefore h = 14 sin 30° = 14 × ½ = 7 m.", ["7 m", "7.0"]),
         practicalChoice("y11adv-rat-g2", "An angle measured downward from horizontal to an object below is called:", "C", ["angle of elevation", "azimuth", "angle of depression", "bearing"], "Elevation is upward; depression is downward. Both measured from horizontal."),
-        qa("y11adv-rat-g3", "A pole 20 m tall stands 20 m from an observer on flat ground. Find the angle of elevation (in degrees).", "", "45", "tan θ = opp/adj = 20/20 = 1. arctan 1 = 45°.", "tan θ = 20/20 = 1. θ = 45°."),
-        qa("y11adv-rat-g4", "State the true bearing of due South.", "", "180", "South is directly opposite North. Starting from 000° (North), rotating 180° clockwise reaches South.", "Due South = 180°."),
+        qa("y11adv-rat-g3", "A pole 20 m tall stands 20 m from an observer on flat ground. Find the angle of elevation (in degrees).", "", "45", "The opposite and adjacent sides are both 20 m, so tan θ = 20/20. Use inverse tangent to find θ.", "The pole height is opposite the elevation angle and the ground distance is adjacent. Thus tan θ = 20/20 = 1, and θ = tan⁻¹(1) = 45°.", ["45°", "45 degrees"]),
+        qa("y11adv-rat-g4", "State the true bearing of due South.", "", "180", "True bearings are measured clockwise from north. South is a half-turn from north, so write the result using three figures.", "Starting at north, a clockwise half-turn of 180° points due south. Since a true bearing uses three figures, the required bearing is 180°.", ["180°", "180 degrees"]),
       ],
       independentPractice: [
-        qa("y11adv-rat-i1", "A rope 20 m long is attached to a stake and pulled taut at 30° above horizontal. How high above the ground is the other end?", "", "10", "sin 30° = ½. h = 20 × ½.", "h = 20 sin 30° = 10 m."),
-        qa("y11adv-rat-i2", "From the top of a 25 m cliff, the angle of depression to a boat is 45°. Find the horizontal distance from the cliff base to the boat.", "", "25", "tan 45° = 1, so d = 25/1 = 25 m.", "tan 45° = 25/d → d = 25 m."),
-        qa("y11adv-rat-i3", "A rope is tied from the top of an 18 m wall to the ground. The rope makes 30° with the vertical wall. Find the rope length.", "", "36", "sin 30° = 18/L → L = 18 / (1/2) = 36 m.", "L = 18 / sin 30° = 18 / 0.5 = 36 m."),
-        qa("y11adv-rat-i4", "A ship sails on a bearing of 110°. What is its back bearing?", "", "290", "110° < 180°, so add 180°: 110 + 180 = 290°.", "Back bearing = 110° + 180° = 290°."),
+        qa("y11adv-rat-i1", "A rope 20 m long is attached to a stake and pulled taut at 30° above horizontal. How high above the ground is the other end?", "", "10", "The vertical height is opposite the 30° angle and the taut rope is the hypotenuse, so use the sine ratio.", "With height h opposite the 30° angle and hypotenuse 20 m, sin 30° = h/20. Hence h = 20 sin 30° = 20 × ½ = 10 m.", ["10 m", "10.0"]),
+        qa("y11adv-rat-i2", "From the top of a 25 m cliff, the angle of depression to a boat is 45°. Find the horizontal distance from the cliff base to the boat.", "", "25", "The angle of elevation from the boat equals the 45° angle of depression. Use tangent with height 25 m and horizontal distance d.", "The boat's angle of elevation is also 45°. In the right triangle, tan 45° = 25/d. Since tan 45° = 1, solving gives d = 25 m.", ["25 m", "25.0"]),
+        qa("y11adv-rat-i3", "A rope is tied from the top of an 18 m wall to the ground. The rope makes 30° with the vertical wall. Find the rope length.", "", "12sqrt(3)", "Relative to the 30° angle at the top, the 18 m wall is adjacent and the rope is the hypotenuse, so use cosine.", "The 18 m wall is adjacent to the 30° angle and the rope length L is the hypotenuse. Thus cos 30° = 18/L, so L = 18/cos 30° = 12√3 m, approximately 20.78 m.", ["12√3", "12√3 m", "20.78 m"]),
+        qa("y11adv-rat-i4", "A ship sails on a bearing of 110°. What is its back bearing?", "", "290", "A back bearing reverses the direction by 180°. Since 110° is below 180°, add 180° and retain three-figure notation.", "The reverse course is a half-turn from the forward course. Because 110° < 180°, add 180°: 110° + 180° = 290°. Therefore the back bearing is 290°.", ["290°", "290 degrees"]),
         practicalChoice("y11adv-rat-i5", "The compass bearing SE corresponds to which true bearing?", "B", ["045°", "135°", "225°", "315°"], "SE is halfway between S (180°) and E (90°). True bearing = 90 + 45 = 135°."),
       ],
       commonMistakes: [
@@ -2835,16 +5446,223 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Subtracting 180° from a bearing less than 180° to find the back bearing.", fix: "If the bearing is less than 180°, ADD 180°. If it is 180° or more, subtract 180°. Always check the result is between 000° and 360°." },
       ],
       masteryQuiz: [
-        qa("y11adv-rat-m1", "A kite is attached to a 100 m string making 30° with the ground. How high is the kite?", "", "50", "h = 100 × sin 30° = 100 × ½.", "h = 100 × ½ = 50 m."),
-        qa("y11adv-rat-m2", "A flagpole's shadow and height are both 12 m. Find the angle of elevation of the sun (in degrees).", "", "45", "tan θ = opp/adj = 12/12 = 1. arctan 1 = 45°.", "tan θ = 1 → θ = 45°."),
-        practicalChoice("y11adv-rat-m3", "From 30 m away, the angle of elevation to a rooftop is 60°. Which value is closest to the height?", "D", ["17 m", "26 m", "30 m", "52 m"], "h = 30 tan 60° = 30√3 ≈ 51.96 m ≈ 52 m.", ""),
-        qa("y11adv-rat-m4", "A ship sails on a bearing of 350°. What is its back bearing?", "", "170", "350° ≥ 180°, so subtract 180°: 350 − 180 = 170°.", "Back bearing = 350° − 180° = 170°."),
-        qa("y11adv-rat-m5", "A rope runs from the top of a 12 m building to the ground at 30° to the vertical. Find the rope length.", "", "24", "sin 30° = 12/L → L = 12 / sin 30° = 12 / 0.5.", "L = 12 / 0.5 = 24 m."),
-        practicalChoice("y11adv-rat-m6", "The angle of elevation is measured:", "B", ["downward from horizontal", "upward from horizontal", "clockwise from north", "from the top of an object"], "Elevation is upward from horizontal to the observed object."),
-        qa("y11adv-rat-m7", "State the true bearing of the compass direction N60°W.", "", "300", "N60°W means 60° west of north. Rotate 360° − 60° = 300° clockwise from north.", "True bearing = 360° − 60° = 300°."),
-        practicalChoice("y11adv-rat-m8", "A 60 m rope makes 30° with the ground. What is the vertical height?", "B", ["25 m", "30 m", "40 m", "52 m"], "h = 60 sin 30° = 60 × ½ = 30 m.", ""),
-        qa("y11adv-rat-m9", "A ship sails on a bearing of 220°. What is its back bearing?", "", "40", "220° ≥ 180°, so subtract: 220 − 180 = 40°.", "Back bearing = 220° − 180° = 40°."),
-        practicalChoice("y11adv-rat-m10", "A rope of length 24 m makes 30° with the ground. What is the vertical height?", "A", ["12 m", "6 m", "24 m", "20 m"], "h = 24 sin 30° = 24 × ½ = 12 m.", ""),
+        qualityChoice({
+          id: "y11adv-rat-qm1",
+          prompt:
+            "A 10 m ladder makes a $35^\\circ$ angle with level ground. Which equation correctly models the vertical height $h$ reached?",
+          latex: "\\text{ladder against a vertical wall}",
+          answer: "A",
+          choices: [
+            "$\\sin35^\\circ=\\frac{h}{10}$",
+            "$\\cos35^\\circ=\\frac{h}{10}$",
+            "$\\tan35^\\circ=\\frac{10}{h}$",
+            "$\\sin35^\\circ=\\frac{10}{h}$",
+          ],
+          hint:
+            "Relative to the ground angle, identify the vertical side and the ladder before choosing a trigonometric ratio.",
+          explanation:
+            "The height $h$ is opposite the $35^\\circ$ angle and the 10 m ladder is the hypotenuse. SOH gives $\\sin35^\\circ=h/10$, so option A uses both side roles correctly.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks whether a learner labels opposite and hypotenuse from a spatial model before selecting a ratio.",
+          distractorMisconceptions: {
+            B: "Treats the vertical height as adjacent to the ground angle.",
+            C: "Uses tangent despite the given hypotenuse and reverses the ratio.",
+            D: "Selects sine but reverses opposite over hypotenuse.",
+          },
+          triangleDiagram: ladderTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm2",
+          prompt:
+            "An observer's eye level is $1.6$ m above flat ground. From 20 m horizontally away, the angle of elevation to the top of a building is $45^\\circ$. Find the building height.",
+          latex: "\\tan45^\\circ=\\frac{H-1.6}{20}",
+          answer: "21.6",
+          acceptedAnswers: ["21.6 m", "21.60", "H=21.6", "$21.6\\text{ m}$"],
+          hint:
+            "First find the vertical rise above eye level, then add the observer's eye height.",
+          explanation:
+            "The rise above eye level is $20\\tan45^\\circ=20$ m. The question asks for height above the ground, so add the 1.6 m eye level: $H=20+1.6=21.6$ m.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Tests a standard tangent calculation together with the often-missed eye-height adjustment.",
+          triangleDiagram: buildingTriangle,
+        }),
+        qualityChoice({
+          id: "y11adv-rat-qm3",
+          prompt:
+            "A vessel travels from port on a true bearing of $035^\\circ$. A student gives $145^\\circ$ as the back bearing. Which response best diagnoses the error?",
+          latex: "\\text{forward bearing }035^\\circ",
+          answer: "A",
+          choices: [
+            "Add $180^\\circ$ to obtain $215^\\circ$",
+            "The student's $145^\\circ$ is correct",
+            "Reflect in north to obtain $325^\\circ$",
+            "Keep the same bearing because the route is unchanged",
+          ],
+          hint:
+            "The return direction is a half-turn from the forward ray, not a reflection in a compass axis.",
+          explanation:
+            "A back bearing points in the opposite direction, so it differs by $180^\\circ$. Since $035^\\circ<180^\\circ$, add: $035^\\circ+180^\\circ=215^\\circ$. The student's $145^\\circ$ does not make a straight-line reversal.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Distinguishes the half-turn definition of a back bearing from subtraction and mirror-image errors.",
+          distractorMisconceptions: {
+            B: "Accepts an incorrect subtraction-based bearing.",
+            C: "Reflects the direction across north instead of reversing it.",
+            D: "Confuses retracing a route with retaining the forward direction.",
+          },
+          bearingsDiagram: {
+            description:
+              "A compass diagram from port showing only the forward course ray at true bearing 035 degrees.",
+            originLabel: "port",
+            rays: [
+              {
+                bearing: 35,
+                label: "forward course",
+                showAngle: true,
+              },
+            ],
+          },
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm4",
+          prompt:
+            "A hiker walks 6 km due east and then 8 km due north. State the straight-line distance and the three-figure bearing of the hiker from the start.",
+          latex: "\\text{east }6\\text{ km},\\quad\\text{north }8\\text{ km}",
+          answer: "10,037",
+          acceptedAnswers: [
+            "10 km,037 degrees",
+            "10,37",
+            "distance 10 km; bearing 037",
+            "10 km on a bearing of 037°",
+          ],
+          hint:
+            "Use Pythagoras for the resultant length. For the bearing, measure the angle east of north using $\\tan\\theta=6/8$.",
+          explanation:
+            "The displacement is $\\sqrt{6^2+8^2}=10$ km. The bearing angle satisfies $\\tan\\theta=6/8$, so $\\theta\\approx36.87^\\circ$. Measured clockwise from north and written with three digits, the bearing is $037^\\circ$.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines perpendicular displacement with correct north-referenced bearing convention and rounding.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm5",
+          prompt:
+            "Two observers are on the same straight level line from a tower and are 20 m apart. The nearer angle of elevation is $60^\\circ$ and the farther angle is $30^\\circ$. Find the exact tower height.",
+          latex: "\\text{near and far observations of one tower}",
+          answer: "10sqrt(3)",
+          acceptedAnswers: ["10\\sqrt3", "$10\\sqrt{3}$", "10√3 m", "17.32 m"],
+          hint:
+            "Let the nearer horizontal distance be $x$. Write one tangent equation from each observer and equate the two expressions for height.",
+          explanation:
+            "$h=x\\sqrt3$ from the nearer observer and $h=(x+20)/\\sqrt3$ from the farther. Equating gives $3x=x+20$, so $x=10$. Therefore $h=10\\sqrt3$ m.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires building and solving two linked right-triangle models that share an unknown height.",
+          trianglePairDiagram: towerObservationPair,
+        }),
+        qualityChoice({
+          id: "y11adv-rat-qm6",
+          prompt:
+            "For a right triangle with adjacent side 20 m and angle $60^\\circ$, Priya finds $h=20\\tan60^\\circ$. Luca first finds the hypotenuse using cosine, then uses Pythagoras for $h$. Whose method is valid?",
+          latex: "\\text{find the opposite side }h",
+          answer: "C",
+          choices: [
+            "Priya only",
+            "Luca only",
+            "Both methods",
+            "Neither method",
+          ],
+          hint:
+            "Check whether each method uses enough known information and preserves the same right triangle.",
+          explanation:
+            "Priya obtains $h=20\\sqrt3$ directly. Luca finds $L=20/\\cos60^\\circ=40$, then $h=\\sqrt{40^2-20^2}=20\\sqrt3$. Both methods are valid and agree.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Assesses whether direct trigonometry and a longer cosine-plus-Pythagoras strategy are recognised as equivalent.",
+          distractorMisconceptions: {
+            A: "Rejects a valid indirect method because it uses an extra step.",
+            B: "Rejects the direct tangent ratio despite known opposite-adjacent roles.",
+            D: "Does not verify either complete chain of right-triangle reasoning.",
+          },
+          triangleDiagram: methodTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm7",
+          prompt:
+            "A boat travels 12 km on a bearing of $060^\\circ$, then 12 km on a bearing of $120^\\circ$. Find its distance and three-figure bearing from the start.",
+          latex: "\\text{two equal legs}",
+          answer: "12sqrt(3),090",
+          acceptedAnswers: [
+            "12\\sqrt3 km,090 degrees",
+            "20.78 km,090",
+            "12√3,90",
+            "distance 12sqrt(3); bearing 090",
+          ],
+          hint:
+            "Resolve each leg into east and north components. The north components have equal magnitude and opposite signs.",
+          explanation:
+            "Each east component is $12\\sin60^\\circ=6\\sqrt3$, so they total $12\\sqrt3$ km. The north components are $12\\cos60^\\circ=6$ and $12\\cos120^\\circ=-6$, so they cancel. The resultant is due east: distance $12\\sqrt3$ km, bearing $090^\\circ$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines bearing components across two legs and requires interpretation of cancellation in the resultant direction.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm8",
+          prompt:
+            "Two equal route legs of length $L$ use bearings $n^\\circ$ and $(180-n)^\\circ$, where $n$ is a multiple of 10 satisfying $10\\le n\\le80$. Find the sum of all $n$ for which the resultant distance exceeds $\\frac32L$.",
+          latex: "\\text{two equal bearing legs}",
+          answer: "260",
+          acceptedAnswers: ["50+60+70+80=260", "n=50,60,70,80; sum=260", "two hundred sixty"],
+          hint:
+            "The north components cancel and the east components add. Solve $2\\sin n^\\circ>3/2$ on the bounded list.",
+          explanation:
+            "The condition is $2L\\sin n^\\circ>1.5L$, or $\\sin n^\\circ>0.75$. Among the listed multiples of 10, this holds for $50^\\circ,60^\\circ,70^\\circ,80^\\circ$. Their sum is $260$.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests systematic investigation of a bounded bearing family after deriving a general resultant expression.",
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm9",
+          prompt:
+            "Observers A and B are 120 m apart on an east-west line. The ground projection of a drone is on bearing $030^\\circ$ from A and $330^\\circ$ from B. The drone's angle of elevation from A is $30^\\circ$. Find its exact height.",
+          latex: "\\text{horizontal plan followed by a vertical section}",
+          answer: "40sqrt(3)",
+          acceptedAnswers: ["40\\sqrt3", "$40\\sqrt{3}$", "40√3 m", "69.28 m"],
+          hint:
+            "Use the two bearings to determine the horizontal triangle first. Then use the elevation angle in a vertical right triangle.",
+          explanation:
+            "Each bearing ray makes a $60^\\circ$ interior angle with the east-west baseline, so the horizontal triangle is equilateral and $AP=120$ m. In the vertical section, $h=120\\tan30^\\circ=120/\\sqrt3=40\\sqrt3$ m.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates a bearing-based horizontal plan with a separate elevation triangle to determine a three-dimensional height.",
+          trianglePairDiagram: droneTrianglePair,
+        }),
+        qualityAnswer({
+          id: "y11adv-rat-qm10",
+          prompt:
+            "A route has two 12 km legs on bearings $\\alpha$ and $(180^\\circ-\\alpha)$. Its resultant is 18 km due east. Find the total north-south distance travelled, adding the magnitudes of the northward and southward components.",
+          latex: "0^\\circ<\\alpha<90^\\circ",
+          answer: "6sqrt(7)",
+          acceptedAnswers: ["6\\sqrt7", "$6\\sqrt{7}$", "6√7 km", "15.87 km"],
+          hint:
+            "Use the east resultant to find $\\sin\\alpha$. Then find $\\cos\\alpha$ and add the magnitudes of the two north components.",
+          explanation:
+            "The east components give $24\\sin\\alpha=18$, so $\\sin\\alpha=3/4$. Hence $\\cos\\alpha=\\sqrt{1-9/16}=\\sqrt7/4$. Each north-south component has magnitude $12\\cos\\alpha=3\\sqrt7$ km, so the total is $6\\sqrt7$ km.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires reverse component inference, exact Pythagorean recovery of cosine, and distinction between net and total directional travel.",
+        }),
       ],
       multiPartPractice: [
         {
@@ -2854,8 +5672,9 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           answer: "10",
           hint: "Use sin for the height (opp/hyp) and cos for the base (adj/hyp). For part (c) change the angle to 45°.",
           explanation: "(a) h = 20 sin 30° = 10 m. (b) base = 20 cos 30° = 10√3 ≈ 17.3 m. (c) h at 45° = 20 sin 45° = 10√2 ≈ 14.1 m.",
+          triangleDiagram: multipartLadderTriangle,
           parts: [
-            { key: "a", label: "(a)", prompt: "Find the height the ladder reaches up the wall.", marks: 1, answer: "10", hint: "sin 30° = h/20.", explanation: "h = 20 sin 30° = 20 × ½ = 10 m." },
+            { key: "a", label: "(a)", prompt: "Find the height the ladder reaches up the wall.", marks: 1, answer: "10", acceptedAnswers: ["10 m", "10.0"], hint: "The height is opposite the 30° angle and the ladder is the hypotenuse, so use sine.", explanation: "The height is opposite the 30° angle and the ladder is the hypotenuse. Therefore h = 20 sin 30° = 20 × ½ = 10 m." },
             { key: "b", label: "(b)", prompt: "Find the horizontal distance from the wall to the base of the ladder (to the nearest metre).", marks: 2, answer: "17", acceptedAnswers: ["17", "17.3", "10√3", "17.32"], hint: "cos 30° = base/20. cos 30° = √3/2.", explanation: "base = 20 cos 30° = 20 × (√3/2) = 10√3 ≈ 17.3 m. To nearest metre: 17 m." },
             { key: "c", label: "(c)", prompt: "If the angle is changed to 45° (same 20 m ladder), find the new height to the nearest metre.", marks: 1, answer: "14", acceptedAnswers: ["14", "14.1", "10√2", "14.14"], hint: "sin 45° = 1/√2.", explanation: "h = 20 sin 45° = 20/√2 = 10√2 ≈ 14.1 m. To nearest metre: 14 m." },
           ],
@@ -2867,10 +5686,11 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           answer: "7.07",
           hint: "The path forms a right angle. Use Pythagoras for (a). The bearing from port heads NE, so it is 045°. The back bearing is 045° + 180°.",
           explanation: "(a) distance = √(5²+5²) = 5√2 ≈ 7.07 km. (b) bearing = 045°. (c) back bearing = 225°.",
+          triangleDiagram: shipDisplacementTriangle,
           parts: [
-            { key: "a", label: "(a)", prompt: "Find the straight-line distance from port to the ship (to 2 decimal places).", marks: 1, answer: "7.07", acceptedAnswers: ["7.07", "7.1", "5√2", "7"], hint: "Use Pythagoras: d = √(5²+5²).", explanation: "d = √(25+25) = √50 = 5√2 ≈ 7.07 km." },
-            { key: "b", label: "(b)", prompt: "State the true bearing from port to the ship.", marks: 1, answer: "045", acceptedAnswers: ["045", "45"], hint: "The ship is equal distances N and E — halfway between N and E.", explanation: "Equal N and E displacements → bearing is NE = 045°." },
-            { key: "c", label: "(c)", prompt: "State the back bearing from the ship to port.", marks: 1, answer: "225", hint: "045° + 180° = 225°.", explanation: "Back bearing = 045° + 180° = 225°." },
+            { key: "a", label: "(a)", prompt: "Find the straight-line distance from port to the ship (to 2 decimal places).", marks: 1, answer: "7.07", acceptedAnswers: ["7.07 km", "7.1", "5√2", "7"], hint: "The north and east legs are perpendicular, so use Pythagoras on the two 5 km displacements.", explanation: "The north and east displacements form perpendicular legs. By Pythagoras, d = √(5² + 5²) = √50 = 5√2 ≈ 7.071, which rounds to 7.07 km." },
+            { key: "b", label: "(b)", prompt: "State the true bearing from port to the ship.", marks: 1, answer: "045", acceptedAnswers: ["045°", "45", "45°"], hint: "The ship is equal distances north and east, so its direction is halfway between north and east.", explanation: "The north and east displacements are equal, so the resultant points north-east. Measured clockwise from north and written with three figures, the true bearing is 045°." },
+            { key: "c", label: "(c)", prompt: "State the back bearing from the ship to port.", marks: 1, answer: "225", acceptedAnswers: ["225°", "225 degrees"], hint: "A back bearing is a 180° reversal of the forward bearing.", explanation: "The return direction is a half-turn from 045°. Adding 180° gives 045° + 180° = 225°, so the back bearing from the ship to port is 225°." },
           ],
         },
       ],
@@ -2879,6 +5699,196 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
 
   // ── Sine rule, cosine rule and area formula ───────────────────────────────
   if (lesson.slug === "sine-rule-cosine-rule") {
+    const cosineSelectionTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A non-right triangle has sides AB equal to 7 and AC equal to 10, with included angle A equal to 60 degrees. The unknown side BC is labelled x.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 1.8, y: 0.3 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { AB: "7", AC: "10", BC: "x" },
+      angleLabels: { A: "60^\\circ" },
+      highlightedSides: ["AB", "AC", "BC"],
+    };
+    const sineRuleTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A non-right triangle has angle A equal to 30 degrees, angle B equal to 45 degrees, side BC opposite A equal to 5, and side AC opposite B labelled b.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 2, y: 0.4 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { BC: "5", AC: "b" },
+      angleLabels: { A: "30^\\circ", B: "45^\\circ" },
+      highlightedSides: ["BC", "AC"],
+    };
+    const areaErrorTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A non-right triangle has adjacent sides of 8 and 11 with their included angle equal to 40 degrees.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 1.8, y: 0.3 },
+      },
+      sideLabels: { AB: "8", AC: "11" },
+      angleLabels: { A: "40^\\circ" },
+      highlightedSides: ["AB", "AC"],
+    };
+    const linkedSineTriangle: import("../types").TriangleDiagram = {
+      description:
+        "Triangle ABC has angle A equal to 30 degrees, angle B equal to 60 degrees, and side BC opposite A equal to 6. Sides AC and AB are labelled b and c.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 0 },
+        C: { x: 5, y: 3 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { BC: "6", AC: "b", AB: "c" },
+      angleLabels: { A: "30^\\circ", B: "60^\\circ" },
+      rightAngleAt: "C",
+      highlightedSides: ["BC", "AC", "AB"],
+    };
+    const isoscelesAreaTriangle: import("../types").TriangleDiagram = {
+      description:
+        "An isosceles triangle has equal sides AC and BC of length 5, base AB of length 6, and included apex angle C labelled theta.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 2.5, y: 0.4 },
+      },
+      sideLabels: { AB: "6", AC: "5", BC: "5" },
+      angleLabels: { C: "\\theta" },
+      highlightedSides: ["AB", "AC", "BC"],
+    };
+    const methodComparisonTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A non-right triangle has two sides of 7 and 8 with their included angle equal to 60 degrees. The third side is labelled x.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 2, y: 0.3 },
+      },
+      sideLabels: { AB: "7", AC: "8", BC: "x" },
+      angleLabels: { A: "60^\\circ" },
+      highlightedSides: ["AB", "AC", "BC"],
+    };
+    const angleFamilyTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A family of non-right triangles has two fixed sides of lengths 3 and 5 enclosing a variable angle C. The opposite third side is labelled c.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 2, y: 0.3 },
+      },
+      vertexLabels: { A: "C" },
+      sideLabels: { AB: "3", AC: "5", BC: "c" },
+      angleLabels: { A: "C" },
+      highlightedSides: ["AB", "AC", "BC"],
+    };
+    const parcelTrianglePair: import("../types").TrianglePairDiagram = {
+      description:
+        "A quadrilateral parcel is split by a shared 10-unit diagonal into a 6-8-10 right triangle and a triangle with two sides of 10 enclosing 60 degrees.",
+      left: {
+        description:
+          "The first triangular region has perpendicular sides 6 and 8 and shared diagonal 10.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 5, y: 0 },
+        },
+        sideLabels: { AB: "8", BC: "6", AC: "10" },
+        rightAngleAt: "B",
+      },
+      right: {
+        description:
+          "The second triangular region has two sides of 10 with included angle 60 degrees.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 2.5, y: 0.4 },
+        },
+        sideLabels: { AB: "10", AC: "10" },
+        angleLabels: { A: "60^\\circ" },
+      },
+      leftCaption: "\\text{region 1}",
+      rightCaption: "\\text{region 2}",
+      relationLabel: "\\text{shared diagonal }10",
+    };
+    const medianTrianglePair: import("../types").TrianglePairDiagram = {
+      description:
+        "A 13-14-15 triangle is paired with the half-triangle formed by the median to the side of length 14.",
+      left: {
+        description:
+          "Triangle ABC has AB equal to 13, BC equal to 14, and AC equal to 15.",
+        vertices: {
+          A: { x: 1.6, y: 0.3 },
+          B: { x: 0, y: 3 },
+          C: { x: 5, y: 3 },
+        },
+        vertexLabels: { A: "A", B: "B", C: "C" },
+        sideLabels: { AB: "13", BC: "14", AC: "15" },
+      },
+      right: {
+        description:
+          "Triangle ABM uses AB equal to 13, BM equal to 7 because M is the midpoint of BC, and median AM labelled m.",
+        vertices: {
+          A: { x: 1.6, y: 0.3 },
+          B: { x: 0, y: 3 },
+          C: { x: 2.5, y: 3 },
+        },
+        vertexLabels: { A: "A", B: "B", C: "M" },
+        sideLabels: { AB: "13", BC: "7", AC: "m" },
+      },
+      leftCaption: "\\triangle ABC",
+      rightCaption: "\\triangle ABM",
+      relationLabel: "M\\text{ is the midpoint of }BC",
+    };
+    const designTriangle: import("../types").TriangleDiagram = {
+      description:
+        "A non-right triangle has adjacent sides x and x plus 2, their included angle is 60 degrees, and the opposite side is square root 19.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 2, y: 0.3 },
+      },
+      sideLabels: {
+        AB: "x",
+        AC: "x+2",
+        BC: "\\sqrt{19}",
+      },
+      angleLabels: { A: "60^\\circ" },
+      highlightedSides: ["AB", "AC", "BC"],
+    };
+    const multipartRightTriangle: import("../types").TriangleDiagram = {
+      description:
+        "Triangle ABC has perpendicular sides a equal to 6 and b equal to 8 enclosing angle C equal to 90 degrees; side c is unknown.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 0 },
+        C: { x: 5, y: 3 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { BC: "a=6", AC: "b=8", AB: "c" },
+      rightAngleAt: "C",
+      highlightedSides: ["AB", "AC", "BC"],
+    };
+    const multipartAngleTriangle: import("../types").TriangleDiagram = {
+      description:
+        "Triangle ABC has angle A equal to 30 degrees, angle B equal to 90 degrees, side a opposite A equal to 8, and the remaining side and angle labels shown.",
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 5, y: 0 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { BC: "a=8", AC: "b", AB: "c" },
+      angleLabels: { A: "30^\\circ" },
+      rightAngleAt: "B",
+      highlightedSides: ["AB", "AC", "BC"],
+    };
     return {
       ...base,
       description:
@@ -2934,16 +5944,16 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         },
       ],
       guidedPractice: [
-        qa("y11adv-nra-g1", "$a=6$, $b=4$, $C=30°$. Find the area of the triangle.", "", "6", "Area = ½ × 6 × 4 × sin 30°. sin 30° = ½.", "Area = ½(6)(4)(½) = 6 sq units."),
+        qa("y11adv-nra-g1", "$a=6$, $b=4$, $C=30°$. Find the area of the triangle.", "", "6", "The given angle C is included between sides a and b, so substitute directly into the sine area formula.", "Using the included angle, Area = ½ab sin C = ½(6)(4)sin 30° = 12 × ½ = 6 square units.", ["6 square units", "6 units^2"]),
         practicalChoice("y11adv-nra-g2", "You know two angles and one side (AAS). Which rule should you use to find the remaining sides?", "A", ["Sine rule", "Cosine rule", "Area formula", "Pythagoras"], "The sine rule a/sinA = b/sinB works directly with AAS information."),
-        qa("y11adv-nra-g3", "In a triangle, $A=30°$, $B=90°$, $a=10$. Find side $b$ using the sine rule.", "", "20", "b = a sinB/sinA = 10×1÷(1/2) = 20.", "b = 10 × sin 90°/sin 30° = 10/(½) = 20."),
+        qa("y11adv-nra-g3", "In a triangle, $A=30°$, $B=90°$, $a=10$. Find side $b$ using the sine rule.", "", "20", "Pair side a with angle A and side b with angle B, then rearrange the sine rule to make b the subject.", "The sine rule gives b/sin 90° = 10/sin 30°. Therefore b = 10 sin 90°/sin 30° = 10/(½) = 20.", ["b=20", "20 units"]),
         practicalChoice("y11adv-nra-g4", "You know two sides and the angle between them (SAS). Which rule gives the third side?", "B", ["Sine rule", "Cosine rule", "Area formula", "Pythagoras"], "The cosine rule a² = b² + c² − 2bc cosA is designed for SAS situations."),
       ],
       independentPractice: [
-        qa("y11adv-nra-i1", "$a=8$, $b=8$, $C=90°$. Find the area.", "", "32", "sin 90° = 1. Area = ½ × 8 × 8 × 1.", "Area = ½(8)(8)(1) = 32 sq units."),
-        qa("y11adv-nra-i2", "In a triangle, $A=30°$, $B=90°$, $a=12$. Find $b$.", "", "24", "b = 12 × 1 ÷ ½ = 24.", "b = 12/sin 30° × sin 90° = 12/0.5 = 24."),
+        qa("y11adv-nra-i1", "$a=8$, $b=8$, $C=90°$. Find the area.", "", "32", "The 90° angle is included between the two known sides, so use Area = ½ab sin C and recall sin 90° = 1.", "Area = ½(8)(8)sin 90° = 32 × 1 = 32 square units. This agrees with half the area of an 8 by 8 rectangle.", ["32 square units", "32 units^2"]),
+        qa("y11adv-nra-i2", "In a triangle, $A=30°$, $B=90°$, $a=12$. Find $b$.", "", "24", "Use the known opposite pair a and A with the target pair b and B in the sine rule.", "From b/sin 90° = 12/sin 30°, b = 12 sin 90°/sin 30° = 12/(½) = 24.", ["b=24", "24 units"]),
         practicalChoice("y11adv-nra-i3", "In triangle with $b=4$, $c=4$, $A=60°$, apply the cosine rule to find $a$. Which is correct?", "B", ["$a=8$", "$a=4$", "$a=2$", "$a=6$"], "a² = 16+16 − 2(16)(½) = 32−16 = 16. a = 4. Equilateral when b=c=a=4 and A=60°.", ""),
-        qa("y11adv-nra-i4", "$a=10$, $b=6$, $C=30°$. Find the area.", "", "15", "Area = ½ × 10 × 6 × ½.", "Area = ½(10)(6)(½) = 15 sq units."),
+        qa("y11adv-nra-i4", "$a=10$, $b=6$, $C=30°$. Find the area.", "", "15", "Sides a and b enclose angle C, so they can be substituted directly into Area = ½ab sin C.", "Area = ½(10)(6)sin 30° = 30 × ½ = 15 square units. The included angle is the angle required by the formula.", ["15 square units", "15 units^2"]),
         practicalChoice("y11adv-nra-i5", "All three sides are known (SSS). Which rule can find an angle?", "B", ["Sine rule (directly)", "Cosine rule (rearranged)", "Area formula", "Pythagoras"], "Rearrange the cosine rule: cosA = (b²+c²−a²)/(2bc) to find any angle from three sides."),
       ],
       commonMistakes: [
@@ -2953,16 +5963,219 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Setting up a/sinA = b/sinB with the wrong pair (side opposite a different angle).", fix: "Each side is always paired with the sine of its opposite angle. Label the triangle clearly before substituting." },
       ],
       masteryQuiz: [
-        qa("y11adv-nra-m1", "$a=8$, $b=6$, $C=30°$. Find the area.", "", "12", "Area = ½ × 8 × 6 × ½.", "Area = ½(8)(6)(½) = 12 sq units."),
-        qa("y11adv-nra-m2", "$b=3$, $c=4$, $A=90°$. Find $a$ using the cosine rule.", "", "5", "cos 90° = 0. a² = 9+16 = 25. a = 5.", "a = 5 (Pythagorean triple)."),
-        qa("y11adv-nra-m3", "In triangle with $A=B=30°$, $a=8$. Find $b$ (the side opposite $B=30°$).", "", "8", "A = B, so a = b (isosceles triangle).", "Since A = B = 30°, the triangle is isosceles and a = b = 8."),
-        practicalChoice("y11adv-nra-m4", "$A=60°$, $B=90°$, $a=9$. Which value of $b$ is closest?", "B", ["9 m", "10 m", "18 m", "12 m"], "b = 9/sin60° × sin90° = 9/(√3/2) = 18/√3 = 6√3 ≈ 10.4 m.", ""),
-        qa("y11adv-nra-m5", "$a=5$, $b=5$, $C=90°$. Find the area.", "", "12.5", "Area = ½ × 5 × 5 × 1 = 12.5.", "Area = 12.5 sq units."),
-        qa("y11adv-nra-m6", "$b=5$, $c=5$, $A=60°$. Use the cosine rule to find $a$.", "", "5", "a² = 50 − 25 = 25. a = 5. Equilateral triangle.", "a = 5 (equilateral: all sides equal when b=c and A=60°)."),
-        practicalChoice("y11adv-nra-m7", "$A=B=45°$, $C=90°$, $a=8$. Use the sine rule to find the hypotenuse $c$. Which is closest?", "B", ["8 m", "11 m", "16 m", "4 m"], "c = a sinC/sinA = 8×1/(1/√2) = 8√2 ≈ 11.3 m.", ""),
-        qa("y11adv-nra-m8", "$a=12$, $b=8$, $C=30°$. Find the area.", "", "24", "Area = ½ × 12 × 8 × ½.", "Area = ½(12)(8)(½) = 24 sq units."),
-        qa("y11adv-nra-m9", "$A=30°$, $B=90°$, $a=6$. Find $b$ using the sine rule.", "", "12", "b = 6/sin30° × sin90° = 6/(½) = 12.", "b = 12."),
-        practicalChoice("y11adv-nra-m10", "Three sides are given and you need an angle. Which rule should you use?", "B", ["Sine rule applied directly", "Cosine rule rearranged", "Area formula", "Pythagoras alone"], "Rearranging the cosine rule gives cosA = (b²+c²−a²)/(2bc), finding any angle from SSS."),
+        qualityChoice({
+          id: "y11adv-nra-qm1",
+          prompt:
+            "Which method finds the unknown side $x$ from the displayed triangle without first finding another angle?",
+          latex: "\\text{select the direct method}",
+          answer: "B",
+          choices: [
+            "Sine rule using $\\frac{x}{\\sin60^\\circ}=\\frac7{\\sin A}$",
+            "Cosine rule using $x^2=7^2+10^2-2(7)(10)\\cos60^\\circ$",
+            "Area formula using $\\frac12(7)(10)\\sin60^\\circ$",
+            "Pythagoras using $x^2=7^2+10^2$",
+          ],
+          hint:
+            "Identify the information pattern: two sides and their included angle are known, while the third side is required.",
+          explanation:
+            "This is an SAS configuration, so the cosine rule directly links the two known sides, their included angle, and the opposite unknown side. Option B gives $x^2=49+100-70=79$. The sine rule lacks a known opposite pair, the area formula gives area rather than $x$, and the triangle is not right-angled.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks rule selection from the structure of a labelled triangle rather than from a memorised wording cue.",
+          distractorMisconceptions: {
+            A: "Uses the sine rule without a complete known side-opposite-angle pair.",
+            C: "Selects a valid formula for the givens but one that does not produce the requested side.",
+            D: "Treats an arbitrary included angle as a right angle.",
+          },
+          triangleDiagram: cosineSelectionTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm2",
+          prompt:
+            "Use the sine rule to find the exact value of side $b$ in the displayed triangle.",
+          latex: "\\text{give an exact value}",
+          answer: "5sqrt(2)",
+          acceptedAnswers: ["5\\sqrt2", "$5\\sqrt{2}$", "5√2", "7.071"],
+          hint:
+            "Pair side 5 with its opposite $30^\\circ$ angle and side $b$ with its opposite $45^\\circ$ angle.",
+          explanation:
+            "The sine rule gives $b/\\sin45^\\circ=5/\\sin30^\\circ$. Hence $b=5(\\sqrt2/2)/(1/2)=5\\sqrt2$. Pairing each side with its genuinely opposite angle is the essential setup step.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Tests accurate opposite-pair matching and exact-value simplification in a direct sine-rule calculation.",
+          triangleDiagram: sineRuleTriangle,
+        }),
+        qualityChoice({
+          id: "y11adv-nra-qm3",
+          prompt:
+            "For the displayed triangle, a student writes $K=\\frac12(8)(11)\\sin50^\\circ$. Which assessment is correct?",
+          latex: "\\text{student area model}",
+          answer: "B",
+          choices: [
+            "Correct, because $50^\\circ$ is complementary to the shown angle",
+            "Incorrect; the included angle is $40^\\circ$, so use $K=44\\sin40^\\circ$",
+            "Incorrect; use $K=44\\cos40^\\circ$",
+            "Incorrect; area cannot be found without the third side",
+          ],
+          hint:
+            "The sine area formula uses the angle physically enclosed by the two substituted sides.",
+          explanation:
+            "The sides 8 and 11 enclose the displayed $40^\\circ$ angle, so the correct model is $K=\\frac12(8)(11)\\sin40^\\circ=44\\sin40^\\circ$. A complementary angle cannot be substituted unless it is actually the included angle. Therefore option B identifies both the error and the repair.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Diagnoses confusion between an included angle and an invented complementary angle in the triangle area formula.",
+          distractorMisconceptions: {
+            A: "Assumes complementary angles are interchangeable inside sine.",
+            C: "Substitutes cosine merely because the given angle is acute.",
+            D: "Fails to recognise that two sides and their included angle determine area.",
+          },
+          triangleDiagram: areaErrorTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm4",
+          prompt:
+            "For the displayed triangle, find side $c$ and the exact area, in that order.",
+          latex: "\\text{state }c\\text{, then area}",
+          answer: "12,18sqrt(3)",
+          acceptedAnswers: [
+            "12,18\\sqrt3",
+            "c=12, area=18sqrt(3)",
+            "12 and 18√3 square units",
+          ],
+          hint:
+            "First find the third angle. Then use the sine rule for the hypotenuse and the area formula with two known sides.",
+          explanation:
+            "The third angle is $C=180^\\circ-30^\\circ-60^\\circ=90^\\circ$. The sine rule gives $c/\\sin90^\\circ=6/\\sin30^\\circ$, so $c=12$. Also $b=6\\sin60^\\circ/\\sin30^\\circ=6\\sqrt3$, hence the area is $\\frac12(6)(6\\sqrt3)=18\\sqrt3$ square units.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines angle sum, sine-rule side recovery, and area calculation while preserving opposite-side notation.",
+          triangleDiagram: linkedSineTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm5",
+          prompt:
+            "The displayed isosceles triangle has equal sides 5 and base 6. Use the cosine rule followed by the sine area formula to find its exact area.",
+          latex: "\\text{do not introduce a perpendicular height}",
+          answer: "12",
+          acceptedAnswers: ["12 square units", "12 units^2", "K=12"],
+          hint:
+            "Find the cosine of the included apex angle first, then obtain its positive sine from $\\sin^2\\theta+\\cos^2\\theta=1$.",
+          explanation:
+            "For the apex angle $\\theta$, the cosine rule gives $6^2=5^2+5^2-2(5)(5)\\cos\\theta$, so $\\cos\\theta=7/25$. As $\\theta$ is a triangle angle, $\\sin\\theta=24/25$. Therefore $K=\\frac12(5)(5)(24/25)=12$ square units.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires linking cosine-rule angle information to the sine area formula without defaulting to a height construction.",
+          triangleDiagram: isoscelesAreaTriangle,
+        }),
+        qualityChoice({
+          id: "y11adv-nra-qm6",
+          prompt:
+            "For the displayed triangle, Amira finds its area directly with $\\frac12(7)(8)\\sin60^\\circ$. Noah first finds the third side by cosine rule, then recovers the $60^\\circ$ angle by cosine rule and uses the area formula. Whose method is valid?",
+          latex: "\\text{compare two complete methods}",
+          answer: "C",
+          choices: [
+            "Amira only",
+            "Noah only",
+            "Both methods",
+            "Neither method",
+          ],
+          hint:
+            "A method may be inefficient and still valid. Check whether every step uses information from the same determined triangle.",
+          explanation:
+            "Amira's direct method is valid because the two sides and their included angle are already known. Noah's longer method is also valid: SAS determines the third side, and the cosine rule then recovers the same included angle before the area formula is used. Both chains are mathematically sound, although Amira's is more efficient.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Distinguishes mathematical validity from efficiency when comparing direct and redundant multi-step triangle methods.",
+          distractorMisconceptions: {
+            A: "Rejects a valid method solely because it contains unnecessary steps.",
+            B: "Misses that the included-angle area formula already applies directly.",
+            D: "Fails to recognise either valid use of the determined SAS triangle.",
+          },
+          triangleDiagram: methodComparisonTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm7",
+          prompt:
+            "A quadrilateral parcel is split as shown. Find its exact total area.",
+          latex: "\\text{sum the two triangular regions}",
+          answer: "24+25sqrt(3)",
+          acceptedAnswers: [
+            "24+25\\sqrt3",
+            "$24+25\\sqrt{3}$",
+            "67.30 square units",
+          ],
+          hint:
+            "Find each triangular area by the most efficient available method, then add rather than treating the parcel as one triangle.",
+          explanation:
+            "The 6-8-10 region is right-angled, so its area is $\\frac12(6)(8)=24$. The other region has sides 10 and 10 enclosing $60^\\circ$, so its area is $\\frac12(10)(10)\\sin60^\\circ=25\\sqrt3$. The parcel's total area is $24+25\\sqrt3$ square units.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines two locally selected area methods across a composite region joined by a shared diagonal.",
+          trianglePairDiagram: parcelTrianglePair,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm8",
+          prompt:
+            "Two sides of a triangle have lengths 3 and 5. Their included angle $C$ is a multiple of $30^\\circ$ satisfying $30^\\circ\\le C\\le150^\\circ$. Find the sum of all possible $C$ for which the third side has integer length.",
+          latex: "\\text{investigate the five permitted angles}",
+          answer: "120",
+          acceptedAnswers: ["C=120 degrees; sum=120", "120°", "one hundred twenty"],
+          hint:
+            "Use the cosine rule for the third side squared and test the five allowed exact cosine values systematically.",
+          explanation:
+            "The third side satisfies $c^2=3^2+5^2-2(3)(5)\\cos C=34-30\\cos C$. At $30^\\circ,60^\\circ,90^\\circ,120^\\circ,150^\\circ$, the values are $34-15\\sqrt3,19,34,49,34+15\\sqrt3$. Only 49 is a perfect-square integer, so only $C=120^\\circ$ works and the required sum is 120.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests bounded systematic case analysis using exact cosine values and a valid integer-length criterion.",
+          triangleDiagram: angleFamilyTriangle,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm9",
+          prompt:
+            "Triangle $ABC$ has side lengths $AB=13$, $BC=14$, and $AC=15$. Point $M$ is the midpoint of $BC$. Use the cosine rule twice to find the exact median length $AM$.",
+          latex: "\\text{find }AM",
+          answer: "2sqrt(37)",
+          acceptedAnswers: ["2\\sqrt37", "$2\\sqrt{37}$", "2√37", "12.17"],
+          hint:
+            "First find $\\cos B$ from the full triangle. Then use $BM=7$ and the same angle $B$ in triangle $ABM$.",
+          explanation:
+            "In $\\triangle ABC$, $\\cos B=(13^2+14^2-15^2)/(2\\cdot13\\cdot14)=5/13$. Since $M$ is the midpoint, $BM=7$. Applying cosine rule in $\\triangle ABM$ gives $AM^2=13^2+7^2-2(13)(7)(5/13)=148$, so $AM=\\sqrt{148}=2\\sqrt{37}$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires transferring an inferred angle between nested triangles and coordinating two cosine-rule applications.",
+          trianglePairDiagram: medianTrianglePair,
+        }),
+        qualityAnswer({
+          id: "y11adv-nra-qm10",
+          prompt:
+            "The displayed triangle has adjacent sides $x$ and $x+2$, included angle $60^\\circ$, and opposite side $\\sqrt{19}$. Find its exact area.",
+          latex: "x>0",
+          answer: "15sqrt(3)/4",
+          acceptedAnswers: [
+            "15\\sqrt3/4",
+            "$\\frac{15\\sqrt{3}}4$",
+            "15√3÷4",
+            "6.495",
+          ],
+          hint:
+            "Use the cosine rule to determine the positive value of $x$, then substitute the adjacent sides into the sine area formula.",
+          explanation:
+            "The cosine rule gives $19=x^2+(x+2)^2-2x(x+2)\\cos60^\\circ=x^2+2x+4$. Thus $x^2+2x-15=0$, so $x=3$ because lengths are positive. The sides are 3 and 5, hence $K=\\frac12(3)(5)\\sin60^\\circ=15\\sqrt3/4$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines reverse side-parameter inference, physical root selection, and exact area calculation under linked constraints.",
+          triangleDiagram: designTriangle,
+        }),
       ],
       multiPartPractice: [
         {
@@ -2972,10 +6185,11 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           answer: "24",
           hint: "For (a) use the area formula. For (b) the cosine rule with cos 90°=0 reduces to Pythagoras. For (c) the sine rule gives sinA = a/c.",
           explanation: "(a) Area = ½(6)(8)(1) = 24. (b) c² = 36+64 = 100, c = 10. (c) sinA = 6/10 = 0.6.",
+          triangleDiagram: multipartRightTriangle,
           parts: [
-            { key: "a", label: "(a)", prompt: "Find the area of the triangle.", marks: 1, answer: "24", hint: "Area = ½ab sinC. sin 90° = 1.", explanation: "Area = ½(6)(8)(1) = 24 sq units." },
-            { key: "b", label: "(b)", prompt: "Find side $c$ using the cosine rule.", marks: 2, answer: "10", hint: "a² = b² + c² − 2bc cosA with A=90°. cos 90° = 0.", explanation: "c² = 6²+8²−0 = 100. c = 10." },
-            { key: "c", label: "(c)", prompt: "Using the sine rule, find $\\sin A$ as a decimal.", marks: 1, answer: "0.6", hint: "sinA/a = sinC/c = 1/10.", explanation: "sinA = a sinC/c = 6×1/10 = 0.6." },
+            { key: "a", label: "(a)", prompt: "Find the area of the triangle.", marks: 1, answer: "24", acceptedAnswers: ["24 square units", "24 units^2"], hint: "Sides a and b enclose angle C, so use Area = ½ab sin C.", explanation: "The included angle is 90°, so Area = ½(6)(8)sin 90° = 24 square units." },
+            { key: "b", label: "(b)", prompt: "Find side $c$ using the cosine rule.", marks: 2, answer: "10", acceptedAnswers: ["c=10", "10 units"], hint: "Write the cosine rule for side c, which is opposite the 90° angle C.", explanation: "The cosine rule gives c² = 6² + 8² - 2(6)(8)cos 90° = 100. Taking the positive square root gives c = 10." },
+            { key: "c", label: "(c)", prompt: "Using the sine rule, find $\\sin A$ as a decimal.", marks: 1, answer: "0.6", acceptedAnswers: ["sin A=0.6", "3/5", "0.60"], hint: "Use the opposite pairs a with A and c with C in the sine rule.", explanation: "The sine rule gives sin A/a = sin C/c. Therefore sin A = 6 sin 90°/10 = 6/10 = 0.6." },
           ],
         },
         {
@@ -2985,9 +6199,10 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           answer: "60",
           hint: "Angles sum to 180°. Use the sine rule to find b. For area, use the two legs at the right angle.",
           explanation: "(a) C = 60°. (b) b = 16. (c) Area ≈ 55 sq units (32√3).",
+          triangleDiagram: multipartAngleTriangle,
           parts: [
-            { key: "a", label: "(a)", prompt: "Find angle $C$.", marks: 1, answer: "60", hint: "A + B + C = 180°. 30 + 90 + C = 180.", explanation: "C = 180 − 30 − 90 = 60°." },
-            { key: "b", label: "(b)", prompt: "Find side $b$ (the hypotenuse) using the sine rule.", marks: 2, answer: "16", hint: "b/sinB = a/sinA. sin 90°=1, sin 30°=½.", explanation: "b = a sinB/sinA = 8×1/(½) = 16." },
+            { key: "a", label: "(a)", prompt: "Find angle $C$.", marks: 1, answer: "60", acceptedAnswers: ["60°", "60 degrees"], hint: "Use the 180° angle sum for a triangle with the two given angles.", explanation: "Angles in a triangle sum to 180°, so C = 180° - 30° - 90° = 60°." },
+            { key: "b", label: "(b)", prompt: "Find side $b$ (the hypotenuse) using the sine rule.", marks: 2, answer: "16", acceptedAnswers: ["b=16", "16 units"], hint: "Pair b with angle B and a with angle A in the sine rule.", explanation: "The sine rule gives b/sin 90° = 8/sin 30°. Hence b = 8(1)/(½) = 16." },
             { key: "c", label: "(c)", prompt: "Find the area to the nearest square unit.", marks: 1, answer: "55", acceptedAnswers: ["55", "56", "32√3", "55.4"], hint: "Area = ½ab sinC. C=60°, a=8, b=16.", explanation: "Area = ½(8)(16)sin60° = 64×(√3/2) = 32√3 ≈ 55.4 ≈ 55 sq units." },
           ],
         },
@@ -2997,6 +6212,76 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
 
   // ── Ambiguous case of the sine rule ──────────────────────────────────────
   if (lesson.slug === "ambiguous-case-sine-rule") {
+    const ssaDiagram = (
+      description: string,
+      angleA: string,
+      sideA: string,
+      sideB: string,
+    ): import("../types").TriangleDiagram => ({
+      description,
+      vertices: {
+        A: { x: 0, y: 3 },
+        B: { x: 5, y: 3 },
+        C: { x: 2, y: 0.4 },
+      },
+      vertexLabels: { A: "A", B: "B", C: "C" },
+      sideLabels: { BC: sideA, AC: sideB },
+      angleLabels: { A: angleA },
+      highlightedSides: ["BC", "AC"],
+    });
+    const ssaPair = (
+      description: string,
+      angleA: string,
+      sideA: string,
+      sideB: string,
+      firstAngleB: string,
+      secondAngleB: string,
+      relationLabel: string,
+    ): import("../types").TrianglePairDiagram => ({
+      description,
+      left: {
+        description:
+          "First SSA candidate using the principal inverse-sine angle at B.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 2, y: 0.4 },
+        },
+        vertexLabels: { A: "A", B: "B", C: "C" },
+        sideLabels: { BC: sideA, AC: sideB },
+        angleLabels: { A: angleA, B: firstAngleB },
+      },
+      right: {
+        description:
+          "Second SSA candidate using the supplementary inverse-sine angle at B.",
+        vertices: {
+          A: { x: 0, y: 3 },
+          B: { x: 5, y: 3 },
+          C: { x: 4, y: 1.2 },
+        },
+        vertexLabels: { A: "A", B: "B", C: "C" },
+        sideLabels: { BC: sideA, AC: sideB },
+        angleLabels: { A: angleA, B: secondAngleB },
+      },
+      leftCaption: "\\text{principal candidate}",
+      rightCaption: "\\text{supplementary candidate}",
+      relationLabel,
+    });
+    const multipartAmbiguousDiagram = ssaPair(
+      "Two possible triangles from A equal to 30 degrees, side a equal to 7, and side b equal to 10.",
+      "30^\\circ",
+      "a=7",
+      "b=10",
+      "B_1",
+      "B_2",
+      "B_1+B_2=180^\\circ",
+    );
+    const multipartBoundaryDiagram = ssaDiagram(
+      "A boundary SSA triangle with A equal to 30 degrees, side b equal to 10, and side a equal to the perpendicular threshold 5.",
+      "30^\\circ",
+      "a=5",
+      "b=10",
+    );
     return {
       ...base,
       description:
@@ -3052,17 +6337,17 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         },
       ],
       guidedPractice: [
-        qa("y11adv-amb-g1", "$A=30°$, $b=8$, $a=4$. Compute $b\\sin A$.", "", "4", "bsinA = 8 × sin30° = 8 × ½ = 4.", "b sinA = 8 × 0.5 = 4."),
-        qa("y11adv-amb-g2", "$A=30°$, $b=8$, $a=3$. Since $a=3 < b\\sin A=4$, how many triangles exist?", "", "0", "a < threshold → no triangle possible.", "0 triangles: a is too short to reach the base."),
-        qa("y11adv-amb-g3", "$A=30°$, $b=8$, $a=6$. Since $b\\sin A=4 < 6 < 8=b$, how many triangles exist?", "", "2", "Ambiguous case: a is between threshold and b.", "2 triangles: this is the ambiguous case."),
-        qa("y11adv-amb-g4", "$A=30°$, $b=8$, $a=10$. Since $a=10 > b=8$, how many triangles exist?", "", "1", "a > b means the swing can only reach in one direction.", "1 triangle: a exceeds b so only one position is possible."),
+        qa("y11adv-amb-g1", "$A=30°$, $b=8$, $a=4$. Compute $b\\sin A$.", "", "4", "Substitute the given side b and angle A into the perpendicular-height threshold b sin A.", "The threshold is b sin A = 8 sin 30° = 8 × ½ = 4.", ["4 units", "4.0"]),
+        qa("y11adv-amb-g2", "$A=30°$, $b=8$, $a=3$. Since $a=3 < b\\sin A=4$, how many triangles exist?", "", "0", "Compare side a with the perpendicular threshold. A side shorter than the threshold cannot reach the baseline.", "Because a = 3 is shorter than b sin A = 4, the swinging side cannot meet the base. Therefore no triangle exists.", ["0 triangles", "none"]),
+        qa("y11adv-amb-g3", "$A=30°$, $b=8$, $a=6$. Since $b\\sin A=4 < 6 < 8=b$, how many triangles exist?", "", "2", "For acute A, the strict interval b sin A < a < b is the two-triangle ambiguous case.", "The inequalities 4 < 6 < 8 show that b sin A < a < b. The swinging side meets the baseline in two positions, so two triangles exist.", ["2 triangles", "two"]),
+        qa("y11adv-amb-g4", "$A=30°$, $b=8$, $a=10$. Since $a=10 > b=8$, how many triangles exist?", "", "1", "When a is at least as long as b for an acute given angle, only one intersection position is possible.", "Here a = 10 exceeds b = 8, so the side cannot swing to a second valid position. Exactly one triangle exists.", ["1 triangle", "one"]),
       ],
       independentPractice: [
-        qa("y11adv-amb-i1", "$A=30°$, $b=12$, $a=6$. How many triangles? (Threshold $b\\sin A = 6$.)", "", "1", "a = bsinA exactly → one right-angled triangle.", "1 triangle: a equals the threshold, giving exactly one (right-angled) triangle."),
-        qa("y11adv-amb-i2", "$A=30°$, $b=12$, $a=4$. How many triangles?", "", "0", "a < threshold → no triangle.", "0 triangles: a < bsinA."),
-        qa("y11adv-amb-i3", "$A=30°$, $b=12$, $a=8$. How many triangles?", "", "2", "Threshold=6, a=8, b=12. Ambiguous case.", "2 triangles: bsinA < a < b."),
-        qa("y11adv-amb-i4", "$A=30°$, $b=12$, $a=15$. How many triangles?", "", "1", "a > b → one triangle.", "1 triangle: a exceeds b."),
-        qa("y11adv-amb-i5", "In the ambiguous case, $B_1 = 50°$. Find $B_2$.", "", "130", "B₂ = 180° − B₁ = 180 − 50.", "B₂ = 130°."),
+        qa("y11adv-amb-i1", "$A=30°$, $b=12$, $a=6$. How many triangles? (Threshold $b\\sin A = 6$.)", "", "1", "Equality with the perpendicular threshold is the tangent boundary between zero and two intersections.", "Since a = b sin A = 6, the swinging side touches the base in exactly one position and forms a right angle. One triangle exists.", ["1 triangle", "one"]),
+        qa("y11adv-amb-i2", "$A=30°$, $b=12$, $a=4$. How many triangles?", "", "0", "Compute b sin A = 6, then compare the given side a with this minimum reaching length.", "The threshold is 12 sin 30° = 6. Since a = 4 < 6, the side is too short to reach the base, so zero triangles exist.", ["0 triangles", "none"]),
+        qa("y11adv-amb-i3", "$A=30°$, $b=12$, $a=8$. How many triangles?", "", "2", "Compute the threshold and check both strict inequalities needed for the ambiguous interval.", "Here b sin A = 12 sin 30° = 6, and 6 < 8 < 12. Therefore b sin A < a < b and two triangles exist.", ["2 triangles", "two"]),
+        qa("y11adv-amb-i4", "$A=30°$, $b=12$, $a=15$. How many triangles?", "", "1", "Compare a with b after confirming the given angle is acute.", "Because a = 15 is greater than b = 12, only the outward intersection is possible. The SSA data determine exactly one triangle.", ["1 triangle", "one"]),
+        qa("y11adv-amb-i5", "In the ambiguous case, $B_1 = 50°$. Find $B_2$.", "", "130", "The two inverse-sine candidates are supplementary, so subtract the principal angle from 180°.", "The supplementary candidate is B₂ = 180° - B₁ = 180° - 50° = 130°. It must still be checked against angle A for validity.", ["130°", "130 degrees"]),
       ],
       commonMistakes: [
         { mistake: "Comparing a with b only, without computing bsinA first.", fix: "Always find the threshold bsinA before deciding. The comparison is a vs bsinA AND a vs b — both conditions are needed." },
@@ -3071,16 +6356,256 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
         { mistake: "Only reporting one answer in the ambiguous case.", fix: "When bsinA < a < b, always report both triangles. State B₁ and B₂ = 180° − B₁, and find the corresponding angles C and sides c for each." },
       ],
       masteryQuiz: [
-        qa("y11adv-amb-m1", "$A=30°$, $b=20$, $a=10$. Compute $b\\sin A$ then state the number of triangles.", "", "1", "bsinA = 20×½ = 10 = a → exactly one right-angled triangle.", "1 triangle."),
-        qa("y11adv-amb-m2", "$A=30°$, $b=20$, $a=8$. How many triangles?", "", "0", "a=8 < bsinA=10 → no triangle.", "0 triangles."),
-        qa("y11adv-amb-m3", "$A=30°$, $b=20$, $a=15$. How many triangles?", "", "2", "10 < 15 < 20 → ambiguous case.", "2 triangles."),
-        qa("y11adv-amb-m4", "$A=30°$, $b=20$, $a=22$. How many triangles?", "", "1", "a > b → one triangle.", "1 triangle."),
-        qa("y11adv-amb-m5", "$A=60°$, $b=8$, $a=7$. How many triangles? (Threshold $\\approx 6.93$.)", "", "2", "bsinA = 8sin60° = 4√3 ≈ 6.93. a=7 is between threshold and b.", "2 triangles: bsinA < a < b."),
-        qa("y11adv-amb-m6", "$A=60°$, $b=8$, $a=5$. How many triangles?", "", "0", "a=5 < bsinA≈6.93 → no triangle.", "0 triangles."),
-        qa("y11adv-amb-m7", "$A=60°$, $b=8$, $a=9$. How many triangles?", "", "1", "a > b → one triangle.", "1 triangle."),
-        qa("y11adv-amb-m8", "$A=60°$, $b=10$, $a=9$. How many triangles? (Threshold $\\approx 8.66$.)", "", "2", "bsinA = 10sin60° = 5√3 ≈ 8.66. a=9 is between threshold and b.", "2 triangles: ambiguous case."),
-        qa("y11adv-amb-m9", "In the ambiguous case with $B_1=40°$, find $B_2$.", "", "140", "B₂ = 180° − 40° = 140°.", "B₂ = 140°."),
-        practicalChoice("y11adv-amb-m10", "The ambiguous case arises only when:", "B", ["angle A is obtuse", "A is acute, a < b, and a > b sinA", "a > b and A is acute", "all three sides are known"], "The two-triangle case requires A to be acute, the given side a to be shorter than b but longer than the threshold bsinA.", ""),
+        qualityChoice({
+          id: "y11adv-amb-qm1",
+          prompt:
+            "For $A=30^\\circ$, $b=10$, and $a=4$, how many triangles satisfy the SSA data?",
+          latex: "\\text{classify the configuration}",
+          answer: "A",
+          choices: ["0", "1", "2", "Cannot be determined"],
+          hint:
+            "Find the perpendicular threshold $b\\sin A$ before comparing it with side $a$.",
+          explanation:
+            "The threshold is $b\\sin A=10\\sin30^\\circ=5$. Since $a=4<5$, the side opposite A is too short to reach the baseline. No triangle exists, so option A is correct.",
+          difficulty: 3,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Checks classification from the geometric threshold rather than from the incomplete comparison between a and b.",
+          distractorMisconceptions: {
+            B: "Treats every SSA set as producing one triangle.",
+            C: "Uses only a less than b and ignores that a is below the height threshold.",
+            D: "Does not recognise that the threshold comparison completely determines this case.",
+          },
+          triangleDiagram: ssaDiagram(
+            "An attempted SSA triangle with A equal to 30 degrees, side b equal to 10, and opposite side a equal to 4, which is shorter than the perpendicular threshold.",
+            "30^\\circ",
+            "a=4",
+            "b=10",
+          ),
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm2",
+          prompt:
+            "For $A=30^\\circ$, $b=10$, and $a=5$, state the number of triangles and angle $B$, in that order.",
+          latex: "\\text{boundary case}",
+          answer: "1,90",
+          acceptedAnswers: ["1 triangle,90 degrees", "one,90°", "1; B=90"],
+          hint:
+            "Compare a with $b\\sin A$. Equality makes the swinging side perpendicular to the base.",
+          explanation:
+            "The threshold is $10\\sin30^\\circ=5$, exactly equal to $a$. Equality gives one tangent position, so there is one right triangle and the angle opposite side b is $B=90^\\circ$.",
+          difficulty: 3,
+          taskType: "procedural",
+          diagnosticIntent:
+            "Tests recognition of the equality boundary and its geometric right-angle consequence.",
+          triangleDiagram: multipartBoundaryDiagram,
+        }),
+        qualityChoice({
+          id: "y11adv-amb-qm3",
+          prompt:
+            "For $A=40^\\circ$, $b=12$, and $a=6$, a student says, “Because $a<b$, two triangles exist.” Which response is correct?",
+          latex: "\\text{evaluate the claim}",
+          answer: "B",
+          choices: [
+            "Correct; $a<b$ is sufficient",
+            "Incorrect; $12\\sin40^\\circ\\approx7.71>6$, so no triangle exists",
+            "Incorrect; exactly one triangle exists because $a$ is positive",
+            "Two triangles exist only because $A$ is acute",
+          ],
+          hint:
+            "The two-triangle condition needs both $a<b$ and $a>b\\sin A$.",
+          explanation:
+            "The missing check is the perpendicular threshold: $b\\sin A=12\\sin40^\\circ\\approx7.71$. Since $a=6$ is below that value, the swinging side cannot reach the base. Thus no triangle exists and option B correctly diagnoses the student's incomplete rule.",
+          difficulty: 3,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Targets the common error of using only a less than b while omitting the minimum-height condition.",
+          distractorMisconceptions: {
+            A: "Uses only one of the two inequalities required for ambiguity.",
+            C: "Assumes positive lengths automatically form a triangle.",
+            D: "Treats an acute angle alone as sufficient for two solutions.",
+          },
+          triangleDiagram: ssaDiagram(
+            "An attempted SSA triangle with A equal to 40 degrees, side b equal to 12, and side a equal to 6, below the perpendicular threshold.",
+            "40^\\circ",
+            "a=6",
+            "b=12",
+          ),
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm4",
+          prompt:
+            "For $A=30^\\circ$, $a=5$, and $b=5\\sqrt3$, find the two possible values of $B$ and the corresponding values of $C$. List smaller $B$ first.",
+          latex: "\\text{state }(B_1,B_2;C_1,C_2)",
+          answer: "60,120;90,30",
+          acceptedAnswers: [
+            "B=60 or120; C=90 or30",
+            "(60°,120°;90°,30°)",
+            "60,120,90,30",
+          ],
+          hint:
+            "Use the sine rule to find $\\sin B$, then take both the principal and supplementary angles before applying the angle sum.",
+          explanation:
+            "The sine rule gives $\\sin B=(b\\sin A)/a=(5\\sqrt3\\cdot1/2)/5=\\sqrt3/2$. Hence $B_1=60^\\circ$ and $B_2=120^\\circ$. The corresponding third angles are $C_1=90^\\circ$ and $C_2=30^\\circ$, and both angle sums are valid.",
+          difficulty: 3,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Combines exact inverse-sine solutions with supplementary-angle recovery and paired angle-sum completion.",
+          trianglePairDiagram: ssaPair(
+            "Two valid exact SSA triangles with A equal to 30 degrees, side a equal to 5, and side b equal to 5 square root 3.",
+            "30^\\circ",
+            "a=5",
+            "b=5\\sqrt3",
+            "60^\\circ",
+            "120^\\circ",
+            "C_1=90^\\circ,\\ C_2=30^\\circ",
+          ),
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm5",
+          prompt:
+            "For an SSA problem with $A=70^\\circ$, the sine rule gives $\\sin B=0.8$. State all valid values of $B$ to two decimal places and the number of triangles.",
+          latex: "\\text{validate both inverse-sine candidates}",
+          answer: "53.13,1",
+          acceptedAnswers: [
+            "B=53.13 degrees; 1 triangle",
+            "53.1°,one",
+            "53.130102,1",
+          ],
+          hint:
+            "Find the principal and supplementary candidates, then test each using $A+B<180^\\circ$.",
+          explanation:
+            "The principal value is $B_1=\\sin^{-1}(0.8)\\approx53.13^\\circ$. The supplement is $B_2\\approx126.87^\\circ$, but $70^\\circ+126.87^\\circ>180^\\circ$, so it cannot belong to a triangle. Only $B=53.13^\\circ$ is valid, giving one triangle.",
+          difficulty: 4,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires distinguishing algebraic inverse-sine candidates from geometrically valid triangle angles.",
+          trianglePairDiagram: ssaPair(
+            "Two inverse-sine candidates for B when A is 70 degrees; the supplementary candidate makes the angle sum exceed 180 degrees.",
+            "70^\\circ",
+            "a",
+            "b",
+            "53.13^\\circ",
+            "126.87^\\circ",
+            "70^\\circ+126.87^\\circ>180^\\circ",
+          ),
+        }),
+        qualityChoice({
+          id: "y11adv-amb-qm6",
+          prompt:
+            "For $A=30^\\circ$, $a=7$, and $b=10$, Mei uses $5<7<10$ to conclude two triangles. Omar calculates $\\sin B=5/7$, tests both inverse-sine angles, and also concludes two. Whose method is valid?",
+          latex: "\\text{compare classification methods}",
+          answer: "C",
+          choices: ["Mei only", "Omar only", "Both methods", "Neither method"],
+          hint:
+            "One method uses the acute-angle threshold theorem; the other verifies both candidate angles directly.",
+          explanation:
+            "Mei correctly applies $b\\sin A<a<b$: $10\\sin30^\\circ=5$, so $5<7<10$ gives two triangles. Omar's sine-rule calculation produces a principal angle and a supplementary angle, and both pass the angle-sum check. Both methods are valid, so option C is correct.",
+          difficulty: 4,
+          taskType: "problem-solving",
+          diagnosticIntent:
+            "Assesses equivalence between geometric threshold classification and direct inverse-sine candidate validation.",
+          distractorMisconceptions: {
+            A: "Rejects a valid direct verification using the sine rule.",
+            B: "Fails to recognise the complete threshold theorem for acute A.",
+            D: "Does not connect either method to the same two valid configurations.",
+          },
+          trianglePairDiagram: multipartAmbiguousDiagram,
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm7",
+          prompt:
+            "In an SSA problem, $A=20^\\circ$ and the sine rule reduces to $\\sin B=\\frac12$. Find the sum of all valid corresponding values of angle $C$.",
+          latex: "\\text{include every valid triangle}",
+          answer: "140",
+          acceptedAnswers: ["130+10=140", "C=130°,10°; sum=140°", "140 degrees"],
+          hint:
+            "Use both angles in $0^\\circ<B<180^\\circ$ whose sine is one half, then complete each triangle.",
+          explanation:
+            "The two candidates are $B=30^\\circ$ and $B=150^\\circ$. Both are valid because $20^\\circ+B<180^\\circ$. Their corresponding third angles are $130^\\circ$ and $10^\\circ$, whose sum is $140^\\circ$.",
+          difficulty: 4,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Requires enumerating both inverse-sine branches, validating them, and aggregating the linked third angles.",
+          trianglePairDiagram: ssaPair(
+            "Two valid candidate triangles with A equal to 20 degrees and B equal to either 30 degrees or 150 degrees.",
+            "20^\\circ",
+            "a",
+            "b",
+            "30^\\circ",
+            "150^\\circ",
+            "C_1=130^\\circ,\\ C_2=10^\\circ",
+          ),
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm8",
+          prompt:
+            "Let $A=30^\\circ$, $b=12$, and let side $a=k$ be an integer satisfying $1\\le k\\le15$. Find the sum of all $k$ for which exactly two triangles exist.",
+          latex: "\\text{bounded integer family}",
+          answer: "45",
+          acceptedAnswers: ["7+8+9+10+11=45", "k=7,8,9,10,11; sum=45", "forty-five"],
+          hint:
+            "Translate the two-triangle condition $b\\sin A<a<b$ into a strict integer interval for k.",
+          explanation:
+            "Here $b\\sin A=12\\sin30^\\circ=6$. Exactly two triangles require $6<k<12$, so the permitted integers are $7,8,9,10,11$. Their sum is $45$; the boundary values 6 and 12 each give only one triangle.",
+          difficulty: 5,
+          taskType: "investigative",
+          diagnosticIntent:
+            "Tests systematic enumeration from strict threshold inequalities, including correct exclusion of both boundary cases.",
+          triangleDiagram: ssaDiagram(
+            "A family of SSA triangles with fixed A equal to 30 degrees, fixed side b equal to 12, and opposite side a equal to an integer k.",
+            "30^\\circ",
+            "a=k",
+            "b=12",
+          ),
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm9",
+          prompt:
+            "For $A=45^\\circ$, $a=6$, and $b=3\\sqrt6$, two triangles exist. Find the exact sum of their areas.",
+          latex: "\\text{sum both configurations}",
+          answer: "27",
+          acceptedAnswers: ["27 square units", "K1+K2=27", "27 units^2"],
+          hint:
+            "Find both B values, then both C values and sides c. Use $K=\\frac12bc\\sin A$ for each triangle.",
+          explanation:
+            "The sine rule gives $\\sin B=(3\\sqrt6\\sin45^\\circ)/6=\\sqrt3/2$, so $B=60^\\circ$ or $120^\\circ$ and $C=75^\\circ$ or $15^\\circ$. The corresponding sides are $c=3\\sqrt3+3$ and $c=3\\sqrt3-3$, with sum $6\\sqrt3$. Thus the area sum is $\\frac12(3\\sqrt6)(6\\sqrt3)\\sin45^\\circ=27$.",
+          difficulty: 5,
+          taskType: "synthesis",
+          diagnosticIntent:
+            "Integrates both ambiguous configurations, exact sine-rule side recovery, and aggregation of two linked areas.",
+          trianglePairDiagram: ssaPair(
+            "Two valid SSA triangles with A equal to 45 degrees, side a equal to 6, and side b equal to 3 square root 6.",
+            "45^\\circ",
+            "a=6",
+            "b=3\\sqrt6",
+            "60^\\circ",
+            "120^\\circ",
+            "C_1=75^\\circ,\\ C_2=15^\\circ",
+          ),
+        }),
+        qualityAnswer({
+          id: "y11adv-amb-qm10",
+          prompt:
+            "For an acute SSA family with fixed $A=30^\\circ$ and fixed side $b$, the open interval of side lengths $a$ that produces two triangles has width 4. Find the sum of the interval endpoints.",
+          latex: "\\text{reverse-design the ambiguity interval}",
+          answer: "12",
+          acceptedAnswers: ["4+8=12", "endpoints 4 and 8; sum12", "twelve"],
+          hint:
+            "The two-triangle interval is $(b\\sin A,b)$. Express its width using $\\sin30^\\circ=1/2$.",
+          explanation:
+            "The interval is $(b\\sin30^\\circ,b)=(b/2,b)$, so its width is $b-b/2=b/2$. Given width 4, $b=8$. The endpoints are therefore 4 and 8, and their sum is $12$.",
+          difficulty: 5,
+          taskType: "analytical",
+          diagnosticIntent:
+            "Requires reversing the ambiguity condition to infer a fixed side from the geometry of its parameter interval.",
+          triangleDiagram: ssaDiagram(
+            "A variable SSA family with fixed A equal to 30 degrees, fixed side b, and side a ranging between the perpendicular threshold and b.",
+            "30^\\circ",
+            "b\\sin A<a<b",
+            "b",
+          ),
+        }),
       ],
       multiPartPractice: [
         {
@@ -3090,10 +6615,11 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           answer: "5",
           hint: "First find bsinA. Compare a with bsinA and b to count triangles. Then use the sine rule to find sinB.",
           explanation: "(a) bsinA = 5. (b) 5 < 7 < 10, so 2 triangles. (c) sinB = 5/7 ≈ 0.71.",
+          trianglePairDiagram: multipartAmbiguousDiagram,
           parts: [
-            { key: "a", label: "(a)", prompt: "Calculate $b\\sin A$.", marks: 1, answer: "5", hint: "b sinA = 10 × sin 30° = 10 × ½.", explanation: "b sinA = 10 × ½ = 5." },
-            { key: "b", label: "(b)", prompt: "How many triangles are possible?", marks: 1, answer: "2", hint: "Compare a=7 with bsinA=5 and b=10.", explanation: "5 < 7 < 10, so bsinA < a < b → 2 triangles (ambiguous case)." },
-            { key: "c", label: "(c)", prompt: "Find $\\sin B$ to 2 decimal places.", marks: 1, answer: "0.71", acceptedAnswers: ["0.71", "0.714", "5/7"], hint: "sinB = bsinA/a = 5/7.", explanation: "sinB = 5/7 ≈ 0.71." },
+            { key: "a", label: "(a)", prompt: "Calculate $b\\sin A$.", marks: 1, answer: "5", acceptedAnswers: ["5 units", "5.0"], hint: "Substitute b = 10 and A = 30° into the perpendicular-height threshold.", explanation: "The threshold is b sin A = 10 sin 30° = 10 × ½ = 5." },
+            { key: "b", label: "(b)", prompt: "How many triangles are possible?", marks: 1, answer: "2", acceptedAnswers: ["2 triangles", "two"], hint: "Compare a = 7 with both the threshold 5 and side b = 10.", explanation: "The strict inequalities 5 < 7 < 10 show that b sin A < a < b. Therefore two triangles are possible." },
+            { key: "c", label: "(c)", prompt: "Find $\\sin B$ to 2 decimal places.", marks: 1, answer: "0.71", acceptedAnswers: ["0.714", "5/7", "0.7143"], hint: "Rearrange the sine rule to obtain sin B = b sin A/a.", explanation: "The sine rule gives sin B = b sin A/a = 5/7 ≈ 0.7143, which rounds to 0.71." },
           ],
         },
         {
@@ -3103,10 +6629,11 @@ export function year11AdvancedTrigonometryMeasureLessonOverride(
           answer: "5",
           hint: "Find bsinA and compare with a. If a = bsinA, what angle does B take? Then find C.",
           explanation: "(a) bsinA = 5. (b) a = bsinA → 1 triangle (right angle at B). (c) C = 60°.",
+          triangleDiagram: multipartBoundaryDiagram,
           parts: [
-            { key: "a", label: "(a)", prompt: "Calculate $b\\sin A$.", marks: 1, answer: "5", hint: "b sinA = 10 × sin 30°.", explanation: "b sinA = 10 × ½ = 5." },
-            { key: "b", label: "(b)", prompt: "How many triangles are possible?", marks: 1, answer: "1", hint: "Compare a with bsinA.", explanation: "a = 5 = bsinA = 5. Exactly one triangle with a right angle at B." },
-            { key: "c", label: "(c)", prompt: "Since $B=90°$, find angle $C$.", marks: 1, answer: "60", hint: "A + B + C = 180°.", explanation: "C = 180° − 30° − 90° = 60°." },
+            { key: "a", label: "(a)", prompt: "Calculate $b\\sin A$.", marks: 1, answer: "5", acceptedAnswers: ["5 units", "5.0"], hint: "Substitute b = 10 and A = 30° into b sin A.", explanation: "The perpendicular threshold is b sin A = 10 sin 30° = 10 × ½ = 5." },
+            { key: "b", label: "(b)", prompt: "How many triangles are possible?", marks: 1, answer: "1", acceptedAnswers: ["1 triangle", "one"], hint: "Compare side a with the perpendicular threshold found in part (a).", explanation: "Here a = 5 equals b sin A = 5. Equality produces one tangent position, so exactly one right triangle exists." },
+            { key: "c", label: "(c)", prompt: "Since $B=90°$, find angle $C$.", marks: 1, answer: "60", acceptedAnswers: ["60°", "60 degrees"], hint: "Use the 180° angle sum with A = 30° and B = 90°.", explanation: "Angles in a triangle sum to 180°, so C = 180° - 30° - 90° = 60°." },
           ],
         },
       ],
