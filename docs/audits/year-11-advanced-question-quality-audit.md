@@ -1056,6 +1056,54 @@ D4 343, D5 341, and D6 1: 685 D4-D6 rows in total, including 669 outside the
 challenge layer. The whole-course verdict remains **FAIL** because the three
 remaining units have not yet met the course acceptance gate.
 
+### Graphs and Equations — complete (5 of 5 subtopics)
+
+All five subtopics were remediated and seeded live on 31 July 2026:
+
+* `factor-remainder-theorem` now extends direct evaluation into coefficient
+  recovery, quadratic remainders, repeated-root parameter families, and
+  polynomial construction from zeros and remainder conditions.
+* `sum-product-of-roots` now includes root transformations, irrational parameter
+  boundaries, positivity and distinctness regions, relational roots, and linked
+  symmetric identities without requiring explicit root solutions.
+* `graphing-polynomials` now tests reverse inference from curves, root collisions,
+  multiplicity-sensitive sign charts, parameterised repeated roots, polynomial
+  inequalities, and complete quartic construction.
+* `simultaneous-equations-nonlinear` now links substitution, discriminant
+  classification, exact tangent coordinates, line-circle families, and proofs
+  that a reported solution set is complete.
+* `graphs-equations-exam-practice` now combines factorisation, Vieta identities,
+  polynomial inequalities, graph reconstruction, tangency, and a line-cubic
+  system in bounded exam-style tasks.
+
+The completed unit contains 95 standard questions. All 50 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. The production
+bank contains 95 active unit rows and 40 historical inactive rows. Zero retired
+mastery IDs remain active, the scoped stale-row check is zero, and every subtopic
+has exactly 19 active rows.
+
+Six new authored Cartesian stimuli support curve-to-factor inference, multiplicity
+diagnosis, line-parabola intersections, and line-cubic synthesis. Together with
+five retained visuals, the active unit has 11 visual questions. The audit corrected
+nine active retained defects: six duplicate or malformed MCQ choice sets, an
+equal-roots item with no valid option, a malformed answer string, and a wrong
+y-intercept. Retained constructed feedback and variants were also completed, and
+seven additional broken keys or explanations in retired mastery source were repaired.
+
+The completed-unit acceptance gate confirms zero exact standard repeats, zero
+standard explanations below 40 characters, zero deterministic source-audit
+findings, complete misconception mappings for every wrong mastery distractor,
+persisted authored difficulty, and valid visual/accessibility coverage. The
+repository passes 368/368 tests; the mastery selector, TypeScript, targeted lint,
+and diagram-rendering tests pass. The course seed contains 339 payload-backed
+visual rows.
+
+After unit completion, the course-wide distribution is D1 210, D2 726, D3 804,
+D4 355, D5 356, and D6 1: 712 D4-D6 rows in total, including 696 outside the
+challenge layer. The whole-course verdict remains **FAIL** because Bivariate Data
+and Continuous Probability have not yet met the course acceptance gate.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1066,13 +1114,13 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,230 |
+| Mastery quiz | 1,240 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,442** |
+| **Total** | **2,452** |
 
-The standard guided + independent + mastery sequence contains **2,364 questions**.
+The standard guided + independent + mastery sequence contains **2,374 questions**.
 
 ## Headline scorecard
 
@@ -1388,7 +1436,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Trigonometric Calculus | 6 | 114 | 36 | — | — | 0 | Complete post-audit |
 | Motion and Rates | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Series and Finance | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
-| Graphs and Equations | 5 | 85 | 3 | 0 | 3 | 3 | P2 |
+| Graphs and Equations | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Bivariate Data | 5 | 85 | 0 | 9 | 18 | 2 | P2 |
 | Continuous Probability | 5 | 85 | 0 | 3 | 6 | 1 | P2 |
 

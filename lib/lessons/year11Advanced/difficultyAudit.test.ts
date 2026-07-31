@@ -19,9 +19,6 @@ const expectedHighDifficulty = new Map<string, number>([
   ["chal-y12a-opt-5", 5],
   ["chal-y12a-opt-6", 5],
   ["chal-y12a-opt-7", 4],
-  ["y11adv-ge-sp-m4b", 4],
-  ["y11adv-ge-sim-m7", 4],
-  ["y11adv-ge-ex-m7", 4],
   ["y11adv-gt-trans-qm5", 4],
   ["y11adv-gt-trans-qm6", 4],
   ["y11adv-gt-trans-qm7", 4],
@@ -647,6 +644,36 @@ const expectedHighDifficulty = new Map<string, number>([
   ["y11adv-sf-ex-qm8", 5],
   ["y11adv-sf-ex-qm9", 5],
   ["y11adv-sf-ex-qm10", 5],
+  ["y11adv-ge-ft-qm5", 4],
+  ["y11adv-ge-ft-qm6", 4],
+  ["y11adv-ge-ft-qm7", 4],
+  ["y11adv-ge-sp-qm5", 4],
+  ["y11adv-ge-sp-qm6", 4],
+  ["y11adv-ge-sp-qm7", 4],
+  ["y11adv-ge-gp-qm5", 4],
+  ["y11adv-ge-gp-qm6", 4],
+  ["y11adv-ge-gp-qm7", 4],
+  ["y11adv-ge-sim-qm5", 4],
+  ["y11adv-ge-sim-qm6", 4],
+  ["y11adv-ge-sim-qm7", 4],
+  ["y11adv-ge-ex-qm5", 4],
+  ["y11adv-ge-ex-qm6", 4],
+  ["y11adv-ge-ex-qm7", 4],
+  ["y11adv-ge-ft-qm8", 5],
+  ["y11adv-ge-ft-qm9", 5],
+  ["y11adv-ge-ft-qm10", 5],
+  ["y11adv-ge-sp-qm8", 5],
+  ["y11adv-ge-sp-qm9", 5],
+  ["y11adv-ge-sp-qm10", 5],
+  ["y11adv-ge-gp-qm8", 5],
+  ["y11adv-ge-gp-qm9", 5],
+  ["y11adv-ge-gp-qm10", 5],
+  ["y11adv-ge-sim-qm8", 5],
+  ["y11adv-ge-sim-qm9", 5],
+  ["y11adv-ge-sim-qm10", 5],
+  ["y11adv-ge-ex-qm8", 5],
+  ["y11adv-ge-ex-qm9", 5],
+  ["y11adv-ge-ex-qm10", 5],
   ["y11adv-pd-data-qm5", 4],
   ["y11adv-pd-data-qm6", 4],
   ["y11adv-pd-data-qm7", 4],
@@ -716,10 +743,10 @@ test("repaired high-tier questions retain their corrected prompts and answers", 
   assert.match(byId.get("y11adv-stat-qm10")!.prompt, /vertical distance/i);
   assert.equal(byId.get("y11adv-stat-qm10")!.difficulty, 5);
 
-  assert.match(byId.get("y11adv-ge-sim-m7")!.prompt, /student claims/i);
-  assert.match(byId.get("y11adv-ge-sim-m7")!.answer, /not tangent/i);
-  assert.match(byId.get("y11adv-ge-sp-m4b")!.answer, /±9√2/);
-  assert.match(byId.get("y11adv-ge-ex-m7")!.answer, /1 or k = 4/);
+  assert.match(byId.get("y11adv-ge-ft-qm8")!.answer, /3x\+2/);
+  assert.match(byId.get("y11adv-ge-sp-qm7")!.answer, /5\+2sqrt/);
+  assert.match(byId.get("y11adv-ge-sim-qm9")!.answer, /2sqrt/);
+  assert.match(byId.get("y11adv-ge-ex-qm10")!.answer, /sqrt\(3\)/);
   assert.match(byId.get("chal-y11a-var-1")!.prompt, /C = 88/);
   assert.match(byId.get("y11adv-sf-ex-qm10")!.answer, /254\.10/);
 });

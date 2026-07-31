@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { enhanceGraphsEquationsRetainedPractice, getGraphsEquationsQualityMastery } from "./graphsEquationsQuality";
 
 function fa(id: string, prompt: string, latex: string, answer: string, acceptedAnswers: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers };
@@ -54,14 +55,14 @@ const ftIndep: PracticeQuestion[] = [
   mc("y11adv-ge-ft-i4", "The rational roots of a monic integer polynomial P(x) must be:", "B",
     [{ label: "A", text: "Factors of the leading coefficient" }, { label: "B", text: "Integer factors of the constant term" }, { label: "C", text: "Prime factors of the degree" }, { label: "D", text: "Any integer" }],
     "For a monic polynomial P(x) with integer coefficients, any rational (integer) root must divide the constant term. Testing ±(factors of constant) finds linear factors.", ""),
-  fa("y11adv-ge-ft-i5", "P(x) = x³ + 4x² + x − 6. Fully factorise. [Hint: test x = 1.]", "P(x)=x^3+4x^2+x-6", "(x-1)(x+2)(x+3)", ["(x-1)(x+2)(x+3)"]),
+  fa("y11adv-ge-ft-i5", "P(x) = x³ + 4x² + x − 6. Fully factorise. [Hint: test x = 1.]", "P(x)=x^3+4x^2+x-6", "(x-1)(x+2)(x+3)", ["(x+3)(x+2)(x-1)"]),
 ];
 
 const ftMastery: PracticeQuestion[] = [
   fa("y11adv-ge-ft-m1", "P(x) = x³ − 7x + 6. Show P(1) = 0 and fully factorise.", "P(x)=x^3-7x+6", "(x-1)(x-2)(x+3)", ["(x-1)(x-2)(x+3)"]),
   mc("y11adv-ge-ft-m2", "If (x − 3) and (x + 1) are both factors of P(x) = x³ + ax² + bx + 3, then:", "C",
-    [{ label: "A", text: "$a = 1,\\, b = -3$" }, { label: "B", text: "$a = -1,\\, b = 3$" }, { label: "C", text: "$a = -1,\\, b = -9$" }, { label: "D", text: "$a = 3,\\, b = -1$" }],
-    "P(3) = 0: 27 + 9a + 3b + 3 = 0 → 9a + 3b = −30 → 3a + b = −10. P(−1) = 0: −1 + a − b + 3 = 0 → a − b = −2. Solving: a = −3, b = −1 ... let me recompute. 3a+b=−10, a−b=−2 → add: 4a=−12 → a=−3, b=−1. So option is none. Let me recheck with a=−1: 3(−1)+b=−10 → b=−7. Then a−b = −1−(−7) = 6 ≠ −2. Correct answer should be checked more carefully — let's use B: a=−1, b=−9: 3(−1)+(−9)=−12 ≠ −10. Let's try option C: a=−1, b=−9: 3(−1)+(−9)=−12. Not right. Actually P(3)=27+9a+3b+3=0 → 9a+3b=−30 and P(−1)=−1+a−b+3=0 → a−b=−2. From second: a=b−2. Sub: 9(b−2)+3b=−30 → 12b=−12 → b=−1, a=−3.", "P(x)=x^3+ax^2+bx+3"),
+    [{ label: "A", text: "$a = 1,\\, b = -3$" }, { label: "B", text: "$a = -1,\\, b = 3$" }, { label: "C", text: "$a = -3,\\, b = -1$" }, { label: "D", text: "$a = 3,\\, b = -1$" }],
+    "The two factor conditions give P(3)=0 and P(−1)=0. Solving 3a+b=−10 and a−b=−2 gives a=−3 and b=−1, so C is correct.", "P(x)=x^3+ax^2+bx+3"),
   fa("y11adv-ge-ft-m3", "Find all values of k such that (x − 2) is a factor of P(x) = x³ − kx² + 3kx − 4.", "", "k = 2", ["2"]),
   mc("y11adv-ge-ft-m4", "P(x) = (x − 2)(x + 1)Q(x) + 3. When P(x) is divided by (x − 2), the remainder is:", "A",
     [{ label: "A", text: "$3$" }, { label: "B", text: "$0$" }, { label: "C", text: "$Q(2)$" }, { label: "D", text: "$(x+1)Q(x)+3$" }],
@@ -117,9 +118,9 @@ const spIndep: PracticeQuestion[] = [
     "α² + β² = (α+β)² − 2αβ = 36 − 16 = 20.", "x^2-6x+8=0"),
   fa("y11adv-ge-sp-i3", "For 4x² + 3x − 1 = 0, find 1/α + 1/β using sum and product.", "4x^2+3x-1=0", "(α+β)/(αβ) = (-3/4)/(-1/4) = 3", ["3"]),
   mc("y11adv-ge-sp-i4", "The equation x² + (k−1)x + 2k = 0 has equal roots when:", "C",
-    [{ label: "A", text: "$k=0$" }, { label: "B", text: "$k=4$" }, { label: "C", text: "$k=1$ or $k=9$" }, { label: "D", text: "$k=-1$" }],
-    "Equal roots ⟺ Δ = b² − 4ac = 0. Δ = (k−1)² − 8k = k²−2k+1−8k = k²−10k+1 = 0. k = (10±√96)/2 = 5±2√6. Hmm, let me recalculate. Δ = (k-1)²-4(1)(2k) = k²-2k+1-8k = k²-10k+1. k=(10±√(100-4))/2 = (10±√96)/2. Not integer. Let me reconsider: for the question to have clean answer, it should be: discriminant = (k-1)²-8k=0 → k²-10k+1=0... actually the closest MCQ answer with k=1: Δ=0-8=-8≠0. k=9: Δ=64-72=-8≠0. None match. I'll use a different setup.", ""),
-  fa("y11adv-ge-sp-i5", "One root of x² − 5x + k = 0 is 3 times the other. Find k.", "", "k = 75/16... no: α+β=3β+β=4β=5 → β=5/4, α=15/4, k=αβ=75/16.", ["75/16"]),
+    [{ label: "A", text: "$k=0$" }, { label: "B", text: "$k=4$" }, { label: "C", text: "$k=5\\pm2\\sqrt6$" }, { label: "D", text: "$k=-1$" }],
+    "Equal roots require a zero discriminant. Solving (k−1)²−8k=0 gives k²−10k+1=0 and hence k=5±2√6, so C is correct.", ""),
+  fa("y11adv-ge-sp-i5", "One root of x² − 5x + k = 0 is 3 times the other. Find k.", "", "k=75/16", ["75/16"]),
 ];
 
 const spMastery: PracticeQuestion[] = [
@@ -175,11 +176,11 @@ const gpWorked: WorkedExample[] = [
 
 const gpGuided: PracticeQuestion[] = [
   mc("y11adv-ge-gp-g1", "P(x) = (x−1)(x+2)(x−3) has x-intercepts at:", "C",
-    [{ label: "A", text: "$x = -1, 2, -3$" }, { label: "B", text: "$x = 1, -2, 3$, all crossings" }, { label: "C", text: "$x = 1, -2, 3$, all crossings" }, { label: "D", text: "$x = 0, 1, -2, 3$" }],
+    [{ label: "A", text: "$x = -1, 2, -3$" }, { label: "B", text: "$x = 1, -2, 3$, all touches" }, { label: "C", text: "$x = 1, -2, 3$, all crossings" }, { label: "D", text: "$x = 0, 1, -2, 3$" }],
     "The roots are the values of x that make each factor zero: x = 1, −2, 3. All have multiplicity 1 so the graph crosses at each.", ""),
   fa("y11adv-ge-gp-g2", "For P(x) = (x−2)²(x+1), describe the behaviour at x = 2.", "", "Touches and turns (double root — does not cross)", ["touches", "touch"]),
   mc("y11adv-ge-gp-g3", "The graph of P(x) = −(x+1)(x−3)² has end behaviour:", "C",
-    [{ label: "A", text: "Rises left, rises right" }, { label: "B", text: "Rises left, falls right" }, { label: "C", text: "Rises left, falls right" }, { label: "D", text: "Falls left, falls right" }],
+    [{ label: "A", text: "Rises left, rises right" }, { label: "B", text: "Falls left, rises right" }, { label: "C", text: "Rises left, falls right" }, { label: "D", text: "Falls left, falls right" }],
     "Leading term is −x³ (degree 3, negative). As x→+∞, P→−∞ (falls right); as x→−∞, P→+∞ (rises left).", ""),
   fa("y11adv-ge-gp-g4", "P(x) = x³ − 2x² − x + 2 = (x−1)(x−2)(x+1). Find the y-intercept.", "", "y-intercept = 2", ["2"]),
 ];
@@ -204,7 +205,7 @@ const gpMastery: PracticeQuestion[] = [
     [{ label: "A", text: "$6$" }, { label: "B", text: "$-6$" }, { label: "C", text: "$-2$" }, { label: "D", text: "$3$" }],
     "P(0) = −2(0−1)²(0+3) = −2(1)(3) = −6.", ""),
   fa("y11adv-ge-gp-m3", "A quartic P(x) = (x+2)(x−1)²(x−3). State the behaviour at each root and end behaviour.", "", "x=-2 cross; x=1 touch; x=3 cross; leading coeff +1 → rises both ends (even degree)", ["x=-2 cross; x=1 touch; x=3 cross; rises both ends"]),
-  mc("y11adv-ge-gp-m4", "P(x) has positive leading coefficient and roots at x = −2 (double) and x = 1 (single). In the interval −2 < x < 1, P(x) is:", "B",
+  mc("y11adv-ge-gp-m4", "P(x) has positive leading coefficient and roots at x = −2 (double) and x = 1 (single). In the interval −2 < x < 1, P(x) is:", "A",
     [{ label: "A", text: "Always negative" }, { label: "B", text: "Always positive" }, { label: "C", text: "Sometimes positive, sometimes negative" }, { label: "D", text: "Always zero" }],
     "At x = −2 (double root), the graph touches and stays on the same side. The value just to the right of x = −2: sign of (x−(−2))² is always ≥ 0; (x−1) is negative for x < 1. So P(x) ∝ (+)(−) = negative. Wait — test x = 0: (0+2)²(0−1) = 4(−1) = −4 < 0. So P is negative on (−2, 1). The correct answer is A.", ""),
   fa("y11adv-ge-gp-m5", "Find the equation of the cubic P(x) with roots −3, 1, 4 and y-intercept 12.", "", "P(x) = (x+3)(x-1)(x-4)", ["(x+3)(x-1)(x-4)"]),
@@ -259,8 +260,8 @@ const simIndep: PracticeQuestion[] = [
     [{ label: "A", text: "0" }, { label: "B", text: "2" }, { label: "C", text: "1" }, { label: "D", text: "3" }],
     "x²−x−2 = x−2 → x²−2x = 0 → x(x−2) = 0 → x = 0 or x = 2. Two intersection points.", ""),
   fa("y11adv-ge-sim-i3", "Find k such that y = x + k is tangent to y = x² + 2.", "", "k = 7/4", ["7/4"]),
-  mc("y11adv-ge-sim-i4", "y = x² + 1 and y = 1 − x². Their intersections are at:", "B",
-    [{ label: "A", text: "$x = 0$ only" }, { label: "B", text: "$x = 0, \\pm$ ... let me compute: $x^2+1=1-x^2 \\to 2x^2=0 \\to x=0$" }, { label: "C", text: "No intersections" }, { label: "D", text: "$x = \\pm 1$" }],
+  mc("y11adv-ge-sim-i4", "y = x² + 1 and y = 1 − x². Their intersection is:", "B",
+    [{ label: "A", text: "$(0,0)$" }, { label: "B", text: "$(0,1)$" }, { label: "C", text: "No real intersection" }, { label: "D", text: "$(1,0)$ and $(-1,0)$" }],
     "x² + 1 = 1 − x² → 2x² = 0 → x = 0. One intersection point (0, 1).", ""),
   fa("y11adv-ge-sim-i5", "Solve 2x + y = 5 and x² + y² = 10 simultaneously.", "", "x=1,y=3 and x=3,y=-1", ["(1,3) and (3,-1)"]),
 ];
@@ -268,8 +269,8 @@ const simIndep: PracticeQuestion[] = [
 const simMastery: PracticeQuestion[] = [
   fa("y11adv-ge-sim-m1", "Find the points of intersection of y = 2x² and y = x + 3.", "", "x=-(1/2)(no)→ 2x²-x-3=0 → (2x-3)(x+1)=0 → x=3/2,y=9/2 and x=-1,y=2", ["(3/2,9/2) and (-1,2)"]),
   mc("y11adv-ge-sim-m2", "The line y = mx is tangent to y = x² + 2x + 2. The values of m are:", "C",
-    [{ label: "A", text: "$m = 0$" }, { label: "B", text: "$m = \\pm 2$" }, { label: "C", text: "no real values — the line does not meet the curve (check Δ < 0 for all m)" }, { label: "D", text: "$m = 4$" }],
-    "mx = x²+2x+2 → x²+(2−m)x+2=0. Δ=(2−m)²−8. For tangency: (2−m)²=8 → m=2±2√2. So there ARE real values: m=2+2√2 or m=2−2√2.", ""),
+    [{ label: "A", text: "$m = 0$" }, { label: "B", text: "$m = \\pm 2$" }, { label: "C", text: "$m=2\\pm2\\sqrt2$" }, { label: "D", text: "$m = 4$" }],
+    "Tangency requires the discriminant of x²+(2−m)x+2=0 to be zero. Thus (2−m)²−8=0 and m=2±2√2, so C is correct.", ""),
   fa("y11adv-ge-sim-m3", "Find the range of k for which y = kx + 1 and y = x² + 3 have no real intersections.", "", "k²<8, so -2√2 < k < 2√2", ["-2√2 < k < 2√2"]),
   mc("y11adv-ge-sim-m4", "Solving a quadratic-quadratic system y = ax² + b and y = cx² + d (a ≠ c) can be reduced to:", "A",
     [{ label: "A", text: "A linear equation in x² (after subtracting)" }, { label: "B", text: "A degree 4 equation" }, { label: "C", text: "Two separate quadratics" }, { label: "D", text: "A system that can never be solved" }],
@@ -291,20 +292,20 @@ const simMastery: PracticeQuestion[] = [
 // ─── L5: Exam Practice ────────────────────────────────────────────────────────
 
 const geExGuided: PracticeQuestion[] = [
-  fa("y11adv-ge-ex-g1", "P(x) = x³ − 5x² + 2x + 8. Show (x−4) is a factor and fully factorise.", "", "(x-4)(x-2)(x+1)", ["(x-4)(x-2)(x+1)"]),
+  fa("y11adv-ge-ex-g1", "P(x) = x³ − 5x² + 2x + 8. Show (x−4) is a factor and fully factorise.", "", "(x-4)(x-2)(x+1)", ["(x+1)(x-2)(x-4)"]),
   mc("y11adv-ge-ex-g2", "Roots α and β of x² − 7x + 10 = 0. Find α² + β².", "B",
-    [{ label: "A", text: "$29$" }, { label: "B", text: "$29$" }, { label: "C", text: "$49$" }, { label: "D", text: "$20$" }],
+    [{ label: "A", text: "$39$" }, { label: "B", text: "$29$" }, { label: "C", text: "$49$" }, { label: "D", text: "$20$" }],
     "Sum = 7, product = 10. α²+β² = (α+β)²−2αβ = 49−20 = 29.", "x^2-7x+10=0"),
-  fa("y11adv-ge-ex-g3", "Describe the graph of P(x) = (x+3)(x−1)²: roots, y-intercept, end behaviour.", "", "Cross x=-3; touch x=1; y-int=(-3)(1)=-3; rises right, falls left (positive cubic)", ["cross -3; touch 1; y-int=-3"]),
+  fa("y11adv-ge-ex-g3", "Describe the graph of P(x) = (x+3)(x−1)²: roots, y-intercept, end behaviour.", "", "Cross x=-3; touch x=1; y-intercept=3; rises right, falls left", ["cross -3; touch 1; y-int=3"]),
   mc("y11adv-ge-ex-g4", "y = x² − 3x + 2 and y = x − 1. Find the x-coordinates of intersection.", "C",
-    [{ label: "A", text: "$x=0,\\;x=2$" }, { label: "B", text: "$x=1,\\;x=3$" }, { label: "C", text: "$x=1,\\;x=3$" }, { label: "D", text: "$x=-1,\\;x=2$" }],
+    [{ label: "A", text: "$x=0,\\;x=2$" }, { label: "B", text: "$x=1,\\;x=2$" }, { label: "C", text: "$x=1,\\;x=3$" }, { label: "D", text: "$x=-1,\\;x=2$" }],
     "x²−3x+2 = x−1 → x²−4x+3 = 0 → (x−1)(x−3) = 0. x = 1 or x = 3.", ""),
 ];
 
 const geExIndep: PracticeQuestion[] = [
   fa("y11adv-ge-ex-i1", "P(x) = 2x³ + x² − 13x + 6. Find all roots using the factor theorem.", "", "(x-2)(2x-1)(x+3), roots 2, 1/2, -3", ["2, 1/2, -3"]),
   mc("y11adv-ge-ex-i2", "A quadratic has roots α and β with α+β = 5 and αβ = 4. The roots are:", "B",
-    [{ label: "A", text: "1 and 4" }, { label: "B", text: "1 and 4" }, { label: "C", text: "2 and 3" }, { label: "D", text: "-1 and -4" }],
+    [{ label: "A", text: "0 and 5" }, { label: "B", text: "1 and 4" }, { label: "C", text: "2 and 3" }, { label: "D", text: "-1 and -4" }],
     "x² − 5x + 4 = 0 → (x−1)(x−4) = 0 → roots 1 and 4.", ""),
   fa("y11adv-ge-ex-i3", "Sketch P(x) = x(x−2)²(x+1): state all intercepts, end behaviour, and root type.", "", "x=0 cross; x=2 touch; x=-1 cross; y-int=0; rises both ends (positive quartic)", ["x=0 cross; x=2 touch; x=-1 cross"]),
   mc("y11adv-ge-ex-i4", "y = x² + 2 and y = −x + 4. Number of intersections:", "B",
@@ -314,17 +315,17 @@ const geExIndep: PracticeQuestion[] = [
 ];
 
 const geExMastery: PracticeQuestion[] = [
-  fa("y11adv-ge-ex-m1", "P(x) = x³ + ax² + bx + 6 has roots 1, 2, 3. Find a and b.", "", "a=-6, b=11. But constant = -6 ≠ 6. So scale: a=-6, b=11 requires constant -6; for constant +6 the polynomial would be −(x−1)(x−2)(x−3). If monic, then roots giving constant +6 from (x-1)(x+2)(x-3)=x³-2x²-5x+6: a=-2, b=-5.", ["-2, -5"]),
+  fa("y11adv-ge-ex-m1", "P(x) = x³ + ax² + bx − 6 has roots 1, 2, 3. Find a and b.", "", "a=-6, b=11", ["-6, 11"]),
   mc("y11adv-ge-ex-m2", "P(x) = x³ + x² − 4x − 4. Its real roots are:", "C",
-    [{ label: "A", text: "$1, -1, 4$" }, { label: "B", text: "$2, -2, -1$" }, { label: "C", text: "$2, -2, -1$" }, { label: "D", text: "$1, 2, -2$" }],
+    [{ label: "A", text: "$1, -1, 4$" }, { label: "B", text: "$2, -2, 1$" }, { label: "C", text: "$2, -2, -1$" }, { label: "D", text: "$1, 2, -2$" }],
     "P(2) = 8+4−8−4 = 0. So (x−2) is a factor. Divide: x²+3x+2 = (x+1)(x+2). Roots: 2, −1, −2.", ""),
   fa("y11adv-ge-ex-m3", "Roots α, β of 2x²−5x+1=0. Find α/β + β/α.", "", "(α+β)²-2αβ)/αβ = (25/4-2)/(1/2) = (17/4)/(1/2) = 17/2", ["17/2"]),
   mc("y11adv-ge-ex-m4", "For what values of m does y = mx + 1 not intersect y = x² + x + 2?", "C",
     [{ label: "A", text: "$m < -1$" }, { label: "B", text: "$m > 3$" }, { label: "C", text: "$-1 < m < 3$" }, { label: "D", text: "$m < -1$ or $m > 3$" }],
     "mx+1 = x²+x+2 → x²+(1−m)x+1 = 0. Δ = (1−m)²−4. No intersection when Δ < 0: (1−m)² < 4 → |1−m| < 2 → −1 < m < 3.", ""),
   fa("y11adv-ge-ex-m5", "P(x) = x⁴ − 5x² + 4. Fully factorise over the reals and state all x-intercepts.", "", "(x-1)(x+1)(x-2)(x+2); intercepts ±1, ±2", ["±1, ±2"]),
-  mc("y11adv-ge-ex-m6", "A cubic with roots −2, 1, 3 and leading coefficient 2 is:", "B",
-    [{ label: "A", text: "$2(x+2)(x-1)(x-3)$" }, { label: "B", text: "$2(x+2)(x-1)(x-3)$" }, { label: "C", text: "$(x+2)(x-1)(x-3)$" }, { label: "D", text: "$2x^3+\\ldots$ but cannot determine" }],
+  mc("y11adv-ge-ex-m6", "A cubic with roots −2, 1, 3 and leading coefficient 2 is:", "A",
+    [{ label: "A", text: "$2(x+2)(x-1)(x-3)$" }, { label: "B", text: "$2(x-2)(x+1)(x+3)$" }, { label: "C", text: "$(x+2)(x-1)(x-3)$" }, { label: "D", text: "$2x^3+\\ldots$ but cannot determine" }],
     "P(x) = a(x−r₁)(x−r₂)(x−r₃) = 2(x+2)(x−1)(x−3). The leading coefficient scales the entire polynomial.", ""),
   {
     ...fa("y11adv-ge-ex-m7", "For x² + (k+2)x + 2k = 0, find all values of k so that one root is twice the other.", "", "k = 1 or k = 4", ["1 or 4", "k=1 or k=4", "k = 1, 4"]),
@@ -333,12 +334,12 @@ const geExMastery: PracticeQuestion[] = [
   },
   mc("y11adv-ge-ex-m8", "The graph of y = (x−a)²(x−b) with a ≠ b and positive leading coefficient:", "C",
     [{ label: "A", text: "Crosses the x-axis at both a and b" }, { label: "B", text: "Touches x-axis at b and crosses at a" }, { label: "C", text: "Touches at a (double root), crosses at b (single root)" }, { label: "D", text: "Does not touch the x-axis" }],
-    "(x−a)² is a double root at x = a → touch. (x−b) is single at x = b → cross. Positive leading coefficient: rises left and right for odd total degree... wait, degree is 3 (odd): falls left, rises right.", ""),
+    "(x−a)² is a double root at x=a, so the graph touches there. The factor (x−b) is a simple root, so it crosses at x=b. A positive cubic falls left and rises right.", ""),
 ];
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 
-export function year11AdvancedGraphsEquationsLessonOverride(
+function year11AdvancedGraphsEquationsLessonOverrideBase(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -435,10 +436,10 @@ export function year11AdvancedGraphsEquationsLessonOverride(
       ],
       teaching: {
         paragraphs: [
-          "A polynomial in factored form P(x) = a(x−r₁)^m₁(x−r₂)^m₂ ... reveals its x-intercepts (the rᵢ) and their multiplicities (the mᵢ). At each root: if mᵢ is odd, the graph crosses the x-axis; if mᵢ is even, the graph touches and turns back.",
+          "A polynomial in factored form reveals its x-intercepts and their multiplicities directly. At each root: if the multiplicity is odd, the graph crosses the x-axis; if it is even, the graph touches and turns back.",
           "End behaviour is controlled by the leading term axⁿ. If n is odd: the graph goes to −∞ on the left and +∞ on the right (if a > 0), or vice versa (if a < 0). If n is even: the graph goes to +∞ both sides (if a > 0) or −∞ both sides (if a < 0).",
           "Sign analysis between roots: choose a test value in each interval and substitute into the factored form. The sign of the result is the sign of P(x) on that whole interval. Alternatively, track sign changes at each root: at a crossing (odd multiplicity), the sign changes; at a touch (even multiplicity), the sign stays the same.",
-          "The y-intercept is always P(0) = a(−r₁)^m₁(−r₂)^m₂ ... Compute this directly from the factored form.",
+          "The y-intercept is found by substituting x=0 into every factor and multiplying by the leading coefficient. Compute it directly from the factored form.",
           "Combining these features: x-intercepts with multiplicity type, y-intercept, end behaviour, and a sign chart between roots gives a complete qualitative sketch. You should be able to reproduce the sketch without plotting many points.",
         ],
         latexBlocks: [
@@ -533,4 +534,23 @@ export function year11AdvancedGraphsEquationsLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedGraphsEquationsLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const base = year11AdvancedGraphsEquationsLessonOverrideBase(course, unit, lesson);
+  if (!base) return null;
+
+  const masteryQuiz = getGraphsEquationsQualityMastery(lesson.slug);
+  if (!masteryQuiz) return base;
+
+  return {
+    ...base,
+    guidedPractice: enhanceGraphsEquationsRetainedPractice(base.guidedPractice ?? []),
+    independentPractice: enhanceGraphsEquationsRetainedPractice(base.independentPractice ?? []),
+    masteryQuiz,
+  };
 }
