@@ -2,6 +2,10 @@ import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
 import type { Choice } from "../diagramRegistry";
 import type { CartesianGraph } from "../types";
+import {
+  enhanceCurveSketchingRetainedPractice,
+  getCurveSketchingQualityMastery,
+} from "./curveSketchingQuality";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -361,7 +365,7 @@ const scsIndep: PracticeQuestion[] = [
       { label: "D", text: "Touch at (0,0), cross at (3/2,0), max (0,0), min (1,−1)", ...cubicGraph(2,-3,0,0,[{x:0,y:0,label:"touch/max"},{x:1.5,y:0,label:"cross"},{x:1,y:-1,label:"min"},{x:0.5,y:-0.5,label:"inflection"}]) },
     ],
     "y=x²(2x−3): touches at x=0 (double root), crosses at x=3/2. f(0)=0 is a local max, f(1)=−1 is a local min. Sketch D is correct.", "y=2x^3-3x^2"),
-  fa("y11adv-cs-scs-i3", "y = x³ + 3x² − 9x + 5. Find the local maximum value.", "y = x^3 + 3x^2 - 9x + 5", "27", ["f(-3)=27", "y = 27"]),
+  fa("y11adv-cs-scs-i3", "y = x³ + 3x² − 9x + 5. Find the local maximum value.", "y = x^3 + 3x^2 - 9x + 5", "32", ["f(-3)=32", "y = 32"]),
   mc("y11adv-cs-scs-i4", "A double root at x = a on a cubic curve means the curve:", "B",
     [{label:"A",text:"Crosses the x-axis and has a stationary point there"},{label:"B",text:"Touches the x-axis and has a stationary point there"},{label:"C",text:"Has a vertical tangent at x = a"},{label:"D",text:"Crosses the x-axis at a 45° angle"}],
     "A double root means (x−a)² is a factor. The curve touches (not crosses) the x-axis at x=a. The derivative also equals zero there, making it a stationary point (local min or max)."),
@@ -565,7 +569,7 @@ const optGuided: PracticeQuestion[] = [
   mc("y11adv-cs-opt-g3", "To confirm a stationary point gives a minimum in an optimisation problem, you should:", "C",
     [{label:"A",text:"Check that f′ = 0 at that point"},{label:"B",text:"Check that f is positive there"},{label:"C",text:"Show f″ > 0 or use the first derivative test to confirm sign changes from − to +"},{label:"D",text:"Check the problem context alone"}],
     "Justification of the type of extremum requires showing f″>0 (concave up → min) or that f′ changes from negative to positive. Simply finding f′=0 only shows it is stationary."),
-  fa("y11adv-cs-opt-g4", "Find the value of x in [−2, 4] that maximises f(x) = x³ − 6x + 1.", "f(x) = x^3 - 6x + 1", "x = −2 (endpoint, f = 5) and check x = −√2 ≈ −1.41; maximum is f(−2) = 5", ["5 at x = -2", "f(-2) = 5"]),
+  fa("y11adv-cs-opt-g4", "Find the value of x in [−2, 4] that maximises f(x) = x³ − 6x + 1.", "f(x) = x^3 - 6x + 1", "x = 4, with maximum value f(4) = 41", ["x=4", "maximum 41 at x=4"]),
 ];
 
 const optIndep: PracticeQuestion[] = [
@@ -630,7 +634,7 @@ const exGuided: PracticeQuestion[] = [
       { label: "D", text: "Correct local max and min but wrong x-intercept positions", ...cubicGraph(1,0,-3,2,[{x:-1,y:0,label:"?"},{x:2,y:0,label:"?"},{x:-1,y:4,label:"max"}]) },
     ],
     "y=(x−1)²(x+2): touches at x=1 (double root), crosses at x=−2. Local max (−1,4), local min (1,0), inflection (0,2). Sketch B shows all features correctly.", "y=x^3-3x+2"),
-  fa("y11adv-cs-ex-g2", "A curve has a local minimum at (3, −2). State the value of f′(3) and the sign of f″(3).", "", "f′(3) = 0 and f″(3) > 0", ["f'(3)=0, f''(3)>0"]),
+  fa("y11adv-cs-ex-g2", "The second derivative test confirms a local minimum at (3, −2). State the value of f′(3) and the sign of f″(3).", "", "f′(3) = 0 and f″(3) > 0", ["f'(3)=0, f''(3)>0"]),
   mc("y11adv-cs-ex-g3", "The curve y = f(x) is concave up and increasing at x = 4. Which best describes f′ and f″ at x = 4?", "B",
     [{label:"A",text:"f′ < 0 and f″ > 0"},{label:"B",text:"f′ > 0 and f″ > 0"},{label:"C",text:"f′ > 0 and f″ < 0"},{label:"D",text:"f′ = 0 and f″ > 0"}],
     "Increasing → f′>0. Concave up → f″>0. Both conditions are simultaneously satisfied at x=4."),
@@ -680,7 +684,7 @@ const exMastery: PracticeQuestion[] = [
 
 // ─── Override Function ────────────────────────────────────────────────────────
 
-export function year11AdvancedCurveSketchingLessonOverride(
+function baseYear11AdvancedCurveSketchingLessonOverride(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -955,4 +959,31 @@ export function year11AdvancedCurveSketchingLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedCurveSketchingLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const lessonOverride = baseYear11AdvancedCurveSketchingLessonOverride(
+    course,
+    unit,
+    lesson,
+  );
+  if (!lessonOverride) return null;
+
+  const qualityMastery = getCurveSketchingQualityMastery(lesson.slug);
+  if (!qualityMastery) return lessonOverride;
+
+  return {
+    ...lessonOverride,
+    guidedPractice: enhanceCurveSketchingRetainedPractice(
+      lessonOverride.guidedPractice ?? [],
+    ),
+    independentPractice: enhanceCurveSketchingRetainedPractice(
+      lessonOverride.independentPractice ?? [],
+    ),
+    masteryQuiz: qualityMastery,
+  };
 }

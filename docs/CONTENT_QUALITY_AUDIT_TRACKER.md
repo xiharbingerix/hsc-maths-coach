@@ -29,7 +29,7 @@
 | Year 10 Mathematics Advanced | No | pending | |
 | Year 10 Mathematics Core | No | pending | |
 | Year 11 Standard | Partial | in_progress | Data Analysis unit (9 lessons) audited + reworked to standard on 2026-06-24 and seeded LIVE — see Unit Audit Board. Other units pending. |
-| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30; the current build has 126 seeded lessons / 2,408 rows and the final verdict remains FAIL. Graph Transformations, Trigonometry and Measure of Angles, Trigonometric Identities and Equations, Exponential and Logarithmic Functions, Integration, Introduction to Differentiation, Exponential and Logarithmic Calculus, Trigonometric Calculus, and Working with Functions are complete and seeded LIVE. The latest completed unit has 304 standard questions, 96 D4-D5 mastery tasks, zero shallow explanations, exact repeats, or scoped source-audit findings, and 319 active live rows with no stale or retired mastery IDs. The current course distribution is D1 210 / D2 726 / D3 959 / D4 258 / D5 254 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
+| Year 11 Advanced | Yes | in_progress | Whole-course question-quality audit complete 2026-07-30; the current build has 126 seeded lessons / 2,422 rows and the final verdict remains FAIL. Graph Transformations, Trigonometry and Measure of Angles, Trigonometric Identities and Equations, Exponential and Logarithmic Functions, Integration, Introduction to Differentiation, Exponential and Logarithmic Calculus, Trigonometric Calculus, Working with Functions, and Curve Sketching are complete and seeded LIVE. The latest completed unit has 133 standard questions, 42 D4-D5 mastery tasks, zero shallow explanations, exact repeats, or scoped source-audit findings, and 147 active live rows with no stale or retired mastery IDs. The current course distribution is D1 210 / D2 726 / D3 932 / D4 278 / D5 275 / D6 1. See `docs/audits/year-11-advanced-question-quality-audit.md`. |
 | Year 11 Extension 1 | No | pending | |
 | Year 12 Standard 1 | No | pending | |
 | Year 12 Standard 2 | No | pending | |
@@ -64,7 +64,7 @@ Transformations complete; Trigonometry and Measure of Angles complete;
 Trigonometric Identities and Equations complete; Exponential and Logarithmic
 Functions complete; Integration complete; Introduction to Differentiation
 complete; Exponential and Logarithmic Calculus complete; Trigonometric Calculus
-complete; Working with Functions complete)
+complete; Working with Functions complete; Curve Sketching complete)
 
 Source: all live `year-11-advanced` lesson, multi-part, challenge, and exam questions.
 Full report: `docs/audits/year-11-advanced-question-quality-audit.md`.
@@ -474,6 +474,33 @@ Unit completion gate:
       constructed-answer variants, authored difficulty persistence, 344/344
       repository tests passing, mastery selector, TypeScript and lint passing,
       307 course visual rows, and zero required visuals missing.
+  - [x] Curve Sketching — complete:
+        `stationary-points`, `classifying-stationary-points`,
+        `concavity-inflection`, `systematic-curve-sketching`,
+        `reading-derivative-graphs`, `optimisation`, and
+        `curve-sketching-exam-practice` (7/7 subtopics).
+    - Expanded the unit from 119 to 133 standard questions so every lesson now
+      has 4 guided + 5 independent + 10 mastery.
+    - All 70 new mastery tasks use a per-lesson 4 D3 / 3 D4 / 3 D5 ramp,
+      exactly three diagnostic MCQs, seven constructed responses, all five task
+      classifications, diagnostic intent, and per-distractor misconception
+      mappings.
+    - Mastery now spans derivative multiplicity, parameter families,
+      polynomial reconstruction, inconclusive classification tests, concavity
+      transitions, complete sketch synthesis, derivative-graph interpretation,
+      constrained design, global extrema, and symbolic optimisation.
+    - Added ten authored Cartesian graphs and two labelled cylinder diagrams;
+      strengthened all retained constructed-response feedback and variants; and
+      corrected three inherited optimisation, evaluation, and classification
+      defects before publication.
+    - Seeded LIVE on 2026-07-31: 147 active unit rows, all 70 new mastery IDs,
+      28 D3 / 21 D4 / 21 D5 across mastery, 56 historical rows inactive,
+      zero active retired mastery IDs, and zero stale unit rows.
+    - Completed-unit gate: zero shallow explanations, zero exact cross-subtopic
+      repeats, zero deterministic scoped source-audit findings, complete
+      constructed-answer variants, authored difficulty persistence, 348/348
+      repository tests passing, mastery selector, TypeScript and lint passing,
+      316 course visual rows, and zero required visuals missing.
 - [ ] P2 — add bounded problem-solving, analytical, investigative,
       guided-discovery, and synthesis tasks.
 - [ ] P3 — make target misconceptions and per-distractor wrong-method mappings
