@@ -1,13 +1,13 @@
 # Year 11 Advanced Question-Quality Audit
 
-**Audit date:** 30 July 2026
+**Audit date:** 30–31 July 2026
 **Scope:** all live `year-11-advanced` lesson questions, multi-part questions,
 course-scoped challenge questions, and the Year 11 Advanced exam paper.
 **Standard applied:** `QUESTION_AUTHORING_STANDARD.md`,
 `PRACTICE_QUESTION_STANDARD.md`, and `FEEDBACK_AND_HINTS_STANDARD.md`.
 **Mode:** baseline audit followed by unit-by-unit remediation and live verification.
 
-## Final verdict
+## Baseline verdict (30 July 2026)
 
 **FAIL — the course is not publication-ready under the current Question Authoring
 Standard.**
@@ -27,6 +27,33 @@ This is a systemic design issue rather than a small set of isolated bad question
   rendering, and mastery-task mix were checked across the full course; and
 * representative high-risk mastery sets were manually reviewed across every unit
   family.
+
+## Final post-remediation verdict (31 July 2026)
+
+**PASS — the complete live Year 11 Advanced course now meets the question-authoring
+acceptance gate.**
+
+All 17 units and all 126 seeded lessons have completed the unit-by-unit rewrite and
+re-audit. The standard sequence now contains 2,394 questions: every lesson has four
+guided questions, five independent questions, and ten mastery questions. Every
+mastery set uses four D3, three D4, and three D5 tasks, exactly three diagnostic
+MCQs and seven constructed responses, and all five bounded task classifications.
+Procedural fluency remains where it has a clear teaching purpose, while mastery now
+requires analytical reasoning, problem solving, investigation or guided discovery,
+transfer, error analysis, and synthesis.
+
+The final live bank contains 2,472 active rows at D1 210, D2 726, D3 764, D4 385,
+D5 386, and D6 1. This includes 756 D4–D5 questions in standard lesson practice,
+compared with seven D4–D6 standard questions at baseline. It contains 347 authored
+visual payloads and no question that refers to a required missing stimulus.
+
+The completed-course gates confirm zero exact standard repeats, zero standard
+explanations below 40 characters, complete accepted-answer coverage for constructed
+responses, inspectable diagnostic intent and distractor mappings, zero live
+rendering defects, and zero stale active production rows. The repository passes
+386/386 tests, the answer-marking harness passes 129/129, and TypeScript, targeted
+ESLint, mastery selection, visual serialization/rendering, and the course-scoped
+source and active-row audits all pass.
 
 ## Remediation progress
 
@@ -1156,6 +1183,43 @@ challenge layer. The whole-course verdict remains **FAIL** because Continuous
 Probability has not yet met the course acceptance gate and the final whole-course
 verification is still pending.
 
+### Continuous Probability — complete (5 of 5 subtopics)
+
+All five subtopics were remediated and seeded live on 31 July 2026:
+
+* `continuous-random-variables` now combines density normalisation, support and
+  parameter inference, distribution-function reasoning, median and expectation,
+  constrained density design, and limiting behaviour.
+* `normal-distribution` now develops symmetry and standardisation into reverse
+  parameter recovery, central-area construction, model comparison, and
+  distribution design from percentile constraints.
+* `z-scores-standardising` now requires interpretation of sign and magnitude,
+  reverse reconstruction, affine-invariance reasoning, threshold comparison, and
+  synthesis across related normal models.
+* `normal-tables-probabilities` now uses exact table values, complementary and
+  central areas, inverse lookup, tolerance design, and bounded decision problems.
+* `continuous-probability-exam-practice` now combines density, normalisation,
+  expectation, standardisation, percentile inference, and multi-stage modelling.
+
+The completed unit contains 95 standard questions. All 50 new mastery questions
+are active, with each lesson using 4 D3 / 3 D4 / 3 D5, exactly three diagnostic
+MCQs, seven constructed responses, and all five bounded task types. Production
+contains 95 active and 40 historical inactive unit rows, exactly 19 active rows in
+each subtopic, and no retired mastery ID remains active.
+
+Six payload-backed tables or normal-distribution diagrams support data lookup,
+distribution comparison, and probability-region reasoning. The audit corrected an
+inherited percentile key to the exact table values 0.8413 and 0.9772, completed all
+retained constructed feedback and legitimate variants, and removed the last two
+course-level visual gaps by adding explicit Venn payloads to the Probability and
+Data synthesis tasks.
+
+The final completed-unit gate confirms zero repeats, zero shallow explanations,
+complete diagnostic metadata and answer variants, persisted difficulty, and valid
+visual/accessibility coverage. With this unit complete, the course-wide live
+distribution is D1 210, D2 726, D3 764, D4 385, D5 386, and D6 1. The final
+whole-course verdict is **PASS**.
+
 ## Live scope
 
 The live catalogue is substantially larger than the older 72-lesson course tracker.
@@ -1166,15 +1230,15 @@ entries are deliberately skipped because `seedQuestions` is false.
 |---|---:|
 | Guided practice | 504 |
 | Independent practice | 630 |
-| Mastery quiz | 1,250 |
+| Mastery quiz | 1,260 |
 | Multi-part practice | 33 |
 | Challenge layer | 35 |
 | Exam paper | 10 |
-| **Total** | **2,462** |
+| **Total** | **2,472** |
 
-The standard guided + independent + mastery sequence contains **2,384 questions**.
+The standard guided + independent + mastery sequence contains **2,394 questions**.
 
-## Headline scorecard
+## Baseline headline scorecard
 
 | Criterion | Result | Verdict |
 |---|---:|---|
@@ -1204,7 +1268,7 @@ whole-population screening proxies based on prompt language. They were used to l
 high-risk pools, then checked against the actual questions. They are not substitutes
 for teacher judgement and should not be treated as exact cognitive classifications.
 
-## Difficulty distribution
+## Baseline difficulty distribution
 
 | Difficulty | Rows | Share |
 |---|---:|---:|
@@ -1490,7 +1554,7 @@ Treat these as enrichment opportunities, not publication blockers.
 | Series and Finance | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Graphs and Equations | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 | Bivariate Data | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
-| Continuous Probability | 5 | 85 | 0 | 3 | 6 | 1 | P2 |
+| Continuous Probability | 5 | 95 | 30 | — | — | 0 | Complete post-audit |
 
 ## Strong material to preserve
 
@@ -1591,6 +1655,28 @@ The course should not be marked complete until:
 * diagnostic intent and distractor mappings are inspectable rather than inferred.
 
 ## Validation evidence
+
+### Final whole-course acceptance validation
+
+* `node --import tsx --test "lib/**/*.test.ts"` — 386/386 pass.
+* `npm run test:answer-marking` — 129/129 pass; the prior variable-label false
+  positive is repaired and regression-covered.
+* `npm run test:mastery`, `npx tsc --noEmit`, targeted ESLint, and
+  `git diff --check` — pass.
+* `npx tsx scripts/audit-active-question-rendering.ts --course
+  year-11-advanced` — 2,472 active rows inspected; zero rendering findings.
+* `npx tsx scripts/audit-question-visuals.ts --course year-11-advanced
+  --details --fail` — 2,472 rows inspected, 347 visual payloads, and zero required
+  visuals missing.
+* `npx tsx scripts/audit-questions.ts` — zero scoped Year 11 Advanced
+  unformatted-math, broken-LaTeX, or self-reveal findings when evaluated through
+  the production `MathText` tokeniser.
+* production seed — 2,472 rows upserted; 347 visual payloads; course-wide prune
+  dry run reports zero stale active rows.
+* live verification — 2,472 active rows with D1/D2/D3/D4/D5/D6 counts of
+  210/726/764/385/386/1; both final Venn tasks persist `vennDiagram` payloads.
+
+### Baseline validation snapshot
 
 * `node --import tsx --test "lib/lessons/year11Advanced/*.test.ts"` — 6/6 pass.
 * `npx tsx scripts/audit-question-visuals.ts --course year-11-advanced --details`

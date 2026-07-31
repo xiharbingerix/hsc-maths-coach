@@ -1,5 +1,6 @@
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
+import { enhanceContinuousProbabilityRetainedPractice, getContinuousProbabilityQualityMastery } from "./continuousProbabilityQuality";
 
 function fa(id: string, prompt: string, latex: string, answer: string, acceptedAnswers: string[] = []): PracticeQuestion {
   return { id, prompt, latex, answer, acceptedAnswers };
@@ -235,7 +236,7 @@ const ntWorked: WorkedExample[] = [
 ];
 
 const ntGuided: PracticeQuestion[] = [
-  mc("y11adv-cp-nt-g1", "P(Z < −1.5) equals:", "B",
+  mc("y11adv-cp-nt-g1", "Use standard-normal symmetry to evaluate P(Z < −1.5).", "B",
     [{ label: "A", text: "$0.9332$" }, { label: "B", text: "$0.0668$" }, { label: "C", text: "$0.5$" }, { label: "D", text: "$-0.9332$" }],
     "P(Z < −1.5) = 1 − P(Z < 1.5) = 1 − 0.9332 = 0.0668. By symmetry of the normal distribution.", ""),
   fa("y11adv-cp-nt-g2", "Using tables: P(0 < Z < 1.5) = P(Z < 1.5) − P(Z < 0) = 0.9332 − 0.5. Evaluate.", "P(0<Z<1.5)", "0.4332", ["0.4332"]),
@@ -247,7 +248,7 @@ const ntGuided: PracticeQuestion[] = [
 
 const ntIndep: PracticeQuestion[] = [
   fa("y11adv-cp-nt-i1", "P(Z < 2.05) from tables. Interpret the result.", "P(Z<2.05)", "≈0.9798; about 97.98% of values are below z = 2.05", ["0.9798"]),
-  mc("y11adv-cp-nt-i2", "P(Z > 1.65) equals:", "B",
+  mc("y11adv-cp-nt-i2", "Given Φ(1.65)=0.9505, evaluate the upper-tail probability P(Z > 1.65).", "B",
     [{ label: "A", text: "$0.9505$" }, { label: "B", text: "$0.0495$" }, { label: "C", text: "$0.5$" }, { label: "D", text: "$-0.0495$" }],
     "P(Z > 1.65) = 1 − P(Z < 1.65) = 1 − 0.9505 = 0.0495.", ""),
   fa("y11adv-cp-nt-i3", "X ~ N(100, 15²). Find P(85 < X < 115) via z-scores.", "", "P(−1<Z<1) = 0.8413−0.1587 = 0.6826 ≈ 68%", ["0.6826", "68%"]),
@@ -307,9 +308,9 @@ const cpExMastery: PracticeQuestion[] = [
     [{ label: "A", text: "$100$" }, { label: "B", text: "$116$" }, { label: "C", text: "$104$" }, { label: "D", text: "$108$" }],
     "P(Z < 1) ≈ 0.8413 ≈ 84th percentile. X = μ + z·σ = 100 + 1·4 = 104. (σ = 4 since σ² = 16.)", ""),
   fa("y11adv-cp-ex-m3", "Quality control: bolts N(50 mm, 1.5²) accepted if 47 < X < 53. Find the acceptance rate.", "", "P(−2<Z<2) = 0.9772−0.0228 = 0.9544 (95.44%)", ["0.9544", "95.44%"]),
-  mc("y11adv-cp-ex-m4", "X ~ N(μ, σ²). If P(X < 70) = 0.84 and P(X < 80) = 0.975, find μ and σ.", "B",
+  mc("y11adv-cp-ex-m4", "X ~ N(μ, σ²). If P(X < 70) = 0.8413 and P(X < 80) = 0.9772, find μ and σ.", "B",
     [{ label: "A", text: "$\\mu=70,\\sigma=10$" }, { label: "B", text: "$\\mu=60,\\sigma=10$" }, { label: "C", text: "$\\mu=70,\\sigma=5$" }, { label: "D", text: "$\\mu=75,\\sigma=5$" }],
-    "P(X < 70) = 0.84 → z = 1 → μ + σ = 70. P(X < 80) = 0.975 → z = 1.96 ≈ 2 → μ + 2σ = 80. Solving: σ = 10, μ = 60.", ""),
+    "The cumulative probabilities 0.8413 and 0.9772 correspond to z=1 and z=2. Thus μ+σ=70 and μ+2σ=80, giving σ=10 and μ=60.", ""),
   fa("y11adv-cp-ex-m5", "In a N(0, 1) distribution, find k such that P(−k < Z < k) = 0.9.", "", "k ≈ 1.645", ["1.645", "1.64"]),
   mc("y11adv-cp-ex-m6", "A continuous pdf f(x) must integrate to 1. Which of the following CANNOT be a pdf on [0, 1]?", "D",
     [{ label: "A", text: "$f(x) = 2x$" }, { label: "B", text: "$f(x) = 3x^2$" }, { label: "C", text: "$f(x) = 6x(1-x)$" }, { label: "D", text: "$f(x) = 3x^2 + 1$" }],
@@ -322,7 +323,7 @@ const cpExMastery: PracticeQuestion[] = [
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 
-export function year11AdvancedContinuousProbabilityLessonOverride(
+function year11AdvancedContinuousProbabilityLessonOverrideBase(
   course: CoursePathwaySeed,
   unit: CourseUnitSeed,
   lesson: CourseLessonSeed
@@ -519,4 +520,23 @@ export function year11AdvancedContinuousProbabilityLessonOverride(
   }
 
   return null;
+}
+
+export function year11AdvancedContinuousProbabilityLessonOverride(
+  course: CoursePathwaySeed,
+  unit: CourseUnitSeed,
+  lesson: CourseLessonSeed,
+): Partial<ExplicitLesson> | null {
+  const base = year11AdvancedContinuousProbabilityLessonOverrideBase(course, unit, lesson);
+  if (!base) return null;
+
+  const masteryQuiz = getContinuousProbabilityQualityMastery(lesson.slug);
+  if (!masteryQuiz) return base;
+
+  return {
+    ...base,
+    guidedPractice: enhanceContinuousProbabilityRetainedPractice(base.guidedPractice ?? []),
+    independentPractice: enhanceContinuousProbabilityRetainedPractice(base.independentPractice ?? []),
+    masteryQuiz,
+  };
 }

@@ -175,7 +175,7 @@ test("Probability and Data visuals and critical mathematical keys do not regress
     (question) => /^y11adv-pd-.+-qm\d+$/.test(question.id) && visualDescription(question),
   );
 
-  assert.equal(newVisuals.length, 16);
+  assert.equal(newVisuals.length, 18);
   assert.ok(
     newVisuals.every((question) => (visualDescription(question)?.length ?? 0) >= 30),
   );

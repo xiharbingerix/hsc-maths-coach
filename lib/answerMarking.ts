@@ -24,7 +24,9 @@ function stripDerivativePrefix(value: string): string {
     // Prime notation: y' = ..., y'' = ..., f'(x) = ..., g''(t) = ...
     .replace(/^[a-z]'+(?:\([a-z]+\))?\s*=\s*/, "")
     // Plain function: y = ..., f = ...  (leave this last \u2014 least specific)
-    .replace(/^[a-z](?:\([a-z]+\))?\s*=\s*/, "");
+    // Do not strip an arbitrary single-letter assignment such as x = 5: when
+    // the authored key names the unknown, a bare 5 is not equivalent.
+    .replace(/^[yfgh](?:\([a-z]+\))?\s*=\s*/, "");
 }
 
 function normaliseText(value: string) {
