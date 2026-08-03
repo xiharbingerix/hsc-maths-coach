@@ -21,9 +21,11 @@ import type {
 } from "../../../lib/lessonMaker";
 import {
   DELIVERY_MODE_DETAILS,
+  STUDENT_LEVEL_ORDER,
   STUDENT_LEVEL_DETAILS,
   normaliseDeliveryMode,
-  normaliseStudentLevel,
+  normaliseStudentLevels,
+  primaryStudentLevel,
 } from "../../../lib/lessonPlannerConfig";
 import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 import type { Year9PlannerSyllabusPayload } from "../../../lib/syllabus/year9Nesa";
@@ -48,6 +50,16 @@ function selectedContentCodes(plan: TutorLessonPlan): string[] {
   );
 }
 
+function planStudentLevels(plan: TutorLessonPlan): StudentLevel[] {
+  return normaliseStudentLevels(plan.levels, plan.level);
+}
+
+function studentLevelsLabel(levels: StudentLevel[]): string {
+  return levels
+    .map((level) => STUDENT_LEVEL_DETAILS[level].shortLabel)
+    .join(", ");
+}
+
 // ── Plan-to-text serialiser (for clipboard) ──────────────────────────────────
 
 function buildWorksheetUrl(
@@ -67,13 +79,13 @@ function buildWorksheetUrl(
 
 function planToText(plan: TutorLessonPlan): string {
   const lines: string[] = [];
-  const level = normaliseStudentLevel(plan.level);
+  const levels = planStudentLevels(plan);
   const deliveryMode = normaliseDeliveryMode(plan.deliveryMode);
   lines.push(`LESSON PLAN — ${plan.title}`);
   lines.push(`Course: ${plan.course}`);
   lines.push(`Unit: ${plan.unit}`);
   lines.push(
-    `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Delivery: ${DELIVERY_MODE_DETAILS[deliveryMode].label} | ${STUDENT_LEVEL_DETAILS[level].label} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
+    `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Delivery: ${DELIVERY_MODE_DETAILS[deliveryMode].label} | Levels: ${studentLevelsLabel(levels)} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
   );
   lines.push(`Learning goal: ${plan.learningGoal}`);
   if (plan.syllabusScope) {
@@ -548,7 +560,7 @@ function SectionCard({
 // ── Plan header ──────────────────────────────────────────────────────────────
 
 function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
-  const level = normaliseStudentLevel(plan.level);
+  const levels = planStudentLevels(plan);
   const deliveryMode = normaliseDeliveryMode(plan.deliveryMode);
 
   return (
@@ -573,7 +585,7 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
           {DELIVERY_MODE_DETAILS[deliveryMode].label}
         </span>
         <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
-          {STUDENT_LEVEL_DETAILS[level].label}
+          {studentLevelsLabel(levels)}
         </span>
       </div>
       <p className="mt-3 text-sm font-medium text-indigo-800 print:text-slate-700">
@@ -604,7 +616,7 @@ export function LessonMakerClient({
   const [length, setLength] = useState<LessonLength>(45);
   const [deliveryMode, setDeliveryMode] =
     useState<LessonDeliveryMode>("zoom");
-  const [level, setLevel] = useState<StudentLevel>("level-2");
+  const [levels, setLevels] = useState<StudentLevel[]>(["level-2"]);
   const [selectedSyllabusCodes, setSelectedSyllabusCodes] = useState<string[]>([]);
   const [plan, setPlan] = useState<TutorLessonPlan | null>(null);
   const [planSource, setPlanSource] = useState<
@@ -678,7 +690,7 @@ export function LessonMakerClient({
         unitSlug,
         lessonSlug,
         length,
-        level,
+        levels,
         deliveryMode,
         selectedSyllabusCodes,
         { forceRegenerate },
@@ -720,7 +732,7 @@ export function LessonMakerClient({
       unitSlug,
       lessonSlug,
       length,
-      level,
+      levels,
       deliveryMode,
       plan,
     );
@@ -735,7 +747,7 @@ export function LessonMakerClient({
       unitSlug,
       lessonSlug,
       lessonLength: length,
-      studentLevel: level,
+      studentLevels: levels,
       deliveryMode,
       syllabusOutcomeCodes:
         plan.syllabusScope?.outcomes.map((outcome) => outcome.code) ?? [],
@@ -754,12 +766,14 @@ export function LessonMakerClient({
     setUnitSlug(record.unitSlug);
     setLessonSlug(record.lessonSlug);
     setLength(record.lessonLength as LessonLength);
-    setLevel(normaliseStudentLevel(record.studentLevel));
+    const loadedLevels = normaliseStudentLevels(record.studentLevels);
+    setLevels(loadedLevels);
     setDeliveryMode(normaliseDeliveryMode(record.deliveryMode));
     setSelectedSyllabusCodes(selectedContentCodes(record.plan));
     setPlan({
       ...record.plan,
-      level: normaliseStudentLevel(record.plan.level),
+      level: primaryStudentLevel(loadedLevels),
+      levels: loadedLevels,
       deliveryMode: normaliseDeliveryMode(record.plan.deliveryMode),
     });
     setPlanSource("saved");
@@ -784,7 +798,8 @@ export function LessonMakerClient({
     if (activeSavedId === id) setActiveSavedId(null);
   }
 
-  const canGenerate = !!courseSlug && !!unitSlug && !!lessonSlug;
+  const canGenerate =
+    !!courseSlug && !!unitSlug && !!lessonSlug && levels.length > 0;
 
   // ── Select styles ──────────────────────────────────────────────────────────
   const selectCls =
@@ -1050,8 +1065,10 @@ export function LessonMakerClient({
                   type="button"
                   onClick={() => {
                     setDeliveryMode(value);
-                    setPlan(null);
-                    setPlanSource(null);
+                    if (value === "zoom" && levels.length > 1) {
+                      setLevels([primaryStudentLevel(levels)]);
+                    }
+                    clearGeneratedPlan();
                   }}
                   className={`rounded-xl border px-4 py-3 text-left transition-colors ${
                     deliveryMode === value
@@ -1098,11 +1115,19 @@ export function LessonMakerClient({
             </div>
           </div>
 
-          {/* Learner level */}
+          {/* Learner levels */}
           <div className="space-y-1.5 sm:col-span-2 lg:col-span-3">
             <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
-              {deliveryMode === "classroom" ? "Class level" : "Student level"}
+              {deliveryMode === "classroom"
+                ? "Class levels — select one or more"
+                : "Student level"}
             </label>
+            {deliveryMode === "classroom" && (
+              <p className="text-xs text-slate-500">
+                Each selected group receives its own scaffolding and independent
+                practice while working toward the same outcome.
+              </p>
+            )}
             <div className="grid gap-2 sm:grid-cols-3">
               {(Object.entries(STUDENT_LEVEL_DETAILS) as [
                 StudentLevel,
@@ -1111,18 +1136,38 @@ export function LessonMakerClient({
                 <button
                   key={value}
                   type="button"
+                  aria-pressed={levels.includes(value)}
                   onClick={() => {
-                    setLevel(value);
-                    setPlan(null);
-                    setPlanSource(null);
+                    if (deliveryMode === "zoom") {
+                      setLevels([value]);
+                    } else if (levels.includes(value) && levels.length > 1) {
+                      setLevels(levels.filter((level) => level !== value));
+                    } else if (!levels.includes(value)) {
+                      setLevels(
+                        STUDENT_LEVEL_ORDER.filter(
+                          (level) => level === value || levels.includes(level),
+                        ),
+                      );
+                    }
+                    clearGeneratedPlan();
                   }}
                   className={`rounded-xl border px-3 py-3 text-left transition-colors ${
-                    level === value
+                    levels.includes(value)
                       ? "border-indigo-500 bg-indigo-50 ring-1 ring-indigo-500"
                       : "border-slate-300 bg-white hover:bg-slate-50"
                   }`}
                 >
-                  <span className="block text-sm font-semibold text-slate-900">
+                  <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+                    <span
+                      aria-hidden="true"
+                      className={`flex size-4 items-center justify-center rounded border text-[10px] ${
+                        levels.includes(value)
+                          ? "border-indigo-600 bg-indigo-600 text-white"
+                          : "border-slate-400 bg-white text-transparent"
+                      }`}
+                    >
+                      ✓
+                    </span>
                     {details.label}
                   </span>
                   <span className="mt-1 block text-xs font-normal leading-relaxed text-slate-500">
@@ -1182,7 +1227,7 @@ export function LessonMakerClient({
                     {saved.courseSlug} / {saved.unitSlug} ·{" "}
                     {saved.lessonLength} min ·{" "}
                     {DELIVERY_MODE_DETAILS[normaliseDeliveryMode(saved.deliveryMode)].label} ·{" "}
-                    {STUDENT_LEVEL_DETAILS[normaliseStudentLevel(saved.studentLevel)].shortLabel} ·{" "}
+                    {studentLevelsLabel(saved.studentLevels)} ·{" "}
                     {new Date(saved.createdAt).toLocaleDateString("en-AU")}
                   </p>
                   {saved.syllabusOutcomeCodes.length > 0 && (
@@ -1222,7 +1267,7 @@ export function LessonMakerClient({
             <div className="flex items-center gap-2">
               <p className="text-sm text-slate-500">
                 {plan.sections.length} sections •{" "}
-                {plan.sections.reduce((t, s) => t + s.minutes, 0)} min total
+                {plan.length} min total
               </p>
               {planSource === "ai" && (
                 <span className="rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700">
