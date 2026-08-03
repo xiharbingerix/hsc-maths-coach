@@ -24,9 +24,12 @@ import type {
   PracticeQuestion,
 } from "./lessons/differentialCalculus";
 import { pickDiagramFields } from "./lessons/diagramRegistry";
+import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
 import {
   buildScaffoldingSection,
+  scopedSuccessCriteria,
   selectIndependentQuestions,
+  syllabusScopeItems,
   toTutorQuestion,
   toTutorWorkedExample,
   type LessonDeliveryMode,
@@ -194,6 +197,14 @@ DIFFERENTIATION — REQUIRED:
 - Include a dedicated text section named “Level 1 Scaffolding”, “Level 2 Scaffolding” or “Level 3 Scaffolding” as appropriate. It must contain the exact prompts, representations and support/fading moves the teacher or tutor will use.
 - Include a questions section named “Independent Practice — Level 1”, “Independent Practice — Level 2” or “Independent Practice — Level 3”. Its question count and difficulty must match the selected level guidance. Independent practice means the learner attempts before help is given.
 
+SYLLABUS ALIGNMENT — WHEN A SELECTED NESA SCOPE IS PROVIDED:
+- Treat the selected NESA outcome and content points as a binding contract. Rewrite the learning goal and success criteria so they directly assess that selected scope.
+- Cover every selected content point, but do not broaden the lesson into unselected content from the same outcome. A teacher may deliberately select only part of an outcome.
+- Use source teaching notes and bank questions only when they support the selected content. Ignore otherwise relevant material that sits outside the selected scope.
+- Every worked example, guided question, independent question and exit ticket must provide evidence for at least one selected content point. Prefer a narrower, coherent lesson over superficial coverage.
+- Include a zero-minute criteria section named “NESA Syllabus Alignment” listing the outcome code(s) and selected content-point code(s) exactly.
+- Embed MAO-WM-01 through suitable reasoning, problem-solving and communication prompts; do not treat it as a separate topic.
+
 SECTION TYPES available: "text" (teaching script paragraphs), "formulas" (display LaTeX blocks to screen-share), "dialogue" (a Socratic tutor↔student script: tutor lines are what the tutor says/asks; student lines are the expected response the tutor listens for), "worked-example", "questions", "misconceptions", "prompts" (short verbal check-for-understanding questions), "homework".
 
 STRING CONVENTIONS (exact — these are machine-parsed):
@@ -260,6 +271,7 @@ function buildUserContent(
   length: LessonLength,
   level: StudentLevel,
   deliveryMode: LessonDeliveryMode,
+  syllabusScope?: LessonSyllabusScope,
 ): string {
   const pools: [string, PracticeQuestion[]][] = [
     ["GUIDED PRACTICE BANK", lesson.guidedPractice],
@@ -288,13 +300,37 @@ function buildUserContent(
     )
     .join("\n\n");
 
+  const selectedSyllabusScope = syllabusScope
+    ? [
+        `SELECTED NESA SYLLABUS SCOPE — BINDING:`,
+        `${syllabusScope.syllabus} | ${syllabusScope.stage}`,
+        `Working mathematically: ${syllabusScope.workingMathematically.code} — ${syllabusScope.workingMathematically.description}`,
+        ...syllabusScope.outcomes.flatMap((outcome) => [
+          `OUTCOME ${outcome.code} (${outcome.classification.toUpperCase()}): ${outcome.description}`,
+          ...outcome.focusAreas.flatMap((focus) => [
+            `Focus area: ${focus.title}`,
+            ...focus.contentGroups.flatMap((group) => [
+              `Content group: ${group.title}`,
+              ...group.contentPoints.map(
+                (point) =>
+                  `- ${point.code}: ${point.text}${point.including ? ` Including: ${point.including}` : ""}`,
+              ),
+            ]),
+          ]),
+        ]),
+        `SCOPE LIMIT: Teach all selected content above and do not add unselected content from these outcomes.`,
+      ].join("\n")
+    : "NO EXPLICIT SYLLABUS SUBSELECTION: use the authored lesson intention and success criteria.";
+
   return [
     `TOPIC: ${lesson.title}`,
     `COURSE: ${lesson.courseTitle} — UNIT: ${lesson.moduleTitle}`,
     `SYLLABUS AREA: ${lesson.syllabusArea} | FOCUS: ${lesson.focus}`,
     `LEARNING INTENTION: ${lesson.learningIntention}`,
     `SUCCESS CRITERIA:\n${lesson.successCriteria.map((c) => `- ${c}`).join("\n")}`,
-    lesson.syllabusOutcomes?.length
+    syllabusScope
+      ? selectedSyllabusScope
+      : lesson.syllabusOutcomes?.length
       ? `NSW SYLLABUS OUTCOMES (must remain achievable at every level):\n${lesson.syllabusOutcomes.map((o) => `- ${o}`).join("\n")}`
       : `OUTCOME REQUIREMENT: Every level must still achieve the learning intention and success criteria above.`,
     ``,
@@ -350,6 +386,7 @@ function assemblePlan(
   length: LessonLength,
   level: StudentLevel,
   deliveryMode: LessonDeliveryMode,
+  syllabusScope: LessonSyllabusScope | undefined,
   model: string,
 ): TutorLessonPlan {
   const bank = buildQuestionMap(lesson);
@@ -478,10 +515,26 @@ function assemblePlan(
     }
   }
 
-  const successCriteria =
-    Array.isArray(ai.successCriteria) && ai.successCriteria.length > 0
+  const successCriteria = syllabusScope
+    ? scopedSuccessCriteria(lesson, syllabusScope)
+    : Array.isArray(ai.successCriteria) && ai.successCriteria.length > 0
       ? ai.successCriteria
       : lesson.successCriteria;
+
+  if (
+    syllabusScope &&
+    !sections.some((section) =>
+      /nesa syllabus (alignment|scope)/i.test(section.heading),
+    )
+  ) {
+    sections.splice(Math.min(1, sections.length), 0, {
+      kind: "criteria",
+      id: "nesa-syllabus-alignment",
+      heading: "NESA Syllabus Alignment",
+      minutes: 0,
+      items: syllabusScopeItems(syllabusScope),
+    });
+  }
 
   // Pin the success criteria as a reference card near the top, matching the
   // built-in generator's layout.
@@ -501,6 +554,7 @@ function assemblePlan(
     length,
     level,
     deliveryMode,
+    syllabusScope,
     generatedAt: new Date().toISOString(),
     learningGoal:
       (typeof ai.learningGoal === "string" && ai.learningGoal.trim()) ||
@@ -547,6 +601,7 @@ export async function generateAiLessonPlan(
     length: LessonLength;
     level: StudentLevel;
     deliveryMode: LessonDeliveryMode;
+    syllabusScope?: LessonSyllabusScope;
   },
 ): Promise<{ plan: TutorLessonPlan; model: string }> {
   if (!aiLessonPlannerEnabled()) {
@@ -559,6 +614,7 @@ export async function generateAiLessonPlan(
     opts.length,
     opts.level,
     opts.deliveryMode,
+    opts.syllabusScope,
   );
 
   let model = MODEL;
@@ -604,6 +660,7 @@ export async function generateAiLessonPlan(
     opts.length,
     opts.level,
     opts.deliveryMode,
+    opts.syllabusScope,
     model,
   );
 

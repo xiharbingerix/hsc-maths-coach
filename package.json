@@ -12,6 +12,7 @@
     "audit:lessons": "tsx scripts/audit-lessons.ts",
     "audit:question-visuals": "tsx scripts/audit-question-visuals.ts",
     "audit:questions": "tsx scripts/audit-questions.ts",
+    "import:nesa-year9": "tsx scripts/import-nesa-year9-syllabus.ts",
     "seed:question-bank": "tsx scripts/seed-question-bank.ts",
     "prune:question-bank": "tsx scripts/prune-question-bank.ts",
     "test:answer-marking": "tsx scripts/test-answer-marking.ts",

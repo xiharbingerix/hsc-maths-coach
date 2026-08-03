@@ -26,12 +26,26 @@ import {
   normaliseStudentLevel,
 } from "../../../lib/lessonPlannerConfig";
 import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
+import type { Year9PlannerSyllabusPayload } from "../../../lib/syllabus/year9Nesa";
 
 // ── Props ────────────────────────────────────────────────────────────────────
 
 interface Props {
   catalog: CatalogCourse[];
   initialSavedPlans: SavedPlanSummary[];
+  year9Syllabus: Year9PlannerSyllabusPayload;
+}
+
+function selectedContentCodes(plan: TutorLessonPlan): string[] {
+  return (
+    plan.syllabusScope?.outcomes.flatMap((outcome) =>
+      outcome.focusAreas.flatMap((focus) =>
+        focus.contentGroups.flatMap((group) =>
+          group.contentPoints.map((point) => point.code),
+        ),
+      ),
+    ) ?? []
+  );
 }
 
 // ── Plan-to-text serialiser (for clipboard) ──────────────────────────────────
@@ -62,6 +76,21 @@ function planToText(plan: TutorLessonPlan): string {
     `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Delivery: ${DELIVERY_MODE_DETAILS[deliveryMode].label} | ${STUDENT_LEVEL_DETAILS[level].label} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
   );
   lines.push(`Learning goal: ${plan.learningGoal}`);
+  if (plan.syllabusScope) {
+    lines.push(
+      `NESA outcomes: ${plan.syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}`,
+    );
+    lines.push(`Selected NESA content:`);
+    plan.syllabusScope.outcomes.forEach((outcome) =>
+      outcome.focusAreas.forEach((focus) =>
+        focus.contentGroups.forEach((group) =>
+          group.contentPoints.forEach((point) =>
+            lines.push(`  • ${point.code}: ${point.text}`),
+          ),
+        ),
+      ),
+    );
+  }
   lines.push(`Success criteria:`);
   plan.successCriteria.forEach((c) => lines.push(`  • ${c}`));
   lines.push("");
@@ -550,13 +579,25 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
       <p className="mt-3 text-sm font-medium text-indigo-800 print:text-slate-700">
         {plan.learningGoal}
       </p>
+      {plan.syllabusScope && (
+        <p className="mt-2 text-xs font-semibold text-indigo-700 print:text-slate-600">
+          Official NESA {plan.syllabusScope.stage}: {plan.syllabusScope.outcomes
+            .map((outcome) => outcome.code)
+            .join(", ")} · {selectedContentCodes(plan).length} selected content point
+          {selectedContentCodes(plan).length === 1 ? "" : "s"}
+        </p>
+      )}
     </div>
   );
 }
 
 // ── Main component ───────────────────────────────────────────────────────────
 
-export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
+export function LessonMakerClient({
+  catalog,
+  initialSavedPlans,
+  year9Syllabus,
+}: Props) {
   const [courseSlug, setCourseSlug] = useState("");
   const [unitSlug, setUnitSlug] = useState("");
   const [lessonSlug, setLessonSlug] = useState("");
@@ -564,6 +605,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
   const [deliveryMode, setDeliveryMode] =
     useState<LessonDeliveryMode>("zoom");
   const [level, setLevel] = useState<StudentLevel>("level-2");
+  const [selectedSyllabusCodes, setSelectedSyllabusCodes] = useState<string[]>([]);
   const [plan, setPlan] = useState<TutorLessonPlan | null>(null);
   const [planSource, setPlanSource] = useState<
     "cache" | "ai" | "built-in" | "saved" | null
@@ -582,11 +624,36 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
   const selectedCourse = catalog.find((c) => c.slug === courseSlug) ?? null;
   const selectedUnit =
     selectedCourse?.units.find((u) => u.slug === unitSlug) ?? null;
+  const selectedFocusAreaIds = new Set(
+    year9Syllabus.unitFocusAreaIds[unitSlug] ?? [],
+  );
+  const relevantSyllabusFocusAreas = year9Syllabus.focusAreas.filter((focus) =>
+    selectedFocusAreaIds.has(focus.id),
+  );
+  const allRelevantSyllabusCodes = relevantSyllabusFocusAreas.flatMap((focus) =>
+    focus.groups.flatMap((group) =>
+      group.contentPoints.map((point) => point.code),
+    ),
+  );
+
+  function clearGeneratedPlan() {
+    setPlan(null);
+    setPlanSource(null);
+    setSaveState("idle");
+    setActiveSavedId(null);
+  }
+
+  function setSyllabusCodes(codes: string[]) {
+    setSelectedSyllabusCodes([...new Set(codes)]);
+    clearGeneratedPlan();
+    setError(null);
+  }
 
   function handleCourseChange(slug: string) {
     setCourseSlug(slug);
     setUnitSlug("");
     setLessonSlug("");
+    setSelectedSyllabusCodes([]);
     setPlan(null);
     setPlanSource(null);
     setError(null);
@@ -595,6 +662,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
   function handleUnitChange(slug: string) {
     setUnitSlug(slug);
     setLessonSlug("");
+    setSelectedSyllabusCodes([]);
     setPlan(null);
     setPlanSource(null);
     setError(null);
@@ -612,6 +680,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
         length,
         level,
         deliveryMode,
+        selectedSyllabusCodes,
         { forceRegenerate },
       );
       if ("error" in result) {
@@ -668,6 +737,8 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
       lessonLength: length,
       studentLevel: level,
       deliveryMode,
+      syllabusOutcomeCodes:
+        plan.syllabusScope?.outcomes.map((outcome) => outcome.code) ?? [],
       createdAt: new Date().toISOString(),
     };
     setSavedPlans((prev) => [summary, ...prev]);
@@ -685,6 +756,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
     setLength(record.lessonLength as LessonLength);
     setLevel(normaliseStudentLevel(record.studentLevel));
     setDeliveryMode(normaliseDeliveryMode(record.deliveryMode));
+    setSelectedSyllabusCodes(selectedContentCodes(record.plan));
     setPlan({
       ...record.plan,
       level: normaliseStudentLevel(record.plan.level),
@@ -729,10 +801,11 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {/* Course */}
           <div className="space-y-1.5 lg:col-span-3">
-            <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <label htmlFor="lesson-maker-course" className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
               Course
             </label>
             <select
+              id="lesson-maker-course"
               className={selectCls}
               value={courseSlug}
               onChange={(e) => handleCourseChange(e.target.value)}
@@ -748,10 +821,11 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
 
           {/* Unit */}
           <div className="space-y-1.5 sm:col-span-2">
-            <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <label htmlFor="lesson-maker-unit" className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
               Unit / Topic
             </label>
             <select
+              id="lesson-maker-unit"
               className={selectCls}
               value={unitSlug}
               onChange={(e) => handleUnitChange(e.target.value)}
@@ -768,10 +842,11 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
 
           {/* Lesson */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <label htmlFor="lesson-maker-lesson" className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
               Lesson / Subtopic
             </label>
             <select
+              id="lesson-maker-lesson"
               className={selectCls}
               value={lessonSlug}
               onChange={(e) => {
@@ -790,6 +865,175 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
               ))}
             </select>
           </div>
+
+          {/* Official NESA syllabus scope */}
+          {relevantSyllabusFocusAreas.length > 0 && (
+            <div className="space-y-3 rounded-xl border border-sky-200 bg-sky-50 p-4 sm:col-span-2 lg:col-span-3">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
+                    Official NESA syllabus scope
+                  </p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Year 9 sits within {year9Syllabus.stage} {year9Syllabus.structure}.
+                    Choose the exact content this lesson must cover; you can select
+                    all or only part of an outcome.
+                  </p>
+                  <a
+                    href={year9Syllabus.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 inline-block text-xs font-semibold text-sky-700 underline decoration-sky-300 underline-offset-2"
+                  >
+                    View source on the NESA curriculum website ↗
+                  </a>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setSyllabusCodes(allRelevantSyllabusCodes)}
+                    className="rounded-lg border border-sky-300 bg-white px-3 py-1.5 text-xs font-semibold text-sky-800 hover:bg-sky-100"
+                  >
+                    Select all for unit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSyllabusCodes([])}
+                    disabled={selectedSyllabusCodes.length === 0}
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-40"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+
+              <p className="rounded-lg bg-white px-3 py-2 text-xs text-slate-600">
+                {selectedSyllabusCodes.length > 0
+                  ? `${selectedSyllabusCodes.length} content point${selectedSyllabusCodes.length === 1 ? "" : "s"} selected. The lesson goal, success criteria, examples and practice will be bound to this scope.`
+                  : "No content points selected. The planner will use the lesson's existing authored scope."}
+              </p>
+
+              <div className="space-y-2">
+                {relevantSyllabusFocusAreas.map((focus) => {
+                  const focusCodes = focus.groups.flatMap((group) =>
+                    group.contentPoints.map((point) => point.code),
+                  );
+                  const selectedInFocus = focusCodes.filter((code) =>
+                    selectedSyllabusCodes.includes(code),
+                  ).length;
+                  const allFocusSelected = selectedInFocus === focusCodes.length;
+
+                  return (
+                    <details
+                      key={focus.id}
+                      className="rounded-xl border border-sky-200 bg-white open:ring-1 open:ring-sky-200"
+                    >
+                      <summary className="cursor-pointer list-none px-4 py-3">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-semibold text-slate-900">
+                                {focus.title}
+                              </span>
+                              <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${focus.classification === "core" ? "bg-emerald-100 text-emerald-700" : "bg-violet-100 text-violet-700"}`}>
+                                {focus.classification}
+                              </span>
+                              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+                                {selectedInFocus}/{focusCodes.length} selected
+                              </span>
+                            </div>
+                            <p className="mt-1 text-xs leading-relaxed text-slate-600">
+                              <strong>{focus.outcome.code}:</strong>{" "}
+                              <MathText text={focus.outcome.description} />
+                            </p>
+                          </div>
+                          <span aria-hidden="true" className="text-sky-700">⌄</span>
+                        </div>
+                      </summary>
+
+                      <div className="border-t border-sky-100 px-4 py-4">
+                        <div className="mb-3 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setSyllabusCodes(
+                                allFocusSelected
+                                  ? selectedSyllabusCodes.filter(
+                                      (code) => !focusCodes.includes(code),
+                                    )
+                                  : [...selectedSyllabusCodes, ...focusCodes],
+                              )
+                            }
+                            className="rounded-lg border border-sky-300 bg-sky-50 px-3 py-1.5 text-xs font-semibold text-sky-800 hover:bg-sky-100"
+                          >
+                            {allFocusSelected ? "Clear focus area" : "Select whole focus area"}
+                          </button>
+                          <a
+                            href={focus.sourceUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="rounded-lg px-2 py-1.5 text-xs font-semibold text-sky-700 underline underline-offset-2"
+                          >
+                            Open this focus area on NESA ↗
+                          </a>
+                        </div>
+
+                        <div className="space-y-4">
+                          {focus.groups.map((group) => (
+                            <fieldset key={group.id}>
+                              <legend className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+                                {group.title}
+                              </legend>
+                              <div className="space-y-2">
+                                {group.contentPoints.map((point) => {
+                                  const checked = selectedSyllabusCodes.includes(point.code);
+                                  return (
+                                    <label
+                                      key={point.code}
+                                      className={`flex cursor-pointer gap-3 rounded-lg border p-3 text-sm transition-colors ${checked ? "border-sky-400 bg-sky-50" : "border-slate-200 hover:bg-slate-50"}`}
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        checked={checked}
+                                        onChange={() =>
+                                          setSyllabusCodes(
+                                            checked
+                                              ? selectedSyllabusCodes.filter(
+                                                  (code) => code !== point.code,
+                                                )
+                                              : [...selectedSyllabusCodes, point.code],
+                                          )
+                                        }
+                                        className="mt-0.5 size-4 shrink-0 accent-sky-600"
+                                      />
+                                      <span className="leading-relaxed text-slate-700">
+                                        <strong className="text-slate-900">{point.code}</strong>{" "}
+                                        <MathText text={point.text} />
+                                        {point.including && (
+                                          <span className="mt-1 block text-xs text-slate-500">
+                                            Including: <MathText text={point.including} />
+                                          </span>
+                                        )}
+                                      </span>
+                                    </label>
+                                  );
+                                })}
+                              </div>
+                            </fieldset>
+                          ))}
+                        </div>
+                      </div>
+                    </details>
+                  );
+                })}
+              </div>
+
+              <p className="text-xs text-slate-600">
+                {year9Syllabus.workingMathematically.code} ({year9Syllabus.workingMathematically.description})
+                is embedded through reasoning, problem-solving and communication.
+              </p>
+            </div>
+          )}
 
           {/* Delivery mode */}
           <div className="space-y-1.5 sm:col-span-2 lg:col-span-3">
@@ -941,6 +1185,11 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
                     {STUDENT_LEVEL_DETAILS[normaliseStudentLevel(saved.studentLevel)].shortLabel} ·{" "}
                     {new Date(saved.createdAt).toLocaleDateString("en-AU")}
                   </p>
+                  {saved.syllabusOutcomeCodes.length > 0 && (
+                    <p className="mt-1 text-xs font-semibold text-sky-700">
+                      NESA: {saved.syllabusOutcomeCodes.join(", ")}
+                    </p>
+                  )}
                 </div>
                 <div className="flex shrink-0 gap-2">
                   <button
