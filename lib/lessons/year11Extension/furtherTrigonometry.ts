@@ -337,7 +337,7 @@ function doubleLesson(lesson: CourseLessonSeed): Partial<ExplicitLesson> {
       latexBlocks: [
         "\\sin2A=2\\sin A\\cos A",
         "\\cos2A=\\cos^2A-\\sin^2A=2\\cos^2A-1=1-2\\sin^2A",
-        "\\tan2A=\\frac{2\\tan A}{1-\tan^2A}",
+        "\\tan2A=\\frac{2\\tan A}{1-\\tan^2A}",
       ],
     },
     workedExamples: doubleExamples,

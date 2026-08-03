@@ -934,7 +934,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
         latexBlocks: [
           "\\sin^2x+\\cos^2x=1",
           "\\sin x(2\\sin x-1)=0\\Rightarrow \\sin x=0\\text{ or }\\sin x=\\frac12",
-          "2\\cos^2x-\cos x-1=0\\Rightarrow (2\\cos x+1)(\\cos x-1)=0",
+          "2\\cos^2x-\\cos x-1=0\\Rightarrow (2\\cos x+1)(\\cos x-1)=0",
           "0\\le x\\le2\\pi",
         ],
       },
@@ -1122,7 +1122,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "For each listed value of $k$, count the distinct solutions of the equation on the closed interval. Enter the total across all three equations.",
           latex:
-            "(\\sin x-k)\\cos x=0,\qquad k\\in\\{-1,0,1\\},\qquad 0\\le x\\le2\\pi",
+            "(\\sin x-k)\\cos x=0,\\qquad k\\in\\{-1,0,1\\},\\qquad 0\\le x\\le2\\pi",
           answer: "9",
           acceptedAnswers: ["9 solutions", "2+5+2=9", "nine", "9.0"],
           hint:
@@ -1161,7 +1161,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "Use an identity, factorise the resulting equation, and enter the sum of all distinct solutions.",
           latex:
-            "2(1-\\cos^2x)-\\sin x=0,\qquad 0\\le x\\le2\\pi",
+            "2(1-\\cos^2x)-\\sin x=0,\\qquad 0\\le x\\le2\\pi",
           answer: "4pi",
           acceptedAnswers: ["4\\pi", "4π", "$4\\pi$", "pi*4"],
           hint:
@@ -1178,7 +1178,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "A quadratic trigonometric equation has exactly the two value branches shown and constant term $-1$. Determine the ordered pair $(a,b)$.",
           latex:
-            "a\\sin^2x+b\\sin x-1=0,\qquad \\sin x=1\\text{ or }\\sin x=-\\frac12",
+            "a\\sin^2x+b\\sin x-1=0,\\qquad \\sin x=1\\text{ or }\\sin x=-\\frac12",
           answer: "2,-1",
           acceptedAnswers: [
             "(2,-1)",
@@ -1384,7 +1384,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "Test the proposed identity at both listed angles. Enter the sum of the two values of LHS minus RHS.",
           latex:
-            "1+\\sin^2x=\\cos^2x,\qquad x\\in\\left\\{0,\\frac{\\pi}{2}\\right\\}",
+            "1+\\sin^2x=\\cos^2x,\\qquad x\\in\\left\\{0,\\frac{\\pi}{2}\\right\\}",
           answer: "2",
           acceptedAnswers: ["2.0", "0+2", "2 units"],
           hint:
@@ -2148,7 +2148,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "Which plan correctly treats the statement as an equation rather than an identity?",
           latex:
-            "2\\sin^2x-\\sin x=0,\qquad 0\\le x\\le2\\pi",
+            "2\\sin^2x-\\sin x=0,\\qquad 0\\le x\\le2\\pi",
           answer: "C",
           choices: [
             "Replace the left side by 1 because it contains sine squared.",
@@ -2191,7 +2191,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "Solve both factor branches and enter the number of distinct solutions in the closed interval.",
           latex:
-            "\\cos x(2\\sin x+1)=0,\qquad 0\\le x\\le2\\pi",
+            "\\cos x(2\\sin x+1)=0,\\qquad 0\\le x\\le2\\pi",
           answer: "4",
           acceptedAnswers: ["4 solutions", "four", "4.0"],
           hint:
@@ -2235,7 +2235,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
             prompt:
               "During one cycle, find the first time after the initial maximum when the height is 2 metres.",
             latex:
-              "h(t)=3+2\\cos\\left(\\frac{\\pi t}{4}\\right),\qquad 0\\le t\\le8",
+              "h(t)=3+2\\cos\\left(\\frac{\\pi t}{4}\\right),\\qquad 0\\le t\\le8",
             answer: "8/3",
             acceptedAnswers: [
               "\\frac83",
@@ -2277,7 +2277,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "For each listed $k$, count the distinct solutions of the equation on the closed interval. Enter the total across the three equations.",
           latex:
-            "\\sin x(2\\cos x-k)=0,\qquad k\\in\\{-2,0,2\\},\qquad 0\\le x\\le2\\pi",
+            "\\sin x(2\\cos x-k)=0,\\qquad k\\in\\{-2,0,2\\},\\qquad 0\\le x\\le2\\pi",
           answer: "11",
           acceptedAnswers: ["11 solutions", "3+5+3=11", "eleven", "11.0"],
           hint:
@@ -2320,7 +2320,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "Respect the original denominator, simplify with an identity, solve, and enter the sum of all solutions.",
           latex:
-            "\\frac{1-\\cos^2x}{\\sin x}=\\frac12,\qquad 0<x<2\\pi",
+            "\\frac{1-\\cos^2x}{\\sin x}=\\frac12,\\qquad 0<x<2\\pi",
           answer: "pi",
           acceptedAnswers: ["\\pi", "π", "$\\pi$", "180 degrees"],
           hint:
@@ -2337,7 +2337,7 @@ export function year11AdvancedTrigIdentitiesEquationsLessonOverride(
           prompt:
             "Use a difference-of-squares consequence of the reciprocal identity to find the second factor.",
           latex:
-            "\\sec\\theta+\\tan\\theta=3,\qquad \\theta\\text{ is acute}",
+            "\\sec\\theta+\\tan\\theta=3,\\qquad \\theta\\text{ is acute}",
           answer: "1/3",
           acceptedAnswers: [
             "\\frac13",

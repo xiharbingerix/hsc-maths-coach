@@ -288,7 +288,7 @@ const deMastery: PracticeQuestion[] = [
   qualityChoice({
     id: "y11adv-elc-de-qm8",
     prompt: "Which function satisfies both conditions?",
-    latex: "y'=3y,\qquad y(0)=2",
+    latex: "y'=3y,\\qquad y(0)=2",
     answer: "D",
     choices: ["e^(3x)", "2e^x", "3e^(2x)", "2e^(3x)"],
     hint: "Use the differential equation to select the exponent rate, then use the initial value for the multiplier.",
@@ -305,7 +305,7 @@ const deMastery: PracticeQuestion[] = [
   qualityAnswer({
     id: "y11adv-elc-de-qm9",
     prompt: "Reconstruct the exponential model.",
-    latex: "y=Ae^{kx},\\qquad y(0)=3,\qquad y'(0)=12",
+    latex: "y=Ae^{kx},\\qquad y(0)=3,\\qquad y'(0)=12",
     answer: "3e^(4x)",
     acceptedAnswers: ["y=3e^{4x}", "A=3,k=4", "3 exp(4x)"],
     hint: "The value at zero gives A; then y'(0)=Ak determines k.",
@@ -499,7 +499,7 @@ const dlMastery: PracticeQuestion[] = [
   qualityAnswer({
     id: "y11adv-elc-dl-qm9",
     prompt: "Reconstruct the logarithmic function, where A>0 and b>0.",
-    latex: "f(x)=A\\ln(bx),\\qquad f'(1)=3,\qquad f(1)=0",
+    latex: "f(x)=A\\ln(bx),\\qquad f'(1)=3,\\qquad f(1)=0",
     answer: "3ln(x)",
     acceptedAnswers: ["f(x)=3\\ln x", "3 ln x", "A=3,b=1"],
     hint: "The derivative determines A; then the value condition determines b.",
@@ -511,7 +511,7 @@ const dlMastery: PracticeQuestion[] = [
   qualityAnswer({
     id: "y11adv-elc-dl-qm10",
     prompt: "The function has a stationary minimum at x=4. Determine a.",
-    latex: "f(x)=x-a\\ln x,\qquad x>0,\qquad a>0",
+    latex: "f(x)=x-a\\ln x,\\qquad x>0,\\qquad a>0",
     answer: "a=4",
     acceptedAnswers: ["4", "a = 4", "4.0"],
     hint: "Differentiate to 1-a/x and solve the stationary condition.",
@@ -693,7 +693,7 @@ const ieMastery: PracticeQuestion[] = [
   qualityAnswer({
     id: "y11adv-elc-ie-qm9",
     prompt: "Determine A and reconstruct y.",
-    latex: "y'=Ae^{2x},\\qquad y(0)=1,\qquad y(1)=2e^2-1",
+    latex: "y'=Ae^{2x},\\qquad y(0)=1,\\qquad y(1)=2e^2-1",
     answer: "y=2e^(2x)-1",
     acceptedAnswers: [
       "A=4, y=2e^{2x}-1",
@@ -709,7 +709,7 @@ const ieMastery: PracticeQuestion[] = [
   qualityAnswer({
     id: "y11adv-elc-ie-qm10",
     prompt: "Reconstruct the accumulated-amount model.",
-    latex: "Q(t)=\\int_0^t Ae^{-ks}\\,ds,\qquad Q'(0)=5,\qquad\\lim_{t\\to\\infty}Q(t)=10",
+    latex: "Q(t)=\\int_0^t Ae^{-ks}\\,ds,\\qquad Q'(0)=5,\\qquad\\lim_{t\\to\\infty}Q(t)=10",
     answer: "Q(t)=10(1-e^(-t/2))",
     acceptedAnswers: ["A=5,k=1/2,Q=10(1-e^{-t/2})", "10-10e^(-t/2)", "Q(t)=10(1-e^{-0.5t})"],
     hint: "The initial rate gives A; the limiting total A/k gives k.",

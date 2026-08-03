@@ -1221,7 +1221,7 @@ export function year11AdvancedGraphTransformationsLessonOverride(
           id: "y11adv-gt-poly-qm10",
           prompt:
             "The cubic has zero at $x=1$. The reciprocal function uses the same $h$ and $k$ and passes through $(4,2)$. Find $a+h+k$.",
-          latex: "c(x)=-(x-h)^3+k,\\quad h=2,\qquad r(x)=\\frac{a}{x-h}+k",
+          latex: "c(x)=-(x-h)^3+k,\\quad h=2,\\qquad r(x)=\\frac{a}{x-h}+k",
           answer: "7",
           acceptedAnswers: ["a+h+k=7", "a + h + k = 7", "7.0"],
           hint: "Use the cubic zero to find $k$, then use the reciprocal point to find $a$.",

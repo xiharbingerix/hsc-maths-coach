@@ -126,3 +126,16 @@ test("the zero-expression misconception item keys the cancelling expression", ()
     "$7x-3x-4x$"
   );
 });
+
+test("worksheet LaTeX keeps commands for the school-supplies question", () => {
+  const lesson = lessons.find((item) => item.slug === "algebraic-notation");
+  const question = lesson?.multiPartPractice?.find(
+    (item) => item.id === "y7-y7-alg-not-mp1",
+  );
+
+  assert.equal(
+    question?.latex,
+    "\\text{pen}=p,\\quad\\text{notebook}=n",
+  );
+  assert.doesNotMatch(question?.latex ?? "", /[\u0000-\u001f]/);
+});

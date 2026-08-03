@@ -1286,7 +1286,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           id: "y11adv-exp-model-qm6",
           prompt:
             "Plan E compounds at 10% annually. Plan L adds $100 each year to the same initial balance. After two years, by how many dollars does Plan E exceed Plan L?",
-          latex: "E(t)=1000(1.10)^t,\qquad L(t)=1000+100t",
+          latex: "E(t)=1000(1.10)^t,\\qquad L(t)=1000+100t",
           answer: "10",
           acceptedAnswers: ["$10", "10 dollars", "E exceeds L by 10", "10.0"],
           hint:
@@ -1321,7 +1321,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           id: "y11adv-exp-model-qm8",
           prompt:
             "A student says the two models are exactly identical because both represent 5% growth. Which assessment is correct?",
-          latex: "A=500(1.05)^t,\qquad B=500e^{0.05t}",
+          latex: "A=500(1.05)^t,\\qquad B=500e^{0.05t}",
           answer: "D",
           choices: [
             "They are identical because 1.05 equals $e^{0.05}$ exactly.",
@@ -1602,7 +1602,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           id: "y11adv-exp-exam-qm7",
           prompt:
             "For the listed integers, count how many make the logarithm both defined and integer-valued.",
-          latex: "\\log_2(x+4),\qquad -3\\le x\\le12",
+          latex: "\\log_2(x+4),\\qquad -3\\le x\\le12",
           answer: "5",
           acceptedAnswers: ["5 values", "x=-3,-2,0,4,12", "five", "5.0"],
           hint:
@@ -1644,7 +1644,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           id: "y11adv-exp-exam-qm9",
           prompt:
             "An exponential population model $P(t)=200b^t$ satisfies the later value shown. Find $P(3)$.",
-          latex: "P(2)=450,\qquad b>0",
+          latex: "P(2)=450,\\qquad b>0",
           answer: "675",
           acceptedAnswers: ["675 people", "P(3)=675", "675.0"],
           hint:
@@ -2011,7 +2011,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
             id: "y11adv-exp-graph-qm7",
             prompt:
               "For the listed integer x-values, count how many plotted points on the curve have an integer y-coordinate.",
-            latex: "y=3^x,\qquad -2\\le x\\le4",
+            latex: "y=3^x,\\qquad -2\\le x\\le4",
             answer: "5",
             acceptedAnswers: ["5 points", "x=0,1,2,3,4", "five", "5.0"],
             hint:
@@ -2058,7 +2058,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
           id: "y11adv-exp-graph-qm9",
           prompt:
             "An exponential function $f(x)=ca^x$ has the two values shown and $c,a>0$. If $g=f^{-1}$, find $g(18)$.",
-          latex: "f(0)=2,\qquad f(2)=18",
+          latex: "f(0)=2,\\qquad f(2)=18",
           answer: "2",
           acceptedAnswers: ["g(18)=2", "g(18) = 2", "2.0"],
           hint:
@@ -2075,7 +2075,7 @@ export function year11AdvancedExponentialLogarithmicLessonOverride(
             id: "y11adv-exp-graph-qm10",
             prompt:
               "The reflected points and the origin form a triangle. Find its area in square units.",
-            latex: "O=(0,0),\qquad P=(2,4),\qquad Q=(4,2)",
+            latex: "O=(0,0),\\qquad P=(2,4),\\qquad Q=(4,2)",
             answer: "6",
             acceptedAnswers: ["6 square units", "6 units^2", "6.0", "six"],
             hint:
