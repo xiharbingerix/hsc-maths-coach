@@ -16,6 +16,7 @@ import {
 import {
   aiLessonPlannerEnabled,
   generateAiLessonPlan,
+  LESSON_PLANNER_PROMPT_VERSION,
 } from "../../../lib/aiLessonPlanner";
 import {
   normaliseDeliveryMode,
@@ -70,9 +71,20 @@ export async function generateLessonPlanAction(
   deliveryMode: LessonDeliveryMode,
   selectedSyllabusContentCodes: string[],
   alreadyMetContentPointCodes: string[],
+  teacherInstructions: string,
   opts?: { forceRegenerate?: boolean },
 ): Promise<GenerateResult> {
   await requireAdmin();
+
+  if (typeof teacherInstructions !== "string") {
+    return { error: "Additional AI instructions must be text." };
+  }
+  const teacherDirection = teacherInstructions.trim();
+  if (teacherDirection.length > 2000) {
+    return {
+      error: "Additional AI instructions must be 2,000 characters or fewer.",
+    };
+  }
 
   const validatedLevels = validateStudentLevels(levels, deliveryMode);
   if ("error" in validatedLevels) return validatedLevels;
@@ -136,15 +148,20 @@ export async function generateLessonPlanAction(
     };
   }
 
-  const syllabusScopeKey = syllabusScope
-    ? createHash("sha256")
-        .update(
-          requestedMetCodes.length > 0
-            ? `${requestedCodes.join("|")}|met:${requestedMetCodes.join("|")}`
-            : requestedCodes.join("|"),
-        )
-        .digest("hex")
-        .slice(0, 24)
+  const scopeIdentity = syllabusScope
+    ? requestedMetCodes.length > 0
+      ? `${requestedCodes.join("|")}|met:${requestedMetCodes.join("|")}`
+      : requestedCodes.join("|")
+    : "";
+  const plannerIdentity = [
+    `prompt:${LESSON_PLANNER_PROMPT_VERSION}`,
+    scopeIdentity,
+    teacherDirection ? `instructions:${teacherDirection}` : "",
+  ]
+    .filter(Boolean)
+    .join("|");
+  const syllabusScopeKey = plannerIdentity
+    ? createHash("sha256").update(plannerIdentity).digest("hex").slice(0, 24)
     : "default";
 
   const cacheKey = {
@@ -177,6 +194,7 @@ export async function generateLessonPlanAction(
         deliveryMode,
         syllabusScope,
         priorAttainment,
+        teacherInstructions: teacherDirection || undefined,
       }),
       source: "built-in",
     };
@@ -190,6 +208,7 @@ export async function generateLessonPlanAction(
       deliveryMode,
       syllabusScope,
       priorAttainment,
+      teacherInstructions: teacherDirection || undefined,
     });
 
     const { error: upsertError } = await supabaseAdmin

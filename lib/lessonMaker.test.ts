@@ -88,6 +88,27 @@ test("built-in plans include delivery mode and required differentiation for ever
   }
 });
 
+test("built-in plans retain and display additional teacher instructions", () => {
+  const plan = generateTutorPlan(fixture, {
+    length: 45,
+    levels: ["level-1", "level-2"],
+    deliveryMode: "classroom",
+    teacherInstructions:
+      "  Use a football context and spend longer explaining negative signs.  ",
+  });
+
+  assert.equal(
+    plan.teacherInstructions,
+    "Use a football context and spend longer explaining negative signs.",
+  );
+  const section = plan.sections.find(
+    (candidate) => candidate.heading === "Teacher's Additional Instructions",
+  );
+  assert.ok(section?.kind === "text");
+  assert.deepEqual(section.paragraphs, [plan.teacherInstructions]);
+  assert.equal(section.minutes, 0);
+});
+
 test("independent practice changes quantity and difficulty by level", () => {
   const independentIds = (level: "level-1" | "level-2" | "level-3") => {
     const plan = generateTutorPlan(fixture, {

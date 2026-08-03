@@ -157,6 +157,7 @@ export interface TutorLessonPlan {
   successCriteria: string[];
   syllabusScope?: LessonSyllabusScope;
   priorAttainment?: LessonPriorAttainment;
+  teacherInstructions?: string;
   sections: TutorSection[];
   // How the plan was produced. Older saved plans predate these fields.
   generator?: "ai" | "built-in";
@@ -421,6 +422,7 @@ function generateCatchUpPlan(
   deliveryMode: LessonDeliveryMode,
   syllabusScope?: LessonSyllabusScope,
   priorAttainment?: LessonPriorAttainment,
+  teacherInstructions?: string,
 ): TutorLessonPlan {
   const level = primaryStudentLevel(levels);
   const sections: TutorSection[] = [];
@@ -429,11 +431,22 @@ function generateCatchUpPlan(
     syllabusScope,
     priorAttainment,
   );
+  const teacherDirection = teacherInstructions?.trim();
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);
   const independent = lesson.independentPractice.map(toTutorQuestion);
   const mastery = lesson.masteryQuiz.map(toTutorQuestion);
   const examples = lesson.workedExamples.map(toTutorWorkedExample);
+
+  if (teacherDirection) {
+    sections.push({
+      kind: "text",
+      id: "recap-teacher-instructions",
+      heading: "Teacher's Additional Instructions",
+      minutes: 0,
+      paragraphs: [teacherDirection],
+    });
+  }
 
   // ── 1. Recall opener ────────────────────────────────────────────────────
   sections.push({
@@ -578,6 +591,7 @@ function generateCatchUpPlan(
     deliveryMode,
     syllabusScope,
     priorAttainment,
+    teacherInstructions: teacherDirection || undefined,
     generatedAt: new Date().toISOString(),
     learningGoal: allContentMet
       ? `Apply and extend the already-met ${syllabusScope?.stage ?? "syllabus"} content without reteaching it.`
@@ -601,9 +615,17 @@ export function generateTutorPlan(
     deliveryMode: LessonDeliveryMode;
     syllabusScope?: LessonSyllabusScope;
     priorAttainment?: LessonPriorAttainment;
+    teacherInstructions?: string;
   },
 ): TutorLessonPlan {
-  const { length, deliveryMode, syllabusScope, priorAttainment } = opts;
+  const {
+    length,
+    deliveryMode,
+    syllabusScope,
+    priorAttainment,
+    teacherInstructions,
+  } = opts;
+  const teacherDirection = teacherInstructions?.trim();
   const levels = normaliseStudentLevels(opts.levels ?? opts.level);
   const level = primaryStudentLevel(levels);
   if (length === 10) {
@@ -613,6 +635,7 @@ export function generateTutorPlan(
       deliveryMode,
       syllabusScope,
       priorAttainment,
+      teacherDirection,
     );
   }
   const sections: TutorSection[] = [];
@@ -626,6 +649,16 @@ export function generateTutorPlan(
   const independent = lesson.independentPractice.map(toTutorQuestion);
   const mastery = lesson.masteryQuiz.map(toTutorQuestion);
   const examples = lesson.workedExamples.map(toTutorWorkedExample);
+
+  if (teacherDirection) {
+    sections.push({
+      kind: "text",
+      id: "teacher-instructions",
+      heading: "Teacher's Additional Instructions",
+      minutes: 0,
+      paragraphs: [teacherDirection],
+    });
+  }
 
   // ── 1. Prerequisites & learning goal ──────────────────────────────────────
   const prereqQuestions = criteriaToTeacherQuestions(successCriteria.slice(0, 2));
@@ -884,6 +917,7 @@ export function generateTutorPlan(
     deliveryMode,
     syllabusScope,
     priorAttainment,
+    teacherInstructions: teacherDirection || undefined,
     generatedAt: new Date().toISOString(),
     learningGoal: allContentMet
       ? `Apply, connect and extend the already-met ${syllabusScope?.stage ?? "syllabus"} content without reteaching it.`

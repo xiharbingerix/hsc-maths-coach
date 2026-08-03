@@ -92,6 +92,9 @@ function planToText(plan: TutorLessonPlan): string {
     `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Delivery: ${DELIVERY_MODE_DETAILS[deliveryMode].label} | Levels: ${studentLevelsLabel(levels)} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
   );
   lines.push(`Learning goal: ${plan.learningGoal}`);
+  if (plan.teacherInstructions) {
+    lines.push(`Teacher instructions: ${plan.teacherInstructions}`);
+  }
   if (plan.syllabusScope) {
     lines.push(
       `NESA outcomes: ${plan.syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}`,
@@ -619,6 +622,12 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
           already met — retrieval or application only
         </p>
       )}
+      {plan.teacherInstructions && (
+        <p className="mt-2 rounded-lg border border-indigo-200 bg-white/70 px-3 py-2 text-xs leading-relaxed text-indigo-800 print:border-slate-300 print:text-slate-700">
+          <strong>Additional teacher direction:</strong>{" "}
+          {plan.teacherInstructions}
+        </p>
+      )}
     </div>
   );
 }
@@ -639,6 +648,7 @@ export function LessonMakerClient({
   const [levels, setLevels] = useState<StudentLevel[]>(["level-2"]);
   const [selectedSyllabusCodes, setSelectedSyllabusCodes] = useState<string[]>([]);
   const [alreadyMetSyllabusCodes, setAlreadyMetSyllabusCodes] = useState<string[]>([]);
+  const [teacherInstructions, setTeacherInstructions] = useState("");
   const [plan, setPlan] = useState<TutorLessonPlan | null>(null);
   const [planSource, setPlanSource] = useState<
     "cache" | "ai" | "built-in" | "saved" | null
@@ -701,6 +711,7 @@ export function LessonMakerClient({
     setLessonSlug("");
     setSelectedSyllabusCodes([]);
     setAlreadyMetSyllabusCodes([]);
+    setTeacherInstructions("");
     setPlan(null);
     setPlanSource(null);
     setError(null);
@@ -711,6 +722,7 @@ export function LessonMakerClient({
     setLessonSlug("");
     setSelectedSyllabusCodes([]);
     setAlreadyMetSyllabusCodes([]);
+    setTeacherInstructions("");
     setPlan(null);
     setPlanSource(null);
     setError(null);
@@ -730,6 +742,7 @@ export function LessonMakerClient({
         deliveryMode,
         selectedSyllabusCodes,
         alreadyMetSyllabusCodes,
+        teacherInstructions,
         { forceRegenerate },
       );
       if ("error" in result) {
@@ -808,6 +821,7 @@ export function LessonMakerClient({
     setDeliveryMode(normaliseDeliveryMode(record.deliveryMode));
     setSelectedSyllabusCodes(selectedContentCodes(record.plan));
     setAlreadyMetSyllabusCodes(alreadyMetContentCodes(record.plan));
+    setTeacherInstructions(record.plan.teacherInstructions ?? "");
     setPlan({
       ...record.plan,
       level: primaryStudentLevel(loadedLevels),
@@ -904,6 +918,7 @@ export function LessonMakerClient({
               value={lessonSlug}
               onChange={(e) => {
                 setLessonSlug(e.target.value);
+                setTeacherInstructions("");
                 setPlan(null);
                 setPlanSource(null);
                 setError(null);
@@ -1313,6 +1328,53 @@ export function LessonMakerClient({
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Additional AI direction */}
+          <div className="space-y-1.5 sm:col-span-2 lg:col-span-3">
+            <div className="flex items-end justify-between gap-3">
+              <label
+                htmlFor="lesson-maker-teacher-instructions"
+                className="block text-xs font-semibold uppercase tracking-wide text-slate-500"
+              >
+                Additional instructions for the AI
+              </label>
+              <span className="text-xs tabular-nums text-slate-400">
+                {teacherInstructions.length}/2,000
+              </span>
+            </div>
+            <p id="lesson-maker-teacher-instructions-help" className="text-xs text-slate-500">
+              Optional. Be specific about emphasis, examples, misconceptions, pacing,
+              classroom activities or student needs. For example: use a sport context,
+              avoid calculators, or spend longer explaining negative signs.
+            </p>
+            <textarea
+              id="lesson-maker-teacher-instructions"
+              aria-describedby="lesson-maker-teacher-instructions-help"
+              rows={4}
+              maxLength={2000}
+              value={teacherInstructions}
+              onChange={(event) => {
+                setTeacherInstructions(event.target.value);
+                clearGeneratedPlan();
+                setError(null);
+              }}
+              placeholder="What should the AI do differently or pay special attention to in this lesson?"
+              className="w-full resize-y rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm leading-relaxed text-slate-800 placeholder:text-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            />
+            {teacherInstructions.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  setTeacherInstructions("");
+                  clearGeneratedPlan();
+                  setError(null);
+                }}
+                className="text-xs font-semibold text-indigo-700 hover:text-indigo-500"
+              >
+                Clear additional instructions
+              </button>
+            )}
           </div>
         </div>
 
