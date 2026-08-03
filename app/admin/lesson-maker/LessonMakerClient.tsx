@@ -50,6 +50,10 @@ function selectedContentCodes(plan: TutorLessonPlan): string[] {
   );
 }
 
+function alreadyMetContentCodes(plan: TutorLessonPlan): string[] {
+  return plan.priorAttainment?.contentPointCodes ?? [];
+}
+
 function planStudentLevels(plan: TutorLessonPlan): StudentLevel[] {
   return normaliseStudentLevels(plan.levels, plan.level);
 }
@@ -102,6 +106,15 @@ function planToText(plan: TutorLessonPlan): string {
         ),
       ),
     );
+  }
+  if (plan.priorAttainment) {
+    lines.push(`Already met — do not reteach:`);
+    plan.priorAttainment.outcomes.forEach((outcome) => {
+      lines.push(`  ${outcome.code}: ${outcome.description}`);
+      outcome.contentPoints.forEach((point) =>
+        lines.push(`    • ${point.code}: ${point.text}`),
+      );
+    });
   }
   lines.push(`Success criteria:`);
   plan.successCriteria.forEach((c) => lines.push(`  • ${c}`));
@@ -599,6 +612,13 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
           {selectedContentCodes(plan).length === 1 ? "" : "s"}
         </p>
       )}
+      {plan.priorAttainment && (
+        <p className="mt-1 text-xs font-semibold text-emerald-700 print:text-slate-600">
+          Prior attainment: {plan.priorAttainment.contentPointCodes.length} content
+          point{plan.priorAttainment.contentPointCodes.length === 1 ? "" : "s"}{" "}
+          already met — retrieval or application only
+        </p>
+      )}
     </div>
   );
 }
@@ -618,6 +638,7 @@ export function LessonMakerClient({
     useState<LessonDeliveryMode>("zoom");
   const [levels, setLevels] = useState<StudentLevel[]>(["level-2"]);
   const [selectedSyllabusCodes, setSelectedSyllabusCodes] = useState<string[]>([]);
+  const [alreadyMetSyllabusCodes, setAlreadyMetSyllabusCodes] = useState<string[]>([]);
   const [plan, setPlan] = useState<TutorLessonPlan | null>(null);
   const [planSource, setPlanSource] = useState<
     "cache" | "ai" | "built-in" | "saved" | null
@@ -656,7 +677,20 @@ export function LessonMakerClient({
   }
 
   function setSyllabusCodes(codes: string[]) {
-    setSelectedSyllabusCodes([...new Set(codes)]);
+    const nextCodes = [...new Set(codes)];
+    setSelectedSyllabusCodes(nextCodes);
+    setAlreadyMetSyllabusCodes((current) =>
+      current.filter((code) => nextCodes.includes(code)),
+    );
+    clearGeneratedPlan();
+    setError(null);
+  }
+
+  function setAlreadyMetCodes(codes: string[]) {
+    const selectedCodeSet = new Set(selectedSyllabusCodes);
+    setAlreadyMetSyllabusCodes(
+      [...new Set(codes)].filter((code) => selectedCodeSet.has(code)),
+    );
     clearGeneratedPlan();
     setError(null);
   }
@@ -666,6 +700,7 @@ export function LessonMakerClient({
     setUnitSlug("");
     setLessonSlug("");
     setSelectedSyllabusCodes([]);
+    setAlreadyMetSyllabusCodes([]);
     setPlan(null);
     setPlanSource(null);
     setError(null);
@@ -675,6 +710,7 @@ export function LessonMakerClient({
     setUnitSlug(slug);
     setLessonSlug("");
     setSelectedSyllabusCodes([]);
+    setAlreadyMetSyllabusCodes([]);
     setPlan(null);
     setPlanSource(null);
     setError(null);
@@ -693,6 +729,7 @@ export function LessonMakerClient({
         levels,
         deliveryMode,
         selectedSyllabusCodes,
+        alreadyMetSyllabusCodes,
         { forceRegenerate },
       );
       if ("error" in result) {
@@ -770,6 +807,7 @@ export function LessonMakerClient({
     setLevels(loadedLevels);
     setDeliveryMode(normaliseDeliveryMode(record.deliveryMode));
     setSelectedSyllabusCodes(selectedContentCodes(record.plan));
+    setAlreadyMetSyllabusCodes(alreadyMetContentCodes(record.plan));
     setPlan({
       ...record.plan,
       level: primaryStudentLevel(loadedLevels),
@@ -928,6 +966,43 @@ export function LessonMakerClient({
                   : "No content points selected. The planner will use the lesson's existing authored scope."}
               </p>
 
+              {selectedSyllabusCodes.length > 0 && (
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-3">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-emerald-700">
+                      Prior attainment
+                    </p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-emerald-900">
+                      {alreadyMetSyllabusCodes.length} of {selectedSyllabusCodes.length}{" "}
+                      selected content points are already met. They will receive a
+                      brief retrieval check or richer application, not first-teaching
+                      again.
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setAlreadyMetCodes(selectedSyllabusCodes)}
+                      disabled={
+                        alreadyMetSyllabusCodes.length ===
+                        selectedSyllabusCodes.length
+                      }
+                      className="rounded-lg border border-emerald-300 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 disabled:opacity-40"
+                    >
+                      Mark all selected as met
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAlreadyMetCodes([])}
+                      disabled={alreadyMetSyllabusCodes.length === 0}
+                      className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-40"
+                    >
+                      Clear prior attainment
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <div className="space-y-2">
                 {relevantSyllabusFocusAreas.map((focus) => {
                   const focusCodes = focus.groups.flatMap((group) =>
@@ -936,7 +1011,16 @@ export function LessonMakerClient({
                   const selectedInFocus = focusCodes.filter((code) =>
                     selectedSyllabusCodes.includes(code),
                   ).length;
+                  const selectedFocusCodes = focusCodes.filter((code) =>
+                    selectedSyllabusCodes.includes(code),
+                  );
+                  const metInFocus = selectedFocusCodes.filter((code) =>
+                    alreadyMetSyllabusCodes.includes(code),
+                  ).length;
                   const allFocusSelected = selectedInFocus === focusCodes.length;
+                  const allSelectedInFocusMet =
+                    selectedFocusCodes.length > 0 &&
+                    metInFocus === selectedFocusCodes.length;
 
                   return (
                     <details
@@ -956,6 +1040,11 @@ export function LessonMakerClient({
                               <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
                                 {selectedInFocus}/{focusCodes.length} selected
                               </span>
+                              {metInFocus > 0 && (
+                                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                                  {metInFocus}/{selectedInFocus} already met
+                                </span>
+                              )}
                             </div>
                             <p className="mt-1 text-xs leading-relaxed text-slate-600">
                               <strong>{focus.outcome.code}:</strong>{" "}
@@ -983,6 +1072,28 @@ export function LessonMakerClient({
                           >
                             {allFocusSelected ? "Clear focus area" : "Select whole focus area"}
                           </button>
+                          {selectedFocusCodes.length > 0 && (
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setAlreadyMetCodes(
+                                  allSelectedInFocusMet
+                                    ? alreadyMetSyllabusCodes.filter(
+                                        (code) => !selectedFocusCodes.includes(code),
+                                      )
+                                    : [
+                                        ...alreadyMetSyllabusCodes,
+                                        ...selectedFocusCodes,
+                                      ],
+                                )
+                              }
+                              className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-800 hover:bg-emerald-100"
+                            >
+                              {allSelectedInFocusMet
+                                ? "Clear already met in outcome"
+                                : "Mark selected in outcome as met"}
+                            </button>
+                          )}
                           <a
                             href={focus.sourceUrl}
                             target="_blank"
@@ -1003,34 +1114,60 @@ export function LessonMakerClient({
                                 {group.contentPoints.map((point) => {
                                   const checked = selectedSyllabusCodes.includes(point.code);
                                   return (
-                                    <label
+                                    <div
                                       key={point.code}
-                                      className={`flex cursor-pointer gap-3 rounded-lg border p-3 text-sm transition-colors ${checked ? "border-sky-400 bg-sky-50" : "border-slate-200 hover:bg-slate-50"}`}
+                                      className={`flex flex-wrap items-start gap-3 rounded-lg border p-3 text-sm transition-colors ${checked ? "border-sky-400 bg-sky-50" : "border-slate-200 hover:bg-slate-50"}`}
                                     >
-                                      <input
-                                        type="checkbox"
-                                        checked={checked}
-                                        onChange={() =>
-                                          setSyllabusCodes(
-                                            checked
-                                              ? selectedSyllabusCodes.filter(
-                                                  (code) => code !== point.code,
-                                                )
-                                              : [...selectedSyllabusCodes, point.code],
-                                          )
-                                        }
-                                        className="mt-0.5 size-4 shrink-0 accent-sky-600"
-                                      />
-                                      <span className="leading-relaxed text-slate-700">
-                                        <strong className="text-slate-900">{point.code}</strong>{" "}
-                                        <MathText text={point.text} />
-                                        {point.including && (
-                                          <span className="mt-1 block text-xs text-slate-500">
-                                            Including: <MathText text={point.including} />
-                                          </span>
-                                        )}
-                                      </span>
-                                    </label>
+                                      <label className="flex min-w-0 flex-1 cursor-pointer gap-3">
+                                        <input
+                                          type="checkbox"
+                                          checked={checked}
+                                          onChange={() =>
+                                            setSyllabusCodes(
+                                              checked
+                                                ? selectedSyllabusCodes.filter(
+                                                    (code) => code !== point.code,
+                                                  )
+                                                : [...selectedSyllabusCodes, point.code],
+                                            )
+                                          }
+                                          className="mt-0.5 size-4 shrink-0 accent-sky-600"
+                                        />
+                                        <span className="leading-relaxed text-slate-700">
+                                          <strong className="text-slate-900">{point.code}</strong>{" "}
+                                          <MathText text={point.text} />
+                                          {point.including && (
+                                            <span className="mt-1 block text-xs text-slate-500">
+                                              Including: <MathText text={point.including} />
+                                            </span>
+                                          )}
+                                        </span>
+                                      </label>
+                                      {checked && (
+                                        <label className="flex cursor-pointer items-center gap-2 rounded-md border border-emerald-300 bg-white px-2 py-1 text-xs font-semibold text-emerald-800">
+                                          <input
+                                            type="checkbox"
+                                            checked={alreadyMetSyllabusCodes.includes(
+                                              point.code,
+                                            )}
+                                            onChange={(event) =>
+                                              setAlreadyMetCodes(
+                                                event.target.checked
+                                                  ? [
+                                                      ...alreadyMetSyllabusCodes,
+                                                      point.code,
+                                                    ]
+                                                  : alreadyMetSyllabusCodes.filter(
+                                                      (code) => code !== point.code,
+                                                    ),
+                                              )
+                                            }
+                                            className="size-4 accent-emerald-600"
+                                          />
+                                          Already met
+                                        </label>
+                                      )}
+                                    </div>
                                   );
                                 })}
                               </div>

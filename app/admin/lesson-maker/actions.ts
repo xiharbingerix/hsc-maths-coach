@@ -24,7 +24,10 @@ import {
   STUDENT_LEVEL_ORDER,
   studentLevelKey,
 } from "../../../lib/lessonPlannerConfig";
-import { buildYear9SyllabusScope } from "../../../lib/syllabus/year9Nesa";
+import {
+  buildLessonPriorAttainment,
+  buildYear9SyllabusScope,
+} from "../../../lib/syllabus/year9Nesa";
 
 // ── Lesson plan generation ────────────────────────────────────────────────────
 //
@@ -66,6 +69,7 @@ export async function generateLessonPlanAction(
   levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   selectedSyllabusContentCodes: string[],
+  alreadyMetContentPointCodes: string[],
   opts?: { forceRegenerate?: boolean },
 ): Promise<GenerateResult> {
   await requireAdmin();
@@ -120,9 +124,25 @@ export async function generateLessonPlanAction(
     };
   }
 
+  const requestedMetCodes = [...new Set(alreadyMetContentPointCodes)].sort();
+  const priorAttainment = buildLessonPriorAttainment(
+    syllabusScope,
+    requestedMetCodes,
+  );
+  if (requestedMetCodes.length > 0 && !priorAttainment) {
+    return {
+      error:
+        "Already-met content must be part of the selected syllabus scope. Refresh the page and select the prior attainment again.",
+    };
+  }
+
   const syllabusScopeKey = syllabusScope
     ? createHash("sha256")
-        .update(requestedCodes.join("|"))
+        .update(
+          requestedMetCodes.length > 0
+            ? `${requestedCodes.join("|")}|met:${requestedMetCodes.join("|")}`
+            : requestedCodes.join("|"),
+        )
         .digest("hex")
         .slice(0, 24)
     : "default";
@@ -156,6 +176,7 @@ export async function generateLessonPlanAction(
         levels: selectedLevels,
         deliveryMode,
         syllabusScope,
+        priorAttainment,
       }),
       source: "built-in",
     };
@@ -168,6 +189,7 @@ export async function generateLessonPlanAction(
       levels: selectedLevels,
       deliveryMode,
       syllabusScope,
+      priorAttainment,
     });
 
     const { error: upsertError } = await supabaseAdmin

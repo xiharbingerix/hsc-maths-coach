@@ -7,7 +7,10 @@ import {
   studentLevelKey,
 } from "./lessonPlannerConfig";
 import type { ExplicitLesson, PracticeQuestion } from "./lessons/differentialCalculus";
-import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
+import type {
+  LessonPriorAttainment,
+  LessonSyllabusScope,
+} from "./syllabus/year9Nesa";
 
 function question(id: string, difficulty: number): PracticeQuestion {
   return {
@@ -224,4 +227,79 @@ test("mixed-level catch-up recaps provide a quick-check pathway per group", () =
       ),
     );
   }
+});
+
+test("already-met syllabus content is retained but not first-taught again", () => {
+  const syllabusScope: LessonSyllabusScope = {
+    syllabus: "Mathematics K–10 Syllabus (2022)",
+    authority: "NSW Education Standards Authority (NESA)",
+    stage: "Stage 5",
+    sourceUrl: "https://curriculum.nsw.edu.au/",
+    workingMathematically: { code: "MAO-WM-01", description: "works mathematically" },
+    outcomes: [
+      {
+        code: "MA5-FIN-C-01",
+        description: "solves financial mathematics problems",
+        classification: "core",
+        focusAreas: [
+          {
+            id: "finance",
+            title: "Financial mathematics A",
+            sourceUrl: "https://curriculum.nsw.edu.au/",
+            contentGroups: [
+              {
+                title: "Simple interest",
+                contentPoints: [
+                  {
+                    code: "MA_K_10_CP_FIN_SPS_STG5_01",
+                    text: "Use the simple interest formula",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+  const priorAttainment: LessonPriorAttainment = {
+    contentPointCodes: ["MA_K_10_CP_FIN_SPS_STG5_01"],
+    outcomes: [
+      {
+        code: "MA5-FIN-C-01",
+        description: "solves financial mathematics problems",
+        fullyMetWithinLessonScope: true,
+        contentPoints: [
+          {
+            code: "MA_K_10_CP_FIN_SPS_STG5_01",
+            text: "Use the simple interest formula",
+          },
+        ],
+      },
+    ],
+  };
+
+  const plan = generateTutorPlan(fixture, {
+    length: 45,
+    levels: ["level-1", "level-2"],
+    deliveryMode: "classroom",
+    syllabusScope,
+    priorAttainment,
+  });
+
+  assert.equal(plan.priorAttainment, priorAttainment);
+  assert.match(plan.learningGoal, /apply, connect and extend/i);
+  const priorSection = plan.sections.find(
+    (section) => section.heading === "Already Met — Do Not Reteach",
+  );
+  assert.ok(priorSection?.kind === "criteria");
+  const teaching = plan.sections.find(
+    (section) => section.id === "teaching-script",
+  );
+  assert.ok(teaching?.kind === "text");
+  assert.match(teaching.paragraphs.join(" "), /skip the first-teach explanation/i);
+  assert.doesNotMatch(
+    teaching.paragraphs.join(" "),
+    /start with a familiar example/i,
+  );
 });

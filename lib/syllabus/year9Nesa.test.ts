@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { newCoursePathways } from "../newCourseCatalog";
 import {
+  buildLessonPriorAttainment,
   buildYear9SyllabusScope,
   createYear9PlannerSyllabusPayload,
   YEAR9_UNIT_FOCUS_AREA_IDS,
@@ -89,6 +90,40 @@ test("scope construction rejects codes outside the selected Year 9 unit", () => 
   );
   assert.equal(
     buildYear9SyllabusScope("year-10-mathematics", unitSlug, [outsidePoint.code]),
+    undefined,
+  );
+});
+
+test("prior attainment is limited to the selected lesson scope", () => {
+  const payload = createYear9PlannerSyllabusPayload();
+  const unitSlug = "computation-financial-maths";
+  const allowedFocusIds = new Set(payload.unitFocusAreaIds[unitSlug]);
+  const focus = payload.focusAreas.find((candidate) =>
+    allowedFocusIds.has(candidate.id),
+  );
+  const points = focus?.groups.flatMap((group) => group.contentPoints).slice(0, 2);
+  assert.ok(focus && points?.length === 2);
+
+  const scope = buildYear9SyllabusScope(
+    "year-9-mathematics",
+    unitSlug,
+    points.map((point) => point.code),
+  );
+  assert.ok(scope);
+
+  const partial = buildLessonPriorAttainment(scope, [points[0].code]);
+  assert.ok(partial);
+  assert.deepEqual(partial.contentPointCodes, [points[0].code]);
+  assert.equal(partial.outcomes[0].fullyMetWithinLessonScope, false);
+
+  const fullyMet = buildLessonPriorAttainment(
+    scope,
+    points.map((point) => point.code),
+  );
+  assert.ok(fullyMet);
+  assert.equal(fullyMet.outcomes[0].fullyMetWithinLessonScope, true);
+  assert.equal(
+    buildLessonPriorAttainment(scope, ["NOT-IN-LESSON-SCOPE"]),
     undefined,
   );
 });
