@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { generateTutorPlan } from "./lessonMaker";
 import type { ExplicitLesson, PracticeQuestion } from "./lessons/differentialCalculus";
+import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
 
 function question(id: string, difficulty: number): PracticeQuestion {
   return {
@@ -97,4 +98,62 @@ test("independent practice changes quantity and difficulty by level", () => {
   assert.deepEqual(independentIds("level-1"), ["i1", "i2", "i3"]);
   assert.deepEqual(independentIds("level-2"), ["i1", "i2", "i3", "i4"]);
   assert.deepEqual(independentIds("level-3"), ["m5", "i5", "m4", "i4"]);
+});
+
+test("a selected NESA scope replaces broad criteria and is retained in the plan", () => {
+  const syllabusScope: LessonSyllabusScope = {
+    syllabus: "Mathematics K–10 Syllabus (2022)",
+    authority: "NSW Education Standards Authority (NESA)",
+    stage: "Stage 5",
+    sourceUrl: "https://curriculum.nsw.edu.au/syllabuses/mathematics-k-10-2022",
+    workingMathematically: {
+      code: "MAO-WM-01",
+      description: "develops understanding and fluency in mathematics",
+    },
+    outcomes: [
+      {
+        code: "MA5-FIN-C-01",
+        description: "solves financial mathematics problems",
+        classification: "core",
+        focusAreas: [
+          {
+            id: "finance",
+            title: "Financial mathematics A",
+            sourceUrl: "https://curriculum.nsw.edu.au/",
+            contentGroups: [
+              {
+                title: "Simple interest",
+                contentPoints: [
+                  {
+                    code: "MA5-FIN-C-01-01",
+                    text: "Apply the simple interest formula to solve problems",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
+  const plan = generateTutorPlan(fixture, {
+    length: 45,
+    level: "level-1",
+    deliveryMode: "classroom",
+    syllabusScope,
+  });
+
+  assert.equal(plan.syllabusScope, syllabusScope);
+  assert.deepEqual(plan.successCriteria, [
+    "Apply the simple interest formula to solve problems",
+  ]);
+  const alignment = plan.sections.find(
+    (section) => section.heading === "Selected NESA Syllabus Scope",
+  );
+  assert.ok(alignment?.kind === "criteria");
+  assert.deepEqual(alignment.items, [
+    "MA5-FIN-C-01: solves financial mathematics problems",
+    "MA5-FIN-C-01-01: Apply the simple interest formula to solve problems",
+  ]);
 });

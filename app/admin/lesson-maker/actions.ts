@@ -1,5 +1,6 @@
 "use server";
 
+import { createHash } from "node:crypto";
 import { requireAdmin } from "../../../lib/adminSession";
 import { getNewCourseLesson } from "../../../lib/newCourseCatalog";
 import { getYear12AdvancedRouteLesson } from "../../../lib/year12AdvancedRoutes";
@@ -20,6 +21,7 @@ import {
   normaliseDeliveryMode,
   normaliseStudentLevel,
 } from "../../../lib/lessonPlannerConfig";
+import { buildYear9SyllabusScope } from "../../../lib/syllabus/year9Nesa";
 
 // ── Lesson plan generation ────────────────────────────────────────────────────
 //
@@ -41,6 +43,7 @@ export async function generateLessonPlanAction(
   length: LessonLength,
   level: StudentLevel,
   deliveryMode: LessonDeliveryMode,
+  selectedSyllabusContentCodes: string[],
   opts?: { forceRegenerate?: boolean },
 ): Promise<GenerateResult> {
   await requireAdmin();
@@ -64,6 +67,39 @@ export async function generateLessonPlanAction(
     };
   }
 
+  const requestedCodes = [...new Set(selectedSyllabusContentCodes)].sort();
+  const syllabusScope = buildYear9SyllabusScope(
+    courseSlug,
+    unitSlug,
+    requestedCodes,
+  );
+  const acceptedCodes = new Set(
+    syllabusScope?.outcomes.flatMap((outcome) =>
+      outcome.focusAreas.flatMap((focus) =>
+        focus.contentGroups.flatMap((group) =>
+          group.contentPoints.map((point) => point.code),
+        ),
+      ),
+    ) ?? [],
+  );
+  if (
+    requestedCodes.length > 0 &&
+    (acceptedCodes.size !== requestedCodes.length ||
+      requestedCodes.some((code) => !acceptedCodes.has(code)))
+  ) {
+    return {
+      error:
+        "One or more selected syllabus content points do not belong to this Year 9 unit. Refresh the page and select the scope again.",
+    };
+  }
+
+  const syllabusScopeKey = syllabusScope
+    ? createHash("sha256")
+        .update(requestedCodes.join("|"))
+        .digest("hex")
+        .slice(0, 24)
+    : "default";
+
   const cacheKey = {
     course_slug: courseSlug,
     unit_slug: unitSlug,
@@ -71,6 +107,7 @@ export async function generateLessonPlanAction(
     lesson_length: length,
     student_level: level,
     delivery_mode: deliveryMode,
+    syllabus_scope_key: syllabusScopeKey,
   };
 
   // 1. Cached default for this topic — free.
@@ -87,7 +124,12 @@ export async function generateLessonPlanAction(
   // 2. No API key → deterministic built-in generator (not cached).
   if (!aiLessonPlannerEnabled()) {
     return {
-      plan: generateTutorPlan(lesson, { length, level, deliveryMode }),
+      plan: generateTutorPlan(lesson, {
+        length,
+        level,
+        deliveryMode,
+        syllabusScope,
+      }),
       source: "built-in",
     };
   }
@@ -98,6 +140,7 @@ export async function generateLessonPlanAction(
       length,
       level,
       deliveryMode,
+      syllabusScope,
     });
 
     const { error: upsertError } = await supabaseAdmin
@@ -107,11 +150,12 @@ export async function generateLessonPlanAction(
           ...cacheKey,
           model,
           plan: plan as unknown as Record<string, unknown>,
+          syllabus_scope: syllabusScope ?? null,
           updated_at: new Date().toISOString(),
         },
         {
           onConflict:
-            "course_slug,unit_slug,lesson_slug,lesson_length,student_level,delivery_mode",
+            "course_slug,unit_slug,lesson_slug,lesson_length,student_level,delivery_mode,syllabus_scope_key",
         },
       );
     if (upsertError) {
@@ -137,6 +181,7 @@ export type SavedPlanSummary = {
   lessonLength: number;
   studentLevel: string;
   deliveryMode: LessonDeliveryMode;
+  syllabusOutcomeCodes: string[];
   createdAt: string;
 };
 
@@ -163,6 +208,7 @@ export async function saveLessonPlanAction(
       lesson_length: length,
       student_level: level,
       delivery_mode: deliveryMode,
+      syllabus_scope: plan.syllabusScope ?? null,
       plan: plan as unknown as Record<string, unknown>,
     })
     .select("id")
@@ -180,7 +226,7 @@ export async function listSavedPlansAction(): Promise<
   const { data, error } = await supabaseAdmin
     .from("saved_lesson_plans")
     .select(
-      "id,title,course_slug,unit_slug,lesson_slug,lesson_length,student_level,delivery_mode,created_at",
+      "id,title,course_slug,unit_slug,lesson_slug,lesson_length,student_level,delivery_mode,syllabus_scope,created_at",
     )
     .order("created_at", { ascending: false })
     .limit(20);
@@ -197,6 +243,9 @@ export async function listSavedPlansAction(): Promise<
       lessonLength: row.lesson_length as number,
       studentLevel: normaliseStudentLevel(row.student_level as string),
       deliveryMode: normaliseDeliveryMode(row.delivery_mode as string | undefined),
+      syllabusOutcomeCodes:
+        ((row.syllabus_scope as TutorLessonPlan["syllabusScope"] | null)
+          ?.outcomes.map((outcome) => outcome.code) ?? []),
       createdAt: row.created_at as string,
     }),
   );
@@ -228,6 +277,9 @@ export async function loadSavedPlanAction(
       lessonLength: row.lesson_length as number,
       studentLevel: normaliseStudentLevel(row.student_level as string),
       deliveryMode: normaliseDeliveryMode(row.delivery_mode as string | undefined),
+      syllabusOutcomeCodes:
+        ((row.syllabus_scope as TutorLessonPlan["syllabusScope"] | null)
+          ?.outcomes.map((outcome) => outcome.code) ?? []),
       createdAt: row.created_at as string,
       plan: {
         ...(row.plan as unknown as TutorLessonPlan),
@@ -238,6 +290,10 @@ export async function loadSavedPlanAction(
           (row.plan as { deliveryMode?: string }).deliveryMode ??
             (row.delivery_mode as string | undefined),
         ),
+        syllabusScope:
+          (row.plan as { syllabusScope?: TutorLessonPlan["syllabusScope"] })
+            .syllabusScope ??
+          (row.syllabus_scope as TutorLessonPlan["syllabusScope"] | undefined),
       },
     },
   };

@@ -4,6 +4,7 @@ import { requireAdmin } from "../../../lib/adminSession";
 import { newCoursePathways } from "../../../lib/newCourseCatalog";
 import { year12AdvancedRouteUnits } from "../../../lib/year12AdvancedRoutes";
 import { year12AdvancedCourse } from "../../../lib/courseUnits";
+import { createYear9PlannerSyllabusPayload } from "../../../lib/syllabus/year9Nesa";
 import { listSavedPlansAction, type SavedPlanSummary } from "./actions";
 import { LessonMakerClient } from "./LessonMakerClient";
 
@@ -55,6 +56,7 @@ export default async function LessonMakerPage() {
   const savedResult = await listSavedPlansAction();
   const initialSavedPlans: SavedPlanSummary[] =
     "plans" in savedResult ? savedResult.plans : [];
+  const year9Syllabus = createYear9PlannerSyllabusPayload();
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900 print:bg-white print:px-0 print:py-0">
@@ -81,7 +83,11 @@ export default async function LessonMakerPage() {
           </Link>
         </header>
 
-        <LessonMakerClient catalog={catalog} initialSavedPlans={initialSavedPlans} />
+        <LessonMakerClient
+          catalog={catalog}
+          initialSavedPlans={initialSavedPlans}
+          year9Syllabus={year9Syllabus}
+        />
       </div>
     </main>
   );

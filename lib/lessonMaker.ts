@@ -9,6 +9,7 @@ import type {
   LessonDeliveryMode,
   StudentLevel,
 } from "./lessonPlannerConfig";
+import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
 
 export type { LessonDeliveryMode, StudentLevel } from "./lessonPlannerConfig";
 
@@ -144,6 +145,7 @@ export interface TutorLessonPlan {
   generatedAt: string;
   learningGoal: string;
   successCriteria: string[];
+  syllabusScope?: LessonSyllabusScope;
   sections: TutorSection[];
   // How the plan was produced. Older saved plans predate these fields.
   generator?: "ai" | "built-in";
@@ -248,6 +250,31 @@ function buildHomeworkSuggestion(lesson: ExplicitLesson): string {
   );
 }
 
+export function syllabusScopeItems(scope: LessonSyllabusScope): string[] {
+  return scope.outcomes.flatMap((outcome) => [
+    `${outcome.code}: ${outcome.description}`,
+    ...outcome.focusAreas.flatMap((focus) =>
+      focus.contentGroups.flatMap((group) =>
+        group.contentPoints.map((point) => `${point.code}: ${point.text}`),
+      ),
+    ),
+  ]);
+}
+
+export function scopedSuccessCriteria(
+  lesson: ExplicitLesson,
+  scope: LessonSyllabusScope | undefined,
+): string[] {
+  if (!scope) return lesson.successCriteria;
+  return scope.outcomes.flatMap((outcome) =>
+    outcome.focusAreas.flatMap((focus) =>
+      focus.contentGroups.flatMap((group) =>
+        group.contentPoints.map((point) => point.text),
+      ),
+    ),
+  );
+}
+
 export function buildScaffoldingSection(
   level: StudentLevel,
   deliveryMode: LessonDeliveryMode,
@@ -331,8 +358,10 @@ function generateCatchUpPlan(
   lesson: ExplicitLesson,
   level: StudentLevel,
   deliveryMode: LessonDeliveryMode,
+  syllabusScope?: LessonSyllabusScope,
 ): TutorLessonPlan {
   const sections: TutorSection[] = [];
+  const successCriteria = scopedSuccessCriteria(lesson, syllabusScope);
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);
   const independent = lesson.independentPractice.map(toTutorQuestion);
@@ -348,7 +377,7 @@ function generateCatchUpPlan(
     paragraphs: [
       `This is a catch-up recap — ${deliveryMode === "classroom" ? "the class has" : "the student has"} already been taught "${lesson.title}". The goal is to re-activate it, not re-teach it.`,
       `Ask from memory, before showing anything on screen:`,
-      ...criteriaToTeacherQuestions(lesson.successCriteria.slice(0, 2)).map(
+      ...criteriaToTeacherQuestions(successCriteria.slice(0, 2)).map(
         (q) => `• ${q}`
       ),
       ...(level === "level-1"
@@ -358,6 +387,16 @@ function generateCatchUpPlan(
         : []),
     ],
   });
+
+  if (syllabusScope) {
+    sections.push({
+      kind: "criteria",
+      id: "recap-syllabus-scope",
+      heading: "Selected NESA Syllabus Scope",
+      minutes: 0,
+      items: syllabusScopeItems(syllabusScope),
+    });
+  }
 
   // ── 2. Key formulas refresher ───────────────────────────────────────────
   if (lesson.teaching.latexBlocks.length > 0) {
@@ -430,9 +469,12 @@ function generateCatchUpPlan(
     length: 10,
     level,
     deliveryMode,
+    syllabusScope,
     generatedAt: new Date().toISOString(),
-    learningGoal: `Recap and re-activate: ${lesson.learningIntention}`,
-    successCriteria: lesson.successCriteria,
+    learningGoal: syllabusScope
+      ? `Recap the selected ${syllabusScope.stage} content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}.`
+      : `Recap and re-activate: ${lesson.learningIntention}`,
+    successCriteria,
     sections,
     generator: "built-in",
   };
@@ -446,11 +488,15 @@ export function generateTutorPlan(
     length: LessonLength;
     level: StudentLevel;
     deliveryMode: LessonDeliveryMode;
+    syllabusScope?: LessonSyllabusScope;
   },
 ): TutorLessonPlan {
-  const { length, level, deliveryMode } = opts;
-  if (length === 10) return generateCatchUpPlan(lesson, level, deliveryMode);
+  const { length, level, deliveryMode, syllabusScope } = opts;
+  if (length === 10) {
+    return generateCatchUpPlan(lesson, level, deliveryMode, syllabusScope);
+  }
   const sections: TutorSection[] = [];
+  const successCriteria = scopedSuccessCriteria(lesson, syllabusScope);
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);
   const independent = lesson.independentPractice.map(toTutorQuestion);
@@ -458,14 +504,18 @@ export function generateTutorPlan(
   const examples = lesson.workedExamples.map(toTutorWorkedExample);
 
   // ── 1. Prerequisites & learning goal ──────────────────────────────────────
-  const prereqQuestions = criteriaToTeacherQuestions(lesson.successCriteria.slice(0, 2));
+  const prereqQuestions = criteriaToTeacherQuestions(successCriteria.slice(0, 2));
   sections.push({
     kind: "text",
     id: "prerequisites",
     heading: "Prerequisites & Learning Goal",
     minutes: 3,
     paragraphs: [
-      `Learning goal: ${lesson.learningIntention}`,
+      `Learning goal: ${
+        syllabusScope
+          ? `Address the selected ${syllabusScope.stage} content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}.`
+          : lesson.learningIntention
+      }`,
       `Ask students before beginning:`,
       ...prereqQuestions.map((q) => `• ${q}`),
       ...(level === "level-1"
@@ -483,8 +533,18 @@ export function generateTutorPlan(
     id: "success-criteria",
     heading: "Success Criteria",
     minutes: 0,
-    items: lesson.successCriteria,
+    items: successCriteria,
   });
+
+  if (syllabusScope) {
+    sections.push({
+      kind: "criteria",
+      id: "syllabus-scope",
+      heading: "Selected NESA Syllabus Scope",
+      minutes: 0,
+      items: syllabusScopeItems(syllabusScope),
+    });
+  }
 
   sections.push(buildScaffoldingSection(level, deliveryMode));
 
@@ -587,7 +647,7 @@ export function generateTutorPlan(
     id: "questions-to-ask",
     heading: "Questions to Ask Students",
     minutes: 0,
-    prompts: criteriaToTeacherQuestions(lesson.successCriteria),
+    prompts: criteriaToTeacherQuestions(successCriteria),
   });
 
   // ── 12. Mini-whiteboard / CFU prompts ─────────────────────────────────────
@@ -596,7 +656,7 @@ export function generateTutorPlan(
     id: "cfu-prompts",
     heading: "Check for Understanding — Mini-Whiteboard Prompts",
     minutes: 2,
-    prompts: buildCFUPrompts(lesson.successCriteria),
+    prompts: buildCFUPrompts(successCriteria),
   });
 
   // ── 13. Extension challenge (60 min, or extension level) ──────────────────
@@ -642,9 +702,12 @@ export function generateTutorPlan(
     length,
     level,
     deliveryMode,
+    syllabusScope,
     generatedAt: new Date().toISOString(),
-    learningGoal: lesson.learningIntention,
-    successCriteria: lesson.successCriteria,
+    learningGoal: syllabusScope
+      ? `Meet the selected ${syllabusScope.stage} syllabus content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}.`
+      : lesson.learningIntention,
+    successCriteria,
     sections,
     generator: "built-in",
   };
