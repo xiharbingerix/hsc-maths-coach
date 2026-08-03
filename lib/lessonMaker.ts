@@ -9,6 +9,10 @@ import type {
   LessonDeliveryMode,
   StudentLevel,
 } from "./lessonPlannerConfig";
+import {
+  normaliseStudentLevels,
+  primaryStudentLevel,
+} from "./lessonPlannerConfig";
 import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
 
 export type { LessonDeliveryMode, StudentLevel } from "./lessonPlannerConfig";
@@ -139,7 +143,10 @@ export interface TutorLessonPlan {
   unit: string;
   syllabusArea: string;
   length: LessonLength;
+  /** Primary level retained for saved-plan backwards compatibility. */
   level: StudentLevel;
+  /** All learner groups this plan differentiates for. */
+  levels?: StudentLevel[];
   /** Older saved plans predate deliveryMode and should be treated as Zoom. */
   deliveryMode?: LessonDeliveryMode;
   generatedAt: string;
@@ -309,7 +316,7 @@ export function buildScaffoldingSection(
 
   return {
     kind: "text",
-    id: "level-scaffolding",
+    id: `${level}-scaffolding`,
     heading: `${level.replace("level-", "Level ")} Scaffolding`,
     minutes: 0,
     paragraphs: paragraphs[level],
@@ -356,10 +363,11 @@ export function selectIndependentQuestions(
 
 function generateCatchUpPlan(
   lesson: ExplicitLesson,
-  level: StudentLevel,
+  levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   syllabusScope?: LessonSyllabusScope,
 ): TutorLessonPlan {
+  const level = primaryStudentLevel(levels);
   const sections: TutorSection[] = [];
   const successCriteria = scopedSuccessCriteria(lesson, syllabusScope);
 
@@ -398,6 +406,22 @@ function generateCatchUpPlan(
     });
   }
 
+  for (const selectedLevel of levels) {
+    sections.push(buildScaffoldingSection(selectedLevel, deliveryMode));
+  }
+  if (levels.length > 1) {
+    sections.push({
+      kind: "text",
+      id: "recap-mixed-level-organisation",
+      heading: "Mixed-Level Class Organisation",
+      minutes: 0,
+      paragraphs: [
+        "Teach the recall opener and worked example together. During quick checks, give each group its labelled question set at the same time.",
+        "Begin with the Level 1 group to confirm they can start, circulate to Level 2, then check that Level 3 students are explaining and extending rather than only finishing faster.",
+      ],
+    });
+  }
+
   // ── 2. Key formulas refresher ───────────────────────────────────────────
   if (lesson.teaching.latexBlocks.length > 0) {
     sections.push({
@@ -422,13 +446,16 @@ function generateCatchUpPlan(
   }
 
   // ── 4. Quick checks ─────────────────────────────────────────────────────
-  const quickPool = level === "level-3" ? independent : guided;
-  const quickQs = quickPool.slice(0, 2);
-  if (quickQs.length > 0) {
+  for (const selectedLevel of levels) {
+    const quickQs = selectIndependentQuestions(lesson, selectedLevel, 10).slice(
+      0,
+      2,
+    );
+    if (quickQs.length === 0) continue;
     sections.push({
       kind: "questions",
-      id: "recap-quick-checks",
-      heading: "Quick Checks",
+      id: `recap-quick-checks-${selectedLevel}`,
+      heading: `Quick Checks — ${selectedLevel.replace("level-", "Level ")}`,
       minutes: 3,
       questions: quickQs,
     });
@@ -438,8 +465,8 @@ function generateCatchUpPlan(
   const exitQ =
     (level === "level-3" ? mastery[0] : independent[0]) ??
     mastery[0] ??
-    guided[quickQs.length];
-  if (exitQ && !quickQs.some((q) => q.id === exitQ.id)) {
+    guided[2];
+  if (exitQ) {
     sections.push({
       kind: "questions",
       id: "recap-exit-check",
@@ -468,6 +495,7 @@ function generateCatchUpPlan(
     syllabusArea: lesson.syllabusArea,
     length: 10,
     level,
+    levels,
     deliveryMode,
     syllabusScope,
     generatedAt: new Date().toISOString(),
@@ -486,14 +514,17 @@ export function generateTutorPlan(
   lesson: ExplicitLesson,
   opts: {
     length: LessonLength;
-    level: StudentLevel;
+    level?: StudentLevel;
+    levels?: StudentLevel[];
     deliveryMode: LessonDeliveryMode;
     syllabusScope?: LessonSyllabusScope;
   },
 ): TutorLessonPlan {
-  const { length, level, deliveryMode, syllabusScope } = opts;
+  const { length, deliveryMode, syllabusScope } = opts;
+  const levels = normaliseStudentLevels(opts.levels ?? opts.level);
+  const level = primaryStudentLevel(levels);
   if (length === 10) {
-    return generateCatchUpPlan(lesson, level, deliveryMode, syllabusScope);
+    return generateCatchUpPlan(lesson, levels, deliveryMode, syllabusScope);
   }
   const sections: TutorSection[] = [];
   const successCriteria = scopedSuccessCriteria(lesson, syllabusScope);
@@ -518,7 +549,7 @@ export function generateTutorPlan(
       }`,
       `Ask students before beginning:`,
       ...prereqQuestions.map((q) => `• ${q}`),
-      ...(level === "level-1"
+      ...(levels.includes("level-1")
         ? [
             `Note (Level 1): Take extra time here and address prerequisite gaps before moving on.`,
             `If students cannot answer the prerequisite questions, re-teach the smallest missing idea with a concrete example before starting.`,
@@ -546,7 +577,22 @@ export function generateTutorPlan(
     });
   }
 
-  sections.push(buildScaffoldingSection(level, deliveryMode));
+  for (const selectedLevel of levels) {
+    sections.push(buildScaffoldingSection(selectedLevel, deliveryMode));
+  }
+  if (levels.length > 1) {
+    sections.push({
+      kind: "text",
+      id: "mixed-level-organisation",
+      heading: "Mixed-Level Class Organisation",
+      minutes: 0,
+      paragraphs: [
+        "Teach the learning goal, core explanation and worked examples together. The selected groups then complete their labelled independent-practice pathways concurrently, not one after another.",
+        "Start circulation with Level 1 to secure a correct first step, check Level 2 for independent use of the method, then question Level 3 about reasoning, efficiency and generalisation.",
+        "Bring the class back together for the same outcome-based exit ticket. Use the evidence—not the group label—to decide who needs another scaffold or a further challenge.",
+      ],
+    });
+  }
 
   // ── 3. Warm-up questions ──────────────────────────────────────────────────
   const warmUpCount = length === 30 ? 2 : 3;
@@ -619,19 +665,27 @@ export function generateTutorPlan(
 
   // Every level receives independent practice. The quantity and difficulty
   // vary, while the success criteria remain common across all three levels.
-  const indepQs = selectIndependentQuestions(lesson, level, length);
-  if (indepQs.length > 0) {
-    sections.push({
-      kind: "questions",
-      id: "independent-practice",
-      heading: `Independent Practice — ${level.replace("level-", "Level ")}`,
-      minutes: Math.max(4, indepQs.length * 2),
-      questions: indepQs,
-    });
+  for (const selectedLevel of levels) {
+    const indepQs = selectIndependentQuestions(lesson, selectedLevel, length);
+    if (indepQs.length > 0) {
+      sections.push({
+        kind: "questions",
+        id:
+          levels.length === 1
+            ? "independent-practice"
+            : `independent-practice-${selectedLevel}`,
+        heading: `Independent Practice — ${selectedLevel.replace("level-", "Level ")}`,
+        minutes: Math.max(4, indepQs.length * 2),
+        questions: indepQs,
+      });
+    }
   }
 
   // ── 10. Common misconceptions ─────────────────────────────────────────────
-  if (lesson.commonMistakes.length > 0 && (length >= 45 || level === "level-1")) {
+  if (
+    lesson.commonMistakes.length > 0 &&
+    (length >= 45 || levels.includes("level-1"))
+  ) {
     sections.push({
       kind: "misconceptions",
       id: "misconceptions",
@@ -660,7 +714,7 @@ export function generateTutorPlan(
   });
 
   // ── 13. Extension challenge (60 min, or extension level) ──────────────────
-  const includeExtension = level === "level-3";
+  const includeExtension = levels.includes("level-3");
   if (includeExtension && mastery.length >= 2) {
     // Use the two hardest mastery questions (last two)
     const extQs = mastery.slice(-2);
@@ -701,6 +755,7 @@ export function generateTutorPlan(
     syllabusArea: lesson.syllabusArea,
     length,
     level,
+    levels,
     deliveryMode,
     syllabusScope,
     generatedAt: new Date().toISOString(),

@@ -19,7 +19,10 @@ import {
 } from "../../../lib/aiLessonPlanner";
 import {
   normaliseDeliveryMode,
-  normaliseStudentLevel,
+  normaliseStudentLevels,
+  primaryStudentLevel,
+  STUDENT_LEVEL_ORDER,
+  studentLevelKey,
 } from "../../../lib/lessonPlannerConfig";
 import { buildYear9SyllabusScope } from "../../../lib/syllabus/year9Nesa";
 
@@ -36,17 +39,41 @@ export type GenerateResult =
   | { plan: TutorLessonPlan; source: "cache" | "ai" | "built-in" }
   | { error: string };
 
+function validateStudentLevels(
+  levels: StudentLevel[],
+  deliveryMode: LessonDeliveryMode,
+): { levels: StudentLevel[]; key: string } | { error: string } {
+  const selectedLevels = normaliseStudentLevels(levels);
+  if (
+    !Array.isArray(levels) ||
+    levels.length === 0 ||
+    levels.some((level) => !STUDENT_LEVEL_ORDER.includes(level)) ||
+    selectedLevels.length !== new Set(levels).size
+  ) {
+    return { error: "Select at least one valid student level." };
+  }
+  if (deliveryMode === "zoom" && selectedLevels.length !== 1) {
+    return { error: "Zoom tutoring requires exactly one student level." };
+  }
+  return { levels: selectedLevels, key: studentLevelKey(selectedLevels) };
+}
+
 export async function generateLessonPlanAction(
   courseSlug: string,
   unitSlug: string,
   lessonSlug: string,
   length: LessonLength,
-  level: StudentLevel,
+  levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   selectedSyllabusContentCodes: string[],
   opts?: { forceRegenerate?: boolean },
 ): Promise<GenerateResult> {
   await requireAdmin();
+
+  const validatedLevels = validateStudentLevels(levels, deliveryMode);
+  if ("error" in validatedLevels) return validatedLevels;
+  const selectedLevels = validatedLevels.levels;
+  const levelKey = validatedLevels.key;
 
   // Year 12 Advanced has its own hand-authored registry; everything else
   // comes from the newCoursePathways catalog.
@@ -105,7 +132,7 @@ export async function generateLessonPlanAction(
     unit_slug: unitSlug,
     lesson_slug: lessonSlug,
     lesson_length: length,
-    student_level: level,
+    student_level: levelKey,
     delivery_mode: deliveryMode,
     syllabus_scope_key: syllabusScopeKey,
   };
@@ -126,7 +153,7 @@ export async function generateLessonPlanAction(
     return {
       plan: generateTutorPlan(lesson, {
         length,
-        level,
+        levels: selectedLevels,
         deliveryMode,
         syllabusScope,
       }),
@@ -138,7 +165,7 @@ export async function generateLessonPlanAction(
   try {
     const { plan, model } = await generateAiLessonPlan(lesson, {
       length,
-      level,
+      levels: selectedLevels,
       deliveryMode,
       syllabusScope,
     });
@@ -179,7 +206,7 @@ export type SavedPlanSummary = {
   unitSlug: string;
   lessonSlug: string;
   lessonLength: number;
-  studentLevel: string;
+  studentLevels: StudentLevel[];
   deliveryMode: LessonDeliveryMode;
   syllabusOutcomeCodes: string[];
   createdAt: string;
@@ -192,11 +219,13 @@ export async function saveLessonPlanAction(
   unitSlug: string,
   lessonSlug: string,
   length: LessonLength,
-  level: StudentLevel,
+  levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   plan: TutorLessonPlan,
 ): Promise<{ id: string } | { error: string }> {
   await requireAdmin();
+  const validatedLevels = validateStudentLevels(levels, deliveryMode);
+  if ("error" in validatedLevels) return validatedLevels;
 
   const { data, error } = await supabaseAdmin
     .from("saved_lesson_plans")
@@ -206,7 +235,7 @@ export async function saveLessonPlanAction(
       unit_slug: unitSlug,
       lesson_slug: lessonSlug,
       lesson_length: length,
-      student_level: level,
+      student_level: validatedLevels.key,
       delivery_mode: deliveryMode,
       syllabus_scope: plan.syllabusScope ?? null,
       plan: plan as unknown as Record<string, unknown>,
@@ -241,7 +270,7 @@ export async function listSavedPlansAction(): Promise<
       unitSlug: row.unit_slug as string,
       lessonSlug: row.lesson_slug as string,
       lessonLength: row.lesson_length as number,
-      studentLevel: normaliseStudentLevel(row.student_level as string),
+      studentLevels: normaliseStudentLevels(row.student_level),
       deliveryMode: normaliseDeliveryMode(row.delivery_mode as string | undefined),
       syllabusOutcomeCodes:
         ((row.syllabus_scope as TutorLessonPlan["syllabusScope"] | null)
@@ -275,26 +304,32 @@ export async function loadSavedPlanAction(
       unitSlug: row.unit_slug as string,
       lessonSlug: row.lesson_slug as string,
       lessonLength: row.lesson_length as number,
-      studentLevel: normaliseStudentLevel(row.student_level as string),
+      studentLevels: normaliseStudentLevels(row.student_level),
       deliveryMode: normaliseDeliveryMode(row.delivery_mode as string | undefined),
       syllabusOutcomeCodes:
         ((row.syllabus_scope as TutorLessonPlan["syllabusScope"] | null)
           ?.outcomes.map((outcome) => outcome.code) ?? []),
       createdAt: row.created_at as string,
-      plan: {
-        ...(row.plan as unknown as TutorLessonPlan),
-        level: normaliseStudentLevel(
-          (row.plan as { level?: string }).level ?? (row.student_level as string),
-        ),
-        deliveryMode: normaliseDeliveryMode(
-          (row.plan as { deliveryMode?: string }).deliveryMode ??
-            (row.delivery_mode as string | undefined),
-        ),
-        syllabusScope:
-          (row.plan as { syllabusScope?: TutorLessonPlan["syllabusScope"] })
-            .syllabusScope ??
-          (row.syllabus_scope as TutorLessonPlan["syllabusScope"] | undefined),
-      },
+      plan: (() => {
+        const storedPlan = row.plan as unknown as TutorLessonPlan;
+        const planLevels = normaliseStudentLevels(
+          storedPlan.levels,
+          storedPlan.level ?? (row.student_level as string),
+        );
+        return {
+          ...storedPlan,
+          level: primaryStudentLevel(planLevels),
+          levels: planLevels,
+          deliveryMode: normaliseDeliveryMode(
+            (row.plan as { deliveryMode?: string }).deliveryMode ??
+              (row.delivery_mode as string | undefined),
+          ),
+          syllabusScope:
+            (row.plan as { syllabusScope?: TutorLessonPlan["syllabusScope"] })
+              .syllabusScope ??
+            (row.syllabus_scope as TutorLessonPlan["syllabusScope"] | undefined),
+        };
+      })(),
     },
   };
 }

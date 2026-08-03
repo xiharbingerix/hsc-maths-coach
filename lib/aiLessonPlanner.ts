@@ -26,6 +26,10 @@ import type {
 import { pickDiagramFields } from "./lessons/diagramRegistry";
 import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
 import {
+  normaliseStudentLevels,
+  primaryStudentLevel,
+} from "./lessonPlannerConfig";
+import {
   buildScaffoldingSection,
   scopedSuccessCriteria,
   selectIndependentQuestions,
@@ -194,8 +198,9 @@ LESSON ARC (adapt its delivery to the selected mode):
 
 DIFFERENTIATION — REQUIRED:
 - Preserve the supplied syllabus outcome and success criteria at every level. Level 1 changes the size of the steps, amount of support and number of questions; it does not replace the outcome with an easier one.
-- Include a dedicated text section named “Level 1 Scaffolding”, “Level 2 Scaffolding” or “Level 3 Scaffolding” as appropriate. It must contain the exact prompts, representations and support/fading moves the teacher or tutor will use.
-- Include a questions section named “Independent Practice — Level 1”, “Independent Practice — Level 2” or “Independent Practice — Level 3”. Its question count and difficulty must match the selected level guidance. Independent practice means the learner attempts before help is given.
+- For EACH selected learner level, include a dedicated text section named exactly “Level 1 Scaffolding”, “Level 2 Scaffolding” or “Level 3 Scaffolding”. It must contain the exact prompts, representations and support/fading moves the teacher or tutor will use with that group.
+- For EACH selected learner level, include a questions section named exactly “Independent Practice — Level 1”, “Independent Practice — Level 2” or “Independent Practice — Level 3”. Its question count and difficulty must match that level's guidance. These groups work concurrently during the independent-practice allocation, so do not multiply the overall lesson time by the number of groups.
+- Keep a common learning goal and outcome across the class. Differentiate access, support, quantity, depth and challenge—not the required syllabus outcome.
 
 SYLLABUS ALIGNMENT — WHEN A SELECTED NESA SCOPE IS PROVIDED:
 - Treat the selected NESA outcome and content points as a binding contract. Rewrite the learning goal and success criteria so they directly assess that selected scope.
@@ -269,7 +274,7 @@ Keep every section tight, introduce NO new material, and keep total section minu
 function buildUserContent(
   lesson: ExplicitLesson,
   length: LessonLength,
-  level: StudentLevel,
+  levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   syllabusScope?: LessonSyllabusScope,
 ): string {
@@ -337,7 +342,11 @@ function buildUserContent(
     `LESSON LENGTH: ${length} minutes (section minutes must sum to this)`,
     ...(length === 10 ? [RECAP_MODE] : []),
     `DELIVERY MODE: ${DELIVERY_GUIDANCE[deliveryMode]}`,
-    `LEARNER PROFILE: ${LEVEL_GUIDANCE[level]}`,
+    `SELECTED LEARNER LEVELS (${levels.length}):`,
+    ...levels.map((level) => LEVEL_GUIDANCE[level]),
+    levels.length > 1
+      ? `MIXED-LEVEL CLASS: Plan one coherent shared teaching arc, then provide clearly labelled scaffolding and concurrent independent-practice pathways for every selected level.`
+      : `SINGLE LEVEL: Differentiate the lesson for the selected learner profile.`,
     ``,
     `AUTHORED TEACHING NOTES (source material — rework into your own explicit-teaching script, do not just copy):`,
     ...lesson.teaching.paragraphs.map((p) => clip(p, 2000)),
@@ -384,11 +393,12 @@ function assemblePlan(
   ai: AiPlan,
   lesson: ExplicitLesson,
   length: LessonLength,
-  level: StudentLevel,
+  levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   syllabusScope: LessonSyllabusScope | undefined,
   model: string,
 ): TutorLessonPlan {
+  const level = primaryStudentLevel(levels);
   const bank = buildQuestionMap(lesson);
   const usedIds = new Set<string>();
   const sections: TutorSection[] = [];
@@ -495,20 +505,53 @@ function assemblePlan(
 
   // The prompt requires both, but retain a deterministic safety net so every
   // generated plan always contains level-specific support and independent work.
-  if (!sections.some((section) => /scaffold/i.test(section.heading))) {
-    sections.splice(Math.min(2, sections.length), 0, buildScaffoldingSection(level, deliveryMode));
+  if (
+    levels.length > 1 &&
+    !sections.some((section) => /mixed-level class organisation/i.test(section.heading))
+  ) {
+    sections.splice(Math.min(2, sections.length), 0, {
+      kind: "text",
+      id: "ai-mixed-level-organisation",
+      heading: "Mixed-Level Class Organisation",
+      minutes: 0,
+      paragraphs: [
+        "Teach the core explanation and worked examples together. The selected groups complete their labelled independent-practice pathways at the same time, not one after another.",
+        "Start circulation with Level 1 to secure a correct first step, then check Level 2 for independence and Level 3 for reasoning, efficiency and generalisation.",
+      ],
+    });
   }
-  if (!sections.some((section) => /independent practice/i.test(section.heading))) {
-    const questions = selectIndependentQuestions(lesson, level, length).filter(
-      (question) => !usedIds.has(question.id),
-    );
+  for (const selectedLevel of levels) {
+    const levelLabel = selectedLevel.replace("level-", "Level ");
+    if (
+      !sections.some(
+        (section) =>
+          section.heading.toLowerCase() ===
+          `${levelLabel.toLowerCase()} scaffolding`,
+      )
+    ) {
+      sections.splice(
+        Math.min(2, sections.length),
+        0,
+        buildScaffoldingSection(selectedLevel, deliveryMode),
+      );
+    }
+    if (
+      sections.some(
+        (section) =>
+          section.heading.toLowerCase() ===
+          `independent practice — ${levelLabel.toLowerCase()}`,
+      )
+    ) {
+      continue;
+    }
+    const questions = selectIndependentQuestions(lesson, selectedLevel, length);
     if (questions.length > 0) {
       const homeworkIndex = sections.findIndex((section) => section.kind === "homework");
       const insertionIndex = homeworkIndex === -1 ? sections.length : homeworkIndex;
       sections.splice(insertionIndex, 0, {
         kind: "questions",
-        id: "ai-independent-practice-fallback",
-        heading: `Independent Practice — ${level.replace("level-", "Level ")}`,
+        id: `ai-independent-practice-fallback-${selectedLevel}`,
+        heading: `Independent Practice — ${levelLabel}`,
         minutes: Math.max(4, questions.length * 2),
         questions,
       });
@@ -553,6 +596,7 @@ function assemblePlan(
     syllabusArea: lesson.syllabusArea,
     length,
     level,
+    levels,
     deliveryMode,
     syllabusScope,
     generatedAt: new Date().toISOString(),
@@ -599,7 +643,7 @@ export async function generateAiLessonPlan(
   lesson: ExplicitLesson,
   opts: {
     length: LessonLength;
-    level: StudentLevel;
+    levels: StudentLevel[];
     deliveryMode: LessonDeliveryMode;
     syllabusScope?: LessonSyllabusScope;
   },
@@ -609,10 +653,11 @@ export async function generateAiLessonPlan(
   }
 
   const client = new Anthropic();
+  const levels = normaliseStudentLevels(opts.levels);
   const userContent = buildUserContent(
     lesson,
     opts.length,
-    opts.level,
+    levels,
     opts.deliveryMode,
     opts.syllabusScope,
   );
@@ -658,7 +703,7 @@ export async function generateAiLessonPlan(
     ai,
     lesson,
     opts.length,
-    opts.level,
+    levels,
     opts.deliveryMode,
     opts.syllabusScope,
     model,

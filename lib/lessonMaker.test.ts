@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { generateTutorPlan } from "./lessonMaker";
+import {
+  normaliseStudentLevels,
+  studentLevelKey,
+} from "./lessonPlannerConfig";
 import type { ExplicitLesson, PracticeQuestion } from "./lessons/differentialCalculus";
 import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
 
@@ -156,4 +160,68 @@ test("a selected NESA scope replaces broad criteria and is retained in the plan"
     "MA5-FIN-C-01: solves financial mathematics problems",
     "MA5-FIN-C-01-01: Apply the simple interest formula to solve problems",
   ]);
+});
+
+test("mixed classes receive scaffolding and independent practice for every selected level", () => {
+  const plan = generateTutorPlan(fixture, {
+    length: 45,
+    levels: ["level-3", "level-1", "level-2"],
+    deliveryMode: "classroom",
+  });
+
+  assert.deepEqual(plan.levels, ["level-1", "level-2", "level-3"]);
+  assert.equal(plan.level, "level-2");
+  assert.ok(
+    plan.sections.some(
+      (section) => section.heading === "Mixed-Level Class Organisation",
+    ),
+  );
+
+  for (const level of ["level-1", "level-2", "level-3"] as const) {
+    const label = level.replace("level-", "Level ");
+    assert.ok(
+      plan.sections.some(
+        (section) => section.heading === `${label} Scaffolding`,
+      ),
+    );
+    assert.ok(
+      plan.sections.some(
+        (section) =>
+          section.kind === "questions" &&
+          section.heading === `Independent Practice — ${label}`,
+      ),
+    );
+  }
+});
+
+test("student-level keys round-trip old and mixed saved-plan values", () => {
+  assert.deepEqual(normaliseStudentLevels("level-2"), ["level-2"]);
+  assert.deepEqual(normaliseStudentLevels("struggling"), ["level-1"]);
+  assert.deepEqual(normaliseStudentLevels("level-3+level-1"), [
+    "level-1",
+    "level-3",
+  ]);
+  assert.equal(studentLevelKey(["level-3", "level-1"]), "level-1+level-3");
+});
+
+test("mixed-level catch-up recaps provide a quick-check pathway per group", () => {
+  const plan = generateTutorPlan(fixture, {
+    length: 10,
+    levels: ["level-1", "level-3"],
+    deliveryMode: "classroom",
+  });
+
+  assert.deepEqual(plan.levels, ["level-1", "level-3"]);
+  for (const label of ["Level 1", "Level 3"]) {
+    assert.ok(
+      plan.sections.some(
+        (section) => section.heading === `${label} Scaffolding`,
+      ),
+    );
+    assert.ok(
+      plan.sections.some(
+        (section) => section.heading === `Quick Checks — ${label}`,
+      ),
+    );
+  }
 });
