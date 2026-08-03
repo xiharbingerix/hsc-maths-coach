@@ -13,7 +13,10 @@ import {
   normaliseStudentLevels,
   primaryStudentLevel,
 } from "./lessonPlannerConfig";
-import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
+import type {
+  LessonPriorAttainment,
+  LessonSyllabusScope,
+} from "./syllabus/year9Nesa";
 
 export type { LessonDeliveryMode, StudentLevel } from "./lessonPlannerConfig";
 
@@ -153,6 +156,7 @@ export interface TutorLessonPlan {
   learningGoal: string;
   successCriteria: string[];
   syllabusScope?: LessonSyllabusScope;
+  priorAttainment?: LessonPriorAttainment;
   sections: TutorSection[];
   // How the plan was produced. Older saved plans predate these fields.
   generator?: "ai" | "built-in";
@@ -282,6 +286,56 @@ export function scopedSuccessCriteria(
   );
 }
 
+export function priorAttainmentItems(
+  priorAttainment: LessonPriorAttainment,
+): string[] {
+  return priorAttainment.outcomes.flatMap((outcome) => [
+    `${outcome.code}: ${outcome.fullyMetWithinLessonScope ? "all selected content already met" : "some selected content already met"}`,
+    ...outcome.contentPoints.map((point) => `${point.code}: ${point.text}`),
+  ]);
+}
+
+function selectedSyllabusContentPointCount(scope: LessonSyllabusScope): number {
+  return scope.outcomes.reduce(
+    (outcomeTotal, outcome) =>
+      outcomeTotal +
+      outcome.focusAreas.reduce(
+        (focusTotal, focus) =>
+          focusTotal +
+          focus.contentGroups.reduce(
+            (groupTotal, group) => groupTotal + group.contentPoints.length,
+            0,
+          ),
+        0,
+      ),
+    0,
+  );
+}
+
+export function allSelectedContentAlreadyMet(
+  scope: LessonSyllabusScope | undefined,
+  priorAttainment: LessonPriorAttainment | undefined,
+): boolean {
+  return Boolean(
+    scope &&
+      priorAttainment &&
+      priorAttainment.contentPointCodes.length ===
+        selectedSyllabusContentPointCount(scope),
+  );
+}
+
+export function priorAttainmentTeacherDirection(
+  priorAttainment: LessonPriorAttainment,
+  allContentMet: boolean,
+): string[] {
+  return [
+    "Treat the content listed below as already learned. Do one brief retrieval check without modelling the method first. If students recall it securely, move on immediately; do not repeat the original explanation or routine examples.",
+    allContentMet
+      ? "All selected content is already met. Use this lesson for unfamiliar applications, connections, reasoning, comparison of methods and extension—not first teaching."
+      : "Use the already-met content as the bridge into the remaining selected content. Explicit teaching should focus only on what is not marked as already met.",
+  ];
+}
+
 export function buildScaffoldingSection(
   level: StudentLevel,
   deliveryMode: LessonDeliveryMode,
@@ -366,10 +420,15 @@ function generateCatchUpPlan(
   levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   syllabusScope?: LessonSyllabusScope,
+  priorAttainment?: LessonPriorAttainment,
 ): TutorLessonPlan {
   const level = primaryStudentLevel(levels);
   const sections: TutorSection[] = [];
   const successCriteria = scopedSuccessCriteria(lesson, syllabusScope);
+  const allContentMet = allSelectedContentAlreadyMet(
+    syllabusScope,
+    priorAttainment,
+  );
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);
   const independent = lesson.independentPractice.map(toTutorQuestion);
@@ -403,6 +462,26 @@ function generateCatchUpPlan(
       heading: "Selected NESA Syllabus Scope",
       minutes: 0,
       items: syllabusScopeItems(syllabusScope),
+    });
+  }
+
+  if (priorAttainment) {
+    sections.push({
+      kind: "criteria",
+      id: "recap-prior-attainment",
+      heading: "Already Met — Do Not Reteach",
+      minutes: 0,
+      items: priorAttainmentItems(priorAttainment),
+    });
+    sections.push({
+      kind: "text",
+      id: "recap-prior-attainment-direction",
+      heading: "How to Use Prior Attainment",
+      minutes: 0,
+      paragraphs: priorAttainmentTeacherDirection(
+        priorAttainment,
+        allContentMet,
+      ),
     });
   }
 
@@ -498,9 +577,12 @@ function generateCatchUpPlan(
     levels,
     deliveryMode,
     syllabusScope,
+    priorAttainment,
     generatedAt: new Date().toISOString(),
-    learningGoal: syllabusScope
-      ? `Recap the selected ${syllabusScope.stage} content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}.`
+    learningGoal: allContentMet
+      ? `Apply and extend the already-met ${syllabusScope?.stage ?? "syllabus"} content without reteaching it.`
+      : syllabusScope
+        ? `Recap the selected ${syllabusScope.stage} content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}, using already-met content only as a brief retrieval bridge.`
       : `Recap and re-activate: ${lesson.learningIntention}`,
     successCriteria,
     sections,
@@ -518,16 +600,27 @@ export function generateTutorPlan(
     levels?: StudentLevel[];
     deliveryMode: LessonDeliveryMode;
     syllabusScope?: LessonSyllabusScope;
+    priorAttainment?: LessonPriorAttainment;
   },
 ): TutorLessonPlan {
-  const { length, deliveryMode, syllabusScope } = opts;
+  const { length, deliveryMode, syllabusScope, priorAttainment } = opts;
   const levels = normaliseStudentLevels(opts.levels ?? opts.level);
   const level = primaryStudentLevel(levels);
   if (length === 10) {
-    return generateCatchUpPlan(lesson, levels, deliveryMode, syllabusScope);
+    return generateCatchUpPlan(
+      lesson,
+      levels,
+      deliveryMode,
+      syllabusScope,
+      priorAttainment,
+    );
   }
   const sections: TutorSection[] = [];
   const successCriteria = scopedSuccessCriteria(lesson, syllabusScope);
+  const allContentMet = allSelectedContentAlreadyMet(
+    syllabusScope,
+    priorAttainment,
+  );
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);
   const independent = lesson.independentPractice.map(toTutorQuestion);
@@ -543,7 +636,9 @@ export function generateTutorPlan(
     minutes: 3,
     paragraphs: [
       `Learning goal: ${
-        syllabusScope
+        allContentMet
+          ? "Apply and extend the selected content that students have already met."
+          : syllabusScope
           ? `Address the selected ${syllabusScope.stage} content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}.`
           : lesson.learningIntention
       }`,
@@ -574,6 +669,26 @@ export function generateTutorPlan(
       heading: "Selected NESA Syllabus Scope",
       minutes: 0,
       items: syllabusScopeItems(syllabusScope),
+    });
+  }
+
+  if (priorAttainment) {
+    sections.push({
+      kind: "criteria",
+      id: "prior-attainment",
+      heading: "Already Met — Do Not Reteach",
+      minutes: 0,
+      items: priorAttainmentItems(priorAttainment),
+    });
+    sections.push({
+      kind: "text",
+      id: "prior-attainment-direction",
+      heading: "How to Use Prior Attainment",
+      minutes: 0,
+      paragraphs: priorAttainmentTeacherDirection(
+        priorAttainment,
+        allContentMet,
+      ),
     });
   }
 
@@ -614,7 +729,17 @@ export function generateTutorPlan(
     id: "teaching-script",
     heading: "Teaching Script",
     minutes: scriptMins,
-    paragraphs: lesson.teaching.paragraphs,
+    paragraphs: allContentMet
+      ? [
+          "Skip the first-teach explanation. Ask students to retrieve the method, explain why it works, and use it in an unfamiliar application or connection.",
+          "Only pause for a short corrective explanation if the retrieval check shows that the prior learning is no longer secure.",
+        ]
+      : priorAttainment
+        ? [
+            "Do not re-explain the content marked as already met. Use it briefly to connect into the new learning below.",
+            ...lesson.teaching.paragraphs,
+          ]
+        : lesson.teaching.paragraphs,
   });
 
   // ── 5. Key formulas ───────────────────────────────────────────────────────
@@ -758,9 +883,12 @@ export function generateTutorPlan(
     levels,
     deliveryMode,
     syllabusScope,
+    priorAttainment,
     generatedAt: new Date().toISOString(),
-    learningGoal: syllabusScope
-      ? `Meet the selected ${syllabusScope.stage} syllabus content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}.`
+    learningGoal: allContentMet
+      ? `Apply, connect and extend the already-met ${syllabusScope?.stage ?? "syllabus"} content without reteaching it.`
+      : syllabusScope
+        ? `Meet the remaining selected ${syllabusScope.stage} content for ${syllabusScope.outcomes.map((outcome) => outcome.code).join(", ")}, using prior attainment as a bridge.`
       : lesson.learningIntention,
     successCriteria,
     sections,

@@ -65,6 +65,16 @@ export type LessonSyllabusScope = {
   }>;
 };
 
+export type LessonPriorAttainment = {
+  contentPointCodes: string[];
+  outcomes: Array<{
+    code: string;
+    description: string;
+    fullyMetWithinLessonScope: boolean;
+    contentPoints: Array<{ code: string; text: string }>;
+  }>;
+};
+
 export type PlannerNesaFocusArea = {
   id: string;
   title: string;
@@ -253,6 +263,57 @@ export function buildYear9SyllabusScope(
     stage: year9NesaSyllabus.stage,
     sourceUrl: year9NesaSyllabus.sourceUrl,
     workingMathematically: year9NesaSyllabus.workingMathematically,
+    outcomes,
+  };
+}
+
+export function buildLessonPriorAttainment(
+  syllabusScope: LessonSyllabusScope | undefined,
+  alreadyMetContentPointCodes: string[],
+): LessonPriorAttainment | undefined {
+  if (!syllabusScope || alreadyMetContentPointCodes.length === 0) {
+    return undefined;
+  }
+
+  const requestedCodes = new Set(alreadyMetContentPointCodes);
+  const scopedPoints = new Map<string, { text: string; outcomeCode: string }>();
+  for (const outcome of syllabusScope.outcomes) {
+    for (const focus of outcome.focusAreas) {
+      for (const group of focus.contentGroups) {
+        for (const point of group.contentPoints) {
+          scopedPoints.set(point.code, {
+            text: point.text,
+            outcomeCode: outcome.code,
+          });
+        }
+      }
+    }
+  }
+
+  if ([...requestedCodes].some((code) => !scopedPoints.has(code))) {
+    return undefined;
+  }
+
+  const outcomes = syllabusScope.outcomes
+    .map((outcome) => {
+      const selectedOutcomePoints = outcome.focusAreas.flatMap((focus) =>
+        focus.contentGroups.flatMap((group) => group.contentPoints),
+      );
+      const contentPoints = selectedOutcomePoints
+        .filter((point) => requestedCodes.has(point.code))
+        .map((point) => ({ code: point.code, text: point.text }));
+      return {
+        code: outcome.code,
+        description: outcome.description,
+        fullyMetWithinLessonScope:
+          contentPoints.length === selectedOutcomePoints.length,
+        contentPoints,
+      };
+    })
+    .filter((outcome) => outcome.contentPoints.length > 0);
+
+  return {
+    contentPointCodes: [...requestedCodes].sort(),
     outcomes,
   };
 }

@@ -24,13 +24,19 @@ import type {
   PracticeQuestion,
 } from "./lessons/differentialCalculus";
 import { pickDiagramFields } from "./lessons/diagramRegistry";
-import type { LessonSyllabusScope } from "./syllabus/year9Nesa";
+import type {
+  LessonPriorAttainment,
+  LessonSyllabusScope,
+} from "./syllabus/year9Nesa";
 import {
   normaliseStudentLevels,
   primaryStudentLevel,
 } from "./lessonPlannerConfig";
 import {
+  allSelectedContentAlreadyMet,
   buildScaffoldingSection,
+  priorAttainmentItems,
+  priorAttainmentTeacherDirection,
   scopedSuccessCriteria,
   selectIndependentQuestions,
   syllabusScopeItems,
@@ -210,6 +216,14 @@ SYLLABUS ALIGNMENT — WHEN A SELECTED NESA SCOPE IS PROVIDED:
 - Include a zero-minute criteria section named “NESA Syllabus Alignment” listing the outcome code(s) and selected content-point code(s) exactly.
 - Embed MAO-WM-01 through suitable reasoning, problem-solving and communication prompts; do not treat it as a separate topic.
 
+PRIOR ATTAINMENT — WHEN ALREADY-MET CONTENT IS PROVIDED:
+- Trust the teacher's prior-attainment selection. Do not introduce or model already-met content as if it were new.
+- Use at most one brief, unmodelled retrieval check for already-met content. If recalled, move on immediately and use it as a bridge, prerequisite or ingredient in a richer task.
+- Put explicit explanations, worked first-teach examples and guided instruction on the selected content that is NOT marked already met.
+- Already-met content may appear in independent practice only through application, connection, reasoning, mixed problems or extension—not repetitive routine reteaching.
+- If every selected content point is already met, make the whole lesson consolidation and extension: unfamiliar applications, connections, comparison of methods, justification and generalisation.
+- Include a zero-minute criteria section named exactly “Already Met — Do Not Reteach” listing the already-met outcome and content-point codes.
+
 SECTION TYPES available: "text" (teaching script paragraphs), "formulas" (display LaTeX blocks to screen-share), "dialogue" (a Socratic tutor↔student script: tutor lines are what the tutor says/asks; student lines are the expected response the tutor listens for), "worked-example", "questions", "misconceptions", "prompts" (short verbal check-for-understanding questions), "homework".
 
 STRING CONVENTIONS (exact — these are machine-parsed):
@@ -277,6 +291,7 @@ function buildUserContent(
   levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   syllabusScope?: LessonSyllabusScope,
+  priorAttainment?: LessonPriorAttainment,
 ): string {
   const pools: [string, PracticeQuestion[]][] = [
     ["GUIDED PRACTICE BANK", lesson.guidedPractice],
@@ -327,6 +342,19 @@ function buildUserContent(
       ].join("\n")
     : "NO EXPLICIT SYLLABUS SUBSELECTION: use the authored lesson intention and success criteria.";
 
+  const priorAttainmentBlock = priorAttainment
+    ? [
+        `PRIOR ATTAINMENT — BINDING:`,
+        `The teacher has confirmed that the following selected content has already been met. Do not reteach it as new:`,
+        ...priorAttainment.outcomes.flatMap((outcome) => [
+          `OUTCOME ${outcome.code}${outcome.fullyMetWithinLessonScope ? " — ALL SELECTED CONTENT MET" : " — PARTLY MET"}: ${outcome.description}`,
+          ...outcome.contentPoints.map(
+            (point) => `- ALREADY MET ${point.code}: ${point.text}`,
+          ),
+        ]),
+      ].join("\n")
+    : "NO PRIOR ATTAINMENT MARKED: teach the selected scope according to the learner-level guidance.";
+
   return [
     `TOPIC: ${lesson.title}`,
     `COURSE: ${lesson.courseTitle} — UNIT: ${lesson.moduleTitle}`,
@@ -338,6 +366,7 @@ function buildUserContent(
       : lesson.syllabusOutcomes?.length
       ? `NSW SYLLABUS OUTCOMES (must remain achievable at every level):\n${lesson.syllabusOutcomes.map((o) => `- ${o}`).join("\n")}`
       : `OUTCOME REQUIREMENT: Every level must still achieve the learning intention and success criteria above.`,
+    priorAttainmentBlock,
     ``,
     `LESSON LENGTH: ${length} minutes (section minutes must sum to this)`,
     ...(length === 10 ? [RECAP_MODE] : []),
@@ -396,9 +425,14 @@ function assemblePlan(
   levels: StudentLevel[],
   deliveryMode: LessonDeliveryMode,
   syllabusScope: LessonSyllabusScope | undefined,
+  priorAttainment: LessonPriorAttainment | undefined,
   model: string,
 ): TutorLessonPlan {
   const level = primaryStudentLevel(levels);
+  const allContentMet = allSelectedContentAlreadyMet(
+    syllabusScope,
+    priorAttainment,
+  );
   const bank = buildQuestionMap(lesson);
   const usedIds = new Set<string>();
   const sections: TutorSection[] = [];
@@ -520,6 +554,36 @@ function assemblePlan(
       ],
     });
   }
+
+  if (
+    priorAttainment &&
+    !sections.some(
+      (section) => section.heading === "Already Met — Do Not Reteach",
+    )
+  ) {
+    sections.splice(Math.min(1, sections.length), 0, {
+      kind: "criteria",
+      id: "ai-prior-attainment",
+      heading: "Already Met — Do Not Reteach",
+      minutes: 0,
+      items: priorAttainmentItems(priorAttainment),
+    });
+  }
+  if (
+    priorAttainment &&
+    !sections.some((section) => section.heading === "How to Use Prior Attainment")
+  ) {
+    sections.splice(Math.min(2, sections.length), 0, {
+      kind: "text",
+      id: "ai-prior-attainment-direction",
+      heading: "How to Use Prior Attainment",
+      minutes: 0,
+      paragraphs: priorAttainmentTeacherDirection(
+        priorAttainment,
+        allContentMet,
+      ),
+    });
+  }
   for (const selectedLevel of levels) {
     const levelLabel = selectedLevel.replace("level-", "Level ");
     if (
@@ -599,10 +663,12 @@ function assemblePlan(
     levels,
     deliveryMode,
     syllabusScope,
+    priorAttainment,
     generatedAt: new Date().toISOString(),
-    learningGoal:
-      (typeof ai.learningGoal === "string" && ai.learningGoal.trim()) ||
-      lesson.learningIntention,
+    learningGoal: allContentMet
+      ? `Apply, connect and extend the already-met ${syllabusScope?.stage ?? "syllabus"} content without reteaching it.`
+      : (typeof ai.learningGoal === "string" && ai.learningGoal.trim()) ||
+        lesson.learningIntention,
     successCriteria,
     sections,
     generator: "ai",
@@ -646,6 +712,7 @@ export async function generateAiLessonPlan(
     levels: StudentLevel[];
     deliveryMode: LessonDeliveryMode;
     syllabusScope?: LessonSyllabusScope;
+    priorAttainment?: LessonPriorAttainment;
   },
 ): Promise<{ plan: TutorLessonPlan; model: string }> {
   if (!aiLessonPlannerEnabled()) {
@@ -660,6 +727,7 @@ export async function generateAiLessonPlan(
     levels,
     opts.deliveryMode,
     opts.syllabusScope,
+    opts.priorAttainment,
   );
 
   let model = MODEL;
@@ -706,6 +774,7 @@ export async function generateAiLessonPlan(
     levels,
     opts.deliveryMode,
     opts.syllabusScope,
+    opts.priorAttainment,
     model,
   );
 
