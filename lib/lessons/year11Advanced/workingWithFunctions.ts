@@ -1221,11 +1221,11 @@ function baseYear11AdvancedWorkingFunctionsLessonOverride(
         qa("y11adv-var-g4", "Using direct variation $y = 4x$, find $y$ when $x = 6$.", "", "24", "Substitute x = 6 directly.", "y = 4(6) = 24."),
       ],
       independentPractice: [
-        qa("y11adv-var-i1", "If $y \propto x$ and $y = 15$ when $x = 3$, find $y$ when $x = 8$.", "", "40", "Find k = 15/3 = 5, then y = 5 times 8.", "k = 5. y = 5 times 8 = 40."),
-        qa("y11adv-var-i2", "If $y \propto 1/x$ and $y = 6$ when $x = 4$, find $k$.", "", "24", "k = xy.", "k = 4 times 6 = 24."),
+        qa("y11adv-var-i1", "If $y \\propto x$ and $y = 15$ when $x = 3$, find $y$ when $x = 8$.", "", "40", "Find k = 15/3 = 5, then y = 5 times 8.", "k = 5. y = 5 times 8 = 40."),
+        qa("y11adv-var-i2", "If $y \\propto 1/x$ and $y = 6$ when $x = 4$, find $k$.", "", "24", "k = xy.", "k = 4 times 6 = 24."),
         practicalChoice("y11adv-var-i3", "The graph of $y = k/x$ with $k > 0$ passes through which quadrants?", "B", ["I and II", "I and III", "II and IV", "I and IV"], "For k > 0, when x > 0 then y > 0 (quadrant I), and when x < 0 then y < 0 (quadrant III). The curve never passes through II or IV."),
         qa("y11adv-var-i4", "If $y = k/x$ and $k = 30$, find $y$ when $x = 5$.", "", "6", "Divide k by x.", "y = 30/5 = 6."),
-        qa("y11adv-var-i5", "If $y \propto x$ and $y = 56$ when $x = 7$, find $k$.", "", "8", "k = y/x.", "k = 56/7 = 8."),
+        qa("y11adv-var-i5", "If $y \\propto x$ and $y = 56$ when $x = 7$, find $k$.", "", "8", "k = y/x.", "k = 56/7 = 8."),
       ],
       commonMistakes: [
         { mistake: "Confusing direct variation y = kx with a general linear function y = mx + c.", fix: "Direct variation always passes through (0, 0). If there is a non-zero y-intercept, it is not direct variation." },

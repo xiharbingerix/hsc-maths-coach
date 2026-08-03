@@ -751,7 +751,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm2",
     prompt:
       "A student substitutes the point directly into the derivative as shown. Which critique identifies the error?",
-    latex: "f'(x)=4x,\quad f(2)=10;\qquad 10=4(2)+C",
+    latex: "f'(x)=4x,\\quad f(2)=10;\\qquad 10=4(2)+C",
     answer: "D",
     choices: [
       "The substitution is valid, but the constant should be multiplied by x.",
@@ -777,7 +777,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm3",
     prompt:
       "A curve has the displayed gradient and passes through the stated point. Determine f(2).",
-    latex: "f'(x)=3x^2+2,\qquad f(0)=-4",
+    latex: "f'(x)=3x^2+2,\\qquad f(0)=-4",
     answer: "8",
     acceptedAnswers: ["8.0", "f(2)=8", "f(2) = 8"],
     hint:
@@ -819,7 +819,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm5",
     prompt:
       "A single function satisfies the derivative and both conditions. Determine the parameter k.",
-    latex: "f'(x)=2x+k,\qquad f(0)=1,\qquad f(2)=9",
+    latex: "f'(x)=2x+k,\\qquad f(0)=1,\\qquad f(2)=9",
     answer: "k=2",
     acceptedAnswers: ["2", "k = 2", "2.0"],
     hint:
@@ -835,7 +835,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm6",
     prompt:
       "Investigate whether one function can satisfy all three statements, and state the conclusion.",
-    latex: "f'(x)=2x,\qquad f(1)=3,\qquad f(-1)=5",
+    latex: "f'(x)=2x,\\qquad f(1)=3,\\qquad f(-1)=5",
     answer: "No such function exists",
     acceptedAnswers: [
       "no solution",
@@ -855,7 +855,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm7",
     prompt:
       "The function has the given derivative and value at zero. Find the positive input t for which f(t)=0.",
-    latex: "f'(x)=4x,\qquad f(0)=-8,\qquad t>0",
+    latex: "f'(x)=4x,\\qquad f(0)=-8,\\qquad t>0",
     answer: "t=2",
     acceptedAnswers: ["2", "t = 2", "2.0"],
     hint:
@@ -871,7 +871,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm8",
     prompt:
       "A student claims the data determine f(x)=x^3+2. Which evaluation is correct?",
-    latex: "f''(x)=6x,\qquad f(0)=2",
+    latex: "f''(x)=6x,\\qquad f(0)=2",
     answer: "C",
     choices: [
       "The claim is correct because one condition always determines one function.",
@@ -897,7 +897,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm9",
     prompt:
       "Use both initial conditions to reconstruct the function f.",
-    latex: "f''(x)=6x-2,\qquad f'(0)=3,\qquad f(1)=4",
+    latex: "f''(x)=6x-2,\\qquad f'(0)=3,\\qquad f(1)=4",
     answer: "f(x)=x^3-x^2+3x+1",
     acceptedAnswers: [
       "x^3-x^2+3x+1",
@@ -917,7 +917,7 @@ const ivMastery: PracticeQuestion[] = [
     id: "y11adv-intg-iv-qm10",
     prompt:
       "A tank's volume V litres changes at the stated rate. Find the first positive time when the volume reaches 82 litres.",
-    latex: "V'(t)=12-2t,\qquad V(0)=50,\qquad V(t)=82",
+    latex: "V'(t)=12-2t,\\qquad V(0)=50,\\qquad V(t)=82",
     answer: "4 hours",
     acceptedAnswers: ["4", "t=4", "t = 4 hours", "4 h"],
     hint:
@@ -1022,7 +1022,7 @@ const defMastery: PracticeQuestion[] = [
     id: "y11adv-intg-def-qm3",
     prompt:
       "Given the positive restriction on k, determine the upper limit that makes the integral equal to 16.",
-    latex: "\\int_0^k 2x\\,dx=16,\qquad k>0",
+    latex: "\\int_0^k 2x\\,dx=16,\\qquad k>0",
     answer: "k=4",
     acceptedAnswers: ["4", "k = 4", "4.0"],
     hint:
@@ -1081,7 +1081,7 @@ const defMastery: PracticeQuestion[] = [
     prompt:
       "Use interval additivity to determine the signed accumulation over the combined interval.",
     latex:
-      "\\int_0^2 f(x)\\,dx=5,\qquad \\int_2^5 f(x)\\,dx=-1",
+      "\\int_0^2 f(x)\\,dx=5,\\qquad \\int_2^5 f(x)\\,dx=-1",
     answer: "4",
     acceptedAnswers: ["4.0", "integral from 0 to 5 = 4", "∫_0^5 f(x)dx=4"],
     hint:
@@ -1156,7 +1156,7 @@ const defMastery: PracticeQuestion[] = [
     prompt:
       "Find the value of a in the stated interval that divides the signed accumulation into two equal parts.",
     latex:
-      "\\int_0^a(6x-2)\\,dx=\\int_a^4(6x-2)\\,dx,\qquad 0<a<4",
+      "\\int_0^a(6x-2)\\,dx=\\int_a^4(6x-2)\\,dx,\\qquad 0<a<4",
     answer: "a=(1+sqrt(61))/3",
     acceptedAnswers: [
       "(1+√61)/3",
@@ -1313,7 +1313,7 @@ const ftcMastery: PracticeQuestion[] = [
     prompt:
       "Determine the lower limit a from the accumulation value and the stated interval restriction.",
     latex:
-      "\\int_a^2(3t^2-1)\\,dt=6,\qquad 0<a<2",
+      "\\int_a^2(3t^2-1)\\,dt=6,\\qquad 0<a<2",
     answer: "a=1",
     acceptedAnswers: ["1", "a = 1", "1.0"],
     hint:
@@ -1408,7 +1408,7 @@ const ftcMastery: PracticeQuestion[] = [
     prompt:
       "The derivative condition determines a. Use it and the integral definition to find H(1).",
     latex:
-      "H(x)=\\int_x^{2x}(t^2+a)\\,dt,\qquad H'(1)=10",
+      "H(x)=\\int_x^{2x}(t^2+a)\\,dt,\\qquad H'(1)=10",
     answer: "16/3",
     acceptedAnswers: ["5⅓", "5.333", "H(1)=16/3"],
     hint:
@@ -1480,7 +1480,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm1",
     prompt:
       "Find the exact area between the curve and the x-axis over the stated interval.",
-    latex: "y=4x-x^2,\qquad 0\\le x\\le4",
+    latex: "y=4x-x^2,\\qquad 0\\le x\\le4",
     answer: "32/3 square units",
     acceptedAnswers: ["32/3", "10⅔", "10.667 square units"],
     hint:
@@ -1497,7 +1497,7 @@ const areaMastery: PracticeQuestion[] = [
     prompt:
       "A student reports the signed integral as the geometric area. Which correction is valid?",
     latex:
-      "y=x^2-4,\quad -2\\le x\\le2;\qquad \\int_{-2}^{2}(x^2-4)\\,dx=-\\frac{32}{3}",
+      "y=x^2-4,\\quad -2\\le x\\le2;\\qquad \\int_{-2}^{2}(x^2-4)\\,dx=-\\frac{32}{3}",
     answer: "C",
     choices: [
       "The area is -32/3 square units because the curve is below the axis.",
@@ -1523,7 +1523,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm3",
     prompt:
       "Find the exact area between the two curves on the interval, first identifying which function is upper.",
-    latex: "y=2x,\qquad y=x^2,\qquad 0\\le x\\le2",
+    latex: "y=2x,\\qquad y=x^2,\\qquad 0\\le x\\le2",
     answer: "4/3 square units",
     acceptedAnswers: ["4/3", "1⅓", "1.333 square units"],
     hint:
@@ -1539,7 +1539,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm4",
     prompt:
       "Which integral correctly represents the area between the functions on the stated interval?",
-    latex: "y=x+2,\qquad y=x^2,\qquad 0\\le x\\le2",
+    latex: "y=x+2,\\qquad y=x^2,\\qquad 0\\le x\\le2",
     answer: "A",
     choices: [
       "∫_0^2[(x+2)-x^2] dx",
@@ -1565,7 +1565,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm5",
     prompt:
       "The region under the line has the stated area. Determine the positive parameter k.",
-    latex: "y=kx,\qquad 0\\le x\\le3,\qquad A=18",
+    latex: "y=kx,\\qquad 0\\le x\\le3,\\qquad A=18",
     answer: "k=4",
     acceptedAnswers: ["4", "k = 4", "4.0"],
     hint:
@@ -1581,7 +1581,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm6",
     prompt:
       "Find the total geometric area between the curve and the x-axis, splitting wherever the sign changes.",
-    latex: "y=x^2-1,\qquad -2\\le x\\le2",
+    latex: "y=x^2-1,\\qquad -2\\le x\\le2",
     answer: "4 square units",
     acceptedAnswers: ["4", "4.0", "A=4"],
     hint:
@@ -1597,7 +1597,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm7",
     prompt:
       "Find the exact enclosed area by first deriving the intersection points and the upper function.",
-    latex: "y=x^2,\qquad y=2-x^2",
+    latex: "y=x^2,\\qquad y=2-x^2",
     answer: "8/3 square units",
     acceptedAnswers: ["8/3", "2⅔", "2.667 square units"],
     hint:
@@ -1613,7 +1613,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm8",
     prompt:
       "A student uses one signed integral for a curve that crosses the axis. Which method gives total geometric area?",
-    latex: "y=x^2-1,\qquad -2\\le x\\le2",
+    latex: "y=x^2-1,\\qquad -2\\le x\\le2",
     answer: "D",
     choices: [
       "Use ∫_-2^2(x^2-1)dx without any splitting.",
@@ -1639,7 +1639,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm9",
     prompt:
       "Find the total enclosed area between the curve and the x-axis, using symmetry and sign information.",
-    latex: "y=x^3-x,\qquad -1\\le x\\le1",
+    latex: "y=x^3-x,\\qquad -1\\le x\\le1",
     answer: "1/2 square unit",
     acceptedAnswers: ["1/2", "0.5", "0.50 square units"],
     hint:
@@ -1655,7 +1655,7 @@ const areaMastery: PracticeQuestion[] = [
     id: "y11adv-intg-area-qm10",
     prompt:
       "The two curves enclose 36 square units. Determine the positive parameter k.",
-    latex: "y=kx,\qquad y=x^2,\qquad k>0",
+    latex: "y=kx,\\qquad y=x^2,\\qquad k>0",
     answer: "k=6",
     acceptedAnswers: ["6", "k = 6", "6.0"],
     hint:
@@ -1773,7 +1773,7 @@ const rcrMastery: PracticeQuestion[] = [
     id: "y11adv-intg-rcr-qm3",
     prompt:
       "The proposed function is a primitive of the displayed integrand. Determine the constant a.",
-    latex: "F(x)=\\frac{(2x+1)^5}{a},\qquad F'(x)=(2x+1)^4",
+    latex: "F(x)=\\frac{(2x+1)^5}{a},\\qquad F'(x)=(2x+1)^4",
     answer: "a=10",
     acceptedAnswers: ["10", "a = 10", "10.0"],
     hint:
@@ -1831,7 +1831,7 @@ const rcrMastery: PracticeQuestion[] = [
     id: "y11adv-intg-rcr-qm6",
     prompt:
       "For non-zero real a, determine all values for which the displayed primitive has the same amplitude as cos(ax).",
-    latex: "F_a(x)=\\frac{\\sin(ax)}{a},\qquad F_a'(x)=\\cos(ax)",
+    latex: "F_a(x)=\\frac{\\sin(ax)}{a},\\qquad F_a'(x)=\\cos(ax)",
     answer: "a=±1",
     acceptedAnswers: ["a=1 or a=-1", "a = ±1", "{-1,1}"],
     hint:
@@ -1848,7 +1848,7 @@ const rcrMastery: PracticeQuestion[] = [
     prompt:
       "Compare the primitive amplitudes and find A2/A5 for the family shown.",
     latex:
-      "\\int\\cos(kx)\\,dx=A_k\\sin(kx)+C,\qquad k>0",
+      "\\int\\cos(kx)\\,dx=A_k\\sin(kx)+C,\\qquad k>0",
     answer: "5/2",
     acceptedAnswers: ["2.5", "2.50", "A_2/A_5=5/2"],
     hint:
@@ -2039,7 +2039,7 @@ const trapMastery: PracticeQuestion[] = [
     id: "y11adv-intg-trap-qm4",
     prompt:
       "The displayed square-root curve is concave down. What does that imply about the trapezoidal estimate?",
-    latex: "y=\\sqrt{x},\qquad 0\\le x\\le4",
+    latex: "y=\\sqrt{x},\\qquad 0\\le x\\le4",
     answer: "C",
     choices: [
       "It is always exact because the endpoints lie on the curve.",
@@ -2066,7 +2066,7 @@ const trapMastery: PracticeQuestion[] = [
     prompt:
       "For y=x² on [0,4], compare the two-strip and four-strip estimates. By what factor is the absolute error reduced?",
     latex:
-      "T_2=24,\qquad T_4=22,\qquad \\int_0^4x^2\\,dx=\\frac{64}{3}",
+      "T_2=24,\\qquad T_4=22,\\qquad \\int_0^4x^2\\,dx=\\frac{64}{3}",
     answer: "factor of 4",
     acceptedAnswers: ["4", "4.0", "the error is quartered"],
     hint:

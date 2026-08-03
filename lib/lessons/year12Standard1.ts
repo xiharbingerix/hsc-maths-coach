@@ -1334,7 +1334,7 @@ export function year12Standard1MeasurementAreaVolumeLessonOverride(
       },
       {
         mistake: "Forgetting the one-half factor for triangle area.",
-        fix: "Use \(\\frac{1}{2}bh\) for triangles, not \(bh\)."
+        fix: "Use \\(\\frac{1}{2}bh\\) for triangles, not \\(bh\\)."
       },
       {
         mistake: "Adding dimensions instead of multiplying for area or volume.",

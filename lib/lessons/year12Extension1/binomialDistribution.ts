@@ -870,7 +870,7 @@ const examPractice: Partial<ExplicitLesson> = {
     ),
     binomialTyped(
       "y12e1-binomial-exam-i2",
-      "If P(X\le1)=0.6778 for X~B(10,0.3), what is P(X\ge2)?",
+      "If P(X\\le1)=0.6778 for X~B(10,0.3), what is P(X\\ge2)?",
       "0.3222",
       ["0.322"],
       "Take 1 minus the cumulative probability of at most 1 success."
