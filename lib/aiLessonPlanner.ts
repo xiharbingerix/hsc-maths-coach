@@ -57,6 +57,7 @@ const MODEL = process.env.LESSON_PLANNER_MODEL?.trim() || "claude-fable-5";
 const FALLBACK_MODEL = "claude-opus-4-8";
 const MAX_TOKENS = 32000;
 const MAX_BANK_QUESTIONS_PER_POOL = 24;
+export const LESSON_PLANNER_PROMPT_VERSION = "natural-voice-v1";
 
 export function aiLessonPlannerEnabled(): boolean {
   return Boolean(process.env.ANTHROPIC_API_KEY?.trim());
@@ -193,6 +194,37 @@ TEACHING STANDARD (Feynman, age-appropriate):
 - Write the actual explanation a teacher can say aloud. Never use vague directions such as “explain the concept”, “discuss the formula” or “provide scaffolding”. Supply the explanation, questions and scaffolds themselves.
 - Apply a Feynman check to every core explanation: a student should be able to retell it simply, say what each symbol means, and explain why the next step is sensible.
 
+WRITING STYLE — REQUIRED FOR ALL HUMAN-FACING PROSE:
+Write in a natural, specific, human voice. Avoid the recognizable habits of generic AI writing.
+
+Do not use:
+- stock openings or conclusions
+- inflated claims or unnecessary drama
+- repetitive sentence structures
+- excessive headings, bullets, or summaries
+- vague abstractions when concrete details are available
+- filler phrases such as “it’s important to note,” “in today’s fast-paced world,” “delve into,” “unlock,” “elevate,” “navigate,” “foster,” “robust,” “seamless,” or “a testament to”
+- forced contrasts like “It’s not just X—it’s Y”
+- unnecessary tricolons or lists of three
+- rhetorical questions unless they genuinely help
+- em dashes as a default stylistic crutch
+- constant signposting such as “First,” “Moreover,” “Ultimately,” and “In conclusion”
+
+Prefer:
+- precise nouns and strong verbs
+- varied sentence lengths and rhythms
+- concrete examples, observations, and details
+- restrained language
+- direct transitions
+- occasional irregularity or personality when appropriate
+- wording that sounds natural when read aloud
+
+Do not try to make every sentence polished, profound, or quotable. Do not over-explain obvious points. Preserve nuance and uncertainty where they exist.
+
+Before returning the plan, silently identify and remove any sentence that sounds generic, promotional, formulaic, or interchangeable with writing on another topic.
+
+The request supplies a specific AUDIENCE, TONE, PURPOSE and TASK. Write to those details. These style rules apply to prose a teacher or learner will read. They do not remove required section headings, success criteria, question choices, or the JSON arrays required by the output contract.
+
 LESSON ARC (adapt its delivery to the selected mode):
 1. A warm opener that checks prerequisites (dialogue).
 2. Explicit teaching of the core idea (text + formulas), written as a script the teacher or tutor can say aloud.
@@ -224,6 +256,12 @@ PRIOR ATTAINMENT — WHEN ALREADY-MET CONTENT IS PROVIDED:
 - If every selected content point is already met, make the whole lesson consolidation and extension: unfamiliar applications, connections, comparison of methods, justification and generalisation.
 - Include a zero-minute criteria section named exactly “Already Met — Do Not Reteach” listing the already-met outcome and content-point codes.
 
+TEACHER'S ADDITIONAL INSTRUCTIONS — WHEN PROVIDED:
+- Treat the teacher's note as intentional direction about emphasis, context, pedagogy, examples, pacing or student needs. Make the requested change visible in the actual teaching script and questions, not merely in a note section.
+- Follow it unless it conflicts with mathematical correctness, the selected NESA scope, the prior-attainment rules, required differentiation, age appropriateness or this JSON/output contract.
+- Do not let a teacher note broaden the lesson into unselected syllabus content. If a request cannot fit the selected scope, satisfy the compatible part while keeping the lesson coherent.
+- Include a zero-minute text section named exactly “Teacher's Additional Instructions” containing a concise restatement of how the plan has acted on the note.
+
 SECTION TYPES available: "text" (teaching script paragraphs), "formulas" (display LaTeX blocks to screen-share), "dialogue" (a Socratic tutor↔student script: tutor lines are what the tutor says/asks; student lines are the expected response the tutor listens for), "worked-example", "questions", "misconceptions", "prompts" (short verbal check-for-understanding questions), "homework".
 
 STRING CONVENTIONS (exact — these are machine-parsed):
@@ -250,7 +288,7 @@ TIMING:
 
 ${OUTPUT_SPEC}
 
-Author generously — this plan is the tutor's complete script for the session. Remember: the entire response must be that single JSON object.`;
+Include enough specific detail for the teacher to teach from the plan directly, without padding obvious points. The entire response must be that single JSON object.`;
 
 function clip(s: string, n = 1200): string {
   return s.length > n ? `${s.slice(0, n)}…` : s;
@@ -292,6 +330,7 @@ function buildUserContent(
   deliveryMode: LessonDeliveryMode,
   syllabusScope?: LessonSyllabusScope,
   priorAttainment?: LessonPriorAttainment,
+  teacherInstructions?: string,
 ): string {
   const pools: [string, PracticeQuestion[]][] = [
     ["GUIDED PRACTICE BANK", lesson.guidedPractice],
@@ -354,6 +393,26 @@ function buildUserContent(
         ]),
       ].join("\n")
     : "NO PRIOR ATTAINMENT MARKED: teach the selected scope according to the learner-level guidance.";
+  const teacherInstructionBlock = teacherInstructions
+    ? [
+        `TEACHER'S ADDITIONAL INSTRUCTIONS — BINDING WITHIN THE RULES ABOVE:`,
+        `<teacher_instructions>`,
+        teacherInstructions,
+        `</teacher_instructions>`,
+        `Act on this direction throughout the plan. Do not repeat it without implementing it.`,
+      ].join("\n")
+    : "NO ADDITIONAL TEACHER INSTRUCTIONS PROVIDED.";
+  const audience = `${lesson.courseTitle} learners at ${levels
+    .map((level) => level.replace("level-", "Level "))
+    .join(", ")}, taught in ${deliveryMode === "classroom" ? "a classroom" : "one-on-one Zoom tutoring"}`;
+  const tone =
+    "Natural, patient and specific. Use ordinary Australian English that sounds comfortable when read aloud to students of this age.";
+  const purpose =
+    "Give the teacher a practical lesson they can teach directly, with clear explanations, appropriate scaffolding and evidence that learners meet the selected outcomes.";
+  const task =
+    length === 10
+      ? `Write the complete 10-minute ${deliveryMode === "classroom" ? "classroom" : "one-on-one Zoom"} catch-up recap for ${lesson.title}.`
+      : `Write the complete ${length}-minute ${deliveryMode === "classroom" ? "classroom" : "one-on-one Zoom"} lesson plan for ${lesson.title}.`;
 
   return [
     `TOPIC: ${lesson.title}`,
@@ -367,6 +426,7 @@ function buildUserContent(
       ? `NSW SYLLABUS OUTCOMES (must remain achievable at every level):\n${lesson.syllabusOutcomes.map((o) => `- ${o}`).join("\n")}`
       : `OUTCOME REQUIREMENT: Every level must still achieve the learning intention and success criteria above.`,
     priorAttainmentBlock,
+    teacherInstructionBlock,
     ``,
     `LESSON LENGTH: ${length} minutes (section minutes must sum to this)`,
     ...(length === 10 ? [RECAP_MODE] : []),
@@ -376,6 +436,11 @@ function buildUserContent(
     levels.length > 1
       ? `MIXED-LEVEL CLASS: Plan one coherent shared teaching arc, then provide clearly labelled scaffolding and concurrent independent-practice pathways for every selected level.`
       : `SINGLE LEVEL: Differentiate the lesson for the selected learner profile.`,
+    `WRITING CONTEXT — BINDING:`,
+    `Write for this audience: ${audience}`,
+    `Use this tone: ${tone}`,
+    `The purpose is: ${purpose}`,
+    `The text to write is: ${task}`,
     ``,
     `AUTHORED TEACHING NOTES (source material — rework into your own explicit-teaching script, do not just copy):`,
     ...lesson.teaching.paragraphs.map((p) => clip(p, 2000)),
@@ -393,9 +458,6 @@ function buildUserContent(
     `QUESTION BANK (reference by id; [diagram] questions render a visual for the student):`,
     bankLines || "(no bank questions)",
     ``,
-    length === 10
-      ? `TASK: Author the complete 10-minute ${deliveryMode === "classroom" ? "classroom" : "one-on-one Zoom"} CATCH-UP RECAP plan now.`
-      : `TASK: Author the complete ${length}-minute ${deliveryMode === "classroom" ? "classroom" : "one-on-one Zoom"} lesson plan now.`,
   ]
     .filter((l) => l !== ``)
     .join("\n");
@@ -426,6 +488,7 @@ function assemblePlan(
   deliveryMode: LessonDeliveryMode,
   syllabusScope: LessonSyllabusScope | undefined,
   priorAttainment: LessonPriorAttainment | undefined,
+  teacherInstructions: string | undefined,
   model: string,
 ): TutorLessonPlan {
   const level = primaryStudentLevel(levels);
@@ -556,6 +619,21 @@ function assemblePlan(
   }
 
   if (
+    teacherInstructions &&
+    !sections.some(
+      (section) => section.heading === "Teacher's Additional Instructions",
+    )
+  ) {
+    sections.splice(0, 0, {
+      kind: "text",
+      id: "ai-teacher-instructions",
+      heading: "Teacher's Additional Instructions",
+      minutes: 0,
+      paragraphs: [teacherInstructions],
+    });
+  }
+
+  if (
     priorAttainment &&
     !sections.some(
       (section) => section.heading === "Already Met — Do Not Reteach",
@@ -664,6 +742,7 @@ function assemblePlan(
     deliveryMode,
     syllabusScope,
     priorAttainment,
+    teacherInstructions,
     generatedAt: new Date().toISOString(),
     learningGoal: allContentMet
       ? `Apply, connect and extend the already-met ${syllabusScope?.stage ?? "syllabus"} content without reteaching it.`
@@ -713,6 +792,7 @@ export async function generateAiLessonPlan(
     deliveryMode: LessonDeliveryMode;
     syllabusScope?: LessonSyllabusScope;
     priorAttainment?: LessonPriorAttainment;
+    teacherInstructions?: string;
   },
 ): Promise<{ plan: TutorLessonPlan; model: string }> {
   if (!aiLessonPlannerEnabled()) {
@@ -721,6 +801,7 @@ export async function generateAiLessonPlan(
 
   const client = new Anthropic();
   const levels = normaliseStudentLevels(opts.levels);
+  const teacherInstructions = opts.teacherInstructions?.trim() || undefined;
   const userContent = buildUserContent(
     lesson,
     opts.length,
@@ -728,6 +809,7 @@ export async function generateAiLessonPlan(
     opts.deliveryMode,
     opts.syllabusScope,
     opts.priorAttainment,
+    teacherInstructions,
   );
 
   let model = MODEL;
@@ -775,6 +857,7 @@ export async function generateAiLessonPlan(
     opts.deliveryMode,
     opts.syllabusScope,
     opts.priorAttainment,
+    teacherInstructions,
     model,
   );
 
