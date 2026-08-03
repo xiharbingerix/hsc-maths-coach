@@ -16,8 +16,15 @@ import type {
   TutorSection,
   TutorQuestion,
   LessonLength,
+  LessonDeliveryMode,
   StudentLevel,
 } from "../../../lib/lessonMaker";
+import {
+  DELIVERY_MODE_DETAILS,
+  STUDENT_LEVEL_DETAILS,
+  normaliseDeliveryMode,
+  normaliseStudentLevel,
+} from "../../../lib/lessonPlannerConfig";
 import { VisualPayloadRenderer } from "../../components/VisualPayloadRenderer";
 
 // ── Props ────────────────────────────────────────────────────────────────────
@@ -46,11 +53,13 @@ function buildWorksheetUrl(
 
 function planToText(plan: TutorLessonPlan): string {
   const lines: string[] = [];
-  lines.push(`TUTOR LESSON PLAN — ${plan.title}`);
+  const level = normaliseStudentLevel(plan.level);
+  const deliveryMode = normaliseDeliveryMode(plan.deliveryMode);
+  lines.push(`LESSON PLAN — ${plan.title}`);
   lines.push(`Course: ${plan.course}`);
   lines.push(`Unit: ${plan.unit}`);
   lines.push(
-    `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Level: ${plan.level} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
+    `Duration: ${plan.length} min${plan.length === 10 ? " (catch-up recap)" : ""} | Delivery: ${DELIVERY_MODE_DETAILS[deliveryMode].label} | ${STUDENT_LEVEL_DETAILS[level].label} | Generated: ${new Date(plan.generatedAt).toLocaleDateString("en-AU")}`
   );
   lines.push(`Learning goal: ${plan.learningGoal}`);
   lines.push(`Success criteria:`);
@@ -113,8 +122,8 @@ function planToText(plan: TutorLessonPlan): string {
         s.exchanges.forEach((e) => {
           lines.push(
             e.speaker === "tutor"
-              ? `  TUTOR: ${e.text}`
-              : `  STUDENT (listen for): ${e.text}`
+              ? `  ${deliveryMode === "classroom" ? "TEACHER" : "TUTOR"}: ${e.text}`
+              : `  ${deliveryMode === "classroom" ? "CLASS" : "STUDENT"} (listen for): ${e.text}`
           );
         });
         break;
@@ -128,7 +137,7 @@ function planToText(plan: TutorLessonPlan): string {
 // ── Question renderer ────────────────────────────────────────────────────────
 
 // Question block — the QUESTION ONLY (no answer/hint/explanation), so it can be
-// captured as a clean image to share in Zoom.
+// captured as a clean image to share or project without revealing solutions.
 function QuestionCard({
   question,
   number,
@@ -228,7 +237,7 @@ function QuestionsSection({ questions }: { questions: TutorQuestion[] }) {
         cacheBust: true,
       });
       if (!blob) throw new Error("Could not render image.");
-      // Preferred: straight to clipboard for pasting into Zoom.
+      // Preferred: straight to clipboard for pasting into Zoom or class slides.
       if (navigator.clipboard && "write" in navigator.clipboard) {
         await navigator.clipboard.write([
           new ClipboardItem({ "image/png": blob }),
@@ -280,7 +289,7 @@ function QuestionsSection({ questions }: { questions: TutorQuestion[] }) {
           onClick={() => void copyQuestionsImage()}
           disabled={imgState === "copying"}
           className="rounded-lg border border-indigo-300 bg-indigo-50 px-3 py-1.5 text-xs font-semibold text-indigo-700 hover:bg-indigo-100 disabled:opacity-60"
-          title="Copies an image of just the question blocks (no answers) for pasting into Zoom"
+          title="Copies an image of just the question blocks, without answers"
         >
           {imgLabel}
         </button>
@@ -313,9 +322,11 @@ function QuestionsSection({ questions }: { questions: TutorQuestion[] }) {
 function SectionCard({
   section,
   index,
+  deliveryMode,
 }: {
   section: TutorSection;
   index: number;
+  deliveryMode: LessonDeliveryMode;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm print:rounded-none print:border-0 print:border-b print:border-slate-300 print:shadow-none print:break-inside-avoid">
@@ -476,7 +487,7 @@ function SectionCard({
                 <div key={i} className="flex justify-start">
                   <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-indigo-50 px-4 py-2.5">
                     <p className="text-[10px] font-bold uppercase tracking-wide text-indigo-400">
-                      Tutor
+                      {deliveryMode === "classroom" ? "Teacher" : "Tutor"}
                     </p>
                     <p className="text-sm leading-relaxed text-indigo-900">
                       <MathText text={e.text} />
@@ -487,7 +498,9 @@ function SectionCard({
                 <div key={i} className="flex justify-end">
                   <div className="max-w-[85%] rounded-2xl rounded-tr-sm border border-dashed border-slate-300 bg-slate-50 px-4 py-2.5">
                     <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
-                      Listen for (student)
+                      {deliveryMode === "classroom"
+                        ? "Listen for (class)"
+                        : "Listen for (student)"}
                     </p>
                     <p className="text-sm leading-relaxed text-slate-700">
                       <MathText text={e.text} />
@@ -506,16 +519,13 @@ function SectionCard({
 // ── Plan header ──────────────────────────────────────────────────────────────
 
 function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
-  const levelLabels: Record<StudentLevel, string> = {
-    struggling: "Struggling / support",
-    "on-level": "On-level",
-    extension: "Extension",
-  };
+  const level = normaliseStudentLevel(plan.level);
+  const deliveryMode = normaliseDeliveryMode(plan.deliveryMode);
 
   return (
     <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6 print:rounded-none print:border-0 print:bg-white print:px-0 print:pt-0">
       <p className="text-xs font-semibold uppercase tracking-wide text-indigo-500 print:text-slate-400">
-        Nova Maths — Tutor Lesson Plan
+        Nova Maths — {DELIVERY_MODE_DETAILS[deliveryMode].label} Lesson Plan
       </p>
       <h1 className="mt-1 text-2xl font-extrabold text-indigo-900 print:text-slate-900">
         {plan.title}
@@ -531,7 +541,10 @@ function PlanHeader({ plan }: { plan: TutorLessonPlan }) {
           {plan.length === 10 ? "10 min catch-up recap" : `${plan.length} min`}
         </span>
         <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
-          {levelLabels[plan.level]}
+          {DELIVERY_MODE_DETAILS[deliveryMode].label}
+        </span>
+        <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-700 shadow-sm print:border print:border-slate-300 print:shadow-none">
+          {STUDENT_LEVEL_DETAILS[level].label}
         </span>
       </div>
       <p className="mt-3 text-sm font-medium text-indigo-800 print:text-slate-700">
@@ -548,7 +561,9 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
   const [unitSlug, setUnitSlug] = useState("");
   const [lessonSlug, setLessonSlug] = useState("");
   const [length, setLength] = useState<LessonLength>(45);
-  const [level, setLevel] = useState<StudentLevel>("on-level");
+  const [deliveryMode, setDeliveryMode] =
+    useState<LessonDeliveryMode>("zoom");
+  const [level, setLevel] = useState<StudentLevel>("level-2");
   const [plan, setPlan] = useState<TutorLessonPlan | null>(null);
   const [planSource, setPlanSource] = useState<
     "cache" | "ai" | "built-in" | "saved" | null
@@ -596,6 +611,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
         lessonSlug,
         length,
         level,
+        deliveryMode,
         { forceRegenerate },
       );
       if ("error" in result) {
@@ -636,6 +652,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
       lessonSlug,
       length,
       level,
+      deliveryMode,
       plan,
     );
     if ("error" in result) {
@@ -650,6 +667,7 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
       lessonSlug,
       lessonLength: length,
       studentLevel: level,
+      deliveryMode,
       createdAt: new Date().toISOString(),
     };
     setSavedPlans((prev) => [summary, ...prev]);
@@ -665,8 +683,13 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
     setUnitSlug(record.unitSlug);
     setLessonSlug(record.lessonSlug);
     setLength(record.lessonLength as LessonLength);
-    setLevel(record.studentLevel as StudentLevel);
-    setPlan(record.plan);
+    setLevel(normaliseStudentLevel(record.studentLevel));
+    setDeliveryMode(normaliseDeliveryMode(record.deliveryMode));
+    setPlan({
+      ...record.plan,
+      level: normaliseStudentLevel(record.plan.level),
+      deliveryMode: normaliseDeliveryMode(record.plan.deliveryMode),
+    });
     setPlanSource("saved");
     setActiveSavedId(record.id);
     setSaveState("saved");
@@ -768,8 +791,43 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
             </select>
           </div>
 
+          {/* Delivery mode */}
+          <div className="space-y-1.5 sm:col-span-2 lg:col-span-3">
+            <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Delivery mode
+            </label>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {(Object.entries(DELIVERY_MODE_DETAILS) as [
+                LessonDeliveryMode,
+                (typeof DELIVERY_MODE_DETAILS)[LessonDeliveryMode],
+              ][]).map(([value, details]) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => {
+                    setDeliveryMode(value);
+                    setPlan(null);
+                    setPlanSource(null);
+                  }}
+                  className={`rounded-xl border px-4 py-3 text-left transition-colors ${
+                    deliveryMode === value
+                      ? "border-indigo-500 bg-indigo-50 ring-1 ring-indigo-500"
+                      : "border-slate-300 bg-white hover:bg-slate-50"
+                  }`}
+                >
+                  <span className="block text-sm font-semibold text-slate-900">
+                    {details.label}
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-relaxed text-slate-500">
+                    {details.description}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Lesson length */}
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 sm:col-span-2 lg:col-span-3">
             <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
               Lesson length
             </label>
@@ -796,30 +854,36 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
             </div>
           </div>
 
-          {/* Student level */}
-          <div className="space-y-1.5 sm:col-span-2">
+          {/* Learner level */}
+          <div className="space-y-1.5 sm:col-span-2 lg:col-span-3">
             <label className="block text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Student level
+              {deliveryMode === "classroom" ? "Class level" : "Student level"}
             </label>
-            <div className="flex gap-2">
-              {(
-                [
-                  ["struggling", "Struggling"],
-                  ["on-level", "On-level"],
-                  ["extension", "Extension"],
-                ] as [StudentLevel, string][]
-              ).map(([val, label]) => (
+            <div className="grid gap-2 sm:grid-cols-3">
+              {(Object.entries(STUDENT_LEVEL_DETAILS) as [
+                StudentLevel,
+                (typeof STUDENT_LEVEL_DETAILS)[StudentLevel],
+              ][]).map(([value, details]) => (
                 <button
-                  key={val}
+                  key={value}
                   type="button"
-                  onClick={() => setLevel(val)}
-                  className={`flex-1 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
-                    level === val
-                      ? "border-indigo-500 bg-indigo-500 text-white"
-                      : "border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                  onClick={() => {
+                    setLevel(value);
+                    setPlan(null);
+                    setPlanSource(null);
+                  }}
+                  className={`rounded-xl border px-3 py-3 text-left transition-colors ${
+                    level === value
+                      ? "border-indigo-500 bg-indigo-50 ring-1 ring-indigo-500"
+                      : "border-slate-300 bg-white hover:bg-slate-50"
                   }`}
                 >
-                  {label}
+                  <span className="block text-sm font-semibold text-slate-900">
+                    {details.label}
+                  </span>
+                  <span className="mt-1 block text-xs font-normal leading-relaxed text-slate-500">
+                    {details.description}
+                  </span>
                 </button>
               ))}
             </div>
@@ -872,7 +936,9 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
                   </p>
                   <p className="mt-0.5 truncate text-xs text-slate-500">
                     {saved.courseSlug} / {saved.unitSlug} ·{" "}
-                    {saved.lessonLength} min · {saved.studentLevel} ·{" "}
+                    {saved.lessonLength} min ·{" "}
+                    {DELIVERY_MODE_DETAILS[normaliseDeliveryMode(saved.deliveryMode)].label} ·{" "}
+                    {STUDENT_LEVEL_DETAILS[normaliseStudentLevel(saved.studentLevel)].shortLabel} ·{" "}
                     {new Date(saved.createdAt).toLocaleDateString("en-AU")}
                   </p>
                 </div>
@@ -997,7 +1063,12 @@ export function LessonMakerClient({ catalog, initialSavedPlans }: Props) {
           {/* Sections */}
           <div className="space-y-4 print:space-y-6">
             {plan.sections.map((section, i) => (
-              <SectionCard key={section.id} section={section} index={i} />
+              <SectionCard
+                key={section.id}
+                section={section}
+                index={i}
+                deliveryMode={normaliseDeliveryMode(plan.deliveryMode)}
+              />
             ))}
           </div>
 

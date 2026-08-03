@@ -68,9 +68,9 @@ export default async function LessonMakerPage() {
               Lesson Maker
             </h1>
             <p className="mt-1.5 text-sm text-slate-600">
-              AI-authored one-on-one Zoom teaching plans built from your course
-              content. The first generation per topic is written by Claude and
-              saved as that topic&apos;s default — later requests are free.
+              AI-authored plans for one-on-one Zoom tutoring or classroom
+              teaching, with Level 1–3 scaffolding and independent practice.
+              The first generation for each setup is saved as its default.
             </p>
           </div>
           <Link

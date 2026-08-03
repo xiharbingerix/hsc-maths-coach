@@ -25,8 +25,11 @@ import type {
 } from "./lessons/differentialCalculus";
 import { pickDiagramFields } from "./lessons/diagramRegistry";
 import {
+  buildScaffoldingSection,
+  selectIndependentQuestions,
   toTutorQuestion,
   toTutorWorkedExample,
+  type LessonDeliveryMode,
   type LessonLength,
   type StudentLevel,
   type TutorLessonPlan,
@@ -149,32 +152,47 @@ function parseChoice(entry: string): { label: string; text: string } | null {
 // ── Prompt building ──────────────────────────────────────────────────────────
 
 const LEVEL_GUIDANCE: Record<StudentLevel, string> = {
-  struggling:
-    "STRUGGLING student: assume shaky prerequisites. Open with a short prerequisite re-teach, break every idea into the smallest possible steps, use frequent dialogue checkpoints, favour D1–D2 bank questions, and keep the pace gentle. Success is confidence plus the core skill — skip extension material.",
-  "on-level":
-    "ON-LEVEL student: standard pace. Cover the full skill with a balance of guided and independent work, mostly D2–D4 bank questions, and finish with one stretch question if time allows.",
-  extension:
-    "EXTENSION student: compress the exposition (they will get it quickly), push into the WHY and the connections early, favour the hardest bank questions (D4–D5 / mastery), include a genuine extension challenge, and use dialogue to make the student articulate reasoning, not just compute.",
+  "level-1":
+    "LEVEL 1 — NEEDS EXTRA SCAFFOLDING: keep the same syllabus outcome and success criteria, but reduce cognitive load and the quantity of work. Re-teach shaky prerequisites briefly. Use one familiar concrete example, short sentences, tiny worked steps, completion prompts and frequent checks. The independent set must contain 2–3 approachable core questions, usually D1–D2; make the first-start support explicit and then fade it. It is acceptable not to complete every available question, but the exit check must still demonstrate the outcome. Do not use deficit labels such as weak, low or struggling.",
+  "level-2":
+    "LEVEL 2 — MEETS OUTCOMES: teach at the expected pace. Use one clear model, guided practice with prompts that fade, and 3–4 genuinely independent D2–D4 questions. Secure every success criterion before adding an optional stretch question.",
+  "level-3":
+    "LEVEL 3 — EXCEEDS OUTCOMES: establish the core explanation efficiently, then push into why the method works, connections, comparison of methods and generalisation. Use 3–5 demanding D4–D5 or mastery questions independently, including a genuine unfamiliar extension. Require reasoning and checking, not just faster computation.",
 };
 
-const SYSTEM_PROMPT = `You are an expert NSW mathematics tutor and instructional designer. You author complete, explicit-teaching lesson plans for ONE-ON-ONE tutoring delivered over Zoom (one tutor, one student, screen share, chat, and verbal discussion — no whiteboards handed out, no classroom management).
+const DELIVERY_GUIDANCE: Record<LessonDeliveryMode, string> = {
+  zoom:
+    "ZOOM TUTORING: one tutor and one student using screen share, chat and verbal discussion. Make the plan conversational and responsive. The tutor can watch the student's working and adjust immediately. Do not include classroom-management routines, group work or handed-out mini-whiteboards.",
+  classroom:
+    "CLASSROOM: one teacher with a class of students. Write a plan that can be taught from the board/projector. Include purposeful whole-class routines: quiet think time before responses, mini-whiteboard or all-student checks, brief pair explanation where helpful, teacher circulation during independent work, and a clear stop/check point. Do not assume individual screen share or chat. Dialogue 'student' lines describe the answer the teacher should listen for across the class, not a single scripted child.",
+};
+
+const SYSTEM_PROMPT = `You are an expert NSW mathematics teacher, tutor and instructional designer. You author complete explicit-teaching lesson plans for either one-on-one Zoom tutoring or classroom teaching, exactly as specified in the request.
 
 You are given a topic's authored source material: teaching notes, key formulas, worked examples, and a bank of vetted practice questions (each with an id, difficulty D1–D5, and flags for multiple-choice and diagrams). Your job is to turn that raw material into a sharply-paced, Feynman-standard tutoring lesson.
 
-TEACHING STANDARD (Feynman):
+TEACHING STANDARD (Feynman, age-appropriate):
 - Explain WHY before WHAT. Build each idea from something the student already knows, with a concrete example before the general rule.
 - Never formula-drop: every formula must be motivated or derived in the teaching before it is used.
 - Give the student a mental model (a picture, a story, an analogy) they can reconstruct the idea from.
 - Anticipate the specific wrong turns students take and plan to surface them.
+- Infer the students' approximate age from the course/year. Use words and sentence lengths that age group can understand. Prefer ordinary words to jargon; when a technical term is necessary, explain it immediately in plain English.
+- Write the actual explanation a teacher can say aloud. Never use vague directions such as “explain the concept”, “discuss the formula” or “provide scaffolding”. Supply the explanation, questions and scaffolds themselves.
+- Apply a Feynman check to every core explanation: a student should be able to retell it simply, say what each symbol means, and explain why the next step is sensible.
 
-LESSON ARC (adapt to the time budget; this is one-on-one, so it is a conversation, not a lecture):
-1. A warm opener that checks prerequisites conversationally (dialogue).
-2. Explicit teaching of the core idea (text + formulas), written as a script the tutor can speak, in second person to the student.
-3. Worked example(s) — "I do": tutor works it on screen share, narrating decisions.
-4. Guided practice — "we do": student attempts with tutor scaffolding. Use dialogue checkpoints.
-5. Independent practice — "you do": student works while tutor observes.
+LESSON ARC (adapt its delivery to the selected mode):
+1. A warm opener that checks prerequisites (dialogue).
+2. Explicit teaching of the core idea (text + formulas), written as a script the teacher or tutor can say aloud.
+3. Worked example(s) — "I do": model on the shared screen or classroom board while narrating decisions.
+4. Guided practice — "we do": learners attempt with planned scaffolding. Use dialogue checkpoints.
+5. Independent practice — "you do": learners work before the teacher or tutor intervenes.
 6. Misconception check and quick verbal CFU prompts.
 7. Exit ticket (one question that proves the goal was met) and homework.
+
+DIFFERENTIATION — REQUIRED:
+- Preserve the supplied syllabus outcome and success criteria at every level. Level 1 changes the size of the steps, amount of support and number of questions; it does not replace the outcome with an easier one.
+- Include a dedicated text section named “Level 1 Scaffolding”, “Level 2 Scaffolding” or “Level 3 Scaffolding” as appropriate. It must contain the exact prompts, representations and support/fading moves the teacher or tutor will use.
+- Include a questions section named “Independent Practice — Level 1”, “Independent Practice — Level 2” or “Independent Practice — Level 3”. Its question count and difficulty must match the selected level guidance. Independent practice means the learner attempts before help is given.
 
 SECTION TYPES available: "text" (teaching script paragraphs), "formulas" (display LaTeX blocks to screen-share), "dialogue" (a Socratic tutor↔student script: tutor lines are what the tutor says/asks; student lines are the expected response the tutor listens for), "worked-example", "questions", "misconceptions", "prompts" (short verbal check-for-understanding questions), "homework".
 
@@ -227,11 +245,11 @@ function hasDiagram(q: PracticeQuestion): boolean {
 
 // 10-minute plans are catch-up recaps of a previously taught topic, not a
 // compressed first-teach — this block overrides the full lesson arc.
-const RECAP_MODE = `MODE: 10-MINUTE CATCH-UP RECAP (tutoring recap session).
-The student was ALREADY TAUGHT this topic in a previous session. Do NOT re-teach from scratch and do NOT follow the full lesson arc. Structure instead:
-1. Recall opener (dialogue, ~2 min): ask the student to state the core idea and key formula FROM MEMORY before anything is shown on screen. Student lines are the recall you are listening for.
+const RECAP_MODE = `MODE: 10-MINUTE CATCH-UP RECAP.
+The learners were ALREADY TAUGHT this topic. Do NOT re-teach from scratch and do NOT follow the full lesson arc. Structure instead:
+1. Recall opener (dialogue, ~2 min): ask learners to state the core idea and key formula FROM MEMORY before anything is shown. Student lines are the response you are listening for.
 2. Key formulas refresher (formulas, ~1 min): only the essential blocks; the note should ask the student to explain each in their own words.
-3. ONE quick worked example (~3 min), framed so the STUDENT narrates the steps while the tutor drives the screen — reuse an authored example via bankExampleIndex where possible.
+3. ONE quick worked example (~3 min), framed so the LEARNERS narrate the steps while the teacher or tutor records them — reuse an authored example via bankExampleIndex where possible.
 4. Quick checks (questions, ~3 min): 2 bank questions the student can each finish in about a minute. Favour D1–D3 (D3–D4 for extension students). No multi-part questions.
 5. Exit check (questions, ~1 min): one question that proves the skill is still there.
 6. Homework (0 min): what to do if the recap was shaky (book a full re-teach lesson) vs solid (move on to new content).
@@ -241,6 +259,7 @@ function buildUserContent(
   lesson: ExplicitLesson,
   length: LessonLength,
   level: StudentLevel,
+  deliveryMode: LessonDeliveryMode,
 ): string {
   const pools: [string, PracticeQuestion[]][] = [
     ["GUIDED PRACTICE BANK", lesson.guidedPractice],
@@ -275,10 +294,14 @@ function buildUserContent(
     `SYLLABUS AREA: ${lesson.syllabusArea} | FOCUS: ${lesson.focus}`,
     `LEARNING INTENTION: ${lesson.learningIntention}`,
     `SUCCESS CRITERIA:\n${lesson.successCriteria.map((c) => `- ${c}`).join("\n")}`,
+    lesson.syllabusOutcomes?.length
+      ? `NSW SYLLABUS OUTCOMES (must remain achievable at every level):\n${lesson.syllabusOutcomes.map((o) => `- ${o}`).join("\n")}`
+      : `OUTCOME REQUIREMENT: Every level must still achieve the learning intention and success criteria above.`,
     ``,
     `LESSON LENGTH: ${length} minutes (section minutes must sum to this)`,
     ...(length === 10 ? [RECAP_MODE] : []),
-    `STUDENT PROFILE: ${LEVEL_GUIDANCE[level]}`,
+    `DELIVERY MODE: ${DELIVERY_GUIDANCE[deliveryMode]}`,
+    `LEARNER PROFILE: ${LEVEL_GUIDANCE[level]}`,
     ``,
     `AUTHORED TEACHING NOTES (source material — rework into your own explicit-teaching script, do not just copy):`,
     ...lesson.teaching.paragraphs.map((p) => clip(p, 2000)),
@@ -297,8 +320,8 @@ function buildUserContent(
     bankLines || "(no bank questions)",
     ``,
     length === 10
-      ? `TASK: Author the complete 10-minute one-on-one Zoom CATCH-UP RECAP plan for this student now.`
-      : `TASK: Author the complete ${length}-minute one-on-one Zoom lesson plan for this student now.`,
+      ? `TASK: Author the complete 10-minute ${deliveryMode === "classroom" ? "classroom" : "one-on-one Zoom"} CATCH-UP RECAP plan now.`
+      : `TASK: Author the complete ${length}-minute ${deliveryMode === "classroom" ? "classroom" : "one-on-one Zoom"} lesson plan now.`,
   ]
     .filter((l) => l !== ``)
     .join("\n");
@@ -326,6 +349,7 @@ function assemblePlan(
   lesson: ExplicitLesson,
   length: LessonLength,
   level: StudentLevel,
+  deliveryMode: LessonDeliveryMode,
   model: string,
 ): TutorLessonPlan {
   const bank = buildQuestionMap(lesson);
@@ -432,6 +456,28 @@ function assemblePlan(
     }
   });
 
+  // The prompt requires both, but retain a deterministic safety net so every
+  // generated plan always contains level-specific support and independent work.
+  if (!sections.some((section) => /scaffold/i.test(section.heading))) {
+    sections.splice(Math.min(2, sections.length), 0, buildScaffoldingSection(level, deliveryMode));
+  }
+  if (!sections.some((section) => /independent practice/i.test(section.heading))) {
+    const questions = selectIndependentQuestions(lesson, level, length).filter(
+      (question) => !usedIds.has(question.id),
+    );
+    if (questions.length > 0) {
+      const homeworkIndex = sections.findIndex((section) => section.kind === "homework");
+      const insertionIndex = homeworkIndex === -1 ? sections.length : homeworkIndex;
+      sections.splice(insertionIndex, 0, {
+        kind: "questions",
+        id: "ai-independent-practice-fallback",
+        heading: `Independent Practice — ${level.replace("level-", "Level ")}`,
+        minutes: Math.max(4, questions.length * 2),
+        questions,
+      });
+    }
+  }
+
   const successCriteria =
     Array.isArray(ai.successCriteria) && ai.successCriteria.length > 0
       ? ai.successCriteria
@@ -454,6 +500,7 @@ function assemblePlan(
     syllabusArea: lesson.syllabusArea,
     length,
     level,
+    deliveryMode,
     generatedAt: new Date().toISOString(),
     learningGoal:
       (typeof ai.learningGoal === "string" && ai.learningGoal.trim()) ||
@@ -496,14 +543,23 @@ function extractJson(text: string): AiPlan {
 
 export async function generateAiLessonPlan(
   lesson: ExplicitLesson,
-  opts: { length: LessonLength; level: StudentLevel },
+  opts: {
+    length: LessonLength;
+    level: StudentLevel;
+    deliveryMode: LessonDeliveryMode;
+  },
 ): Promise<{ plan: TutorLessonPlan; model: string }> {
   if (!aiLessonPlannerEnabled()) {
     throw new Error("ANTHROPIC_API_KEY is not configured.");
   }
 
   const client = new Anthropic();
-  const userContent = buildUserContent(lesson, opts.length, opts.level);
+  const userContent = buildUserContent(
+    lesson,
+    opts.length,
+    opts.level,
+    opts.deliveryMode,
+  );
 
   let model = MODEL;
   let message = await requestPlan(client, model, userContent);
@@ -542,7 +598,14 @@ export async function generateAiLessonPlan(
   if (!Array.isArray(ai.sections)) {
     throw new Error("Response JSON was missing a sections array.");
   }
-  const plan = assemblePlan(ai, lesson, opts.length, opts.level, model);
+  const plan = assemblePlan(
+    ai,
+    lesson,
+    opts.length,
+    opts.level,
+    opts.deliveryMode,
+    model,
+  );
 
   if (plan.sections.filter((s) => s.kind !== "criteria").length < 3) {
     throw new Error("Generated plan was too sparse — please try again.");
