@@ -5,11 +5,16 @@ import type {
 } from "./lessons/differentialCalculus";
 import { pickDiagramFields, type DiagramFields } from "./lessons/diagramRegistry";
 import { isGenericMcqInstructionLatex } from "./lessons/questionHelpers";
+import type {
+  LessonDeliveryMode,
+  StudentLevel,
+} from "./lessonPlannerConfig";
+
+export type { LessonDeliveryMode, StudentLevel } from "./lessonPlannerConfig";
 
 // 10 = quick catch-up recap of a previously taught topic (tutoring recaps);
 // 30/45/60 = full first-teach lessons.
 export type LessonLength = 10 | 30 | 45 | 60;
-export type StudentLevel = "struggling" | "on-level" | "extension";
 
 // ── Serialisable output types (returned from server action) ──────────────────
 
@@ -101,9 +106,8 @@ export interface TutorHomeworkSection {
   suggestion: string;
 }
 
-// Socratic tutor↔student script for one-on-one (Zoom) delivery. "tutor" lines
-// are said/asked by the tutor; "student" lines are the expected student
-// response — a checkpoint the tutor listens for before moving on.
+// Teacher/tutor dialogue. The UI adapts these neutral stored roles to the
+// selected delivery mode (Tutor/Student on Zoom, Teacher/Class in a classroom).
 export interface TutorDialogueExchange {
   speaker: "tutor" | "student";
   text: string;
@@ -135,6 +139,8 @@ export interface TutorLessonPlan {
   syllabusArea: string;
   length: LessonLength;
   level: StudentLevel;
+  /** Older saved plans predate deliveryMode and should be treated as Zoom. */
+  deliveryMode?: LessonDeliveryMode;
   generatedAt: string;
   learningGoal: string;
   successCriteria: string[];
@@ -242,6 +248,80 @@ function buildHomeworkSuggestion(lesson: ExplicitLesson): string {
   );
 }
 
+export function buildScaffoldingSection(
+  level: StudentLevel,
+  deliveryMode: LessonDeliveryMode,
+): TutorTextSection {
+  const learner = deliveryMode === "classroom" ? "students" : "the student";
+  const deliverySupport =
+    deliveryMode === "classroom"
+      ? "Use mini-whiteboards for a silent whole-class response, then scan the room before choosing the next step. Give think time before asking anyone to explain."
+      : "Keep a worked line visible on screen and ask the student to say the next small step before you write it.";
+
+  const paragraphs: Record<StudentLevel, string[]> = {
+    "level-1": [
+      "Keep the same learning outcome. Reduce the amount of work, not the mathematical goal.",
+      "Explain the idea first with one familiar, concrete example. Use short sentences and name what every number or symbol means before using a rule.",
+      `Model one step, then let ${learner} copy that step on a nearly identical question. Use this prompt order: “What do we know?”, “What are we finding?”, “Which step comes first?”, then “Does the answer make sense?”`,
+      deliverySupport,
+      "For independent work, begin with the hint visible. Remove one support at a time only after a correct answer. Two secure core questions are enough if they demonstrate the success criteria.",
+    ],
+    "level-2": [
+      "State the idea in plain English, connect it to one familiar example, then show how the mathematical rule records that idea.",
+      `Model one full example, complete one with ${learner}, then fade the prompts so the independent questions are genuinely independent.`,
+      deliverySupport,
+      "Use the success criteria to decide whether to move on. Add a stretch question only after the core outcome is secure.",
+    ],
+    "level-3": [
+      "Keep the core explanation concise, but still establish why the method works before using the formula.",
+      `Ask ${learner} to predict the next step, compare methods and explain which method is more efficient.`,
+      deliverySupport,
+      "Move quickly to unfamiliar or multi-step questions. Require written reasoning, a check of the answer and a generalisation or extension after the core outcome is secure.",
+    ],
+  };
+
+  return {
+    kind: "text",
+    id: "level-scaffolding",
+    heading: `${level.replace("level-", "Level ")} Scaffolding`,
+    minutes: 0,
+    paragraphs: paragraphs[level],
+  };
+}
+
+export function selectIndependentQuestions(
+  lesson: ExplicitLesson,
+  level: StudentLevel,
+  length: LessonLength,
+): TutorQuestion[] {
+  const core = [...lesson.independentPractice];
+  const mastery = [...lesson.masteryQuiz, ...(lesson.masteryQuizPool ?? [])];
+  const byDifficulty = (a: PracticeQuestion, b: PracticeQuestion) =>
+    (a.difficulty ?? 3) - (b.difficulty ?? 3);
+
+  if (level === "level-1") {
+    const count = length === 30 ? 2 : 3;
+    const pool =
+      core.length >= count ? core : [...core, ...lesson.guidedPractice];
+    return pool
+      .sort(byDifficulty)
+      .slice(0, count)
+      .map(toTutorQuestion);
+  }
+
+  if (level === "level-3") {
+    return [...mastery, ...core]
+      .sort((a, b) => byDifficulty(b, a))
+      .slice(0, length === 30 ? 3 : length === 45 ? 4 : 5)
+      .map(toTutorQuestion);
+  }
+
+  return core
+    .sort(byDifficulty)
+    .slice(0, length === 30 ? 3 : length === 45 ? 4 : 5)
+    .map(toTutorQuestion);
+}
+
 // ── 10-minute catch-up recap ─────────────────────────────────────────────────
 // Assumes the topic was already taught in a previous session: re-activate the
 // core idea, refresh the key formulas, run a couple of quick checks, and flag
@@ -249,7 +329,8 @@ function buildHomeworkSuggestion(lesson: ExplicitLesson): string {
 
 function generateCatchUpPlan(
   lesson: ExplicitLesson,
-  level: StudentLevel
+  level: StudentLevel,
+  deliveryMode: LessonDeliveryMode,
 ): TutorLessonPlan {
   const sections: TutorSection[] = [];
 
@@ -265,14 +346,14 @@ function generateCatchUpPlan(
     heading: "Recall Opener",
     minutes: 2,
     paragraphs: [
-      `This is a catch-up recap — the student has already been taught "${lesson.title}". The goal is to re-activate it, not re-teach it.`,
+      `This is a catch-up recap — ${deliveryMode === "classroom" ? "the class has" : "the student has"} already been taught "${lesson.title}". The goal is to re-activate it, not re-teach it.`,
       `Ask from memory, before showing anything on screen:`,
       ...criteriaToTeacherQuestions(lesson.successCriteria.slice(0, 2)).map(
         (q) => `• ${q}`
       ),
-      ...(level === "struggling"
+      ...(level === "level-1"
         ? [
-            `Note (struggling): If neither question lands, stop the recap here and book a full lesson on this topic instead — 10 minutes is not enough to re-teach it.`,
+            `Note (Level 1): If neither question lands, stop the recap and plan a full re-teach or targeted small-group intervention. Ten minutes is not enough to teach the concept from scratch.`,
           ]
         : []),
     ],
@@ -302,7 +383,7 @@ function generateCatchUpPlan(
   }
 
   // ── 4. Quick checks ─────────────────────────────────────────────────────
-  const quickPool = level === "extension" ? independent : guided;
+  const quickPool = level === "level-3" ? independent : guided;
   const quickQs = quickPool.slice(0, 2);
   if (quickQs.length > 0) {
     sections.push({
@@ -316,7 +397,7 @@ function generateCatchUpPlan(
 
   // ── 5. Exit check ───────────────────────────────────────────────────────
   const exitQ =
-    (level === "extension" ? mastery[0] : independent[0]) ??
+    (level === "level-3" ? mastery[0] : independent[0]) ??
     mastery[0] ??
     guided[quickQs.length];
   if (exitQ && !quickQs.some((q) => q.id === exitQ.id)) {
@@ -348,6 +429,7 @@ function generateCatchUpPlan(
     syllabusArea: lesson.syllabusArea,
     length: 10,
     level,
+    deliveryMode,
     generatedAt: new Date().toISOString(),
     learningGoal: `Recap and re-activate: ${lesson.learningIntention}`,
     successCriteria: lesson.successCriteria,
@@ -360,10 +442,14 @@ function generateCatchUpPlan(
 
 export function generateTutorPlan(
   lesson: ExplicitLesson,
-  opts: { length: LessonLength; level: StudentLevel }
+  opts: {
+    length: LessonLength;
+    level: StudentLevel;
+    deliveryMode: LessonDeliveryMode;
+  },
 ): TutorLessonPlan {
-  const { length, level } = opts;
-  if (length === 10) return generateCatchUpPlan(lesson, level);
+  const { length, level, deliveryMode } = opts;
+  if (length === 10) return generateCatchUpPlan(lesson, level, deliveryMode);
   const sections: TutorSection[] = [];
 
   const guided = lesson.guidedPractice.map(toTutorQuestion);
@@ -382,10 +468,10 @@ export function generateTutorPlan(
       `Learning goal: ${lesson.learningIntention}`,
       `Ask students before beginning:`,
       ...prereqQuestions.map((q) => `• ${q}`),
-      ...(level === "struggling"
+      ...(level === "level-1"
         ? [
-            `Note (struggling): Take extra time here. Address gaps before moving on.`,
-            `If students cannot answer the prerequisite questions, spend 5 minutes reteaching the prior concept before starting.`,
+            `Note (Level 1): Take extra time here and address prerequisite gaps before moving on.`,
+            `If students cannot answer the prerequisite questions, re-teach the smallest missing idea with a concrete example before starting.`,
           ]
         : []),
     ],
@@ -399,6 +485,8 @@ export function generateTutorPlan(
     minutes: 0,
     items: lesson.successCriteria,
   });
+
+  sections.push(buildScaffoldingSection(level, deliveryMode));
 
   // ── 3. Warm-up questions ──────────────────────────────────────────────────
   const warmUpCount = length === 30 ? 2 : 3;
@@ -469,28 +557,21 @@ export function generateTutorPlan(
     });
   }
 
-  // ── 9. Independent practice (45+ min, or extension level) ────────────────
-  const includeIndep = length >= 45 || level === "extension";
-  if (includeIndep) {
-    const indepCount = length === 60 ? 5 : 3;
-    // Extension level uses mastery questions for independent work
-    const indepQs =
-      level === "extension"
-        ? mastery.slice(0, indepCount)
-        : independent.slice(0, indepCount);
-    if (indepQs.length > 0) {
-      sections.push({
-        kind: "questions",
-        id: "independent-practice",
-        heading: "Independent Practice",
-        minutes: indepCount * 2,
-        questions: indepQs,
-      });
-    }
+  // Every level receives independent practice. The quantity and difficulty
+  // vary, while the success criteria remain common across all three levels.
+  const indepQs = selectIndependentQuestions(lesson, level, length);
+  if (indepQs.length > 0) {
+    sections.push({
+      kind: "questions",
+      id: "independent-practice",
+      heading: `Independent Practice — ${level.replace("level-", "Level ")}`,
+      minutes: Math.max(4, indepQs.length * 2),
+      questions: indepQs,
+    });
   }
 
   // ── 10. Common misconceptions ─────────────────────────────────────────────
-  if (lesson.commonMistakes.length > 0 && (length >= 45 || level === "struggling")) {
+  if (lesson.commonMistakes.length > 0 && (length >= 45 || level === "level-1")) {
     sections.push({
       kind: "misconceptions",
       id: "misconceptions",
@@ -519,7 +600,7 @@ export function generateTutorPlan(
   });
 
   // ── 13. Extension challenge (60 min, or extension level) ──────────────────
-  const includeExtension = length === 60 || level === "extension";
+  const includeExtension = level === "level-3";
   if (includeExtension && mastery.length >= 2) {
     // Use the two hardest mastery questions (last two)
     const extQs = mastery.slice(-2);
@@ -560,6 +641,7 @@ export function generateTutorPlan(
     syllabusArea: lesson.syllabusArea,
     length,
     level,
+    deliveryMode,
     generatedAt: new Date().toISOString(),
     learningGoal: lesson.learningIntention,
     successCriteria: lesson.successCriteria,

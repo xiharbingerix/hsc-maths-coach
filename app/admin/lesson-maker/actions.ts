@@ -8,6 +8,7 @@ import {
   generateTutorPlan,
   detectPlaceholderLesson,
   type LessonLength,
+  type LessonDeliveryMode,
   type StudentLevel,
   type TutorLessonPlan,
 } from "../../../lib/lessonMaker";
@@ -15,11 +16,15 @@ import {
   aiLessonPlannerEnabled,
   generateAiLessonPlan,
 } from "../../../lib/aiLessonPlanner";
+import {
+  normaliseDeliveryMode,
+  normaliseStudentLevel,
+} from "../../../lib/lessonPlannerConfig";
 
 // ── Lesson plan generation ────────────────────────────────────────────────────
 //
 // AI-first with a per-topic cache: the first generation for a
-// (course, unit, lesson, length, level) key calls Claude and stores the result
+// (course, unit, lesson, length, level, delivery mode) key calls Claude and stores the result
 // in ai_lesson_plans as that topic's default. Subsequent generations serve the
 // cached plan (no tokens spent) unless forceRegenerate is set, which overwrites
 // the cached default. With no ANTHROPIC_API_KEY the built-in deterministic
@@ -35,6 +40,7 @@ export async function generateLessonPlanAction(
   lessonSlug: string,
   length: LessonLength,
   level: StudentLevel,
+  deliveryMode: LessonDeliveryMode,
   opts?: { forceRegenerate?: boolean },
 ): Promise<GenerateResult> {
   await requireAdmin();
@@ -64,6 +70,7 @@ export async function generateLessonPlanAction(
     lesson_slug: lessonSlug,
     lesson_length: length,
     student_level: level,
+    delivery_mode: deliveryMode,
   };
 
   // 1. Cached default for this topic — free.
@@ -79,12 +86,19 @@ export async function generateLessonPlanAction(
 
   // 2. No API key → deterministic built-in generator (not cached).
   if (!aiLessonPlannerEnabled()) {
-    return { plan: generateTutorPlan(lesson, { length, level }), source: "built-in" };
+    return {
+      plan: generateTutorPlan(lesson, { length, level, deliveryMode }),
+      source: "built-in",
+    };
   }
 
   // 3. Generate with Claude and save as this topic's default.
   try {
-    const { plan, model } = await generateAiLessonPlan(lesson, { length, level });
+    const { plan, model } = await generateAiLessonPlan(lesson, {
+      length,
+      level,
+      deliveryMode,
+    });
 
     const { error: upsertError } = await supabaseAdmin
       .from("ai_lesson_plans")
@@ -95,7 +109,10 @@ export async function generateLessonPlanAction(
           plan: plan as unknown as Record<string, unknown>,
           updated_at: new Date().toISOString(),
         },
-        { onConflict: "course_slug,unit_slug,lesson_slug,lesson_length,student_level" },
+        {
+          onConflict:
+            "course_slug,unit_slug,lesson_slug,lesson_length,student_level,delivery_mode",
+        },
       );
     if (upsertError) {
       // Plan still usable — surface the caching failure without losing it.
@@ -119,6 +136,7 @@ export type SavedPlanSummary = {
   lessonSlug: string;
   lessonLength: number;
   studentLevel: string;
+  deliveryMode: LessonDeliveryMode;
   createdAt: string;
 };
 
@@ -130,6 +148,7 @@ export async function saveLessonPlanAction(
   lessonSlug: string,
   length: LessonLength,
   level: StudentLevel,
+  deliveryMode: LessonDeliveryMode,
   plan: TutorLessonPlan,
 ): Promise<{ id: string } | { error: string }> {
   await requireAdmin();
@@ -143,6 +162,7 @@ export async function saveLessonPlanAction(
       lesson_slug: lessonSlug,
       lesson_length: length,
       student_level: level,
+      delivery_mode: deliveryMode,
       plan: plan as unknown as Record<string, unknown>,
     })
     .select("id")
@@ -160,7 +180,7 @@ export async function listSavedPlansAction(): Promise<
   const { data, error } = await supabaseAdmin
     .from("saved_lesson_plans")
     .select(
-      "id,title,course_slug,unit_slug,lesson_slug,lesson_length,student_level,created_at",
+      "id,title,course_slug,unit_slug,lesson_slug,lesson_length,student_level,delivery_mode,created_at",
     )
     .order("created_at", { ascending: false })
     .limit(20);
@@ -175,7 +195,8 @@ export async function listSavedPlansAction(): Promise<
       unitSlug: row.unit_slug as string,
       lessonSlug: row.lesson_slug as string,
       lessonLength: row.lesson_length as number,
-      studentLevel: row.student_level as string,
+      studentLevel: normaliseStudentLevel(row.student_level as string),
+      deliveryMode: normaliseDeliveryMode(row.delivery_mode as string | undefined),
       createdAt: row.created_at as string,
     }),
   );
@@ -205,9 +226,19 @@ export async function loadSavedPlanAction(
       unitSlug: row.unit_slug as string,
       lessonSlug: row.lesson_slug as string,
       lessonLength: row.lesson_length as number,
-      studentLevel: row.student_level as string,
+      studentLevel: normaliseStudentLevel(row.student_level as string),
+      deliveryMode: normaliseDeliveryMode(row.delivery_mode as string | undefined),
       createdAt: row.created_at as string,
-      plan: row.plan as unknown as TutorLessonPlan,
+      plan: {
+        ...(row.plan as unknown as TutorLessonPlan),
+        level: normaliseStudentLevel(
+          (row.plan as { level?: string }).level ?? (row.student_level as string),
+        ),
+        deliveryMode: normaliseDeliveryMode(
+          (row.plan as { deliveryMode?: string }).deliveryMode ??
+            (row.delivery_mode as string | undefined),
+        ),
+      },
     },
   };
 }
