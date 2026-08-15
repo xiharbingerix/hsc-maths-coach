@@ -42,8 +42,15 @@ type LessonStage =
   | "learn"
   | "guided-practice"
   | "independent-practice"
+  | "extension-practice"
   | "multi-part-practice"
   | "mastery-quiz";
+
+type LessonStageDefinition = {
+  id: LessonStage;
+  label: string;
+  optional?: boolean;
+};
 
 type MasteryState = {
   passed: boolean;
@@ -55,13 +62,14 @@ type MasteryState = {
 export const WATCH_STAGE_ENABLED = true;
 const PLACEHOLDER_VIDEO_URL = "/videos/placeholder-lesson.mp4";
 
-const allLessonStages: { id: LessonStage; label: string }[] = [
+const allLessonStages: LessonStageDefinition[] = [
   { id: "watch", label: "Watch" },
   { id: "learn", label: "Learn" },
   { id: "guided-practice", label: "Guided Practice" },
   { id: "independent-practice", label: "Independent Practice" },
-  { id: "multi-part-practice", label: "Multi-Part Practice" },
-  { id: "mastery-quiz", label: "Mastery Quiz" },
+  { id: "extension-practice", label: "Extra Practice", optional: true },
+  { id: "multi-part-practice", label: "Exam Practice", optional: true },
+  { id: "mastery-quiz", label: "Mastery Check", optional: true },
 ];
 
 const firstContentStage: LessonStage = "learn";
@@ -200,6 +208,7 @@ function isCorrectPart(part: PracticeQuestionPart, value: string) {
     userAnswer: value,
     correctAnswer: part.answer,
     acceptedAnswers: partAcceptedAnswers(part),
+    prompt: part.prompt,
   }).correct;
 }
 
@@ -218,6 +227,7 @@ function isCorrectAnswer(question: PracticeQuestion, value: string) {
       userAnswer: value,
       correctAnswer: question.answer,
       acceptedAnswers: answerOptions(question).slice(1),
+      prompt: question.prompt,
     }).correct;
   }
 
@@ -782,6 +792,7 @@ function PracticeCard({
   unitSlug,
   lessonSlug,
   section,
+  commonMistakes,
 }: {
   question: PracticeQuestion;
   index: number;
@@ -789,6 +800,7 @@ function PracticeCard({
   unitSlug?: string;
   lessonSlug: string;
   section: "guided-practice" | "independent-practice";
+  commonMistakes?: ExplicitLesson["commonMistakes"];
 }) {
   const questionLatex = safeQuestionLatex(question);
   // Single-step state
@@ -856,6 +868,7 @@ function PracticeCard({
         userAnswer: stepAnswer,
         correctAnswer: step.answer,
         acceptedAnswers: step.acceptedAnswers ?? [],
+        prompt: step.prompt,
       }).correct;
       if (local) {
         setStepResult("correct");
@@ -1128,6 +1141,23 @@ function PracticeCard({
         </div>
       )}
 
+      {result === "incorrect" && commonMistakes && commonMistakes.length > 0 && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+          <p className="font-semibold">Common mistakes on this topic</p>
+          <ul className="mt-2 space-y-2">
+            {commonMistakes.map((item) => (
+              <li key={item.mistake}>
+                <span className="font-medium">
+                  <MathText text={item.mistake} />
+                </span>
+                {" — "}
+                <MathText text={item.fix} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {result === "unavailable" && (
         <div className="rounded-xl bg-amber-50 p-3 text-sm font-medium text-amber-900">
           This answer could not be marked right now. Please try again.
@@ -1257,6 +1287,7 @@ function QuizQuestion({
         userAnswer: stepAnswer,
         correctAnswer: step.answer,
         acceptedAnswers: step.acceptedAnswers ?? [],
+        prompt: step.prompt,
       }).correct;
       if (local) {
         setStepResult("correct");
@@ -1844,13 +1875,18 @@ export function LessonRenderer({
     const shouldShowWatchStage =
       WATCH_STAGE_ENABLED && hasPlayableVideoUrl(lesson?.video.url);
     const hasMultiPartPractice = (lesson?.multiPartPractice?.length ?? 0) > 0;
+    const hasExtensionPractice =
+      (lesson?.workedExamples.length ?? 0) > 2 ||
+      (lesson?.independentPractice.length ?? 0) > 2 ||
+      (lesson?.commonMistakes.length ?? 0) > 2;
 
     return allLessonStages.filter((stage) => {
       if (stage.id === "watch") return shouldShowWatchStage;
+      if (stage.id === "extension-practice") return hasExtensionPractice;
       if (stage.id === "multi-part-practice") return hasMultiPartPractice;
       return true;
     });
-  }, [lesson?.multiPartPractice?.length, lesson?.video.url]);
+  }, [lesson]);
   const firstCurrentLessonStage =
     currentLessonStages[0]?.id ?? firstContentStage;
 
@@ -2083,6 +2119,13 @@ export function LessonRenderer({
   ).length;
 
   const challengeQuestions = getChallengeQuestions(lessonSlug, courseSlug);
+  const coreSuccessCriteria = currentLesson.successCriteria.slice(0, 3);
+  const coreWorkedExamples = currentLesson.workedExamples.slice(0, 2);
+  const extraWorkedExamples = currentLesson.workedExamples.slice(2);
+  const coreCommonMistakes = currentLesson.commonMistakes.slice(0, 2);
+  const extraCommonMistakes = currentLesson.commonMistakes.slice(2);
+  const coreIndependentPractice = currentLesson.independentPractice.slice(0, 2);
+  const extraIndependentPractice = currentLesson.independentPractice.slice(2);
 
   function saveMasteryState(nextState: MasteryState) {
     const storedState = {
@@ -2142,7 +2185,7 @@ export function LessonRenderer({
     }
   }
 
-  function completeCurrentStage() {
+  function completeCurrentStage(nextStageId?: unknown) {
     const completedStages = masteryState.completedStages.includes(activeStage)
       ? masteryState.completedStages
       : [...masteryState.completedStages, activeStage];
@@ -2152,7 +2195,11 @@ export function LessonRenderer({
       completedStages,
     });
 
-    const nextStage = currentLessonStages[activeStageIndex + 1];
+    const requestedStage =
+      typeof nextStageId === "string" ? (nextStageId as LessonStage) : undefined;
+    const nextStage = requestedStage
+      ? currentLessonStages.find((stage) => stage.id === requestedStage)
+      : currentLessonStages[activeStageIndex + 1];
     if (nextStage) {
       setActiveStage(nextStage.id);
     }
@@ -2418,7 +2465,7 @@ export function LessonRenderer({
           <div>
             <h3 className="text-lg font-semibold">Success criteria</h3>
             <ul className="mt-3 list-disc space-y-2 pl-6 text-slate-700">
-              {currentLesson.successCriteria.map((item) => (
+              {coreSuccessCriteria.map((item) => (
                 <li key={item}>
                   <MathText text={item} />
                 </li>
@@ -2445,7 +2492,7 @@ export function LessonRenderer({
 
           <div className="space-y-6">
             <h3 className="text-lg font-semibold">Worked examples</h3>
-            {currentLesson.workedExamples.map((example) => (
+            {coreWorkedExamples.map((example) => (
               <div
                 key={example.title}
                 className="space-y-4 rounded-2xl border border-slate-200 p-5"
@@ -2489,7 +2536,7 @@ export function LessonRenderer({
           <div>
             <h3 className="text-lg font-semibold">Common mistakes</h3>
             <div className="mt-4 space-y-3">
-              {currentLesson.commonMistakes.map((item) => (
+              {coreCommonMistakes.map((item) => (
                 <div
                   key={item.mistake}
                   className="rounded-xl border border-slate-200 p-4"
@@ -2529,6 +2576,7 @@ export function LessonRenderer({
               unitSlug={unitSlug}
               lessonSlug={lessonSlug}
               section="guided-practice"
+              commonMistakes={currentLesson.commonMistakes}
             />
           ))}
           <button
@@ -2543,15 +2591,16 @@ export function LessonRenderer({
     }
 
     if (activeStage === "independent-practice") {
-      const nextButtonLabel =
-        (currentLesson.multiPartPractice?.length ?? 0) > 0
-          ? "Continue to Multi-Part Practice"
-          : "Continue to Mastery Quiz";
-
       return (
         <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-bold">Independent Practice</h2>
-          {currentLesson.independentPractice.map((question, index) => (
+          <div>
+            <h2 className="text-2xl font-bold">Independent Practice</h2>
+            <p className="mt-2 text-slate-600">
+              These two questions complete the core lesson. Extra practice and
+              exam-style questions are available afterwards when you want them.
+            </p>
+          </div>
+          {coreIndependentPractice.map((question, index) => (
             <PracticeCard
               key={question.id}
               question={question}
@@ -2560,15 +2609,129 @@ export function LessonRenderer({
               unitSlug={unitSlug}
               lessonSlug={lessonSlug}
               section="independent-practice"
+              commonMistakes={currentLesson.commonMistakes}
             />
           ))}
-          <button
-            type="button"
-            onClick={completeCurrentStage}
-            className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
-          >
-            {nextButtonLabel}
-          </button>
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={completeCurrentStage}
+              className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+            >
+              Core lesson complete
+            </button>
+            <button
+              type="button"
+              onClick={() => completeCurrentStage("mastery-quiz")}
+              className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Go to mastery check
+            </button>
+          </div>
+        </section>
+      );
+    }
+
+    if (activeStage === "extension-practice") {
+      return (
+        <section className="space-y-6 rounded-2xl bg-white p-6 shadow-sm">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Optional
+            </p>
+            <h2 className="mt-1 text-2xl font-bold">Extra Practice</h2>
+            <p className="mt-2 text-slate-600">
+              The core lesson is complete. Use these extra examples, questions,
+              and reminders if you want more rehearsal before the mastery check.
+            </p>
+          </div>
+
+          {extraWorkedExamples.length > 0 && (
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold">Further worked examples</h3>
+              {extraWorkedExamples.map((example) => (
+                <div
+                  key={example.title}
+                  className="space-y-4 rounded-2xl border border-slate-200 p-5"
+                >
+                  <h4 className="text-xl font-semibold">
+                    <MathText text={example.title} />
+                  </h4>
+                  <div className="overflow-x-auto rounded-xl bg-slate-50 p-4 text-lg">
+                    <BlockMath math={example.questionLatex} />
+                  </div>
+                  <VisualPayloadRenderer {...example} />
+                  <div className="space-y-3">
+                    {example.steps.map((step, index) => (
+                      <div key={`${example.title}-${index}`}>
+                        <p className="font-medium text-slate-700">
+                          Step {index + 1}: <MathText text={step.explanation} />
+                        </p>
+                        {step.latex && (
+                          <div className="mt-2 overflow-x-auto rounded-xl bg-slate-50 p-3">
+                            <BlockMath math={step.latex} />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="rounded-xl bg-green-50 p-4">
+                    <p className="text-sm font-semibold text-green-900">Final answer</p>
+                    <BlockMath math={example.finalAnswerLatex} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {extraIndependentPractice.length > 0 && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">More independent practice</h3>
+              {extraIndependentPractice.map((question, index) => (
+                <PracticeCard
+                  key={question.id}
+                  question={question}
+                  index={index + coreIndependentPractice.length}
+                  courseSlug={courseSlug}
+                  unitSlug={unitSlug}
+                  lessonSlug={lessonSlug}
+                  section="independent-practice"
+                  commonMistakes={currentLesson.commonMistakes}
+                />
+              ))}
+            </div>
+          )}
+
+          {extraCommonMistakes.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold">Additional pitfalls</h3>
+              <div className="mt-4 space-y-3">
+                {extraCommonMistakes.map((item) => (
+                  <div key={item.mistake} className="rounded-xl border border-slate-200 p-4">
+                    <p className="font-semibold text-red-700"><MathText text={item.mistake} /></p>
+                    <p className="mt-1 text-slate-700"><MathText text={item.fix} /></p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={completeCurrentStage}
+              className="rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white hover:bg-slate-700"
+            >
+              Continue
+            </button>
+            <button
+              type="button"
+              onClick={() => completeCurrentStage("mastery-quiz")}
+              className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              Go to mastery check
+            </button>
+          </div>
         </section>
       );
     }
@@ -2577,7 +2740,10 @@ export function LessonRenderer({
       return (
         <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
           <div>
-            <h2 className="text-2xl font-bold">Multi-Part Practice</h2>
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Optional
+            </p>
+            <h2 className="mt-1 text-2xl font-bold">Exam Practice</h2>
             <p className="mt-2 text-slate-600">
               HSC-style questions with separate answer checks for each part.
             </p>
@@ -2591,6 +2757,7 @@ export function LessonRenderer({
               unitSlug={unitSlug}
               lessonSlug={lessonSlug}
               section="independent-practice"
+              commonMistakes={currentLesson.commonMistakes}
             />
           ))}
           <button
@@ -2613,7 +2780,7 @@ export function LessonRenderer({
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">
             Premium
           </p>
-          <h2 className="text-2xl font-bold">Mastery Quiz is part of Premium</h2>
+          <h2 className="text-2xl font-bold">Optional mastery check</h2>
           <p className="text-slate-300">
             The mastery quiz scores how exam-ready you are on this lesson and
             updates your mastery map. Lessons and practice stay free — upgrade to
@@ -2632,7 +2799,10 @@ export function LessonRenderer({
     return (
       <section className="space-y-4 rounded-2xl bg-white p-6 shadow-sm">
         <div>
-          <h2 className="text-2xl font-bold">Mastery Quiz</h2>
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Optional
+          </p>
+          <h2 className="mt-1 text-2xl font-bold">Mastery Check</h2>
           <p className="mt-2 text-slate-600">
             Pass mark: {Math.ceil(currentLesson.masteryPassMark * 100)}%. You
             can try this now, or work through the lesson sequence first.
@@ -2708,6 +2878,7 @@ export function LessonRenderer({
                 unitSlug={unitSlug}
                 lessonSlug={lessonSlug}
                 section="independent-practice"
+                commonMistakes={currentLesson.commonMistakes}
               />
             ))}
           </section>
@@ -2789,11 +2960,7 @@ export function LessonRenderer({
 
         <section className="rounded-2xl bg-white p-3 shadow-sm">
           <div
-            className={`grid gap-2 ${
-              currentLessonStages.length === 5
-                ? "md:grid-cols-5"
-                : "md:grid-cols-4"
-            }`}
+            className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-7"
           >
             {currentLessonStages.map((stage, index) => {
               const isActive = stage.id === activeStage;
@@ -2817,7 +2984,7 @@ export function LessonRenderer({
                   } disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400`}
                 >
                   <span className="block text-xs opacity-70">
-                    Step {index + 1}
+                    {stage.optional ? "Optional" : `Step ${index + 1}`}
                   </span>
                   {stage.label}
                 </button>
@@ -2827,7 +2994,8 @@ export function LessonRenderer({
 
           {!masteryState.passed && (
             <p className="mt-3 px-2 text-sm text-slate-600">
-              You can jump straight to the Mastery Quiz whenever you are ready.
+              Complete Learn, Guided Practice, and Independent Practice for the
+              core lesson. Extra Practice, Exam Practice, and Mastery Check are optional.
             </p>
           )}
 
