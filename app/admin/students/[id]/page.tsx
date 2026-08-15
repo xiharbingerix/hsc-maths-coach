@@ -687,6 +687,7 @@ export default async function AdminStudentDetailPage({
     yearLevel: latestDiagnostic?.year_level ?? "year-12-advanced",
     masteryRows,
     diagnosticResults: latestDiagnostic?.unit_results ?? [],
+    subtopicRows: subtopicMasteryRows,
   });
   const worksheetGeneratorHref = `/admin/worksheets/new?studentName=${encodeURIComponent(
     studentName(user, profile)
