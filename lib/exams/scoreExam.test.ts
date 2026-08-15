@@ -76,3 +76,24 @@ test("typed question still marks correctly (regression)", async () => {
   assert.equal(result.questions[0]?.correct, true);
   assert.equal(result.marksEarned, 1);
 });
+
+test("typed percentage accepts a percent symbol with a percentage-point key", async () => {
+  const percentageQ: ExamQuestion = {
+    id: "percentage-1",
+    prompt: "Express this relative frequency as a percentage.",
+    marks: 1,
+    difficulty: 2,
+    topicSlug: "relative-frequency",
+    topicTitle: "Relative Frequency",
+    remediationHref: "/x",
+    explanation: "The relative frequency is 20%.",
+    answer: "20",
+  };
+
+  const result = await scoreExam(paperWith(percentageQ), {
+    "percentage-1": "20%",
+  });
+
+  assert.equal(result.questions[0]?.correct, true);
+  assert.equal(result.marksEarned, 1);
+});

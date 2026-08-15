@@ -231,6 +231,7 @@ export async function POST(
         userAnswer: studentAnswer,
         correctAnswer: part.answer,
         acceptedAnswers: part.acceptedAnswers ?? part.accepted_answers ?? [],
+        prompt: part.prompt,
       });
       const marksAvailableForPart =
         Number.isFinite(part.marks) && part.marks > 0 ? part.marks : 1;
@@ -309,6 +310,7 @@ export async function POST(
       userAnswer: trimmedAnswer,
       correctAnswer,
       acceptedAnswers,
+      prompt: String(question.prompt ?? ""),
     });
     isCorrect = result.correct;
 

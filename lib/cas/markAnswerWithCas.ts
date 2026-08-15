@@ -6,7 +6,11 @@
  * the answer looks symbolic — does it ask the CAS service. CAS can only upgrade
  * wrong → right, never the reverse, so this never regresses marking.
  */
-import { markTypedAnswer, type MarkTypedAnswerResult } from "../answerMarking";
+import {
+  markTypedAnswer,
+  type MarkTypedAnswerArgs,
+  type MarkTypedAnswerResult,
+} from "../answerMarking";
 import { casEquivalentToAny } from "./checkEquivalence";
 import { looksSymbolic } from "./looksSymbolic";
 
@@ -15,11 +19,9 @@ export type CasMarkResult = MarkTypedAnswerResult & {
   casMethod?: string;
 };
 
-export async function markAnswerWithCas(args: {
-  userAnswer: string;
-  correctAnswer: string;
-  acceptedAnswers?: string[];
-}): Promise<CasMarkResult> {
+export async function markAnswerWithCas(
+  args: MarkTypedAnswerArgs
+): Promise<CasMarkResult> {
   const local = markTypedAnswer(args);
   if (local.correct) return local;
 

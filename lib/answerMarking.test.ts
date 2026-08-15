@@ -2,8 +2,18 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { markTypedAnswer } from "./answerMarking";
 
-function mark(userAnswer: string, correctAnswer: string, acceptedAnswers: string[] = []) {
-  return markTypedAnswer({ userAnswer, correctAnswer, acceptedAnswers }).correct;
+function mark(
+  userAnswer: string,
+  correctAnswer: string,
+  acceptedAnswers: string[] = [],
+  prompt?: string
+) {
+  return markTypedAnswer({
+    userAnswer,
+    correctAnswer,
+    acceptedAnswers,
+    prompt,
+  }).correct;
 }
 
 // derivative prefix stripping
@@ -27,6 +37,34 @@ test("\\infty matches infinity", () => assert.equal(mark("\\infty", "infinity"),
 test("MathLive escaped percent matches stored percent", () => assert.equal(mark("5\\%", "5%"), true));
 test("MathLive escaped percent matches an accepted percent variant", () =>
   assert.equal(mark("5\\%", "5", ["5%", "0.05"]), true));
+
+// Percentage-point answer keys: some authored questions store 20 for an
+// expected displayed answer of 20%. Prompt context disambiguates that from 0.2.
+const percentagePrompt = "Express this relative frequency as a percentage.";
+test("percent symbol matches a percentage-point answer key", () =>
+  assert.equal(mark("20%", "20", [], percentagePrompt), true));
+test("MathLive escaped percent matches a percentage-point answer key", () =>
+  assert.equal(mark("20\\%", "20", [], percentagePrompt), true));
+test("percent word matches a percentage-point answer key", () =>
+  assert.equal(mark("20 percent", "20", [], percentagePrompt), true));
+test("bare percentage points match an explicitly marked answer key", () =>
+  assert.equal(mark("20", "20%"), true));
+test("percent form still matches a proportion answer key in percentage context", () =>
+  assert.equal(mark("20%", "0.2", [], percentagePrompt), true));
+test("scaled percent cannot match a percentage-point answer key", () =>
+  assert.equal(mark("2000%", "20", [], percentagePrompt), false));
+test("bare numeric keys are not treated as percentage points without context", () =>
+  assert.equal(mark("20%", "20"), false));
+test("mentioning an input interest rate does not make the balance a percentage", () =>
+  assert.equal(
+    mark(
+      "2205%",
+      "2205",
+      [],
+      "Find the balance after 2 years at 5 percent p.a."
+    ),
+    false
+  ));
 test("\\left(x+1\\right) matches (x+1)", () => assert.equal(mark("\\left(x+1\\right)", "(x+1)"), true));
 // Brace-less \frac shorthand in stored answers must match MathLive's braced student output.
 test("student \\frac{1}{2} matches stored \\frac12", () => assert.equal(mark("\\frac{1}{2}", "\\frac12"), true));
