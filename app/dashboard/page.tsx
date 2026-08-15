@@ -624,11 +624,6 @@ export default function DashboardPage() {
   const progressRecords = Object.values(lessonProgress);
   const hasLessonProgress = progressRecords.length > 0;
   const continueLearningTarget = getContinueLearningTarget(progressRecords, selectedCourseSlug);
-  const studyPlan = generateStudyPlan({
-    yearLevel: diagnosticYearLevel,
-    masteryRows,
-    diagnosticResults,
-  });
 
   // Build a slug → human label lookup from the course catalog.
   const topicLabelMap = new Map<string, string>();
@@ -644,6 +639,15 @@ export default function DashboardPage() {
       }
     }
   }
+
+  const studyPlan = generateStudyPlan({
+    yearLevel: diagnosticYearLevel,
+    masteryRows,
+    diagnosticResults,
+    subtopicRows: subtopicMasteryRows,
+    subtopicLabels: subtopicLabelMap,
+  });
+
   function topicLabel(courseSlug: string, topicSlug: string): string {
     return topicLabelMap.get(`${courseSlug}::${topicSlug}`) ?? prettifySlug(topicSlug);
   }
@@ -1342,7 +1346,7 @@ export default function DashboardPage() {
 
         <section className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            Your Study Plan
+            Today&apos;s Study Plan
           </p>
           <div className="mt-4 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex-1">
@@ -1357,6 +1361,12 @@ export default function DashboardPage() {
                   <div className="rounded-2xl bg-slate-50 p-4">
                     <p className="font-semibold text-slate-900">Next topic</p>
                     <p className="mt-1">{studyPlan.nextTopic.title}</p>
+                    {studyPlan.nextTopic.weakestSubtopic ? (
+                      <p className="mt-1 text-xs text-slate-500">
+                        Weakest area: {studyPlan.nextTopic.weakestSubtopic.title} (
+                        {studyPlan.nextTopic.weakestSubtopic.mastery}%)
+                      </p>
+                    ) : null}
                   </div>
                   <div className="rounded-2xl bg-slate-50 p-4">
                     <p className="font-semibold text-slate-900">Study time</p>
