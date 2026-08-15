@@ -125,6 +125,7 @@ async function scoreQuestion(
         userAnswer: studentAnswer,
         correctAnswer: part.answer,
         acceptedAnswers: part.acceptedAnswers ?? [],
+        prompt: part.prompt,
       });
       const correct = studentAnswer.length > 0 && result.correct;
       parts.push({
@@ -161,6 +162,7 @@ async function scoreQuestion(
       userAnswer: studentAnswer,
       correctAnswer: q.answer ?? "",
       acceptedAnswers: q.acceptedAnswers ?? [],
+      prompt: q.prompt,
     });
     correct = studentAnswer.length > 0 && result.correct;
   }

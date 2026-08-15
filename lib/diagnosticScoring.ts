@@ -1,4 +1,5 @@
 import { questions, type DiagnosticQuestion } from "./questions";
+import { markTypedAnswer } from "./answerMarking";
 
 export const IDK_ANSWER = "__IDK__";
 
@@ -302,12 +303,12 @@ export function isCorrectAnswer(
     return false;
   }
 
-  const normalisedUserAnswer = normaliseAnswer(userAnswer);
-  const acceptedAnswers = [question.answer, ...(question.acceptedAnswers ?? [])];
-
-  return acceptedAnswers.some(
-    (answer) => normaliseAnswer(answer) === normalisedUserAnswer
-  );
+  return markTypedAnswer({
+    userAnswer,
+    correctAnswer: question.answer,
+    acceptedAnswers: question.acceptedAnswers ?? [],
+    prompt: question.prompt,
+  }).correct;
 }
 
 export function scoreDiagnostic(

@@ -14,6 +14,14 @@ export type MarkTypedAnswerResult = {
   matchedBy: "exact" | "accepted" | "normalised" | "cas";
 };
 
+export type MarkTypedAnswerArgs = {
+  userAnswer: string;
+  correctAnswer: string;
+  acceptedAnswers?: string[];
+  /** The question wording, used to disambiguate percentage points from proportions. */
+  prompt?: string;
+};
+
 function stripDerivativePrefix(value: string): string {
   // Strip function-equals prefixes students add when the expected answer is a bare expression.
   // e.g. "y' = 2x", "dy/dx = 2x", "f'(x) = 2x", "y = 2x" \u2192 "2x"
@@ -244,6 +252,113 @@ function parseScalar(value: string): ScalarAnswer | null {
   };
 }
 
+type ExplicitPercentage = {
+  /** The number written before the percent marker: 20% has magnitude 20. */
+  magnitude: Rational;
+  variable?: string;
+};
+
+function parseExplicitPercentage(value: string): ExplicitPercentage | null {
+  let working = normaliseText(value);
+  let variable: string | undefined;
+  const variableMatch = working.match(/^([a-z])=(.+)$/);
+  if (variableMatch) {
+    variable = variableMatch[1];
+    working = variableMatch[2];
+  }
+
+  const suffix = working.match(/(?:%|percent(?:age)?)$/);
+  if (!suffix) return null;
+
+  const magnitude = parseNumericValue(
+    stripThousandsSeparators(working.slice(0, -suffix[0].length))
+  );
+  return magnitude ? { magnitude, variable } : null;
+}
+
+function rationalMagnitudeIsLessThanOne(value: Rational) {
+  const numerator = value.numerator < BigInt(0) ? -value.numerator : value.numerator;
+  return numerator < value.denominator;
+}
+
+function expectsPercentageAnswer(prompt: string | undefined, answers: string[]) {
+  // An authored percent marker is the strongest signal and also supports callers
+  // that do not have a prompt (for example, older stored questions).
+  if (answers.some((answer) => parseExplicitPercentage(answer))) return true;
+  if (!prompt) return false;
+
+  const wording = prompt.normalize("NFKC").toLowerCase().replace(/\s+/g, " ");
+
+  // A question can mention percentages while explicitly requesting another form.
+  if (/\bas\s+(?:a\s+)?(?:decimal|fraction)\b/.test(wording)) return false;
+
+  return (
+    /\bas\s+(?:a\s+)?percent(?:age)?\b/.test(wording) ||
+    /\bwhat\s+(?:is\s+)?(?:the\s+)?percent(?:age)?\b/.test(wording) ||
+    /\bwhat\b[^?.]{0,60}\bpercentage\b/.test(wording) ||
+    /\b(?:find|calculate|determine|state|give|write|express|estimate)\b[^?.]{0,60}\b(?:the|a|their|its)?\s*percentage\b/.test(
+      wording
+    ) ||
+    /\b(?:find|calculate|determine)\s+(?:the\s+)?percent\s+(?:increase|decrease|change|error|growth|discount|profit|loss)\b/.test(
+      wording
+    )
+  );
+}
+
+/**
+ * Compare the two common ways percentage answers are authored:
+ * - percentage points (`20`) for a question asking for a percentage; and
+ * - proportions (`0.2` or `1/5`).
+ *
+ * A non-null result is definitive. In particular, 2000% must not fall through
+ * to the generic scalar comparator and match a percentage-point key of 20.
+ */
+function percentageRepresentationMatch(
+  userAnswer: string,
+  acceptedAnswer: string,
+  percentageAnswerExpected: boolean
+): boolean | null {
+  if (!percentageAnswerExpected) return null;
+
+  const userPercentage = parseExplicitPercentage(userAnswer);
+  const acceptedPercentage = parseExplicitPercentage(acceptedAnswer);
+  if (!userPercentage && !acceptedPercentage) return null;
+
+  if (userPercentage && acceptedPercentage) {
+    return (
+      variablesAreCompatible(userPercentage.variable, acceptedPercentage.variable) &&
+      sameRational(userPercentage.magnitude, acceptedPercentage.magnitude)
+    );
+  }
+
+  const userScalar = userPercentage ? null : parseScalar(userAnswer);
+  const acceptedScalar = acceptedPercentage ? null : parseScalar(acceptedAnswer);
+  const bareScalar = userScalar ?? acceptedScalar;
+  const explicitPercentage = userPercentage ?? acceptedPercentage;
+  if (!bareScalar || !explicitPercentage) return false;
+
+  if (
+    !variablesAreCompatible(
+      userPercentage?.variable ?? userScalar?.variable,
+      acceptedPercentage?.variable ?? acceptedScalar?.variable
+    )
+  ) {
+    return false;
+  }
+
+  if (!rationalMagnitudeIsLessThanOne(bareScalar.value)) {
+    return sameRational(explicitPercentage.magnitude, bareScalar.value);
+  }
+
+  const percentageAsProportion = rational(
+    explicitPercentage.magnitude.numerator,
+    explicitPercentage.magnitude.denominator * BigInt(100)
+  );
+  return Boolean(
+    percentageAsProportion && sameRational(percentageAsProportion, bareScalar.value)
+  );
+}
+
 function variablesAreCompatible(
   userVariable: string | undefined,
   acceptedVariable: string | undefined
@@ -442,11 +557,8 @@ export function markTypedAnswer({
   userAnswer,
   correctAnswer,
   acceptedAnswers = [],
-}: {
-  userAnswer: string;
-  correctAnswer: string;
-  acceptedAnswers?: string[];
-}): MarkTypedAnswerResult {
+  prompt,
+}: MarkTypedAnswerArgs): MarkTypedAnswerResult {
   const trimmedUserAnswer = userAnswer.trim();
   const normalisedUserAnswer = normaliseText(userAnswer);
 
@@ -468,15 +580,25 @@ export function markTypedAnswer({
   }
 
   const answerOptions = [correctAnswer, ...acceptedAnswers];
-  const normalisedMatch = answerOptions.some(
-    (acceptedAnswer) =>
-      normalisedUserAnswer === normaliseText(acceptedAnswer) ||
+  const percentageAnswerExpected = expectsPercentageAnswer(prompt, answerOptions);
+  const normalisedMatch = answerOptions.some((acceptedAnswer) => {
+    if (normalisedUserAnswer === normaliseText(acceptedAnswer)) return true;
+
+    const percentageMatch = percentageRepresentationMatch(
+      userAnswer,
+      acceptedAnswer,
+      percentageAnswerExpected
+    );
+    if (percentageMatch !== null) return percentageMatch;
+
+    return (
       semanticMatch(userAnswer, acceptedAnswer) ||
       // Semantic comparison again on the normalised forms, so LaTeX answers on
       // either side (\frac{2}{2.5} vs 0.8, \frac{4}{5} vs 0.8) still get
       // numeric-equivalence treatment after being reduced to a/b.
       semanticMatch(normalisedUserAnswer, normaliseText(acceptedAnswer))
-  );
+    );
+  });
 
   return {
     correct: normalisedMatch,

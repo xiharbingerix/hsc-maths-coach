@@ -5,6 +5,7 @@ type TestCase = {
   userAnswer: string;
   correctAnswer: string;
   acceptedAnswers?: string[];
+  prompt?: string;
   expected: boolean;
   matchedBy?: "exact" | "accepted" | "normalised";
 };
@@ -16,6 +17,12 @@ const tests: TestCase[] = [
   { name: "fraction to decimal", userAnswer: "0.5", correctAnswer: "1/2", expected: true },
   { name: "fraction to percentage", userAnswer: "50%", correctAnswer: "1/2", expected: true },
   { name: "decimal to percentage", userAnswer: "75%", correctAnswer: "0.75", expected: true },
+  { name: "percentage points with symbol", userAnswer: "20%", correctAnswer: "20", prompt: "Express this relative frequency as a percentage.", expected: true },
+  { name: "percentage points with MathLive escape", userAnswer: "20\\%", correctAnswer: "20", prompt: "Express this relative frequency as a percentage.", expected: true },
+  { name: "percentage points with word", userAnswer: "20 percent", correctAnswer: "20", prompt: "Express this relative frequency as a percentage.", expected: true },
+  { name: "wrong scaled percentage", userAnswer: "2000%", correctAnswer: "20", prompt: "Express this relative frequency as a percentage.", expected: false },
+  { name: "no percentage context", userAnswer: "20%", correctAnswer: "20", expected: false },
+  { name: "input percentage is not output context", userAnswer: "2205%", correctAnswer: "2205", prompt: "Find the balance after 2 years at 5 percent p.a.", expected: false },
   { name: "equivalent fraction", userAnswer: "4/10", correctAnswer: "2/5", expected: true },
   { name: "repeating decimal is not approximated", userAnswer: "0.333", correctAnswer: "1/3", expected: false },
   { name: "explicit repeating approximation accepted", userAnswer: "0.333", correctAnswer: "1/3", acceptedAnswers: ["0.333"], expected: true, matchedBy: "accepted" },
