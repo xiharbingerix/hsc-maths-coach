@@ -1,9 +1,10 @@
 // Year 9 — Chapter 8, probability sections, 10-lesson rework: tree-diagrams-multistage-events
 // (core), dependent-and-independent-events (core), probability-simulations (core),
-// conditional-probability (path), gambling-awareness (core). data-and-sampling (path) is
-// untouched — out of scope for the probability rework (see docs/migrations/
-// Y9-probability-rework-slug-map.md). Ported/adapted from the pre-restructure
-// `makingPredictions.ts` and `probabilityB.ts` (both retired) plus this file's own prior content.
+// conditional-probability (path), gambling-awareness (core). Ported/adapted from the
+// pre-restructure `makingPredictions.ts` and `probabilityB.ts` (both retired) plus this
+// file's own prior content. `data-and-sampling` (formerly here) has moved to
+// chapter8DataAnalysisB.ts as `data-collection`, as part of the Year 9 DATA rework — see
+// docs/migrations/Y9-data-rework-slug-map.md.
 
 import type { CourseLessonSeed, CoursePathwaySeed, CourseUnitSeed } from "../../courseTypes";
 import type { ExplicitLesson, PracticeQuestion, WorkedExample } from "../differentialCalculus";
@@ -519,78 +520,12 @@ const gamblingAwareness: Partial<ExplicitLesson> = {
   masteryPassMark: 0.8,
 };
 
-// ── data-and-sampling (path) — untouched, out of scope for this rework ────────────────
-const dataAndSampling: Partial<ExplicitLesson> = {
-  description: "Distinguish population and sample, recognise sampling methods and sources of bias.",
-  learningIntention: "Understand sampling and choose appropriate, unbiased samples.",
-  successCriteria: ["Distinguish population and sample.", "Know a census surveys the whole population.", "Recognise that random sampling reduces bias.", "Compute simple sample sizes."],
-  teaching: {
-    paragraphs: [
-      "A POPULATION is the WHOLE group of interest; a SAMPLE is a PART of it chosen to study. Surveying the whole population is a CENSUS.",
-      "A good sample is REPRESENTATIVE. RANDOM sampling (everyone equally likely to be chosen) helps reduce BIAS.",
-      "BIAS occurs when the sample doesn't fairly represent the population — e.g. only surveying friends.",
-      "Sample sizes can be computed: a 1-in-10 sample of 500 people is 50.",
-    ],
-    latexBlocks: ["\\text{sample} \\subset \\text{population}", "\\text{census} = \\text{whole population}"],
-  },
-  workedExamples: [
-    { title: "Population", questionLatex: "\\text{What is a population?}", steps: [{ explanation: "The whole group.", latex: "\\text{whole group}" }], finalAnswerLatex: "\\text{whole group}" },
-    { title: "Census", questionLatex: "\\text{A census surveys...}", steps: [{ explanation: "Everyone.", latex: "\\text{whole population}" }], finalAnswerLatex: "\\text{whole population}" },
-    { title: "Sample size", questionLatex: "\\text{1-in-10 of 500 people?}", steps: [{ explanation: "500 ÷ 10.", latex: "50" }], finalAnswerLatex: "50" },
-  ],
-  guidedPractice: [
-    mcq("y9-ds-g1", "A population is:", "A", ["the whole group of interest", "a small part", "the average", "a random number"], 2, "The whole group."),
-    mcq("y9-ds-g2", "A sample is:", "B", ["the whole group", "a part of the population", "the largest value", "a probability"], 2, "A part of the population."),
-    ans("y9-ds-g3", "How many in a 1-in-10 sample of 500 people?", "", "50", 2, "500 ÷ 10 = 50.", []),
-    mcq("y9-ds-g4", "Random sampling helps to:", "C", ["increase bias", "survey everyone", "reduce bias", "raise the mean"], 2, "Reduce bias."),
-  ],
-  independentPractice: [
-    mcq("y9-ds-i1", "A census means surveying:", "A", ["the whole population", "a small sample", "only volunteers", "only adults"], 2, "The whole population."),
-    ans("y9-ds-i2", "How many in a 1-in-20 sample of 1000 people?", "", "50", 2, "50.", []),
-    mcq("y9-ds-i3", "Surveying only your friends about a school issue is likely to be:", "B", ["unbiased", "biased", "a census", "random"], 3, "Biased — not representative."),
-    ans("y9-ds-i4", "A 1-in-5 sample of 200 students is how many?", "", "40", 2, "40.", []),
-    mcq("y9-ds-i5", "A representative sample should reflect the:", "C", ["researcher's opinion", "smallest group", "whole population", "largest value"], 2, "The whole population."),
-  ],
-  masteryQuiz: [
-    mcq("y9-ds-m1", "The whole group being studied is the:", "A", ["population", "sample", "mean", "outlier"], 2, "Population."),
-    mcq("y9-ds-m2", "A part of the population chosen to study is a:", "B", ["census", "sample", "mode", "range"], 2, "Sample."),
-    ans("y9-ds-m3", "How many in a 1-in-10 sample of 800?", "", "80", 2, "80.", []),
-    mcq("y9-ds-m4", "A census surveys:", "C", ["a sample", "volunteers", "the whole population", "every tenth person"], 2, "The whole population."),
-    mcq("y9-ds-m5", "Random sampling is used to:", "A", ["reduce bias", "increase bias", "save no time", "pick the mean"], 2, "Reduce bias."),
-    ans("y9-ds-m6", "A 1-in-25 sample of 1000 is how many?", "", "40", 3, "40.", []),
-    mcq("y9-ds-m7", "Only surveying people leaving a gym about exercise habits is:", "B", ["representative", "biased", "a census", "impossible"], 3, "Biased."),
-    ans("y9-ds-m8", "A 1-in-4 sample of 240 is how many?", "", "60", 2, "60.", []),
-    mcq("y9-ds-m9", "Which is most likely to be unbiased?", "A", ["a random sample", "asking only friends", "asking only one class", "a self-selected online poll"], 3, "A random sample."),
-    mcq("y9-ds-m10", "A sample should be large enough and:", "C", ["convenient only", "from one group", "representative", "all volunteers"], 2, "Representative."),
-  ],
-  masteryQuizPool: [
-    ans("y9-ds-p1", "A school of 1200 takes a 1-in-15 sample. How many students?", "", "80", 5, "1200 ÷ 15 = 80.", []),
-    ans("y9-ds-p2", "A stratified sample takes 10% of each group: 200 boys and 150 girls. How many in total?", "", "35", 5, "0.10 × 350 = 35.", []),
-    mcq("y9-ds-p3", "A survey about TV habits done only during the day may miss workers, causing:", "B", ["no problem", "sampling bias", "a census", "a larger mean"], 5, "Sampling bias."),
-    ans("y9-ds-p4", "A 1-in-50 sample of 5000 is how many?", "", "100", 5, "100.", []),
-    ans("y9-ds-p5", "A factory checks 2% of 4500 items. How many are checked?", "", "90", 5, "0.02 × 4500 = 90.", []),
-    mcq("y9-ds-p6", "When is a census preferred over a sample?", "A", ["when the population is small or accuracy is critical", "always", "never", "only for opinions"], 5, "Small population / critical accuracy."),
-    ans("y9-ds-p7", "Stratified sampling: 5% of 600 seniors and 5% of 800 juniors. Total sampled?", "", "70", 5, "0.05 × 1400 = 70.", []),
-    ans("y9-ds-p8", "A 1-in-8 sample of 2400 is how many?", "", "300", 5, "300.", []),
-    mcq("y9-ds-p9", "A self-selected online poll is often biased because:", "C", ["it is random", "everyone responds", "only motivated people respond", "it is a census"], 5, "Only motivated people respond."),
-    ans("y9-ds-p10", "A town of 30000 surveys 1 in 100. How many people?", "", "300", 5, "300.", []),
-  ],
-  commonMistakes: [
-    { mistake: "Confusing sample with population.", fix: "Sample is a part; population is the whole." },
-    { mistake: "Thinking any sample is unbiased.", fix: "Only representative (often random) samples avoid bias." },
-    { mistake: "Calling a sample a census.", fix: "A census covers everyone." },
-    { mistake: "Miscomputing a fractional sample.", fix: "Divide the population by the sampling ratio." },
-  ],
-  masteryPassMark: 0.8,
-};
-
 const SECTIONS: Record<string, Partial<ExplicitLesson>> = {
   "tree-diagrams-multistage-events": treeDiagramsMultistage,
   "dependent-and-independent-events": dependentIndependentEvents,
   "probability-simulations": probabilitySimulations,
   "conditional-probability": conditionalProbabilityLesson,
   "gambling-awareness": gamblingAwareness,
-  "data-and-sampling": dataAndSampling,
 };
 
 export function year9Chapter8ProbabilityBLessonOverride(

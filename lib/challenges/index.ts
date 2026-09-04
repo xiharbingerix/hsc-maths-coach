@@ -800,8 +800,7 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics-advanced/similar-triangles": similarTriY9Challenge,
   "year-9-mathematics/proving-similar-triangles": provingSimilarY9Challenge,
   "year-9-mathematics-advanced/proving-similar-triangles": provingSimilarY9Challenge,
-  // Year 9 Wave 9 — Chapter 8 (Probability & Single-Variable Data). consolidating → Core only;
-  // core → all 3; path → base + advanced; extending (grouping-data-into-classes) → Advanced only.
+  // Year 9 probability rework. consolidating → Core only; core → all 3; path → base + advanced.
   "year-9-mathematics-core/making-predictions": reviewProbY9Challenge,
   "year-9-mathematics-core/complementary-events": reviewProbY9Challenge,
   "year-9-mathematics/venn-diagrams": [...vennY9Challenge, ...setNotationY9Challenge],
@@ -815,21 +814,14 @@ const REGISTRY: Record<string, PracticeQuestion[]> = {
   "year-9-mathematics/probability-simulations": relFreqY9Challenge,
   "year-9-mathematics-core/probability-simulations": relFreqY9Challenge,
   "year-9-mathematics-advanced/probability-simulations": relFreqY9Challenge,
-  "year-9-mathematics/data-and-sampling": samplingY9Challenge,
-  "year-9-mathematics-advanced/data-and-sampling": samplingY9Challenge,
-  "year-9-mathematics-core/mean-median-mode": meanMedianY9Challenge,
-  "year-9-mathematics-core/stem-and-leaf-plots": stemLeafY9Challenge,
-  "year-9-mathematics-advanced/grouping-data-into-classes": groupingY9Challenge,
-  "year-9-mathematics/range-interquartile-range": iqrY9Challenge,
-  "year-9-mathematics-core/range-interquartile-range": iqrY9Challenge,
-  "year-9-mathematics-advanced/range-interquartile-range": iqrY9Challenge,
-  "year-9-mathematics/box-plots": boxPlotY9Challenge,
-  "year-9-mathematics-core/box-plots": boxPlotY9Challenge,
-  "year-9-mathematics-advanced/box-plots": boxPlotY9Challenge,
-  // Year 9 Core conformance — net-new core section 10G (all 3 courses)
-  "year-9-mathematics/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
-  "year-9-mathematics-core/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
-  "year-9-mathematics-advanced/interpreting-data-from-tables-and-graphs": interpretingDataY9Challenge,
+  // Year 9 data rework (mean-median-mode, stem-and-leaf-plots, grouping-data-into-classes,
+  // range-interquartile-range, box-plots, interpreting-data-from-tables-and-graphs and
+  // data-and-sampling were retired — see docs/migrations/Y9-data-rework-slug-map.md — so their
+  // D6 challenge mappings (meanMedianY9Challenge, stemLeafY9Challenge, groupingY9Challenge,
+  // iqrY9Challenge, boxPlotY9Challenge, interpretingDataY9Challenge, samplingY9Challenge, all in
+  // lib/challenges/year9Chapter8.ts) are removed here; the pools themselves are left in place,
+  // now unused, rather than risk editing that shared file). None of the 7 new data lessons have
+  // a D6 challenge yet.
   // Year 9 Wave 10 — Chapter 9 (Quadratic Expressions & Algebraic Techniques). All 11 sections are
   // path-tagged → base + advanced only.
   "year-9-mathematics/expanding-binomial-products": ebpY9Challenge,
